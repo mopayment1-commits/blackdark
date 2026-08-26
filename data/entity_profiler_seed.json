@@ -1,0 +1,28 @@
+{
+  "feature_id": 736,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "exchange_labels": {
+    "version": "2026.08.1",
+    "last_updated": "2026-08-26"
+  },
+  "entities": {
+    "whale_001": {
+      "entity_type": "whale",
+      "venue_interactions": [
+        {"venue": "binance", "volume_usd": 15000000, "internal_flow": false},
+        {"venue": "coinbase", "volume_usd": 8500000, "internal_flow": false},
+        {"venue": "binance_hot_wallet", "volume_usd": 2000000, "internal_flow": true},
+        {"venue": "kraken", "volume_usd": 3200000, "internal_flow": false}
+      ]
+    },
+    "fund_alpha": {
+      "entity_type": "fund",
+      "venue_interactions": [
+        {"venue": "okx", "volume_usd": 5200000, "internal_flow": false},
+        {"venue": "okx_internal", "volume_usd": 800000, "internal_flow": true}
+      ]
+    }
+  }
+}

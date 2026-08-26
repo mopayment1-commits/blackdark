@@ -1,0 +1,40 @@
+{
+  "feature_id": 733,
+  "sprint": 2,
+  "methodology_version": "1.2",
+  "last_updated": "2026-08-26",
+  "protocols": {
+    "aave": {
+      "name": "Aave",
+      "revenue_usd": 12500000,
+      "gas_cost_usd": 850000,
+      "incentives_usd": 3200000,
+      "token_emission_cost_usd": 1800000,
+      "fee_db_linked": true,
+      "coverage": {
+        "includes": ["Ethereum L1", "Arbitrum", "Optimism"],
+        "excludes": ["NFT marketplaces", "CEX trading"]
+      },
+      "earnings_trend": [
+        {"period": "2026-Q1", "economic_profit_proxy_usd": 5200000},
+        {"period": "2026-Q2", "economic_profit_proxy_usd": 6650000}
+      ]
+    },
+    "uniswap": {
+      "name": "Uniswap",
+      "revenue_usd": 8900000,
+      "gas_cost_usd": 420000,
+      "incentives_usd": 1500000,
+      "token_emission_cost_usd": 900000,
+      "fee_db_linked": true,
+      "coverage": {
+        "includes": ["Ethereum L1", "Arbitrum", "Base"],
+        "excludes": ["NFT marketplaces"]
+      },
+      "earnings_trend": [
+        {"period": "2026-Q1", "economic_profit_proxy_usd": 4800000},
+        {"period": "2026-Q2", "economic_profit_proxy_usd": 6080000}
+      ]
+    }
+  }
+}

@@ -1055,3 +1055,83 @@ async def dashboard_builder_panel_route(dashboard_id: str = Query("default")):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/datashare/status")
+async def datashare_enterprise_status_route():
+    """#730 Datashare Enterprise — Wave 3 DEFERRED, schema contracts documented."""
+    from bd_platform.datashare_enterprise import datashare_enterprise_status
+
+    return datashare_enterprise_status()
+
+
+@router.get("/intelligence-ledger/defi-economics/status")
+async def defi_economics_status_route():
+    """#733 DeFi Economics Module — earnings proxy, not GAAP."""
+    from bd_platform.defi_economics import defi_economics_status
+
+    return defi_economics_status()
+
+
+@router.get("/intelligence-ledger/defi-economics")
+async def defi_economics_panel_route(protocol: str = Query("aave")):
+    from bd_platform.defi_economics import build_defi_economics_panel
+
+    result = build_defi_economics_panel(protocol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/exchange-activity/status")
+async def market_radar_exchange_activity_status_route():
+    """#734 Exchange Activity — Market Radar indicator."""
+    from bd_platform.market_radar_indicators import market_radar_indicators_status
+
+    return market_radar_indicators_status()
+
+
+@router.get("/intelligence-ledger/market-radar/exchange-activity")
+async def market_radar_exchange_activity_route(exchange: str = Query("binance")):
+    from bd_platform.market_radar_indicators import build_exchange_activity_indicator
+
+    result = build_exchange_activity_indicator(exchange)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/entity-profiler/status")
+async def entity_profiler_status_route():
+    """#736 Entity Profiler — exchange usage intelligence layer."""
+    from bd_platform.entity_profiler import entity_profiler_status
+
+    return entity_profiler_status()
+
+
+@router.get("/intelligence-ledger/entity-profiler")
+async def entity_profiler_panel_route(entity_id: str = Query("whale_001")):
+    from bd_platform.entity_profiler import build_entity_profiler_panel
+
+    result = build_entity_profiler_panel(entity_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-metrics/status")
+async def onchain_metrics_suite_status_route():
+    """#737 On-Chain Metrics Suite — HODL waves absorbed."""
+    from bd_platform.onchain_metrics_suite import onchain_metrics_suite_status
+
+    return onchain_metrics_suite_status()
+
+
+@router.get("/intelligence-ledger/onchain-metrics")
+async def onchain_metrics_panel_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_suite import build_onchain_metrics_panel
+
+    result = build_onchain_metrics_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
