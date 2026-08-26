@@ -12,6 +12,13 @@
     "current_spend_usd": 180,
     "paused_on_exceed": false
   },
+  "universe": {
+    "version": "2026.08.1",
+    "asset_count": 250,
+    "total_tracked_mentions_weekly": 295000,
+    "documented": true,
+    "as_of": "2026-08-25"
+  },
   "assets": {
     "BTC": {
       "mindshare_pct": 42.5,
@@ -31,7 +38,10 @@
       },
       "social_dominance": {
         "dominance_pct": 38.2,
-        "rank": 1
+        "trend": "rising",
+        "percentile": 99,
+        "rank": 1,
+        "historical_reproducible": true
       },
       "social_volume": {
         "volume_24h": 2850000,

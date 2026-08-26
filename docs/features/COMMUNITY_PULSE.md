@@ -6,10 +6,21 @@
 |--------|------|
 | #272 | Mindshare Intelligence |
 | #287 | NLP sentiment classification (sub-task) |
-| #290 | Social Dominance (absorbed) |
+| #290 | Social Dominance % (absorbed — **rejected standalone**) |
 | #292 | Social Volume (absorbed) |
 
 Purchased feed (LunarCrush/Kaito API) — **no NLP team**, no raw scraper.
+
+## #290 Social Dominance (absorbed metric)
+
+| Criterion | Implementation |
+|-----------|----------------|
+| Universe/version documented | `universe.version`, `universe_asset_count` on dominance block |
+| Low-volume safeguards | Greyed out when `mentions_weekly` < 100 |
+| Historical reproducibility | `historical_reproducible` flag + versioned universe |
+| Formula | `asset_mentions / total_tracked_mentions × 100` |
+
+Output: `dominance_pct`, `trend`, `percentile`, `rank`.
 
 ## #287 Acceptance (within cluster)
 

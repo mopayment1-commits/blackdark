@@ -52,6 +52,12 @@ def isolated_seed(tmp_path, monkeypatch):
                     "social_dominance": {"dominance_pct": 0.1, "rank": 99},
                     "social_volume": {"volume_24h": 5000, "volume_change_pct": -5},
                 },
+                "SHIB": {
+                    "mindshare_pct": 0.1,
+                    "mentions_weekly": 50,
+                    "social_dominance": {"dominance_pct": 0.05, "rank": 120},
+                    "social_volume": {"volume_24h": 1000, "volume_change_pct": 0},
+                },
             },
         }),
         encoding="utf-8",
@@ -98,6 +104,26 @@ def test_absorbs_272_290_292(isolated_seed):
     assert panel["social_volume"]["sub_task"] == "#292"
     assert 290 in panel["feature_ids"]
     assert 292 in panel["feature_ids"]
+
+
+def test_290_social_dominance_metric(isolated_seed):
+    """#290 rejected standalone — dominance % absorbed into #272 cluster."""
+    status = cp.community_pulse_status()
+    assert 290 in status["rejected_standalone_tickets"]
+    assert status["acceptance_criteria"]["social_dominance_universe_versioned"] is True
+    assert status["acceptance_criteria"]["social_dominance_low_volume_safeguards"] is True
+
+    panel = cp.build_community_pulse_panel("BTC")
+    dom = panel["social_dominance"]
+    assert dom["archived_standalone"] is True
+    assert dom["universe_documented"] is True
+    assert dom["historical_reproducible"] is True
+    assert dom["formula"] == "asset_mentions / total_tracked_mentions × 100"
+
+    low = cp.build_community_pulse_panel("SHIB")
+    assert low["social_dominance"]["low_volume_safeguard"] is True
+    assert low["social_dominance"]["greyed_out"] is True
+    assert low["social_dominance"]["dominance_pct"] is None
 
 
 def test_api_routes(isolated_seed):
