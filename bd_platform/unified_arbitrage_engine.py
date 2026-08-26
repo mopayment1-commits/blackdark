@@ -242,74 +242,10 @@ def scan_stablecoin_depeg(*, seed: dict[str, Any] | None = None) -> list[dict[st
 
 
 def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[str, Any]]:
-    """#438 DeFi Opportunity Scanner — on-chain price divergence analytics only (no execution)."""
-    seed = seed or _load_seed()
-    fee_bps = float(seed.get("default_trading_fee_bps", 10))
-    slip_bps = float(seed.get("default_slippage_bps", 8))
-    quote_usd = 1000.0
-    opportunities: list[dict[str, Any]] = []
+    """#438 DeFi Opportunity Scanner — delegates to defi_opportunity_scanner module."""
+    from bd_platform.defi_opportunity_scanner import scan_defi_opportunities as _scan
 
-    for raw in seed.get("defi_opportunities") or []:
-        gross_bps = float(raw.get("price_divergence_bps", 0))
-        gas_usd = float(raw.get("gas_cost_estimate_usd", 0))
-        implied_yield = raw.get("implied_yield_pct")
-
-        econ = compute_arbitrage_economics(
-            gross_spread_bps=gross_bps,
-            quote_usd=quote_usd,
-            trading_fee_bps=fee_bps,
-            slippage_bps=slip_bps,
-            transfer_cost_usdt=0.0,
-            withdrawal_fee_usdt=gas_usd,
-        )
-
-        opportunities.append({
-            "opportunity_id": raw.get("opportunity_id"),
-            "opportunity_type": raw.get("scan_type", "on_chain_arbitrage"),
-            "feature_ref": _DEFI_FEATURE_ID,
-            "legal_name": "DeFi Opportunity Scanner",
-            "asset": raw.get("asset"),
-            "symbol": raw.get("symbol"),
-            "chain": raw.get("chain", "ethereum"),
-            "venue_buy": raw.get("venue_buy"),
-            "venue_sell": raw.get("venue_sell"),
-            "price_divergence_bps": gross_bps,
-            "implied_yield_pct": implied_yield,
-            "gas_cost_estimate_usd": gas_usd,
-            "collateral_ratio": raw.get("collateral_ratio"),
-            "liquidation_discount_pct": raw.get("liquidation_discount_pct"),
-            "lst_peg_deviation_bps": raw.get("lst_peg_deviation_bps"),
-            "gross_spread_bps": econ["gross_spread_bps"],
-            "net_edge_usdt": econ["net_edge_usdt"],
-            "net_edge_bps": econ["net_edge_bps"],
-            "slippage_bps": slip_bps,
-            "trading_fees_usdt": econ["trading_fees_usdt"],
-            "withdrawal_fee_usdt": gas_usd,
-            "quote_usd": quote_usd,
-            "cancelled_v1_scope": {
-                "flash_loan_simulation": True,
-                "bridge_execution": True,
-                "liquidation_buying": True,
-                "ml_training": True,
-            },
-            "simulation_only": True,
-            "no_auto_execution": True,
-            "display": raw.get("display") or f"DeFi divergence {raw.get('asset')} net edge {econ['net_edge_bps']:.2f} bps",
-        })
-
-    for opp in opportunities:
-        asset = str(opp.get("asset") or "")
-        try:
-            from bd_platform.diligence_risk_scoring import score_collateral_risk
-
-            collateral = score_collateral_risk(asset)
-            if collateral.get("ok"):
-                opp["collateral_grade_462"] = collateral.get("collateral_grade")
-                opp["collateral_breakdown_462"] = collateral.get("breakdown")
-        except Exception:
-            logger.debug("collateral grade attachment skipped for %s", asset, exc_info=True)
-
-    return opportunities
+    return _scan(seed=seed)
 
 
 def _normalize_cross_venue(raw: dict[str, Any], *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -649,28 +585,10 @@ def build_intelligence_ledger_integration(*, seed: dict[str, Any] | None = None)
 
 
 def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    """#438 DeFi Opportunity Scanner panel."""
-    seed = seed or _load_seed()
-    opps = scan_defi_opportunities(seed=seed)
-    return {
-        "ok": True,
-        "feature_id": _DEFI_FEATURE_ID,
-        "title": "DeFi Opportunity Scanner",
-        "legal_name": "DeFi Opportunity Scanner",
-        "merged_into": f"#{_FEATURE_ID} Unified Arbitrage Opportunity Engine",
-        "opportunities": opps,
-        "count": len(opps),
-        "monitoring_only": True,
-        "cancelled_v1_scope": {
-            "flash_loan_simulation": True,
-            "bridge_execution": True,
-            "liquidation_buying": True,
-            "sharpe_drawdown_winrate_sla": True,
-        },
-        "simulation_only": True,
-        "no_auto_execution": True,
-        "timestamp": _utcnow(),
-    }
+    """#438 DeFi Opportunity Scanner panel — delegates to defi_opportunity_scanner."""
+    from bd_platform.defi_opportunity_scanner import build_defi_panel as _panel
+
+    return _panel(seed=seed)
 
 
 def evaluate_opportunity_alert(
@@ -871,6 +789,10 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     defi = scan_defi_opportunities(seed=seed)
     checks.append({"id": "defi_scanner_438", "passed": len(defi) >= 1, "detail": f"count={len(defi)}"})
+
+    from bd_platform.defi_opportunity_scanner import run_reconciliation_tests as defi_tests
+    defi_result = defi_tests()
+    checks.append({"id": "defi_scanner_465_470_473", "passed": defi_result.get("ok") is True, "detail": f"{defi_result.get('passed')}/{defi_result.get('total')}"})
 
     alerts = build_opportunity_alert_panel(seed=seed)
     checks.append({"id": "opportunity_alerts_434", "passed": alerts.get("worth_studying_not_execution") is True, "detail": f"alerts={alerts.get('alert_count')}"})
