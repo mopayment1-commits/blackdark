@@ -1828,6 +1828,27 @@ async def price_move_event_correlator_panel_route(
     return result
 
 
+@router.get("/intelligence-ledger/intelligence-layer/flow-to-price-correlator/status")
+async def flow_to_price_event_correlator_status_route():
+    """#556 Flow-to-Price Event Correlator — competing hypotheses, not causation."""
+    from bd_platform.flow_to_price_event_correlator import flow_to_price_event_correlator_status
+
+    return flow_to_price_event_correlator_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/flow-to-price-correlator")
+async def flow_to_price_event_correlator_panel_route(
+    event_id: str = Query("btc_move_2026_08_26"),
+    asset: str | None = Query(None),
+):
+    from bd_platform.flow_to_price_event_correlator import build_flow_to_price_event_correlator_panel
+
+    result = build_flow_to_price_event_correlator_panel(event_id=event_id, asset=asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/intelligence-layer/market-context/status")
 async def cross_domain_market_context_status_route():
     """#524 Cross-Domain Market Context Layer — epic, absorbs #523-530."""
@@ -2012,7 +2033,7 @@ async def protocol_economics_historical_qa_route():
 
 @router.get("/intelligence-ledger/portfolio-layer/snapshots/status")
 async def portfolio_intelligence_layer_status_route():
-    """#515 Portfolio Intelligence Layer — historical snapshots."""
+    """#515 #557 #558 Portfolio Intelligence Layer — tracker + wallet balance."""
     from bd_platform.portfolio_intelligence_layer import portfolio_intelligence_layer_status
 
     return portfolio_intelligence_layer_status()
@@ -2022,15 +2043,44 @@ async def portfolio_intelligence_layer_status_route():
 async def portfolio_intelligence_panel_route(
     portfolio_id: str = Query("demo_portfolio"),
     snapshot_timestamp: str | None = Query(None),
+    wallet_address: str | None = Query(None),
+    wallet_chain: str | None = Query(None),
+    wallet_timestamp: str | None = Query(None),
 ):
     from bd_platform.portfolio_intelligence_layer import build_portfolio_intelligence_panel
 
     result = build_portfolio_intelligence_panel(
-        portfolio_id, snapshot_timestamp=snapshot_timestamp,
+        portfolio_id,
+        snapshot_timestamp=snapshot_timestamp,
+        wallet_address=wallet_address,
+        wallet_chain=wallet_chain,
+        wallet_timestamp=wallet_timestamp,
     )
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/portfolio-layer/wallet-balance")
+async def historical_wallet_balance_route(
+    address: str = Query("0xabc1234567890def1234567890abc1234567890ab"),
+    chain: str = Query("ethereum"),
+    timestamp: str = Query("2026-08-01T00:00:00Z"),
+):
+    """#558 Historical Wallet Balance Tool — point-in-time lookup."""
+    from bd_platform.portfolio_intelligence_layer import build_historical_wallet_balance
+
+    result = build_historical_wallet_balance(address, chain=chain, timestamp=timestamp)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-layer/reconciliation-tests")
+async def portfolio_intelligence_reconciliation_tests_route():
+    from bd_platform.portfolio_intelligence_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/data-layer/asset-profiles/status")
