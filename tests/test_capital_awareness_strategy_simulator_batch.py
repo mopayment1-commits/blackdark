@@ -56,12 +56,41 @@ def test_410_risk_score_per_position(cac_seed):
     assert scores["pos_btc_001"]["analytics_only"] is True
 
 
-def test_410_scenario_stress_three_types(cac_seed):
+def test_410_scenario_stress_five_types(cac_seed):
     panel = cac.build_capital_awareness_panel()
     stress = panel["scenario_stress"]
-    assert stress["scenario_count"] == 3
+    assert stress["scenario_count"] == 5
     types = {s["scenario_type"] for s in stress["scenarios"]}
-    assert types == {"max_drawdown", "correlation_shock", "liquidity_freeze"}
+    assert types == {
+        "max_drawdown", "correlation_shock", "liquidity_freeze",
+        "stablecoin_depeg", "exchange_insolvency",
+    }
+
+
+def test_453_portfolio_stress_test(cac_seed):
+    result = cac.run_portfolio_stress_test()
+    assert result["ok"] is True
+    assert result["metrics"]["coverage_pct"] >= 80
+    assert result["metrics"]["repeatable"] is True
+    assert result["metrics"]["controlled_blast_radius"] is True
+    assert "AI" not in result["stress_summary"]["title"]
+
+
+def test_463_correlation_matrix(cac_seed):
+    matrix = cac.build_correlation_matrix()
+    assert matrix["lookback_days"] == 30
+    assert len(matrix["assets"]) >= 3
+
+
+def test_463_contagion_risk(cac_seed):
+    contagion = cac.analyze_contagion_risk()
+    assert contagion["contagion_score"] is not None
+    assert "sector_exposure" in contagion
+
+
+def test_462_collateral_grade_alerts(cac_seed):
+    alerts = cac.build_collateral_grade_alerts()
+    assert alerts["threshold_grade"] == "B"
 
 
 def test_410_risk_budget(cac_seed):

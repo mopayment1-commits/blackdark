@@ -59,6 +59,13 @@ def build_integrated_panel(portfolio_id: str = "demo_portfolio") -> dict[str, An
     from bd_platform.strategy_simulator import build_strategy_simulator_panel
 
     capital = build_capital_awareness_panel(portfolio_id)
+    stress_test = None
+    try:
+        from bd_platform.capital_protection_controls import build_portfolio_stress_test_result
+
+        stress_test = build_portfolio_stress_test_result(portfolio_id)
+    except Exception:
+        logger.debug("portfolio stress test skipped", exc_info=True)
     breakeven = build_live_breakeven_panel("pos_btc_001")
     simulator = build_strategy_simulator_panel()
 
@@ -93,6 +100,7 @@ def build_integrated_panel(portfolio_id: str = "demo_portfolio") -> dict[str, An
         "no_new_module_built": seed.get("no_new_module_built", True),
         "portfolio_id": portfolio_id,
         "capital_protection_410": capital,
+        "portfolio_stress_test_453": stress_test,
         "live_breakeven_404": breakeven,
         "strategy_simulator_411": simulator,
         "net_edge_truth_417_sample": net_edge_sample,

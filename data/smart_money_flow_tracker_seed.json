@@ -1,0 +1,71 @@
+{
+  "feature_id": 408,
+  "absorbed_feature_ref": 459,
+  "title": "Smart Money Flow Tracker",
+  "absorbed_title": "Age Consumed / Dormancy Intelligence",
+  "standalone": false,
+  "merged_into": "On-Chain Intelligence / Smart Money Flow Tracker",
+  "sprint": 2,
+  "priority": "medium",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "chain_methodologies": {
+    "bitcoin": {
+      "model": "UTXO",
+      "age_consumed_formula": "sum(coin_age_days × amount_btc) for spent outputs",
+      "dormancy_formula": "weighted_avg_days_since_last_move × amount",
+      "notes": "UTXO coin-age destroyed on spend; dormancy tracks last-move timestamp per output"
+    },
+    "ethereum": {
+      "model": "Account",
+      "age_consumed_formula": "sum(token_age_days × amount_eth) for transfers above dust threshold",
+      "dormancy_formula": "days_since_last_transfer × transfer_amount",
+      "notes": "Account model uses last-transfer timestamp; ERC-20 uses token contract age"
+    },
+    "solana": {
+      "model": "Account",
+      "age_consumed_formula": "sum(slot_age × lamports) / 1e9 for non-dust transfers",
+      "dormancy_formula": "slot_to_days(last_active_slot) × amount",
+      "notes": "Slot-based age converted to days at ~2.5 slots/sec"
+    }
+  },
+  "transfer_filtering": {
+    "dust_threshold_btc": 0.0001,
+    "dust_threshold_eth": 0.001,
+    "dust_threshold_usd": 10.0,
+    "exclude_exchange_internal": true,
+    "exchange_internal_labels": ["binance_hot", "coinbase_custody", "kraken_cold"],
+    "exclude_contract_self_transfers": true
+  },
+  "historical_validation": {
+    "lookback_days": 365,
+    "min_spike_samples": 12,
+    "price_correlation_target": 0.55,
+    "validated": true,
+    "backtest_summary": "Dormancy spikes >80 score showed 0.62 correlation with 7d price moves (n=48)"
+  },
+  "assets": {
+    "BTC": {
+      "chain": "bitcoin",
+      "age_consumed_24h": 125000,
+      "age_consumed_baseline": 45000,
+      "dormant_coins_moved_btc": 8200,
+      "avg_dormancy_days": 1840,
+      "whale_threshold_btc": 100,
+      "largest_transfer_btc": 2500,
+      "largest_transfer_dormancy_days": 3650,
+      "price_change_7d_pct": -4.2
+    },
+    "ETH": {
+      "chain": "ethereum",
+      "age_consumed_24h": 890000,
+      "age_consumed_baseline": 320000,
+      "dormant_coins_moved_eth": 45000,
+      "avg_dormancy_days": 920,
+      "whale_threshold_eth": 1000,
+      "largest_transfer_eth": 12000,
+      "largest_transfer_dormancy_days": 2100,
+      "price_change_7d_pct": 2.1
+    }
+  }
+}

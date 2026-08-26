@@ -215,7 +215,7 @@ def score_entity_risk(
 
 
 def score_collateral_risk(entity_id: str, *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    """#462 Collateral Risk — same scoring engine."""
+    """#462 Collateral Risk — transparent grade with component breakdown."""
     seed = seed or _load_seed()
     entity = (seed.get("entities") or {}).get(entity_id.upper())
     if not entity:
@@ -223,12 +223,75 @@ def score_collateral_risk(entity_id: str, *, seed: dict[str, Any] | None = None)
 
     findings = (entity.get("findings") or {}).get("collateral_risk") or []
     result = score_category(findings, category="collateral_risk", seed=seed)
+    metrics = entity.get("collateral_metrics") or {}
+    breakdown = _collateral_breakdown(metrics, seed=seed)
+    grade = _collateral_grade(breakdown["composite_score"], seed=seed)
+
     return {
         "ok": True,
         "feature_ref": _COLLATERAL_FEATURE_REF,
         "entity_id": entity_id.upper(),
+        "collateral_grade": grade,
+        "breakdown": breakdown,
+        "no_opaque_score": True,
         **result,
     }
+
+
+def _collateral_breakdown(metrics: dict[str, Any], *, seed: dict[str, Any]) -> dict[str, Any]:
+    """Transparent collateral components — no opaque score."""
+    weights = (seed.get("collateral_weights") or {
+        "volatility_pct": 0.25,
+        "liquidity_depth": 0.25,
+        "concentration_pct": 0.20,
+        "oracle_health": 0.15,
+        "depeg_history": 0.15,
+    })
+
+    vol = float(metrics.get("volatility_30d_pct", 50))
+    liq = float(metrics.get("liquidity_depth_score", 50))
+    conc = float(metrics.get("concentration_pct", 50))
+    oracle = float(metrics.get("oracle_health_score", 50))
+    depeg = float(metrics.get("depeg_history_score", 50))
+
+    vol_risk = min(100, vol)
+    liq_risk = max(0, 100 - liq)
+    conc_risk = min(100, conc)
+    oracle_risk = max(0, 100 - oracle)
+    depeg_risk = max(0, 100 - depeg)
+
+    composite = round(
+        vol_risk * weights["volatility_pct"]
+        + liq_risk * weights["liquidity_depth"]
+        + conc_risk * weights["concentration_pct"]
+        + oracle_risk * weights["oracle_health"]
+        + depeg_risk * weights["depeg_history"],
+        2,
+    )
+
+    return {
+        "volatility_pct": {"value": vol, "risk_contribution": round(vol_risk * weights["volatility_pct"], 2), "weight": weights["volatility_pct"]},
+        "liquidity_depth": {"value": liq, "risk_contribution": round(liq_risk * weights["liquidity_depth"], 2), "weight": weights["liquidity_depth"]},
+        "concentration_pct": {"value": conc, "risk_contribution": round(conc_risk * weights["concentration_pct"], 2), "weight": weights["concentration_pct"]},
+        "oracle_health": {"value": oracle, "risk_contribution": round(oracle_risk * weights["oracle_health"], 2), "weight": weights["oracle_health"]},
+        "depeg_history": {"value": depeg, "risk_contribution": round(depeg_risk * weights["depeg_history"], 2), "weight": weights["depeg_history"]},
+        "composite_score": composite,
+        "weights": weights,
+        "no_opaque_score": True,
+    }
+
+
+def _collateral_grade(composite_score: float, *, seed: dict[str, Any]) -> str:
+    thresholds = seed.get("collateral_grade_thresholds") or {"A": 25, "B": 45, "C": 65, "D": 85}
+    if composite_score <= thresholds.get("A", 25):
+        return "A"
+    if composite_score <= thresholds.get("B", 45):
+        return "B"
+    if composite_score <= thresholds.get("C", 65):
+        return "C"
+    if composite_score <= thresholds.get("D", 85):
+        return "D"
+    return "F"
 
 
 def score_correlation_risk(entity_id: str, *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -454,6 +517,8 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     collateral = score_collateral_risk("ETH", seed=seed)
     checks.append({"id": "collateral_risk_462", "passed": collateral.get("ok") and collateral.get("feature_ref") == 462, "detail": "462"})
+    checks.append({"id": "collateral_grade", "passed": collateral.get("collateral_grade") in ("A", "B", "C", "D", "F"), "detail": collateral.get("collateral_grade")})
+    checks.append({"id": "collateral_breakdown", "passed": collateral.get("breakdown", {}).get("no_opaque_score") is True, "detail": "transparent"})
 
     correlation = score_correlation_risk("ETH", seed=seed)
     checks.append({"id": "correlation_risk_463", "passed": correlation.get("ok") and correlation.get("feature_ref") == 463, "detail": "463"})
