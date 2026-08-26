@@ -63,12 +63,15 @@ def build_integrated_panel(portfolio_id: str = "demo_portfolio") -> dict[str, An
     simulator = build_strategy_simulator_panel()
 
     net_edge_sample = None
+    portfolio_net_edge = None
     try:
-        from bd_platform.unified_arbitrage_engine import build_unified_feed
+        from bd_platform.net_edge_truth_layer import build_portfolio_net_edge_scores
 
-        feed = build_unified_feed()
-        if feed.get("opportunities"):
-            net_edge_sample = feed["opportunities"][0].get("net_edge_truth")
+        portfolio_net_edge = build_portfolio_net_edge_scores(portfolio_id)
+        if portfolio_net_edge.get("opportunities"):
+            net_edge_sample = portfolio_net_edge["opportunities"][0]
+        elif portfolio_net_edge.get("holdings"):
+            net_edge_sample = portfolio_net_edge["holdings"][0]
     except Exception:
         logger.debug("net edge sample skipped", exc_info=True)
 
@@ -93,6 +96,7 @@ def build_integrated_panel(portfolio_id: str = "demo_portfolio") -> dict[str, An
         "live_breakeven_404": breakeven,
         "strategy_simulator_411": simulator,
         "net_edge_truth_417_sample": net_edge_sample,
+        "net_edge_truth_417_portfolio": portfolio_net_edge,
         "fill_risk_assessment_433_sample": fill_risk_sample,
         "merged_features": seed.get("merged_features") or [448, 450],
         "performance_sla_cancelled": seed.get("sharpe_drawdown_winrate_sla_cancelled", True),
@@ -144,6 +148,8 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "capital_protection_410", "passed": panel.get("capital_protection_410", {}).get("ok") is True, "detail": "410"})
     checks.append({"id": "live_breakeven_404", "passed": panel.get("live_breakeven_404", {}).get("ok") is True, "detail": "404"})
     checks.append({"id": "merged_448_450", "passed": 448 in (seed.get("merged_features") or []) and 450 in (seed.get("merged_features") or []), "detail": "merged"})
+
+    checks.append({"id": "net_edge_truth_417", "passed": panel.get("net_edge_truth_417_portfolio", {}).get("ok") is True, "detail": "417"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {"ok": passed == len(checks), "feature_id": _FEATURE_ID, "checks": checks, "passed": passed, "total": len(checks), "timestamp": _utcnow()}

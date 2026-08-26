@@ -1596,6 +1596,60 @@ async def oracle_vwap_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/net-edge-truth/status")
+async def net_edge_truth_status_route():
+    """#417 Net-Edge Truth Score — Intelligence Ledger core scoring engine."""
+    from bd_platform.net_edge_truth_layer import net_edge_truth_layer_status
+
+    return net_edge_truth_layer_status()
+
+
+@router.get("/intelligence-ledger/net-edge-truth")
+async def net_edge_truth_panel_route(
+    opportunity_id: str | None = Query(None),
+):
+    from bd_platform.net_edge_truth_layer import build_truth_score_panel
+
+    return build_truth_score_panel(opportunity_id=opportunity_id)
+
+
+@router.get("/intelligence-ledger/net-edge-truth/portfolio")
+async def net_edge_truth_portfolio_route(
+    portfolio_id: str = Query("demo_portfolio"),
+):
+    from bd_platform.net_edge_truth_layer import build_portfolio_net_edge_scores
+
+    return build_portfolio_net_edge_scores(portfolio_id)
+
+
+@router.get("/intelligence-ledger/net-edge-truth/history")
+async def net_edge_truth_history_route():
+    from bd_platform.net_edge_truth_layer import build_truth_score_history_panel
+
+    return build_truth_score_history_panel()
+
+
+@router.get("/intelligence-ledger/net-edge-truth/regression")
+async def net_edge_truth_regression_route():
+    from bd_platform.net_edge_truth_layer import run_regression_fixtures
+
+    return run_regression_fixtures()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/net-edge-truth")
+async def intelligence_ledger_net_edge_truth_route():
+    from bd_platform.net_edge_truth_layer import build_intelligence_ledger_integration
+
+    return build_intelligence_ledger_integration()
+
+
+@router.get("/intelligence-ledger/net-edge-truth/reconciliation-tests")
+async def net_edge_truth_reconciliation_tests_route():
+    from bd_platform.net_edge_truth_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/fill-feasibility/status")
 async def fill_feasibility_simulator_status_route():
     """#415 Fill Feasibility Simulator — Liquidity Depth Analyzer."""
