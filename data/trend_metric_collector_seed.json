@@ -1,0 +1,79 @@
+{
+  "feature_id": 299,
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Trend Metric Collector",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "as_of_timestamp_utc": "2026-08-26T00:00:00+00:00",
+  "universe": {
+    "version": "2026.08.1",
+    "asset_count": 5,
+    "as_of": "2026-08-26",
+    "documented": true
+  },
+  "assets": {
+    "BTC": {
+      "trend_score": 0.82,
+      "universe_version": "2026.08.1",
+      "data_cutoff_utc": "2026-08-26T00:00:00+00:00",
+      "returns": {"1d": 0.012, "7d": 0.045, "30d": 0.082},
+      "volume_current": 2850000000,
+      "volume_baseline": 2400000000,
+      "timeframes": {
+        "1h": {"momentum": 0.002, "volume_accel": 0.05, "liquidity_score": 0.95},
+        "4h": {"momentum": 0.008, "volume_accel": 0.08, "liquidity_score": 0.94},
+        "1d": {"momentum": 0.012, "volume_accel": 0.12, "liquidity_score": 0.93},
+        "7d": {"momentum": 0.045, "volume_accel": 0.18, "liquidity_score": 0.91}
+      }
+    },
+    "ETH": {
+      "trend_score": 0.71,
+      "universe_version": "2026.08.1",
+      "data_cutoff_utc": "2026-08-26T00:00:00+00:00",
+      "returns": {"1d": 0.008, "7d": 0.032, "30d": 0.065},
+      "volume_current": 980000000,
+      "volume_baseline": 850000000,
+      "timeframes": {
+        "1h": {"momentum": 0.001, "volume_accel": 0.04, "liquidity_score": 0.92},
+        "4h": {"momentum": 0.005, "volume_accel": 0.06, "liquidity_score": 0.91},
+        "1d": {"momentum": 0.008, "volume_accel": 0.10, "liquidity_score": 0.90},
+        "7d": {"momentum": 0.032, "volume_accel": 0.15, "liquidity_score": 0.88}
+      }
+    },
+    "SOL": {
+      "trend_score": 0.65,
+      "universe_version": "2026.08.1",
+      "data_cutoff_utc": "2026-08-26T00:00:00+00:00",
+      "returns": {"1d": 0.015, "7d": 0.055, "30d": 0.12},
+      "volume_current": 420000000,
+      "volume_baseline": 310000000,
+      "timeframes": {
+        "1d": {"momentum": 0.015, "volume_accel": 0.22, "liquidity_score": 0.85},
+        "7d": {"momentum": 0.055, "volume_accel": 0.35, "liquidity_score": 0.82}
+      }
+    },
+    "DOGE": {
+      "trend_score": 0.45,
+      "universe_version": "2026.08.1",
+      "data_cutoff_utc": "2026-08-26T00:00:00+00:00",
+      "returns": {"1d": -0.005, "7d": 0.02, "30d": 0.08},
+      "volume_current": 180000000,
+      "volume_baseline": 200000000,
+      "timeframes": {
+        "1d": {"momentum": -0.005, "volume_accel": -0.10, "liquidity_score": 0.75}
+      }
+    },
+    "PEPE": {
+      "trend_score": 0.58,
+      "universe_version": "2026.08.1",
+      "data_cutoff_utc": "2026-08-26T00:00:00+00:00",
+      "returns": {"1d": 0.025, "7d": 0.12, "30d": 0.35},
+      "volume_current": 95000000,
+      "volume_baseline": 45000000,
+      "timeframes": {
+        "1d": {"momentum": 0.025, "volume_accel": 0.45, "liquidity_score": 0.60}
+      }
+    }
+  }
+}
