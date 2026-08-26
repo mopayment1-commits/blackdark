@@ -1320,6 +1320,24 @@ async def funding_arbitrage_simulator_panel_route(asset: str | None = Query(None
     return result
 
 
+@router.get("/internal/strategy-validation/status")
+async def strategy_validation_engine_status_route():
+    """#350 Strategy Validation Engine — INTERNAL ONLY, not user-facing."""
+    from bd_platform.strategy_validation_engine import strategy_validation_engine_status
+
+    return strategy_validation_engine_status()
+
+
+@router.get("/internal/strategy-validation")
+async def strategy_validation_engine_run_route(strategy_id: str | None = Query(None)):
+    from bd_platform.strategy_validation_engine import run_strategy_validation
+
+    result = run_strategy_validation(strategy_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/entity-profiler/status")
 async def entity_profiler_status_route():
     """#736 Entity Profiler — exchange usage intelligence layer."""

@@ -2,7 +2,7 @@
 Derivatives Market State Module — Feature #327 (Sprint 2 Intelligence Ledger).
 
 Renamed from "Derivatives Market Sentiment Composite" — the derivatives product.
-Absorbs #328 (regime) + #329 (leverage ratio). Components: #311, #313, #324 views.
+Absorbs #328 (regime) + #329 (leverage ratio) + #352 (leverage context). Components: #311, #313, #324 views.
 
 No opaque score — formula public, contributor evidence, backtest gate.
 Scope: perpetuals only.
@@ -20,7 +20,7 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.DerivativesMarketState")
 
 _FEATURE_ID = 327
-_ABSORBED_IDS = (328, 329)
+_ABSORBED_IDS = (328, 329, 352)
 _RENAMED_FROM = "Derivatives Market Sentiment Composite"
 _TITLE = "Derivatives Market State Module"
 _STANDALONE = False
@@ -400,6 +400,85 @@ def build_basis_sub_metric(components: dict[str, Any], *, asset: str) -> dict[st
     }
 
 
+def build_leverage_context_indicator(
+    components: dict[str, Any],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#352 Leverage Context Indicator — component breakdown, no composite score."""
+    seed = seed or _load_seed()
+    lr = seed.get("legal_review") or {}
+    legal_complete = bool(lr.get("complete", False))
+
+    return {
+        "sub_task": "#352",
+        "absorbed_from": "Leverage Pressure Score",
+        "title": "Leverage Context Indicator",
+        "renamed_from": "Leverage Pressure Score",
+        "no_score_in_name": True,
+        "no_score_in_output": True,
+        "standalone_rejected": True,
+        "merged_as": "component in Derivatives Market State Module (#327)",
+        "output_format": "leverage_components",
+        "no_ranking_by_pressure": True,
+        "no_pressure_alert": True,
+        "formula_version": _FORMULA_VERSION,
+        "formula": build_formula_documentation(),
+        "no_opaque_score": True,
+        "no_black_box": True,
+        "components": {
+            "open_interest": {
+                "oi_change_pct": components.get("oi_change_pct"),
+                "oi_z": components.get("oi_z"),
+                "source": components.get("oi_change_pct_source"),
+                "display": f"OI change: {components.get('oi_change_pct', 'N/A')}%",
+            },
+            "funding": {
+                "funding_rate": components.get("funding_rate"),
+                "funding_z": components.get("funding_z"),
+                "source": components.get("funding_rate_source"),
+                "display": f"Funding: {components.get('funding_rate', 'N/A')}",
+            },
+            "liquidations": {
+                "liquidation_usd_24h": components.get("liquidation_usd_24h"),
+                "liquidation_z": components.get("liquidation_z"),
+                "source": components.get("liquidation_usd_24h_source"),
+                "display": f"Liq 24h: ${components.get('liquidation_usd_24h', 0):,.0f}",
+            },
+            "basis": {
+                "spot_price": components.get("spot_price"),
+                "perp_price": components.get("perp_price"),
+                "display": (
+                    f"Basis: spot {components.get('spot_price')} / perp {components.get('perp_price')}"
+                ),
+            },
+            "long_short_ratio": {
+                "leverage_ratio": components.get("leverage_ratio"),
+                "source": components.get("leverage_ratio_source"),
+                "display": f"L/S ratio: {components.get('leverage_ratio', 'N/A')}",
+            },
+            "volatility": {
+                "price_change_24h_pct": components.get("price_change_24h_pct"),
+                "source": components.get("price_change_24h_pct_source"),
+                "display": f"Vol proxy (24h): {components.get('price_change_24h_pct', 'N/A')}%",
+            },
+        },
+        "regime_context": detect_regime(components),
+        "legal_review": {
+            "mandatory": True,
+            "complete": legal_complete,
+            "release_blocked_without_review": not legal_complete,
+        },
+        "wave": 2,
+        "no_pressure_as_signal": True,
+        "numeric_display_only": True,
+        "disclaimer": (
+            "Leverage components = numeric context only. "
+            "Not investment advice. No pressure alerts. No asset ranking."
+        ),
+    }
+
+
 def build_scope_lock() -> dict[str, Any]:
     return {
         "perpetuals_only": True,
@@ -425,7 +504,7 @@ def build_derivatives_market_state_panel(asset: str = "BTC") -> dict[str, Any]:
 
     sentiment = compute_sentiment_score(components, weights=weights, baselines=baselines)
     regime = detect_regime(components, thresholds=asset_data.get("regime_thresholds"))
-    leverage = compute_leverage_context(components)
+    leverage_context = build_leverage_context_indicator(components, seed=seed)
     basis = build_basis_sub_metric(components, asset=sym)
     backtest = build_backtest_gate(seed)
     scope = build_scope_lock()
@@ -443,7 +522,8 @@ def build_derivatives_market_state_panel(asset: str = "BTC") -> dict[str, Any]:
         "asset": sym,
         "market_state_score": sentiment,
         "regime": regime,
-        "leverage_ratio": leverage,
+        "leverage_ratio": compute_leverage_context(components),
+        "leverage_context_indicator": leverage_context,
         "basis_sub_metric": basis,
         "components_raw": components,
         "backtest_gate": backtest,
@@ -451,7 +531,7 @@ def build_derivatives_market_state_panel(asset: str = "BTC") -> dict[str, Any]:
         "absorbed_components": {
             328: "Regime Classification Sub-component (standalone rejected)",
             329: "Estimated Leverage Ratio contributor metric (standalone rejected)",
-            311: "Basis sub-metric (standalone rejected — chart line view)",
+            352: "Leverage Context Indicator (standalone rejected, renamed from Leverage Pressure Score)",
             313: "CVD (view)",
             324: "Dashboard (view)",
         },
@@ -475,6 +555,7 @@ def derivatives_market_state_status() -> dict[str, Any]:
         "absorbed_tickets": {
             328: "Regime Classification Sub-component (standalone rejected)",
             329: "Estimated Leverage Ratio contributor metric (standalone rejected)",
+            352: "Leverage Context Indicator (standalone rejected)",
             311: "Basis sub-metric (standalone rejected)",
         },
         "standalone": _STANDALONE,

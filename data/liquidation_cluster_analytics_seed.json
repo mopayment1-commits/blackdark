@@ -5,7 +5,13 @@
   "sprint": 2,
   "wave": 2,
   "methodology_version": "1.0",
-  "last_updated": "2026-08-26",
+  "absorbed_tickets": {
+    "356": "Liquidation Risk Context (standalone rejected)"
+  },
+  "legal_review": {
+    "complete": true,
+    "date": "2026-08-20"
+  },
   "assets": {
     "BTC": {
       "sources": [
@@ -13,6 +19,32 @@
         {"venue": "bybit", "type": "exchange_api", "confidence": "high"},
         {"venue": "gmx_arbitrum", "type": "on_chain_perp", "confidence": "medium"}
       ],
+      "risk_context": {
+        "historical_cascade_frequency": 0.08,
+        "walk_forward_validation": {
+          "completed": true,
+          "events_tested": 64,
+          "out_of_sample_pct": 30
+        },
+        "historical_patterns": [
+          {
+            "pattern_id": "hp_btc_001",
+            "event_date": "2024-08-05",
+            "historical_liquidation_usd": 1200000000,
+            "volatility_at_event": 0.045,
+            "leverage_context": "elevated_oi",
+            "positioning_context": "crowded_long"
+          },
+          {
+            "pattern_id": "hp_btc_002",
+            "event_date": "2025-03-10",
+            "historical_liquidation_usd": 680000000,
+            "volatility_at_event": 0.032,
+            "leverage_context": "moderate_oi",
+            "positioning_context": "mixed"
+          }
+        ]
+      },
       "clusters": [
         {
           "cluster_id": "lc_btc_001",

@@ -17,6 +17,7 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.LiquidationClusterAnalytics")
 
 _FEATURE_ID = 307
+_ABSORBED_IDS = (356,)
 _RENAMED_FROM = "Imminent Liquidation Cluster Scanning"
 _TITLE = "Liquidation Cluster Analytics"
 _STANDALONE = True
@@ -94,6 +95,75 @@ def build_cluster_block(cluster: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def build_liquidation_risk_context(asset_data: dict[str, Any], *, asset: str) -> dict[str, Any]:
+    """#356 Liquidation Risk Context — historical analysis, no probability output."""
+    seed = _load_seed()
+    lr = seed.get("legal_review") or {}
+    legal_complete = bool(lr.get("complete", False))
+    risk_ctx = asset_data.get("risk_context") or {}
+    patterns = risk_ctx.get("historical_patterns") or []
+
+    patterns_out = []
+    for p in patterns:
+        patterns_out.append({
+            "pattern_id": p.get("pattern_id"),
+            "event_date": p.get("event_date"),
+            "historical_liquidation_usd": p.get("historical_liquidation_usd"),
+            "volatility_at_event": p.get("volatility_at_event"),
+            "leverage_context": p.get("leverage_context"),
+            "positioning_context": p.get("positioning_context"),
+            "historical_analysis_only": True,
+            "no_probability_output": True,
+            "no_cascade_probability_alert": True,
+            "display": (
+                f"Historical event {p.get('event_date')}: "
+                f"${p.get('historical_liquidation_usd', 0):,.0f} liquidated | "
+                f"vol {p.get('volatility_at_event', 'N/A')}"
+            ),
+        })
+
+    wf = risk_ctx.get("walk_forward_validation") or {}
+    return {
+        "sub_task": "#356",
+        "absorbed_from": "Liquidation Cascade Model",
+        "title": "Liquidation Risk Context",
+        "renamed_from": "Liquidation Cascade Model",
+        "no_model_in_name": True,
+        "no_probability_output": True,
+        "standalone_rejected": True,
+        "merged_as": "component in Liquidation Cluster Analytics (#307)",
+        "output_format": "historical_liquidation_pattern_analysis",
+        "asset": asset,
+        "historical_patterns": patterns_out,
+        "pattern_count": len(patterns_out),
+        "historical_cascade_frequency": risk_ctx.get("historical_cascade_frequency"),
+        "risk_metric_numeric_only": True,
+        "no_cascade_probability_alert": True,
+        "no_forecast": True,
+        "walk_forward_validation": {
+            "required": True,
+            "completed": wf.get("completed", False),
+            "events_tested": wf.get("events_tested", 0),
+            "out_of_sample_pct": wf.get("out_of_sample_pct"),
+            "no_backtest_only": True,
+            "display": (
+                f"Walk-forward: {wf.get('events_tested', 0)} events | "
+                f"OOS: {wf.get('out_of_sample_pct', 'N/A')}%"
+            ),
+        },
+        "legal_review": {
+            "mandatory": True,
+            "complete": legal_complete,
+            "release_blocked_without_review": not legal_complete,
+        },
+        "wave": 2,
+        "disclaimer": (
+            "Historical liquidation pattern analysis only. "
+            "Not prediction. No cascade probability for users. Not investment advice."
+        ),
+    }
+
+
 def build_liquidation_cluster_panel(asset: str = "BTC") -> dict[str, Any]:
     t0 = time.perf_counter()
     seed = _load_seed()
@@ -104,6 +174,7 @@ def build_liquidation_cluster_panel(asset: str = "BTC") -> dict[str, Any]:
         return {"ok": False, "feature_id": _FEATURE_ID, "error": "asset_not_tracked", "asset": sym}
 
     clusters = [build_cluster_block(c) for c in (asset_data.get("clusters") or [])]
+    risk_context = build_liquidation_risk_context(asset_data, asset=sym)
     sources = build_data_source_block(asset_data.get("sources") or [])
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
@@ -119,6 +190,7 @@ def build_liquidation_cluster_panel(asset: str = "BTC") -> dict[str, Any]:
         "asset": sym,
         "clusters": clusters,
         "cluster_count": len(clusters),
+        "liquidation_risk_context": risk_context,
         "data_sources": sources,
         "no_prediction": True,
         "probability_only_estimates": True,
@@ -147,6 +219,9 @@ def liquidation_cluster_analytics_status() -> dict[str, Any]:
         "merged_into": _MERGED_INTO,
         "sprint": _SPRINT,
         "wave": _WAVE,
+        "absorbed_tickets": {
+            356: "Liquidation Risk Context (standalone rejected, renamed from Liquidation Cascade Model)",
+        },
         "asset_count": len(seed.get("assets") or {}),
         "acceptance_criteria": {
             "latency_target_2s": True,
