@@ -1470,6 +1470,28 @@ async def arbitrage_probability_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/unified-arbitrage/economics/status")
+async def spread_calculation_engine_status_route():
+    """#427 Spread Calculation Engine — Economics Engine for #429."""
+    from bd_platform.spread_calculation_engine import spread_calculation_engine_status
+
+    return spread_calculation_engine_status()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/economics/regression")
+async def spread_calculation_engine_regression_route():
+    from bd_platform.spread_calculation_engine import run_regression_fixtures
+
+    return run_regression_fixtures()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/economics/reconciliation-tests")
+async def spread_calculation_engine_reconciliation_route():
+    from bd_platform.spread_calculation_engine import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/portfolio-ai/fill-risk-assessment/status")
 async def fill_risk_assessment_status_route():
     """#433 Fill Risk Assessment — Intelligence Ledger Risk Layer."""
