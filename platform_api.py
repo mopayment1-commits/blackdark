@@ -1381,6 +1381,50 @@ async def diligence_risk_scoring_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/unified-arbitrage/status")
+async def unified_arbitrage_engine_status_route():
+    """#429 Unified Arbitrage Opportunity Engine — Sprint-2 Core."""
+    from bd_platform.unified_arbitrage_engine import unified_arbitrage_engine_status
+
+    return unified_arbitrage_engine_status()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage")
+async def unified_arbitrage_feed_route():
+    from bd_platform.unified_arbitrage_engine import build_unified_feed
+
+    return build_unified_feed()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/triangular")
+async def triangular_price_divergence_route():
+    """#428 Triangular Price Divergence Scanner — merged into #429."""
+    from bd_platform.unified_arbitrage_engine import build_triangular_panel
+
+    return build_triangular_panel()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/market-radar")
+async def unified_arbitrage_market_radar_route():
+    from bd_platform.unified_arbitrage_engine import build_market_radar_integration
+
+    return build_market_radar_integration()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/unified-arbitrage")
+async def intelligence_ledger_unified_arbitrage_route():
+    from bd_platform.unified_arbitrage_engine import build_intelligence_ledger_integration
+
+    return build_intelligence_ledger_integration()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/reconciliation-tests")
+async def unified_arbitrage_reconciliation_tests_route():
+    from bd_platform.unified_arbitrage_engine import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/intelligence-layer/capital-awareness/risk-assessment")
 async def intelligence_ledger_risk_assessment_route(signal_id: str = Query("sig_btc_momentum")):
     """#410 Intelligence Ledger — mandatory Risk Assessment on every signal."""
