@@ -1702,6 +1702,56 @@ async def dashboard_page(request: Request):
     return render_page(request, "dashboard.html", _footer_ctx())
 
 
+_CAPABILITY_PAGES: dict[str, tuple[str, str]] = {
+    "exchanges": ("Exchange Health Monitor", "Venue grades A+ → F · counterparty risk shield"),
+    "stablecoins": ("Stablecoin Health Monitor", "De-peg probability + AAA–D grade · early warning"),
+    "arbitrage": ("Arbitrage Scanner", "Net-Edge Truth Score · executable cost breakdown"),
+    "brief": ("Daily Market Brief", "What changed · Why · Risks — evidence-linked narrative"),
+    "whales": ("Whale Tracker", "Accumulation / distribution · smart money flow"),
+}
+
+
+def _capability_page(request: Request, capability_id: str) -> HTMLResponse:
+    meta = _CAPABILITY_PAGES.get(capability_id)
+    if not meta:
+        raise HTTPException(status_code=404, detail="capability_not_found")
+    title, subtitle = meta
+    return render_page(
+        request,
+        "capability_page.html",
+        {
+            "capability_id": capability_id,
+            "capability_title": title,
+            "capability_subtitle": subtitle,
+        },
+    )
+
+
+@app.get("/exchanges", response_class=HTMLResponse)
+async def exchanges_capability_page(request: Request):
+    return _capability_page(request, "exchanges")
+
+
+@app.get("/stablecoins", response_class=HTMLResponse)
+async def stablecoins_capability_page(request: Request):
+    return _capability_page(request, "stablecoins")
+
+
+@app.get("/arbitrage", response_class=HTMLResponse)
+async def arbitrage_capability_page(request: Request):
+    return _capability_page(request, "arbitrage")
+
+
+@app.get("/brief", response_class=HTMLResponse)
+async def brief_capability_page(request: Request):
+    return _capability_page(request, "brief")
+
+
+@app.get("/whales", response_class=HTMLResponse)
+async def whales_capability_page(request: Request):
+    return _capability_page(request, "whales")
+
+
 @app.get("/discipline-mirror", response_class=HTMLResponse)
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""

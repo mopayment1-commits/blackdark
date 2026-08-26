@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — {{ capability_title }}</title>
+<link rel="icon" href="/static/img/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<link rel="stylesheet" href="/static/css/capability.css">
+</head>
+<body class="cap-page">
+<nav class="cap-nav">
+  <a class="cap-logo" href="/">BLACKDARK</a>
+  <div>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/exchanges" {% if capability_id == 'exchanges' %}class="active"{% endif %}>Exchanges</a>
+    <a href="/stablecoins" {% if capability_id == 'stablecoins' %}class="active"{% endif %}>Stablecoins</a>
+    <a href="/arbitrage" {% if capability_id == 'arbitrage' %}class="active"{% endif %}>Arbitrage</a>
+    <a href="/brief" {% if capability_id == 'brief' %}class="active"{% endif %}>Brief</a>
+    <a href="/whales" {% if capability_id == 'whales' %}class="active"{% endif %}>Whales</a>
+    <a href="/intelligence-ledger">Intelligence Hub</a>
+  </div>
+</nav>
+<main class="cap-main">
+  <header class="cap-hero">
+    <h1>{{ capability_title }}</h1>
+    <p class="sub">{{ capability_subtitle }} — Monitoring &amp; analytics only. Not investment advice.</p>
+    <p class="cap-decision-q" id="capDecisionQ">What should I do now?</p>
+  </header>
+  <div id="capRoot" data-capability="{{ capability_id }}">
+    <div class="cap-loading">Loading…</div>
+  </div>
+</main>
+<div id="provPopover" class="prov-pop" role="dialog" aria-label="Provenance"></div>
+<div id="decisionCardSticky" hidden></div>
+<script src="/static/js/dom_safe.js"></script>
+<script src="/static/js/capability_core.js"></script>
+<script src="/static/js/capability_pages.js"></script>
+</body>
+</html>
