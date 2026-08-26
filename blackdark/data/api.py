@@ -158,6 +158,60 @@ async def get_open_interest(
     return {"symbol": symbol.upper(), "count": len(rows), "data": rows}
 
 
+@router.get("/api/v1/data/provenance-lineage/status")
+async def provenance_lineage_status_route():
+    """#1003 Data Provenance & Lineage Layer — cross-cutting mandatory infrastructure."""
+    from blackdark.data.provenance_lineage import provenance_lineage_status
+
+    return provenance_lineage_status()
+
+
+@router.get("/api/v1/data/provenance-lineage/metrics")
+async def provenance_lineage_metrics_route():
+    from blackdark.data.provenance_lineage import list_registered_metrics
+
+    return list_registered_metrics()
+
+
+@router.get("/api/v1/data/provenance-lineage/lineage/{metric_id}")
+async def provenance_lineage_detail_route(metric_id: str):
+    from blackdark.data.provenance_lineage import get_metric_lineage
+
+    result = get_metric_lineage(metric_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/api/v1/data/provenance-lineage/audit/{metric_id}")
+async def provenance_lineage_audit_route(metric_id: str):
+    """#1003 Audit API — programmatic lineage for third-party verification."""
+    from blackdark.data.provenance_lineage import audit_lineage
+
+    result = audit_lineage(metric_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/api/v1/data/provenance-lineage/recompute/{metric_id}")
+async def provenance_lineage_recompute_route(
+    metric_id: str,
+    schema_version: str | None = Query(None),
+    transformation_version: str | None = Query(None),
+):
+    from blackdark.data.provenance_lineage import recompute_historical
+
+    result = recompute_historical(
+        metric_id,
+        as_of_schema_version=schema_version,
+        as_of_transformation_version=transformation_version,
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/api/v1/data/provenance/{record_id}")
 async def get_provenance(record_id: UUID):
     _require_postgres()

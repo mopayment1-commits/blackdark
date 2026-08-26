@@ -213,7 +213,7 @@ def run_reproducible_query(
     expected = manifest.get("expected_result_checksum")
 
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
-    return {
+    result = {
         "ok": True,
         "feature_id": _FEATURE_ID,
         "query_id": query_id,
@@ -231,6 +231,13 @@ def run_reproducible_query(
         "latency_ms": elapsed,
         "timestamp": _utcnow(),
     }
+
+    from blackdark.data.provenance_lineage import enrich_api_response, get_metric_lineage
+
+    lineage = get_metric_lineage("historical.btc_daily.close")
+    if lineage.get("ok"):
+        result["metric_lineage"] = lineage
+    return enrich_api_response(result, layer="historical_vault")
 
 
 def historical_data_vault_status() -> dict[str, Any]:
