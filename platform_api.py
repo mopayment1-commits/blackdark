@@ -844,3 +844,49 @@ async def trending_assets_leaderboard_route(limit: int = Query(20, ge=1, le=100)
     if not result.get("ok"):
         raise HTTPException(status_code=503, detail=result.get("error") or "dependency_blocked")
     return result
+
+
+@router.get("/intelligence-ledger/token-unlock/status")
+async def token_unlock_intelligence_status_route():
+    """#707 Token Unlock Intelligence Engine — absorbs #703+#704+#708."""
+    from bd_platform.token_unlock_intelligence_engine import token_unlock_intelligence_status
+
+    return token_unlock_intelligence_status()
+
+
+@router.get("/intelligence-ledger/token-unlock/dashboard")
+async def token_unlock_dashboard_route(limit: int = Query(30, ge=1, le=100)):
+    """#708 dashboard — Calendar + List + Magnitude + Impact + Actionability."""
+    from bd_platform.token_unlock_intelligence_engine import build_unlock_dashboard
+
+    return build_unlock_dashboard(limit=limit)
+
+
+@router.get("/intelligence-ledger/token-unlock/calendar")
+async def token_unlock_calendar_route(limit: int = Query(30, ge=1, le=100)):
+    """#704 calendar absorbed into #708 — primary sources + revisions tracked."""
+    from bd_platform.token_unlock_intelligence_engine import build_unlock_calendar
+
+    return build_unlock_calendar(limit=limit)
+
+
+@router.get("/intelligence-ledger/token-unlock/impact")
+async def token_unlock_impact_route(asset: str = Query("ARB")):
+    """#707 impact score + comparable historical events — no guaranteed direction."""
+    from bd_platform.token_unlock_intelligence_engine import build_impact_panel
+
+    result = build_impact_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/token-unlock/actionability")
+async def token_unlock_actionability_route(asset: str = Query("ARB")):
+    """#703 actionability absorbed — 0–100 score with reasons + conflicting factors."""
+    from bd_platform.token_unlock_intelligence_engine import build_actionability_panel
+
+    result = build_actionability_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
