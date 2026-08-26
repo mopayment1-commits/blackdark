@@ -1441,6 +1441,35 @@ async def unified_arbitrage_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/unified-arbitrage/probability-signals/status")
+async def arbitrage_probability_signal_status_route():
+    """#422 Arbitrage Probability Signal — early detection filter for #403."""
+    from bd_platform.arbitrage_probability_signal import arbitrage_probability_signal_status
+
+    return arbitrage_probability_signal_status()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/probability-signals")
+async def arbitrage_probability_signal_panel_route(asset: str | None = Query(None)):
+    from bd_platform.arbitrage_probability_signal import build_probability_panel
+
+    return build_probability_panel(asset)
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/probability-backtest")
+async def arbitrage_probability_backtest_route():
+    from bd_platform.arbitrage_probability_signal import build_probability_backtest
+
+    return build_probability_backtest()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/probability-signals/reconciliation-tests")
+async def arbitrage_probability_reconciliation_tests_route():
+    from bd_platform.arbitrage_probability_signal import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/portfolio-ai/fill-risk-assessment/status")
 async def fill_risk_assessment_status_route():
     """#433 Fill Risk Assessment — Intelligence Ledger Risk Layer."""
@@ -1528,6 +1557,41 @@ async def strategy_simulator_backtest_route():
     from bd_platform.strategy_simulator import build_paper_backtest_30d
 
     return build_paper_backtest_30d()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/strategy-simulator/paper-account")
+async def strategy_simulator_paper_account_route():
+    """#421 Paper account — balances, positions, PnL. SIMULATION only — no real execution."""
+    from bd_platform.strategy_simulator import build_paper_account
+
+    return build_paper_account()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/strategy-simulator/simulate-order")
+async def strategy_simulator_simulate_order_route(
+    symbol: str = Query("BTC"),
+    side: str = Query("buy"),
+    quantity: float = Query(0.01, gt=0),
+    price: float = Query(65000, gt=0),
+    venue: str = Query("binance"),
+    slippage_bps: float | None = Query(None),
+):
+    """#421 Order simulator with realistic Fee DB fees + slippage options. No real execution."""
+    from bd_platform.strategy_simulator import simulate_paper_order
+
+    if side not in ("buy", "sell"):
+        raise HTTPException(status_code=400, detail="side must be buy or sell")
+    result = simulate_paper_order(
+        symbol=symbol,
+        side=side,  # type: ignore[arg-type]
+        quantity=quantity,
+        price=price,
+        venue=venue,
+        slippage_bps=slippage_bps,
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=400, detail=result.get("error") or "simulation_failed")
+    return result
 
 
 @router.get("/intelligence-ledger/portfolio-ai/strategy-simulator/reconciliation-tests")

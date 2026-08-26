@@ -1,22 +1,37 @@
 {
   "feature_id": 411,
+  "merged_feature_id": 421,
+  "merged_features": [421],
   "title": "Strategy Simulator",
   "legal_name": "Paper Portfolio",
   "standalone": false,
   "merged_into": "Portfolio AI + Intelligence Ledger / Simulation Layer",
   "sprint": 2,
   "priority": "high",
-  "methodology_version": "1.0",
+  "methodology_version": "1.1",
   "last_updated": "2026-08-26",
   "simulation_only": true,
   "real_money_blocked": true,
+  "no_real_execution": true,
   "ems_name_forbidden": true,
   "execution_routes_blocked": true,
+  "default_venue": "binance",
+  "fee_db": "fee_matrix",
+  "slippage_options": {
+    "use_fill_feasibility_replay": true,
+    "fallback_bps": 8,
+    "user_configurable": true
+  },
+  "slippage_profiles": {
+    "binance": {"default_bps": 6},
+    "okx": {"default_bps": 7},
+    "coinbase": {"default_bps": 10}
+  },
   "sla_terms": {
     "simulation_explicit": true,
     "real_money_order_placement_blocked": true,
     "no_execution_api_keys": true,
-    "legal_text": "Strategy Simulator uses Paper Portfolio only. All balances, orders, and fills are simulated. Real money order placement is isolated and blocked. SIMULATION — not live execution."
+    "legal_text": "Strategy Simulator uses Paper Portfolio only. All balances, orders, and fills are simulated. Real money order placement is isolated and blocked. SIMULATION — no real execution. No real execution in any UI element."
   },
   "paper_portfolio": {
     "portfolio_id": "paper_001",

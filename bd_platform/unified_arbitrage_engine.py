@@ -422,6 +422,15 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
     except Exception:
         logger.debug("net edge truth enrichment skipped", exc_info=True)
 
+    # #422 Arbitrage Probability Signal (early detection filter)
+    try:
+        from bd_platform.arbitrage_probability_signal import compute_probability_signal, enrich_with_integrations
+
+        prob = compute_probability_signal(asset)
+        enriched["arbitrage_probability_signal"] = enrich_with_integrations(prob)
+    except Exception:
+        logger.debug("arbitrage probability signal skipped", exc_info=True)
+
     # #456 Exchange health
     try:
         from bd_platform.exchange_health_monitor import evaluate_exchange

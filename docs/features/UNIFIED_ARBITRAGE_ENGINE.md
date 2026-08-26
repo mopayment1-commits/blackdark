@@ -36,6 +36,7 @@ Rule-based v1 only — no ML:
 ## Integrations
 - #417 Net-Edge Score
 - #415 Fill Feasibility
+- #422 Arbitrage Probability Signal (early detection filter)
 - #433 Fill Risk Assessment
 - #410 Capital Protection (SLA)
 - #434 Opportunity Worth Studying Alerts
