@@ -1,0 +1,97 @@
+{
+  "feature_id": 467,
+  "title": "Stablecoin Health Monitor",
+  "legal_name": "Stablecoin Health Monitor",
+  "renamed_from": "De-Pegging Probability Index",
+  "standalone": false,
+  "merged_into": "Sprint-2 Risk Layer / Capital Protection Controls (#410)",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "monitoring_only": true,
+  "alerts_only": true,
+  "cancelled_sla": {
+    "response_2_seconds": true,
+    "accuracy_95_pct": true,
+    "uptime_99_pct": true,
+    "real_time_update": true
+  },
+  "depeg_probability_threshold": 0.55,
+  "portfolio_exposure_alert_pct": 30,
+  "grade_thresholds": {
+    "AAA": 10,
+    "AA": 20,
+    "A": 30,
+    "BBB": 45,
+    "BB": 60,
+    "B": 75,
+    "CCC": 90,
+    "D": 100
+  },
+  "indicator_weights": {
+    "price_deviation": 0.30,
+    "redemption_pressure": 0.25,
+    "collateral_ratio": 0.20,
+    "funding_rate_anomaly": 0.15,
+    "social_panic": 0.10
+  },
+  "stablecoins": {
+    "USDT": {
+      "symbol": "USDT",
+      "name": "Tether",
+      "type": "fiat_backed",
+      "price_usd": 0.9998,
+      "price_deviation_bps": 2.0,
+      "redemption_pressure_score": 18,
+      "collateral_ratio": 1.02,
+      "funding_rate_anomaly": 0.05,
+      "social_panic_score": 12,
+      "exchange_outflow_24h_usd": 120000000
+    },
+    "USDC": {
+      "symbol": "USDC",
+      "name": "USD Coin",
+      "type": "fiat_backed",
+      "price_usd": 0.9999,
+      "price_deviation_bps": 1.0,
+      "redemption_pressure_score": 10,
+      "collateral_ratio": 1.01,
+      "funding_rate_anomaly": 0.02,
+      "social_panic_score": 8,
+      "exchange_outflow_24h_usd": 45000000
+    },
+    "DAI": {
+      "symbol": "DAI",
+      "name": "Dai",
+      "type": "crypto_backed",
+      "price_usd": 0.9995,
+      "price_deviation_bps": 5.0,
+      "redemption_pressure_score": 22,
+      "collateral_ratio": 1.45,
+      "funding_rate_anomaly": 0.08,
+      "social_panic_score": 15,
+      "exchange_outflow_24h_usd": 28000000
+    },
+    "UST": {
+      "symbol": "UST",
+      "name": "TerraUSD (historical)",
+      "type": "algorithmic",
+      "price_usd": 0.12,
+      "price_deviation_bps": 880000,
+      "redemption_pressure_score": 98,
+      "collateral_ratio": 0.15,
+      "funding_rate_anomaly": 0.95,
+      "social_panic_score": 99,
+      "exchange_outflow_24h_usd": 0,
+      "historical_only": true
+    }
+  },
+  "portfolio_stablecoin_exposure": {
+    "demo_portfolio": {
+      "USDT": 12.0,
+      "USDC": 6.0,
+      "DAI": 0.0
+    }
+  }
+}

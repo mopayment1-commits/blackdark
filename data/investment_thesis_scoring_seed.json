@@ -1,0 +1,83 @@
+{
+  "feature_id": 472,
+  "title": "Investment Thesis Scoring",
+  "legal_name": "Investment Thesis Scoring",
+  "standalone": false,
+  "merged_into": "Sprint-2 Intelligence Ledger",
+  "sprint": 2,
+  "priority": "high",
+  "rubric_version": "1.0.0",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "not_price_probability": true,
+  "terms_clause": "Thesis scores assess fundamental conviction — not price predictions or probability of profit.",
+  "dimension_weights": {
+    "team_quality": 0.18,
+    "tokenomics": 0.18,
+    "revenue_model": 0.17,
+    "competitive_moat": 0.17,
+    "regulatory_risk": 0.15,
+    "on_chain_growth": 0.15
+  },
+  "grade_thresholds": {
+    "A": 85,
+    "B": 70,
+    "C": 55,
+    "D": 40,
+    "F": 0
+  },
+  "net_edge_integration": {
+    "feature_ref": 417,
+    "thesis_confidence_weight": 0.12
+  },
+  "assets": {
+    "BTC": {
+      "team_quality": 90,
+      "tokenomics": 95,
+      "revenue_model": 85,
+      "competitive_moat": 98,
+      "regulatory_risk": 55,
+      "on_chain_growth": 88,
+      "evidence": {
+        "team_quality": {"source": "developer_activity_index", "quality": "high"},
+        "tokenomics": {"source": "fixed_supply_model", "quality": "high"},
+        "revenue_model": {"source": "fee_market_analysis", "quality": "high"},
+        "competitive_moat": {"source": "network_effect_index", "quality": "high"},
+        "regulatory_risk": {"source": "regulatory_tracker", "quality": "medium"},
+        "on_chain_growth": {"source": "active_addresses_30d", "quality": "high"}
+      }
+    },
+    "ETH": {
+      "team_quality": 92,
+      "tokenomics": 82,
+      "revenue_model": 88,
+      "competitive_moat": 90,
+      "regulatory_risk": 50,
+      "on_chain_growth": 85,
+      "evidence": {
+        "team_quality": {"source": "ef_developer_reports", "quality": "high"},
+        "tokenomics": {"source": "staking_burn_model", "quality": "high"},
+        "revenue_model": {"source": "defi_fee_revenue", "quality": "high"},
+        "competitive_moat": {"source": "ecosystem_tvl_share", "quality": "high"},
+        "regulatory_risk": {"source": "sec_classification_tracker", "quality": "medium"},
+        "on_chain_growth": {"source": "l2_activity_index", "quality": "high"}
+      }
+    },
+    "UNI": {
+      "team_quality": 78,
+      "tokenomics": 65,
+      "revenue_model": 72,
+      "competitive_moat": 70,
+      "regulatory_risk": 60,
+      "on_chain_growth": 68,
+      "evidence": {
+        "team_quality": {"source": "governance_activity", "quality": "medium"},
+        "tokenomics": {"source": "unlock_schedule_tracker", "quality": "medium"},
+        "revenue_model": {"source": "dex_fee_switch", "quality": "medium"},
+        "competitive_moat": {"source": "dex_market_share", "quality": "medium"},
+        "regulatory_risk": {"source": "defi_regulatory_index", "quality": "low"},
+        "on_chain_growth": {"source": "swap_volume_30d", "quality": "medium"}
+      }
+    }
+  }
+}
