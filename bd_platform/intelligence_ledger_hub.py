@@ -172,6 +172,13 @@ def _default_query_params(module_id: str) -> list[dict[str, Any]]:
         "data-layer/asset-profiles": [{"name": "entity_id", "default": "asset_btc", "label": "Entity"}],
         "data-layer/asset-registry": [{"name": "symbol", "default": "BTC", "label": "Symbol"}],
         "portfolio-ai/asset-registry": [{"name": "symbol", "default": "BTC", "label": "Symbol"}],
+        "portfolio-ai/live-breakeven": [{"name": "position_id", "default": "pos_btc_001", "label": "Position"}],
+        "portfolio-ai/live-breakeven/simulate": [
+            {"name": "position_id", "default": "pos_btc_001", "label": "Position"},
+            {"name": "hypothetical_dca_qty", "default": "0.1", "label": "DCA Qty"},
+            {"name": "hypothetical_dca_price", "default": "62000", "label": "DCA Price"},
+        ],
+        "intelligence-layer/live-breakeven/signal-context": [{"name": "symbol", "default": "BTC", "label": "Symbol"}],
         "intelligence-layer/market-conditions": [{"name": "market_id", "default": "crypto_aggregate", "label": "Market"}],
         "portfolio-layer/snapshots": [{"name": "portfolio_id", "default": "demo_portfolio", "label": "Portfolio"}],
         "portfolio-layer/multi-chain-tracker": [{"name": "portfolio_id", "default": "demo_portfolio", "label": "Portfolio"}],
