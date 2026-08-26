@@ -782,6 +782,35 @@ async def alert_engine_delivery_logs_route(limit: int = Query(50, ge=1, le=200))
     return list_delivery_logs(limit=limit)
 
 
+@router.get("/intelligence-ledger/alert-engine/derivatives-rules")
+async def alert_engine_derivatives_rules_route(
+    asset: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    """#323 Derivatives Alert Rules — merged into #289 Alert Engine."""
+    from bd_platform.alert_engine import list_derivatives_alert_rules
+
+    return list_derivatives_alert_rules(asset=asset, limit=limit)
+
+
+@router.get("/intelligence-ledger/derivatives-market-state/status")
+async def derivatives_market_state_status_route():
+    """#327 Derivatives Market State Module — absorbs #328 + #329."""
+    from bd_platform.derivatives_market_state import derivatives_market_state_status
+
+    return derivatives_market_state_status()
+
+
+@router.get("/intelligence-ledger/derivatives-market-state")
+async def derivatives_market_state_panel_route(asset: str = Query("BTC")):
+    from bd_platform.derivatives_market_state import build_derivatives_market_state_panel
+
+    result = build_derivatives_market_state_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/taker-pressure/status")
 async def taker_pressure_status_route():
     """#296 Taker Pressure Module — CEX spot + perp, orderflow sub-feature."""

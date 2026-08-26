@@ -21,6 +21,16 @@
 | 2 | Indicator |
 | 3 | Drawing |
 | Wave 3 | ML-based (deferred) |
+| #323 | Derivatives alert rules (OI / funding / liquidation) — merged, no separate engine |
+
+## #323 Derivatives Alerts (merged)
+
+- **No separate engine** — rules config inside Alert Engine
+- **Thresholds:** OI change > X% | Funding > Y% | Liquidation > Z
+- **Dedup:** same asset + condition within 5 min = suppressed
+- **#282** Orderflow Anomaly = input source
+
+API: `GET /api/platform/intelligence-ledger/alert-engine/derivatives-rules`
 
 ## APIs
 
