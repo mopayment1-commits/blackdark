@@ -1726,6 +1726,31 @@ async def protocol_metrics_panel_route(protocol_id: str = Query("uniswap")):
     return result
 
 
+@router.get("/intelligence-ledger/data-layer/protocol-economics/status")
+async def protocol_economics_layer_status_route():
+    """#554 #555 Protocol Economics Layer — fees & revenue with explicit definitions."""
+    from bd_platform.protocol_economics_layer import protocol_economics_layer_status
+
+    return protocol_economics_layer_status()
+
+
+@router.get("/intelligence-ledger/data-layer/protocol-economics")
+async def protocol_economics_panel_route(protocol_id: str = Query("uniswap")):
+    from bd_platform.protocol_economics_layer import build_protocol_economics_panel
+
+    result = build_protocol_economics_panel(protocol_id=protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/protocol-economics/historical-qa")
+async def protocol_economics_historical_qa_route():
+    from bd_platform.protocol_economics_layer import run_historical_qa_tests
+
+    return run_historical_qa_tests()
+
+
 @router.get("/intelligence-ledger/portfolio-layer/snapshots/status")
 async def portfolio_intelligence_layer_status_route():
     """#515 Portfolio Intelligence Layer — historical snapshots."""

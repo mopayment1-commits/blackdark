@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.0.0",
+  "epic": "Protocol Economics Layer",
+  "tasks": ["#554", "#555"],
+  "protocols": {
+    "uniswap": {
+      "name": "Uniswap V3",
+      "gross_fees_usd": 125000000.0,
+      "protocol_revenue_usd": 0.0,
+      "fees_not_equal_revenue": true,
+      "fees_24h_usd": 2500000.0,
+      "fees_7d_usd": 18000000.0,
+      "fees_30d_usd": 75000000.0,
+      "revenue_24h_usd": 0.0,
+      "revenue_7d_usd": 0.0,
+      "revenue_30d_usd": 0.0,
+      "source": "onchain_indexer",
+      "freshness_seconds": 300,
+      "fee_events": [
+        {
+          "tx_hash": "0xuni001",
+          "contract_address": "0x1f98431c8ad98523631ae4a59f267346ea31f984",
+          "event_type": "Swap",
+          "fee_usd": 150.0,
+          "timestamp": "2026-08-26T10:00:00Z"
+        },
+        {
+          "tx_hash": "0xuni002",
+          "contract_address": "0x1f98431c8ad98523631ae4a59f267346ea31f984",
+          "event_type": "Swap",
+          "fee_usd": 320.0,
+          "timestamp": "2026-08-26T10:05:00Z"
+        }
+      ]
+    },
+    "aave": {
+      "name": "Aave V3",
+      "gross_fees_usd": 45000000.0,
+      "protocol_revenue_usd": 9000000.0,
+      "fees_not_equal_revenue": true,
+      "fees_24h_usd": 800000.0,
+      "fees_7d_usd": 5600000.0,
+      "fees_30d_usd": 22000000.0,
+      "revenue_24h_usd": 160000.0,
+      "revenue_7d_usd": 1120000.0,
+      "revenue_30d_usd": 4400000.0,
+      "source": "onchain_indexer",
+      "freshness_seconds": 420,
+      "fee_events": [
+        {
+          "tx_hash": "0xaave001",
+          "contract_address": "0x87870bca3f3fd6335c3f4ece39fce00b0a0ac4d2",
+          "event_type": "ReserveDataUpdated",
+          "fee_usd": 500.0,
+          "timestamp": "2026-08-26T10:00:00Z"
+        }
+      ]
+    },
+    "maker": {
+      "name": "MakerDAO",
+      "gross_fees_usd": 12000000.0,
+      "protocol_revenue_usd": 12000000.0,
+      "fees_not_equal_revenue": false,
+      "fees_24h_usd": 350000.0,
+      "fees_7d_usd": 2400000.0,
+      "fees_30d_usd": 9800000.0,
+      "revenue_24h_usd": 350000.0,
+      "revenue_7d_usd": 2400000.0,
+      "revenue_30d_usd": 9800000.0,
+      "source": "onchain_indexer",
+      "freshness_seconds": 600,
+      "fee_events": [
+        {
+          "tx_hash": "0xmaker001",
+          "contract_address": "0x35d1b3f3d7966a1dfe207aa4754c4a85f7f686ea",
+          "event_type": "Vat.fold",
+          "fee_usd": 1200.0,
+          "timestamp": "2026-08-26T10:00:00Z"
+        }
+      ]
+    }
+  },
+  "contract_mappings": {
+    "uniswap": {
+      "version": "1.0",
+      "source": "protocol_registry",
+      "fee_event_signatures": [
+        "Swap(address,address,int256,int256,uint160,uint128,int24)"
+      ],
+      "contracts": [
+        {
+          "address": "0x1f98431c8ad98523631ae4a59f267346ea31f984",
+          "name": "UniswapV3Factory",
+          "chain": "ethereum",
+          "fee_type": "swap_fee"
+        },
+        {
+          "address": "0x68b3465833fb72a70dcdfe5e573baf4fd0fa5b56",
+          "name": "SwapRouter02",
+          "chain": "ethereum",
+          "fee_type": "swap_fee"
+        }
+      ]
+    },
+    "aave": {
+      "version": "1.0",
+      "source": "protocol_registry",
+      "fee_event_signatures": [
+        "ReserveDataUpdated(address,uint256,uint256,uint256,uint256,uint256)"
+      ],
+      "contracts": [
+        {
+          "address": "0x87870bca3f3fd6335c3f4ece39fce00b0a0ac4d2",
+          "name": "Pool",
+          "chain": "ethereum",
+          "fee_type": "borrow_interest"
+        }
+      ]
+    },
+    "maker": {
+      "version": "1.0",
+      "source": "protocol_registry",
+      "fee_event_signatures": [
+        "fold(bytes32,int256)"
+      ],
+      "contracts": [
+        {
+          "address": "0x35d1b3f3d7966a1dfe207aa4754c4a85f7f686ea",
+          "name": "Vat",
+          "chain": "ethereum",
+          "fee_type": "stability_fee"
+        }
+      ]
+    }
+  }
+}
