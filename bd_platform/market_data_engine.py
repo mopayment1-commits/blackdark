@@ -529,6 +529,25 @@ def build_market_data_normalization_layer(asset: str = "BTC") -> dict[str, Any]:
     }
 
 
+def build_data_engine_sources_block(seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#401 enrichment — funding rates + social sentiment via existing engines, not new modules."""
+    from bd_platform.exchange_registry import build_registry_summary
+
+    summary = build_registry_summary()
+    return {
+        "exchange_registry_linked": True,
+        "exchange_count": summary.get("exchange_count", 0),
+        "funding_rates_source": "market_data_engine",
+        "social_sentiment_source": "sentiment_engine",
+        "not_new_modules": True,
+        "quantitative_insights_consumer": True,
+        "display": (
+            f"Data Engine sources: {summary.get('exchange_count', 0)} registered venues | "
+            "Funding Rates (existing) + Social Sentiment (existing)"
+        ),
+    }
+
+
 def market_data_engine_status() -> dict[str, Any]:
     seed = _load_seed()
     return {
@@ -552,6 +571,7 @@ def market_data_engine_status() -> dict[str, Any]:
         "feeds_engine": True,
         "provider_semantics": build_provider_semantics_block(seed),
         "weighting": build_weighting_block(seed),
+        "data_engine_sources": build_data_engine_sources_block(seed),
         "asset_count": len(seed.get("venues") or {}),
         "acceptance_criteria": {
             "provider_semantics_lock": True,
