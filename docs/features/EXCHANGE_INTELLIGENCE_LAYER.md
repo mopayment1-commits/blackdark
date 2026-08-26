@@ -1,8 +1,8 @@
-# Exchange Intelligence Layer — #544 #546 #547 #548 #549 #550 #551
+# Exchange Intelligence Layer — #544 #546 #547 #548 #549 #550 #551 #552 #553
 
 ## Epic Decision
 
-Seven exchange-related tickets merged into one epic: **Exchange Intelligence Layer**.
+Nine exchange-related tickets merged into one epic: **Exchange Intelligence Layer**.
 These are sub-module tasks, not standalone features.
 
 | Task | Sub-Module | Role |
@@ -14,17 +14,31 @@ These are sub-module tasks, not standalone features.
 | #544 | Balance & Netflow | Balances, trends, anomalies |
 | #550 | Reserve Intelligence | Exchange-held assets, change, confidence |
 | #551 | Supply / Balance Intelligence | Entity-adjusted balance + share of supply (extends #550) |
+| #552 | Large-Inflow Concentration Metric | Top-N inflow share — statistical anomaly only |
+| #553 | Exchange-to-Exchange Flow Intelligence | Source→destination flow matrix |
 
 Depends on: **#541 Entity Resolution Engine** (exchange wallet clusters)
+#553 also depends on **#549 Internal-Flow Filter**
 
-## #551 — Exchange Supply / Balance Intelligence
+## #552 — Large-Inflow Concentration Metric (renamed from Exchange Whale Ratio)
 
 | Rule | Implementation |
 |------|----------------|
 | No standalone | Merged into Exchange Intelligence Epic |
-| Entity-adjusted | Balances computed from entity-resolved clusters |
-| Cluster revisions tracked | Revision log with affected exchanges |
-| Historical reproducibility | Snapshot ID + as_of timestamp |
+| Renamed | "Large-Inflow Concentration Metric" — no "whale" in UI |
+| Top-N documented | Versioned top-N definition (v1.0, N=5) |
+| Low-volume edge cases | Flagged when below threshold — metric unreliable |
+| Historical Metric Validation | NOT trading backtest |
+| Statistical anomaly | Deviation from 90-day average (z-score) — NOT sell signal |
+
+## #553 — Exchange-to-Exchange Flow Intelligence
+
+| Rule | Implementation |
+|------|----------------|
+| No standalone | Merged into Exchange Intelligence Epic |
+| Same-exchange excluded | Internal transfers filtered via #549 |
+| Entity confidence | Cluster confidence/source on matrix |
+| Historical revision handling | Revision log tracked |
 
 ## Acceptance Criteria
 
@@ -34,12 +48,13 @@ Depends on: **#541 Entity Resolution Engine** (exchange wallet clusters)
 | No silent filtering | Raw vs adjusted toggle; internal count visible |
 | Labels confidence/source | Mandatory on every exchange entity |
 | Netflow formula fixed | `inflow_usd - outflow_usd` (v1.0) |
-| Timestamps aligned | Transfer timestamps preserved |
-| Freshness visible | Reserve/balance freshness_seconds exposed |
-| Historical revisions controlled | Revision log + controlled replay |
-| Entity-adjusted (#551) | Supply balances from entity clusters |
-| Cluster revisions tracked (#551) | Revision log per exchange |
-| Historical reproducibility (#551) | Snapshot + methodology version |
+| Top-N definition documented (#552) | Versioned, rolling window |
+| Low-volume edge cases (#552) | Threshold flag when unreliable |
+| Historical Metric Validation (#552) | Window replay — not trading backtest |
+| No arbitrary interpretation (#552) | Descriptive only |
+| Same-exchange excluded (#553) | Internal flows excluded from matrix |
+| Entity confidence (#553) | Per-exchange cluster confidence |
+| Historical revision handling (#553) | Revision log |
 | Reconciliation tests | Automated — mandatory |
 
 ## API
@@ -64,5 +79,7 @@ On-Chain Intelligence Layer (Sprint 1)
     ├── #546 Flow Intelligence
     ├── #544 Balance & Netflow
     ├── #550 Reserve Intelligence
-    └── #551 Supply / Balance Intelligence (extends #550)
+    ├── #551 Supply / Balance Intelligence (extends #550)
+    ├── #552 Large-Inflow Concentration Metric
+    └── #553 Exchange-to-Exchange Flow Intelligence
 ```

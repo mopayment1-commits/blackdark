@@ -1,4 +1,4 @@
-"""Tests — Exchange Intelligence Layer epic #544 #546 #547 #548 #549 #550 #551."""
+"""Tests — Exchange Intelligence Layer epic #544 #546 #547 #548 #549 #550 #551 #552 #553."""
 
 from __future__ import annotations
 
@@ -111,6 +111,30 @@ def exchange_seed(tmp_path, monkeypatch):
                 },
             },
         },
+        "large_inflow_metric": {
+            "version": "1.0",
+            "top_n": 3,
+            "rolling_window_days": 7,
+            "historical_windows": [
+                {
+                    "window_start": "2026-08-19",
+                    "window_end": "2026-08-25",
+                    "inflows": [
+                        {"direction": "inflow", "value_usd": 500000.0, "is_internal": False},
+                        {"direction": "inflow", "value_usd": 300000.0, "is_internal": False},
+                        {"direction": "inflow", "value_usd": 200000.0, "is_internal": False},
+                    ],
+                },
+                {
+                    "window_start": "2026-08-12",
+                    "window_end": "2026-08-18",
+                    "inflows": [
+                        {"direction": "inflow", "value_usd": 400000.0, "is_internal": False},
+                        {"direction": "inflow", "value_usd": 250000.0, "is_internal": False},
+                    ],
+                },
+            ],
+        },
     }), encoding="utf-8")
     monkeypatch.setattr(eil, "_SEED_PATH", p)
     return p
@@ -120,7 +144,7 @@ def test_epic_status_merged_not_standalone(exchange_seed):
     status = eil.exchange_intelligence_layer_status()
     assert status["standalone_rejected"] is True
     assert status["tasks_not_tickets"] is True
-    assert set(status["feature_ids"]) == {544, 546, 547, 548, 549, 550, 551}
+    assert set(status["feature_ids"]) == {544, 546, 547, 548, 549, 550, 551, 552, 553}
     assert status["dependencies"]["entity_resolution_feature_id"] == 541
 
 
@@ -227,7 +251,74 @@ def test_epic_panel_all_sub_modules(exchange_seed):
     assert "544_balance_netflow" in panel["sub_modules"]
     assert "550_reserve_intelligence" in panel["sub_modules"]
     assert "551_supply_balance_intelligence" in panel["sub_modules"]
+    assert "552_large_inflow_concentration_metric" in panel["sub_modules"]
+    assert "553_exchange_to_exchange_flow" in panel["sub_modules"]
     assert panel["filter"]["no_silent_filtering"] is True
+    assert "whale ratio" in panel["banned_output_terms"]
+
+
+def test_552_large_inflow_concentration_metric(exchange_seed):
+    seed = json.loads(exchange_seed.read_text(encoding="utf-8"))
+    clusters = seed["exchange_clusters"]
+    transfers, _ = eil.filter_transfers(
+        seed["transfers"], exchange_clusters=clusters, adjusted=True,
+    )
+    licm = eil.build_large_inflow_concentration_metric(
+        "binance", seed=seed, transfers=transfers,
+    )
+    assert licm["metric"]["metric_name"] == "Large-Inflow Concentration Metric"
+    assert licm["metric"]["no_whale_in_ui"] is True
+    assert licm["top_n_config"]["top_n_definition_documented"] is True
+    assert licm["statistical_anomaly"]["not_a_sell_signal"] is True
+    assert licm["historical_metric_validation"]["not_trading_backtest"] is True
+    assert licm["metric"]["concentration_ratio"] == 1.0
+
+
+def test_552_low_volume_edge_case(exchange_seed):
+    metric = eil.compute_large_inflow_concentration(
+        [{"direction": "inflow", "value_usd": 50000.0, "is_internal": False}],
+        top_n=3,
+        low_volume_threshold=100000.0,
+    )
+    assert metric["low_volume_edge_case"] is True
+    assert metric["concentration_ratio"] is None
+
+
+def test_553_exchange_to_exchange_flow(exchange_seed):
+    seed = json.loads(exchange_seed.read_text(encoding="utf-8"))
+    seed["exchange_clusters"]["okx"] = {
+        "exchange_id": "okx",
+        "addresses": ["0xokx_hot"],
+        "cluster_confidence": "medium",
+        "cluster_source": "entity_resolution_v1",
+    }
+    seed["transfers"].append({
+        "transfer_id": "t4",
+        "exchange_id": "binance",
+        "asset": "BTC",
+        "direction": "outflow",
+        "value_usd": 600000.0,
+        "from_address": "0xbinance_hot",
+        "to_address": "0xokx_hot",
+    })
+    e2e = eil.build_exchange_to_exchange_flow_intelligence(
+        seed=seed, transfers=seed["transfers"],
+    )
+    assert e2e["flow_matrix"]["same_exchange_internal_excluded"] is True
+    assert e2e["flow_matrix"]["inter_exchange_count"] == 1
+    assert e2e["entity_confidence"]["binance"]["confidence"] == "high"
+    assert e2e["historical_revision_handling"]["historical_revision_handling"] is True
+    assert len(e2e["net_bilateral_flows"]) >= 1
+
+
+def test_553_same_exchange_internal_excluded(exchange_seed):
+    seed = json.loads(exchange_seed.read_text(encoding="utf-8"))
+    clusters = seed["exchange_clusters"]
+    classified = eil.classify_inter_exchange_transfer(
+        seed["transfers"][1], clusters,
+    )
+    assert classified["same_exchange_internal_excluded"] is True
+    assert classified["is_inter_exchange"] is False
 
 
 def test_reconciliation_tests(exchange_seed):
@@ -238,6 +329,9 @@ def test_reconciliation_tests(exchange_seed):
     assert "no_silent_filtering" in test_names
     assert "netflow_formula_fixed" in test_names
     assert "supply_balance_entity_adjusted" in test_names
+    assert "top_n_definition_documented" in test_names
+    assert "same_exchange_internal_excluded" in test_names
+    assert "historical_metric_validation_not_backtest" in test_names
 
 
 def test_api_routes(exchange_seed):
