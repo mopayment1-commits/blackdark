@@ -699,6 +699,60 @@ async def institutional_audit_middleware(request: Request, call_next):
     return response
 
 
+@app.middleware("http")
+async def intelligence_ledger_evidence_middleware(request: Request, call_next):
+    """Attach evidence metadata + compliance footer to Intelligence Ledger JSON responses."""
+    response = await call_next(request)
+    path = request.url.path or ""
+    if (
+        not path.startswith("/api/platform/intelligence-ledger")
+        or response.status_code != 200
+        or "application/json" not in (response.headers.get("content-type") or "")
+    ):
+        return response
+    body = b""
+    async for chunk in response.body_iterator:
+        body += chunk
+    if body[:2] == b"\x1f\x8b":
+        import gzip
+
+        try:
+            body = gzip.decompress(body)
+        except OSError:
+            from starlette.responses import Response
+
+            return Response(content=body, status_code=response.status_code, headers=dict(response.headers))
+    if not body:
+        from starlette.responses import Response
+
+        return Response(
+            content=body,
+            status_code=response.status_code,
+            headers=dict(response.headers),
+            media_type="application/json",
+        )
+    try:
+        import json as _json
+
+        from starlette.responses import JSONResponse
+
+        from bd_platform.institutional_standards import wrap_intelligence_response
+
+        payload = _json.loads(body.decode("utf-8"))
+        if isinstance(payload, dict):
+            module_hint = path.removeprefix("/api/platform/intelligence-ledger/").strip("/")
+            payload = wrap_intelligence_response(
+                payload,
+                module_id=module_hint.split("/")[0] if module_hint else None,
+            )
+        return JSONResponse(content=payload, status_code=response.status_code)
+    except Exception:
+        from starlette.responses import Response
+
+        logger.debug("intelligence ledger evidence middleware fallback for %s", path)
+        return Response(content=body, status_code=response.status_code, media_type="application/json")
+
+
 try:
     from platform_api import router as platform_router
 
@@ -1767,6 +1821,53 @@ async def institutional_hub_page(request: Request):
 @app.get("/cap646", response_class=HTMLResponse)
 async def cap646_hub_page(request: Request):
     return render_page(request, "cap646_hub.html", _footer_ctx())
+
+
+@app.get("/intelligence-ledger", response_class=HTMLResponse)
+async def intelligence_ledger_hub_page(request: Request):
+    """Intelligence Ledger Hub — consumer UI for all 100+ analytical modules."""
+    return render_page(request, "intelligence_ledger.html", _footer_ctx())
+
+
+@app.get("/api/intelligence-ledger/catalog")
+async def intelligence_ledger_catalog_route():
+    from bd_platform.intelligence_ledger_hub import build_catalog
+
+    return {"ok": True, "catalog": build_catalog(), "count": len(build_catalog())}
+
+
+@app.get("/api/intelligence-ledger/hub")
+async def intelligence_ledger_hub_route():
+    from bd_platform.intelligence_ledger_hub import build_hub_context
+
+    return build_hub_context()
+
+
+@app.get("/api/intelligence-ledger/launch-readiness")
+async def intelligence_ledger_launch_readiness_route():
+    from bd_platform.intelligence_ledger_hub import build_launch_readiness_report
+
+    return build_launch_readiness_report()
+
+
+@app.get("/launch-center", response_class=HTMLResponse)
+async def launch_center_page(request: Request):
+    """Unified user entry — journeys, engineering readiness, live market strip."""
+    return render_page(request, "launch_center.html", _footer_ctx())
+
+
+@app.get("/api/institutional-standards/status")
+async def institutional_standards_status_route():
+    from bd_platform.institutional_standards import institutional_standards_status
+
+    return institutional_standards_status()
+
+
+@app.get("/api/live-market/strip")
+async def live_market_strip_route():
+    from bd_platform.live_market_context import build_live_market_strip
+
+    return await build_live_market_strip()
 
 
 @app.get("/model-card", response_class=HTMLResponse)
