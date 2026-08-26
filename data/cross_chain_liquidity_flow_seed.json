@@ -1,0 +1,70 @@
+{
+  "feature_id": 522,
+  "title": "Cross-Chain Liquidity Flow",
+  "standalone_rejected": true,
+  "merged_into": "Cross-Chain Intelligence Layer / Liquidity Flow",
+  "layer": "On-Chain Layer",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "reconciliation": {
+    "reorg_handling": true,
+    "reorg_confirmation_blocks": 12
+  },
+  "flows": [
+    {
+      "source_chain": "ethereum",
+      "dest_chain": "arbitrum",
+      "token_id": "asset_usdc",
+      "token_symbol": "USDC",
+      "bridge_id": "stargate",
+      "bridge_tx_hash": "0xabc111",
+      "direction": "inflow",
+      "amount_usd": 15000000,
+      "bridge_identity_verified": true,
+      "token_identity_verified": true,
+      "reorg_confirmed": true,
+      "source": "bridge_indexer",
+      "freshness_seconds": 300,
+      "confidence": "high",
+      "evidence_id": "ev_flow_001",
+      "timestamp": "2026-08-26T10:00:00Z"
+    },
+    {
+      "source_chain": "ethereum",
+      "dest_chain": "arbitrum",
+      "token_id": "asset_usdc",
+      "token_symbol": "USDC",
+      "bridge_id": "stargate",
+      "bridge_tx_hash": "0xabc111",
+      "direction": "inflow",
+      "amount_usd": 15000000,
+      "bridge_identity_verified": true,
+      "token_identity_verified": true,
+      "reorg_confirmed": true,
+      "source": "bridge_indexer_dup",
+      "freshness_seconds": 300,
+      "confidence": "high",
+      "evidence_id": "ev_flow_001_dup",
+      "timestamp": "2026-08-26T10:00:00Z"
+    },
+    {
+      "source_chain": "solana",
+      "dest_chain": "ethereum",
+      "token_id": "asset_eth",
+      "token_symbol": "ETH",
+      "bridge_id": "wormhole",
+      "bridge_tx_hash": "0xdef222",
+      "direction": "inflow",
+      "amount_usd": 8200000,
+      "bridge_identity_verified": true,
+      "token_identity_verified": true,
+      "reorg_confirmed": true,
+      "source": "bridge_indexer",
+      "freshness_seconds": 600,
+      "confidence": "medium",
+      "evidence_id": "ev_flow_002",
+      "timestamp": "2026-08-26T11:00:00Z"
+    }
+  ]
+}
