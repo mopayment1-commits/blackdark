@@ -1492,6 +1492,36 @@ async def spread_calculation_engine_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/unified-arbitrage/basis-funding/status")
+async def basis_funding_divergence_status_route():
+    """#440 Basis/Funding Divergence Monitor — derivatives category in #429."""
+    from bd_platform.basis_funding_divergence_monitor import basis_funding_divergence_status
+
+    return basis_funding_divergence_status()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/basis-funding")
+async def basis_funding_divergence_panel_route(asset: str | None = Query(None)):
+    from bd_platform.basis_funding_divergence_monitor import build_divergence_panel
+
+    return build_divergence_panel(asset)
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/basis-funding/scan")
+async def basis_funding_divergence_scan_route():
+    from bd_platform.basis_funding_divergence_monitor import scan_derivatives_divergence
+
+    opps = scan_derivatives_divergence()
+    return {"ok": True, "opportunities": opps, "count": len(opps)}
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/basis-funding/reconciliation-tests")
+async def basis_funding_divergence_reconciliation_route():
+    from bd_platform.basis_funding_divergence_monitor import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/portfolio-ai/fill-risk-assessment/status")
 async def fill_risk_assessment_status_route():
     """#433 Fill Risk Assessment — Intelligence Ledger Risk Layer."""
