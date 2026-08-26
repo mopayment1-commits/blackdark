@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "layer": "Portfolio Intelligence Layer",
-  "tasks": ["#515", "#557", "#558"],
+  "tasks": ["#515", "#557", "#558", "#569"],
   "methodology_version": "1.0",
   "last_updated": "2026-08-26",
   "symbol_normalization": {
@@ -24,6 +24,17 @@
       "supported": true,
       "coverage_pct": 95.0,
       "display": "Solana — 95% coverage"
+    },
+    "arbitrum": {
+      "supported": true,
+      "coverage_pct": 92.0,
+      "display": "Arbitrum — 92% coverage"
+    }
+  },
+  "bridge_dedupe_map": {
+    "canonical_groups": {
+      "BTC": ["BTC", "WBTC", "BTC.B"],
+      "ETH": ["ETH", "WETH", "STETH"]
     }
   },
   "portfolios": {
@@ -125,6 +136,118 @@
           "freshness_seconds": 0,
           "stale": false,
           "missing": true
+        }
+      ]
+    }
+  },
+  "multi_chain_trackers": {
+    "demo_portfolio": {
+      "as_of": "2026-08-26T14:00:00Z",
+      "fx_applied": true,
+      "chains_covered": ["ethereum", "bitcoin", "arbitrum", "solana"],
+      "pnl": {
+        "cost_basis_usd": 380000.0,
+        "realized_pnl_usd": 12500.0
+      },
+      "holdings": [
+        {
+          "source_id": "eth_wallet_001",
+          "source_type": "wallet",
+          "asset": "ETH",
+          "network": "ethereum",
+          "amount": 10.0,
+          "value_usd": 42000.0,
+          "freshness_seconds": 300,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "arb_wallet_001",
+          "source_type": "wallet",
+          "asset": "WETH",
+          "network": "arbitrum",
+          "amount": 5.0,
+          "value_usd": 21000.0,
+          "freshness_seconds": 600,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "btc_wallet_001",
+          "source_type": "wallet",
+          "asset": "BTC",
+          "network": "bitcoin",
+          "amount": 1.5,
+          "value_usd": 142500.0,
+          "freshness_seconds": 900,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "eth_bridge_001",
+          "source_type": "wallet",
+          "asset": "WBTC",
+          "network": "ethereum",
+          "amount": 0.5,
+          "value_usd": 47500.0,
+          "freshness_seconds": 1200,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "eth_bridge_dup",
+          "source_type": "wallet",
+          "asset": "WBTC",
+          "network": "ethereum",
+          "amount": 0.5,
+          "value_usd": 47500.0,
+          "freshness_seconds": 1200,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "sol_wallet_001",
+          "source_type": "wallet",
+          "asset": "SOL",
+          "network": "solana",
+          "amount": 500.0,
+          "value_usd": 75000.0,
+          "freshness_seconds": 5400,
+          "stale": true,
+          "missing": false
+        },
+        {
+          "source_id": "defi_aave",
+          "source_type": "defi",
+          "asset": "USDC",
+          "network": "ethereum",
+          "amount": 25000.0,
+          "value_usd": 25000.0,
+          "freshness_seconds": 1800,
+          "stale": false,
+          "missing": false
+        }
+      ],
+      "defi_positions": [
+        {
+          "protocol": "Aave V3",
+          "chain": "ethereum",
+          "position_type": "supply",
+          "asset": "USDC",
+          "amount": 25000.0,
+          "value_usd": 25000.0,
+          "freshness_seconds": 1800,
+          "stale": false
+        },
+        {
+          "protocol": "Uniswap V3",
+          "chain": "ethereum",
+          "position_type": "lp",
+          "asset": "ETH/USDC",
+          "amount": null,
+          "value_usd": 18500.0,
+          "freshness_seconds": 2400,
+          "stale": false
         }
       ]
     }

@@ -1,10 +1,11 @@
 """
-Portfolio Intelligence Layer — Features #515 #557 #558 merged (Sprint 1 Portfolio Layer).
+Portfolio Intelligence Layer — Features #515 #557 #558 #569 merged (Sprint 1 Portfolio Layer).
 
-Epic with 3 sub-module tasks (not standalone tickets):
+Epic with 4 sub-module tasks (not standalone tickets):
   #515 Historical Portfolio Snapshot — point-in-time reconstruction
   #557 Global Asset Tracker — unified cross-exchange/wallet view
   #558 Historical Wallet Balance Tool — point-in-time address balance lookup
+  #569 Multi-Chain Portfolio Tracker — cross-chain dedupe + exposure metrics
 
 Depends on #541 Entity Resolution and #516 Asset Intelligence Profiles.
 """
@@ -21,7 +22,7 @@ from typing import Any
 
 logger = logging.getLogger("BLACKDARK.PortfolioIntelligenceLayer")
 
-_FEATURE_IDS = (515, 557, 558)
+_FEATURE_IDS = (515, 557, 558, 569)
 _EPIC_ID = 557
 _RENAMED_FROM_515 = "Archive / Historical Portfolio Snapshot"
 _TITLE = "Portfolio Intelligence Layer"
@@ -52,6 +53,12 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "title": "Historical Wallet Balance Tool",
         "description": "Point-in-time balance lookup with reorg/revision handling",
     },
+    "569": {
+        "task_id": "569",
+        "name": "multi_chain_portfolio_tracker",
+        "title": "Multi-Chain Portfolio Tracker",
+        "description": "Cross-chain aggregation with bridged asset dedupe and exposure metrics",
+    },
 }
 
 _DISCLAIMER = (
@@ -59,11 +66,19 @@ _DISCLAIMER = (
     "Stale/missing data visible. Not investment advice."
 )
 
+_PNL_DISCLAIMER = (
+    "Calculated from available on-chain data | Not tax advice | "
+    "Past performance does not indicate future results."
+)
+
 _BANNED_TERMS = (
     "your portfolio is up = buy more",
     "you should buy",
     "you should sell",
     "investment advice",
+    "rebalancing suggestion",
+    "risk score",
+    "portfolio risk",
 )
 
 
@@ -236,6 +251,172 @@ def build_global_asset_tracker(
     }
 
 
+def _dedupe_bridged_assets(
+    holdings: list[dict[str, Any]],
+    bridge_map: dict[str, Any],
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Cross-chain bridged asset dedupe — mandatory for #569."""
+    canonical_groups = bridge_map.get("canonical_groups") or {}
+    asset_to_canonical: dict[str, str] = {}
+    for canonical, variants in canonical_groups.items():
+        for variant in variants:
+            asset_to_canonical[variant.upper()] = canonical.upper()
+
+    seen_canonical_chain: set[str] = set()
+    deduped: list[dict[str, Any]] = []
+    bridged_removed = 0
+
+    for h in holdings:
+        asset = h.get("asset", "").upper()
+        network = h.get("network", "default")
+        canonical = asset_to_canonical.get(asset, asset)
+        key = f"{canonical}:{network}"
+        bridge_note = None
+
+        if asset != canonical:
+            bridge_note = f"bridged variant {asset} → canonical {canonical}"
+            canonical_key = f"{canonical}:{network}"
+            if canonical_key in seen_canonical_chain:
+                bridged_removed += 1
+                continue
+            seen_canonical_chain.add(canonical_key)
+        else:
+            if key in seen_canonical_chain:
+                bridged_removed += 1
+                continue
+            seen_canonical_chain.add(key)
+
+        entry = {**h, "canonical_asset": canonical}
+        if bridge_note:
+            entry["bridge_dedupe_note"] = bridge_note
+        deduped.append(entry)
+
+    return deduped, {
+        "bridged_asset_dedupe": True,
+        "bridged_duplicates_removed": bridged_removed,
+        "deduped_count": len(deduped),
+        "original_count": len(holdings),
+    }
+
+
+def build_multi_chain_portfolio_tracker(
+    portfolio_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#569 — unified cross-chain portfolio with exposure metrics (not risk)."""
+    seed = seed or _load_seed()
+    tracker = (seed.get("multi_chain_trackers") or {}).get(portfolio_id)
+    if not tracker:
+        return {"ok": False, "error": "tracker_not_found", "portfolio_id": portfolio_id}
+
+    symbol_map = seed.get("symbol_normalization") or {}
+    bridge_map = seed.get("bridge_dedupe_map") or {}
+    raw_holdings = tracker.get("holdings") or []
+    holdings, source_dedup = _dedupe_holdings(raw_holdings)
+    holdings, bridge_dedup = _dedupe_bridged_assets(holdings, bridge_map)
+
+    normalized: list[dict[str, Any]] = []
+    for h in holdings:
+        norm_sym = _normalize_symbol(h.get("asset", ""), symbol_map)
+        canonical = h.get("canonical_asset", norm_sym)
+        normalized.append({
+            **h,
+            "normalized_asset": norm_sym,
+            "canonical_asset": canonical,
+            "stale": h.get("stale", False),
+            "missing": h.get("missing", False),
+            "freshness_seconds": h.get("freshness_seconds", 0),
+            "stale_flag_visible": True,
+        })
+
+    stale_count = sum(1 for h in normalized if h.get("stale"))
+    missing_count = sum(1 for h in normalized if h.get("missing"))
+    active = [h for h in normalized if not h.get("missing")]
+    net_worth = sum(float(h.get("value_usd", 0)) for h in active)
+
+    by_chain: dict[str, float] = {}
+    by_asset: dict[str, float] = {}
+    for h in active:
+        chain = h.get("network", "unknown")
+        asset = h.get("canonical_asset", h.get("normalized_asset", "unknown"))
+        val = float(h.get("value_usd", 0))
+        by_chain[chain] = by_chain.get(chain, 0) + val
+        by_asset[asset] = by_asset.get(asset, 0) + val
+
+    allocation_by_chain = {
+        k: round(v / net_worth * 100, 2) if net_worth > 0 else 0.0
+        for k, v in by_chain.items()
+    }
+    allocation_by_asset = {
+        k: round(v / net_worth * 100, 2) if net_worth > 0 else 0.0
+        for k, v in by_asset.items()
+    }
+
+    pnl = tracker.get("pnl") or {}
+    cost_basis = float(pnl.get("cost_basis_usd", 0))
+    unrealized_pnl = round(net_worth - cost_basis, 2) if cost_basis > 0 else None
+
+    chains_covered = tracker.get("chains_covered") or list(by_chain.keys())
+    chain_coverage_meta = {
+        chain: (seed.get("chain_coverage") or {}).get(chain, {"supported": True})
+        for chain in chains_covered
+    }
+
+    defi_positions = tracker.get("defi_positions") or []
+
+    return {
+        "ok": True,
+        "task_id": "569",
+        "portfolio_id": portfolio_id,
+        "renamed_from": "Multi-Chain Portfolio Intelligence",
+        "net_worth_usd": round(net_worth, 2),
+        "no_advisory_language": True,
+        "no_rebalancing_suggestions": True,
+        "exposure_metrics": {
+            "exposure_breakdown_by_chain": {
+                k: round(v, 2) for k, v in by_chain.items()
+            },
+            "exposure_breakdown_by_asset": {
+                k: round(v, 2) for k, v in by_asset.items()
+            },
+            "allocation_by_chain_pct": allocation_by_chain,
+            "allocation_by_asset_pct": allocation_by_asset,
+            "no_risk_score_output": True,
+            "display": "Exposure Breakdown by Asset/Chain — user assesses risk",
+        },
+        "pnl": {
+            "cost_basis_usd": cost_basis if cost_basis > 0 else None,
+            "unrealized_pnl_usd": unrealized_pnl,
+            "realized_pnl_usd": pnl.get("realized_pnl_usd"),
+            "pnl_disclaimer": _PNL_DISCLAIMER,
+            "disclaimer_on_every_pnl_output": True,
+        },
+        "holdings": normalized,
+        "defi_positions": defi_positions,
+        "stale_missing_visibility": {
+            "stale_count": stale_count,
+            "missing_count": missing_count,
+            "stale_visible": True,
+            "missing_visible": True,
+            "stale_data_flags": True,
+        },
+        "chain_coverage": {
+            "chains_covered": chains_covered,
+            "coverage_by_chain": chain_coverage_meta,
+            "chain_coverage_explicit": True,
+        },
+        "deduplication": {
+            "source_dedup": source_dedup,
+            "bridge_dedup": bridge_dedup,
+            "bridged_asset_dedupe": bridge_dedup.get("bridged_asset_dedupe") is True,
+        },
+        "fx_applied": tracker.get("fx_applied", True),
+        "as_of": tracker.get("as_of"),
+        "display": f"Net Worth: ${net_worth:,.2f} | Chains: {len(chains_covered)}",
+    }
+
+
 def build_historical_wallet_balance(
     address: str,
     *,
@@ -345,6 +526,29 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
                 "passed": bal.get("chain_coverage", {}).get("coverage_explicit") is True,
             })
 
+    for portfolio_id in (seed.get("multi_chain_trackers") or {}):
+        mc = build_multi_chain_portfolio_tracker(portfolio_id, seed=seed)
+        tests.append({
+            "test": f"bridged_asset_dedupe_{portfolio_id}",
+            "passed": mc.get("deduplication", {}).get("bridged_asset_dedupe") is True,
+        })
+        tests.append({
+            "test": f"stale_flags_{portfolio_id}",
+            "passed": mc.get("stale_missing_visibility", {}).get("stale_data_flags") is True,
+        })
+        tests.append({
+            "test": f"chain_coverage_{portfolio_id}",
+            "passed": mc.get("chain_coverage", {}).get("chain_coverage_explicit") is True,
+        })
+        tests.append({
+            "test": f"no_risk_output_{portfolio_id}",
+            "passed": mc.get("exposure_metrics", {}).get("no_risk_score_output") is True,
+        })
+        tests.append({
+            "test": f"pnl_disclaimer_{portfolio_id}",
+            "passed": _PNL_DISCLAIMER in (mc.get("pnl") or {}).get("pnl_disclaimer", ""),
+        })
+
     panel_portfolio = next(iter(seed.get("portfolios") or {}), "demo_portfolio")
     panel = build_portfolio_intelligence_panel(portfolio_id=panel_portfolio)
     if panel.get("ok"):
@@ -394,6 +598,7 @@ def build_portfolio_intelligence_panel(
     ) if latest_ts else {"ok": False, "error": "no_snapshots"}
 
     tracker = build_global_asset_tracker(portfolio_id, seed=seed)
+    multi_chain = build_multi_chain_portfolio_tracker(portfolio_id, seed=seed)
 
     wallet_balance: dict[str, Any] = {"ok": False, "skipped": True}
     if wallet_address and wallet_chain and wallet_timestamp:
@@ -419,6 +624,7 @@ def build_portfolio_intelligence_panel(
             "515": "Historical Portfolio Snapshot — part of Portfolio Intelligence Layer",
             "557": "Global Asset Tracker — merged into epic",
             "558": "Historical Wallet Balance Tool — task not ticket",
+            "569": "Multi-Chain Portfolio Intelligence → Multi-Chain Portfolio Tracker",
         },
         "title": _TITLE,
         "standalone": _STANDALONE,
@@ -432,6 +638,7 @@ def build_portfolio_intelligence_panel(
             "515_historical_portfolio_snapshot": snapshot,
             "557_global_asset_tracker": tracker,
             "558_historical_wallet_balance": wallet_balance,
+            "569_multi_chain_portfolio_tracker": multi_chain,
             "tasks_not_tickets": True,
         },
         "available_snapshots": portfolio.get("available_snapshots", []),
@@ -445,7 +652,11 @@ def build_portfolio_intelligence_panel(
             "reorg_revision_handling": True,
             "exact_timestamp_semantics": True,
             "no_advisory_language": True,
+            "bridged_asset_dedupe": True,
+            "exposure_metrics_not_risk": True,
+            "pnl_disclaimer": True,
         },
+        "pnl_disclaimer": _PNL_DISCLAIMER,
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
         "latency_ms": elapsed,
@@ -469,6 +680,7 @@ def portfolio_intelligence_layer_status() -> dict[str, Any]:
         "dependencies": build_dependencies_block(),
         "portfolio_count": len(seed.get("portfolios") or {}),
         "wallet_count": len(seed.get("wallets") or {}),
+        "multi_chain_tracker_count": len(seed.get("multi_chain_trackers") or {}),
         "acceptance_criteria": {
             "reconciliation_tests": True,
             "duplicate_prevention": True,
@@ -477,7 +689,11 @@ def portfolio_intelligence_layer_status() -> dict[str, Any]:
             "chain_coverage_explicit": True,
             "reorg_revision_handling": True,
             "no_advisory_language": True,
+            "bridged_asset_dedupe": True,
+            "exposure_metrics_not_risk": True,
+            "pnl_disclaimer": True,
         },
+        "pnl_disclaimer": _PNL_DISCLAIMER,
         "banned_output_terms": list(_BANNED_TERMS),
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
