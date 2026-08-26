@@ -1,0 +1,62 @@
+{
+  "feature_id": 716,
+  "feature_ids": [712, 716],
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Strategy Lab",
+  "sprint": 2,
+  "tier": "pro/institution",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "as_of_timestamp_utc": "2026-08-26T00:00:00+00:00",
+  "qa_gate": {
+    "coverage_pct": 87.5,
+    "reproducible_tests": true,
+    "sandbox_before_production": true,
+    "uncontrolled_blast_radius": false,
+    "backtest_years": 2,
+    "documentation_complete": true,
+    "last_verified": "2026-08-25T12:00:00+00:00"
+  },
+  "strategies": {
+    "liquidity_inflow_alert": {
+      "name": "Liquidity Inflow Alert Buy",
+      "description": "Buy when Liquidity Inflow Alert fires",
+      "example_query": "What if I bought every time a Liquidity Inflow Alert appeared?",
+      "tier_required": "pro",
+      "no_curve_fitting": true,
+      "simulated_runtime_sec": 4.2,
+      "historical_metrics": {
+        "win_rate_pct": 62,
+        "average_return_pct": 8.0,
+        "max_drawdown_pct": 12.0,
+        "backtest_months": 18,
+        "backtest_years": 2,
+        "trade_count": 47
+      },
+      "walk_forward": {
+        "folds": 5,
+        "out_of_sample_pct": 30
+      }
+    },
+    "cvd_divergence_short": {
+      "name": "CVD Divergence Short",
+      "description": "Short on bearish CVD divergence at resistance",
+      "example_query": "What if I shorted on CVD divergence signals?",
+      "tier_required": "institution",
+      "no_curve_fitting": true,
+      "simulated_runtime_sec": 6.8,
+      "historical_metrics": {
+        "win_rate_pct": 55,
+        "average_return_pct": 5.2,
+        "max_drawdown_pct": 15.5,
+        "backtest_months": 24,
+        "backtest_years": 2,
+        "trade_count": 63
+      },
+      "walk_forward": {
+        "folds": 6,
+        "out_of_sample_pct": 25
+      }
+    }
+  }
+}

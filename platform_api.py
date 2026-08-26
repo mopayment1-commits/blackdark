@@ -890,3 +890,56 @@ async def token_unlock_actionability_route(asset: str = Query("ARB")):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/strategy-lab/status")
+async def strategy_lab_status_route():
+    """#716 Strategy Lab + #712 internal QA gate — Pro/Institution."""
+    from bd_platform.strategy_lab import strategy_lab_status
+
+    return strategy_lab_status()
+
+
+@router.get("/intelligence-ledger/strategy-lab")
+async def strategy_lab_panel_route(strategy_id: str = Query("liquidity_inflow_alert")):
+    """#716 historical backtest panel — simulation not prediction."""
+    from bd_platform.strategy_lab import build_strategy_lab_panel
+
+    result = build_strategy_lab_panel(strategy_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/strategy-lab/strategies")
+async def strategy_lab_strategies_route(limit: int = Query(20, ge=1, le=50)):
+    from bd_platform.strategy_lab import list_strategies
+
+    return list_strategies(limit=limit)
+
+
+@router.get("/intelligence-ledger/strategy-lab/verified-badge")
+async def strategy_lab_verified_badge_route():
+    """#712 — user-visible badge only. Internal QA details hidden."""
+    from bd_platform.strategy_lab import build_model_verified_badge
+
+    return build_model_verified_badge()
+
+
+@router.get("/intelligence-ledger/portfolio-health/status")
+async def portfolio_health_status_route():
+    """#717 Diversification Score + #109 risk + #199 PnL drift."""
+    from bd_platform.portfolio_diversification import portfolio_diversification_status
+
+    return portfolio_diversification_status()
+
+
+@router.get("/intelligence-ledger/portfolio-health")
+async def portfolio_health_panel_route(portfolio_id: str = Query("default")):
+    """#717 portfolio health — Diversification Score (not 'Entropy')."""
+    from bd_platform.portfolio_diversification import build_portfolio_health_panel
+
+    result = build_portfolio_health_panel(portfolio_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
