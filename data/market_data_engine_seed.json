@@ -8,7 +8,23 @@
   "absorbed_tickets": {
     "331": "Derivatives Venue Feed (standalone rejected)",
     "333": "Funding Rate Context Panel (standalone rejected)",
-    "343": "Basis Curve (standalone rejected)"
+    "343": "Basis Curve (standalone rejected)",
+    "395": "Market Data Normalization Layer (standalone rejected)"
+  },
+  "normalization": {
+    "BTC": {
+      "spot": {"canonical_id": "asset_btc", "venue": "binance", "symbol": "BTCUSDT"},
+      "derivatives": [
+        {"canonical_id": "inst_btc_perp", "venue": "binance", "contract_type": "perp", "symbol": "BTCUSDT", "contract_specs_validated": true, "asset_mismatch": false, "expiry": null, "funding_interval_hours": 8},
+        {"canonical_id": "inst_btc_q4", "venue": "binance", "contract_type": "futures", "symbol": "BTC-2026Q4", "contract_specs_validated": true, "asset_mismatch": false, "expiry": "2026-12-26", "funding_interval_hours": null}
+      ]
+    },
+    "ETH": {
+      "spot": {"canonical_id": "asset_eth", "venue": "binance", "symbol": "ETHUSDT"},
+      "derivatives": [
+        {"canonical_id": "inst_eth_perp", "venue": "binance", "contract_type": "perp", "symbol": "ETHUSDT", "contract_specs_validated": true, "asset_mismatch": false, "expiry": null, "funding_interval_hours": 8}
+      ]
+    }
   },
   "provider_semantics": {
     "schema_version": "1.0",

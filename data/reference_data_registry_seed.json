@@ -1,0 +1,120 @@
+{
+  "feature_id": 394,
+  "title": "Reference Data Registry",
+  "wave": 0,
+  "sprint": 0,
+  "priority": "highest",
+  "internal_only": true,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "assets": {
+    "asset_btc": {
+      "canonical_id": "asset_btc",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "version": "1.0",
+      "lifecycle_status": "active",
+      "supply": {
+        "max_supply": 21000000,
+        "circulating_supply": 19800000,
+        "supply_source": "on_chain_verified"
+      },
+      "derivative_specs": {
+        "perp_available": true,
+        "futures_available": true,
+        "options_available": true
+      },
+      "lifecycle_history": [],
+      "mappings": [
+        {
+          "mapping_id": "map_btc_coingecko",
+          "canonical_id": "asset_btc",
+          "source_id": "bitcoin",
+          "source": "coingecko",
+          "mapping_version": "1.0",
+          "effective_from": "2024-01-01",
+          "entity_type": "asset"
+        },
+        {
+          "mapping_id": "map_btc_binance",
+          "canonical_id": "asset_btc",
+          "source_id": "BTC",
+          "source": "binance",
+          "mapping_version": "1.0",
+          "effective_from": "2024-01-01",
+          "entity_type": "asset"
+        }
+      ]
+    },
+    "asset_luna": {
+      "canonical_id": "asset_luna",
+      "symbol": "LUNA",
+      "name": "Terra (legacy)",
+      "version": "2.0",
+      "lifecycle_status": "rebranded",
+      "supply": {
+        "max_supply": null,
+        "circulating_supply": null,
+        "supply_source": "deprecated"
+      },
+      "lifecycle_history": [
+        {"event": "rebrand", "date": "2022-05-28", "new_canonical_id": "asset_lunc"},
+        {"event": "delist", "date": "2022-05-13", "note": "Terra collapse — retained for survivorship"}
+      ],
+      "mappings": [
+        {
+          "mapping_id": "map_luna_legacy",
+          "canonical_id": "asset_luna",
+          "source_id": "terra-luna",
+          "source": "coingecko",
+          "mapping_version": "2.0",
+          "effective_from": "2022-05-28",
+          "effective_to": null,
+          "previous_versions_archived": true,
+          "entity_type": "asset"
+        }
+      ]
+    }
+  },
+  "exchanges": {
+    "exchange_binance": {
+      "canonical_id": "exchange_binance",
+      "name": "Binance",
+      "venue_type": "CEX",
+      "version": "1.0",
+      "lifecycle_status": "active",
+      "mappings": [
+        {
+          "mapping_id": "map_binance",
+          "canonical_id": "exchange_binance",
+          "source_id": "binance",
+          "source": "internal",
+          "mapping_version": "1.0",
+          "effective_from": "2024-01-01",
+          "entity_type": "exchange"
+        }
+      ]
+    }
+  },
+  "instruments": {},
+  "mappings": [
+    {
+      "mapping_id": "map_btc_coingecko",
+      "canonical_id": "asset_btc",
+      "source_id": "bitcoin",
+      "source": "coingecko",
+      "mapping_version": "1.0",
+      "effective_from": "2024-01-01",
+      "entity_type": "asset"
+    },
+    {
+      "mapping_id": "map_btc_binance",
+      "canonical_id": "asset_btc",
+      "source_id": "BTC",
+      "source": "binance",
+      "mapping_version": "1.0",
+      "effective_from": "2024-01-01",
+      "entity_type": "asset"
+    }
+  ]
+}

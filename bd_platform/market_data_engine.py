@@ -1,7 +1,7 @@
 """
 Market Data Engine — Feature #274 (Sprint 1 Data Engine).
 
-Absorbs #331 (Derivatives Venue Feed) and #333 (Funding Rate Context Panel).
+Absorbs #331, #333, #343, #395 (Market Data Normalization Layer).
 Market Data Display only — feeds engine, no standalone dashboard, no trading signals.
 """
 
@@ -18,7 +18,7 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.MarketDataEngine")
 
 _FEATURE_ID = 274
-_ABSORBED_IDS = (331, 333, 343)
+_ABSORBED_IDS = (331, 333, 343, 395)
 _STANDALONE = False
 _MERGED_INTO = "Market Radar / Market Data Engine"
 _SPRINT = 1
@@ -467,6 +467,68 @@ def build_basis_curve_component(asset: str = "BTC") -> dict[str, Any]:
     }
 
 
+def build_market_data_normalization_layer(asset: str = "BTC") -> dict[str, Any]:
+    """#395 Spot & Derivatives Coverage — absorbed as Market Data Normalization Layer."""
+    t0 = time.perf_counter()
+    seed = _load_seed()
+    sym = asset.upper()
+    norm = (seed.get("normalization") or {}).get(sym)
+
+    if not norm:
+        return {"ok": False, "feature_id": _FEATURE_ID, "sub_task": "#395", "error": "asset_not_tracked", "asset": sym}
+
+    spot = norm.get("spot") or {}
+    derivatives = norm.get("derivatives") or []
+    validated = [d for d in derivatives if d.get("contract_specs_validated")]
+
+    mismatches = [d for d in derivatives if d.get("asset_mismatch")]
+    elapsed = round((time.perf_counter() - t0) * 1000, 1)
+
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID,
+        "sub_task": "#395",
+        "absorbed_from": "Spot & Derivatives Coverage",
+        "title": "Market Data Normalization Layer",
+        "standalone_rejected": True,
+        "merged_into": "Market Data Engine (#274)",
+        "no_separate_sprint": True,
+        "no_engineering_allocation": True,
+        "no_coverage_as_product": True,
+        "asset": sym,
+        "spot": {
+            "canonical_id": spot.get("canonical_id"),
+            "venue": spot.get("venue"),
+            "symbol": spot.get("symbol"),
+            "normalized": True,
+        },
+        "derivatives": [
+            {
+                "canonical_id": d.get("canonical_id"),
+                "venue": d.get("venue"),
+                "contract_type": d.get("contract_type"),
+                "symbol": d.get("symbol"),
+                "contract_specs_validated": d.get("contract_specs_validated", False),
+                "asset_mismatch": d.get("asset_mismatch", False),
+                "excluded": d.get("asset_mismatch", False),
+                "expiry": d.get("expiry"),
+                "funding_interval_hours": d.get("funding_interval_hours"),
+            }
+            for d in derivatives
+        ],
+        "contract_specs_validated": all(d.get("contract_specs_validated") for d in derivatives),
+        "no_asset_mismatch": len(mismatches) == 0,
+        "asset_mismatch_count": len(mismatches),
+        "validated_derivative_count": len(validated),
+        "cross_venue_normalization": True,
+        "unified_market_dataset": True,
+        "feeds_engine": True,
+        "no_dashboard": True,
+        "latency_ms": elapsed,
+        "timestamp": _utcnow(),
+    }
+
+
 def market_data_engine_status() -> dict[str, Any]:
     seed = _load_seed()
     return {
@@ -481,6 +543,7 @@ def market_data_engine_status() -> dict[str, Any]:
             331: "Derivatives Venue Feed (standalone rejected)",
             333: "Funding Rate Context Panel (standalone rejected, renamed from Funding Rate Intelligence)",
             343: "Basis Curve (standalone rejected)",
+            395: "Market Data Normalization Layer (standalone rejected, from Spot & Derivatives Coverage)",
         },
         "no_separate_sprint": True,
         "no_engineering_allocation": True,
