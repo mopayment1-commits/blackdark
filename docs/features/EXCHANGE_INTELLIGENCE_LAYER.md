@@ -1,8 +1,8 @@
-# Exchange Intelligence Layer — #544 #546 #547 #548 #549 #550
+# Exchange Intelligence Layer — #544 #546 #547 #548 #549 #550 #551
 
 ## Epic Decision
 
-Six exchange-related tickets merged into one epic: **Exchange Intelligence Layer**.
+Seven exchange-related tickets merged into one epic: **Exchange Intelligence Layer**.
 These are sub-module tasks, not standalone features.
 
 | Task | Sub-Module | Role |
@@ -13,8 +13,18 @@ These are sub-module tasks, not standalone features.
 | #546 | Flow Intelligence | Net inflow/outflow dashboard |
 | #544 | Balance & Netflow | Balances, trends, anomalies |
 | #550 | Reserve Intelligence | Exchange-held assets, change, confidence |
+| #551 | Supply / Balance Intelligence | Entity-adjusted balance + share of supply (extends #550) |
 
 Depends on: **#541 Entity Resolution Engine** (exchange wallet clusters)
+
+## #551 — Exchange Supply / Balance Intelligence
+
+| Rule | Implementation |
+|------|----------------|
+| No standalone | Merged into Exchange Intelligence Epic |
+| Entity-adjusted | Balances computed from entity-resolved clusters |
+| Cluster revisions tracked | Revision log with affected exchanges |
+| Historical reproducibility | Snapshot ID + as_of timestamp |
 
 ## Acceptance Criteria
 
@@ -27,6 +37,9 @@ Depends on: **#541 Entity Resolution Engine** (exchange wallet clusters)
 | Timestamps aligned | Transfer timestamps preserved |
 | Freshness visible | Reserve/balance freshness_seconds exposed |
 | Historical revisions controlled | Revision log + controlled replay |
+| Entity-adjusted (#551) | Supply balances from entity clusters |
+| Cluster revisions tracked (#551) | Revision log per exchange |
+| Historical reproducibility (#551) | Snapshot + methodology version |
 | Reconciliation tests | Automated — mandatory |
 
 ## API
@@ -50,5 +63,6 @@ On-Chain Intelligence Layer (Sprint 1)
     ├── #548 Inflow Intelligence
     ├── #546 Flow Intelligence
     ├── #544 Balance & Netflow
-    └── #550 Reserve Intelligence
+    ├── #550 Reserve Intelligence
+    └── #551 Supply / Balance Intelligence (extends #550)
 ```

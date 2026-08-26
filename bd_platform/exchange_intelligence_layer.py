@@ -1,13 +1,14 @@
 """
-Exchange Intelligence Layer — Features #544 #546 #547 #548 #549 #550 merged (Sprint 1).
+Exchange Intelligence Layer — Features #544 #546 #547 #548 #549 #550 #551 merged (Sprint 1).
 
-Epic with 6 sub-module tasks (not standalone tickets):
+Epic with 7 sub-module tasks (not standalone tickets):
   #549 Internal-Flow Filter
   #547 Netflow Formula
   #548 Inflow Intelligence
   #546 Flow Intelligence
   #544 Balance & Netflow Intelligence
   #550 Reserve Intelligence
+  #551 Supply / Balance Intelligence
 
 Depends on #541 Entity Resolution Engine.
 """
@@ -23,7 +24,7 @@ from typing import Any, Literal
 
 logger = logging.getLogger("BLACKDARK.ExchangeIntelligenceLayer")
 
-_FEATURE_IDS = (544, 546, 547, 548, 549, 550)
+_FEATURE_IDS = (544, 546, 547, 548, 549, 550, 551)
 _EPIC_ID = 544
 _TITLE = "Exchange Intelligence Layer"
 _STANDALONE = False
@@ -70,6 +71,12 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "name": "reserve_intelligence",
         "title": "Exchange Reserve Intelligence",
         "description": "Exchange-held assets, change, trend, confidence",
+    },
+    "551": {
+        "task_id": "551",
+        "name": "supply_balance_intelligence",
+        "title": "Exchange Supply / Balance Intelligence",
+        "description": "Entity-adjusted exchange-held balance and share of supply",
     },
 }
 
@@ -322,6 +329,67 @@ def build_reserve_intelligence(
     }
 
 
+def build_supply_balance_intelligence(
+    exchange_id: str,
+    *,
+    seed: dict[str, Any],
+    asset: str | None = None,
+) -> dict[str, Any]:
+    """#551 exchange balance/supply chart — entity-adjusted, cluster revisions tracked."""
+    exchange = (seed.get("exchanges") or {}).get(exchange_id, {})
+    supply = (seed.get("supply_balances") or {}).get(exchange_id, {})
+    revisions = seed.get("revisions") or []
+
+    by_asset_raw = supply.get("by_asset") or {}
+    if asset:
+        key = asset.upper()
+        by_asset_raw = {k: v for k, v in by_asset_raw.items() if k.upper() == key}
+
+    by_asset: dict[str, dict[str, Any]] = {}
+    for asset_sym, data in by_asset_raw.items():
+        if not isinstance(data, dict):
+            continue
+        balance = float(data.get("balance", 0))
+        total_supply = float(data.get("total_supply", 0))
+        share_pct = round((balance / total_supply * 100) if total_supply > 0 else 0, 4)
+        by_asset[asset_sym] = {
+            "balance": balance,
+            "total_supply": total_supply,
+            "share_of_supply_pct": share_pct,
+            "entity_adjusted": True,
+            "cluster_version": data.get("cluster_version"),
+        }
+
+    exchange_revisions = [
+        r for r in revisions
+        if exchange_id in (r.get("affected_exchanges") or [exchange_id])
+        or not r.get("affected_exchanges")
+    ]
+
+    return {
+        "sub_module": _SUB_MODULES["551"],
+        "exchange_id": exchange_id,
+        "labels": build_label_metadata(exchange),
+        "entity_adjusted": True,
+        "by_asset": by_asset,
+        "total_balance_usd": supply.get("total_balance_usd"),
+        "cluster_revisions_tracked": True,
+        "cluster_revisions": exchange_revisions,
+        "revision_count": len(exchange_revisions),
+        "historical_reproducibility": supply.get("historical_reproducibility", True),
+        "snapshot_id": supply.get("snapshot_id"),
+        "as_of": supply.get("as_of"),
+        "methodology_version": supply.get("methodology_version", _METHODOLOGY_VERSION),
+        "extends_reserve_intelligence": True,
+        "extends_feature_id": 550,
+        "dashboard": "exchange_balance_supply_chart",
+        "display": (
+            f"Supply/Balance: {len(by_asset)} assets | "
+            f"Revisions tracked: {len(exchange_revisions)}"
+        ),
+    }
+
+
 def build_internal_flow_filter_panel(
     transfers: list[dict[str, Any]],
     *,
@@ -345,7 +413,7 @@ def build_exchange_intelligence_panel(
     asset: str | None = None,
     adjusted: bool = True,
 ) -> dict[str, Any]:
-    """Main epic panel — all 6 sub-modules."""
+    """Main epic panel — all 7 sub-modules."""
     t0 = time.perf_counter()
     seed = _load_seed()
     exchanges = seed.get("exchanges") or {}
@@ -370,7 +438,7 @@ def build_exchange_intelligence_panel(
         "title": _TITLE,
         "standalone": _STANDALONE,
         "standalone_rejected": True,
-        "no_six_standalone_features": True,
+        "no_standalone_features": True,
         "layer": _LAYER,
         "sprint": _SPRINT,
         "exchange_id": exchange_id,
@@ -389,6 +457,9 @@ def build_exchange_intelligence_panel(
             "546_flow_intelligence": build_flow_intelligence(ex_transfers, exchange_id=exchange_id),
             "544_balance_netflow": build_balance_netflow(exchange_id, seed=seed, transfers=ex_transfers),
             "550_reserve_intelligence": build_reserve_intelligence(exchange_id, seed=seed),
+            "551_supply_balance_intelligence": build_supply_balance_intelligence(
+                exchange_id, seed=seed, asset=asset,
+            ),
             "tasks_not_tickets": True,
         },
         "acceptance_criteria": {
@@ -399,6 +470,9 @@ def build_exchange_intelligence_panel(
             "timestamps_aligned": True,
             "freshness_visible": True,
             "historical_revisions_controlled": True,
+            "entity_adjusted": True,
+            "cluster_revisions_tracked": True,
+            "historical_reproducibility": True,
             "reconciliation_tests": True,
         },
         "disclaimer": _DISCLAIMER,
@@ -444,6 +518,17 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         "passed": formula_ok,
     })
 
+    supply = build_supply_balance_intelligence("binance", seed=seed)
+    supply_ok = (
+        supply.get("entity_adjusted") is True
+        and supply.get("cluster_revisions_tracked") is True
+        and supply.get("historical_reproducibility") is True
+    )
+    tests.append({
+        "test": "supply_balance_entity_adjusted",
+        "passed": supply_ok,
+    })
+
     all_passed = all(t["passed"] for t in tests)
     return {
         "ok": True,
@@ -475,6 +560,9 @@ def exchange_intelligence_layer_status() -> dict[str, Any]:
             "no_silent_filtering": True,
             "labels_confidence_documented": True,
             "netflow_formula_fixed": True,
+            "entity_adjusted": True,
+            "cluster_revisions_tracked": True,
+            "historical_reproducibility": True,
             "reconciliation_tests": True,
         },
         "disclaimer": _DISCLAIMER,

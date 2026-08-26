@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "epic": "Exchange Intelligence Layer",
-  "tasks": ["#549", "#547", "#548", "#546", "#544", "#550"],
+  "tasks": ["#549", "#547", "#548", "#546", "#544", "#550", "#551"],
   "exchanges": {
     "binance": {
       "exchange_id": "binance",
@@ -203,7 +203,51 @@
       "effective_at": "2026-08-25T00:00:00Z",
       "reason": "cluster_relabel",
       "affected_transfers": ["tx-008"],
+      "affected_exchanges": ["binance"],
       "note": "binance hot wallet relabeled from community to entity_resolution"
+    },
+    {
+      "revision_id": "rev-002",
+      "effective_at": "2026-08-20T00:00:00Z",
+      "reason": "cluster_expansion",
+      "affected_exchanges": ["binance"],
+      "cluster_version": "1.1",
+      "note": "added cold wallet to binance cluster"
     }
-  ]
+  ],
+  "supply_balances": {
+    "binance": {
+      "total_balance_usd": 20107200000.0,
+      "as_of": "2026-08-26T10:35:00Z",
+      "snapshot_id": "snap-binance-20260826",
+      "methodology_version": "1.0",
+      "historical_reproducibility": true,
+      "by_asset": {
+        "BTC": {
+          "balance": 245120.0,
+          "total_supply": 19800000.0,
+          "cluster_version": "1.1"
+        },
+        "ETH": {
+          "balance": 1804800.0,
+          "total_supply": 120000000.0,
+          "cluster_version": "1.1"
+        }
+      }
+    },
+    "coinbase": {
+      "total_balance_usd": 2853600000.0,
+      "as_of": "2026-08-26T10:35:00Z",
+      "snapshot_id": "snap-coinbase-20260826",
+      "methodology_version": "1.0",
+      "historical_reproducibility": true,
+      "by_asset": {
+        "ETH": {
+          "balance": 951200.0,
+          "total_supply": 120000000.0,
+          "cluster_version": "1.0"
+        }
+      }
+    }
+  }
 }

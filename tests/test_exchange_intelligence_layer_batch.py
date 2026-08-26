@@ -1,4 +1,4 @@
-"""Tests — Exchange Intelligence Layer epic #544 #546 #547 #548 #549 #550."""
+"""Tests — Exchange Intelligence Layer epic #544 #546 #547 #548 #549 #550 #551."""
 
 from __future__ import annotations
 
@@ -87,6 +87,30 @@ def exchange_seed(tmp_path, monkeypatch):
                 "historical_replay_supported": True,
             },
         },
+        "revisions": [
+            {
+                "revision_id": "rev-001",
+                "effective_at": "2026-08-25T00:00:00Z",
+                "reason": "cluster_relabel",
+                "affected_exchanges": ["binance"],
+            },
+        ],
+        "supply_balances": {
+            "binance": {
+                "total_balance_usd": 5000000000.0,
+                "as_of": "2026-08-26T10:00:00Z",
+                "snapshot_id": "snap-test-001",
+                "methodology_version": "1.0",
+                "historical_reproducibility": True,
+                "by_asset": {
+                    "BTC": {
+                        "balance": 100000.0,
+                        "total_supply": 20000000.0,
+                        "cluster_version": "1.0",
+                    },
+                },
+            },
+        },
     }), encoding="utf-8")
     monkeypatch.setattr(eil, "_SEED_PATH", p)
     return p
@@ -96,7 +120,7 @@ def test_epic_status_merged_not_standalone(exchange_seed):
     status = eil.exchange_intelligence_layer_status()
     assert status["standalone_rejected"] is True
     assert status["tasks_not_tickets"] is True
-    assert set(status["feature_ids"]) == {544, 546, 547, 548, 549, 550}
+    assert set(status["feature_ids"]) == {544, 546, 547, 548, 549, 550, 551}
     assert status["dependencies"]["entity_resolution_feature_id"] == 541
 
 
@@ -180,16 +204,29 @@ def test_550_reserve_intelligence(exchange_seed):
     assert reserve["reconciliation_supported"] is True
 
 
+def test_551_supply_balance_intelligence(exchange_seed):
+    seed = json.loads(exchange_seed.read_text(encoding="utf-8"))
+    supply = eil.build_supply_balance_intelligence("binance", seed=seed)
+
+    assert supply["entity_adjusted"] is True
+    assert supply["cluster_revisions_tracked"] is True
+    assert supply["historical_reproducibility"] is True
+    assert supply["extends_feature_id"] == 550
+    assert supply["by_asset"]["BTC"]["share_of_supply_pct"] == 0.5
+    assert supply["revision_count"] >= 1
+
+
 def test_epic_panel_all_sub_modules(exchange_seed):
     panel = eil.build_exchange_intelligence_panel(exchange_id="binance")
     assert panel["ok"] is True
-    assert panel["no_six_standalone_features"] is True
+    assert panel["no_standalone_features"] is True
     assert "549_internal_flow_filter" in panel["sub_modules"]
     assert "547_netflow_formula" in panel["sub_modules"]
     assert "548_inflow_intelligence" in panel["sub_modules"]
     assert "546_flow_intelligence" in panel["sub_modules"]
     assert "544_balance_netflow" in panel["sub_modules"]
     assert "550_reserve_intelligence" in panel["sub_modules"]
+    assert "551_supply_balance_intelligence" in panel["sub_modules"]
     assert panel["filter"]["no_silent_filtering"] is True
 
 
@@ -200,6 +237,7 @@ def test_reconciliation_tests(exchange_seed):
     assert "internal_flow_classification" in test_names
     assert "no_silent_filtering" in test_names
     assert "netflow_formula_fixed" in test_names
+    assert "supply_balance_entity_adjusted" in test_names
 
 
 def test_api_routes(exchange_seed):
