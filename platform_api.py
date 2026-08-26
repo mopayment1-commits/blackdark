@@ -677,6 +677,43 @@ async def evidence_confidence_assessment_route(assessment_id: str = Query(...)):
     return result
 
 
+@router.get("/intelligence-ledger/epistemic-output/status")
+async def epistemic_output_framework_status_route():
+    """#316 Epistemic Output Framework — cross-cutting design principle, Sprint 2."""
+    from bd_platform.epistemic_output_framework import epistemic_output_framework_status
+
+    return epistemic_output_framework_status()
+
+
+@router.get("/intelligence-ledger/epistemic-output")
+async def epistemic_output_panel_route(panel_id: str = Query("btc_macro_synthesis")):
+    """#316 cross-domain analysis — Fact/Inference/Hypothesis separated, fully traceable."""
+    from bd_platform.epistemic_output_framework import build_cross_domain_panel
+
+    result = build_cross_domain_panel(panel_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.post("/intelligence-ledger/epistemic-output/wrap")
+async def epistemic_output_wrap_route(
+    analysis_summary: str = Body(...),
+    epistemic_items: list[dict[str, Any]] = Body(...),
+    domains: list[str] = Body(default_factory=list),
+    title: str | None = Body(None),
+):
+    """#316 wrap any intelligence output in epistemic envelope — no Decision language."""
+    from bd_platform.epistemic_output_framework import wrap_intelligence_output
+
+    return wrap_intelligence_output(
+        analysis_summary=analysis_summary,
+        epistemic_items=epistemic_items,
+        domains=domains,
+        title=title,
+    )
+
+
 @router.get("/intelligence-ledger/sector-rotation/status")
 async def sector_rotation_status_route():
     """#286 Sector Rotation & Flow Module — versioned universe, survivorship controlled."""
