@@ -743,3 +743,30 @@ async def alert_engine_delivery_logs_route(limit: int = Query(50, ge=1, le=200))
     from bd_platform.alert_engine import list_delivery_logs
 
     return list_delivery_logs(limit=limit)
+
+
+@router.get("/intelligence-ledger/taker-pressure/status")
+async def taker_pressure_status_route():
+    """#296 Taker Pressure Module — CEX spot + perp, orderflow sub-feature."""
+    from bd_platform.taker_pressure import taker_pressure_status
+
+    return taker_pressure_status()
+
+
+@router.get("/intelligence-ledger/taker-pressure")
+async def taker_pressure_panel_route(asset: str = Query("BTC")):
+    """#296 taker buy/sell pressure panel with rolling imbalance."""
+    from bd_platform.taker_pressure import build_taker_pressure_panel
+
+    result = build_taker_pressure_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/taker-pressure/classification-tests")
+async def taker_pressure_classification_tests_route(limit: int = Query(50, ge=1, le=200)):
+    """#296 CVD classification accuracy tests — min 95%."""
+    from bd_platform.taker_pressure import list_classification_tests
+
+    return list_classification_tests(limit=limit)
