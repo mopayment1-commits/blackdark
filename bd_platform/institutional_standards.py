@@ -164,6 +164,13 @@ def user_journey_map() -> list[dict[str, Any]]:
             "icon": "shield",
         },
         {
+            "id": "ask",
+            "title": "Ask (Natural Language)",
+            "path": "/ask",
+            "description": "Query analytics in plain language — data only, no advice",
+            "icon": "chat",
+        },
+        {
             "id": "launch",
             "title": "Launch Center",
             "path": "/launch-center",

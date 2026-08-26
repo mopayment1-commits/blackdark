@@ -76,6 +76,7 @@ Use `bd_platform.institutional_standards.wrap_intelligence_response()`.
 | Decision | `/dashboard` — Trust Pulse, oracle |
 | Platform tools | `/platform` — 40-point hub |
 | Intelligence | `/intelligence-ledger` — 109+ modules |
+| Natural language | `/ask` — #573 analytical queries, no advisory |
 | Institutional | `/institutional`, `/launch-center` |
 | CAP646 | `/cap646` |
 

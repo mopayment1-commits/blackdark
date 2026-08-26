@@ -1,0 +1,68 @@
+{
+  "epic_feature_id": 577,
+  "feature_ids": [577, 574, 737, 741],
+  "title": "On-Chain Metrics Library",
+  "standalone_rejected": true,
+  "layer": "Foundation Layer",
+  "sprint": 0,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "metric_definitions": {
+    "active_addresses": {
+      "name": "Active Addresses (24h)",
+      "formula": "count(distinct addresses with >=1 on-chain tx in rolling 24h window)",
+      "formula_version": "1.0",
+      "source": "blockchain_indexer",
+      "unit": "addresses",
+      "update_frequency": "hourly"
+    },
+    "transaction_count": {
+      "name": "Transaction Count (24h)",
+      "formula": "sum(confirmed transactions in rolling 24h window)",
+      "formula_version": "1.0",
+      "source": "blockchain_indexer",
+      "unit": "transactions",
+      "update_frequency": "hourly"
+    },
+    "hash_rate": {
+      "name": "Network Hash Rate",
+      "formula": "mean(block_hash_rate) over trailing 144 blocks",
+      "formula_version": "1.0",
+      "source": "miner_intelligence_layer",
+      "unit": "EH/s",
+      "update_frequency": "daily"
+    },
+    "exchange_netflow": {
+      "name": "Exchange Net Flow",
+      "formula": "exchange_inflow_usd - exchange_outflow_usd (24h)",
+      "formula_version": "1.0",
+      "source": "exchange_intelligence_layer",
+      "unit": "USD",
+      "update_frequency": "hourly"
+    }
+  },
+  "assets": {
+    "BTC": {
+      "metrics": {
+        "active_addresses": {"value": 892450, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "transaction_count": {"value": 312500, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "hash_rate": {"value": 612.4, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "exchange_netflow": {"value": -125000000, "available": true, "as_of": "2026-08-26T12:00:00Z"}
+      }
+    },
+    "ETH": {
+      "metrics": {
+        "active_addresses": {"value": 485200, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "transaction_count": {"value": 1120000, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "hash_rate": {"value": null, "available": false, "as_of": null},
+        "exchange_netflow": {"value": 45000000, "available": true, "as_of": "2026-08-26T12:00:00Z"}
+      }
+    }
+  },
+  "historical_qa": {
+    "periods_tested": 36,
+    "formula_consistency_pct": 98.5,
+    "missing_not_zero_enforced": true,
+    "last_qa_run": "2026-08-26T00:00:00Z"
+  }
+}

@@ -2010,6 +2010,77 @@ async def multi_factor_screener_route(sort_by: str = Query("factor_alignment")):
     return result
 
 
+@router.get("/intelligence-ledger/intelligence-layer/ai-content/news")
+async def news_integration_route(asset: str = Query("BTC"), limit: int = Query(10, ge=1, le=50)):
+    """#575 News Integration — merged into AI Content Engine, source links preserved."""
+    from bd_platform.ai_content_engine import build_news_panel_async
+
+    return await build_news_panel_async(asset=asset, limit=limit)
+
+
+@router.get("/intelligence-ledger/ux-layer/natural-language/status")
+async def natural_language_interpreter_status_route():
+    """#573 Natural Language Interpreter — rule-based intent routing, no advisory."""
+    from bd_platform.natural_language_interpreter import natural_language_interpreter_status
+
+    return natural_language_interpreter_status()
+
+
+@router.get("/intelligence-ledger/ux-layer/natural-language/schemas")
+async def natural_language_tool_schemas_route():
+    """#573 Deterministic tool schemas."""
+    from bd_platform.natural_language_interpreter import build_tool_schemas
+
+    return build_tool_schemas()
+
+
+@router.get("/intelligence-ledger/ux-layer/natural-language")
+async def natural_language_interpreter_route(
+    query: str = Query("What is Bitcoin's exchange flow?"),
+    user_tier: str = Query("guest"),
+):
+    from bd_platform.natural_language_interpreter import build_nli_panel
+
+    return build_nli_panel(query=query, user_tier=user_tier)
+
+
+@router.get("/intelligence-ledger/ux-layer/natural-language/reconciliation-tests")
+async def natural_language_reconciliation_tests_route():
+    from bd_platform.natural_language_interpreter import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/status")
+async def onchain_metrics_library_status_route():
+    """#577 On-Chain Metrics Library epic — #574 API delivery sub-task."""
+    from bd_platform.onchain_metrics_library import onchain_metrics_library_status
+
+    return onchain_metrics_library_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library")
+async def onchain_metrics_library_panel_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_onchain_metrics_library_panel
+
+    return build_onchain_metrics_library_panel(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/network-api")
+async def network_data_pro_metrics_route(asset: str = Query("BTC")):
+    """#574 Network Data Pro Metrics — institutional API (sub-task of #577)."""
+    from bd_platform.onchain_metrics_library import build_network_data_pro_api
+
+    return build_network_data_pro_api(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/historical-qa")
+async def onchain_metrics_historical_qa_route():
+    from bd_platform.onchain_metrics_library import run_historical_qa_tests
+
+    return run_historical_qa_tests()
+
+
 @router.get("/intelligence-ledger/intelligence-layer/historical-narratives/status")
 async def historical_narrative_explorer_status_route():
     """#250 Historical Narrative Explorer — Sprint 2 sentiment research archive."""
