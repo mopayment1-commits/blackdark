@@ -675,3 +675,38 @@ async def evidence_confidence_assessment_route(assessment_id: str = Query(...)):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/sector-rotation/status")
+async def sector_rotation_status_route():
+    """#286 Sector Rotation & Flow Module — versioned universe, survivorship controlled."""
+    from bd_platform.sector_rotation import sector_rotation_status
+
+    return sector_rotation_status()
+
+
+@router.get("/intelligence-ledger/sector-rotation")
+async def sector_rotation_panel_route():
+    """#286 rotation matrix + leaderboard."""
+    from bd_platform.sector_rotation import build_sector_rotation_panel
+
+    return build_sector_rotation_panel()
+
+
+@router.get("/intelligence-ledger/community-pulse/status")
+async def community_pulse_status_route():
+    """#272+#287+#290+#292 Community Pulse — purchased feed, no NLP team."""
+    from bd_platform.community_pulse import community_pulse_status
+
+    return community_pulse_status()
+
+
+@router.get("/intelligence-ledger/community-pulse")
+async def community_pulse_panel_route(asset: str = Query("BTC")):
+    """#287 NLP sentiment merged into #272 cluster — not standalone."""
+    from bd_platform.community_pulse import build_community_pulse_panel
+
+    result = build_community_pulse_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
