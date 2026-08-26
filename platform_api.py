@@ -1606,6 +1606,92 @@ async def holder_analytics_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/onchain-layer/dex-intelligence/status")
+async def dex_intelligence_layer_status_route():
+    """#535 DEX Intelligence Layer — pool liquidity with scam/spam filters."""
+    from bd_platform.dex_intelligence_layer import dex_intelligence_layer_status
+
+    return dex_intelligence_layer_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/dex-intelligence")
+async def dex_intelligence_panel_route(
+    token_symbol: str | None = Query(None),
+    chain: str | None = Query(None),
+):
+    from bd_platform.dex_intelligence_layer import build_dex_intelligence_panel
+
+    return build_dex_intelligence_panel(token_symbol=token_symbol, chain=chain)
+
+
+@router.get("/intelligence-ledger/onchain-layer/dex-intelligence/reconciliation-tests")
+async def dex_intelligence_reconciliation_tests_route():
+    from bd_platform.dex_intelligence_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-data-screener/status")
+async def custom_market_data_screener_status_route():
+    """#533 Custom Market Data Screener — user-controlled multi-domain filtering."""
+    from bd_platform.custom_market_data_screener import custom_market_data_screener_status
+
+    return custom_market_data_screener_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-data-screener")
+async def custom_market_data_screener_run_route(
+    saved_screener_id: str | None = Query(None),
+    whale_activity_min: float | None = Query(None),
+    risk_score_max: float | None = Query(None),
+    onchain_signal_min: float | None = Query(None),
+    user_id: str = Query("default"),
+):
+    from bd_platform.custom_market_data_screener import run_screener
+
+    filters: dict[str, Any] = {}
+    if whale_activity_min is not None:
+        filters["whale_activity_min"] = {"min": whale_activity_min}
+    if risk_score_max is not None:
+        filters["risk_score_max"] = {"max": risk_score_max}
+    if onchain_signal_min is not None:
+        filters["onchain_signal_min"] = {"min": onchain_signal_min}
+
+    return run_screener(filters or None, saved_screener_id=saved_screener_id, user_id=user_id)
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-data-screener/saved")
+async def custom_market_data_screener_saved_route():
+    from bd_platform.custom_market_data_screener import list_saved_screeners
+
+    return list_saved_screeners()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/dev-market-divergence/status")
+async def dev_market_divergence_status_route():
+    """#537 Development-to-Market Divergence Detector — descriptive only."""
+    from bd_platform.dev_market_divergence_detector import dev_market_divergence_detector_status
+
+    return dev_market_divergence_detector_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/dev-market-divergence")
+async def dev_market_divergence_panel_route(project_id: str = Query("uniswap")):
+    from bd_platform.dev_market_divergence_detector import build_divergence_panel
+
+    result = build_divergence_panel(project_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/dev-market-divergence/qa-tests")
+async def dev_market_divergence_qa_route():
+    from bd_platform.dev_market_divergence_detector import run_divergence_qa_tests
+
+    return run_divergence_qa_tests()
+
+
 @router.get("/intelligence-ledger/foundation/entity-resolution/status")
 async def entity_resolution_engine_status_route():
     """#541 Entity Resolution Engine — Sprint 0 critical foundation."""

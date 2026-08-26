@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "feature_id": 537,
+  "projects": {
+    "uniswap": {
+      "name": "Uniswap",
+      "dev_commits_90d": 245,
+      "contributors_90d": 18,
+      "dev_activity_trend": 0.35,
+      "price_trend_90d": -0.15,
+      "social_trend_90d": -0.20,
+      "onchain_usage_trend_90d": 0.10,
+      "divergence_persistence_days": 21,
+      "evidence": [
+        {"source": "github_api", "metric": "commits", "value": 245, "window": "90D"},
+        {"source": "oracle_api", "metric": "price_change", "value": -15, "window": "90D"}
+      ],
+      "backtest": {
+        "historical_divergence_count": 4,
+        "mean_reversion_rate": 0.45,
+        "false_positive_rate": 0.30,
+        "window": "90D"
+      }
+    },
+    "aave": {
+      "name": "Aave",
+      "dev_commits_90d": 180,
+      "contributors_90d": 12,
+      "dev_activity_trend": -0.05,
+      "price_trend_90d": 0.25,
+      "social_trend_90d": 0.15,
+      "onchain_usage_trend_90d": 0.08,
+      "divergence_persistence_days": 18,
+      "evidence": [
+        {"source": "github_api", "metric": "commits", "value": 180, "window": "90D"}
+      ],
+      "backtest": {
+        "historical_divergence_count": 2,
+        "mean_reversion_rate": 0.38,
+        "false_positive_rate": 0.35,
+        "window": "90D"
+      }
+    },
+    "low_activity_project": {
+      "name": "LowActivityToken",
+      "dev_commits_90d": 2,
+      "contributors_90d": 1,
+      "dev_activity_trend": 0.0,
+      "price_trend_90d": 0.50,
+      "social_trend_90d": 0.30,
+      "onchain_usage_trend_90d": 0.0,
+      "divergence_persistence_days": 0,
+      "evidence": [],
+      "backtest": null
+    }
+  }
+}

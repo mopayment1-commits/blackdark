@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "feature_id": 535,
+  "renamed_from": "DEX_Liquidity_Listener",
+  "reorg_handling": {
+    "enabled": true,
+    "confirmation_blocks": 12
+  },
+  "pools": [
+    {
+      "pool_id": "uni_eth_usdc_001",
+      "token_address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "token_symbol": "ETH",
+      "chain": "ethereum",
+      "dex": "uniswap_v3",
+      "liquidity_usd": 450000000.0,
+      "volume_24h_usd": 85000000.0,
+      "identity_verified": true,
+      "token_metadata_verified": true,
+      "contract_verified": true,
+      "scam_flag": false,
+      "spam_flag": false,
+      "honeypot_risk": false,
+      "pool_health": "healthy",
+      "reorg_confirmed": true
+    },
+    {
+      "pool_id": "uni_eth_usdc_arb",
+      "token_address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "token_symbol": "ETH",
+      "chain": "arbitrum",
+      "dex": "uniswap_v3",
+      "liquidity_usd": 120000000.0,
+      "volume_24h_usd": 35000000.0,
+      "identity_verified": true,
+      "token_metadata_verified": true,
+      "contract_verified": true,
+      "scam_flag": false,
+      "spam_flag": false,
+      "honeypot_risk": false,
+      "pool_health": "healthy",
+      "reorg_confirmed": true
+    },
+    {
+      "pool_id": "scam_token_pool",
+      "token_address": "0xscam000000000000000000000000000000000001",
+      "token_symbol": "SCAM",
+      "chain": "ethereum",
+      "dex": "unknown_dex",
+      "liquidity_usd": 50000.0,
+      "volume_24h_usd": 100000.0,
+      "identity_verified": false,
+      "scam_flag": true,
+      "spam_flag": false,
+      "honeypot_risk": true,
+      "pool_health": "critical",
+      "reorg_confirmed": false
+    },
+    {
+      "pool_id": "spam_pool",
+      "token_address": "0xspam000000000000000000000000000000000001",
+      "token_symbol": "SPAM",
+      "chain": "ethereum",
+      "dex": "unknown_dex",
+      "liquidity_usd": 1000.0,
+      "volume_24h_usd": 500.0,
+      "identity_verified": true,
+      "scam_flag": false,
+      "spam_flag": true,
+      "honeypot_risk": false,
+      "pool_health": "poor",
+      "reorg_confirmed": true
+    }
+  ]
+}
