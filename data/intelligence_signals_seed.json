@@ -1,0 +1,104 @@
+{
+  "feature_id": 401,
+  "title": "Intelligence Signals (Sprint-2)",
+  "standalone_rejected": true,
+  "no_standalone_signals_api": true,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "rule_based_v1": true,
+  "ml_deferred_days": 90,
+  "backtest": {
+    "years": 2.5,
+    "sharpe": 0.92,
+    "win_rate_pct": 54.3,
+    "max_drawdown_pct": 17.8,
+    "latency_minutes": 3.2,
+    "fee_deduction_applied": true,
+    "period_start": "2024-02-01",
+    "period_end": "2026-08-01"
+  },
+  "walk_forward": {
+    "months": 6,
+    "sharpe": 0.85,
+    "win_rate_pct": 52.8,
+    "max_drawdown_pct": 18.5,
+    "latency_minutes": 4.1,
+    "fee_deduction_applied": true,
+    "period_start": "2026-02-01",
+    "period_end": "2026-08-01"
+  },
+  "signals": [
+    {
+      "signal_id": "qi_btc_funding_divergence_001",
+      "signal_type": "quantitative_insight",
+      "asset": "BTC",
+      "exchange_id": "binance",
+      "confidence_score": 0.72,
+      "gross_return_pct": 2.4,
+      "exchange_fee_bps": 10,
+      "slippage_bps": 5,
+      "network_fee_usd": 2.5,
+      "notional_usd": 10000,
+      "latency_minutes": 2.8,
+      "rationale": "Cross-venue funding divergence exceeds 2σ with elevated OI — quantitative context only.",
+      "features_used": [
+        "funding_rate_zscore",
+        "open_interest_delta",
+        "volume_imbalance",
+        "social_sentiment_delta",
+        "exchange_netflow"
+      ],
+      "data_sources": ["funding_rates", "social_sentiment", "on_chain"],
+      "surfaces": ["market_radar", "portfolio_ai"],
+      "display": "Quantitative Insight — BTC funding divergence across top venues",
+      "timestamp": "2026-08-26T12:00:00Z"
+    },
+    {
+      "signal_id": "ras_eth_basis_002",
+      "signal_type": "risk_adjusted_signal",
+      "asset": "ETH",
+      "exchange_id": "okx",
+      "confidence_score": 0.68,
+      "gross_return_pct": 1.8,
+      "exchange_fee_bps": 8,
+      "slippage_bps": 6,
+      "network_fee_usd": 3.0,
+      "notional_usd": 10000,
+      "latency_minutes": 3.5,
+      "rationale": "Basis curve steepening with fee-adjusted edge above threshold after slippage model.",
+      "features_used": [
+        "basis_slope",
+        "funding_persistence",
+        "volatility_regime",
+        "sentiment_momentum"
+      ],
+      "data_sources": ["funding_rates", "social_sentiment"],
+      "surfaces": ["market_radar"],
+      "display": "Risk-Adjusted Signal — ETH basis context (fees deducted)",
+      "timestamp": "2026-08-26T11:30:00Z"
+    },
+    {
+      "signal_id": "dda_sol_volume_003",
+      "signal_type": "data_driven_alert",
+      "asset": "SOL",
+      "exchange_id": "bybit",
+      "confidence_score": 0.61,
+      "gross_return_pct": 1.2,
+      "exchange_fee_bps": 10,
+      "slippage_bps": 8,
+      "network_fee_usd": 1.5,
+      "notional_usd": 10000,
+      "latency_minutes": 4.0,
+      "rationale": "Volume spike + sentiment shift detected — data-driven alert for desk review.",
+      "features_used": [
+        "volume_zscore",
+        "taker_buy_ratio",
+        "social_mention_velocity"
+      ],
+      "data_sources": ["funding_rates", "social_sentiment", "spot_volume"],
+      "surfaces": ["portfolio_ai"],
+      "display": "Data-Driven Alert — SOL volume anomaly",
+      "timestamp": "2026-08-26T10:45:00Z"
+    }
+  ]
+}

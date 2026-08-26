@@ -1155,6 +1155,21 @@ async def multi_model_liquidation_blocked_status_route():
     return build_multi_model_liquidation_blocked_status()
 
 
+@router.get("/intelligence-ledger/portfolio-ai/quantitative-insights/status")
+async def portfolio_ai_quantitative_insights_status_route():
+    """#401 Quantitative Insights — Portfolio AI surface (not standalone AI engine)."""
+    from bd_platform.quantitative_insights_layer import quantitative_insights_status
+
+    return quantitative_insights_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/quantitative-insights")
+async def portfolio_ai_quantitative_insights_route(asset: str = Query("BTC")):
+    from bd_platform.quantitative_insights_layer import build_quantitative_insights_panel
+
+    return build_quantitative_insights_panel(asset=asset, surface="portfolio_ai")
+
+
 @router.get("/intelligence-ledger/smart-anomaly-alerts/status")
 async def smart_anomaly_alerts_status_route():
     """#719 Smart Anomaly Alert Engine — absorbs #131+#121."""
@@ -1309,6 +1324,21 @@ async def market_radar_exchange_activity_route(exchange: str = Query("binance"))
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/market-radar/quantitative-insights/status")
+async def market_radar_quantitative_insights_status_route():
+    """#401 Quantitative Insights — Market Radar surface (rule-based v1)."""
+    from bd_platform.quantitative_insights_layer import quantitative_insights_status
+
+    return quantitative_insights_status()
+
+
+@router.get("/intelligence-ledger/market-radar/quantitative-insights")
+async def market_radar_quantitative_insights_route(asset: str = Query("BTC")):
+    from bd_platform.quantitative_insights_layer import build_quantitative_insights_panel
+
+    return build_quantitative_insights_panel(asset=asset, surface="market_radar")
 
 
 @router.get("/intelligence-ledger/market-radar/derivatives-venue-feed/status")
@@ -2273,6 +2303,69 @@ async def protocol_valuation_panel_route(
 @router.get("/intelligence-ledger/data-layer/protocol-valuation/reconciliation-tests")
 async def protocol_valuation_reconciliation_tests_route():
     from bd_platform.protocol_valuation_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/data-layer/exchange-registry/status")
+async def exchange_registry_status_route():
+    """#401 Exchange Registry — 100 venues, metadata + API endpoints."""
+    from bd_platform.exchange_registry import exchange_registry_status
+
+    return exchange_registry_status()
+
+
+@router.get("/intelligence-ledger/data-layer/exchange-registry")
+async def exchange_registry_panel_route(
+    venue_type: str | None = Query(None),
+    limit: int = Query(100, ge=1, le=100),
+):
+    from bd_platform.exchange_registry import build_exchange_registry_panel
+
+    return build_exchange_registry_panel(venue_type=venue_type, limit=limit)
+
+
+@router.get("/intelligence-ledger/data-layer/exchange-registry/lookup")
+async def exchange_registry_lookup_route(exchange_id: str = Query("binance")):
+    from bd_platform.exchange_registry import get_exchange
+
+    result = get_exchange(exchange_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/exchange-registry/reconciliation-tests")
+async def exchange_registry_reconciliation_tests_route():
+    from bd_platform.exchange_registry import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/quantitative-insights/status")
+async def quantitative_insights_status_route():
+    """#401 rule-based quantitative layer — NOT standalone AI engine."""
+    from bd_platform.quantitative_insights_layer import quantitative_insights_status
+
+    return quantitative_insights_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/quantitative-insights")
+async def quantitative_insights_panel_route(
+    asset: str = Query("BTC"),
+    surface: str = Query("market_radar"),
+):
+    from bd_platform.quantitative_insights_layer import build_quantitative_insights_panel
+
+    result = build_quantitative_insights_panel(asset=asset, surface=surface)
+    if not result.get("ok"):
+        raise HTTPException(status_code=400, detail=result.get("error") or "invalid_request")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/quantitative-insights/reconciliation-tests")
+async def quantitative_insights_reconciliation_tests_route():
+    from bd_platform.quantitative_insights_layer import run_reconciliation_tests
 
     return run_reconciliation_tests()
 

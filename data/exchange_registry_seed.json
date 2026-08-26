@@ -1,0 +1,2059 @@
+{
+  "feature_id": 401,
+  "title": "Exchange Registry",
+  "standalone_rejected": true,
+  "merged_into": "Data Engine + Market Radar + Intelligence Ledger",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "exchange_count": 100,
+  "exchanges": {
+    "binance": {
+      "exchange_id": "binance",
+      "name": "Binance",
+      "rank": 1,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/binance.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.binance.com/api/v3/ticker/price",
+        "rest_funding": "https://api.binance.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.binance.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "okx": {
+      "exchange_id": "okx",
+      "name": "OKX",
+      "rank": 2,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/okx.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.okx.com/api/v3/ticker/price",
+        "rest_funding": "https://api.okx.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.okx.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bybit": {
+      "exchange_id": "bybit",
+      "name": "Bybit",
+      "rank": 3,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bybit.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bybit.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bybit.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bybit.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "coinbase": {
+      "exchange_id": "coinbase",
+      "name": "Coinbase Exchange",
+      "rank": 4,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/coinbase.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.coinbase.com/api/v3/ticker/price",
+        "rest_funding": "https://api.coinbase.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.coinbase.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "kucoin": {
+      "exchange_id": "kucoin",
+      "name": "KuCoin",
+      "rank": 5,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/kucoin.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.kucoin.com/api/v3/ticker/price",
+        "rest_funding": "https://api.kucoin.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.kucoin.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bitget": {
+      "exchange_id": "bitget",
+      "name": "Bitget",
+      "rank": 6,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitget.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitget.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bitget.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bitget.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "gate_io": {
+      "exchange_id": "gate_io",
+      "name": "Gate.io",
+      "rank": 7,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/gate_io.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.gateio.com/api/v3/ticker/price",
+        "rest_funding": "https://api.gateio.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.gateio.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "mexc": {
+      "exchange_id": "mexc",
+      "name": "MEXC",
+      "rank": 8,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/mexc.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.mexc.com/api/v3/ticker/price",
+        "rest_funding": "https://api.mexc.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.mexc.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "kraken": {
+      "exchange_id": "kraken",
+      "name": "Kraken",
+      "rank": 9,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/kraken.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.kraken.com/api/v3/ticker/price",
+        "rest_funding": "https://api.kraken.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.kraken.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "htx": {
+      "exchange_id": "htx",
+      "name": "HTX",
+      "rank": 10,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/htx.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.htx.com/api/v3/ticker/price",
+        "rest_funding": "https://api.htx.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.htx.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "crypto_com": {
+      "exchange_id": "crypto_com",
+      "name": "Crypto.com",
+      "rank": 11,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/crypto_com.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.cryptocom.com/api/v3/ticker/price",
+        "rest_funding": "https://api.cryptocom.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.cryptocom.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bingx": {
+      "exchange_id": "bingx",
+      "name": "BingX",
+      "rank": 12,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bingx.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bingx.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bingx.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bingx.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "lbank": {
+      "exchange_id": "lbank",
+      "name": "LBank",
+      "rank": 13,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/lbank.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.lbank.com/api/v3/ticker/price",
+        "rest_funding": "https://api.lbank.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.lbank.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "xt_com": {
+      "exchange_id": "xt_com",
+      "name": "XT.COM",
+      "rank": 14,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/xt_com.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.xtcom.com/api/v3/ticker/price",
+        "rest_funding": "https://api.xtcom.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.xtcom.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "coinw": {
+      "exchange_id": "coinw",
+      "name": "CoinW",
+      "rank": 15,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/coinw.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.coinw.com/api/v3/ticker/price",
+        "rest_funding": "https://api.coinw.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.coinw.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "upbit": {
+      "exchange_id": "upbit",
+      "name": "Upbit",
+      "rank": 16,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/upbit.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.upbit.com/api/v3/ticker/price",
+        "rest_funding": "https://api.upbit.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.upbit.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bithumb": {
+      "exchange_id": "bithumb",
+      "name": "Bithumb",
+      "rank": 17,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bithumb.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bithumb.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bithumb.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bithumb.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bitfinex": {
+      "exchange_id": "bitfinex",
+      "name": "Bitfinex",
+      "rank": 18,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitfinex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitfinex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bitfinex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bitfinex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bitstamp": {
+      "exchange_id": "bitstamp",
+      "name": "Bitstamp",
+      "rank": 19,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitstamp.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitstamp.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bitstamp.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bitstamp.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "whitebit": {
+      "exchange_id": "whitebit",
+      "name": "WhiteBIT",
+      "rank": 20,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/whitebit.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.whitebit.com/api/v3/ticker/price",
+        "rest_funding": "https://api.whitebit.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.whitebit.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "pionex": {
+      "exchange_id": "pionex",
+      "name": "Pionex",
+      "rank": 21,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/pionex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.pionex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.pionex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.pionex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "toobit": {
+      "exchange_id": "toobit",
+      "name": "Toobit",
+      "rank": 22,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/toobit.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.toobit.com/api/v3/ticker/price",
+        "rest_funding": "https://api.toobit.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.toobit.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bitmart": {
+      "exchange_id": "bitmart",
+      "name": "BitMart",
+      "rank": 23,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitmart.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitmart.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bitmart.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bitmart.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "coinex": {
+      "exchange_id": "coinex",
+      "name": "CoinEx",
+      "rank": 24,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/coinex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.coinex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.coinex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.coinex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "ourbit": {
+      "exchange_id": "ourbit",
+      "name": "Ourbit",
+      "rank": 25,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/ourbit.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.ourbit.com/api/v3/ticker/price",
+        "rest_funding": "https://api.ourbit.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.ourbit.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "deepcoin": {
+      "exchange_id": "deepcoin",
+      "name": "Deepcoin",
+      "rank": 26,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/deepcoin.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.deepcoin.com/api/v3/ticker/price",
+        "rest_funding": "https://api.deepcoin.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.deepcoin.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "kcex": {
+      "exchange_id": "kcex",
+      "name": "KCEX",
+      "rank": 27,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/kcex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.kcex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.kcex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.kcex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "btcc": {
+      "exchange_id": "btcc",
+      "name": "BTCC",
+      "rank": 28,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/btcc.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.btcc.com/api/v3/ticker/price",
+        "rest_funding": "https://api.btcc.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.btcc.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "weex": {
+      "exchange_id": "weex",
+      "name": "WEEX",
+      "rank": 29,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/weex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.weex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.weex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.weex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bitunix": {
+      "exchange_id": "bitunix",
+      "name": "Bitunix",
+      "rank": 30,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitunix.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitunix.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bitunix.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bitunix.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "poloniex": {
+      "exchange_id": "poloniex",
+      "name": "Poloniex",
+      "rank": 31,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/poloniex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.poloniex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.poloniex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.poloniex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bigone": {
+      "exchange_id": "bigone",
+      "name": "BigONE",
+      "rank": 32,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bigone.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bigone.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bigone.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bigone.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "tapbit": {
+      "exchange_id": "tapbit",
+      "name": "Tapbit",
+      "rank": 33,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/tapbit.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.tapbit.com/api/v3/ticker/price",
+        "rest_funding": "https://api.tapbit.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.tapbit.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "fameex": {
+      "exchange_id": "fameex",
+      "name": "FameEX",
+      "rank": 34,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/fameex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.fameex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.fameex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.fameex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "azbit": {
+      "exchange_id": "azbit",
+      "name": "Azbit",
+      "rank": 35,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/azbit.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.azbit.com/api/v3/ticker/price",
+        "rest_funding": "https://api.azbit.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.azbit.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "biconomy_exchange": {
+      "exchange_id": "biconomy_exchange",
+      "name": "Biconomy",
+      "rank": 36,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/biconomy_exchange.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.biconomyexchange.com/api/v3/ticker/price",
+        "rest_funding": "https://api.biconomyexchange.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.biconomyexchange.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "orangex": {
+      "exchange_id": "orangex",
+      "name": "OrangeX",
+      "rank": 37,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/orangex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.orangex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.orangex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.orangex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "hotcoin": {
+      "exchange_id": "hotcoin",
+      "name": "Hotcoin",
+      "rank": 38,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/hotcoin.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.hotcoin.com/api/v3/ticker/price",
+        "rest_funding": "https://api.hotcoin.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.hotcoin.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "zoomex": {
+      "exchange_id": "zoomex",
+      "name": "Zoomex",
+      "rank": 39,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/zoomex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.zoomex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.zoomex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.zoomex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bifinance": {
+      "exchange_id": "bifinance",
+      "name": "BiFinance",
+      "rank": 40,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bifinance.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bifinance.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bifinance.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bifinance.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "phemex": {
+      "exchange_id": "phemex",
+      "name": "Phemex",
+      "rank": 41,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/phemex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.phemex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.phemex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.phemex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "woo_x": {
+      "exchange_id": "woo_x",
+      "name": "Woo X",
+      "rank": 42,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/woo_x.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.woox.com/api/v3/ticker/price",
+        "rest_funding": "https://api.woox.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.woox.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "coinstore": {
+      "exchange_id": "coinstore",
+      "name": "Coinstore",
+      "rank": 43,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/coinstore.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.coinstore.com/api/v3/ticker/price",
+        "rest_funding": "https://api.coinstore.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.coinstore.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "tokocrypto": {
+      "exchange_id": "tokocrypto",
+      "name": "Tokocrypto",
+      "rank": 44,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/tokocrypto.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.tokocrypto.com/api/v3/ticker/price",
+        "rest_funding": "https://api.tokocrypto.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.tokocrypto.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "gemini": {
+      "exchange_id": "gemini",
+      "name": "Gemini",
+      "rank": 45,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/gemini.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.gemini.com/api/v3/ticker/price",
+        "rest_funding": "https://api.gemini.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.gemini.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "ascendex": {
+      "exchange_id": "ascendex",
+      "name": "AscendEX",
+      "rank": 46,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/ascendex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.ascendex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.ascendex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.ascendex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bkex": {
+      "exchange_id": "bkex",
+      "name": "BKEX",
+      "rank": 47,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bkex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bkex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bkex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bkex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "digifinex": {
+      "exchange_id": "digifinex",
+      "name": "Digifinex",
+      "rank": 48,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/digifinex.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.digifinex.com/api/v3/ticker/price",
+        "rest_funding": "https://api.digifinex.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.digifinex.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "bitvavo": {
+      "exchange_id": "bitvavo",
+      "name": "Bitvavo",
+      "rank": 49,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitvavo.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitvavo.com/api/v3/ticker/price",
+        "rest_funding": "https://api.bitvavo.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.bitvavo.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "probit_global": {
+      "exchange_id": "probit_global",
+      "name": "ProBit Global",
+      "rank": 50,
+      "venue_type": "cex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/probit_global.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.probitglobal.com/api/v3/ticker/price",
+        "rest_funding": "https://api.probitglobal.com/fapi/v1/premiumIndex",
+        "websocket": "wss://stream.probitglobal.com/ws"
+      },
+      "metadata": {
+        "fee_tier_bps": 10,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "uniswap_v3": {
+      "exchange_id": "uniswap_v3",
+      "name": "Uniswap (V3)",
+      "rank": 51,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/uniswap_v3.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/uniswapv3",
+        "pool_api": "https://api.uniswapv3.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "pancakeswap": {
+      "exchange_id": "pancakeswap",
+      "name": "PancakeSwap",
+      "rank": 52,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/pancakeswap.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/pancakeswap",
+        "pool_api": "https://api.pancakeswap.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "raydium": {
+      "exchange_id": "raydium",
+      "name": "Raydium",
+      "rank": 53,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/raydium.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/raydium",
+        "pool_api": "https://api.raydium.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "jupiter": {
+      "exchange_id": "jupiter",
+      "name": "Jupiter",
+      "rank": 54,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/jupiter.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/jupiter",
+        "pool_api": "https://api.jupiter.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "orca": {
+      "exchange_id": "orca",
+      "name": "Orca",
+      "rank": 55,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/orca.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/orca",
+        "pool_api": "https://api.orca.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "curve_finance": {
+      "exchange_id": "curve_finance",
+      "name": "Curve Finance",
+      "rank": 56,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/curve_finance.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/curvefinance",
+        "pool_api": "https://api.curvefinance.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "balancer": {
+      "exchange_id": "balancer",
+      "name": "Balancer",
+      "rank": 57,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/balancer.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/balancer",
+        "pool_api": "https://api.balancer.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "sushiswap": {
+      "exchange_id": "sushiswap",
+      "name": "SushiSwap",
+      "rank": 58,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/sushiswap.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/sushiswap",
+        "pool_api": "https://api.sushiswap.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "trader_joe": {
+      "exchange_id": "trader_joe",
+      "name": "Trader Joe",
+      "rank": 59,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/trader_joe.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/traderjoe",
+        "pool_api": "https://api.traderjoe.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "quickswap": {
+      "exchange_id": "quickswap",
+      "name": "QuickSwap",
+      "rank": 60,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/quickswap.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/quickswap",
+        "pool_api": "https://api.quickswap.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "spookyswap": {
+      "exchange_id": "spookyswap",
+      "name": "SpookySwap",
+      "rank": 61,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/spookyswap.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/spookyswap",
+        "pool_api": "https://api.spookyswap.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "camelot": {
+      "exchange_id": "camelot",
+      "name": "Camelot",
+      "rank": 62,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/camelot.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/camelot",
+        "pool_api": "https://api.camelot.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "aerodrome": {
+      "exchange_id": "aerodrome",
+      "name": "Aerodrome",
+      "rank": 63,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/aerodrome.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/aerodrome",
+        "pool_api": "https://api.aerodrome.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "syncswap": {
+      "exchange_id": "syncswap",
+      "name": "SyncSwap",
+      "rank": 64,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/syncswap.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/syncswap",
+        "pool_api": "https://api.syncswap.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "cetus": {
+      "exchange_id": "cetus",
+      "name": "Cetus",
+      "rank": 65,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/cetus.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/cetus",
+        "pool_api": "https://api.cetus.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "ston_fi": {
+      "exchange_id": "ston_fi",
+      "name": "Ston.fi",
+      "rank": 66,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/ston_fi.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/stonfi",
+        "pool_api": "https://api.stonfi.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "dedust": {
+      "exchange_id": "dedust",
+      "name": "Dedust",
+      "rank": 67,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/dedust.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/dedust",
+        "pool_api": "https://api.dedust.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "vvs_finance": {
+      "exchange_id": "vvs_finance",
+      "name": "VVS Finance",
+      "rank": 68,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/vvs_finance.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/vvsfinance",
+        "pool_api": "https://api.vvsfinance.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "osmosis": {
+      "exchange_id": "osmosis",
+      "name": "Osmosis",
+      "rank": 69,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/osmosis.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/osmosis",
+        "pool_api": "https://api.osmosis.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "thorchain": {
+      "exchange_id": "thorchain",
+      "name": "THORChain",
+      "rank": 70,
+      "venue_type": "dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/thorchain.svg",
+      "api_endpoints": {
+        "subgraph": "https://api.thegraph.com/subgraphs/name/thorchain",
+        "pool_api": "https://api.thorchain.finance/pools"
+      },
+      "metadata": {
+        "fee_tier_bps": 30,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "hyperliquid": {
+      "exchange_id": "hyperliquid",
+      "name": "Hyperliquid",
+      "rank": 71,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/hyperliquid.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.hyperliquid.io/v1/funding",
+        "rest_oi": "https://api.hyperliquid.io/v1/open-interest",
+        "websocket": "wss://ws.hyperliquid.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "dydx": {
+      "exchange_id": "dydx",
+      "name": "dYdX",
+      "rank": 72,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/dydx.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.dydx.io/v1/funding",
+        "rest_oi": "https://api.dydx.io/v1/open-interest",
+        "websocket": "wss://ws.dydx.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "gmx": {
+      "exchange_id": "gmx",
+      "name": "GMX",
+      "rank": 73,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/gmx.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.gmx.io/v1/funding",
+        "rest_oi": "https://api.gmx.io/v1/open-interest",
+        "websocket": "wss://ws.gmx.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "apex_protocol": {
+      "exchange_id": "apex_protocol",
+      "name": "Apex Protocol",
+      "rank": 74,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/apex_protocol.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.apexprotocol.io/v1/funding",
+        "rest_oi": "https://api.apexprotocol.io/v1/open-interest",
+        "websocket": "wss://ws.apexprotocol.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "gains_network": {
+      "exchange_id": "gains_network",
+      "name": "Gains Network",
+      "rank": 75,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/gains_network.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.gainsnetwork.io/v1/funding",
+        "rest_oi": "https://api.gainsnetwork.io/v1/open-interest",
+        "websocket": "wss://ws.gainsnetwork.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "kwenta": {
+      "exchange_id": "kwenta",
+      "name": "Kwenta",
+      "rank": 76,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/kwenta.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.kwenta.io/v1/funding",
+        "rest_oi": "https://api.kwenta.io/v1/open-interest",
+        "websocket": "wss://ws.kwenta.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "drift_protocol": {
+      "exchange_id": "drift_protocol",
+      "name": "Drift Protocol",
+      "rank": 77,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/drift_protocol.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.driftprotocol.io/v1/funding",
+        "rest_oi": "https://api.driftprotocol.io/v1/open-interest",
+        "websocket": "wss://ws.driftprotocol.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "mux_protocol": {
+      "exchange_id": "mux_protocol",
+      "name": "MUX Protocol",
+      "rank": 78,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/mux_protocol.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.muxprotocol.io/v1/funding",
+        "rest_oi": "https://api.muxprotocol.io/v1/open-interest",
+        "websocket": "wss://ws.muxprotocol.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "synthetix": {
+      "exchange_id": "synthetix",
+      "name": "Synthetix",
+      "rank": 79,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/synthetix.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.synthetix.io/v1/funding",
+        "rest_oi": "https://api.synthetix.io/v1/open-interest",
+        "websocket": "wss://ws.synthetix.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "jupiter_perps": {
+      "exchange_id": "jupiter_perps",
+      "name": "Jupiter Perps",
+      "rank": 80,
+      "venue_type": "perp_dex",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/jupiter_perps.svg",
+      "api_endpoints": {
+        "rest_funding": "https://api.jupiterperps.io/v1/funding",
+        "rest_oi": "https://api.jupiterperps.io/v1/open-interest",
+        "websocket": "wss://ws.jupiterperps.io"
+      },
+      "metadata": {
+        "fee_tier_bps": 8,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": false,
+        "supports_perps": true,
+        "supports_funding_rates": true
+      }
+    },
+    "binance_tr": {
+      "exchange_id": "binance_tr",
+      "name": "Binance TR",
+      "rank": 81,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/binance_tr.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.binancetr.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "bitflyer": {
+      "exchange_id": "bitflyer",
+      "name": "bitFlyer",
+      "rank": 82,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitflyer.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitflyer.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "coincheck": {
+      "exchange_id": "coincheck",
+      "name": "Coincheck",
+      "rank": 83,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/coincheck.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.coincheck.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "mercado_bitcoin": {
+      "exchange_id": "mercado_bitcoin",
+      "name": "Mercado Bitcoin",
+      "rank": 84,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/mercado_bitcoin.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.mercadobitcoin.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "coinsquare": {
+      "exchange_id": "coinsquare",
+      "name": "CoinSquare",
+      "rank": 85,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/coinsquare.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.coinsquare.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "independent_reserve": {
+      "exchange_id": "independent_reserve",
+      "name": "Independent Reserve",
+      "rank": 86,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/independent_reserve.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.independentreserve.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "luno": {
+      "exchange_id": "luno",
+      "name": "Luno",
+      "rank": 87,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/luno.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.luno.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "rain": {
+      "exchange_id": "rain",
+      "name": "Rain",
+      "rank": 88,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/rain.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.rain.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "coinmena": {
+      "exchange_id": "coinmena",
+      "name": "CoinMENA",
+      "rank": 89,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/coinmena.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.coinmena.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "bitoasis": {
+      "exchange_id": "bitoasis",
+      "name": "BitOasis",
+      "rank": 90,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitoasis.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitoasis.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "korbit": {
+      "exchange_id": "korbit",
+      "name": "Korbit",
+      "rank": 91,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/korbit.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.korbit.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "coinone": {
+      "exchange_id": "coinone",
+      "name": "Coinone",
+      "rank": 92,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/coinone.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.coinone.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "paribu": {
+      "exchange_id": "paribu",
+      "name": "Paribu",
+      "rank": 93,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/paribu.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.paribu.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "btcturk": {
+      "exchange_id": "btcturk",
+      "name": "BtcTurk",
+      "rank": 94,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/btcturk.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.btcturk.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "valr": {
+      "exchange_id": "valr",
+      "name": "VALR",
+      "rank": 95,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/valr.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.valr.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "bitso": {
+      "exchange_id": "bitso",
+      "name": "Bitso",
+      "rank": 96,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitso.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitso.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "buda": {
+      "exchange_id": "buda",
+      "name": "Buda",
+      "rank": 97,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/buda.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.buda.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "crypto_com_us": {
+      "exchange_id": "crypto_com_us",
+      "name": "Crypto.com Exchange US",
+      "rank": 98,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/crypto_com_us.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.cryptocomus.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "gemini_uk": {
+      "exchange_id": "gemini_uk",
+      "name": "Gemini UK",
+      "rank": 99,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/gemini_uk.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.geminiuk.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    },
+    "bitbank": {
+      "exchange_id": "bitbank",
+      "name": "Bitbank",
+      "rank": 100,
+      "venue_type": "regional",
+      "status": "active",
+      "logo_url": "/static/img/exchanges/bitbank.svg",
+      "api_endpoints": {
+        "rest_ticker": "https://api.bitbank.com/v1/ticker"
+      },
+      "metadata": {
+        "fee_tier_bps": 15,
+        "slippage_bps_default": 5,
+        "network_fee_usd_default": 2.5,
+        "supports_spot": true,
+        "supports_perps": false,
+        "supports_funding_rates": false
+      }
+    }
+  },
+  "integrations": {
+    "oracle_api": true,
+    "data_engine": true,
+    "market_radar": true,
+    "intelligence_ledger": true,
+    "no_standalone_ai_engine": true
+  }
+}
