@@ -1578,6 +1578,34 @@ async def exchange_intelligence_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/onchain-layer/holder-analytics/status")
+async def holder_analytics_layer_status_route():
+    """#559 #560 Holder Analytics Layer — STH/LTH cohorts + distribution."""
+    from bd_platform.holder_analytics_layer import holder_analytics_layer_status
+
+    return holder_analytics_layer_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/holder-analytics")
+async def holder_analytics_panel_route(
+    asset: str = Query("BTC"),
+    as_of: str | None = Query(None),
+):
+    from bd_platform.holder_analytics_layer import build_holder_analytics_panel
+
+    result = build_holder_analytics_panel(asset=asset, as_of=as_of)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/holder-analytics/reconciliation-tests")
+async def holder_analytics_reconciliation_tests_route():
+    from bd_platform.holder_analytics_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/foundation/entity-resolution/status")
 async def entity_resolution_engine_status_route():
     """#541 Entity Resolution Engine — Sprint 0 critical foundation."""
