@@ -1,0 +1,48 @@
+{
+  "feature_id": 743,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "bot_activity_layer": {
+    "assets_tracked": 150,
+    "integrated_feature_id": 721
+  },
+  "cases": [
+    {
+      "case_id": "surv_001",
+      "case_type": "wash_trading",
+      "confidence_pct": 72,
+      "venue_label": "Exchange X",
+      "asset_label": "Asset Y",
+      "evidence": {
+        "trade_count": 847,
+        "window_seconds": 12,
+        "raw_data_archived": true,
+        "screenshot_archived": true,
+        "captured_at": "2026-08-25T14:30:00+00:00"
+      },
+      "review": {
+        "status": "approved",
+        "manual_review_complete": true
+      }
+    },
+    {
+      "case_id": "surv_002",
+      "case_type": "spoofing",
+      "confidence_pct": 58,
+      "venue_label": "Exchange Z",
+      "asset_label": "Asset W",
+      "evidence": {
+        "trade_count": 312,
+        "window_seconds": 8,
+        "raw_data_archived": true,
+        "screenshot_archived": true,
+        "captured_at": "2026-08-24T09:15:00+00:00"
+      },
+      "review": {
+        "status": "pending",
+        "manual_review_complete": false
+      }
+    }
+  ]
+}

@@ -1135,3 +1135,107 @@ async def onchain_metrics_panel_route(asset: str = Query("BTC")):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/market-data/indices/status")
+async def market_data_indices_status_route():
+    """#739 Index Data — merged into Market Data API."""
+    from bd_platform.market_data_indices import market_data_indices_status
+
+    return market_data_indices_status()
+
+
+@router.get("/intelligence-ledger/market-data/indices")
+async def market_data_indices_feed_route(index_id: str = Query("crypto_top100")):
+    from bd_platform.market_data_indices import build_index_feed
+
+    result = build_index_feed(index_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/ma-intelligence/status")
+async def ma_intelligence_status_route():
+    """#740 M&A Intelligence Module."""
+    from bd_platform.ma_intelligence import ma_intelligence_status
+
+    return ma_intelligence_status()
+
+
+@router.get("/intelligence-ledger/ma-intelligence/deals")
+async def ma_intelligence_deal_route(deal_id: str = Query("deal_001")):
+    from bd_platform.ma_intelligence import build_ma_deal_panel
+
+    result = build_ma_deal_panel(deal_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/ma-intelligence/trends")
+async def ma_intelligence_trends_route():
+    from bd_platform.ma_intelligence import build_ma_trends_dashboard
+
+    return build_ma_trends_dashboard()
+
+
+@router.get("/intelligence-ledger/market-radar/screener/status")
+async def market_screener_status_route():
+    """#742 Smart Screener — Market Radar."""
+    from bd_platform.market_screener import market_screener_status
+
+    return market_screener_status()
+
+
+@router.get("/intelligence-ledger/market-radar/screener")
+async def market_screener_run_route(
+    tier: str = Query("free"),
+    saved_filter_id: str | None = Query(None),
+):
+    from bd_platform.market_screener import run_screener
+
+    return run_screener(tier=tier, saved_filter_id=saved_filter_id)
+
+
+@router.get("/intelligence-ledger/market-radar/screener/saved-filters")
+async def market_screener_saved_filters_route():
+    from bd_platform.market_screener import list_saved_filters
+
+    return list_saved_filters()
+
+
+@router.get("/intelligence-ledger/surveillance/status")
+async def surveillance_engine_status_route():
+    """#743 Surveillance Engine — absorbs #721."""
+    from bd_platform.surveillance_engine import surveillance_engine_status
+
+    return surveillance_engine_status()
+
+
+@router.get("/intelligence-ledger/surveillance")
+async def surveillance_engine_panel_route(
+    tier: str = Query("free"),
+    case_id: str | None = Query(None),
+):
+    from bd_platform.surveillance_engine import build_surveillance_panel
+
+    return build_surveillance_panel(tier=tier, case_id=case_id)
+
+
+@router.get("/intelligence-ledger/options-context/status")
+async def options_context_status_route():
+    """#744 Options Context Module — BTC/ETH max pain/gamma."""
+    from bd_platform.options_context import options_context_status
+
+    return options_context_status()
+
+
+@router.get("/intelligence-ledger/options-context")
+async def options_context_panel_route(asset: str = Query("BTC")):
+    from bd_platform.options_context import build_options_context_panel
+
+    result = build_options_context_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result

@@ -1,0 +1,26 @@
+{
+  "feature_id": 739,
+  "sprint": 2,
+  "methodology_version": "2.1",
+  "last_updated": "2026-08-26",
+  "indices": {
+    "crypto_top100": {
+      "name": "Crypto Top 100 Market Cap Index",
+      "provider": "coingecko",
+      "last_rebalance": "2026-08-01",
+      "index_value": 4521.8,
+      "change_24h_pct": 1.25,
+      "methodology": {
+        "version": "2.1",
+        "rebalance_frequency": "monthly",
+        "weighting": "market_cap_weighted",
+        "constituent_count": 100
+      },
+      "constituents": [
+        {"symbol": "BTC", "weight_pct": 52.3},
+        {"symbol": "ETH", "weight_pct": 18.7},
+        {"symbol": "SOL", "weight_pct": 3.2}
+      ]
+    }
+  }
+}
