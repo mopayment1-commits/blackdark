@@ -1,0 +1,128 @@
+{
+  "feature_id": 315,
+  "renamed_from": "Cross-Derivatives Decision Intelligence",
+  "title": "Derivatives Cross-Signal Synthesis Module",
+  "requires_feature_id": 327,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "backtest": {
+    "historical_events_tested": 50,
+    "true_positive_rate_pct": 76.0,
+    "false_positive_rate_pct": 18.5,
+    "contradiction_latency_minutes": 8,
+    "brier_score": 0.19,
+    "last_calibration": "2026-08-01"
+  },
+  "assets": {
+    "BTC": {
+      "timeframes": {
+        "4h": {
+          "signals": [
+            {
+              "signal_id": "funding",
+              "signal_type": "funding_rate",
+              "value": 0.00045,
+              "available": true,
+              "timeframe": "4h",
+              "source": "Binance API v3",
+              "timestamp_utc": "2026-08-26T09:00:00+00:00",
+              "transformation_version": "1.0",
+              "provenance_metric_id": "spot.btc_usdt.aggregated_price",
+              "freshness_score": 0.95,
+              "source_quality_score": 0.92,
+              "historical_accuracy_score": 0.78,
+              "staleness_minutes": 5,
+              "rolling_30d": {"mean": 0.0001, "std": 0.00015}
+            },
+            {
+              "signal_id": "open_interest",
+              "signal_type": "oi_change",
+              "value": 8.5,
+              "available": true,
+              "timeframe": "4h",
+              "source": "Binance API v3",
+              "timestamp_utc": "2026-08-26T09:00:00+00:00",
+              "transformation_version": "1.0",
+              "provenance_metric_id": "spot.btc_usdt.aggregated_price",
+              "freshness_score": 0.93,
+              "source_quality_score": 0.90,
+              "historical_accuracy_score": 0.75,
+              "staleness_minutes": 8,
+              "rolling_30d": {"mean": 2.0, "std": 4.0}
+            },
+            {
+              "signal_id": "cvd_flow",
+              "signal_type": "cvd",
+              "value": 2.8,
+              "available": true,
+              "timeframe": "4h",
+              "source": "BLACKDARK CVD Engine",
+              "timestamp_utc": "2026-08-26T09:00:00+00:00",
+              "transformation_version": "1.2",
+              "freshness_score": 0.88,
+              "source_quality_score": 0.85,
+              "historical_accuracy_score": 0.72,
+              "staleness_minutes": 12,
+              "rolling_30d": {"mean": 0.5, "std": 1.2}
+            },
+            {
+              "signal_id": "liquidations",
+              "signal_type": "liquidation_volume",
+              "value": -2.5,
+              "available": true,
+              "timeframe": "4h",
+              "source": "Binance API",
+              "timestamp_utc": "2026-08-26T09:00:00+00:00",
+              "transformation_version": "1.0",
+              "freshness_score": 0.90,
+              "source_quality_score": 0.88,
+              "historical_accuracy_score": 0.70,
+              "staleness_minutes": 10,
+              "rolling_30d": {"mean": 0.0, "std": 1.5}
+            },
+            {
+              "signal_id": "leverage",
+              "signal_type": "leverage_ratio",
+              "value": 1.45,
+              "available": true,
+              "timeframe": "4h",
+              "source": "Binance API v3",
+              "timestamp_utc": "2026-08-26T09:00:00+00:00",
+              "transformation_version": "1.0",
+              "freshness_score": 0.91,
+              "source_quality_score": 0.89,
+              "historical_accuracy_score": 0.74,
+              "staleness_minutes": 7,
+              "rolling_30d": {"mean": 1.2, "std": 0.25}
+            }
+          ]
+        },
+        "1h": {
+          "signals": [
+            {
+              "signal_id": "funding",
+              "signal_type": "funding_rate",
+              "value": 0.0003,
+              "available": true,
+              "rolling_30d": {"mean": 0.0001, "std": 0.00015},
+              "freshness_score": 0.9,
+              "source_quality_score": 0.9,
+              "historical_accuracy_score": 0.7
+            },
+            {
+              "signal_id": "open_interest",
+              "signal_type": "oi_change",
+              "value": 5.0,
+              "available": true,
+              "rolling_30d": {"mean": 2.0, "std": 4.0},
+              "freshness_score": 0.9,
+              "source_quality_score": 0.9,
+              "historical_accuracy_score": 0.7
+            }
+          ]
+        }
+      }
+    }
+  }
+}
