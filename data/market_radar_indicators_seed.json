@@ -1,0 +1,39 @@
+{
+  "feature_id": 734,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "exchange_cluster": {
+    "version": "2026.08.1",
+    "last_updated": "2026-08-26"
+  },
+  "exchanges": {
+    "binance": {
+      "name": "Binance",
+      "unique_deposit_addresses": 125000,
+      "unique_withdrawal_addresses": 118000,
+      "unique_addresses_deduped": true,
+      "transaction_count_24h": 2850000,
+      "unique_addresses_change_pct": 8.5,
+      "tx_count_change_pct": 12.3,
+      "trend": "rising",
+      "chain_validation": {
+        "ethereum": {"validated": true, "rules": ["eoa_dedupe", "contract_filter"]},
+        "bsc": {"validated": true, "rules": ["eoa_dedupe"]}
+      }
+    },
+    "coinbase": {
+      "name": "Coinbase",
+      "unique_deposit_addresses": 85000,
+      "unique_withdrawal_addresses": 82000,
+      "unique_addresses_deduped": true,
+      "transaction_count_24h": 980000,
+      "unique_addresses_change_pct": -2.1,
+      "tx_count_change_pct": -1.5,
+      "trend": "flat",
+      "chain_validation": {
+        "ethereum": {"validated": true, "rules": ["eoa_dedupe", "contract_filter"]}
+      }
+    }
+  }
+}
