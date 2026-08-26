@@ -7,7 +7,8 @@
   "last_updated": "2026-08-26",
   "absorbed_tickets": {
     "331": "Derivatives Venue Feed (standalone rejected)",
-    "333": "Funding Rate Context Panel (standalone rejected)"
+    "333": "Funding Rate Context Panel (standalone rejected)",
+    "343": "Basis Curve (standalone rejected)"
   },
   "provider_semantics": {
     "schema_version": "1.0",
@@ -32,6 +33,60 @@
     "outlier_threshold_z": 3.0,
     "outlier_handling": "exclude_beyond_z_threshold",
     "settlement_sync_logic": "align_to_utc_funding_interval_boundary"
+  },
+  "basis_curves": {
+    "BTC": {
+      "spot_price": 64800,
+      "timestamp_utc": "2026-08-26T10:00:00+00:00",
+      "perp": {
+        "venue": "binance",
+        "venue_normalized": "binance",
+        "perp_price": 65000
+      },
+      "contracts": [
+        {
+          "contract_id": "BTC-2026Q4",
+          "venue": "binance",
+          "venue_normalized": "binance",
+          "contract_type": "dated_futures",
+          "futures_price": 65200,
+          "expiry_utc": "2026-12-26T08:00:00+00:00",
+          "timestamp_utc": "2026-08-26T10:00:00+00:00",
+          "timestamp_sync": true
+        },
+        {
+          "contract_id": "BTC-2027Q1",
+          "venue": "deribit",
+          "venue_normalized": "deribit",
+          "contract_type": "dated_futures",
+          "futures_price": 65500,
+          "expiry_utc": "2027-03-26T08:00:00+00:00",
+          "timestamp_utc": "2026-08-26T10:00:00+00:00",
+          "timestamp_sync": true
+        }
+      ]
+    },
+    "ETH": {
+      "spot_price": 3400,
+      "timestamp_utc": "2026-08-26T10:00:00+00:00",
+      "perp": {
+        "venue": "binance",
+        "venue_normalized": "binance",
+        "perp_price": 3410
+      },
+      "contracts": [
+        {
+          "contract_id": "ETH-2026Q4",
+          "venue": "binance",
+          "venue_normalized": "binance",
+          "contract_type": "dated_futures",
+          "futures_price": 3425,
+          "expiry_utc": "2026-12-26T08:00:00+00:00",
+          "timestamp_utc": "2026-08-26T10:00:00+00:00",
+          "timestamp_sync": true
+        }
+      ]
+    }
   },
   "venues": {
     "BTC": {

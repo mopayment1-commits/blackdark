@@ -5,6 +5,58 @@
   "sprint": 2,
   "methodology_version": "1.0",
   "last_updated": "2026-08-26",
+  "absorbed_tickets": {
+    "341": "Fundraising Velocity Indicator (standalone rejected)"
+  },
+  "fundraising_velocity": {
+    "formula_version": "1.0",
+    "backtest": {
+      "events_tested": 85,
+      "accuracy_pct": 72.5,
+      "false_positive_rate_pct": 18.0
+    }
+  },
+  "projects": [
+    {
+      "project_id": "proj_layerzero",
+      "company": "LayerZero Labs",
+      "sector": "infrastructure",
+      "stage": "Series B",
+      "funding_velocity_usd_per_month": 40000000,
+      "investor_breadth": 12,
+      "investor_quality_tier": "tier_1",
+      "valuation_usd": 3000000000,
+      "valuation_disclosed": true,
+      "rounds_last_90d": 2,
+      "sector_trend": "accelerating"
+    },
+    {
+      "project_id": "proj_zksync",
+      "company": "ZKSync App",
+      "sector": "infrastructure",
+      "stage": "Series A",
+      "funding_velocity_usd_per_month": 15000000,
+      "investor_breadth": 5,
+      "investor_quality_tier": "tier_1",
+      "valuation_usd": null,
+      "valuation_disclosed": false,
+      "rounds_last_90d": 1,
+      "sector_trend": "stable"
+    },
+    {
+      "project_id": "proj_gaming",
+      "company": "NFT Gaming Co",
+      "sector": "gaming",
+      "stage": "Seed",
+      "funding_velocity_usd_per_month": 2666667,
+      "investor_breadth": 3,
+      "investor_quality_tier": "tier_2",
+      "valuation_usd": null,
+      "valuation_disclosed": false,
+      "rounds_last_90d": 1,
+      "sector_trend": "decelerating"
+    }
+  ],
   "rounds": [
     {
       "round_id": "rnd_001",
