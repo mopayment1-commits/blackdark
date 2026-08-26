@@ -1606,6 +1606,46 @@ async def holder_analytics_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/onchain-layer/miner-intelligence/status")
+async def miner_intelligence_layer_status_route():
+    """#566 #567 #568 Miner Intelligence Layer — flow tracking + MPI."""
+    from bd_platform.miner_intelligence_layer import miner_intelligence_layer_status
+
+    return miner_intelligence_layer_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/miner-intelligence")
+async def miner_intelligence_panel_route(
+    miner_id: str = Query("miner_foundry_usa"),
+    adjusted: bool = Query(True),
+):
+    from bd_platform.miner_intelligence_layer import build_miner_intelligence_panel
+
+    result = build_miner_intelligence_panel(miner_id=miner_id, adjusted=adjusted)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/miner-intelligence/mpi")
+async def miners_position_index_route(
+    miner_id: str = Query("miner_foundry_usa"),
+):
+    from bd_platform.miner_intelligence_layer import build_miners_position_index
+
+    result = build_miners_position_index(miner_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/miner-intelligence/reconciliation-tests")
+async def miner_intelligence_reconciliation_tests_route():
+    from bd_platform.miner_intelligence_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/onchain-layer/dex-intelligence/status")
 async def dex_intelligence_layer_status_route():
     """#535 DEX Intelligence Layer — pool liquidity with scam/spam filters."""

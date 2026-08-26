@@ -1,0 +1,203 @@
+{
+  "schema_version": "1.0.0",
+  "layer": "Miner Intelligence Layer",
+  "tasks": ["#566", "#567", "#568"],
+  "mpi_baseline": {
+    "version": "1.0",
+    "window_days": 365,
+    "method": "percentile_rank_vs_historical",
+    "outlier_handling": "iqr_trim",
+    "iqr_multiplier": 1.5
+  },
+  "miner_clusters": {
+    "miner_foundry_usa": {
+      "addresses": [
+        "0xminer_foundry_hot_001",
+        "0xminer_foundry_cold_001"
+      ]
+    },
+    "miner_antpool": {
+      "addresses": [
+        "0xminer_antpool_hot_001",
+        "0xminer_antpool_cold_001"
+      ]
+    }
+  },
+  "exchange_clusters": {
+    "binance": {
+      "addresses": [
+        "0x28c6c06298d514db089934071355e5743bf21d60",
+        "0x3f5ce5fbfe3e628ad0af38df2233fe8dd0a5a0a0"
+      ]
+    },
+    "coinbase": {
+      "addresses": [
+        "0xcoinbase_hot_001",
+        "0xcoinbase_cold_001"
+      ]
+    }
+  },
+  "miners": {
+    "miner_foundry_usa": {
+      "miner_id": "miner_foundry_usa",
+      "entity_id": "entity_miner_foundry",
+      "name": "Foundry USA",
+      "pool": "Foundry USA",
+      "asset": "BTC",
+      "labels": {
+        "label": "Foundry USA Pool",
+        "confidence": "verified",
+        "source": "verified_labels_registry",
+        "version": "1.0",
+        "freshness_seconds": 600
+      },
+      "pool_reclassification": {
+        "previous_pool": "Foundry Digital",
+        "current_pool": "Foundry USA",
+        "date": "2024-06-01",
+        "reason": "branding_update",
+        "historical_continuity_preserved": true,
+        "flows_reassigned": false
+      },
+      "balances": {
+        "total_btc": 1250.5,
+        "previous_total_btc": 1280.0
+      },
+      "flow_baseline": {
+        "mean_outflow_usd": 15000000.0,
+        "std_outflow_usd": 5000000.0
+      },
+      "market_context": {
+        "price_usd": 95000.0,
+        "issuance_btc_daily": 450.0
+      },
+      "provenance": {
+        "source": "onchain_miner_indexer",
+        "as_of": "2026-08-26T13:00:00Z",
+        "freshness_seconds": 300
+      },
+      "historical_outflows": [
+        {"date": "2026-01-15", "outflow_btc": 80.0},
+        {"date": "2026-02-15", "outflow_btc": 95.0},
+        {"date": "2026-03-15", "outflow_btc": 110.0},
+        {"date": "2026-04-15", "outflow_btc": 85.0},
+        {"date": "2026-05-15", "outflow_btc": 100.0},
+        {"date": "2026-06-15", "outflow_btc": 120.0},
+        {"date": "2026-07-15", "outflow_btc": 90.0},
+        {"date": "2026-08-15", "outflow_btc": 105.0},
+        {"date": "2026-08-20", "outflow_btc": 500.0},
+        {"date": "2026-08-25", "outflow_btc": 180.0}
+      ]
+    },
+    "miner_antpool": {
+      "miner_id": "miner_antpool",
+      "entity_id": "entity_miner_antpool",
+      "name": "AntPool",
+      "pool": "AntPool",
+      "asset": "BTC",
+      "labels": {
+        "label": "AntPool",
+        "confidence": "high",
+        "source": "onchain_graph_clustering",
+        "version": "1.0",
+        "freshness_seconds": 1200
+      },
+      "balances": {
+        "total_btc": 980.0,
+        "previous_total_btc": 1000.0
+      },
+      "flow_baseline": {
+        "mean_outflow_usd": 12000000.0,
+        "std_outflow_usd": 4000000.0
+      },
+      "market_context": {
+        "price_usd": 95000.0,
+        "issuance_btc_daily": 450.0
+      },
+      "provenance": {
+        "source": "onchain_miner_indexer",
+        "as_of": "2026-08-26T13:00:00Z",
+        "freshness_seconds": 300
+      },
+      "historical_outflows": [
+        {"date": "2026-01-15", "outflow_btc": 70.0},
+        {"date": "2026-02-15", "outflow_btc": 75.0},
+        {"date": "2026-03-15", "outflow_btc": 80.0},
+        {"date": "2026-04-15", "outflow_btc": 72.0},
+        {"date": "2026-05-15", "outflow_btc": 78.0},
+        {"date": "2026-06-15", "outflow_btc": 85.0},
+        {"date": "2026-07-15", "outflow_btc": 74.0},
+        {"date": "2026-08-15", "outflow_btc": 82.0},
+        {"date": "2026-08-25", "outflow_btc": 90.0}
+      ]
+    }
+  },
+  "transfers": [
+    {
+      "transfer_id": "mi-tx-001",
+      "timestamp": "2026-08-26T10:00:00Z",
+      "miner_id": "miner_foundry_usa",
+      "asset": "BTC",
+      "direction": "outflow",
+      "quantity": 50.0,
+      "value_usd": 4750000.0,
+      "from_address": "0xminer_foundry_hot_001",
+      "to_address": "0x28c6c06298d514db089934071355e5743bf21d60"
+    },
+    {
+      "transfer_id": "mi-tx-002",
+      "timestamp": "2026-08-26T10:30:00Z",
+      "miner_id": "miner_foundry_usa",
+      "asset": "BTC",
+      "direction": "internal",
+      "quantity": 20.0,
+      "value_usd": 1900000.0,
+      "from_address": "0xminer_foundry_hot_001",
+      "to_address": "0xminer_foundry_cold_001"
+    },
+    {
+      "transfer_id": "mi-tx-003",
+      "timestamp": "2026-08-26T11:00:00Z",
+      "miner_id": "miner_foundry_usa",
+      "asset": "BTC",
+      "direction": "outflow",
+      "quantity": 30.0,
+      "value_usd": 2850000.0,
+      "from_address": "0xminer_foundry_hot_001",
+      "to_address": "0xcoinbase_hot_001"
+    },
+    {
+      "transfer_id": "mi-tx-004",
+      "timestamp": "2026-08-26T11:30:00Z",
+      "miner_id": "miner_foundry_usa",
+      "asset": "BTC",
+      "direction": "inflow",
+      "quantity": 100.0,
+      "value_usd": 9500000.0,
+      "from_address": "0xexternal_coinbase_reward",
+      "to_address": "0xminer_foundry_hot_001"
+    },
+    {
+      "transfer_id": "mi-tx-005",
+      "timestamp": "2026-08-26T12:00:00Z",
+      "miner_id": "miner_antpool",
+      "asset": "BTC",
+      "direction": "outflow",
+      "quantity": 25.0,
+      "value_usd": 2375000.0,
+      "from_address": "0xminer_antpool_hot_001",
+      "to_address": "0x28c6c06298d514db089934071355e5743bf21d60"
+    },
+    {
+      "transfer_id": "mi-tx-006",
+      "timestamp": "2026-08-26T12:30:00Z",
+      "miner_id": "miner_antpool",
+      "asset": "BTC",
+      "direction": "internal",
+      "quantity": 15.0,
+      "value_usd": 1425000.0,
+      "from_address": "0xminer_antpool_hot_001",
+      "to_address": "0xminer_antpool_cold_001"
+    }
+  ]
+}
