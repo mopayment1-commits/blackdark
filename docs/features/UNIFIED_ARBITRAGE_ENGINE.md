@@ -1,6 +1,18 @@
 # Unified Arbitrage Opportunity Engine — Features #429 + #428
 
-Sprint-2 Intelligence Ledger Core. Unifies all arbitrage types under one canonical schema and shared economics engine (#427).
+Sprint-2 Intelligence Ledger Core. Unifies all arbitrage types under one canonical schema and shared **Spread Calculation Engine (#427)** economics layer.
+
+## #427 — Economics Engine (Spread Calculation)
+
+| Requirement | Status |
+|-------------|--------|
+| Decimal precision | ✅ `Decimal` + `decimal_fields` |
+| Synchronized timestamps | ✅ drift reject |
+| Fee/slippage included | ✅ `fee_matrix` + depth slippage |
+| Stale books rejected | ✅ fail-closed |
+| Deterministic regression | ✅ seed fixtures |
+
+Routes: `.../unified-arbitrage/economics/*`
 
 ## #429 — Unified Engine
 

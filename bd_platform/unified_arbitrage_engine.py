@@ -34,7 +34,7 @@ _SPRINT = 2
 _PRIORITY = "critical"
 _SEED_PATH = Path("data/unified_arbitrage_engine_seed.json")
 _METHODOLOGY_VERSION = "1.0"
-_ECONOMICS_ENGINE_VERSION = "1.0.0"
+_ECONOMICS_ENGINE_VERSION = "2.0.0"
 _ECONOMICS_ENGINE_REF = 427
 
 _SLA_NO_AUTO_EXECUTION = (
@@ -79,32 +79,20 @@ def compute_arbitrage_economics(
     slippage_bps: float,
     transfer_cost_usdt: float = 0.0,
     withdrawal_fee_usdt: float = 0.0,
+    leg_count: int = 3,
 ) -> dict[str, Any]:
-    """
-    Shared economics engine (#427) — deterministic: same inputs → same outputs.
-    net_edge = gross_notional - trading_fees - slippage - transfer - withdrawal
-    """
-    gross_usd = quote_usd * (gross_spread_bps / 10_000)
-    trading_fees = quote_usd * (trading_fee_bps / 10_000) * 3  # 3 legs default for triangular
-    slippage_usd = quote_usd * (slippage_bps / 10_000)
-    net_edge_usdt = round(gross_usd - trading_fees - slippage_usd - transfer_cost_usdt - withdrawal_fee_usdt, 6)
-    net_edge_bps = round((net_edge_usdt / quote_usd) * 10_000, 4) if quote_usd > 0 else 0.0
+    """Delegate to #427 Spread Calculation Engine — Decimal precision, fees/slippage included."""
+    from bd_platform.spread_calculation_engine import compute_arbitrage_economics as _compute
 
-    return {
-        "gross_spread_bps": round(gross_spread_bps, 4),
-        "quote_usd": quote_usd,
-        "trading_fee_bps": trading_fee_bps,
-        "slippage_bps": slippage_bps,
-        "trading_fees_usdt": round(trading_fees, 6),
-        "slippage_usdt": round(slippage_usd, 6),
-        "transfer_cost_usdt": round(transfer_cost_usdt, 6),
-        "withdrawal_fee_usdt": round(withdrawal_fee_usdt, 6),
-        "net_edge_usdt": net_edge_usdt,
-        "net_edge_bps": net_edge_bps,
-        "economics_engine_version": _ECONOMICS_ENGINE_VERSION,
-        "economics_engine_ref": _ECONOMICS_ENGINE_REF,
-        "deterministic": True,
-    }
+    return _compute(
+        gross_spread_bps=gross_spread_bps,
+        quote_usd=quote_usd,
+        trading_fee_bps=trading_fee_bps,
+        slippage_bps=slippage_bps,
+        transfer_cost_usdt=transfer_cost_usdt,
+        withdrawal_fee_usdt=withdrawal_fee_usdt,
+        leg_count=leg_count,
+    )
 
 
 def _pair_price(pairs: dict[str, Any], symbol: str, side: str) -> float | None:
@@ -312,25 +300,32 @@ def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[
     return opportunities
 
 
-def _normalize_cross_venue(raw: dict[str, Any], *, seed: dict[str, Any]) -> dict[str, Any]:
-    fee_bps = float(seed.get("default_trading_fee_bps", 10))
-    slip_bps = float(seed.get("default_slippage_bps", 8))
-    quote = float(raw.get("quote_usd", 1000))
-    buy_p = float(raw.get("buy_price", 0))
-    sell_p = float(raw.get("sell_price", 0))
-    if buy_p <= 0 or sell_p <= 0:
-        gross_bps = 0.0
-    else:
-        gross_bps = ((sell_p - buy_p) / buy_p) * 10_000
+def _normalize_cross_venue(raw: dict[str, Any], *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    from bd_platform.spread_calculation_engine import compute_cross_venue_spread
 
-    econ = compute_arbitrage_economics(
-        gross_spread_bps=gross_bps,
-        quote_usd=quote,
-        trading_fee_bps=fee_bps,
-        slippage_bps=slip_bps,
-        transfer_cost_usdt=float(raw.get("transfer_cost_usdt", 0)),
-        withdrawal_fee_usdt=float(raw.get("withdrawal_fee_usdt", 0)),
-    )
+    spread = compute_cross_venue_spread(raw, seed=seed)
+    if spread.get("reject"):
+        return {
+            "opportunity_id": raw.get("opportunity_id"),
+            "opportunity_type": raw.get("opportunity_type", "cross_venue"),
+            "feature_ref": 403,
+            "asset": raw.get("asset"),
+            "symbol": raw.get("symbol"),
+            "buy_venue": raw.get("buy_venue"),
+            "sell_venue": raw.get("sell_venue"),
+            "reject": True,
+            "rejection_reason": spread.get("rejection_reason"),
+            "spread_calculation_427": spread,
+            "simulation_only": True,
+            "no_auto_execution": True,
+        }
+
+    quote = float(raw.get("quote_usd", 1000))
+    slip_bps = float(spread.get("slippage_bps") or raw.get("slippage_bps") or seed.get("default_slippage_bps", 8))
+    net_edge = float(spread.get("net_spread_usdt") or spread.get("net_edge_usdt") or 0)
+    net_bps = float(spread.get("net_spread_bps") or spread.get("net_edge_bps") or 0)
+    gross_bps = float(spread.get("gross_spread_bps") or 0)
 
     return {
         "opportunity_id": raw.get("opportunity_id"),
@@ -340,19 +335,23 @@ def _normalize_cross_venue(raw: dict[str, Any], *, seed: dict[str, Any]) -> dict
         "symbol": raw.get("symbol"),
         "buy_venue": raw.get("buy_venue"),
         "sell_venue": raw.get("sell_venue"),
-        "gross_spread_bps": econ["gross_spread_bps"],
-        "trading_fees_usdt": econ["trading_fees_usdt"],
+        "gross_spread_bps": gross_bps,
+        "net_spread_bps": net_bps,
+        "trading_fees_usdt": float(spread.get("trading_fees_usdt") or 0),
         "slippage_bps": slip_bps,
-        "slippage_usdt": econ["slippage_usdt"],
-        "transfer_cost_usdt": econ["transfer_cost_usdt"],
-        "withdrawal_fee_usdt": econ["withdrawal_fee_usdt"],
-        "net_edge_usdt": econ["net_edge_usdt"],
-        "net_edge_bps": econ["net_edge_bps"],
+        "slippage_usdt": float(spread.get("slippage_usdt") or 0),
+        "transfer_cost_usdt": float(spread.get("transfer_cost_usdt") or raw.get("transfer_cost_usdt", 0)),
+        "withdrawal_fee_usdt": float(spread.get("withdrawal_fee_usdt") or raw.get("withdrawal_fee_usdt", 0)),
+        "net_edge_usdt": net_edge,
+        "net_edge_bps": net_bps,
+        "executable_size": spread.get("executable_size"),
+        "source_venues": spread.get("source_venues"),
+        "spread_calculation_427": spread,
         "quote_usd": quote,
         "quote_age_ms": raw.get("quote_age_ms"),
-        "net_profit_usdt": econ["net_edge_usdt"],
+        "net_profit_usdt": net_edge,
         "total_slippage_bps": slip_bps,
-        "trading_fees_usdt_for_truth": econ["trading_fees_usdt"],
+        "trading_fees_usdt_for_truth": float(spread.get("trading_fees_usdt") or 0),
         "simulation_only": True,
         "no_auto_execution": True,
     }
@@ -811,6 +810,10 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     econ_a = compute_arbitrage_economics(gross_spread_bps=20, quote_usd=1000, trading_fee_bps=10, slippage_bps=8)
     econ_b = compute_arbitrage_economics(gross_spread_bps=20, quote_usd=1000, trading_fee_bps=10, slippage_bps=8)
     checks.append({"id": "deterministic_economics", "passed": econ_a == econ_b, "detail": "427"})
+
+    from bd_platform.spread_calculation_engine import run_reconciliation_tests as sce_tests
+    sce_result = sce_tests()
+    checks.append({"id": "spread_engine_427", "passed": sce_result.get("ok") is True, "detail": f"{sce_result.get('passed')}/{sce_result.get('total')}"})
 
     triangular = scan_triangular_divergence(seed=seed)
     checks.append({"id": "triangular_428_rule_based", "passed": len(triangular) >= 1, "detail": f"loops={len(triangular)}"})
