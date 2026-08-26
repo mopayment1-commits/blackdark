@@ -529,6 +529,16 @@ def build_market_data_normalization_layer(asset: str = "BTC") -> dict[str, Any]:
     }
 
 
+def build_data_engine_asset_registry_block() -> dict[str, Any]:
+    """#402 Asset Registry hook — 105-coin universe in Data Engine."""
+    try:
+        from bd_platform.asset_registry import build_data_engine_block
+
+        return build_data_engine_block()
+    except ImportError:
+        return {"feature_id": 402, "available": False}
+
+
 def market_data_engine_status() -> dict[str, Any]:
     seed = _load_seed()
     return {
@@ -539,6 +549,7 @@ def market_data_engine_status() -> dict[str, Any]:
         "merged_into": _MERGED_INTO,
         "sprint": _SPRINT,
         "surface": "market_data_display",
+        "asset_registry": build_data_engine_asset_registry_block(),
         "absorbed_tickets": {
             331: "Derivatives Venue Feed (standalone rejected)",
             333: "Funding Rate Context Panel (standalone rejected, renamed from Funding Rate Intelligence)",

@@ -1,0 +1,3505 @@
+{
+  "feature_id": 402,
+  "title": "Asset Registry — 105 Coin Universe",
+  "layer": "Data Engine",
+  "sprint": 1,
+  "priority": "medium",
+  "methodology_version": "1.0",
+  "asset_count": 105,
+  "rank_range": {
+    "min": 101,
+    "max": 205
+  },
+  "non_custodial": true,
+  "account_data_excluded": true,
+  "oracle_api_delegated": true,
+  "duplicates_resolved": [
+    {
+      "merged_into": "asset_pol",
+      "aliases": [
+        "MATIC"
+      ]
+    },
+    {
+      "merged_into": "asset_mkr",
+      "aliases": [
+        "SKY"
+      ]
+    },
+    {
+      "merged_into": "asset_mana",
+      "note": "Decentraland MANA — distinct from MANTA"
+    }
+  ],
+  "assets": {
+    "asset_btc": {
+      "entity_id": "asset_btc",
+      "rank": 101,
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "bitcoin",
+      "market_cap_tier": "mega",
+      "risk_classification": "conservative",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 16,
+        "liquidity_score": 98,
+        "onchain_health_score": 96,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_eth": {
+      "entity_id": "asset_eth",
+      "rank": 102,
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "ethereum",
+      "market_cap_tier": "mega",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 38,
+        "liquidity_score": 99,
+        "onchain_health_score": 78,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_sol": {
+      "entity_id": "asset_sol",
+      "rank": 103,
+      "symbol": "SOL",
+      "name": "Solana",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "solana",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 47,
+        "liquidity_score": 88,
+        "onchain_health_score": 78,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_bnb": {
+      "entity_id": "asset_bnb",
+      "rank": 104,
+      "symbol": "BNB",
+      "name": "Binance Coin",
+      "aliases": [],
+      "sector": "Exchange",
+      "chain": "bnb_chain",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 41,
+        "liquidity_score": 86,
+        "onchain_health_score": 69,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_xrp": {
+      "entity_id": "asset_xrp",
+      "rank": 105,
+      "symbol": "XRP",
+      "name": "XRP",
+      "aliases": [],
+      "sector": "Payments",
+      "chain": "xrpl",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 44,
+        "liquidity_score": 85,
+        "onchain_health_score": 58,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_hype": {
+      "entity_id": "asset_hype",
+      "rank": 106,
+      "symbol": "HYPE",
+      "name": "Hyperliquid",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "hyperliquid",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 62,
+        "liquidity_score": 55,
+        "onchain_health_score": 65,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": false,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ton": {
+      "entity_id": "asset_ton",
+      "rank": 107,
+      "symbol": "TON",
+      "name": "Toncoin",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "ton",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 41,
+        "liquidity_score": 81,
+        "onchain_health_score": 65,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_trx": {
+      "entity_id": "asset_trx",
+      "rank": 108,
+      "symbol": "TRX",
+      "name": "TRON",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "tron",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 42,
+        "liquidity_score": 83,
+        "onchain_health_score": 47,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ada": {
+      "entity_id": "asset_ada",
+      "rank": 109,
+      "symbol": "ADA",
+      "name": "Cardano",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "cardano",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 34,
+        "liquidity_score": 80,
+        "onchain_health_score": 67,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_avax": {
+      "entity_id": "asset_avax",
+      "rank": 110,
+      "symbol": "AVAX",
+      "name": "Avalanche",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "avalanche",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 42,
+        "liquidity_score": 90,
+        "onchain_health_score": 44,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_sui": {
+      "entity_id": "asset_sui",
+      "rank": 111,
+      "symbol": "SUI",
+      "name": "Sui",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "sui",
+      "market_cap_tier": "large",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 64,
+        "liquidity_score": 84,
+        "onchain_health_score": 55,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_near": {
+      "entity_id": "asset_near",
+      "rank": 112,
+      "symbol": "NEAR",
+      "name": "Near Protocol",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "near",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 44,
+        "liquidity_score": 86,
+        "onchain_health_score": 58,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_link": {
+      "entity_id": "asset_link",
+      "rank": 113,
+      "symbol": "LINK",
+      "name": "Chainlink",
+      "aliases": [],
+      "sector": "Infrastructure",
+      "chain": "ethereum",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 44,
+        "liquidity_score": 87,
+        "onchain_health_score": 92,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_dot": {
+      "entity_id": "asset_dot",
+      "rank": 114,
+      "symbol": "DOT",
+      "name": "Polkadot",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "polkadot",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 45,
+        "liquidity_score": 83,
+        "onchain_health_score": 58,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ltc": {
+      "entity_id": "asset_ltc",
+      "rank": 115,
+      "symbol": "LTC",
+      "name": "Litecoin",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "litecoin",
+      "market_cap_tier": "mid",
+      "risk_classification": "conservative",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 20,
+        "liquidity_score": 58,
+        "onchain_health_score": 43,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_pol": {
+      "entity_id": "asset_pol",
+      "rank": 116,
+      "symbol": "POL",
+      "name": "Polygon",
+      "aliases": [
+        "MATIC"
+      ],
+      "sector": "Layer 2",
+      "chain": "polygon",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 37,
+        "liquidity_score": 76,
+        "onchain_health_score": 56,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_xlm": {
+      "entity_id": "asset_xlm",
+      "rank": 117,
+      "symbol": "XLM",
+      "name": "Stellar",
+      "aliases": [],
+      "sector": "Payments",
+      "chain": "stellar",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 40,
+        "liquidity_score": 56,
+        "onchain_health_score": 46,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_uni": {
+      "entity_id": "asset_uni",
+      "rank": 118,
+      "symbol": "UNI",
+      "name": "Uniswap",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "large",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 43,
+        "liquidity_score": 85,
+        "onchain_health_score": 95,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_apt": {
+      "entity_id": "asset_apt",
+      "rank": 119,
+      "symbol": "APT",
+      "name": "Aptos",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "aptos",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 68,
+        "liquidity_score": 63,
+        "onchain_health_score": 63,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_hbar": {
+      "entity_id": "asset_hbar",
+      "rank": 120,
+      "symbol": "HBAR",
+      "name": "Hedera",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "hedera",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 37,
+        "liquidity_score": 59,
+        "onchain_health_score": 54,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_kas": {
+      "entity_id": "asset_kas",
+      "rank": 121,
+      "symbol": "KAS",
+      "name": "Kaspa",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "kaspa",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 62,
+        "liquidity_score": 58,
+        "onchain_health_score": 53,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_atom": {
+      "entity_id": "asset_atom",
+      "rank": 122,
+      "symbol": "ATOM",
+      "name": "Cosmos",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "cosmos",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 40,
+        "liquidity_score": 54,
+        "onchain_health_score": 59,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_xmr": {
+      "entity_id": "asset_xmr",
+      "rank": 123,
+      "symbol": "XMR",
+      "name": "Monero",
+      "aliases": [],
+      "sector": "Privacy",
+      "chain": "monero",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 63,
+        "liquidity_score": 64,
+        "onchain_health_score": 63,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_icp": {
+      "entity_id": "asset_icp",
+      "rank": 124,
+      "symbol": "ICP",
+      "name": "Internet Computer",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "icp",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 64,
+        "liquidity_score": 69,
+        "onchain_health_score": 58,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_etc": {
+      "entity_id": "asset_etc",
+      "rank": 125,
+      "symbol": "ETC",
+      "name": "Ethereum Classic",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "ethereum_classic",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 69,
+        "liquidity_score": 54,
+        "onchain_health_score": 62,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_inj": {
+      "entity_id": "asset_inj",
+      "rank": 126,
+      "symbol": "INJ",
+      "name": "Injective",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "injective",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 63,
+        "liquidity_score": 65,
+        "onchain_health_score": 64,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_fil": {
+      "entity_id": "asset_fil",
+      "rank": 127,
+      "symbol": "FIL",
+      "name": "Filecoin",
+      "aliases": [],
+      "sector": "Storage",
+      "chain": "filecoin",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 59,
+        "liquidity_score": 69,
+        "onchain_health_score": 63,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_op": {
+      "entity_id": "asset_op",
+      "rank": 128,
+      "symbol": "OP",
+      "name": "Optimism",
+      "aliases": [],
+      "sector": "Layer 2",
+      "chain": "optimism",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 52,
+        "liquidity_score": 69,
+        "onchain_health_score": 49,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_arb": {
+      "entity_id": "asset_arb",
+      "rank": 129,
+      "symbol": "ARB",
+      "name": "Arbitrum",
+      "aliases": [],
+      "sector": "Layer 2",
+      "chain": "arbitrum",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 50,
+        "liquidity_score": 67,
+        "onchain_health_score": 50,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_render": {
+      "entity_id": "asset_render",
+      "rank": 130,
+      "symbol": "RENDER",
+      "name": "Render Token",
+      "aliases": [],
+      "sector": "AI",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 69,
+        "liquidity_score": 56,
+        "onchain_health_score": 87,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_fet": {
+      "entity_id": "asset_fet",
+      "rank": 131,
+      "symbol": "FET",
+      "name": "Fetch.ai",
+      "aliases": [],
+      "sector": "AI",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 69,
+        "liquidity_score": 59,
+        "onchain_health_score": 83,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_tao": {
+      "entity_id": "asset_tao",
+      "rank": 132,
+      "symbol": "TAO",
+      "name": "Bittensor",
+      "aliases": [],
+      "sector": "AI",
+      "chain": "bittensor",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 64,
+        "liquidity_score": 69,
+        "onchain_health_score": 44,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_mkr": {
+      "entity_id": "asset_mkr",
+      "rank": 133,
+      "symbol": "MKR",
+      "name": "Maker",
+      "aliases": [
+        "SKY"
+      ],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 34,
+        "liquidity_score": 62,
+        "onchain_health_score": 96,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_stx": {
+      "entity_id": "asset_stx",
+      "rank": 134,
+      "symbol": "STX",
+      "name": "Stacks",
+      "aliases": [],
+      "sector": "Layer 2",
+      "chain": "stacks",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 40,
+        "liquidity_score": 61,
+        "onchain_health_score": 65,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_imx": {
+      "entity_id": "asset_imx",
+      "rank": 135,
+      "symbol": "IMX",
+      "name": "Immutable",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 57,
+        "liquidity_score": 54,
+        "onchain_health_score": 86,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_sei": {
+      "entity_id": "asset_sei",
+      "rank": 136,
+      "symbol": "SEI",
+      "name": "Sei",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "sei",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 62,
+        "liquidity_score": 59,
+        "onchain_health_score": 61,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ftm": {
+      "entity_id": "asset_ftm",
+      "rank": 137,
+      "symbol": "FTM",
+      "name": "Fantom",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "fantom",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 67,
+        "liquidity_score": 67,
+        "onchain_health_score": 61,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_tia": {
+      "entity_id": "asset_tia",
+      "rank": 138,
+      "symbol": "TIA",
+      "name": "Celestia",
+      "aliases": [],
+      "sector": "Infrastructure",
+      "chain": "celestia",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 64,
+        "liquidity_score": 63,
+        "onchain_health_score": 55,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_rune": {
+      "entity_id": "asset_rune",
+      "rank": 139,
+      "symbol": "RUNE",
+      "name": "Thorchain",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "thorchain",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 60,
+        "liquidity_score": 62,
+        "onchain_health_score": 53,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_jup": {
+      "entity_id": "asset_jup",
+      "rank": 140,
+      "symbol": "JUP",
+      "name": "Jupiter",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "solana",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 61,
+        "liquidity_score": 70,
+        "onchain_health_score": 87,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": true
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_grt": {
+      "entity_id": "asset_grt",
+      "rank": 141,
+      "symbol": "GRT",
+      "name": "The Graph",
+      "aliases": [],
+      "sector": "Infrastructure",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 40,
+        "liquidity_score": 57,
+        "onchain_health_score": 91,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ldo": {
+      "entity_id": "asset_ldo",
+      "rank": 142,
+      "symbol": "LDO",
+      "name": "Lido DAO",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 42,
+        "liquidity_score": 62,
+        "onchain_health_score": 96,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_mnt": {
+      "entity_id": "asset_mnt",
+      "rank": 143,
+      "symbol": "MNT",
+      "name": "Mantle",
+      "aliases": [],
+      "sector": "Layer 2",
+      "chain": "mantle",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 58,
+        "liquidity_score": 58,
+        "onchain_health_score": 44,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ondo": {
+      "entity_id": "asset_ondo",
+      "rank": 144,
+      "symbol": "ONDO",
+      "name": "Ondo Finance",
+      "aliases": [],
+      "sector": "RWA",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 35,
+        "liquidity_score": 65,
+        "onchain_health_score": 79,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_jasmy": {
+      "entity_id": "asset_jasmy",
+      "rank": 145,
+      "symbol": "JASMY",
+      "name": "JasmyCoin",
+      "aliases": [],
+      "sector": "IoT",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 86,
+        "liquidity_score": 37,
+        "onchain_health_score": 90,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ar": {
+      "entity_id": "asset_ar",
+      "rank": 146,
+      "symbol": "AR",
+      "name": "Arweave",
+      "aliases": [],
+      "sector": "Storage",
+      "chain": "arweave",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 65,
+        "liquidity_score": 57,
+        "onchain_health_score": 63,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_core": {
+      "entity_id": "asset_core",
+      "rank": 147,
+      "symbol": "CORE",
+      "name": "Core",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "core",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 83,
+        "liquidity_score": 43,
+        "onchain_health_score": 51,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_gala": {
+      "entity_id": "asset_gala",
+      "rank": 148,
+      "symbol": "GALA",
+      "name": "Gala",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 81,
+        "liquidity_score": 33,
+        "onchain_health_score": 96,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_qnt": {
+      "entity_id": "asset_qnt",
+      "rank": 149,
+      "symbol": "QNT",
+      "name": "Quant",
+      "aliases": [],
+      "sector": "Infrastructure",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 44,
+        "liquidity_score": 64,
+        "onchain_health_score": 88,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_algo": {
+      "entity_id": "asset_algo",
+      "rank": 150,
+      "symbol": "ALGO",
+      "name": "Algorand",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "algorand",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 34,
+        "liquidity_score": 69,
+        "onchain_health_score": 53,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": true,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_flow": {
+      "entity_id": "asset_flow",
+      "rank": 151,
+      "symbol": "FLOW",
+      "name": "Flow",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "flow",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 62,
+        "liquidity_score": 39,
+        "onchain_health_score": 44,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ena": {
+      "entity_id": "asset_ena",
+      "rank": 152,
+      "symbol": "ENA",
+      "name": "Ethena",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 59,
+        "liquidity_score": 68,
+        "onchain_health_score": 78,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_chz": {
+      "entity_id": "asset_chz",
+      "rank": 153,
+      "symbol": "CHZ",
+      "name": "Chiliz",
+      "aliases": [],
+      "sector": "Sports",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 74,
+        "liquidity_score": 46,
+        "onchain_health_score": 99,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_dydx": {
+      "entity_id": "asset_dydx",
+      "rank": 154,
+      "symbol": "DYDX",
+      "name": "dYdX",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "dydx",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 66,
+        "liquidity_score": 58,
+        "onchain_health_score": 66,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_axs": {
+      "entity_id": "asset_axs",
+      "rank": 155,
+      "symbol": "AXS",
+      "name": "Axie Infinity",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 81,
+        "liquidity_score": 35,
+        "onchain_health_score": 88,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_sand": {
+      "entity_id": "asset_sand",
+      "rank": 156,
+      "symbol": "SAND",
+      "name": "Sandbox",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 87,
+        "liquidity_score": 38,
+        "onchain_health_score": 81,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_mana": {
+      "entity_id": "asset_mana",
+      "rank": 157,
+      "symbol": "MANA",
+      "name": "Decentraland",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 85,
+        "liquidity_score": 41,
+        "onchain_health_score": 76,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_beam": {
+      "entity_id": "asset_beam",
+      "rank": 158,
+      "symbol": "BEAM",
+      "name": "Beam",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 90,
+        "liquidity_score": 36,
+        "onchain_health_score": 82,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_pendle": {
+      "entity_id": "asset_pendle",
+      "rank": 159,
+      "symbol": "PENDLE",
+      "name": "Pendle",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 63,
+        "liquidity_score": 58,
+        "onchain_health_score": 86,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_wld": {
+      "entity_id": "asset_wld",
+      "rank": 160,
+      "symbol": "WLD",
+      "name": "Worldcoin",
+      "aliases": [],
+      "sector": "Identity",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 58,
+        "liquidity_score": 70,
+        "onchain_health_score": 96,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_aave": {
+      "entity_id": "asset_aave",
+      "rank": 161,
+      "symbol": "AAVE",
+      "name": "Aave",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 42,
+        "liquidity_score": 55,
+        "onchain_health_score": 79,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_snx": {
+      "entity_id": "asset_snx",
+      "rank": 162,
+      "symbol": "SNX",
+      "name": "Synthetix",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 63,
+        "liquidity_score": 45,
+        "onchain_health_score": 99,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_gno": {
+      "entity_id": "asset_gno",
+      "rank": 163,
+      "symbol": "GNO",
+      "name": "Gnosis",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 37,
+        "liquidity_score": 31,
+        "onchain_health_score": 80,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_theta": {
+      "entity_id": "asset_theta",
+      "rank": 164,
+      "symbol": "THETA",
+      "name": "Theta Network",
+      "aliases": [],
+      "sector": "Media",
+      "chain": "theta",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 65,
+        "liquidity_score": 33,
+        "onchain_health_score": 50,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_xtz": {
+      "entity_id": "asset_xtz",
+      "rank": 165,
+      "symbol": "XTZ",
+      "name": "Tezos",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "tezos",
+      "market_cap_tier": "small",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 34,
+        "liquidity_score": 33,
+        "onchain_health_score": 53,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_eos": {
+      "entity_id": "asset_eos",
+      "rank": 166,
+      "symbol": "EOS",
+      "name": "EOS",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "eos",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 59,
+        "liquidity_score": 31,
+        "onchain_health_score": 45,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_neo": {
+      "entity_id": "asset_neo",
+      "rank": 167,
+      "symbol": "NEO",
+      "name": "NEO",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "neo",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 68,
+        "liquidity_score": 42,
+        "onchain_health_score": 61,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_iota": {
+      "entity_id": "asset_iota",
+      "rank": 168,
+      "symbol": "IOTA",
+      "name": "IOTA",
+      "aliases": [],
+      "sector": "IoT",
+      "chain": "iota",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 61,
+        "liquidity_score": 37,
+        "onchain_health_score": 52,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_mina": {
+      "entity_id": "asset_mina",
+      "rank": 169,
+      "symbol": "MINA",
+      "name": "Mina Protocol",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "mina",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 57,
+        "liquidity_score": 39,
+        "onchain_health_score": 65,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_egld": {
+      "entity_id": "asset_egld",
+      "rank": 170,
+      "symbol": "EGLD",
+      "name": "MultiversX",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "multiversx",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 63,
+        "liquidity_score": 45,
+        "onchain_health_score": 66,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ray": {
+      "entity_id": "asset_ray",
+      "rank": 171,
+      "symbol": "RAY",
+      "name": "Raydium",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "solana",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 64,
+        "liquidity_score": 44,
+        "onchain_health_score": 76,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_arkm": {
+      "entity_id": "asset_arkm",
+      "rank": 172,
+      "symbol": "ARKM",
+      "name": "Arkham",
+      "aliases": [],
+      "sector": "Analytics",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 67,
+        "liquidity_score": 30,
+        "onchain_health_score": 84,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_pyth": {
+      "entity_id": "asset_pyth",
+      "rank": 173,
+      "symbol": "PYTH",
+      "name": "Pyth Network",
+      "aliases": [],
+      "sector": "Infrastructure",
+      "chain": "solana",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 51,
+        "liquidity_score": 70,
+        "onchain_health_score": 75,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_strk": {
+      "entity_id": "asset_strk",
+      "rank": 174,
+      "symbol": "STRK",
+      "name": "Starknet",
+      "aliases": [],
+      "sector": "Layer 2",
+      "chain": "starknet",
+      "market_cap_tier": "mid",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 65,
+        "liquidity_score": 63,
+        "onchain_health_score": 44,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_w": {
+      "entity_id": "asset_w",
+      "rank": 175,
+      "symbol": "W",
+      "name": "Wormhole",
+      "aliases": [],
+      "sector": "Interop",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 62,
+        "liquidity_score": 38,
+        "onchain_health_score": 94,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_jto": {
+      "entity_id": "asset_jto",
+      "rank": 176,
+      "symbol": "JTO",
+      "name": "Jito",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "solana",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 69,
+        "liquidity_score": 40,
+        "onchain_health_score": 80,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_safe": {
+      "entity_id": "asset_safe",
+      "rank": 177,
+      "symbol": "SAFE",
+      "name": "Safe",
+      "aliases": [],
+      "sector": "Infrastructure",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "moderate",
+      "volatility_profile": "medium",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 32,
+        "liquidity_score": 44,
+        "onchain_health_score": 90,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_alt": {
+      "entity_id": "asset_alt",
+      "rank": 178,
+      "symbol": "ALT",
+      "name": "Altlayer",
+      "aliases": [],
+      "sector": "Layer 2",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 84,
+        "liquidity_score": 35,
+        "onchain_health_score": 80,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_dym": {
+      "entity_id": "asset_dym",
+      "rank": 179,
+      "symbol": "DYM",
+      "name": "Dymension",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "dymension",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 86,
+        "liquidity_score": 39,
+        "onchain_health_score": 64,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_manta": {
+      "entity_id": "asset_manta",
+      "rank": 180,
+      "symbol": "MANTA",
+      "name": "Manta Network",
+      "aliases": [],
+      "sector": "Layer 2",
+      "chain": "manta",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 77,
+        "liquidity_score": 31,
+        "onchain_health_score": 43,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ocean": {
+      "entity_id": "asset_ocean",
+      "rank": 181,
+      "symbol": "OCEAN",
+      "name": "Ocean Protocol",
+      "aliases": [],
+      "sector": "AI",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 66,
+        "liquidity_score": 31,
+        "onchain_health_score": 82,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_agix": {
+      "entity_id": "asset_agix",
+      "rank": 182,
+      "symbol": "AGIX",
+      "name": "SingularityNET",
+      "aliases": [],
+      "sector": "AI",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 85,
+        "liquidity_score": 37,
+        "onchain_health_score": 79,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_akt": {
+      "entity_id": "asset_akt",
+      "rank": 183,
+      "symbol": "AKT",
+      "name": "Akash Network",
+      "aliases": [],
+      "sector": "Infrastructure",
+      "chain": "akash",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 61,
+        "liquidity_score": 31,
+        "onchain_health_score": 62,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_glm": {
+      "entity_id": "asset_glm",
+      "rank": 184,
+      "symbol": "GLM",
+      "name": "Golem",
+      "aliases": [],
+      "sector": "Compute",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 60,
+        "liquidity_score": 39,
+        "onchain_health_score": 98,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_lpt": {
+      "entity_id": "asset_lpt",
+      "rank": 185,
+      "symbol": "LPT",
+      "name": "Livepeer",
+      "aliases": [],
+      "sector": "Media",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 65,
+        "liquidity_score": 37,
+        "onchain_health_score": 99,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_woo": {
+      "entity_id": "asset_woo",
+      "rank": 186,
+      "symbol": "WOO",
+      "name": "Woo Network",
+      "aliases": [],
+      "sector": "Exchange",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 58,
+        "liquidity_score": 45,
+        "onchain_health_score": 79,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_api3": {
+      "entity_id": "asset_api3",
+      "rank": 187,
+      "symbol": "API3",
+      "name": "API3",
+      "aliases": [],
+      "sector": "Infrastructure",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 64,
+        "liquidity_score": 31,
+        "onchain_health_score": 92,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_band": {
+      "entity_id": "asset_band",
+      "rank": 188,
+      "symbol": "BAND",
+      "name": "Band Protocol",
+      "aliases": [],
+      "sector": "Infrastructure",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 61,
+        "liquidity_score": 30,
+        "onchain_health_score": 84,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_lrc": {
+      "entity_id": "asset_lrc",
+      "rank": 189,
+      "symbol": "LRC",
+      "name": "Loopring",
+      "aliases": [],
+      "sector": "Layer 2",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 69,
+        "liquidity_score": 42,
+        "onchain_health_score": 83,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_1inch": {
+      "entity_id": "asset_1inch",
+      "rank": 190,
+      "symbol": "1INCH",
+      "name": "1inch",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 62,
+        "liquidity_score": 41,
+        "onchain_health_score": 83,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_crv": {
+      "entity_id": "asset_crv",
+      "rank": 191,
+      "symbol": "CRV",
+      "name": "Curve",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "mid",
+      "risk_classification": "moderate",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 43,
+        "liquidity_score": 62,
+        "onchain_health_score": 89,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_yfi": {
+      "entity_id": "asset_yfi",
+      "rank": 192,
+      "symbol": "YFI",
+      "name": "Yearn.Finance",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 65,
+        "liquidity_score": 40,
+        "onchain_health_score": 85,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_sushi": {
+      "entity_id": "asset_sushi",
+      "rank": 193,
+      "symbol": "SUSHI",
+      "name": "Sushi",
+      "aliases": [],
+      "sector": "DeFi",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 66,
+        "liquidity_score": 35,
+        "onchain_health_score": 93,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_blur": {
+      "entity_id": "asset_blur",
+      "rank": 194,
+      "symbol": "BLUR",
+      "name": "Blur",
+      "aliases": [],
+      "sector": "NFT",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 86,
+        "liquidity_score": 31,
+        "onchain_health_score": 83,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_ilv": {
+      "entity_id": "asset_ilv",
+      "rank": 195,
+      "symbol": "ILV",
+      "name": "Illuvium",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 88,
+        "liquidity_score": 31,
+        "onchain_health_score": 87,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_mc": {
+      "entity_id": "asset_mc",
+      "rank": 196,
+      "symbol": "MC",
+      "name": "Merit Circle",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 92,
+        "liquidity_score": 46,
+        "onchain_health_score": 90,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_enj": {
+      "entity_id": "asset_enj",
+      "rank": 197,
+      "symbol": "ENJ",
+      "name": "Enjin Coin",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 87,
+        "liquidity_score": 32,
+        "onchain_health_score": 92,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_pyr": {
+      "entity_id": "asset_pyr",
+      "rank": 198,
+      "symbol": "PYR",
+      "name": "Vulcan Forged",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 87,
+        "liquidity_score": 41,
+        "onchain_health_score": 90,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_super": {
+      "entity_id": "asset_super",
+      "rank": 199,
+      "symbol": "SUPER",
+      "name": "SuperVerse",
+      "aliases": [],
+      "sector": "Gaming",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "extreme",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 89,
+        "liquidity_score": 31,
+        "onchain_health_score": 84,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_rose": {
+      "entity_id": "asset_rose",
+      "rank": 200,
+      "symbol": "ROSE",
+      "name": "Oasis Network",
+      "aliases": [],
+      "sector": "Layer 1",
+      "chain": "oasis",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 60,
+        "liquidity_score": 32,
+        "onchain_health_score": 49,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_t": {
+      "entity_id": "asset_t",
+      "rank": 201,
+      "symbol": "T",
+      "name": "Threshold",
+      "aliases": [],
+      "sector": "Privacy",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "elevated",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 58,
+        "liquidity_score": 38,
+        "onchain_health_score": 81,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_mask": {
+      "entity_id": "asset_mask",
+      "rank": 202,
+      "symbol": "MASK",
+      "name": "Mask Network",
+      "aliases": [],
+      "sector": "Social",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 82,
+        "liquidity_score": 39,
+        "onchain_health_score": 96,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_cyber": {
+      "entity_id": "asset_cyber",
+      "rank": 203,
+      "symbol": "CYBER",
+      "name": "CyberConnect",
+      "aliases": [],
+      "sector": "Social",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 85,
+        "liquidity_score": 35,
+        "onchain_health_score": 85,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_id": {
+      "entity_id": "asset_id",
+      "rank": 204,
+      "symbol": "ID",
+      "name": "Space ID",
+      "aliases": [],
+      "sector": "Identity",
+      "chain": "bnb_chain",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 86,
+        "liquidity_score": 34,
+        "onchain_health_score": 66,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    },
+    "asset_gal": {
+      "entity_id": "asset_gal",
+      "rank": 205,
+      "symbol": "GAL",
+      "name": "Galxe",
+      "aliases": [],
+      "sector": "Identity",
+      "chain": "ethereum",
+      "market_cap_tier": "small",
+      "risk_classification": "speculative",
+      "volatility_profile": "high",
+      "lifecycle_status": "active",
+      "version": "1.0",
+      "scoring": {
+        "risk_score": 78,
+        "liquidity_score": 34,
+        "onchain_health_score": 95,
+        "methodology_version": "1.0",
+        "analytics_only": true,
+        "no_investment_advice": true
+      },
+      "coverage": {
+        "market_data": true,
+        "on_chain": true,
+        "intel": false,
+        "research": false
+      },
+      "sources": {
+        "registry": "asset_registry_seed",
+        "market_data": "oracle_api"
+      },
+      "last_updated": "2026-08-26T19:00:00Z"
+    }
+  }
+}
