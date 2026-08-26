@@ -1,12 +1,31 @@
 {
-  "feature_id": 515,
-  "renamed_from": "Archive / Historical Portfolio Snapshot",
-  "title": "Portfolio Intelligence Layer",
-  "standalone_rejected": true,
-  "layer": "Portfolio Layer",
-  "sprint": 1,
+  "schema_version": "1.0.0",
+  "layer": "Portfolio Intelligence Layer",
+  "tasks": ["#515", "#557", "#558"],
   "methodology_version": "1.0",
   "last_updated": "2026-08-26",
+  "symbol_normalization": {
+    "WBTC": "BTC",
+    "WETH": "ETH",
+    "BTC.B": "BTC"
+  },
+  "chain_coverage": {
+    "ethereum": {
+      "supported": true,
+      "coverage_pct": 99.5,
+      "display": "Ethereum — full coverage"
+    },
+    "bitcoin": {
+      "supported": true,
+      "coverage_pct": 100.0,
+      "display": "Bitcoin — full coverage"
+    },
+    "solana": {
+      "supported": true,
+      "coverage_pct": 95.0,
+      "display": "Solana — 95% coverage"
+    }
+  },
   "portfolios": {
     "demo_portfolio": {
       "name": "Demo Portfolio",
@@ -34,6 +53,141 @@
       ],
       "prices_as_of": "2026-07-01T00:00:00Z",
       "no_current_label_leakage": true
+    }
+  },
+  "global_assets": {
+    "demo_portfolio": {
+      "as_of": "2026-08-26T14:00:00Z",
+      "fx_applied": true,
+      "holdings": [
+        {
+          "source_id": "binance_spot",
+          "source_type": "exchange",
+          "asset": "BTC",
+          "network": "bitcoin",
+          "amount": 1.5,
+          "value_usd": 142500.0,
+          "freshness_seconds": 120,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "coinbase_spot",
+          "source_type": "exchange",
+          "asset": "BTC",
+          "network": "bitcoin",
+          "amount": 1.0,
+          "value_usd": 95000.0,
+          "freshness_seconds": 300,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "eth_wallet_001",
+          "source_type": "wallet",
+          "asset": "ETH",
+          "network": "ethereum",
+          "amount": 10.0,
+          "value_usd": 42000.0,
+          "freshness_seconds": 600,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "sol_wallet_001",
+          "source_type": "wallet",
+          "asset": "SOL",
+          "network": "solana",
+          "amount": 500.0,
+          "value_usd": 75000.0,
+          "freshness_seconds": 1800,
+          "stale": true,
+          "missing": false
+        },
+        {
+          "source_id": "binance_spot",
+          "source_type": "exchange",
+          "asset": "BTC",
+          "network": "bitcoin",
+          "amount": 1.5,
+          "value_usd": 142500.0,
+          "freshness_seconds": 120,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "unknown_defi",
+          "source_type": "defi",
+          "asset": "USDC",
+          "network": "ethereum",
+          "amount": 0,
+          "value_usd": 0,
+          "freshness_seconds": 0,
+          "stale": false,
+          "missing": true
+        }
+      ]
+    }
+  },
+  "wallets": {
+    "ethereum:0xabc1234567890def1234567890abc1234567890ab": {
+      "address": "0xabc1234567890def1234567890abc1234567890ab",
+      "chain": "ethereum",
+      "reorg_handling": {
+        "reorg_handled": true,
+        "revision_id": "rev-eth-001"
+      },
+      "historical_balances": {
+        "2026-08-01T00:00:00Z": {
+          "exact_timestamp_semantics": "block_timestamp",
+          "balances": [
+            {"asset": "ETH", "amount": 10.0, "value_usd": 35000.0},
+            {"asset": "USDC", "amount": 50000.0, "value_usd": 50000.0}
+          ],
+          "total_value_usd": 85000.0,
+          "valuation_available": true,
+          "reorg_handling": {
+            "reorg_handled": true,
+            "revision_id": "rev-eth-001",
+            "canonical_block": 18500000,
+            "reorg_depth": 0
+          }
+        },
+        "2026-07-01T00:00:00Z": {
+          "exact_timestamp_semantics": "block_timestamp",
+          "balances": [
+            {"asset": "ETH", "amount": 12.0, "value_usd": 38400.0}
+          ],
+          "total_value_usd": 38400.0,
+          "valuation_available": true,
+          "reorg_handling": {
+            "reorg_handled": true,
+            "revision_id": "rev-eth-002",
+            "canonical_block": 17600000,
+            "reorg_depth": 1
+          }
+        }
+      }
+    },
+    "bitcoin:bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh": {
+      "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+      "chain": "bitcoin",
+      "historical_balances": {
+        "2026-08-01T00:00:00Z": {
+          "exact_timestamp_semantics": "block_timestamp",
+          "balances": [
+            {"asset": "BTC", "amount": 2.5, "value_usd": 162500.0}
+          ],
+          "total_value_usd": 162500.0,
+          "valuation_available": true,
+          "reorg_handling": {
+            "reorg_handled": true,
+            "revision_id": "rev-btc-001",
+            "canonical_block": 850000,
+            "reorg_depth": 0
+          }
+        }
+      }
     }
   }
 }
