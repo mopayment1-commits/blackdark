@@ -1,0 +1,155 @@
+{
+  "feature_id": 295,
+  "feature_ids": [295, 294],
+  "standalone": false,
+  "archived_standalone_ticket": true,
+  "merged_into": "Wave 01 Data Engine / Spot Metrics & Venue Quality Layer",
+  "sprint": 1,
+  "dashboard_deferred": "Sprint 2 Intelligence Ledger",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "rejected_standalone_tickets": [294],
+  "venues": [
+    {
+      "venue_id": "binance",
+      "venue": "binance",
+      "quality_score": 98.5,
+      "status": "active",
+      "warmup_days_remaining": 0,
+      "staleness_sec": 2,
+      "source": "binance_spot_api",
+      "timestamp_utc": "2026-08-26T00:00:00+00:00"
+    },
+    {
+      "venue_id": "okx",
+      "venue": "okx",
+      "quality_score": 96.2,
+      "status": "active",
+      "warmup_days_remaining": 0,
+      "staleness_sec": 5,
+      "source": "okx_spot_api",
+      "timestamp_utc": "2026-08-26T00:00:00+00:00"
+    },
+    {
+      "venue_id": "kraken",
+      "venue": "kraken",
+      "quality_score": 94.8,
+      "status": "active",
+      "warmup_days_remaining": 0,
+      "staleness_sec": 8,
+      "source": "kraken_spot_api",
+      "timestamp_utc": "2026-08-26T00:00:00+00:00"
+    },
+    {
+      "venue_id": "new_venue_x",
+      "venue": "new_venue_x",
+      "quality_score": 72.0,
+      "status": "active",
+      "warmup_days_remaining": 4,
+      "staleness_sec": 15,
+      "source": "new_venue_spot_api",
+      "timestamp_utc": "2026-08-26T00:00:00+00:00"
+    },
+    {
+      "venue_id": "stale_venue",
+      "venue": "stale_venue",
+      "quality_score": 60.0,
+      "status": "active",
+      "warmup_days_remaining": 0,
+      "staleness_sec": 300,
+      "source": "stale_spot_api",
+      "timestamp_utc": "2026-08-25T23:55:00+00:00"
+    },
+    {
+      "venue_id": "ftx",
+      "venue": "ftx",
+      "quality_score": 0,
+      "status": "archived",
+      "warmup_days_remaining": 0,
+      "staleness_sec": 999999,
+      "source": "ftx_spot_api",
+      "timestamp_utc": "2022-11-11T00:00:00+00:00"
+    }
+  ],
+  "symbols": {
+    "BTC/USDT": {
+      "venues": [
+        {
+          "venue": "binance",
+          "last_price": 95020.5,
+          "volume_24h": 2850000000,
+          "return_1d_pct": 1.25,
+          "volatility_7d_pct": 3.8,
+          "spread_bps": 1.2,
+          "source": "binance_spot_api",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        },
+        {
+          "venue": "okx",
+          "last_price": 95018.0,
+          "volume_24h": 1420000000,
+          "return_1d_pct": 1.22,
+          "volatility_7d_pct": 3.9,
+          "spread_bps": 1.5,
+          "source": "okx_spot_api",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        },
+        {
+          "venue": "kraken",
+          "last_price": 95025.0,
+          "volume_24h": 520000000,
+          "return_1d_pct": 1.28,
+          "volatility_7d_pct": 3.7,
+          "spread_bps": 2.1,
+          "source": "kraken_spot_api",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        },
+        {
+          "venue": "outlier_venue",
+          "last_price": 98500.0,
+          "volume_24h": 1000000,
+          "return_1d_pct": 5.0,
+          "volatility_7d_pct": 8.0,
+          "spread_bps": 15.0,
+          "source": "outlier_spot_api",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        },
+        {
+          "venue": "stale_venue",
+          "last_price": 94800.0,
+          "volume_24h": 500000,
+          "return_1d_pct": 0.8,
+          "volatility_7d_pct": 4.0,
+          "spread_bps": 3.0,
+          "source": "stale_spot_api",
+          "timestamp_utc": "2026-08-25T23:55:00+00:00",
+          "staleness_sec": 300
+        }
+      ]
+    },
+    "ETH/USDT": {
+      "venues": [
+        {
+          "venue": "binance",
+          "last_price": 3420.5,
+          "volume_24h": 980000000,
+          "return_1d_pct": 0.85,
+          "volatility_7d_pct": 4.2,
+          "spread_bps": 1.8,
+          "source": "binance_spot_api",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        },
+        {
+          "venue": "okx",
+          "last_price": 3419.0,
+          "volume_24h": 620000000,
+          "return_1d_pct": 0.82,
+          "volatility_7d_pct": 4.3,
+          "spread_bps": 2.0,
+          "source": "okx_spot_api",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        }
+      ]
+    }
+  }
+}
