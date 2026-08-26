@@ -63,7 +63,12 @@
         "price_change_24h_pct_trend": "rising",
         "price_change_24h_pct_source": "Binance API v3",
         "price_change_24h_pct_updated": "2026-08-26T09:00:00+00:00",
-        "price_change_24h_pct_confidence": "high"
+        "price_change_24h_pct_confidence": "high",
+        "spot_price": 64800,
+        "perp_price": 65000,
+        "expiry": null,
+        "days_to_expiry": 0,
+        "timestamp_utc": "2026-08-26T09:00:00+00:00"
       }
     },
     "ETH": {

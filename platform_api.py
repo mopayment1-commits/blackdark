@@ -836,6 +836,39 @@ async def derivatives_cross_signal_synthesis_panel_route(
     return result
 
 
+@router.get("/intelligence-ledger/liquidation-clusters/status")
+async def liquidation_cluster_analytics_status_route():
+    """#307 Liquidation Cluster Analytics — data display only, no prediction."""
+    from bd_platform.liquidation_cluster_analytics import liquidation_cluster_analytics_status
+
+    return liquidation_cluster_analytics_status()
+
+
+@router.get("/intelligence-ledger/liquidation-clusters")
+async def liquidation_cluster_analytics_panel_route(asset: str = Query("BTC")):
+    from bd_platform.liquidation_cluster_analytics import build_liquidation_cluster_panel
+
+    result = build_liquidation_cluster_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/private-market-vc/status")
+async def private_market_vc_flow_status_route():
+    """#314 Private Market & VC Flow Intelligence — Wave 2 Pro."""
+    from bd_platform.private_market_vc_flow import private_market_vc_flow_status
+
+    return private_market_vc_flow_status()
+
+
+@router.get("/intelligence-ledger/private-market-vc")
+async def private_market_vc_flow_dashboard_route(sector: str | None = Query(None)):
+    from bd_platform.private_market_vc_flow import build_vc_flow_dashboard
+
+    return build_vc_flow_dashboard(sector=sector)
+
+
 @router.get("/intelligence-ledger/taker-pressure/status")
 async def taker_pressure_status_route():
     """#296 Taker Pressure Module — CEX spot + perp, orderflow sub-feature."""
