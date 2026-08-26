@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "layer": "Entity Layer",
+  "tasks": ["#542", "#543"],
+  "entity_profiles": {
+    "entity_binance_hot": {
+      "entity_type": "exchange",
+      "name": "Binance Hot Wallet Cluster"
+    },
+    "entity_whale_alpha": {
+      "entity_type": "whale",
+      "name": "Whale Alpha"
+    }
+  },
+  "transfers": [
+    {
+      "transfer_id": "el-tx-001",
+      "tx_hash": "0xel001",
+      "timestamp": "2026-08-26T11:00:00Z",
+      "entity_id": "entity_binance_hot",
+      "asset": "ETH",
+      "direction": "inflow",
+      "value_usd": 5000000.0,
+      "from_address": "0xexternal_wallet_001",
+      "to_address": "0x28c6c06298d514db089934071355e5743bf21d60"
+    },
+    {
+      "transfer_id": "el-tx-002",
+      "tx_hash": "0xel002",
+      "timestamp": "2026-08-26T11:05:00Z",
+      "entity_id": "entity_binance_hot",
+      "asset": "ETH",
+      "direction": "inflow",
+      "value_usd": 2000000.0,
+      "from_address": "0x28c6c06298d514db089934071355e5743bf21d60",
+      "to_address": "0x3f5ce5fbfe3e628ad0af38df2233fe8dd0a5a0a0"
+    },
+    {
+      "transfer_id": "el-tx-003",
+      "tx_hash": "0xel003",
+      "timestamp": "2026-08-26T11:10:00Z",
+      "entity_id": "entity_binance_hot",
+      "asset": "ETH",
+      "direction": "outflow",
+      "value_usd": 1500000.0,
+      "from_address": "0x28c6c06298d514db089934071355e5743bf21d60",
+      "to_address": "0xexternal_wallet_002"
+    },
+    {
+      "transfer_id": "el-tx-004",
+      "tx_hash": "0xel004",
+      "timestamp": "2026-08-26T11:15:00Z",
+      "entity_id": "entity_whale_alpha",
+      "asset": "BTC",
+      "direction": "inflow",
+      "value_usd": 8000000.0,
+      "from_address": "0xexternal_wallet_003",
+      "to_address": "0xabc1234567890def1234567890abc1234567890ab"
+    },
+    {
+      "transfer_id": "el-tx-005",
+      "tx_hash": "0xel005",
+      "timestamp": "2026-08-26T11:20:00Z",
+      "entity_id": "entity_whale_alpha",
+      "asset": "BTC",
+      "direction": "inflow",
+      "value_usd": 3000000.0,
+      "from_address": "0xabc1234567890def1234567890abc1234567890ab",
+      "to_address": "0xdef9876543210abc9876543210def9876543210cd"
+    },
+    {
+      "transfer_id": "el-tx-006",
+      "tx_hash": "0xel006",
+      "timestamp": "2026-08-26T11:25:00Z",
+      "entity_id": "entity_whale_alpha",
+      "asset": "BTC",
+      "direction": "outflow",
+      "value_usd": 1000000.0,
+      "from_address": "0xabc1234567890def1234567890abc1234567890ab",
+      "to_address": "0xexternal_wallet_004"
+    },
+    {
+      "transfer_id": "el-tx-007",
+      "tx_hash": "0xel007",
+      "timestamp": "2026-08-26T11:30:00Z",
+      "entity_id": null,
+      "asset": "USDC",
+      "direction": "inflow",
+      "value_usd": 500000.0,
+      "from_address": "0xunknown_sender_001",
+      "to_address": "0xunknown_receiver_001"
+    }
+  ],
+  "balances": {
+    "entity_binance_hot": {
+      "total_usd": 5500000.0,
+      "raw_total_usd": 7500000.0,
+      "adjusted_total_usd": 5500000.0
+    },
+    "entity_whale_alpha": {
+      "total_usd": 10000000.0,
+      "raw_total_usd": 13000000.0,
+      "adjusted_total_usd": 10000000.0
+    }
+  }
+}
