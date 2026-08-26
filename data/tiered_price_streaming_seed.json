@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "feature_id": 128,
+  "extends_feature_id": 283,
+  "institutional_decision": "enterprise_tier_only_for_sub_second",
+  "tier_metrics": {
+    "free": {
+      "accuracy_pct": 95.5,
+      "uptime_pct": 99.2,
+      "avg_refresh_ms": 2800,
+      "mode": "rest_poll"
+    },
+    "pro": {
+      "accuracy_pct": 96.8,
+      "uptime_pct": 99.5,
+      "avg_refresh_ms": 480,
+      "mode": "shared_websocket"
+    },
+    "institution": {
+      "accuracy_pct": 98.2,
+      "uptime_pct": 99.9,
+      "avg_refresh_ms": 72,
+      "mode": "dedicated_websocket"
+    },
+    "enterprise": {
+      "accuracy_pct": 98.5,
+      "uptime_pct": 99.95,
+      "avg_refresh_ms": 68,
+      "mode": "dedicated_websocket"
+    }
+  },
+  "accuracy": {
+    "free": {"accuracy_pct": 95.5, "uptime_pct": 99.2},
+    "pro": {"accuracy_pct": 96.8, "uptime_pct": 99.5},
+    "institution": {"accuracy_pct": 98.2, "uptime_pct": 99.9},
+    "enterprise": {"accuracy_pct": 98.5, "uptime_pct": 99.95}
+  }
+}
