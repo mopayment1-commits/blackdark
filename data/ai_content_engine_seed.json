@@ -1,0 +1,92 @@
+{
+  "feature_ids": [511, 512, 513],
+  "title": "AI Content Engine",
+  "no_standalone_ui": true,
+  "layer": "Intelligence Layer",
+  "sprint": 2,
+  "wave": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "legal_review": {
+    "complete": true,
+    "date": "2026-08-22",
+    "required_for_513": true
+  },
+  "evidence_items": [
+    {
+      "asset": "BTC",
+      "statement": "Wallet 0xAbC... moved $25M to Binance Hot Wallet",
+      "amount_usd": 25000000,
+      "destination": "Binance Hot Wallet",
+      "transaction_refs": ["0xabc123"],
+      "entity_refs": ["0xAbC1234567890dEf1234567890aBc1234567890Ab"],
+      "source": "onchain_indexer",
+      "freshness_seconds": 300,
+      "timestamp": "2026-08-26T10:00:00Z"
+    },
+    {
+      "asset": "ETH",
+      "statement": "Wallet 0xDeF... transferred $8.5M to Cold Storage",
+      "amount_usd": 8500000,
+      "destination": "Cold Storage",
+      "transaction_refs": ["0xdef456"],
+      "entity_refs": ["0xDeF9876543210aBc9876543210dEf9876543210Cd"],
+      "source": "whale_tracker",
+      "freshness_seconds": 600,
+      "timestamp": "2026-08-26T11:00:00Z"
+    }
+  ],
+  "digests": {
+    "daily": {
+      "period": "daily",
+      "summary": "Cross-market activity summary with evidence-linked claims.",
+      "freshness_seconds": 1800,
+      "timestamp": "2026-08-26T12:00:00Z",
+      "regression_evaluation_set": true,
+      "claims": [
+        {
+          "statement": "BTC whale inflow to exchanges increased 40% in 24h",
+          "why_it_matters": "Exchange deposit patterns may indicate distribution context",
+          "source_links": ["https://internal/evidence/ev_001"],
+          "transaction_refs": ["0xabc123"],
+          "entity_refs": ["0xAbC1234567890dEf1234567890aBc1234567890Ab"]
+        },
+        {
+          "statement": "ETH funding rate turned negative across major venues",
+          "why_it_matters": "Derivatives positioning shift",
+          "source_links": ["https://internal/evidence/ev_002"],
+          "transaction_refs": [],
+          "entity_refs": []
+        }
+      ]
+    }
+  },
+  "screener": {
+    "default_weights": {
+      "price": 0.2,
+      "volume": 0.15,
+      "liquidity": 0.15,
+      "derivatives": 0.15,
+      "on_chain": 0.15,
+      "sentiment": 0.1,
+      "risk": 0.1
+    },
+    "assets": [
+      {
+        "symbol": "BTC",
+        "factors": {"price": 0.8, "volume": 0.9, "liquidity": 0.95, "derivatives": 0.7, "on_chain": 0.75, "sentiment": 0.4, "risk": 0.6},
+        "stale_penalty_applied": false
+      },
+      {
+        "symbol": "ETH",
+        "factors": {"price": 0.7, "volume": 0.85, "liquidity": 0.9, "derivatives": 0.65, "on_chain": 0.8, "sentiment": 0.5, "risk": 0.55},
+        "stale_penalty_applied": false
+      },
+      {
+        "symbol": "SOL",
+        "factors": {"price": 0.6, "volume": 0.7, "liquidity": 0.6, "derivatives": 0.5, "on_chain": 0.65, "sentiment": 0.7, "risk": 0.4},
+        "stale_penalty_applied": true
+      }
+    ]
+  }
+}

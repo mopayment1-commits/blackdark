@@ -1,0 +1,46 @@
+{
+  "feature_id": 514,
+  "renamed_from": "Active Users",
+  "title": "Protocol Metrics Layer",
+  "standalone_rejected": true,
+  "layer": "Data Layer",
+  "sprint": 0,
+  "wave": 0,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "bot_rules": {
+    "internal_exclusion": true,
+    "rules": [
+      "exclude_known_bot_contracts",
+      "exclude_internal_team_addresses",
+      "minimum_interaction_threshold",
+      "sybil_cluster_detection_heuristic"
+    ]
+  },
+  "protocols": {
+    "uniswap": {
+      "name": "Uniswap",
+      "dau": 125000,
+      "mau": 890000,
+      "dau_mau_ratio": 0.14,
+      "unique_addresses_filtered": 125000,
+      "bot_addresses_excluded": 45000,
+      "internal_addresses_excluded": 1200,
+      "event_mapping": {"swap": "user_swap", "add_liquidity": "user_lp"},
+      "source": "onchain_indexer",
+      "freshness_seconds": 3600
+    },
+    "aave": {
+      "name": "Aave",
+      "dau": 42000,
+      "mau": 310000,
+      "dau_mau_ratio": 0.135,
+      "unique_addresses_filtered": 42000,
+      "bot_addresses_excluded": 18000,
+      "internal_addresses_excluded": 500,
+      "event_mapping": {"deposit": "user_deposit", "borrow": "user_borrow"},
+      "source": "onchain_indexer",
+      "freshness_seconds": 3600
+    }
+  }
+}

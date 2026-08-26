@@ -1490,6 +1490,135 @@ async def cross_domain_market_context_sub_module_route(
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/whale-flow-destination/status")
+async def whale_flow_destination_tracker_status_route():
+    """#510 Whale Flow Destination Tracker — integrated, rule-based heuristics."""
+    from bd_platform.whale_flow_destination_tracker import whale_flow_destination_tracker_status
+
+    return whale_flow_destination_tracker_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/whale-flow-destination")
+async def whale_flow_destination_tracker_panel_route(
+    asset: str | None = Query(None),
+    whale_address: str | None = Query(None),
+):
+    from bd_platform.whale_flow_destination_tracker import build_whale_flow_destination_panel
+
+    return build_whale_flow_destination_panel(asset=asset, whale_address=whale_address)
+
+
+@router.get("/intelligence-ledger/intelligence-layer/ai-content/status")
+async def ai_content_engine_status_route():
+    """#511+#512+#513 AI Content Engine — evidence feed, digest, screener."""
+    from bd_platform.ai_content_engine import ai_content_engine_status
+
+    return ai_content_engine_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/ai-content")
+async def ai_content_engine_panel_route(
+    asset: str = Query("BTC"),
+    digest_id: str = Query("daily"),
+    sort_by: str = Query("factor_alignment"),
+):
+    from bd_platform.ai_content_engine import build_ai_content_engine_panel
+
+    return build_ai_content_engine_panel(asset=asset, digest_id=digest_id, sort_by=sort_by)
+
+
+@router.get("/intelligence-ledger/intelligence-layer/ai-content/evidence")
+async def market_evidence_feed_route(asset: str = Query("BTC")):
+    """#511 Market Evidence Feed."""
+    from bd_platform.ai_content_engine import build_market_evidence_feed
+
+    return build_market_evidence_feed(asset=asset)
+
+
+@router.get("/intelligence-ledger/intelligence-layer/ai-content/digest")
+async def market_digest_route(digest_id: str = Query("daily")):
+    """#512 Market Digest Generator."""
+    from bd_platform.ai_content_engine import build_market_digest
+
+    result = build_market_digest(digest_id=digest_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/ai-content/screener")
+async def multi_factor_screener_route(sort_by: str = Query("factor_alignment")):
+    """#513 Multi-Factor Opportunity Screener — user-controlled, not rating."""
+    from bd_platform.ai_content_engine import build_multi_factor_screener
+
+    result = build_multi_factor_screener(sort_by=sort_by)
+    if not result.get("ok"):
+        raise HTTPException(
+            status_code=403 if result.get("error") == "legal_review_pending" else 404,
+            detail=result.get("error") or "not_found",
+        )
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/protocol-metrics/status")
+async def protocol_metrics_layer_status_route():
+    """#514 Protocol Metrics Layer — Active Users with bot filtering."""
+    from bd_platform.protocol_metrics_layer import protocol_metrics_layer_status
+
+    return protocol_metrics_layer_status()
+
+
+@router.get("/intelligence-ledger/data-layer/protocol-metrics")
+async def protocol_metrics_panel_route(protocol_id: str = Query("uniswap")):
+    from bd_platform.protocol_metrics_layer import build_protocol_metrics_panel
+
+    result = build_protocol_metrics_panel(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-layer/snapshots/status")
+async def portfolio_intelligence_layer_status_route():
+    """#515 Portfolio Intelligence Layer — historical snapshots."""
+    from bd_platform.portfolio_intelligence_layer import portfolio_intelligence_layer_status
+
+    return portfolio_intelligence_layer_status()
+
+
+@router.get("/intelligence-ledger/portfolio-layer/snapshots")
+async def portfolio_intelligence_panel_route(
+    portfolio_id: str = Query("demo_portfolio"),
+    snapshot_timestamp: str | None = Query(None),
+):
+    from bd_platform.portfolio_intelligence_layer import build_portfolio_intelligence_panel
+
+    result = build_portfolio_intelligence_panel(
+        portfolio_id, snapshot_timestamp=snapshot_timestamp,
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/asset-profiles/status")
+async def asset_intelligence_profiles_status_route():
+    """#516 Asset Intelligence Profiles — Sprint 0 foundation."""
+    from bd_platform.asset_intelligence_profiles import asset_intelligence_profiles_status
+
+    return asset_intelligence_profiles_status()
+
+
+@router.get("/intelligence-ledger/data-layer/asset-profiles")
+async def asset_intelligence_profiles_panel_route(entity_id: str = Query("asset_btc")):
+    from bd_platform.asset_intelligence_profiles import build_asset_intelligence_panel
+
+    result = build_asset_intelligence_panel(entity_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/market-radar/fundraising-velocity")
 async def market_radar_fundraising_velocity_route(
     project_id: str | None = Query(None),
