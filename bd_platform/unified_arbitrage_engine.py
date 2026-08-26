@@ -503,6 +503,12 @@ def collect_all_opportunities(*, seed: dict[str, Any] | None = None) -> list[dic
     for raw in (seed.get("duplicate_pair") or []):
         opps.append(_normalize_cross_venue(raw, seed=seed))
     opps.extend(scan_defi_opportunities(seed=seed))
+    try:
+        from bd_platform.basis_funding_divergence_monitor import scan_derivatives_divergence
+
+        opps.extend(scan_derivatives_divergence(seed=None))
+    except Exception:
+        logger.debug("derivatives divergence scan skipped", exc_info=True)
     return opps
 
 
@@ -536,6 +542,7 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
             "stablecoin_depeg": _TRIANGULAR_FEATURE_ID,
             "cross_venue": 403,
             "on_chain_arbitrage": _DEFI_FEATURE_ID,
+            "derivatives_basis_funding": 440,
         },
         "ranked_by": "executable_net_edge_usdt",
         "economics_engine_ref": _ECONOMICS_ENGINE_REF,
@@ -847,6 +854,10 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     alerts = build_opportunity_alert_panel(seed=seed)
     checks.append({"id": "opportunity_alerts_434", "passed": alerts.get("worth_studying_not_execution") is True, "detail": f"alerts={alerts.get('alert_count')}"})
+
+    from bd_platform.basis_funding_divergence_monitor import run_reconciliation_tests as bfd_tests
+    bfd = bfd_tests()
+    checks.append({"id": "derivatives_basis_funding_440", "passed": bfd.get("ok") is True, "detail": f"{bfd.get('passed')}/{bfd.get('total')}"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

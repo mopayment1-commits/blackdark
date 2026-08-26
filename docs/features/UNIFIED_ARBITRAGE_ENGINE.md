@@ -66,6 +66,15 @@ Alerts fire only when:
 
 Push/email via existing alert infrastructure. No "execution" language.
 
+## #440 — Basis/Funding Divergence Monitor (merged)
+
+Derivatives arbitrage category — monitoring only:
+- Spot-perp basis % | funding rate APY | calendar spread %
+- Implied holding cost | cumulative funding vs holding cost
+- No buy/sell/open-position language; no position simulation v1
+
+Routes: `.../unified-arbitrage/basis-funding/*`
+
 ## #438 — DeFi Opportunity Scanner (merged)
 
 Rule-based v1 monitoring only:

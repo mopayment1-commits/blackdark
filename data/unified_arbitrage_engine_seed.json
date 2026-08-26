@@ -4,7 +4,8 @@
     "triangular_price_divergence": 428,
     "cross_venue": 403,
     "on_chain_arbitrage": 438,
-    "opportunity_alerts": 434
+    "opportunity_alerts": 434,
+    "derivatives_arbitrage": 440
   },
   "title": "Unified Arbitrage Opportunity Engine",
   "legal_name": "Unified Arbitrage Opportunity Engine",
