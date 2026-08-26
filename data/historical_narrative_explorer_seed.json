@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0.0",
+  "feature_id": 250,
+  "renamed_from": "Historical Crypto Trends",
+  "dataset": {
+    "version": "3.1",
+    "social_source": "Twitter/X API v2",
+    "price_source": "Oracle API",
+    "coverage_start": "2020-01-01",
+    "coverage_end": "2026-08-25",
+    "last_updated": "2026-08-25"
+  },
+  "versions": [
+    {
+      "version": "3.1",
+      "effective_at": "2026-08-01",
+      "changes": "Added RWA narrative cluster, expanded bot filtering"
+    },
+    {
+      "version": "3.0",
+      "effective_at": "2026-01-01",
+      "changes": "Migrated to X API v2, hourly UTC alignment"
+    }
+  ],
+  "narratives": {
+    "defi_summer": {
+      "name": "DeFi Summer",
+      "keyword": "DeFi Summer",
+      "default_asset": "ETH",
+      "default_time_range": "2020-06 to 2020-09",
+      "historical_sample": "2020-06 to 2020-09",
+      "narrative_peak_utc": "2020-06-15T14:00:00Z",
+      "price_peak_utc": "2020-09-01T09:00:00Z",
+      "lag_hours": 1848,
+      "alignment_verified": true,
+      "price_change_pct": 340.0,
+      "extraction": {
+        "method": "TF-IDF + manual curation",
+        "spam_filtered": true,
+        "bot_excluded": true
+      },
+      "correlation": {
+        "value_90d": 0.78,
+        "regime": "Risk-On",
+        "historical_range": "0.2-0.8",
+        "interpretation": "Strong positive relationship during DeFi Summer period"
+      },
+      "thesis_integration": {
+        "example": "DeFi Summer drove ETH +340%",
+        "display": "Add to Thesis: 'DeFi Summer drove ETH +340% | Evidence: #250 Historical Trends | Date added: 2026-08-26'"
+      },
+      "trending_integration": {
+        "current_trending": "RWA",
+        "historical_similar": "DeFi Summer",
+        "pattern_match_pct": 68
+      },
+      "timeline": [
+        {"date": "2020-06-01", "narrative_volume": 1200, "price_usd": 240},
+        {"date": "2020-07-01", "narrative_volume": 8500, "price_usd": 310},
+        {"date": "2020-08-01", "narrative_volume": 12000, "price_usd": 390},
+        {"date": "2020-09-01", "narrative_volume": 6200, "price_usd": 480}
+      ],
+      "volume_series": [
+        {"date": "2020-06-15", "social_volume": 9500, "price_usd": 245},
+        {"date": "2020-07-15", "social_volume": 11200, "price_usd": 320},
+        {"date": "2020-08-15", "social_volume": 10800, "price_usd": 410}
+      ]
+    },
+    "nft_boom": {
+      "name": "NFT Boom",
+      "keyword": "NFT",
+      "default_asset": "ETH",
+      "default_time_range": "2021-03 to 2021-11",
+      "historical_sample": "2021-03 to 2021-11",
+      "narrative_peak_utc": "2021-03-15T14:00:00Z",
+      "price_peak_utc": "2021-11-10T09:00:00Z",
+      "lag_hours": 5784,
+      "alignment_verified": true,
+      "price_change_pct": 180.0,
+      "extraction": {
+        "method": "TF-IDF + manual curation",
+        "spam_filtered": true,
+        "bot_excluded": true
+      },
+      "correlation": {
+        "value_90d": 0.58,
+        "regime": "Risk-On",
+        "historical_range": "0.2-0.8",
+        "interpretation": "Moderate positive relationship during NFT boom"
+      },
+      "thesis_integration": {
+        "example": "NFT narrative preceded ETH rally by ~8 months",
+        "display": "Add to Thesis: 'NFT narrative correlated with ETH +180% | Evidence: #250 Historical Trends'"
+      },
+      "trending_integration": {
+        "current_trending": "RWA",
+        "historical_similar": "NFT",
+        "pattern_match_pct": 72
+      },
+      "timeline": [
+        {"date": "2021-03-01", "narrative_volume": 5000, "price_usd": 1800},
+        {"date": "2021-07-01", "narrative_volume": 15000, "price_usd": 2200},
+        {"date": "2021-11-01", "narrative_volume": 8000, "price_usd": 4500}
+      ],
+      "volume_series": []
+    },
+    "layer2_narrative": {
+      "name": "Layer 2 Scaling",
+      "keyword": "Layer 2",
+      "default_asset": "ETH",
+      "default_time_range": "2024-01 to 2024-06",
+      "historical_sample": "2024-01 to 2024-06",
+      "narrative_peak_utc": "2024-03-15T14:00:00Z",
+      "price_peak_utc": "2024-03-18T09:00:00Z",
+      "lag_hours": 67,
+      "alignment_verified": true,
+      "price_change_pct": 45.0,
+      "extraction": {
+        "method": "TF-IDF + manual curation",
+        "spam_filtered": true,
+        "bot_excluded": true
+      },
+      "correlation": {
+        "value_90d": 0.65,
+        "regime": "Risk-On",
+        "historical_range": "0.2-0.8",
+        "interpretation": "Moderate positive relationship with short lead/lag"
+      },
+      "thesis_integration": {
+        "example": "Layer 2 narrative led ETH price by 67 hours",
+        "display": "Add to Thesis: 'L2 scaling narrative | Evidence: #250 Historical Trends'"
+      },
+      "trending_integration": {
+        "current_trending": "RWA",
+        "historical_similar": "Layer 2",
+        "pattern_match_pct": 55
+      },
+      "timeline": [],
+      "volume_series": []
+    }
+  }
+}

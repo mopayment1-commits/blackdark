@@ -1741,6 +1741,39 @@ async def multi_factor_screener_route(sort_by: str = Query("factor_alignment")):
     return result
 
 
+@router.get("/intelligence-ledger/intelligence-layer/historical-narratives/status")
+async def historical_narrative_explorer_status_route():
+    """#250 Historical Narrative Explorer — Sprint 2 sentiment research archive."""
+    from bd_platform.historical_narrative_explorer import historical_narrative_explorer_status
+
+    return historical_narrative_explorer_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/historical-narratives")
+async def historical_narrative_explorer_panel_route(
+    narrative_id: str = Query("defi_summer"),
+    asset: str | None = Query(None),
+    time_range: str | None = Query(None),
+):
+    from bd_platform.historical_narrative_explorer import build_historical_narrative_panel
+
+    result = build_historical_narrative_panel(
+        narrative_id=narrative_id,
+        asset=asset,
+        time_range=time_range,
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/historical-narratives/historical-qa")
+async def historical_narrative_explorer_qa_route():
+    from bd_platform.historical_narrative_explorer import run_historical_qa_tests
+
+    return run_historical_qa_tests()
+
+
 @router.get("/intelligence-ledger/data-layer/protocol-metrics/status")
 async def protocol_metrics_layer_status_route():
     """#514 Protocol Metrics Layer — Active Users with bot filtering."""
