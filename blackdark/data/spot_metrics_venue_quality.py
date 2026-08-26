@@ -166,6 +166,33 @@ def filter_venues(venues: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def build_venue_metric_block(venue: dict[str, Any], *, symbol: str) -> dict[str, Any]:
+    from blackdark.data.provenance_lineage import build_lineage_chain, build_provenance_tag, wrap_metric
+
+    source = venue.get("source") or venue.get("venue") or "unknown"
+    lineage_steps = [
+        {"stage": "ingest", "description": f"{source} API", "version": "3.0"},
+        {"stage": "normalize", "description": "normalized via schema v2.1", "version": "2.1", "schema_version": "2.1"},
+        {"stage": "filter", "description": "outlier filtered via Z-score v1.4", "version": "1.4"},
+    ]
+    tag = build_provenance_tag(
+        source=f"{source} API v3",
+        source_kind="api",
+        transformation="venue_normalize_zscore_filter",
+        transformation_version="1.4",
+        source_schema_version="2.1",
+        last_verified_utc=venue.get("timestamp_utc"),
+        confidence="high",
+    )
+    metric_id = f"spot.{symbol.replace('/', '_').lower()}.{venue.get('venue', 'unknown')}.price"
+    wrapped = wrap_metric(
+        venue.get("last_price"),
+        metric_id=metric_id,
+        metric_name="spot_price",
+        provenance=tag,
+        lineage_chain=build_lineage_chain(lineage_steps),
+        unit="USD",
+    )
+
     return {
         "venue": venue.get("venue"),
         "symbol": symbol,
@@ -176,12 +203,9 @@ def build_venue_metric_block(venue: dict[str, Any], *, symbol: str) -> dict[str,
         "spread_bps": venue.get("spread_bps"),
         "timestamp_utc": venue.get("timestamp_utc"),
         "source": venue.get("source"),
-        "provenance": {
-            "source": venue.get("source"),
-            "venue": venue.get("venue"),
-            "symbol": symbol,
-            "timestamp_utc": venue.get("timestamp_utc"),
-        },
+        "provenance": wrapped["provenance"],
+        "badge": wrapped["badge"],
+        "provenance_mandatory": True,
     }
 
 
@@ -271,7 +295,7 @@ def build_spot_metrics_panel(symbol: str = "BTC/USDT") -> dict[str, Any]:
     venue_blocks = [build_venue_metric_block(v, symbol=sym) for v in venues[:_MAX_VENUES]]
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
-    return {
+    panel = {
         "ok": True,
         "feature_id": _FEATURE_ID,
         "feature_ids": list(_FEATURE_IDS),
@@ -290,6 +314,10 @@ def build_spot_metrics_panel(symbol: str = "BTC/USDT") -> dict[str, Any]:
         "latency_ms": elapsed,
         "timestamp": _utcnow(),
     }
+
+    from blackdark.data.provenance_lineage import enrich_api_response
+
+    return enrich_api_response(panel, layer="spot_metrics")
 
 
 def list_venue_quality_rankings(limit: int = 50) -> dict[str, Any]:
