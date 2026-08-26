@@ -1316,6 +1316,111 @@ async def intelligence_ledger_breakeven_signal_context_route(
     return build_intelligence_ledger_signal_context(symbol, signal_id=signal_id)
 
 
+@router.get("/intelligence-ledger/oracle-vwap/status")
+async def oracle_vwap_layer_status_route():
+    """#413 Oracle VWAP / Fair Value Index — Oracle API layer (merged with #409)."""
+    from bd_platform.oracle_vwap_layer import oracle_vwap_status
+
+    return oracle_vwap_status()
+
+
+@router.get("/intelligence-ledger/oracle-vwap/market-radar")
+async def oracle_vwap_market_radar_route(symbol: str = Query("BTC")):
+    """#413 Market Radar — VWAP + per-venue deviation %."""
+    from bd_platform.oracle_vwap_layer import build_market_radar_vwap_context
+
+    result = build_market_radar_vwap_context(symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/oracle-vwap/arbitrage-benchmark")
+async def oracle_vwap_arbitrage_benchmark_route(symbol: str = Query("BTC")):
+    """#413 Arbitrage Scanner (#403) — VWAP benchmark not best bid/ask."""
+    from bd_platform.oracle_vwap_layer import build_arbitrage_vwap_benchmark
+
+    result = build_arbitrage_vwap_benchmark(symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/oracle-vwap/breakeven-reference")
+async def oracle_vwap_breakeven_reference_route(symbol: str = Query("BTC")):
+    """#413+#404 Live Breakeven — VWAP reference price."""
+    from bd_platform.oracle_vwap_layer import build_breakeven_vwap_price
+
+    result = build_breakeven_vwap_price(symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/oracle-vwap/reconciliation-tests")
+async def oracle_vwap_reconciliation_tests_route():
+    from bd_platform.oracle_vwap_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/fill-feasibility/status")
+async def fill_feasibility_simulator_status_route():
+    """#415 Fill Feasibility Simulator — Liquidity Depth Analyzer."""
+    from bd_platform.fill_feasibility_simulator import fill_feasibility_simulator_status
+
+    return fill_feasibility_simulator_status()
+
+
+@router.get("/intelligence-ledger/fill-feasibility")
+async def fill_feasibility_panel_route(
+    symbol: str = Query("BTC/USDT"),
+    venue: str = Query("binance"),
+    size: float = Query(5.0, gt=0),
+):
+    from bd_platform.fill_feasibility_simulator import build_fill_feasibility_panel
+
+    return build_fill_feasibility_panel(symbol=symbol, venue=venue, size=size)
+
+
+@router.get("/intelligence-ledger/fill-feasibility/heatmap")
+async def fill_feasibility_heatmap_route(symbol: str = Query("BTC/USDT")):
+    from bd_platform.fill_feasibility_simulator import build_liquidity_heatmap
+
+    return build_liquidity_heatmap(symbol)
+
+
+@router.get("/intelligence-ledger/fill-feasibility/arbitrage")
+async def fill_feasibility_arbitrage_route(
+    symbol: str = Query("BTC/USDT"),
+    size: float = Query(1.0, gt=0),
+):
+    from bd_platform.fill_feasibility_simulator import build_arbitrage_feasibility_panel
+
+    return build_arbitrage_feasibility_panel(symbol, size=size)
+
+
+@router.get("/intelligence-ledger/fill-feasibility/market-radar")
+async def fill_feasibility_market_radar_route(symbol: str = Query("BTC/USDT")):
+    from bd_platform.fill_feasibility_simulator import build_market_radar_panel
+
+    return build_market_radar_panel(symbol)
+
+
+@router.get("/intelligence-ledger/intelligence-layer/fill-feasibility")
+async def intelligence_ledger_fill_feasibility_route():
+    from bd_platform.fill_feasibility_simulator import build_intelligence_ledger_integration
+
+    return build_intelligence_ledger_integration()
+
+
+@router.get("/intelligence-ledger/fill-feasibility/reconciliation-tests")
+async def fill_feasibility_reconciliation_tests_route():
+    from bd_platform.fill_feasibility_simulator import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/smart-anomaly-alerts/status")
 async def smart_anomaly_alerts_status_route():
     """#719 Smart Anomaly Alert Engine — absorbs #131+#121."""
@@ -2604,6 +2709,28 @@ async def reference_data_registry_lookup_route(
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/internal/system-performance/status")
+async def system_performance_monitor_status_route(_admin: dict = Depends(require_admin)):
+    """#414 System Performance Monitor — Sprint-0 internal observability (admin only)."""
+    from bd_platform.system_performance_monitor import system_performance_monitor_status
+
+    return system_performance_monitor_status()
+
+
+@router.get("/internal/system-performance")
+async def system_performance_monitor_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.system_performance_monitor import build_performance_panel
+
+    return build_performance_panel()
+
+
+@router.get("/internal/system-performance/reconciliation-tests")
+async def system_performance_reconciliation_tests_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.system_performance_monitor import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/entity-profiler/status")

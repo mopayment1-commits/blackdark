@@ -1,0 +1,41 @@
+{
+  "feature_id": 415,
+  "title": "Fill Feasibility Simulator",
+  "legal_name": "Liquidity Depth Analyzer",
+  "standalone": false,
+  "merged_into": "Intelligence Ledger + Arbitrage Scanner",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "stale_threshold_ms": 5000,
+  "minimum_fill_threshold_usd": 10000,
+  "venue_count": 12,
+  "venues": ["binance", "okx", "bybit", "coinbase", "kraken", "bitfinex", "kucoin", "gate", "htx", "bitstamp", "gemini", "crypto_com"],
+  "pairs": {
+    "BTC/USDT": {
+      "binance": {
+        "bids": [[94980.0, 12.5], [94970.0, 8.2], [94960.0, 15.0], [94950.0, 20.1], [94940.0, 18.5]],
+        "asks": [[95020.0, 10.8], [95030.0, 9.5], [95040.0, 14.2], [95050.0, 17.8], [95060.0, 19.0]],
+        "freshness": {"snapshot_age_ms": 180, "latency_ms": 42, "exchange_timestamp": "2026-08-26T19:00:00Z"},
+        "venue_limit_usd": 5000000
+      },
+      "okx": {
+        "bids": [[94975.0, 8.0], [94965.0, 12.0], [94955.0, 15.0]],
+        "asks": [[94970.0, 7.5], [94980.0, 11.0], [94990.0, 13.0]],
+        "freshness": {"snapshot_age_ms": 6200, "latency_ms": 85, "exchange_timestamp": "2026-08-26T18:59:54Z"},
+        "venue_limit_usd": 3000000
+      }
+    }
+  },
+  "arbitrage_opportunities": [
+    {
+      "opportunity_id": "arb_btc_001",
+      "asset": "BTC",
+      "buy_venue": "okx",
+      "sell_venue": "binance",
+      "spread_bps": 12.5,
+      "requested_size_usd": 500000
+    }
+  ]
+}
