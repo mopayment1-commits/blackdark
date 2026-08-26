@@ -943,3 +943,115 @@ async def portfolio_health_panel_route(portfolio_id: str = Query("default")):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/smart-anomaly-alerts/status")
+async def smart_anomaly_alerts_status_route():
+    """#719 Smart Anomaly Alert Engine — absorbs #131+#121."""
+    from bd_platform.smart_anomaly_alert_engine import smart_anomaly_alert_engine_status
+
+    return smart_anomaly_alert_engine_status()
+
+
+@router.get("/intelligence-ledger/smart-anomaly-alerts")
+async def smart_anomaly_alerts_panel_route(asset: str = Query("BTC")):
+    from bd_platform.smart_anomaly_alert_engine import build_smart_anomaly_panel
+
+    return build_smart_anomaly_panel(asset)
+
+
+@router.get("/intelligence-ledger/smart-anomaly-alerts/alerts")
+async def smart_anomaly_alerts_list_route(
+    asset: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.smart_anomaly_alert_engine import list_anomaly_alerts
+
+    return list_anomaly_alerts(asset=asset, limit=limit)
+
+
+@router.get("/intelligence-ledger/market-intelligence/status")
+async def market_intelligence_status_route():
+    """#721 Market Intelligence Engine — bot activity layer."""
+    from bd_platform.market_intelligence_engine import market_intelligence_engine_status
+
+    return market_intelligence_engine_status()
+
+
+@router.get("/intelligence-ledger/market-intelligence/bot-activity")
+async def market_intelligence_bot_activity_route(asset: str = Query("BTC")):
+    from bd_platform.market_intelligence_engine import build_market_intelligence_panel
+
+    result = build_market_intelligence_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-risk/status")
+async def portfolio_risk_status_route():
+    """#723 Portfolio Risk Analytics — correlation widget."""
+    from bd_platform.portfolio_risk_analytics import portfolio_risk_analytics_status
+
+    return portfolio_risk_analytics_status()
+
+
+@router.get("/intelligence-ledger/portfolio-risk/correlation")
+async def portfolio_risk_correlation_route(
+    universe_id: str = Query("default"),
+    window_days: int = Query(30, ge=7, le=180),
+):
+    from bd_platform.portfolio_risk_analytics import build_correlation_panel
+
+    result = build_correlation_panel(universe_id, window_days=window_days)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-breadth/status")
+async def market_breadth_status_route():
+    """#724 Market Breadth Module — Market Radar widget."""
+    from bd_platform.market_breadth import market_breadth_status
+
+    return market_breadth_status()
+
+
+@router.get("/intelligence-ledger/market-breadth")
+async def market_breadth_panel_route():
+    from bd_platform.market_breadth import build_market_breadth_panel
+
+    return build_market_breadth_panel()
+
+
+@router.get("/charting/status")
+async def interactive_charting_status_route():
+    """#726 Interactive Charting Engine — renamed from CryptoQuant, absorbs #732."""
+    from bd_platform.interactive_charting_engine import interactive_charting_status
+
+    return interactive_charting_status()
+
+
+@router.get("/charting")
+async def interactive_charting_panel_route(symbol: str = Query("BTC/USDT")):
+    from bd_platform.interactive_charting_engine import build_charting_panel
+
+    return build_charting_panel(symbol)
+
+
+@router.get("/dashboard-builder/status")
+async def dashboard_builder_status_route():
+    """#728 Dashboard Builder — depends on #726+#742."""
+    from bd_platform.dashboard_builder import dashboard_builder_status
+
+    return dashboard_builder_status()
+
+
+@router.get("/dashboard-builder")
+async def dashboard_builder_panel_route(dashboard_id: str = Query("default")):
+    from bd_platform.dashboard_builder import build_dashboard_panel
+
+    result = build_dashboard_panel(dashboard_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
