@@ -271,6 +271,15 @@ def build_portfolio_ai_alerts(seed: dict[str, Any] | None = None) -> dict[str, A
     }
 
 
+def build_exchange_health_alerts_block(
+    portfolio_id: str = "demo_portfolio",
+) -> dict[str, Any]:
+    """#456 Exchange Health Monitor — exposure > 20% on low-health exchange (#410)."""
+    from bd_platform.exchange_health_monitor import build_portfolio_exchange_exposure_alerts
+
+    return build_portfolio_exchange_exposure_alerts(portfolio_id)
+
+
 def build_signal_risk_assessment(
     signal_id: str,
     *,
@@ -410,6 +419,7 @@ def build_capital_awareness_panel(portfolio_id: str = "demo_portfolio") -> dict[
         "scenario_stress": build_scenario_stress_block(seed),
         "position_risk_scores": position_scores,
         "portfolio_ai_alerts": build_portfolio_ai_alerts(seed),
+        "exchange_health_alerts": build_exchange_health_alerts_block(portfolio_id),
         "portfolio_summary": {
             "total_value_usd": portfolio.get("total_value_usd"),
             "current_drawdown_pct": portfolio.get("current_drawdown_pct"),
@@ -422,6 +432,7 @@ def build_capital_awareness_panel(portfolio_id: str = "demo_portfolio") -> dict[
             "risk_score_per_position": True,
             "risk_budget": True,
             "intelligence_ledger_risk_assessment": True,
+            "exchange_health_monitor_456": True,
         },
         "not_investment_advice": True,
         "disclaimer": _DISCLAIMER,
@@ -455,6 +466,7 @@ def capital_protection_controls_status() -> dict[str, Any]:
             "portfolio_ai_alerts": True,
             "intelligence_ledger_risk_assessment": True,
             "breakeven_integration_404": True,
+            "exchange_health_monitor_456": True,
         },
         "acceptance_criteria": {
             "no_automatic_fund_movement_without_explicit_boundary": True,

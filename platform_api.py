@@ -1253,6 +1253,62 @@ async def capital_awareness_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/portfolio-ai/exchange-health/status")
+async def exchange_health_monitor_status_route():
+    """#456 Exchange Health Monitor — Sprint-2 Risk Layer."""
+    from bd_platform.exchange_health_monitor import exchange_health_monitor_status
+
+    return exchange_health_monitor_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-health")
+async def exchange_health_monitor_panel_route(
+    exchange_id: str | None = Query(None),
+):
+    from bd_platform.exchange_health_monitor import build_exchange_health_panel
+
+    return build_exchange_health_panel(exchange_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-health/grades")
+async def exchange_health_grades_route():
+    from bd_platform.exchange_health_monitor import list_exchange_grades
+
+    return {"ok": True, "grades": list_exchange_grades(), "evidence_class": "BACKTESTED"}
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-health/exposure-alerts")
+async def exchange_health_exposure_alerts_route(
+    portfolio_id: str = Query("demo_portfolio"),
+):
+    """#410+#456 — portfolio exposure alerts on low-health exchanges."""
+    from bd_platform.exchange_health_monitor import build_portfolio_exchange_exposure_alerts
+
+    return build_portfolio_exchange_exposure_alerts(portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-health/arbitrage-filter")
+async def exchange_health_arbitrage_filter_route():
+    """#403/#429 — arbitrage opportunities filtered by exchange health."""
+    from bd_platform.exchange_health_monitor import build_arbitrage_health_panel
+
+    return build_arbitrage_health_panel()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/exchange-health")
+async def intelligence_ledger_exchange_health_route():
+    from bd_platform.exchange_health_monitor import build_intelligence_ledger_integration
+
+    return build_intelligence_ledger_integration()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-health/reconciliation-tests")
+async def exchange_health_reconciliation_tests_route():
+    from bd_platform.exchange_health_monitor import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/intelligence-layer/capital-awareness/risk-assessment")
 async def intelligence_ledger_risk_assessment_route(signal_id: str = Query("sig_btc_momentum")):
     """#410 Intelligence Ledger — mandatory Risk Assessment on every signal."""

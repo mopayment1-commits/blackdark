@@ -1,0 +1,313 @@
+{
+  "feature_id": 456,
+  "title": "Exchange Health Monitor",
+  "legal_name": "Exchange Health Monitor",
+  "renamed_from": "Exchange Insolvency Risk Scraper",
+  "standalone": false,
+  "merged_into": "Sprint-2 Risk Layer / Portfolio AI + Intelligence Ledger",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "low_health_grade_threshold": ["F", "D-", "D", "D+"],
+  "portfolio_exposure_alert_pct": 20.0,
+  "indicator_weights": {
+    "proof_of_reserves": 0.30,
+    "hot_wallet_flow_anomaly": 0.20,
+    "withdrawal_suspension_history": 0.20,
+    "regulatory_actions": 0.15,
+    "social_panic_signals": 0.15
+  },
+  "grade_scale": [
+    {"grade": "A+", "min_score": 95},
+    {"grade": "A", "min_score": 90},
+    {"grade": "A-", "min_score": 85},
+    {"grade": "B+", "min_score": 80},
+    {"grade": "B", "min_score": 75},
+    {"grade": "B-", "min_score": 70},
+    {"grade": "C+", "min_score": 65},
+    {"grade": "C", "min_score": 60},
+    {"grade": "C-", "min_score": 55},
+    {"grade": "D+", "min_score": 50},
+    {"grade": "D", "min_score": 45},
+    {"grade": "D-", "min_score": 40},
+    {"grade": "F", "min_score": 0}
+  ],
+  "exchanges": {
+    "binance": {
+      "exchange_id": "binance",
+      "display_name": "Binance",
+      "indicators": {
+        "proof_of_reserves": {
+          "liabilities_to_assets_ratio": 0.92,
+          "last_attestation": "2026-08-01",
+          "source": "merkle_tree_attestation"
+        },
+        "hot_wallet_flow_anomaly": {
+          "anomaly_score": 0.12,
+          "net_outflow_7d_usd": 180000000,
+          "source": "onchain_cluster"
+        },
+        "withdrawal_suspension_history": {
+          "suspension_events_12m": 0,
+          "last_event": null,
+          "source": "status_page_archive"
+        },
+        "regulatory_actions": {
+          "action_count_12m": 1,
+          "severity_max": "moderate",
+          "source": "regulatory_feed"
+        },
+        "social_panic_signals": {
+          "panic_index": 18,
+          "mention_velocity_z": 0.4,
+          "source": "social_sentiment_index"
+        }
+      }
+    },
+    "coinbase": {
+      "exchange_id": "coinbase",
+      "display_name": "Coinbase",
+      "indicators": {
+        "proof_of_reserves": {
+          "liabilities_to_assets_ratio": 0.84,
+          "last_attestation": "2026-08-15",
+          "source": "quarterly_transparency_report"
+        },
+        "hot_wallet_flow_anomaly": {
+          "anomaly_score": 0.08,
+          "net_outflow_7d_usd": 45000000,
+          "source": "onchain_cluster"
+        },
+        "withdrawal_suspension_history": {
+          "suspension_events_12m": 0,
+          "last_event": null,
+          "source": "status_page_archive"
+        },
+        "regulatory_actions": {
+          "action_count_12m": 0,
+          "severity_max": "none",
+          "source": "regulatory_feed"
+        },
+        "social_panic_signals": {
+          "panic_index": 10,
+          "mention_velocity_z": 0.1,
+          "source": "social_sentiment_index"
+        }
+      }
+    },
+    "kraken": {
+      "exchange_id": "kraken",
+      "display_name": "Kraken",
+      "indicators": {
+        "proof_of_reserves": {
+          "liabilities_to_assets_ratio": 0.90,
+          "last_attestation": "2026-07-20",
+          "source": "proof_of_reserves_audit"
+        },
+        "hot_wallet_flow_anomaly": {
+          "anomaly_score": 0.10,
+          "net_outflow_7d_usd": 32000000,
+          "source": "onchain_cluster"
+        },
+        "withdrawal_suspension_history": {
+          "suspension_events_12m": 0,
+          "last_event": null,
+          "source": "status_page_archive"
+        },
+        "regulatory_actions": {
+          "action_count_12m": 0,
+          "severity_max": "none",
+          "source": "regulatory_feed"
+        },
+        "social_panic_signals": {
+          "panic_index": 12,
+          "mention_velocity_z": 0.2,
+          "source": "social_sentiment_index"
+        }
+      }
+    },
+    "okx": {
+      "exchange_id": "okx",
+      "display_name": "OKX",
+      "indicators": {
+        "proof_of_reserves": {
+          "liabilities_to_assets_ratio": 0.94,
+          "last_attestation": "2026-08-05",
+          "source": "merkle_tree_attestation"
+        },
+        "hot_wallet_flow_anomaly": {
+          "anomaly_score": 0.18,
+          "net_outflow_7d_usd": 95000000,
+          "source": "onchain_cluster"
+        },
+        "withdrawal_suspension_history": {
+          "suspension_events_12m": 0,
+          "last_event": null,
+          "source": "status_page_archive"
+        },
+        "regulatory_actions": {
+          "action_count_12m": 1,
+          "severity_max": "low",
+          "source": "regulatory_feed"
+        },
+        "social_panic_signals": {
+          "panic_index": 22,
+          "mention_velocity_z": 0.6,
+          "source": "social_sentiment_index"
+        }
+      }
+    },
+    "bybit": {
+      "exchange_id": "bybit",
+      "display_name": "Bybit",
+      "indicators": {
+        "proof_of_reserves": {
+          "liabilities_to_assets_ratio": 0.95,
+          "last_attestation": "2026-07-28",
+          "source": "merkle_tree_attestation"
+        },
+        "hot_wallet_flow_anomaly": {
+          "anomaly_score": 0.22,
+          "net_outflow_7d_usd": 110000000,
+          "source": "onchain_cluster"
+        },
+        "withdrawal_suspension_history": {
+          "suspension_events_12m": 1,
+          "last_event": "2025-11-12",
+          "source": "status_page_archive"
+        },
+        "regulatory_actions": {
+          "action_count_12m": 2,
+          "severity_max": "moderate",
+          "source": "regulatory_feed"
+        },
+        "social_panic_signals": {
+          "panic_index": 28,
+          "mention_velocity_z": 0.8,
+          "source": "social_sentiment_index"
+        }
+      }
+    },
+    "kucoin": {
+      "exchange_id": "kucoin",
+      "display_name": "KuCoin",
+      "indicators": {
+        "proof_of_reserves": {
+          "liabilities_to_assets_ratio": 0.97,
+          "last_attestation": "2026-06-10",
+          "source": "self_reported_snapshot"
+        },
+        "hot_wallet_flow_anomaly": {
+          "anomaly_score": 0.35,
+          "net_outflow_7d_usd": 78000000,
+          "source": "onchain_cluster"
+        },
+        "withdrawal_suspension_history": {
+          "suspension_events_12m": 2,
+          "last_event": "2026-03-05",
+          "source": "status_page_archive"
+        },
+        "regulatory_actions": {
+          "action_count_12m": 3,
+          "severity_max": "elevated",
+          "source": "regulatory_feed"
+        },
+        "social_panic_signals": {
+          "panic_index": 42,
+          "mention_velocity_z": 1.4,
+          "source": "social_sentiment_index"
+        }
+      }
+    },
+    "htx": {
+      "exchange_id": "htx",
+      "display_name": "HTX",
+      "indicators": {
+        "proof_of_reserves": {
+          "liabilities_to_assets_ratio": 1.08,
+          "last_attestation": "2026-04-01",
+          "source": "self_reported_snapshot"
+        },
+        "hot_wallet_flow_anomaly": {
+          "anomaly_score": 0.62,
+          "net_outflow_7d_usd": 420000000,
+          "source": "onchain_cluster"
+        },
+        "withdrawal_suspension_history": {
+          "suspension_events_12m": 4,
+          "last_event": "2026-07-18",
+          "source": "status_page_archive"
+        },
+        "regulatory_actions": {
+          "action_count_12m": 5,
+          "severity_max": "elevated",
+          "source": "regulatory_feed"
+        },
+        "social_panic_signals": {
+          "panic_index": 71,
+          "mention_velocity_z": 2.8,
+          "source": "social_sentiment_index"
+        }
+      }
+    },
+    "bitfinex": {
+      "exchange_id": "bitfinex",
+      "display_name": "Bitfinex",
+      "indicators": {
+        "proof_of_reserves": {
+          "liabilities_to_assets_ratio": 1.02,
+          "last_attestation": "2026-05-15",
+          "source": "third_party_estimate"
+        },
+        "hot_wallet_flow_anomaly": {
+          "anomaly_score": 0.48,
+          "net_outflow_7d_usd": 155000000,
+          "source": "onchain_cluster"
+        },
+        "withdrawal_suspension_history": {
+          "suspension_events_12m": 3,
+          "last_event": "2026-02-20",
+          "source": "status_page_archive"
+        },
+        "regulatory_actions": {
+          "action_count_12m": 2,
+          "severity_max": "moderate",
+          "source": "regulatory_feed"
+        },
+        "social_panic_signals": {
+          "panic_index": 55,
+          "mention_velocity_z": 1.9,
+          "source": "social_sentiment_index"
+        }
+      }
+    }
+  },
+  "portfolio_exchange_exposure": {
+    "demo_portfolio": {
+      "binance": 35.0,
+      "coinbase": 18.0,
+      "okx": 15.0,
+      "htx": 22.0,
+      "kraken": 10.0
+    }
+  },
+  "arbitrage_opportunities": [
+    {
+      "opportunity_id": "arb_btc_htx_binance",
+      "asset": "BTC",
+      "symbol": "BTC/USDT",
+      "buy_venue": "htx",
+      "sell_venue": "binance",
+      "spread_bps": 18.5
+    },
+    {
+      "opportunity_id": "arb_eth_coinbase_kraken",
+      "asset": "ETH",
+      "symbol": "ETH/USDT",
+      "buy_venue": "coinbase",
+      "sell_venue": "kraken",
+      "spread_bps": 9.2
+    }
+  ]
+}
