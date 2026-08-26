@@ -1,0 +1,92 @@
+{
+  "feature_ids": [272, 287, 290, 292],
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Community Pulse (Market Radar)",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "provider": {
+    "name": "LunarCrush",
+    "fallback": "Kaito",
+    "monthly_cost_cap_usd": 500,
+    "current_spend_usd": 180,
+    "paused_on_exceed": false
+  },
+  "assets": {
+    "BTC": {
+      "mindshare_pct": 42.5,
+      "mentions_weekly": 125000,
+      "trend": "rising",
+      "sentiment": {
+        "label": "positive",
+        "score": 0.72,
+        "positive_pct": 58,
+        "neutral_pct": 25,
+        "negative_pct": 17,
+        "model": "lunarcrush-v3",
+        "model_version": "3.1",
+        "source_coverage_pct": 94,
+        "sarcasm_detected": false,
+        "history_days": 30
+      },
+      "social_dominance": {
+        "dominance_pct": 38.2,
+        "rank": 1
+      },
+      "social_volume": {
+        "volume_24h": 2850000,
+        "volume_change_pct": 12.5
+      }
+    },
+    "ETH": {
+      "mindshare_pct": 22.8,
+      "mentions_weekly": 68000,
+      "trend": "flat",
+      "sentiment": {
+        "label": "neutral",
+        "score": 0.52,
+        "positive_pct": 42,
+        "neutral_pct": 35,
+        "negative_pct": 23,
+        "model": "lunarcrush-v3",
+        "model_version": "3.1",
+        "source_coverage_pct": 91,
+        "sarcasm_detected": false,
+        "history_days": 30
+      },
+      "social_dominance": {
+        "dominance_pct": 18.5,
+        "rank": 2
+      },
+      "social_volume": {
+        "volume_24h": 1420000,
+        "volume_change_pct": -3.2
+      }
+    },
+    "DOGE": {
+      "mindshare_pct": 3.2,
+      "mentions_weekly": 45,
+      "trend": "falling",
+      "sentiment": {
+        "label": "negative",
+        "score": 0.35,
+        "positive_pct": 20,
+        "neutral_pct": 30,
+        "negative_pct": 50,
+        "model": "lunarcrush-v3",
+        "model_version": "3.1",
+        "source_coverage_pct": 35,
+        "sarcasm_detected": true,
+        "history_days": 30
+      },
+      "social_dominance": {
+        "dominance_pct": 1.2,
+        "rank": 45
+      },
+      "social_volume": {
+        "volume_24h": 85000,
+        "volume_change_pct": -18.0
+      }
+    }
+  }
+}
