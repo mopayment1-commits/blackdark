@@ -1084,6 +1084,44 @@ async def portfolio_health_panel_route(portfolio_id: str = Query("default")):
     return result
 
 
+@router.get("/intelligence-ledger/portfolio-ai/position-risk/status")
+async def portfolio_position_risk_status_route():
+    """#366 + #373 Portfolio AI position risk — educational, no risk score."""
+    from bd_platform.portfolio_position_risk import portfolio_position_risk_status
+
+    return portfolio_position_risk_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/position-stress-scenario")
+async def portfolio_position_stress_scenario_route(position_id: str = Query("pos_001")):
+    """#366 Position Stress Scenario — absorbed from Liquidation Risk."""
+    from bd_platform.portfolio_position_risk import build_position_stress_scenario
+
+    result = build_position_stress_scenario(position_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/position-risk-context")
+async def portfolio_position_risk_context_route(position_id: str = Query("pos_001")):
+    """#373 Position Risk Context — component breakdown, no risk score."""
+    from bd_platform.portfolio_position_risk import build_position_risk_context
+
+    result = build_position_risk_context(position_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/multi-model-liquidation/status")
+async def multi_model_liquidation_blocked_status_route():
+    """#377 HOLD & BLOCK — pending multiple liquidation models."""
+    from bd_platform.portfolio_position_risk import build_multi_model_liquidation_blocked_status
+
+    return build_multi_model_liquidation_blocked_status()
+
+
 @router.get("/intelligence-ledger/smart-anomaly-alerts/status")
 async def smart_anomaly_alerts_status_route():
     """#719 Smart Anomaly Alert Engine — absorbs #131+#121."""

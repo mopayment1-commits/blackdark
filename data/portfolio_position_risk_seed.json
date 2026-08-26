@@ -1,0 +1,115 @@
+{
+  "feature_id": 373,
+  "standalone": false,
+  "merged_into": "Portfolio AI / Position Risk Context",
+  "wave": 2,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "legal_review": {
+    "complete": true,
+    "date": "2026-08-20"
+  },
+  "absorbed_tickets": {
+    "366": "Position Stress Scenario (standalone rejected)",
+    "373": "Position Risk Context (renamed from Margin_Risk_Calculator)"
+  },
+  "blocked_features": {
+    "377": {
+      "status": "hold_and_block",
+      "models_available": 0,
+      "models_required": 3,
+      "reason": "Model1/2/3 liquidation outputs not available — comparison framework premature"
+    }
+  },
+  "venue_rules": {
+    "binance": {
+      "version": "2026.08.1",
+      "margin_mode": "cross",
+      "maintenance_margin_pct": 0.5,
+      "initial_margin_pct": 1.0,
+      "liquidation_fee_pct": 0.075,
+      "last_updated": "2026-08-20"
+    },
+    "bybit": {
+      "version": "2026.08.1",
+      "margin_mode": "cross",
+      "maintenance_margin_pct": 0.5,
+      "initial_margin_pct": 1.0,
+      "liquidation_fee_pct": 0.05,
+      "last_updated": "2026-08-20"
+    }
+  },
+  "positions": {
+    "pos_001": {
+      "asset": "BTC",
+      "venue": "binance",
+      "side": "long",
+      "size_usd": 50000,
+      "entry_price": 64000,
+      "current_price": 65000,
+      "ltv": 0.35,
+      "margin_utilization_pct": 42,
+      "liquidation_distance_usd_low": 4500,
+      "liquidation_distance_usd_high": 5200,
+      "concentration_pct": 35,
+      "hedge_ratio": 0.0,
+      "data_stale": false,
+      "stale_data_penalty_applied": false,
+      "stress_scenarios": [
+        {
+          "scenario_id": "sc_10",
+          "name": "10% price drop",
+          "price_drop_pct": 10,
+          "liquidity_unchanged": true,
+          "no_new_positions": true,
+          "scenario_loss_usd_low": 4800,
+          "scenario_loss_usd_high": 5500
+        },
+        {
+          "scenario_id": "sc_20",
+          "name": "20% price drop",
+          "price_drop_pct": 20,
+          "liquidity_unchanged": true,
+          "no_new_positions": true,
+          "scenario_loss_usd_low": 9800,
+          "scenario_loss_usd_high": 11200
+        },
+        {
+          "scenario_id": "sc_30",
+          "name": "30% price drop",
+          "price_drop_pct": 30,
+          "liquidity_unchanged": true,
+          "no_new_positions": true,
+          "scenario_loss_usd_low": 15000,
+          "scenario_loss_usd_high": 17500
+        }
+      ]
+    },
+    "pos_002": {
+      "asset": "ETH",
+      "venue": "bybit",
+      "side": "long",
+      "size_usd": 20000,
+      "entry_price": 3200,
+      "current_price": 3400,
+      "ltv": 0.28,
+      "margin_utilization_pct": 30,
+      "liquidation_distance_usd_low": 2800,
+      "liquidation_distance_usd_high": 3200,
+      "concentration_pct": 20,
+      "hedge_ratio": 0.15,
+      "data_stale": true,
+      "stale_data_penalty_applied": true,
+      "stress_scenarios": [
+        {
+          "scenario_id": "sc_10_eth",
+          "name": "10% price drop",
+          "price_drop_pct": 10,
+          "scenario_loss_usd_low": 1900,
+          "scenario_loss_usd_high": 2200
+        }
+      ]
+    }
+  }
+}
