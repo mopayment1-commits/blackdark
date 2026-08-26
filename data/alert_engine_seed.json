@@ -6,8 +6,11 @@
   "merged_into": "Intelligence Ledger / Alert Engine",
   "sprint": 2,
   "current_phase": 1,
-  "methodology_version": "1.0",
-  "last_updated": "2026-08-25",
+  "methodology_version": "1.1",
+  "last_updated": "2026-08-26",
+  "absorbed_tickets": {
+    "323": "Derivatives Alert Rules & Thresholds"
+  },
   "rules": [
     {
       "rule_id": "alert-001",
@@ -35,6 +38,43 @@
       "current_value": 95020,
       "paused": true,
       "phase": 3
+    }
+  ],
+  "derivatives_rules": [
+    {
+      "rule_id": "deriv-001",
+      "name": "BTC OI surge",
+      "type": "derivatives",
+      "asset": "BTC",
+      "metric": "oi_change_pct",
+      "condition": {"operator": ">=", "threshold": 10},
+      "current_value": 12.5,
+      "anomaly_input_enabled": true,
+      "paused": false
+    },
+    {
+      "rule_id": "deriv-002",
+      "name": "BTC funding extreme",
+      "type": "derivatives",
+      "asset": "BTC",
+      "metric": "funding_rate",
+      "condition": {"operator": ">=", "threshold": 0.001},
+      "current_value": 0.0008,
+      "anomaly_input_enabled": true,
+      "paused": false
+    },
+    {
+      "rule_id": "deriv-003",
+      "name": "ETH liquidation spike",
+      "type": "derivatives",
+      "asset": "ETH",
+      "metric": "liquidation_usd",
+      "condition": {"operator": ">=", "threshold": 50000000},
+      "current_value": 62000000,
+      "anomaly_triggered": true,
+      "anomaly_input_enabled": true,
+      "paused": false,
+      "last_fired_at": "2026-08-26T08:00:00+00:00"
     }
   ],
   "delivery_log": [

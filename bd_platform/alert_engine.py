@@ -17,18 +17,21 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.AlertEngine")
 
 _FEATURE_ID = 289
+_ABSORBED_IDS = (323,)
 _RENAMED_FROM = "Smart Alerts"
 _OFFICIAL_NAME = "Alert Engine"
 _STANDALONE = False
 _MERGED_INTO = "Intelligence Ledger / Alert Engine"
 _SPRINT = 2
 _SEED_PATH = Path("data/alert_engine_seed.json")
-_METHODOLOGY_VERSION = "1.0"
+_METHODOLOGY_VERSION = "1.1"
 _DEDUPE_WINDOW_SEC = 300
 _MAX_RETRIES = 3
 _LOG_RETENTION_DAYS = 90
+_FLOW_ANOMALY_FEATURE_ID = 282
 
-AlertType = Literal["price", "indicator", "drawing"]
+AlertType = Literal["price", "indicator", "drawing", "derivatives"]
+DerivativesMetric = Literal["oi_change_pct", "funding_rate", "liquidation_usd"]
 DeliveryChannel = Literal["push", "email", "webhook"]
 RuleStatus = Literal["active", "paused", "triggered", "suppressed"]
 
@@ -47,6 +50,113 @@ def _load_seed() -> dict[str, Any]:
         return {"rules": [], "delivery_log": []}
 
 
+def build_derivatives_alert_rules(seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#323 Derivatives Alert Rules — merged into #289, no separate engine."""
+    seed = seed or _load_seed()
+    rules = seed.get("derivatives_rules") or []
+    return {
+        "absorbed_feature_id": 323,
+        "merged_as": "Derivatives Alert Rules & Thresholds",
+        "no_separate_engine": True,
+        "rule_templates": [
+            "OI change > X%",
+            "Funding > Y%",
+            "Liquidation > Z USD",
+        ],
+        "metrics": ["oi_change_pct", "funding_rate", "liquidation_usd"],
+        "deduplication": {
+            "window_sec": _DEDUPE_WINDOW_SEC,
+            "rule": "same asset + same condition within 5 min = suppressed",
+            "no_duplicate_spam": True,
+        },
+        "anomaly_integration": {
+            "flow_anomaly_feature_id": _FLOW_ANOMALY_FEATURE_ID,
+            "orderflow_anomaly_input": True,
+            "anomaly_triggered_alerts": "enabled per user tier",
+        },
+        "rules": rules,
+        "rule_count": len(rules),
+        "display": (
+            "#323 = alert rules config in Alert Engine | "
+            "OI / Funding / Liquidation thresholds | "
+            f"Dedup: {_DEDUPE_WINDOW_SEC}s | #282 anomaly input"
+        ),
+    }
+
+
+def evaluate_derivatives_rule(
+    rule: dict[str, Any],
+    *,
+    market: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Evaluate derivatives alert rule — OI/funding/liquidation extremes."""
+    market = market or {}
+    asset = rule.get("asset", "BTC")
+    metric: DerivativesMetric = rule.get("metric", "funding_rate")
+    condition = rule.get("condition") or {}
+    threshold = condition.get("threshold")
+    operator = condition.get("operator", ">=")
+
+    field_map = {
+        "oi_change_pct": "oi_change_pct",
+        "funding_rate": "funding_rate",
+        "liquidation_usd": "liquidation_usd",
+    }
+    field = field_map.get(metric, metric)
+    current_value = market.get(field, rule.get("current_value"))
+
+    base = evaluate_rule(
+        {
+            **rule,
+            "type": "derivatives",
+            "condition": {"field": field, "operator": operator, "threshold": threshold},
+            "current_value": current_value,
+        },
+        market=market,
+    )
+
+    dedupe_key = f"{asset}:{metric}:{operator}:{threshold}"
+    anomaly_triggered = bool(rule.get("anomaly_triggered")) or bool(
+        market.get("flow_anomaly_detected")
+    )
+
+    return {
+        **base,
+        "alert_category": "derivatives",
+        "absorbed_from": 323,
+        "asset": asset,
+        "metric": metric,
+        "dedupe_key": dedupe_key,
+        "anomaly_integration": {
+            "flow_anomaly_feature_id": _FLOW_ANOMALY_FEATURE_ID,
+            "anomaly_triggered": anomaly_triggered,
+            "anomaly_input_enabled": rule.get("anomaly_input_enabled", True),
+        },
+        "display": (
+            f"Derivatives alert {asset}: {metric} {operator} {threshold} | "
+            f"Current: {current_value} | Status: {base['status']}"
+            + (" | Anomaly-triggered" if anomaly_triggered else "")
+        ),
+    }
+
+
+def list_derivatives_alert_rules(*, asset: str | None = None, limit: int = 50) -> dict[str, Any]:
+    seed = _load_seed()
+    rules = seed.get("derivatives_rules") or []
+    if asset:
+        rules = [r for r in rules if r.get("asset", "").upper() == asset.upper()]
+    evaluated = [evaluate_derivatives_rule(r) for r in rules[:limit]]
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID,
+        "absorbed_feature_id": 323,
+        "count": len(evaluated),
+        "rules": evaluated,
+        "derivatives_alert_rules": build_derivatives_alert_rules(seed),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_scope_lock(seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     phase = int(seed.get("current_phase", 1))
@@ -54,7 +164,7 @@ def build_scope_lock(seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "current_phase": phase,
         "phases": {
             1: "Price alerts",
-            2: "Indicator alerts",
+            2: "Indicator alerts + Derivatives alert rules (#323)",
             3: "Drawing alerts",
         },
         "ml_alerts_wave": 3,
@@ -203,9 +313,12 @@ def build_alert_engine_panel() -> dict[str, Any]:
     t0 = time.perf_counter()
     seed = _load_seed()
     rules = [evaluate_rule(r) for r in seed.get("rules") or []]
+    derivatives = [evaluate_derivatives_rule(r) for r in seed.get("derivatives_rules") or []]
     logs = [build_delivery_record(d) for d in (seed.get("delivery_log") or [])[:10]]
     triggered = [r for r in rules if r["status"] == "triggered"]
+    triggered += [r for r in derivatives if r["status"] == "triggered"]
     suppressed = [r for r in rules if r["status"] == "suppressed"]
+    suppressed += [r for r in derivatives if r["status"] == "suppressed"]
 
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
     return {
@@ -218,6 +331,8 @@ def build_alert_engine_panel() -> dict[str, Any]:
         "sprint": _SPRINT,
         "surface": "alert_engine",
         "rules": rules,
+        "derivatives_rules": derivatives,
+        "derivatives_alert_config": build_derivatives_alert_rules(seed),
         "triggered_count": len(triggered),
         "suppressed_count": len(suppressed),
         "recent_deliveries": logs,
@@ -238,12 +353,15 @@ def alert_engine_status() -> dict[str, Any]:
         "feature_id": _FEATURE_ID,
         "title": _OFFICIAL_NAME,
         "renamed_from": _RENAMED_FROM,
+        "absorbed_tickets": {323: "Derivatives Alert Rules & Thresholds"},
         "standalone": _STANDALONE,
         "merged_into": _MERGED_INTO,
         "sprint": _SPRINT,
         "scope_lock": build_scope_lock(seed),
         "backend_enforcement": build_backend_enforcement(),
         "rule_count": len(seed.get("rules") or []),
+        "derivatives_rule_count": len(seed.get("derivatives_rules") or []),
+        "derivatives_alert_rules": build_derivatives_alert_rules(seed),
         "acceptance_criteria": {
             "backend_enforcement": True,
             "deduplication": True,
