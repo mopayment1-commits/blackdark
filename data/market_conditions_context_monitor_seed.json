@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "feature_id": 565,
+  "layer": "Intelligence Layer",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "formula": {
+    "expression": "lens_signal = normalize(raw_metric, lens_baseline, lens_scale) | lens_alignment = classify(lens_signal) | confidence = base_confidence * freshness_penalty",
+    "stale_threshold_seconds": 3600,
+    "stale_confidence_penalty": 0.25
+  },
+  "lens_definitions": {
+    "liquidity": {"baseline": 1.0, "scale": 0.5},
+    "volatility": {"baseline": 50.0, "scale": 25.0},
+    "breadth": {"baseline": 0.5, "scale": 0.3},
+    "macro": {"baseline": 0.0, "scale": 1.0},
+    "on_chain": {"baseline": 0.5, "scale": 0.4},
+    "derivatives": {"baseline": 1.0, "scale": 0.6},
+    "profitability": {"baseline": 0.0, "scale": 0.5}
+  },
+  "markets": {
+    "crypto_aggregate": {
+      "name": "Crypto Aggregate Market",
+      "lenses": {
+        "liquidity": {
+          "raw_value": 1.35,
+          "baseline": 1.0,
+          "scale": 0.5,
+          "base_confidence": 0.90,
+          "freshness_seconds": 300,
+          "source": "global_liquidity_index",
+          "as_of": "2026-08-26T14:00:00Z"
+        },
+        "volatility": {
+          "raw_value": 62.0,
+          "baseline": 50.0,
+          "scale": 25.0,
+          "base_confidence": 0.88,
+          "freshness_seconds": 600,
+          "source": "cross_asset_volatility_regime",
+          "as_of": "2026-08-26T14:00:00Z"
+        },
+        "breadth": {
+          "raw_value": 0.72,
+          "baseline": 0.5,
+          "scale": 0.3,
+          "base_confidence": 0.85,
+          "freshness_seconds": 900,
+          "source": "market_breadth_index",
+          "as_of": "2026-08-26T14:00:00Z"
+        },
+        "macro": {
+          "raw_value": 0.15,
+          "baseline": 0.0,
+          "scale": 1.0,
+          "base_confidence": 0.82,
+          "freshness_seconds": 1800,
+          "source": "macro_intelligence_hub",
+          "as_of": "2026-08-26T14:00:00Z"
+        },
+        "on_chain": {
+          "raw_value": 0.68,
+          "baseline": 0.5,
+          "scale": 0.4,
+          "base_confidence": 0.87,
+          "freshness_seconds": 1200,
+          "source": "onchain_metrics_suite",
+          "as_of": "2026-08-26T14:00:00Z"
+        },
+        "derivatives": {
+          "raw_value": 0.85,
+          "baseline": 1.0,
+          "scale": 0.6,
+          "base_confidence": 0.84,
+          "freshness_seconds": 4500,
+          "source": "derivatives_cross_signal",
+          "as_of": "2026-08-26T13:00:00Z"
+        },
+        "profitability": {
+          "raw_value": 0.22,
+          "baseline": 0.0,
+          "scale": 0.5,
+          "base_confidence": 0.80,
+          "freshness_seconds": 7200,
+          "source": "protocol_economics_layer",
+          "as_of": "2026-08-26T12:00:00Z"
+        }
+      }
+    }
+  },
+  "backtest": {
+    "periods_tested": 24,
+    "label_consistency_pct": 91.5,
+    "deterministic_replays": true,
+    "historical_metric_validation": true,
+    "no_trading_backtest": true
+  }
+}

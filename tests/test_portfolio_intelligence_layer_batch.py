@@ -103,6 +103,66 @@ def portfolio_seed(tmp_path, monkeypatch):
                 },
             },
         },
+        "bridge_dedupe_map": {
+            "canonical_groups": {
+                "BTC": ["BTC", "WBTC"],
+            },
+        },
+        "multi_chain_trackers": {
+            "test_portfolio": {
+                "as_of": "2026-08-26T14:00:00Z",
+                "fx_applied": True,
+                "chains_covered": ["ethereum", "bitcoin"],
+                "pnl": {"cost_basis_usd": 100000.0},
+                "holdings": [
+                    {
+                        "source_id": "w1",
+                        "source_type": "wallet",
+                        "asset": "BTC",
+                        "network": "bitcoin",
+                        "amount": 1.0,
+                        "value_usd": 95000.0,
+                        "freshness_seconds": 300,
+                        "stale": False,
+                        "missing": False,
+                    },
+                    {
+                        "source_id": "w2",
+                        "source_type": "wallet",
+                        "asset": "WBTC",
+                        "network": "ethereum",
+                        "amount": 0.5,
+                        "value_usd": 47500.0,
+                        "freshness_seconds": 600,
+                        "stale": False,
+                        "missing": False,
+                    },
+                    {
+                        "source_id": "w3",
+                        "source_type": "wallet",
+                        "asset": "WBTC",
+                        "network": "ethereum",
+                        "amount": 0.5,
+                        "value_usd": 47500.0,
+                        "freshness_seconds": 600,
+                        "stale": False,
+                        "missing": False,
+                    },
+                    {
+                        "source_id": "w4",
+                        "source_type": "wallet",
+                        "asset": "ETH",
+                        "network": "ethereum",
+                        "amount": 5.0,
+                        "value_usd": 21000.0,
+                        "freshness_seconds": 4000,
+                        "stale": True,
+                        "missing": False,
+                    },
+                ],
+                "defi_positions": [],
+            },
+        },
     }), encoding="utf-8")
     monkeypatch.setattr(pil, "_SEED_PATH", p)
     return p
@@ -112,7 +172,7 @@ def test_epic_status_merged_not_standalone(portfolio_seed):
     status = pil.portfolio_intelligence_layer_status()
     assert status["standalone_rejected"] is True
     assert status["tasks_not_tickets"] is True
-    assert set(status["feature_ids"]) == {515, 557, 558}
+    assert set(status["feature_ids"]) == {515, 557, 558, 569}
     assert status["dependencies"]["entity_resolution_feature_id"] == 541
     assert status["dependencies"]["asset_profiles_feature_id"] == 516
 
@@ -165,6 +225,33 @@ def test_main_panel_all_sub_modules(portfolio_seed):
     assert "515_historical_portfolio_snapshot" in panel["sub_modules"]
     assert "557_global_asset_tracker" in panel["sub_modules"]
     assert "558_historical_wallet_balance" in panel["sub_modules"]
+    assert "569_multi_chain_portfolio_tracker" in panel["sub_modules"]
+
+
+def test_569_multi_chain_tracker(portfolio_seed):
+    tracker = pil.build_multi_chain_portfolio_tracker("test_portfolio")
+    assert tracker["ok"] is True
+    assert tracker["deduplication"]["bridged_asset_dedupe"] is True
+    assert tracker["exposure_metrics"]["no_risk_score_output"] is True
+    assert tracker["stale_missing_visibility"]["stale_data_flags"] is True
+    assert tracker["chain_coverage"]["chain_coverage_explicit"] is True
+    assert "Calculated from available on-chain data" in tracker["pnl"]["pnl_disclaimer"]
+    assert tracker["no_rebalancing_suggestions"] is True
+
+
+def test_569_exposure_breakdown(portfolio_seed):
+    tracker = pil.build_multi_chain_portfolio_tracker("test_portfolio")
+    assert "exposure_breakdown_by_chain" in tracker["exposure_metrics"]
+    assert "exposure_breakdown_by_asset" in tracker["exposure_metrics"]
+    assert "risk" not in json.dumps(tracker["exposure_metrics"]).lower() or "no_risk" in json.dumps(tracker["exposure_metrics"]).lower()
+
+
+def test_569_api_route(portfolio_seed):
+    from fastapi.testclient import TestClient
+    from dashboard import app
+
+    c = TestClient(app)
+    assert c.get("/api/platform/intelligence-ledger/portfolio-layer/multi-chain-tracker?portfolio_id=test_portfolio").status_code == 200
 
 
 def test_reconciliation_tests(portfolio_seed):

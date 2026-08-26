@@ -2138,6 +2138,74 @@ async def portfolio_intelligence_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/portfolio-layer/multi-chain-tracker")
+async def multi_chain_portfolio_tracker_route(
+    portfolio_id: str = Query("demo_portfolio"),
+):
+    """#569 Multi-Chain Portfolio Tracker — cross-chain dedupe + exposure metrics."""
+    from bd_platform.portfolio_intelligence_layer import build_multi_chain_portfolio_tracker
+
+    result = build_multi_chain_portfolio_tracker(portfolio_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-conditions/status")
+async def market_conditions_context_monitor_status_route():
+    """#565 Market Conditions Context Monitor — factor alignment indicators."""
+    from bd_platform.market_conditions_context_monitor import market_conditions_context_monitor_status
+
+    return market_conditions_context_monitor_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-conditions")
+async def market_conditions_context_monitor_panel_route(
+    market_id: str = Query("crypto_aggregate"),
+):
+    from bd_platform.market_conditions_context_monitor import build_market_conditions_panel
+
+    result = build_market_conditions_panel(market_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-conditions/reconciliation-tests")
+async def market_conditions_reconciliation_tests_route():
+    from bd_platform.market_conditions_context_monitor import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/data-layer/protocol-valuation/status")
+async def protocol_valuation_layer_status_route():
+    """#570 #571 Protocol Valuation Layer — NVT ratio & historical context."""
+    from bd_platform.protocol_valuation_layer import protocol_valuation_layer_status
+
+    return protocol_valuation_layer_status()
+
+
+@router.get("/intelligence-ledger/data-layer/protocol-valuation")
+async def protocol_valuation_panel_route(
+    asset_id: str = Query("bitcoin"),
+    entity_adjusted: bool = Query(True),
+):
+    from bd_platform.protocol_valuation_layer import build_protocol_valuation_panel
+
+    result = build_protocol_valuation_panel(asset_id, entity_adjusted=entity_adjusted)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/protocol-valuation/reconciliation-tests")
+async def protocol_valuation_reconciliation_tests_route():
+    from bd_platform.protocol_valuation_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/data-layer/asset-profiles/status")
 async def asset_intelligence_profiles_status_route():
     """#516 Asset Intelligence Profiles — Sprint 0 foundation."""
