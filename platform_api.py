@@ -1515,6 +1515,36 @@ async def cross_chain_liquidity_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/onchain-layer/exchange-intelligence/status")
+async def exchange_intelligence_layer_status_route():
+    """#544 Exchange Intelligence Layer — epic #544 #546-550 merged."""
+    from bd_platform.exchange_intelligence_layer import exchange_intelligence_layer_status
+
+    return exchange_intelligence_layer_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/exchange-intelligence")
+async def exchange_intelligence_layer_panel_route(
+    exchange_id: str = Query("binance"),
+    asset: str | None = Query(None),
+    adjusted: bool = Query(True),
+):
+    from bd_platform.exchange_intelligence_layer import build_exchange_intelligence_panel
+
+    return build_exchange_intelligence_panel(
+        exchange_id=exchange_id,
+        asset=asset,
+        adjusted=adjusted,
+    )
+
+
+@router.get("/intelligence-ledger/onchain-layer/exchange-intelligence/reconciliation-tests")
+async def exchange_intelligence_reconciliation_tests_route():
+    from bd_platform.exchange_intelligence_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/foundation/entity-resolution/status")
 async def entity_resolution_engine_status_route():
     """#541 Entity Resolution Engine — Sprint 0 critical foundation."""
