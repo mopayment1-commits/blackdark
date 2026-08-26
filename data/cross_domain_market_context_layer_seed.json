@@ -1,0 +1,190 @@
+{
+  "feature_id": 524,
+  "absorbed_tickets": [523, 525, 526, 527, 528, 529, 530],
+  "renamed_from": [
+    "Cross-Domain Decision Intelligence Layer",
+    "Cross-Domain Decision Intelligence",
+    "Cross-Market Decision Intelligence Engine"
+  ],
+  "title": "Cross-Domain Market Context Layer",
+  "not_decision_intelligence": true,
+  "no_standalone_ui": true,
+  "layer": "Intelligence Layer",
+  "sprint": 2,
+  "wave": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "contexts": {
+    "btc_cross_domain": {
+      "title": "BTC Cross-Domain Market Context",
+      "asset": "BTC",
+      "analysis_summary": "Cross-domain market context across on-chain flows, derivatives, risk, social, and macro. Derivatives and on-chain partially confirming; sentiment contradicting accumulation pattern.",
+      "what_changed": [
+        {"domain": "derivatives", "change": "Funding rate turned negative (-0.02%)", "period": "24h"},
+        {"domain": "on_chain", "change": "Exchange outflow velocity +200% vs 30-day average", "period": "24h"},
+        {"domain": "risk", "change": "Volatility regime shifted to elevated (percentile 78)", "period": "7d"},
+        {"domain": "social", "change": "Social sentiment declined to -0.3", "period": "48h"}
+      ],
+      "domain_signals": [
+        {"domain": "derivatives", "direction": "bullish", "metric": "funding_rate", "value": -0.0002, "source": "binance_api", "freshness_seconds": 120, "confidence_pct": 95, "weight": 1.0, "epistemic_type": "fact"},
+        {"domain": "on_chain", "direction": "bullish", "metric": "exchange_outflow_velocity", "value": 2.0, "source": "onchain_indexer", "freshness_seconds": 300, "confidence_pct": 88, "weight": 1.0, "epistemic_type": "fact"},
+        {"domain": "risk", "direction": "cautious", "metric": "volatility_regime", "value": "elevated", "source": "risk_metrics_layer", "freshness_seconds": 600, "confidence_pct": 85, "weight": 0.8, "epistemic_type": "inference"},
+        {"domain": "social", "direction": "bearish", "metric": "sentiment_score", "value": -0.3, "source": "social_feed", "freshness_seconds": 1800, "confidence_pct": 72, "weight": 0.6, "epistemic_type": "fact"},
+        {"domain": "macro", "direction": "neutral", "metric": "etf_flows", "value": "flat", "source": "etf_data_module", "freshness_seconds": 3600, "confidence_pct": 90, "weight": 0.7, "epistemic_type": "fact"}
+      ],
+      "risk": {
+        "volatility_regime": "elevated",
+        "tail_risk_percentile": 82,
+        "risk_layer_source": "#501, #503",
+        "not_advisory": true
+      },
+      "context_relevance": [
+        {
+          "factor": "Negative funding + rising outflow velocity",
+          "hypothesis": "Accumulation despite negative sentiment",
+          "relationship": "supports",
+          "evidence_refs": ["ev_funding_001", "ev_outflow_001"]
+        },
+        {
+          "factor": "Social sentiment decline",
+          "hypothesis": "Accumulation despite negative sentiment",
+          "relationship": "contradicts",
+          "evidence_refs": ["ev_sentiment_001"]
+        }
+      ],
+      "epistemic_items": [
+        {
+          "epistemic_type": "fact",
+          "statement": "BTC perpetual funding rate is -0.02% on Binance",
+          "verified": true,
+          "freshness_seconds": 120,
+          "confidence_pct": 100,
+          "provenance_metric_id": "derivatives.btc.funding_rate",
+          "evidence": [{"evidence_id": "ev_funding_001", "source": "Binance API v3", "description": "Funding rate snapshot"}]
+        },
+        {
+          "epistemic_type": "fact",
+          "statement": "Exchange outflow velocity +200% vs 30-day average",
+          "verified": true,
+          "freshness_seconds": 300,
+          "confidence_pct": 100,
+          "evidence": [{"evidence_id": "ev_outflow_001", "source": "On-Chain Indexer", "description": "Exchange flow velocity monitor #508"}]
+        },
+        {
+          "epistemic_type": "inference",
+          "statement": "Derivatives positioning and on-chain outflows partially confirm accumulation pattern despite negative sentiment",
+          "confidence_pct": 74,
+          "freshness_seconds": 300,
+          "supporting_fact_refs": ["ev_funding_001", "ev_outflow_001"],
+          "evidence_confidence_assessment_id": "btc-halving-impact-2024",
+          "evidence": [{"evidence_id": "ev_cross_001", "description": "Cross-domain confirm/contradict synthesis"}]
+        },
+        {
+          "epistemic_type": "hypothesis",
+          "statement": "If funding remains negative for 7+ days while outflow velocity stays elevated, accumulation thesis gains support",
+          "probability_range_pct": [40, 65],
+          "freshness_seconds": 600,
+          "test_conditions": ["Funding < 0 for 7 days", "Outflow velocity > 1.5x baseline"],
+          "evidence": [{"evidence_id": "ev_hyp_001", "description": "Historical pattern — not prediction guarantee"}]
+        }
+      ]
+    }
+  },
+  "sub_module_data": {
+    "523": {
+      "assets": {
+        "BTC": {
+          "what_changed": [{"domain": "derivatives", "change": "OI increased 5% while funding negative"}],
+          "why": ["Short squeeze setup possible but not confirmed"],
+          "aggregate_confidence_pct": 76,
+          "domain_signals": [
+            {"domain": "derivatives", "direction": "bullish", "metric": "oi_change", "value": 0.05, "source": "derivatives_feed", "freshness_seconds": 180, "confidence_pct": 92, "epistemic_type": "fact"},
+            {"domain": "spot", "direction": "neutral", "metric": "spot_volume", "value": "stable", "source": "market_data", "freshness_seconds": 120, "confidence_pct": 95, "epistemic_type": "fact"}
+          ],
+          "context_relevance": [{"factor": "OI up + negative funding", "hypothesis": "Short squeeze risk", "relationship": "supports", "evidence_refs": ["ev_oi_001"]}],
+          "risk": {"derivatives_leverage": "elevated", "not_standalone_decision": true}
+        }
+      }
+    },
+    "525": {
+      "assets": {
+        "BTC": {
+          "what_changed": [{"domain": "on_chain", "change": "Whale accumulation detected on 3 exchanges"}],
+          "why": ["Large wallet inflows to cold storage"],
+          "aggregate_confidence_pct": 81,
+          "domain_signals": [
+            {"domain": "on_chain", "direction": "bullish", "metric": "whale_inflow", "value": 15000000, "source": "whale_tracker", "freshness_seconds": 600, "confidence_pct": 85, "epistemic_type": "fact"},
+            {"domain": "stablecoins", "direction": "bullish", "metric": "stablecoin_inflow", "value": 500000000, "source": "stablecoin_index", "freshness_seconds": 900, "confidence_pct": 88, "epistemic_type": "fact"}
+          ],
+          "context_relevance": [],
+          "risk": {}
+        }
+      }
+    },
+    "526": {
+      "default": {
+        "what_changed": [{"domain": "social", "change": "Development activity up 12% on GitHub"}],
+        "why": ["Protocol upgrade commits increasing"],
+        "aggregate_confidence_pct": 68,
+        "domain_signals": [
+          {"domain": "social", "direction": "neutral", "metric": "social_volume", "value": -0.1, "source": "social_api", "freshness_seconds": 3600, "confidence_pct": 70, "epistemic_type": "fact"},
+          {"domain": "development", "direction": "bullish", "metric": "github_commits", "value": 0.12, "source": "github_api", "freshness_seconds": 7200, "confidence_pct": 82, "epistemic_type": "fact"}
+        ],
+        "context_relevance": [],
+        "risk": {}
+      }
+    },
+    "527": {
+      "default": {
+        "what_changed": [{"domain": "custom_query", "change": "DEX volume / CEX volume ratio at 0.35"}],
+        "why": ["Parameterized cross-domain query result"],
+        "aggregate_confidence_pct": 90,
+        "domain_signals": [
+          {"domain": "custom_query", "direction": "neutral", "metric": "dex_cex_ratio", "value": 0.35, "source": "dune_style_query", "freshness_seconds": 1800, "confidence_pct": 90, "epistemic_type": "fact"}
+        ],
+        "context_relevance": [],
+        "risk": {}
+      }
+    },
+    "528": {
+      "default": {
+        "what_changed": [{"domain": "entities", "change": "Known whale entity increased BTC holdings by 2,500"}],
+        "why": ["Entity-tagged on-chain flow"],
+        "aggregate_confidence_pct": 86,
+        "domain_signals": [
+          {"domain": "entities", "direction": "bullish", "metric": "entity_accumulation", "value": 2500, "source": "entity_profiler", "freshness_seconds": 1200, "confidence_pct": 86, "epistemic_type": "fact"}
+        ],
+        "context_relevance": [],
+        "risk": {}
+      }
+    },
+    "529": {
+      "default": {
+        "what_changed": [{"domain": "macro", "change": "ETF net inflows $150M this week"}],
+        "why": ["Institutional flow data"],
+        "aggregate_confidence_pct": 93,
+        "domain_signals": [
+          {"domain": "macro", "direction": "bullish", "metric": "etf_net_flow", "value": 150000000, "source": "etf_data_module", "freshness_seconds": 86400, "confidence_pct": 93, "epistemic_type": "fact"}
+        ],
+        "context_relevance": [],
+        "risk": {}
+      }
+    },
+    "530": {
+      "default": {
+        "what_changed": [{"domain": "market_wide", "change": "Cross-market breadth at 0.62"}],
+        "why": ["Aggregated across all domains with stale-source penalties"],
+        "aggregate_confidence_pct": 79,
+        "domain_signals": [
+          {"domain": "derivatives", "direction": "bullish", "metric": "aggregate_funding", "value": -0.0001, "source": "multi_venue", "freshness_seconds": 300, "confidence_pct": 90, "weight": 0.25, "epistemic_type": "fact"},
+          {"domain": "on_chain", "direction": "bullish", "metric": "net_exchange_flow", "value": -50000000, "source": "onchain_agg", "freshness_seconds": 600, "confidence_pct": 85, "weight": 0.25, "epistemic_type": "fact"},
+          {"domain": "sentiment", "direction": "bearish", "metric": "aggregate_sentiment", "value": -0.2, "source": "sentiment_agg", "freshness_seconds": 1800, "confidence_pct": 75, "weight": 0.2, "epistemic_type": "fact"},
+          {"domain": "macro", "direction": "neutral", "metric": "macro_index", "value": 0.5, "source": "macro_hub", "freshness_seconds": 7200, "confidence_pct": 88, "weight": 0.15, "epistemic_type": "fact"},
+          {"domain": "risk", "direction": "cautious", "metric": "risk_index", "value": 0.7, "source": "risk_layer", "freshness_seconds": 900, "confidence_pct": 82, "weight": 0.15, "epistemic_type": "inference"}
+        ],
+        "context_relevance": [],
+        "risk": {"market_wide_risk_index": 0.7}
+      }
+    }
+  }
+}

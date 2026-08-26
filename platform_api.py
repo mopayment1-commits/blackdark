@@ -1454,6 +1454,42 @@ async def exchange_flow_velocity_monitor_panel_route(
     return result
 
 
+@router.get("/intelligence-ledger/intelligence-layer/market-context/status")
+async def cross_domain_market_context_status_route():
+    """#524 Cross-Domain Market Context Layer — epic, absorbs #523-530."""
+    from bd_platform.cross_domain_market_context_layer import cross_domain_market_context_status
+
+    return cross_domain_market_context_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-context")
+async def cross_domain_market_context_panel_route(
+    context_id: str = Query("btc_cross_domain"),
+    asset: str = Query("BTC"),
+):
+    """#524 Market context feed — Fact/Inference/Hypothesis separated, no recommendation."""
+    from bd_platform.cross_domain_market_context_layer import build_market_context_panel
+
+    result = build_market_context_panel(context_id=context_id, asset=asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-context/sub-module/{sub_module_id}")
+async def cross_domain_market_context_sub_module_route(
+    sub_module_id: str,
+    asset: str = Query("BTC"),
+):
+    """#524 sub-module feed — task not ticket (#523-530)."""
+    from bd_platform.cross_domain_market_context_layer import build_sub_module_feed
+
+    result = build_sub_module_feed(sub_module_id, asset=asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/market-radar/fundraising-velocity")
 async def market_radar_fundraising_velocity_route(
     project_id: str | None = Query(None),
