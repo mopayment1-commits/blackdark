@@ -8,7 +8,12 @@
   "last_updated": "2026-08-26",
   "absorbed_tickets": {
     "328": "Regime Classification Sub-component (standalone rejected)",
-    "329": "Estimated Leverage Ratio contributor metric (standalone rejected)"
+    "329": "Estimated Leverage Ratio contributor metric (standalone rejected)",
+    "352": "Leverage Context Indicator (standalone rejected)"
+  },
+  "legal_review": {
+    "complete": true,
+    "date": "2026-08-20"
   },
   "backtest": {
     "historical_events_tested": 48,
