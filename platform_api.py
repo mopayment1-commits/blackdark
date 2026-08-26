@@ -1276,6 +1276,50 @@ async def market_radar_funding_rate_context_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/market-radar/basis-curve")
+async def market_radar_basis_curve_route(asset: str = Query("BTC")):
+    """#343 Basis Curve — absorbed into Market Radar / Derivatives Panel."""
+    from bd_platform.market_data_engine import build_basis_curve_component
+
+    result = build_basis_curve_component(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/fundraising-velocity")
+async def market_radar_fundraising_velocity_route(
+    project_id: str | None = Query(None),
+    sector: str | None = Query(None),
+):
+    """#341 Fundraising Velocity Indicator — Project Intelligence, no score."""
+    from bd_platform.private_market_vc_flow import build_fundraising_velocity_indicator
+
+    result = build_fundraising_velocity_indicator(project_id=project_id, sector=sector)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/funding-arbitrage-simulator/status")
+async def funding_arbitrage_simulator_status_route():
+    """#338 Funding Arbitrage Simulator — Wave 3 Pro/Institution, paper-only."""
+    from bd_platform.funding_arbitrage_simulator import funding_arbitrage_simulator_status
+
+    return funding_arbitrage_simulator_status()
+
+
+@router.get("/intelligence-ledger/funding-arbitrage-simulator")
+async def funding_arbitrage_simulator_panel_route(asset: str | None = Query(None)):
+    from bd_platform.funding_arbitrage_simulator import build_simulation_panel
+
+    result = build_simulation_panel(asset=asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=403 if result.get("error") == "legal_review_pending" else 404,
+                          detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/entity-profiler/status")
 async def entity_profiler_status_route():
     """#736 Entity Profiler — exchange usage intelligence layer."""

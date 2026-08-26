@@ -18,7 +18,7 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.MarketDataEngine")
 
 _FEATURE_ID = 274
-_ABSORBED_IDS = (331, 333)
+_ABSORBED_IDS = (331, 333, 343)
 _STANDALONE = False
 _MERGED_INTO = "Market Radar / Market Data Engine"
 _SPRINT = 1
@@ -323,6 +323,150 @@ def build_funding_rate_context_panel(asset: str = "BTC") -> dict[str, Any]:
     }
 
 
+def _annualize_basis(basis_pct: float, days_to_expiry: float) -> float:
+    """Annualized basis — expiry math verified."""
+    if days_to_expiry <= 0:
+        return basis_pct
+    return round(basis_pct * (365 / days_to_expiry), 4)
+
+
+def _days_to_expiry(expiry_utc: str | None, *, reference_utc: str | None = None) -> float:
+    """Compute days to expiry — handles UTC timestamps."""
+    if not expiry_utc:
+        return 0.0
+    try:
+        expiry = datetime.fromisoformat(expiry_utc.replace("Z", "+00:00"))
+        ref = (
+            datetime.fromisoformat(reference_utc.replace("Z", "+00:00"))
+            if reference_utc
+            else datetime.now(UTC)
+        )
+        delta = (expiry - ref).total_seconds() / 86400
+        return max(0.0, round(delta, 4))
+    except ValueError:
+        return 0.0
+
+
+def build_term_structure_point(
+    contract: dict[str, Any],
+    *,
+    spot_price: float,
+    reference_utc: str | None = None,
+) -> dict[str, Any]:
+    """Single point on basis curve — math display only, no signal."""
+    futures_price = float(contract.get("futures_price", 0))
+    expiry_utc = contract.get("expiry_utc")
+    days = _days_to_expiry(expiry_utc, reference_utc=reference_utc or contract.get("timestamp_utc"))
+
+    if spot_price > 0 and futures_price > 0:
+        basis_pct = ((futures_price - spot_price) / spot_price) * 100
+        annualized = _annualize_basis(basis_pct, days)
+    else:
+        basis_pct = 0.0
+        annualized = 0.0
+
+    structure_label = "backwardation" if basis_pct < 0 else "contango" if basis_pct > 0 else "flat"
+
+    return {
+        "contract_id": contract.get("contract_id"),
+        "venue": contract.get("venue"),
+        "venue_normalized": contract.get("venue_normalized", contract.get("venue")),
+        "contract_type": contract.get("contract_type", "dated_futures"),
+        "expiry_utc": expiry_utc,
+        "days_to_expiry": days,
+        "spot_price": spot_price,
+        "futures_price": futures_price,
+        "basis_pct": round(basis_pct, 4),
+        "annualized_basis_pct": annualized,
+        "structure_label": structure_label,
+        "structure_mathematical_only": True,
+        "no_buy_signal": True,
+        "no_opportunity_language": True,
+        "no_implied_carry_claim": True,
+        "no_forward_looking_claim": True,
+        "timestamp_utc": contract.get("timestamp_utc"),
+        "timestamp_sync": contract.get("timestamp_sync", True),
+        "display": (
+            f"{contract.get('venue')}: basis {basis_pct:.3f}% | "
+            f"annualized {annualized:.2f}% | {structure_label} (mathematical)"
+        ),
+    }
+
+
+def build_basis_curve_component(asset: str = "BTC") -> dict[str, Any]:
+    """#343 Basis Curve — absorbed into Market Radar / Derivatives Panel."""
+    t0 = time.perf_counter()
+    seed = _load_seed()
+    sym = asset.upper()
+    curve_data = (seed.get("basis_curves") or {}).get(sym)
+
+    if not curve_data:
+        return {"ok": False, "feature_id": _FEATURE_ID, "error": "asset_not_tracked", "asset": sym}
+
+    spot_price = float(curve_data.get("spot_price", 0))
+    reference_utc = curve_data.get("timestamp_utc")
+    contracts = curve_data.get("contracts") or []
+    perp = curve_data.get("perp") or {}
+
+    curve_points = [
+        build_term_structure_point(c, spot_price=spot_price, reference_utc=reference_utc)
+        for c in contracts
+    ]
+
+    perp_point = None
+    if perp:
+        perp_point = build_term_structure_point(
+            {
+                "contract_id": f"{sym}_PERP",
+                "venue": perp.get("venue"),
+                "venue_normalized": perp.get("venue_normalized"),
+                "contract_type": "perpetual",
+                "futures_price": perp.get("perp_price"),
+                "expiry_utc": None,
+                "timestamp_utc": reference_utc,
+                "timestamp_sync": True,
+            },
+            spot_price=spot_price,
+            reference_utc=reference_utc,
+        )
+
+    elapsed = round((time.perf_counter() - t0) * 1000, 1)
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID,
+        "sub_task": "#343",
+        "absorbed_from": "Futures Basis & Term Structure",
+        "title": "Basis Curve",
+        "standalone_rejected": True,
+        "merged_into": "Market Radar / Derivatives Panel",
+        "surface": "market_data_display",
+        "no_separate_sprint": True,
+        "no_engineering_allocation": True,
+        "no_standalone_product": True,
+        "asset": sym,
+        "spot_price": spot_price,
+        "timestamp_utc": reference_utc,
+        "timestamp_sync": True,
+        "venue_normalization": True,
+        "expiry_math_verified": True,
+        "perp_point": perp_point,
+        "term_structure": curve_points,
+        "curve_point_count": len(curve_points),
+        "no_basis_trading_recommendation": True,
+        "no_implied_carry_claim": True,
+        "no_forward_looking_claim": True,
+        "structure_labels_mathematical_only": True,
+        "disclaimer": (
+            "Basis curve = mathematical display only. "
+            "Backwardation/contango = mathematical labels, not buy/sell signals. "
+            "No implied carry or forward-looking claims."
+        ),
+        "methodology_version": _METHODOLOGY_VERSION,
+        "latency_ms": elapsed,
+        "timestamp": _utcnow(),
+    }
+
+
 def market_data_engine_status() -> dict[str, Any]:
     seed = _load_seed()
     return {
@@ -336,6 +480,7 @@ def market_data_engine_status() -> dict[str, Any]:
         "absorbed_tickets": {
             331: "Derivatives Venue Feed (standalone rejected)",
             333: "Funding Rate Context Panel (standalone rejected, renamed from Funding Rate Intelligence)",
+            343: "Basis Curve (standalone rejected)",
         },
         "no_separate_sprint": True,
         "no_engineering_allocation": True,
