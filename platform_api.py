@@ -1325,6 +1325,38 @@ async def market_radar_basis_curve_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/market-radar/market-data-normalization")
+async def market_data_normalization_layer_route(asset: str = Query("BTC")):
+    """#395 Market Data Normalization Layer — absorbed into #274."""
+    from bd_platform.market_data_engine import build_market_data_normalization_layer
+
+    result = build_market_data_normalization_layer(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/volatility-regime/status")
+async def cross_asset_volatility_regime_status_route():
+    """#501 Cross-Asset Volatility Regime Analyzer — no scoring terminology."""
+    from bd_platform.cross_asset_volatility_regime import cross_asset_volatility_regime_status
+
+    return cross_asset_volatility_regime_status()
+
+
+@router.get("/intelligence-ledger/data-layer/volatility-regime")
+async def cross_asset_volatility_regime_panel_route(asset: str = Query("BTC")):
+    from bd_platform.cross_asset_volatility_regime import build_cross_asset_volatility_panel
+
+    result = build_cross_asset_volatility_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(
+            status_code=403 if result.get("error") == "legal_review_pending" else 404,
+            detail=result.get("error") or "not_found",
+        )
+    return result
+
+
 @router.get("/intelligence-ledger/market-radar/fundraising-velocity")
 async def market_radar_fundraising_velocity_route(
     project_id: str | None = Query(None),
@@ -1371,6 +1403,35 @@ async def strategy_validation_engine_run_route(strategy_id: str | None = Query(N
     from bd_platform.strategy_validation_engine import run_strategy_validation
 
     result = run_strategy_validation(strategy_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/internal/reference-data-registry/status")
+async def reference_data_registry_status_route():
+    """#394 Reference Data Registry — Wave 0 internal infrastructure."""
+    from bd_platform.reference_data_registry import reference_data_registry_status
+
+    return reference_data_registry_status()
+
+
+@router.get("/internal/reference-data-registry")
+async def reference_data_registry_snapshot_route():
+    from bd_platform.reference_data_registry import build_registry_snapshot
+
+    return build_registry_snapshot()
+
+
+@router.get("/internal/reference-data-registry/lookup")
+async def reference_data_registry_lookup_route(
+    source: str = Query(...),
+    source_id: str = Query(...),
+    entity_type: str = Query("asset"),
+):
+    from bd_platform.reference_data_registry import lookup_canonical_id
+
+    result = lookup_canonical_id(source=source, source_id=source_id, entity_type=entity_type)
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
