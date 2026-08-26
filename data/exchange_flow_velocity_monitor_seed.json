@@ -1,0 +1,50 @@
+{
+  "feature_id": 508,
+  "renamed_from": "Exchange Wallet Outflow Acceleration",
+  "title": "Exchange Flow Velocity Monitor",
+  "standalone_rejected": true,
+  "merged_into": "On-Chain Intelligence Layer / Exchange Flow Feed",
+  "layer": "On-Chain Intelligence Layer",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "velocity_windows": {
+    "baseline_days": 30,
+    "current_hours": 24
+  },
+  "exchanges": {
+    "binance": {
+      "name": "Binance",
+      "entity_name": "Binance",
+      "current_outflow_usd": 450000000,
+      "baseline_outflow_avg_usd": 150000000,
+      "current_inflow_usd": 320000000,
+      "baseline_inflow_avg_usd": 280000000,
+      "chains_tracked": ["ethereum", "bsc", "arbitrum", "solana"],
+      "assets_tracked": ["BTC", "ETH", "SOL"],
+      "timestamp": "2026-08-26T10:00:00Z"
+    },
+    "coinbase": {
+      "name": "Coinbase",
+      "entity_name": "Coinbase",
+      "current_outflow_usd": 180000000,
+      "baseline_outflow_avg_usd": 120000000,
+      "current_inflow_usd": 95000000,
+      "baseline_inflow_avg_usd": 110000000,
+      "chains_tracked": ["ethereum", "base", "solana"],
+      "assets_tracked": ["BTC", "ETH"],
+      "timestamp": "2026-08-26T10:00:00Z"
+    },
+    "okx": {
+      "name": "OKX",
+      "entity_name": "OKX",
+      "current_outflow_usd": 95000000,
+      "baseline_outflow_avg_usd": 80000000,
+      "current_inflow_usd": 110000000,
+      "baseline_inflow_avg_usd": 75000000,
+      "chains_tracked": ["ethereum", "arbitrum", "polygon"],
+      "assets_tracked": ["BTC", "ETH", "SOL"],
+      "timestamp": "2026-08-26T10:00:00Z"
+    }
+  }
+}

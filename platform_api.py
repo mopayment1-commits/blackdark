@@ -1389,6 +1389,71 @@ async def historical_tail_risk_metrics_panel_route(
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/bridge-flow/status")
+async def cross_chain_bridge_flow_monitor_status_route():
+    """#506+#521 Cross-Chain Bridge Flow Monitor — data monitoring, no AI/signals."""
+    from bd_platform.cross_chain_bridge_flow_monitor import cross_chain_bridge_flow_monitor_status
+
+    return cross_chain_bridge_flow_monitor_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/bridge-flow")
+async def cross_chain_bridge_flow_monitor_panel_route(
+    bridge_id: str | None = Query(None),
+    source_chain: str | None = Query(None),
+    dest_chain: str | None = Query(None),
+):
+    from bd_platform.cross_chain_bridge_flow_monitor import build_bridge_flow_panel
+
+    return build_bridge_flow_panel(
+        bridge_id=bridge_id,
+        source_chain=source_chain,
+        dest_chain=dest_chain,
+    )
+
+
+@router.get("/intelligence-ledger/security-layer/dusting-detection/status")
+async def dusting_attack_detection_alert_status_route():
+    """#507 Dusting Attack Detection Alert — detection only, not neutralizer."""
+    from bd_platform.dusting_attack_detection_alert import dusting_attack_detection_alert_status
+
+    return dusting_attack_detection_alert_status()
+
+
+@router.get("/intelligence-ledger/security-layer/dusting-detection")
+async def dusting_attack_detection_alert_panel_route(
+    address: str | None = Query(None),
+    wallet_id: str | None = Query(None),
+):
+    from bd_platform.dusting_attack_detection_alert import build_dusting_detection_panel
+
+    result = build_dusting_detection_panel(address=address, wallet_id=wallet_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/exchange-flow-velocity/status")
+async def exchange_flow_velocity_monitor_status_route():
+    """#508 Exchange Flow Velocity Monitor — integrated feed, not standalone."""
+    from bd_platform.exchange_flow_velocity_monitor import exchange_flow_velocity_monitor_status
+
+    return exchange_flow_velocity_monitor_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/exchange-flow-velocity")
+async def exchange_flow_velocity_monitor_panel_route(
+    exchange_id: str | None = Query(None),
+    asset: str | None = Query(None),
+):
+    from bd_platform.exchange_flow_velocity_monitor import build_exchange_flow_velocity_panel
+
+    result = build_exchange_flow_velocity_panel(exchange_id=exchange_id, asset=asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/market-radar/fundraising-velocity")
 async def market_radar_fundraising_velocity_route(
     project_id: str | None = Query(None),

@@ -1,0 +1,51 @@
+{
+  "feature_id": 507,
+  "renamed_from": "Cross-Chain Wallet Dusting Attack Neutralizer",
+  "title": "Dusting Attack Detection Alert",
+  "not_neutralizer": true,
+  "layer": "Security Layer",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "heuristics": {
+    "rules": [
+      "micro_transfer_count_threshold",
+      "unknown_sender_ratio",
+      "dust_amount_pattern",
+      "cross_chain_dust_correlation"
+    ],
+    "micro_transfer_threshold": 5,
+    "dust_max_usd": 1.0,
+    "unknown_sender_ratio_threshold": 0.7,
+    "no_ai": true,
+    "false_positives_possible": true
+  },
+  "wallets": {
+    "wallet_alpha": {
+      "address": "0xAbC1234567890dEf1234567890aBc1234567890Ab",
+      "chain": "ethereum",
+      "chains_affected": ["ethereum", "arbitrum", "polygon"],
+      "micro_transfer_count": 12,
+      "unknown_sender_ratio": 0.85,
+      "avg_transfer_usd": 0.42,
+      "force_alert": true
+    },
+    "wallet_beta": {
+      "address": "0xDeF9876543210aBc9876543210dEf9876543210Cd",
+      "chain": "solana",
+      "chains_affected": ["solana"],
+      "micro_transfer_count": 2,
+      "unknown_sender_ratio": 0.3,
+      "avg_transfer_usd": 150.0
+    },
+    "wallet_gamma": {
+      "address": "0x1234567890AbCdEf1234567890AbCdEf12345678",
+      "chain": "bsc",
+      "chains_affected": ["bsc", "ethereum", "avalanche"],
+      "micro_transfer_count": 8,
+      "unknown_sender_ratio": 0.75,
+      "avg_transfer_usd": 0.15,
+      "force_alert": true
+    }
+  }
+}
