@@ -1357,6 +1357,38 @@ async def cross_asset_volatility_regime_panel_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/data-layer/tail-risk-metrics/status")
+async def historical_tail_risk_metrics_status_route():
+    """#503+#504 Historical Tail Risk Estimates (VaR/CVaR) — merged, no advisory language."""
+    from bd_platform.historical_tail_risk_metrics import historical_tail_risk_metrics_status
+
+    return historical_tail_risk_metrics_status()
+
+
+@router.get("/intelligence-ledger/data-layer/tail-risk-metrics")
+async def historical_tail_risk_metrics_panel_route(
+    asset: str = Query("BTC"),
+    portfolio_id: str | None = Query(None),
+    confidence: float = Query(0.95, ge=0.5, le=0.99),
+    notional_usd: float = Query(10_000, gt=0),
+):
+    """#503+#504 Historical Tail Risk Estimates — asset or portfolio scope."""
+    from bd_platform.historical_tail_risk_metrics import build_historical_tail_risk_panel
+
+    result = build_historical_tail_risk_panel(
+        asset=asset,
+        portfolio_id=portfolio_id,
+        confidence=confidence,
+        notional_usd=notional_usd,
+    )
+    if not result.get("ok"):
+        raise HTTPException(
+            status_code=403 if result.get("error") == "legal_review_pending" else 404,
+            detail=result.get("error") or "not_found",
+        )
+    return result
+
+
 @router.get("/intelligence-ledger/market-radar/fundraising-velocity")
 async def market_radar_fundraising_velocity_route(
     project_id: str | None = Query(None),
