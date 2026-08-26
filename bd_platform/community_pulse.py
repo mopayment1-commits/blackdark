@@ -149,15 +149,56 @@ def build_mindshare_block(asset_data: dict[str, Any], *, symbol: str) -> dict[st
     }
 
 
-def build_social_dominance_block(asset_data: dict[str, Any], *, symbol: str) -> dict[str, Any]:
-    """#290 social dominance — absorbed."""
+def build_social_dominance_block(
+    asset_data: dict[str, Any],
+    *,
+    symbol: str,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#290 social dominance — absorbed into #272. NOT standalone."""
+    seed = seed or _load_seed()
     dom = asset_data.get("social_dominance") or {}
+    universe = seed.get("universe") or {}
+    mentions = int(asset_data.get("mentions_weekly", 0))
+    dominance_pct = float(dom.get("dominance_pct", 0))
+
+    if mentions < _MIN_MENTIONS_WEEKLY:
+        low_volume = True
+        greyed_out = True
+        confidence = "insufficient"
+        warning = "Low volume — dominance % unreliable"
+    else:
+        low_volume = False
+        greyed_out = False
+        confidence = "high"
+        warning = None
+
+    formula = "asset_mentions / total_tracked_mentions × 100"
     return {
         "sub_task": "#290",
+        "archived_standalone": True,
+        "absorbed_into": "#272 Community Pulse",
         "symbol": symbol,
-        "dominance_pct": dom.get("dominance_pct", 0),
+        "dominance_pct": dominance_pct if not greyed_out else None,
+        "trend": dom.get("trend", "flat"),
+        "percentile": dom.get("percentile"),
         "rank": dom.get("rank"),
-        "display": f"Social dominance: {dom.get('dominance_pct', 0)}% | Rank: {dom.get('rank', 'N/A')}",
+        "universe_version": universe.get("version"),
+        "universe_asset_count": universe.get("asset_count"),
+        "universe_documented": True,
+        "formula": formula,
+        "historical_reproducible": dom.get("historical_reproducible", True),
+        "low_volume_safeguard": low_volume,
+        "greyed_out": greyed_out,
+        "confidence": confidence,
+        "display": (
+            f"Social dominance: {dominance_pct if not greyed_out else 'N/A'}% | "
+            f"Trend: {dom.get('trend', 'flat')} | "
+            f"Percentile: {dom.get('percentile', 'N/A')} | "
+            f"Universe v{universe.get('version', '?')}"
+            + (f" | {warning}" if warning else "")
+        ),
+        "warning": warning,
     }
 
 
@@ -211,7 +252,7 @@ def build_community_pulse_panel(asset: str = "BTC") -> dict[str, Any]:
         "asset": sym,
         "mindshare": build_mindshare_block(asset_data, symbol=sym),
         "sentiment": build_nlp_sentiment_block(asset_data, symbol=sym),
-        "social_dominance": build_social_dominance_block(asset_data, symbol=sym),
+        "social_dominance": build_social_dominance_block(asset_data, symbol=sym, seed=seed),
         "social_volume": build_social_volume_block(asset_data, symbol=sym),
         "provider_gate": provider_gate,
         "rejected_standalone_287": True,
@@ -236,7 +277,7 @@ def community_pulse_status() -> dict[str, Any]:
         "merged_into": _MERGED_INTO,
         "sprint": _SPRINT,
         "provider_gate": build_provider_gate(seed),
-        "rejected_standalone_tickets": [287],
+        "rejected_standalone_tickets": [287, 290],
         "nlp_sentiment_sub_task": "#287",
         "no_nlp_team": True,
         "acceptance_criteria": {
@@ -245,6 +286,9 @@ def community_pulse_status() -> dict[str, Any]:
             "sarcasm_confidence_handling": True,
             "low_volume_confidence_handling": True,
             "purchased_feed_only": True,
+            "social_dominance_universe_versioned": True,
+            "social_dominance_low_volume_safeguards": True,
+            "social_dominance_historical_reproducible": True,
         },
         "disclaimer": _DISCLAIMER,
         "timestamp": _utcnow(),

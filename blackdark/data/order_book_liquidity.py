@@ -3,6 +3,7 @@ Order Book & Liquidity Data Layer — Features #269 + #277 merged (Wave 01 Data 
 
 #269 = infrastructure layer (snapshots, liquidity gaps, replay QA)
 #277 = market depth engine (L2/L3 depth, spread, imbalance, slippage, sequence gaps)
+#288 = ARCHIVED — slippage curves sub-task absorbed into #277 (see slippage_curve in build_market_depth_metrics)
 
 NOT standalone — merged into Liquidity Layer + Market Radar Pro.
 Engine = Sprint 1. UI = panel inside Screener (deferred).
@@ -27,7 +28,9 @@ _MERGED_INTO = "Wave 01 Data Engine / Liquidity Layer (#269)"
 _MERGED_TICKETS = {
     269: "Order Book & Liquidity Data Layer",
     277: "Order Book / Market Depth engine",
+    288: "Slippage Impact Vector (ARCHIVED → slippage curves sub-task in #277)",
 }
+_ARCHIVED_TICKETS = {288: "Slippage Impact Vector — generic, covered by #269+#277 slippage curves"}
 _SPRINT = 1
 _DASHBOARD_DEFERRED = "Screener panel / Market Radar Pro (Sprint 2)"
 _SEED_PATH = Path("data/order_book_liquidity_seed.json")
@@ -514,6 +517,8 @@ def order_book_liquidity_status() -> dict[str, Any]:
         "feature_id": _FEATURE_ID,
         "feature_ids": list(_FEATURE_IDS),
         "merged_tickets": _MERGED_TICKETS,
+        "archived_tickets": _ARCHIVED_TICKETS,
+        "slippage_curves_sub_task": "#288 absorbed into #277 slippage_curve",
         "title": "Order Book & Liquidity Data Layer + Market Depth Engine",
         "standalone": _STANDALONE,
         "archived_standalone_ticket": True,
