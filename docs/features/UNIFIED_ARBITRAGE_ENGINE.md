@@ -36,7 +36,26 @@ Rule-based v1 only — no ML:
 ## Integrations
 - #417 Net-Edge Score
 - #415 Fill Feasibility
+- #433 Fill Risk Assessment
 - #410 Capital Protection (SLA)
+- #434 Opportunity Worth Studying Alerts
+- #438 DeFi Opportunity Scanner
 - #456 Exchange Health
 - #460 Diligence Risk
 - Market Radar
+
+## #434 — Opportunity Worth Studying Alert Engine (merged)
+
+Alerts fire only when:
+- Net-Edge Truth score > threshold
+- Feasibility = fillable
+- Fill Risk % < user limit
+
+Push/email via existing alert infrastructure. No "execution" language.
+
+## #438 — DeFi Opportunity Scanner (merged)
+
+Rule-based v1 monitoring only:
+- Price divergence + implied yield + gas cost + net edge after fees
+- LST peg deviation, liquidation discount % (monitoring only)
+- Cancelled: flash loans, bridge execution, liquidation buying, ML SLAs

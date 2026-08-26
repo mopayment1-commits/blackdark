@@ -1,0 +1,24 @@
+{
+  "feature_id": 449,
+  "title": "Portfolio Intelligence Engine",
+  "legal_name": "Portfolio Intelligence Engine",
+  "renamed_from": "Portfolio AI",
+  "standalone": false,
+  "merged_into": "Portfolio AI / Sprint-1 Existing",
+  "sprint": 1,
+  "priority": "medium",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "existing_module": true,
+  "no_new_module_built": true,
+  "merged_features": [448, 450],
+  "sharpe_drawdown_winrate_sla_cancelled": true,
+  "portfolio_id": "demo_portfolio",
+  "integrations": {
+    "capital_protection_410": true,
+    "live_breakeven_404": true,
+    "net_edge_truth_417": true,
+    "fill_risk_assessment_433": true,
+    "strategy_simulator_411": true
+  }
+}
