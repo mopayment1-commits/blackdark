@@ -2303,6 +2303,68 @@ async def asset_intelligence_profiles_panel_route(entity_id: str = Query("asset_
     return result
 
 
+@router.get("/intelligence-ledger/data-layer/asset-registry/status")
+async def asset_registry_status_route():
+    """#402 Asset Registry — 105-coin Data Engine seed + metadata enrichment."""
+    from bd_platform.asset_registry import asset_registry_status
+
+    return asset_registry_status()
+
+
+@router.get("/intelligence-ledger/data-layer/asset-registry")
+async def asset_registry_panel_route(
+    entity_id: str | None = Query(None),
+    symbol: str | None = Query(None),
+):
+    from bd_platform.asset_registry import build_asset_registry_panel
+
+    result = build_asset_registry_panel(entity_id=entity_id, symbol=symbol or "BTC")
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/asset-registry/universe")
+async def asset_registry_universe_route():
+    from bd_platform.asset_registry import build_universe_panel
+
+    return build_universe_panel()
+
+
+@router.get("/intelligence-ledger/data-layer/asset-registry/reconciliation-tests")
+async def asset_registry_reconciliation_tests_route():
+    from bd_platform.asset_registry import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/market-radar/asset-registry")
+async def market_radar_asset_registry_route():
+    """#402 Market Radar integration — 105-asset universe."""
+    from bd_platform.asset_registry import build_market_radar_integration
+
+    return build_market_radar_integration()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/asset-registry")
+async def portfolio_ai_asset_registry_route(symbol: str | None = Query(None)):
+    """#402 Portfolio AI integration — exposure context per asset."""
+    from bd_platform.asset_registry import build_portfolio_ai_integration
+
+    result = build_portfolio_ai_integration(symbol=symbol)
+    if symbol and not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/asset-registry")
+async def intelligence_ledger_asset_registry_route():
+    """#402 Intelligence Ledger integration — canonical entity IDs."""
+    from bd_platform.asset_registry import build_intelligence_ledger_integration
+
+    return build_intelligence_ledger_integration()
+
+
 @router.get("/intelligence-ledger/market-radar/fundraising-velocity")
 async def market_radar_fundraising_velocity_route(
     project_id: str | None = Query(None),
