@@ -1,0 +1,96 @@
+{
+  "feature_id": 411,
+  "title": "Strategy Simulator",
+  "legal_name": "Paper Portfolio",
+  "standalone": false,
+  "merged_into": "Portfolio AI + Intelligence Ledger / Simulation Layer",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "simulation_only": true,
+  "real_money_blocked": true,
+  "ems_name_forbidden": true,
+  "execution_routes_blocked": true,
+  "sla_terms": {
+    "simulation_explicit": true,
+    "real_money_order_placement_blocked": true,
+    "no_execution_api_keys": true,
+    "legal_text": "Strategy Simulator uses Paper Portfolio only. All balances, orders, and fills are simulated. Real money order placement is isolated and blocked. SIMULATION — not live execution."
+  },
+  "paper_portfolio": {
+    "portfolio_id": "paper_001",
+    "initial_balance_usd": 100000,
+    "current_balance_usd": 108450,
+    "cash_usd": 12450,
+    "positions": [
+      {
+        "symbol": "BTC",
+        "quantity": 1.0,
+        "avg_entry_price": 60000,
+        "current_price": 65000,
+        "value_usd": 65000,
+        "events": [
+          {
+            "event_id": "p1",
+            "type": "buy",
+            "timestamp": "2026-06-01T10:00:00Z",
+            "quantity": 1.0,
+            "price": 60000,
+            "fee_type": "taker",
+            "fee_pct": 0.1,
+            "network_fee_usd": 5.25,
+            "slippage_usd": 12.0,
+            "label": "Paper entry"
+          }
+        ]
+      },
+      {
+        "symbol": "ETH",
+        "quantity": 5.0,
+        "avg_entry_price": 3200,
+        "current_price": 3500,
+        "value_usd": 17500,
+        "events": [
+          {
+            "event_id": "p2",
+            "type": "buy",
+            "timestamp": "2026-07-01T12:00:00Z",
+            "quantity": 5.0,
+            "price": 3200,
+            "fee_type": "maker",
+            "fee_pct": 0.1,
+            "network_fee_usd": 2.0,
+            "slippage_usd": 4.0,
+            "label": "Paper entry"
+          }
+        ]
+      }
+    ]
+  },
+  "order_schema": {
+    "version": "1.0",
+    "fields": ["order_id", "symbol", "side", "quantity", "price", "order_type", "status", "simulation_only"],
+    "allowed_statuses": ["simulated", "paper_filled", "paper_cancelled"],
+    "blocked_statuses": ["live_submitted", "live_filled", "live_executed"]
+  },
+  "signals_available": [
+    {"signal_id": "sig_btc_momentum", "asset": "BTC", "action": "paper_buy", "quantity_pct": 5},
+    {"signal_id": "sig_eth_reduce", "asset": "ETH", "action": "paper_sell", "quantity_pct": 25}
+  ],
+  "backtest_30d": {
+    "start_date": "2026-07-27",
+    "end_date": "2026-08-26",
+    "initial_balance_usd": 100000,
+    "final_balance_usd": 108450,
+    "return_pct": 8.45,
+    "max_drawdown_pct": 6.2,
+    "sharpe_ratio": 1.12,
+    "trades_simulated": 14,
+    "win_rate_pct": 57.1
+  },
+  "integrations": {
+    "live_breakeven_tracker_feature_id": 404,
+    "capital_awareness_feature_id": 410
+  }
+}

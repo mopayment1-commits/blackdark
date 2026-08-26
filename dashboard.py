@@ -1868,6 +1868,18 @@ async def live_breakeven_tracker_page(request: Request):
     return render_page(request, "live_breakeven.html", _footer_ctx())
 
 
+@app.get("/portfolio-ai/risk-awareness", response_class=HTMLResponse)
+async def capital_awareness_page(request: Request):
+    """#410 Capital Awareness Controls — Risk Awareness UI."""
+    return render_page(request, "capital_awareness.html", _footer_ctx())
+
+
+@app.get("/portfolio-ai/strategy-simulator", response_class=HTMLResponse)
+async def strategy_simulator_page(request: Request):
+    """#411 Strategy Simulator — Paper Portfolio UI."""
+    return render_page(request, "strategy_simulator.html", _footer_ctx())
+
+
 @app.get("/api/institutional-standards/status")
 async def institutional_standards_status_route():
     from bd_platform.institutional_standards import institutional_standards_status

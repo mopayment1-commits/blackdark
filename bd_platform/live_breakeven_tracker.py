@@ -387,7 +387,45 @@ def build_capital_protection_integration(
     *,
     cp_config: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """#410 Capital Protection Controls — breakeven proximity alerts."""
+    """#410 Capital Awareness Controls — breakeven proximity alerts."""
+    try:
+        from bd_platform.capital_protection_controls import build_breakeven_proximity_alert
+
+        result = build_breakeven_proximity_alert(position, calc, cp_config=cp_config)
+        return {
+            **result,
+            "integration": "capital_protection_controls",
+            "feature_id": _CAPITAL_PROTECTION_FEATURE_ID,
+            "mandatory": True,
+            "enabled": (cp_config or {}).get("enabled", True),
+            "config": {
+                "breakeven_proximity_alert_pct": float(
+                    (cp_config or {}).get("breakeven_proximity_alert_pct", 1.5)
+                ),
+                "max_loss_breach_alert_pct": float(
+                    (cp_config or {}).get("max_loss_breach_alert_pct", 5.0)
+                ),
+            },
+            "distance": {
+                "distance_to_breakeven_pct": None,
+            },
+            "display": (
+                f"Capital Awareness (#410): {result.get('alert_count', 0)} alert(s) active"
+                if result.get("alert_count")
+                else "Capital Awareness (#410): no alerts triggered"
+            ),
+        }
+    except ImportError:
+        return _build_capital_protection_integration_fallback(position, calc, cp_config=cp_config)
+
+
+def _build_capital_protection_integration_fallback(
+    position: dict[str, Any],
+    calc: dict[str, Any],
+    *,
+    cp_config: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Fallback if #410 module unavailable."""
     cp_config = cp_config or {}
     proximity_pct = float(cp_config.get("breakeven_proximity_alert_pct", 1.5))
     max_loss_pct = float(cp_config.get("max_loss_breach_alert_pct", 5.0))

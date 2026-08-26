@@ -1211,12 +1211,9 @@ async def live_breakeven_reconciliation_tests_route():
 
 @router.get("/intelligence-ledger/portfolio-ai/capital-protection/breakeven-alerts")
 async def capital_protection_breakeven_alerts_route(position_id: str = Query("pos_btc_001")):
-    """#404 + #410 Capital Protection — breakeven proximity alerts."""
-    from bd_platform.live_breakeven_tracker import (
-        _load_seed,
-        build_capital_protection_integration,
-        compute_dynamic_breakeven,
-    )
+    """#404 + #410 Capital Awareness — breakeven proximity alerts."""
+    from bd_platform.capital_protection_controls import build_breakeven_proximity_alert
+    from bd_platform.live_breakeven_tracker import _load_seed, compute_dynamic_breakeven
 
     seed = _load_seed()
     position = (seed.get("positions") or {}).get(position_id)
@@ -1225,9 +1222,87 @@ async def capital_protection_breakeven_alerts_route(position_id: str = Query("po
     calc = compute_dynamic_breakeven(position.get("events") or [])
     if not calc.get("ok"):
         raise HTTPException(status_code=400, detail=calc.get("error") or "calc_failed")
-    return build_capital_protection_integration(
+    return build_breakeven_proximity_alert(
         position, calc, cp_config=seed.get("capital_protection")
     )
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/status")
+async def capital_awareness_controls_status_route():
+    """#410 Capital Awareness Controls — Risk Layer (non-executive)."""
+    from bd_platform.capital_protection_controls import capital_protection_controls_status
+
+    return capital_protection_controls_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness")
+async def capital_awareness_controls_panel_route(portfolio_id: str = Query("demo_portfolio")):
+    """#410 Capital Awareness Controls — risk scores, stress tests, risk budget."""
+    from bd_platform.capital_protection_controls import build_capital_awareness_panel
+
+    result = build_capital_awareness_panel(portfolio_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/reconciliation-tests")
+async def capital_awareness_reconciliation_tests_route():
+    from bd_platform.capital_protection_controls import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/capital-awareness/risk-assessment")
+async def intelligence_ledger_risk_assessment_route(signal_id: str = Query("sig_btc_momentum")):
+    """#410 Intelligence Ledger — mandatory Risk Assessment on every signal."""
+    from bd_platform.capital_protection_controls import build_signal_risk_assessment
+
+    result = build_signal_risk_assessment(signal_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/strategy-simulator/status")
+async def strategy_simulator_status_route():
+    """#411 Strategy Simulator — Paper Portfolio (real money blocked)."""
+    from bd_platform.strategy_simulator import strategy_simulator_status
+
+    return strategy_simulator_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/strategy-simulator")
+async def strategy_simulator_panel_route():
+    """#411 Strategy Simulator — paper portfolio with breakeven + risk budget integration."""
+    from bd_platform.strategy_simulator import build_strategy_simulator_panel
+
+    return build_strategy_simulator_panel()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/strategy-simulator/apply-signal")
+async def strategy_simulator_apply_signal_route(signal_id: str = Query("sig_btc_momentum")):
+    """#411 Apply Intelligence Ledger signal to paper portfolio — SIMULATION only."""
+    from bd_platform.strategy_simulator import apply_signal_to_paper_portfolio
+
+    result = apply_signal_to_paper_portfolio(signal_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/strategy-simulator/backtest-30d")
+async def strategy_simulator_backtest_route():
+    from bd_platform.strategy_simulator import build_paper_backtest_30d
+
+    return build_paper_backtest_30d()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/strategy-simulator/reconciliation-tests")
+async def strategy_simulator_reconciliation_tests_route():
+    from bd_platform.strategy_simulator import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/intelligence-layer/live-breakeven/signal-context")
