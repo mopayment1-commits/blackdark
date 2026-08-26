@@ -1,0 +1,122 @@
+{
+  "feature_id": 410,
+  "title": "Capital Awareness Controls",
+  "legal_name": "Risk Awareness Layer",
+  "standalone": false,
+  "merged_into": "Portfolio AI + Intelligence Ledger / Risk Layer",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "non_executive": true,
+  "no_automatic_fund_movement": true,
+  "sla_terms": {
+    "no_automatic_fund_movement": true,
+    "no_execution_api_keys": true,
+    "recommendations_and_alerts_only": true,
+    "explicit_user_boundary_required": true,
+    "legal_text": "BLACKDARK never moves funds automatically. No stop-loss execution, no auto-rebalance, no order placement without explicit user action outside this platform. Risk Awareness alerts are informational only — not insurance, guarantee, or protection of capital."
+  },
+  "risk_budget": {
+    "default_max_loss_pct": 10.0,
+    "user_configured_max_loss_pct": 8.0,
+    "warning_threshold_pct": 75.0,
+    "currency": "USD"
+  },
+  "portfolio": {
+    "portfolio_id": "demo_portfolio",
+    "total_value_usd": 250000,
+    "peak_value_usd": 275000,
+    "current_drawdown_pct": 9.09
+  },
+  "positions": {
+    "pos_btc_001": {
+      "position_id": "pos_btc_001",
+      "asset": "BTC",
+      "symbol": "BTC",
+      "sector": "Layer 1",
+      "value_usd": 78000,
+      "weight_pct": 31.2,
+      "volatility_30d": 0.42,
+      "concentration_pct": 31.2,
+      "correlation_to_portfolio": 0.88,
+      "liquidity_depth_score": 95,
+      "funding_rate_stress": 0.15,
+      "max_drawdown_30d_pct": 12.5
+    },
+    "pos_eth_002": {
+      "position_id": "pos_eth_002",
+      "asset": "ETH",
+      "symbol": "ETH",
+      "sector": "Layer 1",
+      "value_usd": 52000,
+      "weight_pct": 20.8,
+      "volatility_30d": 0.48,
+      "concentration_pct": 20.8,
+      "correlation_to_portfolio": 0.82,
+      "liquidity_depth_score": 92,
+      "funding_rate_stress": 0.22,
+      "max_drawdown_30d_pct": 15.2
+    },
+    "pos_defi_003": {
+      "position_id": "pos_defi_003",
+      "asset": "UNI",
+      "symbol": "UNI",
+      "sector": "DeFi",
+      "value_usd": 35000,
+      "weight_pct": 14.0,
+      "volatility_30d": 0.62,
+      "concentration_pct": 14.0,
+      "correlation_to_portfolio": 0.71,
+      "liquidity_depth_score": 68,
+      "funding_rate_stress": 0.35,
+      "max_drawdown_30d_pct": 22.0
+    }
+  },
+  "sector_exposure": {
+    "Layer 1": 52.0,
+    "DeFi": 14.0,
+    "Infrastructure": 12.0,
+    "Gaming": 8.0,
+    "Other": 14.0
+  },
+  "stress_scenarios": {
+    "max_drawdown": {
+      "scenario_id": "stress_mdd",
+      "name": "Max Drawdown Shock",
+      "price_shock_pct": -25,
+      "portfolio_loss_usd": 62500,
+      "portfolio_loss_pct": 25.0
+    },
+    "correlation_shock": {
+      "scenario_id": "stress_corr",
+      "name": "Correlation Shock (diversification fails)",
+      "correlation_spike_to": 0.95,
+      "diversification_benefit_lost_pct": 40,
+      "portfolio_loss_usd": 45000,
+      "portfolio_loss_pct": 18.0
+    },
+    "liquidity_freeze": {
+      "scenario_id": "stress_liq",
+      "name": "Liquidity Freeze",
+      "illiquid_assets_pct": 22.0,
+      "slippage_multiplier": 5.0,
+      "exit_cost_usd": 18500,
+      "portfolio_impact_pct": 7.4
+    }
+  },
+  "signals": {
+    "sig_btc_momentum": {
+      "signal_id": "sig_btc_momentum",
+      "asset": "BTC",
+      "signal_type": "momentum",
+      "direction": "bullish_analytics"
+    },
+    "sig_eth_flow": {
+      "signal_id": "sig_eth_flow",
+      "asset": "ETH",
+      "signal_type": "exchange_flow",
+      "direction": "bearish_analytics"
+    }
+  }
+}
