@@ -17,6 +17,7 @@ from uuid import UUID
 logger = logging.getLogger("BLACKDARK.InstrumentMaster")
 
 _FEATURE_ID = 268
+_ABSORBED_IDS = (325,)
 _STANDALONE = False
 _MERGED_INTO = "Wave 01 Data Engine"
 _SPRINT = 1
@@ -78,10 +79,46 @@ def build_scope_lock_display() -> dict[str, Any]:
     }
 
 
+def build_derivatives_contract_mapping(record: dict[str, Any]) -> dict[str, Any]:
+    """#325 Derivatives Asset Class Expansion — absorbed into #268 Instrument Master."""
+    asset_class = record.get("asset_class")
+    is_derivatives = asset_class in ("perp", "futures", "option")
+    expiry = record.get("expiry")
+    expiry_normalized = expiry if expiry else ("perpetual" if asset_class == "perp" else None)
+    funding_interval = record.get("funding_interval_hours")
+    index_ref = record.get("index_reference") or {}
+
+    return {
+        "sub_task": "#325",
+        "standalone_rejected": True,
+        "merged_as": "Derivatives Asset Class Expansion in Instrument Master (#268)",
+        "unified_instrument_id": record.get("instrument_id"),
+        "contract_symbol": record.get("contract_symbol") or record.get("source_tag"),
+        "asset_class": asset_class,
+        "derivatives_asset_class_tag": is_derivatives,
+        "expiry": expiry,
+        "expiry_normalized": expiry_normalized,
+        "funding_interval_hours": funding_interval,
+        "funding_interval_documented": funding_interval is not None if asset_class == "perp" else True,
+        "index_reference": index_ref.get("name"),
+        "index_reference_source": index_ref.get("source_tag"),
+        "index_reference_tagged": bool(index_ref.get("source_tag")),
+        "no_separate_pipeline": True,
+        "uses_sprint1_data_engine_schema": True,
+        "display": (
+            f"Contract → {record.get('instrument_id')} | "
+            f"Asset class: {asset_class} | "
+            f"Expiry: {expiry_normalized} | "
+            f"Funding interval: {funding_interval}h | "
+            f"Index: {index_ref.get('name', 'N/A')} [{index_ref.get('source_tag', 'untagged')}]"
+        ),
+    }
+
+
 def build_instrument_mapping(record: dict[str, Any]) -> dict[str, Any]:
     """Instrument mapping schema — no mapping = no ingestion."""
     confidence = float(record.get("mapping_confidence_pct", 0))
-    return {
+    mapping = {
         "instrument_id": record.get("instrument_id"),
         "venue": record.get("venue"),
         "venue_type": record.get("venue_type"),
@@ -105,6 +142,9 @@ def build_instrument_mapping(record: dict[str, Any]) -> dict[str, Any]:
         "no_mapping_no_ingestion": True,
         "ingestion_allowed": confidence >= float(record.get("min_confidence_pct", 80)),
     }
+    if record.get("asset_class") in ("perp", "futures", "option"):
+        mapping["derivatives_contract"] = build_derivatives_contract_mapping(record)
+    return mapping
 
 
 def build_deduplication_audit() -> dict[str, Any]:
@@ -244,15 +284,43 @@ def get_instrument_mapping(instrument_id: str) -> dict[str, Any]:
     return {"ok": False, "error": "instrument_not_found", "instrument_id": instrument_id}
 
 
+def list_derivatives_contract_mappings(*, limit: int = 50) -> dict[str, Any]:
+    """#325 — derivatives contract mappings within Instrument Master."""
+    seed = _load_seed()
+    instruments = seed.get("instruments") or []
+    derivatives = [
+        build_derivatives_contract_mapping(r)
+        for r in instruments
+        if r.get("asset_class") in ("perp", "futures", "option")
+    ]
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID,
+        "absorbed_feature_id": 325,
+        "title": "Derivatives Asset Class Expansion",
+        "standalone_rejected": True,
+        "merged_into": _MERGED_INTO,
+        "count": len(derivatives[:limit]),
+        "total_derivatives": len(derivatives),
+        "contracts": derivatives[:limit],
+        "no_separate_pipeline": True,
+        "uses_sprint1_data_engine_schema": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def instrument_master_status() -> dict[str, Any]:
     seed = _load_seed()
     coverage = seed.get("coverage") or {}
     instruments = seed.get("instruments") or []
     tier_counts = {"hot": 0, "warm": 0, "cold": 0}
+    derivatives_count = 0
     for inst in instruments:
         t = inst.get("tier", "warm")
         if t in tier_counts:
             tier_counts[t] += 1
+        if inst.get("asset_class") in ("perp", "futures", "option"):
+            derivatives_count += 1
 
     return {
         "ok": True,
@@ -262,6 +330,10 @@ def instrument_master_status() -> dict[str, Any]:
         "archived_standalone_ticket": True,
         "merged_into": _MERGED_INTO,
         "sprint": _SPRINT,
+        "absorbed_tickets": {
+            325: "Derivatives Asset Class Expansion (standalone rejected)",
+        },
+        "derivatives_contract_count": derivatives_count,
         "replaces_marketing_claim": "1.3M → validated crypto-native ~50K",
         "scope_lock": build_scope_lock_display(),
         "deduplication": build_deduplication_audit(),

@@ -14,16 +14,21 @@ The derivatives product — absorbs **#328** (regime) + **#329** (leverage ratio
 | **Backtest gate** | Regime labels backtested; FP rate < 30% |
 | **Scope** | Perpetuals only; futures expiry = Phase 2; options = Phase 3 |
 
-## Regime detection (#328)
+## Regime Classification (#328)
 
-Rule-based thresholds:
+Rule-based thresholds — **Regime Classification Sub-component** (standalone rejected):
 - **Crowded** — elevated funding + OI
 - **Flush** — liquidation spike
 - **Normal** — default state
+- Formula versioned; backtest gate required
 
-## Leverage ratio (#329)
+## Estimated Leverage Ratio (#329)
 
-`Long/Short Ratio = OI_long / OI_short | Source: Binance API | Confidence: High`
+`ELR = OI / Exchange Reserve | Formula versioned | Variants documented`
+
+- Reserve = 0 or missing → ELR = N/A
+- Historical percentile: 90-day rolling window
+- Denominator QA: verified on-chain or exchange attestation
 
 ## APIs
 

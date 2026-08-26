@@ -20,6 +20,9 @@
     "coverage_benchmark": "CoinGecko",
     "uptime_sla_pct": 99.9
   },
+  "absorbed_tickets": {
+    "325": "Derivatives Asset Class Expansion (standalone rejected)"
+  },
   "coverage": {
     "validated_instruments": 48250,
     "top_5k_realtime": true,
@@ -48,6 +51,13 @@
       "asset_class": "perp",
       "base": "BTC",
       "quote": "USDT",
+      "contract_symbol": "BTCUSDT",
+      "expiry": null,
+      "funding_interval_hours": 8,
+      "index_reference": {
+        "name": "BTCUSDT Index",
+        "source_tag": "binance:index:BTCUSDT"
+      },
       "mapping_confidence_pct": 99.8,
       "min_confidence_pct": 80,
       "last_verified": "2026-08-25T20:00:00+00:00",

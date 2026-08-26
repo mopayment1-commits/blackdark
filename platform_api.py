@@ -869,6 +869,21 @@ async def private_market_vc_flow_dashboard_route(sector: str | None = Query(None
     return build_vc_flow_dashboard(sector=sector)
 
 
+@router.get("/intelligence-ledger/cross-exchange-funding/status")
+async def cross_exchange_funding_rate_analytics_status_route():
+    """#317 Cross-Exchange Funding Rate Analytics — data display only, no arbitrage language."""
+    from bd_platform.cross_exchange_funding_rate_analytics import cross_exchange_funding_rate_analytics_status
+
+    return cross_exchange_funding_rate_analytics_status()
+
+
+@router.get("/intelligence-ledger/cross-exchange-funding")
+async def cross_exchange_funding_rate_analytics_panel_route(asset: str = Query("BTC")):
+    from bd_platform.cross_exchange_funding_rate_analytics import build_cross_exchange_funding_panel
+
+    return build_cross_exchange_funding_panel(asset=asset)
+
+
 @router.get("/intelligence-ledger/taker-pressure/status")
 async def taker_pressure_status_route():
     """#296 Taker Pressure Module — CEX spot + perp, orderflow sub-feature."""

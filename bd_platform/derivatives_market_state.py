@@ -153,7 +153,7 @@ def compute_component_contributions(
 
 
 def detect_regime(components: dict[str, Any], *, thresholds: dict[str, Any] | None = None) -> dict[str, Any]:
-    """#328 regime detection — rule-based crowded/flush/normal."""
+    """#328 Regime Classification Sub-component — rule-based crowded/flush/normal."""
     thresholds = thresholds or {}
     funding_z = float(components.get("funding_z", 0))
     oi_z = float(components.get("oi_z", 0))
@@ -174,9 +174,19 @@ def detect_regime(components: dict[str, Any], *, thresholds: dict[str, Any] | No
 
     return {
         "sub_task": "#328",
+        "sub_component": "Regime Classification Sub-component",
+        "standalone_rejected": True,
+        "merged_as": "sub-component in Derivatives Market State Module (#327)",
         "regime": regime,
         "label": label,
+        "classification_type": "rule_based",
         "rule_based": True,
+        "formula_version": _FORMULA_VERSION,
+        "formula": (
+            "crowded: funding_z >= {crowded} AND oi_z >= 1.5 | "
+            "flush: liquidation_z >= {flush} | else: normal"
+        ).format(crowded=crowded_thresh, flush=flush_liq_thresh),
+        "backtest_required": True,
         "thresholds": {
             "crowded_funding_z": crowded_thresh,
             "flush_liquidation_z": flush_liq_thresh,
@@ -185,19 +195,104 @@ def detect_regime(components: dict[str, Any], *, thresholds: dict[str, Any] | No
     }
 
 
-def compute_leverage_context(components: dict[str, Any]) -> dict[str, Any]:
-    """#329 leverage ratio — absorbed component."""
-    ratio = float(components.get("leverage_ratio", 0))
+_ELR_FORMULA_VERSION = "1.0"
+_ELR_PERCENTILE_WINDOW_DAYS = 90
+
+
+def compute_estimated_leverage_ratio(components: dict[str, Any]) -> dict[str, Any]:
+    """#329 Estimated Leverage Ratio — ELR = OI / Exchange Reserve."""
+    oi = components.get("open_interest_usd")
+    reserve = components.get("exchange_reserve_usd")
+    oi_deribit = components.get("oi_deribit_usd")
+    reserve_deribit = components.get("reserve_deribit_usd")
+    oi_total = components.get("oi_total_usd")
+    reserve_total = components.get("reserve_total_usd")
+    history = components.get("elr_history_90d") or []
+
+    def _safe_elr(numerator: float | None, denominator: float | None) -> dict[str, Any]:
+        if numerator is None or denominator is None or denominator <= 0:
+            return {
+                "elr": None,
+                "elr_display": "N/A",
+                "warning": "Insufficient reserve data",
+                "zero_missing_protected": True,
+            }
+        elr = round(numerator / denominator, 4)
+        return {
+            "elr": elr,
+            "elr_display": f"ELR = {elr:.4f}",
+            "zero_missing_protected": True,
+        }
+
+    primary = _safe_elr(
+        float(oi) if oi is not None else None,
+        float(reserve) if reserve is not None else None,
+    )
+    variant_deribit = _safe_elr(
+        float(oi_deribit) if oi_deribit is not None else None,
+        float(reserve_deribit) if reserve_deribit is not None else None,
+    )
+    variant_total = _safe_elr(
+        float(oi_total) if oi_total is not None else None,
+        float(reserve_total) if reserve_total is not None else None,
+    )
+
+    percentile = None
+    if primary["elr"] is not None and history:
+        below = sum(1 for h in history if h < primary["elr"])
+        percentile = round(below / len(history) * 100, 1)
+
+    reserve_qa = components.get("reserve_qa") or {}
     return {
         "sub_task": "#329",
-        "leverage_ratio": ratio,
-        "leverage_ratio_display": f"Long/Short Ratio = {ratio:.3f}",
-        "formula": "OI_long / OI_short",
-        "source": components.get("leverage_ratio_source", "Binance API"),
-        "last_updated": components.get("leverage_ratio_updated"),
-        "confidence": components.get("leverage_ratio_confidence", "high"),
+        "sub_component": "Estimated Leverage Ratio contributor metric",
+        "standalone_rejected": True,
+        "merged_as": "contributor metric in Derivatives Market State Module (#327)",
+        "formula": "ELR = OI / Exchange Reserve",
+        "formula_version": _ELR_FORMULA_VERSION,
+        "variants": {
+            "primary": {"label": "OI / Exchange Reserve", **primary},
+            "oi_deribit_reserve_deribit": {
+                "label": "OI_deribit / Reserve_deribit",
+                **variant_deribit,
+            },
+            "oi_total_reserve_total": {
+                "label": "OI_total / Reserve_total",
+                **variant_total,
+            },
+        },
+        "elr": primary["elr"],
+        "elr_display": primary["elr_display"],
+        "warning": primary.get("warning"),
+        "denominator_qa": {
+            "reserve_verified": reserve_qa.get("verified", False),
+            "verification_method": reserve_qa.get("method", "exchange_attestation"),
+            "source": reserve_qa.get("source", components.get("exchange_reserve_source")),
+            "display": (
+                "Reserve = verified on-chain or exchange attestation"
+                if reserve_qa.get("verified") else "Reserve verification pending"
+            ),
+        },
+        "historical_percentile": {
+            "percentile": percentile,
+            "window_days": _ELR_PERCENTILE_WINDOW_DAYS,
+            "universe": components.get("elr_universe", "BTC derivatives venues"),
+            "recomputed": "daily",
+            "display": (
+                f"Percentile: {percentile}% (90-day rolling window)"
+                if percentile is not None else "Percentile: N/A — insufficient history"
+            ),
+        },
+        "source": components.get("exchange_reserve_source", "Binance API"),
+        "last_updated": components.get("exchange_reserve_updated"),
+        "confidence": components.get("exchange_reserve_confidence", "high"),
         "not_opaque": True,
     }
+
+
+def compute_leverage_context(components: dict[str, Any]) -> dict[str, Any]:
+    """#329 leverage ratio — absorbed component (delegates to ELR)."""
+    return compute_estimated_leverage_ratio(components)
 
 
 def compute_sentiment_score(
@@ -354,8 +449,8 @@ def build_derivatives_market_state_panel(asset: str = "BTC") -> dict[str, Any]:
         "backtest_gate": backtest,
         "scope_lock": scope,
         "absorbed_components": {
-            328: "Regime detection (crowded/flush/normal)",
-            329: "Leverage ratio",
+            328: "Regime Classification Sub-component (standalone rejected)",
+            329: "Estimated Leverage Ratio contributor metric (standalone rejected)",
             311: "Basis sub-metric (standalone rejected — chart line view)",
             313: "CVD (view)",
             324: "Dashboard (view)",
@@ -378,8 +473,8 @@ def derivatives_market_state_status() -> dict[str, Any]:
         "title": _TITLE,
         "renamed_from": _RENAMED_FROM,
         "absorbed_tickets": {
-            328: "Regime detection",
-            329: "Leverage ratio",
+            328: "Regime Classification Sub-component (standalone rejected)",
+            329: "Estimated Leverage Ratio contributor metric (standalone rejected)",
             311: "Basis sub-metric (standalone rejected)",
         },
         "standalone": _STANDALONE,
