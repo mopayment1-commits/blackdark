@@ -658,6 +658,39 @@ async def price_feed_live_route(asset: str = Query("BTC")):
     return get_live_prices(asset)
 
 
+@router.get("/price-feed/tiered-streaming/status")
+async def tiered_price_streaming_status_route():
+    """#128 Tiered Price Streaming — sub-second enterprise tier only."""
+    from bd_platform.tiered_price_streaming import tiered_price_streaming_status
+
+    return tiered_price_streaming_status()
+
+
+@router.get("/price-feed/tiered-streaming")
+async def tiered_price_streaming_panel_route(
+    tier: str = Query("free"),
+    asset: str = Query("BTC"),
+    requested_interval_ms: int | None = Query(None),
+):
+    from bd_platform.tiered_price_streaming import build_tiered_streaming_panel
+
+    result = build_tiered_streaming_panel(
+        tier=tier,
+        asset=asset,
+        requested_interval_ms=requested_interval_ms,
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=403, detail=result.get("access") or result.get("error"))
+    return result
+
+
+@router.get("/price-feed/tiered-streaming/sla-tests")
+async def tiered_price_streaming_sla_tests_route():
+    from bd_platform.tiered_price_streaming import run_tier_sla_tests
+
+    return run_tier_sla_tests()
+
+
 @router.get("/intelligence-ledger/evidence-confidence/status")
 async def evidence_confidence_status_route():
     """#284 Evidence Confidence Framework — cross-cutting, Sprint 2."""
