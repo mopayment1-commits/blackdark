@@ -1,0 +1,40 @@
+{
+  "feature_id": 532,
+  "title": "Custom Alerts",
+  "layer": "Infrastructure Layer",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "rate_limits": {
+    "default_per_hour": 10
+  },
+  "rules": [
+    {
+      "rule_id": "rule_whale_watch",
+      "active": true,
+      "entity_id": "entity_whale_alpha",
+      "min_value_usd": 1000000,
+      "channels": ["telegram", "webhook"]
+    },
+    {
+      "rule_id": "rule_btc_large",
+      "active": true,
+      "token": "BTC",
+      "min_value_usd": 5000000,
+      "channels": ["email"]
+    }
+  ],
+  "pending_events": [
+    {
+      "entity_id": "entity_whale_alpha",
+      "address": "0xabc1234567890def1234567890abc1234567890ab",
+      "token": "ETH",
+      "chain": "ethereum",
+      "value_usd": 2500000,
+      "tx_hash": "0xevent001",
+      "tx_evidence_link": "https://etherscan.io/tx/0xevent001",
+      "timestamp": "2026-08-26T12:00:00Z"
+    }
+  ],
+  "delivery_log": []
+}

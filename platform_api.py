@@ -1490,6 +1490,67 @@ async def cost_basis_distribution_panel_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/cross-chain-liquidity/status")
+async def cross_chain_liquidity_flow_status_route():
+    """#522 Cross-Chain Liquidity Flow — bridge verified, double-count prevented."""
+    from bd_platform.cross_chain_liquidity_flow import cross_chain_liquidity_flow_status
+
+    return cross_chain_liquidity_flow_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/cross-chain-liquidity")
+async def cross_chain_liquidity_flow_panel_route(
+    asset: str | None = Query(None),
+    chain: str | None = Query(None),
+):
+    from bd_platform.cross_chain_liquidity_flow import build_cross_chain_liquidity_panel
+
+    return build_cross_chain_liquidity_panel(asset=asset, chain=chain)
+
+
+@router.get("/intelligence-ledger/onchain-layer/cross-chain-liquidity/reconciliation-tests")
+async def cross_chain_liquidity_reconciliation_tests_route():
+    from bd_platform.cross_chain_liquidity_flow import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/foundation/entity-resolution/status")
+async def entity_resolution_engine_status_route():
+    """#541 Entity Resolution Engine — Sprint 0 critical foundation."""
+    from bd_platform.entity_resolution_engine import entity_resolution_engine_status
+
+    return entity_resolution_engine_status()
+
+
+@router.get("/intelligence-ledger/foundation/entity-resolution")
+async def entity_resolution_engine_panel_route(
+    entity_id: str | None = Query(None),
+    address: str | None = Query(None),
+):
+    from bd_platform.entity_resolution_engine import build_entity_resolution_panel
+
+    result = build_entity_resolution_panel(entity_id=entity_id, address=address)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/infrastructure/custom-alerts/status")
+async def custom_alerts_status_route():
+    """#532 Custom Alerts — backend enforced, rate limits, tx evidence."""
+    from bd_platform.custom_alerts import custom_alerts_status
+
+    return custom_alerts_status()
+
+
+@router.get("/intelligence-ledger/infrastructure/custom-alerts")
+async def custom_alerts_panel_route(user_id: str = Query("default")):
+    from bd_platform.custom_alerts import build_custom_alerts_panel
+
+    return build_custom_alerts_panel(user_id=user_id)
+
+
 @router.get("/intelligence-ledger/intelligence-layer/price-move-correlator/status")
 async def price_move_event_correlator_status_route():
     """#519 Price-Move Event Correlator — temporal correlation, not causation."""
