@@ -1,0 +1,50 @@
+{
+  "feature_id": 738,
+  "sprint": 0,
+  "vault_version": "1.0",
+  "datasets": {
+    "btc_daily": {
+      "versions": [
+        {
+          "version": 1,
+          "granularity": "daily",
+          "records": [
+            {
+              "date": "2026-08-20",
+              "symbol": "BTC",
+              "close": 65000
+            },
+            {
+              "date": "2026-08-21",
+              "symbol": "BTC",
+              "close": 65500
+            },
+            {
+              "date": "2026-08-22",
+              "symbol": "BTC",
+              "close": 64800
+            }
+          ],
+          "appended_at": "2026-08-26T00:00:00+00:00",
+          "append_only": true,
+          "sha256_checksum": "ac9f0c1570e530e52fbe948f8c29aa86dc208f5a66cfb0695c26d51ee7474f25",
+          "overwrite_forbidden": true
+        }
+      ],
+      "latest_version": 1
+    }
+  },
+  "query_manifests": {
+    "btc_daily_close": {
+      "dataset_id": "btc_daily",
+      "pinned_version": 1,
+      "reference_date": "2026-08-25",
+      "allowed_granularities": [
+        "daily",
+        "hourly",
+        "tick"
+      ],
+      "expected_result_checksum": "3477f122bae3b876675fba4397b1c2a1fd36a9f82d2b419e5d3a1df718548a7f"
+    }
+  }
+}

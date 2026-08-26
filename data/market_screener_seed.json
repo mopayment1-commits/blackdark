@@ -1,0 +1,61 @@
+{
+  "feature_id": 742,
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "assets": [
+    {
+      "symbol": "BTC",
+      "market_cap_usd": 1200000000000,
+      "volume_24h_usd": 28000000000,
+      "bot_activity_score": 22,
+      "exchange_quality_score": 95,
+      "onchain_signal": "accumulation",
+      "yield_pct": null
+    },
+    {
+      "symbol": "ETH",
+      "market_cap_usd": 420000000000,
+      "volume_24h_usd": 15000000000,
+      "bot_activity_score": 35,
+      "exchange_quality_score": 92,
+      "onchain_signal": "neutral",
+      "yield_pct": 3.2
+    },
+    {
+      "symbol": "DOGE",
+      "market_cap_usd": 18000000000,
+      "volume_24h_usd": 1200000000,
+      "bot_activity_score": 78,
+      "exchange_quality_score": 65,
+      "onchain_signal": null,
+      "yield_pct": null
+    },
+    {
+      "symbol": "SOL",
+      "market_cap_usd": 85000000000,
+      "volume_24h_usd": 3200000000,
+      "bot_activity_score": 45,
+      "exchange_quality_score": 88,
+      "onchain_signal": "distribution",
+      "yield_pct": 5.1
+    }
+  ],
+  "saved_filters": {
+    "low_bot_high_quality": {
+      "name": "Low Bot + High Exchange Quality",
+      "shareable": true,
+      "filters": {
+        "bot_activity_score": {"max": 40},
+        "exchange_quality_score": {"min": 85}
+      }
+    },
+    "high_yield": {
+      "name": "Yield Filter (Fee DB required)",
+      "shareable": true,
+      "filters": {
+        "yield_min": {"min": 3.0}
+      }
+    }
+  }
+}

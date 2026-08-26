@@ -1,7 +1,8 @@
 {
   "feature_id": 737,
+  "feature_ids": [737, 741],
   "sprint": 2,
-  "methodology_version": "1.0",
+  "methodology_version": "1.1",
   "last_updated": "2026-08-26",
   "independent_calculations": true,
   "assets": {
@@ -19,6 +20,12 @@
           "2y-5y": 14.5,
           "5y+": 7.4
         }
+      },
+      "mvrv": {
+        "price": 65000,
+        "realignment_window": 200,
+        "last_updated": "2026-08-26T00:00:00+00:00",
+        "realized_price_history": [42000, 43500, 45000, 48000, 51000, 53000, 55000, 58000, 60000, 62000, 64000, 65000]
       }
     },
     "ETH": {
@@ -35,6 +42,12 @@
           "2y-5y": 8.5,
           "5y+": 2.8
         }
+      },
+      "mvrv": {
+        "price": 3400,
+        "realignment_window": 200,
+        "last_updated": "2026-08-26T00:00:00+00:00",
+        "realized_price_history": [1800, 1900, 2100, 2300, 2500, 2700, 2900, 3100, 3200, 3300, 3400]
       }
     }
   }

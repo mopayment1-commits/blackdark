@@ -1,0 +1,60 @@
+{
+  "feature_id": 740,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "deals": [
+    {
+      "deal_id": "deal_001",
+      "target": "Bridge Protocol",
+      "buyer": "Major Exchange",
+      "sector": "infrastructure",
+      "deal_type": "acquisition",
+      "status": "confirmed",
+      "source": "CoinDesk",
+      "date": "2026-06-15",
+      "value_usd": 250000000,
+      "value_disclosed": true
+    },
+    {
+      "deal_id": "deal_002",
+      "target": "DeFi Analytics Co",
+      "buyer": "Institutional Fund",
+      "sector": "analytics",
+      "deal_type": "acquisition",
+      "status": "rumored",
+      "source": "The Block",
+      "date": "2026-07-20",
+      "value_usd": null,
+      "value_disclosed": false
+    },
+    {
+      "deal_id": "deal_003",
+      "target": "L2 Network",
+      "buyer": "Crypto Conglomerate",
+      "sector": "infrastructure",
+      "deal_type": "acquisition",
+      "status": "closed",
+      "source": "SEC Filing",
+      "date": "2026-05-10",
+      "value_usd": 180000000,
+      "value_disclosed": true
+    }
+  ],
+  "trends": {
+    "volume_by_quarter": [
+      {"quarter": "2026-Q1", "volume_usd": 1200000000},
+      {"quarter": "2026-Q2", "volume_usd": 1850000000}
+    ],
+    "sector_heatmap": {
+      "infrastructure": 0.45,
+      "analytics": 0.25,
+      "defi": 0.20,
+      "gaming": 0.10
+    },
+    "top_acquirers": [
+      {"name": "Major Exchange", "deal_count": 3, "total_disclosed_usd": 430000000},
+      {"name": "Institutional Fund", "deal_count": 2, "total_disclosed_usd": 95000000}
+    ]
+  }
+}

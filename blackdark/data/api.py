@@ -362,6 +362,43 @@ async def liquidity_intelligence_warnings_route(
     return list_liquidity_warnings(pair=pair, severity=severity, limit=limit)
 
 
+@router.get("/api/v1/data/historical-vault/status")
+async def historical_data_vault_status_route():
+    """#738 Historical Data Vault — Sprint 0 infrastructure."""
+    from blackdark.data.historical_data_vault import historical_data_vault_status
+
+    return historical_data_vault_status()
+
+
+@router.get("/api/v1/data/historical-vault/datasets/{dataset_id}")
+async def historical_data_vault_dataset_route(
+    dataset_id: str,
+    version: int | None = Query(None),
+):
+    """#738 versioned dataset with SHA-256 checksum."""
+    from blackdark.data.historical_data_vault import get_dataset
+
+    result = get_dataset(dataset_id, version=version)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/api/v1/data/historical-vault/query/{query_id}")
+async def historical_data_vault_query_route(
+    query_id: str,
+    as_of_date: str | None = Query(None),
+    tier: str = Query("free"),
+):
+    """#738 reproducible historical query."""
+    from blackdark.data.historical_data_vault import run_reproducible_query
+
+    result = run_reproducible_query(query_id, as_of_date=as_of_date, tier=tier)  # type: ignore[arg-type]
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/api/v1/data/market-pairs/status")
 async def get_market_pair_view_status():
     """#270 archived — frontend requirement for Market Radar Sprint 2."""

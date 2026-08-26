@@ -1,0 +1,30 @@
+{
+  "feature_id": 744,
+  "sprint": 2,
+  "methodology_version": "1.1",
+  "last_updated": "2026-08-26",
+  "assets": {
+    "BTC": {
+      "spot": 65000,
+      "strikes": [
+        {"strike": 60000, "call_oi": 1200, "put_oi": 800},
+        {"strike": 62000, "call_oi": 2100, "put_oi": 1500},
+        {"strike": 64000, "call_oi": 3500, "put_oi": 2800},
+        {"strike": 65000, "call_oi": 4200, "put_oi": 3900},
+        {"strike": 66000, "call_oi": 3800, "put_oi": 4100},
+        {"strike": 68000, "call_oi": 2200, "put_oi": 2600},
+        {"strike": 70000, "call_oi": 1500, "put_oi": 1800}
+      ]
+    },
+    "ETH": {
+      "spot": 3400,
+      "strikes": [
+        {"strike": 3000, "call_oi": 5000, "put_oi": 3200},
+        {"strike": 3200, "call_oi": 8200, "put_oi": 6100},
+        {"strike": 3400, "call_oi": 12000, "put_oi": 10500},
+        {"strike": 3600, "call_oi": 9500, "put_oi": 11200},
+        {"strike": 3800, "call_oi": 4800, "put_oi": 5500}
+      ]
+    }
+  }
+}
