@@ -1862,6 +1862,12 @@ async def natural_language_ask_page(request: Request):
     return render_page(request, "ask.html", _footer_ctx())
 
 
+@app.get("/portfolio-ai/live-breakeven", response_class=HTMLResponse)
+async def live_breakeven_tracker_page(request: Request):
+    """#404 Live Breakeven Tracker — Dynamic Cost Basis UI."""
+    return render_page(request, "live_breakeven.html", _footer_ctx())
+
+
 @app.get("/api/institutional-standards/status")
 async def institutional_standards_status_route():
     from bd_platform.institutional_standards import institutional_standards_status

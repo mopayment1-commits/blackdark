@@ -1155,6 +1155,92 @@ async def multi_model_liquidation_blocked_status_route():
     return build_multi_model_liquidation_blocked_status()
 
 
+@router.get("/intelligence-ledger/portfolio-ai/live-breakeven/status")
+async def live_breakeven_tracker_status_route():
+    """#404 Live Breakeven Tracker — Position Analytics Layer in Portfolio AI."""
+    from bd_platform.live_breakeven_tracker import live_breakeven_tracker_status
+
+    return live_breakeven_tracker_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/live-breakeven")
+async def live_breakeven_panel_route(position_id: str = Query("pos_btc_001")):
+    """#404 Live Breakeven Tracker — Dynamic Cost Basis with fee transparency."""
+    from bd_platform.live_breakeven_tracker import build_live_breakeven_panel
+
+    result = build_live_breakeven_panel(position_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/live-breakeven/simulate")
+async def live_breakeven_simulate_route(
+    position_id: str = Query("pos_btc_001"),
+    hypothetical_dca_qty: float | None = Query(None),
+    hypothetical_dca_price: float | None = Query(None),
+    hypothetical_exit_qty: float | None = Query(None),
+    hypothetical_exit_price: float | None = Query(None),
+):
+    """#404 Breakeven Scenario Simulator — hypothetical DCA or partial exit."""
+    from bd_platform.live_breakeven_tracker import _load_seed, simulate_breakeven_scenario
+
+    seed = _load_seed()
+    position = (seed.get("positions") or {}).get(position_id)
+    if not position:
+        raise HTTPException(status_code=404, detail="position_not_found")
+    result = simulate_breakeven_scenario(
+        position,
+        hypothetical_dca_qty=hypothetical_dca_qty,
+        hypothetical_dca_price=hypothetical_dca_price,
+        hypothetical_exit_qty=hypothetical_exit_qty,
+        hypothetical_exit_price=hypothetical_exit_price,
+        fee_defaults=seed.get("fee_defaults"),
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=400, detail=result.get("error") or "simulation_failed")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/live-breakeven/reconciliation-tests")
+async def live_breakeven_reconciliation_tests_route():
+    from bd_platform.live_breakeven_tracker import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-protection/breakeven-alerts")
+async def capital_protection_breakeven_alerts_route(position_id: str = Query("pos_btc_001")):
+    """#404 + #410 Capital Protection — breakeven proximity alerts."""
+    from bd_platform.live_breakeven_tracker import (
+        _load_seed,
+        build_capital_protection_integration,
+        compute_dynamic_breakeven,
+    )
+
+    seed = _load_seed()
+    position = (seed.get("positions") or {}).get(position_id)
+    if not position:
+        raise HTTPException(status_code=404, detail="position_not_found")
+    calc = compute_dynamic_breakeven(position.get("events") or [])
+    if not calc.get("ok"):
+        raise HTTPException(status_code=400, detail=calc.get("error") or "calc_failed")
+    return build_capital_protection_integration(
+        position, calc, cp_config=seed.get("capital_protection")
+    )
+
+
+@router.get("/intelligence-ledger/intelligence-layer/live-breakeven/signal-context")
+async def intelligence_ledger_breakeven_signal_context_route(
+    symbol: str = Query("BTC"),
+    signal_id: str | None = Query(None),
+):
+    """#404 Intelligence Ledger — distance to breakeven on signals when user owns asset."""
+    from bd_platform.live_breakeven_tracker import build_intelligence_ledger_signal_context
+
+    return build_intelligence_ledger_signal_context(symbol, signal_id=signal_id)
+
+
 @router.get("/intelligence-ledger/smart-anomaly-alerts/status")
 async def smart_anomaly_alerts_status_route():
     """#719 Smart Anomaly Alert Engine — absorbs #131+#121."""
