@@ -1,0 +1,70 @@
+{
+  "feature_id": 307,
+  "renamed_from": "Imminent Liquidation Cluster Scanning",
+  "title": "Liquidation Cluster Analytics",
+  "sprint": 2,
+  "wave": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "assets": {
+    "BTC": {
+      "sources": [
+        {"venue": "binance", "type": "exchange_api", "confidence": "high", "endpoint": "fapi.binance.com"},
+        {"venue": "bybit", "type": "exchange_api", "confidence": "high"},
+        {"venue": "gmx_arbitrum", "type": "on_chain_perp", "confidence": "medium"}
+      ],
+      "clusters": [
+        {
+          "cluster_id": "lc_btc_001",
+          "price_level": 62000,
+          "side": "long",
+          "historical_liquidation_usd": 185000000,
+          "current_open_interest_usd": 420000000,
+          "venue": "binance",
+          "source": "Binance Futures API",
+          "confidence": "high",
+          "timestamp_utc": "2026-08-26T09:00:00+00:00",
+          "estimated_levels": [
+            {"price": 61500, "estimated_oi_usd": 120000000, "probability_pct": 68},
+            {"price": 60000, "estimated_oi_usd": 280000000, "probability_pct": 45}
+          ]
+        },
+        {
+          "cluster_id": "lc_btc_002",
+          "price_level": 68000,
+          "side": "short",
+          "historical_liquidation_usd": 95000000,
+          "current_open_interest_usd": 210000000,
+          "venue": "binance",
+          "source": "Binance Futures API",
+          "confidence": "high",
+          "timestamp_utc": "2026-08-26T09:00:00+00:00",
+          "estimated_levels": [
+            {"price": 68500, "estimated_oi_usd": 80000000, "probability_pct": 55}
+          ]
+        }
+      ]
+    },
+    "ETH": {
+      "sources": [
+        {"venue": "binance", "type": "exchange_api", "confidence": "high"}
+      ],
+      "clusters": [
+        {
+          "cluster_id": "lc_eth_001",
+          "price_level": 3200,
+          "side": "long",
+          "historical_liquidation_usd": 45000000,
+          "current_open_interest_usd": 98000000,
+          "venue": "binance",
+          "source": "Binance Futures API",
+          "confidence": "high",
+          "timestamp_utc": "2026-08-26T09:00:00+00:00",
+          "estimated_levels": [
+            {"price": 3100, "estimated_oi_usd": 35000000, "probability_pct": 52}
+          ]
+        }
+      ]
+    }
+  }
+}

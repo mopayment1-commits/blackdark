@@ -270,6 +270,41 @@ def build_backtest_gate(seed: dict[str, Any] | None = None) -> dict[str, Any]:
     }
 
 
+def build_basis_sub_metric(components: dict[str, Any], *, asset: str) -> dict[str, Any]:
+    """#311 Basis — REJECTED standalone, sub-metric view in Derivatives Analytics Layer."""
+    spot = float(components.get("spot_price", 0))
+    perp = float(components.get("perp_price", 0))
+    expiry = components.get("expiry")
+    days_to_expiry = float(components.get("days_to_expiry", 0))
+
+    if spot > 0 and perp > 0:
+        basis_pct = ((perp - spot) / spot) * 100
+        annualized = basis_pct * (365 / days_to_expiry) if days_to_expiry > 0 else basis_pct
+    else:
+        basis_pct = 0.0
+        annualized = 0.0
+
+    return {
+        "sub_task": "#311",
+        "standalone_rejected": True,
+        "merged_as": "sub-metric view in Derivatives Market State Module",
+        "asset": asset,
+        "spot_price": spot,
+        "perp_price": perp,
+        "basis_pct": round(basis_pct, 4),
+        "annualized_basis_pct": round(annualized, 4),
+        "expiry": expiry,
+        "days_to_expiry": days_to_expiry,
+        "expiry_time_alignment": True,
+        "timestamp_alignment_utc": components.get("timestamp_utc"),
+        "chart_hint": "basis chart = line on chart",
+        "display": (
+            f"Basis {asset}: {basis_pct:.3f}% | Annualized: {annualized:.2f}% | "
+            f"Expiry aligned: {expiry or 'perpetual'}"
+        ),
+    }
+
+
 def build_scope_lock() -> dict[str, Any]:
     return {
         "perpetuals_only": True,
@@ -296,6 +331,7 @@ def build_derivatives_market_state_panel(asset: str = "BTC") -> dict[str, Any]:
     sentiment = compute_sentiment_score(components, weights=weights, baselines=baselines)
     regime = detect_regime(components, thresholds=asset_data.get("regime_thresholds"))
     leverage = compute_leverage_context(components)
+    basis = build_basis_sub_metric(components, asset=sym)
     backtest = build_backtest_gate(seed)
     scope = build_scope_lock()
 
@@ -313,13 +349,14 @@ def build_derivatives_market_state_panel(asset: str = "BTC") -> dict[str, Any]:
         "market_state_score": sentiment,
         "regime": regime,
         "leverage_ratio": leverage,
+        "basis_sub_metric": basis,
         "components_raw": components,
         "backtest_gate": backtest,
         "scope_lock": scope,
         "absorbed_components": {
             328: "Regime detection (crowded/flush/normal)",
             329: "Leverage ratio",
-            311: "Basis (view)",
+            311: "Basis sub-metric (standalone rejected — chart line view)",
             313: "CVD (view)",
             324: "Dashboard (view)",
         },
@@ -343,6 +380,7 @@ def derivatives_market_state_status() -> dict[str, Any]:
         "absorbed_tickets": {
             328: "Regime detection",
             329: "Leverage ratio",
+            311: "Basis sub-metric (standalone rejected)",
         },
         "standalone": _STANDALONE,
         "merged_into": _MERGED_INTO,
