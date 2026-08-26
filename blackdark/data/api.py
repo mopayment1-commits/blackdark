@@ -291,6 +291,14 @@ async def get_instrument_mapping_route(instrument_id: str):
     return result
 
 
+@router.get("/api/v1/data/instrument-master/derivatives-contracts")
+async def list_derivatives_contract_mappings_route(limit: int = Query(50, ge=1, le=500)):
+    """#325 Derivatives Asset Class Expansion — absorbed into #268 Instrument Master."""
+    from blackdark.data.instrument_master import list_derivatives_contract_mappings
+
+    return list_derivatives_contract_mappings(limit=limit)
+
+
 @router.get("/api/v1/data/order-book-liquidity/status")
 async def get_order_book_liquidity_status():
     """#269 Order Book & Liquidity Data Layer — no standalone, no UI."""

@@ -56,6 +56,10 @@ def dms_seed(tmp_path, monkeypatch):
                     "liquidation_z": 2.8,
                     "price_change_24h_pct": 2.0,
                     "funding_rate_source": "Binance API v3",
+                    "open_interest_usd": 1e10,
+                    "exchange_reserve_usd": 8e9,
+                    "reserve_qa": {"verified": True},
+                    "elr_history_90d": [1.0, 1.1, 1.2],
                 },
                 "baselines": {
                     "funding_rate": {"mean": 0.0001, "std": 0.0002},
@@ -111,14 +115,15 @@ def test_327_regime_detection(dms_seed):
     panel = dms.build_derivatives_market_state_panel("BTC")
     assert panel["regime"]["regime"] in ("crowded", "flush", "normal")
     assert panel["regime"]["rule_based"] is True
+    assert panel["regime"]["sub_component"] == "Regime Classification Sub-component"
 
 
 def test_327_leverage_absorbed(dms_seed):
     panel = dms.build_derivatives_market_state_panel("BTC")
     lev = panel["leverage_ratio"]
     assert lev["sub_task"] == "#329"
-    assert "OI_long / OI_short" in lev["formula"]
-    assert lev["source"] == "Binance API v3"
+    assert lev["formula"] == "ELR = OI / Exchange Reserve"
+    assert lev["standalone_rejected"] is True
 
 
 def test_327_backtest_gate(dms_seed):
