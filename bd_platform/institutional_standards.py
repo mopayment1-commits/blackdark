@@ -120,6 +120,20 @@ def wrap_intelligence_response(
         out["module_id"] = module_id
     out["institutional_standards_version"] = "1.0"
     out["ui_surface"] = f"/intelligence-ledger?module={module_id}" if module_id else "/intelligence-ledger"
+    try:
+        from bd_platform.evidence_confidence_middleware import enrich_insight_payload
+
+        src_name = source or out.get("source") or "intelligence_ledger"
+        out = enrich_insight_payload(
+            out,
+            system=src_name,
+            endpoint=out["ui_surface"],
+            source_tier="intelligence_ledger",
+            age_seconds=int(out.get("latency_ms", 0) // 1000) if out.get("latency_ms") else 0,
+        )
+    except Exception:
+        logger = __import__("logging").getLogger("BLACKDARK.InstitutionalStandards")
+        logger.debug("777 evidence middleware skipped", exc_info=True)
     return out
 
 

@@ -173,5 +173,77 @@
         "timestamp": "2026-08-27T14:00:02+00:00"
       }
     ]
+  },
+  "alert_backend_786": {
+    "feature_ref": 786,
+    "merged_into": 759,
+    "cooldown_sec": 900,
+    "throttle_max_per_hour": 10,
+    "max_retries": 3,
+    "retry_backoff_sec": [1, 2, 4],
+    "fee_db": {"processing_usd": 0.0005, "delivery_usd": 0.001, "tier": "standard"}
+  },
+  "custom_metric_alerts_788": {
+    "feature_ref": 788,
+    "merged_into": 759,
+    "user_state": {"alerts_sent_last_hour": 2},
+    "user_rules": [
+      {
+        "rule_id": "cm-001",
+        "user_id": "default",
+        "name": "BTC RSI overbought",
+        "metric": "rsi",
+        "condition": {"field": "rsi_14", "operator": ">=", "threshold": 70},
+        "current_value": 72,
+        "channels": ["in_app", "email"],
+        "paused": false,
+        "fee_db": {"evaluation_usd": 0.0003, "delivery_usd": 0.001, "tier": "standard"}
+      },
+      {
+        "rule_id": "cm-002",
+        "user_id": "default",
+        "name": "BTC NVT high",
+        "metric": "nvt",
+        "condition": {"field": "nvt", "operator": ">=", "threshold": 80},
+        "current_value": 42.5,
+        "channels": ["in_app"],
+        "paused": false
+      },
+      {
+        "rule_id": "cm-003",
+        "user_id": "default",
+        "name": "BTC price alert",
+        "metric": "price",
+        "condition": {"field": "price", "operator": ">=", "threshold": 100000},
+        "current_value": 98500,
+        "channels": ["in_app", "email"],
+        "paused": true,
+        "last_fired_at": "2026-08-27T14:00:00+00:00"
+      }
+    ],
+    "delivery_log": [
+      {
+        "alert_id": "cm-del-001",
+        "rule_id": "cm-001",
+        "channel": "in_app",
+        "attempts": 1,
+        "success": true,
+        "timestamp": "2026-08-27T15:00:00+00:00"
+      },
+      {
+        "alert_id": "cm-del-002",
+        "rule_id": "cm-001",
+        "channel": "email",
+        "attempts": 2,
+        "success": true,
+        "timestamp": "2026-08-27T15:00:02+00:00"
+      }
+    ],
+    "e2e_daily": {
+      "fixtures": [
+        {"id": "rsi_trigger", "rule": {"rule_id": "cm-001", "metric": "rsi", "condition": {"field": "rsi_14", "operator": ">=", "threshold": 70}, "current_value": 72, "channels": ["in_app"]}, "expected_triggered": true, "channel": "in_app", "delivery_within_sec": 60},
+        {"id": "nvt_no_trigger", "rule": {"rule_id": "cm-002", "metric": "nvt", "condition": {"field": "nvt", "operator": ">=", "threshold": 80}, "current_value": 42.5}, "expected_triggered": false, "channel": "in_app"}
+      ]
+    }
   }
 }

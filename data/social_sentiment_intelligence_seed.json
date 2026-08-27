@@ -1,0 +1,103 @@
+{
+  "feature_id": 783,
+  "absorbed_feature_ids": [780, 782],
+  "title": "Social Sentiment Intelligence",
+  "standalone": false,
+  "merged_into": "Market Radar Sentiment Layer",
+  "rule_set_version": "1.0",
+  "last_updated": "2026-08-27",
+  "keyword_counts": {"en": 500, "ar": 300},
+  "keyword_count": 800,
+  "languages": ["EN", "AR"],
+  "min_mentions_for_score": 100,
+  "confidence_tiers": {
+    "low_pct": 25,
+    "medium_min": 100,
+    "medium_pct": 50,
+    "high_min": 500,
+    "high_pct": 75,
+    "very_high_min": 1000,
+    "very_high_pct": 90
+  },
+  "source_weights": {
+    "tier1": {"weight": 3, "sources": ["twitter_verified", "crypto_news_rss", "coindesk_rss", "theblock_rss"]},
+    "tier2": {"weight": 1, "sources": ["reddit_forum", "telegram_forum", "discord_forum"]}
+  },
+  "spam_handling_758": {
+    "bot_exclusion": true,
+    "duplicate_user_exclusion": true,
+    "bot_user_ids": ["bot_001", "bot_002", "spam_bot_99"],
+    "duplicate_user_threshold": 3
+  },
+  "hourly_aggregation": {
+    "bucket_size": "1H",
+    "buckets": [
+      {"hour": "2026-08-27T18:00:00Z", "weighted_score": 62.5, "mentions": 180},
+      {"hour": "2026-08-27T19:00:00Z", "weighted_score": 58.0, "mentions": 210},
+      {"hour": "2026-08-27T20:00:00Z", "weighted_score": 65.2, "mentions": 195},
+      {"hour": "2026-08-27T21:00:00Z", "weighted_score": 61.8, "mentions": 220}
+    ]
+  },
+  "sentiment_balance_782": {
+    "formula_version": "1.0",
+    "fee_db": {"balance_computation_usd": 0.001, "tier": "standard"},
+    "historical_series": {
+      "BTC": [12.5, 18.0, 22.3, 35.0, 28.5, 42.0, 38.5, 45.2, 40.0, 48.5],
+      "ETH": [-5.0, 2.0, 8.5, 12.0, 5.5, -2.0, 10.0, 15.5, 8.0, 12.5],
+      "default": [0.0, 5.0, 10.0, 8.0, 12.0, 15.0, 10.0, 18.0, 14.0, 20.0]
+    }
+  },
+  "fee_db": {
+    "social_api_usd": 0.008,
+    "processing_usd": 0.002,
+    "multilingual_qa_usd": 0.001,
+    "tier": "standard"
+  },
+  "multilingual_qa": {
+    "languages_tested": ["EN", "AR"],
+    "en_accuracy_pct": 82.5,
+    "ar_accuracy_pct": 87.0,
+    "min_accuracy_pct": 75.0,
+    "ar_min_accuracy_pct": 85.0,
+    "daily_arabic_samples": 50
+  },
+  "trending_words_758": {
+    "BTC": {
+      "words": [
+        {"word": "ETF", "mentions": 420, "source_tier": "tier1", "user_id": "user_a1"},
+        {"word": "bullish", "mentions": 310, "source_tier": "tier1", "user_id": "user_b2"},
+        {"word": "pump", "mentions": 85, "source_tier": "tier2", "user_id": "user_c3"},
+        {"word": "accumulation", "mentions": 195, "source_tier": "tier1", "user_id": "user_d4"},
+        {"word": "halving", "mentions": 140, "source_tier": "tier1", "user_id": "user_e5"},
+        {"word": "صعود", "mentions": 88, "source_tier": "tier1", "user_id": "user_ar1", "language": "AR"},
+        {"word": "ETF", "mentions": 50, "source_tier": "tier1", "user_id": "user_a1"},
+        {"word": "bot_spam", "mentions": 200, "source_tier": "tier2", "user_id": "bot_001", "is_bot": true}
+      ]
+    },
+    "ETH": {
+      "words": [
+        {"word": "upgrade", "mentions": 180, "source_tier": "tier1", "user_id": "user_f1"},
+        {"word": "staking", "mentions": 220, "source_tier": "tier1", "user_id": "user_g2"},
+        {"word": "bearish", "mentions": 95, "source_tier": "tier2", "user_id": "user_h3"},
+        {"word": "L2", "mentions": 160, "source_tier": "tier1", "user_id": "user_i4"},
+        {"word": "هبوط", "mentions": 45, "source_tier": "tier1", "user_id": "user_ar2", "language": "AR"}
+      ]
+    },
+    "LOW_SAMPLE": {
+      "words": [
+        {"word": "niche", "mentions": 12, "source_tier": "tier2", "user_id": "user_x1"},
+        {"word": "obscure", "mentions": 8, "source_tier": "tier2", "user_id": "user_x2"}
+      ]
+    }
+  },
+  "keyword_rules": {
+    "positive": ["bullish", "accumulation", "upgrade", "staking", "inflow", "صعود", "ارتفاع"],
+    "negative": ["bearish", "dump", "crash", "outflow", "هبوط", "انخفاض", "pump"],
+    "neutral": ["flat", "sideways", "consolidation", "محايد"]
+  },
+  "assets": {
+    "BTC": {"display_name": "Bitcoin"},
+    "ETH": {"display_name": "Ethereum"},
+    "LOW_SAMPLE": {"display_name": "Low Sample Asset"}
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "feature_id": 789,
+  "title": "Infrastructure Observability Stack",
+  "standalone": false,
+  "sprint": 0,
+  "internal_admin_only": true,
+  "not_user_alert_system": true,
+  "sre_stack_789": {
+    "components": {
+      "prometheus": {"enabled": true, "endpoint": "/metrics", "scrape_interval_sec": 15},
+      "grafana": {"enabled": true, "dashboard": "blackdark-internal", "access": "team_only"},
+      "loki": {"enabled": true, "retention_days": 30},
+      "jaeger": {"enabled": true, "trace_sampling_pct": 10},
+      "pagerduty": {"enabled": true, "service": "blackdark-infra", "escalation": "devops_oncall"}
+    },
+    "slos": {
+      "uptime_target_pct": 99.9,
+      "latency_p99_max_ms": 500,
+      "error_rate_max_pct": 0.1
+    },
+    "current_metrics": {
+      "uptime_pct": 99.95,
+      "latency_p99_ms": 320,
+      "error_rate_pct": 0.05,
+      "cpu_utilization_pct": 42.0,
+      "memory_utilization_pct": 58.0
+    },
+    "fee_db": {"infra_monitoring_usd": 50.0, "tier": "ops"}
+  }
+}

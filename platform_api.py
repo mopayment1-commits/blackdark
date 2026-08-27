@@ -388,6 +388,46 @@ async def ingestion_coingecko_sync():
     return await run_coingecko_primary_ingest()
 
 
+@router.get("/ingestion/telegram/status")
+async def ingestion_telegram_status():
+    """#795 — Telegram connector health (internal Data Ingestion Layer)."""
+    from blackdark.ingestion.telegram_connector import telegram_connector_status
+
+    return telegram_connector_status()
+
+
+@router.get("/ingestion/telegram/messages")
+async def ingestion_telegram_messages(asset: str = Query("BTC"), channel_id: str | None = Query(None)):
+    """#795 — normalized public channel messages for #783/#758."""
+    from blackdark.ingestion.telegram_connector import fetch_telegram_public_channel_messages
+
+    return await fetch_telegram_public_channel_messages(asset, channel_id=channel_id)
+
+
+@router.get("/ingestion/telegram/mentions")
+async def ingestion_telegram_mentions(asset: str = Query("BTC")):
+    """#795 — mention words for sentiment/trending integration."""
+    from blackdark.ingestion.telegram_connector import get_telegram_mention_words_795
+
+    return get_telegram_mention_words_795(asset)
+
+
+@router.post("/ingestion/telegram/sync")
+async def ingestion_telegram_sync():
+    """#795 — ingest Telegram sentiment streams into data lake."""
+    from blackdark.ingestion.telegram_connector import run_telegram_sentiment_ingest
+
+    return await run_telegram_sentiment_ingest()
+
+
+@router.get("/ingestion/telegram/qa")
+async def ingestion_telegram_qa():
+    """#795 — connector QA acceptance tests."""
+    from blackdark.ingestion.telegram_connector import run_telegram_connector_qa_795
+
+    return run_telegram_connector_qa_795()
+
+
 @router.get("/alpha/signal")
 async def alpha_engine_signal(asset: str = Query("BTC")):
     """Alpha Engine (#13) — unified signal from all input sources."""
@@ -2493,6 +2533,31 @@ async def token_circulation_qa_route(asset: str = Query("BTC")):
     }
 
 
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/nvt-ratio")
+async def nvt_ratio_route(asset: str = Query("BTC")):
+    """#761 NVT Ratio — merged into #577 (daily volume, not P/E)."""
+    from bd_platform.onchain_metrics_library import build_nvt_ratio_suite_761
+
+    result = build_nvt_ratio_suite_761(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/nvt-ratio/qa")
+async def nvt_ratio_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_nvt_reconciliation_qa_761
+
+    return run_nvt_reconciliation_qa_761(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/nvt-ratio/overvaluation-flag")
+async def nvt_overvaluation_flag_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_nvt_overvaluation_flag_ledger_761
+
+    return build_nvt_overvaluation_flag_ledger_761(asset)
+
+
 @router.get("/intelligence-ledger/investment-thesis/status")
 async def investment_thesis_scoring_status_route():
     """#472 Investment Thesis Scoring — Intelligence Ledger (not price probability)."""
@@ -3372,6 +3437,335 @@ async def market_radar_combined_panel_route(
     from bd_platform.market_radar_indicators import build_market_radar_panel
 
     return build_market_radar_panel(exchange, asset)
+
+
+@router.get("/intelligence-ledger/market-radar/news-digest")
+async def market_radar_news_digest_route(asset: str = Query("BTC"), limit: int = Query(10, ge=1, le=50)):
+    """#768 Market News Digest — merged into Market Radar, source links mandatory."""
+    from bd_platform.ai_content_engine import build_news_digest_layer_768
+
+    return build_news_digest_layer_768(asset, limit=limit)
+
+
+@router.get("/intelligence-ledger/market-radar/news-digest/qa")
+async def market_radar_news_digest_qa_route():
+    from bd_platform.ai_content_engine import run_news_digest_hallucination_tests_768
+
+    return run_news_digest_hallucination_tests_768()
+
+
+@router.get("/intelligence-ledger/market-radar/news-digest/landing")
+async def landing_news_digest_route(limit: int = Query(3, ge=1, le=10)):
+    from bd_platform.ai_content_engine import build_landing_news_digest_widget_768
+
+    return build_landing_news_digest_widget_768(limit=limit)
+
+
+@router.get("/intelligence-ledger/viral-loop/status")
+async def viral_loop_status_route():
+    """#797 Viral Intelligence Distribution Loop — merged into Landing + Market Radar."""
+    from bd_platform.viral_intelligence_distribution_loop import viral_intelligence_distribution_status_797
+
+    return viral_intelligence_distribution_status_797()
+
+
+@router.get("/intelligence-ledger/viral-loop/landing")
+async def viral_loop_landing_widget_route(
+    event_id: str = Query("evt-btc-vol-001"),
+    user_tier: str = Query("free"),
+    user_id: str = Query("default"),
+):
+    from bd_platform.viral_intelligence_distribution_loop import build_landing_viral_share_widget_797
+
+    return build_landing_viral_share_widget_797(event_id, user_tier=user_tier, user_id=user_id)
+
+
+@router.get("/intelligence-ledger/viral-loop/share")
+async def viral_loop_market_radar_share_route(
+    asset: str = Query("BTC"),
+    user_tier: str = Query("free"),
+    user_id: str = Query("default"),
+):
+    from bd_platform.viral_intelligence_distribution_loop import build_market_radar_share_action_797
+
+    return build_market_radar_share_action_797(asset, user_tier=user_tier, user_id=user_id)
+
+
+@router.get("/intelligence-ledger/viral-loop/card/{event_id}")
+async def viral_loop_share_card_route(
+    event_id: str,
+    user_tier: str = Query("free"),
+    user_id: str = Query("default"),
+):
+    from bd_platform.viral_intelligence_distribution_loop import _load_seed, build_shareable_intelligence_card_797
+
+    seed = _load_seed()
+    user_state = (seed.get("user_states") or {}).get(user_id) or {}
+    return build_shareable_intelligence_card_797(event_id, user_tier=user_tier, user_state=user_state, seed=seed)
+
+
+@router.get("/intelligence-ledger/viral-loop/event/{event_id}")
+async def viral_loop_event_landing_route(
+    event_id: str,
+    ref: str | None = Query(None),
+):
+    """Deep link context: /radar/event/[id]?ref=[code]."""
+    from bd_platform.viral_intelligence_distribution_loop import build_event_landing_context_797
+
+    return build_event_landing_context_797(event_id, ref)
+
+
+@router.get("/intelligence-ledger/viral-loop/attribution")
+async def viral_loop_attribution_funnel_route():
+    from bd_platform.viral_intelligence_distribution_loop import build_attribution_funnel_summary_797
+
+    return build_attribution_funnel_summary_797()
+
+
+@router.get("/intelligence-ledger/viral-loop/e2e")
+async def viral_loop_e2e_route():
+    from bd_platform.viral_intelligence_distribution_loop import run_viral_distribution_e2e_797
+
+    return run_viral_distribution_e2e_797()
+
+
+@router.get("/intelligence-ledger/market-radar/macro-coupling")
+async def market_radar_macro_coupling_route(asset: str = Query("BTC"), window: str = Query("90D")):
+    """#774 BTC-to-Macro Coupling — merged into Market Radar macro context overlay."""
+    from bd_platform.market_radar_indicators import build_btc_macro_coupling_overlay_774
+
+    return build_btc_macro_coupling_overlay_774(asset, window=window)
+
+
+@router.get("/intelligence-ledger/market-radar/macro-coupling/qa")
+async def market_radar_macro_coupling_qa_route(asset: str = Query("BTC")):
+    from bd_platform.market_radar_indicators import run_macro_coupling_qa_774
+
+    return run_macro_coupling_qa_774(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/macro-coupling/asset-card")
+async def macro_coupling_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.market_radar_indicators import build_asset_card_macro_coupling_774
+
+    return build_asset_card_macro_coupling_774(asset)
+
+
+@router.get("/intelligence-ledger/signals/validation/status")
+async def signal_validation_status_route():
+    from bd_platform.signal_validation_layer import signal_validation_layer_status
+
+    return signal_validation_layer_status()
+
+
+@router.get("/intelligence-ledger/signals/validation")
+async def signal_validation_panel_route(asset: str = Query("BTC")):
+    """#776 Cross-Signal Validation — merged into Signal Engine."""
+    from bd_platform.signal_validation_layer import build_signal_validation_panel_776
+
+    return build_signal_validation_panel_776(asset)
+
+
+@router.get("/intelligence-ledger/signals/validation/signal-card")
+async def signal_validation_card_route(asset: str = Query("BTC")):
+    from bd_platform.signal_validation_layer import build_signal_card_cross_validation_776
+
+    return build_signal_card_cross_validation_776(asset)
+
+
+@router.get("/intelligence-ledger/signals/validation/ledger")
+async def signal_validation_ledger_route(asset: str = Query("BTC")):
+    from bd_platform.signal_validation_layer import build_intelligence_ledger_signal_quality_776
+
+    return build_intelligence_ledger_signal_quality_776(asset)
+
+
+@router.get("/intelligence-ledger/signals/validation/qa")
+async def signal_validation_qa_route():
+    from bd_platform.signal_validation_layer import run_signal_validation_qa_776
+
+    return run_signal_validation_qa_776()
+
+
+@router.get("/intelligence-ledger/signals/validation/combined-card")
+async def signal_validation_combined_card_route(asset: str = Query("BTC")):
+    """#776+#779+#777 — cross-domain + cross-timeframe + evidence trail."""
+    from bd_platform.signal_validation_layer import build_signal_card_combined_validation_776_779
+
+    return build_signal_card_combined_validation_776_779(asset)
+
+
+@router.get("/intelligence-ledger/signals/mtf/status")
+async def mtf_validation_status_route():
+    from bd_platform.mtf_validation_layer import mtf_validation_layer_status
+
+    return mtf_validation_layer_status()
+
+
+@router.get("/intelligence-ledger/signals/mtf")
+async def mtf_validation_panel_route(asset: str = Query("BTC")):
+    """#779 MTF Validation — merged into Signal Engine."""
+    from bd_platform.mtf_validation_layer import build_mtf_validation_panel_779
+
+    return build_mtf_validation_panel_779(asset)
+
+
+@router.get("/intelligence-ledger/signals/mtf/signal-card")
+async def mtf_validation_card_route(asset: str = Query("BTC")):
+    from bd_platform.mtf_validation_layer import build_signal_card_mtf_panel_779
+
+    return build_signal_card_mtf_panel_779(asset)
+
+
+@router.get("/intelligence-ledger/signals/mtf/backtest")
+async def mtf_validation_backtest_route():
+    from bd_platform.mtf_validation_layer import run_mtf_backtest_779
+
+    return run_mtf_backtest_779()
+
+
+@router.get("/intelligence-ledger/signals/mtf/qa")
+async def mtf_validation_qa_route():
+    from bd_platform.mtf_validation_layer import run_mtf_alignment_tests_779
+
+    return run_mtf_alignment_tests_779()
+
+
+@router.get("/intelligence-ledger/evidence-layer/status")
+async def evidence_layer_middleware_status_route():
+    """#777 Evidence & Confidence middleware — cross-cutting, not standalone."""
+    from bd_platform.evidence_confidence_middleware import evidence_confidence_status
+
+    return evidence_confidence_status()
+
+
+@router.get("/intelligence-ledger/evidence-layer/audit")
+async def evidence_layer_audit_route():
+    from bd_platform.evidence_confidence_middleware import run_evidence_confidence_audit_777
+
+    return run_evidence_confidence_audit_777()
+
+
+@router.get("/intelligence-ledger/evidence-layer/asset-card")
+async def evidence_layer_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.evidence_confidence_middleware import build_asset_card_evidence_badge_777
+
+    return build_asset_card_evidence_badge_777({"asset": asset, "confidence_pct": 72})
+
+
+@router.get("/intelligence-ledger/evidence-layer/report-footer")
+async def evidence_layer_report_footer_route():
+    from bd_platform.evidence_confidence_middleware import (
+        build_report_evidence_footer_777,
+        enrich_insight_payload,
+    )
+
+    insights = [
+        enrich_insight_payload(
+            {"title": "BTC macro coupling", "confidence_pct": 68},
+            system="market_radar",
+            endpoint="/intelligence-ledger/market-radar/macro-coupling",
+            source_tier="market_radar",
+            age_seconds=180,
+        ),
+        enrich_insight_payload(
+            {"title": "Signal validation", "validation_status": "Mixed", "confidence_pct": 67},
+            system="signal_engine",
+            endpoint="/intelligence-ledger/signals/validation",
+            source_tier="signal_engine",
+            age_seconds=60,
+        ),
+    ]
+    return build_report_evidence_footer_777(insights)
+
+
+@router.get("/intelligence-ledger/evidence-layer/signal-trail")
+async def evidence_layer_signal_trail_route(asset: str = Query("BTC")):
+    from bd_platform.evidence_confidence_middleware import build_signal_card_evidence_trail_777
+    from bd_platform.signal_validation_layer import build_signal_validation_panel_776
+
+    panel = build_signal_validation_panel_776(asset)
+    return build_signal_card_evidence_trail_777(panel)
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/status")
+async def sentiment_intelligence_status_route():
+    from bd_platform.social_sentiment_intelligence import social_sentiment_intelligence_status
+
+    return social_sentiment_intelligence_status()
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment")
+async def sentiment_intelligence_panel_route(asset: str = Query("BTC")):
+    """#783 Social Sentiment Intelligence — absorbs #780, merged into Market Radar."""
+    from bd_platform.social_sentiment_intelligence import build_sentiment_intelligence_panel_783
+
+    return build_sentiment_intelligence_panel_783(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/qa")
+async def sentiment_intelligence_qa_route():
+    from bd_platform.social_sentiment_intelligence import run_sentiment_intelligence_qa_783
+
+    return run_sentiment_intelligence_qa_783()
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/balance")
+async def sentiment_balance_widget_route(asset: str = Query("BTC")):
+    """#782 sentiment_balance metric — merged into #783 sentiment layer."""
+    from bd_platform.social_sentiment_intelligence import build_market_radar_sentiment_balance_widget_782
+
+    return build_market_radar_sentiment_balance_widget_782(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/asset-card")
+async def sentiment_asset_card_badge_route(asset: str = Query("BTC")):
+    from bd_platform.social_sentiment_intelligence import build_asset_card_sentiment_badge_783
+
+    return build_asset_card_sentiment_badge_783(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/balance/asset-card")
+async def sentiment_balance_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.social_sentiment_intelligence import build_asset_card_balance_sparkline_782
+
+    return build_asset_card_balance_sparkline_782(asset)
+
+
+@router.get("/intelligence-ledger/signals/attribution/status")
+async def signal_attribution_status_route():
+    from bd_platform.signal_attribution_layer import signal_attribution_layer_status
+
+    return signal_attribution_layer_status()
+
+
+@router.get("/intelligence-ledger/signals/attribution")
+async def signal_attribution_panel_route(asset: str = Query("BTC")):
+    """#781 Signal Attribution — why this signal? (rule-based, no generic text)."""
+    from bd_platform.signal_attribution_layer import build_signal_attribution_panel_781
+
+    return build_signal_attribution_panel_781(asset)
+
+
+@router.get("/intelligence-ledger/signals/attribution/signal-card")
+async def signal_attribution_card_route(asset: str = Query("BTC")):
+    from bd_platform.signal_attribution_layer import build_signal_card_attribution_panel_781
+
+    return build_signal_card_attribution_panel_781(asset)
+
+
+@router.get("/intelligence-ledger/signals/attribution/asset-card")
+async def signal_attribution_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.signal_attribution_layer import build_asset_card_attribution_details_781
+
+    return build_asset_card_attribution_details_781(asset)
+
+
+@router.get("/intelligence-ledger/signals/attribution/qa")
+async def signal_attribution_qa_route():
+    from bd_platform.signal_attribution_layer import run_signal_attribution_qa_781
+
+    return run_signal_attribution_qa_781()
 
 
 @router.get("/intelligence-ledger/market-radar/sector-pulse")
@@ -4372,6 +4766,70 @@ async def natural_language_interpreter_route(
     return build_nli_panel(query=query, user_tier=user_tier)
 
 
+@router.get("/intelligence-ledger/ux-layer/data-assistant/landing")
+async def landing_ask_blackdark_route(
+    query: str = Query("What is Bitcoin's NVT?"),
+    user_tier: str = Query("guest"),
+):
+    """#766 Landing widget — اسأل BLACKDARK (not AI Chat)."""
+    from bd_platform.natural_language_interpreter import build_landing_ask_widget_766
+
+    return build_landing_ask_widget_766(query=query, user_tier=user_tier)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/data-assistant")
+async def portfolio_data_assistant_route(
+    query: str = Query("What is my portfolio exposure?"),
+    user_tier: str = Query("authenticated"),
+):
+    """#766 Portfolio AI tab — مساعد البيانات (#767 data_query intent)."""
+    from bd_platform.natural_language_interpreter import build_portfolio_data_assistant_panel_766
+
+    return build_portfolio_data_assistant_panel_766(query=query, user_tier=user_tier)
+
+
+@router.get("/intelligence-ledger/ux-layer/data-assistant/explain-signal")
+async def explain_signal_route(
+    asset: str = Query("BTC"),
+    signal_id: str | None = Query(None),
+    user_tier: str = Query("guest"),
+):
+    """#771 explain_signal intent — تفصيل الإشارة (merged into #766)."""
+    from bd_platform.natural_language_interpreter import build_explain_signal_explanation_771
+
+    return build_explain_signal_explanation_771(asset, signal_id=signal_id, user_tier=user_tier)
+
+
+@router.get("/intelligence-ledger/ux-layer/data-assistant/explain-signal/signal-card")
+async def signal_card_explanation_route(
+    asset: str = Query("BTC"),
+    signal_id: str | None = Query(None),
+    user_tier: str = Query("guest"),
+):
+    """#771 Signal Card expandable analysis details."""
+    from bd_platform.natural_language_interpreter import build_signal_card_explanation_panel_771
+
+    return build_signal_card_explanation_panel_771(asset, signal_id=signal_id, user_tier=user_tier)
+
+
+@router.get("/intelligence-ledger/ux-layer/data-assistant/explain-signal/eval-suite")
+async def explain_signal_eval_suite_route():
+    from bd_platform.natural_language_interpreter import run_explain_signal_eval_suite_771
+
+    return run_explain_signal_eval_suite_771()
+
+
+@router.get("/intelligence-ledger/ux-layer/data-assistant/research")
+async def research_query_route(
+    query: str = Query("Research Bitcoin on-chain metrics and NVT"),
+    user_tier: str = Query("guest"),
+):
+    """#770 research_query intent — multi-tool grounded retrieval (merged into #766)."""
+    from bd_platform.natural_language_interpreter import build_research_query_response_770
+
+    return build_research_query_response_770(query, user_tier=user_tier)
+
+
 @router.get("/intelligence-ledger/ux-layer/natural-language/reconciliation-tests")
 async def natural_language_reconciliation_tests_route():
     from bd_platform.natural_language_interpreter import run_reconciliation_tests
@@ -5029,6 +5487,184 @@ async def market_radar_technical_chart_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/market-radar/chart")
+async def market_radar_interactive_chart_route(asset: str = Query("BTC")):
+    """#800 Interactive chart overlay — Streamlit rejected, TradingView Lightweight Charts."""
+    from bd_platform.market_radar_indicators import build_interactive_chart_overlay_800
+
+    result = build_interactive_chart_overlay_800(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/chart/asset-card")
+async def market_radar_chart_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.market_radar_indicators import build_asset_card_technical_chart_800
+
+    return build_asset_card_technical_chart_800(asset)
+
+
+@router.get("/intelligence-ledger/ux-layer/view-modes/status")
+async def view_modes_status_route():
+    """#804 Beginner/Professional cross-cutting UX pattern."""
+    from ux_mode import beginner_professional_modes_status_804
+
+    return beginner_professional_modes_status_804()
+
+
+@router.get("/intelligence-ledger/ux-layer/view-modes/asset-card")
+async def view_modes_asset_card_route(
+    asset: str = Query("BTC"),
+    view_mode: str = Query("beginner"),
+):
+    from ux_mode import build_asset_card_view_modes_804
+
+    return build_asset_card_view_modes_804(asset, view_mode=view_mode)
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/status")
+async def query_scheduler_status_route():
+    """#818 Scheduled Queries — Data Engine query_scheduler component."""
+    from bd_platform.data_engine_query_scheduler import query_scheduler_status_818
+
+    return query_scheduler_status_818()
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/queries")
+async def query_scheduler_list_route():
+    from bd_platform.data_engine_query_scheduler import list_scheduled_queries_818
+
+    return list_scheduled_queries_818()
+
+
+@router.post("/intelligence-ledger/data-engine/query-scheduler/execute")
+async def query_scheduler_execute_route(query_id: str = Query(...)):
+    from bd_platform.data_engine_query_scheduler import run_scheduled_query_with_retries_818
+
+    return run_scheduled_query_with_retries_818(query_id)
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/retry-logs")
+async def query_scheduler_retry_logs_route(query_id: str | None = Query(None), limit: int = Query(50)):
+    from bd_platform.data_engine_query_scheduler import list_query_retry_logs_818
+
+    return list_query_retry_logs_818(query_id=query_id, limit=limit)
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/failure-logs")
+async def query_scheduler_failure_logs_route(limit: int = Query(50)):
+    from bd_platform.data_engine_query_scheduler import list_query_failure_logs_818
+
+    return list_query_failure_logs_818(limit=limit)
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/market-radar-refresh")
+async def query_scheduler_market_radar_refresh_route(asset: str = Query("BTC")):
+    from bd_platform.data_engine_query_scheduler import build_market_radar_scheduled_refresh_818
+
+    return build_market_radar_scheduled_refresh_818(asset)
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/e2e")
+async def query_scheduler_e2e_route():
+    from bd_platform.data_engine_query_scheduler import run_query_scheduler_e2e_818
+
+    return run_query_scheduler_e2e_818()
+
+
+@router.get("/intelligence-ledger/ux-layer/progressive-disclosure/status")
+async def progressive_disclosure_status_route():
+    """#815 Progressive Disclosure — cross-cutting UX pattern."""
+    from ux_mode import progressive_disclosure_status_815
+
+    return progressive_disclosure_status_815()
+
+
+@router.get("/intelligence-ledger/ux-layer/progressive-disclosure/asset-card")
+async def progressive_disclosure_asset_card_route(
+    asset: str = Query("BTC"),
+    expanded: bool = Query(False),
+):
+    from ux_mode import build_asset_card_progressive_disclosure_815
+
+    return build_asset_card_progressive_disclosure_815(asset, expanded=expanded)
+
+
+@router.get("/intelligence-ledger/ux-layer/progressive-disclosure/report")
+async def progressive_disclosure_report_route(
+    report_id: str = Query("market-brief"),
+    expanded: bool = Query(False),
+):
+    from ux_mode import build_report_progressive_disclosure_815
+
+    return build_report_progressive_disclosure_815(report_id, expanded=expanded)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/activity-metrics")
+async def activity_metrics_suite_route(asset: str = Query("BTC")):
+    """#801 Activity Metrics — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_activity_metrics_suite_801
+
+    result = build_activity_metrics_suite_801(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/activity-metrics/qa")
+async def activity_metrics_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_activity_metrics_qa_801
+
+    return run_activity_metrics_qa_801(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/activity-metrics/market-radar")
+async def activity_metrics_market_radar_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_market_radar_activity_metrics_widget_801
+
+    return build_market_radar_activity_metrics_widget_801(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/activity-metrics/asset-card")
+async def activity_metrics_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_asset_card_activity_sparkline_801
+
+    return build_asset_card_activity_sparkline_801(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/exchange-activity")
+async def exchange_activity_suite_route(asset: str = Query("BTC")):
+    """#810 Exchange User Activity — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_exchange_activity_suite_810
+
+    result = build_exchange_activity_suite_810(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/exchange-activity/qa")
+async def exchange_activity_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_exchange_activity_qa_810
+
+    return run_exchange_activity_qa_810(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/exchange-activity/market-radar")
+async def exchange_activity_market_radar_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_market_radar_exchange_activity_widget_810
+
+    return build_market_radar_exchange_activity_widget_810(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/exchange-activity/asset-card")
+async def exchange_activity_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_asset_card_exchange_flow_sparkline_810
+
+    return build_asset_card_exchange_flow_sparkline_810(asset)
+
+
 @router.get("/intelligence-ledger/portfolio-ai/alerts")
 async def portfolio_ai_alerts_route():
     """#759 Portfolio AI alert layer."""
@@ -5052,6 +5688,121 @@ async def notifications_qa_route():
     return run_alerts_qa_tests_759()
 
 
+@router.get("/intelligence-ledger/alert-engine/backend")
+async def alert_backend_orchestration_route():
+    """#786 Alert Orchestration — backend component merged into #759."""
+    from bd_platform.alert_engine import build_alert_backend_orchestration_786
+
+    return build_alert_backend_orchestration_786()
+
+
+@router.get("/intelligence-ledger/alert-engine/custom-metrics/status")
+async def custom_metric_alerts_status_route():
+    from bd_platform.alert_engine import custom_metric_alerts_status_788
+
+    return custom_metric_alerts_status_788()
+
+
+@router.get("/intelligence-ledger/alert-engine/custom-metrics")
+async def custom_metric_alerts_panel_route(user_id: str = Query("default")):
+    """#788 Custom Metric Alerts — merged into #759."""
+    from bd_platform.alert_engine import build_custom_metric_alerts_panel_788
+
+    return build_custom_metric_alerts_panel_788(user_id)
+
+
+@router.get("/intelligence-ledger/alert-engine/custom-metrics/delivery-logs")
+async def custom_metric_alerts_delivery_logs_route(limit: int = Query(50, ge=1, le=200)):
+    from bd_platform.alert_engine import list_custom_alert_delivery_logs_788
+
+    return list_custom_alert_delivery_logs_788(limit=limit)
+
+
+@router.get("/intelligence-ledger/alert-engine/custom-metrics/e2e")
+async def custom_metric_alerts_e2e_route():
+    from bd_platform.alert_engine import run_custom_metric_alerts_e2e_788
+
+    return run_custom_metric_alerts_e2e_788()
+
+
+@router.post("/intelligence-ledger/alert-engine/custom-metrics/manage")
+async def custom_metric_alerts_manage_route(
+    rule_id: str = Query(...),
+    action: str = Query(..., pattern="^(pause|resume|delete|edit)$"),
+):
+    from bd_platform.alert_engine import manage_custom_alert_rule_788
+
+    return manage_custom_alert_rule_788(rule_id, action)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics")
+async def supply_dynamics_suite_route(asset: str = Query("BTC")):
+    """#794 Supply Dynamics — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_supply_dynamics_suite_794
+
+    return build_supply_dynamics_suite_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics/qa")
+async def supply_dynamics_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_supply_reconciliation_qa_794
+
+    return run_supply_reconciliation_qa_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics/market-radar")
+async def supply_dynamics_market_radar_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_market_radar_supply_dynamics_widget_794
+
+    return build_market_radar_supply_dynamics_widget_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics/asset-card")
+async def supply_dynamics_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_asset_card_supply_structure_794
+
+    return build_asset_card_supply_structure_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics/risk-flag")
+async def supply_dynamics_risk_flag_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_revived_supply_risk_flag_ledger_794
+
+    return build_revived_supply_risk_flag_ledger_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/realized-cap")
+async def realized_cap_suite_route(asset: str = Query("BTC")):
+    """#816 Realized Cap — merged into #577 (UTXO chains only)."""
+    from bd_platform.onchain_metrics_library import build_realized_cap_suite_816
+
+    result = build_realized_cap_suite_816(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/realized-cap/qa")
+async def realized_cap_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_realized_cap_qa_816
+
+    return run_realized_cap_qa_816(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/realized-cap/market-radar")
+async def realized_cap_market_radar_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_market_radar_realized_cap_widget_816
+
+    return build_market_radar_realized_cap_widget_816(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/realized-cap/asset-card")
+async def realized_cap_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_asset_card_realized_cap_sparkline_816
+
+    return build_asset_card_realized_cap_sparkline_816(asset)
+
+
 @router.get("/intelligence-ledger/data-layer/asset-registry/indicator-panel")
 async def asset_card_indicator_panel_route(asset: str = Query("BTC")):
     """#755 Asset Card Indicator Panel."""
@@ -5069,6 +5820,28 @@ async def system_performance_monitor_status_route(_admin: dict = Depends(require
     from bd_platform.system_performance_monitor import system_performance_monitor_status
 
     return system_performance_monitor_status()
+
+
+@router.get("/internal/infrastructure-observability/status")
+async def infrastructure_observability_status_route(_admin: dict = Depends(require_admin)):
+    """#789 SRE observability — NOT user alerts (admin only)."""
+    from bd_platform.infrastructure_observability_stack import infrastructure_observability_status_789
+
+    return infrastructure_observability_status_789()
+
+
+@router.get("/internal/infrastructure-observability")
+async def infrastructure_observability_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_observability_stack import build_sre_observability_stack_789
+
+    return build_sre_observability_stack_789()
+
+
+@router.get("/internal/infrastructure-observability/slo-tests")
+async def infrastructure_observability_slo_tests_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_observability_stack import run_infra_observability_slo_tests_789
+
+    return run_infra_observability_slo_tests_789()
 
 
 @router.get("/internal/system-performance")

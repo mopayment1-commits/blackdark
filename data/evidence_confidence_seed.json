@@ -6,7 +6,7 @@
   "sprint": 2,
   "formula_version": "1.0",
   "methodology_version": "1.0",
-  "last_updated": "2026-08-25",
+  "last_updated": "2026-08-27",
   "calibration": {
     "last_calibration": "2026-08-01",
     "ground_truth_samples": 250,
@@ -107,5 +107,38 @@
         ]
       }
     }
+  },
+  "middleware_777": {
+    "feature_id": 777,
+    "title": "Evidence & Confidence Layer",
+    "schema_version": "1.0",
+    "default_age_seconds": 120
+  },
+  "audit_777": {
+    "sample_size": 100,
+    "timestamp_tolerance_s": 1.0,
+    "fixtures": [
+      {
+        "id": "oracle_price",
+        "system": "oracle_api",
+        "endpoint": "/api/oracle/price",
+        "source_tier": "oracle_api",
+        "payload": {"asset": "BTC", "price_usd": 64000, "confidence_pct": 95}
+      },
+      {
+        "id": "market_radar_nvt",
+        "system": "market_radar",
+        "endpoint": "/intelligence-ledger/market-radar/panel",
+        "source_tier": "market_radar",
+        "payload": {"nvt_ratio": 42.5, "confidence_pct": 72}
+      },
+      {
+        "id": "signal_validation",
+        "system": "signal_engine",
+        "endpoint": "/intelligence-ledger/signals/validation",
+        "source_tier": "signal_engine",
+        "payload": {"validation_status": "Contradictory", "confidence_pct": 67}
+      }
+    ]
   }
 }

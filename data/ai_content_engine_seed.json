@@ -140,5 +140,23 @@
         "stale_penalty_applied": true
       }
     ]
+  },
+  "news_digest_768": {
+    "feature_ref": 768,
+    "merged_into": "Market Radar",
+    "generative_deferred": true,
+    "fee_db": {
+      "news_api_usd": 0.005,
+      "summarization_usd": 0.001,
+      "tier": "standard"
+    },
+    "regression_fixtures": [
+      {
+        "id": "no_external_facts",
+        "article_text": "Bitcoin ETF sees $500M net inflow amid institutional demand.",
+        "expected_prefix": "The article states:",
+        "forbidden_additions": ["bullish", "bearish", "buy signal"]
+      }
+    ]
   }
 }
