@@ -1353,6 +1353,10 @@ async def _apply_migrations(db: Any) -> None:
 
     await _ensure_compounding_tables(db)
 
+    from blackdark.canonical.store import ensure_canonical_schema
+
+    await ensure_canonical_schema(db)
+
 
 async def _ensure_compounding_tables(db: Any) -> None:
     """Phases 2–7 institutional compounding tables."""

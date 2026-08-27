@@ -38,13 +38,25 @@
 
 ---
 
-## Wave 1 — Distribution & Growth Instrumentation (PENDING)
+## Wave 1 — Data Engine Sprint 1 (IMPLEMENTED — pending production proofs)
 
-> **Status:** NOT STARTED — await explicit confirmation after Wave 0.
+> **Status:** Code merged (PR #92); bootstrap ingest + curl/k6 proofs in progress.  
+> **Governing baseline:** [`BLACKDARK_CONTEXT.md`](BLACKDARK_CONTEXT.md) — institutional verdict remains **NOT READY**.
 
-- Viral attribution dashboard enhancements
-- SEO content performance pipeline
-- Referral program API hardening
+**Goal:** Foundational data collection and provenance layer (OHLCV, funding, open interest, events).
+
+| Deliverable | Path |
+|-------------|------|
+| 10 SQL migrations | `blackdark/data/migrations/001-010_*.sql` |
+| 7 API endpoints | `/api/v1/data/*` |
+| APScheduler jobs | Binance OHLCV 1m/1h, funding, CoinGecko |
+| Backfill CLI | `python -m blackdark.data backfill` |
+| Evidence doc | `WAVE_01_DATA_ENGINE.md` |
+
+### Out of scope (Wave 1)
+
+- Distribution & growth instrumentation (deferred)
+- Multi-region HA (Wave 3)
 
 ---
 

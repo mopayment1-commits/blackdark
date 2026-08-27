@@ -11,10 +11,13 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 
-from blackdark.data.db import data_engine_available, get_session
+from blackdark.data.db import data_engine_available, ensure_data_engine_ready, get_session
 from blackdark.data.ingestors.binance import ingest_funding, ingest_ohlcv, ingest_open_interest
 from blackdark.data.ingestors.coingecko import ingest_markets
+from blackdark.data.institutional import wave_01_institutional_status
+from blackdark.data.circuit_breaker import is_open as circuit_is_open
 from blackdark.data.provenance import get_provenance_by_record
+from blackdark.data.response_metadata import dataset_response
 from blackdark.data.repository import (
     data_engine_status,
     query_events,
@@ -39,6 +42,17 @@ def _require_postgres() -> None:
             status_code=503,
             detail="Wave 01 data engine requires PostgreSQL (DATABASE_URL=postgresql://...).",
         )
+
+
+async def _ensure_ready() -> None:
+    _require_postgres()
+    try:
+        await ensure_data_engine_ready()
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.exception("data engine ensure failed")
+        raise HTTPException(status_code=503, detail=f"data engine migration failed: {exc}") from exc
 
 
 def _parse_dt(value: str | None) -> datetime | None:
@@ -101,8 +115,9 @@ async def get_ohlcv(
     end_time: str | None = None,
     limit: int = Query(100, ge=1, le=1000),
     source: str | None = None,
+    _: None = Depends(_ensure_ready),
 ):
-    _require_postgres()
+    source_slug = source or "kraken"
     async with get_session() as session:
         rows = await query_ohlcv(
             session,
@@ -113,7 +128,16 @@ async def get_ohlcv(
             limit=limit,
             source_slug=source,
         )
-    return {"symbol": symbol.upper(), "interval": interval, "count": len(rows), "data": rows}
+    upstream_unknown = not rows and circuit_is_open(source_slug)
+    return dataset_response(
+        count=len(rows),
+        data=rows,
+        dataset="ohlcv",
+        symbol=symbol,
+        interval=interval,
+        latest_record_at=rows[0]["open_time"] if rows else None,
+        upstream_unknown=upstream_unknown,
+    )
 
 
 @router.get("/api/v1/data/funding")
@@ -123,18 +147,22 @@ async def get_funding(
     end_time: str | None = None,
     limit: int = Query(100, ge=1, le=1000),
     source: str | None = None,
+    _: None = Depends(_ensure_ready),
 ):
-    _require_postgres()
-    async with get_session() as session:
-        rows = await query_funding(
-            session,
-            symbol=symbol,
-            start_time=_parse_dt(start_time),
-            end_time=_parse_dt(end_time),
-            limit=limit,
-            source_slug=source,
-        )
-    return {"symbol": symbol.upper(), "count": len(rows), "data": rows}
+    try:
+        async with get_session() as session:
+            rows = await query_funding(
+                session,
+                symbol=symbol,
+                start_time=_parse_dt(start_time),
+                end_time=_parse_dt(end_time),
+                limit=limit,
+                source_slug=source,
+            )
+    except Exception as exc:
+        logger.exception("funding query failed")
+        raise HTTPException(status_code=503, detail=f"funding query failed: {exc}") from exc
+    return dataset_response(count=len(rows), data=rows, dataset="funding_rates", symbol=symbol)
 
 
 @router.get("/api/v1/data/open-interest")
@@ -144,8 +172,8 @@ async def get_open_interest(
     end_time: str | None = None,
     limit: int = Query(100, ge=1, le=1000),
     source: str | None = None,
+    _: None = Depends(_ensure_ready),
 ):
-    _require_postgres()
     async with get_session() as session:
         rows = await query_open_interest(
             session,
@@ -155,7 +183,7 @@ async def get_open_interest(
             limit=limit,
             source_slug=source,
         )
-    return {"symbol": symbol.upper(), "count": len(rows), "data": rows}
+    return dataset_response(count=len(rows), data=rows, dataset="open_interest", symbol=symbol)
 
 
 @router.get("/api/v1/data/provenance-lineage/status")
@@ -213,8 +241,7 @@ async def provenance_lineage_recompute_route(
 
 
 @router.get("/api/v1/data/provenance/{record_id}")
-async def get_provenance(record_id: UUID):
-    _require_postgres()
+async def get_provenance(record_id: UUID, _: None = Depends(_ensure_ready)):
     async with get_session() as session:
         row = await get_provenance_by_record(session, record_id)
     if not row:
@@ -222,11 +249,10 @@ async def get_provenance(record_id: UUID):
     return row
 
 
-@router.get("/api/v1/data/status")
-async def get_data_status():
-    _require_postgres()
+@router.get("/api/v1/data/wave-01")
+async def get_wave_01_institutional(_: None = Depends(_ensure_ready)):
     async with get_session() as session:
-        status = await data_engine_status(session)
+        status = await wave_01_institutional_status(session)
     try:
         from blackdark.data.instrument_master import instrument_master_status
 
@@ -254,7 +280,6 @@ async def get_data_status():
     except Exception:
         logger.debug("instrument master status enrich failed", exc_info=True)
     return status
-
 
 @router.get("/api/v1/data/instrument-master/status")
 async def get_instrument_master_status():
@@ -497,9 +522,18 @@ async def compare_market_pairs_route(
     return compare_pairs_across_venues(base, quote=quote)
 
 
+@router.get("/api/v1/data/status")
+async def get_data_status(_: None = Depends(_ensure_ready)):
+    try:
+        async with get_session() as session:
+            return await data_engine_status(session)
+    except Exception as exc:
+        logger.exception("data status failed")
+        raise HTTPException(status_code=503, detail=f"data engine unavailable: {exc}") from exc
+
+
 @router.post("/api/v1/data/ingest", status_code=202)
-async def trigger_ingest(body: IngestRequest, _: None = Depends(require_admin)):
-    _require_postgres()
+async def trigger_ingest(body: IngestRequest, _: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
 
     async def _bg() -> None:
         try:
@@ -520,8 +554,8 @@ async def get_events(
     start_time: str | None = None,
     end_time: str | None = None,
     limit: int = Query(100, ge=1, le=1000),
+    _: None = Depends(_ensure_ready),
 ):
-    _require_postgres()
     async with get_session() as session:
         events = await query_events(
             session,
@@ -532,12 +566,31 @@ async def get_events(
             end_time=_parse_dt(end_time),
             limit=limit,
         )
-    return {"count": len(events), "events": events}
+    return dataset_response(count=len(events), data=events, dataset="events", extra={"events": events})
 
 
 @admin_router.post("/seed-sources")
-async def seed_sources(_: None = Depends(require_admin)):
-    _require_postgres()
+async def seed_sources(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
     async with get_session() as session:
         result = await seed_data_sources(session)
     return {"ok": True, **result}
+
+
+@admin_router.post("/migrate-data-engine")
+async def migrate_data_engine(_: None = Depends(require_admin)):
+    _require_postgres()
+    from blackdark.data.db import init_data_engine
+
+    result = await init_data_engine()
+    return result
+
+
+@admin_router.post("/bootstrap-ingest")
+async def bootstrap_ingest(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.jobs import run_bootstrap_ingest_once
+    from blackdark.data.repository import count_ohlcv_rows
+
+    async with get_session() as session:
+        if await count_ohlcv_rows(session) > 0:
+            return {"ok": True, "skipped": True, "reason": "ohlcv_data_not_empty"}
+    return await run_bootstrap_ingest_once()

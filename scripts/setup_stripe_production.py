@@ -61,6 +61,16 @@ def main() -> int:
         if key.startswith("STRIPE_") and not ok and key not in {"STRIPE_SUCCESS_URL", "STRIPE_CANCEL_URL"}:
             missing += 1
 
+    print("\n--- Stripe secret checklist (booleans only) ---")
+    for key, ok in [
+        ("STRIPE_SECRET_KEY", _is_set("STRIPE_SECRET_KEY")),
+        ("STRIPE_WEBHOOK_SECRET", _is_set("STRIPE_WEBHOOK_SECRET")),
+        ("STRIPE_PRICE_PRO", _is_set("STRIPE_PRICE_PRO")),
+        ("STRIPE_PRICE_ELITE", _is_set("STRIPE_PRICE_ELITE") or _is_set("STRIPE_PRICE_WHALE")),
+        ("STRIPE_PRICE_QUANT", _is_set("STRIPE_PRICE_QUANT")),
+    ]:
+        print(f"  [{'SET' if ok else 'MISSING'}] {key}")
+
     print("\n--- Stripe Dashboard steps ---")
     print("  1. Products -> PRO $19.99 / ELITE $49.99 / QUANT $149.99 monthly USD")
     print("  2. Copy Price IDs -> STRIPE_PRICE_PRO / ELITE / QUANT")
@@ -74,7 +84,8 @@ def main() -> int:
     if secret:
         print("\n--- Validating secret key ---")
         is_live = secret.startswith("sk_live_")
-        print(f"  Livemode: {'yes' if is_live else 'no'}")
+        live_label = "yes" if is_live else "no"
+        print(f"  Livemode: {live_label}")
         acct = _stripe_get("/account", secret)
         if acct:
             dash = (acct.get("settings") or {}).get("dashboard") or {}

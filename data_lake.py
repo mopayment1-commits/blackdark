@@ -45,7 +45,20 @@ async def store_snapshot(
     *,
     status: str = "ok",
 ) -> None:
-    await insert_ingestion_snapshot(source_id, category, payload, status=status)
+    enriched = payload
+    if isinstance(payload, dict):
+        from blackdark.canonical.resolver import resolve_asset
+
+        hint = payload.get("symbol") or payload.get("asset")
+        if hint:
+            resolved = resolve_asset(str(hint))
+            if resolved.found and resolved.canonical_id:
+                enriched = {
+                    **payload,
+                    "canonical_id": resolved.canonical_id,
+                    "canonical_symbol": resolved.symbol,
+                }
+    await insert_ingestion_snapshot(source_id, category, enriched, status=status)
 
 
 async def get_category_bundle(

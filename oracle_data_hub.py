@@ -183,9 +183,10 @@ async def fetch_global_economic_news(session: aiohttp.ClientSession) -> dict[str
 
 async def _fetch_fear_greed(session: aiohttp.ClientSession) -> tuple[int, str]:
     try:
-        fng = await _fetch_json(session, "https://api.alternative.me/fng/", params={"limit": "1"})
-        row = (fng.get("data") or [{}])[0]
-        return int(row.get("value") or 50), str(row.get("value_classification") or "Neutral")
+        from blackdark.ingestion.alternative_me_connector import fetch_fear_greed_index
+
+        fg = await fetch_fear_greed_index()
+        return int(fg.get("value") or 50), str(fg.get("label") or "Neutral")
     except Exception:
         logger.warning("Fear & Greed index fetch failed.")
         return 50, "Neutral"

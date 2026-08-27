@@ -481,12 +481,15 @@ async def _start_data_engine(state: RuntimeState) -> None:
     if not _env_flag("DATA_ENGINE_ENABLED", "true"):
         return
     try:
-        from blackdark.data.jobs import bootstrap_data_engine, start_data_engine_jobs
+        from blackdark.data.db import data_engine_available, ensure_data_engine_ready
+        from blackdark.data.jobs import start_data_engine_jobs
 
-        boot = await bootstrap_data_engine()
-        if boot.get("ok"):
-            state.extras["data_engine_jobs"] = start_data_engine_jobs()
-            logger.info("Wave 01 data engine bootstrapped | %s", boot)
+        if not data_engine_available():
+            logger.info("Wave 01 data engine skipped (PostgreSQL not configured)")
+            return
+        await ensure_data_engine_ready()
+        state.extras["data_engine_jobs"] = start_data_engine_jobs()
+        logger.info("Wave 01 data engine ready (schema + seed + optional bootstrap ingest)")
     except Exception:
         logger.exception("Wave 01 data engine startup failed")
 

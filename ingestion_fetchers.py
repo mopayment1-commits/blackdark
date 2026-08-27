@@ -129,16 +129,15 @@ async def _h_binance_futures(session: aiohttp.ClientSession, spec: DataSourceSpe
 
 
 async def _h_coingecko_prices(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(
-        session,
-        spec.url,
-        params={
-            "ids": "bitcoin,ethereum,solana",
-            "vs_currencies": "usd",
-            "include_24hr_change": "true",
-        },
-    )
-    return {"prices": data}
+    from blackdark.ingestion.coingecko_connector import fetch_coingecko_markets, fetch_coingecko_price
+
+    markets = await fetch_coingecko_markets(per_page=50)
+    prices = []
+    for sym in ("BTC", "ETH", "SOL"):
+        row = await fetch_coingecko_price(sym)
+        if row.get("ok"):
+            prices.append(row)
+    return {"markets": markets.get("markets") or [], "prices": prices, "source": "coingecko_connector"}
 
 
 async def _h_kucoin(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -324,11 +323,14 @@ async def _h_rss(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchR
 
 
 async def _h_fear_greed(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url, params={"limit": "1"})
-    row = (data.get("data") or [{}])[0]
+    from blackdark.ingestion.alternative_me_connector import fetch_fear_greed_index
+
+    fg = await fetch_fear_greed_index()
     return {
-        "value": int(row.get("value") or 50),
-        "label": row.get("value_classification"),
+        "value": int(fg.get("value") or 50),
+        "label": fg.get("label"),
+        "alpha_score": fg.get("alpha_score"),
+        "source": "alternative_me_connector",
     }
 
 
@@ -347,12 +349,14 @@ async def _h_reddit(session: aiohttp.ClientSession, spec: DataSourceSpec) -> Fet
 
 
 async def _h_coingecko_trending(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url)
+    from blackdark.ingestion.coingecko_connector import fetch_coingecko_trending
+
+    data = await fetch_coingecko_trending()
     symbols = [
         str((c.get("item") or {}).get("symbol") or "").upper()
         for c in (data.get("coins") or [])[:7]
     ]
-    return {"symbols": [s for s in symbols if s]}
+    return {"symbols": [s for s in symbols if s], "source": "coingecko_connector"}
 
 
 async def _h_stocktwits(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -362,8 +366,10 @@ async def _h_stocktwits(session: aiohttp.ClientSession, spec: DataSourceSpec) ->
 
 
 async def _h_coingecko_global(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url)
-    return {"global": (data.get("data") or {})}
+    from blackdark.ingestion.coingecko_connector import fetch_coingecko_global
+
+    data = await fetch_coingecko_global()
+    return {"global": data.get("global") or {}, "source": "coingecko_connector"}
 
 
 async def _h_coingecko_events(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -584,8 +590,14 @@ async def ingest_category(session: aiohttp.ClientSession, category: Category) ->
 
 
 async def ingest_all_categories() -> dict[str, Any]:
+    from blackdark.ingestion.alternative_me_connector import run_alternative_me_ingest
+    from blackdark.ingestion.coingecko_connector import run_coingecko_primary_ingest
+
     timeout = aiohttp.ClientTimeout(total=config.INGESTION_FETCH_TIMEOUT_SECONDS)
-    summary: dict[str, Any] = {}
+    summary: dict[str, Any] = {
+        "coingecko_primary": await run_coingecko_primary_ingest(),
+        "alternative_me": await run_alternative_me_ingest(),
+    }
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for category in (
             "prices", "onchain", "defi", "news", "sentiment",

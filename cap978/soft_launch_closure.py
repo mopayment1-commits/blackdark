@@ -210,11 +210,14 @@ async def run_soft_launch_closure(
         )
 
     external = external_registry_report()
+    from cap978.institutional_gate import CLOSURE_BASELINE
+
+    expected_blocked = CLOSURE_BASELINE["external_registry"]["capability_ids_blocked"]
     checks.append(
         {
             "name": "external_registry_labeled",
-            "ok": external["capability_ids_blocked"] == 31,
-            "detail": f"{external['capability_ids_blocked']} capability + {external['controls_blocked']} controls",
+            "ok": external["capability_ids_blocked"] == expected_blocked,
+            "detail": f"{external['capability_ids_blocked']} capability + {external['controls_blocked']} controls (expected {expected_blocked})",
         }
     )
 

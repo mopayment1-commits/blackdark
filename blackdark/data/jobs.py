@@ -11,10 +11,10 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 
-from blackdark.data.db import data_engine_available, get_session, init_data_engine
+from blackdark.data.db import data_engine_available, get_session
 from blackdark.data.ingestors.binance import ingest_funding, ingest_ohlcv
-from blackdark.data.ingestors.coingecko import ingest_markets
-from blackdark.data.repository import seed_data_sources
+from blackdark.data.ingestors.coingecko import ingest_markets, ingest_ohlcv as coingecko_ingest_ohlcv
+from blackdark.data.ingestors.kraken import ingest_ohlcv as kraken_ingest_ohlcv
 
 logger = logging.getLogger("BLACKDARK.DataEngine.Jobs")
 
@@ -51,13 +51,92 @@ async def job_coingecko_market() -> None:
     await _run_with_session(lambda s: ingest_markets(s, triggered_by="job:coingecko_market"))
 
 
+async def job_kraken_ohlcv_1h() -> None:
+    """Live shadow collection via Kraken when Binance is geo-blocked."""
+    await _run_with_session(
+        lambda s: kraken_ingest_ohlcv(
+            s,
+            pair="XBTUSDT",
+            symbol="BTCUSDT",
+            interval="1h",
+            triggered_by="job:kraken_ohlcv_1h",
+        )
+    )
+
+
+async def run_bootstrap_ingest_once() -> dict[str, Any]:
+    """One-shot ingest when the database has no OHLCV rows (startup bootstrap)."""
+    if not _enabled() or not data_engine_available():
+        return {"ok": False, "reason": "disabled_or_no_postgres"}
+    logger.info("Wave 01 bootstrap ingest starting")
+    try:
+        ohlcv_source = "binance"
+        async with get_session() as session:
+            ohlcv = await ingest_ohlcv(
+                session,
+                symbols=["BTCUSDT"],
+                intervals=["1h"],
+                limit=24,
+                triggered_by="bootstrap:startup",
+            )
+        if int(ohlcv.get("records_inserted", 0)) == 0:
+            logger.warning("Binance OHLCV bootstrap empty — falling back to CoinGecko")
+            async with get_session() as session:
+                ohlcv = await coingecko_ingest_ohlcv(
+                    session,
+                    coin_id="bitcoin",
+                    symbol="BTCUSDT",
+                    days=1,
+                    interval="30m",
+                    triggered_by="bootstrap:startup:coingecko",
+                )
+            ohlcv_source = "coingecko"
+        if int(ohlcv.get("records_inserted", 0)) == 0:
+            logger.warning("CoinGecko OHLCV bootstrap empty — falling back to Kraken")
+            async with get_session() as session:
+                ohlcv = await kraken_ingest_ohlcv(
+                    session,
+                    pair="XBTUSDT",
+                    symbol="BTCUSDT",
+                    interval="1h",
+                    triggered_by="bootstrap:startup:kraken",
+                )
+            ohlcv_source = "kraken"
+
+        funding_inserted = 0
+        if ohlcv_source == "binance":
+            async with get_session() as session:
+                funding = await ingest_funding(
+                    session,
+                    symbols=["BTCUSDT"],
+                    triggered_by="bootstrap:startup",
+                )
+            funding_inserted = int(funding.get("records_inserted", 0))
+
+        async with get_session() as session:
+            markets = await ingest_markets(session, triggered_by="bootstrap:startup")
+
+        result = {
+            "ok": True,
+            "ohlcv_source": ohlcv_source,
+            "ohlcv_inserted": int(ohlcv.get("records_inserted", 0)),
+            "funding_inserted": funding_inserted,
+            "markets_inserted": int(markets.get("records_inserted", 0)),
+        }
+        logger.info("Wave 01 bootstrap ingest complete | %s", result)
+        return result
+    except Exception as exc:
+        logger.exception("Wave 01 bootstrap ingest failed")
+        return {"ok": False, "error": str(exc)}
+
+
 async def bootstrap_data_engine() -> dict[str, Any]:
     if not _enabled() or not data_engine_available():
         return {"ok": False, "reason": "disabled_or_no_postgres"}
-    init_result = await init_data_engine()
-    async with get_session() as session:
-        await seed_data_sources(session)
-    return init_result
+    from blackdark.data.db import ensure_data_engine_ready
+
+    await ensure_data_engine_ready()
+    return {"ok": True, "bootstrapped": True}
 
 
 def start_data_engine_jobs(loop: asyncio.AbstractEventLoop | None = None) -> dict[str, Any]:
@@ -90,6 +169,13 @@ def start_data_engine_jobs(loop: asyncio.AbstractEventLoop | None = None) -> dic
         job_coingecko_market,
         IntervalTrigger(minutes=5),
         id="coingecko_market",
+        replace_existing=True,
+        max_instances=1,
+    )
+    _scheduler.add_job(
+        job_kraken_ohlcv_1h,
+        CronTrigger(minute=5),
+        id="kraken_ohlcv_1h",
         replace_existing=True,
         max_instances=1,
     )
