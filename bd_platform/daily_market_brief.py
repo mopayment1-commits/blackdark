@@ -182,6 +182,33 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         logger.debug("hype vs reality daily brief integration skipped", exc_info=True)
 
+    capital_radar_narrative = None
+    try:
+        from bd_platform.capital_formation_radar import build_capital_formation_radar
+
+        capital_radar = build_capital_formation_radar()
+        if capital_radar.get("ok") and capital_radar.get("capital_radar"):
+            top = capital_radar["capital_radar"][0]
+            capital_radar_narrative = {
+                "top_sector": top.get("sector_name"),
+                "capital_momentum_score": top.get("capital_momentum_score"),
+                "heatmap_color": top.get("heatmap_color"),
+                "formation_vs_price": top.get("formation_vs_price"),
+            }
+            what_changed_items.insert(0, {
+                "text": (
+                    f"Capital Radar: {top.get('sector_name')} momentum "
+                    f"{top.get('capital_momentum_score', 0):.0f} "
+                    f"({top.get('heatmap_color')})"
+                ),
+                "evidence_link": "/api/platform/intelligence-ledger/capital-formation",
+                "contributor_metric": "capital_momentum_score",
+                "contributor_value": top.get("capital_momentum_score"),
+                "feature_ref_648": 648,
+            })
+    except Exception:
+        logger.debug("capital formation radar brief integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -207,6 +234,7 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "hype_vs_reality_signal_599": hype_vs_reality_summary,
         "signal_quality_summary_599": hype_vs_reality_summary,
         "sharpe_narrative_490": sharpe_narrative,
+        "capital_formation_radar_648": capital_radar_narrative,
         "not_investment_advice": True,
         "display": (
             f"Daily Brief {seed.get('brief_date')}: {regime.get('regime_label')} | "
@@ -248,6 +276,7 @@ def daily_market_brief_status() -> dict[str, Any]:
             "event_sentiment_monitor_443": True,
             "sharpe_intelligence_490": True,
             "hype_vs_reality_signal_599": True,
+            "capital_formation_radar_648": True,
         },
         "historical_validation": seed.get("historical_validation"),
         "disclaimer": _DISCLAIMER,
@@ -281,6 +310,11 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         for i in (brief.get("why") or []) + (brief.get("what_changed") or [])
     )
     checks.append({"id": "sharpe_intelligence_490", "passed": sharpe_in_brief, "detail": "490"})
+
+    capital_in_brief = any(
+        i.get("feature_ref_648") == 648 for i in (brief.get("what_changed") or [])
+    ) or brief.get("capital_formation_radar_648") is not None
+    checks.append({"id": "capital_formation_radar_648", "passed": capital_in_brief, "detail": "648"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

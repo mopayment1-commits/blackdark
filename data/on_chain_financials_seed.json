@@ -147,5 +147,64 @@
         {"date": "2026-08", "revenue_usd": 9800000}
       ]
     }
+  },
+  "cross_chain_normalization": {
+    "version": "1.0",
+    "method": "ratio_vs_baseline_chain",
+    "baseline_chain": "ethereum"
+  },
+  "chains": {
+    "ethereum": {
+      "chain_id": "ethereum",
+      "chain_name": "Ethereum",
+      "daily_active_addresses": 420000,
+      "tx_count_24h": 1200000,
+      "fees_revenue_30d_usd": 185000000,
+      "tvl_usd": 58000000000,
+      "stablecoin_supply_usd": 72000000000,
+      "active_protocol_count": 420,
+      "source": "on_chain_indexer+defillama",
+      "version": "1.0",
+      "last_updated": "2026-08-27T14:00:00Z"
+    },
+    "solana": {
+      "chain_id": "solana",
+      "chain_name": "Solana",
+      "daily_active_addresses": 2100000,
+      "tx_count_24h": 28000000,
+      "fees_revenue_30d_usd": 42000000,
+      "tvl_usd": 8200000000,
+      "stablecoin_supply_usd": 4800000000,
+      "active_protocol_count": 185,
+      "source": "on_chain_indexer+defillama",
+      "version": "1.0",
+      "last_updated": "2026-08-27T14:00:00Z"
+    },
+    "arbitrum": {
+      "chain_id": "arbitrum",
+      "chain_name": "Arbitrum",
+      "daily_active_addresses": 185000,
+      "tx_count_24h": 2100000,
+      "fees_revenue_30d_usd": 12000000,
+      "tvl_usd": 14500000000,
+      "stablecoin_supply_usd": 6200000000,
+      "active_protocol_count": 210,
+      "source": "on_chain_indexer+defillama",
+      "version": "1.0",
+      "last_updated": "2026-08-27T14:00:00Z"
+    },
+    "base": {
+      "chain_id": "base",
+      "chain_name": "Base",
+      "daily_active_addresses": 320000,
+      "tx_count_24h": 4500000,
+      "fees_revenue_30d_usd": 8500000,
+      "tvl_usd": 4200000000,
+      "stablecoin_supply_usd": 3100000000,
+      "active_protocol_count": 95,
+      "source": "on_chain_indexer+defillama",
+      "version": "1.0",
+      "last_updated": "2026-08-27T14:00:00Z"
+    }
   }
 }

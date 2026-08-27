@@ -521,7 +521,18 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     filtered = [o for o in deduped if float(o.get("net_edge_bps", 0)) >= min_edge or o.get("opportunity_type") == "stablecoin_depeg"]
 
     enriched = [enrich_opportunity(o, seed=seed) for o in filtered]
-    enriched.sort(key=lambda o: float(o.get("net_edge_usdt", 0)), reverse=True)
+    try:
+        from bd_platform.capital_formation_radar import apply_formation_ranking_boost
+
+        enriched = apply_formation_ranking_boost(enriched)
+        ranked_by = "executable_net_edge_usdt_with_capital_formation_boost_648"
+    except Exception:
+        logger.debug("648 capital formation ranking boost skipped", exc_info=True)
+        enriched.sort(key=lambda o: float(o.get("net_edge_usdt", 0)), reverse=True)
+        ranked_by = "executable_net_edge_usdt"
+    else:
+        if not any(o.get("capital_formation_boost_648") for o in enriched):
+            enriched.sort(key=lambda o: float(o.get("net_edge_usdt", 0)), reverse=True)
 
     strategy_gate = None
     display_opportunities = enriched
@@ -580,7 +591,7 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
             "on_chain_arbitrage": _DEFI_FEATURE_ID,
             "derivatives_basis_funding": 440,
         },
-        "ranked_by": "executable_net_edge_usdt",
+        "ranked_by": ranked_by,
         "economics_engine_ref": _ECONOMICS_ENGINE_REF,
         "economics_engine_version": _ECONOMICS_ENGINE_VERSION,
         "sla": {
@@ -595,6 +606,7 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
             "exchange_health_456": True,
             "diligence_risk_460": True,
             "market_radar": True,
+            "capital_formation_radar_648": True,
         },
         "not_investment_advice": True,
         "disclaimer": _DISCLAIMER,

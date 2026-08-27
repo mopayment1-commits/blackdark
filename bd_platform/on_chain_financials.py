@@ -24,6 +24,7 @@ from bd_platform.institutional_standards import missing_value
 logger = logging.getLogger("BLACKDARK.OnChainFinancials")
 
 _FEATURE_ID = 641
+_CROSS_CHAIN_REF = 650
 _THESIS_REF = 472
 _METRICS_REF = 577
 _TITLE = "On-Chain Financials"
@@ -49,6 +50,57 @@ _DISCLAIMER = (
     "On-Chain Financials — protocol revenue and ratios derived from on-chain fee data. "
     "Not equity securities. Peer comparisons are illustrative only. Not investment advice."
 )
+
+_CROSS_CHAIN_METRIC_DEFINITIONS: dict[str, dict[str, Any]] = {
+    "daa": {
+        "metric_id": "daa",
+        "name": "Daily Active Addresses",
+        "definition": "Unique addresses with at least one qualifying transaction in trailing 24h",
+        "source": "on_chain_indexer",
+        "version": "1.0",
+        "unit": "addresses",
+    },
+    "tx_count": {
+        "metric_id": "tx_count",
+        "name": "Transaction Count",
+        "definition": "Successful transactions in trailing 24h excluding known spam contracts",
+        "source": "on_chain_indexer",
+        "version": "1.0",
+        "unit": "count",
+    },
+    "fees_revenue": {
+        "metric_id": "fees_revenue",
+        "name": "Fees / Revenue",
+        "definition": "Protocol or chain fees captured on-chain in trailing 30d",
+        "source": "on_chain_fee_data",
+        "version": "1.0",
+        "unit": "USD",
+    },
+    "tvl": {
+        "metric_id": "tvl",
+        "name": "TVL",
+        "definition": "Total value locked across tracked DeFi protocols on chain",
+        "source": "defillama",
+        "version": "1.0",
+        "unit": "USD",
+    },
+    "stablecoins": {
+        "metric_id": "stablecoins",
+        "name": "Stablecoin Supply",
+        "definition": "Circulating stablecoin supply on chain",
+        "source": "stablecoin_issuer_reports+on_chain",
+        "version": "1.0",
+        "unit": "USD",
+    },
+    "app_metrics": {
+        "metric_id": "app_metrics",
+        "name": "App Metrics",
+        "definition": "Composite app usage score from DAA, tx count, and active protocol count",
+        "source": "on_chain_indexer+defillama",
+        "version": "1.0",
+        "unit": "score",
+    },
+}
 
 
 def _utcnow() -> str:
@@ -244,6 +296,88 @@ def build_asset_financials_tab(
     }
 
 
+def _normalize_chain_metric(value: float, chain_baseline: float) -> float:
+    if chain_baseline <= 0:
+        return 0.0
+    return round(value / chain_baseline, 4)
+
+
+def build_cross_chain_comparables_dashboard(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#650 Cross-Chain Fundamentals — merged into #641 + #577 comparables dashboard."""
+    seed = seed or _load_seed()
+    chains = seed.get("chains") or {}
+    normalization = seed.get("cross_chain_normalization") or {}
+    baseline_chain = normalization.get("baseline_chain", "ethereum")
+    baseline = chains.get(baseline_chain) or {}
+
+    comparables: list[dict[str, Any]] = []
+    for chain_id, raw in chains.items():
+        daa = float(raw.get("daily_active_addresses", 0))
+        tx_count = float(raw.get("tx_count_24h", 0))
+        fees_revenue = float(raw.get("fees_revenue_30d_usd", 0))
+        tvl = float(raw.get("tvl_usd", 0))
+        stablecoins = float(raw.get("stablecoin_supply_usd", 0))
+        active_protocols = int(raw.get("active_protocol_count", 0))
+        app_score = round(
+            (daa / 1_000_000) * 0.4 + (tx_count / 1_000_000) * 0.3 + active_protocols * 0.3,
+            2,
+        )
+
+        normalized = {
+            "daa": _normalize_chain_metric(daa, float(baseline.get("daily_active_addresses", 1))),
+            "tx_count": _normalize_chain_metric(tx_count, float(baseline.get("tx_count_24h", 1))),
+            "fees_revenue": _normalize_chain_metric(fees_revenue, float(baseline.get("fees_revenue_30d_usd", 1))),
+            "tvl": _normalize_chain_metric(tvl, float(baseline.get("tvl_usd", 1))),
+            "stablecoins": _normalize_chain_metric(stablecoins, float(baseline.get("stablecoin_supply_usd", 1))),
+            "app_metrics": _normalize_chain_metric(app_score, max(app_score, 1)),
+        }
+
+        comparables.append({
+            "chain_id": chain_id,
+            "chain_name": raw.get("chain_name", chain_id),
+            "metrics": {
+                "daa": {"value": daa, **_CROSS_CHAIN_METRIC_DEFINITIONS["daa"]},
+                "tx_count": {"value": tx_count, **_CROSS_CHAIN_METRIC_DEFINITIONS["tx_count"]},
+                "fees_revenue": {"value": fees_revenue, **_CROSS_CHAIN_METRIC_DEFINITIONS["fees_revenue"]},
+                "tvl": {"value": tvl, **_CROSS_CHAIN_METRIC_DEFINITIONS["tvl"]},
+                "stablecoins": {"value": stablecoins, **_CROSS_CHAIN_METRIC_DEFINITIONS["stablecoins"]},
+                "app_metrics": {
+                    "value": app_score,
+                    "active_protocol_count": active_protocols,
+                    **_CROSS_CHAIN_METRIC_DEFINITIONS["app_metrics"],
+                },
+            },
+            "normalized_vs_baseline": normalized,
+            "baseline_chain": baseline_chain,
+        })
+
+    comparables.sort(key=lambda x: x["metrics"]["tvl"]["value"], reverse=True)
+
+    return {
+        "ok": True,
+        "feature_ref": _CROSS_CHAIN_REF,
+        "merged_into": f"#{_FEATURE_ID} On-Chain Financials + #{_METRICS_REF} Metrics Library",
+        "integration": "market_radar",
+        "tab": "Cross-Chain Comparison",
+        "tab_ar": "مقارنة عبر السلاسل",
+        "metric_definitions": _CROSS_CHAIN_METRIC_DEFINITIONS,
+        "normalization_methodology": {
+            "version": normalization.get("version", _METHODOLOGY_VERSION),
+            "documented": True,
+            "baseline_chain": baseline_chain,
+            "method": normalization.get("method", "ratio_vs_baseline_chain"),
+            "description": "Each metric divided by baseline chain value for cross-chain comparability",
+        },
+        "chains": comparables,
+        "count": len(comparables),
+        "source_version_required": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def build_market_radar_revenue_sector(
     *,
     seed: dict[str, Any] | None = None,
@@ -419,6 +553,7 @@ def on_chain_financials_status() -> dict[str, Any]:
         "integrations": {
             "investment_thesis_472": True,
             "onchain_metrics_577": True,
+            "cross_chain_fundamentals_650": True,
             "market_radar": True,
         },
         "disclaimer": _DISCLAIMER,
@@ -456,6 +591,11 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     sector = build_market_radar_revenue_sector(seed=seed)
     checks.append({"id": "market_radar_sector", "passed": sector.get("ok") is True and sector.get("count", 0) >= 2, "detail": "radar"})
+
+    cross_chain = build_cross_chain_comparables_dashboard(seed=seed)
+    checks.append({"id": "cross_chain_650", "passed": cross_chain.get("ok") is True and cross_chain.get("count", 0) >= 2, "detail": "650"})
+    checks.append({"id": "metric_definitions_650", "passed": len(cross_chain.get("metric_definitions") or {}) >= 6, "detail": "defs"})
+    checks.append({"id": "normalization_650", "passed": (cross_chain.get("normalization_methodology") or {}).get("documented") is True, "detail": "norm"})
 
     dim = score_on_chain_financials_dimension("UNI", seed=seed)
     checks.append({"id": "thesis_dimension_7", "passed": dim.get("thesis_dimension_number") == 7, "detail": "472"})

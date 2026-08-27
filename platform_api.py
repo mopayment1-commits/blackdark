@@ -2312,6 +2312,75 @@ async def on_chain_financials_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/cross-chain-comparison")
+async def on_chain_financials_cross_chain_route():
+    """#650 Cross-Chain Fundamentals — merged into #641 comparables dashboard."""
+    from bd_platform.on_chain_financials import build_cross_chain_comparables_dashboard
+
+    return build_cross_chain_comparables_dashboard()
+
+
+@router.get("/intelligence-ledger/capital-formation/status")
+async def capital_formation_status_route():
+    """#648 Capital Formation Radar — Intelligence Ledger dimension."""
+    from bd_platform.capital_formation_radar import capital_formation_radar_status
+
+    return capital_formation_radar_status()
+
+
+@router.get("/intelligence-ledger/capital-formation")
+async def capital_formation_radar_route(sector_id: str | None = Query(None)):
+    from bd_platform.capital_formation_radar import build_capital_formation_radar
+
+    return build_capital_formation_radar(sector_id)
+
+
+@router.get("/intelligence-ledger/capital-formation/chart")
+async def capital_formation_chart_route():
+    from bd_platform.capital_formation_radar import build_capital_formation_chart
+
+    return build_capital_formation_chart()
+
+
+@router.get("/intelligence-ledger/capital-formation/reconciliation-tests")
+async def capital_formation_reconciliation_route():
+    from bd_platform.capital_formation_radar import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/defi-decision-intelligence/status")
+async def defi_decision_intelligence_status_route():
+    """#651 DeFi Decision Engine — Intelligence Ledger dimension."""
+    from bd_platform.defi_decision_intelligence import defi_decision_intelligence_status
+
+    return defi_decision_intelligence_status()
+
+
+@router.get("/intelligence-ledger/defi-decision-intelligence")
+async def defi_decision_intelligence_panel_route(protocol_id: str | None = Query(None)):
+    from bd_platform.defi_decision_intelligence import build_defi_decision_panel
+
+    return build_defi_decision_panel(protocol_id)
+
+
+@router.get("/intelligence-ledger/defi-decision-intelligence/score")
+async def defi_decision_intelligence_score_route(protocol_id: str = Query("aave_v3")):
+    from bd_platform.defi_decision_intelligence import score_decision_relevance
+
+    result = score_decision_relevance(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/defi-decision-intelligence/reconciliation-tests")
+async def defi_decision_intelligence_reconciliation_route():
+    from bd_platform.defi_decision_intelligence import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/daily-market-brief/status")
 async def daily_market_brief_status_route():
     """#474 Daily Market Brief — Intelligence Ledger (template-based v1)."""

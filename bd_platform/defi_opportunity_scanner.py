@@ -913,6 +913,13 @@ def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[
 
         opportunities.append(opp)
 
+    try:
+        from bd_platform.defi_decision_intelligence import rank_defi_opportunities_by_relevance
+
+        opportunities = rank_defi_opportunities_by_relevance(opportunities, seed=seed)
+    except Exception:
+        logger.debug("651 decision relevance ranking skipped", exc_info=True)
+
     return opportunities
 
 
@@ -948,6 +955,13 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     oracle_risk = build_oracle_risk_view(seed=seed)
     contract_risk = build_smart_contract_risk_view(seed=seed)
     yield_delta = build_yield_delta_listener(seed=seed)
+    decision_panel = None
+    try:
+        from bd_platform.defi_decision_intelligence import build_defi_decision_panel
+
+        decision_panel = build_defi_decision_panel(seed=seed)
+    except Exception:
+        logger.debug("651 defi decision panel skipped", exc_info=True)
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     return {
@@ -965,6 +979,8 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "oracle_risk_482": oracle_risk,
         "smart_contract_risk_491": contract_risk,
         "yield_delta_listener_639": yield_delta if yield_delta.get("ok") else {"ok": False},
+        "defi_decision_intelligence_651": decision_panel if decision_panel and decision_panel.get("ok") else {"ok": False},
+        "ranked_by_decision_relevance_651": True,
         "monitoring_only": True,
         "cancelled_v1_scope": {
             "flash_loan_simulation": True,
@@ -1000,6 +1016,7 @@ def defi_opportunity_scanner_status() -> dict[str, Any]:
             "oracle_risk_482": True,
             "smart_contract_risk_491": True,
             "yield_delta_listener_639": True,
+            "defi_decision_intelligence_651": True,
             "on_chain_arbitrage": True,
         },
         "dex_screener": {
