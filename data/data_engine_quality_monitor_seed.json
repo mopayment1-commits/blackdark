@@ -1,0 +1,76 @@
+{
+  "feature_ref": 824,
+  "merged_into": "Data Engine",
+  "component": "quality_monitor",
+  "standalone_rejected": true,
+  "no_user_surface": true,
+  "infra_observability_ref": 789,
+  "data_quality_pipeline_ref": 850,
+  "quality_monitor_824": {
+    "retention_policy": {
+      "years": 2,
+      "cold_storage_enabled": true,
+      "infrastructure_concern": true
+    },
+    "fee_db": {
+      "monitoring_usd": 25.0,
+      "storage_usd": 15.0,
+      "tier": "ops",
+      "ops_budget": true
+    }
+  },
+  "current_metrics": {
+    "accuracy_pct": 99.992,
+    "query_latency_p99_ms": 420,
+    "last_daily_run": "2026-08-27T00:00:00+00:00"
+  },
+  "datasets": {
+    "market_ohlcv": {
+      "domain": "market",
+      "timestamps": [1700000000, 1700003600, 1700007200, 1700010800, 1700014400, 1700018000],
+      "expected_interval_sec": 3600,
+      "values": [60287.03, 59529.54, 59197.09, 58776.55, 59228.55, 59578.94],
+      "outlier_std_threshold": 3.0,
+      "max_outliers_allowed": 2,
+      "source_a_total": 1000000.0,
+      "source_b_total": 999990.0,
+      "tolerance_pct": 0.01
+    },
+    "onchain_metrics": {
+      "domain": "onchain",
+      "timestamps": [1700000000, 1700003600, 1700007200, 1700010800],
+      "expected_interval_sec": 3600,
+      "values": [125000, 126500, 124800, 125200],
+      "outlier_std_threshold": 3.0,
+      "max_outliers_allowed": 1,
+      "source_a_total": 501500.0,
+      "source_b_total": 501480.0,
+      "tolerance_pct": 0.01
+    },
+    "user_activity": {
+      "domain": "user",
+      "timestamps": [1700000000, 1700003600, 1700007200],
+      "expected_interval_sec": 3600,
+      "values": [1200, 1185, 1210],
+      "outlier_std_threshold": 3.0,
+      "max_outliers_allowed": 1,
+      "source_a_total": 3595.0,
+      "source_b_total": 3594.5,
+      "tolerance_pct": 0.01
+    }
+  },
+  "daily_check_log": [
+    {
+      "date": "2026-08-27",
+      "gap_detection": "passed",
+      "outlier_detection": "passed",
+      "reconciliation": "passed"
+    },
+    {
+      "date": "2026-08-26",
+      "gap_detection": "passed",
+      "outlier_detection": "passed",
+      "reconciliation": "passed"
+    }
+  ]
+}
