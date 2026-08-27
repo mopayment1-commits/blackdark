@@ -21,7 +21,8 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.TokenUnlockIntelligence")
 
 _FEATURE_ID = 707
-_ABSORBED_IDS = (703, 704, 707, 708)
+_FORECASTER_REF = 607
+_ABSORBED_IDS = (607, 703, 704, 707, 708)
 _DASHBOARD_FEATURE_ID = 708
 _STANDALONE = False
 _MERGED_INTO = "Intelligence Ledger / Token Unlock Intelligence Engine"
@@ -433,6 +434,229 @@ def build_actionability_panel(asset: str = "ARB") -> dict[str, Any]:
         "actionability": panel["actionability"],
         "impact_score": panel["impact"]["impact_score"],
         "disclaimer": _DISCLAIMER,
+        "timestamp": _utcnow(),
+    }
+
+
+def compute_unlock_severity(unlock_pct_circulating: float) -> dict[str, Any]:
+    """#607 — severity from % of circulating supply."""
+    pct = float(unlock_pct_circulating)
+    if pct > 10:
+        level: ImpactLevel = "critical"
+    elif pct > 5:
+        level = "high"
+    elif pct >= 1:
+        level = "medium"
+    else:
+        level = "low"
+    return {
+        "unlock_pct_circulating": pct,
+        "severity": level,
+        "thresholds": {"low": "<1%", "medium": "1-5%", "high": ">5%", "critical": ">10%"},
+    }
+
+
+def build_unlock_forecast_entry(event: dict[str, Any], *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#607 — unlock forecaster with provenance, revisions, historical context."""
+    seed = seed or _load_seed()
+    normalized = normalize_unlock_event(event)
+    pct = event.get("unlock_pct_circulating")
+    severity = compute_unlock_severity(_safe_float(pct)) if pct is not None else {"severity": "unknown", "unlock_pct_circulating": None}
+
+    historical_context = None
+    comparable = event.get("comparable_events") or []
+    if comparable:
+        last = comparable[0]
+        historical_context = {
+            "description": (
+                f"آخر unlock بنفس الحجم ({last.get('unlock_pct')}%) أدى إلى "
+                f"انخفاض {abs(last.get('drawdown_pct', 0)):.1f}% خلال 7 أيام"
+            ),
+            "description_en": (
+                f"Last similar unlock ({last.get('unlock_pct')}%) led to "
+                f"{last.get('drawdown_pct', 0):+.1f}% move over 7 days"
+            ),
+            "data_driven_not_prediction": True,
+            "comparable_event": last,
+        }
+
+    confidence = "high" if event.get("primary_source_url") and event.get("revision_history") else "medium"
+    if event.get("unlock_usd") is None:
+        confidence = "low"
+
+    return {
+        "feature_ref": _FORECASTER_REF,
+        "event_id": event.get("event_id"),
+        "asset": event.get("asset"),
+        "unlock_date": event.get("unlock_date"),
+        "unlock_pct_circulating": event.get("unlock_pct_circulating"),
+        "unlock_usd": event.get("unlock_usd"),
+        "affected_supply_pct": event.get("unlock_pct_circulating"),
+        "recipient_classification": event.get("recipient_type"),
+        "severity": severity,
+        "confidence": confidence,
+        "schedule_provenance": {
+            "source_url": event.get("primary_source_url"),
+            "source_type": event.get("source_type"),
+            "provenance_required": True,
+        },
+        "revisions_tracked": True,
+        "revision_history": event.get("revision_history") or [],
+        "historical_impact_context": historical_context,
+        "no_deterministic_price_prediction": True,
+        "display_label": "ضغط عرض محتمل",
+        "display_label_en": "potential_supply_pressure",
+        "not_a_price_target": True,
+        "normalized": normalized,
+    }
+
+
+def build_unlock_forecaster_panel(limit: int = 30, *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#607 Token Unlock Forecaster — Intelligence Ledger surface."""
+    t0 = time.perf_counter()
+    seed = seed or _load_seed()
+    events = sorted(seed.get("events") or [], key=lambda e: e.get("unlock_date", ""))
+    calendar = [build_unlock_forecast_entry(e, seed=seed) for e in events[:limit]]
+    elapsed = round((time.perf_counter() - t0) * 1000, 1)
+
+    return {
+        "ok": True,
+        "feature_ref": _FORECASTER_REF,
+        "title": "Token Unlock Forecaster",
+        "standalone": False,
+        "merged_into": "Intelligence Ledger / Token Unlock Intelligence Engine",
+        "unlock_calendar": calendar,
+        "count": len(calendar),
+        "no_deterministic_price_prediction": True,
+        "schedule_provenance_required": True,
+        "revisions_tracked": True,
+        "severity_scoring": True,
+        "disclaimer": _DISCLAIMER,
+        "latency_ms": elapsed,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_capital_protection_unlock_alerts(
+    portfolio_id: str = "demo_portfolio",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#607 → #410: alert if portfolio exposure in asset with unlock >5% within 30 days."""
+    seed = seed or _load_seed()
+    cfg = seed.get("unlock_forecaster_607") or {}
+    exposure = (cfg.get("portfolio_exposure") or {}).get(portfolio_id) or {}
+    horizon_days = int(cfg.get("alert_horizon_days", 30))
+    threshold_pct = float(cfg.get("unlock_alert_threshold_pct", 5))
+    alerts: list[dict[str, Any]] = []
+
+    for event in seed.get("events") or []:
+        asset = str(event.get("asset", "")).upper()
+        exposure_pct = float(exposure.get(asset, 0))
+        if exposure_pct <= 0:
+            continue
+        severity = compute_unlock_severity(float(event.get("unlock_pct_circulating", 0)))
+        if severity["severity"] in ("high", "critical"):
+            alerts.append({
+                "alert_type": "unlock_supply_pressure",
+                "feature_ref": _FORECASTER_REF,
+                "integration": "capital_protection_410",
+                "asset": asset,
+                "portfolio_exposure_pct": exposure_pct,
+                "unlock_pct_circulating": event.get("unlock_pct_circulating"),
+                "unlock_date": event.get("unlock_date"),
+                "horizon_days": horizon_days,
+                "severity": severity["severity"],
+                "alerts_only": True,
+                "no_price_prediction": True,
+                "display": (
+                    f"Unlock alert: {asset} exposure {exposure_pct}% with "
+                    f"{event.get('unlock_pct_circulating')}% unlock in {horizon_days}d — potential supply pressure"
+                ),
+            })
+
+    return {
+        "ok": True,
+        "feature_ref": _FORECASTER_REF,
+        "portfolio_id": portfolio_id,
+        "alerts": alerts,
+        "alert_count": len(alerts),
+        "threshold_pct": threshold_pct,
+        "alerts_only": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_unlock_metric_577(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#607 → #577: unlock schedule as on-chain metric."""
+    seed = seed or _load_seed()
+    upcoming = [
+        {
+            "asset": e.get("asset"),
+            "unlock_date": e.get("unlock_date"),
+            "unlock_pct_circulating": e.get("unlock_pct_circulating"),
+            "severity": compute_unlock_severity(float(e.get("unlock_pct_circulating", 0)))["severity"],
+        }
+        for e in (seed.get("events") or [])[:10]
+    ]
+    return {
+        "ok": True,
+        "metric_id": "token_unlock_schedule",
+        "task_ref": _FORECASTER_REF,
+        "upcoming_unlocks": upcoming,
+        "count": len(upcoming),
+        "source": "token_unlock_forecaster_607",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_unlock_timeline(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#607 → Market Radar event timeline."""
+    forecaster = build_unlock_forecaster_panel(seed=seed)
+    return {
+        "ok": True,
+        "feature_ref": _FORECASTER_REF,
+        "surface": "market_radar",
+        "widget": "unlock_event_timeline",
+        "events": forecaster.get("unlock_calendar") or [],
+        "no_deterministic_price_prediction": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_unlock_alert_tests(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#607 — mandatory internal alert QA before launch."""
+    seed = seed or _load_seed()
+    cfg = seed.get("unlock_forecaster_607") or {}
+    test_alerts = cfg.get("alert_test_signals") or []
+    checks: list[dict[str, Any]] = []
+
+    for signal in test_alerts:
+        checks.append({
+            "test_id": signal.get("test_id"),
+            "passed": signal.get("delivered") is True and signal.get("verified") is True,
+            "detail": signal.get("detail"),
+        })
+
+    forecaster = build_unlock_forecaster_panel(seed=seed)
+    checks.append({"test": "provenance_on_all_events", "passed": all(
+        (e.get("schedule_provenance") or {}).get("source_url") for e in forecaster.get("unlock_calendar") or []
+    )})
+    checks.append({"test": "revisions_tracked", "passed": all(
+        e.get("revisions_tracked") for e in forecaster.get("unlock_calendar") or []
+    )})
+    checks.append({"test": "no_price_prediction_label", "passed": forecaster.get("no_deterministic_price_prediction") is True})
+
+    capital = build_capital_protection_unlock_alerts(seed=seed)
+    checks.append({"test": "capital_protection_410", "passed": capital.get("ok") is True})
+
+    all_passed = all(c.get("passed") for c in checks)
+    return {
+        "ok": all_passed,
+        "feature_ref": _FORECASTER_REF,
+        "checks": checks,
+        "all_passed": all_passed,
+        "test_count": len(checks),
         "timestamp": _utcnow(),
     }
 

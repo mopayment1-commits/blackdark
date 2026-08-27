@@ -209,5 +209,75 @@
         }
       ]
     }
+  },
+  "wallet_shadowing_623": {
+    "feature_ref": 623,
+    "reorg_confirmation_blocks": 6,
+    "dedupe_window_minutes": 5,
+    "materiality_thresholds": {
+      "low_usd": 100000,
+      "medium_usd": 1000000,
+      "high_usd": 10000000
+    },
+    "default_why_relevant": "Tracked wallet activity exceeds materiality threshold",
+    "shadow_events": [
+      {
+        "event_id": "shadow-001",
+        "wallet_address": "0xwhale_binance",
+        "entity_label": "Binance Hot Wallet",
+        "label_confidence": 85,
+        "movement_type": "outflow",
+        "value_usd": 5200000,
+        "asset": "ETH",
+        "what_changed": "Outflow 5,200,000 USD ETH to unknown wallet",
+        "why_relevant": "هذا الحوت جمع 5,000 ETH خلال 7 أيام الماضية — سلوك تراكمي",
+        "timestamp": "2026-08-27T12:00:00Z",
+        "tx_hash": "0xshadow001",
+        "confirmations": 12,
+        "reorged": false,
+        "chain": "ethereum"
+      },
+      {
+        "event_id": "shadow-002a",
+        "wallet_address": "0xwhale_alpha",
+        "entity_label": "Whale Alpha",
+        "label_confidence": 97,
+        "movement_type": "inflow",
+        "value_usd": 1500000,
+        "asset": "BTC",
+        "what_changed": "Inflow 1,500,000 USD BTC",
+        "why_relevant": "Accumulation pattern — 3rd inflow this week",
+        "timestamp": "2026-08-27T12:01:00Z",
+        "tx_hash": "0xshadow002a",
+        "confirmations": 8,
+        "reorged": false
+      },
+      {
+        "event_id": "shadow-002b",
+        "wallet_address": "0xwhale_alpha",
+        "entity_label": "Whale Alpha",
+        "label_confidence": 97,
+        "movement_type": "inflow",
+        "value_usd": 1200000,
+        "asset": "BTC",
+        "what_changed": "Inflow 1,200,000 USD BTC",
+        "timestamp": "2026-08-27T12:03:00Z",
+        "tx_hash": "0xshadow002b",
+        "confirmations": 7,
+        "reorged": false
+      },
+      {
+        "event_id": "shadow-reorg",
+        "wallet_address": "0xreorg_test",
+        "entity_label": "Test Wallet",
+        "label_confidence": 90,
+        "movement_type": "transfer",
+        "value_usd": 2000000,
+        "asset": "ETH",
+        "confirmations": 2,
+        "reorged": false,
+        "tx_hash": "0xreorg"
+      }
+    ]
   }
 }

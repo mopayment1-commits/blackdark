@@ -52,6 +52,71 @@
     "C": 65,
     "D": 85
   },
+  "token_risk_604": {
+    "feature_ref": 604,
+    "merged_into": 460,
+    "weights_version": "1.0.0",
+    "weights": {
+      "liquidity": 0.30,
+      "concentration": 0.25,
+      "volatility": 0.20,
+      "smart_contract_risk": 0.15,
+      "oracle_dependency": 0.10
+    },
+    "portfolio_assets": {
+      "demo_portfolio": ["BTC", "ETH", "UNI"]
+    },
+    "tokens": {
+      "BTC": {
+        "liquidity": 18,
+        "concentration": 35,
+        "volatility": 42,
+        "smart_contract_risk": 10,
+        "oracle_dependency": 5
+      },
+      "ETH": {
+        "liquidity": 22,
+        "concentration": 48,
+        "volatility": 55,
+        "smart_contract_risk": 28,
+        "oracle_dependency": 15
+      },
+      "UNI": {
+        "liquidity": 58,
+        "concentration": 72,
+        "volatility": 68,
+        "smart_contract_risk": 45,
+        "oracle_dependency": 35
+      }
+    },
+    "evidence": {
+      "liquidity": [
+        {"metric": "24h_volume_usd", "value": 850000000, "source": "cex_dex_aggregator"},
+        {"metric": "order_book_depth_1pct", "value": 42000000, "source": "fill_feasibility"},
+        {"metric": "dex_pool_tvl", "value": 1200000000, "source": "defillama"}
+      ],
+      "concentration": [
+        {"metric": "top10_holder_pct", "value": 42.5, "source": "holder_analytics"},
+        {"metric": "exchange_reserve_pct", "value": 18.2, "source": "exchange_intelligence"},
+        {"metric": "team_vesting_locked_pct", "value": 12.0, "source": "token_unlock_tracker"}
+      ],
+      "volatility": [
+        {"metric": "realized_vol_30d_pct", "value": 72.0, "source": "volatility_analytics"},
+        {"metric": "max_drawdown_90d_pct", "value": -38.5, "source": "price_history"},
+        {"metric": "beta_vs_btc", "value": 1.35, "source": "correlation_matrix"}
+      ],
+      "smart_contract_risk": [
+        {"metric": "audit_coverage", "value": "partial", "source": "defi_audit_registry"},
+        {"metric": "upgradeable_proxy", "value": true, "source": "contract_scanner"},
+        {"metric": "incident_count_12m", "value": 1, "source": "security_feed"}
+      ],
+      "oracle_dependency": [
+        {"metric": "oracle_sources", "value": 2, "source": "oracle_risk_482"},
+        {"metric": "price_deviation_bps", "value": 15, "source": "oracle_vwap"},
+        {"metric": "staleness_incidents_30d", "value": 0, "source": "oracle_monitor"}
+      ]
+    }
+  },
   "entities": {
     "BTC": {
       "entity_id": "BTC",

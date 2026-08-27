@@ -117,6 +117,33 @@
       "comparable_events": []
     },
     {
+      "event_id": "sui-2026-09-01",
+      "asset": "SUI",
+      "name": "Sui",
+      "unlock_date": "2026-09-01",
+      "unlock_amount_native": 68000000,
+      "unlock_usd": 145000000,
+      "unlock_pct_circulating": 6.5,
+      "unlock_pct_total_supply": 1.2,
+      "circulating_supply_usd": 2200000000,
+      "adv_usd": 85000000,
+      "recipient_type": "investor_vesting",
+      "exchange_inflow_signal": 0.48,
+      "volatility_context": 0.58,
+      "sentiment_context": 0.50,
+      "historical_similarity": 0.70,
+      "primary_source_url": "https://token.unlocks.app/sui",
+      "source_type": "token_unlocks",
+      "assumptions": ["Investor tranche per TokenUnlocks schedule"],
+      "revision_history": [
+        {"date": "2026-07-01", "change": "Initial from TokenUnlocks"},
+        {"date": "2026-08-10", "change": "Amount revised per on-chain vesting contract"}
+      ],
+      "comparable_events": [
+        {"asset": "APT", "date": "2025-04-12", "drawdown_pct": -12.0, "unlock_pct": 6.2}
+      ]
+    },
+    {
       "event_id": "unknown-schedule",
       "asset": "NEW",
       "name": "New Protocol",
@@ -133,5 +160,21 @@
       ],
       "comparable_events": []
     }
-  ]
+  ],
+  "unlock_forecaster_607": {
+    "feature_ref": 607,
+    "alert_horizon_days": 30,
+    "unlock_alert_threshold_pct": 5,
+    "portfolio_exposure": {
+      "demo_portfolio": {
+        "ARB": 8.0,
+        "SUI": 12.0,
+        "OP": 3.0
+      }
+    },
+    "alert_test_signals": [
+      {"test_id": "unlock_alert_qa_1", "delivered": true, "verified": true, "detail": "Internal team received test unlock alert"},
+      {"test_id": "unlock_alert_qa_2", "delivered": true, "verified": true, "detail": "Capital protection unlock alert verified"}
+    ]
+  }
 }

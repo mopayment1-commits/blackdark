@@ -797,6 +797,15 @@ def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[
         if opp.get("protocol_id"):
             opp["protocol_risk_491"] = apply_protocol_risk_to_opportunity_score(opp, seed=seed)
 
+        try:
+            from bd_platform.diligence_risk_scoring import score_token_risk
+
+            token_risk = score_token_risk(asset)
+            if token_risk.get("ok"):
+                opp["token_risk_score_604"] = token_risk
+        except Exception:
+            logger.debug("token risk 604 attachment skipped for %s", asset, exc_info=True)
+
         opportunities.append(opp)
 
     return opportunities

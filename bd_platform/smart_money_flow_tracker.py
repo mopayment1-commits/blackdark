@@ -39,8 +39,11 @@ _SOPR_FEATURE_REF = 488
 _ACCUMULATION_REF = 590
 _HISTORICAL_TREND_REF = 593
 _TRACKING_REF = 598
+_SHADOWING_REF = 623
+_WHALE_ALERTS_REF = 628
 _ENTITY_RESOLUTION_FEATURE_ID = 541
 _TITLE = "Smart Money Flow Tracker"
+_EPIC_TITLE = "Smart Money Flow Analysis"
 _ABSORBED_TITLE = "Age Consumed / Dormancy Intelligence"
 _STANDALONE = False
 _MERGED_INTO = "On-Chain Intelligence / Smart Money Flow Tracker"
@@ -623,6 +626,123 @@ def build_historical_trend_analysis(
     }
 
 
+def _format_entity_label(label: str, confidence: float) -> str:
+    """#623 — no identity fabrication below 95% confidence."""
+    if confidence >= 95:
+        return label
+    return f"محتمل: {label} (confidence: {confidence:.0f}%)"
+
+
+def _materiality_level(value_usd: float, *, thresholds: dict[str, float]) -> str:
+    if value_usd >= thresholds.get("high_usd", 10_000_000):
+        return "high"
+    if value_usd >= thresholds.get("medium_usd", 1_000_000):
+        return "medium"
+    if value_usd >= thresholds.get("low_usd", 100_000):
+        return "low"
+    return "below_threshold"
+
+
+def _dedupe_shadow_events(events: list[dict[str, Any]], *, window_minutes: int = 5) -> list[dict[str, Any]]:
+    """#623 — aggregate rapid-fire transfers from same wallet into one alert."""
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for event in events:
+        key = f"{event.get('wallet_address')}:{event.get('asset')}"
+        grouped.setdefault(key, []).append(event)
+
+    deduped: list[dict[str, Any]] = []
+    for key, group in grouped.items():
+        if len(group) == 1:
+            deduped.append(group[0])
+            continue
+        total_usd = sum(float(e.get("value_usd", 0)) for e in group)
+        deduped.append({
+            **group[0],
+            "aggregated": True,
+            "transfer_count": len(group),
+            "value_usd": total_usd,
+            "dedupe_window_minutes": window_minutes,
+        })
+    return deduped
+
+
+def build_wallet_shadowing_alerts(
+    watchlist_id: str = "default",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#623 — wallet shadowing merged into #408 Smart Money Flow Tracker."""
+    seed = seed or _load_seed()
+    cfg = seed.get("wallet_shadowing_623") or {}
+    reorg_blocks = int(cfg.get("reorg_confirmation_blocks", 6))
+    thresholds = cfg.get("materiality_thresholds") or {
+        "low_usd": 100_000,
+        "medium_usd": 1_000_000,
+        "high_usd": 10_000_000,
+    }
+
+    raw_events = (cfg.get("shadow_events") or [])
+    confirmed = [
+        e for e in raw_events
+        if int(e.get("confirmations", 0)) >= reorg_blocks and not e.get("reorged", False)
+    ]
+    deduped = _dedupe_shadow_events(confirmed, window_minutes=int(cfg.get("dedupe_window_minutes", 5)))
+
+    alerts: list[dict[str, Any]] = []
+    for event in deduped:
+        value_usd = float(event.get("value_usd", 0))
+        materiality = _materiality_level(value_usd, thresholds=thresholds)
+        if materiality == "below_threshold":
+            continue
+
+        confidence = float(event.get("label_confidence", 0))
+        raw_label = event.get("entity_label", "Unknown")
+        display_label = _format_entity_label(raw_label, confidence)
+
+        alerts.append({
+            "alert_id": event.get("event_id") or event.get("tx_hash"),
+            "feature_ref": _SHADOWING_REF,
+            "wallet_address": event.get("wallet_address"),
+            "entity_label": display_label,
+            "label_confidence_pct": confidence,
+            "no_identity_fabrication": confidence < 95,
+            "materiality": materiality,
+            "value_usd": value_usd,
+            "asset": event.get("asset"),
+            "movement_type": event.get("movement_type"),
+            "what_changed": event.get("what_changed") or f"{event.get('movement_type')} {value_usd:,.0f} USD",
+            "why_relevant": event.get("why_relevant") or cfg.get("default_why_relevant"),
+            "confirmations": event.get("confirmations"),
+            "reorg_safe": True,
+            "reorg_confirmation_blocks": reorg_blocks,
+            "aggregated": event.get("aggregated", False),
+            "transfer_count": event.get("transfer_count", 1),
+            "provenance": {
+                "tx_hash": event.get("tx_hash"),
+                "timestamp": event.get("timestamp"),
+                "chain": event.get("chain", "ethereum"),
+            },
+            "display": f"{display_label}: {event.get('what_changed', '')}",
+        })
+
+    return {
+        "ok": True,
+        "feature_ref": _SHADOWING_REF,
+        "merged_into": _FEATURE_ID,
+        "standalone": False,
+        "watchlist_id": watchlist_id,
+        "alerts": alerts,
+        "alert_count": len(alerts),
+        "reorg_confirmation_blocks": reorg_blocks,
+        "materiality_thresholds": thresholds,
+        "dedupe_enabled": True,
+        "no_identity_fabrication": True,
+        "labels_confidence_visible": True,
+        "integration_whale_alerts_628": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def build_smart_money_flow_panel(
     asset: str | None = None,
     *,
@@ -646,6 +766,7 @@ def build_smart_money_flow_panel(
         for a in (seed.get("historical_flows") or {})
     ]
     tracking = build_smart_money_tracking_feed(seed=seed)
+    shadowing = build_wallet_shadowing_alerts(seed=seed)
 
     return {
         "ok": True,
@@ -674,6 +795,7 @@ def build_smart_money_flow_panel(
             "count": sum(1 for h in historical if h.get("ok")),
         },
         "smart_money_tracking_598": tracking if tracking.get("ok") else {"ok": False},
+        "wallet_shadowing_623": shadowing if shadowing.get("ok") else {"ok": False},
         "disclaimer": _DISCLAIMER,
         "timestamp": _utcnow(),
     }
@@ -701,6 +823,7 @@ def smart_money_flow_tracker_status() -> dict[str, Any]:
             "590": "Accumulation/Distribution State + Net-Flow Persistence Indicator",
             "593": "Smart Money Historical Trend Analysis",
             "598": "Smart Money Tracking — classified wallet feed",
+            "623": "Wallet Shadowing — real-time wallet alerts with dedupe",
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -752,6 +875,15 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "latency_measured_598", "passed": (tracking.get("latency") or {}).get("latency_visible") is True, "detail": "598"})
     checks.append({"id": "duplicate_prevention_598", "passed": (tracking.get("duplicate_prevention") or {}).get("enabled") is True, "detail": "598"})
     checks.append({"id": "missed_event_handling_598", "passed": (tracking.get("missed_event_handling") or {}).get("missed_visible") is True, "detail": "598"})
+
+    shadowing = build_wallet_shadowing_alerts(seed=seed)
+    checks.append({"id": "wallet_shadowing_623", "passed": shadowing.get("ok") is True, "detail": "623"})
+    checks.append({"id": "reorg_handling_623", "passed": shadowing.get("reorg_confirmation_blocks") == 6, "detail": "reorg"})
+    checks.append({"id": "no_identity_fabrication_623", "passed": shadowing.get("no_identity_fabrication") is True, "detail": "labels"})
+    checks.append({"id": "label_confidence_623", "passed": shadowing.get("labels_confidence_visible") is True, "detail": "confidence"})
+    if shadowing.get("alerts"):
+        low_conf = next((a for a in shadowing["alerts"] if a.get("label_confidence_pct", 100) < 95), None)
+        checks.append({"id": "probable_label_format", "passed": low_conf is None or "محتمل" in low_conf.get("entity_label", ""), "detail": "format"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

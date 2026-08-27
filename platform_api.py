@@ -1353,6 +1353,28 @@ async def token_unlock_actionability_route(asset: str = Query("ARB")):
     return result
 
 
+@router.get("/intelligence-ledger/token-unlock/forecaster")
+async def token_unlock_forecaster_route(limit: int = Query(30, ge=1, le=100)):
+    """#607 Token Unlock Forecaster — severity + provenance, no price prediction."""
+    from bd_platform.token_unlock_intelligence_engine import build_unlock_forecaster_panel
+
+    return build_unlock_forecaster_panel(limit=limit)
+
+
+@router.get("/intelligence-ledger/token-unlock/forecaster/capital-alerts")
+async def token_unlock_capital_alerts_route(portfolio_id: str = Query("demo_portfolio")):
+    from bd_platform.token_unlock_intelligence_engine import build_capital_protection_unlock_alerts
+
+    return build_capital_protection_unlock_alerts(portfolio_id)
+
+
+@router.get("/intelligence-ledger/token-unlock/forecaster/alert-tests")
+async def token_unlock_alert_tests_route():
+    from bd_platform.token_unlock_intelligence_engine import run_unlock_alert_tests
+
+    return run_unlock_alert_tests()
+
+
 @router.get("/intelligence-ledger/strategy-lab/status")
 async def strategy_lab_status_route():
     """#716 Strategy Lab + #712 internal QA gate — Pro/Institution."""
@@ -1661,6 +1683,14 @@ async def smart_money_tracking_feed_route(watchlist_id: str = Query("default")):
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/wallet-shadowing")
+async def wallet_shadowing_alerts_route(watchlist_id: str = Query("default")):
+    """#623 Wallet Shadowing — merged into #408."""
+    from bd_platform.smart_money_flow_tracker import build_wallet_shadowing_alerts
+
+    return build_wallet_shadowing_alerts(watchlist_id)
+
+
 @router.get("/intelligence-ledger/ui/beginner-decision-mode/status")
 async def beginner_decision_mode_status_route():
     """#461 Beginner Decision Mode — merged with #468 Decision-First."""
@@ -1799,6 +1829,17 @@ async def diligence_risk_entity_route(entity_id: str):
     from bd_platform.diligence_risk_scoring import score_entity_risk
 
     result = score_entity_risk(entity_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-scoring/token/{token_id}")
+async def token_risk_scoring_route(token_id: str):
+    """#604 Token Risk Scoring — merged into #460."""
+    from bd_platform.diligence_risk_scoring import score_token_risk
+
+    result = score_token_risk(token_id)
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
@@ -2289,6 +2330,14 @@ async def wallet_performance_card_route(wallet_id: str = Query("demo_wallet")):
     from bd_platform.portfolio_intelligence_engine import build_wallet_historical_performance_card
 
     return build_wallet_historical_performance_card(wallet_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/portfolio-intelligence/pnl-breakdown")
+async def wallet_pnl_breakdown_route(wallet_id: str = Query("demo_wallet")):
+    """#619 Wallet PnL Analysis — merged into Portfolio AI."""
+    from bd_platform.portfolio_intelligence_engine import build_wallet_pnl_breakdown
+
+    return build_wallet_pnl_breakdown(wallet_id)
 
 
 @router.get("/intelligence-ledger/strategy-vetting/status")

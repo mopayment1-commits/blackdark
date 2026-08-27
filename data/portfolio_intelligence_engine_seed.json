@@ -11,7 +11,7 @@
   "last_updated": "2026-08-27",
   "existing_module": true,
   "no_new_module_built": true,
-  "merged_features": [448, 450, 483, 490, 617, 618],
+  "merged_features": [448, 450, 483, 490, 617, 618, 619],
   "sharpe_drawdown_winrate_sla_cancelled": true,
   "portfolio_id": "demo_portfolio",
   "integrations": {
@@ -120,17 +120,24 @@
     "drawdown_alert_threshold_pct": 15,
     "exclude_incomplete_trades": true
   },
+  "wallet_pnl_619": {
+    "feature_ref": 619,
+    "cost_basis_method": "fifo",
+    "fees_included": true,
+    "current_prices": {"BTC": 65000, "ETH": 3480}
+  },
   "wallets": {
     "demo_wallet": {
       "breakeven_position_id": "pos_btc_001",
       "owned_addresses": ["0xuser_main", "0xuser_cold"],
+      "current_prices": {"BTC": 65000},
       "open_positions": [{"asset": "BTC", "quantity": 0.5}],
       "events": [
-        {"timestamp": "2025-01-15T10:00:00Z", "type": "buy", "asset": "BTC", "quantity": 1.0, "execution_price": 42000},
-        {"timestamp": "2025-03-01T14:00:00Z", "type": "dca", "asset": "BTC", "quantity": 0.5, "execution_price": 58000},
-        {"timestamp": "2025-06-10T09:00:00Z", "type": "transfer_out", "asset": "BTC", "quantity": 0.2, "from_wallet": "0xuser_main", "to_wallet": "0xuser_cold", "execution_price": 68000},
-        {"timestamp": "2025-08-20T16:00:00Z", "type": "partial_exit", "asset": "BTC", "quantity": 0.3, "execution_price": 72000, "partial": true},
-        {"timestamp": "2025-09-05T11:00:00Z", "type": "sell", "asset": "BTC", "quantity": 0.5, "execution_price": 65000}
+        {"timestamp": "2025-01-15T10:00:00Z", "type": "buy", "asset": "BTC", "quantity": 1.0, "execution_price": 42000, "exchange_fee_usd": 25.0, "network_fee_usd": 5.0},
+        {"timestamp": "2025-03-01T14:00:00Z", "type": "dca", "asset": "BTC", "quantity": 0.5, "execution_price": 58000, "exchange_fee_usd": 15.0, "network_fee_usd": 4.0},
+        {"timestamp": "2025-06-10T09:00:00Z", "type": "transfer_out", "asset": "BTC", "quantity": 0.2, "from_wallet": "0xuser_main", "to_wallet": "0xuser_cold", "execution_price": 68000, "network_fee_usd": 3.0},
+        {"timestamp": "2025-08-20T16:00:00Z", "type": "partial_exit", "asset": "BTC", "quantity": 0.3, "execution_price": 72000, "partial": true, "exchange_fee_usd": 18.0},
+        {"timestamp": "2025-09-05T11:00:00Z", "type": "sell", "asset": "BTC", "quantity": 0.5, "execution_price": 65000, "exchange_fee_usd": 20.0, "network_fee_usd": 4.0}
       ],
       "closed_trades": [
         {"status": "closed", "return_pct": 12.5},

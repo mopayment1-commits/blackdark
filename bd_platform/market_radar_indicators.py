@@ -307,6 +307,14 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("tx volume market radar integration skipped", exc_info=True)
 
+    unlock_timeline = None
+    try:
+        from bd_platform.token_unlock_intelligence_engine import build_market_radar_unlock_timeline
+
+        unlock_timeline = build_market_radar_unlock_timeline()
+    except Exception:
+        logger.debug("unlock timeline market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -316,6 +324,7 @@ def build_market_radar_panel(
         "stablecoin_reserve_trend_601": stablecoin_reserve,
         "transaction_flow_view_615": transaction_flow,
         "transaction_volume_chart_612": tx_volume,
+        "unlock_event_timeline_607": unlock_timeline,
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }
