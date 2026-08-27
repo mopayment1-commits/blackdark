@@ -1201,10 +1201,18 @@ def build_market_radar_panel(
         logger.debug("797 viral share action market radar integration skipped", exc_info=True)
 
     chart_overlay_800 = None
+    chart_component_821 = None
     try:
         chart_overlay_800 = build_interactive_chart_overlay_800(asset, seed=seed)
     except Exception:
         logger.debug("800 interactive chart overlay skipped", exc_info=True)
+
+    try:
+        from bd_platform.chart_component import build_chart_component_821
+
+        chart_component_821 = build_chart_component_821(asset, seed=seed)
+    except Exception:
+        logger.debug("821 chart component skipped", exc_info=True)
 
     activity_metrics_801 = None
     exchange_activity_810 = None
@@ -1252,6 +1260,7 @@ def build_market_radar_panel(
         "sentiment_intelligence_783": sentiment_overlay if sentiment_overlay and sentiment_overlay.get("ok") else {"ok": False},
         "viral_share_action_797": viral_share if viral_share and viral_share.get("ok") else {"ok": False},
         "interactive_chart_overlay_800": chart_overlay_800 if chart_overlay_800 and chart_overlay_800.get("ok") else {"ok": False},
+        "chart_component_821": chart_component_821 if chart_component_821 and chart_component_821.get("ok") else {"ok": False},
         "activity_metrics_801": activity_metrics_801 if activity_metrics_801 and activity_metrics_801.get("ok") else {"ok": False},
         "exchange_activity_810": exchange_activity_810 if exchange_activity_810 and exchange_activity_810.get("ok") else {"ok": False},
         "realized_cap_816": realized_cap_816 if realized_cap_816 and realized_cap_816.get("ok") else {"ok": False},

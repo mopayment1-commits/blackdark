@@ -13,14 +13,41 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.TradingViewBridge")
 
 
+_LIGHTWEIGHT_CHARTS_V4_CDN = (
+    "https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"
+)
+
+
 def chart_config(symbol: str = "BTCUSDT") -> dict[str, Any]:
+    return lightweight_charts_v4_config(symbol)
+
+
+def lightweight_charts_v4_config(symbol: str = "BTCUSDT") -> dict[str, Any]:
+    """#821 — TradingView Lightweight Charts v4 embed config."""
     return {
         "library": "TradingView Lightweight Charts",
+        "version": "v4",
         "symbol": symbol,
         "note": "Pine Script is TradingView proprietary — use Lightweight Charts for embedded UI",
-        "cdn": "https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js",
+        "cdn": _LIGHTWEIGHT_CHARTS_V4_CDN,
         "theme": "dark",
-        "studies": ["volume", "rsi"],
+        "layout": {
+            "background": {"type": "solid", "color": "#0d1117"},
+            "textColor": "#c9d1d9",
+        },
+        "grid": {"vertLines": {"color": "#21262d"}, "horzLines": {"color": "#21262d"}},
+        "crosshair": {"mode": 1},
+        "timeScale": {"borderColor": "#30363d", "timeVisible": True},
+        "panes": {
+            "main": {"type": "candlestick", "overlays": ["SMA(20)"]},
+            "volume": {"type": "histogram", "height": 80},
+            "rsi": {"type": "line", "period": 14, "height": 100},
+            "macd": {"type": "macd", "params": "12,26,9", "height": 100},
+        },
+        "interaction": {"zoom": True, "pan": True, "handleScroll": True, "handleScale": True},
+        "studies": ["volume", "rsi", "macd", "sma"],
+        "max_candles": 50000,
+        "responsive": True,
     }
 
 

@@ -5505,6 +5505,62 @@ async def market_radar_chart_asset_card_route(asset: str = Query("BTC")):
     return build_asset_card_technical_chart_800(asset)
 
 
+@router.get("/intelligence-ledger/market-radar/chart-component/status")
+async def chart_component_status_route():
+    """#821 TradingView Lightweight Charts — selected charting solution."""
+    from bd_platform.chart_component import chart_component_status_821
+
+    return chart_component_status_821()
+
+
+@router.get("/intelligence-ledger/market-radar/chart-component")
+async def chart_component_route(asset: str = Query("BTC")):
+    """#821 chart_component — TradingView Lightweight Charts v4 overlay."""
+    from bd_platform.chart_component import build_chart_component_821
+
+    result = build_chart_component_821(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/chart-component/ohlcv")
+async def chart_component_ohlcv_route(
+    asset: str = Query("BTC"),
+    candle_limit: int = Query(50, ge=1, le=50000),
+):
+    from bd_platform.chart_component import fetch_ohlcv_cached_821
+
+    result = fetch_ohlcv_cached_821(asset, candle_limit=candle_limit)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/chart-component/multi-asset")
+async def chart_component_multi_asset_route(
+    assets: str = Query("BTC,ETH"),
+):
+    from bd_platform.chart_component import build_multi_asset_chart_config_821
+
+    asset_list = [a.strip().upper() for a in assets.split(",") if a.strip()]
+    return build_multi_asset_chart_config_821(asset_list)
+
+
+@router.get("/intelligence-ledger/market-radar/chart-component/asset-card")
+async def chart_component_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.chart_component import build_asset_card_chart_indicators_821
+
+    return build_asset_card_chart_indicators_821(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/chart-component/e2e")
+async def chart_component_e2e_route():
+    from bd_platform.chart_component import run_chart_component_e2e_821
+
+    return run_chart_component_e2e_821()
+
+
 @router.get("/intelligence-ledger/ux-layer/view-modes/status")
 async def view_modes_status_route():
     """#804 Beginner/Professional cross-cutting UX pattern."""
