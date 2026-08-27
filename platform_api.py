@@ -1553,6 +1553,41 @@ async def entity_resolution_engine_status_route():
     return entity_resolution_engine_status()
 
 
+@router.get("/intelligence-ledger/entity-layer/status")
+async def entity_layer_status_route():
+    """#542 #543 Entity Layer — adjusted metrics + wallet intelligence."""
+    from bd_platform.entity_layer import entity_layer_status
+
+    return entity_layer_status()
+
+
+@router.get("/intelligence-ledger/entity-layer")
+async def entity_layer_panel_route(
+    address: str | None = Query(None),
+    entity_id: str | None = Query(None),
+    view: str = Query("both"),
+):
+    from bd_platform.entity_layer import build_entity_layer_panel
+
+    return build_entity_layer_panel(address=address, entity_id=entity_id, view=view)  # type: ignore[arg-type]
+
+
+@router.get("/intelligence-ledger/entity-layer/wallet-intelligence")
+async def entity_layer_wallet_intelligence_route(
+    address: str = Query(...),
+):
+    from bd_platform.entity_layer import build_wallet_intelligence
+
+    return build_wallet_intelligence(address)
+
+
+@router.get("/intelligence-ledger/entity-layer/reconciliation-tests")
+async def entity_layer_reconciliation_tests_route():
+    from bd_platform.entity_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/foundation/entity-resolution")
 async def entity_resolution_engine_panel_route(
     entity_id: str | None = Query(None),
