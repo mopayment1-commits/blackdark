@@ -355,7 +355,11 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
         from bd_platform.fill_feasibility_simulator import enrich_arbitrage_opportunity
 
         if opp.get("buy_venue") and opp.get("sell_venue"):
-            enriched = enrich_arbitrage_opportunity(enriched, size=1.0)
+            enriched = enrich_arbitrage_opportunity(enriched, size=float(opp.get("quote_usd", 5000)) / 1000.0)
+        elif opp.get("opportunity_type") == "derivatives_basis_funding" and opp.get("venue"):
+            enriched.setdefault("buy_venue", f"{opp['venue']}_spot")
+            enriched.setdefault("sell_venue", f"{opp['venue']}_perp")
+            enriched = enrich_arbitrage_opportunity(enriched, size=float(opp.get("quote_usd", 5000)) / 1000.0)
     except Exception:
         logger.debug("fill feasibility enrichment skipped", exc_info=True)
 
@@ -654,12 +658,21 @@ def build_market_radar_integration(*, seed: dict[str, Any] | None = None) -> dic
     except Exception:
         logger.debug("thesis scoring market radar integration skipped", exc_info=True)
 
+    basis_widget: dict[str, Any] | None = None
+    try:
+        from bd_platform.basis_funding_divergence_monitor import build_basis_monitor_widget
+
+        basis_widget = build_basis_monitor_widget(limit=5)
+    except Exception:
+        logger.debug("basis monitor widget integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "integration": "market_radar",
         "dashboard_position_first": "daily_brief_474",
         "daily_brief_474": daily_brief,
         "thesis_cards_472": thesis_cards,
+        "basis_monitor_440": basis_widget,
         "top_opportunities": top[:5],
         "count": feed.get("count", 0),
         "ranked_by": "executable_net_edge_usdt",
@@ -706,8 +719,12 @@ def evaluate_opportunity_alert(
 
     verdict = feasibility.get("verdict") or (feasibility.get("buy_leg") or {}).get("verdict")
     fillable = verdict in {"full_fill", "partial_fill"} or opportunity.get("opportunity_type") in {
-        "triangular_divergence", "stablecoin_depeg", "on_chain_arbitrage",
+        "triangular_divergence", "stablecoin_depeg", "on_chain_arbitrage", "derivatives_basis_funding",
     }
+
+    # #410 — basis divergence: alert when gross basis high but risk elevated
+    risk_alert = opportunity.get("risk_alert_410") or {}
+    basis_risk_note = risk_alert.get("message") if risk_alert.get("alert") else None
 
     eligible = (
         truth_score >= min_truth
@@ -734,6 +751,7 @@ def evaluate_opportunity_alert(
             "fillable": fillable,
             "fill_risk_pct": fill_risk,
             "truth_reject": truth.get("reject"),
+            "basis_risk_note_410": basis_risk_note,
         },
         "simulation_only": True,
         "no_auto_execution": True,

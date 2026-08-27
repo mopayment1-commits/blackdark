@@ -467,6 +467,13 @@ def build_basis_curve_component(asset: str = "BTC") -> dict[str, Any]:
     }
 
 
+def build_basis_monitor_widget(*, limit: int = 5) -> dict[str, Any]:
+    """#440 Basis Divergence Scanner — Market Radar top-N widget (merged into #429)."""
+    from bd_platform.basis_funding_divergence_monitor import build_basis_monitor_widget as _widget
+
+    return _widget(limit=limit)
+
+
 def build_market_data_normalization_layer(asset: str = "BTC") -> dict[str, Any]:
     """#395 Spot & Derivatives Coverage — absorbed as Market Data Normalization Layer."""
     t0 = time.perf_counter()
