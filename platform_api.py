@@ -2977,6 +2977,17 @@ async def data_infrastructure_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/data-layer/infrastructure/price-volume-market-metrics")
+async def price_volume_market_metrics_route(asset: str = Query("BTC")):
+    """#581 Price / Volume / Market Metrics — foundation task in Data Infrastructure."""
+    from bd_platform.data_infrastructure_layer import build_price_volume_market_metrics_panel
+
+    result = build_price_volume_market_metrics_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/infrastructure/custom-alerts/status")
 async def custom_alerts_status_route():
     """#532 Custom Alerts — backend enforced, rate limits, tx evidence."""
@@ -3032,6 +3043,52 @@ async def flow_to_price_event_correlator_panel_route(
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/price-move-correlation-layer")
+async def price_move_event_correlation_layer_route(
+    asset: str = Query("BTC"),
+    event_id: str | None = Query(None),
+    candle_id: str | None = Query(None),
+):
+    """#556+#519+#582 unified Price-Move Event Correlation Layer epic."""
+    from bd_platform.flow_to_price_event_correlator import build_price_move_event_correlation_layer_panel
+
+    return build_price_move_event_correlation_layer_panel(
+        asset=asset, event_id=event_id, candle_id=candle_id,
+    )
+
+
+@router.get("/intelligence-ledger/intelligence-layer/flow-to-price-correlator/reconciliation-tests")
+async def flow_to_price_reconciliation_tests_route():
+    from bd_platform.flow_to_price_event_correlator import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-anomaly/status")
+async def market_anomaly_detection_status_route():
+    """#583 Market Anomaly Detection Module — statistical multi-signal flags only."""
+    from bd_platform.market_anomaly_detection_module import market_anomaly_detection_status
+
+    return market_anomaly_detection_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-anomaly")
+async def market_anomaly_detection_panel_route(asset: str = Query("ALT")):
+    from bd_platform.market_anomaly_detection_module import build_market_anomaly_panel
+
+    result = build_market_anomaly_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-anomaly/reconciliation-tests")
+async def market_anomaly_reconciliation_tests_route():
+    from bd_platform.market_anomaly_detection_module import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/intelligence-layer/market-context/status")
@@ -3428,6 +3485,20 @@ async def protocol_valuation_panel_route(
     from bd_platform.protocol_valuation_layer import build_protocol_valuation_panel
 
     result = build_protocol_valuation_panel(asset_id, entity_adjusted=entity_adjusted)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/protocol-valuation/realized-cap")
+async def protocol_valuation_realized_cap_route(
+    asset_id: str = Query("bitcoin"),
+    entity_adjusted: bool = Query(True),
+):
+    """#584/#585 Realized Cap & Realized Price Intelligence."""
+    from bd_platform.protocol_valuation_layer import build_realized_cap_panel
+
+    result = build_realized_cap_panel(asset_id, entity_adjusted=entity_adjusted)
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result

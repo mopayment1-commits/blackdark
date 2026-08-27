@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "epic_feature_ids": [570, 571],
+  "epic_feature_ids": [570, 571, 584, 585],
   "layer": "Data Layer",
   "methodology_version": "1.0",
   "last_updated": "2026-08-26",
@@ -49,5 +49,59 @@
     "percentile_accuracy_pct": 94.2,
     "deterministic": true,
     "no_trading_backtest": true
+  },
+  "realized_cap": {
+    "bitcoin": {
+      "name": "Bitcoin",
+      "chain": "bitcoin",
+      "methodology_version": "1.0",
+      "formula_version": "1.0",
+      "chain_rules": {
+        "model": "UTXO last-move valuation",
+        "supply_basis": "circulating",
+        "replay": "exact_block_level"
+      },
+      "spot_price_usd": 94800,
+      "realized_price_usd": 38500,
+      "realized_cap_usd": 762300000000,
+      "entity_adjusted_realized_price_usd": 39200,
+      "entity_adjusted_realized_cap_usd": 775560000000,
+      "entity_adjusted_available": true,
+      "circulating_supply": 19800000,
+      "historical_realized_cap": [720000000000, 735000000000, 748000000000, 762300000000],
+      "exact_historical_replay": true,
+      "missing": false,
+      "qa": {
+        "periods_tested": 36,
+        "replay_accuracy_pct": 99.1,
+        "last_qa_run": "2026-08-26T00:00:00Z"
+      }
+    },
+    "ethereum": {
+      "name": "Ethereum",
+      "chain": "ethereum",
+      "methodology_version": "1.0",
+      "formula_version": "1.0",
+      "chain_rules": {
+        "model": "account-state last-transfer valuation",
+        "supply_basis": "circulating",
+        "replay": "exact_block_level"
+      },
+      "spot_price_usd": 4180,
+      "realized_price_usd": 2100,
+      "realized_cap_usd": 252000000000,
+      "entity_adjusted_realized_price_usd": 2250,
+      "entity_adjusted_realized_cap_usd": 270000000000,
+      "entity_adjusted_available": true,
+      "circulating_supply": 120000000,
+      "historical_realized_cap": [240000000000, 245000000000, 248000000000, 252000000000],
+      "exact_historical_replay": true,
+      "missing": false,
+      "qa": {
+        "periods_tested": 36,
+        "replay_accuracy_pct": 98.5,
+        "last_qa_run": "2026-08-26T00:00:00Z"
+      }
+    }
   }
 }
