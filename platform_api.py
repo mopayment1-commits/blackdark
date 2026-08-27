@@ -3602,6 +3602,28 @@ async def sentiment_intelligence_qa_route():
     return run_sentiment_intelligence_qa_783()
 
 
+@router.get("/intelligence-ledger/market-radar/sentiment/balance")
+async def sentiment_balance_widget_route(asset: str = Query("BTC")):
+    """#782 sentiment_balance metric — merged into #783 sentiment layer."""
+    from bd_platform.social_sentiment_intelligence import build_market_radar_sentiment_balance_widget_782
+
+    return build_market_radar_sentiment_balance_widget_782(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/asset-card")
+async def sentiment_asset_card_badge_route(asset: str = Query("BTC")):
+    from bd_platform.social_sentiment_intelligence import build_asset_card_sentiment_badge_783
+
+    return build_asset_card_sentiment_badge_783(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/balance/asset-card")
+async def sentiment_balance_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.social_sentiment_intelligence import build_asset_card_balance_sparkline_782
+
+    return build_asset_card_balance_sparkline_782(asset)
+
+
 @router.get("/intelligence-ledger/signals/attribution/status")
 async def signal_attribution_status_route():
     from bd_platform.signal_attribution_layer import signal_attribution_layer_status

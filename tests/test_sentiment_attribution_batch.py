@@ -48,8 +48,22 @@ def test_783_rule_version_documented(ssi_seed):
     panel = ssi.build_sentiment_intelligence_panel_783("BTC", seed=ssi_seed)
     assert panel["rule_version_not_hideable"] is True
     assert "Sentiment Rule Set v1.0" in panel["rule_documentation"]
-    assert "Keywords: 520" in panel["rule_documentation"]
-    assert "EN/AR" in panel["rule_documentation"]
+    assert "500 EN + 300 AR" in panel["rule_documentation"]
+    assert "Last Updated:" in panel["rule_documentation"]
+
+
+def test_783_confidence_tiers(ssi_seed):
+    panel = ssi.build_sentiment_intelligence_panel_783("BTC", seed=ssi_seed)
+    assert panel["mention_count"] >= 1000
+    assert panel["confidence_pct"] == 90.0
+    assert panel["confidence_tier"] == "Very High"
+
+
+def test_783_structured_display(ssi_seed):
+    panel = ssi.build_sentiment_intelligence_panel_783("BTC", seed=ssi_seed)
+    assert "الأصل: BTC" in panel["display"]
+    assert "الثقة:" in panel["display"]
+    assert "منشن" in panel["display"]
 
 
 def test_783_source_weighting_explicit(ssi_seed):
@@ -72,11 +86,55 @@ def test_783_low_sample_insufficient(ssi_seed):
     assert panel["insufficient_data"] is True
 
 
-def test_783_confidence_by_sample_size(ssi_seed):
+# --- #782 (merged into #783) ---
+
+
+def test_782_balance_formula(ssi_seed):
     panel = ssi.build_sentiment_intelligence_panel_783("BTC", seed=ssi_seed)
-    assert panel["mention_count"] >= 100
-    assert panel["confidence_pct"] is not None
-    assert panel["confidence_by_sample_size"] is True
+    balance = panel["sentiment_balance_782"]
+    assert balance["formula_documented"] is True
+    assert "Positive_Weighted" in balance["formula"]
+    assert balance["deterministic"] is True
+    assert balance["no_ai_balance"] is True
+
+
+def test_782_balance_range_and_band(ssi_seed):
+    panel = ssi.build_sentiment_intelligence_panel_783("BTC", seed=ssi_seed)
+    balance = panel["sentiment_balance_782"]
+    assert -100 <= balance["balance_value"] <= 100
+    assert balance["balance_band"] in ("Very Positive", "Positive", "Neutral", "Negative", "Very Negative")
+
+
+def test_782_low_sample_na(ssi_seed):
+    panel = ssi.build_sentiment_intelligence_panel_783("LOW_SAMPLE", seed=ssi_seed)
+    balance = panel["sentiment_balance_782"]
+    assert balance["balance_value"] == "N/A"
+    assert balance["zero_sample_protected"] is True
+
+
+def test_782_historical_bands_documented(ssi_seed):
+    panel = ssi.build_sentiment_intelligence_panel_783("BTC", seed=ssi_seed)
+    bands = panel["sentiment_balance_782"]["historical_bands"]
+    assert len(bands) == 5
+    assert any(b["band"] == "Neutral" for b in bands)
+
+
+def test_782_market_radar_balance_widget(ssi_seed):
+    widget = ssi.build_market_radar_sentiment_balance_widget_782("BTC", seed=ssi_seed)
+    assert widget["widget_ar"] == "مؤشر التوازن المزاجي"
+
+
+def test_782_asset_card_sparkline(ssi_seed):
+    card = ssi.build_asset_card_balance_sparkline_782("BTC", seed=ssi_seed)
+    assert card["tab_ar"] == "التوازن"
+    assert len(card["sparkline"]) >= 5
+    assert card["range"] == [-100, 100]
+
+
+def test_783_asset_card_badge(ssi_seed):
+    badge = ssi.build_asset_card_sentiment_badge_783("BTC", seed=ssi_seed)
+    assert badge["badge_ar"] == "المزاج السائد"
+    assert badge["confidence_pct"] is not None
 
 
 def test_783_sentiment_label_and_trend(ssi_seed):
@@ -101,6 +159,7 @@ def test_783_multilingual_qa(ssi_seed):
     qa = panel["multilingual_qa"]
     assert "EN" in qa["languages_tested"]
     assert "AR" in qa["languages_tested"]
+    assert qa["ar_accuracy_pct"] >= qa["ar_min_accuracy_pct"]
     assert qa["qa_passed"] is True
 
 
