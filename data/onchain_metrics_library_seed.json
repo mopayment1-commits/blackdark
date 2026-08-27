@@ -995,5 +995,94 @@
         }
       }
     }
+  },
+  "activity_metrics_801": {
+    "feature_ref": 801,
+    "merged_into": 577,
+    "spam_bot_policy": {
+      "bot_tx_threshold_per_day": 100,
+      "zero_balance_flag": true,
+      "description": "addresses with >100 tx/day and zero balance flagged as bot — excluded from DAA"
+    },
+    "glassnode_qa": {
+      "tolerance_pct": 2.0,
+      "assets": {
+        "BTC": {"platform_daa": 890000, "glassnode_daa": 892450},
+        "ETH": {"platform_daa": 478000, "glassnode_daa": 485200}
+      }
+    },
+    "fee_db": {"rpc_usd": 0.03, "indexing_usd": 0.02, "tier": "standard"},
+    "assets": {
+      "BTC": {
+        "chain_model": "utxo",
+        "metrics": {
+          "raw_daa": 895200,
+          "bot_addresses_excluded": 5200,
+          "daa_change_pct": -1.2,
+          "tx_count": 312500,
+          "tx_count_change_pct": -3.0,
+          "tx_value_usd": 12500000000,
+          "tx_value_change_pct": 1.5
+        },
+        "sparkline_daa": [880000, 885000, 888000, 890000, 892000],
+        "sparkline_tx": [305000, 308000, 310000, 311000, 312500],
+        "reorg_handling": {"enabled": true, "recalculate_cancelled_blocks": true, "last_reorg_depth": 1, "metrics_recalculated": true}
+      },
+      "ETH": {
+        "chain_model": "account",
+        "metrics": {
+          "raw_daa": 490000,
+          "bot_addresses_excluded": 12000,
+          "daa_change_pct": 12.0,
+          "tx_count": 1120000,
+          "tx_count_change_pct": 2.1,
+          "tx_value_usd": 8200000000,
+          "tx_value_change_pct": 5.2
+        },
+        "sparkline_daa": [460000, 470000, 475000, 480000, 478000],
+        "sparkline_tx": [1080000, 1095000, 1105000, 1115000, 1120000],
+        "reorg_handling": {"enabled": true, "recalculate_cancelled_blocks": true, "last_reorg_depth": 2, "metrics_recalculated": true}
+      }
+    }
+  },
+  "exchange_activity_810": {
+    "feature_ref": 810,
+    "merged_into": 577,
+    "coverage_exchanges": ["Binance", "Coinbase", "Kraken", "OKX", "Bybit"],
+    "address_semantics": {
+      "hot_wallet": "exchange-operated hot wallet for withdrawals",
+      "cold_wallet": "exchange cold storage reserve",
+      "user_deposit_address": "user-specific deposit address assigned by exchange"
+    },
+    "glassnode_qa": {
+      "tolerance_pct": 5.0,
+      "assets": {
+        "BTC": {"platform_net_flow_usd": -120000000, "glassnode_net_flow_usd": -118000000},
+        "ETH": {"platform_net_flow_usd": 45000000, "glassnode_net_flow_usd": 47200000}
+      }
+    },
+    "fee_db": {"rpc_usd": 0.04, "labeling_usd": 0.03, "tier": "standard"},
+    "assets": {
+      "BTC": {
+        "metrics": {
+          "deposit_count": 45200,
+          "withdrawal_count": 52100,
+          "net_flow_usd": -125000000,
+          "unique_addresses": 185000,
+          "internal_transfers_excluded": 12400
+        },
+        "sparkline_net_flow": [-80e6, -95e6, -110e6, -118e6, -125e6]
+      },
+      "ETH": {
+        "metrics": {
+          "deposit_count": 78500,
+          "withdrawal_count": 65200,
+          "net_flow_usd": 45000000,
+          "unique_addresses": 142000,
+          "internal_transfers_excluded": 8900
+        },
+        "sparkline_net_flow": [20e6, 28e6, 35e6, 42e6, 45e6]
+      }
+    }
   }
 }

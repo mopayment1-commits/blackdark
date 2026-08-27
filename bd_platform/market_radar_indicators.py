@@ -360,6 +360,106 @@ def build_asset_card_technical_indicators_760(
     }
 
 
+def build_interactive_chart_overlay_800(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#800 — Interactive chart overlay merged into Market Radar (Streamlit rejected)."""
+    from bd_platform.tradingview_bridge import chart_config
+
+    seed = seed or _load_seed()
+    sym = asset.upper()
+    cfg = seed.get("interactive_chart_overlay_800") or {}
+    calc = build_technical_calculation_layer_754(sym, seed=seed)
+    if not calc.get("ok"):
+        return {"ok": False, "feature_ref": 800, "asset": sym, "error": "technical_layer_unavailable"}
+
+    indicators = calc.get("indicators") or {}
+    rsi = (indicators.get("RSI") or {}).get("value")
+    macd = indicators.get("MACD") or {}
+    sma_20 = (indicators.get("SMA") or {}).get("values", {}).get("20")
+    tv_cfg = chart_config(f"{sym}USDT")
+    ohlcv_cfg = seed.get("technical_calculation_layer_754") or {}
+    candle_count = len((ohlcv_cfg.get("ohlcv_closes") or {}).get(sym) or [])
+
+    enabled = cfg.get("indicators_enabled", ["RSI(14)", "MACD(12,26,9)", "SMA(20)", "Volume"])
+    return {
+        "ok": True,
+        "feature_ref": 800,
+        "merged_into": "market_radar",
+        "standalone_rejected": True,
+        "streamlit_rejected": True,
+        "duplicate_of_798_rejected": True,
+        "rejected_frameworks": ["Streamlit", "Pyrogram chart apps"],
+        "legal_name": cfg.get("legal_name", "الرسم البياني"),
+        "panel_name_ar": "الرسم البياني",
+        "route": "/radar/chart",
+        "asset": sym,
+        "chart_library": "TradingView Lightweight Charts",
+        "chart_library_cached": True,
+        "external_chart_engine": True,
+        "no_custom_charting_engine": True,
+        "no_streamlit": True,
+        "technical_indicator_ref": 754,
+        "ohlcv_source": "oracle_api",
+        "indicators_enabled": enabled,
+        "max_indicators_sprint_1": 4,
+        "indicators": {
+            "RSI": {"period": 14, "value": rsi, "formula": "RSI(14)"},
+            "MACD": {"params": "12,26,9", "trend_label": macd.get("trend_label"), "formula": "MACD(12,26,9)"},
+            "SMA": {"period": 20, "value": sma_20, "formula": "SMA(20)"},
+            "Volume": {"enabled": True, "formula": "OHLCV volume bars"},
+        },
+        "tradingview_config": tv_cfg,
+        "performance": {
+            "max_candles_supported": 50000,
+            "target_latency_ms": 100,
+            "cached_widget": True,
+            "responsive": True,
+        },
+        "interaction": {
+            "zoom": True,
+            "pan": True,
+            "save_settings": False,
+            "load_settings": False,
+            "export": False,
+            "sprint_1_view_only": True,
+        },
+        "candle_count_available": candle_count,
+        "fee_db": cfg.get("fee_db") or {"ohlcv_api_usd": 0.005, "tier": "standard"},
+        "disclaimer": cfg.get("disclaimer", _TECHNICAL_CHART_DISCLAIMER),
+        "no_prediction": True,
+        "read_only": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_technical_chart_800(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#800 — Asset Card مؤشرات فنية (4 indicators)."""
+    chart = build_interactive_chart_overlay_800(asset, seed=seed)
+    if not chart.get("ok"):
+        return {**chart, "surface": "asset_card"}
+    ind = chart.get("indicators") or {}
+    return {
+        "ok": True,
+        "feature_ref": 800,
+        "surface": "asset_card",
+        "panel_name_ar": "مؤشرات فنية",
+        "asset": asset.upper(),
+        "rsi_14": (ind.get("RSI") or {}).get("value"),
+        "macd": (ind.get("MACD") or {}).get("trend_label"),
+        "sma_20": (ind.get("SMA") or {}).get("value"),
+        "volume_enabled": (ind.get("Volume") or {}).get("enabled"),
+        "streamlit_rejected": True,
+        "timestamp": _utcnow(),
+    }
+
+
 _MACRO_COUPLING_DISCLAIMER = (
     "Correlation describes historical relationship. Not causation. Not financial advice."
 )
@@ -1100,6 +1200,25 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("797 viral share action market radar integration skipped", exc_info=True)
 
+    chart_overlay_800 = None
+    try:
+        chart_overlay_800 = build_interactive_chart_overlay_800(asset, seed=seed)
+    except Exception:
+        logger.debug("800 interactive chart overlay skipped", exc_info=True)
+
+    activity_metrics_801 = None
+    exchange_activity_810 = None
+    try:
+        from bd_platform.onchain_metrics_library import (
+            build_market_radar_activity_metrics_widget_801,
+            build_market_radar_exchange_activity_widget_810,
+        )
+
+        activity_metrics_801 = build_market_radar_activity_metrics_widget_801(asset)
+        exchange_activity_810 = build_market_radar_exchange_activity_widget_810(asset)
+    except Exception:
+        logger.debug("801/810 on-chain activity widgets skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -1129,6 +1248,9 @@ def build_market_radar_panel(
         "supply_dynamics_794": supply_dynamics if supply_dynamics and supply_dynamics.get("ok") else {"ok": False},
         "sentiment_intelligence_783": sentiment_overlay if sentiment_overlay and sentiment_overlay.get("ok") else {"ok": False},
         "viral_share_action_797": viral_share if viral_share and viral_share.get("ok") else {"ok": False},
+        "interactive_chart_overlay_800": chart_overlay_800 if chart_overlay_800 and chart_overlay_800.get("ok") else {"ok": False},
+        "activity_metrics_801": activity_metrics_801 if activity_metrics_801 and activity_metrics_801.get("ok") else {"ok": False},
+        "exchange_activity_810": exchange_activity_810 if exchange_activity_810 and exchange_activity_810.get("ok") else {"ok": False},
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }

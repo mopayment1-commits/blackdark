@@ -111,6 +111,18 @@
     "no_prediction_language": true,
     "disclaimer": "Technical indicators are mathematical calculations based on historical data. Not financial advice. Past performance does not guarantee future results. BLACKDARK does not predict prices."
   },
+  "interactive_chart_overlay_800": {
+    "feature_ref": 800,
+    "merged_into": "market_radar",
+    "streamlit_rejected": true,
+    "legal_name": "الرسم البياني",
+    "chart_library": "TradingView Lightweight Charts",
+    "indicators_enabled": ["RSI(14)", "MACD(12,26,9)", "SMA(20)", "Volume"],
+    "max_indicators": 4,
+    "route": "/radar/chart",
+    "fee_db": {"ohlcv_api_usd": 0.005, "tier": "standard"},
+    "disclaimer": "Technical indicators are mathematical calculations based on historical data. Not financial advice. Past performance does not guarantee future results."
+  },
   "macro_coupling_774": {
     "feature_ref": 774,
     "merged_into": "market_radar",

@@ -211,3 +211,116 @@ def beginner_decision_mode_status() -> dict[str, Any]:
         "layers": ["summary", "details", "raw"],
         "timestamp": _utcnow(),
     }
+
+
+# --- #804 Beginner / Professional Modes (cross-cutting UX pattern) ---
+
+_BEGINNER_WIDGET_METRIC_LIMIT = 4
+_BEGINNER_PROFESSIONAL_REF = 804
+
+
+def normalize_view_mode_804(value: str | None) -> UxMode:
+    """#804 — per-widget view mode (not global dashboard switch)."""
+    return normalize_ux_mode(value)
+
+
+def apply_widget_view_mode_804(
+    widget: dict[str, Any],
+    *,
+    view_mode: str = "beginner",
+    widget_id: str = "default",
+) -> dict[str, Any]:
+    """
+    #804 — cross-cutting UX: beginner vs professional per widget.
+    Beginner: 4 metrics + tooltips + explain button.
+    Professional: all metrics + formulas + sources + raw values.
+  No global mode switch — each widget keeps independent mode.
+    """
+    mode = normalize_view_mode_804(view_mode)
+    out = dict(widget)
+    metrics = list(out.get("metrics") or [])
+    formulas = out.get("formulas") or {}
+    sources = out.get("sources") or {}
+
+    if mode == "beginner":
+        out["view_mode"] = "beginner"
+        out["view_mode_label_ar"] = "بسيط"
+        out["metrics_shown"] = metrics[:_BEGINNER_WIDGET_METRIC_LIMIT]
+        out["metrics_hidden_count"] = max(0, len(metrics) - _BEGINNER_WIDGET_METRIC_LIMIT)
+        out["tooltips_enabled"] = True
+        out["explain_button_ar"] = "اشرح لي"
+        out["explain_button_en"] = "Explain this"
+        out["formulas_visible"] = False
+        out["raw_values_visible"] = False
+    else:
+        out["view_mode"] = "professional"
+        out["view_mode_label_ar"] = "متقدم"
+        out["metrics_shown"] = metrics
+        out["metrics_hidden_count"] = 0
+        out["tooltips_enabled"] = False
+        out["formulas_visible"] = True
+        out["formulas"] = formulas
+        out["sources"] = sources
+        out["raw_values_visible"] = True
+        out["raw_values"] = out.get("raw_values") or widget.get("raw_data")
+
+    out["feature_ref"] = _BEGINNER_PROFESSIONAL_REF
+    out["widget_id"] = widget_id
+    out["no_global_mode_switch"] = True
+    out["per_widget_mode"] = True
+    out["presentation_only"] = True
+    out["calculations_unchanged"] = True
+    return out
+
+
+def build_asset_card_view_modes_804(
+    asset: str = "BTC",
+    *,
+    view_mode: str = "beginner",
+) -> dict[str, Any]:
+    """#804 — Asset Card toggle بسيط/متقدم."""
+    from bd_platform.market_radar_indicators import build_interactive_chart_overlay_800
+
+    chart = build_interactive_chart_overlay_800(asset)
+    ind = (chart.get("indicators") or {}) if chart.get("ok") else {}
+    metrics = [
+        {"key": "rsi_14", "label": "RSI(14)", "value": (ind.get("RSI") or {}).get("value"), "tooltip": "Relative Strength Index"},
+        {"key": "macd", "label": "MACD", "value": (ind.get("MACD") or {}).get("trend_label"), "tooltip": "Moving Average Convergence Divergence"},
+        {"key": "sma_20", "label": "SMA(20)", "value": (ind.get("SMA") or {}).get("value"), "tooltip": "Simple Moving Average 20 periods"},
+        {"key": "volume", "label": "Volume", "value": "enabled" if (ind.get("Volume") or {}).get("enabled") else "n/a", "tooltip": "Trading volume"},
+        {"key": "price", "label": "Price", "value": chart.get("asset"), "tooltip": "Current asset"},
+        {"key": "source", "label": "Source", "value": chart.get("ohlcv_source"), "tooltip": "Data source"},
+    ]
+    widget = {
+        "asset": asset.upper(),
+        "surface": "asset_card",
+        "metrics": metrics,
+        "formulas": {
+            "rsi_14": "RSI(14) — TradingView Formula v1.0",
+            "macd": "MACD(12,26,9) — TradingView Formula v1.0",
+            "sma_20": "SMA(20) — simple arithmetic mean",
+        },
+        "sources": {"ohlcv": "Oracle API", "indicators": "#754 Technical Indicator Library"},
+        "raw_data": ind,
+        "toggle_ar": "بسيط/متقدم",
+        "toggle_en": "Simple/Advanced",
+    }
+    return apply_widget_view_mode_804(widget, view_mode=view_mode, widget_id=f"asset_card_{asset.upper()}")
+
+
+def beginner_professional_modes_status_804() -> dict[str, Any]:
+    return {
+        "ok": True,
+        "feature_id": _BEGINNER_PROFESSIONAL_REF,
+        "standalone_rejected": True,
+        "merged_into": "UX Design System",
+        "cross_cutting": True,
+        "no_global_mode_switch": True,
+        "per_widget_mode": True,
+        "beginner_metric_limit": _BEGINNER_WIDGET_METRIC_LIMIT,
+        "beginner_features": ["tooltips", "explain_button_ar"],
+        "professional_features": ["all_metrics", "formulas", "sources", "raw_values"],
+        "surfaces": ["asset_card", "market_radar", "intelligence_ledger", "portfolio_ai"],
+        "fee_db": {"additional_cost_usd": 0, "ui_concern_only": True},
+        "timestamp": _utcnow(),
+    }

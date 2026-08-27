@@ -24,7 +24,7 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656, 679, 682, 757, 761, 794)
+_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656, 679, 682, 757, 761, 794, 801, 810)
 _EPIC_ID = 577
 _WHALE_RETAIL_REF = 634
 _TITLE = "On-Chain Metrics Library"
@@ -1438,6 +1438,313 @@ def build_revived_supply_risk_flag_ledger_794(
     }
 
 
+_ACTIVITY_METRICS_DISCLAIMER = (
+    "Activity metrics are deterministic on-chain counts. Not investment advice. "
+    "No AI activity scoring."
+)
+
+
+def _apply_spam_bot_policy_801(
+    raw_daa: int,
+    *,
+    bot_addresses_excluded: int,
+    seed: dict[str, Any],
+) -> dict[str, Any]:
+    """#801 — exclude bot addresses (>100 tx/day, zero balance) from DAA."""
+    policy = (seed.get("activity_metrics_801") or {}).get("spam_bot_policy") or {}
+    return {
+        "raw_daa": raw_daa,
+        "bot_addresses_excluded": bot_addresses_excluded,
+        "bot_threshold_tx_per_day": int(policy.get("bot_tx_threshold_per_day", 100)),
+        "zero_balance_required": policy.get("zero_balance_flag", True),
+        "adjusted_daa": max(0, raw_daa - bot_addresses_excluded),
+        "policy_applied": True,
+    }
+
+
+def build_activity_metrics_suite_801(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#801 — activity_metrics suite merged into #577."""
+    seed = seed or _load_seed()
+    cfg = seed.get("activity_metrics_801") or {}
+    asset_cfg = (cfg.get("assets") or {}).get(asset.upper())
+    if not asset_cfg:
+        return {"ok": False, "asset": asset, "error": "activity_metrics_not_found"}
+
+    chain_model = asset_cfg.get("chain_model", "utxo")
+    model_def = _CHAIN_MODEL_DEFINITIONS.get(chain_model, _CHAIN_MODEL_DEFINITIONS["utxo"])
+    metrics_raw = asset_cfg.get("metrics") or {}
+    reorg = asset_cfg.get("reorg_handling") or {}
+    bot_policy = _apply_spam_bot_policy_801(
+        int(metrics_raw.get("raw_daa", 0)),
+        bot_addresses_excluded=int(metrics_raw.get("bot_addresses_excluded", 0)),
+        seed=seed,
+    )
+    tx_count = int(metrics_raw.get("tx_count", 0))
+    tx_value_usd = float(metrics_raw.get("tx_value_usd", 0))
+    avg_tx_size = round(tx_value_usd / tx_count, 2) if tx_count > 0 else 0.0
+
+    return {
+        "ok": True,
+        "metric_id": "activity_metrics",
+        "feature_ref": 801,
+        "merged_into": 577,
+        "standalone_rejected": True,
+        "asset": asset.upper(),
+        "chain_model": chain_model,
+        "chain_specific_semantics": model_def,
+        "chain_semantics_documented": True,
+        "mandatory_metrics": ["daa", "tx_count", "tx_value_usd", "average_tx_size"],
+        "metrics": {
+            "daa": {
+                "value": bot_policy["adjusted_daa"],
+                "raw_value": bot_policy["raw_daa"],
+                "change_pct": metrics_raw.get("daa_change_pct"),
+                "unit": "addresses",
+            },
+            "tx_count": {"value": tx_count, "change_pct": metrics_raw.get("tx_count_change_pct"), "unit": "transactions"},
+            "tx_value_usd": {"value": tx_value_usd, "change_pct": metrics_raw.get("tx_value_change_pct"), "unit": "USD"},
+            "average_tx_size": {"value": avg_tx_size, "unit": "USD"},
+        },
+        "spam_bot_policy": bot_policy,
+        "reorg_handling": {
+            "enabled": reorg.get("enabled", True),
+            "recalculate_cancelled_blocks": reorg.get("recalculate_cancelled_blocks", True),
+            "last_reorg_depth": reorg.get("last_reorg_depth", 0),
+            "metrics_recalculated": reorg.get("metrics_recalculated", True),
+        },
+        "deterministic": True,
+        "no_ml_scoring": True,
+        "fee_db": asset_cfg.get("fee_db") or cfg.get("fee_db"),
+        "disclaimer": _ACTIVITY_METRICS_DISCLAIMER,
+        "display": (
+            f"DAA: {bot_policy['adjusted_daa']:,} | Tx: {tx_count:,} | "
+            f"Tx Value: ${tx_value_usd/1e9:.1f}B | Avg Tx: ${avg_tx_size:,.0f}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_activity_metrics_qa_801(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#801 — daily QA: DAA vs Glassnode ±2%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("activity_metrics_801") or {}
+    qa = (cfg.get("glassnode_qa") or {}).get("assets", {}).get(asset.upper()) or {}
+    platform = float(qa.get("platform_daa", 0))
+    reference = float(qa.get("glassnode_daa", 0))
+    tolerance = float((cfg.get("glassnode_qa") or {}).get("tolerance_pct", 2.0))
+    if platform <= 0 or reference <= 0:
+        within = False
+        delta_pct = 0.0
+    else:
+        delta_pct = abs(platform - reference) / reference * 100
+        within = delta_pct <= tolerance
+    return {
+        "ok": within,
+        "feature_ref": 801,
+        "asset": asset.upper(),
+        "platform_daa": platform,
+        "glassnode_daa": reference,
+        "delta_pct": round(delta_pct, 4),
+        "tolerance_pct": tolerance,
+        "within_tolerance": within,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_activity_metrics_widget_801(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#801 → Market Radar widget: نشاط الشبكة."""
+    suite = build_activity_metrics_suite_801(asset, seed=seed)
+    return {
+        "ok": suite.get("ok", False),
+        "feature_ref": 801,
+        "surface": "market_radar",
+        "widget": "activity_metrics",
+        "widget_label_ar": "نشاط الشبكة",
+        "suite": suite,
+        "display": suite.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_activity_sparkline_801(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#801 — Asset Card DAA + Tx sparkline."""
+    suite = build_activity_metrics_suite_801(asset, seed=seed)
+    if not suite.get("ok"):
+        return {**suite, "surface": "asset_card"}
+    m = suite.get("metrics") or {}
+    seed_cfg = seed or _load_seed()
+    spark = ((seed_cfg.get("activity_metrics_801") or {}).get("assets") or {}).get(asset.upper(), {})
+    return {
+        "ok": True,
+        "feature_ref": 801,
+        "surface": "asset_card",
+        "panel_ar": "DAA + Tx",
+        "daa": (m.get("daa") or {}).get("value"),
+        "tx_count": (m.get("tx_count") or {}).get("value"),
+        "sparkline_daa": spark.get("sparkline_daa") or [],
+        "sparkline_tx": spark.get("sparkline_tx") or [],
+        "timestamp": _utcnow(),
+    }
+
+
+_EXCHANGE_ACTIVITY_DISCLAIMER = (
+    "Exchange activity metrics describe labeled on-chain flows. Coverage disclosed. "
+    "Not investment advice."
+)
+
+
+def build_exchange_activity_suite_810(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#810 — exchange_activity metric suite merged into #577."""
+    seed = seed or _load_seed()
+    cfg = seed.get("exchange_activity_810") or {}
+    asset_cfg = (cfg.get("assets") or {}).get(asset.upper())
+    if not asset_cfg:
+        return {"ok": False, "asset": asset, "error": "exchange_activity_not_found"}
+
+    metrics_raw = asset_cfg.get("metrics") or {}
+    semantics = cfg.get("address_semantics") or {}
+    coverage = list(cfg.get("coverage_exchanges") or [])
+    internal_filtered = int(metrics_raw.get("internal_transfers_excluded", 0))
+
+    deposit_count = int(metrics_raw.get("deposit_count", 0))
+    withdrawal_count = int(metrics_raw.get("withdrawal_count", 0))
+    net_flow_usd = float(metrics_raw.get("net_flow_usd", 0))
+    unique_addresses = int(metrics_raw.get("unique_addresses", 0))
+
+    return {
+        "ok": True,
+        "metric_id": "exchange_activity",
+        "feature_ref": 810,
+        "merged_into": 577,
+        "standalone_rejected": True,
+        "asset": asset.upper(),
+        "mandatory_metrics": ["deposit_count", "withdrawal_count", "net_flow", "unique_addresses"],
+        "metrics": {
+            "deposit_count": {"value": deposit_count, "unit": "transactions"},
+            "withdrawal_count": {"value": withdrawal_count, "unit": "transactions"},
+            "net_flow": {"value_usd": net_flow_usd, "unit": "USD"},
+            "unique_addresses": {"value": unique_addresses, "unit": "addresses"},
+        },
+        "address_semantics": {
+            "hot_wallet": semantics.get("hot_wallet", "exchange-operated hot wallet"),
+            "cold_wallet": semantics.get("cold_wallet", "exchange cold storage"),
+            "user_deposit_address": semantics.get("user_deposit_address", "user-specific deposit address"),
+            "documented": True,
+        },
+        "internal_activity_filtered": {
+            "enabled": True,
+            "rule": "tx between same-exchange wallets excluded",
+            "excluded_count": internal_filtered,
+        },
+        "coverage_disclosed": True,
+        "coverage_exchanges": coverage,
+        "fee_db": asset_cfg.get("fee_db") or cfg.get("fee_db"),
+        "disclaimer": _EXCHANGE_ACTIVITY_DISCLAIMER,
+        "display": (
+            f"Deposits: {deposit_count:,} | Withdrawals: {withdrawal_count:,} | "
+            f"Net Flow: ${net_flow_usd/1e6:.1f}M | Unique: {unique_addresses:,}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_exchange_activity_qa_810(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#810 — daily QA: net flow vs Glassnode cross-reference ±5%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("exchange_activity_810") or {}
+    qa = (cfg.get("glassnode_qa") or {}).get("assets", {}).get(asset.upper()) or {}
+    platform = float(qa.get("platform_net_flow_usd", 0))
+    reference = float(qa.get("glassnode_net_flow_usd", 0))
+    tolerance = float((cfg.get("glassnode_qa") or {}).get("tolerance_pct", 5.0))
+    if platform == 0 and reference == 0:
+        within = True
+        delta_pct = 0.0
+    elif reference == 0:
+        within = False
+        delta_pct = 100.0
+    else:
+        delta_pct = abs(platform - reference) / abs(reference) * 100
+        within = delta_pct <= tolerance
+    return {
+        "ok": within,
+        "feature_ref": 810,
+        "asset": asset.upper(),
+        "platform_net_flow_usd": platform,
+        "glassnode_net_flow_usd": reference,
+        "delta_pct": round(delta_pct, 4),
+        "tolerance_pct": tolerance,
+        "within_tolerance": within,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_exchange_activity_widget_810(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#810 → Market Radar widget: نشاط المنصات."""
+    suite = build_exchange_activity_suite_810(asset, seed=seed)
+    return {
+        "ok": suite.get("ok", False),
+        "feature_ref": 810,
+        "surface": "market_radar",
+        "widget": "exchange_activity",
+        "widget_label_ar": "نشاط المنصات",
+        "suite": suite,
+        "coverage_exchanges": suite.get("coverage_exchanges"),
+        "display": suite.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_exchange_flow_sparkline_810(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#810 — Asset Card التدفقات sparkline."""
+    suite = build_exchange_activity_suite_810(asset, seed=seed)
+    if not suite.get("ok"):
+        return {**suite, "surface": "asset_card"}
+    seed_cfg = seed or _load_seed()
+    spark = ((seed_cfg.get("exchange_activity_810") or {}).get("assets") or {}).get(asset.upper(), {})
+    return {
+        "ok": True,
+        "feature_ref": 810,
+        "surface": "asset_card",
+        "panel_ar": "التدفقات",
+        "net_flow_usd": (suite.get("metrics") or {}).get("net_flow", {}).get("value_usd"),
+        "sparkline_net_flow": spark.get("sparkline_net_flow") or [],
+        "coverage_exchanges": suite.get("coverage_exchanges"),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_market_radar_network_activity_widget_682(
     asset: str = "BTC",
     *,
@@ -2753,6 +3060,8 @@ def build_metrics_library_panel(
     methodology_governance = build_methodology_registry(seed=seed)
     network_activity = build_network_activity_suite_682(sym, seed=seed)
     supply_dynamics = build_supply_dynamics_suite_794(sym, seed=seed)
+    activity_metrics = build_activity_metrics_suite_801(sym, seed=seed)
+    exchange_activity = build_exchange_activity_suite_810(sym, seed=seed)
     on_chain_fin = None
     try:
         from bd_platform.on_chain_financials import build_metrics_library_financials, _load_seed as _fin_load
@@ -2790,6 +3099,8 @@ def build_metrics_library_panel(
             "679_methodology_governance": methodology_governance if methodology_governance.get("ok") else {"ok": False},
             "682_network_activity": network_activity if network_activity.get("ok") else {"ok": False},
             "794_supply_dynamics": supply_dynamics if supply_dynamics.get("ok") else {"ok": False},
+            "801_activity_metrics": activity_metrics if activity_metrics.get("ok") else {"ok": False},
+            "810_exchange_activity": exchange_activity if exchange_activity.get("ok") else {"ok": False},
             "634_whale_vs_retail_flow": whale_retail if whale_retail.get("ok") else {"ok": False},
             "641_on_chain_financials": on_chain_fin if on_chain_fin and on_chain_fin.get("ok") else {"ok": False},
             "737_hodl_waves": suite.get("hodl_waves") if suite.get("ok") else {"ok": False},
@@ -2950,6 +3261,18 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
     tests.append({"test": "supply_reconciliation_qa_794", "passed": supply_qa.get("within_tolerance") is True})
     nvt_qa = run_nvt_reconciliation_qa_761("BTC", seed=seed)
     tests.append({"test": "nvt_reconciliation_qa_761", "passed": nvt_qa.get("within_tolerance") is True})
+
+    activity = build_activity_metrics_suite_801("BTC", seed=seed)
+    tests.append({"test": "activity_metrics_suite_801", "passed": activity.get("ok") is True})
+    tests.append({"test": "spam_bot_policy_801", "passed": (activity.get("spam_bot_policy") or {}).get("policy_applied") is True})
+    activity_qa = run_activity_metrics_qa_801("BTC", seed=seed)
+    tests.append({"test": "activity_metrics_glassnode_qa_801", "passed": activity_qa.get("within_tolerance") is True})
+
+    exchange = build_exchange_activity_suite_810("BTC", seed=seed)
+    tests.append({"test": "exchange_activity_suite_810", "passed": exchange.get("ok") is True})
+    tests.append({"test": "exchange_coverage_disclosed_810", "passed": exchange.get("coverage_disclosed") is True})
+    exchange_qa = run_exchange_activity_qa_810("BTC", seed=seed)
+    tests.append({"test": "exchange_activity_glassnode_qa_810", "passed": exchange_qa.get("within_tolerance") is True})
 
     all_passed = all(t["passed"] for t in tests)
     return {

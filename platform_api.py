@@ -5487,6 +5487,106 @@ async def market_radar_technical_chart_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/market-radar/chart")
+async def market_radar_interactive_chart_route(asset: str = Query("BTC")):
+    """#800 Interactive chart overlay — Streamlit rejected, TradingView Lightweight Charts."""
+    from bd_platform.market_radar_indicators import build_interactive_chart_overlay_800
+
+    result = build_interactive_chart_overlay_800(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/chart/asset-card")
+async def market_radar_chart_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.market_radar_indicators import build_asset_card_technical_chart_800
+
+    return build_asset_card_technical_chart_800(asset)
+
+
+@router.get("/intelligence-ledger/ux-layer/view-modes/status")
+async def view_modes_status_route():
+    """#804 Beginner/Professional cross-cutting UX pattern."""
+    from ux_mode import beginner_professional_modes_status_804
+
+    return beginner_professional_modes_status_804()
+
+
+@router.get("/intelligence-ledger/ux-layer/view-modes/asset-card")
+async def view_modes_asset_card_route(
+    asset: str = Query("BTC"),
+    view_mode: str = Query("beginner"),
+):
+    from ux_mode import build_asset_card_view_modes_804
+
+    return build_asset_card_view_modes_804(asset, view_mode=view_mode)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/activity-metrics")
+async def activity_metrics_suite_route(asset: str = Query("BTC")):
+    """#801 Activity Metrics — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_activity_metrics_suite_801
+
+    result = build_activity_metrics_suite_801(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/activity-metrics/qa")
+async def activity_metrics_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_activity_metrics_qa_801
+
+    return run_activity_metrics_qa_801(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/activity-metrics/market-radar")
+async def activity_metrics_market_radar_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_market_radar_activity_metrics_widget_801
+
+    return build_market_radar_activity_metrics_widget_801(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/activity-metrics/asset-card")
+async def activity_metrics_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_asset_card_activity_sparkline_801
+
+    return build_asset_card_activity_sparkline_801(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/exchange-activity")
+async def exchange_activity_suite_route(asset: str = Query("BTC")):
+    """#810 Exchange User Activity — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_exchange_activity_suite_810
+
+    result = build_exchange_activity_suite_810(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/exchange-activity/qa")
+async def exchange_activity_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_exchange_activity_qa_810
+
+    return run_exchange_activity_qa_810(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/exchange-activity/market-radar")
+async def exchange_activity_market_radar_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_market_radar_exchange_activity_widget_810
+
+    return build_market_radar_exchange_activity_widget_810(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/exchange-activity/asset-card")
+async def exchange_activity_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_asset_card_exchange_flow_sparkline_810
+
+    return build_asset_card_exchange_flow_sparkline_810(asset)
+
+
 @router.get("/intelligence-ledger/portfolio-ai/alerts")
 async def portfolio_ai_alerts_route():
     """#759 Portfolio AI alert layer."""
