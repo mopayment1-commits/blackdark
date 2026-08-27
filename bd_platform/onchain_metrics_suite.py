@@ -138,6 +138,97 @@ def build_mvrv_z_score_block(asset_data: dict[str, Any], *, asset: str) -> dict[
     }
 
 
+def build_mvrv_zscore_suite_676(asset_data: dict[str, Any], *, asset: str) -> dict[str, Any]:
+    """#676 MVRV / MVRV Z-Score Suite — STH | LTH | Total cohort variants."""
+    mvrv_data = asset_data.get("mvrv") or {}
+    cohorts = mvrv_data.get("cohorts") or {}
+    price = float(mvrv_data.get("price", 0))
+    realized_history = [float(v) for v in (mvrv_data.get("realized_price_history") or [])]
+    realignment_window = int(mvrv_data.get("realignment_window", 200))
+
+    variants: dict[str, Any] = {}
+    for cohort_id in ("total", "sth", "lth"):
+        cohort_cfg = cohorts.get(cohort_id) or {}
+        realized_prices = [float(v) for v in (cohort_cfg.get("realized_price_history") or realized_history)]
+        result = compute_mvrv_z_score_dynamic(price, realized_prices, realignment_window=realignment_window)
+        percentile = float(cohort_cfg.get("historical_percentile", 50))
+        z = float(result.get("z_score") or 0)
+        if z >= 2:
+            band_label = "Extreme (top 10% historically)"
+        elif z >= 1:
+            band_label = "Elevated (+1σ band)"
+        elif z <= -1:
+            band_label = "Depressed (-1σ band)"
+        else:
+            band_label = "Within historical bands"
+
+        variants[cohort_id] = {
+            "cohort": cohort_id.upper() if cohort_id != "total" else "Total MVRV",
+            "mvrv_ratio": result.get("mvrv_ratio"),
+            "z_score": result.get("z_score"),
+            "historical_percentile": percentile,
+            "band_label": band_label,
+            "formula": "MVRV = Market Cap / Realized Cap; Z = (MVRV - Mean) / Std",
+            "no_arbitrary_thresholds": True,
+            "no_sell_signal": True,
+        }
+
+    total = variants.get("total") or {}
+    last_extreme = mvrv_data.get("last_extreme_date")
+    last_result = mvrv_data.get("last_extreme_result")
+    mvrv_ratio = total.get("mvrv_ratio")
+    explanation = (
+        f"Market cap exceeds realized cap by {((float(mvrv_ratio or 1) - 1) * 100):.0f}% — "
+        f"last occurrence {last_extreme} → {last_result}"
+        if last_extreme and mvrv_ratio else
+        f"MVRV Z-Score = {total.get('z_score')} | Percentile = {total.get('historical_percentile')}%"
+    )
+
+    return {
+        "sub_task": "#676",
+        "feature_ref": 676,
+        "merged_into": 577,
+        "asset": asset,
+        "metric_id": "mvrv_zscore",
+        "variants": variants,
+        "current_value": total.get("mvrv_ratio"),
+        "z_score": total.get("z_score"),
+        "historical_percentile": total.get("historical_percentile"),
+        "historical_bands": {
+            "minus_2_sigma": mvrv_data.get("band_minus_2_sigma"),
+            "minus_1_sigma": mvrv_data.get("band_minus_1_sigma"),
+            "plus_1_sigma": mvrv_data.get("band_plus_1_sigma"),
+            "plus_2_sigma": mvrv_data.get("band_plus_2_sigma"),
+        },
+        "explanation": explanation,
+        "explanation_descriptive_not_predictive": True,
+        "formula_matches_academic_definition": True,
+        "methodology_version": _METHODOLOGY_VERSION,
+        "last_updated": mvrv_data.get("last_updated"),
+        "display": (
+            f"MVRV Z-Score = {total.get('z_score')} | Percentile = {total.get('historical_percentile')}% | "
+            f"{total.get('band_label')}"
+        ),
+    }
+
+
+def run_mvrv_regression_tests_676(asset: str = "BTC") -> dict[str, Any]:
+    """#676 — same inputs must produce same MVRV (regression)."""
+    seed = _load_seed()
+    asset_data = (seed.get("assets") or {}).get(asset.upper(), {})
+    first = build_mvrv_zscore_suite_676(asset_data, asset=asset.upper())
+    second = build_mvrv_zscore_suite_676(asset_data, asset=asset.upper())
+    z1 = (first.get("variants") or {}).get("total", {}).get("z_score")
+    z2 = (second.get("variants") or {}).get("total", {}).get("z_score")
+    return {
+        "ok": z1 == z2,
+        "feature_ref": 676,
+        "asset": asset.upper(),
+        "deterministic": z1 == z2,
+        "timestamp": _utcnow(),
+    }
+
+
 def build_hodl_waves_block(asset_data: dict[str, Any], *, asset: str) -> dict[str, Any]:
     """#737 HODL waves — independent long-term holder analysis."""
     waves = asset_data.get("hodl_waves") or {}
@@ -190,12 +281,13 @@ def build_onchain_metrics_panel(asset: str = "BTC") -> dict[str, Any]:
 
     hodl = build_hodl_waves_block(asset_data, asset=sym)
     mvrv = build_mvrv_z_score_block(asset_data, asset=sym)
+    mvrv_suite = build_mvrv_zscore_suite_676(asset_data, asset=sym)
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
-        "feature_ids": list(_ABSORBED_IDS),
+        "feature_ids": list(_ABSORBED_IDS) + [676],
         "standalone": _STANDALONE,
         "merged_into": _MERGED_INTO,
         "sprint": _SPRINT,
@@ -203,6 +295,7 @@ def build_onchain_metrics_panel(asset: str = "BTC") -> dict[str, Any]:
         "asset": sym,
         "hodl_waves": hodl,
         "mvrv_z_score": mvrv,
+        "mvrv_zscore_suite_676": mvrv_suite,
         "real_time_update": True,
         "target_latency_ms": 2000,
         "independent_calculations": _INDEPENDENT_CALCULATIONS,

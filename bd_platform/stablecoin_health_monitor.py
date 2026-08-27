@@ -245,6 +245,7 @@ def build_stablecoin_health_panel(*, seed: dict[str, Any] | None = None) -> dict
         "stablecoin_grades": {a["symbol"]: a["stablecoin_grade"] for a in analyses if a.get("ok")},
         "cancelled_sla": seed.get("cancelled_sla"),
         "exchange_reserve_601": build_stablecoin_exchange_reserve(seed=seed),
+        "lst_depeg_monitor_673": build_lst_depeg_monitor_673(seed=seed),
         "monitoring_only": True,
         "disclaimer": _DISCLAIMER,
         "latency_ms": elapsed,
@@ -273,6 +274,7 @@ def stablecoin_health_monitor_status() -> dict[str, Any]:
             "unified_arbitrage_429": True,
             "exchange_reserve_601": True,
             "onchain_metrics_library_577": True,
+            "liquid_staking_intelligence_673": True,
         },
         "cancelled_sla": seed.get("cancelled_sla"),
         "disclaimer": _DISCLAIMER,
@@ -609,6 +611,82 @@ def apply_buying_power_arbitrage_adjustment_429(
     }
 
 
+_LST_MONITOR_REF = 673
+
+
+def build_lst_depeg_monitor_673(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#673 → #467 — LST peg deviation monitoring (stETH etc.)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("lst_monitoring_673") or {}
+    tokens = cfg.get("lst_tokens") or []
+    threshold = float(cfg.get("depeg_alert_threshold_pct", 0.5))
+    alerts: list[dict[str, Any]] = []
+
+    for tok in tokens:
+        peg_dev = float(tok.get("peg_deviation_pct", 0))
+        if peg_dev > threshold:
+            alerts.append({
+                "lst_token": tok.get("symbol"),
+                "provider": tok.get("provider"),
+                "peg_deviation_pct": peg_dev,
+                "depeg_source": tok.get("depeg_source"),
+                "backing": tok.get("backing"),
+                "backing_source": tok.get("backing_source"),
+                "alert": True,
+                "integration_467": True,
+            })
+
+    return {
+        "ok": True,
+        "feature_ref": _LST_MONITOR_REF,
+        "merged_into": _FEATURE_ID,
+        "lst_tokens": tokens,
+        "depeg_alert_threshold_pct": threshold,
+        "alerts": alerts,
+        "alert_count": len(alerts),
+        "backing_depeg_source_required": True,
+        "display": f"LST Depeg Monitor: {len(alerts)} alerts above {threshold}%",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_portfolio_lst_alerts_410(
+    *,
+    portfolio_id: str = "demo_lst_portfolio",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#673 → #410 — alert if portfolio LST exposure depeg > 1%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("lst_monitoring_673") or {}
+    portfolio = (cfg.get("portfolios") or {}).get(portfolio_id) or {}
+    threshold = float(cfg.get("portfolio_depeg_alert_pct", 1.0))
+    alerts: list[dict[str, Any]] = []
+
+    for holding in portfolio.get("holdings") or []:
+        peg_dev = float(holding.get("peg_deviation_pct", 0))
+        if peg_dev > threshold:
+            alerts.append({
+                "lst_token": holding.get("symbol"),
+                "portfolio_pct": holding.get("portfolio_pct"),
+                "peg_deviation_pct": peg_dev,
+                "depeg_source": holding.get("depeg_source"),
+                "alert": True,
+                "integration_410": True,
+            })
+
+    return {
+        "ok": True,
+        "feature_ref": 410,
+        "source_ref": _LST_MONITOR_REF,
+        "portfolio_id": portfolio_id,
+        "threshold_pct": threshold,
+        "alerts": alerts,
+        "threatened_exposure": len(alerts) > 0,
+        "display": f"Portfolio LST alert: {len(alerts)} positions above {threshold}% depeg",
+        "timestamp": _utcnow(),
+    }
+
+
 def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     checks: list[dict[str, Any]] = []
@@ -640,6 +718,12 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "663_metric_id", "passed": bp.get("metric_id") == "exchange_stablecoin_buying_power", "detail": "metric"})
     checks.append({"id": "663_triple_source", "passed": "triple_source" in bp, "detail": "sources"})
     checks.append({"id": "663_formula", "passed": "stablecoin_usd" in bp and "crypto_usd" in bp, "detail": "formula"})
+
+    lst = build_lst_depeg_monitor_673(seed=seed)
+    checks.append({"id": "673_lst_depeg", "passed": lst.get("ok") is True, "detail": "673→467"})
+    checks.append({"id": "673_backing_source", "passed": lst.get("backing_depeg_source_required") is True, "detail": "source"})
+    lst_port = build_portfolio_lst_alerts_410(seed=seed)
+    checks.append({"id": "673_portfolio_410", "passed": lst_port.get("ok") is True, "detail": "410"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

@@ -583,6 +583,7 @@ def build_on_chain_financials(
     elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
     statement = build_financial_statement_view(protocol_id, seed=seed)
     health = build_financial_health_score(protocol_id, seed=seed)
+    lst_revenue = build_lst_staking_fee_revenue_673(protocol_id, seed=seed)
 
     return {
         "ok": True,
@@ -604,6 +605,7 @@ def build_on_chain_financials(
         "financials": normalized,
         "financial_statement_665": statement if statement.get("ok") else None,
         "financial_health_666": health if health.get("ok") else None,
+        "lst_staking_fee_revenue_673": lst_revenue if lst_revenue.get("ok") else None,
         "revenue_chart": history,
         "peer_comparison": peer_comparison,
         "data_pipeline": {
@@ -625,6 +627,43 @@ def build_on_chain_financials(
         "no_estimates": raw.get("on_chain_not_estimate", True),
         "export_available": True,
         "disclaimer": _DISCLAIMER,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_lst_staking_fee_revenue_673(
+    protocol_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#673 → #641 — LST staking fee revenue for liquid staking protocols."""
+    seed = seed or _load_seed()
+    raw = _collect_protocol_data(protocol_id, seed=seed)
+    if not raw:
+        return {"ok": False, "protocol_id": protocol_id, "error": "protocol_not_found"}
+    if raw.get("protocol_type") != "liquid_staking":
+        return {"ok": False, "protocol_id": protocol_id, "error": "not_liquid_staking_protocol"}
+
+    normalized = _normalize_protocol_data(raw, seed=seed)
+    revenue_30d = float(normalized["revenue_30d_usd"])
+    fee_source = raw.get("fee_source_type") or raw.get("fee_source") or "staking_fees"
+
+    return {
+        "ok": True,
+        "feature_ref": 673,
+        "merged_into": _FEATURE_ID,
+        "protocol_id": protocol_id,
+        "protocol_name": raw.get("protocol_name"),
+        "revenue_type": "lst_staking_fees",
+        "fee_source_type": fee_source,
+        "staking_fee_revenue_30d_usd": revenue_30d,
+        "annualized_staking_fee_revenue_usd": round(revenue_30d * 12, 2),
+        "tvl_usd": raw.get("tvl_usd"),
+        "on_chain_not_estimate": raw.get("on_chain_not_estimate", True),
+        "display": (
+            f"{raw.get('protocol_name')} LST staking fees: ${revenue_30d:,.0f}/30d "
+            f"| source: {fee_source}"
+        ),
         "timestamp": _utcnow(),
     }
 
@@ -910,6 +949,7 @@ def on_chain_financials_status() -> dict[str, Any]:
             "financial_statement_view_665": True,
             "financial_health_scoring_666": True,
             "custom_ratio_builder_653": True,
+            "liquid_staking_intelligence_673": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -973,6 +1013,11 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     page = build_protocol_financials_page("uniswap", seed=seed)
     checks.append({"id": "665_666_page", "passed": page.get("ok") is True and page.get("route") == "/protocol/uniswap/financials", "detail": "page"})
+
+    lido = build_on_chain_financials("lido", seed=seed)
+    lst_rev = lido.get("lst_staking_fee_revenue_673") or {}
+    checks.append({"id": "673_lst_revenue_641", "passed": lst_rev.get("ok") is True and lst_rev.get("revenue_type") == "lst_staking_fees", "detail": "673→641"})
+    checks.append({"id": "673_staking_fee_source", "passed": lst_rev.get("fee_source_type") == "on_chain_staking_fees", "detail": "source"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

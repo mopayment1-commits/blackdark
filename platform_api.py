@@ -2172,8 +2172,9 @@ async def defi_opportunity_screener_route(
     protocol: str | None = Query(None),
     risk_grade: str | None = Query(None),
     min_liquidity_usd: float | None = Query(None),
+    category: str | None = Query(None),
 ):
-    """#658 DeFi Opportunity Screener — merged into #438."""
+    """#658 DeFi Opportunity Screener — merged into #438; category=liquid_staking for #673."""
     from bd_platform.defi_opportunity_scanner import build_defi_opportunity_screener
 
     return build_defi_opportunity_screener(
@@ -2181,7 +2182,16 @@ async def defi_opportunity_screener_route(
         protocol=protocol,
         risk_grade=risk_grade,
         min_liquidity_usd=min_liquidity_usd,
+        category=category,
     )
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/defi/liquid-staking")
+async def liquid_staking_intelligence_route():
+    """#673 Liquid Staking Intelligence — merged into #438 DeFi Scanner."""
+    from bd_platform.defi_opportunity_scanner import build_liquid_staking_dashboard
+
+    return build_liquid_staking_dashboard()
 
 
 @router.get("/intelligence-ledger/unified-arbitrage/defi/protocol-activity")
@@ -2403,6 +2413,14 @@ async def stablecoin_exchange_reserve_route():
     from bd_platform.stablecoin_health_monitor import build_stablecoin_exchange_reserve
 
     return build_stablecoin_exchange_reserve()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stablecoin-health/lst-monitor")
+async def stablecoin_lst_monitor_route():
+    """#673 LST depeg monitor — merged into #467 Stablecoin Health Monitor."""
+    from bd_platform.stablecoin_health_monitor import build_lst_depeg_monitor_673
+
+    return build_lst_depeg_monitor_673()
 
 
 @router.get("/intelligence-ledger/investment-thesis/status")
@@ -4334,6 +4352,33 @@ async def exchange_stablecoin_buying_power_route():
     from bd_platform.onchain_metrics_library import build_exchange_stablecoin_buying_power_metric_577
 
     return build_exchange_stablecoin_buying_power_metric_577()
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/long-short-ratio")
+async def long_short_ratio_metric_route():
+    """#675 Long/Short Ratio — merged into #577 On-Chain Metrics Library."""
+    from bd_platform.onchain_metrics_library import build_long_short_ratio_metric_577
+
+    return build_long_short_ratio_metric_577()
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/mvrv-zscore")
+async def mvrv_zscore_suite_route(asset: str = Query("BTC")):
+    """#676 MVRV Z-Score Suite — merged into #577 On-Chain Metrics Library."""
+    from bd_platform.onchain_metrics_library import build_mvrv_zscore_metric_577
+
+    result = build_mvrv_zscore_metric_577(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/mvrv-zscore/regression-tests")
+async def mvrv_zscore_regression_tests_route(asset: str = Query("BTC")):
+    """#676 MVRV regression tests — deterministic same inputs = same output."""
+    from bd_platform.onchain_metrics_suite import run_mvrv_regression_tests_676
+
+    return run_mvrv_regression_tests_676(asset)
 
 
 @router.get("/intelligence-ledger/api-gateway/status")

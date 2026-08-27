@@ -587,5 +587,77 @@
         }
       }
     }
+  },
+  "liquid_staking_673": {
+    "feature_ref": 673,
+    "merged_into": 438,
+    "depeg_alert_threshold_pct": 0.5,
+    "providers": [
+      {
+        "provider_id": "lido",
+        "provider_name": "Lido",
+        "lst_token": "stETH",
+        "tvl_usd": 28500000000,
+        "staking_yield_pct": 3.8,
+        "peg_deviation_pct": 0.12,
+        "withdrawal_queue_days": 2,
+        "backing": "1 ETH + staking yield per stETH",
+        "backing_source": "Lido on-chain oracle",
+        "depeg_source": "Curve stETH/ETH pool",
+        "display_backing": "stETH backed by 1 ETH + staking yield | Depeg source: Curve Pool"
+      },
+      {
+        "provider_id": "rocket_pool",
+        "provider_name": "Rocket Pool",
+        "lst_token": "rETH",
+        "tvl_usd": 3200000000,
+        "staking_yield_pct": 3.5,
+        "peg_deviation_pct": 0.08,
+        "withdrawal_queue_days": 1,
+        "backing": "ETH + rETH exchange rate",
+        "backing_source": "Rocket Pool smart contract",
+        "depeg_source": "Uniswap rETH/ETH",
+        "display_backing": "rETH backed by ETH exchange rate | Depeg source: Uniswap"
+      },
+      {
+        "provider_id": "coinbase",
+        "provider_name": "Coinbase",
+        "lst_token": "cbETH",
+        "tvl_usd": 2100000000,
+        "staking_yield_pct": 3.2,
+        "peg_deviation_pct": 0.15,
+        "withdrawal_queue_days": 5,
+        "backing": "Coinbase wrapped staked ETH",
+        "backing_source": "Coinbase attestations",
+        "depeg_source": "DEX cbETH/ETH pools",
+        "display_backing": "cbETH backed by Coinbase staked ETH | Depeg source: DEX pools"
+      },
+      {
+        "provider_id": "frax",
+        "provider_name": "Frax",
+        "lst_token": "sfrxETH",
+        "tvl_usd": 850000000,
+        "staking_yield_pct": 4.1,
+        "peg_deviation_pct": 0.22,
+        "withdrawal_queue_days": 3,
+        "backing": "Frax ETH validator set",
+        "backing_source": "Frax on-chain",
+        "depeg_source": "Curve sfrxETH/ETH",
+        "display_backing": "sfrxETH backed by Frax validators | Depeg source: Curve"
+      },
+      {
+        "provider_id": "stakewise",
+        "provider_name": "StakeWise",
+        "lst_token": "osETH",
+        "tvl_usd": 420000000,
+        "staking_yield_pct": 3.6,
+        "peg_deviation_pct": 0.65,
+        "withdrawal_queue_days": 4,
+        "backing": "StakeWise vault ETH",
+        "backing_source": "StakeWise vault contract",
+        "depeg_source": "Balancer osETH/ETH",
+        "display_backing": "osETH backed by StakeWise vault | Depeg source: Balancer"
+      }
+    ]
   }
 }

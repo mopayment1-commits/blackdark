@@ -25,7 +25,19 @@
         "price": 65000,
         "realignment_window": 200,
         "last_updated": "2026-08-26T00:00:00+00:00",
-        "realized_price_history": [42000, 43500, 45000, 48000, 51000, 53000, 55000, 58000, 60000, 62000, 64000, 65000]
+        "realized_price_history": [42000, 43500, 45000, 48000, 51000, 53000, 55000, 58000, 60000, 62000, 64000, 65000],
+        "band_minus_2_sigma": 0.8,
+        "band_minus_1_sigma": 1.0,
+        "band_plus_1_sigma": 2.2,
+        "band_plus_2_sigma": 2.8,
+        "last_extreme_date": "2024-03-14",
+        "last_extreme_result": "followed by 18% correction over 21d",
+        "backtest": {"periods": 120, "band_hit_rate_pct": 68},
+        "cohorts": {
+          "total": {"historical_percentile": 91, "realized_price_history": [42000, 43500, 45000, 48000, 51000, 53000, 55000, 58000, 60000, 62000, 64000, 65000]},
+          "sth": {"historical_percentile": 88, "realized_price_history": [40000, 41000, 43000, 46000, 49000, 51000, 53000, 56000, 58000, 60000, 62000, 64000]},
+          "lth": {"historical_percentile": 85, "realized_price_history": [38000, 39000, 41000, 44000, 47000, 49000, 51000, 54000, 56000, 58000, 60000, 62000]}
+        }
       }
     },
     "ETH": {

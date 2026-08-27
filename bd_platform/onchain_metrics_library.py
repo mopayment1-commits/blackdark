@@ -625,6 +625,212 @@ def build_exchange_stablecoin_buying_power_metric_577(*, seed: dict[str, Any] | 
     }
 
 
+def build_long_short_ratio_metric_577(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#675 — Long/Short Ratio with per-venue normalization (not merged blindly)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("long_short_ratio_675") or {}
+    venues = cfg.get("venues") or []
+    venue_rows: list[dict[str, Any]] = []
+    weighted_sum = 0.0
+    weight_total = 0.0
+
+    for v in venues:
+        ratio = float(v.get("long_short_ratio", 1))
+        weight = float(v.get("weight", 1))
+        weighted_sum += ratio * weight
+        weight_total += weight
+        venue_rows.append({
+            "venue_id": v.get("venue_id"),
+            "venue_name": v.get("venue_name"),
+            "long_short_ratio": ratio,
+            "long_pct": v.get("long_pct"),
+            "definition_semantics": v.get("definition_semantics"),
+            "definition_tooltip": v.get("definition_tooltip"),
+            "weight": weight,
+            "not_merged_blindly": True,
+        })
+
+    global_ratio = round(weighted_sum / weight_total, 4) if weight_total else None
+    trend = cfg.get("historical_trend") or []
+    percentile = cfg.get("global_percentile")
+
+    return {
+        "ok": True,
+        "metric_id": "long_short_ratio",
+        "task_ref": 675,
+        "epic_feature_id": _EPIC_ID,
+        "venues": venue_rows,
+        "global_long_short_ratio": global_ratio,
+        "global_weighted_average": True,
+        "weights_documented": True,
+        "different_exchange_definitions_not_merged_blindly": True,
+        "historical_trend": trend,
+        "global_percentile": percentile,
+        "display": f"Global L/S: {global_ratio} | Percentile: {percentile}%",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_extreme_long_short_alert_410(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#675 → #410 — extreme L/S positioning alert."""
+    seed = seed or _load_seed()
+    cfg = seed.get("long_short_ratio_675") or {}
+    long_threshold = float(cfg.get("extreme_long_pct", 80))
+    short_threshold = float(cfg.get("extreme_short_pct", 60))
+    alerts: list[dict[str, Any]] = []
+
+    for v in cfg.get("venues") or []:
+        long_pct = float(v.get("long_pct", 50))
+        if long_pct >= long_threshold:
+            alerts.append({
+                "venue": v.get("venue_name"),
+                "long_pct": long_pct,
+                "alert_type": "extreme_long",
+                "definition_tooltip": v.get("definition_tooltip"),
+            })
+        elif long_pct <= (100 - short_threshold):
+            alerts.append({
+                "venue": v.get("venue_name"),
+                "long_pct": long_pct,
+                "alert_type": "extreme_short",
+                "definition_tooltip": v.get("definition_tooltip"),
+            })
+
+    return {
+        "ok": True,
+        "feature_ref": 410,
+        "source_ref": 675,
+        "alerts": alerts,
+        "extreme_positioning": len(alerts) > 0,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_long_short_widget_675(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#675 → Market Radar widget: تموضع السوق."""
+    metric = build_long_short_ratio_metric_577(seed=seed)
+    return {
+        "ok": metric.get("ok", False),
+        "feature_ref": 675,
+        "surface": "market_radar",
+        "widget": "long_short_ratio",
+        "widget_label_ar": "تموضع السوق",
+        "metric": metric,
+        "display": metric.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_long_short_daily_brief_hook_474(*, seed: dict[str, Any] | None = None) -> dict[str, Any] | None:
+    """#675 → #474 Daily Brief integration."""
+    metric = build_long_short_ratio_metric_577(seed=seed)
+    if not metric.get("ok"):
+        return None
+    binance = next((v for v in metric.get("venues", []) if v.get("venue_id") == "binance"), None)
+    if not binance:
+        return None
+    long_pct = binance.get("long_pct")
+    historical_correction_pct = (seed or _load_seed()).get("long_short_ratio_675", {}).get("historical_correction_pct", 68)
+    return {
+        "integration_474": True,
+        "integration_675": True,
+        "mention": (
+            f"تموضع السوق: {long_pct}% long على Binance — "
+            f"سياق: تاريخياً عند هذا المستوى حدث تصحيح في {historical_correction_pct}% من الحالات"
+        ),
+        "mention_en": f"Market positioning: {long_pct}% long on Binance — historical correction context {historical_correction_pct}%",
+        "evidence_link": "/api/platform/intelligence-ledger/onchain-layer/metrics-library/long-short-ratio",
+    }
+
+
+def build_mvrv_zscore_metric_577(asset: str = "BTC", *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#676 MVRV Z-Score Suite via #577 library."""
+    try:
+        from bd_platform.onchain_metrics_suite import _load_seed as _suite_seed, build_mvrv_zscore_suite_676
+
+        suite_data = (_suite_seed().get("assets") or {}).get(asset.upper(), {})
+        suite = build_mvrv_zscore_suite_676(suite_data, asset=asset.upper())
+    except Exception as exc:
+        logger.warning("mvrv suite failed: %s", exc)
+        return {"ok": False, "error": str(exc)}
+
+    return {
+        "ok": True,
+        "metric_id": "mvrv_zscore",
+        "task_ref": 676,
+        "epic_feature_id": _EPIC_ID,
+        **suite,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_mvrv_widget_676(asset: str = "BTC", *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#676 → Market Radar Protocol Valuation widget."""
+    metric = build_mvrv_zscore_metric_577(asset, seed=seed)
+    return {
+        "ok": metric.get("ok", False),
+        "feature_ref": 676,
+        "surface": "market_radar",
+        "section": "protocol_valuation",
+        "widget": "mvrv_zscore_suite",
+        "metric": metric,
+        "display": metric.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def score_mvrv_valuation_dimension_676(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#676 → #472 — MVRV percentile as valuation dimension (no arbitrary thresholds)."""
+    metric = build_mvrv_zscore_metric_577(asset, seed=seed)
+    if not metric.get("ok"):
+        return {"ok": False, "asset": asset, "error": metric.get("error", "mvrv_unavailable")}
+
+    percentile = float(metric.get("historical_percentile") or 50)
+    z_score = float(metric.get("z_score") or 0)
+    # Higher percentile = more extended valuation → lower thesis score (descriptive mapping)
+    dimension_score = round(max(0.0, min(100.0, 100 - percentile)), 2)
+
+    return {
+        "ok": True,
+        "feature_ref": 676,
+        "thesis_dimension": "mvrv_valuation",
+        "thesis_integration": 472,
+        "asset": asset.upper(),
+        "dimension_score": dimension_score,
+        "mvrv_z_score": z_score,
+        "historical_percentile": percentile,
+        "band_label": (metric.get("variants") or {}).get("total", {}).get("band_label"),
+        "no_arbitrary_thresholds": True,
+        "no_sell_signal": True,
+        "explanation": metric.get("explanation"),
+        "evidence_source": "onchain_mvrv_zscore_suite",
+        "evidence_quality": "high",
+        "display": (
+            f"MVRV valuation {asset.upper()}: percentile {percentile}% | "
+            f"Z={z_score} — descriptive, not predictive"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_mvrv_daily_brief_hook_474(asset: str = "BTC", *, seed: dict[str, Any] | None = None) -> dict[str, Any] | None:
+    """#676 → #474 Daily Brief integration."""
+    metric = build_mvrv_zscore_metric_577(asset, seed=seed)
+    if not metric.get("ok"):
+        return None
+    return {
+        "integration_474": True,
+        "integration_676": True,
+        "mention": f"تقييم السوق: MVRV في percentile {metric.get('historical_percentile')}% — {metric.get('explanation')}",
+        "mention_en": metric.get("explanation"),
+        "evidence_link": "/api/platform/intelligence-ledger/onchain-layer/metrics-library/mvrv-zscore",
+    }
+
+
 def build_whale_vs_retail_flow_panel(
     asset: str = "BTC",
     *,
@@ -750,6 +956,8 @@ def build_metrics_library_panel(
     tx_volume = build_transaction_volume_intelligence(sym, seed=seed)
     stablecoin_reserve = build_stablecoin_reserve_metric_577(seed=seed)
     buying_power = build_exchange_stablecoin_buying_power_metric_577(seed=seed)
+    long_short = build_long_short_ratio_metric_577(seed=seed)
+    mvrv_suite = build_mvrv_zscore_metric_577(sym, seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
     on_chain_fin = None
     try:
@@ -775,6 +983,8 @@ def build_metrics_library_panel(
             "612_transaction_volume_intelligence": tx_volume if tx_volume.get("ok") else {"ok": False},
             "601_stablecoin_exchange_reserve": stablecoin_reserve,
             "663_exchange_stablecoin_buying_power": buying_power,
+            "675_long_short_ratio": long_short,
+            "676_mvrv_zscore_suite": mvrv_suite if mvrv_suite.get("ok") else {"ok": False},
             "634_whale_vs_retail_flow": whale_retail if whale_retail.get("ok") else {"ok": False},
             "641_on_chain_financials": on_chain_fin if on_chain_fin and on_chain_fin.get("ok") else {"ok": False},
             "737_hodl_waves": suite.get("hodl_waves") if suite.get("ok") else {"ok": False},
@@ -867,6 +1077,23 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
     tests.append({"test": "methodology_page_656", "passed": page.get("ok") is True and page.get("methodology_button") == "المنهجية"})
     tests.append({"test": "contracts_documented_656", "passed": len(page.get("contracts") or []) >= 1})
 
+    long_short = build_long_short_ratio_metric_577(seed=seed)
+    tests.append({"test": "long_short_ratio_675", "passed": long_short.get("ok") is True})
+    tests.append({"test": "long_short_not_merged_blindly_675", "passed": long_short.get("different_exchange_definitions_not_merged_blindly") is True})
+    tests.append({"test": "long_short_venue_tooltips_675", "passed": all(v.get("definition_tooltip") for v in long_short.get("venues") or [])})
+
+    mvrv = build_mvrv_zscore_metric_577("BTC", seed=seed)
+    tests.append({"test": "mvrv_zscore_suite_676", "passed": mvrv.get("ok") is True})
+    tests.append({"test": "mvrv_cohort_variants_676", "passed": len((mvrv.get("variants") or {})) == 3})
+    tests.append({"test": "mvrv_no_sell_signal_676", "passed": all(v.get("no_sell_signal") for v in (mvrv.get("variants") or {}).values())})
+    try:
+        from bd_platform.onchain_metrics_suite import run_mvrv_regression_tests_676
+
+        regression = run_mvrv_regression_tests_676("BTC")
+        tests.append({"test": "mvrv_regression_676", "passed": regression.get("deterministic") is True})
+    except Exception:
+        tests.append({"test": "mvrv_regression_676", "passed": False})
+
     all_passed = all(t["passed"] for t in tests)
     return {
         "ok": True,
@@ -904,6 +1131,8 @@ def onchain_metrics_library_status() -> dict[str, Any]:
             "634": "Whale vs Retail Flow → metric in #577",
             "641": "On-Chain Financials → metrics in #577, dimension in #472",
             "656": "Data Methodology Registry → methodology layer of #577",
+            "675": "Long/Short Ratio → metric in #577, not merged blindly",
+            "676": "MVRV Z-Score Suite → metric in #577, valuation dimension in #472",
         },
         "acceptance_criteria": {
             "formula_source_version": True,

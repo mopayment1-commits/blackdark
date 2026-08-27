@@ -894,6 +894,8 @@ def _build_oracle_risk_alerts_block(portfolio_id: str = "demo_portfolio") -> dic
 def _build_stablecoin_health_block(portfolio_id: str = "demo_portfolio") -> dict[str, Any]:
     """#467 Stablecoin Health Monitor — portfolio exposure alerts + health panel."""
     from bd_platform.stablecoin_health_monitor import (
+        build_lst_depeg_monitor_673,
+        build_portfolio_lst_alerts_410,
         build_portfolio_stablecoin_alerts,
         build_stablecoin_health_panel,
     )
@@ -903,9 +905,22 @@ def _build_stablecoin_health_block(portfolio_id: str = "demo_portfolio") -> dict
         "feature_ref": 467,
         "panel": build_stablecoin_health_panel(),
         "portfolio_alerts": build_portfolio_stablecoin_alerts(portfolio_id),
+        "lst_depeg_monitor_673": build_lst_depeg_monitor_673(),
+        "portfolio_lst_alerts_410": build_portfolio_lst_alerts_410(portfolio_id=portfolio_id),
         "alerts_only": True,
         "monitoring_only": True,
     }
+
+
+def _build_long_short_alerts_block() -> dict[str, Any]:
+    """#675 → #410 — extreme L/S positioning alerts in Risk Layer."""
+    try:
+        from bd_platform.onchain_metrics_library import build_extreme_long_short_alert_410
+
+        return build_extreme_long_short_alert_410()
+    except Exception:
+        logger.debug("long/short risk alerts skipped", exc_info=True)
+        return {"ok": False, "feature_ref": 675, "alerts": []}
 
 
 def build_signal_risk_assessment(
@@ -1063,6 +1078,7 @@ def build_capital_awareness_panel(portfolio_id: str = "demo_portfolio") -> dict[
         "risk_analytics_485": build_risk_analytics_block(portfolio_id, seed=seed),
         "opportunity_risk_combined_429": build_opportunity_risk_combined_alerts(portfolio_id, seed=seed),
         "oracle_risk_alerts_482": _build_oracle_risk_alerts_block(portfolio_id),
+        "long_short_alerts_675": _build_long_short_alerts_block(),
         "volatility_regime_498": vol_regime if vol_regime.get("ok") else None,
         "portfolio_summary": {
             "total_value_usd": portfolio.get("total_value_usd"),
