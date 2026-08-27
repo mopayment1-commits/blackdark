@@ -1,0 +1,49 @@
+{
+  "feature_id": 779,
+  "title": "MTF Validation Layer",
+  "standalone": false,
+  "merged_into": "Signal Engine",
+  "rule_version": "1.0",
+  "mtf_validation_779": {
+    "fee_db": {"mtf_computation_usd": 0.003, "tier": "standard"},
+    "backtest_90d": {
+      "signals_passed": 142,
+      "signals_rejected": 68,
+      "passed_accuracy_pct": 61.3,
+      "min_accuracy_pct": 55
+    },
+    "assets": {
+      "BTC": {
+        "timeframes": {
+          "1H": {
+            "direction": "Bullish",
+            "direction_ar": "صاعد",
+            "rsi": 58.2,
+            "macd_trend": "bullish",
+            "last_candle_timestamp": "2026-08-27T22:00:00Z",
+            "no_future_candles": true,
+            "future_candle_blocked": false
+          },
+          "4H": {
+            "direction": "Neutral",
+            "direction_ar": "محايد",
+            "rsi": 51.0,
+            "macd_trend": "neutral",
+            "last_candle_timestamp": "2026-08-27T20:00:00Z",
+            "no_future_candles": true,
+            "future_candle_blocked": false
+          },
+          "1D": {
+            "direction": "Bullish",
+            "direction_ar": "صاعد",
+            "rsi": 62.5,
+            "macd_trend": "bullish",
+            "last_candle_timestamp": "2026-08-27T00:00:00Z",
+            "no_future_candles": true,
+            "future_candle_blocked": false
+          }
+        }
+      }
+    }
+  }
+}

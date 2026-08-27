@@ -3479,6 +3479,107 @@ async def signal_validation_qa_route():
     return run_signal_validation_qa_776()
 
 
+@router.get("/intelligence-ledger/signals/validation/combined-card")
+async def signal_validation_combined_card_route(asset: str = Query("BTC")):
+    """#776+#779+#777 — cross-domain + cross-timeframe + evidence trail."""
+    from bd_platform.signal_validation_layer import build_signal_card_combined_validation_776_779
+
+    return build_signal_card_combined_validation_776_779(asset)
+
+
+@router.get("/intelligence-ledger/signals/mtf/status")
+async def mtf_validation_status_route():
+    from bd_platform.mtf_validation_layer import mtf_validation_layer_status
+
+    return mtf_validation_layer_status()
+
+
+@router.get("/intelligence-ledger/signals/mtf")
+async def mtf_validation_panel_route(asset: str = Query("BTC")):
+    """#779 MTF Validation — merged into Signal Engine."""
+    from bd_platform.mtf_validation_layer import build_mtf_validation_panel_779
+
+    return build_mtf_validation_panel_779(asset)
+
+
+@router.get("/intelligence-ledger/signals/mtf/signal-card")
+async def mtf_validation_card_route(asset: str = Query("BTC")):
+    from bd_platform.mtf_validation_layer import build_signal_card_mtf_panel_779
+
+    return build_signal_card_mtf_panel_779(asset)
+
+
+@router.get("/intelligence-ledger/signals/mtf/backtest")
+async def mtf_validation_backtest_route():
+    from bd_platform.mtf_validation_layer import run_mtf_backtest_779
+
+    return run_mtf_backtest_779()
+
+
+@router.get("/intelligence-ledger/signals/mtf/qa")
+async def mtf_validation_qa_route():
+    from bd_platform.mtf_validation_layer import run_mtf_alignment_tests_779
+
+    return run_mtf_alignment_tests_779()
+
+
+@router.get("/intelligence-ledger/evidence-layer/status")
+async def evidence_layer_middleware_status_route():
+    """#777 Evidence & Confidence middleware — cross-cutting, not standalone."""
+    from bd_platform.evidence_confidence_middleware import evidence_confidence_status
+
+    return evidence_confidence_status()
+
+
+@router.get("/intelligence-ledger/evidence-layer/audit")
+async def evidence_layer_audit_route():
+    from bd_platform.evidence_confidence_middleware import run_evidence_confidence_audit_777
+
+    return run_evidence_confidence_audit_777()
+
+
+@router.get("/intelligence-ledger/evidence-layer/asset-card")
+async def evidence_layer_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.evidence_confidence_middleware import build_asset_card_evidence_badge_777
+
+    return build_asset_card_evidence_badge_777({"asset": asset, "confidence_pct": 72})
+
+
+@router.get("/intelligence-ledger/evidence-layer/report-footer")
+async def evidence_layer_report_footer_route():
+    from bd_platform.evidence_confidence_middleware import (
+        build_report_evidence_footer_777,
+        enrich_insight_payload,
+    )
+
+    insights = [
+        enrich_insight_payload(
+            {"title": "BTC macro coupling", "confidence_pct": 68},
+            system="market_radar",
+            endpoint="/intelligence-ledger/market-radar/macro-coupling",
+            source_tier="market_radar",
+            age_seconds=180,
+        ),
+        enrich_insight_payload(
+            {"title": "Signal validation", "validation_status": "Mixed", "confidence_pct": 67},
+            system="signal_engine",
+            endpoint="/intelligence-ledger/signals/validation",
+            source_tier="signal_engine",
+            age_seconds=60,
+        ),
+    ]
+    return build_report_evidence_footer_777(insights)
+
+
+@router.get("/intelligence-ledger/evidence-layer/signal-trail")
+async def evidence_layer_signal_trail_route(asset: str = Query("BTC")):
+    from bd_platform.evidence_confidence_middleware import build_signal_card_evidence_trail_777
+    from bd_platform.signal_validation_layer import build_signal_validation_panel_776
+
+    panel = build_signal_validation_panel_776(asset)
+    return build_signal_card_evidence_trail_777(panel)
+
+
 @router.get("/intelligence-ledger/market-radar/sector-pulse")
 async def sector_pulse_dashboard_route():
     """#678 Sector Market Brief — rule-based sector narrative (no ML, no buy/sell)."""

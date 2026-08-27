@@ -230,6 +230,28 @@ def _explain_conflicts(signals: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return conflicts
 
 
+def _apply_evidence_777(
+    payload: dict[str, Any],
+    *,
+    endpoint: str = "/signals/validation",
+    age_seconds: int = 60,
+) -> dict[str, Any]:
+    """#777 — cross-cutting evidence metadata on signal validation outputs."""
+    try:
+        from bd_platform.evidence_confidence_middleware import enrich_insight_payload
+
+        return enrich_insight_payload(
+            payload,
+            system="signal_engine",
+            endpoint=endpoint,
+            source_tier="signal_engine",
+            age_seconds=age_seconds,
+        )
+    except Exception:
+        logger.debug("777 evidence middleware skipped", exc_info=True)
+        return payload
+
+
 def _build_next_actions(asset: str) -> list[dict[str, str]]:
     return [
         {"label_ar": "استكشف: NVT Ratio في Market Radar", "route": "/intelligence-ledger/market-radar/panel"},
@@ -269,7 +291,7 @@ def build_signal_validation_panel_776(
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
     cfg = seed.get("signal_validation_776") or {}
 
-    return {
+    panel = {
         "ok": len(available) >= 2,
         "feature_ref": 776,
         "merged_into": _MERGED_INTO,
@@ -278,6 +300,7 @@ def build_signal_validation_panel_776(
         "asset": sym,
         "validation_status": status,
         "validation_status_ar": status_ar,
+        "confidence_pct": {"Confirmed": 100.0, "Mixed": 67.0, "Contradictory": 33.0}.get(status, 50.0),
         "signals": available,
         "domain_coverage": ["Technical", "On-Chain", "Sentiment"],
         "max_domains": 3,
@@ -305,6 +328,7 @@ def build_signal_validation_panel_776(
         "latency_ms": elapsed,
         "timestamp": _utcnow(),
     }
+    return _apply_evidence_777(panel, age_seconds=max(1, int(elapsed // 1000) or 1))
 
 
 def build_signal_card_cross_validation_776(
@@ -379,6 +403,39 @@ def run_signal_validation_qa_776(*, seed: dict[str, Any] | None = None) -> dict[
     }
 
 
+def build_signal_card_combined_validation_776_779(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+    mtf_seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#776 + #779 + #777 — full Signal Card validation network."""
+    from bd_platform.evidence_confidence_middleware import build_signal_card_evidence_trail_777
+    from bd_platform.mtf_validation_layer import build_signal_card_mtf_panel_779
+
+    cross = build_signal_card_cross_validation_776(asset, seed=seed)
+    mtf = build_signal_card_mtf_panel_779(asset, seed=mtf_seed)
+    validation = cross.get("validation") or {}
+    mtf_panel = mtf.get("validation") or {}
+    evidence = build_signal_card_evidence_trail_777({
+        **validation,
+        "mtf_verdict": mtf.get("verdict_badge"),
+        "confidence_pct": mtf_panel.get("confidence_pct") or validation.get("confidence_pct"),
+    })
+    return {
+        "ok": bool(cross.get("ok")) and bool(mtf.get("ok")),
+        "feature_refs": [776, 779, 777],
+        "surface": "signal_card",
+        "panel_title_ar": "شبكة التحقق الكاملة",
+        "cross_validation_776": cross,
+        "mtf_validation_779": mtf,
+        "evidence_trail_777": evidence,
+        "complements": "#776 cross-domain + #779 cross-timeframe",
+        "no_execution": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def signal_validation_layer_status() -> dict[str, Any]:
     return {
         "ok": True,
@@ -393,5 +450,6 @@ def signal_validation_layer_status() -> dict[str, Any]:
         "no_forced_consensus": True,
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
+        "complements_mtf_779": True,
         "timestamp": _utcnow(),
     }
