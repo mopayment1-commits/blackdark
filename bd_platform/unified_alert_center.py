@@ -82,7 +82,10 @@ def _collect_arbitrage_alerts() -> list[dict[str, Any]]:
 def _collect_risk_alerts() -> list[dict[str, Any]]:
     alerts: list[dict[str, Any]] = []
     try:
-        from bd_platform.capital_protection_controls import build_capital_awareness_panel
+        from bd_platform.capital_protection_controls import (
+            build_capital_awareness_panel,
+            build_real_time_risk_alerts,
+        )
 
         panel = build_capital_awareness_panel()
         for a in (panel.get("portfolio_ai_alerts") or {}).get("alerts") or []:
@@ -92,6 +95,17 @@ def _collect_risk_alerts() -> list[dict[str, Any]]:
                 body=a.get("display") or "",
                 severity=a.get("severity") or "watch",
                 source_feature=410,
+                payload=a,
+            ))
+
+        rt = build_real_time_risk_alerts()
+        for a in rt.get("alerts") or []:
+            alerts.append(_normalize_alert(
+                alert_type="risk",
+                title="Real-time risk alert",
+                body=a.get("display") or "",
+                severity=a.get("severity") or "watch",
+                source_feature=484,
                 payload=a,
             ))
     except Exception:
@@ -105,8 +119,8 @@ def _collect_whale_alerts() -> list[dict[str, Any]]:
         from bd_platform.smart_money_flow_tracker import build_smart_money_flow_panel
 
         panel = build_smart_money_flow_panel("BTC")
-        analysis = panel.get("analysis") or panel
-        if analysis.get("whale_label"):
+        analysis = (panel.get("analyses") or [None])[0] if panel.get("analyses") else panel
+        if analysis and analysis.get("whale_label"):
             alerts.append(_normalize_alert(
                 alert_type="whale",
                 title=f"Whale signal · {analysis.get('asset', 'BTC')}",
@@ -114,6 +128,17 @@ def _collect_whale_alerts() -> list[dict[str, Any]]:
                 severity="watch",
                 source_feature=408,
                 payload=analysis,
+            ))
+        sopr_ctx = (panel.get("sopr_intelligence_488") or {}).get("market_radar_context") or {}
+        sopr = sopr_ctx.get("sopr") or {}
+        if sopr.get("profit_loss_regime") == "loss_zone":
+            alerts.append(_normalize_alert(
+                alert_type="whale",
+                title=f"SOPR loss regime · {sopr.get('asset', 'BTC')}",
+                body=sopr.get("display") or "",
+                severity="watch",
+                source_feature=488,
+                payload=sopr,
             ))
     except Exception:
         pass

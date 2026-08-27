@@ -97,6 +97,14 @@ def analyze_stablecoin(symbol: str, *, seed: dict[str, Any] | None = None) -> di
     grade = _stablecoin_grade(risk_score, seed=seed)
     threatened = depeg_probability >= float(seed.get("depeg_probability_threshold", 0.55))
 
+    oracle_risk = None
+    try:
+        from bd_platform.defi_opportunity_scanner import get_stablecoin_oracle_risk_flag
+
+        oracle_risk = get_stablecoin_oracle_risk_flag(symbol.upper())
+    except Exception:
+        logger.debug("oracle risk flag skipped for %s", symbol, exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -118,6 +126,8 @@ def analyze_stablecoin(symbol: str, *, seed: dict[str, Any] | None = None) -> di
         "depeg_probability": depeg_probability,
         "stablecoin_grade": grade,
         "threatened": threatened,
+        "oracle_risk_482": oracle_risk,
+        "oracle_risk_flagged": (oracle_risk or {}).get("oracle_risk_flagged", False),
         "historical_only": data.get("historical_only", False),
         "monitoring_only": True,
         "display": (

@@ -54,7 +54,17 @@
       "whale_threshold_btc": 100,
       "largest_transfer_btc": 2500,
       "largest_transfer_dormancy_days": 3650,
-      "price_change_7d_pct": -4.2
+      "price_change_7d_pct": -4.2,
+      "sopr_7d_avg": 0.982,
+      "sopr_daily": [
+        {"sopr": 1.01, "sample_transfer": {"label": "whale", "transfer_type": "transfer"}},
+        {"sopr": 0.99, "sample_transfer": {"label": "retail", "transfer_type": "transfer"}},
+        {"sopr": 0.97, "sample_transfer": {"label": "binance_cold", "transfer_type": "transfer"}},
+        {"sopr": 0.98},
+        {"sopr": 0.96},
+        {"sopr": 0.99},
+        {"sopr": 0.98}
+      ]
     },
     "ETH": {
       "chain": "ethereum",
@@ -65,7 +75,36 @@
       "whale_threshold_eth": 1000,
       "largest_transfer_eth": 12000,
       "largest_transfer_dormancy_days": 2100,
-      "price_change_7d_pct": 2.1
+      "price_change_7d_pct": 2.1,
+      "sopr_7d_avg": 1.015,
+      "sopr_daily": [
+        {"sopr": 1.02},
+        {"sopr": 1.01},
+        {"sopr": 1.03},
+        {"sopr": 1.00},
+        {"sopr": 1.02},
+        {"sopr": 1.01},
+        {"sopr": 1.02}
+      ]
+    }
+  },
+  "sopr_methodology_488": {
+    "feature_ref": 488,
+    "formula": "realized_value / acquisition_value for spent outputs",
+    "transfer_filtering": "internal, exchange cold wallet, staking deposit, contract interaction excluded",
+    "lookback_days": 7
+  },
+  "sopr_filtering_488": {
+    "exclude_transfer_types": ["internal_transfer", "staking_deposit", "contract_interaction"],
+    "exchange_cold_wallet_labels": ["binance_cold", "coinbase_custody", "kraken_cold"]
+  },
+  "sopr_alerts_488": {
+    "portfolio_exposure_threshold_pct": 20
+  },
+  "portfolio_asset_exposure": {
+    "demo_portfolio": {
+      "BTC": 31.2,
+      "ETH": 20.8
     }
   }
 }
