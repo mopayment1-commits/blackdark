@@ -535,6 +535,96 @@
       }
     }
   },
+  "token_circulation_757": {
+    "feature_ref": 757,
+    "merged_into": 577,
+    "velocity_anomaly_thresholds": {
+      "high_velocity": 0.05,
+      "low_velocity": 0.001
+    },
+    "backfill_qa": {
+      "tolerance_pct": 2.0,
+      "assets": {
+        "BTC": {
+          "platform_unique_units": 485000,
+          "reference_unique_units": 480300,
+          "reference_source": "coinmetrics"
+        },
+        "ETH": {
+          "platform_unique_units": 1250000,
+          "reference_unique_units": 1235000,
+          "reference_source": "glassnode"
+        }
+      }
+    },
+    "assets": {
+      "BTC": {
+        "chain_model": "utxo",
+        "period": "24h",
+        "period_days": 1,
+        "circulating_supply": 19700000,
+        "expected_unique_units": 3,
+        "active_token_days_destroyed": 1250000,
+        "trend": "rising",
+        "circulation_history": [420000, 445000, 460000, 475000, 485000],
+        "movement_history": [
+          {"utxo_id": "utxo_a1", "amount": 0.5, "timestamp": "2026-08-27T10:00:00Z"},
+          {"utxo_id": "utxo_a2", "amount": 1.2, "timestamp": "2026-08-27T11:00:00Z"},
+          {"utxo_id": "utxo_a1", "amount": 0.5, "timestamp": "2026-08-27T12:00:00Z"},
+          {"utxo_id": "utxo_b3", "amount": 2.0, "timestamp": "2026-08-27T13:00:00Z"}
+        ],
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 1,
+          "metrics_recalculated": true
+        },
+        "fee_db": {"rpc_queries_usd": 0.02, "indexing_usd": 0.01, "tier": "standard"}
+      },
+      "ETH": {
+        "chain_model": "account",
+        "period": "24h",
+        "period_days": 1,
+        "circulating_supply": 120000000,
+        "expected_unique_units": 2,
+        "active_token_days_destroyed": 8900000,
+        "trend": "flat",
+        "circulation_history": [1180000, 1210000, 1240000, 1250000, 1250000],
+        "movement_history": [
+          {"tx_hash": "0xabc", "log_index": 0, "timestamp": "2026-08-27T10:00:00Z"},
+          {"tx_hash": "0xabc", "log_index": 0, "timestamp": "2026-08-27T11:00:00Z"},
+          {"tx_hash": "0xdef", "log_index": 1, "timestamp": "2026-08-27T12:00:00Z"}
+        ],
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 2,
+          "metrics_recalculated": true
+        },
+        "fee_db": {"rpc_queries_usd": 0.03, "indexing_usd": 0.015, "tier": "standard"}
+      },
+      "HBAR": {
+        "chain_model": "dag",
+        "period": "24h",
+        "period_days": 1,
+        "circulating_supply": 50000000000,
+        "expected_unique_units": 2,
+        "active_token_days_destroyed": 450000000,
+        "trend": "rising",
+        "circulation_history": [41000000, 42000000, 43500000, 44000000, 45000000],
+        "movement_history": [
+          {"message_id": "msg_001", "timestamp": "2026-08-27T10:00:00Z"},
+          {"message_id": "msg_001", "timestamp": "2026-08-27T11:00:00Z"},
+          {"message_id": "msg_002", "timestamp": "2026-08-27T12:00:00Z"}
+        ],
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "metrics_recalculated": true
+        }
+      }
+    }
+  },
   "methodology_registry": {
     "feature_ref": 656,
     "governance_ref": 679,

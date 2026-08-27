@@ -269,6 +269,97 @@ def build_asset_card_indicator_panel_755(
     }
 
 
+_TECHNICAL_CHART_DISCLAIMER = (
+    "Technical indicators are mathematical calculations based on historical data. "
+    "Not financial advice. Past performance does not guarantee future results. "
+    "BLACKDARK does not predict prices."
+)
+
+
+def build_technical_chart_overlay_760(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#760 — Technical Chart overlay (rejects standalone 'Technical Brain' / prediction)."""
+    seed = seed or _load_seed()
+    sym = asset.upper()
+    cfg = seed.get("technical_chart_overlay_760") or {}
+    calc = build_technical_calculation_layer_754(sym, seed=seed)
+    summary = build_technical_summary_overlay_755(sym, seed=seed)
+    if not calc.get("ok") or not summary.get("ok"):
+        return {"ok": False, "feature_ref": 760, "asset": sym, "error": "technical_layer_unavailable"}
+
+    indicators = calc.get("indicators") or {}
+    rsi = (indicators.get("RSI") or {}).get("value")
+    macd = indicators.get("MACD") or {}
+    sma = (indicators.get("SMA") or {}).get("values") or {}
+
+    return {
+        "ok": True,
+        "feature_ref": 760,
+        "merged_into": "market_radar",
+        "legal_name": cfg.get("legal_name", "Technical Chart"),
+        "rejected_names": ["Technical Brain", "عقل التحليل الفني", "محرك التوقع"],
+        "no_prediction": True,
+        "no_strong_buy_sell": True,
+        "no_investment_advice": True,
+        "asset": sym,
+        "chart_library": cfg.get("chart_library", "chartjs_lightweight"),
+        "external_chart_engine": True,
+        "no_custom_charting_engine": True,
+        "indicators_enabled": cfg.get("indicators_enabled", ["RSI", "MACD", "SMA"]),
+        "max_indicators_early_phase": 4,
+        "ohlcv_source": "oracle_api",
+        "display": (
+            f"RSI: {rsi} | MACD: {(macd.get('trend_label') or '').split('—')[0].strip()} | "
+            f"Trend: {summary.get('analysis')} | Confidence: N/A"
+        ),
+        "technical_summary": summary,
+        "raw_indicators": indicators,
+        "sma_20": sma.get("20"),
+        "sma_50": sma.get("50"),
+        "interaction": {
+            "zoom": True,
+            "pan": True,
+            "save_settings": False,
+            "export": False,
+        },
+        "disclaimer": cfg.get("disclaimer", _TECHNICAL_CHART_DISCLAIMER),
+        "disclaimer_mandatory": True,
+        "disclaimer_non_hideable": True,
+        "read_only": True,
+        "no_alert": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_technical_indicators_760(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#760 — Asset Card مؤشرات فنية (RSI + MACD only)."""
+    chart = build_technical_chart_overlay_760(asset, seed=seed)
+    if not chart.get("ok"):
+        return {**chart, "surface": "asset_card"}
+
+    return {
+        "ok": True,
+        "feature_ref": 760,
+        "surface": "asset_card",
+        "panel_name_ar": "مؤشرات فنية",
+        "panel_name": "Technical Indicators",
+        "asset": asset.upper(),
+        "rsi": (chart.get("raw_indicators") or {}).get("RSI", {}).get("value"),
+        "macd_trend": (chart.get("raw_indicators") or {}).get("MACD", {}).get("trend_label"),
+        "trend": (chart.get("technical_summary") or {}).get("analysis"),
+        "no_prediction": True,
+        "disclaimer": chart.get("disclaimer"),
+        "timestamp": _utcnow(),
+    }
+
+
 def run_formula_parity_tests_754(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """#754 — formula parity with TradingView reference ±0.01%."""
     seed = seed or _load_seed()
@@ -668,6 +759,23 @@ def build_market_radar_panel(
 
     technical_calc = build_technical_calculation_layer_754(asset, seed=seed)
     technical_summary = build_technical_summary_overlay_755(asset, seed=seed)
+    technical_chart = build_technical_chart_overlay_760(asset, seed=seed)
+
+    token_circulation = None
+    try:
+        from bd_platform.onchain_metrics_library import build_market_radar_token_circulation_widget_757
+
+        token_circulation = build_market_radar_token_circulation_widget_757(asset)
+    except Exception:
+        logger.debug("757 token circulation market radar integration skipped", exc_info=True)
+
+    market_alerts = None
+    try:
+        from bd_platform.alert_engine import build_market_radar_alerts_panel_759
+
+        market_alerts = build_market_radar_alerts_panel_759(seed=seed)
+    except Exception:
+        logger.debug("759 market radar alerts integration skipped", exc_info=True)
 
     return {
         "ok": True,
@@ -689,6 +797,9 @@ def build_market_radar_panel(
         "supply_change_700": supply_change,
         "technical_calculation_754": technical_calc if technical_calc.get("ok") else {"ok": False},
         "technical_summary_755": technical_summary if technical_summary.get("ok") else {"ok": False},
+        "technical_chart_760": technical_chart if technical_chart.get("ok") else {"ok": False},
+        "token_circulation_757": token_circulation if token_circulation and token_circulation.get("ok") else {"ok": False},
+        "market_alerts_759": market_alerts if market_alerts and market_alerts.get("ok") else {"ok": False},
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }
@@ -728,6 +839,9 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     summary = build_technical_summary_overlay_755("BTC", seed=seed)
     checks.append({"id": "no_strong_buy_sell_755", "passed": summary.get("no_strong_buy_sell") is True, "detail": "755"})
     checks.append({"id": "disclaimer_mandatory_755", "passed": summary.get("disclaimer_mandatory") is True, "detail": "755"})
+    chart = build_technical_chart_overlay_760("BTC", seed=seed)
+    checks.append({"id": "no_prediction_760", "passed": chart.get("no_prediction") is True, "detail": "760"})
+    checks.append({"id": "rejected_brain_name_760", "passed": "Technical Brain" in (chart.get("rejected_names") or []), "detail": "760"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {
