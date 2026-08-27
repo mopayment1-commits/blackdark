@@ -73,17 +73,19 @@
   }
 
   async function loadDecisionCard(apiPayload) {
+    if (typeof window !== "undefined" && window.BDDecisionCard && window.BDDecisionCard.activateFromPayload) {
+      await window.BDDecisionCard.activateFromPayload(apiPayload || {});
+      return;
+    }
     try {
       const mode = localStorage.getItem("bd_ux_mode") || "beginner";
-      const res = await fetch("/api/platform/intelligence-ledger/ui/beginner-decision-mode/status");
-      const status = await res.json();
-      if (mode === "pro" && !status.force_beginner_card) return;
-      const wrapped = {
-        verdict: apiPayload.verdict || (apiPayload.threatened ? "REDUCE EXPOSURE" : "MONITOR"),
-        decision_sentence: apiPayload.display || apiPayload.decision_sentence || status.disclaimer,
-        risk_warning: { text: apiPayload.disclaimer || status.disclaimer || "Not investment advice." },
-      };
-      renderDecisionSticky({ decision_card: wrapped });
+      const res = await fetch("/api/platform/intelligence-ledger/ui/decision-card", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ payload: apiPayload || {}, ux_mode: mode }),
+      });
+      const data = await res.json();
+      if (data.decision_card) renderDecisionSticky({ decision_card: data.decision_card });
     } catch (_) { /* optional */ }
   }
 

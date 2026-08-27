@@ -45,13 +45,26 @@ Every capability must pass all three before "Production-Ready":
 | Provenance ⓘ badge (foundation) | ✅ |
 | Yield Delta | ❌ → Sprint-3 |
 
-### Sprint-2 P1 — Decision + Alerts
-| Item | Target |
+### Sprint-2 P1 (This PR) — Decision Card + Risk Score + 12 Routes + Alert Center
+
+| Item | Status |
 |------|--------|
-| `/wallet/{addr}` Profiler UI | DeBank + ScopeScan + clusters graph |
-| Decision Card sticky on all pages | `capability_core.js` + dashboard |
-| Unified Alert Center | `/api/alerts/unified-feed` aggregating 6 sources |
-| Remaining 12 capability routes | `/correlation`, `/stress-test`, `/thesis/{asset}`, etc. |
+| Decision Card API + global activation | ✅ `POST .../ui/decision-card` + `decision_card_global.js` |
+| Risk Score on portfolio + assets | ✅ `risk_score_surface.py` + strip on all capability pages |
+| 12 additional routes | ✅ liquidity, defi, unlocks, correlation, stress-test, thesis, sopr, dormancy, clusters, dex-screener, treasuries, metrics |
+| Wallet Profiler | ✅ `/wallet/{address}` |
+| Simulator route | ✅ `/simulator` → redirect |
+| Unified Alert Center | ✅ `/api/alerts/unified-feed` + dashboard filters |
+| Yield Delta | ❌ → Sprint-3 (cancelled) |
+
+### P1 Checklist (gate before P2)
+
+- [x] 17 capability routes (5 P0 + 12 P1) + wallet + simulator redirect
+- [x] Decision Card activated on dashboard, hub, capability pages, portfolio pages
+- [x] Risk Score visible (API + UI strip)
+- [x] Alert Center unified (6 sources, filter by type)
+- [ ] Strategy Vetting Grade A–F on every signal → **P2**
+- [ ] Provenance badge on every number → **P2** (foundation in place)
 
 ### Sprint-2 P2 — Trust + Signal Quality
 | Item | Target |

@@ -1708,23 +1708,39 @@ _CAPABILITY_PAGES: dict[str, tuple[str, str]] = {
     "arbitrage": ("Arbitrage Scanner", "Net-Edge Truth Score · executable cost breakdown"),
     "brief": ("Daily Market Brief", "What changed · Why · Risks — evidence-linked narrative"),
     "whales": ("Whale Tracker", "Accumulation / distribution · smart money flow"),
+    "liquidity": ("Liquidity Analyzer", "Fill feasibility + slippage heatmap"),
+    "defi": ("DeFi Opportunities", "Risk-adjusted APY + protocol grade"),
+    "unlocks": ("Token Unlocks", "Calendar + severity impact"),
+    "correlation": ("Correlation Risk", "Heatmap + contagion context"),
+    "stress-test": ("Scenario Stress Test", "5 mandatory scenarios + portfolio impact"),
+    "thesis": ("Investment Thesis", "6-dimension evidence rubric — not price probability"),
+    "sopr": ("SOPR / Profitability", "Profit/loss regime on-chain"),
+    "dormancy": ("Age Consumed / Dormancy", "Spikes + whale context"),
+    "clusters": ("Whale Clusters", "Cluster view + confidence"),
+    "dex-screener": ("DEX Screener", "Pools + risk flags"),
+    "treasuries": ("Treasury Intel", "Runway + allocation"),
+    "metrics": ("On-Chain Metrics Library", "Searchable catalog + formulas"),
 }
 
 
-def _capability_page(request: Request, capability_id: str) -> HTMLResponse:
+def _capability_page(
+    request: Request,
+    capability_id: str,
+    *,
+    extra: dict[str, Any] | None = None,
+) -> HTMLResponse:
     meta = _CAPABILITY_PAGES.get(capability_id)
     if not meta:
         raise HTTPException(status_code=404, detail="capability_not_found")
     title, subtitle = meta
-    return render_page(
-        request,
-        "capability_page.html",
-        {
-            "capability_id": capability_id,
-            "capability_title": title,
-            "capability_subtitle": subtitle,
-        },
-    )
+    ctx: dict[str, Any] = {
+        "capability_id": capability_id,
+        "capability_title": title,
+        "capability_subtitle": subtitle,
+    }
+    if extra:
+        ctx.update(extra)
+    return render_page(request, "capability_page.html", ctx)
 
 
 @app.get("/exchanges", response_class=HTMLResponse)
@@ -1750,6 +1766,85 @@ async def brief_capability_page(request: Request):
 @app.get("/whales", response_class=HTMLResponse)
 async def whales_capability_page(request: Request):
     return _capability_page(request, "whales")
+
+
+@app.get("/liquidity", response_class=HTMLResponse)
+async def liquidity_capability_page(request: Request):
+    return _capability_page(request, "liquidity")
+
+
+@app.get("/defi", response_class=HTMLResponse)
+async def defi_capability_page(request: Request):
+    return _capability_page(request, "defi")
+
+
+@app.get("/unlocks", response_class=HTMLResponse)
+async def unlocks_capability_page(request: Request):
+    return _capability_page(request, "unlocks")
+
+
+@app.get("/correlation", response_class=HTMLResponse)
+async def correlation_capability_page(request: Request):
+    return _capability_page(request, "correlation")
+
+
+@app.get("/stress-test", response_class=HTMLResponse)
+async def stress_test_capability_page(request: Request):
+    return _capability_page(request, "stress-test")
+
+
+@app.get("/thesis/{asset}", response_class=HTMLResponse)
+async def thesis_asset_capability_page(request: Request, asset: str = "BTC"):
+    return _capability_page(request, "thesis", extra={"thesis_asset": asset.upper()})
+
+
+@app.get("/thesis", response_class=HTMLResponse)
+async def thesis_capability_page(request: Request):
+    return _capability_page(request, "thesis", extra={"thesis_asset": "BTC"})
+
+
+@app.get("/sopr", response_class=HTMLResponse)
+async def sopr_capability_page(request: Request):
+    return _capability_page(request, "sopr")
+
+
+@app.get("/dormancy", response_class=HTMLResponse)
+async def dormancy_capability_page(request: Request):
+    return _capability_page(request, "dormancy")
+
+
+@app.get("/clusters", response_class=HTMLResponse)
+async def clusters_capability_page(request: Request):
+    return _capability_page(request, "clusters")
+
+
+@app.get("/dex-screener", response_class=HTMLResponse)
+async def dex_screener_capability_page(request: Request):
+    return _capability_page(request, "dex-screener")
+
+
+@app.get("/treasuries", response_class=HTMLResponse)
+async def treasuries_capability_page(request: Request):
+    return _capability_page(request, "treasuries")
+
+
+@app.get("/metrics-library", response_class=HTMLResponse)
+async def metrics_capability_page(request: Request):
+    return _capability_page(request, "metrics")
+
+
+@app.get("/simulator", response_class=HTMLResponse)
+async def simulator_redirect_page():
+    return RedirectResponse(url="/portfolio-ai/strategy-simulator", status_code=302)
+
+
+@app.get("/wallet/{address}", response_class=HTMLResponse)
+async def wallet_profiler_page(request: Request, address: str):
+    return render_page(
+        request,
+        "wallet_profiler.html",
+        {"wallet_address": address},
+    )
 
 
 @app.get("/discipline-mirror", response_class=HTMLResponse)
@@ -3945,6 +4040,17 @@ async def alerts_inbox(
         "alerts": list_in_app_alerts(limit=limit, user_email=email, unread_only=unread_only),
         "works_without_telegram": True,
     }
+
+
+@app.get("/api/alerts/unified-feed", responses=COMMON_ERROR_RESPONSES)
+async def alerts_unified_feed(
+    limit: int = 50,
+    alert_type: str | None = None,
+):
+    """Unified Alert Center — 6 sources, chronological feed."""
+    from bd_platform.unified_alert_center import build_unified_alert_feed
+
+    return build_unified_alert_feed(limit=limit, alert_type=alert_type)
 
 
 @app.post("/api/alerts/inbox/{alert_id}/read", responses=COMMON_ERROR_RESPONSES)

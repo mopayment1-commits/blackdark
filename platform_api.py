@@ -1307,6 +1307,57 @@ async def beginner_decision_mode_status_route():
     return beginner_decision_mode_status()
 
 
+@router.post("/intelligence-ledger/ui/decision-card")
+async def decision_card_build_route(body: dict[str, Any] = Body(...)):
+    """#461/#468 — build Decision Card for any page context."""
+    from ux_mode import apply_ux_mode, build_beginner_decision_card
+
+    payload = dict(body.get("payload") or {})
+    mode = str(body.get("ux_mode") or "beginner")
+    layer = str(payload.pop("_layer", None) or body.get("layer") or "summary")
+    result = apply_ux_mode(payload, mode=mode)
+    card = result.get("decision_card") or build_beginner_decision_card(payload, layer=layer)  # type: ignore[arg-type]
+    return {"ok": True, "decision_card": card, "ux_mode": mode}
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-score/status")
+async def risk_score_surface_status_route():
+    from bd_platform.risk_score_surface import risk_score_surface_status
+
+    return risk_score_surface_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-score")
+async def risk_score_surface_route(portfolio_id: str = Query("demo_portfolio")):
+    from bd_platform.risk_score_surface import build_portfolio_risk_surface
+
+    return build_portfolio_risk_surface(portfolio_id=portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-score/{asset}")
+async def risk_score_asset_route(asset: str, portfolio_id: str = Query("demo_portfolio")):
+    from bd_platform.risk_score_surface import score_asset_risk
+
+    return score_asset_risk(asset, portfolio_id=portfolio_id)
+
+
+@router.get("/intelligence-ledger/alert-center/status")
+async def unified_alert_center_status_route():
+    from bd_platform.unified_alert_center import unified_alert_center_status
+
+    return unified_alert_center_status()
+
+
+@router.get("/intelligence-ledger/alert-center/feed")
+async def unified_alert_center_feed_route(
+    limit: int = Query(50),
+    alert_type: str | None = Query(None),
+):
+    from bd_platform.unified_alert_center import build_unified_alert_feed
+
+    return build_unified_alert_feed(limit=limit, alert_type=alert_type)
+
+
 @router.get("/intelligence-ledger/portfolio-ai/exchange-health/status")
 async def exchange_health_monitor_status_route():
     """#456 Exchange Health Monitor — Sprint-2 Risk Layer."""
