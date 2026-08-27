@@ -80,7 +80,7 @@ jobs:
             tests/test_rc2_chaos_resilience.py \
             tests/test_rc2_oracle_contract.py \
             tests/test_env_secrets_loader.py \
-            tests/test_i18n_15_locales.py \
+            tests/test_i18n_25_locales.py \
             tests/test_i18n_language_actually_switches.py \
             tests/test_sonar_template_js_parse_hygiene.py \
             tests/test_sonar_project_version_baseline.py \
