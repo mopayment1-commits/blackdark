@@ -49,6 +49,38 @@ async def handle_onchain_capability(capability_id: int, *, params: dict[str, Any
         bal = await debank_wallet(addr) if addr else {"note": "address_required"}
         return ai_compliance_footer({"capability_id": 581, "surface": "on_chain_balance_monitor", "balance": bal, "success": bool(bal)})
 
+    if capability_id == 36:
+        from bd_platform.onchain_metrics_library import build_onchain_metrics_library_panel
+
+        panel = build_onchain_metrics_library_panel(symbol)
+        return ai_compliance_footer(
+            {
+                "capability_id": 36,
+                "surface": "on_chain_metrics_library",
+                "backend_module": "bd_platform.onchain_metrics_library",
+                "backend_entrypoint": "build_onchain_metrics_library_panel",
+                "metrics_library": panel,
+                "success": bool(panel.get("ok")),
+            }
+        )
+
+    if capability_id == 202:
+        from bd_platform.onchain_metrics_library import build_supply_distribution_dashboard
+
+        distribution = build_supply_distribution_dashboard(symbol)
+        return ai_compliance_footer(
+            {
+                "capability_id": 202,
+                "surface": "supply_distribution_intelligence",
+                "backend_module": "bd_platform.onchain_metrics_library",
+                "backend_entrypoint": "build_supply_distribution_dashboard",
+                "merged_into": 577,
+                "standalone_rejected": True,
+                "supply_distribution": distribution,
+                "success": bool(distribution.get("ok")),
+            }
+        )
+
     from onchain_tracker import build_onchain_context_safe
     from instant_alert_engine import engine_stats
     from cap646.catalog import catalog_by_id
