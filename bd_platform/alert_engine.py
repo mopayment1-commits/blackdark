@@ -329,6 +329,14 @@ def build_alert_engine_panel() -> dict[str, Any]:
     except Exception:
         logger.debug("660 defi risk spike alerts skipped", exc_info=True)
 
+    defi_security_alerts = None
+    try:
+        from bd_platform.defi_risk_passport import build_defi_security_alerts_484
+
+        defi_security_alerts = build_defi_security_alerts_484()
+    except Exception:
+        logger.debug("667 defi security monitor alerts skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -342,6 +350,7 @@ def build_alert_engine_panel() -> dict[str, Any]:
         "derivatives_rules": derivatives,
         "derivatives_alert_config": build_derivatives_alert_rules(seed),
         "defi_risk_spike_alerts_660": defi_risk_alerts,
+        "defi_security_monitor_alerts_667": defi_security_alerts,
         "triggered_count": len(triggered),
         "suppressed_count": len(suppressed),
         "recent_deliveries": logs,

@@ -24,6 +24,9 @@ from bd_platform.institutional_standards import missing_value
 logger = logging.getLogger("BLACKDARK.OnChainFinancials")
 
 _FEATURE_ID = 641
+_STATEMENT_REF = 665
+_HEALTH_SCORING_REF = 666
+_RISK_SCORING_REF = 460
 _CROSS_CHAIN_REF = 650
 _THESIS_REF = 472
 _METRICS_REF = 577
@@ -190,6 +193,355 @@ def _collect_protocol_data(protocol_id: str, *, seed: dict[str, Any]) -> dict[st
     return raw
 
 
+def _evidence_line(
+    line_id: str,
+    label: str,
+    value: Any,
+    *,
+    definition: str,
+    source_link: str | None = None,
+    contract_address: str | None = None,
+    block_number: int | None = None,
+    unit: str | None = None,
+) -> dict[str, Any]:
+    """#665 — every statement line requires definition + evidence."""
+    return {
+        "line_id": line_id,
+        "label": label,
+        "value": value,
+        "unit": unit,
+        "definition": definition,
+        "evidence": {
+            "source_link": source_link,
+            "contract_address": contract_address,
+            "block_number": block_number,
+            "definitions_plus_evidence_per_line": True,
+        },
+    }
+
+
+def _health_grade(score: float) -> str:
+    if score >= 85:
+        return "A"
+    if score >= 70:
+        return "B"
+    if score >= 55:
+        return "C"
+    if score >= 40:
+        return "D"
+    return "F"
+
+
+def build_financial_statement_view(
+    protocol_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#665 — structured financial statement with evidence per line."""
+    seed = seed or _load_seed()
+    raw = _collect_protocol_data(protocol_id, seed=seed)
+    if not raw:
+        return {"ok": False, "protocol_id": protocol_id, "error": "protocol_not_found"}
+
+    normalized = _normalize_protocol_data(raw, seed=seed)
+    evidence_cfg = raw.get("evidence") or {}
+    revenue = float(normalized["revenue_30d_usd"])
+    incentives = float(normalized["incentives_emissions_30d_usd"])
+    net_income = round(revenue - incentives, 2)
+    tvl = float(raw.get("tvl_usd", 0))
+    treasury = float(raw.get("treasury_usd", 0))
+    users = int(raw.get("active_addresses_30d", 0))
+
+    income_statement = {
+        "section": "income_statement",
+        "lines": [
+            _evidence_line(
+                "revenue_fees", "Revenue (fees)", revenue, unit="USD",
+                definition="Trailing 30d protocol fees captured on-chain",
+                source_link=evidence_cfg.get("revenue_source_link"),
+                contract_address=evidence_cfg.get("fee_contract"),
+                block_number=evidence_cfg.get("revenue_block"),
+            ),
+            _evidence_line(
+                "incentives_emissions", "Incentives (emissions)", incentives, unit="USD",
+                definition="Token emissions paid to users/LPs in trailing 30d",
+                source_link=evidence_cfg.get("incentives_source_link"),
+                contract_address=evidence_cfg.get("emissions_contract"),
+                block_number=evidence_cfg.get("incentives_block"),
+            ),
+            _evidence_line(
+                "net_income", "Net Income", net_income, unit="USD",
+                definition="Revenue (fees) − Incentives (emissions)",
+                source_link=evidence_cfg.get("revenue_source_link"),
+                contract_address=evidence_cfg.get("fee_contract"),
+                block_number=evidence_cfg.get("revenue_block"),
+            ),
+        ],
+    }
+
+    balance_sheet = {
+        "section": "balance_sheet",
+        "lines": [
+            _evidence_line(
+                "tvl_assets", "TVL (assets)", tvl, unit="USD",
+                definition="Total value locked across tracked protocol contracts",
+                source_link=evidence_cfg.get("tvl_source_link"),
+                contract_address=evidence_cfg.get("tvl_contract"),
+                block_number=evidence_cfg.get("tvl_block"),
+            ),
+            _evidence_line(
+                "treasury_reserves", "Treasury (liquid reserves)", treasury, unit="USD",
+                definition="Liquid protocol treasury reserves (stable + liquid assets)",
+                source_link=evidence_cfg.get("treasury_source_link"),
+                contract_address=evidence_cfg.get("treasury_contract"),
+                block_number=evidence_cfg.get("treasury_block"),
+            ),
+        ],
+    }
+
+    metrics_section = {
+        "section": "metrics",
+        "lines": [
+            _evidence_line(
+                "ps_ratio", "P/S Ratio", normalized.get("ps_ratio"), unit="ratio",
+                definition="Fully diluted valuation / annualized revenue",
+                source_link=evidence_cfg.get("fdv_source_link"),
+                contract_address=evidence_cfg.get("token_contract"),
+                block_number=evidence_cfg.get("fdv_block"),
+            ),
+            _evidence_line(
+                "revenue_per_user", "Revenue / User", normalized.get("revenue_per_user_usd"), unit="USD",
+                definition="Trailing 30d revenue / active addresses 30d",
+                source_link=evidence_cfg.get("revenue_source_link"),
+                contract_address=evidence_cfg.get("fee_contract"),
+                block_number=evidence_cfg.get("revenue_block"),
+            ),
+            _evidence_line(
+                "growth_rate_qoq", "Growth Rate (QoQ)", normalized.get("growth_rate_qoq_pct"), unit="percent",
+                definition="Quarter-over-quarter revenue growth",
+                source_link=evidence_cfg.get("revenue_source_link"),
+                contract_address=evidence_cfg.get("fee_contract"),
+                block_number=evidence_cfg.get("revenue_block"),
+            ),
+            _evidence_line(
+                "profit_margin", "Profit Margin", normalized.get("profit_margin_pct"), unit="percent",
+                definition="(Revenue − Incentives) / Revenue",
+                source_link=evidence_cfg.get("revenue_source_link"),
+                contract_address=evidence_cfg.get("fee_contract"),
+                block_number=evidence_cfg.get("revenue_block"),
+            ),
+        ],
+    }
+
+    return {
+        "ok": True,
+        "feature_ref": _STATEMENT_REF,
+        "merged_into": _FEATURE_ID,
+        "protocol_id": protocol_id,
+        "protocol_name": normalized.get("protocol_name"),
+        "route": f"/protocol/{protocol_id}/financials",
+        "statement_template": "structured",
+        "sections": [income_statement, balance_sheet, metrics_section],
+        "definitions_plus_evidence_per_line": True,
+        "no_number_without_source": True,
+        "historical_trend": raw.get("revenue_history") or [],
+        "peer_comparison_available": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_financial_health_score(
+    protocol_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#666 — peer-relative financial health scoring (no arbitrary universal threshold)."""
+    seed = seed or _load_seed()
+    raw = _collect_protocol_data(protocol_id, seed=seed)
+    if not raw:
+        return {"ok": False, "protocol_id": protocol_id, "error": "protocol_not_found"}
+
+    normalized = _normalize_protocol_data(raw, seed=seed)
+    health_cfg = seed.get("health_scoring") or {}
+    version = health_cfg.get("definitions_version", _METHODOLOGY_VERSION)
+    protocol_type = raw.get("protocol_type", "unknown")
+    peer_group = raw.get("peer_group", protocol_type)
+
+    revenue = float(normalized["revenue_30d_usd"])
+    incentives = float(normalized["incentives_emissions_30d_usd"])
+    margin = float(normalized.get("profit_margin_pct") or 0)
+    growth = normalized.get("growth_rate_qoq_pct")
+    sustainable = revenue > incentives
+
+    sustainability_score = 90.0 if sustainable and revenue > 0 else (40.0 if revenue > 0 else 10.0)
+    margin_score = min(100.0, max(0.0, margin * 1.2))
+    growth_score = 75.0 if growth is not None and growth > 10 else (55.0 if growth and growth > 0 else 35.0)
+
+    peer_percentiles = (health_cfg.get("peer_percentiles") or {}).get(peer_group) or {}
+    peer_metrics: list[float] = []
+    for pid, pdata in (seed.get("protocols") or {}).items():
+        if pdata.get("peer_group") == peer_group and pid != protocol_id:
+            peer_fin = _normalize_protocol_data(pdata, seed=seed)
+            peer_metrics.append(float(peer_fin.get("profit_margin_pct") or 0))
+    if peer_metrics:
+        below = sum(1 for m in peer_metrics if margin >= m)
+        peer_relative_pct = round(below / len(peer_metrics) * 100, 1)
+    else:
+        peer_relative_pct = float(peer_percentiles.get(protocol_id, 50))
+
+    peer_relative_score = min(100.0, max(0.0, peer_relative_pct))
+
+    factor_weights = health_cfg.get("factor_weights") or {
+        "sustainability": 0.3,
+        "margin": 0.25,
+        "growth": 0.2,
+        "peer_relative": 0.25,
+    }
+    composite = round(
+        sustainability_score * factor_weights.get("sustainability", 0.3)
+        + margin_score * factor_weights.get("margin", 0.25)
+        + growth_score * factor_weights.get("growth", 0.2)
+        + peer_relative_score * factor_weights.get("peer_relative", 0.25),
+        2,
+    )
+    grade = _health_grade(composite)
+
+    caveats_cfg = health_cfg.get("protocol_caveats") or {}
+    caveat = caveats_cfg.get(protocol_type) or caveats_cfg.get(
+        "default",
+        "Peer comparisons use protocol-type cohort — not universal thresholds.",
+    )
+
+    return {
+        "ok": True,
+        "feature_ref": _HEALTH_SCORING_REF,
+        "merged_into": f"#{_FEATURE_ID} + #{_RISK_SCORING_REF}",
+        "protocol_id": protocol_id,
+        "protocol_name": normalized.get("protocol_name"),
+        "protocol_type": protocol_type,
+        "peer_group": peer_group,
+        "health_score": composite,
+        "health_grade": grade,
+        "no_arbitrary_universal_threshold": True,
+        "peer_relative_percentile": peer_relative_pct,
+        "definitions_version": version,
+        "source_lineage": {
+            "revenue": normalized.get("fee_source_type"),
+            "incentives": "on_chain_emissions",
+            "methodology_version": version,
+        },
+        "protocol_specific_caveat": caveat,
+        "factor_breakdown": {
+            "sustainability": {
+                "score": sustainability_score,
+                "weight": factor_weights.get("sustainability", 0.3),
+                "definition": "Revenue > incentives (fees cover emissions)",
+                "sustainable": sustainable,
+            },
+            "margin": {
+                "score": margin_score,
+                "weight": factor_weights.get("margin", 0.25),
+                "definition": "Profit / Revenue",
+                "value_pct": margin,
+            },
+            "growth": {
+                "score": growth_score,
+                "weight": factor_weights.get("growth", 0.2),
+                "definition": "Quarter-over-quarter revenue growth",
+                "value_pct": growth,
+            },
+            "peer_relative": {
+                "score": peer_relative_score,
+                "weight": factor_weights.get("peer_relative", 0.25),
+                "definition": "Percentile within peer group — not fixed threshold",
+                "percentile": peer_relative_pct,
+            },
+        },
+        "route": f"/protocol/{protocol_id}/financials",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_protocol_financials_page(
+    protocol_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#665 + #666 — Statement UI + Health Card + Peer Comparison + Historical Trend."""
+    seed = seed or _load_seed()
+    fin = build_on_chain_financials(protocol_id, seed=seed)
+    if not fin.get("ok"):
+        return fin
+
+    statement = build_financial_statement_view(protocol_id, seed=seed)
+    health = build_financial_health_score(protocol_id, seed=seed)
+
+    return {
+        "ok": True,
+        "feature_refs": [_STATEMENT_REF, _HEALTH_SCORING_REF],
+        "merged_into": _FEATURE_ID,
+        "protocol_id": protocol_id,
+        "route": f"/protocol/{protocol_id}/financials",
+        "ui_sections": ["statement", "health_card", "peer_comparison", "historical_trend"],
+        "financial_statement_665": statement,
+        "financial_health_666": health,
+        "metrics": fin["metrics"],
+        "peer_comparison": fin.get("peer_comparison"),
+        "historical_trend": fin.get("revenue_chart"),
+        "custom_ratio_builder_653": {
+            "enabled": True,
+            "integration": "custom_ratio_engine",
+            "available_metrics": list(fin["metrics"].keys()),
+        },
+        "thesis_scoring_472": {
+            "dimension": "on_chain_financials",
+            "dimension_number": 7,
+            "financial_statement_grade": health.get("health_grade"),
+        },
+        "disclaimer": _DISCLAIMER,
+        "timestamp": _utcnow(),
+    }
+
+
+def cancel_opportunities_by_financial_health_438(
+    opportunities: list[dict[str, Any]],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """#666 → #438 — cancel or warn on low financial health protocols."""
+    seed = seed or _load_seed()
+    health_cfg = seed.get("health_scoring") or {}
+    min_grade = health_cfg.get("min_grade_for_opportunity", "D")
+    grade_order = ("A", "B", "C", "D", "F")
+    min_idx = grade_order.index(min_grade) if min_grade in grade_order else 3
+    protocol_map = seed.get("asset_protocol_map") or {}
+    result: list[dict[str, Any]] = []
+
+    for opp in opportunities:
+        opp_copy = dict(opp)
+        asset = str(opp_copy.get("asset", "")).upper()
+        protocol_id = protocol_map.get(asset) or opp_copy.get("protocol_id")
+        if protocol_id:
+            health = build_financial_health_score(protocol_id, seed=seed)
+            if health.get("ok"):
+                grade = health["health_grade"]
+                grade_idx = grade_order.index(grade) if grade in grade_order else 4
+                opp_copy["financial_health_666"] = {
+                    "health_score": health["health_score"],
+                    "health_grade": grade,
+                    "peer_relative_percentile": health.get("peer_relative_percentile"),
+                    "protocol_specific_caveat": health.get("protocol_specific_caveat"),
+                }
+                if grade_idx > min_idx:
+                    opp_copy["financial_health_cancelled_666"] = True
+                    opp_copy["signal_suppressed"] = True
+                    opp_copy["cancel_reason_666"] = f"financial_health_grade_{grade}"
+                elif grade_idx == min_idx:
+                    opp_copy["financial_health_warning_666"] = True
+        result.append(opp_copy)
+    return result
+
+
 def build_on_chain_financials(
     protocol_id: str,
     *,
@@ -229,6 +581,8 @@ def build_on_chain_financials(
             }
 
     elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+    statement = build_financial_statement_view(protocol_id, seed=seed)
+    health = build_financial_health_score(protocol_id, seed=seed)
 
     return {
         "ok": True,
@@ -238,6 +592,7 @@ def build_on_chain_financials(
         "standalone": _STANDALONE,
         "merged_into": _MERGED_INTO,
         "protocol_id": protocol_id,
+        "route": f"/protocol/{protocol_id}/financials",
         "metrics": {
             "revenue_30d": normalized["revenue_30d_usd"],
             "profit_margin": normalized["profit_margin_pct"],
@@ -247,6 +602,8 @@ def build_on_chain_financials(
         },
         "mandatory_metrics": list(_MANDATORY_METRICS),
         "financials": normalized,
+        "financial_statement_665": statement if statement.get("ok") else None,
+        "financial_health_666": health if health.get("ok") else None,
         "revenue_chart": history,
         "peer_comparison": peer_comparison,
         "data_pipeline": {
@@ -429,23 +786,9 @@ def score_on_chain_financials_dimension(
     if not fin.get("ok"):
         return fin
 
+    health = build_financial_health_score(protocol_id, seed=seed)
+    score = float(health.get("health_score", 50)) if health.get("ok") else 50.0
     m = fin["metrics"]
-    scoring = seed.get("dimension_scoring") or {}
-
-    score = 50.0
-    if m.get("revenue_30d", 0) > float(scoring.get("revenue_threshold_usd", 1_000_000)):
-        score += 15
-    margin = m.get("profit_margin") or 0
-    if margin > float(scoring.get("margin_threshold_pct", 20)):
-        score += 15
-    ps = m.get("ps_ratio")
-    if ps is not None and ps < float(scoring.get("ps_premium_threshold", 30)):
-        score += 10
-    growth = m.get("growth_rate_qoq")
-    if growth is not None and growth > 0:
-        score += 10
-
-    score = min(100.0, max(0.0, score))
 
     return {
         "ok": True,
@@ -455,11 +798,15 @@ def score_on_chain_financials_dimension(
         "asset": asset.upper(),
         "protocol_id": protocol_id,
         "dimension_score": round(score, 2),
+        "financial_statement_grade": health.get("health_grade") if health.get("ok") else None,
+        "financial_health_666": health if health.get("ok") else None,
         "metrics": m,
         "evidence_source": "on_chain_fee_data",
         "evidence_quality": "high",
         "on_chain_not_estimate": True,
-        "display": f"On-Chain Financials {asset.upper()}: {score:.0f}/100",
+        "peer_relative_scoring": True,
+        "no_arbitrary_universal_threshold": True,
+        "display": f"On-Chain Financials {asset.upper()}: {score:.0f}/100 (grade {health.get('health_grade', 'N/A')})",
         "timestamp": _utcnow(),
     }
 
@@ -496,6 +843,11 @@ def build_metrics_library_financials(
                 "value": m["ps_ratio"],
                 "unit": "ratio",
                 "formula": "FDV / Annualized Revenue",
+            },
+            "revenue_per_user": {
+                "value": m["revenue_per_user"],
+                "unit": "USD",
+                "formula": "revenue_30d / active_addresses_30d",
             },
         },
         "formula_version": _METHODOLOGY_VERSION,
@@ -555,6 +907,9 @@ def on_chain_financials_status() -> dict[str, Any]:
             "onchain_metrics_577": True,
             "cross_chain_fundamentals_650": True,
             "market_radar": True,
+            "financial_statement_view_665": True,
+            "financial_health_scoring_666": True,
+            "custom_ratio_builder_653": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -605,6 +960,19 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     export = export_financials_report("uniswap", seed=seed)
     checks.append({"id": "export_report", "passed": export.get("export_ready") is True, "detail": "export"})
+
+    stmt = build_financial_statement_view("uniswap", seed=seed)
+    checks.append({"id": "665_statement", "passed": stmt.get("ok") is True and stmt.get("definitions_plus_evidence_per_line") is True, "detail": "665"})
+    checks.append({"id": "665_evidence_lines", "passed": all(l.get("evidence", {}).get("source_link") for sec in stmt.get("sections", []) for l in sec.get("lines", []) if l.get("value") is not None), "detail": "evidence"})
+
+    health = build_financial_health_score("uniswap", seed=seed)
+    checks.append({"id": "666_health_score", "passed": health.get("ok") is True and health.get("health_score") is not None, "detail": "666"})
+    checks.append({"id": "666_factor_breakdown", "passed": len(health.get("factor_breakdown") or {}) == 4, "detail": "factors"})
+    checks.append({"id": "666_no_universal_threshold", "passed": health.get("no_arbitrary_universal_threshold") is True, "detail": "peer"})
+    checks.append({"id": "666_protocol_caveat", "passed": bool(health.get("protocol_specific_caveat")), "detail": "caveat"})
+
+    page = build_protocol_financials_page("uniswap", seed=seed)
+    checks.append({"id": "665_666_page", "passed": page.get("ok") is True and page.get("route") == "/protocol/uniswap/financials", "detail": "page"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

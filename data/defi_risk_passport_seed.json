@@ -16,7 +16,8 @@
   "alert_thresholds": {
     "min_passport_grade": "C",
     "utilization_pct": 90,
-    "insolvency_utilization_pct": 95
+    "insolvency_utilization_pct": 95,
+    "security_incident_severity_threshold": 7
   },
   "opportunity_protocol_map": {
     "defi_eth_lst_001": "lido",
@@ -80,9 +81,19 @@
         "borrow_supply_ratio": 0.72,
         "historical_liquidation_volume_usd": 12500000
       },
-      "real_time_risk": {
-        "spike_active": false,
-        "severity": "normal"
+      "real_time_risk": {"spike_active": false, "severity": "normal"},
+      "security_monitor": {
+        "active_threat": false,
+        "threat_level": "normal",
+        "severity": 2,
+        "on_chain_anomaly": false,
+        "monitoring_sources": ["immunefi", "rekt"],
+        "known_patterns": [
+          {"pattern": "re_entrancy", "detected": false, "source": "immunefi"},
+          {"pattern": "price_oracle_manipulation", "detected": false, "source": "on_chain_anomaly"}
+        ],
+        "evidence_link": "/api/platform/intelligence-ledger/risk-layer/defi-security-monitor/aave_v3",
+        "last_scan_at": "2026-08-27T17:00:00+00:00"
       },
       "historical_trend": [
         {"date": "2026-05", "grade": "A", "score": 86},
@@ -135,14 +146,16 @@
           "severity": 9,
           "date": "2024-03-12",
           "source": "Immunefi",
-          "source_link": "https://immunefi.com/explore/"
+          "source_link": "https://immunefi.com/explore/",
+          "pattern": "re_entrancy"
         },
         {
           "incident_id": "risky-2025-drain",
           "severity": 8,
           "date": "2025-11-05",
           "source": "Rekt",
-          "source_link": "https://rekt.news/leaderboard/"
+          "source_link": "https://rekt.news/leaderboard/",
+          "pattern": "price_oracle_manipulation"
         }
       ],
       "risk_categories": {
@@ -156,6 +169,20 @@
         "spike_active": true,
         "severity": "elevated",
         "evidence_link": "/api/platform/intelligence-ledger/risk-layer/defi-risk-passport/risky_protocol"
+      },
+      "security_monitor": {
+        "active_threat": true,
+        "threat_level": "critical",
+        "severity": 9,
+        "on_chain_anomaly": true,
+        "monitoring_sources": ["immunefi", "rekt", "on_chain_anomaly"],
+        "known_patterns": [
+          {"pattern": "re_entrancy", "detected": true, "source": "rekt"},
+          {"pattern": "price_oracle_manipulation", "detected": true, "source": "on_chain_anomaly"},
+          {"pattern": "governance_attack", "detected": false, "source": "immunefi"}
+        ],
+        "evidence_link": "/api/platform/intelligence-ledger/risk-layer/defi-security-monitor/risky_protocol",
+        "last_scan_at": "2026-08-27T17:00:00+00:00"
       },
       "historical_trend": [
         {"date": "2026-06", "grade": "D", "score": 42},

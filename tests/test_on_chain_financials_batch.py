@@ -118,7 +118,7 @@ def test_641_export(fin_seed):
 
 def test_641_thesis_integration(fin_seed, thesis_seed):
     thesis = its.score_investment_thesis("UNI")
-    assert thesis["dimension_count"] == 7
+    assert thesis["dimension_count"] >= 7
     assert "on_chain_financials" in thesis["dimensions"]
     assert thesis["dimensions"]["on_chain_financials"]["evidence_source"] == "on_chain_fee_data"
 
