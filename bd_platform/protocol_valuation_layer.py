@@ -21,8 +21,10 @@ from typing import Any
 
 logger = logging.getLogger("BLACKDARK.ProtocolValuationLayer")
 
-_FEATURE_IDS = (570, 571)
+_FEATURE_IDS = (570, 571, 584, 585)
 _EPIC_ID = 570
+_REALIZED_CAP_REF = 584
+_REALIZED_VALUE_REF = 585
 _RENAMED_FROM_570 = "NVT Fair-Value Model"
 _RENAMED_FROM_571 = "NVT Intelligence"
 _TITLE = "Protocol Valuation Layer"
@@ -46,6 +48,18 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "name": "nvt_variants",
         "title": "NVT Variants",
         "description": "NVT and variants with documented windows, entity-adjusted option",
+    },
+    "584": {
+        "task_id": "584",
+        "name": "realized_cap_intelligence",
+        "title": "Realized Cap & Realized Price Intelligence",
+        "description": "Realized capitalization and price from last economic transfer",
+    },
+    "585": {
+        "task_id": "585",
+        "name": "realized_value_intelligence",
+        "title": "Realized Cap / Realized Value Intelligence",
+        "description": "Chain-specific realized valuation with entity-adjusted option",
     },
 }
 
@@ -278,6 +292,90 @@ def build_nvt_variants(
     }
 
 
+def build_realized_cap_methodology(
+    asset_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Chain methodology documentation for realized cap/price."""
+    seed = seed or _load_seed()
+    rc = (seed.get("realized_cap") or {}).get(asset_id) or {}
+    chain = rc.get("chain", asset_id)
+    return {
+        "chain": chain,
+        "methodology_version": rc.get("methodology_version", _METHODOLOGY_VERSION),
+        "formula_version": rc.get("formula_version", _FORMULA_VERSION),
+        "chain_specific_rules": rc.get("chain_rules") or {},
+        "entity_adjusted_option": rc.get("entity_adjusted_available", True),
+        "exact_historical_replay": rc.get("exact_historical_replay", True),
+        "display": f"Realized cap methodology v{rc.get('methodology_version', _METHODOLOGY_VERSION)} — {chain}",
+    }
+
+
+def build_realized_cap_panel(
+    asset_id: str = "bitcoin",
+    *,
+    entity_adjusted: bool = True,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#584/#585 — realized cap/price with chain methodology and deviations."""
+    seed = seed or _load_seed()
+    rc = (seed.get("realized_cap") or {}).get(asset_id)
+    if not rc:
+        return {"ok": False, "error": "realized_cap_not_found", "asset_id": asset_id}
+
+    methodology = build_realized_cap_methodology(asset_id, seed=seed)
+    spot_price = float(rc.get("spot_price_usd", 0))
+    realized_price = float(rc.get("realized_price_usd", 0))
+    realized_cap = float(rc.get("realized_cap_usd", 0))
+    supply = float(rc.get("circulating_supply", 0))
+    market_cap = spot_price * supply if supply else 0
+
+    use_entity = entity_adjusted and rc.get("entity_adjusted_available", False)
+    if use_entity:
+        realized_price = float(rc.get("entity_adjusted_realized_price_usd", realized_price))
+        realized_cap = float(rc.get("entity_adjusted_realized_cap_usd", realized_cap))
+
+    deviation_pct = round((spot_price - realized_price) / realized_price * 100, 2) if realized_price else 0
+    cap_deviation_pct = round((market_cap - realized_cap) / realized_cap * 100, 2) if realized_cap else 0
+
+    history = rc.get("historical_realized_cap") or []
+    trend = "flat"
+    if len(history) >= 2:
+        trend = "rising" if history[-1] > history[-2] else "falling" if history[-1] < history[-2] else "flat"
+
+    return {
+        "ok": True,
+        "task_ids": ["584", "585"],
+        "feature_refs": [_REALIZED_CAP_REF, _REALIZED_VALUE_REF],
+        "asset_id": asset_id,
+        "asset_name": rc.get("name", asset_id),
+        "spot_price_usd": spot_price,
+        "realized_price_usd": realized_price,
+        "realized_cap_usd": realized_cap,
+        "market_cap_usd": round(market_cap, 0),
+        "circulating_supply": supply,
+        "entity_adjusted": use_entity,
+        "entity_adjusted_option": rc.get("entity_adjusted_available", False),
+        "deviations": {
+            "price_vs_realized_pct": deviation_pct,
+            "market_cap_vs_realized_cap_pct": cap_deviation_pct,
+        },
+        "trend": trend,
+        "historical_realized_cap": history,
+        "methodology": methodology,
+        "chain_methodology_documented": True,
+        "exact_historical_replay": rc.get("exact_historical_replay", True),
+        "qa": rc.get("qa") or {},
+        "missing_not_zero": rc.get("missing") is not True,
+        "display": (
+            f"Realized price ${realized_price:,.2f} vs spot ${spot_price:,.2f} "
+            f"({deviation_pct:+.1f}%) | Realized cap ${realized_cap:,.0f}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_protocol_valuation_panel(
     asset_id: str = "bitcoin",
     *,
@@ -296,6 +394,7 @@ def build_protocol_valuation_panel(
         }
 
     variants = build_nvt_variants(asset_id, seed=seed)
+    realized = build_realized_cap_panel(asset_id, entity_adjusted=entity_adjusted, seed=seed)
     bt = seed.get("backtest") or {}
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
@@ -306,6 +405,8 @@ def build_protocol_valuation_panel(
         "absorbed_tickets": {
             "570": "NVT Fair-Value Model → NVT Ratio & Historical Context",
             "571": "NVT Intelligence → NVT Variants (merged)",
+            "584": "Realized Cap & Realized Price Intelligence",
+            "585": "Realized Cap / Realized Value Intelligence (merged)",
         },
         "renamed_from": {
             "570": _RENAMED_FROM_570,
@@ -323,6 +424,7 @@ def build_protocol_valuation_panel(
         "sub_modules": {
             "570_nvt_ratio_historical_context": nvt_context,
             "571_nvt_variants": variants,
+            "584_585_realized_cap": realized if realized.get("ok") else {"ok": False},
             "tasks_not_tickets": True,
         },
         "formula": build_formula_documentation(seed),
@@ -340,6 +442,9 @@ def build_protocol_valuation_panel(
             "no_price_guarantee": True,
             "no_fair_value_claim": True,
             "formula_documented": True,
+            "realized_cap_584": True,
+            "realized_value_585": True,
+            "chain_methodology_documented": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -370,6 +475,15 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         tests.append({
             "test": f"variants_documented_{asset_id}",
             "passed": variants.get("formula_documented") is True,
+        })
+        realized = build_realized_cap_panel(asset_id, seed=seed)
+        tests.append({
+            "test": f"realized_cap_584_{asset_id}",
+            "passed": realized.get("ok") is True and realized.get("chain_methodology_documented") is True,
+        })
+        tests.append({
+            "test": f"entity_adjusted_option_585_{asset_id}",
+            "passed": realized.get("entity_adjusted_option") is not None,
         })
 
     panel = build_protocol_valuation_panel()

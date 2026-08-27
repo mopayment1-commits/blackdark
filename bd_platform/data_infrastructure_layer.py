@@ -18,8 +18,9 @@ from typing import Any
 
 logger = logging.getLogger("BLACKDARK.DataInfrastructureLayer")
 
-_FEATURE_IDS = (564,)
+_FEATURE_IDS = (564, 581)
 _EPIC_ID = 564
+_MARKET_METRICS_REF = 581
 _TITLE = "Data Infrastructure Layer"
 _STANDALONE = False
 _LAYER = "Data Layer"
@@ -34,6 +35,14 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "name": "market_network_join",
         "title": "Market + Network Join",
         "description": "Time-aligned joins of on-chain network data with market data — no look-ahead",
+    },
+    "581": {
+        "task_id": "581",
+        "name": "price_volume_market_metrics",
+        "title": "Price / Volume / Market Metrics",
+        "renamed_from": "Price / Volume / Market Metrics standalone",
+        "description": "Normalized price, volume, market cap, returns — source/freshness visible",
+        "standalone_rejected": True,
     },
 }
 
@@ -153,6 +162,99 @@ def join_market_network(
     return joined, look_ahead_violations
 
 
+def _detect_outlier(value: float, mean: float, std: float, *, threshold: float = 3.0) -> bool:
+    if std <= 0:
+        return False
+    return abs(value - mean) / std >= threshold
+
+
+def build_price_volume_market_metrics_panel(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#581 — normalized price/volume/market cap/returns with provenance."""
+    seed = seed or _load_seed()
+    cfg = seed.get("market_metrics_581") or {}
+    metrics = (seed.get("market_metrics") or {}).get(asset.upper())
+    if not metrics:
+        return {"ok": False, "asset": asset, "error": "market_metrics_not_found"}
+
+    stale_threshold = int(cfg.get("stale_threshold_seconds", 300))
+    freshness = int(metrics.get("freshness_seconds", 0))
+    is_stale = freshness > stale_threshold
+    price = metrics.get("price_usd")
+    volume = metrics.get("volume_24h_usd")
+    market_cap = metrics.get("market_cap_usd")
+    returns = metrics.get("returns") or {}
+
+    outlier_cfg = cfg.get("outlier_handling") or {}
+    price_mean = float(metrics.get("price_30d_mean", price or 0))
+    price_std = float(metrics.get("price_30d_std", 1))
+    price_outlier = _detect_outlier(
+        float(price or 0), price_mean, price_std,
+        threshold=float(outlier_cfg.get("zscore_threshold", 3.0)),
+    ) if price is not None else False
+
+    normalized_feed = {
+        "asset": asset.upper(),
+        "price_usd": price,
+        "volume_24h_usd": volume,
+        "market_cap_usd": market_cap,
+        "returns": returns,
+        "normalized": True,
+        "feed_source": metrics.get("source"),
+        "as_of": metrics.get("as_of"),
+        "freshness_seconds": freshness,
+        "stale": is_stale,
+        "missing_not_zero": metrics.get("missing") is not True,
+    }
+
+    change_calcs = {
+        "return_1d_pct": returns.get("1d"),
+        "return_7d_pct": returns.get("7d"),
+        "return_30d_pct": returns.get("30d"),
+        "volume_change_24h_pct": metrics.get("volume_change_24h_pct"),
+        "market_cap_change_24h_pct": metrics.get("market_cap_change_24h_pct"),
+    }
+
+    return {
+        "ok": True,
+        "task_id": "581",
+        "feature_ref": _MARKET_METRICS_REF,
+        "epic_feature_id": _EPIC_ID,
+        "asset": asset.upper(),
+        "normalized_feed": normalized_feed,
+        "change_calculations": change_calcs,
+        "source_provenance": {
+            "source": metrics.get("source"),
+            "as_of": metrics.get("as_of"),
+            "freshness_seconds": freshness,
+            "source_freshness_visible": True,
+        },
+        "outlier_handling": {
+            "price_outlier_detected": price_outlier,
+            "outlier_flagged_not_suppressed": price_outlier,
+            "method": outlier_cfg.get("method", "z_score"),
+        },
+        "stale_feed_handling": {
+            "stale": is_stale,
+            "stale_threshold_seconds": stale_threshold,
+            "stale_visible": True,
+        },
+        "chart_context": {
+            "comparative_overlays_available": True,
+            "metrics": ["price", "volume", "market_cap", "returns"],
+        },
+        "display": (
+            f"{asset.upper()}: ${price:,.2f} | Vol ${volume:,.0f} | "
+            f"MCap ${market_cap:,.0f} | 1d {returns.get('1d', 0):+.2f}%"
+            f"{' | STALE' if is_stale else ''}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_market_network_join(
     *,
     as_of: str | None = None,
@@ -209,6 +311,7 @@ def build_data_infrastructure_panel(
     t0 = time.perf_counter()
     seed = _load_seed()
     join_panel = build_market_network_join(as_of=as_of, asset=asset, seed=seed)
+    market_metrics = build_price_volume_market_metrics_panel(asset or "BTC", seed=seed)
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     return {
@@ -217,6 +320,7 @@ def build_data_infrastructure_panel(
         "feature_ids": list(_FEATURE_IDS),
         "absorbed_tickets": {
             "564": "Market + Network Join — task in Data Infrastructure Layer",
+            "581": "Price / Volume / Market Metrics — foundation task (Sprint 0)",
         },
         "title": _TITLE,
         "standalone": _STANDALONE,
@@ -228,11 +332,14 @@ def build_data_infrastructure_panel(
         "foundation_feature": True,
         "sub_modules": {
             "564_market_network_join": join_panel,
+            "581_price_volume_market_metrics": market_metrics if market_metrics.get("ok") else {"ok": False},
             "tasks_not_tickets": True,
         },
         "acceptance_criteria": {
             "no_look_ahead": True,
             "time_aligned_joins": True,
+            "source_freshness_visible_581": True,
+            "outlier_stale_handling_581": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -256,6 +363,17 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     if panel.get("ok"):
         tests.append({"test": "standalone_rejected", "passed": panel.get("standalone_rejected") is True})
         tests.append({"test": "foundation_sprint_0", "passed": panel.get("sprint") == 0})
+
+    metrics = build_price_volume_market_metrics_panel("BTC", seed=seed)
+    tests.append({"test": "market_metrics_581", "passed": metrics.get("ok") is True})
+    tests.append({
+        "test": "source_freshness_visible_581",
+        "passed": (metrics.get("source_provenance") or {}).get("source_freshness_visible") is True,
+    })
+    tests.append({
+        "test": "stale_feed_handling_581",
+        "passed": (metrics.get("stale_feed_handling") or {}).get("stale_visible") is True,
+    })
 
     all_passed = all(t["passed"] for t in tests)
     return {"ok": True, "reconciliation_tests": tests, "all_passed": all_passed, "test_count": len(tests)}

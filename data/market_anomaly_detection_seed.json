@@ -1,0 +1,45 @@
+{
+  "feature_id": 583,
+  "title": "Market Anomaly Detection Module",
+  "renamed_from": "Pump & Dump Detection",
+  "standalone": false,
+  "layer": "Intelligence Layer",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-27",
+  "config": {
+    "min_signal_coverage": 3,
+    "thresholds": {
+      "price_spike_pct": 15,
+      "volume_spike_pct": 200,
+      "liquidity_drop_pct": 30,
+      "holder_concentration_pct": 70,
+      "dex_flow_zscore": 3.0,
+      "derivatives_oi_spike_pct": 50
+    }
+  },
+  "assets": {
+    "BTC": {
+      "price_spike_pct": 2.5,
+      "volume_spike_pct": 15,
+      "liquidity_drop_pct": 5,
+      "holder_concentration_pct": 12,
+      "dex_flow_zscore": 0.8,
+      "derivatives_oi_spike_pct": 10
+    },
+    "ALT": {
+      "price_spike_pct": 45.0,
+      "volume_spike_pct": 850.0,
+      "liquidity_drop_pct": 55.0,
+      "holder_concentration_pct": 82.0,
+      "dex_flow_zscore": 4.2,
+      "derivatives_oi_spike_pct": 120.0,
+      "price_evidence": {"source": "ohlcv_feed", "as_of": "2026-08-27T10:00:00Z"},
+      "volume_evidence": {"source": "dex_aggregator", "as_of": "2026-08-27T10:00:00Z"},
+      "liquidity_evidence": {"source": "orderbook_depth", "as_of": "2026-08-27T10:00:00Z"},
+      "holder_evidence": {"source": "onchain_indexer", "as_of": "2026-08-27T09:00:00Z"},
+      "dex_evidence": {"source": "dex_flow_tracker", "as_of": "2026-08-27T10:00:00Z"},
+      "derivatives_evidence": {"source": "derivatives_venue_feed", "as_of": "2026-08-27T10:00:00Z"}
+    }
+  }
+}
