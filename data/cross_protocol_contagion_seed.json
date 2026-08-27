@@ -1,0 +1,185 @@
+{
+  "feature_id": 652,
+  "title": "Contagion Monitor",
+  "legal_name": "Cross-Protocol Contagion",
+  "standalone": false,
+  "merged_into": "Sprint-2 Risk Layer Core",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "default_trigger": "usdc_circle",
+  "graph_render_limit": 50,
+  "stablecoin_depeg_trigger_threshold": 0.35,
+  "stablecoin_trigger_map": {
+    "USDC": "usdc_circle",
+    "USDT": "usdt_issuer",
+    "DAI": "dai_maker"
+  },
+  "alert_thresholds": {
+    "cluster_exposure_pct": 15,
+    "opportunity_cancel_exposure_pct": 50
+  },
+  "opportunity_protocol_map": {
+    "defi_eth_lst_001": "lido",
+    "defi_uni_liq_001": "curve",
+    "eth": "aave",
+    "uni": "uniswap"
+  },
+  "portfolios": {
+    "demo_portfolio": {
+      "protocol_exposure": {
+        "aave": 22,
+        "compound": 12,
+        "curve": 8,
+        "uniswap": 5
+      }
+    }
+  },
+  "protocols": {
+    "aave": {
+      "protocol_id": "aave",
+      "protocol_name": "Aave",
+      "tvl_usd": 12500000000,
+      "risk_level": "medium",
+      "cluster_id": "lending"
+    },
+    "compound": {
+      "protocol_id": "compound",
+      "protocol_name": "Compound",
+      "tvl_usd": 2800000000,
+      "risk_level": "medium",
+      "cluster_id": "lending"
+    },
+    "curve": {
+      "protocol_id": "curve",
+      "protocol_name": "Curve",
+      "tvl_usd": 4200000000,
+      "risk_level": "high",
+      "cluster_id": "dex_stable"
+    },
+    "uniswap": {
+      "protocol_id": "uniswap",
+      "protocol_name": "Uniswap",
+      "tvl_usd": 5800000000,
+      "risk_level": "low",
+      "cluster_id": "dex"
+    },
+    "maker": {
+      "protocol_id": "maker",
+      "protocol_name": "MakerDAO",
+      "tvl_usd": 8200000000,
+      "risk_level": "medium",
+      "cluster_id": "stablecoin"
+    },
+    "lido": {
+      "protocol_id": "lido",
+      "protocol_name": "Lido",
+      "tvl_usd": 24000000000,
+      "risk_level": "medium",
+      "cluster_id": "staking"
+    }
+  },
+  "edges": [
+    {
+      "from": "usdc_circle",
+      "to": "aave",
+      "dependency_type": "shared_collateral",
+      "transmission_weight": 0.85,
+      "provenance_source": "on_chain_collateral_registry",
+      "provenance_version": "1.0",
+      "detail": "USDC is primary collateral asset on Aave V3 Ethereum"
+    },
+    {
+      "from": "usdc_circle",
+      "to": "compound",
+      "dependency_type": "shared_collateral",
+      "transmission_weight": 0.72,
+      "provenance_source": "on_chain_collateral_registry",
+      "provenance_version": "1.0",
+      "detail": "USDC collateral markets on Compound V3"
+    },
+    {
+      "from": "usdc_circle",
+      "to": "curve",
+      "dependency_type": "overlapping_liquidity",
+      "transmission_weight": 0.45,
+      "provenance_source": "defillama_pool_composition",
+      "provenance_version": "1.0",
+      "detail": "3pool and USDC-denominated Curve pools"
+    },
+    {
+      "from": "aave",
+      "to": "uniswap",
+      "dependency_type": "overlapping_liquidity",
+      "transmission_weight": 0.35,
+      "provenance_source": "defillama_tvl_overlap",
+      "provenance_version": "1.0",
+      "detail": "Liquidation routing through Uniswap pools"
+    },
+    {
+      "from": "aave",
+      "to": "lido",
+      "dependency_type": "common_oracle",
+      "transmission_weight": 0.40,
+      "provenance_source": "chainlink_feed_registry",
+      "provenance_version": "1.0",
+      "detail": "Shared ETH/stETH oracle dependency"
+    },
+    {
+      "from": "dai_maker",
+      "to": "curve",
+      "dependency_type": "shared_collateral",
+      "transmission_weight": 0.55,
+      "provenance_source": "maker_psm_registry",
+      "provenance_version": "1.0",
+      "detail": "DAI PSM and Curve stable pools"
+    }
+  ],
+  "triggers": {
+    "usdc_circle": {
+      "trigger_type": "stablecoin_depeg",
+      "label": "USDC Circle",
+      "display": "If USDC Circle fails → Aave (85%), Compound (72%), Curve (45%)",
+      "direct_exposure": {
+        "aave": {
+          "exposure_pct": 85,
+          "dependency_type": "shared_collateral",
+          "provenance_source": "on_chain_collateral_registry",
+          "provenance_version": "1.0",
+          "detail": "USDC collateral concentration on Aave"
+        },
+        "compound": {
+          "exposure_pct": 72,
+          "dependency_type": "shared_collateral",
+          "provenance_source": "on_chain_collateral_registry",
+          "provenance_version": "1.0",
+          "detail": "USDC borrow markets on Compound"
+        },
+        "curve": {
+          "exposure_pct": 45,
+          "dependency_type": "overlapping_liquidity",
+          "provenance_source": "defillama_pool_composition",
+          "provenance_version": "1.0",
+          "detail": "USDC-heavy Curve pools"
+        }
+      }
+    },
+    "usdt_issuer": {
+      "trigger_type": "stablecoin_depeg",
+      "label": "USDT Issuer",
+      "display": "USDT issuer stress cascade",
+      "direct_exposure": {
+        "curve": {"exposure_pct": 60, "dependency_type": "shared_collateral", "provenance_source": "defillama", "provenance_version": "1.0", "detail": "USDT pools"},
+        "aave": {"exposure_pct": 55, "dependency_type": "shared_collateral", "provenance_source": "on_chain_collateral_registry", "provenance_version": "1.0", "detail": "USDT collateral"}
+      }
+    },
+    "dai_maker": {
+      "trigger_type": "stablecoin_depeg",
+      "label": "DAI Maker",
+      "display": "DAI peg stress via Maker PSM",
+      "direct_exposure": {
+        "maker": {"exposure_pct": 90, "dependency_type": "shared_collateral", "provenance_source": "maker_psm_registry", "provenance_version": "1.0", "detail": "DAI stability module"},
+        "curve": {"exposure_pct": 50, "dependency_type": "overlapping_liquidity", "provenance_source": "defillama", "provenance_version": "1.0", "detail": "DAI liquidity pools"}
+      }
+    }
+  }
+}

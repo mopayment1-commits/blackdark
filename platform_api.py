@@ -1612,6 +1612,45 @@ async def contagion_risk_route(portfolio_id: str = Query("demo_portfolio")):
     return analyze_contagion_risk(portfolio_id=portfolio_id)
 
 
+@router.get("/intelligence-ledger/risk-layer/cross-protocol-contagion/status")
+async def cross_protocol_contagion_status_route():
+    """#652 Cross-Protocol Contagion — Risk Layer Contagion Monitor."""
+    from bd_platform.cross_protocol_contagion import cross_protocol_contagion_status
+
+    return cross_protocol_contagion_status()
+
+
+@router.get("/intelligence-ledger/risk-layer/cross-protocol-contagion")
+async def cross_protocol_contagion_monitor_route(trigger_id: str | None = Query(None)):
+    from bd_platform.cross_protocol_contagion import build_contagion_monitor
+
+    return build_contagion_monitor(trigger_id)
+
+
+@router.get("/intelligence-ledger/risk-layer/cross-protocol-contagion/graph")
+async def cross_protocol_contagion_graph_route(trigger_id: str | None = Query(None)):
+    from bd_platform.cross_protocol_contagion import build_contagion_graph_visualization
+
+    return build_contagion_graph_visualization(trigger_id)
+
+
+@router.get("/intelligence-ledger/risk-layer/cross-protocol-contagion/portfolio-alert")
+async def cross_protocol_contagion_portfolio_alert_route(
+    portfolio_id: str = Query("demo_portfolio"),
+    trigger_id: str | None = Query(None),
+):
+    from bd_platform.cross_protocol_contagion import build_portfolio_cluster_alert_410
+
+    return build_portfolio_cluster_alert_410(portfolio_id=portfolio_id, trigger_id=trigger_id)
+
+
+@router.get("/intelligence-ledger/risk-layer/cross-protocol-contagion/reconciliation-tests")
+async def cross_protocol_contagion_reconciliation_route():
+    from bd_platform.cross_protocol_contagion import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/onchain-layer/smart-money-flow/status")
 async def smart_money_flow_status_route():
     """#408 Smart Money Flow Tracker (absorbs #459 Dormancy)."""
@@ -2377,6 +2416,77 @@ async def defi_decision_intelligence_score_route(protocol_id: str = Query("aave_
 @router.get("/intelligence-ledger/defi-decision-intelligence/reconciliation-tests")
 async def defi_decision_intelligence_reconciliation_route():
     from bd_platform.defi_decision_intelligence import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/market-radar/ratio-builder/status")
+async def custom_ratio_engine_status_route():
+    """#653 Custom Ratio Engine — Market Radar Ratio Builder."""
+    from bd_platform.custom_ratio_engine import custom_ratio_engine_status
+
+    return custom_ratio_engine_status()
+
+
+@router.get("/intelligence-ledger/market-radar/ratio-builder")
+async def custom_ratio_builder_panel_route(
+    protocol_id: str = Query("uniswap"),
+    formula_id: str = Query("ps_ratio"),
+):
+    from bd_platform.custom_ratio_engine import build_ratio_builder_panel
+
+    return build_ratio_builder_panel(protocol_id, formula_id)
+
+
+@router.get("/intelligence-ledger/market-radar/ratio-builder/chart")
+async def custom_ratio_chart_route(
+    protocol_id: str = Query("uniswap"),
+    formula_id: str = Query("ps_ratio"),
+):
+    from bd_platform.custom_ratio_engine import build_ratio_chart
+
+    return build_ratio_chart(protocol_id, formula_id)
+
+
+@router.get("/intelligence-ledger/market-radar/ratio-builder/peers")
+async def custom_ratio_peers_route(
+    protocol_id: str = Query("uniswap"),
+    formula_id: str = Query("ps_ratio"),
+):
+    from bd_platform.custom_ratio_engine import build_peer_comparison
+
+    result = build_peer_comparison(protocol_id, formula_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/ratio-builder/validate")
+async def custom_ratio_validate_route(
+    numerator: str = Query("fdv"),
+    denominator: str = Query("revenue_30d"),
+):
+    from bd_platform.custom_ratio_engine import validate_formula
+
+    return validate_formula(numerator, denominator)
+
+
+@router.get("/intelligence-ledger/market-radar/ratio-builder/thesis-dimension")
+async def custom_ratio_thesis_dimension_route(
+    asset: str = Query("UNI"),
+    formula_id: str = Query("ps_ratio"),
+):
+    from bd_platform.custom_ratio_engine import score_custom_ratio_thesis_dimension
+
+    result = score_custom_ratio_thesis_dimension(asset, formula_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/ratio-builder/reconciliation-tests")
+async def custom_ratio_engine_reconciliation_route():
+    from bd_platform.custom_ratio_engine import run_reconciliation_tests
 
     return run_reconciliation_tests()
 

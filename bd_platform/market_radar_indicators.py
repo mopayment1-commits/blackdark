@@ -315,6 +315,14 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("unlock timeline market radar integration skipped", exc_info=True)
 
+    ratio_builder = None
+    try:
+        from bd_platform.custom_ratio_engine import build_ratio_builder_panel
+
+        ratio_builder = build_ratio_builder_panel("uniswap", "ps_ratio")
+    except Exception:
+        logger.debug("653 ratio builder market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -325,6 +333,7 @@ def build_market_radar_panel(
         "transaction_flow_view_615": transaction_flow,
         "transaction_volume_chart_612": tx_volume,
         "unlock_event_timeline_607": unlock_timeline,
+        "custom_ratio_engine_653": ratio_builder,
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }
