@@ -24,7 +24,7 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634)
+_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641)
 _EPIC_ID = 577
 _WHALE_RETAIL_REF = 634
 _TITLE = "On-Chain Metrics Library"
@@ -86,6 +86,13 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "name": "whale_vs_retail_flow",
         "title": "Whale vs Retail Flow",
         "description": "Trade size cohort buy/sell flow comparison — merged into #577",
+        "standalone_rejected": True,
+    },
+    "641": {
+        "task_id": "641",
+        "name": "on_chain_financials",
+        "title": "On-Chain Financials",
+        "description": "Protocol revenue, profit margin, P/S ratio from on-chain fees — merged into #472",
         "standalone_rejected": True,
     },
 }
@@ -611,6 +618,16 @@ def build_metrics_library_panel(
     tx_volume = build_transaction_volume_intelligence(sym, seed=seed)
     stablecoin_reserve = build_stablecoin_reserve_metric_577(seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
+    on_chain_fin = None
+    try:
+        from bd_platform.on_chain_financials import build_metrics_library_financials, _load_seed as _fin_load
+
+        fin_seed = _fin_load()
+        protocol_id = (fin_seed.get("asset_protocol_map") or {}).get(sym)
+        if protocol_id:
+            on_chain_fin = build_metrics_library_financials(protocol_id)
+    except Exception:
+        logger.debug("on-chain financials 641 metrics skipped", exc_info=True)
     defs = build_metric_definitions(seed)
 
     return {
@@ -625,6 +642,7 @@ def build_metrics_library_panel(
             "612_transaction_volume_intelligence": tx_volume if tx_volume.get("ok") else {"ok": False},
             "601_stablecoin_exchange_reserve": stablecoin_reserve,
             "634_whale_vs_retail_flow": whale_retail if whale_retail.get("ok") else {"ok": False},
+            "641_on_chain_financials": on_chain_fin if on_chain_fin and on_chain_fin.get("ok") else {"ok": False},
             "737_hodl_waves": suite.get("hodl_waves") if suite.get("ok") else {"ok": False},
             "741_mvrv_z_score": suite.get("mvrv_z_score") if suite.get("ok") else {"ok": False},
             "tasks_not_tickets": True,
@@ -743,6 +761,7 @@ def onchain_metrics_library_status() -> dict[str, Any]:
             "612": "Transaction Volume Intelligence → merged into #577",
             "601": "Stablecoin Exchange Reserve → metric in #577, logic in #467",
             "634": "Whale vs Retail Flow → metric in #577",
+            "641": "On-Chain Financials → metrics in #577, dimension in #472",
         },
         "acceptance_criteria": {
             "formula_source_version": True,

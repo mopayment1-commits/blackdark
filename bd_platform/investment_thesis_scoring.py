@@ -6,10 +6,11 @@ NOT price probability — documented in UI and Terms.
 
 6 mandatory dimensions:
   team quality, tokenomics, revenue model, competitive moat,
-  regulatory risk, on-chain growth
+  regulatory risk, on-chain growth, on-chain financials (#641)
 
 Integrations:
   - #417 Net-Edge Score: thesis score affects signal confidence
+  - #641 On-Chain Financials: Dimension 7 (protocol revenue, P/S, margins)
   - Market Radar: asset card shows thesis grade (A–F)
 """
 
@@ -25,6 +26,7 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.InvestmentThesisScoring")
 
 _FEATURE_ID = 472
+_ON_CHAIN_FINANCIALS_REF = 641
 _TITLE = "Investment Thesis Scoring"
 _LEGAL_NAME = "Investment Thesis Scoring"
 _STANDALONE = False
@@ -41,6 +43,7 @@ _MANDATORY_DIMENSIONS = (
     "competitive_moat",
     "regulatory_risk",
     "on_chain_growth",
+    "on_chain_financials",
 )
 
 _DISCLAIMER = (
@@ -97,7 +100,24 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
     reasons: list[str] = []
 
     for dim in _MANDATORY_DIMENSIONS:
-        raw = float(data.get(dim, 50))
+        if dim == "on_chain_financials":
+            try:
+                from bd_platform.on_chain_financials import score_on_chain_financials_dimension
+
+                fin_dim = score_on_chain_financials_dimension(asset, seed=None)
+                raw = float(fin_dim.get("dimension_score", 50)) if fin_dim.get("ok") else 50.0
+                evidence = {
+                    "source": fin_dim.get("evidence_source", "on_chain_fee_data"),
+                    "quality": fin_dim.get("evidence_quality", "high"),
+                }
+            except Exception:
+                logger.debug("on-chain financials dimension skipped", exc_info=True)
+                raw = float(data.get(dim, 50))
+                evidence = (data.get("evidence") or {}).get(dim) or {}
+        else:
+            raw = float(data.get(dim, 50))
+            evidence = (data.get("evidence") or {}).get(dim) or {}
+
         if dim == "regulatory_risk":
             score = 100 - raw
         else:
@@ -106,7 +126,6 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
         contribution = round(score * w, 2)
         weighted_sum += contribution
         weight_total += w
-        evidence = (data.get("evidence") or {}).get(dim) or {}
         dimensions[dim] = {
             "raw_score": raw,
             "adjusted_score": round(score, 2),
@@ -215,6 +234,8 @@ def build_thesis_scoring_panel(
         "count": sum(1 for s in scores if s.get("ok")),
         "rubric_version": seed.get("rubric_version"),
         "mandatory_dimensions": list(_MANDATORY_DIMENSIONS),
+        "dimension_count": 7,
+        "on_chain_financials_641": True,
         "not_price_probability": seed.get("not_price_probability", True),
         "terms_clause": seed.get("terms_clause"),
         "no_opaque_score": True,
@@ -237,9 +258,12 @@ def investment_thesis_scoring_status() -> dict[str, Any]:
         "priority": _PRIORITY,
         "rubric_version": seed.get("rubric_version"),
         "mandatory_dimensions": list(_MANDATORY_DIMENSIONS),
+        "dimension_count": 7,
+        "on_chain_financials_641": True,
         "not_price_probability": seed.get("not_price_probability", True),
         "integrations": {
             "net_edge_truth_417": True,
+            "on_chain_financials_641": True,
             "market_radar": True,
         },
         "disclaimer": _DISCLAIMER,
@@ -257,7 +281,8 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "not_price_probability", "passed": seed.get("not_price_probability") is True, "detail": "terms"})
 
     btc = score_investment_thesis("BTC", seed=seed)
-    checks.append({"id": "six_dimensions", "passed": btc.get("dimension_count") == 6, "detail": "dimensions"})
+    checks.append({"id": "seven_dimensions", "passed": btc.get("dimension_count") == 7, "detail": "dimensions"})
+    checks.append({"id": "on_chain_financials_641", "passed": "on_chain_financials" in (btc.get("dimensions") or {}), "detail": "641"})
     checks.append({"id": "thesis_grade", "passed": btc.get("thesis_grade") in ("A", "B", "C", "D", "F"), "detail": btc.get("thesis_grade")})
     checks.append({"id": "no_opaque_score", "passed": btc.get("no_opaque_score") is True, "detail": "transparent"})
     checks.append({"id": "evidence_per_dimension", "passed": all(d.get("evidence_source") for d in btc.get("dimensions", {}).values()), "detail": "evidence"})

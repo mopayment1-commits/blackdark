@@ -11,13 +11,14 @@
   "last_updated": "2026-08-26",
   "not_price_probability": true,
   "terms_clause": "Thesis scores assess fundamental conviction — not price predictions or probability of profit.",
-  "dimension_weights": {
-    "team_quality": 0.18,
-    "tokenomics": 0.18,
-    "revenue_model": 0.17,
-    "competitive_moat": 0.17,
-    "regulatory_risk": 0.15,
-    "on_chain_growth": 0.15
+    "dimension_weights": {
+    "team_quality": 0.16,
+    "tokenomics": 0.16,
+    "revenue_model": 0.15,
+    "competitive_moat": 0.15,
+    "regulatory_risk": 0.13,
+    "on_chain_growth": 0.13,
+    "on_chain_financials": 0.12
   },
   "grade_thresholds": {
     "A": 85,
@@ -70,13 +71,15 @@
       "competitive_moat": 70,
       "regulatory_risk": 60,
       "on_chain_growth": 68,
+      "on_chain_financials": 75,
       "evidence": {
         "team_quality": {"source": "governance_activity", "quality": "medium"},
         "tokenomics": {"source": "unlock_schedule_tracker", "quality": "medium"},
         "revenue_model": {"source": "dex_fee_switch", "quality": "medium"},
         "competitive_moat": {"source": "dex_market_share", "quality": "medium"},
         "regulatory_risk": {"source": "defi_regulatory_index", "quality": "low"},
-        "on_chain_growth": {"source": "swap_volume_30d", "quality": "medium"}
+        "on_chain_growth": {"source": "swap_volume_30d", "quality": "medium"},
+        "on_chain_financials": {"source": "on_chain_fee_data", "quality": "high"}
       }
     }
   }
