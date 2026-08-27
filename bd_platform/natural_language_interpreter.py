@@ -547,6 +547,22 @@ def build_explain_signal_explanation_771(
 
     contradictions = _detect_signal_contradictions(technical, nvt) if visibility["contradictions"] else []
 
+    cross_validation = None
+    try:
+        from bd_platform.signal_validation_layer import build_signal_validation_panel_776
+
+        cross_validation = build_signal_validation_panel_776(sym)
+        if cross_validation.get("ok") and cross_validation.get("conflicts"):
+            for conflict in cross_validation["conflicts"]:
+                contradictions.append({
+                    "type": "cross_signal_validation_776",
+                    "formula": conflict.get("formula"),
+                    "detail": conflict.get("detail"),
+                    "rule_based": True,
+                })
+    except Exception:
+        logger.debug("776 cross-signal validation integration skipped", exc_info=True)
+
     next_actions: list[dict[str, str]] = []
     if visibility["next_actions"]:
         next_actions = [

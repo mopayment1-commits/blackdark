@@ -3421,6 +3421,64 @@ async def landing_news_digest_route(limit: int = Query(3, ge=1, le=10)):
     return build_landing_news_digest_widget_768(limit=limit)
 
 
+@router.get("/intelligence-ledger/market-radar/macro-coupling")
+async def market_radar_macro_coupling_route(asset: str = Query("BTC"), window: str = Query("90D")):
+    """#774 BTC-to-Macro Coupling — merged into Market Radar macro context overlay."""
+    from bd_platform.market_radar_indicators import build_btc_macro_coupling_overlay_774
+
+    return build_btc_macro_coupling_overlay_774(asset, window=window)
+
+
+@router.get("/intelligence-ledger/market-radar/macro-coupling/qa")
+async def market_radar_macro_coupling_qa_route(asset: str = Query("BTC")):
+    from bd_platform.market_radar_indicators import run_macro_coupling_qa_774
+
+    return run_macro_coupling_qa_774(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/macro-coupling/asset-card")
+async def macro_coupling_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.market_radar_indicators import build_asset_card_macro_coupling_774
+
+    return build_asset_card_macro_coupling_774(asset)
+
+
+@router.get("/intelligence-ledger/signals/validation/status")
+async def signal_validation_status_route():
+    from bd_platform.signal_validation_layer import signal_validation_layer_status
+
+    return signal_validation_layer_status()
+
+
+@router.get("/intelligence-ledger/signals/validation")
+async def signal_validation_panel_route(asset: str = Query("BTC")):
+    """#776 Cross-Signal Validation — merged into Signal Engine."""
+    from bd_platform.signal_validation_layer import build_signal_validation_panel_776
+
+    return build_signal_validation_panel_776(asset)
+
+
+@router.get("/intelligence-ledger/signals/validation/signal-card")
+async def signal_validation_card_route(asset: str = Query("BTC")):
+    from bd_platform.signal_validation_layer import build_signal_card_cross_validation_776
+
+    return build_signal_card_cross_validation_776(asset)
+
+
+@router.get("/intelligence-ledger/signals/validation/ledger")
+async def signal_validation_ledger_route(asset: str = Query("BTC")):
+    from bd_platform.signal_validation_layer import build_intelligence_ledger_signal_quality_776
+
+    return build_intelligence_ledger_signal_quality_776(asset)
+
+
+@router.get("/intelligence-ledger/signals/validation/qa")
+async def signal_validation_qa_route():
+    from bd_platform.signal_validation_layer import run_signal_validation_qa_776
+
+    return run_signal_validation_qa_776()
+
+
 @router.get("/intelligence-ledger/market-radar/sector-pulse")
 async def sector_pulse_dashboard_route():
     """#678 Sector Market Brief — rule-based sector narrative (no ML, no buy/sell)."""

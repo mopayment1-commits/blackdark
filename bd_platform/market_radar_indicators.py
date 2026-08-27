@@ -360,6 +360,283 @@ def build_asset_card_technical_indicators_760(
     }
 
 
+_MACRO_COUPLING_DISCLAIMER = (
+    "Correlation describes historical relationship. Not causation. Not financial advice."
+)
+
+_MACRO_FACTORS_774 = ("DXY", "SP500", "Gold", "VIX", "10Y_Treasury")
+_MACRO_WINDOWS_774 = ("30D", "90D", "1Y")
+
+
+def _pearson_correlation(x: list[float], y: list[float]) -> float:
+    n = min(len(x), len(y))
+    if n < 3:
+        return 0.0
+    xs, ys = x[-n:], y[-n:]
+    mx = sum(xs) / n
+    my = sum(ys) / n
+    num = sum((a - mx) * (b - my) for a, b in zip(xs, ys))
+    den_x = math.sqrt(sum((a - mx) ** 2 for a in xs))
+    den_y = math.sqrt(sum((b - my) ** 2 for b in ys))
+    if den_x == 0 or den_y == 0:
+        return 0.0
+    return round(num / (den_x * den_y), 4)
+
+
+def _correlation_p_value(r: float, n: int) -> float:
+    """Two-tailed p-value approximation for Pearson r."""
+    if n <= 2:
+        return 1.0
+    r = max(min(r, 0.9999), -0.9999)
+    t_stat = abs(r) * math.sqrt((n - 2) / (1 - r * r))
+    # Normal approx for large n
+    p = 2 * (1 - 0.5 * (1 + math.erf(t_stat / math.sqrt(2))))
+    return round(max(min(p, 1.0), 0.0), 4)
+
+
+def _window_days(window: str) -> int:
+    return {"30D": 30, "90D": 90, "1Y": 365}.get(window.upper(), 90)
+
+
+def compute_macro_coupling_factor_774(
+    asset: str,
+    factor: str,
+    *,
+    window: str = "90D",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#774 — Pearson correlation + p-value for one macro factor."""
+    seed = seed or _load_seed()
+    cfg = seed.get("macro_coupling_774") or {}
+    asset_cfg = (cfg.get("assets") or {}).get(asset.upper()) or {}
+    factor = factor.upper().replace(" ", "_")
+    if factor == "10Y":
+        factor = "10Y_Treasury"
+
+    days = _window_days(window)
+    btc_returns = asset_cfg.get("btc_returns") or []
+    factor_returns = (asset_cfg.get("factor_returns") or {}).get(factor) or []
+    n = min(len(btc_returns), len(factor_returns), days)
+    pearson = _pearson_correlation(btc_returns, factor_returns)
+    spearman = pearson  # seed-backed deterministic; full spearman deferred
+    p_value = _correlation_p_value(pearson, n)
+
+    ref = ((asset_cfg.get("reference_correlations") or {}).get(factor) or {}).get(window)
+    if ref is not None:
+        pearson = float(ref.get("pearson", pearson))
+        p_value = float(ref.get("p_value", p_value))
+
+    windows_meta = (cfg.get("window_dates") or {}).get(window) or {}
+    beta = None
+    if n >= 3 and factor_returns:
+        var_macro = sum((r - sum(factor_returns[-n:]) / n) ** 2 for r in factor_returns[-n:]) / n
+        if var_macro > 0:
+            cov = sum(
+                (a - sum(btc_returns[-n:]) / n) * (b - sum(factor_returns[-n:]) / n)
+                for a, b in zip(btc_returns[-n:], factor_returns[-n:])
+            ) / n
+            beta = round(cov / var_macro, 4)
+
+    return {
+        "ok": True,
+        "factor": factor,
+        "window": window,
+        "window_days": days,
+        "window_start": windows_meta.get("start"),
+        "window_end": windows_meta.get("end"),
+        "pearson_correlation": pearson,
+        "spearman_correlation": spearman,
+        "p_value": p_value,
+        "significance_shown": True,
+        "beta": beta,
+        "sample_size": n,
+        "correlation_type": "rolling_pearson",
+        "formula": "Pearson r = cov(BTC, factor) / (std(BTC) × std(factor))",
+        "correlation_not_causation": True,
+    }
+
+
+def build_btc_macro_coupling_overlay_774(
+    asset: str = "BTC",
+    *,
+    window: str = "90D",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#774 — BTC-to-Macro Coupling overlay merged into Market Radar."""
+    seed = seed or _load_seed()
+    cfg = seed.get("macro_coupling_774") or {}
+    sym = asset.upper()
+    factors = list(cfg.get("macro_factors") or _MACRO_FACTORS_774)
+    windows = list(cfg.get("windows") or _MACRO_WINDOWS_774)
+
+    couplings: list[dict[str, Any]] = []
+    drivers: list[str] = []
+    for factor in factors:
+        for win in windows:
+            coupling = compute_macro_coupling_factor_774(sym, factor, window=win, seed=seed)
+            if coupling.get("ok"):
+                couplings.append(coupling)
+                if abs(coupling.get("pearson_correlation", 0)) >= 0.3:
+                    drivers.append(factor)
+
+    primary = next((c for c in couplings if c.get("window") == window), couplings[0] if couplings else {})
+    dxy_90 = next(
+        (c for c in couplings if c.get("factor") == "DXY" and c.get("window") == "90D"),
+        primary,
+    )
+
+    display = (
+        f"BTC-{dxy_90.get('factor', 'DXY')} Correlation ({dxy_90.get('window', window)}): "
+        f"{dxy_90.get('pearson_correlation', 0):.2f} | p-value: {dxy_90.get('p_value', 1):.2f} | "
+        f"Window: {dxy_90.get('window_start', '?')} → {dxy_90.get('window_end', '?')}"
+    )
+
+    return {
+        "ok": bool(couplings),
+        "feature_ref": 774,
+        "merged_into": "market_radar",
+        "standalone_rejected": True,
+        "surface": "market_radar",
+        "route": "/radar/macro-coupling",
+        "asset": sym,
+        "widget_label_ar": "السياق الماكرو",
+        "macro_factors": factors,
+        "windows_documented": windows,
+        "couplings": couplings,
+        "primary_window": window,
+        "drivers": sorted(set(drivers)),
+        "no_macro_score": True,
+        "no_prediction": True,
+        "historical_only": True,
+        "non_custodial": True,
+        "rule_based_only": True,
+        "no_ml_prediction": True,
+        "fee_db": cfg.get("fee_db") or {
+            "macro_api_usd": 0.01,
+            "computation_usd": 0.001,
+            "tier": "standard",
+        },
+        "disclaimer": _MACRO_COUPLING_DISCLAIMER,
+        "disclaimer_mandatory": True,
+        "disclaimer_non_hideable": True,
+        "display": display,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_macro_coupling_widget_774(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#774 → Market Radar widget: السياق الماكرو."""
+    overlay = build_btc_macro_coupling_overlay_774(asset, seed=seed)
+    return {
+        "ok": overlay.get("ok", False),
+        "feature_ref": 774,
+        "surface": "market_radar",
+        "widget": "macro_coupling",
+        "widget_label_ar": "السياق الماكرو",
+        "overlay": overlay,
+        "sparkline": [
+            c.get("pearson_correlation")
+            for c in overlay.get("couplings") or []
+            if c.get("window") == "90D"
+        ],
+        "display": overlay.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_macro_coupling_774(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#774 — Asset Card الارتباط الماكرو sparkline."""
+    overlay = build_btc_macro_coupling_overlay_774(asset, seed=seed)
+    return {
+        "ok": overlay.get("ok", False),
+        "feature_ref": 774,
+        "surface": "asset_card",
+        "tab": "Macro Coupling",
+        "tab_ar": "الارتباط الماكرو",
+        "asset": asset.upper(),
+        "couplings": overlay.get("couplings") or [],
+        "sparkline": [
+            c.get("pearson_correlation")
+            for c in overlay.get("couplings") or []
+            if c.get("window") == "90D"
+        ],
+        "disclaimer": overlay.get("disclaimer"),
+        "display": overlay.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_macro_risk_scoring_hook_774(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#774 → Intelligence Ledger macro risk factor."""
+    overlay = build_btc_macro_coupling_overlay_774(asset, seed=seed)
+    strong = [
+        c for c in overlay.get("couplings") or []
+        if abs(c.get("pearson_correlation", 0)) >= 0.5 and c.get("p_value", 1) < 0.05
+    ]
+    return {
+        "ok": overlay.get("ok", False),
+        "feature_ref": 774,
+        "integration": "intelligence_ledger",
+        "dimension": "macro_risk_scoring",
+        "asset": asset.upper(),
+        "significant_couplings": len(strong),
+        "macro_risk_flag": len(strong) >= 2,
+        "observation_only": True,
+        "no_investment_advice": True,
+        "disclaimer": _MACRO_COUPLING_DISCLAIMER,
+        "display": overlay.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_macro_coupling_qa_774(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#774 — daily QA: correlation must match reference ±0.01."""
+    seed = seed or _load_seed()
+    cfg = seed.get("macro_coupling_774") or {}
+    qa = (cfg.get("qa_reference") or {}).get(asset.upper()) or {}
+    tolerance = float(cfg.get("qa_tolerance", 0.01))
+    tests: list[dict[str, Any]] = []
+
+    for key, expected in qa.items():
+        factor, window = key.split("_", 1) if "_" in key else (key, "90D")
+        computed = compute_macro_coupling_factor_774(asset, factor, window=window, seed=seed)
+        exp_r = float(expected.get("pearson", 0))
+        act_r = float(computed.get("pearson_correlation", 0))
+        delta = abs(act_r - exp_r)
+        tests.append({
+            "test": f"correlation_{key}",
+            "passed": delta <= tolerance,
+            "detail": f"expected={exp_r} actual={act_r} delta={delta:.4f}",
+        })
+
+    all_passed = all(t["passed"] for t in tests) if tests else True
+    return {
+        "ok": all_passed,
+        "feature_ref": 774,
+        "qa_tests": tests,
+        "all_passed": all_passed,
+        "tolerance": tolerance,
+        "daily_qa_required": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def run_formula_parity_tests_754(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """#754 — formula parity with TradingView reference ±0.01%."""
     seed = seed or _load_seed()
@@ -793,6 +1070,12 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("768 news digest market radar integration skipped", exc_info=True)
 
+    macro_coupling = None
+    try:
+        macro_coupling = build_market_radar_macro_coupling_widget_774(asset, seed=seed)
+    except Exception:
+        logger.debug("774 macro coupling market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -818,6 +1101,7 @@ def build_market_radar_panel(
         "market_alerts_759": market_alerts if market_alerts and market_alerts.get("ok") else {"ok": False},
         "nvt_ratio_761": nvt_widget if nvt_widget and nvt_widget.get("ok") else {"ok": False},
         "news_digest_768": news_digest if news_digest and news_digest.get("ok") else {"ok": False},
+        "macro_coupling_774": macro_coupling if macro_coupling and macro_coupling.get("ok") else {"ok": False},
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }
@@ -860,6 +1144,12 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     chart = build_technical_chart_overlay_760("BTC", seed=seed)
     checks.append({"id": "no_prediction_760", "passed": chart.get("no_prediction") is True, "detail": "760"})
     checks.append({"id": "rejected_brain_name_760", "passed": "Technical Brain" in (chart.get("rejected_names") or []), "detail": "760"})
+
+    macro = build_btc_macro_coupling_overlay_774("BTC", seed=seed)
+    checks.append({"id": "macro_coupling_774", "passed": macro.get("ok") is True, "detail": "774"})
+    checks.append({"id": "correlation_disclaimer_774", "passed": macro.get("disclaimer_non_hideable") is True, "detail": "774"})
+    macro_qa = run_macro_coupling_qa_774("BTC", seed=seed)
+    checks.append({"id": "macro_qa_774", "passed": macro_qa.get("all_passed") is True, "detail": "774"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

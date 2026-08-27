@@ -1,0 +1,31 @@
+{
+  "feature_id": 776,
+  "title": "Signal Validation Layer",
+  "standalone": false,
+  "merged_into": "Signal Engine",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "signal_validation_776": {
+    "fee_db": {
+      "signal_comparison_usd": 0.002,
+      "tier": "standard"
+    },
+    "qa_fixtures": [
+      {
+        "id": "btc_contradictory",
+        "asset": "BTC",
+        "expected_status": "Contradictory",
+        "note": "Technical bullish vs sentiment bearish when hype contradictory seed used"
+      }
+    ]
+  },
+  "sentiment_fallback": {
+    "assets": {
+      "BTC": {
+        "direction": "Bearish",
+        "confidence_pct": 30,
+        "reason": "Trending Words negative sentiment (#758)"
+      }
+    }
+  }
+}
