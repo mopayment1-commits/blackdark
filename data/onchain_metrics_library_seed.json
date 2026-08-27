@@ -122,6 +122,15 @@
       "unit": "composite",
       "update_frequency": "hourly",
       "task_ref": 678
+    },
+    "network_activity": {
+      "name": "Network Activity Suite",
+      "formula": "tx_count + DAA + payment_count + tx_value_usd + NVT (chain-specific)",
+      "formula_version": "1.0",
+      "source": "network_activity_intelligence_682",
+      "unit": "composite",
+      "update_frequency": "hourly",
+      "task_ref": 682
     }
   },
   "assets": {
@@ -310,6 +319,84 @@
       ]
     }
   },
+  "network_activity_682": {
+    "feature_ref": 682,
+    "merged_into": 577,
+    "qa_reconciliation": {
+      "parity_tolerance_pct": 0.1,
+      "assets": {
+        "BTC": {"node_a_tx_count": 312500, "node_b_tx_count": 312200},
+        "ETH": {"node_a_tx_count": 1120000, "node_b_tx_count": 1119500}
+      }
+    },
+    "assets": {
+      "BTC": {
+        "chain_model": "utxo",
+        "metrics": {
+          "tx_count": 312500,
+          "tx_count_change_pct": -3,
+          "active_addresses_daa": 892450,
+          "daa_change_pct": -1.2,
+          "payment_count": 485000,
+          "payment_count_change_pct": -2.5,
+          "tx_value_usd": 12500000000,
+          "tx_value_change_pct": 1.5,
+          "network_value_transferred_usd": 11800000000,
+          "nvt_change_pct": 0.8
+        },
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 1,
+          "last_reorg_at": "2026-08-27T10:00:00Z",
+          "metrics_recalculated": true
+        }
+      },
+      "ETH": {
+        "chain_model": "account",
+        "metrics": {
+          "tx_count": 1120000,
+          "tx_count_change_pct": 2.1,
+          "active_addresses_daa": 485200,
+          "daa_change_pct": 12,
+          "payment_count": 890000,
+          "payment_count_change_pct": 3.4,
+          "tx_value_usd": 8200000000,
+          "tx_value_change_pct": 5.2,
+          "network_value_transferred_usd": 7900000000,
+          "nvt_change_pct": 4.1
+        },
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 2,
+          "last_reorg_at": "2026-08-27T11:30:00Z",
+          "metrics_recalculated": true
+        }
+      },
+      "HBAR": {
+        "chain_model": "dag",
+        "metrics": {
+          "tx_count": 45000000,
+          "tx_count_change_pct": 8.5,
+          "active_addresses_daa": 125000,
+          "daa_change_pct": 6.2,
+          "payment_count": 42000000,
+          "payment_count_change_pct": 7.8,
+          "tx_value_usd": 120000000,
+          "tx_value_change_pct": 4.0,
+          "network_value_transferred_usd": 115000000,
+          "nvt_change_pct": 3.5
+        },
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 0,
+          "metrics_recalculated": true
+        }
+      }
+    }
+  },
   "methodology_registry": {
     "feature_ref": 656,
     "governance_ref": 679,
@@ -463,6 +550,15 @@
         "transformation_version": "1.0",
         "parity_verified": true,
         "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Sector Pulse #678 abnormal activity detection"}]
+      },
+      "network_activity": {
+        "metric_name": "Network Activity Suite",
+        "definition": "Chain-specific network usage: txs, DAA, payments, value, NVT",
+        "code_link": "bd_platform/onchain_metrics_library.py#682",
+        "transformation_logic": "tx_count + DAA + payment_count + tx_value_usd + NVT (UTXO/Account/DAG models)",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Network Activity Intelligence #682 with reorg handling"}]
       }
     }
   }

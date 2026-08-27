@@ -4403,6 +4403,25 @@ async def mvrv_zscore_regression_tests_route(asset: str = Query("BTC")):
     return run_mvrv_regression_tests_676(asset)
 
 
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/network-activity")
+async def network_activity_suite_route(asset: str = Query("BTC")):
+    """#682 Network Activity Intelligence — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_network_activity_suite_682
+
+    result = build_network_activity_suite_682(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/network-activity/qa-reconciliation")
+async def network_activity_qa_route(asset: str = Query("BTC")):
+    """#682 daily QA — tx count node parity ±0.1%."""
+    from bd_platform.onchain_metrics_library import run_network_activity_qa_reconciliation_682
+
+    return run_network_activity_qa_reconciliation_682(asset)
+
+
 @router.get("/intelligence-ledger/api-gateway/status")
 async def api_gateway_status_route():
     """#876 API Gateway status."""
@@ -4728,6 +4747,42 @@ async def asset_registry_reconciliation_tests_route():
     from bd_platform.asset_registry import run_reconciliation_tests
 
     return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/data-layer/asset-registry/coverage")
+async def asset_registry_coverage_route(symbol: str = Query("BTC")):
+    """#684 Project Monitoring Coverage Registry — badge layer."""
+    from bd_platform.asset_registry import build_asset_registry_panel
+
+    result = build_asset_registry_panel(symbol=symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result["asset"].get("coverage_badges_684") or {}
+
+
+@router.get("/intelligence-ledger/data-layer/asset-registry/coverage/parity-tests")
+async def asset_registry_coverage_parity_route():
+    from bd_platform.asset_registry import run_coverage_parity_tests_684
+
+    return run_coverage_parity_tests_684()
+
+
+@router.get("/intelligence-ledger/data-layer/asset-registry/protocols")
+async def asset_registry_protocol_directory_route():
+    """#685 Protocol Directory — merged into #402 Asset Registry."""
+    from bd_platform.asset_registry import build_protocol_directory_685
+
+    return build_protocol_directory_685()
+
+
+@router.get("/intelligence-ledger/data-layer/asset-registry/protocols/{slug}")
+async def asset_registry_protocol_profile_route(slug: str):
+    from bd_platform.asset_registry import build_protocol_profile
+
+    result = build_protocol_profile(slug)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
 
 
 @router.get("/intelligence-ledger/market-radar/asset-registry")
