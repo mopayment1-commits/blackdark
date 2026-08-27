@@ -8,10 +8,10 @@
   "sprint": 1,
   "priority": "medium",
   "methodology_version": "1.0",
-  "last_updated": "2026-08-26",
+  "last_updated": "2026-08-27",
   "existing_module": true,
   "no_new_module_built": true,
-  "merged_features": [448, 450],
+  "merged_features": [448, 450, 483],
   "sharpe_drawdown_winrate_sla_cancelled": true,
   "portfolio_id": "demo_portfolio",
   "integrations": {
@@ -19,6 +19,63 @@
     "live_breakeven_404": true,
     "net_edge_truth_417": true,
     "fill_risk_assessment_433": true,
-    "strategy_simulator_411": true
+    "strategy_simulator_411": true,
+    "roi_ath_intelligence_483": true
+  },
+  "roi_ath_483": {
+    "feature_ref": 483,
+    "title": "ROI & ATH Intelligence",
+    "methodology_version": "1.0",
+    "breakeven_integration": true,
+    "mandatory_roi_windows": ["24h", "7d", "30d", "90d", "1Y", "YTD", "all_time"]
+  },
+  "portfolio_assets": {
+    "demo_portfolio": ["BTC", "ETH"]
+  },
+  "assets": {
+    "BTC": {
+      "breakeven_position_id": "pos_btc_001",
+      "corporate_events": [],
+      "reference_prices": {
+        "24h": 64200,
+        "7d": 62800,
+        "30d": 58500,
+        "90d": 52000,
+        "1Y": 42000,
+        "YTD": 44000,
+        "all_time": 0.05
+      },
+      "price_history": [
+        {"date": "2024-01-01", "price": 42000},
+        {"date": "2024-06-01", "price": 68000},
+        {"date": "2024-11-01", "price": 73000},
+        {"date": "2025-03-01", "price": 85000},
+        {"date": "2025-08-01", "price": 65000},
+        {"date": "2026-08-27", "price": 65000}
+      ]
+    },
+    "ETH": {
+      "breakeven_position_id": "pos_eth_002",
+      "corporate_events": [
+        {"type": "burn", "date": "2025-01-01", "supply_reduction_factor": 1.02}
+      ],
+      "reference_prices": {
+        "24h": 3420,
+        "7d": 3350,
+        "30d": 3100,
+        "90d": 2800,
+        "1Y": 2200,
+        "YTD": 2400,
+        "all_time": 0.30
+      },
+      "price_history": [
+        {"date": "2024-01-01", "price": 2200},
+        {"date": "2024-06-01", "price": 3800},
+        {"date": "2024-11-01", "price": 4200},
+        {"date": "2025-03-01", "price": 4800},
+        {"date": "2025-08-01", "price": 3500},
+        {"date": "2026-08-27", "price": 3480}
+      ]
+    }
   }
 }

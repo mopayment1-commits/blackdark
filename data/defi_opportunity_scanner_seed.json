@@ -14,7 +14,8 @@
   "absorbed_features": {
     "465": "DEX Screener",
     "470": "LP Position Risk Calculator",
-    "473": "Liquidity Risk"
+    "473": "Liquidity Risk",
+    "482": "Oracle Risk"
   },
   "dex_screener_465": {
     "feature_ref": 465,
@@ -310,5 +311,77 @@
     }
   ],
   "default_trading_fee_bps": 10,
-  "default_slippage_bps": 8
+  "default_slippage_bps": 8,
+  "oracle_risk_482": {
+    "feature_ref": 482,
+    "title": "Oracle Risk",
+    "source_config_version": "1.0",
+    "portfolio_exposure_threshold_pct": 5,
+    "mandatory_indicators": [
+      "oracle_count",
+      "heartbeat_freshness",
+      "deviation_history",
+      "dependency_depth"
+    ]
+  },
+  "oracle_protocols": {
+    "aave": {
+      "protocol": "Aave",
+      "chain": "ethereum",
+      "heartbeat_seconds": 3600,
+      "last_heartbeat_age_seconds": 420,
+      "deviation_history_bps": [8, 12, 5, 15, 9],
+      "dependency_depth": 2,
+      "stablecoin_oracle_linked": ["USDC", "DAI"],
+      "oracle_sources": [
+        {"provider": "chainlink", "type": "aggregator", "version": "v3", "heartbeat_seconds": 3600, "deviation_threshold_bps": 50},
+        {"provider": "chainlink", "type": "fallback", "version": "v3", "heartbeat_seconds": 3600, "deviation_threshold_bps": 100}
+      ]
+    },
+    "maker": {
+      "protocol": "Maker",
+      "chain": "ethereum",
+      "heartbeat_seconds": 3600,
+      "last_heartbeat_age_seconds": 1800,
+      "deviation_history_bps": [3, 6, 4, 7, 5],
+      "dependency_depth": 1,
+      "stablecoin_oracle_linked": ["DAI"],
+      "oracle_sources": [
+        {"provider": "chainlink", "type": "aggregator", "version": "v3", "heartbeat_seconds": 3600, "deviation_threshold_bps": 50}
+      ]
+    },
+    "curve": {
+      "protocol": "Curve",
+      "chain": "ethereum",
+      "heartbeat_seconds": 1800,
+      "last_heartbeat_age_seconds": 900,
+      "deviation_history_bps": [15, 22, 18, 30, 12],
+      "dependency_depth": 3,
+      "stablecoin_oracle_linked": ["USDT", "USDC"],
+      "oracle_sources": [
+        {"provider": "chainlink", "type": "aggregator", "version": "v3", "heartbeat_seconds": 3600, "deviation_threshold_bps": 50},
+        {"provider": "pyth", "type": "pull", "version": "v2", "heartbeat_seconds": 400, "deviation_threshold_bps": 30}
+      ]
+    },
+    "lido": {
+      "protocol": "Lido",
+      "chain": "ethereum",
+      "heartbeat_seconds": 86400,
+      "last_heartbeat_age_seconds": 7200,
+      "deviation_history_bps": [25, 40, 18, 55, 32],
+      "dependency_depth": 2,
+      "stablecoin_oracle_linked": [],
+      "oracle_sources": [
+        {"provider": "chainlink", "type": "steth_usd", "version": "v3", "heartbeat_seconds": 86400, "deviation_threshold_bps": 200}
+      ]
+    }
+  },
+  "portfolio_protocol_exposure": {
+    "demo_portfolio": {
+      "aave": 8.5,
+      "maker": 3.2,
+      "curve": 2.1,
+      "lido": 6.8
+    }
+  }
 }

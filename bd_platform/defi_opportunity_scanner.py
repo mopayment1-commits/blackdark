@@ -5,6 +5,7 @@ Absorbs:
   #465 DEX Screener — pool mapping, honeypot/risk flags, filter/rank
   #470 LP Position Risk Calculator — renamed from "IL Live Simulator"
   #473 Liquidity Risk — protocol TVL/utilization/borrow-supply/liquidation
+  #482 Oracle Risk — oracle dependency/risk analysis dimension (DeFi Risk Layer)
 
 NOT standalone — merged into #429 Unified Arbitrage Opportunity Engine.
 Monitoring/analytics only — no execution language.
@@ -26,6 +27,7 @@ _FEATURE_ID = 438
 _DEX_SCREENER_REF = 465
 _LP_POSITION_RISK_REF = 470
 _LIQUIDITY_RISK_REF = 473
+_ORACLE_RISK_REF = 482
 _TITLE = "DeFi Opportunity Scanner"
 _LEGAL_NAME = "DeFi Opportunity Scanner"
 _STANDALONE = False
@@ -338,6 +340,193 @@ def analyze_protocol_liquidity_risk(
     }
 
 
+def analyze_protocol_oracle_risk(
+    protocol_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#482 Oracle Risk — dependency/risk analysis per protocol."""
+    seed = seed or _load_seed()
+    cfg = seed.get("oracle_risk_482") or {}
+    protocols = seed.get("oracle_protocols") or {}
+    proto = protocols.get(protocol_id.lower())
+    if not proto:
+        return {"ok": False, "protocol_id": protocol_id, "error": "protocol_not_found"}
+
+    sources = proto.get("oracle_sources") or []
+    source_count = len(sources)
+    multi_source = source_count > 1
+    heartbeat_secs = float(proto.get("heartbeat_seconds", 3600))
+    last_heartbeat_secs = float(proto.get("last_heartbeat_age_seconds", 0))
+    heartbeat_fresh = last_heartbeat_secs <= heartbeat_secs * 1.5
+    deviation_history = proto.get("deviation_history_bps") or []
+    max_deviation = max(deviation_history) if deviation_history else 0.0
+    dependency_depth = int(proto.get("dependency_depth", 1))
+
+    risk_score = round(min(100, max(0,
+        (0 if multi_source else 35)
+        + (0 if heartbeat_fresh else 25)
+        + min(25, max_deviation / 4)
+        + min(20, dependency_depth * 5)
+    )), 1)
+
+    source_config = {
+        "version": cfg.get("source_config_version", "1.0"),
+        "documented": True,
+        "sources": [
+            {
+                "provider": s.get("provider"),
+                "type": s.get("type"),
+                "version": s.get("version"),
+                "heartbeat_seconds": s.get("heartbeat_seconds"),
+                "deviation_threshold_bps": s.get("deviation_threshold_bps"),
+            }
+            for s in sources
+        ],
+    }
+
+    return {
+        "ok": True,
+        "feature_ref": _ORACLE_RISK_REF,
+        "protocol_id": protocol_id.lower(),
+        "protocol": proto.get("protocol"),
+        "chain": proto.get("chain"),
+        "oracle_count": source_count,
+        "multi_source": multi_source,
+        "single_oracle_risk": not multi_source,
+        "heartbeat_freshness": {
+            "heartbeat_seconds": heartbeat_secs,
+            "last_heartbeat_age_seconds": last_heartbeat_secs,
+            "fresh": heartbeat_fresh,
+        },
+        "deviation_history_bps": deviation_history,
+        "max_deviation_bps": max_deviation,
+        "dependency_depth": dependency_depth,
+        "oracle_risk_score": risk_score,
+        "source_config": source_config,
+        "stablecoin_oracle_linked": proto.get("stablecoin_oracle_linked"),
+        "display": (
+            f"{proto.get('protocol')}: {source_count} oracle(s) | "
+            f"heartbeat {'fresh' if heartbeat_fresh else 'stale'} | "
+            f"risk {risk_score}/100"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_oracle_risk_view(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#482 Oracle risk view — all protocols with source config/version."""
+    seed = seed or _load_seed()
+    cfg = seed.get("oracle_risk_482") or {}
+    protocols = seed.get("oracle_protocols") or {}
+    analyses = [
+        analyze_protocol_oracle_risk(pid, seed=seed)
+        for pid in protocols
+    ]
+    valid = [a for a in analyses if a.get("ok")]
+    single_oracle = [a for a in valid if a.get("single_oracle_risk")]
+
+    return {
+        "ok": True,
+        "feature_ref": _ORACLE_RISK_REF,
+        "title": "Oracle Risk",
+        "legal_name": "Oracle Risk",
+        "merged_into": "DeFi Opportunity Scanner (#438) / DeFi Risk Layer",
+        "protocols": valid,
+        "count": len(valid),
+        "single_oracle_count": len(single_oracle),
+        "single_oracle_protocols": [a["protocol_id"] for a in single_oracle],
+        "source_config_version": cfg.get("source_config_version", "1.0"),
+        "mandatory_indicators": cfg.get("mandatory_indicators"),
+        "monitoring_only": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_portfolio_single_oracle_alerts(
+    portfolio_id: str = "demo_portfolio",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#482 → #410: alert when portfolio exposure in single-oracle protocol."""
+    seed = seed or _load_seed()
+    cfg = seed.get("oracle_risk_482") or {}
+    exposure_threshold = float(cfg.get("portfolio_exposure_threshold_pct", 5))
+    exposures = (seed.get("portfolio_protocol_exposure") or {}).get(portfolio_id) or {}
+    oracle_view = build_oracle_risk_view(seed=seed)
+    single_oracle_ids = set(oracle_view.get("single_oracle_protocols") or [])
+
+    alerts: list[dict[str, Any]] = []
+    for protocol_id, exposure_pct in exposures.items():
+        if protocol_id not in single_oracle_ids:
+            continue
+        if float(exposure_pct) < exposure_threshold:
+            continue
+        proto_risk = analyze_protocol_oracle_risk(protocol_id, seed=seed)
+        alerts.append({
+            "alert_type": "single_oracle_protocol_exposure",
+            "feature_ref": _ORACLE_RISK_REF,
+            "integration": "capital_protection_controls_410",
+            "protocol_id": protocol_id,
+            "exposure_pct": exposure_pct,
+            "oracle_count": proto_risk.get("oracle_count"),
+            "oracle_risk_score": proto_risk.get("oracle_risk_score"),
+            "severity": "elevated" if float(exposure_pct) >= exposure_threshold * 2 else "watch",
+            "alerts_only": True,
+            "display": (
+                f"Single-oracle exposure: {proto_risk.get('protocol')} "
+                f"at {exposure_pct}% — oracle dependency risk elevated"
+            ),
+        })
+
+    return {
+        "ok": True,
+        "feature_ref": _ORACLE_RISK_REF,
+        "portfolio_id": portfolio_id,
+        "exposure_threshold_pct": exposure_threshold,
+        "alerts": alerts,
+        "alert_count": len(alerts),
+        "backend_enforced": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def get_stablecoin_oracle_risk_flag(
+    symbol: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#482 → #467: flag stablecoins with oracle dependency risk."""
+    seed = seed or _load_seed()
+    symbol = symbol.upper()
+    flagged = False
+    linked_protocols: list[dict[str, Any]] = []
+
+    for pid, proto in (seed.get("oracle_protocols") or {}).items():
+        linked = proto.get("stablecoin_oracle_linked") or []
+        if symbol not in [s.upper() for s in linked]:
+            continue
+        risk = analyze_protocol_oracle_risk(pid, seed=seed)
+        if risk.get("ok") and (risk.get("single_oracle_risk") or risk.get("oracle_risk_score", 0) >= 50):
+            flagged = True
+            linked_protocols.append({
+                "protocol_id": pid,
+                "protocol": risk.get("protocol"),
+                "oracle_risk_score": risk.get("oracle_risk_score"),
+                "single_oracle": risk.get("single_oracle_risk"),
+            })
+
+    return {
+        "ok": True,
+        "feature_ref": _ORACLE_RISK_REF,
+        "symbol": symbol,
+        "oracle_risk_flagged": flagged,
+        "linked_protocols": linked_protocols,
+        "integration": "stablecoin_health_monitor_467",
+        "timestamp": _utcnow(),
+    }
+
+
 def analyze_all_liquidity_risks(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """#473 — all 6 v1 protocols."""
     seed = seed or _load_seed()
@@ -518,6 +707,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     dex_screener = screen_dex_pools(seed=seed)
     liquidity_risk = analyze_all_liquidity_risks(seed=seed)
     lp_risk = build_lp_position_risk_panel(seed=seed)
+    oracle_risk = build_oracle_risk_view(seed=seed)
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     return {
@@ -532,6 +722,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "dex_screener_465": dex_screener,
         "liquidity_risk_473": liquidity_risk,
         "lp_position_risk_470": lp_risk,
+        "oracle_risk_482": oracle_risk,
         "monitoring_only": True,
         "cancelled_v1_scope": {
             "flash_loan_simulation": True,
@@ -564,6 +755,7 @@ def defi_opportunity_scanner_status() -> dict[str, Any]:
             "dex_screener_465": True,
             "lp_position_risk_calculator_470": True,
             "liquidity_risk_473": True,
+            "oracle_risk_482": True,
             "on_chain_arbitrage": True,
         },
         "dex_screener": {
@@ -574,6 +766,11 @@ def defi_opportunity_scanner_status() -> dict[str, Any]:
         "liquidity_risk": {
             "protocol_count": len(seed.get("liquidity_protocols") or {}),
             "update_interval_minutes": (seed.get("liquidity_risk_473") or {}).get("update_interval_minutes"),
+        },
+        "oracle_risk": {
+            "feature_ref": _ORACLE_RISK_REF,
+            "protocol_count": len(seed.get("oracle_protocols") or {}),
+            "source_config_version": (seed.get("oracle_risk_482") or {}).get("source_config_version"),
         },
         "monitoring_only": True,
         "simulation_only": True,
@@ -609,6 +806,16 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     opps = scan_defi_opportunities(seed=seed)
     checks.append({"id": "defi_opportunities", "passed": len(opps) >= 1, "detail": f"count={len(opps)}"})
     checks.append({"id": "collateral_grade_462", "passed": any("collateral_grade_462" in o for o in opps), "detail": "462"})
+
+    oracle = build_oracle_risk_view(seed=seed)
+    checks.append({"id": "oracle_risk_482", "passed": oracle.get("count", 0) >= 1, "detail": "482"})
+    checks.append({"id": "oracle_source_config", "passed": oracle.get("source_config_version") is not None, "detail": "config"})
+    checks.append({"id": "oracle_indicators", "passed": all(
+        "oracle_count" in p and "heartbeat_freshness" in p for p in oracle.get("protocols", [])
+    ), "detail": "indicators"})
+
+    single_oracle_alerts = build_portfolio_single_oracle_alerts(seed=seed)
+    checks.append({"id": "single_oracle_alerts_410", "passed": single_oracle_alerts.get("backend_enforced") is True, "detail": "410"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

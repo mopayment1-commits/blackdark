@@ -1253,6 +1253,30 @@ async def capital_awareness_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/real-time-risk-alerts")
+async def real_time_risk_alerts_route(portfolio_id: str = Query("demo_portfolio")):
+    """#484 Real-Time Risk Alerts — merged into #410."""
+    from bd_platform.capital_protection_controls import build_real_time_risk_alerts
+
+    return build_real_time_risk_alerts(portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/risk-analytics")
+async def risk_analytics_route(portfolio_id: str = Query("demo_portfolio")):
+    """#485 Risk Analytics — VaR, liquidity, stress — merged into #410."""
+    from bd_platform.capital_protection_controls import build_risk_analytics_block
+
+    return build_risk_analytics_block(portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/opportunity-risk-combined")
+async def opportunity_risk_combined_route(portfolio_id: str = Query("demo_portfolio")):
+    """#484 + #429 — combined opportunity + risk alerts."""
+    from bd_platform.capital_protection_controls import build_opportunity_risk_combined_alerts
+
+    return build_opportunity_risk_combined_alerts(portfolio_id)
+
+
 @router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stress-test")
 async def portfolio_stress_test_route(portfolio_id: str = Query("demo_portfolio")):
     """#453 Portfolio Stress Test — merged into #410."""
@@ -1297,6 +1321,22 @@ async def smart_money_flow_reconciliation_route():
     from bd_platform.smart_money_flow_tracker import run_reconciliation_tests
 
     return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/sopr")
+async def sopr_intelligence_route(asset: str = Query("BTC")):
+    """#488 SOPR / Profitability Intelligence — merged into #408."""
+    from bd_platform.smart_money_flow_tracker import (
+        build_market_radar_sopr_context,
+        build_sopr_edge_case_tests,
+        compute_sopr,
+    )
+
+    return {
+        "sopr": compute_sopr(asset),
+        "market_radar_context": build_market_radar_sopr_context(asset),
+        "edge_case_tests": build_sopr_edge_case_tests(),
+    }
 
 
 @router.get("/intelligence-ledger/ui/beginner-decision-mode/status")
@@ -1543,6 +1583,19 @@ async def liquidity_risk_route(protocol: str | None = Query(None)):
     if protocol:
         return analyze_protocol_liquidity_risk(protocol)
     return analyze_all_liquidity_risks()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/defi/oracle-risk")
+async def oracle_risk_route(protocol: str | None = Query(None)):
+    """#482 Oracle Risk — merged into #438 DeFi Opportunity Scanner."""
+    from bd_platform.defi_opportunity_scanner import (
+        analyze_protocol_oracle_risk,
+        build_oracle_risk_view,
+    )
+
+    if protocol:
+        return analyze_protocol_oracle_risk(protocol)
+    return build_oracle_risk_view()
 
 
 @router.get("/intelligence-ledger/unified-arbitrage/defi/reconciliation-tests")
@@ -1853,6 +1906,22 @@ async def portfolio_intelligence_reconciliation_tests_route():
     from bd_platform.portfolio_intelligence_engine import run_reconciliation_tests
 
     return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/portfolio-intelligence/roi-ath")
+async def roi_ath_intelligence_route(
+    asset: str | None = Query(None),
+    portfolio_id: str = Query("demo_portfolio"),
+):
+    """#483 ROI & ATH Intelligence — merged into Portfolio AI."""
+    from bd_platform.portfolio_intelligence_engine import (
+        build_roi_ath_asset_card,
+        build_roi_ath_panel,
+    )
+
+    if asset:
+        return build_roi_ath_asset_card(asset)
+    return build_roi_ath_panel(portfolio_id)
 
 
 @router.get("/intelligence-ledger/intelligence-layer/capital-awareness/risk-assessment")

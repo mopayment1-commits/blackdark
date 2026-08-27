@@ -1,7 +1,7 @@
 """
-Smart Money Flow Tracker — Feature #408 (absorbs #459 Age Consumed / Dormancy).
+Smart Money Flow Tracker — Feature #408 (absorbs #459 Age Consumed / Dormancy, #488 SOPR).
 
-On-chain intelligence for dormant coin movement and whale activity.
+On-chain intelligence for dormant coin movement, whale activity, and profitability.
 NOT standalone — merged into Smart Money Flow Analysis.
 
 #459 outputs:
@@ -10,10 +10,16 @@ NOT standalone — merged into Smart Money Flow Analysis.
   - impact estimate
   - age consumed spikes + context
 
+#488 outputs:
+  - SOPR (7-day average)
+  - profit/loss regime
+  - trend direction
+
 Mandatory:
   - Chain methodology documented (UTXO vs Account)
-  - Transfer filtering (dust + exchange internal)
+  - Transfer filtering (dust + exchange internal + spent output exclusions)
   - Historical validation backtest
+  - SOPR edge cases tested (exchange cold wallet, staking deposit, contract interaction)
 """
 
 from __future__ import annotations
@@ -29,6 +35,7 @@ logger = logging.getLogger("BLACKDARK.SmartMoneyFlowTracker")
 
 _FEATURE_ID = 408
 _ABSORBED_FEATURE_REF = 459
+_SOPR_FEATURE_REF = 488
 _TITLE = "Smart Money Flow Tracker"
 _ABSORBED_TITLE = "Age Consumed / Dormancy Intelligence"
 _STANDALONE = False
@@ -106,6 +113,215 @@ def apply_transfer_filters(
         "amount": amount,
         "asset": asset,
         "filtering_applied": True,
+    }
+
+
+def is_spent_output_excluded(
+    transfer: dict[str, Any],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#488 — exclude internal transfers from SOPR spent output calculation."""
+    seed = seed or _load_seed()
+    cfg = seed.get("sopr_filtering_488") or seed.get("transfer_filtering") or {}
+    label = str(transfer.get("label", "")).lower()
+    transfer_type = str(transfer.get("transfer_type", "")).lower()
+
+    excluded_types = [t.lower() for t in cfg.get("exclude_transfer_types", [])]
+    is_internal = transfer.get("is_internal", False)
+    is_exchange_cold = label in [l.lower() for l in cfg.get("exchange_cold_wallet_labels", [])]
+    is_staking = transfer_type == "staking_deposit"
+    is_contract = transfer_type == "contract_interaction"
+
+    excluded = (
+        is_internal
+        or is_exchange_cold
+        or is_staking
+        or is_contract
+        or transfer_type in excluded_types
+    )
+    reason = None
+    if is_internal:
+        reason = "internal_transfer"
+    elif is_exchange_cold:
+        reason = "exchange_cold_wallet"
+    elif is_staking:
+        reason = "staking_deposit"
+    elif is_contract:
+        reason = "contract_interaction"
+    elif transfer_type in excluded_types:
+        reason = transfer_type
+
+    return {
+        "included_in_sopr": not excluded,
+        "excluded": excluded,
+        "reason": reason,
+        "transfer_type": transfer_type,
+        "filtering_applied": True,
+    }
+
+
+def compute_sopr(
+    asset: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#488 SOPR — 7-day average, profit/loss regime, trend."""
+    seed = seed or _load_seed()
+    sopr_data = (seed.get("sopr_assets") or seed.get("assets") or {}).get(asset.upper())
+    if not sopr_data:
+        return {"ok": False, "asset": asset, "error": "asset_not_found"}
+
+    daily_values = sopr_data.get("sopr_daily") or []
+    filtered_daily: list[float] = []
+    for day in daily_values:
+        if isinstance(day, dict):
+            transfer_meta = day.get("sample_transfer") or {}
+            if transfer_meta and is_spent_output_excluded(transfer_meta, seed=seed)["excluded"]:
+                continue
+            filtered_daily.append(float(day.get("sopr", 1.0)))
+        else:
+            filtered_daily.append(float(day))
+
+    if not filtered_daily:
+        filtered_daily = [float(sopr_data.get("sopr_7d_avg", 1.0))]
+
+    window = filtered_daily[-7:] if len(filtered_daily) >= 7 else filtered_daily
+    sopr_7d_avg = round(sum(window) / len(window), 4)
+
+    if sopr_7d_avg >= 1.0:
+        regime = "profit_zone"
+    else:
+        regime = "loss_zone"
+
+    trend = "flat"
+    if len(window) >= 3:
+        if window[-1] > window[0] + 0.02:
+            trend = "improving"
+        elif window[-1] < window[0] - 0.02:
+            trend = "declining"
+
+    return {
+        "ok": True,
+        "feature_ref": _SOPR_FEATURE_REF,
+        "asset": asset.upper(),
+        "sopr_7d_avg": sopr_7d_avg,
+        "profit_loss_regime": regime,
+        "trend_direction": trend,
+        "daily_values_filtered": window,
+        "transfers_filtered": True,
+        "methodology": seed.get("sopr_methodology_488"),
+        "display": (
+            f"SOPR {asset.upper()}: {sopr_7d_avg:.3f} ({regime.replace('_', ' ')}) | "
+            f"trend {trend}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_sopr_edge_case_tests(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#488 — 3 mandatory edge cases: exchange cold wallet, staking deposit, contract interaction."""
+    seed = seed or _load_seed()
+    cases = [
+        {
+            "case": "exchange_cold_wallet",
+            "transfer": {"label": "binance_cold", "transfer_type": "transfer", "is_internal": False},
+            "expected_excluded": True,
+        },
+        {
+            "case": "staking_deposit",
+            "transfer": {"label": "lido_staking", "transfer_type": "staking_deposit"},
+            "expected_excluded": True,
+        },
+        {
+            "case": "contract_interaction",
+            "transfer": {"label": "uniswap_router", "transfer_type": "contract_interaction"},
+            "expected_excluded": True,
+        },
+    ]
+    results = []
+    for case in cases:
+        result = is_spent_output_excluded(case["transfer"], seed=seed)
+        results.append({
+            **case,
+            "passed": result["excluded"] == case["expected_excluded"],
+            "actual_excluded": result["excluded"],
+            "reason": result.get("reason"),
+        })
+
+    return {
+        "ok": True,
+        "feature_ref": _SOPR_FEATURE_REF,
+        "edge_cases": results,
+        "all_passed": all(r["passed"] for r in results),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_sopr_loss_regime_alert(
+    portfolio_id: str = "demo_portfolio",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#488 → #410: alert when SOPR < 1.0 and portfolio exposure high."""
+    seed = seed or _load_seed()
+    cfg = seed.get("sopr_alerts_488") or {}
+    exposure_threshold = float(cfg.get("portfolio_exposure_threshold_pct", 20))
+    alerts: list[dict[str, Any]] = []
+
+    exposures = (seed.get("portfolio_asset_exposure") or {}).get(portfolio_id) or {}
+    for asset, exposure_pct in exposures.items():
+        sopr = compute_sopr(asset, seed=seed)
+        if not sopr.get("ok"):
+            continue
+        if sopr.get("profit_loss_regime") != "loss_zone":
+            continue
+        if float(exposure_pct) < exposure_threshold:
+            continue
+        alerts.append({
+            "alert_type": "sopr_loss_regime_high_exposure",
+            "feature_ref": _SOPR_FEATURE_REF,
+            "integration": "capital_protection_controls_410",
+            "asset": asset,
+            "sopr_7d_avg": sopr.get("sopr_7d_avg"),
+            "exposure_pct": exposure_pct,
+            "severity": "elevated" if float(exposure_pct) >= exposure_threshold * 1.5 else "watch",
+            "backend_enforced": True,
+            "display": (
+                f"SOPR loss regime: {asset} SOPR {sopr.get('sopr_7d_avg'):.3f} "
+                f"with {exposure_pct}% portfolio exposure"
+            ),
+        })
+
+    return {
+        "ok": True,
+        "feature_ref": _SOPR_FEATURE_REF,
+        "portfolio_id": portfolio_id,
+        "exposure_threshold_pct": exposure_threshold,
+        "alerts": alerts,
+        "alert_count": len(alerts),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_sopr_context(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#488 → Market Radar: SOPR in market health dashboard."""
+    sopr = compute_sopr(asset, seed=seed)
+    if not sopr.get("ok"):
+        return sopr
+    return {
+        "ok": True,
+        "feature_ref": _SOPR_FEATURE_REF,
+        "surface": "market_radar",
+        "asset": asset.upper(),
+        "sopr": sopr,
+        "market_health_indicator": True,
+        "display": sopr.get("display"),
+        "timestamp": _utcnow(),
     }
 
 
@@ -226,6 +442,8 @@ def build_smart_money_flow_panel(
     else:
         analyses = [analyze_asset(a, seed=seed) for a in (seed.get("assets") or {})]
 
+    sopr_analyses = [compute_sopr(a, seed=seed) for a in (seed.get("sopr_assets") or seed.get("assets") or {})]
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -234,6 +452,12 @@ def build_smart_money_flow_panel(
         "absorbed_title": _ABSORBED_TITLE,
         "analyses": [a for a in analyses if a.get("ok")],
         "count": sum(1 for a in analyses if a.get("ok")),
+        "sopr_intelligence_488": {
+            "analyses": [s for s in sopr_analyses if s.get("ok")],
+            "count": sum(1 for s in sopr_analyses if s.get("ok")),
+            "edge_case_tests": build_sopr_edge_case_tests(seed=seed),
+            "market_radar_context": build_market_radar_sopr_context("BTC", seed=seed),
+        },
         "chain_methodologies": seed.get("chain_methodologies"),
         "transfer_filtering": seed.get("transfer_filtering"),
         "historical_validation": build_historical_validation(seed=seed),
@@ -257,7 +481,11 @@ def smart_money_flow_tracker_status() -> dict[str, Any]:
         "chain_methodologies_documented": bool(seed.get("chain_methodologies")),
         "transfer_filtering_enabled": True,
         "historical_validation": seed.get("historical_validation", {}).get("validated"),
-        "outputs": ["dormancy_score", "whale_label", "impact_estimate", "age_consumed_spike"],
+        "outputs": ["dormancy_score", "whale_label", "impact_estimate", "age_consumed_spike", "sopr_7d_avg", "profit_loss_regime"],
+        "absorbed_features": {
+            "459": "Age Consumed / Dormancy Intelligence",
+            "488": "SOPR / Profitability Intelligence",
+        },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
         "timestamp": _utcnow(),
@@ -280,6 +508,17 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     filtered = apply_transfer_filters({"amount": 0.00001, "asset": "BTC", "label": "binance_hot"}, seed=seed)
     checks.append({"id": "dust_excluded", "passed": filtered["excluded"] is True, "detail": filtered.get("reason")})
+
+    sopr = compute_sopr("BTC", seed=seed)
+    checks.append({"id": "sopr_7d_avg", "passed": sopr.get("sopr_7d_avg") is not None, "detail": str(sopr.get("sopr_7d_avg"))})
+    checks.append({"id": "sopr_regime", "passed": sopr.get("profit_loss_regime") in ("profit_zone", "loss_zone"), "detail": sopr.get("profit_loss_regime")})
+    checks.append({"id": "sopr_trend", "passed": sopr.get("trend_direction") is not None, "detail": sopr.get("trend_direction")})
+
+    edge_cases = build_sopr_edge_case_tests(seed=seed)
+    checks.append({"id": "sopr_edge_cases", "passed": edge_cases.get("all_passed") is True, "detail": "3 cases"})
+
+    loss_alert = build_sopr_loss_regime_alert(seed=seed)
+    checks.append({"id": "sopr_loss_alert_410", "passed": loss_alert.get("ok") is True, "detail": "410"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

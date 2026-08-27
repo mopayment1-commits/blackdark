@@ -202,5 +202,40 @@
       "signal_type": "exchange_flow",
       "direction": "bearish_analytics"
     }
+  },
+  "real_time_risk_alerts_484": {
+    "feature_ref": 484,
+    "title": "Real-Time Risk Alerts",
+    "backend_enforced": true,
+    "channels": ["push", "email", "sms"],
+    "mandatory_thresholds": {
+      "drawdown_pct": 8.0,
+      "concentration_pct": 25.0,
+      "correlation_spike": 0.85,
+      "exchange_health_drop": 60.0
+    }
+  },
+  "risk_analytics_485": {
+    "feature_ref": 485,
+    "title": "Risk Analytics",
+    "model_validated": true,
+    "tos_reference": "Risk model assumptions documented in Terms of Service Section 12.4",
+    "var": {
+      "method": "parametric",
+      "z_score_95": 1.645,
+      "z_score_99": 2.326,
+      "assumptions": {
+        "normal_distribution": true,
+        "lookback_days": 30,
+        "confidence_levels": [0.95, 0.99]
+      }
+    },
+    "liquidity": {
+      "max_slippage_pct": 2.0,
+      "assumptions": {
+        "slippage_model": "depth_score_linear",
+        "order_type": "market"
+      }
+    }
   }
 }
