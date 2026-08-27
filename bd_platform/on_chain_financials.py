@@ -603,6 +603,14 @@ def build_on_chain_financials(
         except Exception:
             logger.debug("682 network activity financials hook skipped", exc_info=True)
 
+    ssr_market_context = None
+    try:
+        from bd_platform.onchain_metrics_library import build_ssr_market_context_for_financials_641
+
+        ssr_market_context = build_ssr_market_context_for_financials_641(seed=None)
+    except Exception:
+        logger.debug("698 SSR financials hook skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -626,6 +634,7 @@ def build_on_chain_financials(
         "lst_staking_fee_revenue_673": lst_revenue if lst_revenue.get("ok") else None,
         "revenue_distribution_690": revenue_distribution if revenue_distribution.get("ok") else None,
         "network_activity_682": network_activity if network_activity and network_activity.get("ok") else None,
+        "ssr_market_context_698": ssr_market_context if ssr_market_context and ssr_market_context.get("ok") else None,
         "revenue_chart": history,
         "peer_comparison": peer_comparison,
         "data_pipeline": {
@@ -1154,6 +1163,7 @@ def on_chain_financials_status() -> dict[str, Any]:
             "custom_ratio_builder_653": True,
             "liquid_staking_intelligence_673": True,
             "revenue_intelligence_690": True,
+            "stablecoin_supply_ratio_698": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,

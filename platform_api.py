@@ -2450,6 +2450,14 @@ async def stablecoin_activity_breakdown_route(symbol: str = Query("USDC")):
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/stablecoin-supply-ratio")
+async def stablecoin_supply_ratio_route():
+    """#698 Stablecoin Supply Ratio (SSR) — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_stablecoin_supply_ratio_698
+
+    return build_stablecoin_supply_ratio_698()
+
+
 @router.get("/intelligence-ledger/investment-thesis/status")
 async def investment_thesis_scoring_status_route():
     """#472 Investment Thesis Scoring — Intelligence Ledger (not price probability)."""

@@ -158,6 +158,16 @@
       "unit": "USD",
       "update_frequency": "hourly",
       "task_ref": 693
+    },
+    "stablecoin_supply_ratio": {
+      "name": "Stablecoin Supply Ratio (SSR)",
+      "formula": "SSR = Total Crypto Market Cap / Total Stablecoin Supply; Oscillator = (SSR - Mean) / Std",
+      "formula_version": "1.0",
+      "source": "stablecoin_supply_ratio_intelligence_698",
+      "unit": "ratio",
+      "update_frequency": "daily",
+      "task_ref": 698,
+      "supported_stablecoins": ["USDC", "USDT", "DAI", "BUSD"]
     }
   },
   "assets": {
@@ -392,6 +402,60 @@
       }
     },
     "exit_activity_alert_pct": 60
+  },
+  "stablecoin_supply_ratio_698": {
+    "feature_ref": 698,
+    "merged_into": 577,
+    "formula_version": "1.0",
+    "documented": true,
+    "supported_stablecoins": ["USDC", "USDT", "DAI", "BUSD"],
+    "unsupported_excluded": true,
+    "crypto_market_cap_usd": 2520000000000,
+    "btc_market_cap_usd": 1320000000000,
+    "stablecoin_supply_usd": {
+      "USDC": 180000000000,
+      "USDT": 320000000000,
+      "DAI": 55000000000,
+      "BUSD": 45000000000
+    },
+    "oscillator": {
+      "historical_mean": 4.85,
+      "historical_std": 0.42
+    },
+    "historical_ssr": [
+      {"date": "2024-01", "ssr": 3.5, "stablecoin_supply_usd": 720000000000},
+      {"date": "2024-04", "ssr": 3.6, "stablecoin_supply_usd": 700000000000},
+      {"date": "2024-07", "ssr": 3.71, "stablecoin_supply_usd": 680000000000},
+      {"date": "2024-10", "ssr": 3.82, "stablecoin_supply_usd": 660000000000},
+      {"date": "2025-01", "ssr": 3.94, "stablecoin_supply_usd": 640000000000},
+      {"date": "2025-04", "ssr": 4.06, "stablecoin_supply_usd": 620000000000},
+      {"date": "2025-07", "ssr": 4.2, "stablecoin_supply_usd": 600000000000},
+      {"date": "2026-08", "ssr": 4.2, "stablecoin_supply_usd": 580000000000}
+    ],
+    "historical_stablecoin_supply": [
+      {"date": "2024-01", "supply_usd": 720000000000},
+      {"date": "2024-04", "supply_usd": 700000000000},
+      {"date": "2024-07", "supply_usd": 680000000000},
+      {"date": "2024-10", "supply_usd": 660000000000},
+      {"date": "2025-01", "supply_usd": 640000000000},
+      {"date": "2025-04", "supply_usd": 620000000000},
+      {"date": "2025-07", "supply_usd": 600000000000},
+      {"date": "2026-08", "supply_usd": 580000000000}
+    ],
+    "band_thresholds": {
+      "undersupplied_supply_percentile": 25,
+      "oversupplied_supply_percentile": 75
+    },
+    "liquidity_stress_supply_percentile": 20,
+    "regression_fixture": {
+      "crypto_market_cap_usd": 2520000000000,
+      "stablecoin_supply_usd": {
+        "USDC": 180000000000,
+        "USDT": 320000000000,
+        "DAI": 55000000000,
+        "BUSD": 45000000000
+      }
+    }
   },
   "network_activity_682": {
     "feature_ref": 682,
@@ -660,6 +724,15 @@
         "transformation_version": "1.0",
         "parity_verified": true,
         "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Exchange Flow Intelligence #693"}]
+      },
+      "stablecoin_supply_ratio": {
+        "metric_name": "Stablecoin Supply Ratio (SSR)",
+        "definition": "Crypto market cap divided by supported stablecoin supply with oscillator variant",
+        "code_link": "bd_platform/onchain_metrics_library.py#698",
+        "transformation_logic": "SSR = market_cap / sum(USDC+USDT+DAI+BUSD); oscillator = (SSR-mean)/std",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "SSR Intelligence #698 with historical bands"}]
       }
     }
   }
