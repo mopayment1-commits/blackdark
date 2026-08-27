@@ -1,0 +1,119 @@
+{
+  "feature_id": 637,
+  "title": "Whale Clustering Engine",
+  "standalone": false,
+  "merged_into": "Sprint-2 On-Chain Intelligence Layer",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-27",
+  "sybil_filter_applied": true,
+  "sybil_filter_ref": 494,
+  "uncertain_address": "0xprobable_link",
+  "false_link_controls": {
+    "exchange_deposit_addresses": ["0xbinance_deposit", "0xcoinbase_deposit"],
+    "same_exchange_deposit_not_same_owner": true
+  },
+  "clusters": {
+    "cluster_binance": {
+      "entity_label": "Binance",
+      "entity_type": "exchange",
+      "confidence_pct": 96,
+      "addresses": ["0xbinance_hot", "0xbinance_cold", "0xbinance_deposit"],
+      "heuristics": ["shared_counterparty", "timing_correlation", "funding_source"],
+      "supporting_links": [
+        {
+          "link_type": "shared_counterparty",
+          "addresses": ["0xbinance_hot", "0xbinance_cold"],
+          "counterparty": "0xbinance_treasury",
+          "heuristics": ["shared_counterparty", "timing_correlation"],
+          "timing_score": 0.92,
+          "why": "Both addresses receive from same treasury within 2h windows"
+        },
+        {
+          "link_type": "shared_exchange_deposit",
+          "addresses": ["0xuser_a", "0xuser_b", "0xbinance_deposit"],
+          "heuristics": ["shared_counterparty"],
+          "suppressed": true,
+          "suppression_reason": "same_exchange_deposit_not_same_owner"
+        }
+      ]
+    },
+    "cluster_coinbase": {
+      "entity_label": "Coinbase",
+      "entity_type": "exchange",
+      "confidence_pct": 94,
+      "addresses": ["0xcoinbase_hot", "0xcoinbase_cold", "0xcoinbase_custody"],
+      "heuristics": ["shared_counterparty", "timing_correlation", "funding_source"],
+      "supporting_links": [
+        {
+          "link_type": "funding_source",
+          "addresses": ["0xcoinbase_hot", "0xcoinbase_cold"],
+          "funding_source": "0xcoinbase_treasury",
+          "heuristics": ["funding_source", "timing_correlation", "shared_counterparty"],
+          "timing_score": 0.88,
+          "why": "Shared funding source from Coinbase treasury with 88% timing correlation"
+        }
+      ]
+    },
+    "cluster_whale_alpha": {
+      "entity_label": "Whale Alpha Fund",
+      "entity_type": "fund",
+      "confidence_pct": 82,
+      "addresses": ["0xwhale_alpha", "0xwhale_alpha_alt"],
+      "heuristics": ["shared_counterparty", "timing_correlation", "funding_source"],
+      "supporting_links": [
+        {
+          "link_type": "shared_counterparty",
+          "addresses": ["0xwhale_alpha", "0xwhale_alpha_alt"],
+          "counterparty": "0xdefi_pool_shared",
+          "heuristics": ["shared_counterparty", "timing_correlation"],
+          "timing_score": 0.75,
+          "why": "Shared DeFi pool counterparty with correlated timing"
+        }
+      ]
+    },
+    "cluster_probable": {
+      "entity_label": "Probable Linked Wallets",
+      "entity_type": "unknown",
+      "confidence_pct": 55,
+      "addresses": ["0xprobable_link", "0xprobable_link_b"],
+      "heuristics": ["timing_correlation"],
+      "supporting_links": [
+        {
+          "link_type": "timing_correlation",
+          "addresses": ["0xprobable_link", "0xprobable_link_b"],
+          "heuristics": ["timing_correlation"],
+          "timing_score": 0.62,
+          "why": "Moderate timing correlation — insufficient for confirmed label"
+        }
+      ]
+    }
+  },
+  "address_index": {
+    "0xwhale_alpha": {"cluster_id": "cluster_whale_alpha"},
+    "0xwhale_alpha_alt": {"cluster_id": "cluster_whale_alpha"},
+    "0xbinance_hot": {"cluster_id": "cluster_binance"},
+    "0xbinance_cold": {"cluster_id": "cluster_binance"},
+    "0xcoinbase_hot": {"cluster_id": "cluster_coinbase"},
+    "0xcoinbase_custody": {"cluster_id": "cluster_coinbase"},
+    "0xprobable_link": {"cluster_id": "cluster_probable"},
+    "0xprobable_link_b": {"cluster_id": "cluster_probable"}
+  },
+  "precision_benchmark": {
+    "f1_target": 0.85,
+    "known_entities": [
+      {
+        "entity_id": "binance",
+        "entity_label": "Binance",
+        "cluster_id": "cluster_binance",
+        "known_addresses": ["0xbinance_hot", "0xbinance_cold"]
+      },
+      {
+        "entity_id": "coinbase",
+        "entity_label": "Coinbase",
+        "cluster_id": "cluster_coinbase",
+        "known_addresses": ["0xcoinbase_hot", "0xcoinbase_custody"]
+      }
+    ]
+  }
+}

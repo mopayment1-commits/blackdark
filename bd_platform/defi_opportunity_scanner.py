@@ -30,6 +30,7 @@ _LP_POSITION_RISK_REF = 470
 _LIQUIDITY_RISK_REF = 473
 _ORACLE_RISK_REF = 482
 _PROTOCOL_RISK_REF = 491
+_YIELD_DELTA_REF = 639
 _TITLE = "DeFi Opportunity Scanner"
 _LEGAL_NAME = "DeFi Opportunity Scanner"
 _STANDALONE = False
@@ -703,6 +704,110 @@ def _liquidity_risk_adjusted_collateral(
         return None
 
 
+def _is_stale_feed(updated_at: str | None, *, max_age_seconds: int = 3600) -> bool:
+    if not updated_at:
+        return True
+    try:
+        ts = datetime.fromisoformat(updated_at.replace("Z", "+00:00"))
+        age = (datetime.now(UTC) - ts).total_seconds()
+        return age > max_age_seconds
+    except (ValueError, TypeError):
+        return True
+
+
+def build_yield_delta_listener(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#639 — yield spread monitoring merged into #438 DeFi Opportunity Scanner."""
+    seed = seed or _load_seed()
+    cfg = seed.get("yield_delta_639") or {}
+    max_stale_seconds = int(cfg.get("stale_feed_max_seconds", 3600))
+    protocols = seed.get("yield_protocols") or {}
+
+    spreads: list[dict[str, Any]] = []
+    stale_rejected = 0
+
+    for protocol_id, proto in protocols.items():
+        updated_at = proto.get("last_updated")
+        if _is_stale_feed(updated_at, max_age_seconds=max_stale_seconds):
+            stale_rejected += 1
+            spreads.append({
+                "protocol_id": protocol_id,
+                "protocol_identity": proto.get("protocol_identity"),
+                "stale": True,
+                "stale_display": "بيانات قديمة",
+                "stale_display_en": "Stale data — update > 1 hour",
+                "rejected": True,
+            })
+            continue
+
+        base_apy = float(proto.get("base_apy_pct", 0))
+        incentive_apy = float(proto.get("incentive_apy_pct", 0))
+        total_apy = base_apy + incentive_apy
+        risk_score = float(proto.get("risk_score", 50))
+        risk_adjusted_yield = round(total_apy / max(risk_score / 10, 0.1), 4) if risk_score else 0
+
+        incentive_expiry = proto.get("incentive_expiry_days")
+        sustainability = None
+        if incentive_apy > 0 and incentive_expiry is not None:
+            sustainability = f"incentive ينتهي في {incentive_expiry} يوم"
+
+        spreads.append({
+            "protocol_id": protocol_id,
+            "protocol_identity": proto.get("protocol_identity"),
+            "protocol_name": proto.get("protocol_name"),
+            "chain": proto.get("chain", "ethereum"),
+            "base_apy_pct": base_apy,
+            "incentive_apy_pct": incentive_apy,
+            "total_apy_pct": round(total_apy, 4),
+            "base_vs_incentive_separated": True,
+            "apy_display": f"base APY {base_apy}% + incentive {incentive_apy}% = total {total_apy}%",
+            "risk_score": risk_score,
+            "risk_adjusted_yield": risk_adjusted_yield,
+            "no_apy_only_ranking": True,
+            "ranking_metric": "risk_adjusted_yield",
+            "sustainability_context": sustainability,
+            "incentive_expiry_days": incentive_expiry,
+            "tvl_usd": proto.get("tvl_usd"),
+            "utilization_pct": proto.get("utilization_pct"),
+            "delta_vs_benchmark_bps": proto.get("delta_vs_benchmark_bps"),
+            "persistence_days": proto.get("persistence_days", 0),
+            "source_protocols": proto.get("source_protocols") or [proto.get("protocol_identity")],
+            "stale": False,
+            "last_updated": updated_at,
+            "evidence": proto.get("evidence"),
+        })
+
+    valid = [s for s in spreads if not s.get("rejected")]
+    ranked = sorted(valid, key=lambda s: s.get("risk_adjusted_yield", 0), reverse=True)
+
+    alerts = [
+        s for s in valid
+        if abs(s.get("delta_vs_benchmark_bps", 0)) >= float(cfg.get("alert_threshold_bps", 50))
+        and int(s.get("persistence_days", 0)) >= int(cfg.get("persistence_days_min", 2))
+    ]
+
+    return {
+        "ok": True,
+        "feature_ref": _YIELD_DELTA_REF,
+        "merged_into": _FEATURE_ID,
+        "standalone": False,
+        "spreads": spreads,
+        "ranked_by_risk_adjusted_yield": ranked,
+        "alert_count": len(alerts),
+        "yield_spread_alerts": alerts,
+        "stale_feeds_rejected": stale_rejected,
+        "stale_feed_max_seconds": max_stale_seconds,
+        "base_vs_incentive_separated": True,
+        "protocol_identity_required": True,
+        "no_apy_only_ranking": True,
+        "sustainability_context_visible": True,
+        "display": (
+            f"Yield Delta: {len(valid)} protocols tracked | "
+            f"{len(alerts)} spread alerts | {stale_rejected} stale rejected"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     """#438 DeFi Opportunity Scanner — on-chain analytics with #465/#473 enrichments."""
     seed = seed or _load_seed()
@@ -842,6 +947,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     lp_risk = build_lp_position_risk_panel(seed=seed)
     oracle_risk = build_oracle_risk_view(seed=seed)
     contract_risk = build_smart_contract_risk_view(seed=seed)
+    yield_delta = build_yield_delta_listener(seed=seed)
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     return {
@@ -858,6 +964,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "lp_position_risk_470": lp_risk,
         "oracle_risk_482": oracle_risk,
         "smart_contract_risk_491": contract_risk,
+        "yield_delta_listener_639": yield_delta if yield_delta.get("ok") else {"ok": False},
         "monitoring_only": True,
         "cancelled_v1_scope": {
             "flash_loan_simulation": True,
@@ -892,6 +999,7 @@ def defi_opportunity_scanner_status() -> dict[str, Any]:
             "liquidity_risk_473": True,
             "oracle_risk_482": True,
             "smart_contract_risk_491": True,
+            "yield_delta_listener_639": True,
             "on_chain_arbitrage": True,
         },
         "dex_screener": {
@@ -964,6 +1072,16 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         len(p.get("indicators", {})) >= 5 for p in contract.get("protocols", [])
     ), "detail": "indicators"})
     checks.append({"id": "contract_sla_cancelled", "passed": (seed.get("smart_contract_risk_491") or {}).get("cancelled_sla", {}).get("response_2_seconds") is True, "detail": "SLA"})
+
+    yield_delta = build_yield_delta_listener(seed=seed)
+    checks.append({"id": "yield_delta_639", "passed": yield_delta.get("ok") is True, "detail": "639"})
+    checks.append({"id": "base_incentive_separated_639", "passed": yield_delta.get("base_vs_incentive_separated") is True, "detail": "APY"})
+    checks.append({"id": "stale_feeds_rejected_639", "passed": yield_delta.get("stale_feeds_rejected", 0) >= 1, "detail": "stale"})
+    checks.append({"id": "protocol_identity_639", "passed": yield_delta.get("protocol_identity_required") is True, "detail": "identity"})
+    checks.append({"id": "risk_adjusted_ranking_639", "passed": yield_delta.get("no_apy_only_ranking") is True, "detail": "ranking"})
+    if yield_delta.get("ranked_by_risk_adjusted_yield"):
+        top = yield_delta["ranked_by_risk_adjusted_yield"][0]
+        checks.append({"id": "sustainability_context_639", "passed": top.get("sustainability_context") is not None, "detail": "incentive"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

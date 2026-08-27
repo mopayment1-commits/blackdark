@@ -140,11 +140,20 @@ def build_wallet_profile(
         from bd_platform.transaction_flow_view import build_transaction_flow_graph
 
         graph = build_transaction_flow_graph(flow_address)
+        cluster_637 = wallet.get("entity_cluster") or {}
+        try:
+            from bd_platform.whale_clustering_engine import get_cluster_affiliation_for_address
+
+            engine_cluster = get_cluster_affiliation_for_address(address)
+            if engine_cluster:
+                cluster_637 = {**cluster_637, **engine_cluster}
+        except Exception:
+            logger.debug("cluster engine 637 hook skipped", exc_info=True)
         relationships_tab = {
             "tab": "relationships",
             "transaction_flow_615": graph if graph.get("ok") else {"ok": False},
-            "cluster_637": wallet.get("entity_cluster") or {},
-            "cluster_display": wallet.get("cluster_display"),
+            "cluster_637": cluster_637,
+            "cluster_display": wallet.get("cluster_display") or cluster_637.get("cluster_display"),
             "freshness": _freshness_block(wallet.get("freshness_seconds"), source="onchain"),
         }
     except Exception:
