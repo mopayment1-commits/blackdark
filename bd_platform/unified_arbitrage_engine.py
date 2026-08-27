@@ -511,6 +511,40 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     enriched = [enrich_opportunity(o, seed=seed) for o in filtered]
     enriched.sort(key=lambda o: float(o.get("net_edge_usdt", 0)), reverse=True)
 
+    strategy_gate = None
+    display_opportunities = enriched
+    suppressed: list[dict[str, Any]] = []
+    try:
+        from bd_platform.strategy_vetting import filter_displayable_strategies
+
+        sv_seed_path = Path("data/strategy_vetting_seed.json")
+        if sv_seed_path.is_file():
+            sv_seed = json.loads(sv_seed_path.read_text(encoding="utf-8"))
+            links = sv_seed.get("arbitrage_strategy_links") or {}
+            strategy_ids = list(set(links.values()))
+            strategy_gate = filter_displayable_strategies(strategy_ids, seed=sv_seed)
+            approved_ids = {s["strategy_id"] for s in strategy_gate.get("approved") or []}
+
+            filtered_display: list[dict[str, Any]] = []
+            for opp in enriched:
+                link_key = opp.get("opportunity_id") or opp.get("loop_id")
+                linked_strategy = links.get(str(link_key))
+                if linked_strategy and linked_strategy not in approved_ids:
+                    opp_copy = dict(opp)
+                    opp_copy["suppressed_by_strategy_quality_gate_492"] = True
+                    opp_copy["linked_strategy_id"] = linked_strategy
+                    suppressed.append(opp_copy)
+                else:
+                    if linked_strategy:
+                        opp["strategy_vetting_492"] = next(
+                            (s for s in strategy_gate.get("approved") or [] if s["strategy_id"] == linked_strategy),
+                            None,
+                        )
+                    filtered_display.append(opp)
+            display_opportunities = filtered_display
+    except Exception:
+        logger.debug("strategy quality gate filter skipped", exc_info=True)
+
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
     return {
         "ok": True,
@@ -521,8 +555,10 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "merged_into": _MERGED_INTO,
         "sprint": _SPRINT,
         "priority": _PRIORITY,
-        "opportunities": enriched,
-        "count": len(enriched),
+        "opportunities": display_opportunities,
+        "suppressed_opportunities_492": suppressed,
+        "strategy_quality_gate_492": strategy_gate,
+        "count": len(display_opportunities),
         "raw_count": len(raw),
         "deduped_count": len(deduped),
         "categories": {

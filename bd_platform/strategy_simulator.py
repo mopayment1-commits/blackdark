@@ -466,6 +466,13 @@ def build_strategy_simulator_panel() -> dict[str, Any]:
     backtest = build_paper_backtest_30d(seed)
     risk_budget = build_risk_budget_on_paper(seed)
     paper_account = build_paper_account(seed)
+    approved_strategies = None
+    try:
+        from bd_platform.strategy_vetting import build_approved_strategies_for_simulator
+
+        approved_strategies = build_approved_strategies_for_simulator()
+    except Exception:
+        logger.debug("strategy vetting simulator integration skipped", exc_info=True)
 
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
     return {
@@ -503,12 +510,14 @@ def build_strategy_simulator_panel() -> dict[str, Any]:
         "risk_budget_integration": risk_budget,
         "backtest_30d": backtest,
         "paper_account": paper_account.get("paper_account"),
+        "approved_strategies_492": approved_strategies,
         "integrations": {
             "live_breakeven_tracker": _BREAKEVEN_FEATURE_ID,
             "capital_awareness_controls": _CAPITAL_AWARENESS_FEATURE_ID,
             "intelligence_ledger_signals": True,
             "fee_matrix_db": True,
             "fill_feasibility_slippage_415": True,
+            "strategy_vetting_492": True,
         },
         "acceptance_criteria": {
             "real_money_blocked": True,

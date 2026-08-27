@@ -1,0 +1,108 @@
+{
+  "feature_id": 492,
+  "title": "Strategy Quality Gate",
+  "legal_name": "Strategy Vetting Algorithm",
+  "standalone": false,
+  "merged_into": "Sprint-2 Intelligence Ledger / Strategy Quality Gate",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-27",
+  "vetting_config": {
+    "thresholds_version": "1.0.0",
+    "min_display_grade": "B",
+    "min_trade_count": 100
+  },
+  "grade_thresholds": {
+    "A": 85,
+    "B": 70,
+    "C": 55,
+    "D": 40
+  },
+  "factor_weights": {
+    "backtest_length": 0.15,
+    "out_of_sample_period": 0.20,
+    "max_drawdown": 0.20,
+    "turnover": 0.15,
+    "sharpe_stability": 0.15,
+    "regime_coverage": 0.15
+  },
+  "strategies": {
+    "momentum_cross_venue": {
+      "name": "Cross-Venue Momentum",
+      "description": "Momentum signal across CEX venues with documented costs",
+      "backtest_months": 30,
+      "out_of_sample_pct": 30,
+      "max_drawdown_pct": 18,
+      "turnover_annual": 4.2,
+      "sharpe_stability": 0.82,
+      "regime_coverage_count": 4,
+      "backtest_sharpe": 1.35,
+      "live_sharpe": 1.10,
+      "trade_count": 245,
+      "out_of_sample_evidence": true,
+      "evidence_links": [
+        {"type": "backtest_report", "url": "/docs/strategies/momentum_cross_venue_backtest.pdf"},
+        {"type": "walk_forward", "url": "/docs/strategies/momentum_cross_venue_oos.json"}
+      ]
+    },
+    "funding_basis_carry": {
+      "name": "Funding Basis Carry",
+      "description": "Delta-neutral funding capture with risk controls",
+      "backtest_months": 24,
+      "out_of_sample_pct": 25,
+      "max_drawdown_pct": 12,
+      "turnover_annual": 2.8,
+      "sharpe_stability": 0.88,
+      "regime_coverage_count": 3,
+      "backtest_sharpe": 1.55,
+      "live_sharpe": 1.40,
+      "trade_count": 180,
+      "out_of_sample_evidence": true,
+      "evidence_links": [
+        {"type": "backtest_report", "url": "/docs/strategies/funding_basis_carry_backtest.pdf"}
+      ]
+    },
+    "overfit_momentum": {
+      "name": "High-Frequency Momentum",
+      "description": "Short-horizon momentum with live degradation",
+      "backtest_months": 36,
+      "out_of_sample_pct": 15,
+      "max_drawdown_pct": 22,
+      "turnover_annual": 12,
+      "sharpe_stability": 0.45,
+      "regime_coverage_count": 2,
+      "backtest_sharpe": 2.10,
+      "live_sharpe": 0.85,
+      "trade_count": 520,
+      "out_of_sample_evidence": true,
+      "evidence_links": []
+    },
+    "guaranteed_alpha": {
+      "name": "Guaranteed Alpha",
+      "description": "ربح مؤكد every month",
+      "marketing_claim": "guaranteed return strategy",
+      "backtest_months": 12,
+      "trade_count": 200
+    },
+    "low_sample_scalper": {
+      "name": "Experimental Scalper",
+      "description": "Early-stage scalper with limited history",
+      "backtest_months": 6,
+      "out_of_sample_pct": 20,
+      "max_drawdown_pct": 15,
+      "turnover_annual": 8,
+      "sharpe_stability": 0.70,
+      "regime_coverage_count": 2,
+      "backtest_sharpe": 1.20,
+      "live_sharpe": 1.15,
+      "trade_count": 42,
+      "out_of_sample_evidence": false,
+      "evidence_links": []
+    }
+  },
+  "arbitrage_strategy_links": {
+    "tri_btc_eth_usdt": "momentum_cross_venue",
+    "defi_eth_lst_001": "funding_basis_carry"
+  }
+}

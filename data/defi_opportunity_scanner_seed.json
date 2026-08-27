@@ -15,7 +15,8 @@
     "465": "DEX Screener",
     "470": "LP Position Risk Calculator",
     "473": "Liquidity Risk",
-    "482": "Oracle Risk"
+    "482": "Oracle Risk",
+    "491": "Smart Contract and Protocol Risk"
   },
   "dex_screener_465": {
     "feature_ref": 465,
@@ -382,6 +383,73 @@
       "maker": 3.2,
       "curve": 2.1,
       "lido": 6.8
+    }
+  },
+  "opportunity_protocol_map": {
+    "defi_eth_lst_001": "lido",
+    "defi_uni_liq_001": "uniswap",
+    "eth": "aave",
+    "uni": "uniswap"
+  },
+  "smart_contract_risk_491": {
+    "feature_ref": 491,
+    "title": "Smart Contract and Protocol Risk",
+    "data_sources_v1": ["defillama", "immunefi"],
+    "no_internal_scanner_v1": true,
+    "cancelled_sla": {
+      "response_2_seconds": true,
+      "accuracy_95_pct": true,
+      "uptime_99_pct": true,
+      "real_time_update": true
+    },
+    "mandatory_indicators": [
+      "contract_verified",
+      "audit_history",
+      "bug_bounty_active",
+      "admin_keys_renounced",
+      "upgradeability"
+    ]
+  },
+  "protocol_contracts": {
+    "aave": {
+      "protocol": "Aave",
+      "chain": "ethereum",
+      "contract_verified_etherscan": true,
+      "audit_history": ["certik", "openzeppelin"],
+      "bug_bounty_active": true,
+      "admin_keys_renounced": false,
+      "upgradeability": "governance_timelock",
+      "data_sources": ["defillama", "immunefi"]
+    },
+    "uniswap": {
+      "protocol": "Uniswap",
+      "chain": "ethereum",
+      "contract_verified_etherscan": true,
+      "audit_history": ["trail_of_bits"],
+      "bug_bounty_active": true,
+      "admin_keys_renounced": true,
+      "upgradeability": "immutable",
+      "data_sources": ["defillama", "immunefi"]
+    },
+    "lido": {
+      "protocol": "Lido",
+      "chain": "ethereum",
+      "contract_verified_etherscan": true,
+      "audit_history": ["certik", "mixbytes"],
+      "bug_bounty_active": true,
+      "admin_keys_renounced": false,
+      "upgradeability": "upgradeable_proxy",
+      "data_sources": ["defillama", "immunefi"]
+    },
+    "curve": {
+      "protocol": "Curve",
+      "chain": "ethereum",
+      "contract_verified_etherscan": true,
+      "audit_history": ["chainsecurity"],
+      "bug_bounty_active": false,
+      "admin_keys_renounced": false,
+      "upgradeability": "governance_timelock",
+      "data_sources": ["defillama"]
     }
   }
 }

@@ -11,7 +11,7 @@
   "last_updated": "2026-08-27",
   "existing_module": true,
   "no_new_module_built": true,
-  "merged_features": [448, 450, 483],
+  "merged_features": [448, 450, 483, 490],
   "sharpe_drawdown_winrate_sla_cancelled": true,
   "portfolio_id": "demo_portfolio",
   "integrations": {
@@ -21,6 +21,35 @@
     "fill_risk_assessment_433": true,
     "strategy_simulator_411": true,
     "roi_ath_intelligence_483": true
+  },
+  "sharpe_intelligence_490": {
+    "feature_ref": 490,
+    "title": "Sharpe Ratio Intelligence",
+    "methodology_version": "1.0",
+    "benchmark": "sector_average",
+    "risk_free_policy": {
+      "version": "1.0",
+      "source": "3_month_t_bill_proxy",
+      "rate_annual_pct": 4.25,
+      "fallback_zero_if_unavailable": true,
+      "explicit": true
+    }
+  },
+  "portfolio_sector": "crypto_balanced",
+  "sector_sharpe_averages": {
+    "30d": 0.85,
+    "90d": 1.05,
+    "1y": 1.15,
+    "crypto_balanced_30d": 0.90,
+    "crypto_balanced_90d": 1.10,
+    "crypto_balanced_1y": 1.20
+  },
+  "sharpe_windows": {
+    "demo_portfolio": {
+      "30d": {"mean_daily_return": 0.0012, "std_daily_return": 0.018, "prior_sharpe": 1.05},
+      "90d": {"mean_daily_return": 0.0009, "std_daily_return": 0.016, "prior_sharpe": 1.00},
+      "1y": {"mean_daily_return": 0.0008, "std_daily_return": 0.015, "prior_sharpe": 0.95}
+    }
   },
   "roi_ath_483": {
     "feature_ref": 483,
