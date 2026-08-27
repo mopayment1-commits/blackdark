@@ -404,6 +404,129 @@ async def alpha_engine_ranking(limit: int = Query(25, ge=5, le=50)):
     return await rank_alpha_universe(limit=limit)
 
 
+@router.get("/alpha/backtest")
+async def alpha_engine_backtest(asset: str = Query("BTC")):
+    """Alpha Engine (#13) — MVP walk-forward backtest with realistic thresholds."""
+    from bd_platform.alpha_backtest import alpha_backtest_summary
+
+    return await alpha_backtest_summary(asset)
+
+
+@router.get("/decision/inputs")
+async def decision_engine_inputs(asset: str = Query("ETH")):
+    """Decision Engine (#48) — internal metrics from silent data layer (#97, #95, #93)."""
+    from bd_platform.decision_engine_inputs import gather_decision_inputs
+
+    return await gather_decision_inputs(asset)
+
+
+@router.get("/ingestion/data-layer/status")
+async def ingestion_data_layer_status():
+    """Infrastructure — silent data layer connector health."""
+    from blackdark.data.circuit_breaker import snapshot as circuit_snapshot
+    from blackdark.ingestion.investing_com_connector import investing_com_connector_status
+    from blackdark.ingestion.lending_markets_connector import lending_markets_connector_status
+    from blackdark.ingestion.polygon_io_connector import polygon_io_connector_status
+    from blackdark.ingestion.polygonscan_connector import polygonscan_connector_status
+    from blackdark.ingestion.gateio_connector import gateio_connector_status
+    from blackdark.ingestion.kucoin_connector import kucoin_connector_status
+    from blackdark.ingestion.marketwatch_connector import marketwatch_connector_status
+    from blackdark.ingestion.tronscan_connector import tronscan_connector_status
+    from blackdark.ingestion.binance_connector import binance_connector_status
+    from blackdark.ingestion.solana_rpc_connector import solana_rpc_connector_status
+    from blackdark.ingestion.theblock_connector import theblock_connector_status
+    from blackdark.ingestion.twelvedata_connector import twelvedata_connector_status
+    from bd_platform.execution_optimizer import execution_optimizer_status
+    from bd_platform.market_microstructure import market_microstructure_status
+    from bd_platform.network_growth_intelligence import network_growth_status
+    from bd_platform.options_intelligence import options_intelligence_status
+    from bd_platform.puell_multiple import puell_multiple_status
+    from blackdark.ingestion.okx_connector import okx_connector_status
+
+    return {
+        "circuit_breakers": circuit_snapshot(),
+        "resilience_pattern": "#32",
+        "binance": binance_connector_status(),
+        "exchange_flow_metric": {"ok": True, "feature": "#97", "role": "decision_engine_input"},
+        "exchange_netflow": {"ok": True, "feature": "#54", "role": "decision_engine_input"},
+        "futures_cvd": {"ok": True, "feature": "#59", "role": "decision_engine_input"},
+        "gateio": gateio_connector_status(),
+        "kucoin": kucoin_connector_status(),
+        "marketwatch": marketwatch_connector_status(),
+        "historical_flat_archive": {"ok": True, "feature": "#66", "role": "backtest_infrastructure"},
+        "lending_markets": lending_markets_connector_status(),
+        "order_flow_intelligence": {"ok": True, "feature": "#85", "role": "decision_engine_input"},
+        "polygon_io": polygon_io_connector_status(),
+        "polygonscan": polygonscan_connector_status(),
+        "tronscan": tronscan_connector_status(),
+        "theblock": theblock_connector_status(),
+        "twelvedata": twelvedata_connector_status(),
+        "execution_optimizer": execution_optimizer_status(),
+        "flash_crash_protection": {"ok": True, "feature": "#57", "role": "circuit_breaker"},
+        "market_microstructure": market_microstructure_status(),
+        "network_growth": network_growth_status(),
+        "okx": okx_connector_status(),
+        "options_intelligence": options_intelligence_status(),
+        "puell_multiple": puell_multiple_status(),
+        "investing_com": investing_com_connector_status(),
+        "solana_rpc": solana_rpc_connector_status(),
+    }
+
+
+@router.post("/user/behavioral-learning/opt-in")
+async def behavioral_learning_opt_in(user_id: str = Query(..., min_length=1)):
+    from bd_platform.user_behavioral_learning import opt_in_behavioral_learning
+
+    return opt_in_behavioral_learning(user_id=user_id)
+
+
+@router.post("/user/behavioral-learning/opt-out")
+async def behavioral_learning_opt_out(
+    user_id: str = Query(..., min_length=1),
+    purge_events: bool = Query(False),
+):
+    from bd_platform.user_behavioral_learning import opt_out_behavioral_learning
+
+    return opt_out_behavioral_learning(user_id=user_id, purge_events=purge_events)
+
+
+@router.get("/user/behavioral-learning/status")
+async def behavioral_learning_user_status(user_id: str = Query(..., min_length=1)):
+    from bd_platform.user_behavioral_learning import behavioral_learning_status
+
+    return behavioral_learning_status(user_id=user_id)
+
+
+@router.post("/user/behavioral-learning/record")
+async def behavioral_learning_record(
+    user_id: str = Query(..., min_length=1),
+    topic: str = Query(..., min_length=1),
+    surface: str = Query("page"),
+):
+    from bd_platform.user_behavioral_learning import record_behavior_event
+
+    return record_behavior_event(user_id=user_id, topic=topic, surface=surface)
+
+
+@router.get("/user/behavioral-learning/ranked-topics")
+async def behavioral_learning_ranked(
+    user_id: str = Query(..., min_length=1),
+    candidates: str | None = Query(None, description="Comma-separated topics"),
+    limit: int = Query(10, ge=1, le=50),
+):
+    from bd_platform.user_behavioral_learning import ranked_topics_for_user
+
+    pool = [t.strip() for t in (candidates or "").split(",") if t.strip()] or None
+    return ranked_topics_for_user(user_id=user_id, candidates=pool, limit=limit)
+
+
+@router.get("/user/behavioral-learning/module-status")
+async def behavioral_learning_module_status_api():
+    from bd_platform.user_behavioral_learning import behavioral_learning_module_status
+
+    return behavioral_learning_module_status()
+
+
 @router.get("/defi/il/pools")
 async def il_pools(query: str = Query("ETH USDC"), limit: int = Query(15, ge=1, le=30)):
     from lp_il_simulator import fetch_live_pools
@@ -496,6 +619,108 @@ async def mvrv_realignment(asset: str = Query("BTC")):
     return await compute_mvrv_realignment(asset)
 
 
+@router.get("/onchain/mvrv-cycle")
+async def mvrv_cycle_context(asset: str = Query("BTC")):
+    """MVRV Z-Score (#72) — cycle zone for Decision Engine regime filter."""
+    from bd_platform.mvrv_realignment import mvrv_cycle_context_for_decision_engine
+
+    return await mvrv_cycle_context_for_decision_engine(asset)
+
+
+@router.get("/onchain/puell")
+async def puell_multiple_analyze():
+    """Puell Multiple (#89) — miner profitability + zone classification."""
+    from bd_platform.puell_multiple import compute_puell_multiple
+
+    return await compute_puell_multiple()
+
+
+@router.get("/onchain/puell-cycle")
+async def puell_cycle_context():
+    """Puell Multiple (#89) — Decision Engine compact payload (≥12% weight)."""
+    from bd_platform.puell_multiple import puell_for_decision_engine
+
+    return await puell_for_decision_engine("BTC")
+
+
+@router.get("/onchain/puell/status")
+async def puell_multiple_status_route():
+    from bd_platform.puell_multiple import puell_multiple_status
+
+    return puell_multiple_status()
+
+
+@router.post("/trading-journal/trades")
+async def trading_journal_record(
+    user_id: str = Query(..., min_length=1),
+    pair: str = Query(...),
+    side: str = Query("buy"),
+    entry_price: float = Query(..., gt=0),
+    exit_price: float | None = Query(None),
+    size_usd: float = Query(..., gt=0),
+    fees_usd: float = Query(0, ge=0),
+    exchange: str = Query("manual"),
+    mood: str | None = Query(None),
+    notes: str | None = Query(None),
+    ai_signal_followed: bool | None = Query(None),
+):
+    from bd_platform.trading_journal_coach import record_trade
+
+    return record_trade(
+        user_id=user_id,
+        pair=pair,
+        side=side,
+        entry_price=entry_price,
+        exit_price=exit_price,
+        size_usd=size_usd,
+        fees_usd=fees_usd,
+        exchange=exchange,
+        mood=mood,
+        notes=notes,
+        ai_signal_followed=ai_signal_followed,
+    )
+
+
+@router.post("/trading-journal/import")
+async def trading_journal_import(
+    user_id: str = Query(..., min_length=1),
+    exchange: str = Query(...),
+    trades: list[dict[str, Any]] = Body(...),
+):
+    from bd_platform.trading_journal_coach import import_exchange_trades
+
+    return import_exchange_trades(user_id=user_id, exchange=exchange, trades=trades)
+
+
+@router.get("/trading-journal/dashboard")
+async def trading_journal_dashboard(user_id: str = Query(..., min_length=1)):
+    from bd_platform.trading_journal_coach import journal_dashboard
+
+    return journal_dashboard(user_id)
+
+
+@router.get("/trading-journal/coach-report")
+async def trading_journal_coach_report(user_id: str = Query(..., min_length=1)):
+    from bd_platform.trading_journal_coach import weekly_report_card
+
+    return weekly_report_card(user_id)
+
+
+@router.get("/trading-journal/mistakes")
+async def trading_journal_mistakes(user_id: str = Query(..., min_length=1)):
+    from bd_platform.trading_journal_coach import _load_trades, _user_hash, detect_mistakes
+
+    trades = _load_trades(_user_hash(user_id))
+    return {"ok": True, "feature": "#99", "mistakes": detect_mistakes(trades), "private": True}
+
+
+@router.get("/trading-journal/status")
+async def trading_journal_status():
+    from bd_platform.trading_journal_coach import trading_journal_module_status
+
+    return trading_journal_module_status()
+
+
 @router.get("/alpha/factor-ranking")
 async def alpha_factor_ranking(limit: int = Query(25, ge=5, le=50)):
     from bd_platform.alpha_factor_ranking import rank_assets_by_alpha_factors
@@ -508,6 +733,114 @@ async def squeeze_triggers(asset: str = Query("BTC")):
     from bd_platform.squeeze_trigger_engine import squeeze_trigger_coordinates
 
     return await squeeze_trigger_coordinates(asset)
+
+
+@router.get("/microstructure/analyze")
+async def market_microstructure_analyze(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100, le=10_000_000),
+):
+    """Market Microstructure Intelligence (#74) — toxicity, spoofing, liquidity health."""
+    from bd_platform.market_microstructure import analyze_market_microstructure
+
+    return await analyze_market_microstructure(asset, amount_usd=amount_usd)
+
+
+@router.get("/microstructure/status")
+async def market_microstructure_status_route():
+    from bd_platform.market_microstructure import market_microstructure_status
+
+    return market_microstructure_status()
+
+
+@router.get("/network-growth/analyze")
+async def network_growth_analyze(asset: str = Query("SOL")):
+    """Network Growth Intelligence (#78) — first-seen addresses + acceleration."""
+    from bd_platform.network_growth_intelligence import analyze_network_growth
+
+    return await analyze_network_growth(asset)
+
+
+@router.get("/network-growth/status")
+async def network_growth_status_route():
+    from bd_platform.network_growth_intelligence import network_growth_status
+
+    return network_growth_status()
+
+
+@router.get("/okx/ticker")
+async def okx_ticker_route(asset: str = Query("BTC")):
+    """OKX connector (#80) — spot + swap market data."""
+    from blackdark.ingestion.okx_connector import fetch_okx_market_context
+
+    return await fetch_okx_market_context(asset)
+
+
+@router.get("/okx/status")
+async def okx_status_route():
+    from blackdark.ingestion.okx_connector import okx_connector_status
+
+    return okx_connector_status()
+
+
+@router.get("/options/intelligence")
+async def options_intelligence_route(asset: str = Query("BTC")):
+    """Options Intelligence (#82 IV Surface + #83 Term Structure)."""
+    from bd_platform.options_intelligence import analyze_options_intelligence
+
+    return await analyze_options_intelligence(asset)
+
+
+@router.get("/options/status")
+async def options_intelligence_status_route():
+    from bd_platform.options_intelligence import options_intelligence_status
+
+    return options_intelligence_status()
+
+
+@router.get("/execution/optimize")
+async def execution_optimizer_route(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100.0, le=10_000_000.0),
+    chain: str = Query("ethereum"),
+    side: str = Query("buy"),
+    priority: str = Query("cost"),
+    cross_chain: bool = Query(False),
+):
+    """AI Execution Optimizer (#56) — true cost routing across 20+ DEX + 5 CEX."""
+    from bd_platform.execution_optimizer import optimize_execution
+
+    pri = priority if priority in {"cost", "speed", "safety"} else "cost"
+    return await optimize_execution(
+        asset=asset,
+        amount_usd=amount_usd,
+        chain=chain,
+        side=side,
+        priority=pri,  # type: ignore[arg-type]
+        cross_chain=cross_chain,
+    )
+
+
+@router.get("/execution/status")
+async def execution_optimizer_status_route():
+    from bd_platform.execution_optimizer import execution_optimizer_status
+
+    return execution_optimizer_status()
+
+
+@router.get("/flash-crash/evaluate")
+async def flash_crash_evaluate_route(asset: str = Query("BTC")):
+    """Flash-Crash Protection (#57) — anomaly detection + circuit breaker."""
+    from bd_platform.flash_crash_protection import evaluate_flash_protection
+
+    return await evaluate_flash_protection(asset)
+
+
+@router.get("/flash-crash/status")
+async def flash_crash_status_route(asset: str | None = Query(None)):
+    from bd_platform.flash_crash_protection import circuit_breaker_status
+
+    return circuit_breaker_status(asset)
 
 
 @router.get("/intelligence-ledger/execution")
@@ -593,6 +926,174 @@ async def address_intelligence_overview_route(
     from bd_platform.address_intelligence import address_intelligence_overview
 
     return await address_intelligence_overview(address, chain=chain, history_days=history_days)
+
+
+@router.get("/address-intelligence/balance-at")
+async def address_intelligence_balance_at(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+    as_of: str | None = Query(None, description="ISO-8601 timestamp for point-in-time query"),
+):
+    """Address Intelligence (#10/#19) — point-in-time balance semantics."""
+    from datetime import datetime
+
+    from bd_platform.address_state_index import query_balance_at
+
+    as_of_dt = None
+    if as_of:
+        as_of_dt = datetime.fromisoformat(as_of.replace("Z", "+00:00"))
+    return await query_balance_at(address, chain=chain, as_of=as_of_dt)
+
+
+@router.get("/address-intelligence/trace")
+async def address_intelligence_trace(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+    max_hops: int = Query(5, ge=1, le=8),
+):
+    """Address Intelligence (#18) — single-chain fund trace, no fabricated paths."""
+    from bd_platform.fund_trace import trace_funds
+
+    return await trace_funds(address, chain=chain, max_hops=max_hops)
+
+
+@router.get("/address-intelligence/block")
+async def address_intelligence_block(
+    block_number: int = Query(..., ge=1),
+    chain: str = Query("ethereum"),
+):
+    """On-Chain Intelligence (#23) — block details with reorg handling."""
+    from bd_platform.address_intelligence import search_block
+
+    return await search_block(block_number, chain=chain)
+
+
+@router.get("/correlation/matrix")
+async def correlation_matrix_route(
+    crypto: str | None = Query(None, description="Comma-separated crypto symbols"),
+    tradfi: str | None = Query(None, description="Comma-separated tradfi keys"),
+    window: int = Query(30, ge=7, le=90),
+):
+    """Cross-Asset Correlation (#42) — rolling matrix with window/significance."""
+    from bd_platform.cross_asset_correlation import compute_correlation_matrix
+
+    crypto_list = [s.strip() for s in (crypto or "").split(",") if s.strip()] or None
+    tradfi_list = [s.strip() for s in (tradfi or "").split(",") if s.strip()] or None
+    return await compute_correlation_matrix(
+        crypto_assets=crypto_list,
+        tradfi_assets=tradfi_list,
+        window=window,
+    )
+
+
+@router.get("/correlation/view")
+async def correlation_view_route(
+    asset: str = Query("BTC"),
+    window: int = Query(30, ge=7, le=90),
+):
+    """Cross-Asset Correlation (#42) — Portfolio AI / Risk Dashboard view."""
+    from bd_platform.cross_asset_correlation import correlation_view_for_asset
+
+    return await correlation_view_for_asset(asset, window=window)
+
+
+@router.get("/warehouse/cross-chain/status")
+async def cross_chain_warehouse_status():
+    """Cross-Chain Data Warehouse (#43) — infrastructure status."""
+    from bd_platform.cross_chain_warehouse import warehouse_status
+
+    return warehouse_status()
+
+
+@router.get("/warehouse/cross-chain/semantics")
+async def cross_chain_warehouse_semantics():
+    """Cross-Chain Data Warehouse (#43) — documented chain semantics."""
+    from bd_platform.cross_chain_warehouse import list_chain_semantics
+
+    return list_chain_semantics()
+
+
+@router.get("/warehouse/cross-chain/transactions")
+async def cross_chain_warehouse_transactions(
+    chain: str | None = Query(None),
+    address: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+    cursor: str | None = Query(None),
+):
+    """Cross-Chain Data Warehouse (#43) — warehouse transaction access."""
+    from bd_platform.cross_chain_warehouse import query_warehouse_transactions
+
+    return query_warehouse_transactions(chain=chain, address=address, limit=limit, cursor=cursor)
+
+
+@router.get("/decision/graph")
+async def decision_graph_route(
+    asset: str = Query("BTC"),
+    focus_node: str | None = Query(None),
+    limit: int = Query(20, ge=5, le=50),
+):
+    """Decision Graph (#47) — interactive causal graph from live data."""
+    from bd_platform.decision_graph import build_causal_decision_graph
+
+    return await build_causal_decision_graph(asset=asset, focus_node=focus_node, limit=limit)
+
+
+@router.get("/decision/graph/node")
+async def decision_graph_node_route(
+    node_id: str = Query(..., min_length=4),
+    asset: str = Query("BTC"),
+):
+    """Decision Graph (#47) — expand clicked node (interactive)."""
+    from bd_platform.decision_graph import expand_node
+
+    return await expand_node(node_id=node_id, asset=asset)
+
+
+@router.get("/cross-chain/explorer")
+async def cross_chain_explorer_route(
+    address: str = Query(..., min_length=10),
+    tx_limit: int = Query(25, ge=5, le=100),
+):
+    """Unified Cross-Chain Explorer (#101) — one address, all chains."""
+    from bd_platform.cross_chain_explorer import unified_address_explorer
+
+    return await unified_address_explorer(address, tx_limit=tx_limit)
+
+
+@router.get("/transactions/search")
+async def transaction_search_route(
+    address: str | None = Query(None),
+    chain: str | None = Query(None),
+    start_time: int | None = Query(None, description="Unix timestamp inclusive"),
+    end_time: int | None = Query(None, description="Unix timestamp inclusive"),
+    cursor: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=100),
+    refresh: bool = Query(False),
+):
+    """Transaction Search (#101) — indexed filter/sort with cursor pagination."""
+    from bd_platform.cross_chain_explorer import search_transactions
+
+    chains = [chain] if chain else None
+    return await search_transactions(
+        address=address,
+        chains=chains,
+        start_time=start_time,
+        end_time=end_time,
+        cursor=cursor,
+        limit=limit,
+        refresh=refresh,
+    )
+
+
+@router.get("/transactions/decode")
+async def transaction_decode_route(
+    tx_hash: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+):
+    """Transaction Decoder (#100) — human-readable explanation, no hallucinated intent."""
+    from bd_platform.transaction_decoder import decode_transaction
+
+    return await decode_transaction(tx_hash=tx_hash, chain=chain)
 
 
 @router.get("/macro/bitcoin")

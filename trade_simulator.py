@@ -82,7 +82,18 @@ async def simulate_spot_trade(
     hourly_drift = change / 24.0 if hold_hours else change
 
     entry_fee = _fee_usd(amount_usd)
-    net_notional = amount_usd - entry_fee if side == "buy" else amount_usd
+    execution_slippage_bps = 0.0
+    try:
+        from bd_platform.execution_optimizer import optimize_execution
+
+        opt = await optimize_execution(asset=asset, amount_usd=amount_usd, side=side)
+        best = (opt.get("recommendations") or {}).get("best_cost") or {}
+        execution_slippage_bps = float((best.get("true_cost") or {}).get("slippage_bps") or 0)
+    except Exception:
+        execution_slippage_bps = 0.0
+
+    slippage_usd = amount_usd * (execution_slippage_bps / 10_000)
+    net_notional = amount_usd - entry_fee - slippage_usd if side == "buy" else amount_usd
     quantity = net_notional / price if side == "buy" else amount_usd / price
 
     support = round(price * 0.97, 6)
@@ -119,12 +130,14 @@ async def simulate_spot_trade(
         "entry_price": price,
         "quantity": round(quantity, 8),
         "entry_fee_usd": round(entry_fee, 4),
+        "execution_slippage_bps": round(execution_slippage_bps, 3),
+        "execution_slippage_usd": round(slippage_usd, 4),
         "hold_hours": hold_hours,
         "support": support,
         "resistance": resistance,
         "scenarios": scenarios,
         "verdict_hint": scenarios["base_case"]["pnl_usd"],
-        "disclaimer": "Paper simulation — not financial advice. Slippage not included.",
+        "disclaimer": "Paper simulation — not financial advice. Slippage from #56 execution optimizer when available.",
         "timestamp": _utcnow_iso(),
     }
 
