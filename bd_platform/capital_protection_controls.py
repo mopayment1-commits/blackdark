@@ -106,6 +106,34 @@ def build_sla_terms_block(seed: dict[str, Any] | None = None) -> dict[str, Any]:
     }
 
 
+def _apply_volatility_regime_adjustment(
+    score_block: dict[str, Any],
+    *,
+    regime_ctx: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """#498 → #410: high-vol regime adjusts risk score context."""
+    if not regime_ctx or not regime_ctx.get("ok"):
+        return score_block
+
+    adjustment = int(regime_ctx.get("risk_score_adjustment", 0))
+    base = float(score_block.get("risk_score", 0))
+    adjusted = min(100.0, max(0.0, base + adjustment))
+    return {
+        **score_block,
+        "risk_score": round(adjusted, 1),
+        "volatility_regime_498": {
+            "regime": regime_ctx.get("volatility_regime"),
+            "vol_30d_annualized_pct": regime_ctx.get("vol_30d_annualized_pct"),
+            "risk_score_adjustment": adjustment,
+            "integration": "market_radar_volatility_analytics",
+        },
+        "display": (
+            f"Position risk index: {adjusted:.1f}/100 "
+            f"(vol regime {regime_ctx.get('volatility_regime')} +{adjustment} pts — analytics only)"
+        ),
+    }
+
+
 def compute_position_risk_score(position: dict[str, Any]) -> dict[str, Any]:
     """
     Risk Score 0–100 analytics index from:
@@ -995,8 +1023,15 @@ def build_capital_awareness_panel(portfolio_id: str = "demo_portfolio") -> dict[
     if portfolio.get("portfolio_id") != portfolio_id and portfolio_id != "demo_portfolio":
         return {"ok": False, "feature_id": _FEATURE_ID, "error": "portfolio_not_found"}
 
+    from bd_platform.market_radar_indicators import build_volatility_regime_for_risk
+
+    vol_regime = build_volatility_regime_for_risk("BTC")
     position_scores = {
-        pid: compute_position_risk_score(pos) for pid, pos in positions.items()
+        pid: _apply_volatility_regime_adjustment(
+            compute_position_risk_score(pos),
+            regime_ctx=vol_regime,
+        )
+        for pid, pos in positions.items()
     }
 
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
@@ -1028,6 +1063,7 @@ def build_capital_awareness_panel(portfolio_id: str = "demo_portfolio") -> dict[
         "risk_analytics_485": build_risk_analytics_block(portfolio_id, seed=seed),
         "opportunity_risk_combined_429": build_opportunity_risk_combined_alerts(portfolio_id, seed=seed),
         "oracle_risk_alerts_482": _build_oracle_risk_alerts_block(portfolio_id),
+        "volatility_regime_498": vol_regime if vol_regime.get("ok") else None,
         "portfolio_summary": {
             "total_value_usd": portfolio.get("total_value_usd"),
             "current_drawdown_pct": portfolio.get("current_drawdown_pct"),
@@ -1047,6 +1083,7 @@ def build_capital_awareness_panel(portfolio_id: str = "demo_portfolio") -> dict[
             "real_time_risk_alerts_484": True,
             "risk_analytics_485": True,
             "oracle_risk_482": True,
+            "volatility_regime_498": True,
         },
         "not_investment_advice": True,
         "disclaimer": _DISCLAIMER,
@@ -1087,6 +1124,7 @@ def capital_protection_controls_status() -> dict[str, Any]:
             "real_time_risk_alerts_484": True,
             "risk_analytics_485": True,
             "oracle_risk_482": True,
+            "volatility_regime_498": True,
         },
         "acceptance_criteria": {
             "no_automatic_fund_movement_without_explicit_boundary": True,
@@ -1228,6 +1266,19 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         "id": "model_assumptions_documented",
         "passed": risk_analytics.get("model_validation", {}).get("assumptions_documented") is True,
         "detail": "ToS",
+    })
+
+    vol_regime = panel.get("volatility_regime_498") or {}
+    checks.append({
+        "id": "volatility_regime_498",
+        "passed": vol_regime.get("volatility_regime") in ("low", "medium", "high"),
+        "detail": "498→410",
+    })
+    sample_score = next(iter(panel.get("position_risk_scores") or {}).values(), {})
+    checks.append({
+        "id": "vol_regime_risk_adjustment",
+        "passed": (sample_score.get("volatility_regime_498") or {}).get("risk_score_adjustment") is not None,
+        "detail": "410 integration",
     })
 
     passed = sum(1 for c in checks if c["passed"])

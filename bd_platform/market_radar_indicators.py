@@ -2,13 +2,17 @@
 Market Radar Indicators — Feature #734 absorbed (Sprint 2 Market Intelligence).
 
 #734 Exchange Address & Transaction Activity — NOT standalone, Market Radar indicator.
+#498 Volatility Analytics — realized vol dashboard (merged into Market Radar).
+
 Address dedupe, exchange cluster versioning, chain-specific validation.
+Realized vol: 7d/30d/90d with documented window/version.
 """
 
 from __future__ import annotations
 
 import json
 import logging
+import math
 import time
 from datetime import UTC, datetime
 from pathlib import Path
@@ -17,6 +21,9 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.MarketRadarIndicators")
 
 _FEATURE_ID = 734
+_VOLATILITY_ANALYTICS_REF = 498
+_VOLATILITY_COMPRESSION_REF = 458
+_MANDATORY_VOL_WINDOWS = ("7d", "30d", "90d")
 _STANDALONE = False
 _MERGED_INTO = "Market Radar / Exchange Activity Indicator"
 _SPRINT = 2
@@ -116,6 +123,195 @@ def build_exchange_activity_indicator(exchange_id: str = "binance") -> dict[str,
     }
 
 
+def _annualize_vol(daily_vol: float, window: str) -> float:
+    days = {"7d": 7, "30d": 30, "90d": 90}.get(window, 30)
+    return round(daily_vol * math.sqrt(365 / days) * 100, 4)
+
+
+def compute_realized_volatility(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#498 — realized vol for 7d/30d/90d with documented window + version."""
+    seed = seed or _load_seed()
+    cfg = seed.get("volatility_analytics_498") or {}
+    assets = seed.get("volatility_assets") or {}
+    data = assets.get(asset.upper())
+    if not data:
+        return {"ok": False, "asset": asset, "error": "asset_not_found"}
+
+    windows: dict[str, Any] = {}
+    for window in _MANDATORY_VOL_WINDOWS:
+        daily_vol = float((data.get("daily_returns_std") or {}).get(window, 0))
+        windows[window] = {
+            "window": window,
+            "daily_volatility": round(daily_vol, 6),
+            "realized_vol_annualized_pct": _annualize_vol(daily_vol, window),
+            "methodology_version": cfg.get("methodology_version", _METHODOLOGY_VERSION),
+            "window_documented": True,
+        }
+
+    return {
+        "ok": True,
+        "feature_ref": _VOLATILITY_ANALYTICS_REF,
+        "asset": asset.upper(),
+        "realized_vol_windows": windows,
+        "mandatory_windows": list(_MANDATORY_VOL_WINDOWS),
+        "methodology_version": cfg.get("methodology_version", _METHODOLOGY_VERSION),
+        "formula": cfg.get("formula", "std(daily_log_returns) over rolling window"),
+        "deterministic": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_volatility_compression_signal(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#458 → #498: vol drop computed as compression signal."""
+    seed = seed or _load_seed()
+    vol = compute_realized_volatility(asset, seed=seed)
+    if not vol.get("ok"):
+        return vol
+
+    windows = vol.get("realized_vol_windows") or {}
+    vol_7d = float(windows.get("7d", {}).get("realized_vol_annualized_pct", 0))
+    vol_30d = float(windows.get("30d", {}).get("realized_vol_annualized_pct", 0))
+    vol_90d = float(windows.get("90d", {}).get("realized_vol_annualized_pct", 0))
+
+    compression_pct = round((vol_30d - vol_7d) / vol_30d * 100, 2) if vol_30d > 0 else 0.0
+    is_compressed = compression_pct >= float((seed.get("volatility_compression_458") or {}).get("threshold_pct", 15))
+
+    return {
+        "ok": True,
+        "feature_ref": _VOLATILITY_COMPRESSION_REF,
+        "integration": "volatility_analytics_498",
+        "asset": asset.upper(),
+        "vol_7d_pct": vol_7d,
+        "vol_30d_pct": vol_30d,
+        "vol_90d_pct": vol_90d,
+        "compression_pct": compression_pct,
+        "compression_signal": is_compressed,
+        "display": (
+            f"Vol compression: 7d {vol_7d:.1f}% vs 30d {vol_30d:.1f}% "
+            f"({'compressed' if is_compressed else 'normal'})"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_volatility_regime_for_risk(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#498 → #410: high vol regime affects risk score context."""
+    seed = seed or _load_seed()
+    vol = compute_realized_volatility(asset, seed=seed)
+    if not vol.get("ok"):
+        return vol
+
+    cfg = seed.get("volatility_analytics_498") or {}
+    vol_30d = float((vol.get("realized_vol_windows") or {}).get("30d", {}).get("realized_vol_annualized_pct", 0))
+    high_threshold = float(cfg.get("high_vol_threshold_pct", 60))
+    regime = "high" if vol_30d >= high_threshold else ("low" if vol_30d < high_threshold * 0.5 else "medium")
+    risk_adjustment = {"high": 15, "medium": 5, "low": 0}.get(regime, 0)
+
+    return {
+        "ok": True,
+        "feature_ref": _VOLATILITY_ANALYTICS_REF,
+        "integration": "capital_protection_controls_410",
+        "asset": asset.upper(),
+        "volatility_regime": regime,
+        "vol_30d_annualized_pct": vol_30d,
+        "risk_score_adjustment": risk_adjustment,
+        "high_vol_threshold_pct": high_threshold,
+        "alerts_only": True,
+        "display": f"Vol regime {regime} (30d {vol_30d:.1f}%) — risk context +{risk_adjustment} pts",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_volatility_analytics_dashboard(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#498 Vol dashboard — realized vol + compression + regime."""
+    t0 = time.perf_counter()
+    seed = seed or _load_seed()
+    vol = compute_realized_volatility(asset, seed=seed)
+    compression = build_volatility_compression_signal(asset, seed=seed)
+    regime = build_volatility_regime_for_risk(asset, seed=seed)
+    elapsed = round((time.perf_counter() - t0) * 1000, 1)
+
+    return {
+        "ok": vol.get("ok", False),
+        "feature_ref": _VOLATILITY_ANALYTICS_REF,
+        "title": "Volatility Analytics",
+        "merged_into": "Market Radar",
+        "asset": asset.upper(),
+        "realized_volatility": vol,
+        "volatility_compression_458": compression if compression.get("ok") else None,
+        "volatility_regime_410": regime if regime.get("ok") else None,
+        "mandatory_windows": list(_MANDATORY_VOL_WINDOWS),
+        "window_version_documented": True,
+        "surface": "market_radar",
+        "latency_ms": elapsed,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_panel(
+    exchange_id: str = "binance",
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Combined Market Radar panel — exchange activity + volatility analytics."""
+    seed = seed or _load_seed()
+    activity = build_exchange_activity_indicator(exchange_id)
+    volatility = build_volatility_analytics_dashboard(asset, seed=seed)
+    return {
+        "ok": True,
+        "surface": "market_radar",
+        "exchange_activity_734": activity,
+        "volatility_analytics_498": volatility,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    checks: list[dict[str, Any]] = []
+
+    activity = build_exchange_activity_indicator("binance")
+    checks.append({"id": "exchange_activity", "passed": activity.get("ok") is True, "detail": "734"})
+
+    vol = build_volatility_analytics_dashboard("BTC", seed=seed)
+    checks.append({"id": "volatility_498", "passed": vol.get("ok") is True, "detail": "498"})
+    checks.append({"id": "vol_3_windows", "passed": len(vol.get("mandatory_windows") or []) == 3, "detail": "7d/30d/90d"})
+    checks.append({"id": "window_version", "passed": vol.get("window_version_documented") is True, "detail": "version"})
+
+    compression = build_volatility_compression_signal("BTC", seed=seed)
+    checks.append({"id": "compression_458", "passed": compression.get("compression_signal") is not None, "detail": "458"})
+
+    regime = build_volatility_regime_for_risk("BTC", seed=seed)
+    checks.append({"id": "vol_regime_410", "passed": regime.get("volatility_regime") in ("low", "medium", "high"), "detail": "410"})
+
+    passed = sum(1 for c in checks if c["passed"])
+    return {
+        "ok": passed == len(checks),
+        "feature_refs": [_FEATURE_ID, _VOLATILITY_ANALYTICS_REF],
+        "checks": checks,
+        "passed": passed,
+        "total": len(checks),
+        "timestamp": _utcnow(),
+    }
+
+
 def market_radar_indicators_status() -> dict[str, Any]:
     seed = _load_seed()
     return {
@@ -132,6 +328,11 @@ def market_radar_indicators_status() -> dict[str, Any]:
             "chain_specific_validation": True,
         },
         "exchange_count": len(seed.get("exchanges") or {}),
+        "volatility_analytics_498": {
+            "feature_ref": _VOLATILITY_ANALYTICS_REF,
+            "mandatory_windows": list(_MANDATORY_VOL_WINDOWS),
+            "merged_into": "market_radar",
+        },
         "methodology_version": _METHODOLOGY_VERSION,
         "timestamp": _utcnow(),
     }
