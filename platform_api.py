@@ -2469,6 +2469,30 @@ async def supply_intelligence_route(asset: str = Query("ETH")):
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/token-circulation")
+async def token_circulation_route(asset: str = Query("BTC")):
+    """#757 Token Circulation Intelligence — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_token_circulation_suite_757
+
+    result = build_token_circulation_suite_757(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/token-circulation/qa")
+async def token_circulation_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import (
+        run_token_circulation_backfill_qa_757,
+        run_token_circulation_no_double_count_tests_757,
+    )
+
+    return {
+        "double_count": run_token_circulation_no_double_count_tests_757(),
+        "backfill": run_token_circulation_backfill_qa_757(asset),
+    }
+
+
 @router.get("/intelligence-ledger/investment-thesis/status")
 async def investment_thesis_scoring_status_route():
     """#472 Investment Thesis Scoring — Intelligence Ledger (not price probability)."""
@@ -4992,6 +5016,40 @@ async def market_radar_technical_summary_route(asset: str = Query("BTC")):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/market-radar/technical-chart")
+async def market_radar_technical_chart_route(asset: str = Query("BTC")):
+    """#760 Technical Chart overlay — no prediction, merged into Market Radar."""
+    from bd_platform.market_radar_indicators import build_technical_chart_overlay_760
+
+    result = build_technical_chart_overlay_760(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/alerts")
+async def portfolio_ai_alerts_route():
+    """#759 Portfolio AI alert layer."""
+    from bd_platform.alert_engine import build_portfolio_alerts_panel_759
+
+    return build_portfolio_alerts_panel_759()
+
+
+@router.get("/intelligence-ledger/market-radar/alerts")
+async def market_radar_alerts_route():
+    """#759 Market Radar alert layer."""
+    from bd_platform.alert_engine import build_market_radar_alerts_panel_759
+
+    return build_market_radar_alerts_panel_759()
+
+
+@router.get("/intelligence-ledger/alert-engine/notifications-qa")
+async def notifications_qa_route():
+    from bd_platform.alert_engine import run_alerts_qa_tests_759
+
+    return run_alerts_qa_tests_759()
 
 
 @router.get("/intelligence-ledger/data-layer/asset-registry/indicator-panel")

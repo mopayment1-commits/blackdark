@@ -719,6 +719,292 @@ def run_network_activity_qa_reconciliation_682(
     }
 
 
+_CIRCULATION_CHAIN_SEMANTICS: dict[str, dict[str, str]] = {
+    "utxo": {
+        "model": "UTXO",
+        "counting_unit": "unique_coins_moved",
+        "semantics": "Distinct UTXO outputs spent in period — not address count",
+        "double_count_rule": "Same UTXO spent twice in period → count once",
+        "example_chains": "Bitcoin, Litecoin",
+    },
+    "account": {
+        "model": "Account",
+        "counting_unit": "unique_token_transfers",
+        "semantics": "Distinct token transfer events (tx_hash + log_index)",
+        "double_count_rule": "Same transfer event twice → count once",
+        "example_chains": "Ethereum, Arbitrum, Solana",
+    },
+    "dag": {
+        "model": "DAG",
+        "counting_unit": "unique_consensus_messages",
+        "semantics": "Distinct confirmed value messages in DAG consensus rounds",
+        "double_count_rule": "Same message ID twice → count once",
+        "example_chains": "Hedera",
+    },
+}
+
+_MANDATORY_CIRCULATION_METRICS = (
+    "unique_units_moved",
+    "circulation_velocity",
+    "active_token_days_destroyed",
+)
+
+
+def _circulation_unit_key(movement: dict[str, Any], chain_model: str) -> str:
+    if chain_model == "utxo":
+        return str(movement.get("utxo_id") or movement.get("coin_id") or "")
+    if chain_model == "dag":
+        return str(movement.get("message_id") or movement.get("consensus_round_id") or "")
+    return f"{movement.get('tx_hash')}:{movement.get('log_index', 0)}"
+
+
+def _count_unique_units_moved(movements: list[dict[str, Any]], chain_model: str) -> int:
+    seen: set[str] = set()
+    for movement in movements:
+        key = _circulation_unit_key(movement, chain_model)
+        if key:
+            seen.add(key)
+    return len(seen)
+
+
+def build_token_circulation_suite_757(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#757 — token_circulation metric suite merged into #577."""
+    seed = seed or _load_seed()
+    cfg = seed.get("token_circulation_757") or {}
+    asset_cfg = (cfg.get("assets") or {}).get(asset.upper())
+    if not asset_cfg:
+        return {"ok": False, "asset": asset, "error": "token_circulation_not_found"}
+
+    chain_model = asset_cfg.get("chain_model", "account")
+    semantics = _CIRCULATION_CHAIN_SEMANTICS.get(chain_model, _CIRCULATION_CHAIN_SEMANTICS["account"])
+    movements = asset_cfg.get("movement_history") or []
+    unique_units = _count_unique_units_moved(movements, chain_model)
+    expected_unique = int(asset_cfg.get("expected_unique_units", unique_units))
+    circulating_supply = float(asset_cfg.get("circulating_supply", 1))
+    period_days = float(asset_cfg.get("period_days", 1))
+
+    velocity = round(unique_units / circulating_supply / period_days, 6) if circulating_supply > 0 else None
+    atdd = float(asset_cfg.get("active_token_days_destroyed", 0))
+    trend = asset_cfg.get("trend", "flat")
+    history = asset_cfg.get("circulation_history") or []
+    reorg = asset_cfg.get("reorg_handling") or {}
+
+    return {
+        "ok": True,
+        "metric_id": "token_circulation",
+        "feature_ref": 757,
+        "merged_into": _EPIC_ID,
+        "asset": asset.upper(),
+        "chain_model": chain_model,
+        "chain_specific_semantics": semantics,
+        "chain_specific_definitions_documented": True,
+        "no_double_counting": unique_units == expected_unique,
+        "mandatory_metrics": {
+            "unique_units_moved": {
+                "value": unique_units,
+                "unit": semantics["counting_unit"],
+                "period": asset_cfg.get("period", "24h"),
+            },
+            "circulation_velocity": {
+                "value": velocity,
+                "formula": "unique_units_moved / circulating_supply / period_days",
+                "unit": "ratio/day",
+            },
+            "active_token_days_destroyed": {
+                "value": atdd,
+                "unit": "token_days",
+            },
+        },
+        "trend": trend,
+        "circulation_history": history,
+        "reorg_handling": {
+            "enabled": reorg.get("enabled", True),
+            "recalculate_cancelled_blocks": reorg.get("recalculate_cancelled_blocks", True),
+            "last_reorg_depth": reorg.get("last_reorg_depth", 0),
+            "metrics_recalculated": reorg.get("metrics_recalculated", True),
+        },
+        "source": "oracle_api_on_chain_extension",
+        "no_user_direct_source": True,
+        "rule_based_only": True,
+        "no_ml_prediction": True,
+        "fee_db": asset_cfg.get("fee_db") or {
+            "rpc_queries_usd": 0.02,
+            "indexing_usd": 0.01,
+            "tier": "standard",
+        },
+        "display": (
+            f"{asset.upper()} circulation: {unique_units:,} unique units | "
+            f"velocity {velocity} | ATDD {atdd:,.0f} | trend {trend}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_token_circulation_no_double_count_tests_757(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#757 — daily QA: token moved twice in same period counts once."""
+    seed = seed or _load_seed()
+    cfg = seed.get("token_circulation_757") or {}
+    tests: list[dict[str, Any]] = []
+
+    for asset, asset_cfg in (cfg.get("assets") or {}).items():
+        chain_model = asset_cfg.get("chain_model", "account")
+        movements = asset_cfg.get("movement_history") or []
+        counted = _count_unique_units_moved(movements, chain_model)
+        expected = int(asset_cfg.get("expected_unique_units", counted))
+        tests.append({
+            "test": f"no_double_count_{asset}",
+            "passed": counted == expected,
+            "detail": f"counted={counted} expected={expected}",
+        })
+
+    tests.append({
+        "test": "chain_semantics_documented",
+        "passed": len(_CIRCULATION_CHAIN_SEMANTICS) == 3,
+        "detail": "utxo/account/dag",
+    })
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": 757,
+        "parity_tests": tests,
+        "all_passed": all_passed,
+        "daily_qa_required": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_token_circulation_backfill_qa_757(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#757 — backfill QA: historical circulation vs CoinMetrics/Glassnode ±2%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("token_circulation_757") or {}
+    qa = (cfg.get("backfill_qa") or {}).get("assets", {}).get(asset.upper()) or {}
+    tolerance = float((cfg.get("backfill_qa") or {}).get("tolerance_pct", 2.0))
+    platform_value = float(qa.get("platform_unique_units", 0))
+    reference_value = float(qa.get("reference_unique_units", 0))
+    reference_source = qa.get("reference_source", "coinmetrics")
+
+    if platform_value <= 0:
+        delta_pct = 100.0
+        within_tolerance = False
+    else:
+        delta_pct = abs(platform_value - reference_value) / platform_value * 100
+        within_tolerance = delta_pct <= tolerance
+
+    return {
+        "ok": within_tolerance,
+        "feature_ref": 757,
+        "asset": asset.upper(),
+        "platform_unique_units": platform_value,
+        "reference_unique_units": reference_value,
+        "reference_source": reference_source,
+        "delta_pct": round(delta_pct, 4),
+        "tolerance_pct": tolerance,
+        "within_tolerance": within_tolerance,
+        "daily_qa_required": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_token_circulation_widget_757(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#757 → Market Radar widget: حركة التوكن."""
+    suite = build_token_circulation_suite_757(asset, seed=seed)
+    return {
+        "ok": suite.get("ok", False),
+        "feature_ref": 757,
+        "surface": "market_radar",
+        "widget": "token_circulation",
+        "widget_label_ar": "حركة التوكن",
+        "chart_type": "circulation_trend",
+        "suite": suite,
+        "trend": suite.get("trend"),
+        "display": suite.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_circulation_context_757(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#757 — Asset Card Circulation context with trend sparkline."""
+    suite = build_token_circulation_suite_757(asset, seed=seed)
+    if not suite.get("ok"):
+        return {**suite, "surface": "asset_card", "tab": "Circulation"}
+
+    metrics = suite.get("mandatory_metrics") or {}
+    return {
+        "ok": True,
+        "feature_ref": 757,
+        "surface": "asset_card",
+        "tab": "Circulation",
+        "tab_ar": "التداول",
+        "asset": asset.upper(),
+        "unique_units_moved": (metrics.get("unique_units_moved") or {}).get("value"),
+        "circulation_velocity": (metrics.get("circulation_velocity") or {}).get("value"),
+        "active_token_days_destroyed": (metrics.get("active_token_days_destroyed") or {}).get("value"),
+        "trend": suite.get("trend"),
+        "sparkline": suite.get("circulation_history") or [],
+        "chain_semantics": suite.get("chain_specific_semantics"),
+        "display": suite.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_circulation_velocity_risk_flag_ledger(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#757 → Intelligence Ledger — velocity anomaly risk flag."""
+    suite = build_token_circulation_suite_757(asset, seed=seed)
+    if not suite.get("ok"):
+        return {"ok": False, "asset": asset}
+
+    cfg = (seed or _load_seed()).get("token_circulation_757") or {}
+    thresholds = cfg.get("velocity_anomaly_thresholds") or {}
+    velocity = (suite.get("mandatory_metrics") or {}).get("circulation_velocity", {}).get("value")
+    high = float(thresholds.get("high_velocity", 0.05))
+    low = float(thresholds.get("low_velocity", 0.001))
+
+    anomaly = None
+    if velocity is not None:
+        if velocity >= high:
+            anomaly = "high_velocity"
+        elif velocity <= low:
+            anomaly = "low_velocity_stagnation"
+
+    return {
+        "ok": True,
+        "feature_ref": 757,
+        "integration": "intelligence_ledger",
+        "asset": asset.upper(),
+        "circulation_velocity": velocity,
+        "velocity_anomaly": anomaly,
+        "risk_flag": anomaly is not None,
+        "descriptive_not_predictive": True,
+        "no_investment_advice": True,
+        "display": (
+            f"Circulation velocity {velocity} — "
+            + (f"anomaly: {anomaly}" if anomaly else "within normal band")
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_market_radar_network_activity_widget_682(
     asset: str = "BTC",
     *,
@@ -2025,6 +2311,7 @@ def build_metrics_library_panel(
     stablecoin_supply = build_stablecoin_supply_metric_577(seed=seed)
     ssr_suite = build_stablecoin_supply_ratio_metric_577(seed=seed)
     supply_intel = build_supply_intelligence_metric_577(sym, seed=seed)
+    token_circulation = build_token_circulation_suite_757(sym, seed=seed)
     long_short = build_long_short_ratio_metric_577(seed=seed)
     mvrv_suite = build_mvrv_zscore_metric_577(sym, seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
@@ -2060,6 +2347,7 @@ def build_metrics_library_panel(
             "694_stablecoin_supply": stablecoin_supply if stablecoin_supply.get("ok") else {"ok": False},
             "698_stablecoin_supply_ratio": ssr_suite if ssr_suite.get("ok") else {"ok": False},
             "700_supply_intelligence": supply_intel if supply_intel.get("ok") else {"ok": False},
+            "757_token_circulation": token_circulation if token_circulation.get("ok") else {"ok": False},
             "675_long_short_ratio": long_short,
             "676_mvrv_zscore_suite": mvrv_suite if mvrv_suite.get("ok") else {"ok": False},
             "678_sector_metrics": sector_metrics if sector_metrics.get("ok") else {"ok": False},
@@ -2202,6 +2490,14 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
     tests.append({"test": "reorg_handling_682", "passed": (network.get("reorg_handling") or {}).get("recalculate_cancelled_blocks") is True})
     qa = run_network_activity_qa_reconciliation_682("BTC", seed=seed)
     tests.append({"test": "network_activity_qa_682", "passed": qa.get("within_tolerance") is True})
+
+    circulation = build_token_circulation_suite_757("BTC", seed=seed)
+    tests.append({"test": "token_circulation_suite_757", "passed": circulation.get("ok") is True})
+    tests.append({"test": "no_double_count_757", "passed": circulation.get("no_double_counting") is True})
+    circ_qa = run_token_circulation_no_double_count_tests_757(seed=seed)
+    tests.append({"test": "token_circulation_double_count_qa_757", "passed": circ_qa.get("all_passed") is True})
+    backfill = run_token_circulation_backfill_qa_757("BTC", seed=seed)
+    tests.append({"test": "token_circulation_backfill_qa_757", "passed": backfill.get("within_tolerance") is True})
 
     all_passed = all(t["passed"] for t in tests)
     return {

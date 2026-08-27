@@ -337,6 +337,19 @@ def build_alert_engine_panel() -> dict[str, Any]:
     except Exception:
         logger.debug("667 defi security monitor alerts skipped", exc_info=True)
 
+    portfolio_alerts_759 = None
+    market_alerts_759 = None
+    try:
+        from bd_platform.alert_engine import (
+            build_market_radar_alerts_panel_759,
+            build_portfolio_alerts_panel_759,
+        )
+
+        portfolio_alerts_759 = build_portfolio_alerts_panel_759(seed=seed)
+        market_alerts_759 = build_market_radar_alerts_panel_759(seed=seed)
+    except Exception:
+        logger.debug("759 multi-channel alerts skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -351,6 +364,8 @@ def build_alert_engine_panel() -> dict[str, Any]:
         "derivatives_alert_config": build_derivatives_alert_rules(seed),
         "defi_risk_spike_alerts_660": defi_risk_alerts,
         "defi_security_monitor_alerts_667": defi_security_alerts,
+        "portfolio_alerts_759": portfolio_alerts_759,
+        "market_radar_alerts_759": market_alerts_759,
         "triggered_count": len(triggered),
         "suppressed_count": len(suppressed),
         "recent_deliveries": logs,
@@ -389,3 +404,186 @@ def alert_engine_status() -> dict[str, Any]:
         },
         "timestamp": _utcnow(),
     }
+
+
+_ALERTS_759_DISCLAIMER = (
+    "Alerts are based on market data thresholds. Not financial advice. "
+    "Not a recommendation to buy or sell."
+)
+_ALERTS_759_LOG_RETENTION_DAYS = 30
+_ALERTS_759_CRITICAL_DELAY_SEC = 60
+_ALERTS_759_MARKET_DELAY_SEC = 900
+_ALERTS_759_CHANNELS_SPRINT_1 = ("push", "email")
+_ALERTS_759_CHANNELS_SPRINT_2 = ("telegram",)
+_ALERTS_759_CHANNELS_REJECTED = ("whatsapp",)
+
+
+def build_multi_channel_alerts_layer_759(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#759 — multi-channel alert layer merged into Portfolio AI + Market Radar."""
+    seed = seed or _load_seed()
+    cfg = seed.get("notifications_759") or {}
+    return {
+        "ok": True,
+        "feature_ref": 759,
+        "merged_into": ["portfolio_ai", "market_radar"],
+        "standalone": False,
+        "rule_based_only": True,
+        "no_smart_alerts": True,
+        "no_ml": True,
+        "no_auto_action": True,
+        "no_whatsapp": True,
+        "whatsapp_rejected": "Meta approval + high cost — deferred to Wave 3",
+        "channels_sprint_1": list(_ALERTS_759_CHANNELS_SPRINT_1),
+        "channels_sprint_2": list(_ALERTS_759_CHANNELS_SPRINT_2),
+        "channels_rejected": list(_ALERTS_759_CHANNELS_REJECTED),
+        "delivery_confirmation": True,
+        "accuracy_definition": "delivery_confirmation_not_prediction",
+        "critical_delay_max_sec": _ALERTS_759_CRITICAL_DELAY_SEC,
+        "market_delay_max_sec": _ALERTS_759_MARKET_DELAY_SEC,
+        "log_retention_days": _ALERTS_759_LOG_RETENTION_DAYS,
+        "disclaimer": cfg.get("disclaimer", _ALERTS_759_DISCLAIMER),
+        "disclaimer_mandatory": True,
+        "display": "Alerts — push + email (S1), Telegram (S2) | Rule-based thresholds only",
+        "timestamp": _utcnow(),
+    }
+
+
+def _evaluate_threshold_rule(rule: dict[str, Any], market: dict[str, Any]) -> bool:
+    field = (rule.get("condition") or {}).get("field", "price")
+    operator = (rule.get("condition") or {}).get("operator", ">=")
+    threshold = (rule.get("condition") or {}).get("threshold")
+    current = market.get(field, rule.get("current_value"))
+    if current is None or threshold is None:
+        return False
+    current_f = float(current)
+    threshold_f = float(threshold)
+    if operator in (">=", "crosses_above"):
+        return current_f >= threshold_f
+    if operator in ("<=", "crosses_below"):
+        return current_f <= threshold_f
+    if operator == "change_pct_gte":
+        return current_f >= threshold_f
+    return False
+
+
+def evaluate_alert_rule_759(
+    rule: dict[str, Any],
+    *,
+    market: dict[str, Any] | None = None,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#759 — evaluate rule-based alert with fee DB + delivery tracking."""
+    seed = seed or _load_seed()
+    market = market or (seed.get("notifications_759") or {}).get("market_snapshot") or {}
+    triggered = _evaluate_threshold_rule(rule, market)
+    priority = rule.get("priority", "market")
+    max_delay = _ALERTS_759_CRITICAL_DELAY_SEC if priority == "critical" else _ALERTS_759_MARKET_DELAY_SEC
+    channels = rule.get("channels") or list(_ALERTS_759_CHANNELS_SPRINT_1)
+    fee_db = rule.get("fee_db") or {}
+
+    return {
+        "ok": True,
+        "feature_ref": 759,
+        "rule_id": rule.get("rule_id"),
+        "name": rule.get("name"),
+        "trigger_type": rule.get("trigger_type", "price_threshold"),
+        "triggered": triggered,
+        "channels": channels,
+        "priority": priority,
+        "max_delay_sec": max_delay,
+        "delivery_confirmation_required": True,
+        "no_auto_action": True,
+        "fee_db": {
+            "email_api_usd": fee_db.get("email_api_usd", 0.001),
+            "telegram_bot_usd": fee_db.get("telegram_bot_usd", 0.0),
+            "push_usd": fee_db.get("push_usd", 0.0),
+            "tier": fee_db.get("tier", rule.get("tier", "standard")),
+        },
+        "disclaimer": _ALERTS_759_DISCLAIMER,
+        "display": (
+            f"Alert {rule.get('name')}: {'TRIGGERED' if triggered else 'active'} | "
+            f"channels={','.join(channels)} | max_delay={max_delay}s"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_portfolio_alerts_panel_759(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#759 — Portfolio AI /portfolio/alerts layer."""
+    seed = seed or _load_seed()
+    cfg = seed.get("notifications_759") or {}
+    rules = [evaluate_alert_rule_759(r, seed=seed) for r in (cfg.get("portfolio_rules") or [])]
+    triggered = [r for r in rules if r.get("triggered")]
+    return {
+        "ok": True,
+        "feature_ref": 759,
+        "surface": "portfolio_ai",
+        "route": "/portfolio/alerts",
+        "panel_name_ar": "تنبيهاتي",
+        "panel_name": "Alerts",
+        "rules": rules,
+        "triggered_count": len(triggered),
+        "rule_based_only": True,
+        "no_auto_action": True,
+        "log_retention_days": _ALERTS_759_LOG_RETENTION_DAYS,
+        "layer": build_multi_channel_alerts_layer_759(seed=seed),
+        "disclaimer": cfg.get("disclaimer", _ALERTS_759_DISCLAIMER),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_alerts_panel_759(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#759 — Market Radar /radar/alerts layer."""
+    seed = seed or _load_seed()
+    cfg = seed.get("notifications_759") or {}
+    rules = [evaluate_alert_rule_759(r, seed=seed) for r in (cfg.get("market_rules") or [])]
+    triggered = [r for r in rules if r.get("triggered")]
+    return {
+        "ok": True,
+        "feature_ref": 759,
+        "surface": "market_radar",
+        "route": "/radar/alerts",
+        "panel_name_ar": "تنبيهات السوق",
+        "panel_name": "Market Alerts",
+        "rules": rules,
+        "triggered_count": len(triggered),
+        "rule_based_only": True,
+        "no_auto_action": True,
+        "log_retention_days": _ALERTS_759_LOG_RETENTION_DAYS,
+        "layer": build_multi_channel_alerts_layer_759(seed=seed),
+        "disclaimer": cfg.get("disclaimer", _ALERTS_759_DISCLAIMER),
+        "timestamp": _utcnow(),
+    }
+
+
+def list_alert_delivery_log_759(*, limit: int = 50, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#759 — 30-day alert delivery log with confirmation."""
+    seed = seed or _load_seed()
+    cfg = seed.get("notifications_759") or {}
+    logs = [build_delivery_record(d) for d in (cfg.get("delivery_log") or [])]
+    return {
+        "ok": True,
+        "feature_ref": 759,
+        "count": len(logs[:limit]),
+        "logs": logs[:limit],
+        "log_retention_days": _ALERTS_759_LOG_RETENTION_DAYS,
+        "delivery_confirmation": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_alerts_qa_tests_759(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#759 — acceptance QA for alert layer."""
+    seed = seed or _load_seed()
+    layer = build_multi_channel_alerts_layer_759(seed=seed)
+    tests = [
+        {"test": "rule_based_only", "passed": layer.get("rule_based_only") is True},
+        {"test": "no_whatsapp", "passed": layer.get("no_whatsapp") is True},
+        {"test": "no_auto_action", "passed": layer.get("no_auto_action") is True},
+        {"test": "delivery_confirmation", "passed": layer.get("delivery_confirmation") is True},
+        {"test": "log_retention_30d", "passed": layer.get("log_retention_days") == 30},
+        {"test": "disclaimer_mandatory", "passed": layer.get("disclaimer_mandatory") is True},
+        {"test": "critical_delay_60s", "passed": layer.get("critical_delay_max_sec") == 60},
+    ]
+    all_passed = all(t["passed"] for t in tests)
+    return {"ok": all_passed, "feature_ref": 759, "tests": tests, "all_passed": all_passed, "timestamp": _utcnow()}

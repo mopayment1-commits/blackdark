@@ -101,5 +101,14 @@
     "disclaimer": "Technical summaries are mathematical calculations based on historical data. Not financial advice. Past performance does not guarantee future results.",
     "output_labels": ["Bullish", "Neutral", "Bearish"],
     "confidence_rule_based": true
+  },
+  "technical_chart_overlay_760": {
+    "feature_ref": 760,
+    "merged_into": "market_radar",
+    "legal_name": "Technical Chart",
+    "chart_library": "chartjs_lightweight",
+    "indicators_enabled": ["RSI", "MACD", "SMA"],
+    "no_prediction_language": true,
+    "disclaimer": "Technical indicators are mathematical calculations based on historical data. Not financial advice. Past performance does not guarantee future results. BLACKDARK does not predict prices."
   }
 }

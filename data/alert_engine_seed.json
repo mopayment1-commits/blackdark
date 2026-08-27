@@ -102,5 +102,76 @@
       "success": false,
       "timestamp": "2026-08-24T09:15:00+00:00"
     }
-  ]
+  ],
+  "notifications_759": {
+    "feature_ref": 759,
+    "merged_into": ["portfolio_ai", "market_radar"],
+    "disclaimer": "Alerts are based on market data thresholds. Not financial advice. Not a recommendation to buy or sell.",
+    "market_snapshot": {
+      "price": 98500,
+      "change_24h_pct": 3.2,
+      "rsi_14": 42
+    },
+    "portfolio_rules": [
+      {
+        "rule_id": "pf-alert-001",
+        "name": "BTC price above 95k",
+        "trigger_type": "price_threshold",
+        "priority": "critical",
+        "condition": {"field": "price", "operator": ">=", "threshold": 95000},
+        "current_value": 98500,
+        "channels": ["push", "email"],
+        "fee_db": {"email_api_usd": 0.001, "push_usd": 0.0, "tier": "standard"}
+      },
+      {
+        "rule_id": "pf-alert-002",
+        "name": "Portfolio drawdown 10%",
+        "trigger_type": "portfolio_drawdown",
+        "priority": "market",
+        "condition": {"field": "drawdown_pct", "operator": ">=", "threshold": 10},
+        "current_value": 6.5,
+        "channels": ["push", "email"]
+      }
+    ],
+    "market_rules": [
+      {
+        "rule_id": "mr-alert-001",
+        "name": "BTC 24H change >= 5%",
+        "trigger_type": "change_24h",
+        "priority": "market",
+        "condition": {"field": "change_24h_pct", "operator": "change_pct_gte", "threshold": 5},
+        "current_value": 3.2,
+        "channels": ["push", "email"]
+      },
+      {
+        "rule_id": "mr-alert-002",
+        "name": "Economic calendar event",
+        "trigger_type": "calendar_event",
+        "priority": "market",
+        "condition": {"field": "event_imminent", "operator": ">=", "threshold": 1},
+        "current_value": 1,
+        "channels": ["push", "email", "telegram"]
+      }
+    ],
+    "delivery_log": [
+      {
+        "alert_id": "759-del-001",
+        "rule_id": "pf-alert-001",
+        "channel": "push",
+        "attempts": 1,
+        "success": true,
+        "delivery_confirmed": true,
+        "timestamp": "2026-08-27T14:00:00+00:00"
+      },
+      {
+        "alert_id": "759-del-002",
+        "rule_id": "pf-alert-001",
+        "channel": "email",
+        "attempts": 1,
+        "success": true,
+        "delivery_confirmed": true,
+        "timestamp": "2026-08-27T14:00:02+00:00"
+      }
+    ]
+  }
 }
