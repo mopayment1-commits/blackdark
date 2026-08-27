@@ -24,7 +24,7 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656, 679, 682, 757, 761, 794, 801, 810)
+_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656, 679, 682, 757, 761, 794, 801, 810, 816)
 _EPIC_ID = 577
 _WHALE_RETAIL_REF = 634
 _TITLE = "On-Chain Metrics Library"
@@ -1238,6 +1238,166 @@ def build_nvt_overvaluation_flag_ledger_761(
             f"NVT {suite.get('nvt_ratio')} — "
             + ("overvaluation context flag" if suite.get("overvaluation_flag") else "within historical band")
         ),
+        "timestamp": _utcnow(),
+    }
+
+
+_REALIZED_CAP_DISCLAIMER = (
+    "Realized cap values coins at the price when they last moved on-chain. "
+    "UTXO chains only. Not investment advice. No prediction."
+)
+
+
+def build_realized_cap_suite_816(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#816 — realized_cap metric merged into #577 (UTXO chains only)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("realized_cap_816") or {}
+    asset_cfg = (cfg.get("assets") or {}).get(asset.upper())
+    if not asset_cfg:
+        return {"ok": False, "asset": asset, "error": "realized_cap_not_found"}
+
+    chain_model = asset_cfg.get("chain_model", "utxo")
+    if chain_model != "utxo":
+        return {
+            "ok": False,
+            "asset": asset.upper(),
+            "feature_ref": 816,
+            "error": "utxo_chains_only",
+            "chain_model": chain_model,
+            "reason": "Account chains cannot track price-at-last-move per token reliably",
+        }
+
+    realized_cap_usd = float(asset_cfg.get("realized_cap_usd", 0))
+    market_cap_usd = float(asset_cfg.get("market_cap_usd", 0))
+    daily_volume_usd = float(asset_cfg.get("daily_transaction_volume_usd", 0))
+    history = asset_cfg.get("realized_cap_history") or []
+    reorg = asset_cfg.get("reorg_handling") or {}
+
+    nvt_realized = None
+    if daily_volume_usd > 0 and realized_cap_usd > 0:
+        nvt_realized = round(realized_cap_usd / daily_volume_usd, 2)
+
+    return {
+        "ok": True,
+        "metric_id": "realized_cap",
+        "feature_ref": 816,
+        "merged_into": _EPIC_ID,
+        "standalone_rejected": True,
+        "asset": asset.upper(),
+        "chain_model": chain_model,
+        "utxo_chains_only": True,
+        "account_chains_rejected": True,
+        "formula": {
+            "expression": "Realized Cap = Σ (coin_amount × price_when_last_moved)",
+            "version": "1.0",
+            "source": "CoinMetrics",
+            "visible": True,
+            "not_hideable": True,
+            "ui_label": "Realized Cap",
+        },
+        "realized_cap_usd": realized_cap_usd,
+        "market_cap_usd": market_cap_usd,
+        "realized_to_market_cap_ratio": round(realized_cap_usd / market_cap_usd, 4) if market_cap_usd > 0 else None,
+        "realized_cap_history": history,
+        "nvt_integration_761": {
+            "enabled": True,
+            "nvt_market_cap": round(market_cap_usd / daily_volume_usd, 2) if daily_volume_usd > 0 else None,
+            "nvt_realized_cap": nvt_realized,
+            "formula": "NVT (Realized) = Realized Cap / Daily Transaction Volume",
+        },
+        "reorg_handling": {
+            "enabled": reorg.get("enabled", True),
+            "recalculate_cancelled_blocks": reorg.get("recalculate_cancelled_blocks", True),
+            "last_reorg_depth": reorg.get("last_reorg_depth", 0),
+            "metrics_recalculated": reorg.get("metrics_recalculated", True),
+        },
+        "deterministic": True,
+        "no_ml_prediction": True,
+        "no_automatic_alert": True,
+        "observation_only": True,
+        "fee_db": asset_cfg.get("fee_db") or cfg.get("fee_db") or {
+            "rpc_usd": 0.05,
+            "historical_price_lookup_usd": 0.03,
+            "tier": "standard",
+        },
+        "disclaimer": _REALIZED_CAP_DISCLAIMER,
+        "display": f"{asset.upper()} Realized Cap: ${realized_cap_usd/1e9:.2f}B",
+        "timestamp": _utcnow(),
+    }
+
+
+def run_realized_cap_qa_816(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#816 — daily QA: Realized Cap vs CoinMetrics ±2%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("realized_cap_816") or {}
+    qa = (cfg.get("coinmetrics_qa") or {}).get("assets", {}).get(asset.upper()) or {}
+    platform = float(qa.get("platform_realized_cap_usd", 0))
+    reference = float(qa.get("coinmetrics_realized_cap_usd", 0))
+    tolerance = float((cfg.get("coinmetrics_qa") or {}).get("tolerance_pct", 2.0))
+    if platform <= 0 or reference <= 0:
+        within = False
+        delta_pct = 0.0
+    else:
+        delta_pct = abs(platform - reference) / reference * 100
+        within = delta_pct <= tolerance
+    return {
+        "ok": within,
+        "feature_ref": 816,
+        "asset": asset.upper(),
+        "platform_realized_cap_usd": platform,
+        "coinmetrics_realized_cap_usd": reference,
+        "delta_pct": round(delta_pct, 4),
+        "tolerance_pct": tolerance,
+        "within_tolerance": within,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_realized_cap_widget_816(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#816 → Market Radar widget: القيمة المُحققة."""
+    suite = build_realized_cap_suite_816(asset, seed=seed)
+    return {
+        "ok": suite.get("ok", False),
+        "feature_ref": 816,
+        "surface": "market_radar",
+        "widget": "realized_cap",
+        "widget_label_ar": "القيمة المُحققة",
+        "suite": suite,
+        "display": suite.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_realized_cap_sparkline_816(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#816 — Asset Card Realized Cap sparkline."""
+    suite = build_realized_cap_suite_816(asset, seed=seed)
+    if not suite.get("ok"):
+        return {**suite, "surface": "asset_card"}
+    return {
+        "ok": True,
+        "feature_ref": 816,
+        "surface": "asset_card",
+        "panel_ar": "Realized Cap",
+        "realized_cap_usd": suite.get("realized_cap_usd"),
+        "sparkline": suite.get("realized_cap_history") or [],
+        "formula": suite.get("formula"),
+        "nvt_realized_cap": (suite.get("nvt_integration_761") or {}).get("nvt_realized_cap"),
         "timestamp": _utcnow(),
     }
 
@@ -3053,6 +3213,7 @@ def build_metrics_library_panel(
     supply_intel = build_supply_intelligence_metric_577(sym, seed=seed)
     token_circulation = build_token_circulation_suite_757(sym, seed=seed)
     nvt_ratio = build_nvt_ratio_suite_761(sym, seed=seed)
+    realized_cap = build_realized_cap_suite_816(sym, seed=seed)
     long_short = build_long_short_ratio_metric_577(seed=seed)
     mvrv_suite = build_mvrv_zscore_metric_577(sym, seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
@@ -3093,6 +3254,7 @@ def build_metrics_library_panel(
             "700_supply_intelligence": supply_intel if supply_intel.get("ok") else {"ok": False},
             "757_token_circulation": token_circulation if token_circulation.get("ok") else {"ok": False},
             "761_nvt_ratio": nvt_ratio if nvt_ratio.get("ok") else {"ok": False},
+            "816_realized_cap": realized_cap if realized_cap.get("ok") else {"ok": False},
             "675_long_short_ratio": long_short,
             "676_mvrv_zscore_suite": mvrv_suite if mvrv_suite.get("ok") else {"ok": False},
             "678_sector_metrics": sector_metrics if sector_metrics.get("ok") else {"ok": False},
@@ -3273,6 +3435,16 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
     tests.append({"test": "exchange_coverage_disclosed_810", "passed": exchange.get("coverage_disclosed") is True})
     exchange_qa = run_exchange_activity_qa_810("BTC", seed=seed)
     tests.append({"test": "exchange_activity_glassnode_qa_810", "passed": exchange_qa.get("within_tolerance") is True})
+
+    realized = build_realized_cap_suite_816("BTC", seed=seed)
+    tests.append({"test": "realized_cap_suite_816", "passed": realized.get("ok") is True})
+    tests.append({"test": "realized_cap_utxo_only_816", "passed": realized.get("utxo_chains_only") is True})
+    tests.append({"test": "realized_cap_formula_816", "passed": (realized.get("formula") or {}).get("visible") is True})
+    tests.append({"test": "realized_cap_nvt_integration_761", "passed": (realized.get("nvt_integration_761") or {}).get("enabled") is True})
+    realized_qa = run_realized_cap_qa_816("BTC", seed=seed)
+    tests.append({"test": "realized_cap_coinmetrics_qa_816", "passed": realized_qa.get("within_tolerance") is True})
+    eth_rc = build_realized_cap_suite_816("ETH", seed=seed)
+    tests.append({"test": "realized_cap_rejects_account_chain_816", "passed": eth_rc.get("error") == "utxo_chains_only"})
 
     all_passed = all(t["passed"] for t in tests)
     return {

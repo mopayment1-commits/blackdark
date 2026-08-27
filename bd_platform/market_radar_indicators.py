@@ -1208,16 +1208,19 @@ def build_market_radar_panel(
 
     activity_metrics_801 = None
     exchange_activity_810 = None
+    realized_cap_816 = None
     try:
         from bd_platform.onchain_metrics_library import (
             build_market_radar_activity_metrics_widget_801,
             build_market_radar_exchange_activity_widget_810,
+            build_market_radar_realized_cap_widget_816,
         )
 
         activity_metrics_801 = build_market_radar_activity_metrics_widget_801(asset)
         exchange_activity_810 = build_market_radar_exchange_activity_widget_810(asset)
+        realized_cap_816 = build_market_radar_realized_cap_widget_816(asset)
     except Exception:
-        logger.debug("801/810 on-chain activity widgets skipped", exc_info=True)
+        logger.debug("801/810/816 on-chain widgets skipped", exc_info=True)
 
     return {
         "ok": True,
@@ -1251,6 +1254,7 @@ def build_market_radar_panel(
         "interactive_chart_overlay_800": chart_overlay_800 if chart_overlay_800 and chart_overlay_800.get("ok") else {"ok": False},
         "activity_metrics_801": activity_metrics_801 if activity_metrics_801 and activity_metrics_801.get("ok") else {"ok": False},
         "exchange_activity_810": exchange_activity_810 if exchange_activity_810 and exchange_activity_810.get("ok") else {"ok": False},
+        "realized_cap_816": realized_cap_816 if realized_cap_816 and realized_cap_816.get("ok") else {"ok": False},
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }

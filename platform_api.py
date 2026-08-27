@@ -5523,6 +5523,34 @@ async def view_modes_asset_card_route(
     return build_asset_card_view_modes_804(asset, view_mode=view_mode)
 
 
+@router.get("/intelligence-ledger/ux-layer/progressive-disclosure/status")
+async def progressive_disclosure_status_route():
+    """#815 Progressive Disclosure — cross-cutting UX pattern."""
+    from ux_mode import progressive_disclosure_status_815
+
+    return progressive_disclosure_status_815()
+
+
+@router.get("/intelligence-ledger/ux-layer/progressive-disclosure/asset-card")
+async def progressive_disclosure_asset_card_route(
+    asset: str = Query("BTC"),
+    expanded: bool = Query(False),
+):
+    from ux_mode import build_asset_card_progressive_disclosure_815
+
+    return build_asset_card_progressive_disclosure_815(asset, expanded=expanded)
+
+
+@router.get("/intelligence-ledger/ux-layer/progressive-disclosure/report")
+async def progressive_disclosure_report_route(
+    report_id: str = Query("market-brief"),
+    expanded: bool = Query(False),
+):
+    from ux_mode import build_report_progressive_disclosure_815
+
+    return build_report_progressive_disclosure_815(report_id, expanded=expanded)
+
+
 @router.get("/intelligence-ledger/onchain-layer/metrics-library/activity-metrics")
 async def activity_metrics_suite_route(asset: str = Query("BTC")):
     """#801 Activity Metrics — merged into #577."""
@@ -5691,6 +5719,38 @@ async def supply_dynamics_risk_flag_route(asset: str = Query("BTC")):
     from bd_platform.onchain_metrics_library import build_revived_supply_risk_flag_ledger_794
 
     return build_revived_supply_risk_flag_ledger_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/realized-cap")
+async def realized_cap_suite_route(asset: str = Query("BTC")):
+    """#816 Realized Cap — merged into #577 (UTXO chains only)."""
+    from bd_platform.onchain_metrics_library import build_realized_cap_suite_816
+
+    result = build_realized_cap_suite_816(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/realized-cap/qa")
+async def realized_cap_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_realized_cap_qa_816
+
+    return run_realized_cap_qa_816(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/realized-cap/market-radar")
+async def realized_cap_market_radar_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_market_radar_realized_cap_widget_816
+
+    return build_market_radar_realized_cap_widget_816(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/realized-cap/asset-card")
+async def realized_cap_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_asset_card_realized_cap_sparkline_816
+
+    return build_asset_card_realized_cap_sparkline_816(asset)
 
 
 @router.get("/intelligence-ledger/data-layer/asset-registry/indicator-panel")

@@ -1084,5 +1084,42 @@
         "sparkline_net_flow": [20e6, 28e6, 35e6, 42e6, 45e6]
       }
     }
+  },
+  "realized_cap_816": {
+    "feature_ref": 816,
+    "merged_into": 577,
+    "utxo_chains_only": true,
+    "coinmetrics_qa": {
+      "tolerance_pct": 2.0,
+      "assets": {
+        "BTC": {
+          "platform_realized_cap_usd": 583200000000,
+          "coinmetrics_realized_cap_usd": 580000000000
+        }
+      }
+    },
+    "fee_db": {"rpc_usd": 0.05, "historical_price_lookup_usd": 0.03, "tier": "standard"},
+    "assets": {
+      "BTC": {
+        "chain_model": "utxo",
+        "realized_cap_usd": 583200000000,
+        "market_cap_usd": 1280000000000,
+        "daily_transaction_volume_usd": 30117647059,
+        "realized_cap_history": [560e9, 565e9, 570e9, 578e9, 583.2e9],
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 1,
+          "metrics_recalculated": true
+        },
+        "fee_db": {"rpc_usd": 0.05, "historical_price_lookup_usd": 0.03, "tier": "standard"}
+      },
+      "ETH": {
+        "chain_model": "account",
+        "realized_cap_usd": 0,
+        "market_cap_usd": 420000000000,
+        "daily_transaction_volume_usd": 6158357771
+      }
+    }
   }
 }

@@ -324,3 +324,128 @@ def beginner_professional_modes_status_804() -> dict[str, Any]:
         "fee_db": {"additional_cost_usd": 0, "ui_concern_only": True},
         "timestamp": _utcnow(),
     }
+
+
+# --- #815 Progressive Disclosure (cross-cutting UX pattern) ---
+
+_PROGRESSIVE_DISCLOSURE_REF = 815
+_COLLAPSED_METRIC_KEYS = ("price", "change_24h_pct", "symbol", "asset")
+
+
+def apply_progressive_disclosure_815(
+    payload: dict[str, Any],
+    *,
+    surface: str = "asset_card",
+    widget_id: str = "default",
+    expanded: bool = False,
+) -> dict[str, Any]:
+    """
+    #815 — basic info first, advanced metrics on expand demand.
+    Asset Card: price + change first → expand for full metrics.
+    Report: summary first → 'التفاصيل' for full detail.
+    """
+    out = dict(payload)
+    metrics = list(out.get("metrics") or [])
+    collapsed = [m for m in metrics if (m.get("key") or m.get("label", "")).lower() in _COLLAPSED_METRIC_KEYS]
+    if not collapsed and metrics:
+        collapsed = metrics[:2]
+
+    out["feature_ref"] = _PROGRESSIVE_DISCLOSURE_REF
+    out["standalone_rejected"] = True
+    out["cross_cutting"] = True
+    out["surface"] = surface
+    out["widget_id"] = widget_id
+    out["expanded"] = expanded
+    out["collapsed_metrics"] = collapsed if not expanded else metrics
+    out["full_metrics"] = metrics
+    out["metrics_hidden_until_expand"] = max(0, len(metrics) - len(collapsed)) if not expanded else 0
+    out["expand_cta_ar"] = "عرض المزيد"
+    out["expand_cta_en"] = "Show more"
+    out["collapse_cta_ar"] = "عرض أقل"
+    out["details_cta_ar"] = "التفاصيل"
+    out["details_cta_en"] = "Details"
+    out["presentation_only"] = True
+    out["calculations_unchanged"] = True
+    out["basic_info_first"] = True
+    out["advanced_on_demand"] = True
+    return out
+
+
+def build_asset_card_progressive_disclosure_815(
+    asset: str = "BTC",
+    *,
+    price_usd: float | None = None,
+    change_24h_pct: float | None = None,
+    expanded: bool = False,
+) -> dict[str, Any]:
+    """#815 — Asset Card: price + change first, expand for full metrics."""
+    sym = asset.upper()
+    price = price_usd if price_usd is not None else 98500.0
+    change = change_24h_pct if change_24h_pct is not None else 2.4
+    metrics = [
+        {"key": "price", "label": "Price", "value": price, "unit": "USD"},
+        {"key": "change_24h_pct", "label": "24h Change", "value": change, "unit": "%"},
+        {"key": "market_cap", "label": "Market Cap", "value": "1.28T", "unit": "USD"},
+        {"key": "volume_24h", "label": "24h Volume", "value": "28.5B", "unit": "USD"},
+        {"key": "nvt", "label": "NVT", "value": 42.5},
+        {"key": "realized_cap", "label": "Realized Cap", "value": "580B", "unit": "USD"},
+    ]
+    widget = {
+        "asset": sym,
+        "surface": "asset_card",
+        "metrics": metrics,
+        "summary_line": f"{sym} ${price:,.0f} ({change:+.1f}% 24h)",
+    }
+    return apply_progressive_disclosure_815(
+        widget, surface="asset_card", widget_id=f"asset_card_{sym}", expanded=expanded,
+    )
+
+
+def build_report_progressive_disclosure_815(
+    report_id: str = "market-brief",
+    *,
+    summary: str | None = None,
+    expanded: bool = False,
+) -> dict[str, Any]:
+    """#815 — Report: summary first, 'التفاصيل' expands full analysis."""
+    payload = {
+        "report_id": report_id,
+        "surface": "report",
+        "summary": summary or "BTC network activity stable; NVT within historical band.",
+        "summary_ar": "نشاط شبكة BTC مستقر؛ NVT ضمن النطاق التاريخي.",
+        "details": {
+            "sections": ["market_overview", "on_chain_activity", "sentiment", "risk_flags"],
+            "full_analysis_available": True,
+        },
+        "metrics": [
+            {"key": "headline", "label": "Headline", "value": summary or "Market brief"},
+            {"key": "change_24h_pct", "label": "BTC 24h", "value": 2.4},
+            {"key": "nvt", "label": "NVT", "value": 42.5},
+            {"key": "daa", "label": "DAA", "value": 890000},
+        ],
+    }
+    out = apply_progressive_disclosure_815(
+        payload, surface="report", widget_id=report_id, expanded=expanded,
+    )
+    if not expanded:
+        out["visible_content"] = {"summary": out["summary"], "summary_ar": out.get("summary_ar")}
+    else:
+        out["visible_content"] = {"summary": out["summary"], "details": out.get("details")}
+    return out
+
+
+def progressive_disclosure_status_815() -> dict[str, Any]:
+    return {
+        "ok": True,
+        "feature_id": _PROGRESSIVE_DISCLOSURE_REF,
+        "standalone_rejected": True,
+        "merged_into": "UX Design System",
+        "cross_cutting": True,
+        "pattern": "basic_info_first_advanced_on_demand",
+        "surfaces": ["asset_card", "report", "market_radar", "portfolio_ai", "landing_page"],
+        "asset_card_cta_ar": "عرض المزيد",
+        "report_cta_ar": "التفاصيل",
+        "complements_feature_ref": 804,
+        "fee_db": {"additional_cost_usd": 0, "ui_concern_only": True},
+        "timestamp": _utcnow(),
+    }
