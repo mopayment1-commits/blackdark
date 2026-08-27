@@ -1,0 +1,193 @@
+{
+  "feature_id": 660,
+  "title": "Protocol Risk Passport",
+  "legal_name": "DeFi Risk Passport",
+  "standalone": false,
+  "merged_into": "Sprint-2 Risk Layer Core",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "category_weights": {
+    "tvl_concentration": 0.2,
+    "exploit_history": 0.25,
+    "oracle_health": 0.2,
+    "liquidity_depth": 0.2,
+    "bridge_dependency": 0.15
+  },
+  "alert_thresholds": {
+    "min_passport_grade": "C",
+    "utilization_pct": 90,
+    "insolvency_utilization_pct": 95
+  },
+  "opportunity_protocol_map": {
+    "defi_eth_lst_001": "lido",
+    "defi_uni_liq_001": "curve",
+    "eth": "aave_v3",
+    "uni": "uniswap_v3",
+    "aave_v3": "aave_v3",
+    "compound_iii": "compound_iii",
+    "risky_protocol": "risky_protocol"
+  },
+  "portfolios": {
+    "demo_portfolio": {
+      "protocol_exposure": {
+        "aave_v3": 28,
+        "compound_iii": 15,
+        "risky_protocol": 8
+      }
+    }
+  },
+  "protocols": {
+    "aave_v3": {
+      "protocol_id": "aave_v3",
+      "protocol_name": "Aave V3",
+      "tvl_concentration_pct": 18.5,
+      "oracle_health": {
+        "type": "multi_source",
+        "sources": ["Chainlink", "Chronicle"],
+        "single_oracle_risk": false,
+        "score": 88
+      },
+      "liquidity_depth": {
+        "exit_slippage_bps_1m_usd": 12,
+        "score": 85
+      },
+      "bridge_dependency": {
+        "has_bridge_dependency": false,
+        "bridges": []
+      },
+      "exploit_history": [
+        {
+          "incident_id": "aave-2022-optimization",
+          "severity": 2,
+          "date": "2022-08-18",
+          "source": "Rekt",
+          "source_link": "https://rekt.news/aave-rekt/"
+        }
+      ],
+      "risk_categories": {
+        "tvl_concentration": {"score": 82, "source": "defillama", "evidence": "Top asset 18.5% TVL"},
+        "exploit_history": {"score": 75, "source": "rekt_immunefi", "evidence": "1 minor incident"},
+        "oracle_health": {"score": 88, "source": "on_chain_oracle_registry"},
+        "liquidity_depth": {"score": 85, "source": "slippage_simulator"},
+        "bridge_dependency": {"score": 95, "source": "bridge_dependency_map"}
+      },
+      "lending_risk": {
+        "protocol_semantics": "aave_v3_liquidation",
+        "protocol_version": "v3",
+        "utilization_rate_pct": 78.5,
+        "collateral_factor_pct": 82,
+        "liquidation_threshold_pct": 85,
+        "borrow_supply_ratio": 0.72,
+        "historical_liquidation_volume_usd": 12500000
+      },
+      "real_time_risk": {
+        "spike_active": false,
+        "severity": "normal"
+      },
+      "historical_trend": [
+        {"date": "2026-05", "grade": "A", "score": 86},
+        {"date": "2026-06", "grade": "A", "score": 87},
+        {"date": "2026-07", "grade": "A+", "score": 89},
+        {"date": "2026-08", "grade": "A+", "score": 90}
+      ],
+      "evidence_links": ["/api/platform/intelligence-ledger/risk-layer/defi-risk-passport/aave_v3"]
+    },
+    "compound_iii": {
+      "protocol_id": "compound_iii",
+      "protocol_name": "Compound III",
+      "tvl_concentration_pct": 22.0,
+      "oracle_health": {"type": "multi_source", "sources": ["Chainlink"], "single_oracle_risk": false, "score": 80},
+      "liquidity_depth": {"exit_slippage_bps_1m_usd": 18, "score": 78},
+      "bridge_dependency": {"has_bridge_dependency": false, "bridges": []},
+      "exploit_history": [],
+      "risk_categories": {
+        "tvl_concentration": {"score": 78, "source": "defillama"},
+        "exploit_history": {"score": 92, "source": "immunefi"},
+        "oracle_health": {"score": 80, "source": "on_chain_oracle_registry"},
+        "liquidity_depth": {"score": 78, "source": "slippage_simulator"},
+        "bridge_dependency": {"score": 95, "source": "bridge_dependency_map"}
+      },
+      "lending_risk": {
+        "protocol_semantics": "compound_iii_liquidation",
+        "protocol_version": "III",
+        "utilization_rate_pct": 72.0,
+        "collateral_factor_pct": 80,
+        "liquidation_threshold_pct": 82,
+        "borrow_supply_ratio": 0.68,
+        "historical_liquidation_volume_usd": 8200000
+      },
+      "real_time_risk": {"spike_active": false},
+      "historical_trend": [
+        {"date": "2026-06", "grade": "B", "score": 78},
+        {"date": "2026-08", "grade": "B", "score": 80}
+      ]
+    },
+    "risky_protocol": {
+      "protocol_id": "risky_protocol",
+      "protocol_name": "Risky DeFi Pool",
+      "tvl_concentration_pct": 65.0,
+      "oracle_health": {"type": "single_source", "sources": ["custom_oracle"], "single_oracle_risk": true, "score": 35},
+      "liquidity_depth": {"exit_slippage_bps_1m_usd": 250, "score": 30},
+      "bridge_dependency": {"has_bridge_dependency": true, "bridges": ["multichain_legacy"]},
+      "exploit_history": [
+        {
+          "incident_id": "risky-2024-exploit",
+          "severity": 9,
+          "date": "2024-03-12",
+          "source": "Immunefi",
+          "source_link": "https://immunefi.com/explore/"
+        },
+        {
+          "incident_id": "risky-2025-drain",
+          "severity": 8,
+          "date": "2025-11-05",
+          "source": "Rekt",
+          "source_link": "https://rekt.news/leaderboard/"
+        }
+      ],
+      "risk_categories": {
+        "tvl_concentration": {"score": 25, "source": "defillama"},
+        "exploit_history": {"score": 15, "source": "rekt_immunefi"},
+        "oracle_health": {"score": 35, "source": "on_chain_oracle_registry"},
+        "liquidity_depth": {"score": 30, "source": "slippage_simulator"},
+        "bridge_dependency": {"score": 20, "source": "bridge_dependency_map"}
+      },
+      "real_time_risk": {
+        "spike_active": true,
+        "severity": "elevated",
+        "evidence_link": "/api/platform/intelligence-ledger/risk-layer/defi-risk-passport/risky_protocol"
+      },
+      "historical_trend": [
+        {"date": "2026-06", "grade": "D", "score": 42},
+        {"date": "2026-08", "grade": "F", "score": 28}
+      ]
+    },
+    "high_util_lending": {
+      "protocol_id": "high_util_lending",
+      "protocol_name": "High Util Lending",
+      "tvl_concentration_pct": 40.0,
+      "oracle_health": {"type": "multi_source", "sources": ["Chainlink"], "score": 70},
+      "liquidity_depth": {"exit_slippage_bps_1m_usd": 45, "score": 55},
+      "bridge_dependency": {"has_bridge_dependency": false, "bridges": []},
+      "exploit_history": [],
+      "risk_categories": {
+        "tvl_concentration": {"score": 50, "source": "defillama"},
+        "exploit_history": {"score": 80, "source": "immunefi"},
+        "oracle_health": {"score": 70, "source": "on_chain_oracle_registry"},
+        "liquidity_depth": {"score": 55, "source": "slippage_simulator"},
+        "bridge_dependency": {"score": 90, "source": "bridge_dependency_map"}
+      },
+      "lending_risk": {
+        "protocol_semantics": "generic_lending_liquidation",
+        "protocol_version": "v1",
+        "utilization_rate_pct": 96.5,
+        "collateral_factor_pct": 75,
+        "liquidation_threshold_pct": 80,
+        "borrow_supply_ratio": 0.95,
+        "historical_liquidation_volume_usd": 45000000
+      },
+      "real_time_risk": {"spike_active": true, "severity": "critical"},
+      "historical_trend": [{"date": "2026-08", "grade": "D", "score": 48}]
+    }
+  }
+}

@@ -472,7 +472,7 @@
       "utilization_pct": 78.5,
       "delta_vs_benchmark_bps": 65,
       "persistence_days": 5,
-      "last_updated": "2026-08-27T15:30:00Z",
+      "last_updated": "2026-08-27T16:35:00Z",
       "source_protocols": ["Aave v3"],
       "evidence": {"source": "defillama", "pool": "USDC"}
     },
@@ -488,7 +488,7 @@
       "utilization_pct": 72.0,
       "delta_vs_benchmark_bps": 80,
       "persistence_days": 3,
-      "last_updated": "2026-08-27T15:25:00Z",
+      "last_updated": "2026-08-27T16:34:00Z",
       "source_protocols": ["Compound III"],
       "evidence": {"source": "defillama", "pool": "USDC"}
     },
@@ -504,7 +504,7 @@
       "utilization_pct": 65.0,
       "delta_vs_benchmark_bps": 42,
       "persistence_days": 4,
-      "last_updated": "2026-08-27T15:20:00Z",
+      "last_updated": "2026-08-27T16:33:00Z",
       "source_protocols": ["Curve"],
       "evidence": {"source": "defillama", "pool": "stETH/ETH"}
     },
@@ -524,5 +524,68 @@
     "backend_filters": ["chain", "protocol", "risk_grade", "min_liquidity_usd"],
     "risk_return_separated": true,
     "no_apy_only_ranking": true
+  },
+  "passport_protocol_map": {
+    "aave_v3_usdc": "aave_v3",
+    "compound_iii_usdc": "compound_iii"
+  },
+  "protocol_activity_659": {
+    "feature_ref": 659,
+    "liquidation_spike_multiplier": 2.0,
+    "protocols": {
+      "aave_v3_ethereum": {
+        "protocol_id": "aave_v3_ethereum",
+        "protocol_name": "Aave V3 Ethereum",
+        "protocol_coverage": ["Aave v3 Ethereum"],
+        "liquidation_semantics_validated": true,
+        "contract_version_mapping": {
+          "pool": "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2",
+          "version": "v3",
+          "liquidation_event": "LiquidationCall(address,address,address,uint256,uint256,address,bool)"
+        },
+        "utilization_rate_pct": 78.5,
+        "deposits_vs_withdrawals_trend": [
+          {"date": "2026-08-20", "deposits_usd": 120000000, "withdrawals_usd": 85000000},
+          {"date": "2026-08-25", "deposits_usd": 135000000, "withdrawals_usd": 92000000},
+          {"date": "2026-08-27", "deposits_usd": 128000000, "withdrawals_usd": 110000000}
+        ],
+        "actions": {
+          "deposit": [{"date": "2026-08-27", "count": 1250, "usd": 128000000}],
+          "withdrawal": [{"date": "2026-08-27", "count": 980, "usd": 110000000}],
+          "liquidation": [
+            {"date": "2026-08-20", "count": 12, "usd": 450000},
+            {"date": "2026-08-25", "count": 15, "usd": 520000},
+            {"date": "2026-08-27", "count": 18, "usd": 610000}
+          ],
+          "borrow": [{"date": "2026-08-27", "count": 420, "usd": 95000000}]
+        }
+      },
+      "compound_iii_ethereum": {
+        "protocol_id": "compound_iii_ethereum",
+        "protocol_name": "Compound III Ethereum",
+        "protocol_coverage": ["Compound III Ethereum"],
+        "liquidation_semantics_validated": true,
+        "contract_version_mapping": {
+          "comet": "0xc3d688B66703D5A25B9eAaA83D1E5c0AcbDdeaE16",
+          "version": "III",
+          "liquidation_event": "AbsorbCollateral(address,address,uint256)"
+        },
+        "utilization_rate_pct": 72.0,
+        "deposits_vs_withdrawals_trend": [
+          {"date": "2026-08-25", "deposits_usd": 45000000, "withdrawals_usd": 38000000},
+          {"date": "2026-08-27", "deposits_usd": 42000000, "withdrawals_usd": 55000000}
+        ],
+        "actions": {
+          "deposit": [{"date": "2026-08-27", "count": 320, "usd": 42000000}],
+          "withdrawal": [{"date": "2026-08-27", "count": 410, "usd": 55000000}],
+          "liquidation": [
+            {"date": "2026-08-20", "count": 5, "usd": 120000},
+            {"date": "2026-08-25", "count": 8, "usd": 180000},
+            {"date": "2026-08-27", "count": 45, "usd": 2800000}
+          ],
+          "borrow": [{"date": "2026-08-27", "count": 180, "usd": 30000000}]
+        }
+      }
+    }
   }
 }
