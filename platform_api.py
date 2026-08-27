@@ -3533,13 +3533,44 @@ async def cross_domain_market_context_sub_module_route(
     sub_module_id: str,
     asset: str = Query("BTC"),
 ):
-    """#524 sub-module feed — task not ticket (#523-530)."""
+    """#524 sub-module feed — task not ticket (#523-530, #599)."""
+    if sub_module_id == "599":
+        from bd_platform.hype_vs_reality_signal import build_hype_vs_reality_panel
+
+        return build_hype_vs_reality_panel(asset)
+
     from bd_platform.cross_domain_market_context_layer import build_sub_module_feed
 
     result = build_sub_module_feed(sub_module_id, asset=asset)
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/hype-vs-reality/status")
+async def hype_vs_reality_signal_status_route():
+    """#599 Hype vs Reality Signal — merged into #524. No chatbot advisor role."""
+    from bd_platform.hype_vs_reality_signal import hype_vs_reality_signal_status
+
+    return hype_vs_reality_signal_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/hype-vs-reality")
+async def hype_vs_reality_signal_panel_route(asset: str = Query("BTC")):
+    """#599 — Confirmed / Social-only / On-chain-only / Contradictory badge feed."""
+    from bd_platform.hype_vs_reality_signal import build_hype_vs_reality_panel
+
+    result = build_hype_vs_reality_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/hype-vs-reality/reconciliation-tests")
+async def hype_vs_reality_reconciliation_tests_route():
+    from bd_platform.hype_vs_reality_signal import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/onchain-layer/whale-flow-destination/status")

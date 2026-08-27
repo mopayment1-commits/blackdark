@@ -431,6 +431,14 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
     except Exception:
         logger.debug("event sentiment monitor enrichment skipped", exc_info=True)
 
+    # #599 Hype vs Reality Signal — badge on every arbitrage signal (#403)
+    try:
+        from bd_platform.hype_vs_reality_signal import attach_signal_quality_badge
+
+        enriched = attach_signal_quality_badge(enriched, asset=asset)
+    except Exception:
+        logger.debug("hype vs reality signal enrichment skipped", exc_info=True)
+
     # #467 Stablecoin Health Monitor — cancel stablecoin arb if depeg probability > threshold
     try:
         from bd_platform.stablecoin_health_monitor import should_cancel_stablecoin_arbitrage

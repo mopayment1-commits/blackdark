@@ -274,11 +274,22 @@ def build_market_radar_panel(
     seed = seed or _load_seed()
     activity = build_exchange_activity_indicator(exchange_id)
     volatility = build_volatility_analytics_dashboard(asset, seed=seed)
+
+    hype_vs_reality = None
+    try:
+        from bd_platform.hype_vs_reality_signal import build_hype_vs_reality_signal
+
+        hype_vs_reality = build_hype_vs_reality_signal(asset)
+    except Exception:
+        logger.debug("hype vs reality market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
         "exchange_activity_734": activity,
         "volatility_analytics_498": volatility,
+        "hype_vs_reality_signal_599": hype_vs_reality,
+        "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }
 
