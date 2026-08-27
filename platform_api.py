@@ -5402,6 +5402,89 @@ async def notifications_qa_route():
     return run_alerts_qa_tests_759()
 
 
+@router.get("/intelligence-ledger/alert-engine/backend")
+async def alert_backend_orchestration_route():
+    """#786 Alert Orchestration — backend component merged into #759."""
+    from bd_platform.alert_engine import build_alert_backend_orchestration_786
+
+    return build_alert_backend_orchestration_786()
+
+
+@router.get("/intelligence-ledger/alert-engine/custom-metrics/status")
+async def custom_metric_alerts_status_route():
+    from bd_platform.alert_engine import custom_metric_alerts_status_788
+
+    return custom_metric_alerts_status_788()
+
+
+@router.get("/intelligence-ledger/alert-engine/custom-metrics")
+async def custom_metric_alerts_panel_route(user_id: str = Query("default")):
+    """#788 Custom Metric Alerts — merged into #759."""
+    from bd_platform.alert_engine import build_custom_metric_alerts_panel_788
+
+    return build_custom_metric_alerts_panel_788(user_id)
+
+
+@router.get("/intelligence-ledger/alert-engine/custom-metrics/delivery-logs")
+async def custom_metric_alerts_delivery_logs_route(limit: int = Query(50, ge=1, le=200)):
+    from bd_platform.alert_engine import list_custom_alert_delivery_logs_788
+
+    return list_custom_alert_delivery_logs_788(limit=limit)
+
+
+@router.get("/intelligence-ledger/alert-engine/custom-metrics/e2e")
+async def custom_metric_alerts_e2e_route():
+    from bd_platform.alert_engine import run_custom_metric_alerts_e2e_788
+
+    return run_custom_metric_alerts_e2e_788()
+
+
+@router.post("/intelligence-ledger/alert-engine/custom-metrics/manage")
+async def custom_metric_alerts_manage_route(
+    rule_id: str = Query(...),
+    action: str = Query(..., pattern="^(pause|resume|delete|edit)$"),
+):
+    from bd_platform.alert_engine import manage_custom_alert_rule_788
+
+    return manage_custom_alert_rule_788(rule_id, action)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics")
+async def supply_dynamics_suite_route(asset: str = Query("BTC")):
+    """#794 Supply Dynamics — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_supply_dynamics_suite_794
+
+    return build_supply_dynamics_suite_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics/qa")
+async def supply_dynamics_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_supply_reconciliation_qa_794
+
+    return run_supply_reconciliation_qa_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics/market-radar")
+async def supply_dynamics_market_radar_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_market_radar_supply_dynamics_widget_794
+
+    return build_market_radar_supply_dynamics_widget_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics/asset-card")
+async def supply_dynamics_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_asset_card_supply_structure_794
+
+    return build_asset_card_supply_structure_794(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-dynamics/risk-flag")
+async def supply_dynamics_risk_flag_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_revived_supply_risk_flag_ledger_794
+
+    return build_revived_supply_risk_flag_ledger_794(asset)
+
+
 @router.get("/intelligence-ledger/data-layer/asset-registry/indicator-panel")
 async def asset_card_indicator_panel_route(asset: str = Query("BTC")):
     """#755 Asset Card Indicator Panel."""
@@ -5419,6 +5502,28 @@ async def system_performance_monitor_status_route(_admin: dict = Depends(require
     from bd_platform.system_performance_monitor import system_performance_monitor_status
 
     return system_performance_monitor_status()
+
+
+@router.get("/internal/infrastructure-observability/status")
+async def infrastructure_observability_status_route(_admin: dict = Depends(require_admin)):
+    """#789 SRE observability — NOT user alerts (admin only)."""
+    from bd_platform.infrastructure_observability_stack import infrastructure_observability_status_789
+
+    return infrastructure_observability_status_789()
+
+
+@router.get("/internal/infrastructure-observability")
+async def infrastructure_observability_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_observability_stack import build_sre_observability_stack_789
+
+    return build_sre_observability_stack_789()
+
+
+@router.get("/internal/infrastructure-observability/slo-tests")
+async def infrastructure_observability_slo_tests_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_observability_stack import run_infra_observability_slo_tests_789
+
+    return run_infra_observability_slo_tests_789()
 
 
 @router.get("/internal/system-performance")

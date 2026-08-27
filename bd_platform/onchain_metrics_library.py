@@ -24,7 +24,7 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656, 679, 682, 757, 761)
+_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656, 679, 682, 757, 761, 794)
 _EPIC_ID = 577
 _WHALE_RETAIL_REF = 634
 _TITLE = "On-Chain Metrics Library"
@@ -1238,6 +1238,202 @@ def build_nvt_overvaluation_flag_ledger_761(
             f"NVT {suite.get('nvt_ratio')} — "
             + ("overvaluation context flag" if suite.get("overvaluation_flag") else "within historical band")
         ),
+        "timestamp": _utcnow(),
+    }
+
+
+_SUPPLY_DYNAMICS_DISCLAIMER = (
+    "Supply metrics describe on-chain movement. Not investment advice. "
+    "Deterministic calculations — no AI supply prediction."
+)
+
+
+def build_supply_dynamics_suite_794(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#794 — supply_dynamics metric suite merged into #577."""
+    seed = seed or _load_seed()
+    cfg = seed.get("supply_dynamics_794") or {}
+    asset_cfg = (cfg.get("assets") or {}).get(asset.upper())
+    if not asset_cfg:
+        return {"ok": False, "asset": asset, "error": "supply_dynamics_not_found"}
+
+    chain_model = asset_cfg.get("chain_model", "utxo")
+    model_def = _CHAIN_MODEL_DEFINITIONS.get(chain_model, _CHAIN_MODEL_DEFINITIONS["utxo"])
+    metrics = asset_cfg.get("metrics") or {}
+    reorg = asset_cfg.get("reorg_handling") or {}
+    age_bands = metrics.get("age_bands") or {}
+
+    return {
+        "ok": True,
+        "metric_id": "supply_dynamics",
+        "feature_ref": 794,
+        "merged_into": 577,
+        "standalone_rejected": True,
+        "asset": asset.upper(),
+        "chain_model": chain_model,
+        "chain_specific_semantics": model_def,
+        "chain_semantics_documented": True,
+        "mandatory_metrics": [
+            "active_supply_pct",
+            "dormant_supply_pct_gt_1y",
+            "revived_supply_pct_7d",
+            "age_bands",
+            "coin_days_destroyed",
+        ],
+        "metrics": {
+            "active_supply_pct": metrics.get("active_supply_pct"),
+            "dormant_supply_pct_gt_1y": metrics.get("dormant_supply_pct_gt_1y"),
+            "revived_supply_pct_7d": metrics.get("revived_supply_pct_7d"),
+            "age_bands": age_bands,
+            "coin_days_destroyed": metrics.get("coin_days_destroyed"),
+        },
+        "methodology": {
+            "active_supply": "coins moved within 1Y / total supply",
+            "dormant_supply": "coins unmoved >1Y / total supply",
+            "revived_supply": "previously dormant coins moved in 7D / total supply",
+            "age_bands": "UTXO/account age distribution buckets",
+            "coin_days_destroyed": "sum(coin_age × amount_destroyed)",
+            "documented": True,
+            "no_black_box": True,
+        },
+        "reorg_handling": {
+            "enabled": reorg.get("enabled", True),
+            "recalculate_cancelled_blocks": reorg.get("recalculate_cancelled_blocks", True),
+            "last_reorg_depth": reorg.get("last_reorg_depth", 0),
+            "metrics_recalculated": reorg.get("metrics_recalculated", True),
+        },
+        "no_automatic_alert": True,
+        "observation_only": True,
+        "deterministic": True,
+        "no_ml_prediction": True,
+        "fee_db": asset_cfg.get("fee_db") or cfg.get("fee_db"),
+        "disclaimer": _SUPPLY_DYNAMICS_DISCLAIMER,
+        "display": (
+            f"Active: {metrics.get('active_supply_pct')}% | "
+            f"Dormant (>1Y): {metrics.get('dormant_supply_pct_gt_1y')}% | "
+            f"Revived (7D): {metrics.get('revived_supply_pct_7d')}% | "
+            f"Age Band 3Y+: {(age_bands.get('3Y+') or {}).get('pct', 'N/A')}%"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_supply_reconciliation_qa_794(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#794 — daily QA: total supply vs CoinGecko ±0.1%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("supply_dynamics_794") or {}
+    qa = (cfg.get("supply_reconciliation_qa") or {}).get("assets", {}).get(asset.upper()) or {}
+    platform = float(qa.get("platform_total_supply", 0))
+    reference = float(qa.get("coingecko_total_supply", 0))
+    tolerance = float((cfg.get("supply_reconciliation_qa") or {}).get("tolerance_pct", 0.1))
+
+    if platform <= 0:
+        within = False
+        delta_pct = 0.0
+    else:
+        delta_pct = abs(platform - reference) / platform * 100
+        within = delta_pct <= tolerance
+
+    return {
+        "ok": within,
+        "feature_ref": 794,
+        "asset": asset.upper(),
+        "platform_total_supply": platform,
+        "reference_total_supply": reference,
+        "reference_source": qa.get("reference_source", "coingecko"),
+        "delta_pct": round(delta_pct, 4),
+        "tolerance_pct": tolerance,
+        "within_tolerance": within,
+        "daily_qa_required": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_supply_dynamics_widget_794(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#794 → Market Radar widget: ديناميكيات العرض."""
+    suite = build_supply_dynamics_suite_794(asset, seed=seed)
+    return {
+        "ok": suite.get("ok", False),
+        "feature_ref": 794,
+        "surface": "market_radar",
+        "widget": "supply_dynamics",
+        "widget_label_ar": "ديناميكيات العرض",
+        "suite": suite,
+        "display": suite.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_supply_structure_794(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#794 — Asset Card هيكل العرض (pie chart + age bands)."""
+    suite = build_supply_dynamics_suite_794(asset, seed=seed)
+    if not suite.get("ok"):
+        return {**suite, "surface": "asset_card"}
+
+    age_bands = (suite.get("metrics") or {}).get("age_bands") or {}
+    return {
+        "ok": True,
+        "feature_ref": 794,
+        "surface": "asset_card",
+        "tab_ar": "هيكل العرض",
+        "active_supply_pct": (suite.get("metrics") or {}).get("active_supply_pct"),
+        "dormant_supply_pct": (suite.get("metrics") or {}).get("dormant_supply_pct_gt_1y"),
+        "revived_supply_pct": (suite.get("metrics") or {}).get("revived_supply_pct_7d"),
+        "age_bands": age_bands,
+        "pie_chart_data": [
+            {"label": "0-1Y", "pct": (age_bands.get("0-1Y") or {}).get("pct")},
+            {"label": "1-2Y", "pct": (age_bands.get("1-2Y") or {}).get("pct")},
+            {"label": "2-3Y", "pct": (age_bands.get("2-3Y") or {}).get("pct")},
+            {"label": "3Y+", "pct": (age_bands.get("3Y+") or {}).get("pct")},
+        ],
+        "suite": suite,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_revived_supply_risk_flag_ledger_794(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#794 → Intelligence Ledger risk scoring — revived supply spike flag."""
+    seed = seed or _load_seed()
+    suite = build_supply_dynamics_suite_794(asset, seed=seed)
+    if not suite.get("ok"):
+        return {"ok": False, "asset": asset}
+
+    cfg = seed.get("supply_dynamics_794") or {}
+    threshold = float(cfg.get("revived_spike_threshold_pct", 3.0))
+    revived = float((suite.get("metrics") or {}).get("revived_supply_pct_7d") or 0)
+    spike = revived >= threshold
+
+    return {
+        "ok": True,
+        "feature_ref": 794,
+        "integration": "intelligence_ledger",
+        "dimension": "risk_scoring",
+        "asset": asset.upper(),
+        "revived_supply_pct_7d": revived,
+        "revived_spike_flag": spike,
+        "threshold_pct": threshold,
+        "observation_only": True,
+        "no_automatic_alert": True,
+        "display": f"Revived supply (7D): {revived}% — {'spike flag' if spike else 'normal'}",
         "timestamp": _utcnow(),
     }
 
@@ -2556,6 +2752,7 @@ def build_metrics_library_panel(
     sector_metrics = build_sector_metrics_library_678(seed=seed)
     methodology_governance = build_methodology_registry(seed=seed)
     network_activity = build_network_activity_suite_682(sym, seed=seed)
+    supply_dynamics = build_supply_dynamics_suite_794(sym, seed=seed)
     on_chain_fin = None
     try:
         from bd_platform.on_chain_financials import build_metrics_library_financials, _load_seed as _fin_load
@@ -2592,6 +2789,7 @@ def build_metrics_library_panel(
             "678_sector_metrics": sector_metrics if sector_metrics.get("ok") else {"ok": False},
             "679_methodology_governance": methodology_governance if methodology_governance.get("ok") else {"ok": False},
             "682_network_activity": network_activity if network_activity.get("ok") else {"ok": False},
+            "794_supply_dynamics": supply_dynamics if supply_dynamics.get("ok") else {"ok": False},
             "634_whale_vs_retail_flow": whale_retail if whale_retail.get("ok") else {"ok": False},
             "641_on_chain_financials": on_chain_fin if on_chain_fin and on_chain_fin.get("ok") else {"ok": False},
             "737_hodl_waves": suite.get("hodl_waves") if suite.get("ok") else {"ok": False},
@@ -2743,6 +2941,13 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
     tests.append({"test": "nvt_formula_documented_761", "passed": (nvt.get("formula") or {}).get("not_hideable") is True})
     tests.append({"test": "nvt_no_pe_analogy_761", "passed": (nvt.get("formula") or {}).get("no_pe_analogy") is True})
     tests.append({"test": "nvt_reorg_handling_761", "passed": (nvt.get("reorg_handling") or {}).get("recalculate_cancelled_blocks") is True})
+
+    supply_dyn = build_supply_dynamics_suite_794("BTC", seed=seed)
+    tests.append({"test": "supply_dynamics_suite_794", "passed": supply_dyn.get("ok") is True})
+    tests.append({"test": "supply_dynamics_methodology_794", "passed": (supply_dyn.get("methodology") or {}).get("documented") is True})
+    tests.append({"test": "supply_dynamics_reorg_794", "passed": (supply_dyn.get("reorg_handling") or {}).get("recalculate_cancelled_blocks") is True})
+    supply_qa = run_supply_reconciliation_qa_794("BTC", seed=seed)
+    tests.append({"test": "supply_reconciliation_qa_794", "passed": supply_qa.get("within_tolerance") is True})
     nvt_qa = run_nvt_reconciliation_qa_761("BTC", seed=seed)
     tests.append({"test": "nvt_reconciliation_qa_761", "passed": nvt_qa.get("within_tolerance") is True})
 

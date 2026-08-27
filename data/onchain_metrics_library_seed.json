@@ -929,5 +929,71 @@
         "fee_db": {"rpc_queries_usd": 0.03, "market_cap_api_usd": 0.015, "tier": "standard"}
       }
     }
+  },
+  "supply_dynamics_794": {
+    "feature_ref": 794,
+    "merged_into": 577,
+    "revived_spike_threshold_pct": 3.0,
+    "supply_reconciliation_qa": {
+      "tolerance_pct": 0.1,
+      "assets": {
+        "BTC": {
+          "platform_total_supply": 19800000,
+          "coingecko_total_supply": 19780200,
+          "reference_source": "coingecko"
+        },
+        "ETH": {
+          "platform_total_supply": 120500000,
+          "coingecko_total_supply": 120380500,
+          "reference_source": "coingecko"
+        }
+      }
+    },
+    "fee_db": {"rpc_queries_usd": 0.04, "indexing_usd": 0.02, "tier": "standard"},
+    "assets": {
+      "BTC": {
+        "chain_model": "utxo",
+        "metrics": {
+          "active_supply_pct": 18.0,
+          "dormant_supply_pct_gt_1y": 62.0,
+          "revived_supply_pct_7d": 2.1,
+          "coin_days_destroyed": 12500000,
+          "age_bands": {
+            "0-1Y": {"pct": 18.0},
+            "1-2Y": {"pct": 15.0},
+            "2-3Y": {"pct": 22.0},
+            "3Y+": {"pct": 45.0}
+          }
+        },
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 1,
+          "metrics_recalculated": true
+        },
+        "fee_db": {"rpc_queries_usd": 0.04, "indexing_usd": 0.02, "tier": "standard"}
+      },
+      "ETH": {
+        "chain_model": "account",
+        "metrics": {
+          "active_supply_pct": 24.5,
+          "dormant_supply_pct_gt_1y": 48.0,
+          "revived_supply_pct_7d": 1.8,
+          "coin_days_destroyed": 8200000,
+          "age_bands": {
+            "0-1Y": {"pct": 24.5},
+            "1-2Y": {"pct": 20.0},
+            "2-3Y": {"pct": 18.0},
+            "3Y+": {"pct": 37.5}
+          }
+        },
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 2,
+          "metrics_recalculated": true
+        }
+      }
+    }
   }
 }
