@@ -92,6 +92,43 @@
       }
     ]
   },
+  "exchange_buying_power_663": {
+    "feature_ref": 663,
+    "merged_into": 577,
+    "exchange_crypto_balances": [
+      {"exchange_id": "binance", "token": "BTC", "balance": 185000, "price_usd": 67200, "available": true},
+      {"exchange_id": "binance", "token": "ETH", "balance": 2100000, "price_usd": 3450, "available": true},
+      {"exchange_id": "coinbase", "token": "BTC", "balance": 92000, "price_usd": 67200, "available": true},
+      {"exchange_id": "coinbase", "token": "ETH", "balance": 980000, "price_usd": 3450, "available": true},
+      {"exchange_id": "kraken", "token": "BTC", "balance": 34000, "price_usd": 67200, "available": true},
+      {"exchange_id": "okx", "token": "ETH", "balance": 650000, "price_usd": 3450, "available": true}
+    ],
+    "triple_source": {
+      "defillama": {
+        "provider": "DeFiLlama",
+        "index_pct": 38.4,
+        "as_of": "2026-08-27T12:00:00Z",
+        "evidence_url": "https://defillama.com/stablecoins"
+      },
+      "glassnode": {
+        "provider": "Glassnode",
+        "index_pct": 37.9,
+        "as_of": "2026-08-27T11:30:00Z",
+        "evidence_url": "https://studio.glassnode.com/metrics?a=BTC"
+      },
+      "onchain_direct": {
+        "provider": "on-chain direct",
+        "index_pct": 38.1,
+        "as_of": "2026-08-27T12:15:00Z",
+        "evidence_url": "/api/platform/intelligence-ledger/onchain-layer/metrics-library/buying-power"
+      }
+    },
+    "trend": {
+      "change_7d_pct": 12.0,
+      "direction": "rising",
+      "anomaly_detected": false
+    }
+  },
   "grade_thresholds": {
     "AAA": 10,
     "AA": 20,

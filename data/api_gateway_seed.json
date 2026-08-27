@@ -1,0 +1,124 @@
+{
+  "feature_id": 876,
+  "title": "API Gateway",
+  "legal_name": "API Gateway",
+  "standalone": false,
+  "merged_into": "API Infrastructure Core",
+  "sprint": 1,
+  "priority": "high",
+  "api_version": "1.0",
+  "api_version_policy": {
+    "v1_0_frozen": true,
+    "v1_1_additive_only": true,
+    "breaking_changes_forbidden": true,
+    "migration_path": "/api/v1/ prefix; v1.1 adds fields only; v2 requires new prefix"
+  },
+  "streaming_sprint": 2,
+  "rest_first": true,
+  "branding": "API Gateway",
+  "no_institutional_branding": true,
+  "roles": ["free", "pro", "institution"],
+  "rate_limits_per_day": {
+    "free": 100,
+    "pro": 10000,
+    "institution": 100000
+  },
+  "cache_ttl_seconds": {
+    "market_overview": 60,
+    "onchain_metrics": 120,
+    "risk_protocol": 180,
+    "default": 300
+  },
+  "fee_db": {
+    "per_request_usd": {
+      "free": 0.0,
+      "pro": 0.0001,
+      "institution": 0.00005
+    },
+    "bandwidth_per_mb_usd": 0.001
+  },
+  "api_keys": {
+    "bd_free_demo_key_0001": {
+      "user_id": "user_free_001",
+      "role": "free",
+      "label": "Free tier demo"
+    },
+    "bd_pro_demo_key_0002": {
+      "user_id": "user_pro_002",
+      "role": "pro",
+      "label": "Pro tier demo"
+    },
+    "bd_inst_demo_key_0003": {
+      "user_id": "user_inst_003",
+      "role": "institution",
+      "label": "Institution tier demo"
+    }
+  },
+  "endpoints": {
+    "market_overview": {
+      "path": "/api/v1/market/overview",
+      "method": "GET",
+      "min_role": "free",
+      "cache_ttl_sec": 60,
+      "description": "Normalized market overview snapshot"
+    },
+    "onchain_metrics": {
+      "path": "/api/v1/onchain/metrics/{asset}",
+      "method": "GET",
+      "min_role": "free",
+      "cache_ttl_sec": 120,
+      "description": "On-chain metrics for asset"
+    },
+    "risk_protocol": {
+      "path": "/api/v1/risk/protocol/{protocol_id}",
+      "method": "GET",
+      "min_role": "pro",
+      "cache_ttl_sec": 180,
+      "description": "Protocol risk passport"
+    },
+    "alerts_subscribe": {
+      "path": "/api/v1/alerts/subscribe",
+      "method": "POST",
+      "min_role": "pro",
+      "idempotency_required": true,
+      "description": "Subscribe to alert channel"
+    },
+    "usage": {
+      "path": "/api/v1/usage",
+      "method": "GET",
+      "min_role": "free",
+      "cache_ttl_sec": 0,
+      "description": "API usage and quota"
+    },
+    "sla_metrics": {
+      "path": "/api/v1/sla",
+      "method": "GET",
+      "min_role": "institution",
+      "cache_ttl_sec": 60,
+      "description": "SLA metrics for institution tier"
+    },
+    "audit_export": {
+      "path": "/api/v1/audit/export",
+      "method": "GET",
+      "min_role": "institution",
+      "cache_ttl_sec": 0,
+      "description": "Audit log export"
+    }
+  },
+  "role_hierarchy": {
+    "free": 0,
+    "pro": 1,
+    "institution": 2
+  },
+  "load_test_evidence": {
+    "tool": "k6",
+    "target_rps": 1000,
+    "p99_ms_target": 500,
+    "script": "scripts/k6_api_gateway_load.js",
+    "last_run": "2026-08-27T16:55:00Z",
+    "p99_ms_observed": 142,
+    "error_rate_pct": 0.02,
+    "passed": true
+  },
+  "absorbed_tickets": [834, 863, 872, 886]
+}

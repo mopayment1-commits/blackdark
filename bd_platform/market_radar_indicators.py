@@ -291,6 +291,14 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("stablecoin reserve market radar integration skipped", exc_info=True)
 
+    buying_power_widget = None
+    try:
+        from bd_platform.stablecoin_health_monitor import build_market_radar_buying_power_widget_663
+
+        buying_power_widget = build_market_radar_buying_power_widget_663(seed=seed)
+    except Exception:
+        logger.debug("buying power market radar integration skipped", exc_info=True)
+
     transaction_flow = None
     try:
         from bd_platform.transaction_flow_view import build_market_radar_transaction_flow_view
@@ -338,6 +346,7 @@ def build_market_radar_panel(
         "volatility_analytics_498": volatility,
         "hype_vs_reality_signal_599": hype_vs_reality,
         "stablecoin_reserve_trend_601": stablecoin_reserve,
+        "exchange_stablecoin_buying_power_663": buying_power_widget,
         "transaction_flow_view_615": transaction_flow,
         "transaction_volume_chart_612": tx_volume,
         "unlock_event_timeline_607": unlock_timeline,

@@ -49,6 +49,16 @@
       "update_frequency": "hourly",
       "task_ref": 601
     },
+    "exchange_stablecoin_buying_power": {
+      "name": "Exchange Stablecoin Buying Power Index",
+      "formula": "sum(stablecoin_exchange_balances_usd) / sum(crypto_exchange_balances_usd) * 100",
+      "formula_version": "1.0",
+      "source": "stablecoin_health_monitor_663",
+      "unit": "percent",
+      "update_frequency": "hourly",
+      "task_ref": 663,
+      "triple_source": ["defillama", "glassnode", "onchain_direct"]
+    },
     "transaction_volume_usd": {
       "name": "Transaction Volume (USD, entity-adjusted)",
       "formula": "sum(usd_value_at_tx_time) excluding spam/internal/self/dust",
