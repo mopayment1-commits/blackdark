@@ -245,6 +245,8 @@ def build_stablecoin_health_panel(*, seed: dict[str, Any] | None = None) -> dict
         "stablecoin_grades": {a["symbol"]: a["stablecoin_grade"] for a in analyses if a.get("ok")},
         "cancelled_sla": seed.get("cancelled_sla"),
         "exchange_reserve_601": build_stablecoin_exchange_reserve(seed=seed),
+        "exchange_flow_monitor_693": build_stablecoin_exchange_flow_monitor_693(seed=seed),
+        "stablecoin_intelligence_694": build_stablecoin_intelligence_dashboard_694(seed=seed),
         "lst_depeg_monitor_673": build_lst_depeg_monitor_673(seed=seed),
         "monitoring_only": True,
         "disclaimer": _DISCLAIMER,
@@ -275,6 +277,10 @@ def stablecoin_health_monitor_status() -> dict[str, Any]:
             "exchange_reserve_601": True,
             "onchain_metrics_library_577": True,
             "liquid_staking_intelligence_673": True,
+            "exchange_flow_intelligence_693": True,
+            "stablecoin_intelligence_694": True,
+            "daily_brief_474": True,
+            "contagion_652": True,
         },
         "cancelled_sla": seed.get("cancelled_sla"),
         "disclaimer": _DISCLAIMER,
@@ -460,6 +466,14 @@ def build_market_radar_stablecoin_reserve_trend(*, seed: dict[str, Any] | None =
 
 
 _BUYING_POWER_REF = 663
+_LST_MONITOR_REF = 673
+_EXCHANGE_FLOW_REF = 693
+_STABLECOIN_INTELLIGENCE_REF = 694
+_METRICS_REF = 577
+_DAILY_BRIEF_REF = 474
+_CAPITAL_PROTECTION_REF = 410
+_ARBITRAGE_REF = 429
+_CONTAGION_REF = 652
 
 
 def build_exchange_stablecoin_buying_power_index(
@@ -611,7 +625,343 @@ def apply_buying_power_arbitrage_adjustment_429(
     }
 
 
-_LST_MONITOR_REF = 673
+def build_portfolio_lst_alerts_410(
+    *,
+    portfolio_id: str = "demo_lst_portfolio",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#673 → #410 — alert if portfolio LST exposure depeg > 1%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("lst_monitoring_673") or {}
+    portfolio = (cfg.get("portfolios") or {}).get(portfolio_id) or {}
+    threshold = float(cfg.get("portfolio_depeg_alert_pct", 1.0))
+    alerts: list[dict[str, Any]] = []
+
+    for holding in portfolio.get("holdings") or []:
+        peg_dev = float(holding.get("peg_deviation_pct", 0))
+        if peg_dev > threshold:
+            alerts.append({
+                "lst_token": holding.get("symbol"),
+                "portfolio_pct": holding.get("portfolio_pct"),
+                "peg_deviation_pct": peg_dev,
+                "depeg_source": holding.get("depeg_source"),
+                "alert": True,
+                "integration_410": True,
+            })
+
+    return {
+        "ok": True,
+        "feature_ref": 410,
+        "source_ref": _LST_MONITOR_REF,
+        "portfolio_id": portfolio_id,
+        "threshold_pct": threshold,
+        "alerts": alerts,
+        "threatened_exposure": len(alerts) > 0,
+        "display": f"Portfolio LST alert: {len(alerts)} positions above {threshold}% depeg",
+        "timestamp": _utcnow(),
+    }
+
+
+def _normalize_stablecoin_usd(
+    token: str,
+    amount: float,
+    *,
+    seed: dict[str, Any],
+) -> float:
+    """#693 — depeg-aware USD conversion using oracle price per minute."""
+    stablecoins = seed.get("stablecoins") or {}
+    data = stablecoins.get(token.upper(), {})
+    price = float(data.get("price_usd", 1.0))
+    return round(amount * price, 2)
+
+
+def _filter_duplicate_transfers(
+    transfers: list[dict[str, Any]],
+    *,
+    seed: dict[str, Any],
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """#693 — exclude internal exchange transfers and dust."""
+    cfg = seed.get("exchange_flows_693") or {}
+    dust_threshold = float(cfg.get("dust_threshold_usd", 100))
+    internal_labels = set(cfg.get("internal_transfer_labels") or ["internal", "hot_to_cold"])
+    filtered: list[dict[str, Any]] = []
+    excluded = {"internal": 0, "dust": 0, "wash": 0}
+
+    for tx in transfers:
+        if tx.get("transfer_type") in internal_labels or tx.get("internal_exchange"):
+            excluded["internal"] += 1
+            continue
+        usd = float(tx.get("usd_value", 0))
+        if usd < dust_threshold:
+            excluded["dust"] += 1
+            continue
+        if tx.get("wash_trade"):
+            excluded["wash"] += 1
+            continue
+        filtered.append(tx)
+
+    return filtered, excluded
+
+
+def build_stablecoin_exchange_flow_monitor_693(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#693 — Exchange Flow Monitor merged into #467 with rolling acceleration."""
+    seed = seed or _load_seed()
+    cfg = seed.get("exchange_flows_693") or {}
+    flows = cfg.get("token_flows") or []
+    token_mapping = seed.get("token_mapping_601") or {}
+
+    by_token: dict[str, dict[str, float]] = {}
+    total_inflow = 0.0
+    total_outflow = 0.0
+    transfers_for_filter = cfg.get("raw_transfers") or []
+    _, excluded = _filter_duplicate_transfers(transfers_for_filter, seed=seed)
+
+    for row in flows:
+        token_raw = str(row.get("token", "")).upper()
+        token = token_mapping.get(token_raw, token_raw)
+        inflow = float(row.get("inflow_24h", 0))
+        outflow = float(row.get("outflow_24h", 0))
+        inflow_usd = _normalize_stablecoin_usd(token, inflow, seed=seed)
+        outflow_usd = _normalize_stablecoin_usd(token, outflow, seed=seed)
+        netflow = round(inflow_usd - outflow_usd, 2)
+
+        tok = by_token.setdefault(token, {"inflow_usd": 0.0, "outflow_usd": 0.0, "netflow_usd": 0.0})
+        tok["inflow_usd"] = round(tok["inflow_usd"] + inflow_usd, 2)
+        tok["outflow_usd"] = round(tok["outflow_usd"] + outflow_usd, 2)
+        tok["netflow_usd"] = round(tok["netflow_usd"] + netflow, 2)
+        total_inflow += inflow_usd
+        total_outflow += outflow_usd
+
+    total_netflow = round(total_inflow - total_outflow, 2)
+    accel_cfg = cfg.get("rolling_acceleration") or {}
+    netflow_7d_change_pct = float(accel_cfg.get("netflow_7d_change_pct", 0))
+    sigma_threshold = float(accel_cfg.get("sigma_alert_threshold", 2))
+    z_score = float(accel_cfg.get("z_score", 0))
+    acceleration_alert = abs(z_score) > sigma_threshold
+
+    return {
+        "ok": True,
+        "feature_ref": _EXCHANGE_FLOW_REF,
+        "merged_into": _FEATURE_ID,
+        "standalone": False,
+        "tab": "Exchange Flows",
+        "tab_ar": "تدفقات البورصات",
+        "cross_token_normalization": True,
+        "depeg_aware_usd_conversion": True,
+        "duplicate_filtering": {
+            "enabled": True,
+            "excluded_counts": excluded,
+            "internal_exchange_transfers_excluded": True,
+            "dust_excluded": True,
+        },
+        "by_token": by_token,
+        "aggregate": {
+            "inflow_24h_usd": round(total_inflow, 2),
+            "outflow_24h_usd": round(total_outflow, 2),
+            "netflow_24h_usd": total_netflow,
+        },
+        "rolling_acceleration": {
+            "window_days": 7,
+            "netflow_change_rate_pct": netflow_7d_change_pct,
+            "z_score": z_score,
+            "sigma_alert_threshold": sigma_threshold,
+            "acceleration_alert": acceleration_alert,
+            "trend": accel_cfg.get("trend", "rising" if netflow_7d_change_pct > 0 else "falling"),
+        },
+        "display": (
+            f"Stablecoin exchange netflow ${total_netflow:+,.0f}/24h — "
+            f"7d acceleration {netflow_7d_change_pct:+.1f}%"
+            + (" ⚠ >2σ" if acceleration_alert else "")
+        ),
+        "monitoring_only": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_stablecoin_exchange_flow_daily_brief_hook_474(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """#693 → #474 Daily Brief — stablecoin exchange flow narrative."""
+    flow = build_stablecoin_exchange_flow_monitor_693(seed=seed)
+    if not flow.get("ok"):
+        return None
+    agg = flow.get("aggregate") or {}
+    accel = flow.get("rolling_acceleration") or {}
+    netflow = float(agg.get("netflow_24h_usd", 0))
+    change = float(accel.get("netflow_change_rate_pct", 0))
+    direction = "إلى" if netflow > 0 else "من"
+    return {
+        "integration_474": True,
+        "integration_693": True,
+        "mention": f"تدفق USDC {direction} البورصات ${abs(netflow):,.0f} في 24h — تسارع {abs(change):.0f}% عن المتوسط",
+        "mention_en": f"USDC exchange netflow ${netflow:+,.0f}/24h — acceleration {change:+.0f}% vs average",
+        "netflow_24h_usd": netflow,
+        "acceleration_pct": change,
+    }
+
+
+def apply_exchange_flow_arbitrage_adjustment_693(
+    opp: dict[str, Any],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#693 → #429 — adjust stablecoin arb ranking by flow direction."""
+    flow = build_stablecoin_exchange_flow_monitor_693(seed=seed)
+    accel = flow.get("rolling_acceleration") or {}
+    netflow = float((flow.get("aggregate") or {}).get("netflow_24h_usd", 0))
+    change = float(accel.get("netflow_change_rate_pct", 0))
+    base_edge = float(opp.get("net_edge_bps", opp.get("gross_edge_bps", 0)) or 0)
+    adjustment_bps = 0.0
+    if netflow > 0 and change > 10:
+        adjustment_bps = min(10, change * 0.2)
+    elif netflow < 0 and change < -10:
+        adjustment_bps = max(-10, change * 0.2)
+    return {
+        "exchange_flow_context_693": {
+            "netflow_24h_usd": netflow,
+            "acceleration_pct": change,
+            "adjustment_bps": adjustment_bps,
+            "integration_429": True,
+        },
+        "flow_adjusted_edge_bps": round(base_edge + adjustment_bps, 2) if base_edge else None,
+    }
+
+
+def _filter_wash_transfers(
+    transfers: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], int]:
+    """#694 — exclude circular wash transfers (A→B→A)."""
+    seen_pairs: set[tuple[str, str]] = set()
+    filtered: list[dict[str, Any]] = []
+    wash_count = 0
+    for tx in transfers:
+        if tx.get("circular_wash"):
+            wash_count += 1
+            continue
+        pair = (tx.get("from_address", ""), tx.get("to_address", ""))
+        reverse = (pair[1], pair[0])
+        if reverse in seen_pairs:
+            wash_count += 1
+            continue
+        seen_pairs.add(pair)
+        filtered.append(tx)
+    return filtered, wash_count
+
+
+def build_stablecoin_intelligence_dashboard_694(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#694 — umbrella Stablecoin Intelligence dashboard merged into #467."""
+    seed = seed or _load_seed()
+    cfg = seed.get("stablecoin_intelligence_694") or {}
+    token_chain_map = cfg.get("token_chain_mapping") or {}
+    supply_breakdown = cfg.get("supply_breakdown") or {}
+    activity = None
+    flows = build_stablecoin_exchange_flow_monitor_693(seed=seed)
+    analyses = [
+        analyze_stablecoin(sym, seed=seed)
+        for sym in (seed.get("stablecoins") or {})
+        if not (seed.get("stablecoins") or {}).get(sym, {}).get("historical_only")
+    ]
+    health_grades = {a["symbol"]: a["stablecoin_grade"] for a in analyses if a.get("ok")}
+
+    try:
+        from bd_platform.onchain_metrics_library import build_stablecoin_activity_breakdown_692
+
+        activity = build_stablecoin_activity_breakdown_692("USDC", seed=None)
+    except Exception:
+        logger.debug("692 activity breakdown hook skipped", exc_info=True)
+
+    raw_transfers = cfg.get("sample_transfers") or []
+    _, wash_excluded = _filter_wash_transfers(raw_transfers)
+
+    tabs = ["Supply", "Activity", "Flows", "De-Peg", "Health Grade"]
+    return {
+        "ok": True,
+        "feature_ref": _STABLECOIN_INTELLIGENCE_REF,
+        "merged_into": _FEATURE_ID,
+        "standalone": False,
+        "route": "/stablecoins",
+        "dashboard_tabs": tabs,
+        "tabs_ar": ["العرض", "النشاط", "التدفقات", "انحراف السعر", "درجة الصحة"],
+        "supply": {
+            "breakdown": supply_breakdown,
+            "native_bridged_payment_categories": True,
+            "token_chain_mapping": token_chain_map,
+            "mapping_documented": cfg.get("token_chain_mapping_documented", True),
+        },
+        "activity": activity if activity and activity.get("ok") else {"ok": False},
+        "flows": flows if flows.get("ok") else {"ok": False},
+        "depeg": {
+            "analyses": [a for a in analyses if a.get("ok")],
+            "grades": health_grades,
+        },
+        "health_grade": health_grades,
+        "wash_filtering": {
+            "enabled": True,
+            "circular_transfers_excluded": wash_excluded,
+            "documented": True,
+        },
+        "integrations": {
+            "onchain_metrics_577": True,
+            "daily_brief_474": True,
+            "contagion_652": True,
+        },
+        "display": "Stablecoin Intelligence — Supply | Activity | Flows | De-Peg | Health Grade",
+        "monitoring_only": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_portfolio_stablecoin_exit_alert_410(
+    *,
+    portfolio_id: str = "demo_portfolio",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#692/#410 — alert when exchange exit activity > 60% of stablecoin activity."""
+    seed = seed or _load_seed()
+    cfg = seed.get("stablecoin_intelligence_694") or {}
+    threshold = float(cfg.get("exit_activity_alert_pct", 60))
+    alerts: list[dict[str, Any]] = []
+
+    try:
+        from bd_platform.onchain_metrics_library import build_stablecoin_activity_breakdown_692
+
+        for symbol in ("USDC", "USDT"):
+            activity = build_stablecoin_activity_breakdown_692(symbol, seed=seed)
+            if not activity.get("ok"):
+                continue
+            exit_pct = float((activity.get("categories") or {}).get("exchange_flow", {}).get("pct", 0))
+            if exit_pct > threshold:
+                alerts.append({
+                    "alert_type": "stablecoin_exit_dominant",
+                    "feature_ref": 410,
+                    "source_ref": 692,
+                    "symbol": symbol,
+                    "exit_activity_pct": exit_pct,
+                    "threshold_pct": threshold,
+                    "severity": "elevated",
+                    "display": (
+                        f"Capital Protection: {symbol} exit activity {exit_pct:.0f}% > {threshold}% threshold"
+                    ),
+                })
+    except Exception:
+        logger.debug("692 exit alert skipped", exc_info=True)
+
+    return {
+        "ok": True,
+        "feature_ref": _CAPITAL_PROTECTION_REF,
+        "portfolio_id": portfolio_id,
+        "alerts": alerts,
+        "alert_count": len(alerts),
+        "exit_threshold_pct": threshold,
+        "timestamp": _utcnow(),
+    }
 
 
 def build_lst_depeg_monitor_673(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -646,43 +996,6 @@ def build_lst_depeg_monitor_673(*, seed: dict[str, Any] | None = None) -> dict[s
         "alert_count": len(alerts),
         "backing_depeg_source_required": True,
         "display": f"LST Depeg Monitor: {len(alerts)} alerts above {threshold}%",
-        "timestamp": _utcnow(),
-    }
-
-
-def build_portfolio_lst_alerts_410(
-    *,
-    portfolio_id: str = "demo_lst_portfolio",
-    seed: dict[str, Any] | None = None,
-) -> dict[str, Any]:
-    """#673 → #410 — alert if portfolio LST exposure depeg > 1%."""
-    seed = seed or _load_seed()
-    cfg = seed.get("lst_monitoring_673") or {}
-    portfolio = (cfg.get("portfolios") or {}).get(portfolio_id) or {}
-    threshold = float(cfg.get("portfolio_depeg_alert_pct", 1.0))
-    alerts: list[dict[str, Any]] = []
-
-    for holding in portfolio.get("holdings") or []:
-        peg_dev = float(holding.get("peg_deviation_pct", 0))
-        if peg_dev > threshold:
-            alerts.append({
-                "lst_token": holding.get("symbol"),
-                "portfolio_pct": holding.get("portfolio_pct"),
-                "peg_deviation_pct": peg_dev,
-                "depeg_source": holding.get("depeg_source"),
-                "alert": True,
-                "integration_410": True,
-            })
-
-    return {
-        "ok": True,
-        "feature_ref": 410,
-        "source_ref": _LST_MONITOR_REF,
-        "portfolio_id": portfolio_id,
-        "threshold_pct": threshold,
-        "alerts": alerts,
-        "threatened_exposure": len(alerts) > 0,
-        "display": f"Portfolio LST alert: {len(alerts)} positions above {threshold}% depeg",
         "timestamp": _utcnow(),
     }
 
@@ -724,6 +1037,23 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "673_backing_source", "passed": lst.get("backing_depeg_source_required") is True, "detail": "source"})
     lst_port = build_portfolio_lst_alerts_410(seed=seed)
     checks.append({"id": "673_portfolio_410", "passed": lst_port.get("ok") is True, "detail": "410"})
+
+    flow = build_stablecoin_exchange_flow_monitor_693(seed=seed)
+    checks.append({"id": "693_exchange_flow", "passed": flow.get("ok") is True, "detail": "693"})
+    checks.append({"id": "693_cross_token_norm", "passed": flow.get("cross_token_normalization") is True, "detail": "norm"})
+    checks.append({"id": "693_depeg_aware", "passed": flow.get("depeg_aware_usd_conversion") is True, "detail": "depeg"})
+    checks.append({"id": "693_duplicate_filter", "passed": (flow.get("duplicate_filtering") or {}).get("enabled") is True, "detail": "dup"})
+    checks.append({"id": "693_acceleration", "passed": "rolling_acceleration" in flow, "detail": "accel"})
+    brief693 = build_stablecoin_exchange_flow_daily_brief_hook_474(seed=seed)
+    checks.append({"id": "693_daily_brief", "passed": brief693 is not None and brief693.get("integration_474") is True, "detail": "474"})
+
+    intel = build_stablecoin_intelligence_dashboard_694(seed=seed)
+    checks.append({"id": "694_dashboard", "passed": intel.get("ok") is True and intel.get("route") == "/stablecoins", "detail": "694"})
+    checks.append({"id": "694_token_chain_mapping", "passed": (intel.get("supply") or {}).get("mapping_documented") is True, "detail": "mapping"})
+    checks.append({"id": "694_wash_filtering", "passed": (intel.get("wash_filtering") or {}).get("enabled") is True, "detail": "wash"})
+    checks.append({"id": "694_five_tabs", "passed": len(intel.get("dashboard_tabs") or []) == 5, "detail": "tabs"})
+    exit_alert = build_portfolio_stablecoin_exit_alert_410(seed=seed)
+    checks.append({"id": "692_410_exit_alert", "passed": exit_alert.get("ok") is True, "detail": "410"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

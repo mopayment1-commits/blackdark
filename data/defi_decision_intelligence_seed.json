@@ -8,6 +8,17 @@
   "methodology_version": "1.0",
   "yield_not_safety": true,
   "high_yield_threshold_pct": 10,
+  "risk_gate_691": {
+    "feature_ref": 691,
+    "merged_into": [651, 410],
+    "default_user_risk_limit": 60,
+    "medium_risk_low": 40,
+    "medium_risk_high": 60,
+    "penalty_ranking_multiplier": 0.5,
+    "min_liquidity_usd": 500000,
+    "evidence_required": true,
+    "fail_closed": true
+  },
   "opportunity_protocol_map": {
     "ETH": "aave_v3",
     "UNI": "uniswap_v3",

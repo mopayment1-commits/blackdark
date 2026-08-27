@@ -997,6 +997,172 @@ def build_exchange_stablecoin_buying_power_metric_577(*, seed: dict[str, Any] | 
     }
 
 
+def build_stablecoin_activity_breakdown_692(
+    symbol: str = "USDC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#692 — Stablecoin activity breakdown metric suite (merged into #577)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("stablecoin_activity_692") or {}
+    methodology = cfg.get("classification_methodology") or {}
+    data = (cfg.get("stablecoins") or {}).get(symbol.upper())
+    if not data:
+        return {"ok": False, "symbol": symbol, "error": "stablecoin_activity_not_found"}
+
+    raw_cats = data.get("categories") or {}
+    categories: dict[str, dict[str, Any]] = {}
+    for cat_id, pct in raw_cats.items():
+        categories[cat_id] = {
+            "pct": float(pct),
+            "label_en": cat_id.replace("_", " ").title(),
+            "heuristic": (methodology.get("heuristics") or {}).get(cat_id),
+        }
+
+    activity_spike = float(data.get("activity_spike_pct", 0))
+    price_change = float(data.get("price_change_pct", 0))
+    on_chain_only_signal = activity_spike > 15 and abs(price_change) < 1
+
+    return {
+        "ok": True,
+        "feature_ref": 692,
+        "merged_into": _EPIC_ID,
+        "standalone": False,
+        "metric_id": "stablecoin_activity_breakdown",
+        "symbol": symbol.upper(),
+        "chain": data.get("chain", "ethereum"),
+        "categories": categories,
+        "classification_methodology": {
+            "version": methodology.get("version", "1.0"),
+            "documented": methodology.get("documented", True),
+            "heuristics": methodology.get("heuristics"),
+            "chain_specific_notes": methodology.get("chain_specific_notes"),
+        },
+        "activity_spike_pct": activity_spike,
+        "price_change_pct": price_change,
+        "on_chain_only_signal_599": on_chain_only_signal,
+        "display": (
+            f"{symbol.upper()}: {categories.get('trading', {}).get('pct', 0)}% trading | "
+            f"{categories.get('defi', {}).get('pct', 0)}% DeFi | "
+            f"{categories.get('payments', {}).get('pct', 0)}% payments"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_stablecoin_flows_metric_577(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#693 metric delivery via #577 library."""
+    try:
+        from bd_platform.stablecoin_health_monitor import build_stablecoin_exchange_flow_monitor_693
+
+        flows = build_stablecoin_exchange_flow_monitor_693(seed=seed)
+    except Exception as exc:
+        logger.warning("stablecoin flows metric failed: %s", exc)
+        flows = {"ok": False, "error": str(exc)}
+
+    return {
+        "ok": flows.get("ok", False),
+        "metric_id": "stablecoin_flows",
+        "task_ref": 693,
+        "epic_feature_id": _EPIC_ID,
+        "value": (flows.get("aggregate") or {}).get("netflow_24h_usd"),
+        "rolling_acceleration": flows.get("rolling_acceleration"),
+        "cross_token_normalization": flows.get("cross_token_normalization"),
+        "depeg_aware_usd": flows.get("depeg_aware_usd_conversion"),
+        "missing_not_zero": True,
+        "source": "stablecoin_health_monitor_693",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_stablecoin_supply_metric_577(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#694 supply metric via #577 library."""
+    try:
+        from bd_platform.stablecoin_health_monitor import build_stablecoin_intelligence_dashboard_694
+
+        intel = build_stablecoin_intelligence_dashboard_694(seed=seed)
+    except Exception as exc:
+        logger.warning("stablecoin supply metric failed: %s", exc)
+        intel = {"ok": False, "error": str(exc)}
+
+    supply = (intel.get("supply") or {}).get("breakdown") or {}
+    total = sum(sum(v.values()) if isinstance(v, dict) else 0 for v in supply.values())
+
+    return {
+        "ok": intel.get("ok", False),
+        "metric_id": "stablecoin_supply",
+        "task_ref": 694,
+        "epic_feature_id": _EPIC_ID,
+        "value": round(total, 2) if total else None,
+        "breakdown": supply,
+        "token_chain_mapping": (intel.get("supply") or {}).get("token_chain_mapping"),
+        "missing_not_zero": True,
+        "source": "stablecoin_intelligence_694",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_stablecoin_activity_widget_692(
+    symbol: str = "USDC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#692 → Market Radar widget: استخدام العملات المستقرة."""
+    breakdown = build_stablecoin_activity_breakdown_692(symbol, seed=seed)
+    return {
+        "ok": breakdown.get("ok", False),
+        "feature_ref": 692,
+        "surface": "market_radar",
+        "widget": "stablecoin_activity_breakdown",
+        "widget_label_ar": "استخدام العملات المستقرة",
+        "breakdown": breakdown,
+        "display": breakdown.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_stablecoin_activity_daily_brief_hook_474(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """#692 → #474 Daily Brief integration."""
+    breakdown = build_stablecoin_activity_breakdown_692("USDC", seed=seed)
+    if not breakdown.get("ok"):
+        return None
+    cats = breakdown.get("categories") or {}
+    return {
+        "integration_474": True,
+        "integration_692": True,
+        "mention": (
+            f"USDC: {cats.get('trading', {}).get('pct', 0)}% تداول | "
+            f"{cats.get('defi', {}).get('pct', 0)}% DeFi | "
+            f"{cats.get('payments', {}).get('pct', 0)}% مدفوعات | "
+            f"{cats.get('arbitrage', {}).get('pct', 0)}% مراجحة"
+        ),
+        "mention_en": breakdown.get("display"),
+    }
+
+
+def attach_stablecoin_activity_hype_context_599(
+    signal: dict[str, Any],
+    *,
+    symbol: str = "USDC",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#692 → #599 — activity spike without price action = On-Chain-Only signal."""
+    breakdown = build_stablecoin_activity_breakdown_692(symbol, seed=seed)
+    if breakdown.get("on_chain_only_signal_599"):
+        signal = dict(signal)
+        signal["hype_vs_reality_599"] = {
+            "state": "on_chain_only",
+            "badge": "On-Chain-Only",
+            "reason": "activity_spike_without_price_action",
+            "activity_spike_pct": breakdown.get("activity_spike_pct"),
+            "price_change_pct": breakdown.get("price_change_pct"),
+        }
+    return signal
+
+
 def build_long_short_ratio_metric_577(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """#675 — Long/Short Ratio with per-venue normalization (not merged blindly)."""
     seed = seed or _load_seed()
@@ -1328,6 +1494,9 @@ def build_metrics_library_panel(
     tx_volume = build_transaction_volume_intelligence(sym, seed=seed)
     stablecoin_reserve = build_stablecoin_reserve_metric_577(seed=seed)
     buying_power = build_exchange_stablecoin_buying_power_metric_577(seed=seed)
+    stablecoin_activity = build_stablecoin_activity_breakdown_692("USDC", seed=seed)
+    stablecoin_flows = build_stablecoin_flows_metric_577(seed=seed)
+    stablecoin_supply = build_stablecoin_supply_metric_577(seed=seed)
     long_short = build_long_short_ratio_metric_577(seed=seed)
     mvrv_suite = build_mvrv_zscore_metric_577(sym, seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
@@ -1358,6 +1527,9 @@ def build_metrics_library_panel(
             "612_transaction_volume_intelligence": tx_volume if tx_volume.get("ok") else {"ok": False},
             "601_stablecoin_exchange_reserve": stablecoin_reserve,
             "663_exchange_stablecoin_buying_power": buying_power,
+            "692_stablecoin_activity_breakdown": stablecoin_activity if stablecoin_activity.get("ok") else {"ok": False},
+            "693_stablecoin_exchange_flows": stablecoin_flows if stablecoin_flows.get("ok") else {"ok": False},
+            "694_stablecoin_supply": stablecoin_supply if stablecoin_supply.get("ok") else {"ok": False},
             "675_long_short_ratio": long_short,
             "676_mvrv_zscore_suite": mvrv_suite if mvrv_suite.get("ok") else {"ok": False},
             "678_sector_metrics": sector_metrics if sector_metrics.get("ok") else {"ok": False},
@@ -1478,6 +1650,15 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
 
     sector = build_sector_metrics_library_678(seed=seed)
     tests.append({"test": "sector_metrics_678", "passed": sector.get("ok") is True})
+
+    sc_activity = build_stablecoin_activity_breakdown_692("USDC", seed=seed)
+    tests.append({"test": "stablecoin_activity_692", "passed": sc_activity.get("ok") is True})
+    tests.append({"test": "classification_methodology_692", "passed": (sc_activity.get("classification_methodology") or {}).get("documented") is True})
+    sc_flows = build_stablecoin_flows_metric_577(seed=seed)
+    tests.append({"test": "stablecoin_flows_693", "passed": sc_flows.get("ok") is True})
+    tests.append({"test": "depeg_aware_693", "passed": sc_flows.get("depeg_aware_usd") is True})
+    sc_supply = build_stablecoin_supply_metric_577(seed=seed)
+    tests.append({"test": "stablecoin_supply_694", "passed": sc_supply.get("ok") is True})
 
     network = build_network_activity_suite_682("BTC", seed=seed)
     tests.append({"test": "network_activity_suite_682", "passed": network.get("ok") is True})

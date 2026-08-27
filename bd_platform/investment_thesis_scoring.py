@@ -196,6 +196,26 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
     except Exception:
         logger.debug("676 mvrv valuation thesis dimension skipped", exc_info=True)
 
+    revenue_retention_dim = None
+    try:
+        from bd_platform.on_chain_financials import score_revenue_retention_dimension_690
+
+        revenue_retention_dim = score_revenue_retention_dimension_690(asset)
+        if revenue_retention_dim.get("ok"):
+            dimensions["revenue_retention_690"] = {
+                "raw_score": revenue_retention_dim.get("dimension_score"),
+                "adjusted_score": revenue_retention_dim.get("dimension_score"),
+                "weight": 0,
+                "contribution": 0,
+                "revenue_retention_rate_pct": revenue_retention_dim.get("revenue_retention_rate_pct"),
+                "evidence_source": "revenue_intelligence_690",
+                "evidence_quality": "high",
+                "optional_dimension": True,
+                "tokenomics_quality": True,
+            }
+    except Exception:
+        logger.debug("690 revenue retention thesis dimension skipped", exc_info=True)
+
     methodology_links = []
     try:
         from bd_platform.onchain_metrics_library import get_thesis_methodology_links
@@ -220,6 +240,7 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
         "weights_documented": True,
         "custom_ratio_dimension_653": custom_ratio_dim,
         "mvrv_valuation_dimension_676": mvrv_valuation_dim,
+        "revenue_retention_dimension_690": revenue_retention_dim,
         "methodology_links_656": methodology_links,
         "display": f"Thesis {asset.upper()}: {grade} ({thesis_score}/100) — not price probability",
         "timestamp": _utcnow(),

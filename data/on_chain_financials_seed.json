@@ -26,6 +26,54 @@
     "margin_threshold_pct": 20,
     "ps_premium_threshold": 30
   },
+  "revenue_distribution_690": {
+    "feature_ref": 690,
+    "merged_into": 641,
+    "mapping_methodology_version": "1.0",
+    "documented": true,
+    "protocol_rules": {
+      "uniswap": {
+        "description": "100% fees → LPs (no protocol revenue)",
+        "fee_split_pct": {
+          "protocol_treasury": 0,
+          "token_holders": 0,
+          "incentives": 0,
+          "validators_miners": 0,
+          "lps": 100
+        }
+      },
+      "aave": {
+        "description": "10% fees → Treasury | 90% → LPs",
+        "fee_split_pct": {
+          "protocol_treasury": 10,
+          "token_holders": 0,
+          "incentives": 0,
+          "validators_miners": 0,
+          "lps": 90
+        }
+      },
+      "lido": {
+        "description": "5% fees → Treasury | 5% → Node Operators | 90% → stETH holders",
+        "fee_split_pct": {
+          "protocol_treasury": 5,
+          "token_holders": 90,
+          "incentives": 0,
+          "validators_miners": 5,
+          "lps": 0
+        }
+      },
+      "maker": {
+        "description": "50% fees → Treasury | 50% → MKR buyback/burn",
+        "fee_split_pct": {
+          "protocol_treasury": 50,
+          "token_holders": 50,
+          "incentives": 0,
+          "validators_miners": 0,
+          "lps": 0
+        }
+      }
+    }
+  },
   "health_scoring": {
     "definitions_version": "1.0",
     "min_grade_for_opportunity": "D",

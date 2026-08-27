@@ -468,6 +468,35 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
     except Exception:
         logger.debug("buying power arbitrage adjustment skipped", exc_info=True)
 
+    # #691 Risk Gate — veto/penalize before Intelligence Ledger display
+    try:
+        from bd_platform.defi_decision_intelligence import apply_risk_gate_691
+
+        risk_gate = apply_risk_gate_691(enriched, seed=None)
+        enriched["risk_gate_691"] = risk_gate
+        gate_info = (risk_gate or {}).get("risk_gate") or {}
+        if gate_info.get("vetoed"):
+            enriched["signal_rejected"] = True
+            enriched.setdefault("risk_reasons", []).append(
+                f"risk_gate_veto:{gate_info.get('evidence') or 'risk_above_limit'}"
+            )
+        elif gate_info.get("penalized"):
+            penalty = gate_info.get("penalty_multiplier", 0.5)
+            if enriched.get("net_edge_bps") is not None:
+                enriched["net_edge_bps"] = round(float(enriched["net_edge_bps"]) * penalty, 2)
+            enriched["risk_penalized_691"] = True
+    except Exception:
+        logger.debug("691 risk gate enrichment skipped", exc_info=True)
+
+    # #693 Exchange Flow — adjust stablecoin arb by flow direction
+    try:
+        from bd_platform.stablecoin_health_monitor import apply_exchange_flow_arbitrage_adjustment_693
+
+        flow_adj = apply_exchange_flow_arbitrage_adjustment_693(enriched, seed=seed)
+        enriched.update(flow_adj)
+    except Exception:
+        logger.debug("693 exchange flow arbitrage adjustment skipped", exc_info=True)
+
     # #472 Investment Thesis Scoring — thesis adjusts signal confidence (#417)
     try:
         from bd_platform.investment_thesis_scoring import apply_thesis_to_confidence
