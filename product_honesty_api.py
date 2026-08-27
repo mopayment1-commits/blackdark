@@ -223,48 +223,7 @@ async def build_changed_mind(*, limit: int = 25) -> dict[str, Any]:
 
 
 async def build_decision_graph(*, asset: str = "BTC", limit: int = 12) -> dict[str, Any]:
-    """Lightweight decision graph from recent public accuracy / miss context."""
-    nodes: list[dict[str, Any]] = []
-    edges: list[dict[str, Any]] = []
-    try:
-        from database import fetch_labeled_oracle_predictions
+    """Causal decision graph from live data (#47) — replaces linear oracle list."""
+    from bd_platform.decision_graph import build_causal_decision_graph
 
-        rows = await fetch_labeled_oracle_predictions(limit=max(limit * 3, 40), include_synthetic=False)
-    except Exception:
-        rows = []
-
-    asset_u = (asset or "BTC").upper()
-    filtered = [
-        r
-        for r in (rows or [])
-        if str(r.get("asset") or r.get("symbol") or "").upper() in {asset_u, f"{asset_u}USDT", ""}
-        or True
-    ]
-    for idx, r in enumerate(filtered[:limit]):
-        nid = str(r.get("id") or r.get("prediction_id") or f"n{idx}")
-        nodes.append(
-            {
-                "id": nid,
-                "asset": str(r.get("asset") or r.get("symbol") or asset_u).upper(),
-                "verdict": r.get("verdict") or r.get("action"),
-                "label": r.get("label"),
-                "score": r.get("opportunity_score") or r.get("score"),
-                "timestamp": r.get("timestamp") or r.get("created_at"),
-            }
-        )
-        if idx > 0:
-            prev = nodes[idx - 1]["id"]
-            edges.append({"from": prev, "to": nid, "rel": "next_decision"})
-
-    return {
-        "surface": "decision_graph",
-        "generated_at": _utcnow(),
-        "asset": asset_u,
-        "nodes": nodes,
-        "edges": edges,
-        "count_nodes": len(nodes),
-        "count_edges": len(edges),
-        "api": "/api/public/decision-graph",
-        "note": "Graph of recent labeled decisions — not a private trading DAG.",
-        "disclaimer": "Not financial advice.",
-    }
+    return await build_causal_decision_graph(asset=asset, limit=limit)
