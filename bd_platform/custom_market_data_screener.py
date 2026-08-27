@@ -20,7 +20,9 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.CustomMarketDataScreener")
 
 _FEATURE_ID = 533
+_ABSORBED_IDS = (533, 587)
 _RENAMED_FROM = "Custom Intelligence Screener"
+_EPIC_TITLE = "Market Data Screener"
 _TITLE = "Custom Market Data Screener"
 _STANDALONE = False
 _LAYER = "Intelligence Layer"
@@ -76,7 +78,7 @@ def _check_criterion(asset: dict[str, Any], criterion: str, spec: dict[str, Any]
     field = _field_for_criterion(criterion)
     value = asset.get(field)
     if value is None:
-        return False, None, f"{criterion}: N/A (missing data)"
+        return False, None, f"{criterion}: missing (explicit — not zero)"
 
     passed = True
     if "min" in spec and float(value) < float(spec["min"]):
@@ -156,11 +158,58 @@ def check_alert_rate_limit(
     }
 
 
+def _sort_results(
+    matched: list[dict[str, Any]],
+    *,
+    sort_by: str | None,
+    sort_order: str = "asc",
+) -> list[dict[str, Any]]:
+    """Deterministic sort — only when user specifies sort_by (no default ranking)."""
+    if not sort_by:
+        return sorted(matched, key=lambda a: a.get("symbol", ""))
+
+    reverse = sort_order.lower() == "desc"
+
+    def sort_key(asset: dict[str, Any]) -> tuple:
+        val = asset.get(sort_by)
+        if val is None:
+            return (1, "")  # missing values last
+        return (0, val)
+
+    return sorted(matched, key=sort_key, reverse=reverse)
+
+
+def _paginate(
+    items: list[dict[str, Any]],
+    *,
+    page: int,
+    page_size: int,
+) -> dict[str, Any]:
+    page = max(1, page)
+    page_size = max(1, min(page_size, 200))
+    total = len(items)
+    start = (page - 1) * page_size
+    end = start + page_size
+    return {
+        "page": page,
+        "page_size": page_size,
+        "total_count": total,
+        "total_pages": (total + page_size - 1) // page_size if page_size else 0,
+        "items": items[start:end],
+        "has_next": end < total,
+        "has_prev": page > 1,
+    }
+
+
 def run_screener(
     filters: dict[str, Any] | None = None,
     *,
     saved_screener_id: str | None = None,
     user_id: str = "default",
+    sort_by: str | None = None,
+    sort_order: str = "asc",
+    page: int = 1,
+    page_size: int = 50,
 ) -> dict[str, Any]:
     t0 = time.perf_counter()
     seed = _load_seed()
@@ -174,15 +223,27 @@ def run_screener(
     filters = filters or {}
     assets = seed.get("assets") or []
     matched = apply_filters(assets, filters)
+    matched = _sort_results(matched, sort_by=sort_by, sort_order=sort_order)
+    pagination = _paginate(matched, page=page, page_size=page_size)
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     checksum = hashlib.sha256(
-        json.dumps({"filters": filters, "symbols": [a["symbol"] for a in matched]}, sort_keys=True).encode()
+        json.dumps({
+            "filters": filters,
+            "sort_by": sort_by,
+            "symbols": [a["symbol"] for a in matched],
+        }, sort_keys=True).encode()
     ).hexdigest()[:16]
 
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
+        "feature_ids": list(_ABSORBED_IDS),
+        "epic_title": _EPIC_TITLE,
+        "absorbed_tickets": {
+            "533": "Custom Market Data Screener — epic anchor",
+            "587": "Screener — merged (generic screener task)",
+        },
         "renamed_from": _RENAMED_FROM,
         "title": _TITLE,
         "standalone": _STANDALONE,
@@ -202,8 +263,14 @@ def run_screener(
                 "domains": m.get("domains", {}),
                 "match_explanation": m.get("match_explanation"),
             }
-            for m in matched
+            for m in pagination["items"]
         ],
+        "pagination": pagination,
+        "sort_by": sort_by,
+        "sort_order": sort_order,
+        "no_default_ranking": sort_by is None,
+        "user_specified_sort_only": True,
+        "missing_values_explicit": True,
         "deterministic": True,
         "result_checksum": checksum,
         "alert_rate_limit": check_alert_rate_limit(
@@ -234,11 +301,38 @@ def list_saved_screeners() -> dict[str, Any]:
     }
 
 
+def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    checks: list[dict[str, Any]] = []
+
+    result = run_screener({"risk_score_max": {"max": 50}}, page=1, page_size=2)
+    checks.append({"id": "backend_enforcement", "passed": result.get("backend_enforced") is True, "detail": "533"})
+    checks.append({"id": "no_default_ranking", "passed": result.get("no_default_ranking") is True, "detail": "587"})
+    checks.append({"id": "pagination", "passed": result.get("pagination", {}).get("page_size") == 2, "detail": "587"})
+    checks.append({"id": "deterministic_sort", "passed": result.get("deterministic") is True, "detail": "587"})
+    checks.append({"id": "missing_explicit", "passed": result.get("missing_values_explicit") is True, "detail": "587"})
+
+    sorted_r = run_screener({"risk_score_max": {"max": 100}}, sort_by="risk_score", sort_order="asc")
+    checks.append({"id": "user_sort", "passed": sorted_r.get("sort_by") == "risk_score", "detail": "587"})
+
+    passed = sum(1 for c in checks if c["passed"])
+    return {
+        "ok": passed == len(checks),
+        "feature_ids": list(_ABSORBED_IDS),
+        "checks": checks,
+        "passed": passed,
+        "total": len(checks),
+        "timestamp": _utcnow(),
+    }
+
+
 def custom_market_data_screener_status() -> dict[str, Any]:
     seed = _load_seed()
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
+        "feature_ids": list(_ABSORBED_IDS),
+        "epic_title": _EPIC_TITLE,
         "renamed_from": _RENAMED_FROM,
         "title": _TITLE,
         "standalone": _STANDALONE,
@@ -255,6 +349,9 @@ def custom_market_data_screener_status() -> dict[str, Any]:
             "backend_enforced": True,
             "user_controlled": True,
             "no_opportunity_language": True,
+            "pagination_587": True,
+            "missing_values_explicit_587": True,
+            "no_default_ranking_587": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,

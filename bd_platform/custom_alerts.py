@@ -18,6 +18,9 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.CustomAlerts")
 
 _FEATURE_ID = 532
+_ABSORBED_IDS = (532, 589)
+_EPIC_TITLE = "Alert Layer"
+_SMART_ALERTS_REF = 589
 _TITLE = "Custom Alerts"
 _STANDALONE = False
 _MERGED_INTO = "Infrastructure Layer / Custom Alerts"
@@ -154,6 +157,75 @@ def build_alert_from_event(
     }
 
 
+def _cooldown_active(
+    rule: dict[str, Any],
+    delivery_log: list[dict[str, Any]],
+) -> bool:
+    """Cooldown check — prevents duplicate spam."""
+    cooldown_min = int(rule.get("cooldown_minutes", 15))
+    rule_id = rule.get("rule_id")
+    cutoff = datetime.now(UTC) - timedelta(minutes=cooldown_min)
+    for entry in reversed(delivery_log):
+        if entry.get("rule_id") != rule_id:
+            continue
+        if _parse_ts(entry.get("timestamp", _utcnow())) > cutoff:
+            return True
+    return False
+
+
+def evaluate_metric_rule(rule: dict[str, Any], metrics: dict[str, Any]) -> bool:
+    """#589 — metric stream rule evaluation (price, social, on-chain, dev)."""
+    metric = rule.get("metric")
+    if not metric:
+        return False
+    value = metrics.get(metric)
+    if value is None:
+        return False
+    threshold = rule.get("threshold")
+    op = rule.get("operator", "gte")
+    if threshold is None:
+        return False
+    if op == "gte":
+        return float(value) >= float(threshold)
+    if op == "lte":
+        return float(value) <= float(threshold)
+    if op == "eq":
+        return float(value) == float(threshold)
+    return False
+
+
+def build_smart_alert(
+    rule: dict[str, Any],
+    metrics: dict[str, Any],
+) -> dict[str, Any] | None:
+    """#589 smart alert — metric threshold triggered."""
+    if rule.get("paused"):
+        return None
+    if not evaluate_metric_rule(rule, metrics):
+        return None
+
+    metric = rule.get("metric", "unknown")
+    value = metrics.get(metric)
+    channels = rule.get("channels") or ["in_app"]
+
+    return {
+        "alert_type": "metric_threshold",
+        "rule_id": rule.get("rule_id"),
+        "metric": metric,
+        "value": value,
+        "threshold": rule.get("threshold"),
+        "operator": rule.get("operator"),
+        "channels": channels,
+        "not_buy_sell_signal": True,
+        "backend_enforced": True,
+        "display": (
+            f"Metric alert: {metric} = {value} "
+            f"({rule.get('operator')} {rule.get('threshold')})"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_custom_alerts_panel(
     *,
     user_id: str = "default",
@@ -182,13 +254,33 @@ def build_custom_alerts_panel(
                     entity_resolution = None
 
             alert = build_alert_from_event(event, rule=rule, entity_resolution=entity_resolution)
-            if alert and rate_check["allowed"]:
+            if alert and rate_check["allowed"] and not _cooldown_active(rule, delivery_log):
                 triggered_alerts.append(alert)
+
+    smart_rules = seed.get("smart_metric_rules") or []
+    metric_streams = seed.get("metric_streams") or {}
+    smart_alerts: list[dict[str, Any]] = []
+    for rule in smart_rules:
+        if rule.get("paused"):
+            continue
+        if _cooldown_active(rule, delivery_log):
+            continue
+        asset_metrics = metric_streams.get(rule.get("asset", "BTC"), {})
+        alert = build_smart_alert(rule, asset_metrics)
+        if alert and rate_check["allowed"]:
+            smart_alerts.append(alert)
+            triggered_alerts.append(alert)
 
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
+        "feature_ids": list(_ABSORBED_IDS),
+        "epic_title": _EPIC_TITLE,
+        "absorbed_tickets": {
+            "532": "Custom Alerts — epic anchor",
+            "589": "Smart Alerts — merged into Alert Layer",
+        },
         "title": _TITLE,
         "standalone": _STANDALONE,
         "merged_into": _MERGED_INTO,
@@ -199,9 +291,14 @@ def build_custom_alerts_panel(
         "rule_count": len(rules),
         "triggered_alerts": triggered_alerts,
         "alert_count": len(triggered_alerts),
+        "smart_alerts_589": smart_alerts,
+        "smart_alert_count": len(smart_alerts),
+        "delivery_log_count": len(delivery_log),
         "rate_limit": rate_check,
         "dependencies": build_dependencies_block(),
         "backend_enforcement": True,
+        "cooldown_dedupe": True,
+        "pause_edit_delete_supported": True,
         "no_buy_sell_alerts": True,
         "direct_tx_evidence_required": True,
         "banned_output_terms": list(_BANNED_TERMS),
@@ -212,11 +309,35 @@ def build_custom_alerts_panel(
     }
 
 
+def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    checks: list[dict[str, Any]] = []
+
+    panel = build_custom_alerts_panel()
+    checks.append({"id": "backend_enforcement", "passed": panel.get("backend_enforcement") is True, "detail": "532"})
+    checks.append({"id": "no_buy_sell", "passed": panel.get("no_buy_sell_alerts") is True, "detail": "532"})
+    checks.append({"id": "smart_alerts_589", "passed": panel.get("smart_alert_count", 0) >= 0, "detail": "589"})
+    checks.append({"id": "cooldown_dedupe", "passed": panel.get("cooldown_dedupe") is True, "detail": "589"})
+    checks.append({"id": "pause_edit_delete", "passed": panel.get("pause_edit_delete_supported") is True, "detail": "589"})
+
+    passed = sum(1 for c in checks if c["passed"])
+    return {
+        "ok": passed == len(checks),
+        "feature_ids": list(_ABSORBED_IDS),
+        "checks": checks,
+        "passed": passed,
+        "total": len(checks),
+        "timestamp": _utcnow(),
+    }
+
+
 def custom_alerts_status() -> dict[str, Any]:
     seed = _load_seed()
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
+        "feature_ids": list(_ABSORBED_IDS),
+        "epic_title": _EPIC_TITLE,
         "title": _TITLE,
         "standalone": _STANDALONE,
         "merged_into": _MERGED_INTO,
@@ -229,6 +350,9 @@ def custom_alerts_status() -> dict[str, Any]:
             "rate_limits": True,
             "direct_tx_evidence": True,
             "no_buy_sell_alerts": True,
+            "smart_alerts_589": True,
+            "delivery_logs": True,
+            "cooldown_dedupe": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,

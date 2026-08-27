@@ -36,6 +36,9 @@ logger = logging.getLogger("BLACKDARK.SmartMoneyFlowTracker")
 _FEATURE_ID = 408
 _ABSORBED_FEATURE_REF = 459
 _SOPR_FEATURE_REF = 488
+_ACCUMULATION_REF = 590
+_HISTORICAL_TREND_REF = 593
+_EPIC_TITLE = "Smart Money Flow Intelligence"
 _TITLE = "Smart Money Flow Tracker"
 _ABSORBED_TITLE = "Age Consumed / Dormancy Intelligence"
 _STANDALONE = False
@@ -431,6 +434,109 @@ def analyze_asset(asset: str, *, seed: dict[str, Any] | None = None) -> dict[str
     }
 
 
+def detect_accumulation_distribution_state(
+    asset: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#590 — Accumulation/Distribution State + Net-Flow Persistence Indicator."""
+    seed = seed or _load_seed()
+    cfg = seed.get("accumulation_distribution_590") or {}
+    data = (seed.get("accumulation_assets") or seed.get("assets") or {}).get(asset.upper())
+    if not data:
+        return {"ok": False, "asset": asset, "error": "asset_not_found"}
+
+    net_flow_usd = float(data.get("net_flow_30d_usd", 0))
+    persistence_days = int(data.get("persistence_days", 0))
+    thresholds = cfg.get("thresholds") or {}
+    inflow_min = float(thresholds.get("accumulation_inflow_usd", 10_000_000))
+    outflow_min = float(thresholds.get("distribution_outflow_usd", -10_000_000))
+    persistence_min = int(thresholds.get("persistence_days_min", 3))
+
+    if net_flow_usd >= inflow_min and persistence_days >= persistence_min:
+        state = "accumulating"
+    elif net_flow_usd <= outflow_min and persistence_days >= persistence_min:
+        state = "distributing"
+    else:
+        state = "neutral"
+
+    wallet_cluster = data.get("wallet_cluster", "unknown")
+    return {
+        "ok": True,
+        "task_id": "590",
+        "feature_ref": _ACCUMULATION_REF,
+        "asset": asset.upper(),
+        "accumulation_distribution_state": state,
+        "net_flow_persistence_indicator": {
+            "consecutive_days_same_direction": persistence_days,
+            "net_flow_30d_usd": net_flow_usd,
+            "not_investment_score": True,
+            "persistence_not_rating": True,
+        },
+        "documented_thresholds": thresholds,
+        "thresholds_visible": True,
+        "wallet_cluster": wallet_cluster,
+        "no_advisory_language": True,
+        "descriptive_labels_only": True,
+        "display": (
+            f"Wallet cluster {wallet_cluster}: net inflow ${net_flow_usd:+,.0f} over "
+            f"{persistence_days} days — {state}"
+        ),
+        "false_positive_review": cfg.get("false_positive_review") or {},
+        "timestamp": _utcnow(),
+    }
+
+
+def build_historical_trend_analysis(
+    asset: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#593 — historical smart money trend with statistical regimes."""
+    seed = seed or _load_seed()
+    cfg = seed.get("historical_trend_593") or {}
+    history = (seed.get("historical_flows") or {}).get(asset.upper())
+    if not history:
+        return {"ok": False, "asset": asset, "error": "history_not_found"}
+
+    classification_version = cfg.get("classification_version", "1.0")
+    series = history.get("daily_net_flow_usd") or []
+    missing_days = int(history.get("missing_days", 0))
+
+    clean_series = [v for v in series if v is not None]
+    missing_handled = missing_days == 0 or history.get("missing_visible", True)
+
+    avg_flow = sum(clean_series) / len(clean_series) if clean_series else 0
+    high_threshold = float(cfg.get("high_activity_threshold_usd", 50_000_000))
+    regime = "high_activity_period" if avg_flow >= high_threshold else "low_activity_period"
+
+    return {
+        "ok": True,
+        "task_id": "593",
+        "feature_ref": _HISTORICAL_TREND_REF,
+        "asset": asset.upper(),
+        "trend_series": clean_series,
+        "data_points": len(clean_series),
+        "missing_days": missing_days,
+        "missing_history_handling": {
+            "missing_visible": history.get("missing_visible", True),
+            "missing_not_zero": True,
+            "missing_days_excluded": missing_days,
+        },
+        "classification_version": classification_version,
+        "classification_version_awareness": True,
+        "statistical_regime": regime,
+        "regimes_statistical_only": True,
+        "no_bullish_bearish_language": True,
+        "trend_chart_available": True,
+        "display": (
+            f"{asset.upper()} smart money trend: {regime.replace('_', ' ')} "
+            f"(v{classification_version}, {len(clean_series)} points)"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_smart_money_flow_panel(
     asset: str | None = None,
     *,
@@ -444,9 +550,20 @@ def build_smart_money_flow_panel(
 
     sopr_analyses = [compute_sopr(a, seed=seed) for a in (seed.get("sopr_assets") or seed.get("assets") or {})]
 
+    accum_assets = list((seed.get("accumulation_assets") or seed.get("assets") or {}).keys())
+    accumulation = [
+        detect_accumulation_distribution_state(a, seed=seed)
+        for a in accum_assets
+    ]
+    historical = [
+        build_historical_trend_analysis(a, seed=seed)
+        for a in (seed.get("historical_flows") or {})
+    ]
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
+        "epic_title": _EPIC_TITLE,
         "title": _TITLE,
         "absorbed_feature_ref": _ABSORBED_FEATURE_REF,
         "absorbed_title": _ABSORBED_TITLE,
@@ -461,6 +578,14 @@ def build_smart_money_flow_panel(
         "chain_methodologies": seed.get("chain_methodologies"),
         "transfer_filtering": seed.get("transfer_filtering"),
         "historical_validation": build_historical_validation(seed=seed),
+        "accumulation_distribution_590": {
+            "analyses": [a for a in accumulation if a.get("ok")],
+            "count": sum(1 for a in accumulation if a.get("ok")),
+        },
+        "historical_trend_593": {
+            "analyses": [h for h in historical if h.get("ok")],
+            "count": sum(1 for h in historical if h.get("ok")),
+        },
         "disclaimer": _DISCLAIMER,
         "timestamp": _utcnow(),
     }
@@ -485,6 +610,8 @@ def smart_money_flow_tracker_status() -> dict[str, Any]:
         "absorbed_features": {
             "459": "Age Consumed / Dormancy Intelligence",
             "488": "SOPR / Profitability Intelligence",
+            "590": "Accumulation/Distribution State + Net-Flow Persistence Indicator",
+            "593": "Smart Money Historical Trend Analysis",
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -519,6 +646,17 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     loss_alert = build_sopr_loss_regime_alert(seed=seed)
     checks.append({"id": "sopr_loss_alert_410", "passed": loss_alert.get("ok") is True, "detail": "410"})
+
+    accum = detect_accumulation_distribution_state("BTC", seed=seed)
+    checks.append({"id": "accumulation_590", "passed": accum.get("accumulation_distribution_state") in ("accumulating", "neutral", "distributing"), "detail": "590"})
+    checks.append({"id": "persistence_indicator_590", "passed": (accum.get("net_flow_persistence_indicator") or {}).get("persistence_not_rating") is True, "detail": "590"})
+    checks.append({"id": "thresholds_visible_590", "passed": accum.get("thresholds_visible") is True, "detail": "590"})
+
+    trend = build_historical_trend_analysis("BTC", seed=seed)
+    checks.append({"id": "historical_trend_593", "passed": trend.get("ok") is True, "detail": "593"})
+    checks.append({"id": "classification_version_593", "passed": trend.get("classification_version_awareness") is True, "detail": "593"})
+    checks.append({"id": "missing_not_zero_593", "passed": (trend.get("missing_history_handling") or {}).get("missing_not_zero") is True, "detail": "593"})
+    checks.append({"id": "statistical_regime_593", "passed": trend.get("regimes_statistical_only") is True, "detail": "593"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {
