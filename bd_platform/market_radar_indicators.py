@@ -363,6 +363,14 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("678 sector pulse market radar integration skipped", exc_info=True)
 
+    network_activity = None
+    try:
+        from bd_platform.onchain_metrics_library import build_market_radar_network_activity_widget_682
+
+        network_activity = build_market_radar_network_activity_widget_682(asset)
+    except Exception:
+        logger.debug("682 network activity market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -379,6 +387,7 @@ def build_market_radar_panel(
         "custom_ratio_engine_653": ratio_builder,
         "dxy_macro_context_655": macro_context,
         "sector_pulse_678": sector_pulse,
+        "network_activity_682": network_activity,
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }

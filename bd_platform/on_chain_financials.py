@@ -584,6 +584,15 @@ def build_on_chain_financials(
     statement = build_financial_statement_view(protocol_id, seed=seed)
     health = build_financial_health_score(protocol_id, seed=seed)
     lst_revenue = build_lst_staking_fee_revenue_673(protocol_id, seed=seed)
+    network_activity = None
+    token_symbol = raw.get("token_symbol")
+    if token_symbol:
+        try:
+            from bd_platform.onchain_metrics_library import build_network_activity_for_financials_641
+
+            network_activity = build_network_activity_for_financials_641(token_symbol, seed=None)
+        except Exception:
+            logger.debug("682 network activity financials hook skipped", exc_info=True)
 
     return {
         "ok": True,
@@ -606,6 +615,7 @@ def build_on_chain_financials(
         "financial_statement_665": statement if statement.get("ok") else None,
         "financial_health_666": health if health.get("ok") else None,
         "lst_staking_fee_revenue_673": lst_revenue if lst_revenue.get("ok") else None,
+        "network_activity_682": network_activity if network_activity and network_activity.get("ok") else None,
         "revenue_chart": history,
         "peer_comparison": peer_comparison,
         "data_pipeline": {

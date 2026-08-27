@@ -114,6 +114,20 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
                 logger.debug("on-chain financials dimension skipped", exc_info=True)
                 raw = float(data.get(dim, 50))
                 evidence = (data.get("evidence") or {}).get(dim) or {}
+        elif dim == "on_chain_growth":
+            try:
+                from bd_platform.onchain_metrics_library import score_network_growth_thesis_dimension_682
+
+                growth_dim = score_network_growth_thesis_dimension_682(asset)
+                raw = float(growth_dim.get("dimension_score", 50)) if growth_dim.get("ok") else 50.0
+                evidence = {
+                    "source": growth_dim.get("evidence_source", "network_activity_suite_682"),
+                    "quality": "high",
+                }
+            except Exception:
+                logger.debug("682 network growth dimension skipped", exc_info=True)
+                raw = float(data.get(dim, 50))
+                evidence = (data.get("evidence") or {}).get(dim) or {}
         else:
             raw = float(data.get(dim, 50))
             evidence = (data.get("evidence") or {}).get(dim) or {}
@@ -318,6 +332,7 @@ def investment_thesis_scoring_status() -> dict[str, Any]:
             "net_edge_truth_417": True,
             "on_chain_financials_641": True,
             "mvrv_valuation_676": True,
+            "network_activity_682": True,
             "market_radar": True,
         },
         "disclaimer": _DISCLAIMER,

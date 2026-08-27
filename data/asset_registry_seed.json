@@ -3501,5 +3501,72 @@
       },
       "last_updated": "2026-08-26T19:00:00Z"
     }
+  },
+  "coverage_monitoring_684": {
+    "feature_ref": 684,
+    "merged_into": 402,
+    "opportunity_min_coverage_pct": 80,
+    "narrative_min_coverage_pct": 50,
+    "low_coverage_threshold_pct": 80,
+    "backend_availability": {
+      "price_feed": true,
+      "onchain_metrics_library_577": true,
+      "sentiment_engine": true,
+      "token_unlock_intelligence": false,
+      "funding_feed": true
+    },
+    "opportunity_asset_map": {
+      "defi_low_coverage_001": "GAL"
+    }
+  },
+  "protocol_directory_685": {
+    "feature_ref": 685,
+    "merged_into": 402,
+    "protocols": {
+      "aave_v3": {
+        "protocol_id": "aave_v3",
+        "stable_id": "proto_aave_v3",
+        "name": "Aave V3",
+        "slug": "aave",
+        "category": "Lending",
+        "chains": ["ethereum", "arbitrum", "polygon"],
+        "version": "v3",
+        "launch_date": "2023-01-27",
+        "audit_status": "audited"
+      },
+      "uniswap_v3": {
+        "protocol_id": "uniswap_v3",
+        "stable_id": "proto_uniswap_v3",
+        "name": "Uniswap",
+        "slug": "uniswap",
+        "category": "DEX",
+        "chains": ["ethereum", "arbitrum", "polygon"],
+        "version": "v3",
+        "launch_date": "2021-05-05",
+        "audit_status": "audited"
+      },
+      "lido_v2": {
+        "protocol_id": "lido_v2",
+        "stable_id": "proto_lido_v2",
+        "name": "Lido",
+        "slug": "lido",
+        "category": "LST",
+        "chains": ["ethereum"],
+        "version": "v2",
+        "launch_date": "2020-12-18",
+        "audit_status": "audited"
+      },
+      "rocket_pool": {
+        "protocol_id": "rocket_pool",
+        "stable_id": "proto_rocket_pool",
+        "name": "Rocket Pool",
+        "slug": "rocket-pool",
+        "category": "LST",
+        "chains": ["ethereum"],
+        "version": "v2",
+        "launch_date": "2021-11-08",
+        "audit_status": "audited"
+      }
+    }
   }
 }

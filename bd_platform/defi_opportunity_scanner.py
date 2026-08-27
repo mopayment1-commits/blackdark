@@ -1264,6 +1264,13 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     defi_screener = build_defi_opportunity_screener(seed=seed)
     protocol_activity = build_protocol_activity_dashboard(seed=seed)
     liquid_staking = build_liquid_staking_dashboard(seed=seed)
+    protocol_directory = None
+    try:
+        from bd_platform.asset_registry import build_protocol_directory_685
+
+        protocol_directory = build_protocol_directory_685()
+    except Exception:
+        logger.debug("685 protocol directory skipped", exc_info=True)
     risk_passport_panel = None
     try:
         from bd_platform.defi_risk_passport import build_defi_risk_module_panel
@@ -1306,6 +1313,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "defi_opportunity_screener_658": defi_screener if defi_screener.get("ok") else {"ok": False},
         "protocol_activity_659": protocol_activity if protocol_activity.get("ok") else {"ok": False},
         "liquid_staking_intelligence_673": liquid_staking if liquid_staking.get("ok") else {"ok": False},
+        "protocol_directory_685": protocol_directory if protocol_directory and protocol_directory.get("ok") else {"ok": False},
         "defi_risk_passport_660": risk_passport_panel if risk_passport_panel and risk_passport_panel.get("ok") else {"ok": False},
         "defi_decision_intelligence_651": decision_panel if decision_panel and decision_panel.get("ok") else {"ok": False},
         "cross_protocol_contagion_652": contagion_panel if contagion_panel and contagion_panel.get("ok") else {"ok": False},

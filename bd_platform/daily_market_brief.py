@@ -292,6 +292,22 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         logger.debug("sector pulse daily brief integration skipped", exc_info=True)
 
+    network_activity_brief = None
+    try:
+        from bd_platform.onchain_metrics_library import build_network_activity_daily_brief_hook_474
+
+        network_activity_brief = build_network_activity_daily_brief_hook_474(seed=seed)
+        if network_activity_brief:
+            what_changed_items.append({
+                "text": network_activity_brief.get("mention_en", network_activity_brief.get("mention", "")),
+                "evidence_link": network_activity_brief.get("evidence_link"),
+                "contributor_metric": "network_activity",
+                "feature_ref_682": 682,
+                "feature_ref_474": 474,
+            })
+    except Exception:
+        logger.debug("network activity daily brief integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -323,6 +339,7 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "long_short_brief_675": long_short_brief,
         "mvrv_brief_676": mvrv_brief,
         "sector_pulse_brief_678": sector_pulse_brief,
+        "network_activity_brief_682": network_activity_brief,
         "not_investment_advice": True,
         "display": (
             f"Daily Brief {seed.get('brief_date')}: {regime.get('regime_label')} | "

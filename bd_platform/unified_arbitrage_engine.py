@@ -563,6 +563,16 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     except Exception:
         logger.debug("678 sector ranking boost skipped", exc_info=True)
 
+    coverage_cancelled: list[dict[str, Any]] = []
+    try:
+        from bd_platform.asset_registry import filter_opportunities_by_coverage_684
+
+        enriched, coverage_cancelled = filter_opportunities_by_coverage_684(enriched)
+        if coverage_cancelled:
+            ranked_by = f"{ranked_by}_coverage_filtered_684"
+    except Exception:
+        logger.debug("684 coverage filter skipped", exc_info=True)
+
     strategy_gate = None
     display_opportunities = enriched
     suppressed: list[dict[str, Any]] = []
@@ -609,6 +619,7 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "priority": _PRIORITY,
         "opportunities": display_opportunities,
         "suppressed_opportunities_492": suppressed,
+        "cancelled_by_coverage_684": coverage_cancelled,
         "strategy_quality_gate_492": strategy_gate,
         "count": len(display_opportunities),
         "raw_count": len(raw),
