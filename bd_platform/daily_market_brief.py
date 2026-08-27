@@ -244,6 +244,38 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         logger.debug("buying power daily brief integration skipped", exc_info=True)
 
+    long_short_brief = None
+    try:
+        from bd_platform.onchain_metrics_library import build_long_short_daily_brief_hook_474
+
+        long_short_brief = build_long_short_daily_brief_hook_474(seed=seed)
+        if long_short_brief:
+            why_items.insert(0, {
+                "text": long_short_brief.get("mention_en", long_short_brief.get("mention", "")),
+                "evidence_link": long_short_brief.get("evidence_link"),
+                "contributor_metric": "long_short_ratio",
+                "feature_ref_675": 675,
+                "feature_ref_474": 474,
+            })
+    except Exception:
+        logger.debug("long/short daily brief integration skipped", exc_info=True)
+
+    mvrv_brief = None
+    try:
+        from bd_platform.onchain_metrics_library import build_mvrv_daily_brief_hook_474
+
+        mvrv_brief = build_mvrv_daily_brief_hook_474("BTC", seed=seed)
+        if mvrv_brief:
+            why_items.insert(0, {
+                "text": mvrv_brief.get("mention_en", mvrv_brief.get("mention", "")),
+                "evidence_link": mvrv_brief.get("evidence_link"),
+                "contributor_metric": "mvrv_zscore",
+                "feature_ref_676": 676,
+                "feature_ref_474": 474,
+            })
+    except Exception:
+        logger.debug("mvrv daily brief integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -272,6 +304,8 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "capital_formation_radar_648": capital_radar_narrative,
         "dxy_macro_context_655": macro_context_narrative,
         "buying_power_brief_663": buying_power_brief,
+        "long_short_brief_675": long_short_brief,
+        "mvrv_brief_676": mvrv_brief,
         "not_investment_advice": True,
         "display": (
             f"Daily Brief {seed.get('brief_date')}: {regime.get('regime_label')} | "

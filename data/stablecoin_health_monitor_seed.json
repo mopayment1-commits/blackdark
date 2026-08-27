@@ -203,5 +203,37 @@
       "USDC": 6.0,
       "DAI": 0.0
     }
+  },
+  "lst_monitoring_673": {
+    "feature_ref": 673,
+    "merged_into": 467,
+    "depeg_alert_threshold_pct": 0.5,
+    "portfolio_depeg_alert_pct": 1.0,
+    "lst_tokens": [
+      {
+        "symbol": "stETH",
+        "provider": "Lido",
+        "peg_deviation_pct": 0.12,
+        "backing": "1 ETH + staking yield",
+        "backing_source": "Lido oracle",
+        "depeg_source": "Curve stETH/ETH pool"
+      },
+      {
+        "symbol": "osETH",
+        "provider": "StakeWise",
+        "peg_deviation_pct": 0.65,
+        "backing": "StakeWise vault ETH",
+        "backing_source": "StakeWise contract",
+        "depeg_source": "Balancer osETH/ETH"
+      }
+    ],
+    "portfolios": {
+      "demo_lst_portfolio": {
+        "holdings": [
+          {"symbol": "stETH", "portfolio_pct": 15, "peg_deviation_pct": 0.12, "depeg_source": "Curve"},
+          {"symbol": "osETH", "portfolio_pct": 8, "peg_deviation_pct": 1.2, "depeg_source": "Balancer"}
+        ]
+      }
+    }
   }
 }

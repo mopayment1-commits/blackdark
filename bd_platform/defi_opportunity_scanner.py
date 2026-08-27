@@ -33,6 +33,7 @@ _PROTOCOL_RISK_REF = 491
 _YIELD_DELTA_REF = 639
 _DEFI_SCREENER_REF = 658
 _PROTOCOL_ACTIVITY_REF = 659
+_LIQUID_STAKING_REF = 673
 _TITLE = "DeFi Opportunity Scanner"
 _LEGAL_NAME = "DeFi Opportunity Scanner"
 _STANDALONE = False
@@ -909,15 +910,95 @@ def _risk_grade_letter(score: float) -> str:
     return "F"
 
 
+def build_liquid_staking_dashboard(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#673 — LST dashboard with normalized providers (merged into #438)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("liquid_staking_673") or {}
+    providers_raw = cfg.get("providers") or []
+    providers: list[dict[str, Any]] = []
+
+    for p in providers_raw:
+        peg_dev = float(p.get("peg_deviation_pct", 0))
+        providers.append({
+            "provider_id": p.get("provider_id"),
+            "provider_name": p.get("provider_name"),
+            "lst_token": p.get("lst_token"),
+            "mandatory_metrics": {
+                "tvl_usd": p.get("tvl_usd"),
+                "staking_yield_pct": p.get("staking_yield_pct"),
+                "peg_deviation_pct": peg_dev,
+                "withdrawal_queue_days": p.get("withdrawal_queue_days"),
+            },
+            "backing": p.get("backing"),
+            "backing_source": p.get("backing_source"),
+            "depeg_source": p.get("depeg_source"),
+            "backing_depeg_source_required": True,
+            "display_backing": p.get("display_backing"),
+            "depeg_alert": peg_dev > float(cfg.get("depeg_alert_threshold_pct", 0.5)),
+        })
+
+    depeg_alerts = [p for p in providers if p.get("depeg_alert")]
+
+    return {
+        "ok": True,
+        "feature_ref": _LIQUID_STAKING_REF,
+        "merged_into": _FEATURE_ID,
+        "standalone": False,
+        "filter": "liquid_staking",
+        "providers": providers,
+        "provider_count": len(providers),
+        "comparison_table": providers,
+        "depeg_alerts": depeg_alerts,
+        "depeg_alert_count": len(depeg_alerts),
+        "backing_depeg_source_required": True,
+        "display": f"Liquid Staking: {len(providers)} providers | {len(depeg_alerts)} depeg alerts",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_liquid_staking_screener_filter(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#673 — DeFi Scanner Liquid Staking filter + comparison table."""
+    dashboard = build_liquid_staking_dashboard(seed=seed)
+    if not dashboard.get("ok"):
+        return dashboard
+    return {
+        **dashboard,
+        "screener_filter": "liquid_staking",
+        "ranked_by": "staking_yield_pct",
+        "opportunities": sorted(
+            dashboard["providers"],
+            key=lambda x: float((x.get("mandatory_metrics") or {}).get("staking_yield_pct") or 0),
+            reverse=True,
+        ),
+    }
+
+
 def build_defi_opportunity_screener(
     *,
     chain: str | None = None,
     protocol: str | None = None,
     risk_grade: str | None = None,
     min_liquidity_usd: float | None = None,
+    category: str | None = None,
     seed: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """#658 — multi-factor DeFi screener merged into #438 with backend filters."""
+    if category and category.lower() in {"liquid_staking", "lst"}:
+        lst = build_liquid_staking_screener_filter(seed=seed)
+        return {
+            **lst,
+            "feature_ref": _DEFI_SCREENER_REF,
+            "merged_into": _FEATURE_ID,
+            "filters_applied": {"category": "liquid_staking"},
+            "count": lst.get("provider_count", 0),
+        }
+
     t0 = time.perf_counter()
     seed = seed or _load_seed()
     cfg = seed.get("defi_screener_658") or {}
@@ -1182,6 +1263,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     yield_delta = build_yield_delta_listener(seed=seed)
     defi_screener = build_defi_opportunity_screener(seed=seed)
     protocol_activity = build_protocol_activity_dashboard(seed=seed)
+    liquid_staking = build_liquid_staking_dashboard(seed=seed)
     risk_passport_panel = None
     try:
         from bd_platform.defi_risk_passport import build_defi_risk_module_panel
@@ -1223,6 +1305,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "yield_delta_listener_639": yield_delta if yield_delta.get("ok") else {"ok": False},
         "defi_opportunity_screener_658": defi_screener if defi_screener.get("ok") else {"ok": False},
         "protocol_activity_659": protocol_activity if protocol_activity.get("ok") else {"ok": False},
+        "liquid_staking_intelligence_673": liquid_staking if liquid_staking.get("ok") else {"ok": False},
         "defi_risk_passport_660": risk_passport_panel if risk_passport_panel and risk_passport_panel.get("ok") else {"ok": False},
         "defi_decision_intelligence_651": decision_panel if decision_panel and decision_panel.get("ok") else {"ok": False},
         "cross_protocol_contagion_652": contagion_panel if contagion_panel and contagion_panel.get("ok") else {"ok": False},
@@ -1267,6 +1350,7 @@ def defi_opportunity_scanner_status() -> dict[str, Any]:
             "defi_risk_passport_660": True,
             "defi_decision_intelligence_651": True,
             "cross_protocol_contagion_652": True,
+            "liquid_staking_intelligence_673": True,
             "on_chain_arbitrage": True,
         },
         "dex_screener": {
@@ -1367,6 +1451,16 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "protocol_coverage_659", "passed": bool((activity.get("dashboards") or [{}])[0].get("protocol_coverage_explicit")), "detail": "coverage"})
     liq_trigger = get_liquidation_contagion_trigger_652("compound_iii_ethereum", seed=seed)
     checks.append({"id": "liquidation_contagion_652", "passed": liq_trigger.get("ok") is True, "detail": "652"})
+
+    lst = build_liquid_staking_dashboard(seed=seed)
+    checks.append({"id": "liquid_staking_673", "passed": lst.get("ok") is True and lst.get("provider_count") == 5, "detail": "673"})
+    checks.append({"id": "lst_backing_source_673", "passed": lst.get("backing_depeg_source_required") is True, "detail": "source"})
+    checks.append({"id": "lst_mandatory_metrics_673", "passed": all(
+        all(k in (p.get("mandatory_metrics") or {}) for k in ("tvl_usd", "staking_yield_pct", "peg_deviation_pct", "withdrawal_queue_days"))
+        for p in lst.get("providers") or []
+    ), "detail": "4 metrics"})
+    lst_filter = build_defi_opportunity_screener(category="liquid_staking", seed=seed)
+    checks.append({"id": "lst_screener_filter_673", "passed": lst_filter.get("screener_filter") == "liquid_staking", "detail": "filter"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

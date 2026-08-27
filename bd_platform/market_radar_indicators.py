@@ -299,6 +299,22 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("buying power market radar integration skipped", exc_info=True)
 
+    long_short_widget = None
+    try:
+        from bd_platform.onchain_metrics_library import build_market_radar_long_short_widget_675
+
+        long_short_widget = build_market_radar_long_short_widget_675(seed=seed)
+    except Exception:
+        logger.debug("long/short market radar integration skipped", exc_info=True)
+
+    mvrv_widget = None
+    try:
+        from bd_platform.onchain_metrics_library import build_market_radar_mvrv_widget_676
+
+        mvrv_widget = build_market_radar_mvrv_widget_676(asset)
+    except Exception:
+        logger.debug("mvrv market radar integration skipped", exc_info=True)
+
     transaction_flow = None
     try:
         from bd_platform.transaction_flow_view import build_market_radar_transaction_flow_view
@@ -347,6 +363,8 @@ def build_market_radar_panel(
         "hype_vs_reality_signal_599": hype_vs_reality,
         "stablecoin_reserve_trend_601": stablecoin_reserve,
         "exchange_stablecoin_buying_power_663": buying_power_widget,
+        "long_short_ratio_675": long_short_widget,
+        "mvrv_zscore_suite_676": mvrv_widget,
         "transaction_flow_view_615": transaction_flow,
         "transaction_volume_chart_612": tx_volume,
         "unlock_event_timeline_607": unlock_timeline,

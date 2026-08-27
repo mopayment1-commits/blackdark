@@ -59,6 +59,25 @@
       "task_ref": 663,
       "triple_source": ["defillama", "glassnode", "onchain_direct"]
     },
+    "long_short_ratio": {
+      "name": "Long/Short Ratio",
+      "formula": "venue-specific normalized; global = weighted average",
+      "formula_version": "1.0",
+      "source": "exchange_derivatives_api",
+      "unit": "ratio",
+      "update_frequency": "hourly",
+      "task_ref": 675
+    },
+    "mvrv_zscore": {
+      "name": "MVRV Z-Score Suite",
+      "formula": "MVRV = Market Cap / Realized Cap; Z = (MVRV - Mean) / Std",
+      "formula_version": "1.0",
+      "source": "onchain_metrics_suite_676",
+      "unit": "z_score",
+      "update_frequency": "daily",
+      "task_ref": 676,
+      "cohorts": ["sth", "lth", "total"]
+    },
     "transaction_volume_usd": {
       "name": "Transaction Volume (USD, entity-adjusted)",
       "formula": "sum(usd_value_at_tx_time) excluding spam/internal/self/dust",
@@ -92,6 +111,57 @@
     "formula_consistency_pct": 98.5,
     "missing_not_zero_enforced": true,
     "last_qa_run": "2026-08-26T00:00:00Z"
+  },
+  "long_short_ratio_675": {
+    "feature_ref": 675,
+    "merged_into": 577,
+    "extreme_long_pct": 80,
+    "extreme_short_pct": 60,
+    "historical_correction_pct": 68,
+    "global_percentile": 72,
+    "venues": [
+      {
+        "venue_id": "binance",
+        "venue_name": "Binance",
+        "long_short_ratio": 1.85,
+        "long_pct": 72,
+        "definition_semantics": "account_based",
+        "definition_tooltip": "Binance: account-based",
+        "weight": 0.35
+      },
+      {
+        "venue_id": "bybit",
+        "venue_name": "Bybit",
+        "long_short_ratio": 1.62,
+        "long_pct": 68,
+        "definition_semantics": "position_based",
+        "definition_tooltip": "Bybit: position-based",
+        "weight": 0.25
+      },
+      {
+        "venue_id": "bitfinex",
+        "venue_name": "Bitfinex",
+        "long_short_ratio": 1.45,
+        "long_pct": 59,
+        "definition_semantics": "swap_based",
+        "definition_tooltip": "Bitfinex: swap-based",
+        "weight": 0.15
+      },
+      {
+        "venue_id": "okx",
+        "venue_name": "OKX",
+        "long_short_ratio": 1.55,
+        "long_pct": 65,
+        "definition_semantics": "position_based",
+        "definition_tooltip": "OKX: position-based",
+        "weight": 0.25
+      }
+    ],
+    "historical_trend": [
+      {"date": "2026-08-20", "global_ratio": 1.72},
+      {"date": "2026-08-25", "global_ratio": 1.78},
+      {"date": "2026-08-27", "global_ratio": 1.68}
+    ]
   },
   "usage_intelligence_578": {
     "task_id": "578",

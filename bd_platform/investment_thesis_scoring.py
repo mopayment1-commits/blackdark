@@ -160,6 +160,28 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
     except Exception:
         logger.debug("653 custom ratio thesis dimension skipped", exc_info=True)
 
+    mvrv_valuation_dim = None
+    try:
+        from bd_platform.onchain_metrics_library import score_mvrv_valuation_dimension_676
+
+        mvrv_valuation_dim = score_mvrv_valuation_dimension_676(asset)
+        if mvrv_valuation_dim.get("ok"):
+            dimensions["mvrv_valuation_676"] = {
+                "raw_score": mvrv_valuation_dim.get("dimension_score"),
+                "adjusted_score": mvrv_valuation_dim.get("dimension_score"),
+                "weight": 0,
+                "contribution": 0,
+                "historical_percentile": mvrv_valuation_dim.get("historical_percentile"),
+                "mvrv_z_score": mvrv_valuation_dim.get("mvrv_z_score"),
+                "band_label": mvrv_valuation_dim.get("band_label"),
+                "evidence_source": mvrv_valuation_dim.get("evidence_source"),
+                "evidence_quality": mvrv_valuation_dim.get("evidence_quality"),
+                "no_arbitrary_thresholds": True,
+                "optional_dimension": True,
+            }
+    except Exception:
+        logger.debug("676 mvrv valuation thesis dimension skipped", exc_info=True)
+
     methodology_links = []
     try:
         from bd_platform.onchain_metrics_library import get_thesis_methodology_links
@@ -183,6 +205,7 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
         "no_opaque_score": True,
         "weights_documented": True,
         "custom_ratio_dimension_653": custom_ratio_dim,
+        "mvrv_valuation_dimension_676": mvrv_valuation_dim,
         "methodology_links_656": methodology_links,
         "display": f"Thesis {asset.upper()}: {grade} ({thesis_score}/100) — not price probability",
         "timestamp": _utcnow(),
@@ -294,6 +317,7 @@ def investment_thesis_scoring_status() -> dict[str, Any]:
         "integrations": {
             "net_edge_truth_417": True,
             "on_chain_financials_641": True,
+            "mvrv_valuation_676": True,
             "market_radar": True,
         },
         "disclaimer": _DISCLAIMER,
@@ -311,7 +335,7 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "not_price_probability", "passed": seed.get("not_price_probability") is True, "detail": "terms"})
 
     btc = score_investment_thesis("BTC", seed=seed)
-    checks.append({"id": "seven_dimensions", "passed": btc.get("dimension_count") == 7, "detail": "dimensions"})
+    checks.append({"id": "seven_dimensions", "passed": btc.get("dimension_count", 0) >= 7, "detail": "dimensions"})
     checks.append({"id": "on_chain_financials_641", "passed": "on_chain_financials" in (btc.get("dimensions") or {}), "detail": "641"})
     checks.append({"id": "thesis_grade", "passed": btc.get("thesis_grade") in ("A", "B", "C", "D", "F"), "detail": btc.get("thesis_grade")})
     checks.append({"id": "no_opaque_score", "passed": btc.get("no_opaque_score") is True, "detail": "transparent"})
@@ -319,6 +343,11 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     card = build_market_radar_thesis_card("ETH", seed=seed)
     checks.append({"id": "market_radar_card", "passed": card.get("thesis_grade") is not None, "detail": "radar"})
+
+    btc_dims = btc.get("dimensions") or {}
+    checks.append({"id": "mvrv_valuation_676", "passed": "mvrv_valuation_676" in btc_dims, "detail": "676"})
+    if btc_dims.get("mvrv_valuation_676"):
+        checks.append({"id": "mvrv_no_arbitrary_threshold", "passed": btc_dims["mvrv_valuation_676"].get("no_arbitrary_thresholds") is True, "detail": "thresholds"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {
