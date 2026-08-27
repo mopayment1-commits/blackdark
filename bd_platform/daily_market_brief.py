@@ -209,6 +209,24 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         logger.debug("capital formation radar brief integration skipped", exc_info=True)
 
+    macro_context_narrative = None
+    try:
+        from bd_platform.dxy_dollar_elasticity import build_macro_context_panel
+
+        macro = build_macro_context_panel("BTC")
+        if macro.get("ok"):
+            macro_context_narrative = macro.get("daily_brief_474")
+            why_items.insert(0, {
+                "text": (macro.get("daily_brief_474") or {}).get("macro_snippet", "DXY macro context"),
+                "evidence_link": "/api/platform/intelligence-ledger/market-radar/macro-context",
+                "contributor_metric": "dxy_correlation_30d",
+                "contributor_value": (macro.get("correlation_30d") or {}).get("correlation_coefficient_30d"),
+                "feature_ref_655": 655,
+                "macro_context_not_forecast": True,
+            })
+    except Exception:
+        logger.debug("dxy macro context brief integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -235,6 +253,7 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "signal_quality_summary_599": hype_vs_reality_summary,
         "sharpe_narrative_490": sharpe_narrative,
         "capital_formation_radar_648": capital_radar_narrative,
+        "dxy_macro_context_655": macro_context_narrative,
         "not_investment_advice": True,
         "display": (
             f"Daily Brief {seed.get('brief_date')}: {regime.get('regime_label')} | "
@@ -277,6 +296,7 @@ def daily_market_brief_status() -> dict[str, Any]:
             "sharpe_intelligence_490": True,
             "hype_vs_reality_signal_599": True,
             "capital_formation_radar_648": True,
+            "dxy_macro_context_655": True,
         },
         "historical_validation": seed.get("historical_validation"),
         "disclaimer": _DISCLAIMER,
@@ -315,6 +335,11 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         i.get("feature_ref_648") == 648 for i in (brief.get("what_changed") or [])
     ) or brief.get("capital_formation_radar_648") is not None
     checks.append({"id": "capital_formation_radar_648", "passed": capital_in_brief, "detail": "648"})
+
+    macro_in_brief = any(
+        i.get("feature_ref_655") == 655 for i in (brief.get("why") or [])
+    ) or brief.get("dxy_macro_context_655") is not None
+    checks.append({"id": "dxy_macro_context_655", "passed": macro_in_brief, "detail": "655"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

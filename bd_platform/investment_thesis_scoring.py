@@ -160,6 +160,14 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
     except Exception:
         logger.debug("653 custom ratio thesis dimension skipped", exc_info=True)
 
+    methodology_links = []
+    try:
+        from bd_platform.onchain_metrics_library import get_thesis_methodology_links
+
+        methodology_links = get_thesis_methodology_links(asset)
+    except Exception:
+        logger.debug("656 methodology links skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -175,6 +183,7 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
         "no_opaque_score": True,
         "weights_documented": True,
         "custom_ratio_dimension_653": custom_ratio_dim,
+        "methodology_links_656": methodology_links,
         "display": f"Thesis {asset.upper()}: {grade} ({thesis_score}/100) — not price probability",
         "timestamp": _utcnow(),
     }

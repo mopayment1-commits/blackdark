@@ -323,6 +323,14 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("653 ratio builder market radar integration skipped", exc_info=True)
 
+    macro_context = None
+    try:
+        from bd_platform.dxy_dollar_elasticity import build_macro_context_panel
+
+        macro_context = build_macro_context_panel(asset)
+    except Exception:
+        logger.debug("655 DXY macro context market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -334,6 +342,7 @@ def build_market_radar_panel(
         "transaction_volume_chart_612": tx_volume,
         "unlock_event_timeline_607": unlock_timeline,
         "custom_ratio_engine_653": ratio_builder,
+        "dxy_macro_context_655": macro_context,
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }

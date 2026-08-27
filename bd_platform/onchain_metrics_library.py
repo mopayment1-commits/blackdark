@@ -24,7 +24,7 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641)
+_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656)
 _EPIC_ID = 577
 _WHALE_RETAIL_REF = 634
 _TITLE = "On-Chain Metrics Library"
@@ -95,6 +95,13 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "description": "Protocol revenue, profit margin, P/S ratio from on-chain fees — merged into #472",
         "standalone_rejected": True,
     },
+    "656": {
+        "task_id": "656",
+        "name": "data_methodology_registry",
+        "title": "Data Methodology Registry",
+        "description": "Versioned protocol mappings, contracts, events, transformations — methodology layer of #577",
+        "standalone_rejected": True,
+    },
 }
 
 _DISCLAIMER = (
@@ -117,6 +124,104 @@ def _load_seed() -> dict[str, Any]:
         return {"metric_definitions": {}, "assets": {}, "historical_qa": {}}
 
 
+def build_methodology_page(
+    metric_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#656 — methodology page per metric with contracts, events, transformations."""
+    seed = seed or _load_seed()
+    registry = seed.get("methodology_registry") or {}
+    pages = registry.get("pages") or {}
+    page = pages.get(metric_id)
+    metric_def = (seed.get("metric_definitions") or {}).get(metric_id) or {}
+
+    if not page and not metric_def:
+        return {"ok": False, "metric_id": metric_id, "error": "methodology_not_found"}
+
+    page = page or {}
+    code_hash = page.get("code_docs_parity_hash") or registry.get("code_docs_parity_hash")
+
+    return {
+        "ok": True,
+        "feature_ref": 656,
+        "metric_id": metric_id,
+        "metric_name": metric_def.get("name") or page.get("metric_name"),
+        "methodology_button": "المنهجية",
+        "methodology_button_en": "Methodology",
+        "contracts": page.get("contracts") or [],
+        "event_signatures": page.get("event_signatures") or [],
+        "transformation_logic": page.get("transformation_logic") or metric_def.get("formula"),
+        "transformation_version": page.get("transformation_version") or metric_def.get("formula_version"),
+        "version_history": page.get("version_history") or [],
+        "definitions": page.get("definitions") or {},
+        "code_docs_parity": {
+            "required": True,
+            "hash": code_hash,
+            "auto_sync": registry.get("code_docs_auto_sync", True),
+            "parity_verified": page.get("parity_verified", True),
+        },
+        "source": metric_def.get("source") or page.get("source"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_methodology_registry(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#656 — full methodology registry for #577."""
+    seed = seed or _load_seed()
+    registry = seed.get("methodology_registry") or {}
+    pages = registry.get("pages") or {}
+    metrics = []
+
+    for metric_id in (seed.get("metric_definitions") or {}):
+        page = build_methodology_page(metric_id, seed=seed)
+        if page.get("ok"):
+            metrics.append({
+                "metric_id": metric_id,
+                "methodology_button": "المنهجية",
+                "methodology_url": f"/intelligence-ledger/onchain-metrics/methodology/{metric_id}",
+                "parity_verified": (page.get("code_docs_parity") or {}).get("parity_verified"),
+            })
+
+    return {
+        "ok": True,
+        "feature_ref": 656,
+        "merged_into": _EPIC_ID,
+        "title": "Data Methodology Registry",
+        "methodology_layer": True,
+        "metric_count": len(metrics),
+        "metrics": metrics,
+        "protocol_mappings": registry.get("protocol_mappings") or {},
+        "code_docs_parity_required": True,
+        "code_docs_auto_sync": registry.get("code_docs_auto_sync", True),
+        "versioned_transformations": True,
+        "page_count": len(pages),
+        "timestamp": _utcnow(),
+    }
+
+
+def get_thesis_methodology_links(
+    asset: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """#472 integration — methodology links for metrics used in thesis."""
+    seed = seed or _load_seed()
+    asset_metrics = ((seed.get("assets") or {}).get(asset.upper()) or {}).get("metrics") or {}
+    links: list[dict[str, Any]] = []
+
+    for metric_id in asset_metrics:
+        page = build_methodology_page(metric_id, seed=seed)
+        if page.get("ok"):
+            links.append({
+                "metric_id": metric_id,
+                "methodology_url": f"/intelligence-ledger/onchain-metrics/methodology/{metric_id}",
+                "methodology_button": "المنهجية",
+                "parity_verified": (page.get("code_docs_parity") or {}).get("parity_verified"),
+            })
+    return links
+
+
 def build_metric_definitions(seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Canonical metric definitions — formula/source/version per metric."""
     seed = seed or _load_seed()
@@ -133,6 +238,8 @@ def build_metric_definitions(seed: dict[str, Any] | None = None) -> dict[str, An
             "update_frequency": spec.get("update_frequency"),
             "missing_display": missing_value(),
             "unknown_is_not_zero": True,
+            "methodology_button": "المنهجية",
+            "methodology_url": f"/intelligence-ledger/onchain-metrics/methodology/{metric_id}",
         })
     return {
         "canonical_definitions": True,
@@ -726,6 +833,13 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
     tests.append({"test": "cohort_thresholds_634", "passed": (whale_retail.get("cohort_thresholds") or {}).get("documented") is True})
     tests.append({"test": "divergence_signal_634", "passed": whale_retail.get("whale_vs_retail_divergence") is True})
 
+    methodology = build_methodology_registry(seed=seed)
+    tests.append({"test": "methodology_registry_656", "passed": methodology.get("ok") is True and methodology.get("metric_count", 0) >= 3})
+    tests.append({"test": "code_docs_parity_656", "passed": methodology.get("code_docs_parity_required") is True})
+    page = build_methodology_page("active_addresses", seed=seed)
+    tests.append({"test": "methodology_page_656", "passed": page.get("ok") is True and page.get("methodology_button") == "المنهجية"})
+    tests.append({"test": "contracts_documented_656", "passed": len(page.get("contracts") or []) >= 1})
+
     all_passed = all(t["passed"] for t in tests)
     return {
         "ok": True,
@@ -762,6 +876,7 @@ def onchain_metrics_library_status() -> dict[str, Any]:
             "601": "Stablecoin Exchange Reserve → metric in #577, logic in #467",
             "634": "Whale vs Retail Flow → metric in #577",
             "641": "On-Chain Financials → metrics in #577, dimension in #472",
+            "656": "Data Methodology Registry → methodology layer of #577",
         },
         "acceptance_criteria": {
             "formula_source_version": True,

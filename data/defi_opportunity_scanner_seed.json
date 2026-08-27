@@ -472,7 +472,7 @@
       "utilization_pct": 78.5,
       "delta_vs_benchmark_bps": 65,
       "persistence_days": 5,
-      "last_updated": "2026-08-27T13:30:00Z",
+      "last_updated": "2026-08-27T15:30:00Z",
       "source_protocols": ["Aave v3"],
       "evidence": {"source": "defillama", "pool": "USDC"}
     },
@@ -488,7 +488,7 @@
       "utilization_pct": 72.0,
       "delta_vs_benchmark_bps": 80,
       "persistence_days": 3,
-      "last_updated": "2026-08-27T13:15:00Z",
+      "last_updated": "2026-08-27T15:25:00Z",
       "source_protocols": ["Compound III"],
       "evidence": {"source": "defillama", "pool": "USDC"}
     },
@@ -504,7 +504,7 @@
       "utilization_pct": 65.0,
       "delta_vs_benchmark_bps": 42,
       "persistence_days": 4,
-      "last_updated": "2026-08-27T12:00:00Z",
+      "last_updated": "2026-08-27T15:20:00Z",
       "source_protocols": ["Curve"],
       "evidence": {"source": "defillama", "pool": "stETH/ETH"}
     },
@@ -517,5 +517,12 @@
       "risk_score": 80,
       "last_updated": "2026-08-26T08:00:00Z"
     }
+  },
+  "defi_screener_658": {
+    "feature_ref": 658,
+    "default_min_liquidity_usd": 100000,
+    "backend_filters": ["chain", "protocol", "risk_grade", "min_liquidity_usd"],
+    "risk_return_separated": true,
+    "no_apy_only_ranking": true
   }
 }
