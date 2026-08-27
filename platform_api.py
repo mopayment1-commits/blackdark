@@ -1691,6 +1691,42 @@ async def wallet_shadowing_alerts_route(watchlist_id: str = Query("default")):
     return build_wallet_shadowing_alerts(watchlist_id)
 
 
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/whale-intelligence")
+async def whale_accumulation_distribution_route(asset: str = Query("BTC")):
+    """#626 Whale Accumulation/Distribution Intelligence — merged into #408."""
+    from bd_platform.smart_money_flow_tracker import detect_whale_accumulation_distribution_intelligence
+
+    result = detect_whale_accumulation_distribution_intelligence(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/whale-alerts")
+async def whale_movement_alerts_route(
+    threshold_usd: float = Query(1_000_000),
+    direction: str = Query("both"),
+    assets: str | None = Query(None),
+):
+    """#628 Whale Movement Alerts — merged into #408."""
+    from bd_platform.smart_money_flow_tracker import build_whale_movement_alerts
+
+    asset_list = [a.strip() for a in assets.split(",")] if assets else None
+    return build_whale_movement_alerts(
+        threshold_usd=threshold_usd,
+        direction=direction,
+        assets=asset_list,
+    )
+
+
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/whale-radar-overlay")
+async def whale_radar_overlay_route(asset: str = Query("BTC")):
+    """#626 Market Radar whale flow overlay."""
+    from bd_platform.smart_money_flow_tracker import build_market_radar_whale_flow_overlay
+
+    return build_market_radar_whale_flow_overlay(asset)
+
+
 @router.get("/intelligence-ledger/ui/beginner-decision-mode/status")
 async def beginner_decision_mode_status_route():
     """#461 Beginner Decision Mode — merged with #468 Decision-First."""
@@ -2338,6 +2374,37 @@ async def wallet_pnl_breakdown_route(wallet_id: str = Query("demo_wallet")):
     from bd_platform.portfolio_intelligence_engine import build_wallet_pnl_breakdown
 
     return build_wallet_pnl_breakdown(wallet_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/unified-dashboard")
+async def unified_portfolio_dashboard_route(portfolio_id: str = Query("demo_portfolio")):
+    """#614 Unified Portfolio Dashboard — Portfolio AI main UI."""
+    from bd_platform.portfolio_intelligence_engine import build_unified_portfolio_dashboard
+
+    return build_unified_portfolio_dashboard(portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/wallet-profiler/status")
+async def wallet_profiler_status_route():
+    """#620 Wallet Profiler — Sprint-2 Core UI."""
+    from bd_platform.wallet_profiler import wallet_profiler_status
+
+    return wallet_profiler_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/wallet-profiler")
+async def wallet_profiler_route(address: str = Query(..., min_length=3)):
+    """#620 Wallet Profiler — 6-tab comprehensive wallet profile."""
+    from bd_platform.wallet_profiler import build_wallet_profile
+
+    return build_wallet_profile(address)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/wallet-profiler/reconciliation-tests")
+async def wallet_profiler_reconciliation_route():
+    from bd_platform.wallet_profiler import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/strategy-vetting/status")

@@ -7,6 +7,15 @@
 <link rel="icon" href="/static/img/favicon.ico">
 <link rel="stylesheet" href="/static/css/trust-os.css">
 <link rel="stylesheet" href="/static/css/capability.css">
+<style>
+.wp-tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.wp-tab{padding:.5rem 1rem;border:1px solid #333;border-radius:6px;cursor:pointer;font-size:.85rem}
+.wp-tab.active{background:#1a3a5c;color:#fff}
+.wp-panel{display:none}.wp-panel.active{display:block}
+.wp-freshness{font-size:.75rem;color:#8a8;font-style:italic;margin:.25rem 0}
+.wp-notice{background:#332;padding:.75rem;border-radius:6px;margin:.5rem 0;font-size:.85rem}
+@media(max-width:768px){.wp-tabs{flex-direction:column}.wp-tab{width:100%}}
+</style>
 </head>
 <body class="cap-page" data-page="capability">
 <nav class="cap-nav">
@@ -17,7 +26,7 @@
   <div id="riskScoreStrip" class="risk-score-strip"></div>
   <header class="cap-hero">
     <h1>Wallet Profiler</h1>
-    <p class="sub">DeBank + ScopeScan + clustering — monitoring only.</p>
+    <p class="sub">6-tab on-chain wallet profile — manual address entry only.</p>
     <p class="cap-decision-q" id="capDecisionQ">Should I trust counterparty flows from this address?</p>
   </header>
   <div id="walletRoot" data-address="{{ wallet_address }}">
@@ -32,26 +41,53 @@
 (function(){
   const root = document.getElementById("walletRoot");
   const addr = root.dataset.address;
-  const { esc, provBadge, bindProvPopovers } = window.BDCapability || {};
+  const { esc } = window.BDCapability || {};
   const escFn = esc || (s => String(s??""));
-  Promise.all([
-    fetch("/api/platform/wallet/debank?address=" + encodeURIComponent(addr)).then(r => r.json()).catch(() => ({})),
-    fetch("/api/platform/wallet/scopescan?address=" + encodeURIComponent(addr)).then(r => r.json()).catch(() => ({})),
-    fetch("/api/platform/wallet/clusters?address=" + encodeURIComponent(addr)).then(r => r.json()).catch(() => ({})),
-  ]).then(([debank, scope, clusters]) => {
-    let html = `<div class="cap-card"><h2>${escFn(addr)}</h2>`;
-    html += `<h3>Balance / Portfolio</h3><pre style="font-size:.72rem;overflow:auto;max-height:200px">${escFn(JSON.stringify(debank, null, 2).slice(0, 1500))}</pre>`;
-    html += `<h3>Labels (ScopeScan)</h3><pre style="font-size:.72rem;overflow:auto;max-height:160px">${escFn(JSON.stringify(scope, null, 2).slice(0, 1200))}</pre>`;
-    html += `<h3>Clusters</h3><pre style="font-size:.72rem;overflow:auto;max-height:160px">${escFn(JSON.stringify(clusters, null, 2).slice(0, 1200))}</pre>`;
-    html += `</div>`;
-    root.innerHTML = html;
-    if (bindProvPopovers) bindProvPopovers(root);
-    if (window.BDDecisionCard) window.BDDecisionCard.activateFromPayload({
-      verdict: "VERIFY",
-      decision_sentence: "Cross-check cluster labels and counterparties before trusting flows.",
-      display: "Wallet profile loaded",
-    });
-  }).catch(e => { root.innerHTML = `<div class="cap-err">${escFn(e.message)}</div>`; });
+  const tabLabels = {holdings:"Holdings",pnl:"PnL",transactions:"Transactions",relationships:"Relationships",smart_money_signals:"Smart Money",risk_score:"Risk Score"};
+
+  fetch("/api/platform/intelligence-ledger/portfolio-ai/wallet-profiler?address=" + encodeURIComponent(addr))
+    .then(r => r.json())
+    .then(profile => {
+      if (!profile.ok) {
+        root.innerHTML = `<div class="cap-err">${escFn(profile.display || profile.error || "Wallet not found")}</div>`;
+        return;
+      }
+      if (profile.empty_wallet) {
+        root.innerHTML = `<div class="wp-notice">${escFn(profile.display)}</div>`;
+        return;
+      }
+      const tabs = profile.tabs || {};
+      const tabKeys = profile.mandatory_tabs || Object.keys(tabs);
+      let html = `<div class="cap-card"><h2>${escFn(addr)}</h2>`;
+      if (profile.new_wallet) html += `<div class="wp-notice">${escFn((tabs.holdings||{}).new_wallet_notice||"New wallet")}</div>`;
+      html += `<p class="wp-freshness">${escFn(profile.latency_ms)}ms | ${tabKeys.length} tabs</p>`;
+      html += `<div class="wp-tabs" role="tablist">`;
+      tabKeys.forEach((k,i) => { html += `<button class="wp-tab${i===0?" active":""}" data-tab="${escFn(k)}">${escFn(tabLabels[k]||k)}</button>`; });
+      html += `</div>`;
+      tabKeys.forEach((k,i) => {
+        const t = tabs[k];
+        html += `<div class="wp-panel${i===0?" active":""}" id="panel-${escFn(k)}">`;
+        if (t && t.freshness) html += `<p class="wp-freshness">${escFn(t.freshness.display||t.freshness.display_en||"")}</p>`;
+        html += `<pre style="font-size:.72rem;overflow:auto;max-height:400px">${escFn(JSON.stringify(t,null,2).slice(0,3000))}</pre>`;
+        html += `</div>`;
+      });
+      html += `</div>`;
+      root.innerHTML = html;
+      root.querySelectorAll(".wp-tab").forEach(btn => {
+        btn.addEventListener("click", () => {
+          root.querySelectorAll(".wp-tab").forEach(b => b.classList.remove("active"));
+          root.querySelectorAll(".wp-panel").forEach(p => p.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById("panel-" + btn.dataset.tab).classList.add("active");
+        });
+      });
+      if (window.BDDecisionCard) window.BDDecisionCard.activateFromPayload({
+        verdict: "VERIFY",
+        decision_sentence: "Cross-check cluster labels and counterparties before trusting flows.",
+        display: "Wallet profile loaded — " + tabKeys.length + " tabs",
+      });
+    })
+    .catch(e => { root.innerHTML = `<div class="cap-err">${escFn(e.message)}</div>`; });
 })();
 </script>
 </body>
