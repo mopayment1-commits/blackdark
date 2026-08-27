@@ -13,3 +13,5 @@ exclude_dirs:
 skips:
   # Intentional pytest/runtime asserts outside tests/ (tiny residual set).
   - B101
+  # Parameterized SQL with dialect guards — covered by tests/test_sql_safety.py.
+  - B608
