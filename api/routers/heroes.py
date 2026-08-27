@@ -439,10 +439,21 @@ async def changed_mind_api(limit: int = Query(25, ge=1, le=100)):
 async def decision_graph_api(
     asset: str = Query("BTC"),
     limit: int = Query(12, ge=1, le=50),
+    focus_node: str | None = Query(None),
 ):
     from product_honesty_api import build_decision_graph
 
     return await build_decision_graph(asset=asset, limit=limit)
+
+
+@router.get("/api/public/decision-graph/node")
+async def decision_graph_node_api(
+    node_id: str = Query(..., min_length=4),
+    asset: str = Query("BTC"),
+):
+    from bd_platform.decision_graph import expand_node
+
+    return await expand_node(node_id=node_id, asset=asset)
 
 
 @router.get("/api/product/l2-remainder")

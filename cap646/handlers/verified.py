@@ -17,11 +17,16 @@ async def handle_verified_capability(
     symbol = str(params.get("symbol") or params.get("asset") or "BTC").upper().replace("/USDT", "")
 
     if capability_id == 49:
-        from options_fetcher import fetch_options_overview
+        from bd_platform.options_intelligence import analyze_options_intelligence
 
-        data = await fetch_options_overview([symbol])
+        data = await analyze_options_intelligence(symbol)
         return ai_compliance_footer(
-            {"capability_id": 49, "surface": "options_intelligence_suite", "data": data, "success": bool(data)}
+            {
+                "capability_id": 49,
+                "surface": "options_intelligence_suite",
+                "data": data,
+                "success": bool(data.get("ok")),
+            }
         )
 
     if capability_id == 50:
