@@ -424,12 +424,19 @@ async def build_onchain_context() -> dict[str, Any]:
         for asset in status_payload
     }
 
-    return {
+    base = {
         "onchain_flows": [flow.model_dump() for flow in flows],
         "onchain_signals": signal_payload,
         "onchain_by_asset": status_payload,
         "onchain_score_adjustments": score_adjustments,
     }
+    try:
+        from blackdark.ingestion.exchange_flow_metric import enrich_onchain_context
+
+        return await enrich_onchain_context(base)
+    except Exception:
+        logger.debug("token exchange flow enrichment skipped")
+        return base
 
 
 async def build_onchain_context_safe() -> dict[str, Any]:

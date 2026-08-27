@@ -200,6 +200,8 @@ DATA_SOURCES: tuple[DataSourceSpec, ...] = (
                    "https://api.twelvedata.com/time_series", 3600, env_key="TWELVEDATA_API_KEY"),
     DataSourceSpec("investing_com_rss", "macro", "Investing.com Calendar", "rss",
                    "https://www.investing.com/rss/news_301.rss", 600),
+    DataSourceSpec("polygon_io", "macro", "Polygon.io", "rest",
+                   "https://api.polygon.io", 300, env_key="POLYGON_API_KEY"),
     # ── 10. Regulatory & Security ─────────────────────────────────────────────
     DataSourceSpec("sec_rss", "regulatory", "SEC RSS", "rss",
                    "https://www.sec.gov/news/pressreleases.rss", 600),
