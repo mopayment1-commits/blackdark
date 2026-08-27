@@ -611,6 +611,15 @@ def build_on_chain_financials(
     except Exception:
         logger.debug("698 SSR financials hook skipped", exc_info=True)
 
+    supply_tokenomics = None
+    try:
+        from bd_platform.onchain_metrics_library import build_supply_tokenomics_context_641
+
+        token_sym = (raw.get("token_symbol") or raw.get("symbol") or "ETH").upper()
+        supply_tokenomics = build_supply_tokenomics_context_641(token_sym, seed=None)
+    except Exception:
+        logger.debug("700 supply tokenomics financials hook skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -635,6 +644,7 @@ def build_on_chain_financials(
         "revenue_distribution_690": revenue_distribution if revenue_distribution.get("ok") else None,
         "network_activity_682": network_activity if network_activity and network_activity.get("ok") else None,
         "ssr_market_context_698": ssr_market_context if ssr_market_context and ssr_market_context.get("ok") else None,
+        "supply_tokenomics_700": supply_tokenomics if supply_tokenomics and supply_tokenomics.get("ok") else None,
         "revenue_chart": history,
         "peer_comparison": peer_comparison,
         "data_pipeline": {

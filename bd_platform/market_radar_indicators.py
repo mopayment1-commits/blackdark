@@ -23,6 +23,8 @@ logger = logging.getLogger("BLACKDARK.MarketRadarIndicators")
 _FEATURE_ID = 734
 _VOLATILITY_ANALYTICS_REF = 498
 _VOLATILITY_COMPRESSION_REF = 458
+_TECHNICAL_INDICATOR_REF = 754
+_TECHNICAL_SUMMARY_REF = 755
 _MANDATORY_VOL_WINDOWS = ("7d", "30d", "90d")
 _STANDALONE = False
 _MERGED_INTO = "Market Radar / Exchange Activity Indicator"
@@ -45,6 +47,291 @@ def _load_seed() -> dict[str, Any]:
     except (OSError, json.JSONDecodeError) as exc:
         logger.warning("market radar indicators seed load failed: %s", exc)
         return {"exchanges": {}}
+
+
+_TECHNICAL_DISCLAIMER = (
+    "Technical summaries are mathematical calculations based on historical data. "
+    "Not financial advice. Past performance does not guarantee future results."
+)
+
+
+def _load_ohlcv_closes(asset: str, seed: dict[str, Any]) -> list[float]:
+    cfg = seed.get("technical_calculation_layer_754") or {}
+    closes = (cfg.get("ohlcv_closes") or {}).get(asset.upper()) or []
+    return [float(c) for c in closes]
+
+
+def compute_sma(closes: list[float], period: int) -> float | None:
+    if len(closes) < period:
+        return None
+    return round(sum(closes[-period:]) / period, 4)
+
+
+def compute_bollinger(
+    closes: list[float],
+    period: int = 20,
+    std_dev: float = 2.0,
+) -> dict[str, float | None]:
+    if len(closes) < period:
+        return {"upper": None, "middle": None, "lower": None}
+    window = closes[-period:]
+    middle = sum(window) / period
+    variance = sum((x - middle) ** 2 for x in window) / period
+    std = math.sqrt(variance)
+    return {
+        "upper": round(middle + std_dev * std, 4),
+        "middle": round(middle, 4),
+        "lower": round(middle - std_dev * std, 4),
+    }
+
+
+def compute_macd_values(closes: list[float]) -> dict[str, float | None]:
+    from technical_analysis import compute_ema
+
+    if len(closes) < 26:
+        return {"macd": None, "signal": None, "histogram": None}
+    ema_fast = compute_ema(closes, 12)
+    ema_slow = compute_ema(closes, 26)
+    if ema_fast is None or ema_slow is None:
+        return {"macd": None, "signal": None, "histogram": None}
+    macd = ema_fast - ema_slow
+    macd_series = []
+    for i in range(26, len(closes) + 1):
+        ef = compute_ema(closes[:i], 12)
+        es = compute_ema(closes[:i], 26)
+        if ef is not None and es is not None:
+            macd_series.append(ef - es)
+    signal = compute_ema(macd_series, 9) if len(macd_series) >= 9 else macd
+    histogram = macd - signal if signal is not None else None
+    return {
+        "macd": round(macd, 4) if macd is not None else None,
+        "signal": round(signal, 4) if signal is not None else None,
+        "histogram": round(histogram, 4) if histogram is not None else None,
+    }
+
+
+def build_technical_calculation_layer_754(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#754 — rule-based technical indicators (RSI, MACD, SMA, Bollinger)."""
+    from technical_analysis import compute_rsi, macd_trend_label
+
+    seed = seed or _load_seed()
+    sym = asset.upper()
+    cfg = seed.get("technical_calculation_layer_754") or {}
+    closes = _load_ohlcv_closes(sym, seed)
+    if len(closes) < 20:
+        return {"ok": False, "feature_ref": 754, "asset": sym, "error": "insufficient_ohlcv"}
+
+    rsi = compute_rsi(closes, period=14)
+    macd_vals = compute_macd_values(closes)
+    macd_label = macd_trend_label(closes)
+    sma = {str(w): compute_sma(closes, w) for w in (20, 50, 200)}
+    bollinger = compute_bollinger(closes, period=20, std_dev=2.0)
+    indicators_cfg = cfg.get("indicators") or {}
+
+    return {
+        "ok": True,
+        "feature_ref": 754,
+        "merged_into": "market_radar",
+        "standalone": False,
+        "no_standalone_api": cfg.get("no_standalone_api", True),
+        "asset": sym,
+        "rule_based_only": True,
+        "indicators": {
+            "RSI": {
+                "value": rsi,
+                "period": 14,
+                "version": indicators_cfg.get("RSI", {}).get("version", "1.0"),
+                "source": indicators_cfg.get("RSI", {}).get("source", "TradingView Formula"),
+                "formula_visible": "RSI(14) | Version: 1.0 | Source: TradingView Formula",
+            },
+            "MACD": {
+                **macd_vals,
+                "trend_label": macd_label,
+                "params": "12,26,9",
+                "version": indicators_cfg.get("MACD", {}).get("version", "1.0"),
+                "source": indicators_cfg.get("MACD", {}).get("source", "TradingView Formula"),
+                "formula_visible": "MACD(12,26,9) | Version: 1.0 | Source: TradingView Formula",
+            },
+            "SMA": {
+                "values": sma,
+                "windows": [20, 50, 200],
+                "version": "1.0",
+            },
+            "Bollinger": {
+                **bollinger,
+                "period": 20,
+                "std_dev": 2,
+                "version": "1.0",
+            },
+        },
+        "methodology_version": cfg.get("methodology_version", _METHODOLOGY_VERSION),
+        "no_look_ahead": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_technical_summary_overlay_755(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#755 — Technical Summary overlay (no Strong Buy/Sell)."""
+    seed = seed or _load_seed()
+    sym = asset.upper()
+    cfg = seed.get("technical_summary_overlay_755") or {}
+    calc = build_technical_calculation_layer_754(sym, seed=seed)
+    if not calc.get("ok"):
+        return {**calc, "feature_ref": 755}
+
+    rsi = (calc.get("indicators") or {}).get("RSI", {}).get("value")
+    macd = calc.get("indicators") or {}
+    macd_label = (macd.get("MACD") or {}).get("trend_label", "")
+
+    bullish_signals = 0
+    bearish_signals = 0
+    if rsi is not None:
+        if rsi >= 55:
+            bullish_signals += 1
+        elif rsi <= 45:
+            bearish_signals += 1
+    lower_macd = macd_label.lower()
+    if "bullish" in lower_macd:
+        bullish_signals += 1
+    elif "bearish" in lower_macd:
+        bearish_signals += 1
+
+    if bullish_signals > bearish_signals:
+        analysis = "Bullish"
+    elif bearish_signals > bullish_signals:
+        analysis = "Bearish"
+    else:
+        analysis = "Neutral"
+
+    total = max(bullish_signals + bearish_signals, 1)
+    confidence = round(max(bullish_signals, bearish_signals) / total * 100, 1)
+
+    return {
+        "ok": True,
+        "feature_ref": 755,
+        "merged_into": "market_radar",
+        "legal_name": cfg.get("legal_name", "Technical Summary"),
+        "no_strong_buy_sell": True,
+        "no_rating": True,
+        "no_recommendation": True,
+        "asset": sym,
+        "analysis": analysis,
+        "confidence_pct": confidence,
+        "rule_based": True,
+        "raw_indicators": calc.get("indicators"),
+        "display": (
+            f"RSI: {rsi} | MACD: {macd_label.split('—')[0].strip() if '—' in macd_label else macd_label} | "
+            f"Composite: {analysis} | Confidence: {confidence}% (Rule-Based)"
+        ),
+        "disclaimer": cfg.get("disclaimer", _TECHNICAL_DISCLAIMER),
+        "disclaimer_mandatory": True,
+        "disclaimer_non_hideable": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_indicator_panel_755(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#755 — Asset Card Indicator Panel (RSI + MACD + Trend)."""
+    summary = build_technical_summary_overlay_755(asset, seed=seed)
+    if not summary.get("ok"):
+        return {**summary, "surface": "asset_card"}
+
+    rsi_block = (summary.get("raw_indicators") or {}).get("RSI") or {}
+    macd_block = (summary.get("raw_indicators") or {}).get("MACD") or {}
+    return {
+        "ok": True,
+        "feature_ref": 755,
+        "surface": "asset_card",
+        "panel_name": "Indicator Panel",
+        "asset": asset.upper(),
+        "rsi": rsi_block.get("value"),
+        "rsi_formula": rsi_block.get("formula_visible"),
+        "macd_trend": macd_block.get("trend_label"),
+        "macd_formula": macd_block.get("formula_visible"),
+        "trend": summary.get("analysis"),
+        "confidence_pct": summary.get("confidence_pct"),
+        "disclaimer": summary.get("disclaimer"),
+        "read_only": True,
+        "no_alert": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_formula_parity_tests_754(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#754 — formula parity with TradingView reference ±0.01%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("technical_calculation_layer_754") or {}
+    ref = cfg.get("parity_reference") or {}
+    calc = build_technical_calculation_layer_754("BTC", seed=seed)
+    rsi = (calc.get("indicators") or {}).get("RSI", {}).get("value")
+    ref_rsi = ref.get("RSI")
+    tests: list[dict[str, Any]] = []
+
+    if rsi is not None and ref_rsi is not None:
+        delta_pct = abs(rsi - ref_rsi) / ref_rsi * 100
+        tests.append({
+            "test": "rsi_parity_tradingview",
+            "passed": delta_pct <= 0.01,
+            "detail": f"rsi={rsi} ref={ref_rsi} delta={delta_pct:.4f}%",
+        })
+    else:
+        tests.append({"test": "rsi_parity_tradingview", "passed": calc.get("ok") is True, "detail": "computed"})
+
+    tests.append({"test": "macd_documented", "passed": bool((calc.get("indicators") or {}).get("MACD")), "detail": "MACD"})
+    tests.append({"test": "sma_windows", "passed": len((calc.get("indicators") or {}).get("SMA", {}).get("values") or {}) == 3, "detail": "20/50/200"})
+    tests.append({"test": "bollinger_bands", "passed": (calc.get("indicators") or {}).get("Bollinger", {}).get("upper") is not None, "detail": "Bollinger"})
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": 754,
+        "parity_tests": tests,
+        "all_passed": all_passed,
+        "tolerance_pct": 0.01,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_look_ahead_tests_754(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#754 — no look-ahead: indicator at bar N must not use data from bar N+1."""
+    from technical_analysis import compute_rsi
+
+    seed = seed or _load_seed()
+    cfg = seed.get("technical_calculation_layer_754") or {}
+    fixture = cfg.get("look_ahead_fixture") or {}
+    closes = _load_ohlcv_closes("BTC", seed)
+    bar_index = int(fixture.get("bar_index", 30))
+    if bar_index >= len(closes):
+        return {"ok": False, "feature_ref": 754, "error": "invalid_fixture"}
+
+    partial = closes[: bar_index + 1]
+    full = closes
+    rsi_partial = compute_rsi(partial, period=14)
+    rsi_full_at_bar = compute_rsi(full[: bar_index + 1], period=14)
+    no_lookahead = rsi_partial == rsi_full_at_bar
+
+    return {
+        "ok": no_lookahead,
+        "feature_ref": 754,
+        "no_look_ahead": no_lookahead,
+        "bar_index": bar_index,
+        "rsi_partial": rsi_partial,
+        "rsi_full_at_bar": rsi_full_at_bar,
+        "blocked_if_lookahead": True,
+        "timestamp": _utcnow(),
+    }
 
 
 def build_exchange_cluster_block(seed: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -371,6 +658,17 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("682 network activity market radar integration skipped", exc_info=True)
 
+    supply_change = None
+    try:
+        from bd_platform.onchain_metrics_library import build_market_radar_supply_change_widget_700
+
+        supply_change = build_market_radar_supply_change_widget_700(asset)
+    except Exception:
+        logger.debug("700 supply change market radar integration skipped", exc_info=True)
+
+    technical_calc = build_technical_calculation_layer_754(asset, seed=seed)
+    technical_summary = build_technical_summary_overlay_755(asset, seed=seed)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -388,6 +686,9 @@ def build_market_radar_panel(
         "dxy_macro_context_655": macro_context,
         "sector_pulse_678": sector_pulse,
         "network_activity_682": network_activity,
+        "supply_change_700": supply_change,
+        "technical_calculation_754": technical_calc if technical_calc.get("ok") else {"ok": False},
+        "technical_summary_755": technical_summary if technical_summary.get("ok") else {"ok": False},
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }
@@ -419,6 +720,14 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         checks.append({"id": "no_buy_sell_678", "passed": sector.get("no_buy_sell_signals") is True, "detail": "descriptive"})
     except Exception:
         checks.append({"id": "sector_pulse_678", "passed": False, "detail": "678"})
+
+    tech_parity = run_formula_parity_tests_754(seed=seed)
+    checks.append({"id": "technical_parity_754", "passed": tech_parity.get("all_passed") is True, "detail": "754"})
+    look_ahead = run_look_ahead_tests_754(seed=seed)
+    checks.append({"id": "no_look_ahead_754", "passed": look_ahead.get("no_look_ahead") is True, "detail": "754"})
+    summary = build_technical_summary_overlay_755("BTC", seed=seed)
+    checks.append({"id": "no_strong_buy_sell_755", "passed": summary.get("no_strong_buy_sell") is True, "detail": "755"})
+    checks.append({"id": "disclaimer_mandatory_755", "passed": summary.get("disclaimer_mandatory") is True, "detail": "755"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

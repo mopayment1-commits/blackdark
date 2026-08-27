@@ -1392,6 +1392,242 @@ def run_ssr_regression_tests_698(*, seed: dict[str, Any] | None = None) -> dict[
     }
 
 
+def build_supply_intelligence_metrics_700(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#700 — dynamic supply metrics: issuance/burn rate, supply change, inflation %."""
+    seed = seed or _load_seed()
+    sym = asset.upper()
+    cfg = seed.get("supply_intelligence_700") or {}
+    metrics = (cfg.get("assets") or {}).get(sym)
+    if not metrics:
+        return {"ok": False, "feature_ref": 700, "asset": sym, "error": "asset_not_configured"}
+
+    issuance = float(metrics.get("issuance_rate_monthly", 0))
+    burn = float(metrics.get("burn_rate_monthly", 0))
+    net_change = float(metrics.get("supply_change_monthly", issuance - burn))
+    inflation = metrics.get("inflation_pct_annual")
+    change_pct = metrics.get("supply_change_pct_30d")
+
+    deflationary = net_change < 0
+    return {
+        "ok": True,
+        "feature_ref": 700,
+        "merged_into": _EPIC_ID,
+        "metric_id": "supply_intelligence",
+        "asset": sym,
+        "issuance_rate_monthly": issuance,
+        "burn_rate_monthly": burn,
+        "supply_change_monthly": net_change,
+        "supply_change_pct_30d": change_pct,
+        "inflation_pct_annual": inflation,
+        "deflationary": deflationary,
+        "context": metrics.get("context"),
+        "formula": {
+            "supply_change": "issuance_rate_monthly - burn_rate_monthly",
+            "inflation_pct": "annualized net issuance / circulating supply",
+            "version": cfg.get("methodology_version", _METHODOLOGY_VERSION),
+            "documented": True,
+        },
+        "source": "coingecko+coinmarketcap+on_chain_verified",
+        "source_freshness_required": True,
+        "display": (
+            f"{sym} supply change (30d): {net_change:+,.0f} "
+            f"({'deflationary' if deflationary else 'inflationary'}) | "
+            f"annual inflation: {inflation}%"
+        ),
+        "display_ar": (
+            f"تغير عرض {sym}: {net_change:+,.0f} "
+            f"({'انكماشي' if deflationary else 'تضخمي'})"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_supply_intelligence_metric_577(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#700 wrapper for #577 metrics library."""
+    suite = build_supply_intelligence_metrics_700(asset, seed=seed)
+    if not suite.get("ok"):
+        return suite
+    return {
+        "ok": True,
+        "metric_id": "supply_intelligence",
+        "feature_ref": 700,
+        "merged_into": _EPIC_ID,
+        "value": suite.get("supply_change_monthly"),
+        "inflation_pct_annual": suite.get("inflation_pct_annual"),
+        "suite": suite,
+        "source": "supply_intelligence_700",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_supply_change_widget_700(
+    asset: str = "ETH",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#700 → Market Radar widget: تغير العرض."""
+    suite = build_supply_intelligence_metrics_700(asset, seed=seed)
+    return {
+        "ok": suite.get("ok", False),
+        "feature_ref": 700,
+        "surface": "market_radar",
+        "widget": "supply_change",
+        "widget_label_ar": "تغير العرض",
+        "asset": asset.upper(),
+        "supply_change_monthly": suite.get("supply_change_monthly"),
+        "deflationary": suite.get("deflationary"),
+        "context": suite.get("context"),
+        "display": suite.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_supply_daily_brief_hook_474(
+    asset: str = "ETH",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """#700 → #474 — issuance/burn context in daily brief."""
+    suite = build_supply_intelligence_metrics_700(asset, seed=seed)
+    if not suite.get("ok"):
+        return None
+    change = suite.get("supply_change_monthly", 0)
+    label = "deflationary" if suite.get("deflationary") else "inflationary"
+    return {
+        "integration_474": True,
+        "integration_700": True,
+        "asset": asset.upper(),
+        "mention": (
+            f"إصدار {asset.upper()} هذا الشهر: {change:+,.0f} ({label}) — "
+            f"سياق: {suite.get('context')}"
+        ),
+        "mention_en": suite.get("display"),
+        "contributor_metric": "supply_intelligence",
+    }
+
+
+def score_supply_mechanics_thesis_dimension_472(
+    asset: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#700 → #472 — Supply Mechanics dimension (inflation risk, burn sustainability)."""
+    suite = build_supply_intelligence_metrics_700(asset, seed=seed)
+    if not suite.get("ok"):
+        return {"ok": False, "asset": asset, "error": "supply_metrics_unavailable"}
+
+    inflation = float(suite.get("inflation_pct_annual") or 0)
+    if inflation <= -1:
+        score = 85
+        rationale = "Deflationary or net-burn supply mechanics — favorable tokenomics pressure"
+    elif inflation <= 2:
+        score = 70
+        rationale = "Low inflation supply mechanics — moderate inflation risk"
+    elif inflation <= 5:
+        score = 50
+        rationale = "Moderate inflation — supply dilution risk elevated"
+    else:
+        score = 30
+        rationale = "High inflation — significant supply dilution risk"
+
+    return {
+        "ok": True,
+        "feature_ref": 700,
+        "integration_472": True,
+        "dimension": "supply_mechanics",
+        "dimension_score": score,
+        "inflation_pct_annual": inflation,
+        "deflationary": suite.get("deflationary"),
+        "burn_sustainability": suite.get("burn_rate_monthly", 0) > 0,
+        "rationale": rationale,
+        "evidence_source": "supply_intelligence_700",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_supply_ratio_presets_653(
+    asset: str = "ETH",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#700 → #653 — Market Cap / Circulating Supply, Burn Rate / Market Cap presets."""
+    suite = build_supply_intelligence_metrics_700(asset, seed=seed)
+    return {
+        "ok": suite.get("ok", False),
+        "feature_ref": 700,
+        "integration_653": True,
+        "presets": [
+            {
+                "preset_id": "market_cap_over_circulating",
+                "numerator": "market_cap_usd",
+                "denominator": "circulating_supply",
+                "label": "Market Cap / Circulating Supply",
+            },
+            {
+                "preset_id": "burn_rate_over_market_cap",
+                "numerator": "burn_rate_monthly",
+                "denominator": "market_cap_usd",
+                "label": "Burn Rate / Market Cap",
+                "burn_rate_monthly": suite.get("burn_rate_monthly"),
+            },
+        ],
+        "timestamp": _utcnow(),
+    }
+
+
+def build_supply_tokenomics_context_641(
+    asset: str = "ETH",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#700 → #641 — supply inflation/burn for Protocol Financials tokenomics."""
+    suite = build_supply_intelligence_metrics_700(asset, seed=seed)
+    if not suite.get("ok"):
+        return {"ok": False, "asset": asset}
+    return {
+        "ok": True,
+        "feature_ref": 700,
+        "integration_641": True,
+        "asset": asset.upper(),
+        "tokenomics": {
+            "issuance_rate_monthly": suite.get("issuance_rate_monthly"),
+            "burn_rate_monthly": suite.get("burn_rate_monthly"),
+            "net_supply_change_monthly": suite.get("supply_change_monthly"),
+            "inflation_pct_annual": suite.get("inflation_pct_annual"),
+            "deflationary": suite.get("deflationary"),
+        },
+        "context": suite.get("context"),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_supply_intelligence_regression_tests_700(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#700 — deterministic supply metric regression."""
+    seed = seed or _load_seed()
+    cfg = seed.get("supply_intelligence_700") or {}
+    fixture = cfg.get("regression_fixture") or {}
+    asset = fixture.get("asset", "ETH")
+    expected = fixture.get("expected_supply_change_monthly")
+    suite = build_supply_intelligence_metrics_700(asset, seed=seed)
+    actual = suite.get("supply_change_monthly")
+    return {
+        "ok": suite.get("ok") and actual == expected,
+        "feature_ref": 700,
+        "deterministic": actual == expected,
+        "expected": expected,
+        "actual": actual,
+        "timestamp": _utcnow(),
+    }
+
+
 def build_market_radar_stablecoin_activity_widget_692(
     symbol: str = "USDC",
     *,
@@ -1788,6 +2024,7 @@ def build_metrics_library_panel(
     stablecoin_flows = build_stablecoin_flows_metric_577(seed=seed)
     stablecoin_supply = build_stablecoin_supply_metric_577(seed=seed)
     ssr_suite = build_stablecoin_supply_ratio_metric_577(seed=seed)
+    supply_intel = build_supply_intelligence_metric_577(sym, seed=seed)
     long_short = build_long_short_ratio_metric_577(seed=seed)
     mvrv_suite = build_mvrv_zscore_metric_577(sym, seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
@@ -1822,6 +2059,7 @@ def build_metrics_library_panel(
             "693_stablecoin_exchange_flows": stablecoin_flows if stablecoin_flows.get("ok") else {"ok": False},
             "694_stablecoin_supply": stablecoin_supply if stablecoin_supply.get("ok") else {"ok": False},
             "698_stablecoin_supply_ratio": ssr_suite if ssr_suite.get("ok") else {"ok": False},
+            "700_supply_intelligence": supply_intel if supply_intel.get("ok") else {"ok": False},
             "675_long_short_ratio": long_short,
             "676_mvrv_zscore_suite": mvrv_suite if mvrv_suite.get("ok") else {"ok": False},
             "678_sector_metrics": sector_metrics if sector_metrics.get("ok") else {"ok": False},

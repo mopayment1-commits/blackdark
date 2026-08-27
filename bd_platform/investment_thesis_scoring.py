@@ -216,6 +216,27 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
     except Exception:
         logger.debug("690 revenue retention thesis dimension skipped", exc_info=True)
 
+    supply_mechanics_dim = None
+    try:
+        from bd_platform.onchain_metrics_library import score_supply_mechanics_thesis_dimension_472
+
+        supply_mechanics_dim = score_supply_mechanics_thesis_dimension_472(asset)
+        if supply_mechanics_dim.get("ok"):
+            dimensions["supply_mechanics_700"] = {
+                "raw_score": supply_mechanics_dim.get("dimension_score"),
+                "adjusted_score": supply_mechanics_dim.get("dimension_score"),
+                "weight": 0,
+                "contribution": 0,
+                "inflation_pct_annual": supply_mechanics_dim.get("inflation_pct_annual"),
+                "deflationary": supply_mechanics_dim.get("deflationary"),
+                "evidence_source": supply_mechanics_dim.get("evidence_source"),
+                "evidence_quality": "high",
+                "optional_dimension": True,
+                "supply_mechanics_dimension": True,
+            }
+    except Exception:
+        logger.debug("700 supply mechanics thesis dimension skipped", exc_info=True)
+
     methodology_links = []
     try:
         from bd_platform.onchain_metrics_library import get_thesis_methodology_links
@@ -241,6 +262,7 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
         "custom_ratio_dimension_653": custom_ratio_dim,
         "mvrv_valuation_dimension_676": mvrv_valuation_dim,
         "revenue_retention_dimension_690": revenue_retention_dim,
+        "supply_mechanics_dimension_700": supply_mechanics_dim,
         "methodology_links_656": methodology_links,
         "display": f"Thesis {asset.upper()}: {grade} ({thesis_score}/100) — not price probability",
         "timestamp": _utcnow(),

@@ -354,6 +354,21 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         logger.debug("network activity daily brief integration skipped", exc_info=True)
 
+    supply_brief = None
+    try:
+        from bd_platform.onchain_metrics_library import build_supply_daily_brief_hook_474
+
+        supply_brief = build_supply_daily_brief_hook_474("ETH")
+        if supply_brief:
+            why_items.insert(0, {
+                "text": supply_brief.get("mention_en", supply_brief.get("mention", "")),
+                "contributor_metric": "supply_intelligence",
+                "feature_ref_700": 700,
+                "feature_ref_474": 474,
+            })
+    except Exception:
+        logger.debug("700 supply intelligence daily brief integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -389,6 +404,7 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "mvrv_brief_676": mvrv_brief,
         "sector_pulse_brief_678": sector_pulse_brief,
         "network_activity_brief_682": network_activity_brief,
+        "supply_brief_700": supply_brief,
         "not_investment_advice": True,
         "display": (
             f"Daily Brief {seed.get('brief_date')}: {regime.get('regime_label')} | "

@@ -62,5 +62,44 @@
         "90d": 0.028
       }
     }
+  },
+  "technical_calculation_layer_754": {
+    "feature_ref": 754,
+    "merged_into": "market_radar",
+    "methodology_version": "1.0",
+    "no_standalone_api": true,
+    "rule_based_only": true,
+    "indicators": {
+      "RSI": {"period": 14, "version": "1.0", "source": "TradingView Formula"},
+      "MACD": {"fast": 12, "slow": 26, "signal": 9, "version": "1.0", "source": "TradingView Formula"},
+      "SMA": {"windows": [20, 50, 200], "version": "1.0"},
+      "Bollinger": {"period": 20, "std_dev": 2, "version": "1.0"}
+    },
+    "parity_reference": {
+      "RSI": 39.6,
+      "MACD_histogram": 12.5
+    },
+    "ohlcv_closes": {
+      "BTC": [
+        60287.03, 59529.54, 59197.09, 58776.55, 59228.55, 59578.94, 60295.65, 59643.44, 59560.71, 58811.37,
+        58383.05, 58442.15, 57687.27, 57225.29, 57530.09, 57656.49, 57231.24, 57432.99, 58009.03, 57220.07,
+        57789.97, 58176.8, 57955.23, 57419.54, 58246.81, 58019.02, 57376.69, 56741.1, 57381.84, 57608.18,
+        58180.3, 58620.84, 58732.43, 59586.72, 59430.23, 59568.7, 60178.69, 60430.17, 61095.08, 61276.57,
+        61674.35, 60952.25, 60539.67, 60231.63, 59567.28, 59163.03, 58534.73, 58207.28, 58487.95, 58308.16
+      ]
+    },
+    "look_ahead_fixture": {
+      "bar_index": 30,
+      "expected_rsi_at_bar": 58.4
+    }
+  },
+  "technical_summary_overlay_755": {
+    "feature_ref": 755,
+    "merged_into": "market_radar",
+    "no_strong_buy_sell": true,
+    "legal_name": "Technical Summary",
+    "disclaimer": "Technical summaries are mathematical calculations based on historical data. Not financial advice. Past performance does not guarantee future results.",
+    "output_labels": ["Bullish", "Neutral", "Bearish"],
+    "confidence_rule_based": true
   }
 }
