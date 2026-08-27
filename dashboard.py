@@ -896,6 +896,13 @@ except Exception:
     logger.exception("Institutional compounding router unavailable")
 
 try:
+    from api.routers.api_gateway import router as api_gateway_router
+
+    app.include_router(api_gateway_router)
+except Exception:
+    logger.exception("API Gateway router unavailable")
+
+try:
     from blackdark.data.api import admin_router as data_engine_admin_router
     from blackdark.data.api import router as data_engine_router
     from blackdark.data.systems_api import systems_router
@@ -917,6 +924,9 @@ async def wave_01_data_header_middleware(request: Request, call_next):
     response = await call_next(request)
     if request.url.path.startswith("/api/v1/data"):
         response.headers.setdefault("X-Wave-01", "1.0.0")
+    if request.url.path.startswith("/api/v1/"):
+        response.headers.setdefault("X-API-Gateway", "1.0")
+        response.headers.setdefault("X-API-Version", "1.0")
     return response
 
 try:

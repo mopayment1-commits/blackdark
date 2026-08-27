@@ -457,6 +457,17 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
     except Exception:
         logger.debug("stablecoin health monitor enrichment skipped", exc_info=True)
 
+    # #663 Buying Power — risk-adjusted edge by accumulation trend
+    try:
+        from bd_platform.stablecoin_health_monitor import apply_buying_power_arbitrage_adjustment_429
+
+        bp_adj = apply_buying_power_arbitrage_adjustment_429(enriched, seed=seed)
+        enriched.update(bp_adj)
+        if bp_adj.get("risk_adjusted_edge_bps") is not None:
+            enriched["net_edge_bps"] = bp_adj["risk_adjusted_edge_bps"]
+    except Exception:
+        logger.debug("buying power arbitrage adjustment skipped", exc_info=True)
+
     # #472 Investment Thesis Scoring — thesis adjusts signal confidence (#417)
     try:
         from bd_platform.investment_thesis_scoring import apply_thesis_to_confidence

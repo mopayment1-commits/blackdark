@@ -600,6 +600,31 @@ def build_stablecoin_reserve_metric_577(*, seed: dict[str, Any] | None = None) -
     }
 
 
+def build_exchange_stablecoin_buying_power_metric_577(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#663 metric delivery via #577 library."""
+    try:
+        from bd_platform.stablecoin_health_monitor import build_exchange_stablecoin_buying_power_index
+
+        index = build_exchange_stablecoin_buying_power_index(seed=seed)
+    except Exception as exc:
+        logger.warning("buying power metric failed: %s", exc)
+        index = {"ok": False, "error": str(exc)}
+
+    return {
+        "ok": index.get("ok", False),
+        "metric_id": "exchange_stablecoin_buying_power",
+        "task_ref": 663,
+        "epic_feature_id": _EPIC_ID,
+        "value": index.get("index_pct"),
+        "available": index.get("ok") and not index.get("calculation_suspended"),
+        "triple_source": index.get("triple_source"),
+        "trend": index.get("trend"),
+        "missing_not_zero": True,
+        "source": "stablecoin_health_monitor_663",
+        "timestamp": _utcnow(),
+    }
+
+
 def build_whale_vs_retail_flow_panel(
     asset: str = "BTC",
     *,
@@ -724,6 +749,7 @@ def build_metrics_library_panel(
     usage = build_usage_intelligence_dashboard(sym, seed=seed)
     tx_volume = build_transaction_volume_intelligence(sym, seed=seed)
     stablecoin_reserve = build_stablecoin_reserve_metric_577(seed=seed)
+    buying_power = build_exchange_stablecoin_buying_power_metric_577(seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
     on_chain_fin = None
     try:
@@ -748,6 +774,7 @@ def build_metrics_library_panel(
             "578_usage_intelligence": usage if usage.get("ok") else {"ok": False},
             "612_transaction_volume_intelligence": tx_volume if tx_volume.get("ok") else {"ok": False},
             "601_stablecoin_exchange_reserve": stablecoin_reserve,
+            "663_exchange_stablecoin_buying_power": buying_power,
             "634_whale_vs_retail_flow": whale_retail if whale_retail.get("ok") else {"ok": False},
             "641_on_chain_financials": on_chain_fin if on_chain_fin and on_chain_fin.get("ok") else {"ok": False},
             "737_hodl_waves": suite.get("hodl_waves") if suite.get("ok") else {"ok": False},

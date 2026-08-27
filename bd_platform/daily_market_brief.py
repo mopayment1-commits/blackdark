@@ -227,6 +227,23 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         logger.debug("dxy macro context brief integration skipped", exc_info=True)
 
+    buying_power_brief = None
+    try:
+        from bd_platform.stablecoin_health_monitor import build_buying_power_daily_brief_hook_474
+
+        buying_power_brief = build_buying_power_daily_brief_hook_474(seed=seed)
+        if buying_power_brief:
+            what_changed_items.insert(0, {
+                "text": buying_power_brief.get("mention_en", buying_power_brief.get("mention", "")),
+                "evidence_link": buying_power_brief.get("evidence_link"),
+                "contributor_metric": "exchange_stablecoin_buying_power",
+                "contributor_value": buying_power_brief.get("index_pct"),
+                "feature_ref_663": 663,
+                "feature_ref_474": 474,
+            })
+    except Exception:
+        logger.debug("buying power daily brief integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -254,6 +271,7 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "sharpe_narrative_490": sharpe_narrative,
         "capital_formation_radar_648": capital_radar_narrative,
         "dxy_macro_context_655": macro_context_narrative,
+        "buying_power_brief_663": buying_power_brief,
         "not_investment_advice": True,
         "display": (
             f"Daily Brief {seed.get('brief_date')}: {regime.get('regime_label')} | "

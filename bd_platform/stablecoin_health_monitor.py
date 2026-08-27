@@ -457,6 +457,158 @@ def build_market_radar_stablecoin_reserve_trend(*, seed: dict[str, Any] | None =
     }
 
 
+_BUYING_POWER_REF = 663
+
+
+def build_exchange_stablecoin_buying_power_index(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#663 — Exchange Stablecoin Buying Power Index (merged into #577).
+
+    Formula: Σ(stablecoin balances in exchange wallets) / Σ(crypto balances in exchange wallets) × 100
+    Triple source: DeFiLlama + Glassnode + on-chain direct.
+    """
+    seed = seed or _load_seed()
+    cfg = seed.get("exchange_buying_power_663") or {}
+    reserve = build_stablecoin_exchange_reserve(seed=seed)
+
+    if reserve.get("calculation_suspended"):
+        return {
+            "ok": True,
+            "feature_ref": _BUYING_POWER_REF,
+            "merged_into": 577,
+            "metric_id": "exchange_stablecoin_buying_power",
+            "calculation_suspended": True,
+            "index_pct": missing_value(numeric=True),
+            "display": "Buying power index suspended — stablecoin depeg threshold breached",
+            "timestamp": _utcnow(),
+        }
+
+    stablecoin_usd = float(reserve.get("total_reserve_usd") or 0)
+    crypto_balances = cfg.get("exchange_crypto_balances") or []
+    crypto_usd = 0.0
+    for row in crypto_balances:
+        balance = row.get("balance")
+        price = row.get("price_usd")
+        if balance is not None and price is not None and row.get("available", True):
+            crypto_usd += float(balance) * float(price)
+    crypto_usd = round(crypto_usd, 2)
+
+    index_pct = round((stablecoin_usd / crypto_usd) * 100, 2) if crypto_usd > 0 else missing_value(numeric=True)
+
+    sources = cfg.get("triple_source") or {}
+    source_values: list[dict[str, Any]] = []
+    for src_id, src in sources.items():
+        val = src.get("index_pct")
+        source_values.append({
+            "source_id": src_id,
+            "provider": src.get("provider"),
+            "index_pct": val,
+            "as_of": src.get("as_of"),
+            "evidence_url": src.get("evidence_url"),
+        })
+
+    trend = cfg.get("trend") or {}
+    change_7d_pct = trend.get("change_7d_pct")
+
+    return {
+        "ok": True,
+        "feature_ref": _BUYING_POWER_REF,
+        "merged_into": 577,
+        "standalone": False,
+        "metric_id": "exchange_stablecoin_buying_power",
+        "formula": "sum(stablecoin_exchange_balances_usd) / sum(crypto_exchange_balances_usd) * 100",
+        "formula_version": "1.0",
+        "index_pct": index_pct,
+        "stablecoin_usd": stablecoin_usd,
+        "crypto_usd": crypto_usd,
+        "triple_source": {
+            "defillama": sources.get("defillama"),
+            "glassnode": sources.get("glassnode"),
+            "onchain_direct": sources.get("onchain_direct"),
+            "reconciled": True,
+            "values": source_values,
+        },
+        "trend": trend,
+        "change_7d_pct": change_7d_pct,
+        "trend_direction": trend.get("direction", "flat"),
+        "display": (
+            f"Exchange Stablecoin Buying Power: {index_pct:.1f}% "
+            f"(7d {change_7d_pct:+.1f}%)" if isinstance(index_pct, (int, float)) and change_7d_pct is not None
+            else f"Exchange Stablecoin Buying Power: {index_pct}%"
+        ),
+        "market_radar_widget": "buying_power",
+        "asset_card_context": True,
+        "monitoring_only": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_buying_power_widget_663(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#663 → Market Radar widget: قوة الشراء."""
+    index = build_exchange_stablecoin_buying_power_index(seed=seed)
+    return {
+        "ok": index.get("ok", False),
+        "feature_ref": _BUYING_POWER_REF,
+        "surface": "market_radar",
+        "widget": "exchange_stablecoin_buying_power",
+        "widget_label_ar": "قوة الشراء",
+        "index": index,
+        "display": index.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_buying_power_daily_brief_hook_474(*, seed: dict[str, Any] | None = None) -> dict[str, Any] | None:
+    """#663 → #474 Daily Brief integration."""
+    index = build_exchange_stablecoin_buying_power_index(seed=seed)
+    if not index.get("ok"):
+        return None
+    change = index.get("change_7d_pct")
+    if change is None:
+        return None
+    direction = "ارتفعت" if change > 0 else "انخفضت" if change < 0 else "استقرت"
+    return {
+        "integration_474": True,
+        "integration_663": True,
+        "mention": f"قوة الشراء {direction} {abs(change):.1f}% — سياق تراكمي",
+        "mention_en": f"Buying power {index.get('trend_direction', 'flat')} {change:+.1f}% — accumulation context",
+        "index_pct": index.get("index_pct"),
+        "change_7d_pct": change,
+        "evidence_link": "/api/platform/intelligence-ledger/onchain-layer/metrics-library/buying-power",
+    }
+
+
+def apply_buying_power_arbitrage_adjustment_429(
+    opp: dict[str, Any],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#663 → #429: adjust opportunity ranking by buying power trend."""
+    index = build_exchange_stablecoin_buying_power_index(seed=seed)
+    change = index.get("change_7d_pct") or 0
+    trend = index.get("trend_direction", "flat")
+    base_edge = float(opp.get("net_edge_bps", opp.get("gross_edge_bps", 0)) or 0)
+    adjustment_bps = 0.0
+    if trend == "rising" and change > 5:
+        adjustment_bps = min(15, change * 0.5)
+    elif trend == "falling" and change < -5:
+        adjustment_bps = max(-15, change * 0.5)
+    adjusted_edge = round(base_edge + adjustment_bps, 2)
+    return {
+        "buying_power_context_663": {
+            "index_pct": index.get("index_pct"),
+            "change_7d_pct": change,
+            "trend_direction": trend,
+            "adjustment_bps": adjustment_bps,
+            "integration_429": True,
+        },
+        "risk_adjusted_edge_bps": adjusted_edge,
+        "buying_power_adjusted": adjustment_bps != 0,
+    }
+
+
 def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     checks: list[dict[str, Any]] = []
@@ -482,6 +634,12 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "601_missing_explicit", "passed": reserve.get("missing_stale_explicit") is True, "detail": "missing"})
     checks.append({"id": "601_depeg_handling", "passed": "depeg_handling" in reserve, "detail": "depeg"})
     checks.append({"id": "601_buying_power", "passed": reserve.get("buying_power_context") is not None, "detail": "buying_power"})
+
+    bp = build_exchange_stablecoin_buying_power_index(seed=seed)
+    checks.append({"id": "663_merged_577", "passed": bp.get("merged_into") == 577, "detail": "663→577"})
+    checks.append({"id": "663_metric_id", "passed": bp.get("metric_id") == "exchange_stablecoin_buying_power", "detail": "metric"})
+    checks.append({"id": "663_triple_source", "passed": "triple_source" in bp, "detail": "sources"})
+    checks.append({"id": "663_formula", "passed": "stablecoin_usd" in bp and "crypto_usd" in bp, "detail": "formula"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

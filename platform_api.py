@@ -4277,6 +4277,30 @@ async def whale_vs_retail_flow_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/buying-power")
+async def exchange_stablecoin_buying_power_route():
+    """#663 Exchange Stablecoin Buying Power Index — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_exchange_stablecoin_buying_power_metric_577
+
+    return build_exchange_stablecoin_buying_power_metric_577()
+
+
+@router.get("/intelligence-ledger/api-gateway/status")
+async def api_gateway_status_route():
+    """#876 API Gateway status."""
+    from bd_platform.api_gateway import api_gateway_status
+
+    return api_gateway_status()
+
+
+@router.get("/intelligence-ledger/api-gateway/reconciliation-tests")
+async def api_gateway_reconciliation_route():
+    """#876 API Gateway reconciliation tests."""
+    from bd_platform.api_gateway import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/onchain-layer/whale-clustering/status")
 async def whale_clustering_engine_status_route():
     """#637 Whale Clustering Engine — On-Chain Intelligence Core."""
