@@ -1709,6 +1709,57 @@ async def defi_risk_passport_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/risk-layer/defi-security-monitor")
+async def defi_security_monitor_route(protocol_id: str | None = Query(None)):
+    """#667 DeFi Security Monitor — merged into #660."""
+    from bd_platform.defi_risk_passport import build_defi_security_monitor_dashboard, build_defi_security_monitor_view
+
+    if protocol_id:
+        return build_defi_security_monitor_dashboard(protocol_id)
+    return build_defi_security_monitor_view()
+
+
+@router.get("/intelligence-ledger/risk-layer/defi-risk-passport/security-alert")
+async def defi_security_portfolio_alert_route(portfolio_id: str = Query("demo_portfolio")):
+    """#667 → #410 portfolio security alert."""
+    from bd_platform.defi_risk_passport import build_portfolio_security_alert_410
+
+    return build_portfolio_security_alert_410(portfolio_id=portfolio_id)
+
+
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/statement")
+async def financial_statement_route(protocol_id: str = Query(...)):
+    """#665 Financial Statement View — merged into #641."""
+    from bd_platform.on_chain_financials import build_financial_statement_view
+
+    result = build_financial_statement_view(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/health-score")
+async def financial_health_score_route(protocol_id: str = Query(...)):
+    """#666 Financial Health Scoring — merged into #641."""
+    from bd_platform.on_chain_financials import build_financial_health_score
+
+    result = build_financial_health_score(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/protocol-page")
+async def protocol_financials_page_route(protocol_id: str = Query(...)):
+    """#665 + #666 — /protocol/[name]/financials page."""
+    from bd_platform.on_chain_financials import build_protocol_financials_page
+
+    result = build_protocol_financials_page(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/onchain-layer/smart-money-flow/status")
 async def smart_money_flow_status_route():
     """#408 Smart Money Flow Tracker (absorbs #459 Dormancy)."""

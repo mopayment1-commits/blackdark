@@ -1131,6 +1131,20 @@ def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[
     except Exception:
         logger.debug("660 passport grade cancellation skipped", exc_info=True)
 
+    try:
+        from bd_platform.defi_risk_passport import cancel_opportunities_by_security_monitor
+
+        opportunities = cancel_opportunities_by_security_monitor(opportunities, seed=None)
+    except Exception:
+        logger.debug("667 security monitor cancellation skipped", exc_info=True)
+
+    try:
+        from bd_platform.on_chain_financials import cancel_opportunities_by_financial_health_438
+
+        opportunities = cancel_opportunities_by_financial_health_438(opportunities, seed=None)
+    except Exception:
+        logger.debug("666 financial health cancellation skipped", exc_info=True)
+
     return opportunities
 
 
