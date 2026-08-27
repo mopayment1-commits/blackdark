@@ -1,0 +1,80 @@
+{
+  "feature_id": 651,
+  "title": "DeFi Decision Engine",
+  "legal_name": "Cross-DeFi Decision Intelligence",
+  "standalone": false,
+  "merged_into": "Sprint-2 Intelligence Ledger",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "yield_not_safety": true,
+  "high_yield_threshold_pct": 10,
+  "opportunity_protocol_map": {
+    "ETH": "aave_v3",
+    "UNI": "uniswap_v3",
+    "defi_eth_lst_001": "lido",
+    "defi_uni_liq_001": "uniswap_v3",
+    "aave_v3": "aave_v3",
+    "uniswap_v3": "uniswap_v3",
+    "lido": "lido",
+    "high_yield_risky": "high_yield_risky"
+  },
+  "protocols": {
+    "aave_v3": {
+      "protocol_id": "aave_v3",
+      "protocol_name": "Aave V3",
+      "raw_apy_pct": 4.2,
+      "risk_score": 28,
+      "confidence_pct": 88,
+      "tvl_trend": "rising",
+      "unlock_proximity_days": 120,
+      "yield_sustainability": "high",
+      "apply_capital_protection_410": true,
+      "evidence_links": [
+        "/api/platform/intelligence-ledger/defi-opportunity-scanner",
+        "/api/platform/intelligence-ledger/investment-thesis/on-chain-financials?protocol_id=aave"
+      ]
+    },
+    "uniswap_v3": {
+      "protocol_id": "uniswap_v3",
+      "protocol_name": "Uniswap V3",
+      "raw_apy_pct": 6.8,
+      "risk_score": 32,
+      "confidence_pct": 85,
+      "tvl_trend": "stable",
+      "unlock_proximity_days": 90,
+      "yield_sustainability": "medium",
+      "apply_capital_protection_410": true,
+      "evidence_links": [
+        "/api/platform/intelligence-ledger/investment-thesis/on-chain-financials?protocol_id=uniswap"
+      ]
+    },
+    "lido": {
+      "protocol_id": "lido",
+      "protocol_name": "Lido",
+      "raw_apy_pct": 3.5,
+      "risk_score": 35,
+      "confidence_pct": 82,
+      "tvl_trend": "rising",
+      "unlock_proximity_days": 45,
+      "yield_sustainability": "high",
+      "apply_capital_protection_410": true,
+      "evidence_links": [
+        "/api/platform/intelligence-ledger/token-unlock/dashboard"
+      ]
+    },
+    "high_yield_risky": {
+      "protocol_id": "high_yield_risky",
+      "protocol_name": "High Yield Risky Pool",
+      "raw_apy_pct": 18.5,
+      "risk_score": 72,
+      "confidence_pct": 55,
+      "tvl_trend": "falling",
+      "unlock_proximity_days": 14,
+      "yield_sustainability": "low",
+      "apply_capital_protection_410": false,
+      "evidence_links": [
+        "/api/platform/intelligence-ledger/defi-opportunity-scanner"
+      ]
+    }
+  }
+}
