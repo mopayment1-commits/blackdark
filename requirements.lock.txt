@@ -31,5 +31,6 @@ authlib==1.6.12
 alembic==1.16.5
 SQLAlchemy==2.0.51
 ruff==0.16.2
+sqlparse==0.6.0
 APScheduler==3.11.3
 greenlet==3.5.4

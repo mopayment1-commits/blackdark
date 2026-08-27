@@ -54,4 +54,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: "pip install --only-binary=:all: bandit==1.8.3"
-      - run: "bandit -r . -x ./tests,./venv,./.venv -ll -q"
+      - run: "bandit -r . -c .bandit -ll -q"
