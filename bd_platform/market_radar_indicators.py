@@ -283,12 +283,39 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("hype vs reality market radar integration skipped", exc_info=True)
 
+    stablecoin_reserve = None
+    try:
+        from bd_platform.stablecoin_health_monitor import build_market_radar_stablecoin_reserve_trend
+
+        stablecoin_reserve = build_market_radar_stablecoin_reserve_trend(seed=seed)
+    except Exception:
+        logger.debug("stablecoin reserve market radar integration skipped", exc_info=True)
+
+    transaction_flow = None
+    try:
+        from bd_platform.transaction_flow_view import build_market_radar_transaction_flow_view
+
+        transaction_flow = build_market_radar_transaction_flow_view(seed=seed)
+    except Exception:
+        logger.debug("transaction flow view market radar integration skipped", exc_info=True)
+
+    tx_volume = None
+    try:
+        from bd_platform.onchain_metrics_library import build_transaction_volume_intelligence
+
+        tx_volume = build_transaction_volume_intelligence(asset)
+    except Exception:
+        logger.debug("tx volume market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
         "exchange_activity_734": activity,
         "volatility_analytics_498": volatility,
         "hype_vs_reality_signal_599": hype_vs_reality,
+        "stablecoin_reserve_trend_601": stablecoin_reserve,
+        "transaction_flow_view_615": transaction_flow,
+        "transaction_volume_chart_612": tx_volume,
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }

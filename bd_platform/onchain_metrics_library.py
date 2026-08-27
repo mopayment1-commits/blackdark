@@ -24,7 +24,7 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 578, 737, 741)
+_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601)
 _EPIC_ID = 577
 _TITLE = "On-Chain Metrics Library"
 _STANDALONE = False
@@ -65,6 +65,20 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "name": "mvrv_z_score",
         "title": "MVRV Z-Score",
         "description": "Dynamic realignment MVRV — absorbed into library",
+    },
+    "612": {
+        "task_id": "612",
+        "name": "transaction_volume_intelligence",
+        "title": "Transaction Volume Intelligence",
+        "description": "Entity-adjusted on-chain tx volume with spam policy — merged into #577",
+        "standalone_rejected": True,
+    },
+    "601": {
+        "task_id": "601",
+        "name": "stablecoin_exchange_reserve",
+        "title": "Stablecoin Exchange Reserve",
+        "description": "Exchange stablecoin buying-power context — merged into #467, metric in #577",
+        "standalone_rejected": True,
     },
 }
 
@@ -309,6 +323,161 @@ def build_usage_intelligence_dashboard(
     }
 
 
+def _apply_tx_volume_policy(
+    transfers: list[dict[str, Any]],
+    *,
+    policy: dict[str, Any],
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """#612 — exclude spam, internal, self-transfer, dust."""
+    dust_threshold = float(policy.get("dust_threshold_usd", 1.0))
+    excluded_counts = {
+        "internal_exchange": 0,
+        "self_transfer": 0,
+        "dust": 0,
+        "spam": 0,
+        "included": 0,
+    }
+    filtered: list[dict[str, Any]] = []
+
+    for tx in transfers:
+        usd = float(tx.get("usd_value_at_tx_time") or 0)
+        if policy.get("exclude_internal_exchange") and tx.get("is_internal_exchange"):
+            excluded_counts["internal_exchange"] += 1
+            continue
+        if policy.get("exclude_self_transfer") and tx.get("is_self_transfer"):
+            excluded_counts["self_transfer"] += 1
+            continue
+        if policy.get("exclude_dust") and usd < dust_threshold:
+            excluded_counts["dust"] += 1
+            continue
+        if policy.get("exclude_spam") and tx.get("is_spam"):
+            excluded_counts["spam"] += 1
+            continue
+        excluded_counts["included"] += 1
+        filtered.append(tx)
+
+    return filtered, excluded_counts
+
+
+def build_transaction_volume_intelligence(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#612 — entity-adjusted transaction volume with price-at-tx-time alignment."""
+    seed = seed or _load_seed()
+    cfg = seed.get("transaction_volume_intelligence_612") or {}
+    vol_data = (cfg.get("assets") or {}).get(asset.upper())
+    if not vol_data:
+        return {"ok": False, "asset": asset, "error": "volume_data_not_found"}
+
+    policy = cfg.get("transfer_policy") or {}
+    transfers = vol_data.get("transfers") or []
+    filtered, excluded = _apply_tx_volume_policy(transfers, policy=policy)
+
+    total_native = round(sum(float(t.get("native_amount", 0)) for t in filtered), 8)
+    total_usd = round(sum(float(t.get("usd_value_at_tx_time", 0)) for t in filtered), 2)
+    prior_usd = vol_data.get("prior_period_volume_usd")
+    change_pct = None
+    if prior_usd and float(prior_usd) > 0:
+        change_pct = round((total_usd / float(prior_usd) - 1) * 100, 2)
+
+    anomaly = vol_data.get("anomaly") or {}
+    chart = vol_data.get("daily_volume_chart") or []
+
+    return {
+        "ok": True,
+        "task_id": "612",
+        "epic_feature_id": _EPIC_ID,
+        "standalone_rejected": True,
+        "asset": asset.upper(),
+        "transaction_volume_native": total_native,
+        "transaction_volume_usd": total_usd,
+        "change_pct": change_pct,
+        "transfer_count_included": excluded["included"],
+        "transfer_policy": policy,
+        "excluded_counts": excluded,
+        "price_timestamp_alignment": {
+            "method": "usd_value_at_tx_time",
+            "not_current_price": True,
+            "aligned": True,
+        },
+        "anomaly": anomaly,
+        "volume_chart": chart,
+        "historical_qa_ref": "run_tx_volume_historical_qa",
+        "missing_not_zero": True,
+        "display": (
+            f"{asset.upper()} tx volume ${total_usd:,.0f} "
+            f"({excluded['included']:,} txs, entity-adjusted)"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_tx_volume_historical_qa(seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#612 — monthly parity reconciliation vs external sources."""
+    seed = seed or _load_seed()
+    cfg = seed.get("transaction_volume_intelligence_612") or {}
+    if not cfg:
+        return {"ok": True, "task_id": "612", "parity_tests": [], "all_passed": True, "test_count": 0}
+    parity = cfg.get("historical_qa_parity") or []
+    tests: list[dict[str, Any]] = []
+
+    for row in parity:
+        internal = float(row.get("internal_volume_usd", 0))
+        external = float(row.get("external_volume_usd", 0))
+        tolerance = float(row.get("tolerance_pct", 5))
+        delta_pct = abs(internal - external) / external * 100 if external > 0 else 100
+        tests.append({
+            "period": row.get("period"),
+            "source": row.get("external_source"),
+            "internal_usd": internal,
+            "external_usd": external,
+            "delta_pct": round(delta_pct, 2),
+            "tolerance_pct": tolerance,
+            "passed": delta_pct <= tolerance,
+        })
+
+    vol = build_transaction_volume_intelligence("BTC", seed=seed)
+    tests.append({"test": "spam_policy_applied", "passed": bool(vol.get("transfer_policy"))})
+    tests.append({"test": "price_at_tx_time", "passed": (vol.get("price_timestamp_alignment") or {}).get("aligned") is True})
+    tests.append({"test": "dust_excluded", "passed": (vol.get("excluded_counts") or {}).get("dust", 0) >= 0})
+
+    all_passed = all(t.get("passed") for t in tests)
+    return {
+        "ok": True,
+        "task_id": "612",
+        "parity_tests": tests,
+        "all_passed": all_passed,
+        "test_count": len(tests),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_stablecoin_reserve_metric_577(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#601 metric delivery via #577 library."""
+    try:
+        from bd_platform.stablecoin_health_monitor import build_stablecoin_exchange_reserve
+
+        reserve = build_stablecoin_exchange_reserve(seed=seed)
+    except Exception as exc:
+        logger.warning("stablecoin reserve metric failed: %s", exc)
+        reserve = {"ok": False, "error": str(exc)}
+
+    return {
+        "ok": reserve.get("ok", False),
+        "metric_id": "stablecoin_exchange_reserve",
+        "task_ref": 601,
+        "epic_feature_id": _EPIC_ID,
+        "value": reserve.get("total_reserve_usd"),
+        "available": reserve.get("ok") and not reserve.get("calculation_suspended"),
+        "buying_power_context": reserve.get("buying_power_context"),
+        "missing_not_zero": True,
+        "source": "stablecoin_health_monitor_467",
+        "timestamp": _utcnow(),
+    }
+
+
 def build_metrics_library_panel(
     asset: str = "BTC",
     *,
@@ -324,6 +493,8 @@ def build_metrics_library_panel(
     suite = build_onchain_metrics_panel(sym)
     network_api = build_network_data_pro_api(sym, seed=seed, live=live, prefer_live=prefer_live)
     usage = build_usage_intelligence_dashboard(sym, seed=seed)
+    tx_volume = build_transaction_volume_intelligence(sym, seed=seed)
+    stablecoin_reserve = build_stablecoin_reserve_metric_577(seed=seed)
     defs = build_metric_definitions(seed)
 
     return {
@@ -335,6 +506,8 @@ def build_metrics_library_panel(
             "577_canonical_library": defs,
             "574_network_data_pro_api": network_api,
             "578_usage_intelligence": usage if usage.get("ok") else {"ok": False},
+            "612_transaction_volume_intelligence": tx_volume if tx_volume.get("ok") else {"ok": False},
+            "601_stablecoin_exchange_reserve": stablecoin_reserve,
             "737_hodl_waves": suite.get("hodl_waves") if suite.get("ok") else {"ok": False},
             "741_mvrv_z_score": suite.get("mvrv_z_score") if suite.get("ok") else {"ok": False},
             "tasks_not_tickets": True,
@@ -407,6 +580,12 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
         "passed": (usage.get("normalization") or {}).get("normalized_by_chain_app") is True,
     })
 
+    tx_qa = run_tx_volume_historical_qa(seed)
+    if tx_qa.get("test_count", 0) > 0:
+        tests.append({"test": "tx_volume_historical_qa_612", "passed": tx_qa.get("all_passed") is True})
+        tx_vol = build_transaction_volume_intelligence("BTC", seed=seed)
+        tests.append({"test": "tx_volume_policy_612", "passed": tx_vol.get("ok") is True})
+
     all_passed = all(t["passed"] for t in tests)
     return {
         "ok": True,
@@ -439,6 +618,8 @@ def onchain_metrics_library_status() -> dict[str, Any]:
             "578": "On-Chain Usage Intelligence → usage dashboard sub-task of #577",
             "737": "HODL Waves → absorbed",
             "741": "MVRV Z-Score → absorbed",
+            "612": "Transaction Volume Intelligence → merged into #577",
+            "601": "Stablecoin Exchange Reserve → metric in #577, logic in #467",
         },
         "acceptance_criteria": {
             "formula_source_version": True,

@@ -2138,6 +2138,14 @@ async def stablecoin_health_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stablecoin-health/exchange-reserve")
+async def stablecoin_exchange_reserve_route():
+    """#601 Stablecoin Exchange Reserve — merged into #467."""
+    from bd_platform.stablecoin_health_monitor import build_stablecoin_exchange_reserve
+
+    return build_stablecoin_exchange_reserve()
+
+
 @router.get("/intelligence-ledger/investment-thesis/status")
 async def investment_thesis_scoring_status_route():
     """#472 Investment Thesis Scoring — Intelligence Ledger (not price probability)."""
@@ -2265,6 +2273,22 @@ async def sharpe_intelligence_route(portfolio_id: str = Query("demo_portfolio"))
     from bd_platform.portfolio_intelligence_engine import build_sharpe_intelligence_panel
 
     return build_sharpe_intelligence_panel(portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/portfolio-intelligence/entry-exit")
+async def entry_exit_timeline_route(wallet_id: str = Query("demo_wallet")):
+    """#617 Entry/Exit Timeline — merged into Portfolio AI."""
+    from bd_platform.portfolio_intelligence_engine import build_entry_exit_timeline
+
+    return build_entry_exit_timeline(wallet_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/portfolio-intelligence/performance-card")
+async def wallet_performance_card_route(wallet_id: str = Query("demo_wallet")):
+    """#618 Historical Performance & Win Rate — merged into Portfolio AI."""
+    from bd_platform.portfolio_intelligence_engine import build_wallet_historical_performance_card
+
+    return build_wallet_historical_performance_card(wallet_id)
 
 
 @router.get("/intelligence-ledger/strategy-vetting/status")
@@ -2737,6 +2761,31 @@ async def market_radar_combined_panel_route(
 @router.get("/intelligence-ledger/market-radar/reconciliation-tests")
 async def market_radar_reconciliation_tests_route():
     from bd_platform.market_radar_indicators import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/market-radar/transaction-flow")
+async def market_radar_transaction_flow_route(root_address: str = Query("0xbinance_hot")):
+    """#615 Transaction Flow View — merged into Market Radar."""
+    from bd_platform.transaction_flow_view import build_market_radar_transaction_flow_view
+
+    return build_market_radar_transaction_flow_view(root_address)
+
+
+@router.get("/intelligence-ledger/market-radar/transaction-flow/trace")
+async def market_radar_transaction_flow_trace_route(
+    root_address: str = Query("0xbinance_hot"),
+    target_entity: str = Query("coinbase"),
+):
+    from bd_platform.transaction_flow_view import trace_path
+
+    return trace_path(root_address, target_entity)
+
+
+@router.get("/intelligence-ledger/market-radar/transaction-flow/reconciliation-tests")
+async def transaction_flow_reconciliation_route():
+    from bd_platform.transaction_flow_view import run_reconciliation_tests
 
     return run_reconciliation_tests()
 
@@ -3739,6 +3788,24 @@ async def onchain_usage_intelligence_route(asset: str = Query("BTC")):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/transaction-volume")
+async def transaction_volume_intelligence_route(asset: str = Query("BTC")):
+    """#612 Transaction Volume Intelligence — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_transaction_volume_intelligence
+
+    result = build_transaction_volume_intelligence(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/transaction-volume/parity-qa")
+async def transaction_volume_parity_qa_route():
+    from bd_platform.onchain_metrics_library import run_tx_volume_historical_qa
+
+    return run_tx_volume_historical_qa()
 
 
 @router.get("/intelligence-ledger/intelligence-layer/historical-narratives/status")

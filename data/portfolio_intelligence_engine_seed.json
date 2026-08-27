@@ -11,7 +11,7 @@
   "last_updated": "2026-08-27",
   "existing_module": true,
   "no_new_module_built": true,
-  "merged_features": [448, 450, 483, 490],
+  "merged_features": [448, 450, 483, 490, 617, 618],
   "sharpe_drawdown_winrate_sla_cancelled": true,
   "portfolio_id": "demo_portfolio",
   "integrations": {
@@ -104,6 +104,57 @@
         {"date": "2025-03-01", "price": 4800},
         {"date": "2025-08-01", "price": 3500},
         {"date": "2026-08-27", "price": 3480}
+      ]
+    }
+  },
+  "entry_exit_617": {
+    "feature_ref": 617,
+    "cost_basis_method": "fifo",
+    "transfers_not_sales": true,
+    "partial_exits_supported": true,
+    "breakeven_integration_404": true
+  },
+  "historical_performance_618": {
+    "feature_ref": 618,
+    "minimum_closed_trades": 10,
+    "drawdown_alert_threshold_pct": 15,
+    "exclude_incomplete_trades": true
+  },
+  "wallets": {
+    "demo_wallet": {
+      "breakeven_position_id": "pos_btc_001",
+      "owned_addresses": ["0xuser_main", "0xuser_cold"],
+      "open_positions": [{"asset": "BTC", "quantity": 0.5}],
+      "events": [
+        {"timestamp": "2025-01-15T10:00:00Z", "type": "buy", "asset": "BTC", "quantity": 1.0, "execution_price": 42000},
+        {"timestamp": "2025-03-01T14:00:00Z", "type": "dca", "asset": "BTC", "quantity": 0.5, "execution_price": 58000},
+        {"timestamp": "2025-06-10T09:00:00Z", "type": "transfer_out", "asset": "BTC", "quantity": 0.2, "from_wallet": "0xuser_main", "to_wallet": "0xuser_cold", "execution_price": 68000},
+        {"timestamp": "2025-08-20T16:00:00Z", "type": "partial_exit", "asset": "BTC", "quantity": 0.3, "execution_price": 72000, "partial": true},
+        {"timestamp": "2025-09-05T11:00:00Z", "type": "sell", "asset": "BTC", "quantity": 0.5, "execution_price": 65000}
+      ],
+      "closed_trades": [
+        {"status": "closed", "return_pct": 12.5},
+        {"status": "closed", "return_pct": -3.2},
+        {"status": "closed", "return_pct": 8.1},
+        {"status": "closed", "return_pct": 15.0},
+        {"status": "closed", "return_pct": -5.5},
+        {"status": "closed", "return_pct": 22.3},
+        {"status": "closed", "return_pct": 4.8},
+        {"status": "closed", "return_pct": -1.2},
+        {"status": "closed", "return_pct": 9.7},
+        {"status": "closed", "return_pct": 6.4},
+        {"status": "closed", "return_pct": -8.0},
+        {"status": "closed", "return_pct": 11.1},
+        {"status": "open", "return_pct": null}
+      ]
+    },
+    "small_wallet": {
+      "owned_addresses": ["0xsmall"],
+      "open_positions": [],
+      "events": [],
+      "closed_trades": [
+        {"status": "closed", "return_pct": 5.0},
+        {"status": "closed", "return_pct": -2.0}
       ]
     }
   }

@@ -18,7 +18,80 @@
     "real_time_update": true
   },
   "depeg_probability_threshold": 0.55,
+  "depeg_suspend_threshold_usd": 0.995,
   "portfolio_exposure_alert_pct": 30,
+  "token_mapping_601": {
+    "USDT.E": "USDT",
+    "USDC.E": "USDC",
+    "BUSD": "USDT"
+  },
+  "exchange_reserve_601": {
+    "feature_ref": 601,
+    "merged_into": 467,
+    "reserve_trend": {
+      "change_7d_pct": 4.2,
+      "direction": "rising",
+      "anomaly_detected": false,
+      "anomaly_detail": null
+    },
+    "exchange_balances": [
+      {
+        "exchange_id": "binance",
+        "exchange_name": "Binance",
+        "entity_label": "Binance hot wallet",
+        "wallet_type": "hot",
+        "token": "USDT",
+        "balance": 12500000000,
+        "price_usd": 0.9998,
+        "stale": false,
+        "available": true
+      },
+      {
+        "exchange_id": "binance",
+        "exchange_name": "Binance",
+        "entity_label": "Binance cold wallet",
+        "wallet_type": "cold",
+        "token": "USDC",
+        "balance": 8200000000,
+        "price_usd": 0.9999,
+        "stale": false,
+        "available": true
+      },
+      {
+        "exchange_id": "coinbase",
+        "exchange_name": "Coinbase",
+        "entity_label": "Coinbase cold wallet",
+        "wallet_type": "cold",
+        "token": "USDC",
+        "balance": 5400000000,
+        "price_usd": 0.9999,
+        "stale": false,
+        "available": true
+      },
+      {
+        "exchange_id": "kraken",
+        "exchange_name": "Kraken",
+        "entity_label": "Kraken hot wallet",
+        "wallet_type": "hot",
+        "token": "USDT",
+        "balance": 2100000000,
+        "price_usd": 0.9998,
+        "stale": true,
+        "available": true
+      },
+      {
+        "exchange_id": "okx",
+        "exchange_name": "OKX",
+        "entity_label": "OKX hot wallet",
+        "wallet_type": "hot",
+        "token": "DAI",
+        "balance": null,
+        "price_usd": null,
+        "stale": false,
+        "available": false
+      }
+    ]
+  },
   "grade_thresholds": {
     "AAA": 10,
     "AA": 20,

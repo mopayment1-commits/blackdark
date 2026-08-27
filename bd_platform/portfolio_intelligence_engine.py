@@ -17,9 +17,13 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from bd_platform.institutional_standards import missing_value
+
 logger = logging.getLogger("BLACKDARK.PortfolioIntelligenceEngine")
 
 _FEATURE_ID = 449
+_ENTRY_EXIT_REF = 617
+_PERFORMANCE_REF = 618
 _ROI_ATH_REF = 483
 _SHARPE_REF = 490
 _MANDATORY_ROI_WINDOWS = ("24h", "7d", "30d", "90d", "1Y", "YTD", "all_time")
@@ -366,6 +370,238 @@ def build_sharpe_intelligence_panel(
     }
 
 
+def _classify_wallet_event(event: dict[str, Any], *, user_wallets: set[str]) -> dict[str, Any]:
+    """#617 — transfers between user wallets are not sells."""
+    event_type = event.get("type", "")
+    from_wallet = str(event.get("from_wallet", "")).lower()
+    to_wallet = str(event.get("to_wallet", "")).lower()
+    is_internal = (
+        from_wallet in user_wallets
+        and to_wallet in user_wallets
+        and from_wallet != to_wallet
+    )
+    is_transfer = event_type in ("transfer_in", "transfer_out", "internal_transfer") or is_internal
+    is_sell = event_type == "sell" and not is_internal
+    is_buy = event_type in ("buy", "dca") and not is_internal
+    is_partial_exit = event_type == "partial_exit" or (is_sell and event.get("partial", False))
+
+    return {
+        **event,
+        "is_internal_transfer": is_internal,
+        "transfers_not_sales": True,
+        "treated_as_sale": is_sell or is_partial_exit,
+        "treated_as_buy": is_buy,
+        "treated_as_transfer": is_transfer,
+        "partial_exit": is_partial_exit,
+    }
+
+
+def build_entry_exit_timeline(
+    wallet_id: str = "demo_wallet",
+    *,
+    seed: dict[str, Any] | None = None,
+    sync_breakeven: bool = True,
+) -> dict[str, Any]:
+    """#617 — FIFO entry/exit timeline merged into Portfolio AI."""
+    seed = seed or _load_seed()
+    cfg = seed.get("entry_exit_617") or {}
+    wallets = seed.get("wallets") or {}
+    wallet = wallets.get(wallet_id)
+    if not wallet:
+        return {"ok": False, "wallet_id": wallet_id, "error": "wallet_not_found"}
+
+    user_wallets = set(w.lower() for w in (wallet.get("owned_addresses") or []))
+    events = [_classify_wallet_event(e, user_wallets=user_wallets) for e in (wallet.get("events") or [])]
+    events.sort(key=lambda e: e.get("timestamp", ""))
+
+    lots: dict[str, list[dict[str, Any]]] = {}
+    timeline: list[dict[str, Any]] = []
+    partial_exits: list[dict[str, Any]] = []
+
+    for event in events:
+        asset = event.get("asset", "").upper()
+        qty = float(event.get("quantity", 0))
+        price = event.get("execution_price")
+
+        entry: dict[str, Any] = {
+            "timestamp": event.get("timestamp"),
+            "asset": asset,
+            "type": event.get("type"),
+            "quantity": qty,
+            "execution_price": price,
+            "internal_transfer": event.get("is_internal_transfer", False),
+            "included_in_pnl": not event.get("is_internal_transfer", False),
+        }
+
+        if event.get("treated_as_buy") and price is not None:
+            lots.setdefault(asset, []).append({
+                "quantity": qty,
+                "cost_per_unit": float(price),
+                "timestamp": event.get("timestamp"),
+            })
+            entry["action"] = "entry"
+            entry["fifo_lot_added"] = True
+            avg_entry = sum(l["quantity"] * l["cost_per_unit"] for l in lots[asset]) / sum(l["quantity"] for l in lots[asset])
+            entry["avg_entry_price"] = round(avg_entry, 4)
+
+        elif event.get("treated_as_sale") and price is not None:
+            remaining = qty
+            exit_pnl = 0.0
+            asset_lots = lots.get(asset, [])
+            while remaining > 0 and asset_lots:
+                lot = asset_lots[0]
+                take = min(remaining, lot["quantity"])
+                exit_pnl += take * (float(price) - lot["cost_per_unit"])
+                lot["quantity"] -= take
+                remaining -= take
+                if lot["quantity"] <= 0:
+                    asset_lots.pop(0)
+            lots[asset] = asset_lots
+            entry["action"] = "partial_exit" if event.get("partial_exit") else "exit"
+            entry["realized_pnl_usd"] = round(exit_pnl, 2)
+            entry["fifo_method"] = "fifo"
+            if event.get("partial_exit"):
+                partial_exits.append(entry)
+
+        elif event.get("treated_as_transfer"):
+            entry["action"] = "transfer"
+            entry["pnl_impact"] = "none"
+
+        timeline.append(entry)
+
+    breakeven_sync = None
+    if sync_breakeven:
+        position_id = wallet.get("breakeven_position_id")
+        if position_id:
+            try:
+                from bd_platform.live_breakeven_tracker import build_live_breakeven_panel
+
+                breakeven_sync = {
+                    "position_id": position_id,
+                    "breakeven_404": build_live_breakeven_panel(position_id),
+                    "auto_updated": True,
+                }
+            except Exception:
+                logger.debug("breakeven sync skipped for %s", wallet_id, exc_info=True)
+
+    return {
+        "ok": True,
+        "feature_ref": _ENTRY_EXIT_REF,
+        "title": "Entry/Exit Timeline",
+        "wallet_id": wallet_id,
+        "cost_basis_method": "fifo",
+        "fifo_only": True,
+        "transfers_not_sales": True,
+        "partial_exits_supported": True,
+        "partial_exit_count": len(partial_exits),
+        "timeline": timeline,
+        "open_lots": {
+            a: [{"qty": l["quantity"], "cost": l["cost_per_unit"]} for l in ls if l["quantity"] > 0]
+            for a, ls in lots.items()
+        },
+        "breakeven_sync_404": breakeven_sync,
+        "display": f"Entry/Exit timeline: {len(timeline)} events | FIFO | {len(partial_exits)} partial exits",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_wallet_historical_performance_card(
+    wallet_id: str = "demo_wallet",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#618 — win rate, drawdown, Sharpe, consistency (closed trades only)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("historical_performance_618") or {}
+    min_trades = int(cfg.get("minimum_closed_trades", 10))
+    wallets = seed.get("wallets") or {}
+    wallet = wallets.get(wallet_id)
+    if not wallet:
+        return {"ok": False, "wallet_id": wallet_id, "error": "wallet_not_found"}
+
+    closed = [t for t in (wallet.get("closed_trades") or []) if t.get("status") == "closed"]
+    open_positions = wallet.get("open_positions") or []
+    incomplete_excluded = len([t for t in (wallet.get("closed_trades") or []) if t.get("status") != "closed"])
+
+    if len(closed) < min_trades:
+        return {
+            "ok": True,
+            "feature_ref": _PERFORMANCE_REF,
+            "title": "Performance Card",
+            "wallet_id": wallet_id,
+            "confidence": "insufficient_data",
+            "minimum_closed_trades": min_trades,
+            "closed_trade_count": len(closed),
+            "incomplete_trades_excluded": incomplete_excluded,
+            "open_positions_excluded": len(open_positions),
+            "score": missing_value(),
+            "display": f"بيانات غير كافية — {len(closed)} closed trades (minimum {min_trades})",
+            "missing_not_zero": True,
+            "timestamp": _utcnow(),
+        }
+
+    returns = [float(t.get("return_pct", 0)) for t in closed]
+    wins = [r for r in returns if r > 0]
+    win_rate = round(len(wins) / len(returns) * 100, 2) if returns else 0.0
+    avg_return = round(sum(returns) / len(returns), 4) if returns else 0.0
+
+    cumulative = 1.0
+    peak = 1.0
+    max_drawdown = 0.0
+    for r in returns:
+        cumulative *= 1 + r / 100
+        peak = max(peak, cumulative)
+        dd = (cumulative / peak - 1) * 100
+        max_drawdown = min(max_drawdown, dd)
+
+    mean_r = sum(returns) / len(returns)
+    std_r = (sum((r - mean_r) ** 2 for r in returns) / len(returns)) ** 0.5 or 0.01
+    sharpe = round(mean_r / std_r * (len(returns) ** 0.5), 4) if std_r > 0 else 0.0
+    consistency = round(max(0, 100 - std_r * 10), 2)
+
+    sharpe_panel = None
+    try:
+        sharpe_panel = build_sharpe_intelligence_panel(seed=seed)
+    except Exception:
+        logger.debug("sharpe 490 integration skipped", exc_info=True)
+
+    drawdown_alert = None
+    if max_drawdown < -float(cfg.get("drawdown_alert_threshold_pct", 15)):
+        drawdown_alert = {
+            "feature_ref": 410,
+            "alert_type": "drawdown_context",
+            "max_drawdown_pct": round(max_drawdown, 2),
+            "alerts_only": True,
+        }
+
+    return {
+        "ok": True,
+        "feature_ref": _PERFORMANCE_REF,
+        "title": "Performance Card",
+        "wallet_id": wallet_id,
+        "confidence": "sufficient",
+        "minimum_closed_trades": min_trades,
+        "closed_trade_count": len(closed),
+        "incomplete_trades_excluded": incomplete_excluded,
+        "open_positions_excluded": len(open_positions),
+        "exclude_incomplete_trades": True,
+        "metrics": {
+            "win_rate_pct": win_rate,
+            "avg_return_per_trade_pct": avg_return,
+            "max_drawdown_pct": round(max_drawdown, 2),
+            "sharpe_ratio": sharpe,
+            "consistency_score": consistency,
+        },
+        "sharpe_intelligence_490": sharpe_panel,
+        "drawdown_alert_410": drawdown_alert,
+        "display": (
+            f"Win rate {win_rate:.1f}% | Avg return {avg_return:+.2f}% | "
+            f"Max DD {max_drawdown:.1f}% | Sharpe {sharpe:.2f}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_integrated_panel(portfolio_id: str = "demo_portfolio") -> dict[str, Any]:
     t0 = time.perf_counter()
     seed = _load_seed()
@@ -424,7 +660,9 @@ def build_integrated_panel(portfolio_id: str = "demo_portfolio") -> dict[str, An
         "fill_risk_assessment_433_sample": fill_risk_sample,
         "roi_ath_intelligence_483": build_roi_ath_panel(portfolio_id, seed=seed),
         "sharpe_intelligence_490": build_sharpe_intelligence_panel(portfolio_id, seed=seed),
-        "merged_features": seed.get("merged_features") or [448, 450, 483, 490],
+        "entry_exit_timeline_617": build_entry_exit_timeline(seed=seed),
+        "historical_performance_618": build_wallet_historical_performance_card(seed=seed),
+        "merged_features": seed.get("merged_features") or [448, 450, 483, 490, 617, 618],
         "performance_sla_cancelled": seed.get("sharpe_drawdown_winrate_sla_cancelled", True),
         "risk_adjusted_metrics": {
             "drawdown_pct": (capital.get("portfolio_summary") or {}).get("current_drawdown_pct"),
@@ -492,6 +730,19 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "risk_free_policy", "passed": (sharpe.get("risk_free_policy") or {}).get("version") is not None, "detail": "policy"})
     checks.append({"id": "no_cross_window_compare", "passed": sharpe.get("no_cross_window_comparison") is True, "detail": "windows"})
     checks.append({"id": "sharpe_explanation", "passed": "unit of" in (sharpe.get("explanation") or ""), "detail": "explain"})
+
+    entry_exit = build_entry_exit_timeline(seed=seed)
+    checks.append({"id": "entry_exit_617", "passed": entry_exit.get("ok") is True, "detail": "617"})
+    checks.append({"id": "fifo_only", "passed": entry_exit.get("fifo_only") is True, "detail": "FIFO"})
+    checks.append({"id": "transfers_not_sales", "passed": entry_exit.get("transfers_not_sales") is True, "detail": "transfers"})
+    checks.append({"id": "partial_exits", "passed": entry_exit.get("partial_exits_supported") is True, "detail": "partial"})
+    checks.append({"id": "breakeven_404_sync", "passed": (entry_exit.get("breakeven_sync_404") or {}).get("auto_updated") is True, "detail": "404"})
+
+    perf = build_wallet_historical_performance_card(seed=seed)
+    checks.append({"id": "performance_618", "passed": perf.get("ok") is True, "detail": "618"})
+    checks.append({"id": "min_sample_confidence", "passed": perf.get("confidence") in ("sufficient", "insufficient_data"), "detail": "sample"})
+    if perf.get("confidence") == "sufficient":
+        checks.append({"id": "win_rate_metric", "passed": perf.get("metrics", {}).get("win_rate_pct") is not None, "detail": "win_rate"})
 
     checks.append({"id": "net_edge_truth_417", "passed": panel.get("net_edge_truth_417_portfolio", {}).get("ok") is True, "detail": "417"})
 

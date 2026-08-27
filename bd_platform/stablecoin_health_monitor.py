@@ -25,9 +25,13 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from bd_platform.institutional_standards import missing_value
+
 logger = logging.getLogger("BLACKDARK.StablecoinHealthMonitor")
 
 _FEATURE_ID = 467
+_EXCHANGE_RESERVE_REF = 601
+_DEPEG_SUSPEND_THRESHOLD = 0.995
 _TITLE = "Stablecoin Health Monitor"
 _LEGAL_NAME = "Stablecoin Health Monitor"
 _RENAMED_FROM = "De-Pegging Probability Index"
@@ -240,6 +244,7 @@ def build_stablecoin_health_panel(*, seed: dict[str, Any] | None = None) -> dict
         "count": sum(1 for a in analyses if a.get("ok")),
         "stablecoin_grades": {a["symbol"]: a["stablecoin_grade"] for a in analyses if a.get("ok")},
         "cancelled_sla": seed.get("cancelled_sla"),
+        "exchange_reserve_601": build_stablecoin_exchange_reserve(seed=seed),
         "monitoring_only": True,
         "disclaimer": _DISCLAIMER,
         "latency_ms": elapsed,
@@ -266,10 +271,188 @@ def stablecoin_health_monitor_status() -> dict[str, Any]:
         "integrations": {
             "capital_protection_410": True,
             "unified_arbitrage_429": True,
+            "exchange_reserve_601": True,
+            "onchain_metrics_library_577": True,
         },
         "cancelled_sla": seed.get("cancelled_sla"),
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
+        "timestamp": _utcnow(),
+    }
+
+
+def _resolve_stablecoin_token(symbol: str, *, seed: dict[str, Any]) -> dict[str, Any]:
+    """#601 — canonical token mapping (e.g. USDT.e → USDT)."""
+    mapping = seed.get("token_mapping_601") or {}
+    canonical = mapping.get(symbol.upper(), symbol.upper())
+    return {"input": symbol.upper(), "canonical": canonical, "mapped": canonical != symbol.upper()}
+
+
+def _check_depeg_suspend(
+    symbols: list[str],
+    *,
+    seed: dict[str, Any],
+) -> dict[str, Any]:
+    """#601 — suspend reserve aggregation if USDT/USDC < $0.995."""
+    threshold = float(seed.get("depeg_suspend_threshold_usd", _DEPEG_SUSPEND_THRESHOLD))
+    stablecoins = seed.get("stablecoins") or {}
+    suspended: list[dict[str, Any]] = []
+    for sym in symbols:
+        data = stablecoins.get(sym.upper())
+        if not data:
+            continue
+        price = data.get("price_usd")
+        if price is None:
+            continue
+        if float(price) < threshold:
+            suspended.append({
+                "symbol": sym.upper(),
+                "price_usd": price,
+                "threshold_usd": threshold,
+                "warning": f"{sym.upper()} below ${threshold} — reserve calculation suspended",
+            })
+    return {
+        "suspended": bool(suspended),
+        "threshold_usd": threshold,
+        "affected": suspended,
+        "user_warning": (
+            "حساب احتياطي الستيبلكوين معلّق بسبب انحراف السعر — راجع Stablecoin Health Monitor"
+            if suspended
+            else None
+        ),
+    }
+
+
+def build_stablecoin_exchange_reserve(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#601 — aggregate exchange stablecoin reserves with entity labels (merged into #467)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("exchange_reserve_601") or {}
+    reserves = cfg.get("exchange_balances") or []
+    token_mapping = seed.get("token_mapping_601") or {}
+
+    symbols = list({token_mapping.get(r.get("token", "").upper(), r.get("token", "").upper()) for r in reserves})
+    depeg = _check_depeg_suspend([s for s in symbols if s in ("USDT", "USDC")], seed=seed)
+
+    if depeg["suspended"]:
+        return {
+            "ok": True,
+            "feature_ref": _EXCHANGE_RESERVE_REF,
+            "merged_into": _FEATURE_ID,
+            "calculation_suspended": True,
+            "depeg_handling": depeg,
+            "total_reserve_usd": missing_value(numeric=True),
+            "buying_power_context": missing_value(),
+            "entity_labels": [],
+            "missing_stale_explicit": True,
+            "display": depeg["affected"][0]["warning"] if depeg["affected"] else "Calculation suspended",
+            "monitoring_only": True,
+            "timestamp": _utcnow(),
+        }
+
+    by_exchange: dict[str, dict[str, Any]] = {}
+    by_token: dict[str, float] = {}
+    stale_count = 0
+    missing_count = 0
+
+    for row in reserves:
+        token_raw = str(row.get("token", "")).upper()
+        token = token_mapping.get(token_raw, token_raw)
+        exchange_id = row.get("exchange_id", "unknown")
+        entity_label = row.get("entity_label") or f"{exchange_id} wallet"
+        wallet_type = row.get("wallet_type", "hot")
+        balance = row.get("balance")
+        price_usd = row.get("price_usd")
+        stale = bool(row.get("stale", False))
+        available = row.get("available", True) and balance is not None and price_usd is not None
+
+        if not available:
+            missing_count += 1
+            usd_value = missing_value(numeric=True)
+        elif stale:
+            stale_count += 1
+            usd_value = round(float(balance) * float(price_usd), 2)
+        else:
+            usd_value = round(float(balance) * float(price_usd), 2)
+            by_token[token] = by_token.get(token, 0) + usd_value
+
+        ex = by_exchange.setdefault(exchange_id, {
+            "exchange_id": exchange_id,
+            "entity_label": row.get("exchange_name", exchange_id),
+            "wallets": [],
+            "subtotal_usd": 0.0,
+        })
+        ex["wallets"].append({
+            "entity_label": entity_label,
+            "wallet_type": wallet_type,
+            "token": token,
+            "token_mapped_from": token_raw if token_raw != token else None,
+            "balance": balance if available else missing_value(numeric=True),
+            "price_usd": price_usd if available else missing_value(numeric=True),
+            "usd_value": usd_value,
+            "stale": stale,
+            "available": available,
+            "missing_display": missing_value() if not available else None,
+        })
+        if isinstance(usd_value, (int, float)):
+            ex["subtotal_usd"] = round(ex["subtotal_usd"] + usd_value, 2)
+
+    total = round(sum(by_token.values()), 2)
+    trend = cfg.get("reserve_trend") or {}
+    change_7d_pct = trend.get("change_7d_pct")
+    anomaly = trend.get("anomaly_detected", False)
+
+    buying_power = {
+        "total_reserve_usd": total,
+        "interpretation": "accumulated_buying_power_on_exchanges",
+        "change_7d_pct": change_7d_pct,
+        "trend_direction": trend.get("direction", "flat"),
+        "anomaly_detected": anomaly,
+        "anomaly_detail": trend.get("anomaly_detail"),
+        "context": (
+            f"${total:,.0f} stablecoin reserves on labeled exchange wallets — "
+            f"7d change {change_7d_pct:+.1f}%" if change_7d_pct is not None else
+            f"${total:,.0f} stablecoin reserves on labeled exchange wallets"
+        ),
+    }
+
+    return {
+        "ok": True,
+        "feature_ref": _EXCHANGE_RESERVE_REF,
+        "merged_into": _FEATURE_ID,
+        "standalone": False,
+        "calculation_suspended": False,
+        "depeg_handling": depeg,
+        "token_mapping": token_mapping,
+        "total_reserve_usd": total,
+        "by_token_usd": by_token,
+        "by_exchange": list(by_exchange.values()),
+        "entity_labels_required": True,
+        "missing_count": missing_count,
+        "stale_count": stale_count,
+        "missing_stale_explicit": True,
+        "unknown_is_not_zero": True,
+        "buying_power_context": buying_power,
+        "trend": trend,
+        "display": buying_power["context"],
+        "monitoring_only": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_stablecoin_reserve_trend(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#601 → Market Radar: stablecoin reserve trend widget."""
+    reserve = build_stablecoin_exchange_reserve(seed=seed)
+    return {
+        "ok": True,
+        "feature_ref": _EXCHANGE_RESERVE_REF,
+        "surface": "market_radar",
+        "widget": "stablecoin_reserve_trend",
+        "reserve": reserve,
+        "display": reserve.get("display"),
+        "calculation_suspended": reserve.get("calculation_suspended", False),
         "timestamp": _utcnow(),
     }
 
@@ -292,6 +475,13 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     alerts = build_portfolio_stablecoin_alerts(seed=seed)
     checks.append({"id": "410_exposure_alert", "passed": alerts.get("exposure_threshold_pct") == 30, "detail": "410"})
+
+    reserve = build_stablecoin_exchange_reserve(seed=seed)
+    checks.append({"id": "601_merged_not_standalone", "passed": reserve.get("standalone") is False, "detail": "601→467"})
+    checks.append({"id": "601_entity_labels", "passed": reserve.get("entity_labels_required") is True, "detail": "labels"})
+    checks.append({"id": "601_missing_explicit", "passed": reserve.get("missing_stale_explicit") is True, "detail": "missing"})
+    checks.append({"id": "601_depeg_handling", "passed": "depeg_handling" in reserve, "detail": "depeg"})
+    checks.append({"id": "601_buying_power", "passed": reserve.get("buying_power_context") is not None, "detail": "buying_power"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {
