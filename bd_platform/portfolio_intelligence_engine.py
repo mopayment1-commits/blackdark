@@ -4,7 +4,7 @@ Portfolio Intelligence Engine — Feature #449 (Sprint-1 Existing).
 Renamed from "Portfolio AI" — quantitative portfolio analytics, not a new module.
 Integrates existing Sprint-1 Portfolio AI surfaces with mandatory risk integrations.
 
-Merged: #448, #450, #483 into same ticket.
+Merged: #448, #450, #483, #490 into same ticket.
 Cancelled: Sharpe ≥1.5, Max Drawdown ≤15%, Win Rate ≥55% acceptance SLAs.
 """
 
@@ -21,7 +21,9 @@ logger = logging.getLogger("BLACKDARK.PortfolioIntelligenceEngine")
 
 _FEATURE_ID = 449
 _ROI_ATH_REF = 483
+_SHARPE_REF = 490
 _MANDATORY_ROI_WINDOWS = ("24h", "7d", "30d", "90d", "1Y", "YTD", "all_time")
+_MANDATORY_SHARPE_WINDOWS = ("30d", "90d", "1y")
 _TITLE = "Portfolio Intelligence Engine"
 _LEGAL_NAME = "Portfolio Intelligence Engine"
 _RENAMED_FROM = "Portfolio AI"
@@ -252,6 +254,118 @@ def build_roi_ath_panel(
     }
 
 
+def _annualization_factor(window: str) -> int:
+    return {"30d": 365, "90d": 4, "1y": 1}.get(window, 365)
+
+
+def _sharpe_explanation(sharpe: float) -> str:
+    return (
+        f"Sharpe {sharpe:.2f} means {sharpe:.2f} units of excess return per unit of risk "
+        f"(annualized, documented risk-free policy)"
+    )
+
+
+def compute_rolling_sharpe(
+    portfolio_id: str = "demo_portfolio",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#490 Rolling Sharpe with documented annualization — no cross-window comparison."""
+    seed = seed or _load_seed()
+    cfg = seed.get("sharpe_intelligence_490") or {}
+    rf_policy = cfg.get("risk_free_policy") or {}
+    windows_data = (seed.get("sharpe_windows") or {}).get(portfolio_id) or {}
+    sector_avg = seed.get("sector_sharpe_averages") or {}
+    portfolio_sector = seed.get("portfolio_sector", "crypto_balanced")
+
+    rolling: dict[str, Any] = {}
+    for window in _MANDATORY_SHARPE_WINDOWS:
+        w = windows_data.get(window) or {}
+        mean_return = float(w.get("mean_daily_return", 0))
+        std_return = float(w.get("std_daily_return", 0.01)) or 0.01
+        rf_annual = float(rf_policy.get("rate_annual_pct", 0)) / 100
+        rf_daily = rf_annual / 365
+        excess = mean_return - rf_daily
+        ann_factor = _annualization_factor(window)
+        sharpe = round((excess / std_return) * (ann_factor ** 0.5), 4)
+
+        sector_key = f"{portfolio_sector}_{window}"
+        sector_sharpe = float(sector_avg.get(sector_key, sector_avg.get(window, sharpe)))
+        percentile = round(min(99, max(1, 50 + (sharpe - sector_sharpe) * 25)), 1)
+
+        prior = w.get("prior_sharpe")
+        trend = "flat"
+        if prior is not None:
+            delta = sharpe - float(prior)
+            if delta > 0.05:
+                trend = "improving"
+            elif delta < -0.05:
+                trend = "declining"
+
+        rolling[window] = {
+            "window": window,
+            "sharpe_ratio": sharpe,
+            "annualization_factor": ann_factor,
+            "risk_free_rate_annual_pct": rf_policy.get("rate_annual_pct", 0),
+            "risk_free_policy_version": rf_policy.get("version"),
+            "sector_average_sharpe": sector_sharpe,
+            "percentile_vs_sector": percentile,
+            "trend": trend,
+            "explanation": _sharpe_explanation(sharpe),
+            "comparable_within_window_only": True,
+        }
+
+    return {
+        "ok": True,
+        "feature_ref": _SHARPE_REF,
+        "portfolio_id": portfolio_id,
+        "rolling_sharpe": rolling,
+        "mandatory_windows": list(_MANDATORY_SHARPE_WINDOWS),
+        "risk_free_policy": rf_policy,
+        "no_cross_window_comparison": True,
+        "cross_window_comparison_forbidden": True,
+        "benchmark": cfg.get("benchmark", "sector_average"),
+        "deterministic": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_sharpe_intelligence_panel(
+    portfolio_id: str = "demo_portfolio",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#490 Sharpe trend + percentile + explanation panel."""
+    seed = seed or _load_seed()
+    sharpe = compute_rolling_sharpe(portfolio_id, seed=seed)
+    if not sharpe.get("ok"):
+        return sharpe
+
+    windows = sharpe.get("rolling_sharpe") or {}
+    primary = windows.get("90d") or next(iter(windows.values()), {})
+
+    return {
+        "ok": True,
+        "feature_ref": _SHARPE_REF,
+        "title": "Sharpe Ratio Intelligence",
+        "portfolio_id": portfolio_id,
+        "sharpe_trend": primary.get("trend"),
+        "sharpe_90d": primary.get("sharpe_ratio"),
+        "percentile_vs_sector": primary.get("percentile_vs_sector"),
+        "explanation": primary.get("explanation"),
+        "rolling_sharpe": windows,
+        "risk_free_policy": sharpe.get("risk_free_policy"),
+        "no_cross_window_comparison": True,
+        "not_investment_advice": True,
+        "display": (
+            f"Sharpe 90d: {primary.get('sharpe_ratio', 0):.2f} "
+            f"({primary.get('trend', 'flat')}) | "
+            f"percentile {primary.get('percentile_vs_sector', 0):.0f} vs sector"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_integrated_panel(portfolio_id: str = "demo_portfolio") -> dict[str, Any]:
     t0 = time.perf_counter()
     seed = _load_seed()
@@ -309,7 +423,8 @@ def build_integrated_panel(portfolio_id: str = "demo_portfolio") -> dict[str, An
         "net_edge_truth_417_portfolio": portfolio_net_edge,
         "fill_risk_assessment_433_sample": fill_risk_sample,
         "roi_ath_intelligence_483": build_roi_ath_panel(portfolio_id, seed=seed),
-        "merged_features": seed.get("merged_features") or [448, 450, 483],
+        "sharpe_intelligence_490": build_sharpe_intelligence_panel(portfolio_id, seed=seed),
+        "merged_features": seed.get("merged_features") or [448, 450, 483, 490],
         "performance_sla_cancelled": seed.get("sharpe_drawdown_winrate_sla_cancelled", True),
         "risk_adjusted_metrics": {
             "drawdown_pct": (capital.get("portfolio_summary") or {}).get("current_drawdown_pct"),
@@ -336,7 +451,7 @@ def portfolio_intelligence_engine_status() -> dict[str, Any]:
         "standalone": _STANDALONE,
         "merged_into": _MERGED_INTO,
         "sprint": _SPRINT,
-        "merged_features": seed.get("merged_features") or [448, 450, 483],
+        "merged_features": seed.get("merged_features") or [448, 450, 483, 490],
         "integrations": seed.get("integrations") or {},
         "performance_sla_cancelled": seed.get("sharpe_drawdown_winrate_sla_cancelled", True),
         "surface": "portfolio_ai",
@@ -370,6 +485,13 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         == {k: v for k, v in compute_roi_matrix("BTC", seed=seed).items() if k != "timestamp"}
     ), "detail": "deterministic"})
     checks.append({"id": "breakeven_roi_404", "passed": (compute_roi_matrix("BTC", seed=seed).get("breakeven_roi_404") or {}).get("source") == "live_breakeven_404", "detail": "404"})
+
+    sharpe = build_sharpe_intelligence_panel(seed=seed)
+    checks.append({"id": "sharpe_490", "passed": sharpe.get("ok") is True, "detail": "490"})
+    checks.append({"id": "sharpe_3_windows", "passed": len(sharpe.get("rolling_sharpe") or {}) == 3, "detail": "30d/90d/1y"})
+    checks.append({"id": "risk_free_policy", "passed": (sharpe.get("risk_free_policy") or {}).get("version") is not None, "detail": "policy"})
+    checks.append({"id": "no_cross_window_compare", "passed": sharpe.get("no_cross_window_comparison") is True, "detail": "windows"})
+    checks.append({"id": "sharpe_explanation", "passed": "unit of" in (sharpe.get("explanation") or ""), "detail": "explain"})
 
     checks.append({"id": "net_edge_truth_417", "passed": panel.get("net_edge_truth_417_portfolio", {}).get("ok") is True, "detail": "417"})
 

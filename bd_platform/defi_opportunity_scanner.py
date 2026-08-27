@@ -6,6 +6,7 @@ Absorbs:
   #470 LP Position Risk Calculator — renamed from "IL Live Simulator"
   #473 Liquidity Risk — protocol TVL/utilization/borrow-supply/liquidation
   #482 Oracle Risk — oracle dependency/risk analysis dimension (DeFi Risk Layer)
+  #491 Smart Contract and Protocol Risk — contract/audit/bounty indicators (DeFi Risk Layer)
 
 NOT standalone — merged into #429 Unified Arbitrage Opportunity Engine.
 Monitoring/analytics only — no execution language.
@@ -28,6 +29,7 @@ _DEX_SCREENER_REF = 465
 _LP_POSITION_RISK_REF = 470
 _LIQUIDITY_RISK_REF = 473
 _ORACLE_RISK_REF = 482
+_PROTOCOL_RISK_REF = 491
 _TITLE = "DeFi Opportunity Scanner"
 _LEGAL_NAME = "DeFi Opportunity Scanner"
 _STANDALONE = False
@@ -527,6 +529,123 @@ def get_stablecoin_oracle_risk_flag(
     }
 
 
+def analyze_protocol_smart_contract_risk(
+    protocol_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#491 Smart Contract and Protocol Risk — 5 mandatory indicators."""
+    seed = seed or _load_seed()
+    cfg = seed.get("smart_contract_risk_491") or {}
+    protocols = seed.get("protocol_contracts") or {}
+    proto = protocols.get(protocol_id.lower())
+    if not proto:
+        return {"ok": False, "protocol_id": protocol_id, "error": "protocol_not_found"}
+
+    indicators = {
+        "contract_verified": proto.get("contract_verified_etherscan"),
+        "audit_history": proto.get("audit_history"),
+        "bug_bounty_active": proto.get("bug_bounty_active"),
+        "admin_keys_renounced": proto.get("admin_keys_renounced"),
+        "upgradeability": proto.get("upgradeability"),
+    }
+    score = round(min(100, max(0,
+        (25 if indicators["contract_verified"] else 0)
+        + (25 if indicators["audit_history"] else 0)
+        + (20 if indicators["bug_bounty_active"] else 0)
+        + (15 if indicators["admin_keys_renounced"] else 0)
+        + (15 if indicators["upgradeability"] == "immutable" else 5)
+    )), 1)
+
+    data_sources = proto.get("data_sources") or cfg.get("data_sources_v1", ["defillama", "immunefi"])
+
+    return {
+        "ok": True,
+        "feature_ref": _PROTOCOL_RISK_REF,
+        "protocol_id": protocol_id.lower(),
+        "protocol": proto.get("protocol"),
+        "chain": proto.get("chain"),
+        "indicators": indicators,
+        "protocol_risk_score": score,
+        "data_sources": data_sources,
+        "no_internal_scanner_v1": True,
+        "cancelled_sla": cfg.get("cancelled_sla"),
+        "display": (
+            f"{proto.get('protocol')}: contract risk {score}/100 | "
+            f"verified={indicators['contract_verified']} | "
+            f"audit={bool(indicators['audit_history'])}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_smart_contract_risk_view(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#491 full protocol contract risk view."""
+    seed = seed or _load_seed()
+    protocols = seed.get("protocol_contracts") or {}
+    analyses = [
+        analyze_protocol_smart_contract_risk(pid, seed=seed)
+        for pid in protocols
+    ]
+    valid = [a for a in analyses if a.get("ok")]
+    return {
+        "ok": True,
+        "feature_ref": _PROTOCOL_RISK_REF,
+        "title": "Smart Contract and Protocol Risk",
+        "protocols": valid,
+        "count": len(valid),
+        "mandatory_indicators": (seed.get("smart_contract_risk_491") or {}).get("mandatory_indicators"),
+        "data_sources_v1": (seed.get("smart_contract_risk_491") or {}).get("data_sources_v1"),
+        "monitoring_only": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def apply_protocol_risk_to_opportunity_score(
+    opportunity: dict[str, Any],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#491 → #460: protocol risk adjusts overall opportunity score."""
+    seed = seed or _load_seed()
+    protocol_id = str(opportunity.get("protocol_id") or opportunity.get("chain", "")).lower()
+    if not protocol_id:
+        return {"adjusted": False, "reason": "no_protocol_id"}
+
+    contract_risk = analyze_protocol_smart_contract_risk(protocol_id, seed=seed)
+    if not contract_risk.get("ok"):
+        return {"adjusted": False, "reason": "protocol_not_found"}
+
+    base_score = float(opportunity.get("net_edge_bps") or opportunity.get("gross_spread_bps") or 0)
+    risk_penalty = contract_risk["protocol_risk_score"] / 100 * 15
+    adjusted_bps = round(max(0, base_score - risk_penalty), 2)
+
+    diligence_adj = None
+    try:
+        from bd_platform.diligence_risk_scoring import score_entity_risk
+
+        asset = str(opportunity.get("asset", ""))
+        dr = score_entity_risk(asset)
+        if dr.get("ok"):
+            diligence_adj = dr.get("overall_risk_score")
+    except Exception:
+        logger.debug("diligence risk adj skipped", exc_info=True)
+
+    return {
+        "ok": True,
+        "feature_ref": _PROTOCOL_RISK_REF,
+        "integration": "diligence_risk_460",
+        "protocol_id": protocol_id,
+        "protocol_risk_score": contract_risk["protocol_risk_score"],
+        "base_opportunity_bps": base_score,
+        "risk_penalty_bps": round(risk_penalty, 2),
+        "adjusted_opportunity_bps": adjusted_bps,
+        "diligence_risk_score_460": diligence_adj,
+        "adjusted": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def analyze_all_liquidity_risks(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """#473 — all 6 v1 protocols."""
     seed = seed or _load_seed()
@@ -673,6 +792,11 @@ def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[
         except Exception:
             logger.debug("collateral grade attachment skipped for %s", asset, exc_info=True)
 
+        protocol_map = seed.get("opportunity_protocol_map") or {}
+        opp["protocol_id"] = protocol_map.get(raw.get("opportunity_id")) or protocol_map.get(asset.lower())
+        if opp.get("protocol_id"):
+            opp["protocol_risk_491"] = apply_protocol_risk_to_opportunity_score(opp, seed=seed)
+
         opportunities.append(opp)
 
     return opportunities
@@ -708,6 +832,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     liquidity_risk = analyze_all_liquidity_risks(seed=seed)
     lp_risk = build_lp_position_risk_panel(seed=seed)
     oracle_risk = build_oracle_risk_view(seed=seed)
+    contract_risk = build_smart_contract_risk_view(seed=seed)
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     return {
@@ -723,6 +848,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "liquidity_risk_473": liquidity_risk,
         "lp_position_risk_470": lp_risk,
         "oracle_risk_482": oracle_risk,
+        "smart_contract_risk_491": contract_risk,
         "monitoring_only": True,
         "cancelled_v1_scope": {
             "flash_loan_simulation": True,
@@ -756,6 +882,7 @@ def defi_opportunity_scanner_status() -> dict[str, Any]:
             "lp_position_risk_calculator_470": True,
             "liquidity_risk_473": True,
             "oracle_risk_482": True,
+            "smart_contract_risk_491": True,
             "on_chain_arbitrage": True,
         },
         "dex_screener": {
@@ -771,6 +898,11 @@ def defi_opportunity_scanner_status() -> dict[str, Any]:
             "feature_ref": _ORACLE_RISK_REF,
             "protocol_count": len(seed.get("oracle_protocols") or {}),
             "source_config_version": (seed.get("oracle_risk_482") or {}).get("source_config_version"),
+        },
+        "smart_contract_risk": {
+            "feature_ref": _PROTOCOL_RISK_REF,
+            "protocol_count": len(seed.get("protocol_contracts") or {}),
+            "data_sources_v1": (seed.get("smart_contract_risk_491") or {}).get("data_sources_v1"),
         },
         "monitoring_only": True,
         "simulation_only": True,
@@ -816,6 +948,13 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     single_oracle_alerts = build_portfolio_single_oracle_alerts(seed=seed)
     checks.append({"id": "single_oracle_alerts_410", "passed": single_oracle_alerts.get("backend_enforced") is True, "detail": "410"})
+
+    contract = build_smart_contract_risk_view(seed=seed)
+    checks.append({"id": "smart_contract_risk_491", "passed": contract.get("count", 0) >= 1, "detail": "491"})
+    checks.append({"id": "contract_5_indicators", "passed": all(
+        len(p.get("indicators", {})) >= 5 for p in contract.get("protocols", [])
+    ), "detail": "indicators"})
+    checks.append({"id": "contract_sla_cancelled", "passed": (seed.get("smart_contract_risk_491") or {}).get("cancelled_sla", {}).get("response_2_seconds") is True, "detail": "SLA"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

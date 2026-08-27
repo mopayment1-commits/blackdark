@@ -1598,6 +1598,19 @@ async def oracle_risk_route(protocol: str | None = Query(None)):
     return build_oracle_risk_view()
 
 
+@router.get("/intelligence-ledger/unified-arbitrage/defi/smart-contract-risk")
+async def smart_contract_risk_route(protocol: str | None = Query(None)):
+    """#491 Smart Contract and Protocol Risk — merged into #438."""
+    from bd_platform.defi_opportunity_scanner import (
+        analyze_protocol_smart_contract_risk,
+        build_smart_contract_risk_view,
+    )
+
+    if protocol:
+        return analyze_protocol_smart_contract_risk(protocol)
+    return build_smart_contract_risk_view()
+
+
 @router.get("/intelligence-ledger/unified-arbitrage/defi/reconciliation-tests")
 async def defi_opportunity_scanner_reconciliation_route():
     from bd_platform.defi_opportunity_scanner import run_reconciliation_tests
@@ -1922,6 +1935,46 @@ async def roi_ath_intelligence_route(
     if asset:
         return build_roi_ath_asset_card(asset)
     return build_roi_ath_panel(portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/portfolio-intelligence/sharpe")
+async def sharpe_intelligence_route(portfolio_id: str = Query("demo_portfolio")):
+    """#490 Sharpe Ratio Intelligence — merged into Portfolio AI."""
+    from bd_platform.portfolio_intelligence_engine import build_sharpe_intelligence_panel
+
+    return build_sharpe_intelligence_panel(portfolio_id)
+
+
+@router.get("/intelligence-ledger/strategy-vetting/status")
+async def strategy_vetting_status_route():
+    """#492 Strategy Quality Gate — Intelligence Ledger."""
+    from bd_platform.strategy_vetting import strategy_vetting_status
+
+    return strategy_vetting_status()
+
+
+@router.get("/intelligence-ledger/strategy-vetting")
+async def strategy_vetting_panel_route():
+    from bd_platform.strategy_vetting import build_strategy_quality_gate_panel
+
+    return build_strategy_quality_gate_panel()
+
+
+@router.get("/intelligence-ledger/strategy-vetting/reconciliation-tests")
+async def strategy_vetting_reconciliation_route():
+    from bd_platform.strategy_vetting import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/strategy-vetting/{strategy_id}")
+async def strategy_vetting_detail_route(strategy_id: str):
+    from bd_platform.strategy_vetting import vet_strategy
+
+    result = vet_strategy(strategy_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
 
 
 @router.get("/intelligence-ledger/intelligence-layer/capital-awareness/risk-assessment")

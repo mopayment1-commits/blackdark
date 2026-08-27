@@ -95,6 +95,27 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         })
 
     why_items: list[dict[str, Any]] = []
+    sharpe_narrative = None
+    try:
+        from bd_platform.portfolio_intelligence_engine import build_sharpe_intelligence_panel
+
+        sharpe = build_sharpe_intelligence_panel()
+        if sharpe.get("ok"):
+            sharpe_narrative = sharpe
+            why_items.append({
+                "text": (
+                    f"Portfolio Sharpe 90d {sharpe.get('sharpe_90d', 0):.2f} "
+                    f"({sharpe.get('sharpe_trend', 'flat')}) — "
+                    f"percentile {sharpe.get('percentile_vs_sector', 0):.0f} vs sector"
+                ),
+                "evidence_link": "/api/platform/intelligence-ledger/portfolio-ai/portfolio-intelligence/sharpe",
+                "contributor_metric": "sharpe_90d",
+                "contributor_value": sharpe.get("sharpe_90d"),
+                "feature_ref_490": 490,
+            })
+    except Exception:
+        logger.debug("sharpe brief integration skipped", exc_info=True)
+
     for lens_name, lens_data in lenses.items():
         if lens_data.get("direction") in ("rising", "falling"):
             why_items.append({
@@ -116,6 +137,7 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         })
 
     risks_items: list[dict[str, Any]] = []
+
     if float(lenses.get("volatility", {}).get("score", 50)) > 60:
         risks_items.append({
             "text": f"Elevated volatility lens score: {lenses['volatility']['score']}",
@@ -164,6 +186,7 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "contributors_match_calculations": validation.get("contributors_match_calculations", True),
         "historical_validation": validation,
         "event_context_443": events,
+        "sharpe_narrative_490": sharpe_narrative,
         "not_investment_advice": True,
         "display": (
             f"Daily Brief {seed.get('brief_date')}: {regime.get('regime_label')} | "
@@ -203,6 +226,7 @@ def daily_market_brief_status() -> dict[str, Any]:
         "integrations": {
             "market_radar": True,
             "event_sentiment_monitor_443": True,
+            "sharpe_intelligence_490": True,
         },
         "historical_validation": seed.get("historical_validation"),
         "disclaimer": _DISCLAIMER,
@@ -230,6 +254,12 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "evidence_links", "passed": all(i.get("evidence_link") for i in all_items), "detail": "links"})
     checks.append({"id": "contributors_match", "passed": brief.get("contributors_match_calculations") is True, "detail": "calc"})
     checks.append({"id": "event_context_443", "passed": len(brief.get("event_context_443") or []) >= 1, "detail": "443"})
+
+    sharpe_in_brief = any(
+        i.get("feature_ref_490") == 490
+        for i in (brief.get("why") or []) + (brief.get("what_changed") or [])
+    )
+    checks.append({"id": "sharpe_intelligence_490", "passed": sharpe_in_brief, "detail": "490"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {
