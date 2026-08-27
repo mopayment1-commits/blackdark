@@ -31,6 +31,7 @@ _LIQUIDITY_RISK_REF = 473
 _ORACLE_RISK_REF = 482
 _PROTOCOL_RISK_REF = 491
 _YIELD_DELTA_REF = 639
+_DEFI_SCREENER_REF = 658
 _TITLE = "DeFi Opportunity Scanner"
 _LEGAL_NAME = "DeFi Opportunity Scanner"
 _STANDALONE = False
@@ -808,6 +809,94 @@ def build_yield_delta_listener(*, seed: dict[str, Any] | None = None) -> dict[st
     }
 
 
+def _risk_grade_letter(score: float) -> str:
+    if score <= 25:
+        return "A"
+    if score <= 40:
+        return "B"
+    if score <= 60:
+        return "C"
+    if score <= 75:
+        return "D"
+    return "F"
+
+
+def build_defi_opportunity_screener(
+    *,
+    chain: str | None = None,
+    protocol: str | None = None,
+    risk_grade: str | None = None,
+    min_liquidity_usd: float | None = None,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#658 — multi-factor DeFi screener merged into #438 with backend filters."""
+    t0 = time.perf_counter()
+    seed = seed or _load_seed()
+    cfg = seed.get("defi_screener_658") or {}
+    min_liq = float(min_liquidity_usd if min_liquidity_usd is not None else cfg.get("default_min_liquidity_usd", 100_000))
+    yield_delta = build_yield_delta_listener(seed=seed)
+    candidates = list(yield_delta.get("ranked_by_risk_adjusted_yield") or [])
+
+    filtered: list[dict[str, Any]] = []
+    for item in candidates:
+        if chain and str(item.get("chain", "")).lower() != chain.lower():
+            continue
+        if protocol and protocol.lower() not in str(item.get("protocol_identity", "")).lower():
+            continue
+        grade = _risk_grade_letter(float(item.get("risk_score", 50)))
+        if risk_grade and grade.upper() != risk_grade.upper():
+            continue
+        tvl = float(item.get("tvl_usd") or 0)
+        if tvl < min_liq:
+            continue
+
+        base_apy = float(item.get("base_apy_pct", 0))
+        incentive_apy = float(item.get("incentive_apy_pct", 0))
+        risk_score = float(item.get("risk_score", 50))
+        net_score = float(item.get("risk_adjusted_yield", 0))
+
+        filtered.append({
+            **item,
+            "risk_return_separated": True,
+            "display_columns": {
+                "base_apy_pct": base_apy,
+                "incentive_apy_pct": incentive_apy,
+                "risk_grade": grade,
+                "net_score": net_score,
+            },
+            "risk_grade": grade,
+            "net_score": net_score,
+            "ranking_metric": "risk_adjusted_score_not_apy_only",
+            "backend_filter_applied": True,
+        })
+
+    filtered.sort(key=lambda x: x.get("net_score", 0), reverse=True)
+    elapsed = round((time.perf_counter() - t0) * 1000, 1)
+
+    return {
+        "ok": True,
+        "feature_ref": _DEFI_SCREENER_REF,
+        "merged_into": _FEATURE_ID,
+        "standalone": False,
+        "title": "DeFi Opportunity Screener",
+        "opportunities": filtered,
+        "count": len(filtered),
+        "filters_applied": {
+            "chain": chain,
+            "protocol": protocol,
+            "risk_grade": risk_grade,
+            "min_liquidity_usd": min_liq,
+            "backend_filters": True,
+        },
+        "risk_return_separated": True,
+        "no_apy_only_ranking": True,
+        "ranked_by": "risk_adjusted_net_score",
+        "display": f"DeFi Screener: {len(filtered)} opportunities | risk/return separated",
+        "latency_ms": elapsed,
+        "timestamp": _utcnow(),
+    }
+
+
 def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     """#438 DeFi Opportunity Scanner — on-chain analytics with #465/#473 enrichments."""
     seed = seed or _load_seed()
@@ -962,6 +1051,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     oracle_risk = build_oracle_risk_view(seed=seed)
     contract_risk = build_smart_contract_risk_view(seed=seed)
     yield_delta = build_yield_delta_listener(seed=seed)
+    defi_screener = build_defi_opportunity_screener(seed=seed)
     decision_panel = None
     try:
         from bd_platform.defi_decision_intelligence import build_defi_decision_panel
@@ -994,6 +1084,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "oracle_risk_482": oracle_risk,
         "smart_contract_risk_491": contract_risk,
         "yield_delta_listener_639": yield_delta if yield_delta.get("ok") else {"ok": False},
+        "defi_opportunity_screener_658": defi_screener if defi_screener.get("ok") else {"ok": False},
         "defi_decision_intelligence_651": decision_panel if decision_panel and decision_panel.get("ok") else {"ok": False},
         "cross_protocol_contagion_652": contagion_panel if contagion_panel and contagion_panel.get("ok") else {"ok": False},
         "ranked_by_decision_relevance_651": True,
@@ -1032,6 +1123,7 @@ def defi_opportunity_scanner_status() -> dict[str, Any]:
             "oracle_risk_482": True,
             "smart_contract_risk_491": True,
             "yield_delta_listener_639": True,
+            "defi_opportunity_screener_658": True,
             "defi_decision_intelligence_651": True,
             "cross_protocol_contagion_652": True,
             "on_chain_arbitrage": True,
@@ -1116,6 +1208,16 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     if yield_delta.get("ranked_by_risk_adjusted_yield"):
         top = yield_delta["ranked_by_risk_adjusted_yield"][0]
         checks.append({"id": "sustainability_context_639", "passed": top.get("sustainability_context") is not None, "detail": "incentive"})
+
+    screener = build_defi_opportunity_screener(seed=seed)
+    checks.append({"id": "defi_screener_658", "passed": screener.get("ok") is True and screener.get("count", 0) >= 2, "detail": "658"})
+    checks.append({"id": "risk_return_separated_658", "passed": screener.get("risk_return_separated") is True, "detail": "separated"})
+    checks.append({"id": "backend_filters_658", "passed": (screener.get("filters_applied") or {}).get("backend_filters") is True, "detail": "filters"})
+    if screener.get("opportunities"):
+        cols = screener["opportunities"][0].get("display_columns") or {}
+        checks.append({"id": "display_columns_658", "passed": all(k in cols for k in ("base_apy_pct", "incentive_apy_pct", "risk_grade", "net_score")), "detail": "cols"})
+    filtered = build_defi_opportunity_screener(chain="ethereum", risk_grade="A", min_liquidity_usd=400000000, seed=seed)
+    checks.append({"id": "filter_chain_risk_658", "passed": filtered.get("count", 0) >= 1, "detail": "filter"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

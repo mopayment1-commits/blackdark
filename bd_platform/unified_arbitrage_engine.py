@@ -534,6 +534,15 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         if not any(o.get("capital_formation_boost_648") for o in enriched):
             enriched.sort(key=lambda o: float(o.get("net_edge_usdt", 0)), reverse=True)
 
+    try:
+        from bd_platform.dxy_dollar_elasticity import apply_dxy_trend_to_usd_pairs
+
+        enriched = apply_dxy_trend_to_usd_pairs(enriched)
+        if ranked_by == "executable_net_edge_usdt":
+            ranked_by = "executable_net_edge_usdt_with_dxy_macro_655"
+    except Exception:
+        logger.debug("655 DXY macro adjustment skipped", exc_info=True)
+
     strategy_gate = None
     display_opportunities = enriched
     suppressed: list[dict[str, Any]] = []
@@ -607,6 +616,7 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
             "diligence_risk_460": True,
             "market_radar": True,
             "capital_formation_radar_648": True,
+            "dxy_macro_context_655": True,
         },
         "not_investment_advice": True,
         "disclaimer": _DISCLAIMER,

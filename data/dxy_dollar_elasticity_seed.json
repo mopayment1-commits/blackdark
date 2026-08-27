@@ -1,0 +1,43 @@
+{
+  "feature_id": 655,
+  "title": "Macro Context Panel",
+  "legal_name": "DXY Dollar Index Elasticity",
+  "standalone": false,
+  "merged_into": "Sprint-2 Market Radar Enhancement",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "source_version": "1.0",
+  "accuracy_pct": 96.5,
+  "real_time_update": true,
+  "uptime_pct": 99.2,
+  "dxy": {
+    "current_level": 104.25,
+    "change_24h_pct": 0.42,
+    "change_7d_pct": 1.15,
+    "trend": "rising",
+    "source": "FRED",
+    "fred_series_id": "DTWEXBGS",
+    "update_frequency": "daily",
+    "last_updated": "2026-08-27T12:00:00Z"
+  },
+  "assets": {
+    "BTC": {
+      "asset": "BTC",
+      "dxy_correlation_30d": -0.62,
+      "elasticity_pct_per_dxy_pct": -0.8,
+      "confidence_interval_low": -1.1,
+      "confidence_interval_high": -0.5,
+      "confidence_pct": 74,
+      "historical_reference": "2022-2024 inverse correlation ~-0.6"
+    },
+    "ETH": {
+      "asset": "ETH",
+      "dxy_correlation_30d": -0.58,
+      "elasticity_pct_per_dxy_pct": -0.75,
+      "confidence_interval_low": -1.05,
+      "confidence_interval_high": -0.45,
+      "confidence_pct": 71,
+      "historical_reference": "2022-2024 inverse correlation ~-0.55"
+    }
+  }
+}

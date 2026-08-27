@@ -2057,6 +2057,24 @@ async def yield_delta_listener_route():
     return build_yield_delta_listener()
 
 
+@router.get("/intelligence-ledger/unified-arbitrage/defi/screener")
+async def defi_opportunity_screener_route(
+    chain: str | None = Query(None),
+    protocol: str | None = Query(None),
+    risk_grade: str | None = Query(None),
+    min_liquidity_usd: float | None = Query(None),
+):
+    """#658 DeFi Opportunity Screener — merged into #438."""
+    from bd_platform.defi_opportunity_scanner import build_defi_opportunity_screener
+
+    return build_defi_opportunity_screener(
+        chain=chain,
+        protocol=protocol,
+        risk_grade=risk_grade,
+        min_liquidity_usd=min_liquidity_usd,
+    )
+
+
 @router.get("/intelligence-ledger/unified-arbitrage/defi/reconciliation-tests")
 async def defi_opportunity_scanner_reconciliation_route():
     from bd_platform.defi_opportunity_scanner import run_reconciliation_tests
@@ -2487,6 +2505,28 @@ async def custom_ratio_thesis_dimension_route(
 @router.get("/intelligence-ledger/market-radar/ratio-builder/reconciliation-tests")
 async def custom_ratio_engine_reconciliation_route():
     from bd_platform.custom_ratio_engine import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/market-radar/macro-context/status")
+async def dxy_macro_context_status_route():
+    """#655 DXY Dollar Index Elasticity — Market Radar Macro Context Panel."""
+    from bd_platform.dxy_dollar_elasticity import dxy_dollar_elasticity_status
+
+    return dxy_dollar_elasticity_status()
+
+
+@router.get("/intelligence-ledger/market-radar/macro-context")
+async def dxy_macro_context_panel_route(asset: str = Query("BTC")):
+    from bd_platform.dxy_dollar_elasticity import build_macro_context_panel
+
+    return build_macro_context_panel(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/macro-context/reconciliation-tests")
+async def dxy_macro_context_reconciliation_route():
+    from bd_platform.dxy_dollar_elasticity import run_reconciliation_tests
 
     return run_reconciliation_tests()
 
@@ -4642,6 +4682,24 @@ async def onchain_metrics_panel_route(asset: str = Query("BTC")):
     from bd_platform.onchain_metrics_suite import build_onchain_metrics_panel
 
     result = build_onchain_metrics_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-metrics/methodology")
+async def onchain_metrics_methodology_registry_route():
+    """#656 Data Methodology Registry — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_methodology_registry
+
+    return build_methodology_registry()
+
+
+@router.get("/intelligence-ledger/onchain-metrics/methodology/{metric_id}")
+async def onchain_metrics_methodology_page_route(metric_id: str):
+    from bd_platform.onchain_metrics_library import build_methodology_page
+
+    result = build_methodology_page(metric_id)
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result

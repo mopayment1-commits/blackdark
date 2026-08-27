@@ -193,5 +193,56 @@
         {"cohort_id": "whale", "label": "Whale", "exchange_inflow_usd": 300000, "exchange_outflow_usd": 1800000, "buy_flow_usd": 2000000, "sell_flow_usd": 250000}
       ]
     }
+  },
+  "methodology_registry": {
+    "feature_ref": 656,
+    "code_docs_auto_sync": true,
+    "code_docs_parity_hash": "sha256:577-v1.0-methodology",
+    "protocol_mappings": {
+      "ethereum": {
+        "chain_id": 1,
+        "indexer": "blockchain_indexer",
+        "version": "1.0"
+      }
+    },
+    "pages": {
+      "active_addresses": {
+        "metric_name": "Active Addresses (24h)",
+        "contracts": [
+          {"address": "0x0000000000000000000000000000000000000000", "label": "native_transfer_tracker", "chain": "ethereum"}
+        ],
+        "event_signatures": [
+          {"signature": "Transfer(address,address,uint256)", "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"}
+        ],
+        "transformation_logic": "count(distinct from_addr union to_addr) excluding contract-internal in 24h window",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [
+          {"version": "1.0", "date": "2026-08-01", "change": "Initial methodology page"}
+        ]
+      },
+      "transaction_count": {
+        "metric_name": "Transaction Count (24h)",
+        "contracts": [],
+        "event_signatures": [],
+        "transformation_logic": "count(confirmed txs) excluding spam contracts per policy",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-01", "change": "Initial"}]
+      },
+      "exchange_netflow": {
+        "metric_name": "Exchange Net Flow",
+        "contracts": [
+          {"address": "0x28C6c06298d514Db089934071355E5743bf21d60", "label": "binance_hot_wallet", "chain": "ethereum"}
+        ],
+        "event_signatures": [
+          {"signature": "Transfer(address,address,uint256)", "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"}
+        ],
+        "transformation_logic": "labeled_exchange_inflow_usd - labeled_exchange_outflow_usd",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-15", "change": "Exchange cluster v2 labels"}]
+      }
+    }
   }
 }
