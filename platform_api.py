@@ -4441,6 +4441,48 @@ async def portfolio_data_assistant_route(
     return build_portfolio_data_assistant_panel_766(query=query, user_tier=user_tier)
 
 
+@router.get("/intelligence-ledger/ux-layer/data-assistant/explain-signal")
+async def explain_signal_route(
+    asset: str = Query("BTC"),
+    signal_id: str | None = Query(None),
+    user_tier: str = Query("guest"),
+):
+    """#771 explain_signal intent — تفصيل الإشارة (merged into #766)."""
+    from bd_platform.natural_language_interpreter import build_explain_signal_explanation_771
+
+    return build_explain_signal_explanation_771(asset, signal_id=signal_id, user_tier=user_tier)
+
+
+@router.get("/intelligence-ledger/ux-layer/data-assistant/explain-signal/signal-card")
+async def signal_card_explanation_route(
+    asset: str = Query("BTC"),
+    signal_id: str | None = Query(None),
+    user_tier: str = Query("guest"),
+):
+    """#771 Signal Card expandable analysis details."""
+    from bd_platform.natural_language_interpreter import build_signal_card_explanation_panel_771
+
+    return build_signal_card_explanation_panel_771(asset, signal_id=signal_id, user_tier=user_tier)
+
+
+@router.get("/intelligence-ledger/ux-layer/data-assistant/explain-signal/eval-suite")
+async def explain_signal_eval_suite_route():
+    from bd_platform.natural_language_interpreter import run_explain_signal_eval_suite_771
+
+    return run_explain_signal_eval_suite_771()
+
+
+@router.get("/intelligence-ledger/ux-layer/data-assistant/research")
+async def research_query_route(
+    query: str = Query("Research Bitcoin on-chain metrics and NVT"),
+    user_tier: str = Query("guest"),
+):
+    """#770 research_query intent — multi-tool grounded retrieval (merged into #766)."""
+    from bd_platform.natural_language_interpreter import build_research_query_response_770
+
+    return build_research_query_response_770(query, user_tier=user_tier)
+
+
 @router.get("/intelligence-ledger/ux-layer/natural-language/reconciliation-tests")
 async def natural_language_reconciliation_tests_route():
     from bd_platform.natural_language_interpreter import run_reconciliation_tests

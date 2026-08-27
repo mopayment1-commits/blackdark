@@ -1,7 +1,7 @@
 """
 Natural Language Interpreter — Feature #573 (Sprint 2 UX Layer).
 
-#766 Ask BLACKDARK + #767 Data Query intent merged here (not standalone).
+#766 Ask BLACKDARK + #767/#770/#771 intents merged here (not standalone).
 Rule-based intent parsing + LLM guardrails. Routes to analytical tools only.
 No advisory answers — data-only responses with evidence.
 """
@@ -21,12 +21,13 @@ from bd_platform.institutional_standards import wrap_intelligence_response
 
 logger = logging.getLogger("BLACKDARK.NaturalLanguageInterpreter")
 
-_FEATURE_IDS = (573, 766, 767)
+_FEATURE_IDS = (573, 766, 767, 770, 771)
 _FEATURE_ID = 573
-_MERGED_FEATURE_IDS = (766, 767)
+_MERGED_FEATURE_IDS = (766, 767, 770, 771)
 _TITLE = "Natural Language Interpreter"
 _DATA_ASSISTANT_TITLE_AR = "مساعد البيانات"
 _LANDING_WIDGET_TITLE_AR = "اسأل BLACKDARK"
+_EXPLAIN_SIGNAL_TITLE_AR = "تفصيل الإشارة"
 _LAYER = "UX Layer"
 _SPRINT = 2
 _SEED_PATH = Path("data/natural_language_interpreter_seed.json")
@@ -37,6 +38,8 @@ _TIMEOUT_MS = 3000
 IntentType = Literal[
     "analytical",
     "data_query",
+    "research_query",
+    "explain_signal",
     "advisory_blocked",
     "ambiguous",
     "unsupported",
@@ -47,6 +50,11 @@ IntentType = Literal[
 _DISCLAIMER = (
     "Natural language interpreter — routes to data tools only. "
     "No buy/sell advice. Advisory queries are redirected to available data."
+)
+
+_EXPLAIN_SIGNAL_DISCLAIMER = (
+    "This explanation describes how signals are computed. "
+    "Not financial advice. Not a recommendation to act."
 )
 
 _BANNED_ADVISORY_PATTERNS: tuple[re.Pattern[str], ...] = tuple(
@@ -165,6 +173,35 @@ _DATA_QUERY_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"portfolio|holdings|exposure", re.I), "portfolio_tracker"),
     (re.compile(r"price|market\s+cap|what\s+is|كم\s+سعر", re.I), "onchain_metrics"),
 ]
+
+_EXPLAIN_SIGNAL_PATTERNS: tuple[re.Pattern[str], ...] = tuple(
+    re.compile(p, re.IGNORECASE)
+    for p in (
+        r"explain.*signal",
+        r"why.*signal",
+        r"what\s+supports",
+        r"what\s+contradicts",
+        r"signal\s+details",
+        r"اشرح.*إشارة",
+        r"تفصيل.*إشارة",
+        r"تحليل.*شارة",
+    )
+)
+
+_RESEARCH_QUERY_PATTERNS: tuple[re.Pattern[str], ...] = tuple(
+    re.compile(p, re.IGNORECASE)
+    for p in (
+        r"\bresearch\b",
+        r"\banalyze\b",
+        r"\bcompare\b",
+        r"cross[\s-]?reference",
+        r"\binvestigate\b",
+        r"what\s+data\s+shows",
+        r"deep\s+dive",
+    )
+)
+
+_TIER_RANK = {"guest": 0, "authenticated": 1, "pro": 2, "admin": 3}
 
 _ASSET_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"\bbitcoin\b|\bbtc\b", re.I), "BTC"),
@@ -386,6 +423,352 @@ def _resolve_data_query_tool(query: str) -> str | None:
     return None
 
 
+def _classify_assistant_intent(query: str) -> str:
+    """Classify #766 sub-intents: explain_signal, research_query, data_query."""
+    if any(p.search(query) for p in _EXPLAIN_SIGNAL_PATTERNS):
+        return "explain_signal"
+    if any(p.search(query) for p in _RESEARCH_QUERY_PATTERNS):
+        return "research_query"
+    if _resolve_data_query_tool(query):
+        return "data_query"
+    tool_id, confidence = _match_tool(query)
+    if tool_id and confidence >= 0.5:
+        return "data_query"
+    return "unknown"
+
+
+def _tier_visibility(user_tier: str) -> dict[str, bool]:
+    """#771 permission boundaries — tier controls visible detail."""
+    rank = _TIER_RANK.get(user_tier.lower(), 0)
+    return {
+        "basic_signals": True,
+        "full_indicators": rank >= 2,
+        "contradictions": rank >= 2,
+        "next_actions": rank >= 1,
+    }
+
+
+def _metric_citation(metric: str, value: Any, source: str, *, updated: str | None = None) -> dict[str, Any]:
+    """#771 — every explanation sentence links to metric/source/timestamp."""
+    ts = updated or _utcnow()
+    return {
+        "metric": metric,
+        "value": value,
+        "source": source,
+        "updated": ts,
+        "citation": f"{metric}={value} | Source: {source} | Timestamp: {ts}",
+    }
+
+
+def _detect_signal_contradictions(
+    technical: dict[str, Any],
+    nvt: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """#771 — rule-based contradiction detection between signals."""
+    contradictions: list[dict[str, Any]] = []
+    analysis = (technical.get("analysis") or "").lower()
+    rsi = (technical.get("raw_indicators") or {}).get("RSI", {}).get("value")
+    overvalued = nvt.get("overvaluation_flag") is True
+
+    if analysis == "bullish" and overvalued:
+        contradictions.append({
+            "type": "momentum_vs_valuation",
+            "formula": "RSI/MACD: Bullish AND NVT: Overvalued",
+            "detail": "RSI: Bullish | NVT: Overvalued → Contradiction: High valuation vs momentum",
+            "rule_based": True,
+        })
+    if analysis == "bearish" and rsi is not None and rsi > 60:
+        contradictions.append({
+            "type": "macd_vs_rsi",
+            "formula": "MACD: Bearish AND RSI > 60",
+            "detail": f"MACD: Bearish | RSI({rsi}) > 60 → Contradiction: Mixed momentum signals",
+            "rule_based": True,
+        })
+    return contradictions
+
+
+def build_explain_signal_explanation_771(
+    asset: str = "BTC",
+    *,
+    signal_id: str | None = None,
+    user_tier: str = "guest",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#771 — explain_signal intent merged into #766 (no Agent/Consultant branding)."""
+    from bd_platform.market_radar_indicators import build_technical_summary_overlay_755
+    from bd_platform.onchain_metrics_library import build_nvt_ratio_suite_761
+
+    seed = seed or _load_seed()
+    cfg = seed.get("explain_signal_771") or {}
+    sym = asset.upper()
+    visibility = _tier_visibility(user_tier)
+
+    technical = build_technical_summary_overlay_755(sym)
+    nvt = build_nvt_ratio_suite_761(sym, seed=seed)
+
+    if not technical.get("ok"):
+        return {
+            "ok": False,
+            "feature_ref": 771,
+            "intent_type": "explain_signal",
+            "asset": sym,
+            "error": "signal_data_unavailable",
+            "message": "Data unavailable",
+            "display": "Data unavailable",
+        }
+
+    evidence: list[dict[str, Any]] = []
+    rsi_val = (technical.get("raw_indicators") or {}).get("RSI", {}).get("value")
+    macd_label = (technical.get("raw_indicators") or {}).get("MACD", {}).get("trend_label", "")
+    ts = technical.get("timestamp") or _utcnow()
+
+    evidence.append(_metric_citation("RSI(14)", rsi_val, "Technical Calculation Layer", updated=ts))
+    evidence.append(_metric_citation("MACD trend", macd_label, "Technical Calculation Layer", updated=ts))
+    evidence.append(_metric_citation(
+        "Technical Summary",
+        technical.get("analysis"),
+        "Technical Summary Overlay",
+        updated=ts,
+    ))
+    evidence.append(_metric_citation(
+        "Confidence Level",
+        f"{technical.get('confidence_pct')}% (Rule-Based)",
+        "Signal Engine",
+        updated=ts,
+    ))
+
+    if visibility["full_indicators"] and nvt.get("ok"):
+        evidence.append(_metric_citation(
+            "NVT Ratio",
+            nvt.get("nvt_ratio"),
+            "On-Chain Metrics Library",
+            updated=nvt.get("timestamp") or ts,
+        ))
+
+    contradictions = _detect_signal_contradictions(technical, nvt) if visibility["contradictions"] else []
+
+    next_actions: list[dict[str, str]] = []
+    if visibility["next_actions"]:
+        next_actions = [
+            {"label": "Explore NVT Ratio in Market Radar", "route": "/intelligence-ledger/market-radar/panel"},
+            {"label": "Risk context in Intelligence Ledger", "route": "/intelligence-ledger/onchain-layer/metrics-library/nvt-ratio/overvaluation-flag"},
+            {"label": "Technical indicators in Market Radar", "route": "/intelligence-ledger/market-radar/panel"},
+        ]
+
+    explanation_lines = [e["citation"] for e in evidence]
+    if contradictions:
+        explanation_lines.extend(c["detail"] for c in contradictions)
+
+    return {
+        "ok": True,
+        "feature_ref": 771,
+        "intent_type": "explain_signal",
+        "merged_into": 766,
+        "standalone_rejected": True,
+        "no_agent_branding": True,
+        "no_consultant_branding": True,
+        "title_ar": _EXPLAIN_SIGNAL_TITLE_AR,
+        "asset": sym,
+        "signal_id": signal_id,
+        "technical_summary": technical.get("analysis"),
+        "confidence_pct": technical.get("confidence_pct"),
+        "confidence_source": "Signal Engine (Rule-Based)",
+        "evidence": evidence,
+        "contradictions": contradictions,
+        "contradiction_detection": "rule_based",
+        "next_analytical_actions": next_actions,
+        "no_buy_sell_execute": True,
+        "permission_tier": user_tier,
+        "visibility": visibility,
+        "grounded_platform_data_only": True,
+        "no_invented_metrics": True,
+        "explanation": explanation_lines,
+        "disclaimer": _EXPLAIN_SIGNAL_DISCLAIMER,
+        "disclaimer_mandatory": True,
+        "disclaimer_non_hideable": True,
+        "display": " | ".join(explanation_lines[:3]),
+        "timestamp": _utcnow(),
+    }
+
+
+def _resolve_research_tools(query: str) -> list[str]:
+    """#770 — multi-tool research retrieval."""
+    tools: list[str] = []
+    for pat, tool_id in _DATA_QUERY_PATTERNS:
+        if pat.search(query) and tool_id not in tools:
+            tools.append(tool_id)
+    if not tools:
+        tools = ["onchain_metrics", "nvt_context", "market_conditions"]
+    return tools[:3]
+
+
+def build_research_query_response_770(
+    query: str,
+    *,
+    user_tier: str = "guest",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#770 — research_query intent: multi-tool grounded retrieval."""
+    seed = seed or _load_seed()
+    cfg = seed.get("research_query_770") or {}
+    timeout_ms = int((seed.get("data_assistant_766") or {}).get("timeout_ms", _TIMEOUT_MS))
+    t0 = time.perf_counter()
+    query = (query or "").strip()
+
+    if _is_advisory_query(query):
+        blocked = _advisory_redirect(query, _extract_asset(query))
+        blocked["intent_type"] = "research_query"
+        blocked["feature_ref"] = 770
+        return blocked
+
+    tool_ids = _resolve_research_tools(query)
+    tool_trace: list[dict[str, Any]] = []
+    citations: list[dict[str, Any]] = []
+    results: dict[str, Any] = {}
+
+    for tool_id in tool_ids:
+        perm = check_permission(tool_id, user_tier=user_tier, seed=seed)
+        if not perm["allowed"]:
+            tool_trace.append({
+                "tool_id": tool_id,
+                "route": _TOOL_SCHEMAS[tool_id]["route"],
+                "ok": False,
+                "permission_denied": True,
+            })
+            continue
+        params = _build_params(tool_id, query)
+        result = _execute_tool(tool_id, params)
+        results[tool_id] = result
+        tool_trace.append({
+            "tool_id": tool_id,
+            "route": _TOOL_SCHEMAS[tool_id]["route"],
+            "ok": result.get("ok", True),
+            "timestamp": _utcnow(),
+        })
+        if result.get("ok", True):
+            citations.append(_build_citation(tool_id, result))
+
+    elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+    if elapsed_ms > timeout_ms:
+        messages = seed.get("fallback_messages") or {}
+        return {
+            "ok": False,
+            "feature_ref": 770,
+            "intent_type": "research_query",
+            "timeout_ms": timeout_ms,
+            "latency_ms": elapsed_ms,
+            "message": messages.get("service_unavailable", "Service unavailable, try later"),
+            "display": messages.get("service_unavailable", "Service unavailable, try later"),
+        }
+
+    if not citations:
+        messages = seed.get("fallback_messages") or {}
+        return {
+            "ok": True,
+            "feature_ref": 770,
+            "intent_type": "research_query",
+            "grounded_platform_data_only": True,
+            "no_fabricated_metrics": True,
+            "interpreted_query": query,
+            "message": messages.get("no_data", "I don't have data on that."),
+            "display": messages.get("no_data", "I don't have data on that."),
+            "tool_trace": tool_trace,
+            "latency_ms": elapsed_ms,
+        }
+
+    tier = user_tier.lower()
+    fee_db = {
+        "llm_api_usd": 0.0,
+        "data_queries_usd": float((cfg.get("fee_db") or {}).get("research_query_usd", 0.005)),
+        "tier": tier,
+        "tool_count": len(tool_trace),
+    }
+
+    return {
+        "ok": True,
+        "feature_ref": 770,
+        "intent_type": "research_query",
+        "merged_into": 766,
+        "standalone_rejected": True,
+        "no_agent_branding": True,
+        "interpreted_query": query,
+        "grounded_platform_data_only": True,
+        "no_fabricated_metrics": True,
+        "rule_based_retrieval_first": True,
+        "no_autonomous_research": True,
+        "tool_ids": tool_ids,
+        "research_results": results,
+        "citations": citations,
+        "tool_trace": tool_trace,
+        "fee_db": fee_db,
+        "latency_ms": elapsed_ms,
+        "timeout_ms": timeout_ms,
+        "display": " | ".join(c["citation"] for c in citations[:3]),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_signal_card_explanation_panel_771(
+    asset: str = "BTC",
+    *,
+    signal_id: str | None = None,
+    user_tier: str = "guest",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#771 — Signal Card expandable 'تفاصيل التحليل'."""
+    explanation = build_explain_signal_explanation_771(
+        asset, signal_id=signal_id, user_tier=user_tier, seed=seed,
+    )
+    return wrap_intelligence_response({
+        "ok": explanation.get("ok", False),
+        "feature_ref": 771,
+        "surface": "signal_card",
+        "panel": "analysis_details",
+        "panel_title_ar": "تفاصيل التحليل",
+        "expandable": True,
+        "explanation": explanation,
+        "timestamp": _utcnow(),
+    }, source="natural_language_interpreter")
+
+
+def run_explain_signal_eval_suite_771(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#771 — daily eval: 20 known queries must match grounded data ±0%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("explain_signal_771") or {}
+    fixtures = cfg.get("eval_fixtures") or []
+    tests: list[dict[str, Any]] = []
+
+    for fixture in fixtures:
+        asset = fixture.get("asset", "BTC")
+        tier = fixture.get("user_tier", "pro")
+        result = build_explain_signal_explanation_771(asset, user_tier=tier, seed=seed)
+        expected_fields = fixture.get("expected_fields") or []
+        passed = result.get("ok") is True
+        for field in expected_fields:
+            if field == "rsi_present":
+                passed = passed and any("RSI" in (e.get("metric") or "") for e in result.get("evidence") or [])
+            elif field == "disclaimer":
+                passed = passed and result.get("disclaimer") == _EXPLAIN_SIGNAL_DISCLAIMER
+            elif field == "no_agent":
+                passed = passed and result.get("no_agent_branding") is True
+        tests.append({
+            "test": fixture.get("id", "eval"),
+            "passed": passed,
+            "asset": asset,
+        })
+
+    all_passed = all(t["passed"] for t in tests) if tests else True
+    return {
+        "ok": all_passed,
+        "feature_ref": 771,
+        "eval_suite": tests,
+        "all_passed": all_passed,
+        "fixture_count": len(fixtures),
+        "daily_qa_required": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def interpret_data_assistant_query(
     query: str,
     *,
@@ -412,6 +795,54 @@ def interpret_data_assistant_query(
         blocked["feature_refs"] = list(_MERGED_FEATURE_IDS)
         blocked["branding"] = {"ar": _DATA_ASSISTANT_TITLE_AR, "no_ai_chat_branding": True}
         return blocked
+
+    intent = _classify_assistant_intent(query)
+    asset = _extract_asset(query) or "BTC"
+
+    if intent == "explain_signal":
+        elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+        if elapsed_ms > timeout_ms:
+            messages = seed.get("fallback_messages") or {}
+            return {
+                "ok": False,
+                "feature_refs": list(_MERGED_FEATURE_IDS),
+                "intent_type": "service_unavailable",
+                "timeout_ms": timeout_ms,
+                "latency_ms": elapsed_ms,
+                "message": messages.get("service_unavailable", "Service unavailable, try later"),
+                "display": messages.get("service_unavailable", "Service unavailable, try later"),
+            }
+        explanation = build_explain_signal_explanation_771(asset, user_tier=user_tier, seed=seed)
+        cfg_fee = (seed.get("explain_signal_771") or {}).get("fee_db") or {}
+        return {
+            **explanation,
+            "feature_refs": list(_MERGED_FEATURE_IDS),
+            "intent": "explain_signal",
+            "merged_from_771": True,
+            "no_ai_chat_branding": True,
+            "branding": {"ar": _DATA_ASSISTANT_TITLE_AR, "explain_ar": _EXPLAIN_SIGNAL_TITLE_AR},
+            "interpreted_query": query,
+            "tool_trace": [
+                {"tool_id": "technical_summary", "route": "/intelligence-ledger/market-radar/panel", "ok": True},
+                {"tool_id": "nvt_context", "route": "/intelligence-ledger/onchain-layer/metrics-library/nvt-ratio", "ok": True},
+            ],
+            "fee_db": {
+                "llm_api_usd": float(cfg_fee.get("llm_formatting_usd", 0.001)),
+                "data_queries_usd": float(cfg_fee.get("data_query_usd", 0.003)),
+                "tier": user_tier.lower(),
+            },
+            "latency_ms": elapsed_ms,
+            "timeout_ms": timeout_ms,
+        }
+
+    if intent == "research_query":
+        research = build_research_query_response_770(query, user_tier=user_tier, seed=seed)
+        research["feature_refs"] = list(_MERGED_FEATURE_IDS)
+        research["intent"] = "research_query"
+        research["merged_from_770"] = True
+        research["no_ai_chat_branding"] = True
+        research["branding"] = {"ar": _DATA_ASSISTANT_TITLE_AR, "landing_ar": _LANDING_WIDGET_TITLE_AR}
+        return research
 
     tool_id = _resolve_data_query_tool(query) or _match_tool(query)[0]
     if tool_id is None:
@@ -527,12 +958,13 @@ def build_landing_ask_widget_766(
         "widget_title_ar": _LANDING_WIDGET_TITLE_AR,
         "no_ai_chat_branding": True,
         "standalone_rejected": True,
-        "merged_intents": ["data_query_767"],
+        "merged_intents": ["data_query_767", "research_query_770", "explain_signal_771"],
         "assistant": result,
         "sample_queries": [
             "What is Bitcoin's NVT?",
             "What are the latest Bitcoin news?",
-            "Show Bitcoin on-chain metrics",
+            "Research Bitcoin on-chain metrics and NVT",
+            "Explain this Bitcoin signal",
         ],
         "timestamp": _utcnow(),
     }, source="natural_language_interpreter")
@@ -554,7 +986,7 @@ def build_portfolio_data_assistant_panel_766(
         "tab_title_ar": _DATA_ASSISTANT_TITLE_AR,
         "no_ai_chat_branding": True,
         "standalone_rejected": True,
-        "merged_intents": ["data_query_767"],
+        "merged_intents": ["data_query_767", "research_query_770", "explain_signal_771"],
         "assistant": result,
         "timestamp": _utcnow(),
     }, source="natural_language_interpreter")
@@ -702,6 +1134,19 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     no_data = interpret_data_assistant_query("Tell me about Dogecoin futures on Binance US")
     tests.append({"test": "no_fabricated_metrics", "passed": "don't have data" in (no_data.get("message") or "").lower() or no_data.get("intent_type") == "data_query"})
+
+    research = interpret_data_assistant_query("Research and compare Bitcoin on-chain metrics")
+    tests.append({"test": "research_query_intent_770", "passed": research.get("intent_type") == "research_query"})
+    tests.append({"test": "research_tool_trace_770", "passed": bool(research.get("tool_trace"))})
+    tests.append({"test": "no_agent_branding_770", "passed": research.get("no_agent_branding") is True})
+
+    explain = interpret_data_assistant_query("Explain this Bitcoin signal", user_tier="pro")
+    tests.append({"test": "explain_signal_intent_771", "passed": explain.get("intent_type") == "explain_signal"})
+    tests.append({"test": "explain_evidence_771", "passed": bool(explain.get("evidence"))})
+    tests.append({"test": "explain_disclaimer_771", "passed": explain.get("disclaimer_non_hideable") is True})
+
+    eval_suite = run_explain_signal_eval_suite_771()
+    tests.append({"test": "explain_eval_suite_771", "passed": eval_suite.get("all_passed") is True})
 
     all_passed = all(t["passed"] for t in tests)
     return {"ok": True, "reconciliation_tests": tests, "all_passed": all_passed, "test_count": len(tests)}

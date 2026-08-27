@@ -175,3 +175,97 @@ def test_768_market_radar_integration(ace_seed):
     panel = mri.build_market_radar_panel("binance", "BTC")
     assert panel["news_digest_768"]["ok"] is True
     assert panel["nvt_ratio_761"]["ok"] is True
+
+
+# --- #770 ---
+
+
+def test_770_research_query_intent(nli_seed):
+    result = nli.interpret_data_assistant_query(
+        "Research and compare Bitcoin on-chain metrics and NVT",
+        seed=nli_seed,
+    )
+    assert result["intent_type"] == "research_query"
+    assert result["no_agent_branding"] is True
+    assert len(result["tool_trace"]) >= 1
+    assert result["citations"]
+
+
+def test_770_multi_tool_trace(nli_seed):
+    result = nli.build_research_query_response_770(
+        "Analyze Bitcoin NVT and market conditions",
+        seed=nli_seed,
+    )
+    assert result["intent_type"] == "research_query"
+    assert result["no_autonomous_research"] is True
+    assert result["fee_db"]["tool_count"] >= 1
+
+
+def test_770_no_agent_branding(nli_seed):
+    result = nli.build_research_query_response_770("Research Bitcoin", seed=nli_seed)
+    assert result["no_agent_branding"] is True
+
+
+# --- #771 ---
+
+
+def test_771_explain_signal_intent(nli_seed):
+    result = nli.interpret_data_assistant_query(
+        "Explain this Bitcoin signal",
+        user_tier="pro",
+        seed=nli_seed,
+    )
+    assert result["intent_type"] == "explain_signal"
+    assert result["no_agent_branding"] is True
+    assert result["no_consultant_branding"] is True
+    assert result["title_ar"] == "تفصيل الإشارة"
+
+
+def test_771_evidence_citations(nli_seed):
+    result = nli.build_explain_signal_explanation_771("BTC", user_tier="pro", seed=nli_seed)
+    assert result["ok"] is True
+    assert result["evidence"]
+    for item in result["evidence"]:
+        assert "Source:" in item["citation"]
+        assert "Timestamp:" in item["citation"]
+
+
+def test_771_disclaimer_mandatory(nli_seed):
+    result = nli.build_explain_signal_explanation_771("BTC", user_tier="pro", seed=nli_seed)
+    assert result["disclaimer_mandatory"] is True
+    assert result["disclaimer_non_hideable"] is True
+    assert "Not financial advice" in result["disclaimer"]
+
+
+def test_771_contradiction_detection(nli_seed):
+    result = nli.build_explain_signal_explanation_771("BTC", user_tier="pro", seed=nli_seed)
+    assert result["contradiction_detection"] == "rule_based"
+    assert isinstance(result["contradictions"], list)
+
+
+def test_771_next_actions_no_buy_sell(nli_seed):
+    result = nli.build_explain_signal_explanation_771("BTC", user_tier="authenticated", seed=nli_seed)
+    assert result["no_buy_sell_execute"] is True
+    for action in result.get("next_analytical_actions") or []:
+        assert "route" in action
+        assert "Buy" not in action["label"]
+        assert "Sell" not in action["label"]
+
+
+def test_771_permission_tiers(nli_seed):
+    guest = nli.build_explain_signal_explanation_771("BTC", user_tier="guest", seed=nli_seed)
+    pro = nli.build_explain_signal_explanation_771("BTC", user_tier="pro", seed=nli_seed)
+    assert guest["visibility"]["full_indicators"] is False
+    assert pro["visibility"]["full_indicators"] is True
+
+
+def test_771_signal_card_panel(nli_seed):
+    panel = nli.build_signal_card_explanation_panel_771("BTC", user_tier="pro", seed=nli_seed)
+    assert panel["panel_title_ar"] == "تفاصيل التحليل"
+    assert panel["expandable"] is True
+
+
+def test_771_eval_suite(nli_seed):
+    suite = nli.run_explain_signal_eval_suite_771(seed=nli_seed)
+    assert suite["fixture_count"] == 20
+    assert suite["all_passed"] is True

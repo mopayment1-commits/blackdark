@@ -1,15 +1,15 @@
 {
   "feature_id": 573,
-  "merged_features": [766, 767],
+  "merged_features": [766, 767, 770, 771],
   "title": "Natural Language Interpreter",
   "layer": "UX Layer",
   "sprint": 2,
   "methodology_version": "1.0",
   "last_updated": "2026-08-27",
   "permissions": {
-    "guest": ["market_conditions", "onchain_metrics", "news_panel", "news_digest", "nvt_context", "data_query"],
-    "authenticated": ["exchange_flow", "portfolio_tracker"],
-    "pro": ["exchange_flow", "portfolio_tracker", "market_conditions", "onchain_metrics", "news_panel", "news_digest", "nvt_context", "data_query"],
+    "guest": ["market_conditions", "onchain_metrics", "news_panel", "news_digest", "nvt_context", "data_query", "research_query", "explain_signal"],
+    "authenticated": ["exchange_flow", "portfolio_tracker", "research_query", "explain_signal"],
+    "pro": ["exchange_flow", "portfolio_tracker", "market_conditions", "onchain_metrics", "news_panel", "news_digest", "nvt_context", "data_query", "research_query", "explain_signal"],
     "admin": ["*"]
   },
   "fallback_messages": {
@@ -22,7 +22,7 @@
   },
   "data_assistant_766": {
     "feature_ref": 766,
-    "merged_from": [767],
+    "merged_from": [767, 770, 771],
     "timeout_ms": 3000,
     "grounded_platform_data_only": true,
     "no_ai_chat_branding": true,
@@ -32,5 +32,47 @@
       "data_query_usd": 0.002,
       "llm_api_usd": 0.0
     }
+  },
+  "research_query_770": {
+    "feature_ref": 770,
+    "merged_into": 766,
+    "no_agent_branding": true,
+    "max_tools": 3,
+    "fee_db": {
+      "research_query_usd": 0.005
+    }
+  },
+  "explain_signal_771": {
+    "feature_ref": 771,
+    "merged_into": 766,
+    "title_ar": "تفصيل الإشارة",
+    "no_agent_branding": true,
+    "no_consultant_branding": true,
+    "fee_db": {
+      "data_query_usd": 0.003,
+      "llm_formatting_usd": 0.001
+    },
+    "eval_fixtures": [
+      {"id": "btc_rsi_present", "asset": "BTC", "user_tier": "pro", "expected_fields": ["rsi_present", "disclaimer", "no_agent"]},
+      {"id": "btc_guest_basic", "asset": "BTC", "user_tier": "guest", "expected_fields": ["rsi_present", "disclaimer", "no_agent"]},
+      {"id": "btc_pro_full", "asset": "BTC", "user_tier": "pro", "expected_fields": ["rsi_present", "disclaimer", "no_agent"]},
+      {"id": "btc_auth", "asset": "BTC", "user_tier": "authenticated", "expected_fields": ["rsi_present", "disclaimer"]},
+      {"id": "btc_admin", "asset": "BTC", "user_tier": "admin", "expected_fields": ["rsi_present", "disclaimer", "no_agent"]},
+      {"id": "btc_rsi_2", "asset": "BTC", "user_tier": "pro", "expected_fields": ["rsi_present"]},
+      {"id": "btc_disclaimer", "asset": "BTC", "user_tier": "guest", "expected_fields": ["disclaimer"]},
+      {"id": "btc_no_agent", "asset": "BTC", "user_tier": "pro", "expected_fields": ["no_agent"]},
+      {"id": "btc_evidence", "asset": "BTC", "user_tier": "pro", "expected_fields": ["rsi_present", "disclaimer"]},
+      {"id": "btc_confidence", "asset": "BTC", "user_tier": "pro", "expected_fields": ["rsi_present"]},
+      {"id": "btc_guest_rsi", "asset": "BTC", "user_tier": "guest", "expected_fields": ["rsi_present"]},
+      {"id": "btc_pro_disclaimer", "asset": "BTC", "user_tier": "pro", "expected_fields": ["disclaimer"]},
+      {"id": "btc_auth_rsi", "asset": "BTC", "user_tier": "authenticated", "expected_fields": ["rsi_present"]},
+      {"id": "btc_admin_disclaimer", "asset": "BTC", "user_tier": "admin", "expected_fields": ["disclaimer"]},
+      {"id": "btc_pro_agent", "asset": "BTC", "user_tier": "pro", "expected_fields": ["no_agent"]},
+      {"id": "btc_guest_disclaimer", "asset": "BTC", "user_tier": "guest", "expected_fields": ["disclaimer"]},
+      {"id": "btc_auth_disclaimer", "asset": "BTC", "user_tier": "authenticated", "expected_fields": ["disclaimer"]},
+      {"id": "btc_pro_rsi", "asset": "BTC", "user_tier": "pro", "expected_fields": ["rsi_present", "disclaimer"]},
+      {"id": "btc_admin_rsi", "asset": "BTC", "user_tier": "admin", "expected_fields": ["rsi_present"]},
+      {"id": "btc_guest_no_agent", "asset": "BTC", "user_tier": "guest", "expected_fields": ["no_agent"]}
+    ]
   }
 }
