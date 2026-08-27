@@ -1,0 +1,138 @@
+{
+  "epic_feature_id": 577,
+  "feature_ids": [577, 574, 603],
+  "title": "On-Chain Metrics Library",
+  "standalone_rejected": true,
+  "layer": "Foundation Layer",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "cohort_threshold_version": "1.0",
+  "last_updated": "2026-08-27",
+  "metric_definitions": {
+    "active_addresses": {
+      "name": "Active Addresses (24h)",
+      "formula": "count(distinct addresses with >=1 on-chain tx in rolling 24h window)",
+      "formula_version": "1.0",
+      "source": "blockchain_indexer",
+      "unit": "addresses",
+      "update_frequency": "hourly"
+    },
+    "circulating_supply": {
+      "name": "Circulating Supply",
+      "formula": "total_supply - locked_supply",
+      "formula_version": "1.0",
+      "source": "coingecko_indexer",
+      "unit": "tokens",
+      "update_frequency": "daily"
+    }
+  },
+  "known_entities": {
+    "ETH": {
+      "exchange": [
+        {"address": "0x28c6c06298d20db268d28021c6c480b4360329e7", "name": "binance_hot", "label": "Binance Hot Wallet"},
+        {"address": "0x21a31ee1afc51d94c2e590ca6e02e44ce58f9897", "name": "binance_cold", "label": "Binance Cold Wallet"}
+      ],
+      "contract": [
+        {"address": "0xdac17f958d2ee523a2206206994597c13d831ec7", "name": "usdt_contract", "label": "USDT Contract (excluded)"}
+      ],
+      "bridge": []
+    },
+    "BTC": {
+      "exchange": [
+        {"address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", "name": "binance_btc", "label": "Binance BTC Hot"}
+      ],
+      "contract": [],
+      "bridge": []
+    },
+    "default": {
+      "exchange": [],
+      "contract": [],
+      "bridge": []
+    }
+  },
+  "assets": {
+    "ETH": {
+      "metrics": {
+        "active_addresses": {"value": 485200, "available": true, "as_of": "2026-08-27T10:00:00Z"},
+        "circulating_supply": {"value": 120500000, "available": true, "as_of": "2026-08-27T10:00:00Z"}
+      },
+      "supply_distribution_603": {
+        "circulating_supply": 120500000,
+        "prior_cohorts": {
+          "cohort_1": {"supply_share_pct": 8.2},
+          "cohort_2": {"supply_share_pct": 6.5},
+          "cohort_3": {"supply_share_pct": 12.1},
+          "cohort_4": {"supply_share_pct": 18.4},
+          "cohort_5": {"supply_share_pct": 22.0},
+          "cohort_6": {"supply_share_pct": 15.3},
+          "cohort_7": {"supply_share_pct": 12.5}
+        },
+        "holders": [
+          {"address": "0x0000000000000000000000000000000000000001", "balance": 0.05},
+          {"address": "0x0000000000000000000000000000000000000002", "balance": 0.5},
+          {"address": "0x0000000000000000000000000000000000000003", "balance": 5.0},
+          {"address": "0x0000000000000000000000000000000000000004", "balance": 50.0},
+          {"address": "0x0000000000000000000000000000000000000005", "balance": 500.0},
+          {"address": "0x0000000000000000000000000000000000000006", "balance": 5000.0},
+          {"address": "0x0000000000000000000000000000000000000008", "balance": 11599444.445},
+          {"address": "0x0000000000000000000000000000000000000009", "balance": 11599444.445},
+          {"address": "0x000000000000000000000000000000000000000a", "balance": 11599444.445},
+          {"address": "0x000000000000000000000000000000000000000b", "balance": 11599444.445},
+          {"address": "0x000000000000000000000000000000000000000c", "balance": 11599444.445},
+          {"address": "0x000000000000000000000000000000000000000d", "balance": 11599444.445},
+          {"address": "0x000000000000000000000000000000000000000e", "balance": 11599444.445},
+          {"address": "0x000000000000000000000000000000000000000f", "balance": 11599444.445},
+          {"address": "0x0000000000000000000000000000000000000010", "balance": 11599444.445},
+          {"address": "0x0000000000000000000000000000000000000011", "balance": 11599444.445},
+          {"address": "0x28c6c06298d20db268d28021c6c480b4360329e7", "balance": 2500000.0},
+          {"address": "0x21a31ee1afc51d94c2e590ca6e02e44ce58f9897", "balance": 1500000.0},
+          {"address": "0xdac17f958d2ee523a2206206994597c13d831ec7", "balance": 500000.0}
+        ]
+      }
+    },
+    "BTC": {
+      "metrics": {
+        "active_addresses": {"value": 892450, "available": true, "as_of": "2026-08-27T10:00:00Z"},
+        "circulating_supply": {"value": 19800000, "available": true, "as_of": "2026-08-27T10:00:00Z"}
+      },
+      "supply_distribution_603": {
+        "circulating_supply": 19800000,
+        "prior_cohorts": {
+          "cohort_1": {"supply_share_pct": 5.0},
+          "cohort_2": {"supply_share_pct": 7.0},
+          "cohort_3": {"supply_share_pct": 10.0},
+          "cohort_4": {"supply_share_pct": 15.0},
+          "cohort_5": {"supply_share_pct": 20.0},
+          "cohort_6": {"supply_share_pct": 18.0},
+          "cohort_7": {"supply_share_pct": 20.0}
+        },
+        "holders": [
+          {"address": "bc1q000000000000000000000000000000000001", "balance": 0.05},
+          {"address": "bc1q000000000000000000000000000000000002", "balance": 0.5},
+          {"address": "bc1q000000000000000000000000000000000003", "balance": 5.0},
+          {"address": "bc1q000000000000000000000000000000000004", "balance": 50.0},
+          {"address": "bc1q000000000000000000000000000000000005", "balance": 500.0},
+          {"address": "bc1q000000000000000000000000000000000006", "balance": 5000.0},
+          {"address": "bc1q000000000000000000000000000000000007", "balance": 50000.0},
+          {"address": "bc1q000000000000000000000000000000000008", "balance": 1964444.445},
+          {"address": "bc1q000000000000000000000000000000000009", "balance": 1964444.445},
+          {"address": "bc1q00000000000000000000000000000000000a", "balance": 1964444.445},
+          {"address": "bc1q00000000000000000000000000000000000b", "balance": 1964444.445},
+          {"address": "bc1q00000000000000000000000000000000000c", "balance": 1964444.445},
+          {"address": "bc1q00000000000000000000000000000000000d", "balance": 1964444.445},
+          {"address": "bc1q00000000000000000000000000000000000e", "balance": 1964444.445},
+          {"address": "bc1q00000000000000000000000000000000000f", "balance": 1964444.445},
+          {"address": "bc1q000000000000000000000000000000000010", "balance": 1964444.445},
+          {"address": "bc1q000000000000000000000000000000000011", "balance": 1964444.445},
+          {"address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", "balance": 100000.0}
+        ]
+      }
+    }
+  },
+  "historical_qa": {
+    "periods_tested": 24,
+    "formula_consistency_pct": 99.0,
+    "missing_not_zero_enforced": true,
+    "last_qa_run": "2026-08-27T00:00:00Z"
+  }
+}

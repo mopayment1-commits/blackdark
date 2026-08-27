@@ -548,6 +548,49 @@ async def intelligence_ledger_slippage(
     )
 
 
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/status")
+async def onchain_metrics_library_status():
+    from bd_platform.onchain_metrics_library import onchain_metrics_library_status as _status
+
+    return _status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library")
+async def onchain_metrics_library_panel(asset: str = Query("ETH")):
+    from bd_platform.onchain_metrics_library import build_onchain_metrics_library_panel
+
+    return build_onchain_metrics_library_panel(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/network-api")
+async def onchain_metrics_library_network_api(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_network_data_pro_api
+
+    return build_network_data_pro_api(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-distribution")
+async def onchain_metrics_supply_distribution(asset: str = Query("ETH")):
+    """#603 merged into #577 — distribution dashboard."""
+    from bd_platform.onchain_metrics_library import build_supply_distribution_dashboard
+
+    return build_supply_distribution_dashboard(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-distribution/reconciliation-tests")
+async def onchain_metrics_supply_distribution_qa():
+    from bd_platform.onchain_metrics_library import run_supply_distribution_reconciliation_tests
+
+    return run_supply_distribution_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/historical-qa")
+async def onchain_metrics_library_historical_qa():
+    from bd_platform.onchain_metrics_library import run_historical_qa_tests
+
+    return run_historical_qa_tests()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),
