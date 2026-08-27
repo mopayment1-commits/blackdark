@@ -60,6 +60,16 @@ async def test_alpha_engine_signal_mock():
         new=AsyncMock(
             return_value={
                 "symbol": "BTC",
+                "features": {
+                    "momentum_24h": 70,
+                    "momentum_7d_proxy": 65,
+                    "fear_greed": 55,
+                    "entity_flow": 52,
+                    "liquidity": 65,
+                    "volume_ratio": 50,
+                    "volatility_24h": 40,
+                    "trend_strength": 68,
+                },
                 "factors": {
                     "momentum": 70,
                     "sentiment_fg": 55,
@@ -80,6 +90,9 @@ async def test_alpha_engine_signal_mock():
     assert 0 <= out["alpha_score"] <= 100
     assert "alternative.me" in out["input_sources"]
     assert "arkham" in out["input_sources"]
+    assert len(out["explanations"]) >= 1
+    assert out["feature_count"] == 8
+    assert out["model"]["type"] == "weighted_ensemble_v1"
 
 
 def test_alpha_api(tmp_path, monkeypatch):

@@ -214,6 +214,7 @@ async def market_radar_narrative() -> dict[str, Any]:
     import aiohttp
 
     import config
+    from blackdark.ingestion.twelvedata_connector import fetch_twelvedata_macro_context
 
     sector_assets: dict[str, list[float]] = {}
     timeout = aiohttp.ClientTimeout(total=12)
@@ -227,10 +228,20 @@ async def market_radar_narrative() -> dict[str, Any]:
     sectors = _sector_rows(sector_assets)
     bullets_en = _market_radar_bullets(sectors)
 
+    macro = await fetch_twelvedata_macro_context()
+    if macro.get("headline"):
+        bullets_en.insert(0, str(macro["headline"]))
+
     return {
         "summary": "Today's market: " + " · ".join(bullets_en[:5]),
         "bullets": bullets_en,
         "sectors": sectors,
+        "macro_context": macro if macro.get("ok") else None,
+        "macro_enrichment": {
+            "correlation_narrative": macro.get("correlation_narrative"),
+            "quotes": macro.get("quotes"),
+            "btc_change_pct": macro.get("btc_change_pct"),
+        },
         "timestamp": datetime.now(UTC).isoformat(),
     }
 
