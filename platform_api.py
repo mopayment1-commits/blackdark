@@ -5523,6 +5523,56 @@ async def view_modes_asset_card_route(
     return build_asset_card_view_modes_804(asset, view_mode=view_mode)
 
 
+@router.get("/intelligence-ledger/data-engine/query-scheduler/status")
+async def query_scheduler_status_route():
+    """#818 Scheduled Queries — Data Engine query_scheduler component."""
+    from bd_platform.data_engine_query_scheduler import query_scheduler_status_818
+
+    return query_scheduler_status_818()
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/queries")
+async def query_scheduler_list_route():
+    from bd_platform.data_engine_query_scheduler import list_scheduled_queries_818
+
+    return list_scheduled_queries_818()
+
+
+@router.post("/intelligence-ledger/data-engine/query-scheduler/execute")
+async def query_scheduler_execute_route(query_id: str = Query(...)):
+    from bd_platform.data_engine_query_scheduler import run_scheduled_query_with_retries_818
+
+    return run_scheduled_query_with_retries_818(query_id)
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/retry-logs")
+async def query_scheduler_retry_logs_route(query_id: str | None = Query(None), limit: int = Query(50)):
+    from bd_platform.data_engine_query_scheduler import list_query_retry_logs_818
+
+    return list_query_retry_logs_818(query_id=query_id, limit=limit)
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/failure-logs")
+async def query_scheduler_failure_logs_route(limit: int = Query(50)):
+    from bd_platform.data_engine_query_scheduler import list_query_failure_logs_818
+
+    return list_query_failure_logs_818(limit=limit)
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/market-radar-refresh")
+async def query_scheduler_market_radar_refresh_route(asset: str = Query("BTC")):
+    from bd_platform.data_engine_query_scheduler import build_market_radar_scheduled_refresh_818
+
+    return build_market_radar_scheduled_refresh_818(asset)
+
+
+@router.get("/intelligence-ledger/data-engine/query-scheduler/e2e")
+async def query_scheduler_e2e_route():
+    from bd_platform.data_engine_query_scheduler import run_query_scheduler_e2e_818
+
+    return run_query_scheduler_e2e_818()
+
+
 @router.get("/intelligence-ledger/ux-layer/progressive-disclosure/status")
 async def progressive_disclosure_status_route():
     """#815 Progressive Disclosure — cross-cutting UX pattern."""
