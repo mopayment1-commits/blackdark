@@ -182,7 +182,7 @@ def test_524_status(context_seed):
     status = cdmc.cross_domain_market_context_status()
     assert status["rule_based_only"] is True
     assert status["tasks_not_tickets"] is True
-    assert len(status["sub_modules"]) == 7
+    assert len(status["sub_modules"]) == 8
 
 
 def test_api_routes(context_seed):

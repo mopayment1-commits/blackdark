@@ -22,7 +22,7 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.CrossDomainMarketContextLayer")
 
 _FEATURE_ID = 524
-_ABSORBED_IDS = (523, 525, 526, 527, 528, 529, 530)
+_ABSORBED_IDS = (523, 525, 526, 527, 528, 529, 530, 599)
 _RENAMED_FROM = (
     "Cross-Domain Decision Intelligence Layer",
     "Cross-Domain Decision Intelligence",
@@ -88,6 +88,14 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "title": "Market-Wide Aggregation Module",
         "description": "Cross-market normalization with stale-source penalties",
         "domains": ["on_chain", "derivatives", "liquidity", "sentiment", "macro", "risk"],
+    },
+    "599": {
+        "task_id": "599",
+        "name": "hype_vs_reality_signal",
+        "title": "Hype vs Reality Signal",
+        "description": "Social vs on-chain confirmation — Confirmed/Social-only/On-chain-only/Contradictory",
+        "domains": ["social", "on_chain", "sentiment", "whale_flow"],
+        "renamed_from": "Social-to-On-Chain Confirmation Engine",
     },
 }
 
@@ -410,8 +418,15 @@ def build_market_context_panel(
     sub_feeds = {
         sid: build_sub_module_feed(sid, asset=asset, seed=seed)
         for sid in active_subs
-        if sid in _SUB_MODULES
+        if sid in _SUB_MODULES and sid != "599"
     }
+    if "599" in active_subs or not sub_modules:
+        try:
+            from bd_platform.hype_vs_reality_signal import build_hype_vs_reality_panel
+
+            sub_feeds["599"] = build_hype_vs_reality_panel(asset, seed=None)
+        except Exception:
+            logger.debug("hype vs reality sub-module skipped", exc_info=True)
 
     context_relevance = [
         build_context_relevance(**cr) for cr in (panel.get("context_relevance") or [])

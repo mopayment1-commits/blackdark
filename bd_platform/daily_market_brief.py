@@ -164,6 +164,24 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         })
 
     validation = seed.get("historical_validation") or {}
+
+    hype_vs_reality_summary = None
+    try:
+        from bd_platform.hype_vs_reality_signal import build_hype_vs_reality_panel, build_signal_quality_summary
+
+        hvr_panel = build_hype_vs_reality_panel("BTC", seed=None)
+        if hvr_panel.get("ok"):
+            hype_vs_reality_summary = hvr_panel.get("summary")
+            assessments = hvr_panel.get("assessments") or []
+            for item in (what_changed_items + why_items + risks_items):
+                asset_sym = item.get("asset") or "BTC"
+                match = next((a for a in assessments if a.get("asset") == asset_sym), assessments[0] if assessments else None)
+                if match:
+                    item["signal_quality_badge_599"] = match.get("badge")
+                    item["hype_vs_reality_state"] = match.get("state")
+    except Exception:
+        logger.debug("hype vs reality daily brief integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -186,6 +204,8 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "contributors_match_calculations": validation.get("contributors_match_calculations", True),
         "historical_validation": validation,
         "event_context_443": events,
+        "hype_vs_reality_signal_599": hype_vs_reality_summary,
+        "signal_quality_summary_599": hype_vs_reality_summary,
         "sharpe_narrative_490": sharpe_narrative,
         "not_investment_advice": True,
         "display": (
@@ -227,6 +247,7 @@ def daily_market_brief_status() -> dict[str, Any]:
             "market_radar": True,
             "event_sentiment_monitor_443": True,
             "sharpe_intelligence_490": True,
+            "hype_vs_reality_signal_599": True,
         },
         "historical_validation": seed.get("historical_validation"),
         "disclaimer": _DISCLAIMER,

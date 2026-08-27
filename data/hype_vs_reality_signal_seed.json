@@ -1,0 +1,120 @@
+{
+  "feature_id": 599,
+  "merged_into": 524,
+  "legal_name": "Hype vs Reality Signal",
+  "renamed_from": "Social-to-On-Chain Confirmation Engine",
+  "standalone": false,
+  "layer": "Intelligence Layer",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-27",
+  "social_inputs": {
+    "BTC": {
+      "direction": "rising",
+      "volume_dominance": 0.62,
+      "sentiment_score": 0.45,
+      "freshness_seconds": 720,
+      "confidence_pct": 78,
+      "contributors": [
+        {"source": "twitter", "weight": 0.3, "sentiment": 0.5},
+        {"source": "reddit", "weight": 0.25, "sentiment": 0.4},
+        {"source": "telegram", "weight": 0.2, "sentiment": 0.55},
+        {"source": "news", "weight": 0.15, "sentiment": 0.35},
+        {"source": "fear_greed", "weight": 0.1, "sentiment": 0.42}
+      ]
+    },
+    "ETH": {
+      "direction": "flat",
+      "volume_dominance": 0.41,
+      "sentiment_score": 0.12,
+      "freshness_seconds": 840,
+      "confidence_pct": 74,
+      "contributors": [
+        {"source": "twitter", "weight": 0.35, "sentiment": 0.1},
+        {"source": "reddit", "weight": 0.25, "sentiment": 0.15}
+      ]
+    },
+    "SOL": {
+      "direction": "rising",
+      "volume_dominance": 0.71,
+      "sentiment_score": 0.58,
+      "freshness_seconds": 600,
+      "confidence_pct": 72,
+      "contributors": [
+        {"source": "twitter", "weight": 0.4, "sentiment": 0.6},
+        {"source": "telegram", "weight": 0.35, "sentiment": 0.55}
+      ]
+    }
+  },
+  "onchain_inputs": {
+    "BTC": {
+      "direction": "rising",
+      "whale_flow_usd": 12500000,
+      "holder_change_pct": 0.8,
+      "exchange_netflow_usd": -8200000,
+      "freshness_seconds": 480,
+      "confidence_pct": 85,
+      "contributors": [
+        {"feature_id": 408, "metric": "smart_money_inflow", "direction": "rising"},
+        {"feature_id": 577, "metric": "exchange_netflow", "direction": "outflow"}
+      ]
+    },
+    "ETH": {
+      "direction": "rising",
+      "whale_flow_usd": 4200000,
+      "holder_change_pct": 0.3,
+      "exchange_netflow_usd": -1500000,
+      "freshness_seconds": 540,
+      "confidence_pct": 81,
+      "contributors": [
+        {"feature_id": 408, "metric": "accumulation_state", "direction": "rising"}
+      ]
+    },
+    "SOL": {
+      "direction": "falling",
+      "whale_flow_usd": -3100000,
+      "holder_change_pct": -0.4,
+      "exchange_netflow_usd": 2800000,
+      "freshness_seconds": 420,
+      "confidence_pct": 79,
+      "contributors": [
+        {"feature_id": 408, "metric": "distribution_state", "direction": "falling"}
+      ]
+    }
+  },
+  "signals": {
+    "BTC_cross_venue_001": {
+      "asset": "BTC",
+      "surface": "arbitrage_scanner_403",
+      "social_direction": "rising",
+      "onchain_direction": "rising"
+    },
+    "ETH_social_hype_002": {
+      "asset": "ETH",
+      "surface": "intelligence_ledger_429",
+      "social_direction": "rising",
+      "onchain_direction": "flat"
+    },
+    "SOL_silent_move_003": {
+      "asset": "SOL",
+      "surface": "market_radar",
+      "social_direction": "flat",
+      "onchain_direction": "rising"
+    },
+    "BTC_contradiction_004": {
+      "asset": "BTC",
+      "surface": "daily_brief_474",
+      "social_direction": "rising",
+      "onchain_direction": "falling"
+    }
+  },
+  "historical_validation": {
+    "enabled": true,
+    "sample_size": 412,
+    "contradictory_correction_rate_pct": 83,
+    "contradictory_correction_window_days": 7,
+    "methodology": "Backtest on 412 historical Contradictory classifications (2024-2026)",
+    "summary": "In 83% of prior Contradictory cases, a price correction occurred within 7 days",
+    "display": "في 83% من حالات Contradictory السابقة، حدث تصحيح خلال 7 أيام"
+  }
+}
