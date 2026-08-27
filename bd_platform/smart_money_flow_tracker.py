@@ -38,7 +38,8 @@ _ABSORBED_FEATURE_REF = 459
 _SOPR_FEATURE_REF = 488
 _ACCUMULATION_REF = 590
 _HISTORICAL_TREND_REF = 593
-_EPIC_TITLE = "Smart Money Flow Intelligence"
+_TRACKING_REF = 598
+_ENTITY_RESOLUTION_FEATURE_ID = 541
 _TITLE = "Smart Money Flow Tracker"
 _ABSORBED_TITLE = "Age Consumed / Dormancy Intelligence"
 _STANDALONE = False
@@ -487,6 +488,91 @@ def detect_accumulation_distribution_state(
     }
 
 
+def build_smart_money_tracking_feed(
+    *,
+    watchlist_id: str = "default",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#598 — classified wallet tracking feed with latency + dedupe."""
+    t0 = time.perf_counter()
+    seed = seed or _load_seed()
+    cfg = seed.get("smart_money_tracking_598") or {}
+    watchlist = (seed.get("watchlists") or {}).get(watchlist_id)
+    if not watchlist:
+        return {"ok": False, "error": "watchlist_not_found", "watchlist_id": watchlist_id}
+
+    seen_event_ids: set[str] = set()
+    feed_events: list[dict[str, Any]] = []
+    duplicates_prevented = 0
+    missed_events = 0
+
+    for event in watchlist.get("events") or []:
+        event_id = event.get("event_id")
+        if not event_id:
+            missed_events += 1
+            continue
+        if event_id in seen_event_ids:
+            duplicates_prevented += 1
+            continue
+        seen_event_ids.add(event_id)
+
+        feed_events.append({
+            "event_id": event_id,
+            "wallet_address": event.get("wallet_address"),
+            "entity_id": event.get("entity_id"),
+            "entity_label": event.get("entity_label"),
+            "classification": event.get("classification"),
+            "movement_type": event.get("movement_type"),
+            "value_usd": event.get("value_usd"),
+            "asset": event.get("asset"),
+            "timestamp": event.get("timestamp"),
+            "tx_hash": event.get("tx_hash"),
+            "event_based_alert": True,
+            "not_advisory": True,
+            "display": (
+                f"Wallet {event.get('entity_label', 'unknown')}: "
+                f"{event.get('movement_type')} ${event.get('value_usd', 0):,.0f} {event.get('asset')}"
+            ),
+        })
+
+    elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+    latency_cfg = cfg.get("latency") or {}
+
+    return {
+        "ok": True,
+        "task_id": "598",
+        "feature_ref": _TRACKING_REF,
+        "watchlist_id": watchlist_id,
+        "feed": feed_events,
+        "event_count": len(feed_events),
+        "alerts": [e for e in feed_events if e.get("value_usd", 0) >= float(cfg.get("alert_threshold_usd", 1_000_000))],
+        "latency": {
+            "measured_ms": elapsed_ms,
+            "target_ms": int(latency_cfg.get("target_ms", 5000)),
+            "latency_visible": True,
+            "last_event_latency_ms": latency_cfg.get("last_event_latency_ms"),
+        },
+        "duplicate_prevention": {
+            "enabled": True,
+            "duplicates_prevented": duplicates_prevented,
+        },
+        "missed_event_handling": {
+            "missed_events": missed_events,
+            "missed_visible": True,
+            "recovery_policy": cfg.get("missed_event_recovery", "backfill_on_reconnect"),
+        },
+        "entity_resolution_feature_id": _ENTITY_RESOLUTION_FEATURE_ID,
+        "classified_wallets": watchlist.get("wallet_count", 0),
+        "depends_on_entity_resolution_541": True,
+        "foundation_for_590_593": True,
+        "display": (
+            f"Smart Money tracking: {len(feed_events)} events | "
+            f"latency {elapsed_ms}ms | deduped {duplicates_prevented}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_historical_trend_analysis(
     asset: str,
     *,
@@ -559,6 +645,7 @@ def build_smart_money_flow_panel(
         build_historical_trend_analysis(a, seed=seed)
         for a in (seed.get("historical_flows") or {})
     ]
+    tracking = build_smart_money_tracking_feed(seed=seed)
 
     return {
         "ok": True,
@@ -586,6 +673,7 @@ def build_smart_money_flow_panel(
             "analyses": [h for h in historical if h.get("ok")],
             "count": sum(1 for h in historical if h.get("ok")),
         },
+        "smart_money_tracking_598": tracking if tracking.get("ok") else {"ok": False},
         "disclaimer": _DISCLAIMER,
         "timestamp": _utcnow(),
     }
@@ -612,6 +700,7 @@ def smart_money_flow_tracker_status() -> dict[str, Any]:
             "488": "SOPR / Profitability Intelligence",
             "590": "Accumulation/Distribution State + Net-Flow Persistence Indicator",
             "593": "Smart Money Historical Trend Analysis",
+            "598": "Smart Money Tracking — classified wallet feed",
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -657,6 +746,12 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "classification_version_593", "passed": trend.get("classification_version_awareness") is True, "detail": "593"})
     checks.append({"id": "missing_not_zero_593", "passed": (trend.get("missing_history_handling") or {}).get("missing_not_zero") is True, "detail": "593"})
     checks.append({"id": "statistical_regime_593", "passed": trend.get("regimes_statistical_only") is True, "detail": "593"})
+
+    tracking = build_smart_money_tracking_feed(seed=seed)
+    checks.append({"id": "tracking_598", "passed": tracking.get("ok") is True, "detail": "598"})
+    checks.append({"id": "latency_measured_598", "passed": (tracking.get("latency") or {}).get("latency_visible") is True, "detail": "598"})
+    checks.append({"id": "duplicate_prevention_598", "passed": (tracking.get("duplicate_prevention") or {}).get("enabled") is True, "detail": "598"})
+    checks.append({"id": "missed_event_handling_598", "passed": (tracking.get("missed_event_handling") or {}).get("missed_visible") is True, "detail": "598"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

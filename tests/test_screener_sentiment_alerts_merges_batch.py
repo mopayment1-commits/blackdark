@@ -1,4 +1,4 @@
-"""Tests — #587 Screener, #588 Sentiment, #589 Alerts, #590/#593 Smart Money."""
+"""Tests — #587/#597 Screener, #588/#595/#596 Sentiment, #589 Alerts, #590/#593/#598 Smart Money."""
 
 from __future__ import annotations
 
@@ -172,3 +172,93 @@ def test_593_missing_not_zero(smft_seed):
 def test_593_smart_money_reconciliation(smft_seed):
     result = smft.run_reconciliation_tests()
     assert result["ok"] is True
+
+
+# --- #595 / #596 ---
+
+
+def test_595_entity_tagged_feed(ssl_seed):
+    feed = ssl.build_entity_tagged_sentiment_feed("BTC")
+    assert feed["ok"] is True
+    assert feed["legal_name"] == "Entity-Tagged Sentiment Feed"
+    assert feed["not_alignment_engine"] is True
+
+
+def test_595_no_alignment_language(ssl_seed):
+    feed = ssl.build_entity_tagged_sentiment_feed("BTC")
+    assert feed["no_alignment_language"] is True
+    assert feed["not_alignment_engine"] is True
+    for event in feed.get("entity_tagged_events") or []:
+        assert event.get("alignment_computed_in_524") is True
+
+
+def test_595_nlp_and_sources(ssl_seed):
+    feed = ssl.build_entity_tagged_sentiment_feed("BTC")
+    assert feed["nlp_analysis"]["accuracy_threshold_met"] is True
+    assert feed["source_coverage"]["coverage_met"] is True
+    assert feed["source_coverage"]["source_count"] >= 5
+
+
+def test_595_refresh_and_archive(ssl_seed):
+    feed = ssl.build_entity_tagged_sentiment_feed("BTC")
+    assert feed["refresh_policy"]["interval_minutes"] == 15
+    assert feed["archive"]["archive_met"] is True
+
+
+def test_596_duplicate_merged(ssl_seed):
+    panel = ssl.build_social_sentiment_panel("BTC")
+    assert 595 in panel["feature_ids"]
+    assert 596 in panel["feature_ids"]
+    sub = panel["sub_modules"]["595_596_entity_tagged_sentiment_feed"]
+    assert sub["ok"] is True
+
+
+# --- #597 ---
+
+
+def test_597_user_controlled_filters(cmds_seed):
+    result = cmds.run_smart_money_token_screener({"smart_money_inflow_min": {"min": 5_000_000}})
+    assert result["ok"] is True
+    assert result["no_recommended_tokens"] is True
+    assert result["user_controlled_filters_only"] is True
+
+
+def test_597_explain_each_match(cmds_seed):
+    result = cmds.run_smart_money_token_screener({"smart_money_inflow_min": {"min": 5_000_000}})
+    assert result["explain_each_match"] is True
+    for item in result.get("results") or []:
+        explanation = item.get("match_explanation") or {}
+        assert explanation.get("display")
+
+
+def test_597_save_and_alert(cmds_seed):
+    result = cmds.run_smart_money_token_screener()
+    assert result["save_and_alert_supported"] is True
+
+
+# --- #598 ---
+
+
+def test_598_tracking_feed(smft_seed):
+    feed = smft.build_smart_money_tracking_feed()
+    assert feed["ok"] is True
+    assert feed["task_id"] == "598"
+    assert feed["event_count"] >= 1
+
+
+def test_598_latency_visible(smft_seed):
+    feed = smft.build_smart_money_tracking_feed()
+    assert feed["latency"]["latency_visible"] is True
+    assert feed["latency"]["measured_ms"] >= 0
+
+
+def test_598_duplicate_prevention(smft_seed):
+    feed = smft.build_smart_money_tracking_feed()
+    assert feed["duplicate_prevention"]["enabled"] is True
+    assert feed["duplicate_prevention"]["duplicates_prevented"] >= 1
+
+
+def test_598_missed_event_handling(smft_seed):
+    feed = smft.build_smart_money_tracking_feed()
+    assert feed["missed_event_handling"]["missed_visible"] is True
+    assert feed["missed_event_handling"]["missed_events"] >= 1

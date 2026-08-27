@@ -81,5 +81,36 @@
     "languages_tested": 4,
     "languages": ["en", "fr", "es", "de"],
     "all_passed": true
+  },
+  "entity_tagged_sentiment_595": {
+    "task_ids": ["595", "596"],
+    "legal_name": "Entity-Tagged Sentiment Feed",
+    "renamed_from": "Smart Money Sentiment Alignment Core",
+    "refresh_interval_minutes": 15,
+    "last_refresh": "2026-08-27T12:00:00Z",
+    "min_nlp_accuracy_pct": 80,
+    "sources": {
+      "active": ["twitter", "reddit", "telegram", "news_rss", "google_trends"],
+      "min_count": 5
+    },
+    "archive": {
+      "retention_days": 400,
+      "min_retention_days": 365,
+      "path": "data/social_sentiment_archive.jsonl"
+    },
+    "alerts": [
+      {"alert_type": "sentiment_spike", "threshold": 0.75, "asset": "BTC", "event_based": true}
+    ]
+  },
+  "price_correlation_context": {
+    "BTC": {
+      "price_change_24h_pct": 2.1,
+      "sentiment_price_alignment_note": "Correlation observed — alignment computed in #524",
+      "correlation_not_causation": true
+    },
+    "ETH": {
+      "price_change_24h_pct": 1.5,
+      "correlation_not_causation": true
+    }
   }
 }

@@ -1361,6 +1361,17 @@ async def smart_money_historical_trend_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/tracking")
+async def smart_money_tracking_feed_route(watchlist_id: str = Query("default")):
+    """#598 Smart Money Tracking — classified wallet feed with latency + dedupe."""
+    from bd_platform.smart_money_flow_tracker import build_smart_money_tracking_feed
+
+    result = build_smart_money_tracking_feed(watchlist_id=watchlist_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/ui/beginner-decision-mode/status")
 async def beginner_decision_mode_status_route():
     """#461 Beginner Decision Mode — merged with #468 Decision-First."""
@@ -2878,6 +2889,37 @@ async def custom_market_data_screener_saved_route():
     return list_saved_screeners()
 
 
+@router.get("/intelligence-ledger/intelligence-layer/market-data-screener/smart-money")
+async def smart_money_token_screener_route(
+    smart_money_inflow_min: float | None = Query(None),
+    liquidity_min: float | None = Query(None),
+    saved_screener_id: str | None = Query(None),
+    sort_by: str | None = Query(None),
+    sort_order: str = Query("asc"),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
+    user_id: str = Query("default"),
+):
+    """#597 Smart Money Token Screener — user-controlled filters, explain each match."""
+    from bd_platform.custom_market_data_screener import run_smart_money_token_screener
+
+    filters: dict[str, Any] = {}
+    if smart_money_inflow_min is not None:
+        filters["smart_money_inflow_min"] = {"min": smart_money_inflow_min}
+    if liquidity_min is not None:
+        filters["liquidity_min"] = {"min": liquidity_min}
+
+    return run_smart_money_token_screener(
+        filters or None,
+        saved_screener_id=saved_screener_id,
+        user_id=user_id,
+        sort_by=sort_by,
+        sort_order=sort_order,
+        page=page,
+        page_size=page_size,
+    )
+
+
 @router.get("/intelligence-ledger/intelligence-layer/dev-market-divergence/status")
 async def dev_market_divergence_status_route():
     """#537 Development-to-Market Divergence Detector — descriptive only."""
@@ -3074,6 +3116,17 @@ async def social_sentiment_reconciliation_tests_route():
     from bd_platform.social_sentiment_layer import run_reconciliation_tests
 
     return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/data-layer/social-sentiment/entity-tagged-feed")
+async def entity_tagged_sentiment_feed_route(asset: str = Query("BTC")):
+    """#595/#596 Entity-Tagged Sentiment Feed — sub-module of #588 Social Sentiment Layer."""
+    from bd_platform.social_sentiment_layer import build_entity_tagged_sentiment_feed
+
+    result = build_entity_tagged_sentiment_feed(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
 
 
 @router.get("/intelligence-ledger/intelligence-layer/price-move-correlator/status")
