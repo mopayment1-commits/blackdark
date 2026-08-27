@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "assets": {
+    "BTC": {
+      "sector": "layer1",
+      "external_ids": {
+        "kraken_pair": "XBTUSD"
+      }
+    },
+    "ETH": {
+      "sector": "layer1",
+      "contracts": {
+        "ethereum": {
+          "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "decimals": 18,
+          "kind": "native"
+        },
+        "ethereum_weth": {
+          "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+          "decimals": 18,
+          "kind": "wrapped"
+        }
+      }
+    },
+    "SOL": {
+      "sector": "layer1",
+      "contracts": {
+        "solana": {
+          "address": "So11111111111111111111111111111111111111112",
+          "decimals": 9,
+          "kind": "native"
+        }
+      }
+    },
+    "USDC": {
+      "sector": "stablecoin",
+      "contracts": {
+        "ethereum": {
+          "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "decimals": 6
+        }
+      }
+    },
+    "USDT": {
+      "sector": "stablecoin",
+      "contracts": {
+        "ethereum": {
+          "address": "0xdAC17F958D2ee523a2206206994597C13D856Cc7",
+          "decimals": 6
+        }
+      }
+    },
+    "WBTC": {
+      "sector": "wrapped",
+      "contracts": {
+        "ethereum": {
+          "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+          "decimals": 8
+        }
+      }
+    },
+    "POL": {
+      "sector": "layer2",
+      "aliases_extra": []
+    }
+  }
+}

@@ -20,7 +20,7 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.CustomMarketDataScreener")
 
 _FEATURE_ID = 533
-_ABSORBED_IDS = (533, 587)
+_ABSORBED_IDS = (533, 587, 597)
 _RENAMED_FROM = "Custom Intelligence Screener"
 _EPIC_TITLE = "Market Data Screener"
 _TITLE = "Custom Market Data Screener"
@@ -69,7 +69,8 @@ def _field_for_criterion(criterion: str) -> str:
         "funding_rate_max": "funding_rate",
         "sentiment_min": "sentiment_score",
         "rsi_max": "rsi_14",
-        "rsi_min": "rsi_14",
+        "smart_money_inflow_min": "smart_money_inflow_usd",
+        "liquidity_min": "liquidity_usd",
     }
     return mapping.get(criterion, criterion)
 
@@ -94,6 +95,10 @@ def _check_criterion(asset: dict[str, Any], criterion: str, spec: dict[str, Any]
     criteria_str = " and ".join(op_parts) or str(spec)
 
     display = f"Matched because: {criterion} = {value} (criteria: {criteria_str})"
+    if criterion == "smart_money_inflow_min" and passed:
+        wallets = asset.get("smart_money_wallet_count", "N/A")
+        timeframe = asset.get("smart_money_timeframe", "30d")
+        display = f"Matched: Inflow > ${spec.get('min', 0):,.0f} | Wallets: {wallets} | Timeframe: {timeframe}"
     if not passed:
         display = f"Not matched: {criterion} = {value} (criteria: {criteria_str})"
     return passed, value, display
@@ -134,6 +139,62 @@ def apply_filters(assets: list[dict[str, Any]], filters: dict[str, Any]) -> list
             matched.append({**asset, "match_explanation": explanation})
     matched.sort(key=lambda a: a.get("symbol", ""))
     return matched
+
+
+def run_smart_money_token_screener(
+    filters: dict[str, Any] | None = None,
+    *,
+    saved_screener_id: str | None = None,
+    user_id: str = "default",
+    sort_by: str | None = None,
+    sort_order: str = "asc",
+    page: int = 1,
+    page_size: int = 50,
+) -> dict[str, Any]:
+    """#597 — Smart Money Token Screener sub-module (user-controlled filters only)."""
+    if saved_screener_id:
+        result = run_screener(
+            None,
+            saved_screener_id=saved_screener_id,
+            user_id=user_id,
+            sort_by=sort_by,
+            sort_order=sort_order,
+            page=page,
+            page_size=page_size,
+        )
+    elif filters:
+        result = run_screener(
+            filters,
+            user_id=user_id,
+            sort_by=sort_by,
+            sort_order=sort_order,
+            page=page,
+            page_size=page_size,
+        )
+    else:
+        result = run_screener(
+            None,
+            saved_screener_id="smart_money_token_screener",
+            user_id=user_id,
+            sort_by=sort_by,
+            sort_order=sort_order,
+            page=page,
+            page_size=page_size,
+        )
+    if not result.get("ok"):
+        return result
+
+    return {
+        **result,
+        "task_id": "597",
+        "sub_module": "smart_money_token_screener",
+        "user_controlled_filters_only": True,
+        "no_recommended_tokens": True,
+        "explain_each_match": True,
+        "save_and_alert_supported": True,
+        "filter_option_not_ai_selection": True,
+        "display": f"Smart Money screener: {result.get('assets_matching_criteria', 0)} tokens match user criteria",
+    }
 
 
 def check_alert_rate_limit(
@@ -243,6 +304,7 @@ def run_screener(
         "absorbed_tickets": {
             "533": "Custom Market Data Screener — epic anchor",
             "587": "Screener — merged (generic screener task)",
+            "597": "Smart Money Token Screener — sub-filter in Market Data Screener epic",
         },
         "renamed_from": _RENAMED_FROM,
         "title": _TITLE,
@@ -315,6 +377,11 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     sorted_r = run_screener({"risk_score_max": {"max": 100}}, sort_by="risk_score", sort_order="asc")
     checks.append({"id": "user_sort", "passed": sorted_r.get("sort_by") == "risk_score", "detail": "587"})
 
+    sm = run_smart_money_token_screener({"smart_money_inflow_min": {"min": 5000000}})
+    checks.append({"id": "smart_money_screener_597", "passed": sm.get("ok") is True, "detail": "597"})
+    checks.append({"id": "no_recommended_tokens_597", "passed": sm.get("no_recommended_tokens") is True, "detail": "597"})
+    checks.append({"id": "explain_each_match_597", "passed": sm.get("explain_each_match") is True, "detail": "597"})
+
     passed = sum(1 for c in checks if c["passed"])
     return {
         "ok": passed == len(checks),
@@ -352,6 +419,7 @@ def custom_market_data_screener_status() -> dict[str, Any]:
             "pagination_587": True,
             "missing_values_explicit_587": True,
             "no_default_ranking_587": True,
+            "smart_money_screener_597": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,

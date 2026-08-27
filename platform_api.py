@@ -306,6 +306,295 @@ async def defi_raises():
     return await defillama_raises()
 
 
+@router.get("/canonical/resolve")
+async def canonical_resolve(input: str = Query(..., min_length=1, max_length=128)):
+    """Infrastructure — resolve any symbol/alias/pair to canonical asset ID."""
+    from blackdark.canonical.resolver import resolve_asset
+
+    return resolve_asset(input).to_dict()
+
+
+@router.get("/canonical/assets")
+async def canonical_assets(limit: int = Query(105, ge=1, le=200)):
+    """Infrastructure — canonical asset reference list (stable mapping)."""
+    from blackdark.canonical.registry import all_canonical_assets, registry_stats
+
+    assets = all_canonical_assets()[:limit]
+    return {
+        "ok": True,
+        "count": len(assets),
+        "assets": [a.to_dict() for a in assets],
+        "stats": registry_stats(),
+    }
+
+
+@router.get("/canonical/layer/status")
+async def canonical_layer_status():
+    """Infrastructure — Canonical Data Layer health + bootstrap stats."""
+    from blackdark.canonical.layer import get_canonical_layer
+
+    layer = get_canonical_layer()
+    stats = await layer.bootstrap(persist=True)
+    return {**layer.status(), "bootstrap": stats}
+
+
+@router.post("/canonical/ingest")
+async def canonical_ingest(
+    source: str = Query(...),
+    dataset: str = Query(...),
+    payload: dict[str, Any] = Body(...),
+    asset_hint: str | None = Query(None),
+):
+    """Infrastructure — normalize + persist a vendor payload under canonical ID."""
+    from blackdark.canonical.layer import get_canonical_layer
+
+    layer = get_canonical_layer()
+    return await layer.ingest(
+        source=source,
+        dataset=dataset,
+        raw=payload,
+        asset_hint=asset_hint,
+    )
+
+
+@router.get("/ingestion/coingecko/status")
+async def ingestion_coingecko_status():
+    """Infrastructure — CoinGecko primary ingestion connector health."""
+    from blackdark.ingestion.coingecko_connector import coingecko_connector_status
+
+    return coingecko_connector_status()
+
+
+@router.get("/ingestion/coingecko/price")
+async def ingestion_coingecko_price(asset: str = Query("BTC")):
+    """Infrastructure — normalized CoinGecko price with canonical ID + fallback."""
+    from blackdark.ingestion.coingecko_connector import fetch_coingecko_price
+
+    return await fetch_coingecko_price(asset)
+
+
+@router.get("/ingestion/coingecko/markets")
+async def ingestion_coingecko_markets(per_page: int = Query(50, ge=10, le=250)):
+    from blackdark.ingestion.coingecko_connector import fetch_coingecko_markets
+
+    return await fetch_coingecko_markets(per_page=per_page)
+
+
+@router.post("/ingestion/coingecko/sync")
+async def ingestion_coingecko_sync():
+    """Trigger primary CoinGecko ingestion pass into data lake."""
+    from blackdark.ingestion.coingecko_connector import run_coingecko_primary_ingest
+
+    return await run_coingecko_primary_ingest()
+
+
+@router.get("/alpha/signal")
+async def alpha_engine_signal(asset: str = Query("BTC")):
+    """Alpha Engine (#13) — unified signal from all input sources."""
+    from bd_platform.alpha_engine import compute_alpha_signal
+
+    return await compute_alpha_signal(asset)
+
+
+@router.get("/alpha/ranking")
+async def alpha_engine_ranking(limit: int = Query(25, ge=5, le=50)):
+    """Alpha Engine (#13) — ranked universe using multi-source inputs."""
+    from bd_platform.alpha_engine import rank_alpha_universe
+
+    return await rank_alpha_universe(limit=limit)
+
+
+@router.get("/defi/il/pools")
+async def il_pools(query: str = Query("ETH USDC"), limit: int = Query(15, ge=1, le=30)):
+    from lp_il_simulator import fetch_live_pools
+
+    return await fetch_live_pools(query, limit=limit)
+
+
+@router.get("/defi/il/live")
+async def il_live_simulator(
+    token_a: str = Query("ETH"),
+    token_b: str = Query("USDC"),
+    amount_usd: float = Query(10_000, gt=0, le=10_000_000),
+    price_change_pct: float | None = Query(None),
+    horizon_days: float = Query(30, gt=0, le=365),
+    pair_address: str | None = None,
+    persist: bool = Query(False),
+):
+    from lp_il_simulator import persist_simulation, simulate_lp_live
+
+    result = await simulate_lp_live(
+        token_a=token_a,
+        token_b=token_b,
+        amount_usd=amount_usd,
+        price_change_pct=price_change_pct,
+        horizon_days=horizon_days,
+        pair_address=pair_address,
+    )
+    if persist and result.get("ok"):
+        log_id = await persist_simulation(result)
+        result["simulation_log_id"] = log_id
+    return result
+
+
+@router.post("/defi/il/simulate")
+async def il_simulate_post(body: dict = Body(...)):
+    from lp_il_simulator import persist_simulation, simulate_lp_live, simulate_lp_position
+
+    if body.get("live", True):
+        result = await simulate_lp_live(
+            token_a=str(body.get("token_a", "ETH")),
+            token_b=str(body.get("token_b", "USDC")),
+            amount_usd=float(body.get("amount_usd", 10_000)),
+            price_change_pct=body.get("price_change_pct"),
+            horizon_days=float(body.get("horizon_days", 30)),
+            pair_address=body.get("pair_address"),
+        )
+    else:
+        result = simulate_lp_position(
+            amount_usd=float(body.get("amount_usd", 10_000)),
+            entry_price=float(body["entry_price"]),
+            exit_price=float(body["exit_price"]),
+            fee_apy_pct=float(body.get("fee_apy_pct", 0)),
+            horizon_days=float(body.get("horizon_days", 30)),
+        )
+    if body.get("persist") and result.get("ok"):
+        log_id = await persist_simulation(result if "simulation" in result else {"simulation": result})
+        result["simulation_log_id"] = log_id
+    return result
+
+
+@router.get("/defi/il/vulnerability-score")
+async def il_vulnerability(
+    symbol: str = Query("ETH-USDC"),
+    volatility_30d_pct: float | None = None,
+    liquidity_usd: float | None = None,
+    fee_apy_pct: float | None = None,
+):
+    from lp_il_simulator import il_vulnerability_score
+
+    return il_vulnerability_score(
+        symbol=symbol,
+        volatility_30d_pct=volatility_30d_pct,
+        liquidity_usd=liquidity_usd,
+        fee_apy_pct=fee_apy_pct,
+    )
+
+
+@router.get("/defi/il/history")
+async def il_simulation_history(limit: int = Query(20, ge=1, le=100)):
+    from database import fetch_simulation_logs
+
+    rows = await fetch_simulation_logs(limit=limit)
+    return {"kind": "lp_il", "simulations": [r for r in rows if r.get("kind") == "lp_il"]}
+
+
+@router.get("/onchain/mvrv-realignment")
+async def mvrv_realignment(asset: str = Query("BTC")):
+    from bd_platform.mvrv_realignment import compute_mvrv_realignment
+
+    return await compute_mvrv_realignment(asset)
+
+
+@router.get("/alpha/factor-ranking")
+async def alpha_factor_ranking(limit: int = Query(25, ge=5, le=50)):
+    from bd_platform.alpha_factor_ranking import rank_assets_by_alpha_factors
+
+    return await rank_assets_by_alpha_factors(limit=limit)
+
+
+@router.get("/squeeze/triggers")
+async def squeeze_triggers(asset: str = Query("BTC")):
+    from bd_platform.squeeze_trigger_engine import squeeze_trigger_coordinates
+
+    return await squeeze_trigger_coordinates(asset)
+
+
+@router.get("/intelligence-ledger/execution")
+async def intelligence_ledger_execution(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100.0, le=10_000_000.0),
+    chain: str = Query("ethereum"),
+    side: str = Query("buy"),
+    user_tolerance_bps: int | None = Query(None, ge=10, le=300),
+):
+    """Sprint 2 — best execution path from 1inch + AMM + CEX + slippage optimizer."""
+    from bd_platform.intelligence_ledger import build_execution_intelligence
+
+    return await build_execution_intelligence(
+        asset=asset,
+        amount_usd=amount_usd,
+        chain=chain,
+        side=side,
+        user_tolerance_bps=user_tolerance_bps,
+    )
+
+
+@router.get("/intelligence-ledger/slippage-optimize")
+async def intelligence_ledger_slippage(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100.0, le=10_000_000.0),
+    chain: str = Query("ethereum"),
+    user_tolerance_bps: int | None = Query(None, ge=10, le=300),
+):
+    """Slippage Intelligence Module (#5 + #17) — self-optimization + asymmetric cost."""
+    from bd_platform.slippage_tolerance_optimizer import optimize_slippage_tolerance
+
+    return await optimize_slippage_tolerance(
+        asset,
+        amount_usd=amount_usd,
+        chain=chain,
+        user_tolerance_bps=user_tolerance_bps,
+    )
+
+
+@router.get("/address-intelligence/search")
+async def address_intelligence_search(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+):
+    """On-Chain Address Intelligence (#10) — unified address search."""
+    from bd_platform.address_intelligence import search_address
+
+    return await search_address(address, chain=chain)
+
+
+@router.get("/address-intelligence/history")
+async def address_intelligence_history(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+    days: int = Query(30, ge=1, le=90),
+):
+    """On-Chain Address Intelligence (#19) — balance history chart data."""
+    from bd_platform.address_intelligence import balance_history
+
+    return await balance_history(address, chain=chain, days=days)
+
+
+@router.get("/address-intelligence/updates")
+async def address_intelligence_updates(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+    limit: int = Query(20, ge=1, le=50),
+):
+    """On-Chain Address Intelligence (#20) — balance update feed (state diffs)."""
+    from bd_platform.address_intelligence import balance_updates
+
+    return await balance_updates(address, chain=chain, limit=limit)
+
+
+@router.get("/address-intelligence/overview")
+async def address_intelligence_overview_route(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+    history_days: int = Query(30, ge=1, le=90),
+):
+    """Unified On-Chain Address Intelligence — search + history + updates."""
+    from bd_platform.address_intelligence import address_intelligence_overview
+
+    return await address_intelligence_overview(address, chain=chain, history_days=history_days)
+
+
 @router.get("/macro/bitcoin")
 async def macro_btc():
     from bd_platform.onchain_hub import lookintobitcoin_macro
@@ -1356,6 +1645,17 @@ async def smart_money_historical_trend_route(asset: str = Query("BTC")):
     from bd_platform.smart_money_flow_tracker import build_historical_trend_analysis
 
     result = build_historical_trend_analysis(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/tracking")
+async def smart_money_tracking_feed_route(watchlist_id: str = Query("default")):
+    """#598 Smart Money Tracking — classified wallet feed with latency + dedupe."""
+    from bd_platform.smart_money_flow_tracker import build_smart_money_tracking_feed
+
+    result = build_smart_money_tracking_feed(watchlist_id=watchlist_id)
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
@@ -2878,6 +3178,37 @@ async def custom_market_data_screener_saved_route():
     return list_saved_screeners()
 
 
+@router.get("/intelligence-ledger/intelligence-layer/market-data-screener/smart-money")
+async def smart_money_token_screener_route(
+    smart_money_inflow_min: float | None = Query(None),
+    liquidity_min: float | None = Query(None),
+    saved_screener_id: str | None = Query(None),
+    sort_by: str | None = Query(None),
+    sort_order: str = Query("asc"),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
+    user_id: str = Query("default"),
+):
+    """#597 Smart Money Token Screener — user-controlled filters, explain each match."""
+    from bd_platform.custom_market_data_screener import run_smart_money_token_screener
+
+    filters: dict[str, Any] = {}
+    if smart_money_inflow_min is not None:
+        filters["smart_money_inflow_min"] = {"min": smart_money_inflow_min}
+    if liquidity_min is not None:
+        filters["liquidity_min"] = {"min": liquidity_min}
+
+    return run_smart_money_token_screener(
+        filters or None,
+        saved_screener_id=saved_screener_id,
+        user_id=user_id,
+        sort_by=sort_by,
+        sort_order=sort_order,
+        page=page,
+        page_size=page_size,
+    )
+
+
 @router.get("/intelligence-ledger/intelligence-layer/dev-market-divergence/status")
 async def dev_market_divergence_status_route():
     """#537 Development-to-Market Divergence Detector — descriptive only."""
@@ -3074,6 +3405,17 @@ async def social_sentiment_reconciliation_tests_route():
     from bd_platform.social_sentiment_layer import run_reconciliation_tests
 
     return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/data-layer/social-sentiment/entity-tagged-feed")
+async def entity_tagged_sentiment_feed_route(asset: str = Query("BTC")):
+    """#595/#596 Entity-Tagged Sentiment Feed — sub-module of #588 Social Sentiment Layer."""
+    from bd_platform.social_sentiment_layer import build_entity_tagged_sentiment_feed
+
+    result = build_entity_tagged_sentiment_feed(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
 
 
 @router.get("/intelligence-ledger/intelligence-layer/price-move-correlator/status")

@@ -11,11 +11,15 @@ asyncpg==0.30.0
 strawberry-graphql[fastapi]==0.319.0
 psutil==6.1.1
 textblob==0.19.0
-kafka-python==3.0.10
+kafka-python==3.0.11
 hvac==2.4.0
-pyotp==2.10.0
 python-dotenv==1.2.2
 cryptography==50.0.0
+pyotp==2.10.0
+defusedxml==0.7.1
+SQLAlchemy==2.0.51
+greenlet==3.5.4
+APScheduler==3.11.3
 scikit-learn==1.9.0
 joblib==1.5.3
 pandas==2.3.3

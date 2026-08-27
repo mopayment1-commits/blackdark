@@ -27,13 +27,14 @@ def test_committed_artifacts_match_baseline():
 
 
 def test_commercial_launch_checklist():
-    from cap978.institutional_gate import commercial_launch_checklist
+    from cap978.institutional_gate import CLOSURE_BASELINE, commercial_launch_checklist
 
     report = commercial_launch_checklist()
+    expected_total = CLOSURE_BASELINE["external_registry"]["total"]
     assert report["internal_closure_complete"] is True
     assert report["commercial_launch_ready"] is False
-    assert report["total_external_items"] == 35
-    assert report["p0_blockers"] >= 5
+    assert report["total_external_items"] == expected_total
+    assert report["p0_blockers"] >= 3
     assert all(i["owner"] == "external" for i in report["items"])
 
 

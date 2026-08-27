@@ -549,6 +549,13 @@ async def _shutdown_background_runtime(app: FastAPI) -> None:
 async def lifespan(app: FastAPI):
     """Yield immediately so Railway /health/live passes, then boot in background."""
     boot_task = asyncio.create_task(_background_boot(app), name="blackdark-boot")
+    try:
+        from blackdark.data.db import data_engine_available, init_data_engine
+
+        if data_engine_available():
+            await init_data_engine()
+    except Exception:
+        logger.exception("Wave 01 data engine eager init failed")
     logger.info("BLACKDARK API live — DB/services loading in background.")
     yield
     await _shutdown_lifespan_services(app, boot_task)
@@ -891,9 +898,16 @@ except Exception:
 try:
     from blackdark.data.api import admin_router as data_engine_admin_router
     from blackdark.data.api import router as data_engine_router
+    from blackdark.data.systems_api import systems_router
 
     app.include_router(data_engine_router)
     app.include_router(data_engine_admin_router)
+    app.include_router(systems_router)
+    from api.routers.critical_defects import router as critical_defects_router
+    from api.routers.onchain_flow import router as onchain_flow_router
+
+    app.include_router(critical_defects_router)
+    app.include_router(onchain_flow_router)
 except Exception:
     logger.exception("Wave 01 data engine router unavailable")
 
@@ -1936,6 +1950,26 @@ async def alert_passport_page(request: Request):
 @app.get("/visibility-cost", response_class=HTMLResponse)
 async def visibility_cost_page(request: Request):
     return render_page(request, "visibility_cost.html", _footer_ctx())
+
+
+@app.get("/il-simulator", response_class=HTMLResponse)
+async def il_simulator_page(request: Request):
+    return render_page(request, "il_simulator.html", _footer_ctx())
+
+
+@app.get("/market-intelligence", response_class=HTMLResponse)
+async def market_intelligence_page(request: Request):
+    return render_page(request, "market_intelligence.html", _footer_ctx())
+
+
+@app.get("/intelligence-ledger", response_class=HTMLResponse)
+async def intelligence_ledger_page(request: Request):
+    return render_page(request, "intelligence_ledger.html", _footer_ctx())
+
+
+@app.get("/address-intelligence", response_class=HTMLResponse)
+async def address_intelligence_page(request: Request):
+    return render_page(request, "address_intelligence.html", _footer_ctx())
 
 
 @app.get("/validity-decay", response_class=HTMLResponse)

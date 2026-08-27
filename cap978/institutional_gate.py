@@ -21,7 +21,7 @@ CLOSURE_BASELINE = {
     "verdict": "VERIFIED COMPLETE",
     "total": 978,
     "cap978_counts": {
-        "VERIFIED_COMPLETE": 937,
+        "VERIFIED_COMPLETE": 938,
         "CANONICALLY_COVERED": 37,
         "EXTERNAL_BLOCKED": 2,
         "EXTERNAL_EVIDENCE_REQUIRED": 1,
@@ -32,12 +32,12 @@ CLOSURE_BASELINE = {
         "EXTERNAL_BLOCKED": 2,
     },
     "governing_controls": {
-        "VERIFIED_COMPLETE": 40,
-        "EXTERNAL_BLOCKED": 2,
+        "VERIFIED_COMPLETE": 38,
+        "EXTERNAL_BLOCKED": 4,
     },
     "external_registry": {
-        "total": 3,
-        "capability_ids_blocked": 1,
+        "total": 4,
+        "capability_ids_blocked": 2,
         "controls_blocked": 2,
     },
     "internal_incomplete": {

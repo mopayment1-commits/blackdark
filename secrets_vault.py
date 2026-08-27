@@ -75,3 +75,33 @@ def mask_secret(value: str, *, visible: int = 4) -> str:
     if len(value) <= visible * 2:
         return "****"
     return f"{value[:visible]}...{value[-visible:]}"
+
+
+def encrypt_secret_gcm(plaintext: str, *, aad: bytes = b"blackdark-d02") -> str:
+    """AES-256-GCM envelope (D-02 upgrade path alongside Fernet)."""
+    if not plaintext:
+        return ""
+    import os
+
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+    key = hashlib.sha256(get_vault_key()).digest()
+    nonce = os.urandom(12)
+    ct = AESGCM(key).encrypt(nonce, plaintext.encode("utf-8"), aad)
+    return base64.b64encode(nonce + ct).decode("ascii")
+
+
+def decrypt_secret_gcm(ciphertext: str, *, aad: bytes = b"blackdark-d02") -> str:
+    if not ciphertext:
+        return ""
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+    raw = base64.b64decode(ciphertext.encode("ascii"))
+    nonce, ct = raw[:12], raw[12:]
+    key = hashlib.sha256(get_vault_key()).digest()
+    return AESGCM(key).decrypt(nonce, ct, aad).decode("utf-8")
+
+
+def rotate_vault_reencrypt(values: list[str]) -> list[str]:
+    """Re-encrypt plaintexts with current vault key (rotation drill)."""
+    return [encrypt_secret(v) for v in values]

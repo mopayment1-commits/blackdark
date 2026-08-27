@@ -42,6 +42,27 @@ def test_parse_funding():
     assert parsed[0]["funding_rate"] == Decimal("0.0001")
 
 
+def test_parse_coingecko_ohlc():
+    from blackdark.data.ingestors.coingecko import parse_ohlc
+
+    rows = [[1704067200000, "42000.1", "42500", "41800", "42300.5"]]
+    parsed = parse_ohlc("BTCUSDT", "30m", rows)
+    assert len(parsed) == 1
+    assert parsed[0]["symbol"] == "BTCUSDT"
+    assert parsed[0]["close"] == Decimal("42300.5")
+    assert parsed[0]["interval"] == "30m"
+
+
+def test_parse_kraken_ohlc():
+    from blackdark.data.ingestors.kraken import parse_ohlc
+
+    rows = [[1704067200, "42000.1", "42500", "41800", "42300.5", "42200", "10.5", 100]]
+    parsed = parse_ohlc("BTCUSDT", "1h", rows)
+    assert len(parsed) == 1
+    assert parsed[0]["symbol"] == "BTCUSDT"
+    assert parsed[0]["close"] == Decimal("42300.5")
+
+
 def test_data_api_requires_postgres(tmp_path, monkeypatch):
     monkeypatch.delenv("DATABASE_URL", raising=False)
     import config
@@ -62,3 +83,58 @@ def test_data_api_requires_postgres(tmp_path, monkeypatch):
     client = TestClient(app)
     resp = client.get("/api/v1/data/status")
     assert resp.status_code == 503
+
+
+@pytest.mark.asyncio
+async def test_count_ohlcv_rows():
+    from unittest.mock import AsyncMock, MagicMock
+
+    from blackdark.data.repository import count_ohlcv_rows
+
+    session = AsyncMock()
+    result = MagicMock()
+    result.mappings.return_value.fetchone.return_value = {"n": 42}
+    session.execute = AsyncMock(return_value=result)
+    assert await count_ohlcv_rows(session) == 42
+
+
+@pytest.mark.asyncio
+async def test_ensure_data_engine_ready_skips_bootstrap_when_rows_exist(monkeypatch):
+    from blackdark.data import db as db_mod
+
+    monkeypatch.setattr(db_mod, "_schema_ready", True)
+    monkeypatch.setattr(db_mod, "_bootstrapped", False)
+    monkeypatch.setenv("DATA_ENGINE_BOOTSTRAP_INGEST", "true")
+
+    seed_called = False
+    bootstrap_called = False
+
+    async def fake_seed(session):
+        nonlocal seed_called
+        seed_called = True
+        return {"seeded": 2}
+
+    async def fake_count(session):
+        return 100
+
+    async def fake_bootstrap():
+        nonlocal bootstrap_called
+        bootstrap_called = True
+
+    class _SessionCtx:
+        async def __aenter__(self):
+            return object()
+
+        async def __aexit__(self, *args):
+            return False
+
+    monkeypatch.setattr(db_mod, "get_session", lambda: _SessionCtx())
+    monkeypatch.setattr("blackdark.data.repository.seed_data_sources", fake_seed)
+    monkeypatch.setattr("blackdark.data.repository.count_ohlcv_rows", fake_count)
+    monkeypatch.setattr("blackdark.data.jobs.run_bootstrap_ingest_once", fake_bootstrap)
+
+    await db_mod.ensure_data_engine_ready()
+    assert seed_called
+    assert not bootstrap_called
+    assert db_mod._bootstrapped is True
+

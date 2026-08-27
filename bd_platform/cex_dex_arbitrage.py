@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 from datetime import UTC, datetime
@@ -151,6 +152,8 @@ async def _oneinch_spot(session: aiohttp.ClientSession, asset: str, cex_ref: flo
                 return {}
             data = await resp.json()
     except aiohttp.ClientError:
+        return {}
+    except (asyncio.TimeoutError, TimeoutError):
         return {}
     for row in data.get("pairs") or []:
         candidate = _oneinch_candidate(row, cex_ref)

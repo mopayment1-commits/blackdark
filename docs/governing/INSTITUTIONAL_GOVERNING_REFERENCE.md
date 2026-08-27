@@ -16,6 +16,7 @@
 | Five-layer doc integrity | PASS (Source → Standards → Traceability → De-dup → Render QA) |
 | Local copy (upload) | `/home/ubuntu/.cursor/projects/workspace/uploads/BLACKDARK_FINAL_INSTITUTIONAL_MERGED_SPECIFICATION_FIVE_LAYER_VERIFIED_3108.pdf` |
 | Extracted text (agent use) | `/tmp/blackdark_spec.txt` (regenerate via pdftotext if missing) |
+| **Agent context injection (Arabic/EN)** | [`BLACKDARK_CONTEXT.md`](../../BLACKDARK_CONTEXT.md) at repo root — **adopted 2026-08-24**; use `@BLACKDARK_CONTEXT.md` for defects D-01→D-15, roadmap T01–T18, and executive **NOT READY** verdict |
 
 ## Adopted understanding (SSOT)
 

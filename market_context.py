@@ -70,10 +70,16 @@ def sector_for_asset(asset: str) -> str:
 
 
 def normalize_oracle_symbol(symbol: str) -> tuple[str, str]:
-    cleaned = symbol.upper().strip().replace("/", "").replace("-", "")
-    if cleaned.endswith("USDT"):
-        return cleaned[:-4], cleaned
-    return cleaned, f"{cleaned}USDT"
+    from blackdark.canonical.resolver import resolve_symbol
+
+    asset = resolve_symbol(symbol)
+    pair = f"{asset}USDT" if not asset.endswith("USDT") else asset
+    if "/" in symbol or symbol.upper().endswith("USDT"):
+        cleaned = symbol.upper().strip().replace("/", "").replace("-", "")
+        if cleaned.endswith("USDT"):
+            pair = cleaned
+            asset = resolve_symbol(cleaned[:-4])
+    return asset, pair
 
 
 # CoinGecko IDs for REST fallback when Binance is geo-blocked (common on cloud hosts).
@@ -184,36 +190,20 @@ async def _fetch_coingecko_ticker(
     *,
     session: aiohttp.ClientSession | None = None,
 ) -> dict[str, Any] | None:
-    cg_id = _COINGECKO_IDS.get(asset.upper())
-    if not cg_id:
+    from blackdark.ingestion.coingecko_connector import fetch_coingecko_price
+
+    row = await fetch_coingecko_price(asset)
+    if not row.get("ok"):
         return None
-    url = "https://api.coingecko.com/api/v3/simple/price"
-    data = await _rest_get(
-        url,
-        params={
-            "ids": cg_id,
-            "vs_currencies": "usd",
-            "include_24hr_change": "true",
-        },
-        headers=_coingecko_headers(),
-        session=session,
-    )
-    if not isinstance(data, dict):
-        return None
-    try:
-        row = data.get(cg_id) or {}
-        price = float(row.get("usd") or 0)
-        if price <= 0:
-            return None
-        return {
-            "price": price,
-            "change_24h": float(row.get("usd_24h_change") or 0),
-            "volume": 0.0,
-            "quote_volume": 0.0,
-            "source": "coingecko",
-        }
-    except (KeyError, TypeError, ValueError):
-        return None
+    return {
+        "price": float(row.get("price_usd") or 0),
+        "change_24h": float(row.get("change_24h_pct") or 0),
+        "volume": 0.0,
+        "quote_volume": 0.0,
+        "source": row.get("source") or "coingecko",
+        "canonical_id": row.get("canonical_id"),
+        "fallback": row.get("fallback"),
+    }
 
 
 async def _fetch_coinbase_ticker(

@@ -135,7 +135,7 @@
     "classification_version": "1.0",
     "high_activity_threshold_usd": 50000000
   },
-  "historical_flows": {
+    "historical_flows": {
     "BTC": {
       "daily_net_flow_usd": [45000000, 52000000, 48000000, null, 55000000, 60000000, 58000000],
       "missing_days": 1,
@@ -145,6 +145,69 @@
       "daily_net_flow_usd": [12000000, 8000000, 5000000, 3000000, 2000000],
       "missing_days": 0,
       "missing_visible": true
+    }
+  },
+  "smart_money_tracking_598": {
+    "alert_threshold_usd": 1000000,
+    "missed_event_recovery": "backfill_on_reconnect",
+    "latency": {
+      "target_ms": 5000,
+      "last_event_latency_ms": 1200
+    }
+  },
+  "watchlists": {
+    "default": {
+      "name": "Default Smart Money Watchlist",
+      "wallet_count": 3,
+      "events": [
+        {
+          "event_id": "evt-001",
+          "wallet_address": "0xwhale001",
+          "entity_id": "entity_whale_alpha",
+          "entity_label": "Whale Alpha",
+          "classification": "institutional",
+          "movement_type": "inflow",
+          "value_usd": 5200000,
+          "asset": "ETH",
+          "timestamp": "2026-08-27T12:00:00Z",
+          "tx_hash": "0xabc001"
+        },
+        {
+          "event_id": "evt-002",
+          "wallet_address": "0xwhale002",
+          "entity_id": "entity_fund_beta",
+          "entity_label": "Fund Beta",
+          "classification": "fund",
+          "movement_type": "outflow",
+          "value_usd": 3100000,
+          "asset": "BTC",
+          "timestamp": "2026-08-27T11:45:00Z",
+          "tx_hash": "0xabc002"
+        },
+        {
+          "event_id": "evt-001",
+          "wallet_address": "0xwhale001",
+          "entity_id": "entity_whale_alpha",
+          "entity_label": "Whale Alpha",
+          "classification": "institutional",
+          "movement_type": "inflow",
+          "value_usd": 5200000,
+          "asset": "ETH",
+          "timestamp": "2026-08-27T12:00:00Z",
+          "tx_hash": "0xabc001"
+        },
+        {
+          "wallet_address": "0xwhale003",
+          "entity_id": "entity_unknown",
+          "entity_label": "Unclassified",
+          "classification": "unknown",
+          "movement_type": "transfer",
+          "value_usd": 500000,
+          "asset": "SOL",
+          "timestamp": "2026-08-27T11:30:00Z",
+          "tx_hash": "0xabc003"
+        }
+      ]
     }
   }
 }
