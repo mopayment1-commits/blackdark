@@ -321,6 +321,14 @@ def build_alert_engine_panel() -> dict[str, Any]:
     suppressed += [r for r in derivatives if r["status"] == "suppressed"]
 
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
+    defi_risk_alerts = None
+    try:
+        from bd_platform.defi_risk_passport import build_defi_risk_spike_alerts_484
+
+        defi_risk_alerts = build_defi_risk_spike_alerts_484()
+    except Exception:
+        logger.debug("660 defi risk spike alerts skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -333,6 +341,7 @@ def build_alert_engine_panel() -> dict[str, Any]:
         "rules": rules,
         "derivatives_rules": derivatives,
         "derivatives_alert_config": build_derivatives_alert_rules(seed),
+        "defi_risk_spike_alerts_660": defi_risk_alerts,
         "triggered_count": len(triggered),
         "suppressed_count": len(suppressed),
         "recent_deliveries": logs,

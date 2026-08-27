@@ -1651,6 +1651,64 @@ async def cross_protocol_contagion_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/risk-layer/defi-risk-passport/status")
+async def defi_risk_passport_status_route():
+    """#660 DeFi Risk Passport — Sprint-2 Risk Layer (absorbs #661, #672)."""
+    from bd_platform.defi_risk_passport import defi_risk_passport_status
+
+    return defi_risk_passport_status()
+
+
+@router.get("/intelligence-ledger/risk-layer/defi-risk-passport")
+async def defi_risk_passport_panel_route(protocol_id: str | None = Query(None)):
+    from bd_platform.defi_risk_passport import build_defi_risk_module_panel
+
+    return build_defi_risk_module_panel(protocol_id)
+
+
+@router.get("/intelligence-ledger/risk-layer/defi-risk-passport/{protocol_id}")
+async def defi_risk_passport_card_route(protocol_id: str):
+    from bd_platform.defi_risk_passport import build_risk_passport_card
+
+    result = build_risk_passport_card(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/risk-layer/defi-risk-radar")
+async def defi_risk_radar_route():
+    """#661 DeFi Risk Radar — merged into #660."""
+    from bd_platform.defi_risk_passport import build_defi_risk_radar
+
+    return build_defi_risk_radar()
+
+
+@router.get("/intelligence-ledger/risk-layer/lending-risk")
+async def lending_risk_dashboard_route(protocol_id: str = Query("aave_v3")):
+    """#672 Lending Market Risk — merged into #660."""
+    from bd_platform.defi_risk_passport import build_lending_risk_dashboard
+
+    result = build_lending_risk_dashboard(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/risk-layer/defi-risk-passport/portfolio-alert")
+async def defi_risk_passport_portfolio_alert_route(portfolio_id: str = Query("demo_portfolio")):
+    from bd_platform.defi_risk_passport import build_portfolio_passport_alert_410
+
+    return build_portfolio_passport_alert_410(portfolio_id=portfolio_id)
+
+
+@router.get("/intelligence-ledger/risk-layer/defi-risk-passport/reconciliation-tests")
+async def defi_risk_passport_reconciliation_route():
+    from bd_platform.defi_risk_passport import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/onchain-layer/smart-money-flow/status")
 async def smart_money_flow_status_route():
     """#408 Smart Money Flow Tracker (absorbs #459 Dormancy)."""
@@ -2073,6 +2131,14 @@ async def defi_opportunity_screener_route(
         risk_grade=risk_grade,
         min_liquidity_usd=min_liquidity_usd,
     )
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/defi/protocol-activity")
+async def defi_protocol_activity_route(protocol_id: str | None = Query(None)):
+    """#659 DeFi Protocol Activity Intelligence — merged into #438."""
+    from bd_platform.defi_opportunity_scanner import build_protocol_activity_dashboard
+
+    return build_protocol_activity_dashboard(protocol_id)
 
 
 @router.get("/intelligence-ledger/unified-arbitrage/defi/reconciliation-tests")
