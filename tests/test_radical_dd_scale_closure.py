@@ -145,7 +145,14 @@ async def test_compliance_and_scale_routes():
         r3 = await client.get("/api/scale/readiness")
         assert r3.status_code == 200
         body = r3.json()
-        assert body["capacity_claim"]["proven_high_concurrency_signed"] is False
+        from scale_readiness import scale_readiness_report
+
+        expected = scale_readiness_report()
+        assert (
+            body["capacity_claim"]["proven_high_concurrency_signed"]
+            == expected["capacity_claim"]["proven_high_concurrency_signed"]
+        )
+        assert body["capacity_claim"]["proof_path"] == "docs/LOAD_TEST_RUN_LOG.md"
 
         r4 = await client.get("/api/auth/oauth/status")
         assert r4.status_code == 200
