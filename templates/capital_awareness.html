@@ -23,15 +23,20 @@ main{max-width:960px;margin:0 auto;padding:1.5rem 1rem}
 .disclaimer{font-size:.75rem;color:var(--muted);margin-top:1rem;border-top:1px solid var(--line);padding-top:.75rem}
 </style>
 </head>
-<body>
-<nav><a href="/" class="logo">BLACKDARK</a><div><a href="/portfolio-ai/live-breakeven">Breakeven</a><a href="/portfolio-ai/strategy-simulator">Simulator</a><a href="/intelligence-ledger">Ledger</a></div></nav>
+<body data-page="portfolio">
+<nav><a href="/" class="logo">BLACKDARK</a><div><a href="/portfolio-ai/live-breakeven">Breakeven</a><a href="/portfolio-ai/strategy-simulator">Simulator</a><a href="/intelligence-ledger">Hub</a></div></nav>
 <main>
+  <div id="riskScoreStrip" class="risk-score-strip"></div>
   <span class="badge">NON-EXECUTIVE — Alerts only</span>
   <h1>Capital Awareness Controls</h1>
   <p style="color:var(--muted)">Risk Awareness Layer — no automatic fund movement. Not insurance or guarantee.</p>
   <div class="card" id="panel">Loading…</div>
 </main>
+<link rel="stylesheet" href="/static/css/capability.css">
+<div id="decisionCardSticky" hidden></div>
 <script src="/static/js/dom_safe.js"></script>
+<script src="/static/js/capability_core.js"></script>
+<script src="/static/js/decision_card_global.js"></script>
 <script>
 (function(){
   const { esc } = window.BDDomSafe || { esc: s => String(s??"") };
@@ -50,6 +55,11 @@ main{max-width:960px;margin:0 auto;padding:1.5rem 1rem}
       (d.portfolio_ai_alerts?.alerts||[]).forEach(a => { html += `<div class="alert ${esc(a.severity)}">${esc(a.display)}</div>`; });
       html += `<div class="disclaimer">${esc(d.sla_terms?.legal_text||d.disclaimer)}</div>`;
       document.getElementById("panel").innerHTML = html;
+      if (window.BDDecisionCard) window.BDDecisionCard.activateFromPayload({
+        verdict: "PROTECT",
+        decision_sentence: "Review risk budget and stress scenarios — no automatic fund movement.",
+        display: d.portfolio_ai_alerts?.display,
+      });
     })
     .catch(e => { document.getElementById("panel").textContent = String(e); });
 })();

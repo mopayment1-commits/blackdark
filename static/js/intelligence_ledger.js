@@ -213,6 +213,11 @@
       panelBody.innerHTML = `<pre class="raw">${esc(JSON.stringify(data, null, 2))}</pre>`;
       return;
     }
+    const typed = window.BDHubRenderers && window.BDHubRenderers.renderTyped(data, mod);
+    if (typed) {
+      panelBody.innerHTML = typed;
+      return;
+    }
     panelBody.innerHTML = renderFormatted(data);
   }
 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Wallet Profiler</title>
+<link rel="icon" href="/static/img/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<link rel="stylesheet" href="/static/css/capability.css">
+</head>
+<body class="cap-page" data-page="capability">
+<nav class="cap-nav">
+  <a class="cap-logo" href="/">BLACKDARK</a>
+  <div><a href="/dashboard">Dashboard</a><a href="/whales">Whales</a><a href="/clusters">Clusters</a></div>
+</nav>
+<main class="cap-main">
+  <div id="riskScoreStrip" class="risk-score-strip"></div>
+  <header class="cap-hero">
+    <h1>Wallet Profiler</h1>
+    <p class="sub">DeBank + ScopeScan + clustering — monitoring only.</p>
+    <p class="cap-decision-q" id="capDecisionQ">Should I trust counterparty flows from this address?</p>
+  </header>
+  <div id="walletRoot" data-address="{{ wallet_address }}">
+    <div class="cap-loading">Loading wallet profile…</div>
+  </div>
+</main>
+<div id="decisionCardSticky" hidden></div>
+<script src="/static/js/dom_safe.js"></script>
+<script src="/static/js/capability_core.js"></script>
+<script src="/static/js/decision_card_global.js"></script>
+<script>
+(function(){
+  const root = document.getElementById("walletRoot");
+  const addr = root.dataset.address;
+  const { esc, provBadge, bindProvPopovers } = window.BDCapability || {};
+  const escFn = esc || (s => String(s??""));
+  Promise.all([
+    fetch("/api/platform/wallet/debank?address=" + encodeURIComponent(addr)).then(r => r.json()).catch(() => ({})),
+    fetch("/api/platform/wallet/scopescan?address=" + encodeURIComponent(addr)).then(r => r.json()).catch(() => ({})),
+    fetch("/api/platform/wallet/clusters?address=" + encodeURIComponent(addr)).then(r => r.json()).catch(() => ({})),
+  ]).then(([debank, scope, clusters]) => {
+    let html = `<div class="cap-card"><h2>${escFn(addr)}</h2>`;
+    html += `<h3>Balance / Portfolio</h3><pre style="font-size:.72rem;overflow:auto;max-height:200px">${escFn(JSON.stringify(debank, null, 2).slice(0, 1500))}</pre>`;
+    html += `<h3>Labels (ScopeScan)</h3><pre style="font-size:.72rem;overflow:auto;max-height:160px">${escFn(JSON.stringify(scope, null, 2).slice(0, 1200))}</pre>`;
+    html += `<h3>Clusters</h3><pre style="font-size:.72rem;overflow:auto;max-height:160px">${escFn(JSON.stringify(clusters, null, 2).slice(0, 1200))}</pre>`;
+    html += `</div>`;
+    root.innerHTML = html;
+    if (bindProvPopovers) bindProvPopovers(root);
+    if (window.BDDecisionCard) window.BDDecisionCard.activateFromPayload({
+      verdict: "VERIFY",
+      decision_sentence: "Cross-check cluster labels and counterparties before trusting flows.",
+      display: "Wallet profile loaded",
+    });
+  }).catch(e => { root.innerHTML = `<div class="cap-err">${escFn(e.message)}</div>`; });
+})();
+</script>
+</body>
+</html>

@@ -21,9 +21,10 @@ main{max-width:960px;margin:0 auto;padding:1.5rem 1rem}
 .disclaimer{font-size:.75rem;color:var(--muted);margin-top:1rem;border-top:1px solid var(--line);padding-top:.75rem}
 </style>
 </head>
-<body>
-<nav><a href="/" class="logo">BLACKDARK</a><div><a href="/portfolio-ai/risk-awareness">Risk</a><a href="/portfolio-ai/live-breakeven">Breakeven</a><a href="/intelligence-ledger">Ledger</a></div></nav>
+<body data-page="portfolio">
+<nav><a href="/" class="logo">BLACKDARK</a><div><a href="/portfolio-ai/risk-awareness">Risk</a><a href="/simulator">Simulator</a><a href="/intelligence-ledger">Hub</a></div></nav>
 <main>
+  <div id="riskScoreStrip" class="risk-score-strip"></div>
   <span class="sim-badge">SIMULATION — Paper Portfolio</span>
   <h1>Strategy Simulator</h1>
   <p style="color:var(--muted)">Real money order placement blocked. Paper trading on real market data.</p>
@@ -53,6 +54,11 @@ main{max-width:960px;margin:0 auto;padding:1.5rem 1rem}
       html += `<p>${esc(d.risk_budget_integration?.display||"")}</p>`;
       html += `<div class="disclaimer">${esc(d.sla_terms?.legal_text||d.disclaimer)}</div>`;
       document.getElementById("panel").innerHTML = html;
+      if (window.BDDecisionCard) window.BDDecisionCard.activateFromPayload({
+        verdict: "SIMULATE",
+        decision_sentence: "Paper portfolio only — real money orders blocked.",
+        display: d.disclaimer,
+      });
     });
   document.getElementById("applyBtn").addEventListener("click", () => {
     fetch("/api/platform/intelligence-ledger/portfolio-ai/strategy-simulator/apply-signal?signal_id=sig_btc_momentum")
@@ -61,5 +67,9 @@ main{max-width:960px;margin:0 auto;padding:1.5rem 1rem}
   });
 })();
 </script>
+<link rel="stylesheet" href="/static/css/capability.css">
+<div id="decisionCardSticky" hidden></div>
+<script src="/static/js/capability_core.js"></script>
+<script src="/static/js/decision_card_global.js"></script>
 </body>
 </html>
