@@ -1,20 +1,36 @@
 {
   "feature_id": 573,
+  "merged_features": [766, 767],
   "title": "Natural Language Interpreter",
   "layer": "UX Layer",
   "sprint": 2,
   "methodology_version": "1.0",
-  "last_updated": "2026-08-26",
+  "last_updated": "2026-08-27",
   "permissions": {
-    "guest": ["market_conditions", "onchain_metrics", "news_panel", "nvt_context"],
+    "guest": ["market_conditions", "onchain_metrics", "news_panel", "news_digest", "nvt_context", "data_query"],
     "authenticated": ["exchange_flow", "portfolio_tracker"],
-    "pro": ["exchange_flow", "portfolio_tracker", "market_conditions", "onchain_metrics", "news_panel", "nvt_context"],
+    "pro": ["exchange_flow", "portfolio_tracker", "market_conditions", "onchain_metrics", "news_panel", "news_digest", "nvt_context", "data_query"],
     "admin": ["*"]
   },
   "fallback_messages": {
-    "empty_query": "Please enter an analytical question about available data.",
-    "ambiguous_query": "I can show you available data. Please clarify your analytical question.",
-    "unsupported": "That analysis is not supported. Try exchange flow, market conditions, on-chain metrics, or news.",
-    "advisory_blocked": "I can show you data only — not buy/sell advice."
+    "empty_query": "Please enter a question about available platform data.",
+    "ambiguous_query": "I can show you available data. Please clarify your question.",
+    "unsupported": "That data is not supported. Try price, NVT, on-chain metrics, or news.",
+    "advisory_blocked": "I can show you data only — not buy/sell advice.",
+    "no_data": "I don't have data on that.",
+    "service_unavailable": "Service unavailable, try later"
+  },
+  "data_assistant_766": {
+    "feature_ref": 766,
+    "merged_from": [767],
+    "timeout_ms": 3000,
+    "grounded_platform_data_only": true,
+    "no_ai_chat_branding": true,
+    "branding_ar": "مساعد البيانات",
+    "landing_widget_ar": "اسأل BLACKDARK",
+    "fee_db": {
+      "data_query_usd": 0.002,
+      "llm_api_usd": 0.0
+    }
   }
 }

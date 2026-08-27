@@ -777,6 +777,22 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("759 market radar alerts integration skipped", exc_info=True)
 
+    nvt_widget = None
+    try:
+        from bd_platform.onchain_metrics_library import build_market_radar_nvt_widget_761
+
+        nvt_widget = build_market_radar_nvt_widget_761(asset)
+    except Exception:
+        logger.debug("761 NVT market radar integration skipped", exc_info=True)
+
+    news_digest = None
+    try:
+        from bd_platform.ai_content_engine import build_news_digest_layer_768
+
+        news_digest = build_news_digest_layer_768(asset)
+    except Exception:
+        logger.debug("768 news digest market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -800,6 +816,8 @@ def build_market_radar_panel(
         "technical_chart_760": technical_chart if technical_chart.get("ok") else {"ok": False},
         "token_circulation_757": token_circulation if token_circulation and token_circulation.get("ok") else {"ok": False},
         "market_alerts_759": market_alerts if market_alerts and market_alerts.get("ok") else {"ok": False},
+        "nvt_ratio_761": nvt_widget if nvt_widget and nvt_widget.get("ok") else {"ok": False},
+        "news_digest_768": news_digest if news_digest and news_digest.get("ok") else {"ok": False},
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }

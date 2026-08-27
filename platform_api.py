@@ -2493,6 +2493,31 @@ async def token_circulation_qa_route(asset: str = Query("BTC")):
     }
 
 
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/nvt-ratio")
+async def nvt_ratio_route(asset: str = Query("BTC")):
+    """#761 NVT Ratio — merged into #577 (daily volume, not P/E)."""
+    from bd_platform.onchain_metrics_library import build_nvt_ratio_suite_761
+
+    result = build_nvt_ratio_suite_761(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/nvt-ratio/qa")
+async def nvt_ratio_qa_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import run_nvt_reconciliation_qa_761
+
+    return run_nvt_reconciliation_qa_761(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/nvt-ratio/overvaluation-flag")
+async def nvt_overvaluation_flag_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_library import build_nvt_overvaluation_flag_ledger_761
+
+    return build_nvt_overvaluation_flag_ledger_761(asset)
+
+
 @router.get("/intelligence-ledger/investment-thesis/status")
 async def investment_thesis_scoring_status_route():
     """#472 Investment Thesis Scoring — Intelligence Ledger (not price probability)."""
@@ -3372,6 +3397,28 @@ async def market_radar_combined_panel_route(
     from bd_platform.market_radar_indicators import build_market_radar_panel
 
     return build_market_radar_panel(exchange, asset)
+
+
+@router.get("/intelligence-ledger/market-radar/news-digest")
+async def market_radar_news_digest_route(asset: str = Query("BTC"), limit: int = Query(10, ge=1, le=50)):
+    """#768 Market News Digest — merged into Market Radar, source links mandatory."""
+    from bd_platform.ai_content_engine import build_news_digest_layer_768
+
+    return build_news_digest_layer_768(asset, limit=limit)
+
+
+@router.get("/intelligence-ledger/market-radar/news-digest/qa")
+async def market_radar_news_digest_qa_route():
+    from bd_platform.ai_content_engine import run_news_digest_hallucination_tests_768
+
+    return run_news_digest_hallucination_tests_768()
+
+
+@router.get("/intelligence-ledger/market-radar/news-digest/landing")
+async def landing_news_digest_route(limit: int = Query(3, ge=1, le=10)):
+    from bd_platform.ai_content_engine import build_landing_news_digest_widget_768
+
+    return build_landing_news_digest_widget_768(limit=limit)
 
 
 @router.get("/intelligence-ledger/market-radar/sector-pulse")
@@ -4370,6 +4417,28 @@ async def natural_language_interpreter_route(
     from bd_platform.natural_language_interpreter import build_nli_panel
 
     return build_nli_panel(query=query, user_tier=user_tier)
+
+
+@router.get("/intelligence-ledger/ux-layer/data-assistant/landing")
+async def landing_ask_blackdark_route(
+    query: str = Query("What is Bitcoin's NVT?"),
+    user_tier: str = Query("guest"),
+):
+    """#766 Landing widget — اسأل BLACKDARK (not AI Chat)."""
+    from bd_platform.natural_language_interpreter import build_landing_ask_widget_766
+
+    return build_landing_ask_widget_766(query=query, user_tier=user_tier)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/data-assistant")
+async def portfolio_data_assistant_route(
+    query: str = Query("What is my portfolio exposure?"),
+    user_tier: str = Query("authenticated"),
+):
+    """#766 Portfolio AI tab — مساعد البيانات (#767 data_query intent)."""
+    from bd_platform.natural_language_interpreter import build_portfolio_data_assistant_panel_766
+
+    return build_portfolio_data_assistant_panel_766(query=query, user_tier=user_tier)
 
 
 @router.get("/intelligence-ledger/ux-layer/natural-language/reconciliation-tests")

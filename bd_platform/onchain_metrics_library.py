@@ -24,7 +24,7 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656, 679, 682)
+_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656, 679, 682, 757, 761)
 _EPIC_ID = 577
 _WHALE_RETAIL_REF = 634
 _TITLE = "On-Chain Metrics Library"
@@ -114,6 +114,13 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "name": "network_activity_intelligence",
         "title": "Network Activity Intelligence",
         "description": "Tx count, DAA, payments, tx value, NVT — chain-specific with reorg handling",
+        "standalone_rejected": True,
+    },
+    "761": {
+        "task_id": "761",
+        "name": "nvt_ratio",
+        "title": "NVT Ratio",
+        "description": "Market Cap ÷ Daily Transaction Volume — on-chain valuation context, not P/E",
         "standalone_rejected": True,
     },
 }
@@ -1000,6 +1007,236 @@ def build_circulation_velocity_risk_flag_ledger(
         "display": (
             f"Circulation velocity {velocity} — "
             + (f"anomaly: {anomaly}" if anomaly else "within normal band")
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+_NVT_DISCLAIMER = (
+    "NVT is an on-chain metric. Not a valuation model. Not financial advice."
+)
+
+_NVT_CHAIN_SEMANTICS: dict[str, dict[str, Any]] = {
+    "utxo": {
+        "model": "UTXO",
+        "volume_definition": "On-chain native transfer volume (USD)",
+        "not_exchange_volume": True,
+        "semantics": "UTXO chains (Bitcoin) — on-chain volume ≠ exchange volume",
+        "transfer_scope": "native_coin_transfers",
+        "example_chains": "Bitcoin, Litecoin",
+        "differences_documented": True,
+    },
+    "account": {
+        "model": "Account",
+        "volume_definition": "Native transfers + token transfers (tracked separately)",
+        "not_exchange_volume": True,
+        "semantics": "Account chains (Ethereum) — token transfers vs native transfers",
+        "transfer_scope": "native_and_token_transfers",
+        "example_chains": "Ethereum, Arbitrum, Solana",
+        "differences_documented": True,
+    },
+}
+
+
+def build_nvt_ratio_suite_761(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#761 — nvt_ratio metric suite merged into #577."""
+    from bd_platform.protocol_valuation_layer import compute_nvt
+
+    seed = seed or _load_seed()
+    cfg = seed.get("nvt_ratio_761") or {}
+    asset_cfg = (cfg.get("assets") or {}).get(asset.upper())
+    if not asset_cfg:
+        return {"ok": False, "asset": asset, "error": "nvt_ratio_not_found"}
+
+    chain_model = asset_cfg.get("chain_model", "utxo")
+    semantics = _NVT_CHAIN_SEMANTICS.get(chain_model, _NVT_CHAIN_SEMANTICS["account"])
+    market_cap_usd = float(asset_cfg.get("market_cap_usd", 0))
+    daily_tx_volume_usd = float(asset_cfg.get("daily_transaction_volume_usd", 0))
+    native_volume_usd = float(asset_cfg.get("native_transfer_volume_usd", daily_tx_volume_usd))
+    token_volume_usd = float(asset_cfg.get("token_transfer_volume_usd", 0))
+    nvt = compute_nvt(market_cap_usd, daily_tx_volume_usd)
+    history = asset_cfg.get("nvt_history") or []
+    reorg = asset_cfg.get("reorg_handling") or {}
+    overvaluation_threshold = float(cfg.get("overvaluation_threshold", 90.0))
+    percentile = None
+    if nvt is not None and history:
+        sorted_hist = sorted(history)
+        rank = sum(1 for h in sorted_hist if h <= nvt)
+        percentile = round(rank / len(sorted_hist) * 100, 1)
+
+    return {
+        "ok": nvt is not None,
+        "metric_id": "nvt_ratio",
+        "feature_ref": 761,
+        "merged_into": _EPIC_ID,
+        "standalone_rejected": True,
+        "asset": asset.upper(),
+        "formula": {
+            "expression": "NVT = Market Cap (USD) / Daily Transaction Volume (USD)",
+            "version": "1.0",
+            "source": "CoinMetrics/Willy Woo",
+            "visible": True,
+            "not_hideable": True,
+            "no_pe_analogy": True,
+            "ui_label": "NVT Ratio",
+            "rejected_labels": ["P/E ratio", "مضاعف الربحية", "profitability multiple"],
+        },
+        "chain_model": chain_model,
+        "chain_specific_semantics": semantics,
+        "chain_specific_definitions_documented": True,
+        "market_cap_usd": market_cap_usd,
+        "daily_transaction_volume_usd": daily_tx_volume_usd,
+        "native_transfer_volume_usd": native_volume_usd,
+        "token_transfer_volume_usd": token_volume_usd,
+        "nvt_ratio": nvt,
+        "historical_percentile": percentile,
+        "nvt_history": history,
+        "overvaluation_flag": percentile is not None and percentile >= overvaluation_threshold,
+        "reorg_handling": {
+            "enabled": reorg.get("enabled", True),
+            "recalculate_cancelled_blocks": reorg.get("recalculate_cancelled_blocks", True),
+            "last_reorg_depth": reorg.get("last_reorg_depth", 0),
+            "metrics_recalculated": reorg.get("metrics_recalculated", True),
+        },
+        "source": "oracle_api_on_chain_extension",
+        "no_user_direct_source": True,
+        "no_automatic_alert": True,
+        "observation_only": True,
+        "rule_based_only": True,
+        "no_ml_prediction": True,
+        "fee_db": asset_cfg.get("fee_db") or {
+            "rpc_queries_usd": 0.02,
+            "market_cap_api_usd": 0.01,
+            "tier": "standard",
+        },
+        "disclaimer": _NVT_DISCLAIMER,
+        "display": (
+            f"{asset.upper()} NVT Ratio: {nvt:.2f}"
+            if nvt is not None
+            else f"{asset.upper()} NVT Ratio: unavailable"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_nvt_reconciliation_qa_761(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#761 — daily QA: NVT cross-reference vs CoinMetrics/Glassnode ±5%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("nvt_ratio_761") or {}
+    qa = (cfg.get("reconciliation_qa") or {}).get("assets", {}).get(asset.upper()) or {}
+    tolerance = float((cfg.get("reconciliation_qa") or {}).get("tolerance_pct", 5.0))
+    platform_nvt = float(qa.get("platform_nvt", 0))
+    reference_nvt = float(qa.get("reference_nvt", 0))
+    reference_source = qa.get("reference_source", "coinmetrics")
+
+    if platform_nvt <= 0:
+        delta_pct = 100.0
+        within_tolerance = False
+    else:
+        delta_pct = abs(platform_nvt - reference_nvt) / platform_nvt * 100
+        within_tolerance = delta_pct <= tolerance
+
+    return {
+        "ok": within_tolerance,
+        "feature_ref": 761,
+        "asset": asset.upper(),
+        "platform_nvt": platform_nvt,
+        "reference_nvt": reference_nvt,
+        "reference_source": reference_source,
+        "delta_pct": round(delta_pct, 4),
+        "tolerance_pct": tolerance,
+        "within_tolerance": within_tolerance,
+        "daily_qa_required": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_nvt_widget_761(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#761 → Market Radar widget: NVT."""
+    suite = build_nvt_ratio_suite_761(asset, seed=seed)
+    return {
+        "ok": suite.get("ok", False),
+        "feature_ref": 761,
+        "surface": "market_radar",
+        "widget": "nvt",
+        "widget_label": "NVT Ratio",
+        "chart_type": "nvt_trend",
+        "suite": suite,
+        "trend": suite.get("nvt_history") or [],
+        "disclaimer": _NVT_DISCLAIMER,
+        "display": suite.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_onchain_valuation_761(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#761 — Asset Card On-Chain Valuation context with NVT sparkline."""
+    suite = build_nvt_ratio_suite_761(asset, seed=seed)
+    if not suite.get("ok"):
+        return {**suite, "surface": "asset_card", "tab": "On-Chain Valuation"}
+
+    return {
+        "ok": True,
+        "feature_ref": 761,
+        "surface": "asset_card",
+        "tab": "On-Chain Valuation",
+        "tab_ar": "تقييم on-chain",
+        "asset": asset.upper(),
+        "nvt_ratio": suite.get("nvt_ratio"),
+        "historical_percentile": suite.get("historical_percentile"),
+        "market_cap_usd": suite.get("market_cap_usd"),
+        "daily_transaction_volume_usd": suite.get("daily_transaction_volume_usd"),
+        "sparkline": suite.get("nvt_history") or [],
+        "chain_semantics": suite.get("chain_specific_semantics"),
+        "formula": suite.get("formula"),
+        "disclaimer": _NVT_DISCLAIMER,
+        "display": suite.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_nvt_overvaluation_flag_ledger_761(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#761 → Intelligence Ledger Valuation Scoring — high NVT overvaluation flag."""
+    suite = build_nvt_ratio_suite_761(asset, seed=seed)
+    if not suite.get("ok"):
+        return {"ok": False, "asset": asset}
+
+    return {
+        "ok": True,
+        "feature_ref": 761,
+        "integration": "intelligence_ledger",
+        "dimension": "valuation_scoring",
+        "asset": asset.upper(),
+        "nvt_ratio": suite.get("nvt_ratio"),
+        "historical_percentile": suite.get("historical_percentile"),
+        "overvaluation_flag": suite.get("overvaluation_flag", False),
+        "descriptive_not_predictive": True,
+        "no_investment_advice": True,
+        "no_automatic_alert": True,
+        "disclaimer": _NVT_DISCLAIMER,
+        "display": (
+            f"NVT {suite.get('nvt_ratio')} — "
+            + ("overvaluation context flag" if suite.get("overvaluation_flag") else "within historical band")
         ),
         "timestamp": _utcnow(),
     }
@@ -2312,6 +2549,7 @@ def build_metrics_library_panel(
     ssr_suite = build_stablecoin_supply_ratio_metric_577(seed=seed)
     supply_intel = build_supply_intelligence_metric_577(sym, seed=seed)
     token_circulation = build_token_circulation_suite_757(sym, seed=seed)
+    nvt_ratio = build_nvt_ratio_suite_761(sym, seed=seed)
     long_short = build_long_short_ratio_metric_577(seed=seed)
     mvrv_suite = build_mvrv_zscore_metric_577(sym, seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
@@ -2348,6 +2586,7 @@ def build_metrics_library_panel(
             "698_stablecoin_supply_ratio": ssr_suite if ssr_suite.get("ok") else {"ok": False},
             "700_supply_intelligence": supply_intel if supply_intel.get("ok") else {"ok": False},
             "757_token_circulation": token_circulation if token_circulation.get("ok") else {"ok": False},
+            "761_nvt_ratio": nvt_ratio if nvt_ratio.get("ok") else {"ok": False},
             "675_long_short_ratio": long_short,
             "676_mvrv_zscore_suite": mvrv_suite if mvrv_suite.get("ok") else {"ok": False},
             "678_sector_metrics": sector_metrics if sector_metrics.get("ok") else {"ok": False},
@@ -2499,6 +2738,14 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
     backfill = run_token_circulation_backfill_qa_757("BTC", seed=seed)
     tests.append({"test": "token_circulation_backfill_qa_757", "passed": backfill.get("within_tolerance") is True})
 
+    nvt = build_nvt_ratio_suite_761("BTC", seed=seed)
+    tests.append({"test": "nvt_ratio_suite_761", "passed": nvt.get("ok") is True})
+    tests.append({"test": "nvt_formula_documented_761", "passed": (nvt.get("formula") or {}).get("not_hideable") is True})
+    tests.append({"test": "nvt_no_pe_analogy_761", "passed": (nvt.get("formula") or {}).get("no_pe_analogy") is True})
+    tests.append({"test": "nvt_reorg_handling_761", "passed": (nvt.get("reorg_handling") or {}).get("recalculate_cancelled_blocks") is True})
+    nvt_qa = run_nvt_reconciliation_qa_761("BTC", seed=seed)
+    tests.append({"test": "nvt_reconciliation_qa_761", "passed": nvt_qa.get("within_tolerance") is True})
+
     all_passed = all(t["passed"] for t in tests)
     return {
         "ok": True,
@@ -2542,6 +2789,8 @@ def onchain_metrics_library_status() -> dict[str, Any]:
             "679": "Metric Methodology Governance → parity tests + migration history over #656",
             "682": "Network Activity Intelligence → metric suite in #577 with reorg + QA",
             "698": "Stablecoin Supply Ratio → SSR metric suite in #577 with historical bands",
+            "757": "Token Circulation → metric suite in #577 with chain semantics + reorg",
+            "761": "NVT Ratio → metric suite in #577 (daily volume, not P/E analogy)",
         },
         "acceptance_criteria": {
             "formula_source_version": True,

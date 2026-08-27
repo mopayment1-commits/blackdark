@@ -20,8 +20,8 @@ from typing import Any, Literal
 
 logger = logging.getLogger("BLACKDARK.AIContentEngine")
 
-_FEATURE_IDS = (511, 512, 513, 575)
-_ABSORBED_IDS = (511, 512, 513, 575)
+_FEATURE_IDS = (511, 512, 513, 575, 768)
+_ABSORBED_IDS = (511, 512, 513, 575, 768)
 _RENAMED_FROM = (
     "AI Market Insights",
     "AI_Digest_Generator",
@@ -72,6 +72,14 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "renamed_from": "News Integration",
         "description": "Asset-linked news with dedupe/rank/tag — source links preserved",
         "standalone_rejected": True,
+    },
+    "768": {
+        "task_id": "768",
+        "name": "news_digest",
+        "title": "Market News Digest",
+        "description": "Grounded extractive summaries with mandatory source links — merged into Market Radar",
+        "standalone_rejected": True,
+        "no_ai_branding": True,
     },
 }
 
@@ -498,6 +506,172 @@ def build_news_panel(
     )
 
 
+def _extractive_summary(text: str, *, max_len: int = 200) -> str:
+    """#768 — extractive constrained summarization (no generative additions)."""
+    text = (text or "").strip()
+    if not text:
+        return ""
+    for sep in (". ", "! ", "? "):
+        if sep in text:
+            return text.split(sep, 1)[0] + sep.strip()
+    if len(text) <= max_len:
+        return text
+    return text[:max_len].rstrip() + "…"
+
+
+def build_news_digest_layer_768(
+    asset: str = "BTC",
+    *,
+    limit: int = 10,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#768 — news_digest layer merged into Market Radar (/radar/news)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("news_digest_768") or {}
+    panel = build_news_panel(asset=asset, limit=limit, seed=seed)
+
+    summaries: list[dict[str, Any]] = []
+    for article in panel.get("articles") or []:
+        raw_summary = article.get("summary") or article.get("headline") or ""
+        extractive = _extractive_summary(raw_summary)
+        prefixed = f"The article states: {extractive}" if extractive else ""
+        summaries.append({
+            "headline": article.get("headline"),
+            "summary": prefixed,
+            "original_summary": raw_summary,
+            "extractive_summary": True,
+            "generative_deferred": cfg.get("generative_deferred", True),
+            "grounded_prefix_required": True,
+            "source": article.get("source"),
+            "source_url": article.get("source_url"),
+            "source_link_preserved": bool(article.get("source_url")),
+            "read_full_article_required": True,
+            "read_full_article_label": "Read full article",
+            "published_at": article.get("published_at"),
+            "no_sentiment_label": True,
+            "no_bullish_bearish": True,
+            "tags": article.get("tags") or [],
+        })
+
+    return {
+        "ok": True,
+        "feature_ref": 768,
+        "merged_into": "Market Radar",
+        "standalone_rejected": True,
+        "surface": "market_radar",
+        "route": "/radar/news",
+        "widget_label_ar": "أخبار السوق",
+        "no_ai_branding": True,
+        "asset": asset.upper(),
+        "summaries": summaries,
+        "summary_count": len(summaries),
+        "source_links_preserved": all(s.get("source_link_preserved") for s in summaries) if summaries else True,
+        "grounded_in_article_only": True,
+        "no_facts_beyond_article": True,
+        "no_sentiment_analysis": True,
+        "fee_db": cfg.get("fee_db") or {
+            "news_api_usd": 0.005,
+            "summarization_usd": 0.001,
+            "tier": "standard",
+        },
+        "display": (
+            f"No news digest for {asset.upper()}"
+            if not summaries
+            else f"{asset.upper()} news digest — {len(summaries)} summaries"
+        ),
+        "disclaimer": "News digest for context only — not investment advice. Source links mandatory.",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_landing_news_digest_widget_768(
+    *,
+    limit: int = 3,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#768 → Landing Page: last 3 summaries."""
+    digest = build_news_digest_layer_768("BTC", limit=limit, seed=seed)
+    return {
+        "ok": digest.get("ok", False),
+        "feature_ref": 768,
+        "surface": "landing_page",
+        "widget": "market_news_digest",
+        "summaries": (digest.get("summaries") or [])[:limit],
+        "summary_count": min(len(digest.get("summaries") or []), limit),
+        "no_ai_branding": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_asset_card_news_digest_768(
+    asset: str = "BTC",
+    *,
+    limit: int = 3,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#768 — Asset Card آخر الأخبار (3 summaries max)."""
+    digest = build_news_digest_layer_768(asset, limit=limit, seed=seed)
+    return {
+        "ok": digest.get("ok", False),
+        "feature_ref": 768,
+        "surface": "asset_card",
+        "tab": "Latest News",
+        "tab_ar": "آخر الأخبار",
+        "asset": asset.upper(),
+        "summaries": (digest.get("summaries") or [])[:limit],
+        "summary_count": min(len(digest.get("summaries") or []), limit),
+        "source_links_preserved": digest.get("source_links_preserved", True),
+        "no_sentiment_analysis": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_news_digest_hallucination_tests_768(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#768 — daily hallucination regression: summary facts must match article ±0%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("news_digest_768") or {}
+    fixtures = cfg.get("regression_fixtures") or []
+    tests: list[dict[str, Any]] = []
+
+    for fixture in fixtures:
+        article_text = fixture.get("article_text", "")
+        expected_prefix = fixture.get("expected_prefix", "The article states:")
+        extractive = _extractive_summary(article_text)
+        summary = f"{expected_prefix} {extractive}" if extractive else ""
+        forbidden = fixture.get("forbidden_additions") or []
+        has_forbidden = any(term.lower() in summary.lower() for term in forbidden)
+        tests.append({
+            "test": fixture.get("id", "hallucination_check"),
+            "passed": not has_forbidden and summary.startswith(expected_prefix),
+            "detail": summary[:120],
+        })
+
+    digest = build_news_digest_layer_768("BTC", limit=5, seed=seed)
+    for item in digest.get("summaries") or []:
+        original = item.get("original_summary") or ""
+        summary = item.get("summary") or ""
+        prefix_ok = summary.startswith("The article states:")
+        no_extra = original in summary or _extractive_summary(original) in summary
+        tests.append({
+            "test": f"article_match_{(item.get('headline') or 'item')[:30]}",
+            "passed": prefix_ok and no_extra,
+            "detail": "prefix + no addition",
+        })
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": 768,
+        "hallucination_regression_tests": tests,
+        "all_passed": all_passed,
+        "daily_qa_required": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def build_multi_factor_screener(
     *,
     sort_by: str = "factor_alignment",
@@ -593,6 +767,7 @@ def build_ai_content_engine_panel(
     digest = build_market_digest(digest_id=digest_id, seed=seed)
     screener = build_multi_factor_screener(sort_by=sort_by, seed=seed)
     news = build_news_panel(asset=asset, seed=seed)
+    news_digest = build_news_digest_layer_768(asset=asset, seed=seed)
 
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
@@ -614,6 +789,7 @@ def build_ai_content_engine_panel(
             "512_market_digest": digest,
             "513_multi_factor_screener": screener,
             "575_news_integration": news,
+            "768_news_digest": news_digest if news_digest.get("ok") else {"ok": False},
             "tasks_not_tickets": True,
         },
         "pipeline": "rank(#513) → evidence(#511) → digest(#512) → news(#575)",

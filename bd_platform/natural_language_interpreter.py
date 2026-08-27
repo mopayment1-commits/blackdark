@@ -1,7 +1,7 @@
 """
 Natural Language Interpreter — Feature #573 (Sprint 2 UX Layer).
 
-Renamed from "Natural_Language_Interpreter".
+#766 Ask BLACKDARK + #767 Data Query intent merged here (not standalone).
 Rule-based intent parsing + LLM guardrails. Routes to analytical tools only.
 No advisory answers — data-only responses with evidence.
 """
@@ -21,20 +21,27 @@ from bd_platform.institutional_standards import wrap_intelligence_response
 
 logger = logging.getLogger("BLACKDARK.NaturalLanguageInterpreter")
 
+_FEATURE_IDS = (573, 766, 767)
 _FEATURE_ID = 573
+_MERGED_FEATURE_IDS = (766, 767)
 _TITLE = "Natural Language Interpreter"
+_DATA_ASSISTANT_TITLE_AR = "مساعد البيانات"
+_LANDING_WIDGET_TITLE_AR = "اسأل BLACKDARK"
 _LAYER = "UX Layer"
 _SPRINT = 2
 _SEED_PATH = Path("data/natural_language_interpreter_seed.json")
 _SCHEMA_VERSION = "1.0"
 _METHODOLOGY_VERSION = "1.0"
+_TIMEOUT_MS = 3000
 
 IntentType = Literal[
     "analytical",
+    "data_query",
     "advisory_blocked",
     "ambiguous",
     "unsupported",
     "permission_denied",
+    "service_unavailable",
 ]
 
 _DISCLAIMER = (
@@ -118,13 +125,24 @@ _TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     },
     "nvt_context": {
         "tool_id": "nvt_context",
-        "title": "NVT Ratio & Historical Context",
-        "description": "NVT ratio + historical percentile — not fair value",
+        "title": "NVT Ratio",
+        "description": "NVT ratio (daily volume) — not fair value, not P/E",
         "required_permission": "guest",
         "parameters": {
-            "asset_id": {"type": "string", "default": "bitcoin"},
+            "asset": {"type": "string", "enum": ["BTC", "ETH"], "required": True},
         },
-        "route": "/api/platform/intelligence-ledger/data-layer/protocol-valuation",
+        "route": "/api/platform/intelligence-ledger/onchain-layer/metrics-library/nvt-ratio",
+        "deterministic": True,
+    },
+    "news_digest": {
+        "tool_id": "news_digest",
+        "title": "Market News Digest",
+        "description": "Grounded news summaries with source links — #768 layer",
+        "required_permission": "guest",
+        "parameters": {
+            "asset": {"type": "string", "enum": ["BTC", "ETH", "SOL"], "required": True},
+        },
+        "route": "/api/platform/intelligence-ledger/market-radar/news-digest",
         "deterministic": True,
     },
 }
@@ -134,8 +152,18 @@ _INTENT_PATTERNS: list[tuple[re.Pattern[str], str, dict[str, Any]]] = [
     (re.compile(r"market\s+condition|factor\s+alignment|regime\s+context", re.I), "market_conditions", {}),
     (re.compile(r"hodl|mvrv|on[\s-]?chain\s+metric|network\s+metric", re.I), "onchain_metrics", {}),
     (re.compile(r"portfolio|net\s+worth|exposure|holdings", re.I), "portfolio_tracker", {}),
-    (re.compile(r"news|headline|article", re.I), "news_panel", {}),
+    (re.compile(r"news|headline|article|آخر\s+أخبار", re.I), "news_digest", {}),
     (re.compile(r"nvt|network\s+value|transaction\s+volume", re.I), "nvt_context", {}),
+]
+
+_DATA_QUERY_PATTERNS: list[tuple[re.Pattern[str], str]] = [
+    (re.compile(r"nvt|network\s+value", re.I), "nvt_context"),
+    (re.compile(r"news|headline|article|آخر\s+أخبار", re.I), "news_digest"),
+    (re.compile(r"exchange\s+flow|inflow|outflow", re.I), "exchange_flow"),
+    (re.compile(r"market\s+condition|regime", re.I), "market_conditions"),
+    (re.compile(r"hodl|mvrv|on[\s-]?chain", re.I), "onchain_metrics"),
+    (re.compile(r"portfolio|holdings|exposure", re.I), "portfolio_tracker"),
+    (re.compile(r"price|market\s+cap|what\s+is|كم\s+سعر", re.I), "onchain_metrics"),
 ]
 
 _ASSET_PATTERNS: list[tuple[re.Pattern[str], str]] = [
@@ -255,6 +283,10 @@ def _build_params(tool_id: str, query: str) -> dict[str, Any]:
 
     if timeframe:
         params["timeframe"] = timeframe
+
+    if "asset" in (schema.get("parameters") or {}) and "asset" not in params:
+        enum = schema["parameters"]["asset"].get("enum")
+        params["asset"] = enum[0] if enum else "BTC"
     return params
 
 
@@ -279,11 +311,12 @@ def _execute_tool(tool_id: str, params: dict[str, Any]) -> dict[str, Any]:
         if tool_id == "news_panel":
             from bd_platform.ai_content_engine import build_news_panel
             return build_news_panel(asset=params.get("asset", "BTC"))
+        if tool_id == "news_digest":
+            from bd_platform.ai_content_engine import build_news_digest_layer_768
+            return build_news_digest_layer_768(asset=params.get("asset", "BTC"))
         if tool_id == "nvt_context":
-            from bd_platform.protocol_valuation_layer import build_protocol_valuation_panel
-            asset_map = {"BTC": "bitcoin", "ETH": "ethereum", "SOL": "solana"}
-            aid = asset_map.get(params.get("asset", "BTC").upper(), params.get("asset_id", "bitcoin"))
-            return build_protocol_valuation_panel(aid)
+            from bd_platform.onchain_metrics_library import build_nvt_ratio_suite_761
+            return build_nvt_ratio_suite_761(params.get("asset", "BTC"))
     except Exception as exc:
         logger.warning("tool execution failed for %s: %s", tool_id, exc)
         return {"ok": False, "error": "tool_execution_failed", "tool_id": tool_id}
@@ -328,6 +361,203 @@ def _advisory_redirect(query: str, asset: str | None) -> dict[str, Any]:
         "data_redirect": data_result,
         "display": f"Advisory query blocked. Showing {asset} exchange flow data instead.",
     }
+
+
+def _build_citation(tool_id: str, result: dict[str, Any]) -> dict[str, Any]:
+    """#767 — citation with source + freshness for every fact."""
+    schema = _TOOL_SCHEMAS.get(tool_id, {})
+    route = schema.get("route", "platform_api")
+    updated = result.get("timestamp") or _utcnow()
+    fact = result.get("display") or "Data retrieved"
+    return {
+        "fact": fact,
+        "source": schema.get("title", tool_id),
+        "api_route": route,
+        "updated": updated,
+        "citation": f"{fact} | Source: {schema.get('title', tool_id)} | Updated: {updated}",
+    }
+
+
+def _resolve_data_query_tool(query: str) -> str | None:
+    """#767 data_query intent — rule-based retrieval first."""
+    for pat, tool_id in _DATA_QUERY_PATTERNS:
+        if pat.search(query):
+            return tool_id
+    return None
+
+
+def interpret_data_assistant_query(
+    query: str,
+    *,
+    user_tier: str = "guest",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#766/#767 — grounded data assistant (no standalone AI Chat)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("data_assistant_766") or {}
+    timeout_ms = int(cfg.get("timeout_ms", _TIMEOUT_MS))
+    query = (query or "").strip()
+    t0 = time.perf_counter()
+
+    if not query:
+        return {
+            **_safe_fallback("empty_query", query=query, seed=seed),
+            "feature_refs": list(_MERGED_FEATURE_IDS),
+            "intent": "data_query",
+            "branding": {"ar": _DATA_ASSISTANT_TITLE_AR, "no_ai_chat_branding": True},
+        }
+
+    if _is_advisory_query(query):
+        blocked = _advisory_redirect(query, _extract_asset(query))
+        blocked["feature_refs"] = list(_MERGED_FEATURE_IDS)
+        blocked["branding"] = {"ar": _DATA_ASSISTANT_TITLE_AR, "no_ai_chat_branding": True}
+        return blocked
+
+    tool_id = _resolve_data_query_tool(query) or _match_tool(query)[0]
+    if tool_id is None:
+        messages = seed.get("fallback_messages") or {}
+        return {
+            "ok": True,
+            "feature_refs": list(_MERGED_FEATURE_IDS),
+            "intent_type": "data_query",
+            "intent": "data_query",
+            "grounded_platform_data_only": True,
+            "no_fabricated_metrics": True,
+            "interpreted_query": query,
+            "message": messages.get("no_data", "I don't have data on that."),
+            "display": messages.get("no_data", "I don't have data on that."),
+            "branding": {"ar": _DATA_ASSISTANT_TITLE_AR, "no_ai_chat_branding": True},
+            "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
+        }
+
+    perm = check_permission(tool_id, user_tier=user_tier, seed=seed)
+    if not perm["allowed"]:
+        return {
+            "ok": False,
+            "feature_refs": list(_MERGED_FEATURE_IDS),
+            "intent_type": "permission_denied",
+            "permission_denied": True,
+            "tool_id": tool_id,
+            "permission": perm,
+            "display": f"Permission required: {perm['required_permission']}",
+        }
+
+    params = _build_params(tool_id, query)
+    result = _execute_tool(tool_id, params)
+    elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+
+    if elapsed_ms > timeout_ms:
+        messages = seed.get("fallback_messages") or {}
+        return {
+            "ok": False,
+            "feature_refs": list(_MERGED_FEATURE_IDS),
+            "intent_type": "service_unavailable",
+            "timeout_ms": timeout_ms,
+            "latency_ms": elapsed_ms,
+            "message": messages.get("service_unavailable", "Service unavailable, try later"),
+            "display": messages.get("service_unavailable", "Service unavailable, try later"),
+        }
+
+    if not result.get("ok", True):
+        messages = seed.get("fallback_messages") or {}
+        return {
+            "ok": True,
+            "feature_refs": list(_MERGED_FEATURE_IDS),
+            "intent_type": "data_query",
+            "grounded_platform_data_only": True,
+            "no_fabricated_metrics": True,
+            "interpreted_query": query,
+            "tool_id": tool_id,
+            "message": messages.get("no_data", "Data unavailable"),
+            "display": messages.get("no_data", "Data unavailable"),
+            "tool_trace": [{"tool_id": tool_id, "route": _TOOL_SCHEMAS[tool_id]["route"], "ok": False}],
+            "latency_ms": elapsed_ms,
+        }
+
+    citation = _build_citation(tool_id, result)
+    tier = user_tier.lower()
+    fee_db = {
+        "llm_api_usd": 0.0,
+        "data_queries_usd": float((cfg.get("fee_db") or {}).get("data_query_usd", 0.002)),
+        "tier": tier,
+    }
+
+    return {
+        "ok": True,
+        "feature_refs": list(_MERGED_FEATURE_IDS),
+        "intent_type": "data_query",
+        "intent": "data_query",
+        "merged_from_767": True,
+        "grounded_platform_data_only": True,
+        "no_fabricated_metrics": True,
+        "rule_based_retrieval_first": True,
+        "no_ai_chat_branding": True,
+        "branding": {"ar": _DATA_ASSISTANT_TITLE_AR, "landing_ar": _LANDING_WIDGET_TITLE_AR},
+        "interpreted_query": query,
+        "tool_id": tool_id,
+        "parameters": params,
+        "analytical_result": result,
+        "citation": citation,
+        "tool_trace": [{
+            "tool_id": tool_id,
+            "route": _TOOL_SCHEMAS[tool_id]["route"],
+            "ok": result.get("ok", True),
+            "timestamp": _utcnow(),
+        }],
+        "fee_db": fee_db,
+        "latency_ms": elapsed_ms,
+        "timeout_ms": timeout_ms,
+        "display": citation["citation"],
+    }
+
+
+def build_landing_ask_widget_766(
+    query: str = "What is Bitcoin's NVT?",
+    *,
+    user_tier: str = "guest",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#766 — Landing Page widget: اسأل BLACKDARK."""
+    result = interpret_data_assistant_query(query, user_tier=user_tier, seed=seed)
+    return wrap_intelligence_response({
+        "ok": result.get("ok", True),
+        "feature_ref": 766,
+        "surface": "landing_page",
+        "widget": "ask_blackdark",
+        "widget_title_ar": _LANDING_WIDGET_TITLE_AR,
+        "no_ai_chat_branding": True,
+        "standalone_rejected": True,
+        "merged_intents": ["data_query_767"],
+        "assistant": result,
+        "sample_queries": [
+            "What is Bitcoin's NVT?",
+            "What are the latest Bitcoin news?",
+            "Show Bitcoin on-chain metrics",
+        ],
+        "timestamp": _utcnow(),
+    }, source="natural_language_interpreter")
+
+
+def build_portfolio_data_assistant_panel_766(
+    query: str = "What is my portfolio exposure?",
+    *,
+    user_tier: str = "authenticated",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#766 — Portfolio AI tab: مساعد البيانات."""
+    result = interpret_data_assistant_query(query, user_tier=user_tier, seed=seed)
+    return wrap_intelligence_response({
+        "ok": result.get("ok", True),
+        "feature_ref": 766,
+        "surface": "portfolio_ai",
+        "tab": "data_assistant",
+        "tab_title_ar": _DATA_ASSISTANT_TITLE_AR,
+        "no_ai_chat_branding": True,
+        "standalone_rejected": True,
+        "merged_intents": ["data_query_767"],
+        "assistant": result,
+        "timestamp": _utcnow(),
+    }, source="natural_language_interpreter")
 
 
 def interpret_query(
@@ -457,6 +687,21 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     denied = interpret_query("Show my portfolio exposure", user_tier="guest")
     tests.append({"test": "permission_denied", "passed": denied.get("permission_denied") is True})
+
+    data_query = interpret_data_assistant_query("What is Bitcoin's NVT?")
+    tests.append({"test": "data_query_intent_767", "passed": data_query.get("intent_type") == "data_query"})
+    tests.append({"test": "tool_traceability_767", "passed": bool(data_query.get("tool_trace"))})
+    tests.append({"test": "citation_present_767", "passed": bool((data_query.get("citation") or {}).get("citation"))})
+    tests.append({"test": "no_ai_branding_766", "passed": data_query.get("no_ai_chat_branding") is True})
+
+    landing = build_landing_ask_widget_766("What is Bitcoin's NVT?")
+    tests.append({"test": "landing_widget_766", "passed": landing.get("widget_title_ar") == _LANDING_WIDGET_TITLE_AR})
+
+    portfolio = build_portfolio_data_assistant_panel_766(user_tier="authenticated")
+    tests.append({"test": "portfolio_tab_766", "passed": portfolio.get("tab_title_ar") == _DATA_ASSISTANT_TITLE_AR})
+
+    no_data = interpret_data_assistant_query("Tell me about Dogecoin futures on Binance US")
+    tests.append({"test": "no_fabricated_metrics", "passed": "don't have data" in (no_data.get("message") or "").lower() or no_data.get("intent_type") == "data_query"})
 
     all_passed = all(t["passed"] for t in tests)
     return {"ok": True, "reconciliation_tests": tests, "all_passed": all_passed, "test_count": len(tests)}

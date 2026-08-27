@@ -877,5 +877,57 @@
       "asset": "ETH",
       "expected_supply_change_monthly": -12000
     }
+  },
+  "nvt_ratio_761": {
+    "feature_ref": 761,
+    "merged_into": 577,
+    "overvaluation_threshold": 90.0,
+    "reconciliation_qa": {
+      "tolerance_pct": 5.0,
+      "assets": {
+        "BTC": {
+          "platform_nvt": 42.5,
+          "reference_nvt": 41.8,
+          "reference_source": "coinmetrics"
+        },
+        "ETH": {
+          "platform_nvt": 68.2,
+          "reference_nvt": 66.9,
+          "reference_source": "glassnode"
+        }
+      }
+    },
+    "assets": {
+      "BTC": {
+        "chain_model": "utxo",
+        "market_cap_usd": 1280000000000,
+        "daily_transaction_volume_usd": 30117647059,
+        "native_transfer_volume_usd": 30117647059,
+        "token_transfer_volume_usd": 0,
+        "nvt_history": [38.2, 39.5, 40.1, 41.0, 42.5],
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 1,
+          "metrics_recalculated": true
+        },
+        "fee_db": {"rpc_queries_usd": 0.02, "market_cap_api_usd": 0.01, "tier": "standard"}
+      },
+      "ETH": {
+        "chain_model": "account",
+        "market_cap_usd": 420000000000,
+        "daily_transaction_volume_usd": 6158357771,
+        "native_transfer_volume_usd": 4200000000,
+        "token_transfer_volume_usd": 1958357771,
+        "nvt_history": [62.0, 64.5, 66.0, 67.1, 68.2],
+        "reorg_handling": {
+          "enabled": true,
+          "recalculate_cancelled_blocks": true,
+          "last_reorg_depth": 2,
+          "metrics_recalculated": true
+        },
+        "fee_db": {"rpc_queries_usd": 0.03, "market_cap_api_usd": 0.015, "tier": "standard"}
+      }
+    }
   }
 }
