@@ -15,3 +15,5 @@ skips:
   - B101
   # Parameterized SQL with dialect guards — covered by tests/test_sql_safety.py.
   - B608
+  # Passive security scan scripts use controlled urllib for header checks.
+  - B310
