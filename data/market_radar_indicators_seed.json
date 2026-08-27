@@ -86,6 +86,13 @@
         57789.97, 58176.8, 57955.23, 57419.54, 58246.81, 58019.02, 57376.69, 56741.1, 57381.84, 57608.18,
         58180.3, 58620.84, 58732.43, 59586.72, 59430.23, 59568.7, 60178.69, 60430.17, 61095.08, 61276.57,
         61674.35, 60952.25, 60539.67, 60231.63, 59567.28, 59163.03, 58534.73, 58207.28, 58487.95, 58308.16
+      ],
+      "ETH": [
+        3421.5, 3388.2, 3365.8, 3342.1, 3356.9, 3378.4, 3401.2, 3372.6, 3368.3, 3335.7,
+        3312.4, 3318.9, 3289.5, 3265.2, 3280.8, 3288.1, 3268.4, 3275.6, 3298.3, 3262.9,
+        3285.7, 3302.4, 3291.8, 3268.5, 3295.2, 3282.6, 3258.3, 3235.1, 3268.9, 3278.4,
+        3305.6, 3328.2, 3335.7, 3378.4, 3369.2, 3375.8, 3402.5, 3415.3, 3448.6, 3458.9,
+        3478.2, 3442.5, 3425.8, 3410.3, 3382.6, 3365.4, 3338.7, 3322.1, 3335.8, 3328.4
       ]
     },
     "look_ahead_fixture": {
@@ -121,6 +128,34 @@
     "max_indicators": 4,
     "route": "/radar/chart",
     "fee_db": {"ohlcv_api_usd": 0.005, "tier": "standard"},
+    "disclaimer": "Technical indicators are mathematical calculations based on historical data. Not financial advice. Past performance does not guarantee future results.",
+    "superseded_by_ref": 821
+  },
+  "chart_component_821": {
+    "feature_ref": 821,
+    "merged_into": "market_radar",
+    "component": "chart_component",
+    "selected_charting_solution": true,
+    "standalone_rejected": true,
+    "streamlit_rejected": true,
+    "santiment_rejected": true,
+    "legal_name": "الرسم البياني",
+    "route": "/radar/chart",
+    "chart_library": "TradingView Lightweight Charts",
+    "chart_library_version": "v4",
+    "oracle_api_ref": "Oracle API",
+    "supported_assets": ["BTC", "ETH"],
+    "default_candle_limit": 50,
+    "max_candles_supported": 50000,
+    "target_latency_ms": 100,
+    "indicators_enabled": ["RSI(14)", "MACD(12,26,9)", "SMA(20)", "Volume"],
+    "max_indicators_sprint_1": 4,
+    "fifty_indicators_deferred": true,
+    "fee_db": {"ohlcv_api_usd": 0.005, "tier": "standard"},
+    "ohlcv_volumes": {
+      "BTC": [1250.5, 1180.2, 1320.8, 1095.4, 1410.0, 1288.3, 1355.7, 1201.9, 1156.2, 1089.6, 1422.1, 1310.4, 1198.7, 1275.3, 1344.8, 1222.0, 1167.5, 1299.1, 1388.6, 1244.2, 1301.7, 1366.9, 1218.4, 1145.8, 1392.3, 1277.6, 1189.0, 1123.5, 1335.2, 1288.9, 1415.6, 1372.1, 1266.4, 1319.8, 1290.3, 1348.7, 1425.0, 1380.5, 1456.2, 1401.8, 1488.3, 1355.9, 1289.4, 1220.7, 1178.2, 1134.6, 1098.3, 1056.7, 1288.1, 1245.9],
+      "ETH": [890.2, 845.6, 912.3, 798.4, 934.7, 876.1, 901.5, 867.3, 823.8, 789.2, 945.6, 902.4, 856.7, 888.9, 921.3, 874.5, 831.2, 896.7, 938.4, 861.9, 905.2, 928.6, 847.3, 812.5, 956.8, 889.4, 834.7, 801.3, 917.6, 872.8, 948.2, 923.5, 865.1, 898.7, 884.3, 912.9, 967.4, 941.2, 978.6, 952.3, 991.8, 918.5, 876.9, 842.1, 815.6, 788.4, 762.9, 735.2, 889.7, 856.3]
+    },
     "disclaimer": "Technical indicators are mathematical calculations based on historical data. Not financial advice. Past performance does not guarantee future results."
   },
   "macro_coupling_774": {
