@@ -497,6 +497,17 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
     except Exception:
         logger.debug("693 exchange flow arbitrage adjustment skipped", exc_info=True)
 
+    # #698 SSR — adjust arb by stablecoin liquidity context
+    try:
+        from bd_platform.onchain_metrics_library import apply_ssr_arbitrage_adjustment_429
+
+        ssr_adj = apply_ssr_arbitrage_adjustment_429(enriched, seed=seed)
+        enriched.update(ssr_adj)
+        if ssr_adj.get("ssr_adjusted_edge_bps") is not None and enriched.get("net_edge_bps") is not None:
+            enriched["net_edge_bps"] = ssr_adj["ssr_adjusted_edge_bps"]
+    except Exception:
+        logger.debug("698 SSR arbitrage adjustment skipped", exc_info=True)
+
     # #472 Investment Thesis Scoring — thesis adjusts signal confidence (#417)
     try:
         from bd_platform.investment_thesis_scoring import apply_thesis_to_confidence

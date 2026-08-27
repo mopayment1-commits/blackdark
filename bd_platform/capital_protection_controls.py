@@ -912,6 +912,17 @@ def _build_stablecoin_health_block(portfolio_id: str = "demo_portfolio") -> dict
     }
 
 
+def _build_ssr_liquidity_stress_block() -> dict[str, Any]:
+    """#698 → #410 — SSR liquidity stress alerts."""
+    try:
+        from bd_platform.onchain_metrics_library import build_ssr_liquidity_stress_alert_410
+
+        return build_ssr_liquidity_stress_alert_410()
+    except Exception:
+        logger.debug("698 SSR liquidity stress alerts skipped", exc_info=True)
+        return {"ok": False, "feature_ref": 698, "alerts": []}
+
+
 def _build_long_short_alerts_block() -> dict[str, Any]:
     """#675 → #410 — extreme L/S positioning alerts in Risk Layer."""
     try:
@@ -1079,6 +1090,7 @@ def build_capital_awareness_panel(portfolio_id: str = "demo_portfolio") -> dict[
         "opportunity_risk_combined_429": build_opportunity_risk_combined_alerts(portfolio_id, seed=seed),
         "oracle_risk_alerts_482": _build_oracle_risk_alerts_block(portfolio_id),
         "long_short_alerts_675": _build_long_short_alerts_block(),
+        "ssr_liquidity_stress_698": _build_ssr_liquidity_stress_block(),
         "volatility_regime_498": vol_regime if vol_regime.get("ok") else None,
         "portfolio_summary": {
             "total_value_usd": portfolio.get("total_value_usd"),

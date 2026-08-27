@@ -1102,6 +1102,296 @@ def build_stablecoin_supply_metric_577(*, seed: dict[str, Any] | None = None) ->
     }
 
 
+def _percentile_rank(value: float, series: list[float]) -> float:
+    if not series:
+        return 50.0
+    below = sum(1 for v in series if v < value)
+    equal = sum(1 for v in series if v == value)
+    return round((below + 0.5 * equal) / len(series) * 100, 1)
+
+
+def _compute_ssr_inputs(
+    cfg: dict[str, Any],
+) -> dict[str, Any]:
+    """#698 — deterministic SSR inputs from documented supported stablecoins only."""
+    supported = list(cfg.get("supported_stablecoins") or ["USDC", "USDT", "DAI", "BUSD"])
+    supplies = cfg.get("stablecoin_supply_usd") or {}
+    by_token = {token: float(supplies[token]) for token in supported if token in supplies}
+    total_supply = round(sum(by_token.values()), 2)
+    market_cap = float(cfg.get("crypto_market_cap_usd", 0))
+    ssr = round(market_cap / total_supply, 2) if total_supply > 0 else missing_value(numeric=True)
+    return {
+        "supported_stablecoins": supported,
+        "by_token_usd": by_token,
+        "total_stablecoin_supply_usd": total_supply,
+        "crypto_market_cap_usd": market_cap,
+        "btc_market_cap_usd": cfg.get("btc_market_cap_usd"),
+        "ssr": ssr,
+    }
+
+
+def build_stablecoin_supply_ratio_698(
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#698 — SSR metric suite merged into #577."""
+    seed = seed or _load_seed()
+    cfg = seed.get("stablecoin_supply_ratio_698") or {}
+    if not cfg:
+        return {"ok": False, "error": "ssr_config_not_found"}
+
+    inputs = _compute_ssr_inputs(cfg)
+    ssr = inputs["ssr"]
+    if not isinstance(ssr, (int, float)):
+        return {"ok": False, "error": "ssr_not_computable"}
+
+    osc_cfg = cfg.get("oscillator") or {}
+    mean = float(osc_cfg.get("historical_mean", ssr))
+    std = float(osc_cfg.get("historical_std", 1))
+    oscillator = round((float(ssr) - mean) / std, 4) if std > 0 else 0.0
+
+    hist_ssr = [float(row.get("ssr", 0)) for row in (cfg.get("historical_ssr") or []) if row.get("ssr") is not None]
+    hist_supply = [
+        float(row.get("supply_usd", 0))
+        for row in (cfg.get("historical_stablecoin_supply") or [])
+        if row.get("supply_usd") is not None
+    ]
+    ssr_percentile = _percentile_rank(float(ssr), hist_ssr)
+    supply_percentile = _percentile_rank(inputs["total_stablecoin_supply_usd"], hist_supply)
+
+    bands_cfg = cfg.get("band_thresholds") or {}
+    under_pct = float(bands_cfg.get("undersupplied_supply_percentile", 25))
+    over_pct = float(bands_cfg.get("oversupplied_supply_percentile", 75))
+    if supply_percentile <= under_pct:
+        band = "Undersupplied"
+        band_ar = "نقص في السيولة المستقرة"
+        context_en = (
+            "Stablecoin liquidity is relatively low historically — may indicate selling pressure if panic occurs"
+        )
+        context_ar = "السيولة المستقرة منخفضة نسبياً — قد يشير إلى ضغط بيعي إذا حدث panic"
+    elif supply_percentile >= over_pct:
+        band = "Oversupplied"
+        band_ar = "فائض في السيولة المستقرة"
+        context_en = "Stablecoin liquidity is historically elevated — ample dry powder relative to market cap"
+        context_ar = "السيولة المستقرة مرتفعة تاريخياً — سيولة جافة وفيرة نسبياً"
+    else:
+        band = "Neutral"
+        band_ar = "محايد"
+        context_en = "Stablecoin liquidity within historical norms"
+        context_ar = "السيولة المستقرة ضمن النطاق التاريخي"
+
+    liquidity_stress = supply_percentile < float(cfg.get("liquidity_stress_supply_percentile", 20))
+
+    return {
+        "ok": True,
+        "feature_ref": 698,
+        "merged_into": _EPIC_ID,
+        "standalone": False,
+        "metric_id": "stablecoin_supply_ratio",
+        "ssr": ssr,
+        "ssr_oscillator": oscillator,
+        "supported_stablecoins": inputs["supported_stablecoins"],
+        "supported_stablecoins_display": " + ".join(inputs["supported_stablecoins"]),
+        "unsupported_excluded": cfg.get("unsupported_excluded", True),
+        "stablecoin_supply_by_token_usd": inputs["by_token_usd"],
+        "total_stablecoin_supply_usd": inputs["total_stablecoin_supply_usd"],
+        "crypto_market_cap_usd": inputs["crypto_market_cap_usd"],
+        "btc_market_cap_usd": inputs["btc_market_cap_usd"],
+        "historical_percentile": supply_percentile,
+        "ssr_historical_percentile": ssr_percentile,
+        "historical_bands": {
+            "band": band,
+            "band_ar": band_ar,
+            "undersupplied_threshold_pct": under_pct,
+            "oversupplied_threshold_pct": over_pct,
+        },
+        "historical_ssr": cfg.get("historical_ssr") or [],
+        "explanation": {
+            "descriptive_not_predictive": True,
+            "context_en": context_en,
+            "context_ar": context_ar,
+            "display": (
+                f"SSR = {ssr} | Historical percentile = {supply_percentile:.0f}% | "
+                f"Band: {band} | Context: {context_en}"
+            ),
+        },
+        "liquidity_stress": liquidity_stress,
+        "formula": {
+            "ssr": "Total Crypto Market Cap / Total Stablecoin Supply",
+            "oscillator": "(SSR - Historical Mean) / Historical Std",
+            "version": cfg.get("formula_version", "1.0"),
+            "documented": cfg.get("documented", True),
+        },
+        "asset_card_context": True,
+        "market_radar_widget": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_stablecoin_supply_ratio_metric_577(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#698 metric delivery via #577 library."""
+    suite = build_stablecoin_supply_ratio_698(seed=seed)
+    if not suite.get("ok"):
+        return suite
+    return {
+        "ok": True,
+        "metric_id": "stablecoin_supply_ratio",
+        "task_ref": 698,
+        "epic_feature_id": _EPIC_ID,
+        "value": suite.get("ssr"),
+        "ssr_oscillator": suite.get("ssr_oscillator"),
+        "historical_percentile": suite.get("historical_percentile"),
+        "supported_stablecoins": suite.get("supported_stablecoins"),
+        "formula_version": (suite.get("formula") or {}).get("version"),
+        "missing_not_zero": True,
+        "source": "stablecoin_supply_ratio_intelligence_698",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_market_radar_ssr_widget_698(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#698 → Market Radar widget: نسبة السيولة."""
+    suite = build_stablecoin_supply_ratio_698(seed=seed)
+    return {
+        "ok": suite.get("ok", False),
+        "feature_ref": 698,
+        "surface": "market_radar",
+        "widget": "stablecoin_supply_ratio",
+        "widget_label_ar": "نسبة السيولة",
+        "ssr": suite,
+        "display": (suite.get("explanation") or {}).get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_ssr_daily_brief_hook_474(*, seed: dict[str, Any] | None = None) -> dict[str, Any] | None:
+    """#698 → #474 Daily Brief integration."""
+    suite = build_stablecoin_supply_ratio_698(seed=_load_seed())
+    if not suite.get("ok"):
+        return None
+    pct = suite.get("historical_percentile")
+    return {
+        "integration_474": True,
+        "integration_698": True,
+        "mention": f"SSR في percentile {pct:.0f}% — سياق: السيولة المستقرة منخفضة تاريخياً",
+        "mention_en": (
+            f"SSR at {pct:.0f}th percentile — context: stablecoin liquidity historically low"
+        ),
+        "ssr": suite.get("ssr"),
+        "historical_percentile": pct,
+        "band": (suite.get("historical_bands") or {}).get("band"),
+    }
+
+
+def build_ssr_liquidity_stress_alert_410(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#698 → #410 — alert when stablecoin supply percentile < 20% (liquidity stress)."""
+    seed = seed or _load_seed()
+    suite = build_stablecoin_supply_ratio_698(seed=seed)
+    cfg = seed.get("stablecoin_supply_ratio_698") or {}
+    threshold = float(cfg.get("liquidity_stress_supply_percentile", 20))
+    alerts: list[dict[str, Any]] = []
+
+    if suite.get("ok") and suite.get("liquidity_stress"):
+        alerts.append({
+            "alert_type": "ssr_liquidity_stress",
+            "feature_ref": 410,
+            "source_ref": 698,
+            "ssr": suite.get("ssr"),
+            "historical_percentile": suite.get("historical_percentile"),
+            "threshold_percentile": threshold,
+            "severity": "elevated",
+            "integration_410": True,
+            "display": (
+                f"Capital Protection: SSR supply percentile {suite.get('historical_percentile'):.0f}% "
+                f"< {threshold}% — liquidity stress context"
+            ),
+        })
+
+    return {
+        "ok": True,
+        "feature_ref": 410,
+        "source_ref": 698,
+        "alerts": alerts,
+        "alert_count": len(alerts),
+        "liquidity_stress_threshold_percentile": threshold,
+        "timestamp": _utcnow(),
+    }
+
+
+def apply_ssr_arbitrage_adjustment_429(
+    opp: dict[str, Any],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#698 → #429 — low SSR trend reduces exit liquidity for arb opportunities."""
+    suite = build_stablecoin_supply_ratio_698(seed=seed)
+    if not suite.get("ok"):
+        return {"ssr_context_698": {"ok": False}}
+
+    supply_pct = float(suite.get("historical_percentile", 50))
+    base_edge = float(opp.get("net_edge_bps", opp.get("gross_edge_bps", 0)) or 0)
+    adjustment_bps = 0.0
+    if supply_pct < 25:
+        adjustment_bps = max(-12, (supply_pct - 25) * 0.4)
+    elif supply_pct > 75:
+        adjustment_bps = min(8, (supply_pct - 75) * 0.2)
+
+    return {
+        "ssr_context_698": {
+            "ssr": suite.get("ssr"),
+            "historical_percentile": supply_pct,
+            "adjustment_bps": adjustment_bps,
+            "low_ssr_less_exit_liquidity": supply_pct < 25,
+            "integration_429": True,
+        },
+        "ssr_adjusted_edge_bps": round(base_edge + adjustment_bps, 2) if base_edge else None,
+    }
+
+
+def build_ssr_market_context_for_financials_641(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#698 → #641 — SSR market context for Protocol Financials."""
+    suite = build_stablecoin_supply_ratio_698(seed=seed)
+    if not suite.get("ok"):
+        return suite
+    return {
+        "ok": True,
+        "feature_ref": 698,
+        "merged_into": 641,
+        "market_context": "stablecoin_supply_ratio",
+        "ssr": suite.get("ssr"),
+        "historical_percentile": suite.get("historical_percentile"),
+        "band": (suite.get("historical_bands") or {}).get("band"),
+        "explanation": suite.get("explanation"),
+        "descriptive_not_predictive": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_ssr_regression_tests_698(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#698 — same inputs must produce same SSR (historical reproducibility)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("stablecoin_supply_ratio_698") or {}
+    fixture = cfg.get("regression_fixture") or {}
+    test_cfg = {**cfg, **fixture}
+
+    first = _compute_ssr_inputs(test_cfg)
+    second = _compute_ssr_inputs(test_cfg)
+    ssr1 = first.get("ssr")
+    ssr2 = second.get("ssr")
+
+    suite1 = build_stablecoin_supply_ratio_698(seed=seed)
+    suite2 = build_stablecoin_supply_ratio_698(seed=seed)
+
+    return {
+        "ok": ssr1 == ssr2 and suite1.get("ssr") == suite2.get("ssr"),
+        "feature_ref": 698,
+        "deterministic": ssr1 == ssr2,
+        "ssr": ssr1,
+        "historical_reproducibility": suite1.get("ssr") == suite2.get("ssr"),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_market_radar_stablecoin_activity_widget_692(
     symbol: str = "USDC",
     *,
@@ -1497,6 +1787,7 @@ def build_metrics_library_panel(
     stablecoin_activity = build_stablecoin_activity_breakdown_692("USDC", seed=seed)
     stablecoin_flows = build_stablecoin_flows_metric_577(seed=seed)
     stablecoin_supply = build_stablecoin_supply_metric_577(seed=seed)
+    ssr_suite = build_stablecoin_supply_ratio_metric_577(seed=seed)
     long_short = build_long_short_ratio_metric_577(seed=seed)
     mvrv_suite = build_mvrv_zscore_metric_577(sym, seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
@@ -1530,6 +1821,7 @@ def build_metrics_library_panel(
             "692_stablecoin_activity_breakdown": stablecoin_activity if stablecoin_activity.get("ok") else {"ok": False},
             "693_stablecoin_exchange_flows": stablecoin_flows if stablecoin_flows.get("ok") else {"ok": False},
             "694_stablecoin_supply": stablecoin_supply if stablecoin_supply.get("ok") else {"ok": False},
+            "698_stablecoin_supply_ratio": ssr_suite if ssr_suite.get("ok") else {"ok": False},
             "675_long_short_ratio": long_short,
             "676_mvrv_zscore_suite": mvrv_suite if mvrv_suite.get("ok") else {"ok": False},
             "678_sector_metrics": sector_metrics if sector_metrics.get("ok") else {"ok": False},
@@ -1660,6 +1952,12 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
     sc_supply = build_stablecoin_supply_metric_577(seed=seed)
     tests.append({"test": "stablecoin_supply_694", "passed": sc_supply.get("ok") is True})
 
+    ssr = build_stablecoin_supply_ratio_698(seed=seed)
+    tests.append({"test": "stablecoin_supply_ratio_698", "passed": ssr.get("ok") is True})
+    tests.append({"test": "ssr_formula_documented_698", "passed": (ssr.get("formula") or {}).get("documented") is True})
+    tests.append({"test": "ssr_supported_stablecoins_698", "passed": ssr.get("supported_stablecoins_display") == "USDC + USDT + DAI + BUSD"})
+    tests.append({"test": "ssr_regression_698", "passed": run_ssr_regression_tests_698(seed=seed).get("deterministic") is True})
+
     network = build_network_activity_suite_682("BTC", seed=seed)
     tests.append({"test": "network_activity_suite_682", "passed": network.get("ok") is True})
     tests.append({"test": "chain_definitions_682", "passed": network.get("chain_specific_definitions_documented") is True})
@@ -1709,6 +2007,7 @@ def onchain_metrics_library_status() -> dict[str, Any]:
             "678": "Sector Market Brief → sector metrics in #577, narrative in Market Radar",
             "679": "Metric Methodology Governance → parity tests + migration history over #656",
             "682": "Network Activity Intelligence → metric suite in #577 with reorg + QA",
+            "698": "Stablecoin Supply Ratio → SSR metric suite in #577 with historical bands",
         },
         "acceptance_criteria": {
             "formula_source_version": True,

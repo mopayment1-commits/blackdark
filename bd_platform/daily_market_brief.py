@@ -275,6 +275,21 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         logger.debug("693 exchange flow daily brief integration skipped", exc_info=True)
 
+    ssr_brief = None
+    try:
+        from bd_platform.onchain_metrics_library import build_ssr_daily_brief_hook_474
+
+        ssr_brief = build_ssr_daily_brief_hook_474(seed=seed)
+        if ssr_brief:
+            why_items.insert(0, {
+                "text": ssr_brief.get("mention_en", ssr_brief.get("mention", "")),
+                "contributor_metric": "stablecoin_supply_ratio",
+                "feature_ref_698": 698,
+                "feature_ref_474": 474,
+            })
+    except Exception:
+        logger.debug("698 SSR daily brief integration skipped", exc_info=True)
+
     long_short_brief = None
     try:
         from bd_platform.onchain_metrics_library import build_long_short_daily_brief_hook_474
@@ -369,6 +384,7 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "buying_power_brief_663": buying_power_brief,
         "stablecoin_activity_brief_692": stablecoin_activity_brief,
         "exchange_flow_brief_693": exchange_flow_brief,
+        "ssr_brief_698": ssr_brief,
         "long_short_brief_675": long_short_brief,
         "mvrv_brief_676": mvrv_brief,
         "sector_pulse_brief_678": sector_pulse_brief,
