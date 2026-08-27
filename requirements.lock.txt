@@ -9,7 +9,8 @@ jinja2==3.1.6
 asyncpg==0.30.0
 pandas==2.3.3
 pyarrow==23.0.1
-aioboto3==13.4.0
+google-cloud-bigquery==3.43.0
+dbt-bigquery==1.9.0
 ccxt==4.5.64
 vaderSentiment==3.3.2
 textblob==0.19.0
@@ -30,3 +31,6 @@ authlib==1.6.12
 alembic==1.16.5
 SQLAlchemy==2.0.51
 ruff==0.16.2
+sqlparse==0.6.0
+APScheduler==3.11.3
+greenlet==3.5.4

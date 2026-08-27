@@ -27,6 +27,8 @@ WAVE_D_SET = set(WAVE_D)
 
 def _route_handler(track: str, name: str, capability_id: int):
     nl = name.lower()
+    if capability_id == 329:
+        return handle_institutional_capability
     if capability_id in VERIFIED_IDS:
         return handle_verified_capability
     if track == "T03" or any(k in nl for k in ("data quality", "ingestion", "freshness", "storage", "pipeline", "normalization", "provenance")):

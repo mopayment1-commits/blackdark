@@ -75,14 +75,10 @@ def exchanges_by_status(status: str) -> list[dict[str, Any]]:
 
 
 def resolve_asset_symbol(symbol: str) -> str:
-    cleaned = symbol.upper().strip()
-    for row in universe_assets():
-        if cleaned == str(row.get("symbol", "")).upper():
-            return str(row["symbol"]).upper()
-        for alias in row.get("aliases") or []:
-            if cleaned == str(alias).upper():
-                return str(row["symbol"]).upper()
-    return cleaned
+    """Resolve alias/pair/vendor symbol to canonical platform symbol."""
+    from blackdark.canonical.resolver import resolve_symbol
+
+    return resolve_symbol(symbol)
 
 
 def build_manifest_universe_block() -> dict[str, Any]:

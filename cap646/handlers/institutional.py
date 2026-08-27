@@ -119,6 +119,25 @@ async def handle_institutional_capability(
         result = await bootstrap_market_replay_dataset(assets=[str(params.get("symbol") or "BTC").replace("/USDT", "")], min_samples=1)
         return ai_compliance_footer({"capability_id": 588, "surface": "high_precision_backtesting", "bootstrap": result, "success": True})
 
+    if capability_id == 329:
+        from bd_platform.intelligence_ledger import build_execution_intelligence
+
+        symbol = str(params.get("symbol") or "ETH").replace("/USDT", "")
+        amount_usd = float(params.get("amount_usd") or 10_000.0)
+        execution = await build_execution_intelligence(asset=symbol, amount_usd=amount_usd)
+        return ai_compliance_footer(
+            {
+                "capability_id": 329,
+                "surface": "best_execution_pricing",
+                "backend_module": "bd_platform.intelligence_ledger",
+                "backend_entrypoint": "build_execution_intelligence",
+                "execution_intelligence": execution,
+                "success": bool(execution),
+                "not_investment_advice": True,
+                "analytics_only": True,
+            }
+        )
+
     if capability_id == 62:
         from cap646.handlers.verified import handle_verified_capability
 
