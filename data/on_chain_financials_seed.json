@@ -1,0 +1,151 @@
+{
+  "feature_id": 641,
+  "title": "On-Chain Financials",
+  "legal_name": "On-Chain Financials",
+  "standalone": false,
+  "merged_into": "Investment Thesis Scoring (#472)",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-27",
+  "accuracy_target_pct": 99.99,
+  "query_target_ms": 1000,
+  "retention_years_min": 2,
+  "storage": {
+    "retention_years": 3,
+    "granularity": "daily",
+    "block_level_aggregation": true
+  },
+  "asset_protocol_map": {
+    "UNI": "uniswap",
+    "LDO": "lido",
+    "AAVE": "aave",
+    "MKR": "maker"
+  },
+  "dimension_scoring": {
+    "revenue_threshold_usd": 1000000,
+    "margin_threshold_pct": 20,
+    "ps_premium_threshold": 30
+  },
+  "traditional_peers": {
+    "visa": {
+      "name": "Visa",
+      "ps_ratio": 8.0,
+      "sector": "payments"
+    },
+    "coinbase": {
+      "name": "Coinbase",
+      "ps_ratio": 6.5,
+      "sector": "crypto_exchange"
+    }
+  },
+  "protocols": {
+    "uniswap": {
+      "protocol_id": "uniswap",
+      "protocol_name": "Uniswap",
+      "token_symbol": "UNI",
+      "fee_source": "swap_fees",
+      "fee_source_type": "on_chain_swap_fees",
+      "on_chain_not_estimate": true,
+      "revenue_30d_usd": 12500000,
+      "incentives_emissions_30d_usd": 2800000,
+      "fully_diluted_market_cap_usd": 4500000000,
+      "active_addresses_30d": 185000,
+      "revenue_prev_quarter_usd": 32000000,
+      "traditional_peer": "visa",
+      "update_frequency": "daily",
+      "block_level_aggregation": true,
+      "real_time_update": true,
+      "accuracy_pct": 99.99,
+      "freshness_seconds": 3600,
+      "last_updated": "2026-08-27T14:00:00Z",
+      "revenue_history": [
+        {"date": "2024-01", "revenue_usd": 8500000},
+        {"date": "2024-04", "revenue_usd": 9200000},
+        {"date": "2024-07", "revenue_usd": 10500000},
+        {"date": "2024-10", "revenue_usd": 11000000},
+        {"date": "2025-01", "revenue_usd": 11800000},
+        {"date": "2025-04", "revenue_usd": 12200000},
+        {"date": "2025-07", "revenue_usd": 12500000},
+        {"date": "2026-08", "revenue_usd": 12500000}
+      ]
+    },
+    "lido": {
+      "protocol_id": "lido",
+      "protocol_name": "Lido",
+      "token_symbol": "LDO",
+      "fee_source": "staking_fees",
+      "fee_source_type": "on_chain_staking_fees",
+      "on_chain_not_estimate": true,
+      "revenue_30d_usd": 28000000,
+      "incentives_emissions_30d_usd": 5200000,
+      "fully_diluted_market_cap_usd": 2100000000,
+      "active_addresses_30d": 42000,
+      "revenue_prev_quarter_usd": 75000000,
+      "traditional_peer": "coinbase",
+      "update_frequency": "daily",
+      "block_level_aggregation": true,
+      "real_time_update": true,
+      "accuracy_pct": 99.99,
+      "freshness_seconds": 1800,
+      "last_updated": "2026-08-27T14:00:00Z",
+      "revenue_history": [
+        {"date": "2024-01", "revenue_usd": 18000000},
+        {"date": "2024-07", "revenue_usd": 22000000},
+        {"date": "2025-01", "revenue_usd": 25000000},
+        {"date": "2025-07", "revenue_usd": 27000000},
+        {"date": "2026-08", "revenue_usd": 28000000}
+      ]
+    },
+    "aave": {
+      "protocol_id": "aave",
+      "protocol_name": "Aave V3",
+      "token_symbol": "AAVE",
+      "fee_source": "borrow_fees",
+      "fee_source_type": "on_chain_borrow_fees",
+      "on_chain_not_estimate": true,
+      "revenue_30d_usd": 4400000,
+      "incentives_emissions_30d_usd": 1100000,
+      "fully_diluted_market_cap_usd": 1800000000,
+      "active_addresses_30d": 95000,
+      "revenue_prev_quarter_usd": 12000000,
+      "traditional_peer": "visa",
+      "update_frequency": "daily",
+      "block_level_aggregation": true,
+      "real_time_update": true,
+      "accuracy_pct": 99.99,
+      "freshness_seconds": 2400,
+      "last_updated": "2026-08-27T13:45:00Z",
+      "revenue_history": [
+        {"date": "2024-01", "revenue_usd": 2800000},
+        {"date": "2024-07", "revenue_usd": 3500000},
+        {"date": "2025-01", "revenue_usd": 4000000},
+        {"date": "2026-08", "revenue_usd": 4400000}
+      ]
+    },
+    "maker": {
+      "protocol_id": "maker",
+      "protocol_name": "MakerDAO",
+      "token_symbol": "MKR",
+      "fee_source": "stability_fees",
+      "fee_source_type": "on_chain_stability_fees",
+      "on_chain_not_estimate": true,
+      "revenue_30d_usd": 9800000,
+      "incentives_emissions_30d_usd": 800000,
+      "fully_diluted_market_cap_usd": 1200000000,
+      "active_addresses_30d": 12000,
+      "revenue_prev_quarter_usd": 28000000,
+      "traditional_peer": "visa",
+      "update_frequency": "daily",
+      "block_level_aggregation": true,
+      "real_time_update": true,
+      "accuracy_pct": 99.99,
+      "freshness_seconds": 3000,
+      "last_updated": "2026-08-27T13:30:00Z",
+      "revenue_history": [
+        {"date": "2024-01", "revenue_usd": 6000000},
+        {"date": "2025-01", "revenue_usd": 8500000},
+        {"date": "2026-08", "revenue_usd": 9800000}
+      ]
+    }
+  }
+}

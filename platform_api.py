@@ -2263,6 +2263,55 @@ async def investment_thesis_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/status")
+async def on_chain_financials_status_route():
+    """#641 On-Chain Financials — merged into #472 Investment Thesis."""
+    from bd_platform.on_chain_financials import on_chain_financials_status
+
+    return on_chain_financials_status()
+
+
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials")
+async def on_chain_financials_panel_route(protocol_id: str = Query("uniswap")):
+    """#641 On-Chain Financials panel."""
+    from bd_platform.on_chain_financials import build_on_chain_financials
+
+    result = build_on_chain_financials(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/asset-tab")
+async def on_chain_financials_asset_tab_route(asset: str = Query("UNI")):
+    """#641 Asset Card financials tab."""
+    from bd_platform.on_chain_financials import build_asset_financials_tab
+
+    return build_asset_financials_tab(asset)
+
+
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/market-radar-sector")
+async def on_chain_financials_sector_route():
+    """#641 Market Radar — DeFi Protocols by Revenue."""
+    from bd_platform.on_chain_financials import build_market_radar_revenue_sector
+
+    return build_market_radar_revenue_sector()
+
+
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/export")
+async def on_chain_financials_export_route(protocol_id: str = Query("uniswap")):
+    from bd_platform.on_chain_financials import export_financials_report
+
+    return export_financials_report(protocol_id)
+
+
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/reconciliation-tests")
+async def on_chain_financials_reconciliation_route():
+    from bd_platform.on_chain_financials import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/daily-market-brief/status")
 async def daily_market_brief_status_route():
     """#474 Daily Market Brief — Intelligence Ledger (template-based v1)."""
