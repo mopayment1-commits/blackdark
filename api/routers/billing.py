@@ -90,6 +90,35 @@ async def billing_readiness():
     return billing_ops_readiness()
 
 
+@router.get("/multi-currency/status")
+async def billing_multi_currency_status():
+    """#829 Multi-Currency Subscription Billing — Stripe billing config."""
+    from billing.stripe_multi_currency_billing import stripe_multi_currency_status_829
+
+    return stripe_multi_currency_status_829()
+
+
+@router.get("/multi-currency/config")
+async def billing_multi_currency_config():
+    from billing.stripe_multi_currency_billing import build_stripe_billing_config_829
+
+    return build_stripe_billing_config_829()
+
+
+@router.get("/multi-currency/checkout-options")
+async def billing_multi_currency_checkout(plan: str = "pro"):
+    from billing.stripe_multi_currency_billing import build_checkout_currency_options_829
+
+    return build_checkout_currency_options_829(plan)
+
+
+@router.get("/multi-currency/e2e")
+async def billing_multi_currency_e2e():
+    from billing.stripe_multi_currency_billing import run_stripe_multi_currency_e2e_829
+
+    return run_stripe_multi_currency_e2e_829()
+
+
 @router.get("/payments")
 async def billing_payments_architecture():
     """USD payment architecture + security posture (no secrets)."""

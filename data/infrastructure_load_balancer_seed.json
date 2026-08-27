@@ -1,0 +1,57 @@
+{
+  "feature_ref": 827,
+  "merged_into": "Sprint-0 Infrastructure",
+  "component": "load_balancer",
+  "standalone_rejected": true,
+  "no_user_surface": true,
+  "load_balancer_827": {
+    "cdn": {
+      "provider": "cloudflare",
+      "static_asset_caching": true,
+      "cache_ttl_days": 7,
+      "waf_enabled": true,
+      "edge_locations": "global"
+    },
+    "reverse_proxy": {
+      "provider": "nginx",
+      "algorithm": "least_conn",
+      "config_path": "nginx/blackdark.conf",
+      "rate_limiting": true,
+      "keepalive": 32
+    },
+    "real_time_updates": true,
+    "fee_db": {
+      "cdn_usd": 20.0,
+      "nginx_ops_usd": 5.0,
+      "tier": "ops",
+      "ops_budget": true
+    }
+  },
+  "backend_pool": {
+    "web-01": {
+      "host": "127.0.0.1",
+      "port": 8080,
+      "healthy": true,
+      "health_endpoint": "/health/live"
+    },
+    "web-02": {
+      "host": "127.0.0.1",
+      "port": 8081,
+      "healthy": true,
+      "health_endpoint": "/health/live"
+    },
+    "web-03": {
+      "host": "127.0.0.1",
+      "port": 8082,
+      "healthy": false,
+      "health_endpoint": "/health/live",
+      "last_failure": "connection_refused"
+    }
+  },
+  "current_metrics": {
+    "response_p99_ms": 420,
+    "accuracy_pct": 98.5,
+    "uptime_pct": 99.95,
+    "active_pool_size": 2
+  }
+}
