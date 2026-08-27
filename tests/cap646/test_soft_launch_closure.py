@@ -64,7 +64,7 @@ async def test_soft_launch_closure_code_complete(tmp_path, monkeypatch):
     from cap978.soft_launch_closure import run_soft_launch_closure
 
     snap = await run_soft_launch_closure(include_institutional_gate=False, check_artifacts=False)
-    assert snap["checks_failed"] == 0 or snap["verdict"].startswith("CODE COMPLETE")
+    assert snap["checks_failed"] == 0 or snap["verdict"].startswith(("CODE COMPLETE", "VERIFIED COMPLETE"))
     assert snap["tracks"]["COMMERCIAL_INSTITUTIONAL"] is False
     assert "Shadow-forward" in snap["positioning"]
 
