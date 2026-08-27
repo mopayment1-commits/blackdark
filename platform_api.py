@@ -2390,6 +2390,35 @@ async def market_radar_exchange_activity_route(exchange: str = Query("binance"))
     return result
 
 
+@router.get("/intelligence-ledger/market-radar/volatility-analytics")
+async def market_radar_volatility_analytics_route(asset: str = Query("BTC")):
+    """#498 Volatility Analytics — realized vol dashboard (merged into Market Radar)."""
+    from bd_platform.market_radar_indicators import build_volatility_analytics_dashboard
+
+    result = build_volatility_analytics_dashboard(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/panel")
+async def market_radar_combined_panel_route(
+    exchange: str = Query("binance"),
+    asset: str = Query("BTC"),
+):
+    """Market Radar combined panel — exchange activity + volatility analytics."""
+    from bd_platform.market_radar_indicators import build_market_radar_panel
+
+    return build_market_radar_panel(exchange, asset)
+
+
+@router.get("/intelligence-ledger/market-radar/reconciliation-tests")
+async def market_radar_reconciliation_tests_route():
+    from bd_platform.market_radar_indicators import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/market-radar/derivatives-venue-feed/status")
 async def market_radar_derivatives_venue_feed_status_route():
     """#331 Derivatives Venue Feed — absorbed into #274 Market Data Engine. Raw display only."""
@@ -2467,6 +2496,28 @@ async def cross_asset_volatility_regime_panel_route(asset: str = Query("BTC")):
             detail=result.get("error") or "not_found",
         )
     return result
+
+
+@router.get("/intelligence-ledger/data-layer/prediction-trends/status")
+async def prediction_trend_analyzer_status_route():
+    """#580 Prediction Trend Analyzer — contextual prediction-market probabilities."""
+    from bd_platform.prediction_trend_analyzer import prediction_trend_analyzer_status
+
+    return prediction_trend_analyzer_status()
+
+
+@router.get("/intelligence-ledger/data-layer/prediction-trends")
+async def prediction_trend_analyzer_panel_route():
+    from bd_platform.prediction_trend_analyzer import build_prediction_trend_panel
+
+    return build_prediction_trend_panel()
+
+
+@router.get("/intelligence-ledger/data-layer/prediction-trends/reconciliation-tests")
+async def prediction_trend_analyzer_reconciliation_tests_route():
+    from bd_platform.prediction_trend_analyzer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/data-layer/tail-risk-metrics/status")
@@ -3168,6 +3219,17 @@ async def onchain_metrics_historical_qa_route():
     return run_historical_qa_tests()
 
 
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/usage")
+async def onchain_usage_intelligence_route(asset: str = Query("BTC")):
+    """#578 On-Chain Usage Intelligence — sub-task of #577 Metrics Library."""
+    from bd_platform.onchain_metrics_library import build_usage_intelligence_dashboard
+
+    result = build_usage_intelligence_dashboard(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/intelligence-layer/historical-narratives/status")
 async def historical_narrative_explorer_status_route():
     """#250 Historical Narrative Explorer — Sprint 2 sentiment research archive."""
@@ -3284,6 +3346,20 @@ async def historical_wallet_balance_route(
     from bd_platform.portfolio_intelligence_layer import build_historical_wallet_balance
 
     result = build_historical_wallet_balance(address, chain=chain, timestamp=timestamp)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-layer/non-custodial-wallet-tracker")
+async def non_custodial_wallet_tracker_route(
+    address: str = Query("0x0000000000000000000000000000000000000001"),
+    chain: str = Query("ethereum"),
+):
+    """#579 Non-Custodial Wallet Balance Tracker — holdings + data alerts (no risk output)."""
+    from bd_platform.portfolio_intelligence_layer import build_non_custodial_wallet_balance_tracker
+
+    result = build_non_custodial_wallet_balance_tracker(address, chain=chain)
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result

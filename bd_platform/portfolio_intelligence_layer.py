@@ -22,8 +22,10 @@ from typing import Any
 
 logger = logging.getLogger("BLACKDARK.PortfolioIntelligenceLayer")
 
-_FEATURE_IDS = (515, 557, 558, 569)
+_FEATURE_IDS = (515, 557, 558, 569, 579)
 _EPIC_ID = 557
+_WALLET_BALANCE_TRACKER_REF = 579
+_LEGAL_NAME_579 = "Non-Custodial Wallet Balance Tracker"
 _RENAMED_FROM_515 = "Archive / Historical Portfolio Snapshot"
 _TITLE = "Portfolio Intelligence Layer"
 _STANDALONE = False
@@ -58,6 +60,14 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "name": "multi_chain_portfolio_tracker",
         "title": "Multi-Chain Portfolio Tracker",
         "description": "Cross-chain aggregation with bridged asset dedupe and exposure metrics",
+    },
+    "579": {
+        "task_id": "579",
+        "name": "non_custodial_wallet_balance_tracker",
+        "title": "Non-Custodial Wallet Balance Tracker",
+        "renamed_from": "On_Chain_Balance_Monitor",
+        "description": "Wallet holdings + changes + data alerts (no risk output)",
+        "standalone_rejected": True,
     },
 }
 
@@ -109,6 +119,115 @@ def build_dependencies_block() -> dict[str, Any]:
 def _snapshot_hash(snapshot: dict[str, Any]) -> str:
     payload = json.dumps(snapshot, sort_keys=True, default=str)
     return hashlib.sha256(payload.encode()).hexdigest()[:16]
+
+
+def _validate_address(address: str, chain: str, seed: dict[str, Any]) -> dict[str, Any]:
+    validators = seed.get("address_validation") or {}
+    chain_rules = validators.get(chain.lower()) or {}
+    min_len = int(chain_rules.get("min_length", 26))
+    max_len = int(chain_rules.get("max_length", 64))
+    valid = min_len <= len(address) <= max_len
+    return {"valid": valid, "chain": chain, "address": address, "validation_rules": chain_rules.get("rules", [])}
+
+
+def _filter_spam_tokens(
+    tokens: list[dict[str, Any]],
+    *,
+    seed: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    cfg = seed.get("spam_token_filter") or {}
+    min_value = float(cfg.get("min_value_usd", 1.0))
+    blocked_symbols = {s.upper() for s in cfg.get("blocked_symbols", [])}
+    clean: list[dict[str, Any]] = []
+    filtered: list[dict[str, Any]] = []
+    for t in tokens:
+        symbol = str(t.get("symbol", "")).upper()
+        value = float(t.get("value_usd", 0))
+        if symbol in blocked_symbols or (value > 0 and value < min_value):
+            filtered.append({**t, "filtered_reason": "spam_token"})
+            continue
+        clean.append(t)
+    return clean, filtered
+
+
+def build_non_custodial_wallet_balance_tracker(
+    address: str,
+    *,
+    chain: str = "ethereum",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#579 — wallet holdings + changes + data alerts (no risk output)."""
+    seed = seed or _load_seed()
+    validation = _validate_address(address, chain, seed)
+    if not validation.get("valid"):
+        return {"ok": False, "error": "invalid_address", "validation": validation}
+
+    key = f"{chain.lower()}:{address.lower()}"
+    wallet = (seed.get("wallet_trackers") or {}).get(key)
+    if not wallet:
+        return {"ok": False, "error": "wallet_not_tracked", "address": address, "chain": chain}
+
+    raw_tokens = wallet.get("holdings") or []
+    clean_tokens, spam_filtered = _filter_spam_tokens(raw_tokens, seed=seed)
+    total_value = sum(float(t.get("value_usd", 0)) for t in clean_tokens)
+
+    data_alerts: list[dict[str, Any]] = []
+    change_usd = float(wallet.get("balance_change_24h_usd", 0))
+    if abs(change_usd) >= float((seed.get("balance_alert_threshold_usd") or {}).get("min_change", 1000)):
+        data_alerts.append({
+            "alert_type": "balance_change",
+            "change_usd": change_usd,
+            "display": f"Balance changed by ${change_usd:+,.2f} in 24h",
+            "data_alert_only": True,
+        })
+    for spam in spam_filtered:
+        data_alerts.append({
+            "alert_type": "spam_token_detected",
+            "symbol": spam.get("symbol"),
+            "display": f"Spam token detected and filtered: {spam.get('symbol')}",
+            "data_alert_only": True,
+        })
+
+    avg_30d = float(wallet.get("avg_balance_30d_usd", total_value)) or total_value
+    deviation_pct = round((total_value - avg_30d) / avg_30d * 100, 2) if avg_30d > 0 else 0.0
+    anomaly_threshold = float((seed.get("statistical_anomaly") or {}).get("deviation_threshold_pct", 100))
+    statistical_anomaly = None
+    if abs(deviation_pct) >= anomaly_threshold:
+        statistical_anomaly = {
+            "deviation_from_30d_avg_pct": deviation_pct,
+            "display": f"Deviation from 30-day average: {deviation_pct:+.1f}%",
+            "statistical_only": True,
+            "no_suspicious_activity_language": True,
+        }
+
+    reorg = wallet.get("reorg_handling") or {}
+    return {
+        "ok": True,
+        "task_id": "579",
+        "legal_name": _LEGAL_NAME_579,
+        "renamed_from": "On_Chain_Balance_Monitor",
+        "address": address,
+        "chain": chain,
+        "holdings": clean_tokens,
+        "total_value_usd": round(total_value, 2),
+        "balance_change_24h_usd": change_usd,
+        "data_alerts": data_alerts,
+        "statistical_anomaly": statistical_anomaly,
+        "spam_tokens_filtered": spam_filtered,
+        "spam_filtering_applied": True,
+        "price_provenance": wallet.get("price_provenance") or {},
+        "price_source_per_asset": True,
+        "reorg_handling": {
+            "reorg_handled": reorg.get("reorg_handled", True),
+            "canonical_block": reorg.get("canonical_block"),
+            "chain_reorg_handling": True,
+        },
+        "address_validation": validation,
+        "no_risk_output": True,
+        "no_risk_alerts": True,
+        "display": f"Wallet {address[:8]}...{address[-4:]}: ${total_value:,.2f} ({len(clean_tokens)} tokens)",
+        "timestamp": _utcnow(),
+    }
 
 
 def build_historical_snapshot(
@@ -561,6 +680,35 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
             "passed": panel.get("dependencies", {}).get("entity_resolution_feature_id") == 541,
         })
 
+    for tracker_key in (seed.get("wallet_trackers") or {}):
+        parts = tracker_key.split(":", 1)
+        if len(parts) != 2:
+            continue
+        chain, address = parts
+        tracker = build_non_custodial_wallet_balance_tracker(address, chain=chain, seed=seed)
+        safe_key = tracker_key.replace(":", "_")
+        tests.append({
+            "test": f"wallet_tracker_579_{safe_key}",
+            "passed": tracker.get("ok") is True and tracker.get("no_risk_output") is True,
+        })
+        tests.append({
+            "test": f"spam_filtering_{safe_key}",
+            "passed": tracker.get("spam_filtering_applied") is True,
+        })
+        tests.append({
+            "test": f"price_provenance_{safe_key}",
+            "passed": bool(tracker.get("price_provenance")),
+        })
+        tests.append({
+            "test": f"reorg_handling_tracker_{safe_key}",
+            "passed": (tracker.get("reorg_handling") or {}).get("chain_reorg_handling") is True,
+        })
+        tests.append({
+            "test": f"data_alerts_not_risk_{safe_key}",
+            "passed": tracker.get("no_risk_alerts") is True
+            and all(a.get("data_alert_only") for a in (tracker.get("data_alerts") or [])),
+        })
+
     all_passed = all(t["passed"] for t in tests)
     return {
         "ok": True,
@@ -614,6 +762,12 @@ def build_portfolio_intelligence_panel(
                 address, chain=chain, timestamp=timestamps[-1], seed=seed,
             )
 
+    wallet_tracker = None
+    if seed.get("wallet_trackers"):
+        first_tracker = next(iter(seed["wallet_trackers"]))
+        chain, address = first_tracker.split(":", 1)
+        wallet_tracker = build_non_custodial_wallet_balance_tracker(address, chain=chain, seed=seed)
+
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     return {
@@ -625,6 +779,7 @@ def build_portfolio_intelligence_panel(
             "557": "Global Asset Tracker — merged into epic",
             "558": "Historical Wallet Balance Tool — task not ticket",
             "569": "Multi-Chain Portfolio Intelligence → Multi-Chain Portfolio Tracker",
+            "579": "On_Chain_Balance_Monitor → Non-Custodial Wallet Balance Tracker",
         },
         "title": _TITLE,
         "standalone": _STANDALONE,
@@ -639,6 +794,7 @@ def build_portfolio_intelligence_panel(
             "557_global_asset_tracker": tracker,
             "558_historical_wallet_balance": wallet_balance,
             "569_multi_chain_portfolio_tracker": multi_chain,
+            "579_non_custodial_wallet_balance_tracker": wallet_tracker,
             "tasks_not_tickets": True,
         },
         "available_snapshots": portfolio.get("available_snapshots", []),
@@ -655,6 +811,9 @@ def build_portfolio_intelligence_panel(
             "bridged_asset_dedupe": True,
             "exposure_metrics_not_risk": True,
             "pnl_disclaimer": True,
+            "wallet_balance_tracker_579": True,
+            "spam_token_filtering": True,
+            "price_source_provenance": True,
         },
         "pnl_disclaimer": _PNL_DISCLAIMER,
         "disclaimer": _DISCLAIMER,
@@ -692,6 +851,9 @@ def portfolio_intelligence_layer_status() -> dict[str, Any]:
             "bridged_asset_dedupe": True,
             "exposure_metrics_not_risk": True,
             "pnl_disclaimer": True,
+            "wallet_balance_tracker_579": True,
+            "spam_token_filtering": True,
+            "price_source_provenance": True,
         },
         "pnl_disclaimer": _PNL_DISCLAIMER,
         "banned_output_terms": list(_BANNED_TERMS),

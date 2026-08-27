@@ -1,6 +1,6 @@
 {
   "epic_feature_id": 577,
-  "feature_ids": [577, 574, 737, 741],
+  "feature_ids": [577, 574, 578, 737, 741],
   "title": "On-Chain Metrics Library",
   "standalone_rejected": true,
   "layer": "Foundation Layer",
@@ -64,5 +64,32 @@
     "formula_consistency_pct": 98.5,
     "missing_not_zero_enforced": true,
     "last_qa_run": "2026-08-26T00:00:00Z"
+  },
+  "usage_intelligence_578": {
+    "task_id": "578",
+    "title": "On-Chain Usage Intelligence",
+    "spam_bot_policy": {
+      "exclude_bots": true,
+      "bot_detection_method": "heuristic_activity_pattern",
+      "spam_tx_threshold_usd": 1.0
+    }
+  },
+  "usage_metrics": {
+    "BTC": {
+      "daily_active_addresses": 892450,
+      "bot_filtered_addresses": 45000,
+      "chain_normalization_factor": 1.0,
+      "app_normalization_factor": 1.0,
+      "transaction_count": 312500,
+      "transaction_volume_usd": 12500000000
+    },
+    "ETH": {
+      "daily_active_addresses": 485200,
+      "bot_filtered_addresses": 62000,
+      "chain_normalization_factor": 0.95,
+      "app_normalization_factor": 1.05,
+      "transaction_count": 1120000,
+      "transaction_volume_usd": 8200000000
+    }
   }
 }

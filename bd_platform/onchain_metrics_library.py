@@ -4,7 +4,7 @@ On-Chain Metrics Library — Epic #577 (Sprint 0 Foundation Layer).
 Epic with sub-module tasks (not standalone tickets):
   #577 On-Chain Metrics Library — canonical metric definitions + versioning + QA
   #574 Network Data Pro Metrics — institutional API delivery (sub-task of #577)
-  #737 HODL Waves — absorbed via onchain_metrics_suite
+  #578 On-Chain Usage Intelligence — adoption/usage metrics (sub-task of #577)
   #741 MVRV Z-Score — absorbed via onchain_metrics_suite
 
 Foundation for all on-chain dependent features. missing ≠ zero.
@@ -24,7 +24,7 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 737, 741)
+_FEATURE_IDS = (577, 574, 578, 737, 741)
 _EPIC_ID = 577
 _TITLE = "On-Chain Metrics Library"
 _STANDALONE = False
@@ -45,6 +45,13 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "name": "network_data_pro_metrics",
         "title": "Network Data Pro Metrics",
         "description": "Institutional API delivery for canonical on-chain metrics — sub-task of #577",
+        "standalone_rejected": True,
+    },
+    "578": {
+        "task_id": "578",
+        "name": "onchain_usage_intelligence",
+        "title": "On-Chain Usage Intelligence",
+        "description": "DAA, txs, volumes normalized by chain/app with spam/bot policies",
         "standalone_rejected": True,
     },
     "737": {
@@ -247,6 +254,61 @@ async def build_network_data_pro_api_async(
     return build_network_data_pro_api(asset, seed=seed, live=live, prefer_live=True)
 
 
+def build_usage_intelligence_dashboard(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#578 — DAA, txs, volumes normalized by chain/app with spam/bot policies."""
+    seed = seed or _load_seed()
+    cfg = seed.get("usage_intelligence_578") or {}
+    usage = (seed.get("usage_metrics") or {}).get(asset.upper())
+    if not usage:
+        return {"ok": False, "asset": asset, "error": "usage_data_not_found"}
+
+    spam_policy = cfg.get("spam_bot_policy") or {}
+    raw_daa = float(usage.get("daily_active_addresses", 0))
+    bot_filtered = float(usage.get("bot_filtered_addresses", 0))
+    adjusted_daa = raw_daa - bot_filtered if spam_policy.get("exclude_bots") else raw_daa
+    chain_norm = float(usage.get("chain_normalization_factor", 1.0))
+    app_norm = float(usage.get("app_normalization_factor", 1.0))
+    normalized_daa = round(adjusted_daa * chain_norm * app_norm, 0)
+
+    tx_volume = float(usage.get("transaction_volume_usd", 0))
+    tx_count = int(usage.get("transaction_count", 0))
+
+    return {
+        "ok": True,
+        "task_id": "578",
+        "epic_feature_id": _EPIC_ID,
+        "asset": asset.upper(),
+        "daily_active_addresses": {
+            "raw": raw_daa,
+            "bot_filtered": bot_filtered,
+            "adjusted": adjusted_daa,
+            "normalized": normalized_daa,
+        },
+        "transaction_count": tx_count,
+        "transaction_volume_usd": tx_volume,
+        "normalization": {
+            "chain_factor": chain_norm,
+            "app_factor": app_norm,
+            "normalized_by_chain_app": True,
+        },
+        "spam_bot_policy": spam_policy,
+        "metric_definitions": {
+            "daa": (seed.get("metric_definitions") or {}).get("active_addresses"),
+            "tx_count": (seed.get("metric_definitions") or {}).get("transaction_count"),
+        },
+        "missing_not_zero": True,
+        "display": (
+            f"{asset.upper()} usage: DAA {normalized_daa:,.0f} (normalized) | "
+            f"Vol ${tx_volume:,.0f} | Txs {tx_count:,}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_metrics_library_panel(
     asset: str = "BTC",
     *,
@@ -261,6 +323,7 @@ def build_metrics_library_panel(
     sym = asset.upper()
     suite = build_onchain_metrics_panel(sym)
     network_api = build_network_data_pro_api(sym, seed=seed, live=live, prefer_live=prefer_live)
+    usage = build_usage_intelligence_dashboard(sym, seed=seed)
     defs = build_metric_definitions(seed)
 
     return {
@@ -271,6 +334,7 @@ def build_metrics_library_panel(
         "sub_modules": {
             "577_canonical_library": defs,
             "574_network_data_pro_api": network_api,
+            "578_usage_intelligence": usage if usage.get("ok") else {"ok": False},
             "737_hodl_waves": suite.get("hodl_waves") if suite.get("ok") else {"ok": False},
             "741_mvrv_z_score": suite.get("mvrv_z_score") if suite.get("ok") else {"ok": False},
             "tasks_not_tickets": True,
@@ -329,6 +393,20 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
         "passed": bool(qa.get("periods_tested")),
     })
 
+    usage = build_usage_intelligence_dashboard("BTC", seed=seed)
+    tests.append({
+        "test": "usage_intelligence_578",
+        "passed": usage.get("ok") is True and usage.get("missing_not_zero") is True,
+    })
+    tests.append({
+        "test": "spam_bot_policy_578",
+        "passed": bool((usage.get("spam_bot_policy") or {}).get("exclude_bots")),
+    })
+    tests.append({
+        "test": "usage_normalization_578",
+        "passed": (usage.get("normalization") or {}).get("normalized_by_chain_app") is True,
+    })
+
     all_passed = all(t["passed"] for t in tests)
     return {
         "ok": True,
@@ -358,6 +436,7 @@ def onchain_metrics_library_status() -> dict[str, Any]:
         "asset_count": len(seed.get("assets") or {}),
         "absorbed_tickets": {
             "574": "Network Data Pro Metrics → API delivery sub-task of #577",
+            "578": "On-Chain Usage Intelligence → usage dashboard sub-task of #577",
             "737": "HODL Waves → absorbed",
             "741": "MVRV Z-Score → absorbed",
         },

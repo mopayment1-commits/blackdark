@@ -35,5 +35,32 @@
         "ethereum": {"validated": true, "rules": ["eoa_dedupe", "contract_filter"]}
       }
     }
+  },
+  "volatility_analytics_498": {
+    "feature_ref": 498,
+    "title": "Volatility Analytics",
+    "methodology_version": "1.0",
+    "formula": "std(daily_log_returns) over rolling window, annualized",
+    "high_vol_threshold_pct": 60
+  },
+  "volatility_compression_458": {
+    "feature_ref": 458,
+    "threshold_pct": 15
+  },
+  "volatility_assets": {
+    "BTC": {
+      "daily_returns_std": {
+        "7d": 0.018,
+        "30d": 0.025,
+        "90d": 0.022
+      }
+    },
+    "ETH": {
+      "daily_returns_std": {
+        "7d": 0.022,
+        "30d": 0.030,
+        "90d": 0.028
+      }
+    }
   }
 }
