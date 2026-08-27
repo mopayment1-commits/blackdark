@@ -1,0 +1,70 @@
+{
+  "feature_ref": 678,
+  "merged_into": "market_radar_daily_brief",
+  "standalone": false,
+  "ml_template_rejected": true,
+  "no_buy_sell_signals": true,
+  "rule_based_v1": true,
+  "sector_ranking_boost_pct": 5,
+  "sectors": {
+    "gaming": {
+      "name": "Gaming",
+      "name_ar": "Gaming",
+      "data_sources": ["dex_volume", "on_chain_transfers"],
+      "evidence_links": ["/api/platform/intelligence-ledger/market-radar/sector-pulse"],
+      "display_backing": "DEX volume + on-chain transfer spike",
+      "rules": {"liquidity_increase_pct": 5},
+      "metrics": {
+        "dex_volume_usd": 420000000,
+        "dex_volume_change_pct": 12,
+        "on_chain_transfer_spike_pct": 8
+      },
+      "trend": {"direction": "up", "period": "7d"}
+    },
+    "ai_tokens": {
+      "name": "AI Tokens",
+      "name_ar": "AI Tokens",
+      "data_sources": ["sector_index"],
+      "evidence_links": ["/api/platform/intelligence-ledger/market-radar/sector-pulse"],
+      "display_backing": "Sector index decline vs benchmark",
+      "rules": {"weakness_decline_pct": -5},
+      "metrics": {
+        "sector_index": 82.4,
+        "sector_index_change_pct": -8
+      },
+      "trend": {"direction": "down", "period": "7d"}
+    },
+    "rwa": {
+      "name": "RWA",
+      "name_ar": "RWA",
+      "data_sources": ["stablecoin_flows", "institutional_flow"],
+      "evidence_links": ["/api/platform/intelligence-ledger/market-radar/sector-pulse"],
+      "display_backing": "Stablecoin + institutional inflow tracking",
+      "rules": {"strength_inflow_usd": 10000000},
+      "metrics": {
+        "institutional_inflows_usd": 50000000,
+        "stablecoin_inflow_usd": 32000000
+      },
+      "trend": {"direction": "up", "period": "7d"}
+    },
+    "solana_ecosystem": {
+      "name": "Solana Ecosystem",
+      "name_ar": "Solana Ecosystem",
+      "data_sources": ["tx_count", "daa", "funding_rate"],
+      "evidence_links": ["/api/platform/intelligence-ledger/market-radar/sector-pulse"],
+      "display_backing": "Tx count + DAA spike + funding rate context",
+      "rules": {"abnormal_tx_spike_pct": 25},
+      "metrics": {
+        "tx_count_spike_pct": 34,
+        "daa_spike_pct": 28,
+        "funding_rate_pct": 0.018
+      },
+      "trend": {"direction": "spike", "period": "24h"}
+    }
+  },
+  "opportunity_sector_tags": {
+    "defi_gaming_yield_001": "gaming",
+    "defi_rwa_pool_002": "rwa",
+    "solana_dex_arb_003": "solana_ecosystem"
+  }
+}

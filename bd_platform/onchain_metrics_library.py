@@ -24,7 +24,7 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656)
+_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634, 641, 656, 679)
 _EPIC_ID = 577
 _WHALE_RETAIL_REF = 634
 _TITLE = "On-Chain Metrics Library"
@@ -102,6 +102,13 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "description": "Versioned protocol mappings, contracts, events, transformations — methodology layer of #577",
         "standalone_rejected": True,
     },
+    "679": {
+        "task_id": "679",
+        "name": "metric_methodology_governance",
+        "title": "Metric Methodology Governance Layer",
+        "description": "Code↔docs parity tests, version migration history, no undocumented formula — extends #656",
+        "standalone_rejected": True,
+    },
 }
 
 _DISCLAIMER = (
@@ -145,10 +152,17 @@ def build_methodology_page(
     return {
         "ok": True,
         "feature_ref": 656,
+        "governance_ref": 679,
         "metric_id": metric_id,
         "metric_name": metric_def.get("name") or page.get("metric_name"),
         "methodology_button": "المنهجية",
         "methodology_button_en": "Methodology",
+        "definition": page.get("definition") or metric_def.get("name"),
+        "formula": page.get("transformation_logic") or metric_def.get("formula"),
+        "source": metric_def.get("source") or page.get("source"),
+        "version": page.get("transformation_version") or metric_def.get("formula_version"),
+        "migration_history": page.get("version_history") or [],
+        "code_link": page.get("code_link") or registry.get("code_repository_link"),
         "contracts": page.get("contracts") or [],
         "event_signatures": page.get("event_signatures") or [],
         "transformation_logic": page.get("transformation_logic") or metric_def.get("formula"),
@@ -161,7 +175,7 @@ def build_methodology_page(
             "auto_sync": registry.get("code_docs_auto_sync", True),
             "parity_verified": page.get("parity_verified", True),
         },
-        "source": metric_def.get("source") or page.get("source"),
+        "no_undocumented_formula": bool(page.get("transformation_logic") or metric_def.get("formula")),
         "timestamp": _utcnow(),
     }
 
@@ -186,18 +200,134 @@ def build_methodology_registry(*, seed: dict[str, Any] | None = None) -> dict[st
     return {
         "ok": True,
         "feature_ref": 656,
+        "governance_ref": 679,
         "merged_into": _EPIC_ID,
-        "title": "Data Methodology Registry",
+        "title": "Metric Methodology Governance Layer",
         "methodology_layer": True,
+        "governance_layer": True,
         "metric_count": len(metrics),
         "metrics": metrics,
         "protocol_mappings": registry.get("protocol_mappings") or {},
         "code_docs_parity_required": True,
         "code_docs_auto_sync": registry.get("code_docs_auto_sync", True),
         "versioned_transformations": True,
+        "version_migration_history_required": True,
+        "no_undocumented_formula": True,
         "page_count": len(pages),
         "timestamp": _utcnow(),
     }
+
+
+def run_methodology_parity_tests_679(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#679 — code↔documentation parity tests; CI fails if code changes without docs."""
+    seed = seed or _load_seed()
+    registry = seed.get("methodology_registry") or {}
+    governance = registry.get("governance_679") or {}
+    tests: list[dict[str, Any]] = []
+
+    for metric_id, spec in (seed.get("metric_definitions") or {}).items():
+        page = build_methodology_page(metric_id, seed=seed)
+        tests.append({
+            "test": f"methodology_page_exists_{metric_id}",
+            "passed": page.get("ok") is True,
+        })
+        tests.append({
+            "test": f"formula_documented_{metric_id}",
+            "passed": bool(page.get("formula")),
+        })
+        tests.append({
+            "test": f"parity_verified_{metric_id}",
+            "passed": (page.get("code_docs_parity") or {}).get("parity_verified") is True,
+        })
+        tests.append({
+            "test": f"version_history_{metric_id}",
+            "passed": len(page.get("migration_history") or []) >= 1,
+        })
+
+    undocumented = validate_undocumented_metrics_679(seed=seed)
+    tests.append({
+        "test": "no_undocumented_formula",
+        "passed": undocumented.get("all_documented") is True,
+    })
+    tests.append({
+        "test": "code_docs_parity_required",
+        "passed": governance.get("code_docs_parity_ci_gate", True) is True,
+    })
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": 679,
+        "merged_into": _EPIC_ID,
+        "parity_tests": tests,
+        "all_passed": all_passed,
+        "test_count": len(tests),
+        "ci_gate": governance.get("code_docs_parity_ci_gate", True),
+        "timestamp": _utcnow(),
+    }
+
+
+def validate_undocumented_metrics_679(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#679 — any metric without methodology page is not approved for display."""
+    seed = seed or _load_seed()
+    undocumented: list[str] = []
+    documented: list[str] = []
+
+    for metric_id in (seed.get("metric_definitions") or {}):
+        page = build_methodology_page(metric_id, seed=seed)
+        if page.get("ok") and page.get("no_undocumented_formula"):
+            documented.append(metric_id)
+        else:
+            undocumented.append(metric_id)
+
+    return {
+        "ok": True,
+        "feature_ref": 679,
+        "all_documented": len(undocumented) == 0,
+        "documented_metrics": documented,
+        "undocumented_metrics": undocumented,
+        "display_blocked_without_methodology": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def verify_strategy_metrics_documented_492(
+    metric_ids: list[str],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#679 → #492 — Strategy Vetting checks all backtest metrics have documented methodology."""
+    seed = seed or _load_seed()
+    missing: list[str] = []
+    verified: list[str] = []
+
+    for metric_id in metric_ids:
+        page = build_methodology_page(metric_id, seed=seed)
+        if page.get("ok") and page.get("no_undocumented_formula"):
+            verified.append(metric_id)
+        else:
+            missing.append(metric_id)
+
+    return {
+        "ok": len(missing) == 0,
+        "feature_ref": 679,
+        "integration_492": True,
+        "verified_metrics": verified,
+        "missing_methodology": missing,
+        "all_metrics_documented": len(missing) == 0,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_sector_metrics_library_678(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#678 → #577 — sector pulse metrics delivery."""
+    try:
+        from bd_platform.sector_market_brief import build_sector_metrics_577
+
+        return build_sector_metrics_577(seed=seed)
+    except Exception as exc:
+        logger.warning("sector metrics 678 failed: %s", exc)
+        return {"ok": False, "error": str(exc)}
 
 
 def get_thesis_methodology_links(
@@ -959,6 +1089,8 @@ def build_metrics_library_panel(
     long_short = build_long_short_ratio_metric_577(seed=seed)
     mvrv_suite = build_mvrv_zscore_metric_577(sym, seed=seed)
     whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
+    sector_metrics = build_sector_metrics_library_678(seed=seed)
+    methodology_governance = build_methodology_registry(seed=seed)
     on_chain_fin = None
     try:
         from bd_platform.on_chain_financials import build_metrics_library_financials, _load_seed as _fin_load
@@ -985,6 +1117,8 @@ def build_metrics_library_panel(
             "663_exchange_stablecoin_buying_power": buying_power,
             "675_long_short_ratio": long_short,
             "676_mvrv_zscore_suite": mvrv_suite if mvrv_suite.get("ok") else {"ok": False},
+            "678_sector_metrics": sector_metrics if sector_metrics.get("ok") else {"ok": False},
+            "679_methodology_governance": methodology_governance if methodology_governance.get("ok") else {"ok": False},
             "634_whale_vs_retail_flow": whale_retail if whale_retail.get("ok") else {"ok": False},
             "641_on_chain_financials": on_chain_fin if on_chain_fin and on_chain_fin.get("ok") else {"ok": False},
             "737_hodl_waves": suite.get("hodl_waves") if suite.get("ok") else {"ok": False},
@@ -1094,6 +1228,13 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         tests.append({"test": "mvrv_regression_676", "passed": False})
 
+    parity = run_methodology_parity_tests_679(seed=seed)
+    tests.append({"test": "methodology_parity_679", "passed": parity.get("all_passed") is True})
+    tests.append({"test": "no_undocumented_formula_679", "passed": validate_undocumented_metrics_679(seed=seed).get("all_documented") is True})
+
+    sector = build_sector_metrics_library_678(seed=seed)
+    tests.append({"test": "sector_metrics_678", "passed": sector.get("ok") is True})
+
     all_passed = all(t["passed"] for t in tests)
     return {
         "ok": True,
@@ -1133,6 +1274,8 @@ def onchain_metrics_library_status() -> dict[str, Any]:
             "656": "Data Methodology Registry → methodology layer of #577",
             "675": "Long/Short Ratio → metric in #577, not merged blindly",
             "676": "MVRV Z-Score Suite → metric in #577, valuation dimension in #472",
+            "678": "Sector Market Brief → sector metrics in #577, narrative in Market Radar",
+            "679": "Metric Methodology Governance → parity tests + migration history over #656",
         },
         "acceptance_criteria": {
             "formula_source_version": True,

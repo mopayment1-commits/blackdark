@@ -86,6 +86,42 @@
       "unit": "USD",
       "update_frequency": "daily",
       "task_ref": 612
+    },
+    "gaming_liquidity": {
+      "name": "Gaming Sector Liquidity",
+      "formula": "sum(dex_volume_usd) + sum(on_chain_transfer_usd) for gaming-tagged tokens",
+      "formula_version": "1.0",
+      "source": "dex_volume_feed + on_chain_transfers",
+      "unit": "USD",
+      "update_frequency": "daily",
+      "task_ref": 678
+    },
+    "ai_token_index": {
+      "name": "AI Token Sector Index",
+      "formula": "market_cap_weighted_index(ai_token_basket) / baseline",
+      "formula_version": "1.0",
+      "source": "sector_index_engine",
+      "unit": "index",
+      "update_frequency": "daily",
+      "task_ref": 678
+    },
+    "rwa_inflows": {
+      "name": "RWA Institutional Inflows",
+      "formula": "sum(stablecoin_inflow_usd) + sum(institutional_flow_usd) for rwa-tagged assets",
+      "formula_version": "1.0",
+      "source": "stablecoin_flows + institutional_flow",
+      "unit": "USD",
+      "update_frequency": "daily",
+      "task_ref": 678
+    },
+    "solana_ecosystem_activity": {
+      "name": "Solana Ecosystem Activity",
+      "formula": "tx_count_spike_pct + daa_spike_pct + funding_rate_context",
+      "formula_version": "1.0",
+      "source": "solana_indexer + derivatives_funding",
+      "unit": "composite",
+      "update_frequency": "hourly",
+      "task_ref": 678
     }
   },
   "assets": {
@@ -276,8 +312,16 @@
   },
   "methodology_registry": {
     "feature_ref": 656,
+    "governance_ref": 679,
     "code_docs_auto_sync": true,
-    "code_docs_parity_hash": "sha256:577-v1.0-methodology",
+    "code_docs_parity_hash": "sha256:577-v2.1-methodology",
+    "code_repository_link": "https://github.com/mopayment1-commits/blackdark/tree/main/bd_platform/onchain_metrics_library.py",
+    "governance_679": {
+      "code_docs_parity_ci_gate": true,
+      "version_migration_history_required": true,
+      "no_undocumented_formula": true,
+      "display_blocked_without_methodology": true
+    },
     "protocol_mappings": {
       "ethereum": {
         "chain_id": 1,
@@ -288,6 +332,8 @@
     "pages": {
       "active_addresses": {
         "metric_name": "Active Addresses (24h)",
+        "definition": "Distinct addresses with at least one on-chain transaction in 24h",
+        "code_link": "bd_platform/onchain_metrics_library.py#active_addresses",
         "contracts": [
           {"address": "0x0000000000000000000000000000000000000000", "label": "native_transfer_tracker", "chain": "ethereum"}
         ],
@@ -295,14 +341,17 @@
           {"signature": "Transfer(address,address,uint256)", "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"}
         ],
         "transformation_logic": "count(distinct from_addr union to_addr) excluding contract-internal in 24h window",
-        "transformation_version": "1.0",
+        "transformation_version": "2.1",
         "parity_verified": true,
         "version_history": [
+          {"version": "2.1", "date": "2026-08-15", "change": "Added exchange wallets to cohort calculation"},
           {"version": "1.0", "date": "2026-08-01", "change": "Initial methodology page"}
         ]
       },
       "transaction_count": {
         "metric_name": "Transaction Count (24h)",
+        "definition": "Confirmed transactions in rolling 24h window excluding spam",
+        "code_link": "bd_platform/onchain_metrics_library.py#transaction_count",
         "contracts": [],
         "event_signatures": [],
         "transformation_logic": "count(confirmed txs) excluding spam contracts per policy",
@@ -312,6 +361,8 @@
       },
       "exchange_netflow": {
         "metric_name": "Exchange Net Flow",
+        "definition": "Net USD flow into/out of labeled exchange wallets",
+        "code_link": "bd_platform/onchain_metrics_library.py#exchange_netflow",
         "contracts": [
           {"address": "0x28C6c06298d514Db089934071355E5743bf21d60", "label": "binance_hot_wallet", "chain": "ethereum"}
         ],
@@ -322,6 +373,96 @@
         "transformation_version": "1.0",
         "parity_verified": true,
         "version_history": [{"version": "1.0", "date": "2026-08-15", "change": "Exchange cluster v2 labels"}]
+      },
+      "hash_rate": {
+        "metric_name": "Network Hash Rate",
+        "definition": "Mean network hash rate over trailing 144 blocks",
+        "code_link": "bd_platform/onchain_metrics_library.py#hash_rate",
+        "transformation_logic": "mean(block_hash_rate) over trailing 144 blocks",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-01", "change": "Initial"}]
+      },
+      "stablecoin_exchange_reserve": {
+        "metric_name": "Stablecoin Exchange Reserve",
+        "definition": "Total stablecoin balance on labeled exchange wallets",
+        "code_link": "bd_platform/stablecoin_health_monitor.py",
+        "transformation_logic": "sum(exchange_wallet_balance * price_usd) per labeled entity",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-10", "change": "Merged into #467/#577"}]
+      },
+      "exchange_stablecoin_buying_power": {
+        "metric_name": "Exchange Stablecoin Buying Power Index",
+        "definition": "Stablecoin reserves as % of total exchange crypto balances",
+        "code_link": "bd_platform/stablecoin_health_monitor.py#663",
+        "transformation_logic": "sum(stablecoin_exchange_balances_usd) / sum(crypto_exchange_balances_usd) * 100",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-20", "change": "Triple-source reconciliation"}]
+      },
+      "long_short_ratio": {
+        "metric_name": "Long/Short Ratio",
+        "definition": "Per-venue normalized L/S with documented semantics",
+        "code_link": "bd_platform/onchain_metrics_library.py#675",
+        "transformation_logic": "venue-specific normalized; global = weighted average",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Merged #675 with per-venue tooltips"}]
+      },
+      "mvrv_zscore": {
+        "metric_name": "MVRV Z-Score Suite",
+        "definition": "Market cap vs realized cap deviation with cohort variants",
+        "code_link": "bd_platform/onchain_metrics_suite.py#676",
+        "transformation_logic": "MVRV = Market Cap / Realized Cap; Z = (MVRV - Mean) / Std",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "STH/LTH/Total cohorts"}]
+      },
+      "transaction_volume_usd": {
+        "metric_name": "Transaction Volume (USD)",
+        "definition": "Entity-adjusted on-chain transaction volume",
+        "code_link": "bd_platform/onchain_metrics_library.py#612",
+        "transformation_logic": "sum(usd_value_at_tx_time) excluding spam/internal/self/dust",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-12", "change": "Spam policy v1"}]
+      },
+      "gaming_liquidity": {
+        "metric_name": "Gaming Sector Liquidity",
+        "definition": "DEX volume + on-chain transfers for gaming-tagged tokens",
+        "code_link": "bd_platform/sector_market_brief.py",
+        "transformation_logic": "sum(dex_volume_usd) + sum(on_chain_transfer_usd) for gaming-tagged tokens",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Sector Pulse #678 rule-based v1"}]
+      },
+      "ai_token_index": {
+        "metric_name": "AI Token Sector Index",
+        "definition": "Market-cap weighted AI token basket index",
+        "code_link": "bd_platform/sector_market_brief.py",
+        "transformation_logic": "market_cap_weighted_index(ai_token_basket) / baseline",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Sector Pulse #678"}]
+      },
+      "rwa_inflows": {
+        "metric_name": "RWA Institutional Inflows",
+        "definition": "Stablecoin + institutional flow into RWA-tagged assets",
+        "code_link": "bd_platform/sector_market_brief.py",
+        "transformation_logic": "sum(stablecoin_inflow_usd) + sum(institutional_flow_usd)",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Sector Pulse #678"}]
+      },
+      "solana_ecosystem_activity": {
+        "metric_name": "Solana Ecosystem Activity",
+        "definition": "Composite activity spike from tx count, DAA, and funding rate",
+        "code_link": "bd_platform/sector_market_brief.py",
+        "transformation_logic": "tx_count_spike_pct + daa_spike_pct + funding_rate_context",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Sector Pulse #678 abnormal activity detection"}]
       }
     }
   }

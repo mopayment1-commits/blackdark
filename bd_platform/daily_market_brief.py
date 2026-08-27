@@ -276,6 +276,22 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         logger.debug("mvrv daily brief integration skipped", exc_info=True)
 
+    sector_pulse_brief = None
+    try:
+        from bd_platform.sector_market_brief import build_sector_pulse_daily_brief_hook_474
+
+        sector_pulse_brief = build_sector_pulse_daily_brief_hook_474(seed=seed)
+        if sector_pulse_brief:
+            what_changed_items.insert(0, {
+                "text": sector_pulse_brief.get("mention_en", sector_pulse_brief.get("mention", "")),
+                "evidence_link": sector_pulse_brief.get("evidence_link"),
+                "contributor_metric": "sector_pulse",
+                "feature_ref_678": 678,
+                "feature_ref_474": 474,
+            })
+    except Exception:
+        logger.debug("sector pulse daily brief integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -306,6 +322,7 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "buying_power_brief_663": buying_power_brief,
         "long_short_brief_675": long_short_brief,
         "mvrv_brief_676": mvrv_brief,
+        "sector_pulse_brief_678": sector_pulse_brief,
         "not_investment_advice": True,
         "display": (
             f"Daily Brief {seed.get('brief_date')}: {regime.get('regime_label')} | "
