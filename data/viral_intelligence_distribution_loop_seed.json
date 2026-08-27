@@ -1,0 +1,128 @@
+{
+  "feature_ref": 797,
+  "merged_into": ["Landing Page Viral Growth Layer", "Market Radar"],
+  "standalone_rejected": true,
+  "no_auto_posting": true,
+  "no_share_to_trade": true,
+  "share_worthy_rules": {
+    "volatility_1h_pct_threshold": 5.0,
+    "volume_multiplier_threshold": 3.0,
+    "news_event_enabled": true,
+    "rule_based_only": true,
+    "no_ai_share_detection": true
+  },
+  "rate_limit": {
+    "max_shares_per_hour": 10,
+    "abuse_controls": true
+  },
+  "entitlement": {
+    "free": {
+      "card_level": "basic",
+      "fields": ["headline", "source", "timestamp", "deep_link"]
+    },
+    "pro": {
+      "card_level": "detailed",
+      "fields": ["headline", "source", "timestamp", "deep_link", "metrics", "evidence_chain", "freshness"]
+    }
+  },
+  "privacy": {
+    "referral_tracking_requires_consent": true,
+    "gdpr_ccpa_compliant": true,
+    "privacy_safe_referral_graph": true
+  },
+  "fee_db": {
+    "generation_usd": 0.002,
+    "delivery_usd": 0.001,
+    "attribution_tracking_usd": 0.0005,
+    "tier": "standard"
+  },
+  "market_events": [
+    {
+      "event_id": "evt-btc-vol-001",
+      "asset": "BTC",
+      "event_type": "volatility_spike",
+      "volatility_1h_pct": 5.8,
+      "volume_24h_usd": 28500000000,
+      "avg_volume_24h_usd": 8500000000,
+      "volume_multiplier": 3.35,
+      "price_change_1h_pct": 5.2,
+      "price_usd": 98500,
+      "source": "Oracle API",
+      "source_timestamp": "2026-08-27T12:00:00+00:00",
+      "news_event": false,
+      "freshness_sec": 45
+    },
+    {
+      "event_id": "evt-eth-news-002",
+      "asset": "ETH",
+      "event_type": "news_event",
+      "volatility_1h_pct": 2.1,
+      "volume_24h_usd": 12000000000,
+      "avg_volume_24h_usd": 6000000000,
+      "volume_multiplier": 2.0,
+      "price_change_1h_pct": 1.8,
+      "price_usd": 3420,
+      "source": "CoinDesk RSS",
+      "source_timestamp": "2026-08-27T11:30:00+00:00",
+      "news_event": true,
+      "news_headline": "Ethereum upgrade completes successfully",
+      "freshness_sec": 120
+    },
+    {
+      "event_id": "evt-sol-vol-003",
+      "asset": "SOL",
+      "event_type": "low_activity",
+      "volatility_1h_pct": 1.2,
+      "volume_24h_usd": 2000000000,
+      "avg_volume_24h_usd": 1800000000,
+      "volume_multiplier": 1.1,
+      "price_change_1h_pct": 0.5,
+      "price_usd": 145,
+      "source": "Oracle API",
+      "source_timestamp": "2026-08-27T12:00:00+00:00",
+      "news_event": false,
+      "freshness_sec": 60
+    }
+  ],
+  "user_states": {
+    "default": {
+      "shares_last_hour": 2,
+      "referral_consent": true,
+      "referral_id": "ref-demo-001"
+    },
+    "no_consent": {
+      "shares_last_hour": 0,
+      "referral_consent": false,
+      "referral_id": null
+    },
+    "rate_limited": {
+      "shares_last_hour": 10,
+      "referral_consent": true,
+      "referral_id": "ref-spam-001"
+    }
+  },
+  "attribution_funnel": {
+    "stages": ["visitor", "signup", "activation", "paid", "reshare"],
+    "events": [
+      {"stage": "visitor", "referral_id": "ref-demo-001", "event_id": "evt-btc-vol-001", "timestamp": "2026-08-27T12:05:00+00:00"},
+      {"stage": "signup", "referral_id": "ref-demo-001", "event_id": "evt-btc-vol-001", "timestamp": "2026-08-27T12:08:00+00:00"},
+      {"stage": "activation", "referral_id": "ref-demo-001", "event_id": "evt-btc-vol-001", "timestamp": "2026-08-27T12:15:00+00:00"},
+      {"stage": "reshare", "referral_id": "ref-demo-001", "event_id": "evt-btc-vol-001", "timestamp": "2026-08-27T12:30:00+00:00"}
+    ]
+  },
+  "e2e_fixtures": {
+    "event_id": "evt-btc-vol-001",
+    "referral_id": "ref-e2e-797",
+    "user_tier": "free",
+    "consent": true
+  },
+  "forbidden_claim_patterns": [
+    "exploding",
+    "buy now",
+    "sell now",
+    "guaranteed",
+    "moon",
+    "to the moon",
+    "100x"
+  ]
+}

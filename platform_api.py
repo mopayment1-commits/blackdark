@@ -3461,6 +3461,74 @@ async def landing_news_digest_route(limit: int = Query(3, ge=1, le=10)):
     return build_landing_news_digest_widget_768(limit=limit)
 
 
+@router.get("/intelligence-ledger/viral-loop/status")
+async def viral_loop_status_route():
+    """#797 Viral Intelligence Distribution Loop — merged into Landing + Market Radar."""
+    from bd_platform.viral_intelligence_distribution_loop import viral_intelligence_distribution_status_797
+
+    return viral_intelligence_distribution_status_797()
+
+
+@router.get("/intelligence-ledger/viral-loop/landing")
+async def viral_loop_landing_widget_route(
+    event_id: str = Query("evt-btc-vol-001"),
+    user_tier: str = Query("free"),
+    user_id: str = Query("default"),
+):
+    from bd_platform.viral_intelligence_distribution_loop import build_landing_viral_share_widget_797
+
+    return build_landing_viral_share_widget_797(event_id, user_tier=user_tier, user_id=user_id)
+
+
+@router.get("/intelligence-ledger/viral-loop/share")
+async def viral_loop_market_radar_share_route(
+    asset: str = Query("BTC"),
+    user_tier: str = Query("free"),
+    user_id: str = Query("default"),
+):
+    from bd_platform.viral_intelligence_distribution_loop import build_market_radar_share_action_797
+
+    return build_market_radar_share_action_797(asset, user_tier=user_tier, user_id=user_id)
+
+
+@router.get("/intelligence-ledger/viral-loop/card/{event_id}")
+async def viral_loop_share_card_route(
+    event_id: str,
+    user_tier: str = Query("free"),
+    user_id: str = Query("default"),
+):
+    from bd_platform.viral_intelligence_distribution_loop import _load_seed, build_shareable_intelligence_card_797
+
+    seed = _load_seed()
+    user_state = (seed.get("user_states") or {}).get(user_id) or {}
+    return build_shareable_intelligence_card_797(event_id, user_tier=user_tier, user_state=user_state, seed=seed)
+
+
+@router.get("/intelligence-ledger/viral-loop/event/{event_id}")
+async def viral_loop_event_landing_route(
+    event_id: str,
+    ref: str | None = Query(None),
+):
+    """Deep link context: /radar/event/[id]?ref=[code]."""
+    from bd_platform.viral_intelligence_distribution_loop import build_event_landing_context_797
+
+    return build_event_landing_context_797(event_id, ref)
+
+
+@router.get("/intelligence-ledger/viral-loop/attribution")
+async def viral_loop_attribution_funnel_route():
+    from bd_platform.viral_intelligence_distribution_loop import build_attribution_funnel_summary_797
+
+    return build_attribution_funnel_summary_797()
+
+
+@router.get("/intelligence-ledger/viral-loop/e2e")
+async def viral_loop_e2e_route():
+    from bd_platform.viral_intelligence_distribution_loop import run_viral_distribution_e2e_797
+
+    return run_viral_distribution_e2e_797()
+
+
 @router.get("/intelligence-ledger/market-radar/macro-coupling")
 async def market_radar_macro_coupling_route(asset: str = Query("BTC"), window: str = Query("90D")):
     """#774 BTC-to-Macro Coupling — merged into Market Radar macro context overlay."""

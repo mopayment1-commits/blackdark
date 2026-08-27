@@ -1092,6 +1092,14 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("783 sentiment overlay market radar integration skipped", exc_info=True)
 
+    viral_share = None
+    try:
+        from bd_platform.viral_intelligence_distribution_loop import build_market_radar_share_action_797
+
+        viral_share = build_market_radar_share_action_797(asset)
+    except Exception:
+        logger.debug("797 viral share action market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -1120,6 +1128,7 @@ def build_market_radar_panel(
         "macro_coupling_774": macro_coupling if macro_coupling and macro_coupling.get("ok") else {"ok": False},
         "supply_dynamics_794": supply_dynamics if supply_dynamics and supply_dynamics.get("ok") else {"ok": False},
         "sentiment_intelligence_783": sentiment_overlay if sentiment_overlay and sentiment_overlay.get("ok") else {"ok": False},
+        "viral_share_action_797": viral_share if viral_share and viral_share.get("ok") else {"ok": False},
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }
