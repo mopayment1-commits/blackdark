@@ -25,6 +25,13 @@
       "cpu_utilization_pct": 42.0,
       "memory_utilization_pct": 58.0
     },
-    "fee_db": {"infra_monitoring_usd": 50.0, "tier": "ops"}
+    "fee_db": {"infra_monitoring_usd": 50.0, "tier": "ops"},
+    "quality_monitor_feed_824": {
+      "enabled": true,
+      "accuracy_pct": 99.992,
+      "query_latency_p99_ms": 420,
+      "daily_checks_passed": true,
+      "retention_years": 2
+    }
   }
 }

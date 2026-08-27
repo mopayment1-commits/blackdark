@@ -5900,6 +5900,83 @@ async def infrastructure_observability_slo_tests_route(_admin: dict = Depends(re
     return run_infra_observability_slo_tests_789()
 
 
+@router.get("/internal/data-engine/quality-monitor/status")
+async def quality_monitor_status_route(_admin: dict = Depends(require_admin)):
+    """#824 Data Integrity Monitor — Data Engine quality_monitor (admin only)."""
+    from bd_platform.data_engine_quality_monitor import quality_monitor_status_824
+
+    return quality_monitor_status_824()
+
+
+@router.get("/internal/data-engine/quality-monitor")
+async def quality_monitor_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_quality_monitor import build_quality_monitor_panel_824
+
+    return build_quality_monitor_panel_824()
+
+
+@router.get("/internal/data-engine/quality-monitor/daily-checks")
+async def quality_monitor_daily_checks_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_quality_monitor import run_all_daily_quality_checks_824
+
+    return run_all_daily_quality_checks_824()
+
+
+@router.get("/internal/data-engine/quality-monitor/infra-feed")
+async def quality_monitor_infra_feed_route(_admin: dict = Depends(require_admin)):
+    """#824 → #789 Infrastructure Observability feed."""
+    from bd_platform.data_engine_quality_monitor import build_infra_observability_quality_feed_824
+
+    return build_infra_observability_quality_feed_824()
+
+
+@router.get("/internal/data-engine/quality-monitor/e2e")
+async def quality_monitor_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_quality_monitor import run_quality_monitor_e2e_824
+
+    return run_quality_monitor_e2e_824()
+
+
+@router.get("/internal/api-gateway/token-rotation/status")
+async def token_rotation_status_route(_admin: dict = Depends(require_admin)):
+    """#826 Cryptographic Token Rotation — Security Layer policy (admin only)."""
+    from bd_platform.api_gateway_token_rotation import token_rotation_status_826
+
+    return token_rotation_status_826()
+
+
+@router.get("/internal/api-gateway/token-rotation")
+async def token_rotation_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.api_gateway_token_rotation import build_token_rotation_panel_826
+
+    return build_token_rotation_panel_826()
+
+
+@router.get("/internal/api-gateway/token-rotation/due")
+async def token_rotation_due_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.api_gateway_token_rotation import list_rotation_due_keys_826
+
+    return list_rotation_due_keys_826()
+
+
+@router.post("/internal/api-gateway/token-rotation/rotate")
+async def token_rotation_rotate_route(
+    key_id: str = Query(...),
+    dry_run: bool = Query(True),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.api_gateway_token_rotation import rotate_api_key_826
+
+    return rotate_api_key_826(key_id, dry_run=dry_run)
+
+
+@router.get("/internal/api-gateway/token-rotation/e2e")
+async def token_rotation_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.api_gateway_token_rotation import run_token_rotation_e2e_826
+
+    return run_token_rotation_e2e_826()
+
+
 @router.get("/internal/system-performance")
 async def system_performance_monitor_panel_route(_admin: dict = Depends(require_admin)):
     from bd_platform.system_performance_monitor import build_performance_panel

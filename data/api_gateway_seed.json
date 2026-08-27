@@ -120,5 +120,50 @@
     "error_rate_pct": 0.02,
     "passed": true
   },
-  "absorbed_tickets": [834, 863, 872, 886]
+  "absorbed_tickets": [834, 863, 872, 886],
+  "token_rotation_policy_826": {
+    "feature_ref": 826,
+    "merged_into": "Security Layer / API Gateway",
+    "rotation_interval_days": 90,
+    "fallback_grace_hours": 24,
+    "automated_rotation": true,
+    "no_permanent_api_keys": true,
+    "manual_rotation_rejected": true,
+    "api_throttling_ref": 833,
+    "rotation_registry": {
+      "gateway_service_key": {
+        "label": "API Gateway service principal",
+        "created_at": "2026-05-29T00:00:00+00:00",
+        "last_rotated_at": "2026-05-29T00:00:00+00:00",
+        "current_key_hash": "a3f5c8d91e2b4f6a7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0",
+        "previous_key_hash": null,
+        "rotated_at": null
+      },
+      "oracle_ingestion_key": {
+        "label": "Oracle API ingestion principal",
+        "created_at": "2026-02-27T00:00:00+00:00",
+        "last_rotated_at": "2026-02-27T00:00:00+00:00",
+        "current_key_hash": "b4e6d9c02f3a5b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1",
+        "previous_key_hash": null,
+        "rotated_at": null
+      },
+      "overdue_demo_key": {
+        "label": "Demo overdue rotation key",
+        "created_at": "2025-08-27T00:00:00+00:00",
+        "last_rotated_at": "2025-08-27T00:00:00+00:00",
+        "current_key_hash": "c5f7e0d13a4b6c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2",
+        "previous_key_hash": null,
+        "rotated_at": null
+      }
+    },
+    "rotation_log": [
+      {
+        "rotation_id": "rot-demo001",
+        "key_id": "gateway_service_key",
+        "rotated_at": "2026-05-29T00:00:00+00:00",
+        "automated": true,
+        "fallback_grace_hours": 24
+      }
+    ]
+  }
 }

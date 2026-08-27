@@ -79,7 +79,8 @@ def build_sre_observability_stack_789(*, seed: dict[str, Any] | None = None) -> 
         "fee_db": cfg.get("fee_db") or {"infra_monitoring_usd": 50.0, "tier": "ops"},
         "internal_dashboard": "Grafana (team only)",
         "no_user_surface": True,
-        "integrations": ["Data Engine health", "Oracle API latency/error rate"],
+        "integrations": ["Data Engine health", "Oracle API latency/error rate", "#824 Quality Monitor"],
+        "quality_monitor_feed_824": (seed.get("sre_stack_789") or {}).get("quality_monitor_feed_824") or {},
         "disclaimer": _DISCLAIMER,
         "timestamp": _utcnow(),
     }
@@ -124,6 +125,21 @@ def run_infra_observability_slo_tests_789(*, seed: dict[str, Any] | None = None)
     }
 
 
+def build_sre_observability_with_quality_monitor_789(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#789 + #824 — SRE stack enriched with Data Engine quality monitor feed."""
+    seed = seed or _load_seed()
+    stack = build_sre_observability_stack_789(seed=seed)
+    try:
+        from bd_platform.data_engine_quality_monitor import build_infra_observability_quality_feed_824
+
+        feed = build_infra_observability_quality_feed_824()
+        stack["quality_monitor_feed_824"] = feed
+        stack["data_quality_checks_passed"] = feed.get("quality_metrics", {}).get("daily_checks_passed")
+    except Exception:
+        logger.debug("824 quality monitor feed skipped", exc_info=True)
+    return stack
+
+
 def infrastructure_observability_status_789() -> dict[str, Any]:
     return {
         "ok": True,
@@ -134,5 +150,6 @@ def infrastructure_observability_status_789() -> dict[str, Any]:
         "not_user_alert_system": True,
         "user_alerts_ref": 788,
         "stack_components": ["prometheus", "grafana", "loki", "jaeger", "pagerduty"],
+        "quality_monitor_ref": 824,
         "timestamp": _utcnow(),
     }
