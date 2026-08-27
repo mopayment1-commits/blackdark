@@ -279,5 +279,121 @@
         "tx_hash": "0xreorg"
       }
     ]
+  },
+  "whale_intelligence_626": {
+    "feature_ref": 626,
+    "threshold_version": "1.0",
+    "persistence_days_min": 3,
+    "whale_thresholds": {
+      "holdings_usd_min": 1000000,
+      "avg_daily_flow_usd_min": 100000
+    },
+    "excluded_exchange_wallets": ["0xbinance_hot", "0xcoinbase_custody"],
+    "excluded_entity_labels": ["binance", "coinbase", "kraken", "exchange"]
+  },
+  "entity_cluster_exclusions_637": {
+    "exchange_wallets": ["0xbinance_hot", "0xcoinbase_custody", "0xkraken_cold"]
+  },
+  "whale_cohorts": {
+    "BTC": {
+      "wallets": [
+        {"address": "0xwhale_alpha", "holdings_usd": 5200000, "entity_label": "Whale Alpha"},
+        {"address": "0xbinance_hot", "holdings_usd": 50000000, "entity_label": "Binance Hot"},
+        {"address": "0xwhale_fund", "holdings_usd": 8200000, "entity_label": "Fund Beta"}
+      ],
+      "daily_net_flow_usd": [2500000, 1800000, 3200000, 500000, -200000],
+      "flow_context": {
+        "type": "exchange_inflow",
+        "exchange": "Coinbase",
+        "amount_eth": 5000
+      },
+      "evidence": {
+        "text": "5,000 BTC دخلت من Coinbase خلال 7 أيام (+$325M) — سعر ارتفع 8%",
+        "amount": "5,000 BTC",
+        "period_days": 7,
+        "value_usd_display": "+$325M",
+        "price_change_pct": 8,
+        "tx_hashes": ["0xwhale626a", "0xwhale626b"],
+        "entity_label": "Institutional Cluster A",
+        "confidence_pct": 92
+      }
+    },
+    "ETH": {
+      "wallets": [
+        {"address": "0xeth_whale", "holdings_usd": 3100000, "entity_label": "ETH Whale"},
+        {"address": "0xeth_fund", "holdings_usd": 1200000, "entity_label": "DeFi Fund"}
+      ],
+      "daily_net_flow_usd": [200000, 100000, -800000, -1200000, -500000],
+      "flow_context": {
+        "type": "exchange_outflow",
+        "exchange": "Binance"
+      },
+      "evidence": {
+        "text": "12,000 ETH خرجت إلى Binance خلال 5 أيام (-$42M) — سعر انخفض 3%",
+        "amount": "12,000 ETH",
+        "period_days": 5,
+        "value_usd_display": "-$42M",
+        "price_change_pct": -3,
+        "tx_hashes": ["0xeth626a"],
+        "entity_label": "Whale Cluster B",
+        "confidence_pct": 88
+      }
+    }
+  },
+  "whale_alerts_628": {
+    "feature_ref": 628,
+    "user_controls": {
+      "default_threshold_usd": 1000000,
+      "threshold_options_usd": [100000, 1000000, 10000000],
+      "direction_options": ["inflow", "outflow", "both"]
+    },
+    "whale_events": [
+      {
+        "event_id": "whale-alert-001",
+        "wallet_address": "0xwhale_alpha",
+        "entity_label": "Whale Alpha",
+        "label_confidence": 97,
+        "asset": "ETH",
+        "direction": "inflow",
+        "movement_type": "inflow",
+        "value_usd": 5200000,
+        "amount_display": "1,500 ETH",
+        "context": "Accumulation pattern — 3rd inflow this week from Coinbase",
+        "tx_hash": "0xwhale628001",
+        "block_explorer_url": "https://etherscan.io/tx/0xwhale628001",
+        "chain": "ethereum",
+        "timestamp": "2026-08-27T12:00:00Z",
+        "shadowed_wallet": true,
+        "display": "Whale Alpha: inflow $5,200,000 ETH from Coinbase"
+      },
+      {
+        "event_id": "whale-alert-002",
+        "wallet_address": "0xbinance_hot",
+        "entity_label": "Binance Hot Wallet",
+        "label_confidence": 99,
+        "asset": "BTC",
+        "direction": "outflow",
+        "value_usd": 15000000,
+        "exclude_exchange_internal": true,
+        "tx_hash": "0xwhale628002",
+        "timestamp": "2026-08-27T11:30:00Z"
+      },
+      {
+        "event_id": "whale-alert-003",
+        "wallet_address": "0xwhale_fund",
+        "entity_label": "Fund Beta",
+        "label_confidence": 94,
+        "asset": "BTC",
+        "direction": "inflow",
+        "value_usd": 8200000,
+        "amount_display": "125 BTC",
+        "context": "Smart money accumulating — persistence 4 days",
+        "tx_hash": "0xwhale628003",
+        "block_explorer_url": "https://etherscan.io/tx/0xwhale628003",
+        "chain": "ethereum",
+        "timestamp": "2026-08-27T10:45:00Z",
+        "display": "Fund Beta: inflow $8,200,000 BTC"
+      }
+    ]
   }
 }

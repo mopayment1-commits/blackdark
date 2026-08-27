@@ -1,0 +1,94 @@
+{
+  "feature_id": 620,
+  "title": "Wallet Profiler",
+  "standalone": false,
+  "merged_into": "Portfolio AI / Core UI",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-27",
+  "default_address": "0xwhale_binance_hot",
+  "empty_address": "0xempty",
+  "new_wallet_address": "0xnew_wallet",
+  "wallets": {
+    "0xwhale_binance_hot": {
+      "wallet_age_days": 820,
+      "is_empty": false,
+      "total_usd": 12500000,
+      "primary_asset": "ETH",
+      "portfolio_wallet_id": "demo_wallet",
+      "flow_graph_root": "0xbinance_hot",
+      "freshness_seconds": 180,
+      "tx_freshness_seconds": 120,
+      "signal_freshness_seconds": 180,
+      "smart_money_classification": {
+        "label": "whale",
+        "type": "fund",
+        "confidence_pct": 96,
+        "display": "Whale / Fund"
+      },
+      "entity_cluster": {
+        "cluster_id": "cluster_binance_whale",
+        "entity": "Binance-linked Whale",
+        "confidence_pct": 88
+      },
+      "cluster_display": "مُحتمل الارتباط بـ Binance Hot Cluster",
+      "holdings": [
+        {"asset": "ETH", "amount": 3200, "value_usd": 11136000, "price_usd": 3480},
+        {"asset": "BTC", "amount": 21, "value_usd": 1365000, "price_usd": 65000}
+      ],
+      "transactions": [
+        {
+          "tx_hash": "0xwp001",
+          "timestamp": "2026-08-27T10:00:00Z",
+          "type": "inflow",
+          "asset": "ETH",
+          "amount": 1500,
+          "value_usd": 5220000,
+          "counterparty": "0xcoinbase_cold",
+          "counterparty_label": "Coinbase Cold"
+        },
+        {
+          "tx_hash": "0xwp002",
+          "timestamp": "2026-08-26T18:30:00Z",
+          "type": "outflow",
+          "asset": "ETH",
+          "amount": 500,
+          "value_usd": 1740000,
+          "counterparty": "0xdefi_pool",
+          "counterparty_label": "DeFi Pool"
+        }
+      ]
+    },
+    "0xnew_wallet": {
+      "wallet_age_days": 12,
+      "is_empty": false,
+      "total_usd": 45000,
+      "primary_asset": "ETH",
+      "portfolio_wallet_id": "small_wallet",
+      "flow_graph_root": "0xbinance_hot",
+      "freshness_seconds": 90,
+      "tx_freshness_seconds": 90,
+      "signal_freshness_seconds": 200,
+      "holdings": [
+        {"asset": "ETH", "amount": 12.9, "value_usd": 45000, "price_usd": 3480}
+      ],
+      "transactions": [
+        {
+          "tx_hash": "0xnew001",
+          "timestamp": "2026-08-27T08:00:00Z",
+          "type": "inflow",
+          "asset": "ETH",
+          "amount": 12.9,
+          "value_usd": 45000,
+          "counterparty": "0xunknown",
+          "counterparty_label": "Unknown"
+        }
+      ]
+    },
+    "0xempty": {
+      "wallet_age_days": 400,
+      "is_empty": true,
+      "total_usd": 0
+    }
+  }
+}

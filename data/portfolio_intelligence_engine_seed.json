@@ -11,7 +11,7 @@
   "last_updated": "2026-08-27",
   "existing_module": true,
   "no_new_module_built": true,
-  "merged_features": [448, 450, 483, 490, 617, 618, 619],
+  "merged_features": [448, 450, 483, 490, 614, 617, 618, 619],
   "sharpe_drawdown_winrate_sla_cancelled": true,
   "portfolio_id": "demo_portfolio",
   "integrations": {
@@ -164,5 +164,40 @@
         {"status": "closed", "return_pct": -2.0}
       ]
     }
+  },
+  "unified_dashboard_614": {
+    "feature_ref": 614,
+    "title": "Unified Portfolio Dashboard",
+    "manual_cex_entries": [
+      {
+        "source_id": "manual_binance",
+        "source_type": "exchange",
+        "asset": "ETH",
+        "network": "ethereum",
+        "amount": 5.0,
+        "value_usd": 17400.0,
+        "freshness_seconds": 45,
+        "last_updated": "2026-08-27T13:00:00Z",
+        "price_source": "coingecko"
+      },
+      {
+        "source_id": "manual_coinbase",
+        "source_type": "exchange",
+        "asset": "BTC",
+        "network": "bitcoin",
+        "amount": 0.25,
+        "value_usd": 16250.0,
+        "freshness_seconds": 30,
+        "last_updated": "2026-08-27T13:01:00Z",
+        "price_source": "binance_ticker"
+      }
+    ],
+    "e2e_journey_steps": [
+      {"step": 1, "id": "onboarding", "label": "Onboarding", "label_ar": "التسجيل"},
+      {"step": 2, "id": "portfolio_setup", "label": "Portfolio setup", "label_ar": "إعداد المحفظة"},
+      {"step": 3, "id": "first_insight", "label": "First insight", "label_ar": "أول رؤية"},
+      {"step": 4, "id": "alert", "label": "Alert received", "label_ar": "استلام تنبيه"},
+      {"step": 5, "id": "action_simulation", "label": "Action simulation", "label_ar": "محاكاة إجراء"}
+    ]
   }
 }
