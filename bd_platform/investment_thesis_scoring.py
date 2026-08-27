@@ -140,6 +140,26 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
     thesis_score = round(weighted_sum / weight_total if weight_total else 0, 2)
     grade = _thesis_grade(thesis_score, seed=seed)
 
+    custom_ratio_dim = None
+    try:
+        from bd_platform.custom_ratio_engine import score_custom_ratio_thesis_dimension
+
+        custom_ratio_dim = score_custom_ratio_thesis_dimension(asset)
+        if custom_ratio_dim.get("ok"):
+            dimensions["custom_ratio_653"] = {
+                "raw_score": custom_ratio_dim.get("dimension_score"),
+                "adjusted_score": custom_ratio_dim.get("dimension_score"),
+                "weight": 0,
+                "contribution": 0,
+                "formula_id": custom_ratio_dim.get("formula_id"),
+                "percentile_vs_peers": custom_ratio_dim.get("percentile_vs_peers"),
+                "evidence_source": "custom_ratio_engine_653",
+                "evidence_quality": "high",
+                "optional_dimension": True,
+            }
+    except Exception:
+        logger.debug("653 custom ratio thesis dimension skipped", exc_info=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -154,6 +174,7 @@ def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -
         "terms_clause": seed.get("terms_clause"),
         "no_opaque_score": True,
         "weights_documented": True,
+        "custom_ratio_dimension_653": custom_ratio_dim,
         "display": f"Thesis {asset.upper()}: {grade} ({thesis_score}/100) — not price probability",
         "timestamp": _utcnow(),
     }

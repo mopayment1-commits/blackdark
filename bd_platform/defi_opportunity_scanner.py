@@ -920,6 +920,13 @@ def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[
     except Exception:
         logger.debug("651 decision relevance ranking skipped", exc_info=True)
 
+    try:
+        from bd_platform.cross_protocol_contagion import cancel_defi_opportunities_in_affected_cluster
+
+        opportunities = cancel_defi_opportunities_in_affected_cluster(opportunities, seed=seed)
+    except Exception:
+        logger.debug("652 contagion cluster cancellation skipped", exc_info=True)
+
     return opportunities
 
 
@@ -962,6 +969,14 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         decision_panel = build_defi_decision_panel(seed=seed)
     except Exception:
         logger.debug("651 defi decision panel skipped", exc_info=True)
+
+    contagion_panel = None
+    try:
+        from bd_platform.cross_protocol_contagion import build_contagion_monitor
+
+        contagion_panel = build_contagion_monitor()
+    except Exception:
+        logger.debug("652 contagion monitor skipped", exc_info=True)
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     return {
@@ -980,6 +995,7 @@ def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
         "smart_contract_risk_491": contract_risk,
         "yield_delta_listener_639": yield_delta if yield_delta.get("ok") else {"ok": False},
         "defi_decision_intelligence_651": decision_panel if decision_panel and decision_panel.get("ok") else {"ok": False},
+        "cross_protocol_contagion_652": contagion_panel if contagion_panel and contagion_panel.get("ok") else {"ok": False},
         "ranked_by_decision_relevance_651": True,
         "monitoring_only": True,
         "cancelled_v1_scope": {
@@ -1017,6 +1033,7 @@ def defi_opportunity_scanner_status() -> dict[str, Any]:
             "smart_contract_risk_491": True,
             "yield_delta_listener_639": True,
             "defi_decision_intelligence_651": True,
+            "cross_protocol_contagion_652": True,
             "on_chain_arbitrage": True,
         },
         "dex_screener": {

@@ -1,0 +1,206 @@
+{
+  "feature_id": 653,
+  "title": "Ratio Builder",
+  "legal_name": "Custom Ratio Engine",
+  "standalone": false,
+  "merged_into": "Sprint-2 Market Radar Core / Intelligence Ledger",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "as_of_date": "2026-08-27",
+  "asset_protocol_map": {
+    "UNI": "uniswap",
+    "AAVE": "aave",
+    "LDO": "lido",
+    "MKR": "maker"
+  },
+  "metrics": {
+    "market_cap": {
+      "metric_id": "market_cap",
+      "name": "Market Cap",
+      "unit": "USD",
+      "type": "market",
+      "source": "market_data_engine",
+      "version": "1.0"
+    },
+    "fdv": {
+      "metric_id": "fdv",
+      "name": "Fully Diluted Valuation",
+      "unit": "USD",
+      "type": "market",
+      "source": "market_data_engine",
+      "version": "1.0"
+    },
+    "tvl": {
+      "metric_id": "tvl",
+      "name": "TVL",
+      "unit": "USD",
+      "type": "defi",
+      "source": "defillama",
+      "version": "1.0"
+    },
+    "revenue_30d": {
+      "metric_id": "revenue_30d",
+      "name": "Revenue (30d)",
+      "unit": "USD",
+      "type": "financial",
+      "source": "on_chain_financials_641",
+      "version": "1.0"
+    },
+    "fees_30d": {
+      "metric_id": "fees_30d",
+      "name": "Fees (30d)",
+      "unit": "USD",
+      "type": "financial",
+      "source": "on_chain_financials_641",
+      "version": "1.0"
+    },
+    "supply": {
+      "metric_id": "supply",
+      "name": "Circulating Supply",
+      "unit": "count",
+      "type": "token",
+      "source": "token_registry",
+      "version": "1.0"
+    },
+    "daa": {
+      "metric_id": "daa",
+      "name": "Daily Active Addresses",
+      "unit": "count",
+      "type": "on_chain",
+      "source": "onchain_metrics_library_577",
+      "version": "1.0"
+    },
+    "tx_count": {
+      "metric_id": "tx_count",
+      "name": "Transaction Count",
+      "unit": "count",
+      "type": "on_chain",
+      "source": "onchain_metrics_library_577",
+      "version": "1.0"
+    },
+    "tvl_growth_qoq": {
+      "metric_id": "tvl_growth_qoq",
+      "name": "TVL Growth QoQ",
+      "unit": "percent",
+      "type": "defi",
+      "source": "defillama",
+      "version": "1.0"
+    }
+  },
+  "presets": {
+    "ps_ratio": {
+      "formula_id": "ps_ratio",
+      "name": "P/S Ratio (Crypto)",
+      "numerator_metric": "fdv",
+      "denominator_metric": "revenue_30d",
+      "annualize": true,
+      "version": "1.0",
+      "description": "FDV / Annualized Revenue"
+    },
+    "market_cap_tvl": {
+      "formula_id": "market_cap_tvl",
+      "name": "Market Cap / TVL",
+      "numerator_metric": "market_cap",
+      "denominator_metric": "tvl",
+      "annualize": false,
+      "version": "1.0",
+      "description": "Market cap relative to protocol TVL"
+    },
+    "fdv_revenue": {
+      "formula_id": "fdv_revenue",
+      "name": "FDV / Revenue",
+      "numerator_metric": "fdv",
+      "denominator_metric": "revenue_30d",
+      "annualize": false,
+      "version": "1.0",
+      "description": "FDV to trailing 30d revenue"
+    },
+    "revenue_per_user": {
+      "formula_id": "revenue_per_user",
+      "name": "Revenue / User",
+      "numerator_metric": "revenue_30d",
+      "denominator_metric": "daa",
+      "annualize": false,
+      "version": "1.0",
+      "description": "Revenue per daily active address"
+    },
+    "tvl_growth_mcap": {
+      "formula_id": "tvl_growth_mcap",
+      "name": "TVL Growth / Mcap",
+      "numerator_metric": "tvl_growth_qoq",
+      "denominator_metric": "market_cap",
+      "annualize": false,
+      "version": "1.0",
+      "description": "TVL growth relative to market cap"
+    }
+  },
+  "formulas": {},
+  "protocols": {
+    "uniswap": {
+      "protocol_id": "uniswap",
+      "protocol_name": "Uniswap",
+      "market_cap": 4500000000,
+      "fdv": 4500000000,
+      "tvl": 5800000000,
+      "revenue_30d": 12500000,
+      "fees_30d": 12500000,
+      "daa": 185000,
+      "tx_count": 420000,
+      "tvl_growth_qoq": 8.5
+    },
+    "aave": {
+      "protocol_id": "aave",
+      "protocol_name": "Aave",
+      "market_cap": 1800000000,
+      "fdv": 1800000000,
+      "tvl": 12500000000,
+      "revenue_30d": 4400000,
+      "fees_30d": 4400000,
+      "daa": 95000,
+      "tx_count": 180000,
+      "tvl_growth_qoq": 12.2
+    },
+    "lido": {
+      "protocol_id": "lido",
+      "protocol_name": "Lido",
+      "market_cap": 2100000000,
+      "fdv": 2100000000,
+      "tvl": 24000000000,
+      "revenue_30d": 28000000,
+      "fees_30d": 28000000,
+      "daa": 42000,
+      "tx_count": 85000,
+      "tvl_growth_qoq": 15.8
+    },
+    "maker": {
+      "protocol_id": "maker",
+      "protocol_name": "MakerDAO",
+      "market_cap": 1200000000,
+      "fdv": 1200000000,
+      "tvl": 8200000000,
+      "revenue_30d": 9800000,
+      "fees_30d": 9800000,
+      "daa": 12000,
+      "tx_count": 45000,
+      "tvl_growth_qoq": 6.1
+    }
+  },
+  "historical": {
+    "uniswap": {
+      "revenue_30d": [
+        {"date": "2025-01", "value": 10500000},
+        {"date": "2025-07", "value": 11800000},
+        {"date": "2026-08", "value": 12500000}
+      ],
+      "fdv": [
+        {"date": "2025-01", "value": 3800000000},
+        {"date": "2025-07", "value": 4200000000},
+        {"date": "2026-08", "value": 4500000000}
+      ],
+      "ps_ratio": [
+        {"date": "2025-07", "value": 35.6},
+        {"date": "2026-08", "value": 30.0}
+      ]
+    }
+  }
+}
