@@ -244,6 +244,37 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     except Exception:
         logger.debug("buying power daily brief integration skipped", exc_info=True)
 
+    stablecoin_activity_brief = None
+    try:
+        from bd_platform.onchain_metrics_library import build_stablecoin_activity_daily_brief_hook_474
+
+        stablecoin_activity_brief = build_stablecoin_activity_daily_brief_hook_474(seed=seed)
+        if stablecoin_activity_brief:
+            what_changed_items.append({
+                "text": stablecoin_activity_brief.get("mention_en", stablecoin_activity_brief.get("mention", "")),
+                "contributor_metric": "stablecoin_activity_breakdown",
+                "feature_ref_692": 692,
+                "feature_ref_474": 474,
+            })
+    except Exception:
+        logger.debug("692 stablecoin activity daily brief integration skipped", exc_info=True)
+
+    exchange_flow_brief = None
+    try:
+        from bd_platform.stablecoin_health_monitor import build_stablecoin_exchange_flow_daily_brief_hook_474
+
+        exchange_flow_brief = build_stablecoin_exchange_flow_daily_brief_hook_474(seed=seed)
+        if exchange_flow_brief:
+            what_changed_items.insert(0, {
+                "text": exchange_flow_brief.get("mention_en", exchange_flow_brief.get("mention", "")),
+                "contributor_metric": "stablecoin_exchange_flow",
+                "contributor_value": exchange_flow_brief.get("netflow_24h_usd"),
+                "feature_ref_693": 693,
+                "feature_ref_474": 474,
+            })
+    except Exception:
+        logger.debug("693 exchange flow daily brief integration skipped", exc_info=True)
+
     long_short_brief = None
     try:
         from bd_platform.onchain_metrics_library import build_long_short_daily_brief_hook_474
@@ -336,6 +367,8 @@ def generate_daily_brief(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "capital_formation_radar_648": capital_radar_narrative,
         "dxy_macro_context_655": macro_context_narrative,
         "buying_power_brief_663": buying_power_brief,
+        "stablecoin_activity_brief_692": stablecoin_activity_brief,
+        "exchange_flow_brief_693": exchange_flow_brief,
         "long_short_brief_675": long_short_brief,
         "mvrv_brief_676": mvrv_brief,
         "sector_pulse_brief_678": sector_pulse_brief,

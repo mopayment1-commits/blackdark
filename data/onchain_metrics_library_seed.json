@@ -131,6 +131,33 @@
       "unit": "composite",
       "update_frequency": "hourly",
       "task_ref": 682
+    },
+    "stablecoin_activity_breakdown": {
+      "name": "Stablecoin Activity Breakdown",
+      "formula": "classify transfers: DEX→Trading, Lending→DeFi, CEX→Exchange Flow, small w2w→Payments, rapid cross-exchange→Arbitrage",
+      "formula_version": "1.0",
+      "source": "stablecoin_activity_intelligence_692",
+      "unit": "percent",
+      "update_frequency": "daily",
+      "task_ref": 692
+    },
+    "stablecoin_supply": {
+      "name": "Stablecoin Supply",
+      "formula": "sum(circulating_supply * oracle_price_usd) per token/chain with native/bridged/payment categories",
+      "formula_version": "1.0",
+      "source": "stablecoin_intelligence_694",
+      "unit": "USD",
+      "update_frequency": "daily",
+      "task_ref": 694
+    },
+    "stablecoin_flows": {
+      "name": "Stablecoin Exchange Flows",
+      "formula": "normalized inflow/outflow/netflow with depeg-aware USD and duplicate filtering",
+      "formula_version": "1.0",
+      "source": "stablecoin_exchange_flow_693",
+      "unit": "USD",
+      "update_frequency": "hourly",
+      "task_ref": 693
     }
   },
   "assets": {
@@ -318,6 +345,53 @@
         {"cohort_id": "whale", "label": "Whale", "exchange_inflow_usd": 300000, "exchange_outflow_usd": 1800000, "buy_flow_usd": 2000000, "sell_flow_usd": 250000}
       ]
     }
+  },
+  "stablecoin_activity_692": {
+    "feature_ref": 692,
+    "merged_into": 577,
+    "classification_methodology": {
+      "version": "1.0",
+      "documented": true,
+      "heuristics": {
+        "trading": "DEX interaction",
+        "defi": "Lending deposit/borrow",
+        "exchange_flow": "CEX deposit/withdrawal",
+        "payments": "Wallet-to-wallet small amount",
+        "arbitrage": "Cross-exchange rapid transfer"
+      },
+      "chain_specific_notes": {
+        "ethereum": "Account-based — full classification",
+        "bitcoin": "No native stablecoins — N/A",
+        "solana": "High DeFi usage — DeFi bucket weighted higher"
+      }
+    },
+    "stablecoins": {
+      "USDC": {
+        "chain": "ethereum",
+        "categories": {
+          "trading": 45,
+          "defi": 30,
+          "payments": 15,
+          "arbitrage": 10,
+          "exchange_flow": 0
+        },
+        "activity_spike_pct": 22,
+        "price_change_pct": 0.01
+      },
+      "USDT": {
+        "chain": "ethereum",
+        "categories": {
+          "trading": 35,
+          "defi": 20,
+          "payments": 20,
+          "arbitrage": 5,
+          "exchange_flow": 20
+        },
+        "activity_spike_pct": 8,
+        "price_change_pct": 0.0
+      }
+    },
+    "exit_activity_alert_pct": 60
   },
   "network_activity_682": {
     "feature_ref": 682,
@@ -559,6 +633,33 @@
         "transformation_version": "1.0",
         "parity_verified": true,
         "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Network Activity Intelligence #682 with reorg handling"}]
+      },
+      "stablecoin_activity_breakdown": {
+        "metric_name": "Stablecoin Activity Breakdown",
+        "definition": "Transfer classification by usage pattern",
+        "code_link": "bd_platform/onchain_metrics_library.py#692",
+        "transformation_logic": "DEX→Trading; Lending→DeFi; CEX deposit/withdrawal→Exchange Flow; small w2w→Payments; rapid cross-exchange→Arbitrage",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Stablecoin Activity Breakdown #692"}]
+      },
+      "stablecoin_supply": {
+        "metric_name": "Stablecoin Supply",
+        "definition": "Circulating supply by native/bridged/payment category per chain",
+        "code_link": "bd_platform/stablecoin_health_monitor.py#694",
+        "transformation_logic": "token/chain mapping with wash filtering",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Stablecoin Intelligence #694"}]
+      },
+      "stablecoin_flows": {
+        "metric_name": "Stablecoin Exchange Flows",
+        "definition": "Cross-token normalized exchange inflow/outflow/netflow",
+        "code_link": "bd_platform/stablecoin_health_monitor.py#693",
+        "transformation_logic": "depeg-aware USD + duplicate filtering + 7d rolling acceleration",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Exchange Flow Intelligence #693"}]
       }
     }
   }

@@ -30,6 +30,8 @@ _RISK_SCORING_REF = 460
 _CROSS_CHAIN_REF = 650
 _THESIS_REF = 472
 _METRICS_REF = 577
+_REVENUE_INTELLIGENCE_REF = 690
+_CUSTOM_RATIO_REF = 653
 _TITLE = "On-Chain Financials"
 _LEGAL_NAME = "On-Chain Financials"
 _STANDALONE = False
@@ -482,16 +484,22 @@ def build_protocol_financials_page(
         "merged_into": _FEATURE_ID,
         "protocol_id": protocol_id,
         "route": f"/protocol/{protocol_id}/financials",
-        "ui_sections": ["statement", "health_card", "peer_comparison", "historical_trend"],
+        "ui_sections": ["statement", "health_card", "peer_comparison", "historical_trend", "revenue_distribution"],
         "financial_statement_665": statement,
         "financial_health_666": health,
+        "revenue_distribution_690": build_revenue_distribution_690(protocol_id, seed=seed),
         "metrics": fin["metrics"],
         "peer_comparison": fin.get("peer_comparison"),
         "historical_trend": fin.get("revenue_chart"),
         "custom_ratio_builder_653": {
             "enabled": True,
             "integration": "custom_ratio_engine",
-            "available_metrics": list(fin["metrics"].keys()),
+            "available_metrics": list(fin["metrics"].keys()) + [
+                "protocol_retained_revenue",
+                "holder_distributed_revenue",
+                "total_fees",
+            ],
+            "preset_formula": "protocol_revenue_over_total_fees",
         },
         "thesis_scoring_472": {
             "dimension": "on_chain_financials",
@@ -584,6 +592,7 @@ def build_on_chain_financials(
     statement = build_financial_statement_view(protocol_id, seed=seed)
     health = build_financial_health_score(protocol_id, seed=seed)
     lst_revenue = build_lst_staking_fee_revenue_673(protocol_id, seed=seed)
+    revenue_distribution = build_revenue_distribution_690(protocol_id, seed=seed)
     network_activity = None
     token_symbol = raw.get("token_symbol")
     if token_symbol:
@@ -615,6 +624,7 @@ def build_on_chain_financials(
         "financial_statement_665": statement if statement.get("ok") else None,
         "financial_health_666": health if health.get("ok") else None,
         "lst_staking_fee_revenue_673": lst_revenue if lst_revenue.get("ok") else None,
+        "revenue_distribution_690": revenue_distribution if revenue_distribution.get("ok") else None,
         "network_activity_682": network_activity if network_activity and network_activity.get("ok") else None,
         "revenue_chart": history,
         "peer_comparison": peer_comparison,
@@ -637,6 +647,166 @@ def build_on_chain_financials(
         "no_estimates": raw.get("on_chain_not_estimate", True),
         "export_available": True,
         "disclaimer": _DISCLAIMER,
+        "timestamp": _utcnow(),
+    }
+
+
+_REVENUE_DISTRIBUTION_BUCKETS = (
+    "protocol_treasury",
+    "token_holders",
+    "incentives",
+    "validators_miners",
+    "lps",
+)
+
+
+def build_revenue_distribution_690(
+    protocol_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#690 → #641 — Revenue Distribution tab: who retains protocol value."""
+    seed = seed or _load_seed()
+    raw = _collect_protocol_data(protocol_id, seed=seed)
+    if not raw:
+        return {"ok": False, "protocol_id": protocol_id, "error": "protocol_not_found"}
+
+    rules_cfg = seed.get("revenue_distribution_690") or {}
+    protocol_rules = (rules_cfg.get("protocol_rules") or {}).get(protocol_id)
+    if not protocol_rules:
+        return {"ok": False, "protocol_id": protocol_id, "error": "revenue_mapping_not_documented"}
+
+    total_fees_30d = float(raw.get("total_fees_30d_usd", raw.get("revenue_30d_usd", 0)))
+    incentives_30d = float(raw.get("incentives_emissions_30d_usd", 0))
+    fee_split = protocol_rules.get("fee_split_pct") or {}
+
+    distribution: dict[str, dict[str, Any]] = {}
+    for bucket in _REVENUE_DISTRIBUTION_BUCKETS:
+        pct = float(fee_split.get(bucket, 0))
+        usd = round(total_fees_30d * pct / 100, 2) if pct else 0.0
+        distribution[bucket] = {
+            "pct_of_fees": pct,
+            "usd_30d": usd,
+            "label_en": {
+                "protocol_treasury": "Protocol Treasury",
+                "token_holders": "Token Holders",
+                "incentives": "Incentives (emissions)",
+                "validators_miners": "Validators / Node Operators",
+                "lps": "Liquidity Providers",
+            }.get(bucket, bucket),
+            "label_ar": {
+                "protocol_treasury": "احتياطي البروتوكول",
+                "token_holders": "حاملو التوكن",
+                "incentives": "محفزات (انبعاثات)",
+                "validators_miners": "المُحققون / مشغلو العقد",
+                "lps": "مزودو السيولة",
+            }.get(bucket, bucket),
+        }
+
+    if incentives_30d > 0:
+        distribution["incentives"]["usd_30d"] = round(incentives_30d, 2)
+        distribution["incentives"]["pct_of_fees"] = round(
+            incentives_30d / total_fees_30d * 100, 2,
+        ) if total_fees_30d > 0 else 0
+
+    protocol_retained = distribution["protocol_treasury"]["usd_30d"]
+    holder_distributed = distribution["token_holders"]["usd_30d"] + distribution["lps"]["usd_30d"]
+    revenue_retention_rate = round(
+        protocol_retained / total_fees_30d * 100, 2,
+    ) if total_fees_30d > 0 else 0.0
+
+    pie_chart = [
+        {"bucket": b, "label": distribution[b]["label_en"], "pct": distribution[b]["pct_of_fees"], "usd": distribution[b]["usd_30d"]}
+        for b in _REVENUE_DISTRIBUTION_BUCKETS
+        if distribution[b]["pct_of_fees"] > 0 or distribution[b]["usd_30d"] > 0
+    ]
+
+    who_keeps = max(
+        ((b, distribution[b]["pct_of_fees"]) for b in _REVENUE_DISTRIBUTION_BUCKETS),
+        key=lambda x: x[1],
+    )
+
+    return {
+        "ok": True,
+        "feature_ref": _REVENUE_INTELLIGENCE_REF,
+        "merged_into": _FEATURE_ID,
+        "standalone": False,
+        "protocol_id": protocol_id,
+        "protocol_name": raw.get("protocol_name"),
+        "tab": "Revenue Distribution",
+        "tab_ar": "توزيع الإيرادات",
+        "route": f"/protocol/{protocol_id}/financials",
+        "total_fees_30d_usd": round(total_fees_30d, 2),
+        "distribution": distribution,
+        "distribution_pie": pie_chart,
+        "revenue_chart": raw.get("revenue_history") or [],
+        "who_keeps_value": {
+            "primary_bucket": who_keeps[0],
+            "primary_pct": who_keeps[1],
+            "question_ar": "من يحتفظ بالقيمة؟",
+            "question_en": "Who retains the value?",
+            "answer": distribution[who_keeps[0]]["label_en"],
+            "answer_ar": distribution[who_keeps[0]]["label_ar"],
+        },
+        "revenue_retention_rate_pct": revenue_retention_rate,
+        "protocol_retained_revenue_usd": protocol_retained,
+        "holder_distributed_revenue_usd": round(holder_distributed, 2),
+        "incentive_emissions_usd": round(incentives_30d, 2),
+        "mapping_methodology": {
+            "version": rules_cfg.get("mapping_methodology_version", "1.0"),
+            "documented": rules_cfg.get("documented", True),
+            "protocol_specific": True,
+            "rule_description": protocol_rules.get("description"),
+            "fee_split_pct": fee_split,
+            "competitive_differentiator": "Token Terminal does not show this breakdown",
+        },
+        "custom_ratio_653": {
+            "formula_id": "protocol_revenue_over_total_fees",
+            "numerator": "protocol_retained_revenue",
+            "denominator": "total_fees",
+            "value": round(protocol_retained / total_fees_30d, 4) if total_fees_30d > 0 else None,
+        },
+        "display": (
+            f"{raw.get('protocol_name')}: {distribution[who_keeps[0]]['label_en']} "
+            f"retains {who_keeps[1]:.0f}% of fees | retention {revenue_retention_rate:.1f}%"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def score_revenue_retention_dimension_690(
+    asset: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#690 → #472 — Revenue Retention Rate as tokenomics quality dimension."""
+    seed = seed or _load_seed()
+    protocol_map = seed.get("asset_protocol_map") or {}
+    protocol_id = protocol_map.get(asset.upper())
+    if not protocol_id:
+        return {"ok": False, "asset": asset, "error": "no_protocol_mapping"}
+
+    dist = build_revenue_distribution_690(protocol_id, seed=seed)
+    if not dist.get("ok"):
+        return dist
+
+    retention = float(dist.get("revenue_retention_rate_pct", 0))
+    dimension_score = min(100.0, max(10.0, retention * 2.5 + 25))
+
+    return {
+        "ok": True,
+        "feature_ref": _REVENUE_INTELLIGENCE_REF,
+        "thesis_dimension": "revenue_retention_rate",
+        "thesis_ref": _THESIS_REF,
+        "asset": asset.upper(),
+        "protocol_id": protocol_id,
+        "dimension_score": round(dimension_score, 2),
+        "revenue_retention_rate_pct": retention,
+        "protocol_retained_revenue_usd": dist.get("protocol_retained_revenue_usd"),
+        "mapping_documented": (dist.get("mapping_methodology") or {}).get("documented") is True,
+        "evidence_source": "on_chain_fee_data",
+        "evidence_quality": "high",
+        "display": f"Revenue Retention {asset.upper()}: {retention:.1f}% → score {dimension_score:.0f}/100",
         "timestamp": _utcnow(),
     }
 
@@ -871,12 +1041,8 @@ def build_metrics_library_financials(
         return fin
 
     m = fin["metrics"]
-    return {
-        "ok": True,
-        "epic_feature_id": _METRICS_REF,
-        "feature_ref": _FEATURE_ID,
-        "protocol_id": protocol_id,
-        "metrics": {
+    dist = build_revenue_distribution_690(protocol_id, seed=seed)
+    metrics: dict[str, Any] = {
             "protocol_revenue": {
                 "value": m["revenue_30d"],
                 "unit": "USD",
@@ -898,7 +1064,34 @@ def build_metrics_library_financials(
                 "unit": "USD",
                 "formula": "revenue_30d / active_addresses_30d",
             },
-        },
+        }
+    if dist.get("ok"):
+        metrics.update({
+            "protocol_retained_revenue": {
+                "value": dist.get("protocol_retained_revenue_usd"),
+                "unit": "USD",
+                "formula": "treasury share of total fees (protocol-specific mapping #690)",
+                "task_ref": _REVENUE_INTELLIGENCE_REF,
+            },
+            "holder_distributed_revenue": {
+                "value": dist.get("holder_distributed_revenue_usd"),
+                "unit": "USD",
+                "formula": "LP + token holder share of total fees",
+                "task_ref": _REVENUE_INTELLIGENCE_REF,
+            },
+            "incentive_emissions": {
+                "value": dist.get("incentive_emissions_usd"),
+                "unit": "USD",
+                "formula": "on-chain emissions to incentivize usage",
+                "task_ref": _REVENUE_INTELLIGENCE_REF,
+            },
+        })
+    return {
+        "ok": True,
+        "epic_feature_id": _METRICS_REF,
+        "feature_ref": _FEATURE_ID,
+        "protocol_id": protocol_id,
+        "metrics": metrics,
         "formula_version": _METHODOLOGY_VERSION,
         "timestamp": _utcnow(),
     }
@@ -960,6 +1153,7 @@ def on_chain_financials_status() -> dict[str, Any]:
             "financial_health_scoring_666": True,
             "custom_ratio_builder_653": True,
             "liquid_staking_intelligence_673": True,
+            "revenue_intelligence_690": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -1028,6 +1222,20 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     lst_rev = lido.get("lst_staking_fee_revenue_673") or {}
     checks.append({"id": "673_lst_revenue_641", "passed": lst_rev.get("ok") is True and lst_rev.get("revenue_type") == "lst_staking_fees", "detail": "673→641"})
     checks.append({"id": "673_staking_fee_source", "passed": lst_rev.get("fee_source_type") == "on_chain_staking_fees", "detail": "source"})
+
+    rev_dist = build_revenue_distribution_690("uniswap", seed=seed)
+    checks.append({"id": "690_revenue_distribution", "passed": rev_dist.get("ok") is True, "detail": "690"})
+    checks.append({"id": "690_mapping_documented", "passed": (rev_dist.get("mapping_methodology") or {}).get("documented") is True, "detail": "methodology"})
+    checks.append({"id": "690_uniswap_no_protocol_revenue", "passed": rev_dist.get("protocol_retained_revenue_usd") == 0, "detail": "uniswap"})
+    aave_dist = build_revenue_distribution_690("aave", seed=seed)
+    checks.append({"id": "690_aave_treasury_split", "passed": (aave_dist.get("distribution") or {}).get("protocol_treasury", {}).get("pct_of_fees") == 10, "detail": "aave"})
+    lido_dist = build_revenue_distribution_690("lido", seed=seed)
+    checks.append({"id": "690_lido_split", "passed": (lido_dist.get("distribution") or {}).get("validators_miners", {}).get("pct_of_fees") == 5, "detail": "lido"})
+    checks.append({"id": "690_who_keeps_value", "passed": bool((rev_dist.get("who_keeps_value") or {}).get("question_ar")), "detail": "UI"})
+    retention = score_revenue_retention_dimension_690("UNI", seed=seed)
+    checks.append({"id": "690_thesis_retention", "passed": retention.get("ok") is True, "detail": "472"})
+    lib690 = build_metrics_library_financials("uniswap", seed=seed)
+    checks.append({"id": "690_metrics_577", "passed": "protocol_retained_revenue" in (lib690.get("metrics") or {}), "detail": "577"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

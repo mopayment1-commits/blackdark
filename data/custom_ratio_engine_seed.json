@@ -124,6 +124,16 @@
       "version": "1.0",
       "description": "Revenue per daily active address"
     },
+    "protocol_revenue_over_total_fees": {
+      "formula_id": "protocol_revenue_over_total_fees",
+      "name": "Protocol Revenue / Total Fees",
+      "numerator_metric": "protocol_retained_revenue",
+      "denominator_metric": "fees_30d",
+      "annualize": false,
+      "version": "1.0",
+      "description": "#690 — protocol treasury share of total on-chain fees",
+      "task_ref": 690
+    },
     "tvl_growth_mcap": {
       "formula_id": "tvl_growth_mcap",
       "name": "TVL Growth / Mcap",

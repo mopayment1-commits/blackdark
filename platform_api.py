@@ -2423,6 +2423,33 @@ async def stablecoin_lst_monitor_route():
     return build_lst_depeg_monitor_673()
 
 
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stablecoin-health/exchange-flows")
+async def stablecoin_exchange_flows_route():
+    """#693 Exchange Flow Monitor — merged into #467."""
+    from bd_platform.stablecoin_health_monitor import build_stablecoin_exchange_flow_monitor_693
+
+    return build_stablecoin_exchange_flow_monitor_693()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stablecoin-health/intelligence-dashboard")
+async def stablecoin_intelligence_dashboard_route():
+    """#694 Stablecoin Intelligence umbrella — merged into #467."""
+    from bd_platform.stablecoin_health_monitor import build_stablecoin_intelligence_dashboard_694
+
+    return build_stablecoin_intelligence_dashboard_694()
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/stablecoin-activity")
+async def stablecoin_activity_breakdown_route(symbol: str = Query("USDC")):
+    """#692 Stablecoin Activity Breakdown — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_stablecoin_activity_breakdown_692
+
+    result = build_stablecoin_activity_breakdown_692(symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/investment-thesis/status")
 async def investment_thesis_scoring_status_route():
     """#472 Investment Thesis Scoring — Intelligence Ledger (not price probability)."""
@@ -2504,6 +2531,17 @@ async def on_chain_financials_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/investment-thesis/on-chain-financials/revenue-distribution")
+async def on_chain_financials_revenue_distribution_route(protocol_id: str = Query("uniswap")):
+    """#690 Revenue Distribution — merged into #641."""
+    from bd_platform.on_chain_financials import build_revenue_distribution_690
+
+    result = build_revenue_distribution_690(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/investment-thesis/on-chain-financials/cross-chain-comparison")
 async def on_chain_financials_cross_chain_route():
     """#650 Cross-Chain Fundamentals — merged into #641 comparables dashboard."""
@@ -2564,6 +2602,14 @@ async def defi_decision_intelligence_score_route(protocol_id: str = Query("aave_
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/defi-decision-intelligence/risk-gate")
+async def defi_decision_risk_gate_route(protocol_id: str = Query("aave_v3")):
+    """#691 Risk Gate — merged into #651 + #410."""
+    from bd_platform.defi_decision_intelligence import apply_risk_gate_691
+
+    return apply_risk_gate_691({"protocol_id": protocol_id})
 
 
 @router.get("/intelligence-ledger/defi-decision-intelligence/reconciliation-tests")

@@ -235,5 +235,52 @@
         ]
       }
     }
+  },
+  "exchange_flows_693": {
+    "feature_ref": 693,
+    "merged_into": 467,
+    "dust_threshold_usd": 100,
+    "internal_transfer_labels": ["internal", "hot_to_cold"],
+    "token_flows": [
+      {"token": "USDC", "inflow_24h": 320000000, "outflow_24h": 200000000},
+      {"token": "USDT", "inflow_24h": 280000000, "outflow_24h": 250000000},
+      {"token": "DAI", "inflow_24h": 45000000, "outflow_24h": 52000000},
+      {"token": "BUSD", "inflow_24h": 12000000, "outflow_24h": 15000000}
+    ],
+    "raw_transfers": [
+      {"transfer_type": "external", "usd_value": 5000000, "internal_exchange": false},
+      {"transfer_type": "internal", "usd_value": 2000000, "internal_exchange": true},
+      {"transfer_type": "external", "usd_value": 50, "internal_exchange": false},
+      {"transfer_type": "external", "usd_value": 1000000, "wash_trade": true}
+    ],
+    "rolling_acceleration": {
+      "netflow_7d_change_pct": 45,
+      "z_score": 2.3,
+      "sigma_alert_threshold": 2,
+      "trend": "rising"
+    }
+  },
+  "stablecoin_intelligence_694": {
+    "feature_ref": 694,
+    "merged_into": 467,
+    "token_chain_mapping_documented": true,
+    "exit_activity_alert_pct": 60,
+    "token_chain_mapping": {
+      "USDC_ETHEREUM": {"token": "USDC", "chain": "ethereum", "type": "native"},
+      "USDC_SOLANA": {"token": "USDC", "chain": "solana", "type": "native"},
+      "USDC_ARBITRUM": {"token": "USDC", "chain": "arbitrum", "type": "bridged"},
+      "USDT_ETHEREUM": {"token": "USDT", "chain": "ethereum", "type": "native"},
+      "USDT_TRON": {"token": "USDT", "chain": "tron", "type": "native"}
+    },
+    "supply_breakdown": {
+      "native": {"USDC": 42000000000, "USDT": 85000000000},
+      "bridged": {"USDC": 12000000000, "USDT": 5000000000},
+      "payment": {"USDC": 8000000000, "USDT": 15000000000}
+    },
+    "sample_transfers": [
+      {"from_address": "0xA", "to_address": "0xB", "circular_wash": false},
+      {"from_address": "0xB", "to_address": "0xA", "circular_wash": true},
+      {"from_address": "0xC", "to_address": "0xD", "circular_wash": false}
+    ]
   }
 }
