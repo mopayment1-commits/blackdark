@@ -554,6 +554,15 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     except Exception:
         logger.debug("655 DXY macro adjustment skipped", exc_info=True)
 
+    try:
+        from bd_platform.sector_market_brief import apply_sector_ranking_boost_429
+
+        enriched = apply_sector_ranking_boost_429(enriched)
+        if any(o.get("sector_pulse_boost_678") for o in enriched):
+            ranked_by = "executable_net_edge_with_sector_pulse_678"
+    except Exception:
+        logger.debug("678 sector ranking boost skipped", exc_info=True)
+
     strategy_gate = None
     display_opportunities = enriched
     suppressed: list[dict[str, Any]] = []

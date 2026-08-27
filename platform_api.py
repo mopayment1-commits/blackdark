@@ -3285,6 +3285,28 @@ async def market_radar_combined_panel_route(
     return build_market_radar_panel(exchange, asset)
 
 
+@router.get("/intelligence-ledger/market-radar/sector-pulse")
+async def sector_pulse_dashboard_route():
+    """#678 Sector Market Brief — rule-based sector narrative (no ML, no buy/sell)."""
+    from bd_platform.sector_market_brief import build_sector_pulse_dashboard_678
+
+    return build_sector_pulse_dashboard_678()
+
+
+@router.get("/intelligence-ledger/market-radar/sector-pulse/status")
+async def sector_pulse_status_route():
+    from bd_platform.sector_market_brief import sector_market_brief_status
+
+    return sector_market_brief_status()
+
+
+@router.get("/intelligence-ledger/market-radar/sector-pulse/reconciliation-tests")
+async def sector_pulse_reconciliation_route():
+    from bd_platform.sector_market_brief import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/market-radar/reconciliation-tests")
 async def market_radar_reconciliation_tests_route():
     from bd_platform.market_radar_indicators import run_reconciliation_tests
@@ -4879,6 +4901,22 @@ async def onchain_metrics_methodology_registry_route():
     from bd_platform.onchain_metrics_library import build_methodology_registry
 
     return build_methodology_registry()
+
+
+@router.get("/intelligence-ledger/onchain-metrics/methodology/parity-tests")
+async def onchain_metrics_methodology_parity_tests_route():
+    """#679 Methodology Governance — code↔documentation parity tests."""
+    from bd_platform.onchain_metrics_library import run_methodology_parity_tests_679
+
+    return run_methodology_parity_tests_679()
+
+
+@router.get("/intelligence-ledger/onchain-metrics/methodology/undocumented-check")
+async def onchain_metrics_undocumented_check_route():
+    """#679 — verify no undocumented formulas in production metrics."""
+    from bd_platform.onchain_metrics_library import validate_undocumented_metrics_679
+
+    return validate_undocumented_metrics_679()
 
 
 @router.get("/intelligence-ledger/onchain-metrics/methodology/{metric_id}")

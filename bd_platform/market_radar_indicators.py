@@ -355,6 +355,14 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("655 DXY macro context market radar integration skipped", exc_info=True)
 
+    sector_pulse = None
+    try:
+        from bd_platform.sector_market_brief import build_market_radar_sector_pulse_widget_678
+
+        sector_pulse = build_market_radar_sector_pulse_widget_678(seed=seed)
+    except Exception:
+        logger.debug("678 sector pulse market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -370,6 +378,7 @@ def build_market_radar_panel(
         "unlock_event_timeline_607": unlock_timeline,
         "custom_ratio_engine_653": ratio_builder,
         "dxy_macro_context_655": macro_context,
+        "sector_pulse_678": sector_pulse,
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }
@@ -392,6 +401,15 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     regime = build_volatility_regime_for_risk("BTC", seed=seed)
     checks.append({"id": "vol_regime_410", "passed": regime.get("volatility_regime") in ("low", "medium", "high"), "detail": "410"})
+
+    try:
+        from bd_platform.sector_market_brief import build_sector_pulse_dashboard_678
+
+        sector = build_sector_pulse_dashboard_678(seed=seed)
+        checks.append({"id": "sector_pulse_678", "passed": sector.get("card_count") == 4, "detail": "678"})
+        checks.append({"id": "no_buy_sell_678", "passed": sector.get("no_buy_sell_signals") is True, "detail": "descriptive"})
+    except Exception:
+        checks.append({"id": "sector_pulse_678", "passed": False, "detail": "678"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

@@ -172,6 +172,20 @@ def vet_strategy(
     if oos_pct < 20:
         weaknesses.append(f"Out-of-sample period low ({oos_pct}%)")
 
+    metrics_used = list(data.get("metrics_used") or [])
+    methodology_check = None
+    if metrics_used:
+        try:
+            from bd_platform.onchain_metrics_library import verify_strategy_metrics_documented_492
+
+            methodology_check = verify_strategy_metrics_documented_492(metrics_used)
+            if not methodology_check.get("all_metrics_documented"):
+                weaknesses.append(
+                    f"Undocumented metrics: {', '.join(methodology_check.get('missing_methodology') or [])}"
+                )
+        except Exception:
+            logger.debug("679 methodology vetting check skipped", exc_info=True)
+
     mdd = float(data.get("max_drawdown_pct", 50))
     mdd_score = max(0, 100 - mdd * 3)
     factors["max_drawdown"] = {"value": mdd, "score": round(mdd_score, 1)}
@@ -226,6 +240,10 @@ def vet_strategy(
         "weaknesses": weaknesses,
         "evidence": evidence,
         "out_of_sample_evidence": data.get("out_of_sample_evidence", True),
+        "methodology_check_679": methodology_check,
+        "all_metrics_documented": (
+            methodology_check.get("all_metrics_documented") if methodology_check else True
+        ),
         "thresholds_version": cfg.get("thresholds_version"),
         "no_guaranteed_return_claims": True,
         "not_investment_advice": True,
