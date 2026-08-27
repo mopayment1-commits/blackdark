@@ -2777,6 +2777,14 @@ async def market_radar_funding_rate_context_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/market-radar/basis-monitor")
+async def market_radar_basis_monitor_route(limit: int = Query(5, ge=1, le=20)):
+    """#440 Basis Divergence Scanner — top-N spot-perp basis opportunities for Market Radar."""
+    from bd_platform.market_data_engine import build_basis_monitor_widget
+
+    return build_basis_monitor_widget(limit=limit)
+
+
 @router.get("/intelligence-ledger/market-radar/basis-curve")
 async def market_radar_basis_curve_route(asset: str = Query("BTC")):
     """#343 Basis Curve — absorbed into Market Radar / Derivatives Panel."""
