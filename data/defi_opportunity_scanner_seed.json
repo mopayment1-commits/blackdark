@@ -451,5 +451,71 @@
       "upgradeability": "governance_timelock",
       "data_sources": ["defillama"]
     }
+  },
+  "yield_delta_639": {
+    "feature_ref": 639,
+    "merged_into": 438,
+    "stale_feed_max_seconds": 3600,
+    "alert_threshold_bps": 50,
+    "persistence_days_min": 2
+  },
+  "yield_protocols": {
+    "aave_v3_usdc": {
+      "protocol_identity": "Aave v3",
+      "protocol_name": "Aave v3 USDC",
+      "chain": "ethereum",
+      "base_apy_pct": 3.2,
+      "incentive_apy_pct": 2.5,
+      "risk_score": 25,
+      "incentive_expiry_days": 45,
+      "tvl_usd": 1250000000,
+      "utilization_pct": 78.5,
+      "delta_vs_benchmark_bps": 65,
+      "persistence_days": 5,
+      "last_updated": "2026-08-27T13:30:00Z",
+      "source_protocols": ["Aave v3"],
+      "evidence": {"source": "defillama", "pool": "USDC"}
+    },
+    "compound_iii_usdc": {
+      "protocol_identity": "Compound III",
+      "protocol_name": "Compound III USDC",
+      "chain": "ethereum",
+      "base_apy_pct": 2.8,
+      "incentive_apy_pct": 4.0,
+      "risk_score": 28,
+      "incentive_expiry_days": 30,
+      "tvl_usd": 450000000,
+      "utilization_pct": 72.0,
+      "delta_vs_benchmark_bps": 80,
+      "persistence_days": 3,
+      "last_updated": "2026-08-27T13:15:00Z",
+      "source_protocols": ["Compound III"],
+      "evidence": {"source": "defillama", "pool": "USDC"}
+    },
+    "curve_steth": {
+      "protocol_identity": "Curve",
+      "protocol_name": "Curve stETH/ETH",
+      "chain": "ethereum",
+      "base_apy_pct": 4.1,
+      "incentive_apy_pct": 8.5,
+      "risk_score": 35,
+      "incentive_expiry_days": 60,
+      "tvl_usd": 890000000,
+      "utilization_pct": 65.0,
+      "delta_vs_benchmark_bps": 42,
+      "persistence_days": 4,
+      "last_updated": "2026-08-27T12:00:00Z",
+      "source_protocols": ["Curve"],
+      "evidence": {"source": "defillama", "pool": "stETH/ETH"}
+    },
+    "stale_protocol": {
+      "protocol_identity": "Unknown Protocol",
+      "protocol_name": "Stale Yield Pool",
+      "chain": "ethereum",
+      "base_apy_pct": 15.0,
+      "incentive_apy_pct": 20.0,
+      "risk_score": 80,
+      "last_updated": "2026-08-26T08:00:00Z"
+    }
   }
 }

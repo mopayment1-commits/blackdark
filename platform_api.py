@@ -2010,6 +2010,14 @@ async def smart_contract_risk_route(protocol: str | None = Query(None)):
     return build_smart_contract_risk_view()
 
 
+@router.get("/intelligence-ledger/unified-arbitrage/defi/yield-delta")
+async def yield_delta_listener_route():
+    """#639 Yield Delta Listener — merged into #438."""
+    from bd_platform.defi_opportunity_scanner import build_yield_delta_listener
+
+    return build_yield_delta_listener()
+
+
 @router.get("/intelligence-ledger/unified-arbitrage/defi/reconciliation-tests")
 async def defi_opportunity_scanner_reconciliation_route():
     from bd_platform.defi_opportunity_scanner import run_reconciliation_tests
@@ -3922,6 +3930,51 @@ async def transaction_volume_parity_qa_route():
     from bd_platform.onchain_metrics_library import run_tx_volume_historical_qa
 
     return run_tx_volume_historical_qa()
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/whale-vs-retail")
+async def whale_vs_retail_flow_route(asset: str = Query("BTC")):
+    """#634 Whale vs Retail Flow — merged into #577."""
+    from bd_platform.onchain_metrics_library import build_whale_vs_retail_flow_panel
+
+    result = build_whale_vs_retail_flow_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/whale-clustering/status")
+async def whale_clustering_engine_status_route():
+    """#637 Whale Clustering Engine — On-Chain Intelligence Core."""
+    from bd_platform.whale_clustering_engine import whale_clustering_engine_status
+
+    return whale_clustering_engine_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/whale-clustering")
+async def whale_clustering_panel_route(cluster_id: str | None = Query(None)):
+    """#637 Whale Clustering Engine — cluster view panel."""
+    from bd_platform.whale_clustering_engine import build_whale_cluster_panel
+
+    return build_whale_cluster_panel(cluster_id)
+
+
+@router.get("/intelligence-ledger/onchain-layer/whale-clustering/address")
+async def whale_clustering_address_route(address: str = Query(..., min_length=3)):
+    """#637 cluster affiliation for a single address."""
+    from bd_platform.whale_clustering_engine import build_cluster_view
+
+    result = build_cluster_view(address)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/whale-clustering/reconciliation-tests")
+async def whale_clustering_reconciliation_route():
+    from bd_platform.whale_clustering_engine import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/intelligence-layer/historical-narratives/status")

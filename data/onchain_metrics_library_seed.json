@@ -1,6 +1,6 @@
 {
   "epic_feature_id": 577,
-  "feature_ids": [577, 574, 578, 737, 741],
+  "feature_ids": [577, 574, 578, 737, 741, 634],
   "title": "On-Chain Metrics Library",
   "standalone_rejected": true,
   "layer": "Foundation Layer",
@@ -160,5 +160,38 @@
       {"period": "2026-07", "external_source": "glassnode", "internal_volume_usd": 365000000000, "external_volume_usd": 370000000000, "tolerance_pct": 5},
       {"period": "2026-07", "external_source": "cryptoquant", "internal_volume_usd": 362000000000, "external_volume_usd": 368000000000, "tolerance_pct": 5}
     ]
+  },
+  "whale_vs_retail_634": {
+    "feature_ref": 634,
+    "merged_into": 577,
+    "cohorts_625": {
+      "version": "1.0",
+      "buckets": [
+        {"id": "shrimp", "label": "Shrimp", "min_usd": 0, "max_usd": 1000},
+        {"id": "fish", "label": "Fish", "min_usd": 1000, "max_usd": 10000},
+        {"id": "dolphin", "label": "Dolphin", "min_usd": 10000, "max_usd": 100000},
+        {"id": "shark", "label": "Shark", "min_usd": 100000, "max_usd": 1000000},
+        {"id": "whale", "label": "Whale", "min_usd": 1000000, "max_usd": 10000000},
+        {"id": "mega_whale", "label": "Mega Whale", "min_usd": 10000000, "max_usd": null}
+      ]
+    }
+  },
+  "whale_retail_flow": {
+    "BTC": {
+      "cohort_flows": [
+        {"cohort_id": "shrimp", "label": "Shrimp", "exchange_inflow_usd": 5200000, "exchange_outflow_usd": 1800000, "buy_flow_usd": 2000000, "sell_flow_usd": 5400000},
+        {"cohort_id": "fish", "label": "Fish", "exchange_inflow_usd": 3100000, "exchange_outflow_usd": 1200000, "buy_flow_usd": 1500000, "sell_flow_usd": 3200000},
+        {"cohort_id": "dolphin", "label": "Dolphin", "exchange_inflow_usd": 1800000, "exchange_outflow_usd": 900000, "buy_flow_usd": 1000000, "sell_flow_usd": 1900000},
+        {"cohort_id": "shark", "label": "Shark", "exchange_inflow_usd": 800000, "exchange_outflow_usd": 1500000, "buy_flow_usd": 1600000, "sell_flow_usd": 700000},
+        {"cohort_id": "whale", "label": "Whale", "exchange_inflow_usd": 500000, "exchange_outflow_usd": 4200000, "buy_flow_usd": 4500000, "sell_flow_usd": 400000},
+        {"cohort_id": "mega_whale", "label": "Mega Whale", "exchange_inflow_usd": 200000, "exchange_outflow_usd": 2800000, "buy_flow_usd": 3000000, "sell_flow_usd": 150000}
+      ]
+    },
+    "ETH": {
+      "cohort_flows": [
+        {"cohort_id": "shrimp", "label": "Shrimp", "exchange_inflow_usd": 2100000, "exchange_outflow_usd": 800000, "buy_flow_usd": 900000, "sell_flow_usd": 2200000},
+        {"cohort_id": "whale", "label": "Whale", "exchange_inflow_usd": 300000, "exchange_outflow_usd": 1800000, "buy_flow_usd": 2000000, "sell_flow_usd": 250000}
+      ]
+    }
   }
 }

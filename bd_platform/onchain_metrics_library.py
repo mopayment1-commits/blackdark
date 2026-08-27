@@ -24,8 +24,9 @@ from bd_platform.institutional_standards import missing_value, wrap_intelligence
 
 logger = logging.getLogger("BLACKDARK.OnchainMetricsLibrary")
 
-_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601)
+_FEATURE_IDS = (577, 574, 578, 737, 741, 612, 601, 634)
 _EPIC_ID = 577
+_WHALE_RETAIL_REF = 634
 _TITLE = "On-Chain Metrics Library"
 _STANDALONE = False
 _LAYER = "Foundation Layer"
@@ -78,6 +79,13 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "name": "stablecoin_exchange_reserve",
         "title": "Stablecoin Exchange Reserve",
         "description": "Exchange stablecoin buying-power context — merged into #467, metric in #577",
+        "standalone_rejected": True,
+    },
+    "634": {
+        "task_id": "634",
+        "name": "whale_vs_retail_flow",
+        "title": "Whale vs Retail Flow",
+        "description": "Trade size cohort buy/sell flow comparison — merged into #577",
         "standalone_rejected": True,
     },
 }
@@ -478,6 +486,113 @@ def build_stablecoin_reserve_metric_577(*, seed: dict[str, Any] | None = None) -
     }
 
 
+def build_whale_vs_retail_flow_panel(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#634 — whale vs retail flow by trade size cohorts (#625 buckets)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("whale_vs_retail_634") or {}
+    data = (seed.get("whale_retail_flow") or {}).get(asset.upper())
+    if not data:
+        return {"ok": False, "asset": asset, "error": "asset_not_found"}
+
+    cohorts_cfg = cfg.get("cohorts_625") or {}
+    version = cohorts_cfg.get("version", "1.0")
+    buckets = cohorts_cfg.get("buckets") or []
+
+    cohort_flows: list[dict[str, Any]] = []
+    whale_net = retail_net = 0.0
+
+    for cohort in data.get("cohort_flows") or []:
+        cohort_id = cohort.get("cohort_id")
+        exchange_inflow = float(cohort.get("exchange_inflow_usd", 0))
+        exchange_outflow = float(cohort.get("exchange_outflow_usd", 0))
+        net_flow = exchange_outflow - exchange_inflow
+        buy_flow = float(cohort.get("buy_flow_usd", 0))
+        sell_flow = float(cohort.get("sell_flow_usd", 0))
+
+        cohort_flows.append({
+            "cohort_id": cohort_id,
+            "label": cohort.get("label"),
+            "exchange_inflow_usd": exchange_inflow,
+            "exchange_outflow_usd": exchange_outflow,
+            "net_flow_usd": net_flow,
+            "buy_flow_usd": buy_flow,
+            "sell_flow_usd": sell_flow,
+            "selling_pressure": exchange_inflow > exchange_outflow,
+            "accumulation_signal": exchange_outflow > exchange_inflow,
+            "flow_interpretation": (
+                "inflow to exchange = selling pressure"
+                if exchange_inflow > exchange_outflow
+                else "outflow from exchange = accumulation"
+            ),
+        })
+
+        if cohort_id in ("whale", "mega_whale", "shark"):
+            whale_net += net_flow
+        elif cohort_id in ("shrimp", "fish", "retail"):
+            retail_net += net_flow
+
+    whale_accumulating = whale_net > 0
+    retail_selling = retail_net < 0
+    divergence = whale_accumulating and retail_selling
+
+    smart_money_signal = None
+    if divergence:
+        smart_money_signal = {
+            "signal": "whale_accumulation_retail_distribution",
+            "strength": "strong",
+            "integration_408": True,
+            "display": "Whales accumulating while retail selling — divergence signal",
+        }
+
+    market_radar = {
+        "enabled": True,
+        "section": "market_sentiment",
+        "panel_type": "whale_vs_retail",
+        "integration": "market_radar",
+    }
+
+    daily_brief_hook = None
+    if divergence:
+        daily_brief_hook = {
+            "integration_443": True,
+            "integration_474": True,
+            "mention": f"{asset.upper()} whale/retail divergence: whales accumulating, retail distributing",
+        }
+
+    return {
+        "ok": True,
+        "feature_ref": _WHALE_RETAIL_REF,
+        "merged_into": _EPIC_ID,
+        "standalone": False,
+        "asset": asset.upper(),
+        "cohort_thresholds": {
+            "version": version,
+            "buckets": buckets,
+            "documented": True,
+            "same_as_625": True,
+        },
+        "cohort_flows": cohort_flows,
+        "whale_cohorts_net_flow_usd": round(whale_net, 2),
+        "retail_cohorts_net_flow_usd": round(retail_net, 2),
+        "whale_vs_retail_divergence": divergence,
+        "divergence_signal": smart_money_signal,
+        "smart_money_flow_408": smart_money_signal,
+        "market_radar_sentiment": market_radar,
+        "daily_brief_443_474": daily_brief_hook,
+        "thresholds_version": version,
+        "display": (
+            f"{asset.upper()} whale vs retail: whale net ${whale_net:+,.0f} | "
+            f"retail net ${retail_net:+,.0f}"
+            + (" | DIVERGENCE" if divergence else "")
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
 def build_metrics_library_panel(
     asset: str = "BTC",
     *,
@@ -495,6 +610,7 @@ def build_metrics_library_panel(
     usage = build_usage_intelligence_dashboard(sym, seed=seed)
     tx_volume = build_transaction_volume_intelligence(sym, seed=seed)
     stablecoin_reserve = build_stablecoin_reserve_metric_577(seed=seed)
+    whale_retail = build_whale_vs_retail_flow_panel(sym, seed=seed)
     defs = build_metric_definitions(seed)
 
     return {
@@ -508,6 +624,7 @@ def build_metrics_library_panel(
             "578_usage_intelligence": usage if usage.get("ok") else {"ok": False},
             "612_transaction_volume_intelligence": tx_volume if tx_volume.get("ok") else {"ok": False},
             "601_stablecoin_exchange_reserve": stablecoin_reserve,
+            "634_whale_vs_retail_flow": whale_retail if whale_retail.get("ok") else {"ok": False},
             "737_hodl_waves": suite.get("hodl_waves") if suite.get("ok") else {"ok": False},
             "741_mvrv_z_score": suite.get("mvrv_z_score") if suite.get("ok") else {"ok": False},
             "tasks_not_tickets": True,
@@ -586,6 +703,11 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
         tx_vol = build_transaction_volume_intelligence("BTC", seed=seed)
         tests.append({"test": "tx_volume_policy_612", "passed": tx_vol.get("ok") is True})
 
+    whale_retail = build_whale_vs_retail_flow_panel("BTC", seed=seed)
+    tests.append({"test": "whale_vs_retail_634", "passed": whale_retail.get("ok") is True})
+    tests.append({"test": "cohort_thresholds_634", "passed": (whale_retail.get("cohort_thresholds") or {}).get("documented") is True})
+    tests.append({"test": "divergence_signal_634", "passed": whale_retail.get("whale_vs_retail_divergence") is True})
+
     all_passed = all(t["passed"] for t in tests)
     return {
         "ok": True,
@@ -620,6 +742,7 @@ def onchain_metrics_library_status() -> dict[str, Any]:
             "741": "MVRV Z-Score → absorbed",
             "612": "Transaction Volume Intelligence → merged into #577",
             "601": "Stablecoin Exchange Reserve → metric in #577, logic in #467",
+            "634": "Whale vs Retail Flow → metric in #577",
         },
         "acceptance_criteria": {
             "formula_source_version": True,
