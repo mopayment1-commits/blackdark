@@ -15,6 +15,13 @@ from blackdark.ingestion.coingecko_connector import (
     fetch_coingecko_price,
     run_coingecko_primary_ingest,
 )
+from blackdark.ingestion.telegram_connector import (
+    fetch_telegram_public_channel_messages,
+    get_telegram_mention_words_795,
+    run_telegram_connector_qa_795,
+    run_telegram_sentiment_ingest,
+    telegram_connector_status,
+)
 
 __all__ = [
     "alternative_me_status",
@@ -24,6 +31,11 @@ __all__ = [
     "fetch_coingecko_price",
     "fetch_entity_intelligence_input",
     "fetch_fear_greed_index",
+    "fetch_telegram_public_channel_messages",
+    "get_telegram_mention_words_795",
     "run_alternative_me_ingest",
     "run_coingecko_primary_ingest",
+    "run_telegram_connector_qa_795",
+    "run_telegram_sentiment_ingest",
+    "telegram_connector_status",
 ]

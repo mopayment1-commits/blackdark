@@ -6,6 +6,7 @@ Rule-Based keyword matching + source weighting — NO ML/NLP classification.
 
 Integrations:
   #758 Trending Words → word import + classification
+  #795 Telegram Connector → Telegram text streams (Data Ingestion Layer)
   Market Radar → sentiment overlay "التحليل المزاجي"
 """
 
@@ -346,6 +347,32 @@ def _build_structured_display(
     )
 
 
+def _merge_telegram_streams_795(
+    asset: str,
+    words: list[dict[str, Any]],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """#795 — merge Telegram connector mention streams into trending words."""
+    try:
+        from blackdark.ingestion.telegram_connector import get_telegram_mention_words_795
+
+        tg = get_telegram_mention_words_795(asset)
+        tg_words = list(tg.get("word_entries") or [])
+        merged = list(words) + tg_words
+        meta = {
+            "telegram_connector_795": True,
+            "telegram_mention_count": len(tg_words),
+            "telegram_fallback_used": tg.get("fallback_used", False),
+            "public_channels_only": True,
+            "feeds": tg.get("feeds") or [],
+        }
+        return merged, meta
+    except Exception:
+        logger.debug("795 telegram stream merge skipped", exc_info=True)
+        return words, {"telegram_connector_795": False}
+
+
 def build_sentiment_intelligence_panel_783(
     asset: str = "BTC",
     *,
@@ -367,6 +394,7 @@ def build_sentiment_intelligence_panel_783(
         }
 
     raw_words = list(trending.get("words") or [])
+    raw_words, telegram_meta = _merge_telegram_streams_795(sym, raw_words, seed=seed)
     clean_words, spam_meta = _apply_spam_filters(raw_words, seed=seed)
     sentiment = _compute_weighted_sentiment(clean_words, seed=seed)
     classified = sentiment.get("classified_words") or []
@@ -425,6 +453,7 @@ def build_sentiment_intelligence_panel_783(
             "raw_word_count": len(raw_words),
             "clean_word_count": len(clean_words),
             "classified_words": classified,
+            "telegram_streams_795": telegram_meta,
         },
         "weighted_breakdown": sentiment.get("weighted_breakdown"),
         "rule_documentation": (
@@ -618,6 +647,12 @@ def social_sentiment_intelligence_status() -> dict[str, Any]:
         "no_ml_nlp": True,
         "languages": seed.get("languages") or ["EN", "AR"],
         "metrics": ["sentiment_analysis", "sentiment_balance_782"],
-        "integrated_with": ["#758 Trending Words", "#780 source weighting", "#782 balance", "Market Radar"],
+        "integrated_with": [
+            "#758 Trending Words",
+            "#780 source weighting",
+            "#782 balance",
+            "#795 Telegram Connector",
+            "Market Radar",
+        ],
         "timestamp": _utcnow(),
     }

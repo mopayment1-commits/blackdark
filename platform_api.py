@@ -388,6 +388,46 @@ async def ingestion_coingecko_sync():
     return await run_coingecko_primary_ingest()
 
 
+@router.get("/ingestion/telegram/status")
+async def ingestion_telegram_status():
+    """#795 — Telegram connector health (internal Data Ingestion Layer)."""
+    from blackdark.ingestion.telegram_connector import telegram_connector_status
+
+    return telegram_connector_status()
+
+
+@router.get("/ingestion/telegram/messages")
+async def ingestion_telegram_messages(asset: str = Query("BTC"), channel_id: str | None = Query(None)):
+    """#795 — normalized public channel messages for #783/#758."""
+    from blackdark.ingestion.telegram_connector import fetch_telegram_public_channel_messages
+
+    return await fetch_telegram_public_channel_messages(asset, channel_id=channel_id)
+
+
+@router.get("/ingestion/telegram/mentions")
+async def ingestion_telegram_mentions(asset: str = Query("BTC")):
+    """#795 — mention words for sentiment/trending integration."""
+    from blackdark.ingestion.telegram_connector import get_telegram_mention_words_795
+
+    return get_telegram_mention_words_795(asset)
+
+
+@router.post("/ingestion/telegram/sync")
+async def ingestion_telegram_sync():
+    """#795 — ingest Telegram sentiment streams into data lake."""
+    from blackdark.ingestion.telegram_connector import run_telegram_sentiment_ingest
+
+    return await run_telegram_sentiment_ingest()
+
+
+@router.get("/ingestion/telegram/qa")
+async def ingestion_telegram_qa():
+    """#795 — connector QA acceptance tests."""
+    from blackdark.ingestion.telegram_connector import run_telegram_connector_qa_795
+
+    return run_telegram_connector_qa_795()
+
+
 @router.get("/alpha/signal")
 async def alpha_engine_signal(asset: str = Query("BTC")):
     """Alpha Engine (#13) — unified signal from all input sources."""

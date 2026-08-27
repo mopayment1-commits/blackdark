@@ -1,0 +1,73 @@
+{
+  "feature_ref": 795,
+  "merged_into": "Data Ingestion Layer",
+  "feeds": ["#783 Social Sentiment Intelligence", "#758 Trending Words"],
+  "standalone_rejected": true,
+  "no_user_dashboard": true,
+  "public_channels_only": true,
+  "no_private_content_storage": true,
+  "implementation_backend": "telethon|pyrogram",
+  "implementation_hidden_from_ui": true,
+  "rate_limit": {
+    "max_requests_per_minute": 30,
+    "backoff_exponential": true,
+    "queue_enabled": true
+  },
+  "cache": {
+    "min_ttl_sec": 3600,
+    "max_ttl_sec": 86400,
+    "default_ttl_sec": 3600
+  },
+  "sla": {
+    "max_response_sec": 3,
+    "uptime_target_pct": 99
+  },
+  "fallback_chain": ["telegram_api", "stale_cache", "twitter_x_api", "crypto_news_rss"],
+  "fee_db": {
+    "api_calls_usd": 0.004,
+    "bandwidth_usd": 0.001,
+    "tier": "standard",
+    "ops_budget": true
+  },
+  "public_channels": [
+    {"channel_id": "btc_signals_public", "username": "@btc_signals", "asset": "BTC", "tier": "tier2"},
+    {"channel_id": "eth_updates_public", "username": "@eth_updates", "asset": "ETH", "tier": "tier2"},
+    {"channel_id": "crypto_news_rss_mirror", "username": "@crypto_news", "asset": "BTC", "tier": "tier1"}
+  ],
+  "channel_messages": {
+    "BTC": [
+      {"message_id": "tg-001", "channel": "btc_signals_public", "text": "BTC ETF inflows strong bullish accumulation", "user_id": "tg_user_101", "source_tier": "tier2", "language": "EN", "is_public": true},
+      {"message_id": "tg-002", "channel": "crypto_news_rss_mirror", "text": "Bitcoin halving supply shock صعود", "user_id": "tg_user_202", "source_tier": "tier1", "language": "AR", "is_public": true},
+      {"message_id": "tg-003", "channel": "btc_signals_public", "text": "pump incoming ETF approval", "user_id": "tg_user_303", "source_tier": "tier2", "language": "EN", "is_public": true}
+    ],
+    "ETH": [
+      {"message_id": "tg-101", "channel": "eth_updates_public", "text": "ETH upgrade staking yield positive", "user_id": "tg_user_401", "source_tier": "tier2", "language": "EN", "is_public": true},
+      {"message_id": "tg-102", "channel": "eth_updates_public", "text": "layer2 scaling bullish momentum", "user_id": "tg_user_502", "source_tier": "tier2", "language": "EN", "is_public": true}
+    ]
+  },
+  "fallback_sources": {
+    "twitter_x_api": {
+      "BTC": [
+        {"word": "ETF", "mentions": 180, "source_tier": "tier1", "user_id": "tw_user_1"},
+        {"word": "bullish", "mentions": 95, "source_tier": "tier1", "user_id": "tw_user_2"}
+      ],
+      "ETH": [
+        {"word": "upgrade", "mentions": 120, "source_tier": "tier1", "user_id": "tw_user_3"}
+      ]
+    },
+    "crypto_news_rss": {
+      "BTC": [
+        {"word": "accumulation", "mentions": 60, "source_tier": "tier1", "user_id": "rss_feed_1"}
+      ],
+      "ETH": [
+        {"word": "staking", "mentions": 80, "source_tier": "tier1", "user_id": "rss_feed_2"}
+      ]
+    }
+  },
+  "health": {
+    "uptime_pct": 99.2,
+    "avg_latency_ms": 420,
+    "requests_last_minute": 8,
+    "last_success_at": "2026-08-27T22:00:00+00:00"
+  }
+}

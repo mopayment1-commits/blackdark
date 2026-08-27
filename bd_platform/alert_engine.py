@@ -591,7 +591,7 @@ def run_alerts_qa_tests_759(*, seed: dict[str, Any] | None = None) -> dict[str, 
 
 # --- #786 Alert Orchestration + #788 Custom Metric Alerts (merged into #759) ---
 
-_ABSORBED_ALERT_IDS = (786, 785, 787, 790, 793)
+_ABSORBED_ALERT_IDS = (786, 785, 787, 790, 793, 796)
 _CUSTOM_METRIC_ALERT_REF = 788
 _ORCHESTRATION_REF = 786
 _COOLDOWN_SEC_788 = 900
@@ -790,6 +790,9 @@ def build_custom_metric_alerts_panel_788(
         "route": "/portfolio/alerts",
         "panel_name_ar": "تنبيهاتي",
         "no_smart_alerts": True,
+        "no_unified_center_branding": True,
+        "duplicate_of_796_rejected": True,
+        "panel_name_ar": "تنبيهات مخصصة",
         "rule_based_only": True,
         "allowed_metrics": list(_ALLOWED_CUSTOM_METRICS),
         "rules": rules,
@@ -897,6 +900,11 @@ def custom_metric_alerts_status_788() -> dict[str, Any]:
         "absorbed_feature_ids": list(_ABSORBED_ALERT_IDS),
         "merged_into": 759,
         "orchestration_ref": 786,
+        "duplicate_of_796_rejected": True,
+        "no_unified_alert_center": True,
+        "no_unified_center_branding": True,
+        "no_smart_alerts_branding": True,
+        "panel_name_ar": "تنبيهات مخصصة",
         "allowed_metrics": list(_ALLOWED_CUSTOM_METRICS),
         "cooldown_sec": _COOLDOWN_SEC_788,
         "throttle_max_per_hour": _THROTTLE_MAX_PER_HOUR,
