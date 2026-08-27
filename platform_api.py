@@ -1339,6 +1339,28 @@ async def sopr_intelligence_route(asset: str = Query("BTC")):
     }
 
 
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/accumulation-distribution")
+async def smart_money_accumulation_distribution_route(asset: str = Query("BTC")):
+    """#590 Accumulation/Distribution State + Net-Flow Persistence Indicator."""
+    from bd_platform.smart_money_flow_tracker import detect_accumulation_distribution_state
+
+    result = detect_accumulation_distribution_state(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/historical-trend")
+async def smart_money_historical_trend_route(asset: str = Query("BTC")):
+    """#593 Smart Money Historical Trend Analysis — statistical regimes only."""
+    from bd_platform.smart_money_flow_tracker import build_historical_trend_analysis
+
+    result = build_historical_trend_analysis(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/ui/beginner-decision-mode/status")
 async def beginner_decision_mode_status_route():
     """#461 Beginner Decision Mode — merged with #468 Decision-First."""
@@ -2815,6 +2837,10 @@ async def custom_market_data_screener_run_route(
     whale_activity_min: float | None = Query(None),
     risk_score_max: float | None = Query(None),
     onchain_signal_min: float | None = Query(None),
+    sort_by: str | None = Query(None),
+    sort_order: str = Query("asc"),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
     user_id: str = Query("default"),
 ):
     from bd_platform.custom_market_data_screener import run_screener
@@ -2827,7 +2853,22 @@ async def custom_market_data_screener_run_route(
     if onchain_signal_min is not None:
         filters["onchain_signal_min"] = {"min": onchain_signal_min}
 
-    return run_screener(filters or None, saved_screener_id=saved_screener_id, user_id=user_id)
+    return run_screener(
+        filters or None,
+        saved_screener_id=saved_screener_id,
+        user_id=user_id,
+        sort_by=sort_by,
+        sort_order=sort_order,
+        page=page,
+        page_size=page_size,
+    )
+
+
+@router.get("/intelligence-ledger/intelligence-layer/market-data-screener/reconciliation-tests")
+async def market_data_screener_reconciliation_tests_route():
+    from bd_platform.custom_market_data_screener import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/intelligence-layer/market-data-screener/saved")
@@ -3001,6 +3042,38 @@ async def custom_alerts_panel_route(user_id: str = Query("default")):
     from bd_platform.custom_alerts import build_custom_alerts_panel
 
     return build_custom_alerts_panel(user_id=user_id)
+
+
+@router.get("/intelligence-ledger/infrastructure/custom-alerts/reconciliation-tests")
+async def custom_alerts_reconciliation_tests_route():
+    from bd_platform.custom_alerts import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/data-layer/social-sentiment/status")
+async def social_sentiment_layer_status_route():
+    """#588 Social Sentiment Layer — absorbs #595, #596, #600."""
+    from bd_platform.social_sentiment_layer import social_sentiment_layer_status
+
+    return social_sentiment_layer_status()
+
+
+@router.get("/intelligence-ledger/data-layer/social-sentiment")
+async def social_sentiment_layer_panel_route(asset: str = Query("BTC")):
+    from bd_platform.social_sentiment_layer import build_social_sentiment_panel
+
+    result = build_social_sentiment_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/social-sentiment/reconciliation-tests")
+async def social_sentiment_reconciliation_tests_route():
+    from bd_platform.social_sentiment_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/intelligence-layer/price-move-correlator/status")

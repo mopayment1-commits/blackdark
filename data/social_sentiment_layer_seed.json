@@ -1,0 +1,85 @@
+{
+  "epic_feature_id": 588,
+  "feature_ids": [588, 595, 596, 600],
+  "title": "Social Sentiment Layer",
+  "standalone": false,
+  "layer": "Data Layer",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-27",
+  "config": {
+    "tos_compliant": true,
+    "source_attribution_required": true,
+    "duplicate_suppression": true,
+    "correlation_not_causation": true
+  },
+  "assets": {
+    "BTC": {"entity_resolution_applied": true},
+    "ETH": {"entity_resolution_applied": true}
+  },
+  "headlines": [
+    {
+      "id": "hl-001",
+      "title": "Bitcoin ETF inflows reach new weekly high",
+      "source": "coindesk_rss",
+      "url": "https://coindesk.com/example/btc-etf-inflows",
+      "published_at": "2026-08-27T10:00:00Z",
+      "sentiment_score": 0.72,
+      "affected_assets": ["BTC"],
+      "entities": ["BlackRock", "BTC ETF"],
+      "event_type": "etf_flow",
+      "language": "en",
+      "tos_compliant": true,
+      "evidence_links": [{"type": "rss", "url": "https://coindesk.com/example/btc-etf-inflows"}]
+    },
+    {
+      "id": "hl-002",
+      "title": "Bitcoin ETF inflows reach new weekly high",
+      "source": "cryptopanic",
+      "url": "https://cryptopanic.com/example/dup",
+      "published_at": "2026-08-27T10:05:00Z",
+      "sentiment_score": 0.70,
+      "affected_assets": ["BTC"],
+      "entities": ["BTC ETF"],
+      "event_type": "etf_flow",
+      "language": "en",
+      "tos_compliant": true
+    },
+    {
+      "id": "hl-003",
+      "title": "Ethereum network upgrade completes successfully",
+      "source": "theblock_rss",
+      "url": "https://theblock.co/example/eth-upgrade",
+      "published_at": "2026-08-27T09:30:00Z",
+      "sentiment_score": 0.65,
+      "affected_assets": ["ETH"],
+      "entities": ["Ethereum"],
+      "event_type": "protocol_upgrade",
+      "language": "en",
+      "tos_compliant": true
+    },
+    {
+      "id": "hl-004",
+      "title": "Le Bitcoin atteint un nouveau sommet hebdomadaire",
+      "source": "journalducoin_rss",
+      "url": "https://journalducoin.com/example/fr-btc",
+      "published_at": "2026-08-27T08:00:00Z",
+      "sentiment_score": 0.68,
+      "affected_assets": ["BTC"],
+      "language": "fr",
+      "tos_compliant": true
+    }
+  ],
+  "precision_recall_eval": {
+    "precision": 0.84,
+    "recall": 0.79,
+    "f1": 0.81,
+    "evaluation_window": "2026-Q2",
+    "labeled_samples": 1200
+  },
+  "multilingual_tests": {
+    "languages_tested": 4,
+    "languages": ["en", "fr", "es", "de"],
+    "all_passed": true
+  }
+}

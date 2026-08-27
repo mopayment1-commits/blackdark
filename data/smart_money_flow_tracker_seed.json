@@ -106,5 +106,45 @@
       "BTC": 31.2,
       "ETH": 20.8
     }
+  },
+  "accumulation_distribution_590": {
+    "thresholds": {
+      "accumulation_inflow_usd": 10000000,
+      "distribution_outflow_usd": -10000000,
+      "persistence_days_min": 3
+    },
+    "false_positive_review": {
+      "last_review": "2026-08-20",
+      "false_positive_rate_pct": 8.5,
+      "review_cycle_days": 30
+    }
+  },
+  "accumulation_assets": {
+    "BTC": {
+      "net_flow_30d_usd": 25000000,
+      "persistence_days": 5,
+      "wallet_cluster": "institutional_cluster_a"
+    },
+    "ETH": {
+      "net_flow_30d_usd": -8000000,
+      "persistence_days": 2,
+      "wallet_cluster": "whale_cluster_b"
+    }
+  },
+  "historical_trend_593": {
+    "classification_version": "1.0",
+    "high_activity_threshold_usd": 50000000
+  },
+  "historical_flows": {
+    "BTC": {
+      "daily_net_flow_usd": [45000000, 52000000, 48000000, null, 55000000, 60000000, 58000000],
+      "missing_days": 1,
+      "missing_visible": true
+    },
+    "ETH": {
+      "daily_net_flow_usd": [12000000, 8000000, 5000000, 3000000, 2000000],
+      "missing_days": 0,
+      "missing_visible": true
+    }
   }
 }

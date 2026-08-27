@@ -36,5 +36,41 @@
       "timestamp": "2026-08-26T12:00:00Z"
     }
   ],
-  "delivery_log": []
+  "delivery_log": [],
+  "smart_metric_rules": [
+    {
+      "rule_id": "smart_btc_price",
+      "active": true,
+      "paused": false,
+      "asset": "BTC",
+      "metric": "price_change_24h_pct",
+      "operator": "gte",
+      "threshold": 5.0,
+      "channels": ["in_app", "telegram"],
+      "cooldown_minutes": 30
+    },
+    {
+      "rule_id": "smart_eth_sentiment",
+      "active": true,
+      "paused": false,
+      "asset": "ETH",
+      "metric": "sentiment_score",
+      "operator": "lte",
+      "threshold": 0.35,
+      "channels": ["in_app", "webhook"],
+      "cooldown_minutes": 15
+    }
+  ],
+  "metric_streams": {
+    "BTC": {
+      "price_change_24h_pct": 6.2,
+      "sentiment_score": 0.58,
+      "onchain_netflow_usd": -50000000
+    },
+    "ETH": {
+      "price_change_24h_pct": 2.1,
+      "sentiment_score": 0.32,
+      "onchain_netflow_usd": 12000000
+    }
+  }
 }
