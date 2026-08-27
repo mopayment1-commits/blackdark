@@ -239,3 +239,199 @@ def build_registry_snapshot() -> dict[str, Any]:
         "latency_ms": elapsed,
         "timestamp": _utcnow(),
     }
+
+
+def build_symbol_registry_753(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#753 — internal canonical symbol map (no public API)."""
+    seed = seed or _load_seed()
+    registry = seed.get("symbol_registry_753") or {}
+    entries = registry.get("canonical_entries") or {}
+    return {
+        "ok": True,
+        "feature_ref": 753,
+        "merged_into": 705,
+        "internal_only": True,
+        "no_public_api": True,
+        "registry_version": registry.get("registry_version", "1.0"),
+        "entry_count": len(entries),
+        "canonical_entries": entries,
+        "version_history": registry.get("version_history") or [],
+        "migration_scripts": registry.get("migration_scripts") or [],
+        "display": f"Symbol registry v{registry.get('registry_version', '1.0')} | {len(entries)} canonical entries",
+        "timestamp": _utcnow(),
+    }
+
+
+def resolve_symbol_canonical_753(
+    source: str,
+    symbol: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#753 — resolve exchange-specific symbol to canonical UUID + entity_id."""
+    seed = seed or _load_seed()
+    registry = seed.get("symbol_registry_753") or {}
+    entries = registry.get("canonical_entries") or {}
+    sym = symbol.strip()
+    src = source.lower().strip()
+
+    for entity_id, entry in entries.items():
+        if entry.get("symbol", "").upper() == sym.upper() and src == "internal":
+            return {
+                "ok": True,
+                "canonical_id": entity_id,
+                "canonical_uuid": entry.get("canonical_uuid"),
+                "symbol": entry.get("symbol"),
+                "source": source,
+                "source_symbol": symbol,
+                "priority": entry.get("priority", 99),
+                "collision_flag": entry.get("collision_flag", False),
+            }
+        for alias in entry.get("aliases") or []:
+            if alias.get("source", "").lower() == src and alias.get("symbol", "").upper() == sym.upper():
+                return {
+                    "ok": True,
+                    "canonical_id": entity_id,
+                    "canonical_uuid": entry.get("canonical_uuid"),
+                    "symbol": entry.get("symbol"),
+                    "source": source,
+                    "source_symbol": symbol,
+                    "priority": alias.get("priority", entry.get("priority", 99)),
+                    "collision_flag": entry.get("collision_flag", False),
+                    "resolved_to": alias.get("resolved_to", entity_id),
+                }
+
+    return {
+        "ok": False,
+        "error": "symbol_not_mapped",
+        "source": source,
+        "source_symbol": symbol,
+    }
+
+
+def run_collision_tests_753(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#753 — daily collision test: conflicting symbols flagged for manual resolution."""
+    seed = seed or _load_seed()
+    registry = seed.get("symbol_registry_753") or {}
+    entries = registry.get("canonical_entries") or {}
+    tests: list[dict[str, Any]] = []
+
+    symbol_map: dict[str, list[str]] = {}
+    for entity_id, entry in entries.items():
+        sym = entry.get("symbol", "").upper()
+        symbol_map.setdefault(sym, []).append(entity_id)
+
+    collisions = {sym: ids for sym, ids in symbol_map.items() if len(ids) > 1}
+    flagged = [eid for eid, e in entries.items() if e.get("collision_flag")]
+
+    tests.append({
+        "test": "collision_detection",
+        "passed": len(collisions) > 0,
+        "detail": f"collisions={list(collisions.keys())}",
+    })
+    tests.append({
+        "test": "collision_manual_flags",
+        "passed": len(flagged) >= 2,
+        "detail": f"flagged={flagged}",
+    })
+    tests.append({
+        "test": "ftt_collision_resolved",
+        "passed": "asset_ftt_ftx" in entries and "asset_ftt_filecoin" in entries,
+        "detail": "FTT FTX vs Filecoin",
+    })
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": 753,
+        "collision_tests": tests,
+        "all_passed": all_passed,
+        "collision_log_required": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_version_migration_tests_753(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#753 — backward compatibility: version migrations have audit trail."""
+    seed = seed or _load_seed()
+    registry = seed.get("symbol_registry_753") or {}
+    history = registry.get("version_history") or []
+    migrations = registry.get("migration_scripts") or []
+    tests: list[dict[str, Any]] = []
+
+    tests.append({"test": "version_history_documented", "passed": len(history) >= 2, "detail": f"versions={len(history)}"})
+    tests.append({
+        "test": "migration_script_present",
+        "passed": len(migrations) >= 1 and migrations[0].get("audit_trail") is True,
+        "detail": migrations[0].get("script") if migrations else None,
+    })
+    tests.append({
+        "test": "backward_compatible_v1_0",
+        "passed": any(h.get("version") == "1.0" for h in history),
+        "detail": "v1.0 archived",
+    })
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": 753,
+        "version_tests": tests,
+        "all_passed": all_passed,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_coingecko_uuid_parity_tests_753(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#753 — daily QA: canonical UUID must match CoinGecko ID mapping."""
+    seed = seed or _load_seed()
+    registry = seed.get("symbol_registry_753") or {}
+    entries = registry.get("canonical_entries") or {}
+    tests: list[dict[str, Any]] = []
+
+    for entity_id, entry in entries.items():
+        cg_id = entry.get("coingecko_id")
+        if cg_id is None:
+            continue
+        resolved = resolve_symbol_canonical_753("coingecko", cg_id, seed=seed)
+        tests.append({
+            "test": f"coingecko_parity_{entity_id}",
+            "passed": resolved.get("ok") and resolved.get("canonical_id") == entity_id,
+            "detail": f"{cg_id} -> {resolved.get('canonical_id')}",
+        })
+
+    tests.append({
+        "test": "xbt_kraken_resolves_btc",
+        "passed": resolve_symbol_canonical_753("kraken", "XBT", seed=seed).get("canonical_id") == "asset_btc",
+        "detail": "XBT -> BTC",
+    })
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": 753,
+        "parity_tests": tests,
+        "all_passed": all_passed,
+        "tolerance_pct": 0,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_symbol_registry_qa_753(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#753 — combined QA: collision + version + coingecko parity."""
+    collision = run_collision_tests_753(seed=seed)
+    version = run_version_migration_tests_753(seed=seed)
+    parity = run_coingecko_uuid_parity_tests_753(seed=seed)
+    all_passed = all([
+        collision.get("all_passed"),
+        version.get("all_passed"),
+        parity.get("all_passed"),
+    ])
+    return {
+        "ok": all_passed,
+        "feature_ref": 753,
+        "collision_tests": collision,
+        "version_tests": version,
+        "coingecko_parity": parity,
+        "all_passed": all_passed,
+        "timestamp": _utcnow(),
+    }

@@ -733,7 +733,59 @@
         "transformation_version": "1.0",
         "parity_verified": true,
         "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "SSR Intelligence #698 with historical bands"}]
+      },
+      "supply_intelligence": {
+        "metric_name": "Supply Intelligence",
+        "definition": "Issuance/burn rate, supply change, inflation %",
+        "code_link": "bd_platform/onchain_metrics_library.py#700",
+        "transformation_logic": "issuance_rate + burn_rate + supply_change_pct + inflation_pct",
+        "transformation_version": "1.0",
+        "parity_verified": true,
+        "version_history": [{"version": "1.0", "date": "2026-08-27", "change": "Supply Intelligence #700 dynamic metrics"}]
       }
+    }
+  },
+  "supply_intelligence_700": {
+    "feature_ref": 700,
+    "merged_into": 577,
+    "methodology_version": "1.0",
+    "assets": {
+      "BTC": {
+        "issuance_rate_monthly": 27000,
+        "burn_rate_monthly": 0,
+        "supply_change_monthly": 27000,
+        "supply_change_pct_30d": 0.14,
+        "inflation_pct_annual": 0.8,
+        "context": "Mining issuance — predictable halving schedule"
+      },
+      "ETH": {
+        "issuance_rate_monthly": 45000,
+        "burn_rate_monthly": 57000,
+        "supply_change_monthly": -12000,
+        "supply_change_pct_30d": -0.01,
+        "inflation_pct_annual": -0.5,
+        "context": "EIP-1559 burn > issuance — deflationary net issuance"
+      },
+      "BNB": {
+        "issuance_rate_monthly": 0,
+        "burn_rate_monthly": 850000,
+        "supply_change_monthly": -850000,
+        "supply_change_pct_30d": -0.57,
+        "inflation_pct_annual": -2.1,
+        "context": "Quarterly burn toward 100M target"
+      },
+      "UNI": {
+        "issuance_rate_monthly": 1000000,
+        "burn_rate_monthly": 0,
+        "supply_change_monthly": 1000000,
+        "supply_change_pct_30d": 0.16,
+        "inflation_pct_annual": 2.0,
+        "context": "Governance minted supply — inflation from emissions"
+      }
+    },
+    "regression_fixture": {
+      "asset": "ETH",
+      "expected_supply_change_monthly": -12000
     }
   }
 }

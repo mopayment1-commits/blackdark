@@ -61,7 +61,24 @@
       },
       "sources": {
         "registry": "asset_registry_seed",
-        "market_data": "oracle_api"
+        "market_data": "oracle_api",
+        "supply_coingecko": "coingecko",
+        "supply_on_chain": "on_chain_verified"
+      },
+      "supply": {
+        "circulating_supply": 19700000,
+        "total_supply": 19700000,
+        "max_supply": 21000000,
+        "max_supply_display": "21M",
+        "circulating_display": "19.7M",
+        "mechanism": "Mining",
+        "mechanism_ar": "تعدين",
+        "inflation_pct": 0.8,
+        "definition_parity": "Bitcoin: mined coins count toward circulating; max 21M hard cap",
+        "api_circulating": 19700000,
+        "on_chain_circulating": 19685000,
+        "source_freshness_seconds": 3600,
+        "last_verified": "2026-08-27T12:00:00Z"
       },
       "last_updated": "2026-08-26T19:00:00Z"
     },
@@ -94,7 +111,24 @@
       },
       "sources": {
         "registry": "asset_registry_seed",
-        "market_data": "oracle_api"
+        "market_data": "oracle_api",
+        "supply_coingecko": "coingecko",
+        "supply_on_chain": "on_chain_verified"
+      },
+      "supply": {
+        "circulating_supply": 120000000,
+        "total_supply": 120000000,
+        "max_supply": null,
+        "max_supply_display": "∞",
+        "circulating_display": "120M",
+        "mechanism": "PoS Issuance + Burn",
+        "mechanism_ar": "إصدار PoS + حرق",
+        "net_inflation_pct": -0.5,
+        "definition_parity": "Ethereum: no max cap; net issuance after EIP-1559 burn",
+        "api_circulating": 120000000,
+        "on_chain_circulating": 119880000,
+        "source_freshness_seconds": 3600,
+        "last_verified": "2026-08-27T12:00:00Z"
       },
       "last_updated": "2026-08-26T19:00:00Z"
     },
@@ -127,7 +161,24 @@
       },
       "sources": {
         "registry": "asset_registry_seed",
-        "market_data": "oracle_api"
+        "market_data": "oracle_api",
+        "supply_coingecko": "coingecko",
+        "supply_on_chain": "on_chain_verified"
+      },
+      "supply": {
+        "circulating_supply": 120000000,
+        "total_supply": 120000000,
+        "max_supply": null,
+        "max_supply_display": "∞",
+        "circulating_display": "120M",
+        "mechanism": "PoS Issuance + Burn",
+        "mechanism_ar": "إصدار PoS + حرق",
+        "net_inflation_pct": -0.5,
+        "definition_parity": "Ethereum: no max cap; net issuance after EIP-1559 burn",
+        "api_circulating": 120000000,
+        "on_chain_circulating": 119880000,
+        "source_freshness_seconds": 3600,
+        "last_verified": "2026-08-27T12:00:00Z"
       },
       "last_updated": "2026-08-26T19:00:00Z"
     },
@@ -160,7 +211,24 @@
       },
       "sources": {
         "registry": "asset_registry_seed",
-        "market_data": "oracle_api"
+        "market_data": "oracle_api",
+        "supply_coingecko": "coingecko",
+        "supply_on_chain": "on_chain_verified"
+      },
+      "supply": {
+        "circulating_supply": 150000000,
+        "total_supply": 150000000,
+        "max_supply": 200000000,
+        "max_supply_display": "200M",
+        "circulating_display": "150M",
+        "mechanism": "Quarterly Burn",
+        "mechanism_ar": "حرق ربع سنوي",
+        "burn_target": 100000000,
+        "definition_parity": "BNB: quarterly burn toward 100M target; max 200M",
+        "api_circulating": 150000000,
+        "on_chain_circulating": 149550000,
+        "source_freshness_seconds": 3600,
+        "last_verified": "2026-08-27T12:00:00Z"
       },
       "last_updated": "2026-08-26T19:00:00Z"
     },
@@ -3568,5 +3636,15 @@
         "audit_status": "audited"
       }
     }
+  },
+  "supply_intelligence_700": {
+    "feature_ref": 700,
+    "merged_into": [402, 577],
+    "reconciliation_tolerance_pct": 1.0,
+    "daily_reconciliation_required": true,
+    "sources": ["coingecko", "coinmarketcap", "on_chain"],
+    "definition_parity_assets": ["BTC", "ETH", "BNB"],
+    "asset_card_tab": "العرض",
+    "market_radar_widget": "تغير العرض"
   }
 }

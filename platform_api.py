@@ -2458,6 +2458,17 @@ async def stablecoin_supply_ratio_route():
     return build_stablecoin_supply_ratio_698()
 
 
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/supply-intelligence")
+async def supply_intelligence_route(asset: str = Query("ETH")):
+    """#700 Supply Intelligence — dynamic metrics merged into #577."""
+    from bd_platform.onchain_metrics_library import build_supply_intelligence_metrics_700
+
+    result = build_supply_intelligence_metrics_700(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/investment-thesis/status")
 async def investment_thesis_scoring_status_route():
     """#472 Investment Thesis Scoring — Intelligence Ledger (not price probability)."""
@@ -4803,6 +4814,24 @@ async def asset_registry_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/data-layer/asset-registry/supply-tab")
+async def asset_registry_supply_tab_route(symbol: str = Query("BTC")):
+    """#700 Supply Intelligence — Asset Card العرض tab."""
+    from bd_platform.asset_registry import build_supply_tab_700
+
+    result = build_supply_tab_700(symbol=symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/asset-registry/supply-reconciliation-tests")
+async def asset_registry_supply_reconciliation_route():
+    from bd_platform.asset_registry import run_supply_reconciliation_tests_700
+
+    return run_supply_reconciliation_tests_700()
+
+
 @router.get("/intelligence-ledger/data-layer/asset-registry/coverage")
 async def asset_registry_coverage_route(symbol: str = Query("BTC")):
     """#684 Project Monitoring Coverage Registry — badge layer."""
@@ -4941,6 +4970,36 @@ async def reference_data_registry_lookup_route(
     from bd_platform.reference_data_registry import lookup_canonical_id
 
     result = lookup_canonical_id(source=source, source_id=source_id, entity_type=entity_type)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/internal/reference-data-registry/symbol-registry-qa")
+async def symbol_registry_qa_route():
+    """#753 Symbol Mapping Engine — internal QA (no public /symbols API)."""
+    from bd_platform.reference_data_registry import run_symbol_registry_qa_753
+
+    return run_symbol_registry_qa_753()
+
+
+@router.get("/intelligence-ledger/market-radar/technical-summary")
+async def market_radar_technical_summary_route(asset: str = Query("BTC")):
+    """#755 Technical Summary overlay — merged into Market Radar (no Strong Buy/Sell)."""
+    from bd_platform.market_radar_indicators import build_technical_summary_overlay_755
+
+    result = build_technical_summary_overlay_755(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/asset-registry/indicator-panel")
+async def asset_card_indicator_panel_route(asset: str = Query("BTC")):
+    """#755 Asset Card Indicator Panel."""
+    from bd_platform.market_radar_indicators import build_asset_card_indicator_panel_755
+
+    result = build_asset_card_indicator_panel_755(asset)
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result

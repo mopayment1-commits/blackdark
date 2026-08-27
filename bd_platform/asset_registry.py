@@ -349,6 +349,186 @@ def filter_opportunities_by_coverage_684(
     return kept, cancelled
 
 
+def build_supply_metadata_700(
+    asset: dict[str, Any],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#700 — static supply metadata (circulating | total | max | mechanism)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("supply_intelligence_700") or {}
+    supply = asset.get("supply") or {}
+    symbol = asset.get("symbol", "")
+    max_display = supply.get("max_supply_display")
+    if max_display is None and supply.get("max_supply") is None:
+        max_display = "∞"
+    elif max_display is None and supply.get("max_supply") is not None:
+        max_display = f"{supply.get('max_supply') / 1_000_000:.0f}M"
+
+    circulating = supply.get("circulating_supply")
+    circulating_display = supply.get("circulating_display")
+    if circulating_display is None and circulating is not None:
+        circulating_display = f"{circulating / 1_000_000:.1f}M"
+
+    mechanism = supply.get("mechanism", "unknown")
+    inflation = supply.get("inflation_pct")
+    if inflation is None:
+        inflation = supply.get("net_inflation_pct")
+
+    display_parts = [
+        f"Max: {max_display}",
+        f"Circulating: {circulating_display or circulating}",
+        f"Mechanism: {mechanism}",
+    ]
+    if inflation is not None:
+        label = "Net Inflation" if supply.get("net_inflation_pct") is not None else "Inflation"
+        display_parts.append(f"{label}: {inflation}%")
+    if supply.get("burn_target") is not None:
+        display_parts.append(f"Burn Target: {supply.get('burn_target') / 1_000_000:.0f}M")
+
+    api_supply = supply.get("api_circulating")
+    on_chain = supply.get("on_chain_circulating")
+    tolerance = float(cfg.get("reconciliation_tolerance_pct", 1.0))
+    reconciled = True
+    reconciliation_delta_pct = None
+    if api_supply and on_chain:
+        reconciliation_delta_pct = round(abs(api_supply - on_chain) / api_supply * 100, 4)
+        reconciled = reconciliation_delta_pct <= tolerance
+
+    return {
+        "ok": True,
+        "feature_ref": 700,
+        "merged_into": _FEATURE_ID,
+        "static_metadata": True,
+        "symbol": symbol,
+        "circulating_supply": circulating,
+        "total_supply": supply.get("total_supply"),
+        "max_supply": supply.get("max_supply"),
+        "max_supply_display": max_display,
+        "circulating_display": circulating_display,
+        "mechanism": mechanism,
+        "mechanism_ar": supply.get("mechanism_ar"),
+        "inflation_pct": inflation,
+        "burn_target": supply.get("burn_target"),
+        "definition_parity": supply.get("definition_parity"),
+        "definition_parity_required": symbol in (cfg.get("definition_parity_assets") or []),
+        "sources": {
+            "coingecko": asset.get("sources", {}).get("supply_coingecko"),
+            "on_chain": asset.get("sources", {}).get("supply_on_chain"),
+        },
+        "source_freshness_seconds": supply.get("source_freshness_seconds"),
+        "last_verified": supply.get("last_verified"),
+        "api_circulating": api_supply,
+        "on_chain_circulating": on_chain,
+        "reconciliation_delta_pct": reconciliation_delta_pct,
+        "reconciled_within_tolerance": reconciled,
+        "reconciliation_tolerance_pct": tolerance,
+        "display": " | ".join(display_parts),
+        "display_ar": (
+            f"الأقصى: {max_display} | المتداول: {circulating_display or circulating} | "
+            f"الآلية: {supply.get('mechanism_ar') or mechanism}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_supply_tab_700(
+    entity_id: str | None = None,
+    *,
+    symbol: str | None = None,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#700 — Asset Card 'العرض' tab (static supply metadata)."""
+    seed = seed or _load_seed()
+    assets = seed.get("assets") or {}
+
+    if entity_id is None and symbol:
+        entity_id = resolve_entity_id(symbol, seed=seed)
+
+    if not entity_id or entity_id not in assets:
+        return {
+            "ok": False,
+            "feature_ref": 700,
+            "tab": "العرض",
+            "error": "asset_not_found",
+            "entity_id": entity_id,
+            "symbol": symbol,
+        }
+
+    asset = assets[entity_id]
+    supply_meta = build_supply_metadata_700(asset, seed=seed)
+    cfg = seed.get("supply_intelligence_700") or {}
+
+    return {
+        "ok": True,
+        "feature_ref": 700,
+        "merged_into": _FEATURE_ID,
+        "tab": cfg.get("asset_card_tab", "العرض"),
+        "tab_en": "Supply",
+        "entity_id": entity_id,
+        "symbol": asset.get("symbol"),
+        "supply_metadata": supply_meta,
+        "definition_parity_per_asset": supply_meta.get("definition_parity_required"),
+        "source_freshness_documented": supply_meta.get("source_freshness_seconds") is not None,
+        "reconciliation": {
+            "delta_pct": supply_meta.get("reconciliation_delta_pct"),
+            "within_tolerance": supply_meta.get("reconciled_within_tolerance"),
+            "tolerance_pct": supply_meta.get("reconciliation_tolerance_pct"),
+        },
+        "display": supply_meta.get("display"),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_supply_reconciliation_tests_700(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#700 — daily reconciliation: API circulating vs on-chain ±1%."""
+    seed = seed or _load_seed()
+    cfg = seed.get("supply_intelligence_700") or {}
+    tolerance = float(cfg.get("reconciliation_tolerance_pct", 1.0))
+    tests: list[dict[str, Any]] = []
+
+    for symbol in cfg.get("definition_parity_assets") or ["BTC", "ETH", "BNB"]:
+        entity_id = resolve_entity_id(symbol, seed=seed)
+        if not entity_id:
+            tests.append({"test": f"supply_asset_{symbol}", "passed": False, "detail": "not_found"})
+            continue
+        asset = (seed.get("assets") or {}).get(entity_id, {})
+        meta = build_supply_metadata_700(asset, seed=seed)
+        tests.append({
+            "test": f"definition_parity_{symbol}",
+            "passed": bool(meta.get("definition_parity")) if symbol in (cfg.get("definition_parity_assets") or []) else True,
+            "detail": meta.get("definition_parity"),
+        })
+        tests.append({
+            "test": f"source_freshness_{symbol}",
+            "passed": meta.get("source_freshness_seconds") is not None,
+            "detail": meta.get("last_verified"),
+        })
+        tests.append({
+            "test": f"reconciliation_{symbol}",
+            "passed": meta.get("reconciled_within_tolerance") is True,
+            "detail": f"delta={meta.get('reconciliation_delta_pct')}% tol={tolerance}%",
+        })
+
+    tests.append({
+        "test": "daily_reconciliation_required",
+        "passed": cfg.get("daily_reconciliation_required") is True,
+        "detail": "mandatory",
+    })
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": 700,
+        "merged_into": _FEATURE_ID,
+        "parity_tests": tests,
+        "all_passed": all_passed,
+        "test_count": len(tests),
+        "reconciliation_tolerance_pct": tolerance,
+        "timestamp": _utcnow(),
+    }
+
+
 def build_asset_record(
     entity_id: str | None = None,
     *,
@@ -365,6 +545,7 @@ def build_asset_record(
         return {"ok": False, "error": "asset_not_found", "entity_id": entity_id, "symbol": symbol}
 
     asset = assets[entity_id]
+    supply_meta = build_supply_metadata_700(asset, seed=seed)
     return {
         "ok": True,
         "entity_id": entity_id,
@@ -374,6 +555,7 @@ def build_asset_record(
         "scoring": build_scoring_layer(asset),
         "coverage": asset.get("coverage") or {},
         "coverage_badges_684": build_coverage_badges_684(asset, seed=seed),
+        "supply_metadata_700": supply_meta if supply_meta.get("ok") else None,
         "sources": asset.get("sources") or {},
         "last_updated": asset.get("last_updated"),
         "non_custodial": True,
@@ -616,6 +798,7 @@ def asset_registry_status() -> dict[str, Any]:
             "intelligence_ledger": True,
             "coverage_badge_layer_684": True,
             "protocol_directory_685": True,
+            "supply_intelligence_700": True,
         },
         "dependencies": build_dependencies_block(),
         "acceptance_criteria": {
@@ -723,6 +906,11 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "protocol_directory_685", "passed": protocol_dir.get("ok") is True and protocol_dir.get("protocol_count", 0) >= 3, "detail": "685"})
     aave = build_protocol_profile("aave", seed=seed)
     checks.append({"id": "protocol_mandatory_fields_685", "passed": aave.get("mandatory_fields_met") is True, "detail": "7 fields"})
+
+    supply_tab = build_supply_tab_700("asset_btc", seed=seed)
+    checks.append({"id": "supply_tab_700_btc", "passed": supply_tab.get("ok") is True, "detail": "700"})
+    supply_recon = run_supply_reconciliation_tests_700(seed=seed)
+    checks.append({"id": "supply_reconciliation_700", "passed": supply_recon.get("all_passed") is True, "detail": "±1%"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

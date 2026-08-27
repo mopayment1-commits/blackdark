@@ -115,6 +115,77 @@
       "mapping_version": "1.0",
       "effective_from": "2024-01-01",
       "entity_type": "asset"
+    },
+    {
+      "mapping_id": "map_btc_kraken_xbt",
+      "canonical_id": "asset_btc",
+      "source_id": "XBT",
+      "source": "kraken",
+      "mapping_version": "1.0",
+      "effective_from": "2024-01-01",
+      "entity_type": "asset"
     }
-  ]
+  ],
+  "symbol_registry_753": {
+    "feature_ref": 753,
+    "merged_into": 705,
+    "registry_version": "1.0",
+    "internal_only": true,
+    "no_public_api": true,
+    "canonical_entries": {
+      "asset_btc": {
+        "canonical_uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "symbol": "BTC",
+        "priority": 1,
+        "aliases": [
+          {"source": "binance", "symbol": "BTC", "priority": 1},
+          {"source": "kraken", "symbol": "XBT", "priority": 2},
+          {"source": "coingecko", "symbol": "bitcoin", "priority": 1},
+          {"source": "coinmarketcap", "symbol": "BTC", "priority": 1}
+        ],
+        "coingecko_id": "bitcoin"
+      },
+      "asset_eth": {
+        "canonical_uuid": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+        "symbol": "ETH",
+        "priority": 1,
+        "aliases": [
+          {"source": "binance", "symbol": "ETH", "priority": 1},
+          {"source": "coingecko", "symbol": "ethereum", "priority": 1}
+        ],
+        "coingecko_id": "ethereum"
+      },
+      "asset_ftt_ftx": {
+        "canonical_uuid": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+        "symbol": "FTT",
+        "name": "FTX Token",
+        "priority": 1,
+        "collision_flag": true,
+        "collision_note": "FTT FTX vs FTT Filecoin — manual resolution required",
+        "aliases": [
+          {"source": "binance", "symbol": "FTT", "priority": 1, "resolved_to": "asset_ftt_ftx"},
+          {"source": "coingecko", "symbol": "ftx-token", "priority": 1, "resolved_to": "asset_ftt_ftx"}
+        ],
+        "coingecko_id": "ftx-token"
+      },
+      "asset_ftt_filecoin": {
+        "canonical_uuid": "d4e5f6a7-b8c9-0123-def0-234567890123",
+        "symbol": "FTT",
+        "name": "Filecoin FTT (legacy)",
+        "priority": 2,
+        "collision_flag": true,
+        "aliases": [
+          {"source": "legacy", "symbol": "FTT", "priority": 2, "resolved_to": "asset_ftt_filecoin"}
+        ],
+        "coingecko_id": null
+      }
+    },
+    "version_history": [
+      {"version": "1.0", "date": "2024-01-01", "change": "Initial canonical map"},
+      {"version": "1.1", "date": "2026-08-27", "change": "Added FTT collision resolution + Kraken XBT alias"}
+    ],
+    "migration_scripts": [
+      {"from_version": "1.0", "to_version": "1.1", "script": "migrations/symbol_registry_v1_0_to_v1_1.py", "audit_trail": true}
+    ]
+  }
 }
