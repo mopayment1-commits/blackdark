@@ -1,0 +1,21 @@
+{
+  "feature_ref": 829,
+  "merged_into": "Stripe Integration",
+  "component": "billing_config",
+  "standalone_rejected": true,
+  "multi_currency_billing_829": {
+    "gateway": "stripe",
+    "stripe_currency_count": 135,
+    "supported_currencies": ["USD", "EUR", "GBP", "AED", "SAR"],
+    "subscription_mode": "recurring",
+    "checkout_surface": "stripe_checkout",
+    "no_separate_ui": true,
+    "crypto_payments_deferred": true,
+    "fee_db": {
+      "stripe_fee_pct": 2.9,
+      "stripe_fee_fixed_usd": 0.30,
+      "fx_fee_pct": 1.0,
+      "tier": "standard"
+    }
+  }
+}

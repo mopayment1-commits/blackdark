@@ -5977,6 +5977,35 @@ async def token_rotation_e2e_route(_admin: dict = Depends(require_admin)):
     return run_token_rotation_e2e_826()
 
 
+@router.get("/internal/infrastructure/load-balancer/status")
+async def load_balancer_status_route(_admin: dict = Depends(require_admin)):
+    """#827 Dynamic Load Balancing — CDN + Nginx infrastructure (admin only)."""
+    from bd_platform.infrastructure_load_balancer import load_balancer_status_827
+
+    return load_balancer_status_827()
+
+
+@router.get("/internal/infrastructure/load-balancer")
+async def load_balancer_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_load_balancer import build_load_balancer_panel_827
+
+    return build_load_balancer_panel_827()
+
+
+@router.get("/internal/infrastructure/load-balancer/health-pool")
+async def load_balancer_health_pool_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_load_balancer import reconcile_backend_pool_827
+
+    return reconcile_backend_pool_827()
+
+
+@router.get("/internal/infrastructure/load-balancer/e2e")
+async def load_balancer_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_load_balancer import run_load_balancer_e2e_827
+
+    return run_load_balancer_e2e_827()
+
+
 @router.get("/internal/system-performance")
 async def system_performance_monitor_panel_route(_admin: dict = Depends(require_admin)):
     from bd_platform.system_performance_monitor import build_performance_panel
