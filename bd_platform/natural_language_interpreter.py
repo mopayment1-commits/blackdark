@@ -563,6 +563,22 @@ def build_explain_signal_explanation_771(
     except Exception:
         logger.debug("776 cross-signal validation integration skipped", exc_info=True)
 
+    attribution_781 = None
+    try:
+        from bd_platform.signal_attribution_layer import build_attribution_data_for_chat_781
+
+        attribution_781 = build_attribution_data_for_chat_781(sym, seed=seed)
+        if attribution_781.get("ok"):
+            for reason in attribution_781.get("attribution_reasons") or []:
+                evidence.append(_metric_citation(
+                    "Signal Attribution",
+                    reason,
+                    "Signal Attribution Layer (#781)",
+                    updated=ts,
+                ))
+    except Exception:
+        logger.debug("781 signal attribution integration skipped", exc_info=True)
+
     next_actions: list[dict[str, str]] = []
     if visibility["next_actions"]:
         next_actions = [
@@ -598,6 +614,7 @@ def build_explain_signal_explanation_771(
         "visibility": visibility,
         "grounded_platform_data_only": True,
         "no_invented_metrics": True,
+        "attribution_781": attribution_781,
         "explanation": explanation_lines,
         "disclaimer": _EXPLAIN_SIGNAL_DISCLAIMER,
         "disclaimer_mandatory": True,

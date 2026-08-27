@@ -1,0 +1,43 @@
+{
+  "feature_id": 781,
+  "title": "Signal Attribution Layer",
+  "standalone": false,
+  "merged_into": "Signal Engine",
+  "rule_version": "1.0",
+  "fee_db": {
+    "explanation_generation_usd": 0.0015,
+    "tier": "standard"
+  },
+  "attribution_rules": {
+    "rsi_overbought": {
+      "rule_id": "rsi_overbought",
+      "template": "IF RSI(14) > {threshold} AND Volume > {volume_mult}x average THEN Signal=Overbought",
+      "threshold": 70,
+      "volume_mult": 1.5,
+      "trigger_metric": "RSI"
+    },
+    "rsi_oversold": {
+      "rule_id": "rsi_oversold",
+      "template": "IF RSI(14) < {threshold} AND Volume > {volume_mult}x average THEN Signal=Oversold",
+      "threshold": 30,
+      "volume_mult": 1.5,
+      "trigger_metric": "RSI"
+    },
+    "macd_bullish_cross": {
+      "rule_id": "macd_bullish_cross",
+      "template": "IF MACD line > Signal line AND Histogram > 0 THEN Signal=Bullish",
+      "trigger_metric": "MACD"
+    }
+  },
+  "volume_context": {
+    "BTC": {"volume_ratio": 2.1, "average_volume_24h": 28500000000},
+    "ETH": {"volume_ratio": 1.8, "average_volume_24h": 12000000000}
+  },
+  "qa_fixtures": [
+    {
+      "id": "btc_attribution",
+      "asset": "BTC",
+      "expect_no_generic": true
+    }
+  ]
+}

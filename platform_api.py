@@ -3580,6 +3580,64 @@ async def evidence_layer_signal_trail_route(asset: str = Query("BTC")):
     return build_signal_card_evidence_trail_777(panel)
 
 
+@router.get("/intelligence-ledger/market-radar/sentiment/status")
+async def sentiment_intelligence_status_route():
+    from bd_platform.social_sentiment_intelligence import social_sentiment_intelligence_status
+
+    return social_sentiment_intelligence_status()
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment")
+async def sentiment_intelligence_panel_route(asset: str = Query("BTC")):
+    """#783 Social Sentiment Intelligence — absorbs #780, merged into Market Radar."""
+    from bd_platform.social_sentiment_intelligence import build_sentiment_intelligence_panel_783
+
+    return build_sentiment_intelligence_panel_783(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/qa")
+async def sentiment_intelligence_qa_route():
+    from bd_platform.social_sentiment_intelligence import run_sentiment_intelligence_qa_783
+
+    return run_sentiment_intelligence_qa_783()
+
+
+@router.get("/intelligence-ledger/signals/attribution/status")
+async def signal_attribution_status_route():
+    from bd_platform.signal_attribution_layer import signal_attribution_layer_status
+
+    return signal_attribution_layer_status()
+
+
+@router.get("/intelligence-ledger/signals/attribution")
+async def signal_attribution_panel_route(asset: str = Query("BTC")):
+    """#781 Signal Attribution — why this signal? (rule-based, no generic text)."""
+    from bd_platform.signal_attribution_layer import build_signal_attribution_panel_781
+
+    return build_signal_attribution_panel_781(asset)
+
+
+@router.get("/intelligence-ledger/signals/attribution/signal-card")
+async def signal_attribution_card_route(asset: str = Query("BTC")):
+    from bd_platform.signal_attribution_layer import build_signal_card_attribution_panel_781
+
+    return build_signal_card_attribution_panel_781(asset)
+
+
+@router.get("/intelligence-ledger/signals/attribution/asset-card")
+async def signal_attribution_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.signal_attribution_layer import build_asset_card_attribution_details_781
+
+    return build_asset_card_attribution_details_781(asset)
+
+
+@router.get("/intelligence-ledger/signals/attribution/qa")
+async def signal_attribution_qa_route():
+    from bd_platform.signal_attribution_layer import run_signal_attribution_qa_781
+
+    return run_signal_attribution_qa_781()
+
+
 @router.get("/intelligence-ledger/market-radar/sector-pulse")
 async def sector_pulse_dashboard_route():
     """#678 Sector Market Brief — rule-based sector narrative (no ML, no buy/sell)."""

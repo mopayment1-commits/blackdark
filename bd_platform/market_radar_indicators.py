@@ -1076,6 +1076,14 @@ def build_market_radar_panel(
     except Exception:
         logger.debug("774 macro coupling market radar integration skipped", exc_info=True)
 
+    sentiment_overlay = None
+    try:
+        from bd_platform.social_sentiment_intelligence import build_market_radar_sentiment_overlay_783
+
+        sentiment_overlay = build_market_radar_sentiment_overlay_783(asset)
+    except Exception:
+        logger.debug("783 sentiment overlay market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "surface": "market_radar",
@@ -1102,6 +1110,7 @@ def build_market_radar_panel(
         "nvt_ratio_761": nvt_widget if nvt_widget and nvt_widget.get("ok") else {"ok": False},
         "news_digest_768": news_digest if news_digest and news_digest.get("ok") else {"ok": False},
         "macro_coupling_774": macro_coupling if macro_coupling and macro_coupling.get("ok") else {"ok": False},
+        "sentiment_intelligence_783": sentiment_overlay if sentiment_overlay and sentiment_overlay.get("ok") else {"ok": False},
         "signal_quality_badge": (hype_vs_reality or {}).get("badge"),
         "timestamp": _utcnow(),
     }
