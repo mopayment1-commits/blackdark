@@ -865,6 +865,20 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/portfolio-var/status")
+async def portfolio_var_status_api():
+    from portfolio_var_metric import portfolio_var_status
+
+    return portfolio_var_status()
+
+
+@router.get("/portfolio-var/e2e")
+async def portfolio_var_e2e_api():
+    from portfolio_var_metric import run_portfolio_var_e2e
+
+    return run_portfolio_var_e2e()
+
+
 @router.post("/ml/rl/train")
 async def rl_policy_train(_admin: dict = Depends(require_admin)):
     import random

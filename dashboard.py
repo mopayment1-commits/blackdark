@@ -352,6 +352,16 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "compliance_footer": _portfolio_compliance_footer(),
         "hero": "portfolio_ai",
     }
+    try:
+        from portfolio_var_metric import compute_portfolio_var_from_holdings
+
+        result["var_metric"] = compute_portfolio_var_from_holdings(
+            holdings,
+            confidence=0.95,
+            horizon_days=1,
+        )
+    except Exception:
+        result["var_metric"] = {"ok": False, "error": "var_unavailable"}
     _attach_portfolio_clarity(result, risk_level, risk_score)
     return result
 
