@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -1007,5 +1007,87 @@
     "internal_only": true,
     "status_page": "status.blackdark.io",
     "fee_db": {"infra_usd": 0.05}
+  },
+  "arbitrage_cost_analysis_177": {
+    "standalone": false,
+    "route": "/intelligence/arbitrage/cost-analysis",
+    "extends_ref": 153,
+    "net_spread_threshold_pct": 0.5,
+    "fee_db": {"compute_usd": 0.005, "multi_venue_query_usd": 0.001}
+  },
+  "scenario_drawdown_178": {
+    "standalone": false,
+    "routes": ["/portfolio/risk/advanced/scenarios", "/intelligence/backtest/scenarios"],
+    "merged_into": ["advanced_risk_77", "backtesting_74"],
+    "fee_db": {"compute_usd": 0.006}
+  },
+  "command_center_179": {
+    "standalone": false,
+    "route": "/dashboard",
+    "load_target_ms": 1000,
+    "fee_db": {"render_usd": 0.001}
+  },
+  "whale_flow_visualization_180": {
+    "standalone": false,
+    "route": "/oracle/on-chain/whale/visualization",
+    "extends_ref": 71,
+    "fee_db": {"render_usd": 0.001}
+  },
+  "committee_packets_181": {
+    "duplicate_of": 87,
+    "merged_into": "ic_report_87"
+  },
+  "white_label_infrastructure_182": {
+    "duplicate_of": [90, 140, 174],
+    "merged_into": "institution_portal_90",
+    "wave": 3
+  },
+  "b2b_fund_integration_183": {
+    "status": "activation_not_build",
+    "merged_into": ["openapi_85", "institution_portal_83", "team_rbac_88"],
+    "wave": 3
+  },
+  "fund_reporting_184": {
+    "duplicate_of": [87, 181],
+    "merged_into": "ic_report_87"
+  },
+  "acquisition_evidence_185": {
+    "status": "deferred_bd_asset",
+    "wave": "3+",
+    "build_blocked_until": "core_systems_stable",
+    "fee_db": {"compilation_usd": 0.05}
+  },
+  "continuous_learning_186": {
+    "duplicate_of": 97,
+    "merged_into": "data_flywheel_97"
+  },
+  "latency_monitoring_187": {
+    "merged_into": ["oracle_validate_101", "time_sync_167", "operational_resilience_176"]
+  },
+  "execution_rejected_188": {
+    "status": "rejected_execution",
+    "alternative": "risk_alert_decision_journal",
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "liquidity_capacity_189": {
+    "standalone": false,
+    "routes": ["/intelligence/arbitrage/capacity", "/portfolio/liquidity-capacity"],
+    "extends_ref": 153,
+    "capacity_ratio_threshold_pct": 10,
+    "fee_db": {"compute_usd": 0.002}
+  },
+  "geographic_arbitrage_190": {
+    "standalone": false,
+    "route": "/intelligence/arbitrage/geographic",
+    "extends_ref": 153,
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "withdrawal_suspension_alert_191": {
+    "standalone": false,
+    "route": "/radar/exchange-health/withdrawal-alert",
+    "extends_ref": 80,
+    "historical_reopen_48h_pct": 70,
+    "exploitation_language_rejected": true,
+    "fee_db": {"compute_usd": 0.002}
   }
 }

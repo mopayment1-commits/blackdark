@@ -110,7 +110,7 @@ def analyze_arbitrage_opportunity_153(
     is_opportunity = net_spread_pct > threshold_pct
 
     fee = float(cfg.get("fee_db", {}).get("compute_usd", 0.004))
-    return {
+    result = {
         "ok": True,
         "feature_ref": 153,
         "route": "/intelligence/arbitrage",
@@ -145,6 +145,12 @@ def analyze_arbitrage_opportunity_153(
         "disclaimer": _disclaimer(),
         "fee_db": {"compute_usd": fee, "multi_venue_query_usd": 0.001},
     }
+    try:
+        from bd_platform.arbitrage_portfolio_ux_layer import attach_arbitrage_extensions_177_189_190
+
+        return attach_arbitrage_extensions_177_189_190(result, seed=seed)
+    except ImportError:
+        return result
 
 
 # ─── #154 Financial Brain — merged #10 + #73 ───────────────────────────────────

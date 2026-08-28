@@ -217,7 +217,14 @@ def build_advanced_risk_report_77(
     try:
         from bd_platform.risk_infrastructure_layer import attach_correlation_decay_169
 
-        return attach_correlation_decay_169(result, seed=seed)
+        result = attach_correlation_decay_169(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.arbitrage_portfolio_ux_layer import attach_scenarios_178
+
+        total = sum(float(h.get("value_usd", 0) or 0) for h in holdings) or 100_000
+        return attach_scenarios_178(result, portfolio_value_usd=total, seed=seed)
     except ImportError:
         return result
 

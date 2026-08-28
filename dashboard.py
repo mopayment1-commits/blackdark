@@ -2035,6 +2035,46 @@ async def public_correlation_decay():
     return compute_correlation_decay_matrix_169()
 
 
+@app.get("/dashboard")
+async def public_command_center(tier: str = "free"):
+    """#179 — Unified command center dashboard."""
+    from bd_platform.arbitrage_portfolio_ux_layer import build_command_center_dashboard_179
+
+    return build_command_center_dashboard_179(user_tier=tier)
+
+
+@app.get("/intelligence/arbitrage/cost-analysis")
+async def public_arbitrage_cost_analysis(asset: str = "BTC"):
+    """#177 — Fee, slippage and capacity cost analysis."""
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_arbitrage_cost_177
+
+    return analyze_arbitrage_cost_177(asset=asset)
+
+
+@app.get("/portfolio/liquidity-capacity")
+async def public_liquidity_capacity(order_size_usd: float = 50_000):
+    """#189 — Liquidity capacity analysis."""
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_liquidity_capacity_189
+
+    return analyze_liquidity_capacity_189(order_size_usd=order_size_usd)
+
+
+@app.get("/intelligence/arbitrage/geographic")
+async def public_geographic_arbitrage(asset: str = "BTC"):
+    """#190 — Geographic arbitrage premium analysis."""
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_geographic_arbitrage_190
+
+    return analyze_geographic_arbitrage_190(asset=asset)
+
+
+@app.get("/radar/exchange-health/withdrawal-alert")
+async def public_withdrawal_alert(exchange: str = "binance"):
+    """#191 — Withdrawal suspension alert (no exploitation language)."""
+    from bd_platform.arbitrage_portfolio_ux_layer import withdrawal_suspension_alert_191
+
+    return withdrawal_suspension_alert_191(exchange=exchange)
+
+
 @app.post("/user/delete")
 async def user_delete_alias(body: dict = Body(default={})):
     """#58 — GDPR erasure alias (requires auth via privacy router for full flow)."""

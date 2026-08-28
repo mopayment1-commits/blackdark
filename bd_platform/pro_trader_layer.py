@@ -405,7 +405,13 @@ def build_whale_narrative_71(
     try:
         from bd_platform.market_analysis_layer import attach_whale_extensions_107_110
 
-        return attach_whale_extensions_107_110(result, seed=seed)
+        result = attach_whale_extensions_107_110(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.arbitrage_portfolio_ux_layer import attach_whale_visualization_180
+
+        return attach_whale_visualization_180(result, seed=seed)
     except ImportError:
         return result
 
@@ -585,7 +591,13 @@ def run_backtest_74(
     try:
         from bd_platform.market_analysis_layer import attach_tail_risk_to_backtest_105
 
-        return attach_tail_risk_to_backtest_105(result, seed=seed)
+        result = attach_tail_risk_to_backtest_105(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.arbitrage_portfolio_ux_layer import attach_scenarios_178
+
+        return attach_scenarios_178(result, seed=seed)
     except ImportError:
         return result
 

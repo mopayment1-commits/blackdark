@@ -2073,3 +2073,132 @@ async def risk_infrastructure_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.risk_infrastructure_layer import run_risk_infrastructure_e2e_164_176
 
     return run_risk_infrastructure_e2e_164_176()
+
+
+# ─── Arbitrage, Portfolio & UX (#177–#191) ──────────────────────────────────────
+
+
+@router.get("/intelligence/arbitrage/cost-analysis")
+async def arbitrage_cost_analysis_route(asset: str = Query("BTC")):
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_arbitrage_cost_177
+
+    return analyze_arbitrage_cost_177(asset=asset)
+
+
+@router.get("/portfolio/risk/advanced/scenarios")
+async def scenario_drawdown_route(portfolio_value_usd: float = Query(100_000)):
+    from bd_platform.arbitrage_portfolio_ux_layer import run_scenario_drawdown_analysis_178
+
+    return run_scenario_drawdown_analysis_178(portfolio_value_usd=portfolio_value_usd)
+
+
+@router.get("/intelligence/backtest/scenarios")
+async def backtest_scenarios_route(portfolio_value_usd: float = Query(100_000)):
+    from bd_platform.arbitrage_portfolio_ux_layer import run_scenario_drawdown_analysis_178
+
+    return run_scenario_drawdown_analysis_178(portfolio_value_usd=portfolio_value_usd)
+
+
+@router.get("/dashboard")
+async def command_center_route(user_tier: str = Query("free")):
+    from bd_platform.arbitrage_portfolio_ux_layer import build_command_center_dashboard_179
+
+    return build_command_center_dashboard_179(user_tier=user_tier)
+
+
+@router.get("/oracle/on-chain/whale/visualization")
+async def whale_visualization_route():
+    from bd_platform.arbitrage_portfolio_ux_layer import build_whale_flow_visualization_180
+
+    return build_whale_flow_visualization_180()
+
+
+@router.get("/intelligence/committee-packets-status")
+async def committee_packets_route():
+    from bd_platform.arbitrage_portfolio_ux_layer import committee_packets_status_181
+
+    return committee_packets_status_181()
+
+
+@router.get("/institution/white-label-infrastructure-status")
+async def white_label_infrastructure_route():
+    from bd_platform.arbitrage_portfolio_ux_layer import white_label_infrastructure_status_182
+
+    return white_label_infrastructure_status_182()
+
+
+@router.get("/business/b2b-fund-integration-status")
+async def b2b_fund_integration_route():
+    from bd_platform.arbitrage_portfolio_ux_layer import b2b_fund_integration_status_183
+
+    return b2b_fund_integration_status_183()
+
+
+@router.get("/intelligence/fund-reporting-status")
+async def fund_reporting_route():
+    from bd_platform.arbitrage_portfolio_ux_layer import fund_reporting_status_184
+
+    return fund_reporting_status_184()
+
+
+@router.get("/business/acquisition-evidence-package")
+async def acquisition_evidence_route():
+    from bd_platform.arbitrage_portfolio_ux_layer import acquisition_evidence_package_185
+
+    return acquisition_evidence_package_185()
+
+
+@router.get("/intelligence/continuous-learning-status")
+async def continuous_learning_route():
+    from bd_platform.arbitrage_portfolio_ux_layer import continuous_learning_status_186
+
+    return continuous_learning_status_186()
+
+
+@router.get("/infrastructure/latency-monitoring-status")
+async def latency_monitoring_route():
+    from bd_platform.arbitrage_portfolio_ux_layer import latency_monitoring_status_187
+
+    return latency_monitoring_status_187()
+
+
+@router.get("/portfolio/risk-alert")
+async def risk_alert_confirmation_route(risk_score: float = Query(4.0), asset: str = Query("BTC")):
+    from bd_platform.arbitrage_portfolio_ux_layer import risk_alert_user_confirmation_188
+
+    return risk_alert_user_confirmation_188(risk_score=risk_score, asset=asset)
+
+
+@router.get("/intelligence/arbitrage/capacity")
+async def arbitrage_capacity_route(order_size_usd: float = Query(50_000)):
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_liquidity_capacity_189
+
+    return analyze_liquidity_capacity_189(order_size_usd=order_size_usd)
+
+
+@router.get("/portfolio/liquidity-capacity")
+async def portfolio_liquidity_capacity_route(order_size_usd: float = Query(50_000)):
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_liquidity_capacity_189
+
+    return analyze_liquidity_capacity_189(order_size_usd=order_size_usd)
+
+
+@router.get("/intelligence/arbitrage/geographic")
+async def geographic_arbitrage_route(asset: str = Query("BTC")):
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_geographic_arbitrage_190
+
+    return analyze_geographic_arbitrage_190(asset=asset)
+
+
+@router.get("/radar/exchange-health/withdrawal-alert")
+async def withdrawal_suspension_alert_route(exchange: str = Query("binance")):
+    from bd_platform.arbitrage_portfolio_ux_layer import withdrawal_suspension_alert_191
+
+    return withdrawal_suspension_alert_191(exchange=exchange)
+
+
+@router.get("/arbitrage-portfolio-ux/e2e")
+async def arbitrage_portfolio_ux_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.arbitrage_portfolio_ux_layer import run_arbitrage_portfolio_ux_e2e_177_191
+
+    return run_arbitrage_portfolio_ux_e2e_177_191()
