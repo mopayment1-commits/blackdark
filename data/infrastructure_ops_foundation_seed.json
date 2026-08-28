@@ -1,0 +1,172 @@
+{
+  "feature_refs": [1059, 1060, 1061, 1062, 1063],
+  "merged_into": "Sprint-0 Infrastructure",
+  "standalone_rejected": true,
+  "uptime_monitoring_1059": {
+    "policy": {
+      "probe_interval_sec": 30,
+      "outside_in_only": true,
+      "no_localhost_only": true,
+      "down_alert_threshold_sec": 60,
+      "notification_sla_sec": 120,
+      "escalation_no_ack_minutes": 5,
+      "public_status_page": "/status",
+      "best_effort_language": true,
+      "no_guaranteed_uptime": true,
+      "user_notify_outage_minutes": 5,
+      "blocks_production_if_incomplete": true
+    },
+    "critical_services": {
+      "oracle_api": {"path": "/api/oracle/quick", "method": "GET"},
+      "market_radar": {"path": "/api/market-radar", "method": "GET"},
+      "portfolio_ai": {"path": "/api/portfolio/summary", "method": "GET"},
+      "intelligence_ledger": {"path": "/api/intelligence-ledger/status", "method": "GET"},
+      "stripe_webhook": {"path": "/api/stripe/webhook", "method": "POST"},
+      "admin_panel": {"path": "/admin", "method": "GET"},
+      "pay_per_request": {"path": "/api/billing/usage", "method": "GET"}
+    },
+    "probe_regions": ["eu-west-1", "us-east-1", "ap-southeast-1"],
+    "alert_channels": ["pagerduty", "slack", "sms"],
+    "integrations": {
+      "incident_response_ref": 1017,
+      "circuit_breaker_ref": 1051,
+      "load_test_ref": 1020,
+      "ddos_protection_ref": 1047,
+      "live_badge_ref": 1030,
+      "activity_audit_ref": 1038
+    }
+  },
+  "centralized_logging_1060": {
+    "policy": {
+      "stack": "loki_compatible",
+      "search_latency_sec_max": 2,
+      "structured_json_enforced": true,
+      "schema_version": "1.0.0",
+      "blocks_production_if_incomplete": true
+    },
+    "retention": {
+      "operational_days": 30,
+      "audit_years": 2,
+      "security_years": 5
+    },
+    "schema_fields": [
+      "timestamp", "service", "level", "trace_id", "user_id", "tenant_id", "message", "metadata"
+    ],
+    "services": [
+      "api", "database", "cache", "queue", "worker", "cron", "external_integration"
+    ],
+    "access_control": {
+      "ops": "read_all",
+      "developers": "read_non_prod_filtered_prod",
+      "system_only_write": true,
+      "rbac_ref": 1022
+    },
+    "sanitization": {
+      "strip_private_keys": true,
+      "strip_wallet_seeds": true,
+      "strip_plaintext_passwords": true,
+      "vault_policy_ref": 1040
+    },
+    "integrations": {
+      "activity_audit_ref": 1038,
+      "provenance_ref": 945,
+      "incident_response_ref": 1017,
+      "uptime_monitoring_ref": 1059,
+      "circuit_breaker_ref": 1051
+    }
+  },
+  "apm_tracing_1061": {
+    "policy": {
+      "tooling": "prometheus_otel",
+      "rule_based_only": true,
+      "no_ml_anomaly_detection_sprint_2": true,
+      "alert_latency_sec_max": 60,
+      "baseline_recalibration": "monthly",
+      "blocks_production_if_incomplete": true
+    },
+    "critical_services": [
+      "oracle_api", "market_radar", "portfolio_ai", "intelligence_ledger",
+      "stripe_webhook", "data_engine", "onchain_extension"
+    ],
+    "metric_dimensions": [
+      "latency_p50", "latency_p95", "latency_p99", "throughput_rps",
+      "error_rate_pct", "cpu_pct", "memory_pct", "db_connections_pct", "cache_hit_rate_pct"
+    ],
+    "alert_triggers": {
+      "latency_p95_multiplier": 2.0,
+      "error_rate_pct_max": 1.0,
+      "memory_pct_max": 85.0,
+      "db_connections_pct_max": 80.0
+    },
+    "baselines": {
+      "source": "load_test_1020",
+      "oracle_api": {"latency_p95_ms": 800, "error_rate_pct": 0.1},
+      "market_radar": {"latency_p95_ms": 2000, "error_rate_pct": 0.2},
+      "data_engine": {"latency_p95_ms": 500, "error_rate_pct": 0.1}
+    },
+    "integrations": {
+      "uptime_monitoring_ref": 1059,
+      "centralized_logging_ref": 1060,
+      "circuit_breaker_ref": 1051,
+      "incident_response_ref": 1017,
+      "load_test_ref": 1020,
+      "live_badge_ref": 1030,
+      "decision_trace_ref": 955
+    }
+  },
+  "self_healing_watchdog_1062": {
+    "policy": {
+      "rule_based_only": true,
+      "max_restarts_per_5min": 3,
+      "exponential_backoff": true,
+      "graceful_restart": true,
+      "blocks_production_if_incomplete": true
+    },
+    "triggers": [
+      "process_exit_crash",
+      "health_check_fail_3x",
+      "memory_leak_threshold",
+      "connection_pool_exhaustion"
+    ],
+    "stateful_exceptions": ["database", "postgres_primary"],
+    "circuit_breaker_coordination": {
+      "circuit_open": "watchdog_paused",
+      "circuit_half_open": "test_restart_allowed",
+      "circuit_closed": "watchdog_active"
+    },
+    "integrations": {
+      "uptime_monitoring_ref": 1059,
+      "apm_tracing_ref": 1061,
+      "circuit_breaker_ref": 1051,
+      "incident_response_ref": 1017,
+      "backup_dr_ref": 1016,
+      "centralized_logging_ref": 1060
+    }
+  },
+  "explainability_policy_1063": {
+    "policy": {
+      "cross_cutting": true,
+      "standalone_rejected": true,
+      "why_mandatory": true,
+      "rule_based_only_sprint_2": true,
+      "no_black_box": true,
+      "multilingual": ["en", "ar"],
+      "ci_regression_required": true,
+      "blocks_output_without_explanation": true
+    },
+    "explanation_levels": ["one_line_summary", "detailed_breakdown", "audit_trail_link"],
+    "integrations": {
+      "signal_engine_ref": 11,
+      "ai_provenance_ref": 921,
+      "decision_intelligence_ref": 938,
+      "provenance_ref": 945,
+      "epistemic_humility_ref": 1021,
+      "public_accuracy_ledger_ref": 987,
+      "live_badge_ref": 1030
+    },
+    "fee_db": {
+      "compute_per_explanation_usd": 0.00005,
+      "logged_per_output": true
+    }
+  }
+}
