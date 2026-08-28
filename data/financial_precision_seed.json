@@ -1,0 +1,76 @@
+{
+  "feature_ref": 1032,
+  "merged_into": "Sprint-0 Cross-Cutting Engineering Policy",
+  "standalone_rejected": true,
+  "financial_precision_policy_1032": {
+    "policy": {
+      "enabled": true,
+      "float_forbidden_in_financial_paths": true,
+      "blocks_production_on_violation": true,
+      "methodology_version": "1.0.0",
+      "rounding_method": "round_half_up",
+      "crypto_decimal_places": 8,
+      "fiat_decimal_places": 2,
+      "sprint": 0
+    },
+    "precision": {
+      "crypto": {"decimal_places": 8, "quant": "0.00000001"},
+      "fiat": {"decimal_places": 2, "quant": "0.01"},
+      "rate": {"decimal_places": 7, "quant": "0.0000001"}
+    },
+    "scoped_modules": {
+      "pnl_ref": 981,
+      "stripe_billing_ref": 908,
+      "reference_pricing_ref": 959,
+      "standardized_metrics_ref": 1004,
+      "protocol_kpis_ref": 986,
+      "token_allocation_ref": 1007,
+      "vesting_schedule_ref": 1009,
+      "real_volume_ref": 992,
+      "immutable_audit_ref": 1029,
+      "provenance_ref": 945
+    },
+    "financial_paths": [
+      "money_decimal.py",
+      "profit_fee_algorithms.py",
+      "fee_matrix.py",
+      "slippage_guard.py",
+      "executable_edge_truth.py",
+      "billing/plan_registry.py",
+      "billing/subscription_engine.py",
+      "billing/webhook_processor.py",
+      "billing/institutional_activation.py",
+      "billing_service.py",
+      "payments_usd.py",
+      "blackdark/data/multi_source_reconciliation.py",
+      "blackdark/data/canonical_normalization_engine.py",
+      "bd_platform/intelligence_ledger.py"
+    ],
+    "settlement_functions": {
+      "money_decimal.py": [
+        "apply_fee",
+        "net_after_costs",
+        "money",
+        "crypto_money",
+        "fiat_money",
+        "quantize_asset",
+        "rate"
+      ],
+      "profit_fee_algorithms.py": ["net_cross_exchange_profit"],
+      "billing/institutional_activation.py": ["activate_institutional_from_invoice", "_contract_months"]
+    },
+    "lint_allow_calls": ["money_float", "d", "Decimal", "quantize", "int", "round"],
+    "integrations": {
+      "profitability_analyzer_ref": 981,
+      "stripe_ref": 908,
+      "reference_pricing_ref": 959,
+      "immutable_audit_ref": 1029,
+      "provenance_ref": 945
+    },
+    "fee_db": {
+      "precision_validation_usd": 0.00001,
+      "lint_scan_usd": 0.00005,
+      "logged_per_financial_query": true
+    }
+  }
+}

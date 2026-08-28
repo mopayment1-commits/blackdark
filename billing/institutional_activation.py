@@ -9,6 +9,7 @@ from billing.audit_ledger import record_audit
 from billing.plan_registry import normalize_plan
 from billing.subscription_engine import _record_payment_event
 from billing.subscription_store import ensure_subscription_account, get_by_user_id, update_subscription_account
+from money_decimal import fiat_money
 
 INSTITUTIONAL_MIN_USD = 999.0
 DEFAULT_CONTRACT_MONTHS = 12
@@ -18,10 +19,11 @@ def _utcnow_iso() -> str:
     return datetime.now(UTC).isoformat()
 
 
-def _contract_months(amount_usd: float) -> int:
-    if amount_usd >= 12000:
+def _contract_months(amount_usd: Any) -> int:
+    amt = fiat_money(amount_usd)
+    if amt >= fiat_money(12000):
         return 12
-    if amount_usd >= 6000:
+    if amt >= fiat_money(6000):
         return 6
     return DEFAULT_CONTRACT_MONTHS
 
@@ -47,7 +49,7 @@ async def activate_institutional_from_invoice(
     canonical = normalize_plan(plan or "institutional")
     if canonical != "institutional":
         canonical = "institutional"
-    if float(amount_usd) < INSTITUTIONAL_MIN_USD:
+    if fiat_money(amount_usd) < fiat_money(INSTITUTIONAL_MIN_USD):
         raise ValueError(f"institutional_amount_below_minimum:{INSTITUTIONAL_MIN_USD}")
 
     user = await fetch_user_by_email(email)
@@ -55,7 +57,8 @@ async def activate_institutional_from_invoice(
         raise ValueError("user_not_found_register_first")
 
     uid = int(user["id"])
-    months = period_months or _contract_months(float(amount_usd))
+    amount_dec = fiat_money(amount_usd)
+    months = period_months or _contract_months(amount_dec)
     now = datetime.now(UTC)
     period_start = now.isoformat()
     period_end = (now + timedelta(days=30 * months)).isoformat()
@@ -68,7 +71,7 @@ async def activate_institutional_from_invoice(
         provider_event_id=invoice_id,
         event_type="institutional_invoice_paid",
         status="succeeded",
-        amount_cents=int(round(float(amount_usd) * 100)),
+        amount_cents=int(amount_dec * 100),
         plan=canonical,
         raw_event_type=source,
     )
@@ -108,7 +111,7 @@ async def activate_institutional_from_invoice(
         old_plan=None,
         new_plan=canonical,
         new_status="active",
-        amount_cents=int(round(float(amount_usd) * 100)),
+        amount_cents=int(amount_dec * 100),
         payment_event_id=pay_id,
         provider_subscription_id=provider_sub_id,
         reason=f"invoice={invoice_id} ref={external_ref} org={org_id or ''} months={months}",

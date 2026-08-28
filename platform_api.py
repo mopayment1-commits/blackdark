@@ -548,6 +548,41 @@ async def intelligence_ledger_slippage(
     )
 
 
+@router.get("/financial-precision/status")
+async def financial_precision_status():
+    from bd_platform.financial_precision_policy_engine import financial_precision_status_1032
+
+    return financial_precision_status_1032()
+
+
+@router.get("/financial-precision/production-gate")
+async def financial_precision_production_gate():
+    from bd_platform.financial_precision_policy_engine import check_production_gate_1032
+
+    return check_production_gate_1032()
+
+
+@router.get("/financial-precision/lint")
+async def financial_precision_lint(_admin: dict = Depends(require_admin)):
+    from bd_platform.financial_precision_policy_engine import scan_financial_paths
+
+    return scan_financial_paths()
+
+
+@router.get("/financial-precision/audit-trail")
+async def financial_precision_audit_trail(_admin: dict = Depends(require_admin)):
+    from bd_platform.financial_precision_policy_engine import get_financial_precision_audit_trail
+
+    return get_financial_precision_audit_trail()
+
+
+@router.get("/financial-precision/e2e")
+async def financial_precision_e2e(_admin: dict = Depends(require_admin)):
+    from bd_platform.financial_precision_policy_engine import run_financial_precision_e2e_1032
+
+    return run_financial_precision_e2e_1032()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),
