@@ -159,6 +159,27 @@ def register_signal(
 
     lexicon_override may include definition, source, and/or weight.
     """
+    try:
+        from signal_integrity_guard import validate_signal_integrity
+
+        integrity = validate_signal_integrity(
+            signal_type=signal_type,
+            asset=asset,
+            features=features,
+            provenance=provenance,
+            asof=asof,
+            source_id=str((provenance or {}).get("source") or (lexicon_override or {}).get("source") or ""),
+        )
+        if integrity.get("rejected"):
+            return {
+                "signal_id": None,
+                "rejected": True,
+                "integrity": integrity,
+                "label": "rejected_spoof",
+            }
+    except ImportError:
+        integrity = None
+
     lex = {**_lexicon_for(signal_type), **(lexicon_override or {})}
     sid = str(prediction_id) if prediction_id not in (None, "", 0) else f"sig_{uuid4().hex[:16]}"
     record = {
@@ -176,7 +197,7 @@ def register_signal(
         "source": lex.get("source"),
         "weight": float(lex.get("weight") or 0.5),
         "performance": {"hits": 0, "misses": 0, "pending": 1, "hit_rate": None},
-        "provenance": provenance or {},
+        "provenance": {**(provenance or {}), **({"integrity_check": integrity} if integrity else {})},
         "created_at": _utcnow(),
         "updated_at": _utcnow(),
     }

@@ -865,6 +865,20 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/signal-integrity/status")
+async def signal_integrity_status_api():
+    from signal_integrity_guard import signal_integrity_status
+
+    return signal_integrity_status()
+
+
+@router.get("/signal-integrity/e2e")
+async def signal_integrity_e2e_api():
+    from signal_integrity_guard import run_signal_integrity_e2e
+
+    return run_signal_integrity_e2e()
+
+
 @router.post("/ml/rl/train")
 async def rl_policy_train(_admin: dict = Depends(require_admin)):
     import random
