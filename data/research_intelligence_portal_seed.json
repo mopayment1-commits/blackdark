@@ -146,5 +146,20 @@
       "derivatives:funding_btc_001",
       "market:btc_overview_001"
     ]
+  },
+  "auto_report_922": {
+    "description": "Template-based AI reports from computed metrics",
+    "executive_summary_template": "BTC trading at elevated levels with positive funding and neutral sentiment.",
+    "outlook_template": "Conditions may persist based on current data — not a forecast.",
+    "metrics": {
+      "BTC_price": {"value": 64800, "unit": "USD", "source": "market_data_engine", "timestamp": "2026-08-28T00:00:00Z"},
+      "BTC_funding": {"value": 0.012, "unit": "percent", "source": "funding_intelligence", "timestamp": "2026-08-28T00:00:00Z"},
+      "BTC_NVT": {"value": 42.3, "unit": "ratio", "source": "onchain_metrics", "timestamp": "2026-08-28T00:00:00Z"}
+    },
+    "risk_alerts": ["Funding mildly positive — monitor for volatility"],
+    "fee_db": {
+      "generation_per_report_usd": 0.05,
+      "delivery_per_report_usd": 0.01
+    }
   }
 }

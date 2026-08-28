@@ -1836,6 +1836,46 @@ async def protocol_financials_page_route(protocol_id: str = Query(...)):
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/extension/status")
+async def onchain_extension_status_route():
+    """#12 On-Chain Extension — #923 AML Screening + #926 Entity Layer."""
+    from bd_platform.onchain_intelligence_extension import onchain_extension_status
+
+    return onchain_extension_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/screen")
+async def onchain_aml_screen_route(address: str = Query(..., min_length=42)):
+    from bd_platform.onchain_intelligence_extension import screen_address_923
+
+    return screen_address_923(address)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/labels")
+async def onchain_entity_labels_route(
+    address: str = Query(..., min_length=42),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.onchain_intelligence_extension import get_address_labels_926
+
+    return get_address_labels_926(address, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/cohorts/{cohort_id}")
+async def onchain_cohort_route(cohort_id: str):
+    from bd_platform.onchain_intelligence_extension import build_address_cohort_926
+
+    return build_address_cohort_926(cohort_id)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/e2e")
+async def onchain_extension_e2e_route():
+    from bd_platform.onchain_intelligence_extension import run_onchain_extension_e2e
+
+    return run_onchain_extension_e2e()
+
+
 @router.get("/intelligence-ledger/onchain-layer/smart-money-flow/status")
 async def smart_money_flow_status_route():
     """#408 Smart Money Flow Tracker (absorbs #459 Dormancy)."""
@@ -5639,6 +5679,40 @@ async def provenance_layer_e2e_route(_admin: dict = Depends(require_admin)):
     return run_provenance_layer_e2e()
 
 
+@router.get("/internal/data-engine/export-layer/status")
+async def export_layer_status_route(_admin: dict = Depends(require_admin)):
+    """#924 API / Data Export — Data Engine export layer."""
+    from bd_platform.data_engine_export_layer import export_layer_status_924
+
+    return export_layer_status_924()
+
+
+@router.get("/internal/data-engine/export-layer/{dataset_id}")
+async def export_layer_export_route(
+    dataset_id: str,
+    fmt: str = Query("json"),
+    tenant_id: str = Query("tenant_default"),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_export_layer import export_dataset_924
+
+    return export_dataset_924(dataset_id, fmt=fmt, tenant_id=tenant_id)
+
+
+@router.get("/internal/data-engine/export-layer/contract-tests")
+async def export_layer_contract_tests_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_export_layer import run_export_contract_tests_924
+
+    return run_export_contract_tests_924()
+
+
+@router.get("/internal/data-engine/export-layer/e2e")
+async def export_layer_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_export_layer import run_export_layer_e2e_924
+
+    return run_export_layer_e2e_924()
+
+
 @router.get("/intelligence-ledger/api-gateway/sdk/status")
 async def developer_sdk_status_route():
     """#853 Developer SDK — API Gateway DX layer."""
@@ -6659,6 +6733,33 @@ async def research_portal_e2e_route():
     from bd_platform.research_intelligence_portal import run_research_portal_e2e
 
     return run_research_portal_e2e()
+
+
+@router.get("/intelligence-ledger/research-portal/auto-report")
+async def research_portal_auto_report_route(
+    frequency: str = Query("daily"),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    """#922 AI-Generated Reporting — template-based from computed metrics."""
+    from bd_platform.research_intelligence_portal import generate_auto_report_922
+
+    return generate_auto_report_922(frequency=frequency, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/ai-provenance/status")
+async def ai_provenance_policy_status_route():
+    """#921 AI Output Provenance — cross-cutting compliance policy."""
+    from bd_platform.ai_output_provenance_policy import ai_provenance_policy_status_921
+
+    return ai_provenance_policy_status_921()
+
+
+@router.get("/intelligence-ledger/ai-provenance/regression-tests")
+async def ai_provenance_regression_route():
+    from bd_platform.ai_output_provenance_policy import run_ai_provenance_regression_tests_921
+
+    return run_ai_provenance_regression_tests_921()
 
 
 @router.get("/intelligence-ledger/sector-comparables/status")
