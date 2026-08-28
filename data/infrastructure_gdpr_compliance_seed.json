@@ -1,0 +1,111 @@
+{
+  "feature_ref": 1023,
+  "control_ref": "PRV-002",
+  "merged_into": "Sprint-0 Infrastructure (#949 Data Retention)",
+  "standalone_rejected": true,
+  "gdpr_compliance_1023": {
+    "sprint": 0,
+    "policy": {
+      "right_to_be_forgotten": true,
+      "soft_delete_grace_days": 30,
+      "hard_delete_after_grace": true,
+      "data_residency_documented": true,
+      "explicit_consent_required": true,
+      "no_preticked_consent": true,
+      "data_minimization": true,
+      "data_portability": true,
+      "breach_notification_72h": true,
+      "dpo_contact_visible": true,
+      "blocks_production_if_incomplete": true
+    },
+    "fee_db": {
+      "ops_budget": true,
+      "no_user_facing_fee": true,
+      "ops_costs_usd": {
+        "deletion_request": 0.002,
+        "hard_delete": 0.005,
+        "portability_export": 0.001,
+        "default": 0.001
+      }
+    }
+  },
+  "data_residency": {
+    "eu_users_eu_storage": true,
+    "eu_region": "eu-west-1",
+    "non_eu_designated_region": "us-east-1",
+    "datasets": [
+      {
+        "dataset": "user_accounts",
+        "region_eu": "eu-west-1",
+        "region_non_eu": "us-east-1",
+        "article": "GDPR Article 44"
+      },
+      {
+        "dataset": "session_tokens",
+        "region_eu": "eu-west-1",
+        "region_non_eu": "us-east-1",
+        "encrypted": true
+      },
+      {
+        "dataset": "billing_metadata",
+        "region_eu": "eu-west-1",
+        "region_non_eu": "us-east-1",
+        "processor": "stripe",
+        "pci_dss": true
+      },
+      {
+        "dataset": "audit_logs",
+        "region_eu": "eu-west-1",
+        "region_non_eu": "us-east-1",
+        "retention_years": 5
+      },
+      {
+        "dataset": "analytics_logs",
+        "region_eu": "eu-west-1",
+        "region_non_eu": "us-east-1",
+        "retention_years": 2
+      }
+    ]
+  },
+  "retention_alignment": {
+    "retention_ref": 949,
+    "personal_data": "account_lifetime_plus_30_days",
+    "logs": "2_years",
+    "audit": "5_years"
+  },
+  "data_minimization": {
+    "collected": ["email", "preferences", "public_wallet_addresses"],
+    "kyc_institution_only": true,
+    "privacy_policy_ref": 1018
+  },
+  "breach_notification": {
+    "incident_response_ref": 1017,
+    "supervisory_authority_hours": 72,
+    "user_notification": "without_undue_delay",
+    "tested": true,
+    "steps": [
+      "Detect and contain breach within 24h",
+      "Assess personal data impact",
+      "Notify supervisory authority within 72h",
+      "Notify affected users without undue delay",
+      "Document in incident response audit trail"
+    ]
+  },
+  "dpo": {
+    "email": "dpo@blackdark.io",
+    "name": "Data Protection Officer",
+    "languages": ["en", "ar"],
+    "visible_in_privacy_policy": true,
+    "privacy_policy_ref": 1018
+  },
+  "integrations": {
+    "retention_949": "policy framework — schedules aligned",
+    "privacy_1018": "GDPR-compliant ToS/Privacy EN+AR",
+    "authn_1019": "deletion = session invalidation + API key revocation",
+    "provenance_945": "deletion propagates through lineage",
+    "billing_908": "Stripe coordinated deletion",
+    "incident_response_1017": "breach notification playbook",
+    "data_export_924": "portability JSON/CSV",
+    "traceability_955": "no orphan records after deletion"
+  }
+}
