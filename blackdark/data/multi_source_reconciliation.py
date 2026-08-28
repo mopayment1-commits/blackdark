@@ -61,6 +61,12 @@ def reset_multi_source_state() -> None:
     _source_health.clear()
     _failover_state.clear()
     _recovery_state.clear()
+    try:
+        from blackdark.data.outlier_detection_gate import reset_outlier_state
+
+        reset_outlier_state()
+    except ImportError:
+        pass
 
 
 def _utcnow() -> str:
@@ -640,13 +646,29 @@ def reconcile_observations(
     *,
     data_type: DataType,
     observations: list[dict[str, Any]],
+    symbol: str = "BTC",
+    chain: str = "ethereum",
     seed: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    Core reconciliation — failover, divergence handling, provenance tagging.
+    Core reconciliation — outlier gate, failover, divergence handling, provenance tagging.
     observations: [{"source": "binance", "value": 42000.0, "ok": True}, ...]
     """
     seed = seed or _load_seed()
+    outlier_gate_meta: dict[str, Any] | None = None
+    try:
+        from blackdark.data.outlier_detection_gate import apply_outlier_gate_to_observations
+
+        outlier_gate_meta = apply_outlier_gate_to_observations(
+            data_type=data_type,
+            observations=observations,
+            symbol=symbol,
+            chain=chain,
+        )
+        observations = outlier_gate_meta["clean"]
+    except ImportError:
+        logger.debug("outlier detection gate unavailable")
+
     cfg = _cfg(seed)
     min_sources = int((cfg.get("policy") or {}).get("min_sources_per_type", 2))
     thresholds = cfg.get("thresholds_pct") or _DEFAULT_THRESHOLDS
@@ -662,6 +684,8 @@ def reconcile_observations(
             data_type=data_type, valid=valid, failed=failed, seed=seed
         )
         if failover_result is not None:
+            if outlier_gate_meta:
+                failover_result["outlier_gate"] = outlier_gate_meta
             _log_reconciliation(failover_result)
             return failover_result
 
@@ -685,6 +709,8 @@ def reconcile_observations(
         }
         _log_reconciliation(result)
         _trigger_incident_if_needed(result, seed=seed)
+        if outlier_gate_meta:
+            result["outlier_gate"] = outlier_gate_meta
         return result
 
     a, b = valid[0], valid[1]
@@ -730,6 +756,8 @@ def reconcile_observations(
         }
         _log_reconciliation(result)
         _trigger_incident_if_needed(result, seed=seed)
+        if outlier_gate_meta:
+            result["outlier_gate"] = outlier_gate_meta
         return result
 
     reconciled_value = (float(a["value"]) + float(b["value"])) / 2.0
@@ -762,7 +790,29 @@ def reconcile_observations(
         "timestamp": _utcnow(),
     }
     _log_reconciliation(result)
+    if outlier_gate_meta:
+        result["outlier_gate"] = outlier_gate_meta
     return result
+
+
+def _apply_outlier_response_gate(
+    result: dict[str, Any],
+    *,
+    data_type: DataType,
+    symbol: str = "BTC",
+    chain: str = "ethereum",
+) -> dict[str, Any]:
+    try:
+        from blackdark.data.outlier_detection_gate import apply_outlier_gate_to_response
+
+        return apply_outlier_gate_to_response(
+            result=result,
+            data_type=data_type,
+            symbol=symbol,
+            chain=chain,
+        )
+    except ImportError:
+        return result
 
 
 def reconcile_price(
@@ -788,9 +838,12 @@ def reconcile_price(
             for s in sources[:2]
         ]
 
-    result = reconcile_observations(data_type="price", observations=observations, seed=seed)
+    result = reconcile_observations(
+        data_type="price", observations=observations, symbol=symbol, seed=seed
+    )
     result["symbol"] = symbol
     result["reference_pricing_ref"] = _REFERENCE_PRICING_REF
+    result = _apply_outlier_response_gate(result, data_type="price", symbol=symbol)
     if not explicit:
         _CACHE[cache_key] = (time.time(), result)
     return result
@@ -819,9 +872,12 @@ def reconcile_volume(
             for s in sources[:2]
         ]
 
-    result = reconcile_observations(data_type="volume", observations=observations, seed=seed)
+    result = reconcile_observations(
+        data_type="volume", observations=observations, symbol=symbol, seed=seed
+    )
     result["symbol"] = symbol
     result["real_volume_ref"] = _REAL_VOLUME_REF
+    result = _apply_outlier_response_gate(result, data_type="volume", symbol=symbol)
     if not explicit:
         _CACHE[cache_key] = (time.time(), result)
     return result
@@ -850,9 +906,12 @@ def reconcile_onchain(
             for s in sources[:2]
         ]
 
-    result = reconcile_observations(data_type="onchain", observations=observations, seed=seed)
+    result = reconcile_observations(
+        data_type="onchain", observations=observations, chain=chain, seed=seed
+    )
     result["chain"] = chain
     result["onchain_extension_ref"] = _ONCHAIN_EXT_REF
+    result = _apply_outlier_response_gate(result, data_type="onchain", chain=chain)
     if not explicit:
         _CACHE[cache_key] = (time.time(), result)
     return result

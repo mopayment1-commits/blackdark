@@ -290,6 +290,34 @@ async def get_reconciliation_e2e(_: None = Depends(require_admin), __: None = De
     return run_multi_source_e2e_1024()
 
 
+@router.get("/api/v1/data/outlier/status")
+async def get_outlier_status(_: None = Depends(_ensure_ready)):
+    from blackdark.data.outlier_detection_gate import outlier_gate_status_1026
+
+    return outlier_gate_status_1026()
+
+
+@router.get("/api/v1/data/outlier/events")
+async def get_outlier_events(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.outlier_detection_gate import get_outlier_audit_trail
+
+    return get_outlier_audit_trail()
+
+
+@router.get("/api/v1/data/outlier/production-gate")
+async def get_outlier_production_gate(_: None = Depends(_ensure_ready)):
+    from blackdark.data.outlier_detection_gate import check_production_gate_1026
+
+    return check_production_gate_1026()
+
+
+@router.get("/api/v1/data/outlier/e2e")
+async def get_outlier_e2e(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.outlier_detection_gate import run_outlier_e2e_1026
+
+    return run_outlier_e2e_1026()
+
+
 @router.post("/api/v1/data/ingest", status_code=202)
 async def trigger_ingest(body: IngestRequest, _: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
 
