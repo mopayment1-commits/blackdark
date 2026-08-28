@@ -1,0 +1,31 @@
+{
+  "tax_pnl_918": {
+    "methodology_version": "1.0",
+    "fee_db": {
+      "compute_per_report_usd": 0.05,
+      "storage_per_report_usd": 0.01,
+      "export_per_report_usd": 0.02
+    },
+    "fx_rates": {
+      "USD": 1.0,
+      "EUR": 1.08,
+      "GBP": 1.27
+    },
+    "exchange_sync_trades": [
+      {"asset": "BTC", "side": "buy", "quantity": "1.0", "price_usd": "42000", "fee_usd": "25", "timestamp": "2025-01-15T10:00:00Z", "source": "exchange_sync_907"},
+      {"asset": "BTC", "side": "sell", "quantity": "0.5", "price_usd": "65000", "fee_usd": "32.5", "timestamp": "2025-06-20T14:30:00Z", "source": "exchange_sync_907"},
+      {"asset": "ETH", "side": "buy", "quantity": "10", "price_usd": "2800", "fee_usd": "14", "timestamp": "2025-03-01T09:00:00Z", "source": "exchange_sync_907"}
+    ],
+    "csv_trades": [
+      {"asset": "ETH", "side": "sell", "quantity": "5", "price_usd": "3500", "fee_usd": "8.75", "timestamp": "2025-08-10T16:00:00Z", "source": "csv_upload"}
+    ],
+    "onchain_trades": [
+      {"asset": "SOL", "side": "buy", "quantity": "100", "price_usd": "120", "fee_usd": "0.5", "timestamp": "2025-05-05T12:00:00Z", "source": "onchain_public"}
+    ],
+    "edge_case_events": [
+      {"type": "airdrop", "asset": "ARB", "quantity": "500", "fmv_usd": "0.80", "timestamp": "2025-04-01T00:00:00Z"},
+      {"type": "fork", "asset": "ETH", "derived_asset": "ETHW", "quantity": "10", "timestamp": "2022-09-15T00:00:00Z"},
+      {"type": "staking_reward", "asset": "ETH", "quantity": "0.05", "fmv_usd": "3400", "timestamp": "2025-07-01T00:00:00Z"}
+    ]
+  }
+}

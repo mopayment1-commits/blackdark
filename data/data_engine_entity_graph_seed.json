@@ -1,0 +1,114 @@
+{
+  "entity_graph_940": {
+    "schema_version": "1.0.0",
+    "entity_types": ["asset", "protocol", "investor", "fund", "exchange", "wallet", "event"],
+    "edge_types": ["INVESTS_IN", "ISSUES", "LISTED_ON", "GOVERNS", "COMPETES_WITH"],
+    "fee_db": {
+      "storage_per_entity_usd": 0.0001,
+      "graph_query_per_call_usd": 0.005
+    }
+  },
+  "entities": {
+    "ent_asset_btc": {
+      "stable_id": "ent_asset_btc",
+      "type": "asset",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "version": "1.0.0",
+      "confidence": "high",
+      "source": "canonical_registry"
+    },
+    "ent_asset_eth": {
+      "stable_id": "ent_asset_eth",
+      "type": "asset",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "version": "1.0.0",
+      "confidence": "high",
+      "source": "canonical_registry"
+    },
+    "ent_protocol_uniswap": {
+      "stable_id": "ent_protocol_uniswap",
+      "type": "protocol",
+      "name": "Uniswap",
+      "version": "1.0.0",
+      "confidence": "high",
+      "source": "canonical_registry"
+    },
+    "ent_investor_a16z": {
+      "stable_id": "ent_investor_a16z",
+      "type": "investor",
+      "name": "a16z crypto",
+      "version": "1.0.0",
+      "confidence": "high",
+      "source": "public_filings"
+    },
+    "ent_exchange_binance": {
+      "stable_id": "ent_exchange_binance",
+      "type": "exchange",
+      "name": "Binance",
+      "version": "1.0.0",
+      "confidence": "high",
+      "source": "canonical_registry"
+    }
+  },
+  "edges": [
+    {
+      "edge_id": "edge_001",
+      "from": "ent_protocol_uniswap",
+      "to": "ent_asset_eth",
+      "type": "ISSUES",
+      "valid_from": "2020-05-01T00:00:00+00:00",
+      "valid_to": null,
+      "source": "on_chain_registry",
+      "confidence": "high",
+      "version": "1.0.0"
+    },
+    {
+      "edge_id": "edge_002",
+      "from": "ent_investor_a16z",
+      "to": "ent_protocol_uniswap",
+      "type": "INVESTS_IN",
+      "valid_from": "2022-03-15T00:00:00+00:00",
+      "valid_to": null,
+      "source": "public_filings",
+      "confidence": "medium",
+      "version": "1.0.0"
+    },
+    {
+      "edge_id": "edge_003",
+      "from": "ent_asset_eth",
+      "to": "ent_exchange_binance",
+      "type": "LISTED_ON",
+      "valid_from": "2017-07-14T00:00:00+00:00",
+      "valid_to": null,
+      "source": "exchange_announcement",
+      "confidence": "high",
+      "version": "1.0.0"
+    },
+    {
+      "edge_id": "edge_004",
+      "from": "ent_asset_btc",
+      "to": "ent_asset_eth",
+      "type": "COMPETES_WITH",
+      "valid_from": "2015-07-30T00:00:00+00:00",
+      "valid_to": null,
+      "source": "market_analysis",
+      "confidence": "low",
+      "version": "1.0.0"
+    }
+  ],
+  "merge_audit": [
+    {
+      "merge_id": "merge_001",
+      "merged_from": "ent_investor_andreessen",
+      "merged_into": "ent_investor_a16z",
+      "merged_at": "2026-01-10T00:00:00+00:00",
+      "reason": "entity_resolution_duplicate",
+      "old_id_redirect": true
+    }
+  ],
+  "id_redirects": {
+    "ent_investor_andreessen": "ent_investor_a16z"
+  }
+}

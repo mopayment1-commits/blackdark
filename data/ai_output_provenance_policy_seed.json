@@ -1,0 +1,11 @@
+{
+  "ai_provenance_policy_921": {
+    "fails_closed": true,
+    "default_data_freshness": "2026-08-28T00:00:00Z",
+    "confidence_thresholds": {"high": 3, "medium": 2},
+    "fee_db": {
+      "verification_per_output_usd": 0.002,
+      "metadata_per_output_usd": 0.001
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "narrative_sector_974": {
+    "taxonomy_version": "1.0.0",
+    "backtest_days": 90,
+    "min_sources": 3,
+    "fee_db": {
+      "ingest_per_narrative_usd": 0.003,
+      "clustering_per_run_usd": 0.01,
+      "storage_per_day_usd": 0.001
+    }
+  },
+  "narratives": {
+    "ai_agents": {
+      "name": "AI Agents",
+      "sector": "infrastructure",
+      "sub_sector": "ai",
+      "lifecycle_stage": "accelerating",
+      "taxonomy_version": "1.0.0",
+      "locked_at": "2026-08-15T00:00:00+00:00",
+      "mention_volume_change_pct": 85.0,
+      "price_momentum_pct": 42.0,
+      "onchain_activity_change_pct": 38.0,
+      "constituents": ["FET", "RNDR", "TAO", "AKT"],
+      "terms": ["ai agent", "autonomous agent", "agent framework"],
+      "sources": [
+        {"source": "coindesk", "url": "https://coindesk.com/ai-agents"},
+        {"source": "theblock", "url": "https://theblock.co/ai-agents"},
+        {"source": "twitter_trending", "url": "https://twitter.com/search?q=ai%20agents%20crypto"}
+      ]
+    },
+    "rwa_tokenization": {
+      "name": "RWA Tokenization",
+      "sector": "defi",
+      "sub_sector": "rwa",
+      "lifecycle_stage": "emerging",
+      "taxonomy_version": "1.0.0",
+      "locked_at": "2026-08-20T00:00:00+00:00",
+      "mention_volume_change_pct": 62.0,
+      "price_momentum_pct": 18.0,
+      "onchain_activity_change_pct": 55.0,
+      "constituents": ["ONDO", "MKR", "CFG"],
+      "terms": ["real world assets", "tokenized treasuries", "rwa"],
+      "sources": [
+        {"source": "defillama", "url": "https://defillama.com/rwa"},
+        {"source": "coindesk", "url": "https://coindesk.com/rwa"},
+        {"source": "messari", "url": "https://messari.io/rwa"}
+      ]
+    },
+    "unverified_rumor": {
+      "name": "Unverified Listing Rumor",
+      "sector": "other",
+      "sub_sector": "rumor",
+      "lifecycle_stage": "emerging",
+      "mention_volume_change_pct": 120.0,
+      "price_momentum_pct": 5.0,
+      "onchain_activity_change_pct": 2.0,
+      "constituents": ["UNKNOWN"],
+      "terms": ["listing rumor"],
+      "sources": [
+        {"source": "anonymous_telegram"}
+      ]
+    }
+  },
+  "sectors": {
+    "defi": {
+      "name": "DeFi",
+      "mindshare_pct": 28.5,
+      "sentiment_score": 0.62,
+      "return_7d_pct": 3.2,
+      "narrative_count": 4,
+      "acceleration": "stable",
+      "constituents": ["AAVE", "UNI", "MKR", "CRV"],
+      "no_double_counting": true
+    },
+    "infrastructure": {
+      "name": "Infrastructure",
+      "mindshare_pct": 22.0,
+      "sentiment_score": 0.71,
+      "return_7d_pct": 8.5,
+      "narrative_count": 3,
+      "acceleration": "accelerating",
+      "constituents": ["ETH", "SOL", "FET", "RNDR"],
+      "no_double_counting": true
+    },
+    "layer2": {
+      "name": "Layer 2",
+      "mindshare_pct": 15.5,
+      "sentiment_score": 0.58,
+      "return_7d_pct": 1.8,
+      "narrative_count": 2,
+      "acceleration": "declining",
+      "constituents": ["ARB", "OP", "MATIC"],
+      "no_double_counting": true
+    }
+  },
+  "backtest_results_974": {
+    "ai_agents": {"precision": 0.72, "recall": 0.65, "out_of_sample": true},
+    "rwa_tokenization": {"precision": 0.68, "recall": 0.58, "out_of_sample": true}
+  }
+}

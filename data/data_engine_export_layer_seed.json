@@ -1,0 +1,29 @@
+{
+  "export_layer_924": {
+    "schema_version": "1.0.0",
+    "async_row_threshold": 10000,
+    "fee_db": {
+      "bandwidth_per_export_usd": 0.01,
+      "compute_per_export_usd": 0.005,
+      "storage_per_export_usd": 0.002
+    },
+    "contract_schema": {
+      "required_fields": ["asset", "price_usd"]
+    }
+  },
+  "datasets": {
+    "market_fundamentals": {
+      "visibility": "public",
+      "rows": [
+        {"asset": "BTC", "price_usd": 64800, "volume_24h_usd": 28500000000},
+        {"asset": "ETH", "price_usd": 3480, "volume_24h_usd": 12400000000},
+        {"asset": "SOL", "price_usd": 142, "volume_24h_usd": 2100000000}
+      ]
+    },
+    "tenant_private_data": {
+      "visibility": "tenant",
+      "tenant_id": "tenant_alpha",
+      "rows": [{"portfolio_id": "p1", "value_usd": 125000}]
+    }
+  }
+}

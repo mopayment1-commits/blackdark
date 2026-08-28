@@ -1,0 +1,31 @@
+{
+  "exchange_connectors_907": {
+    "supported_exchanges": ["binance", "coinbase", "kraken", "okx"],
+    "fee_db": {
+      "api_call_per_sync_usd": 0.01,
+      "storage_per_sync_usd": 0.001,
+      "processing_per_sync_usd": 0.002
+    },
+    "sample_accounts": {
+      "binance:main": {
+        "balances": [
+          {"asset": "BTC", "quantity": 1.25},
+          {"asset": "ETH", "quantity": 12.5},
+          {"asset": "USDT", "quantity": 5000}
+        ],
+        "api_cost_usd": 0.012
+      },
+      "coinbase:secondary": {
+        "balances": [
+          {"asset": "BTC", "quantity": 0.5},
+          {"asset": "SOL", "quantity": 150}
+        ],
+        "api_cost_usd": 0.009
+      },
+      "kraken:failing": {
+        "simulate_failure": true,
+        "error": "rate_limit_exceeded"
+      }
+    }
+  }
+}

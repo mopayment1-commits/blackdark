@@ -1,0 +1,365 @@
+{
+  "aml_screening_923": {
+    "rules_version": "1.0.0",
+    "fee_db": {
+      "screen_per_address_usd": 0.005,
+      "rpc_per_query_usd": 0.002,
+      "indexing_per_query_usd": 0.001
+    },
+    "indicators": {
+      "mixing_pattern_score": {"name": "Mixing Pattern", "threshold": 0.7},
+      "high_risk_entity_interaction": {"name": "High-Risk Entity Interaction", "threshold": 0.5},
+      "velocity_threshold_breaches": {"name": "Velocity Threshold", "threshold": 3}
+    }
+  },
+  "entity_layer_926": {
+    "label_version": "1.0.0"
+  },
+  "address_risk_profiles": {
+    "0x742d35cc6634c0532925a3b844bc9e7595f0bbe0": {
+      "mixing_pattern_score": 0.85,
+      "high_risk_entity_interaction": 0.6,
+      "velocity_threshold_breaches": 4
+    }
+  },
+  "fraud_screening_960": {
+    "rules_version": "1.0.0",
+    "fee_db": {
+      "screen_per_address_usd": 0.008,
+      "graph_query_usd": 0.004
+    },
+    "indicators": {
+      "cyclic_transfer_score": {"name": "Cyclic Transfer Pattern", "threshold": 0.7},
+      "mixer_interaction_score": {"name": "Mixer Interaction", "threshold": 0.6},
+      "rapid_peel_chain_score": {"name": "Rapid Peel Chain", "threshold": 0.65}
+    }
+  },
+  "fraud_profiles": {
+    "0x742d35cc6634c0532925a3b844bc9e7595f0bbe0": {
+      "cyclic_transfer_score": 0.82,
+      "mixer_interaction_score": 0.75,
+      "rapid_peel_chain_score": 0.7,
+      "graph_patterns": [
+        {
+          "pattern_id": "cyclic_transfer",
+          "name": "Cyclic Transfer",
+          "score": 0.82,
+          "threshold": 0.7,
+          "evidence": {"hops": 5, "cycle_detected": true}
+        }
+      ]
+    }
+  },
+  "risky_entities": {
+    "tornado_cash_legacy": {
+      "name": "Tornado Cash (sanctioned)",
+      "source": "ofac_public_list",
+      "source_documented": true,
+      "addresses": ["0x742d35cc6634c0532925a3b844bc9e7595f0bbe0"]
+    }
+  },
+  "wallet_dd_972": {
+    "rules_version": "1.0.0",
+    "certificate_ref": 952,
+    "fee_db": {
+      "query_per_wallet_usd": 0.01,
+      "analysis_per_wallet_usd": 0.02,
+      "export_per_report_usd": 0.03
+    }
+  },
+  "wallet_dd_profiles_972": {
+    "0x742d35cc6634c0532925a3b844bc9e7595f0bbe0": {
+      "balance_usd": 125000000,
+      "tx_count": 450000,
+      "first_seen": "2019-06-01",
+      "last_active": "2026-08-28T01:00:00+00:00",
+      "profile_confidence": "high",
+      "profile_evidence": [{"tx_hash": "0xabc123", "type": "balance_snapshot", "source": "onchain_indexer"}],
+      "history_summary": "Exchange hot wallet — high volume",
+      "notable_txs": [{"tx_hash": "0xdef456", "value_usd": 5000000, "type": "outflow"}],
+      "history_evidence": [{"tx_hash": "0xdef456", "source": "etherscan"}],
+      "history_confidence": "high",
+      "top_counterparties": [
+        {"address": "0x28c6c06298d514db089934071355e5743bf21d60", "label": "Binance", "volume_usd": 2500000000}
+      ],
+      "counterparty_evidence": [{"tx_hash": "0xghi789", "counterparty": "0x28c6...", "source": "onchain_indexer"}],
+      "counterparty_confidence": "high",
+      "velocity_anomaly": null
+    },
+    "0x0000000000000000000000000000000000000001": {
+      "balance_usd": 0,
+      "tx_count": 0,
+      "profile_confidence": "low",
+      "profile_evidence": [],
+      "history_summary": "No activity",
+      "history_evidence": [],
+      "history_confidence": "low",
+      "top_counterparties": [],
+      "counterparty_evidence": [],
+      "counterparty_confidence": "low",
+      "velocity_anomaly": null
+    }
+  },
+  "public_labels": {
+    "0x742d35cc6634c0532925a3b844bc9e7595f0bbe0": {
+      "label": "Binance Hot Wallet",
+      "entity": "Binance",
+      "source": "verified_public_registry",
+      "confidence": "high",
+      "version": "1.0.0"
+    }
+  },
+  "user_private_labels": {},
+  "cohorts": {
+    "whale_accumulators": {
+      "name": "Whale Accumulators",
+      "addresses": [
+        "0x742d35cc6634c0532925a3b844bc9e7595f0bbe0",
+        "0x28c6c06298d514db089934071355e5743bf21d60"
+      ],
+      "rules": {
+        "min_balance_usd": 1000000,
+        "min_interaction_frequency": 10,
+        "rule_based": true
+      },
+      "confidence": "medium",
+      "version": "1.0.0"
+    }
+  },
+  "bridge_flows_930": {
+    "cache_ttl_seconds": 3600,
+    "fee_db": {
+      "rpc_per_query_usd": 0.003,
+      "indexing_per_query_usd": 0.002,
+      "compute_per_query_usd": 0.001
+    }
+  },
+  "bridges": {
+    "wormhole": {
+      "name": "Wormhole",
+      "canonical_id": "bridge_wormhole_v1",
+      "supported_chains": ["ethereum", "solana", "arbitrum"],
+      "audited": true,
+      "audit_date": "2026-01-15"
+    },
+    "stargate": {
+      "name": "Stargate",
+      "canonical_id": "bridge_stargate_v1",
+      "supported_chains": ["ethereum", "arbitrum", "optimism"],
+      "audited": true,
+      "audit_date": "2026-02-01"
+    }
+  },
+  "bridge_flows": [
+    {
+      "bridge_id": "wormhole",
+      "source_chain": "ethereum",
+      "dest_chain": "solana",
+      "date": "2026-08-27",
+      "inflow_usd": 12500000,
+      "outflow_usd": 8200000,
+      "tx_count": 342
+    },
+    {
+      "bridge_id": "stargate",
+      "source_chain": "ethereum",
+      "dest_chain": "arbitrum",
+      "date": "2026-08-27",
+      "inflow_usd": 9800000,
+      "outflow_usd": 7100000,
+      "tx_count": 218
+    }
+  ],
+  "cross_chain_trace_937": {
+    "fee_db": {
+      "trace_per_path_usd": 0.01,
+      "rpc_multi_chain_usd": 0.005
+    }
+  },
+  "cross_chain_paths": {
+    "0xabc123def456": {
+      "path_id": "path_001",
+      "entity_mapping_note": "Address on chain A may differ from chain B — heuristic matching explicit",
+      "hops": [
+        {
+          "chain": "ethereum",
+          "tx_hash": "0xabc123def456",
+          "bridge_id": null,
+          "amount_usd": 500000,
+          "confidence": "high",
+          "confidence_basis": "12 confirmations on ethereum",
+          "confirmation_depth": 12
+        },
+        {
+          "chain": "bridge",
+          "tx_hash": "0xbridge_event_001",
+          "bridge_id": "wormhole",
+          "bridge_event": "lock_mint",
+          "amount_usd": 500000,
+          "confidence": "medium",
+          "confidence_basis": "wormhole reliability score + 6 confirmations",
+          "confirmation_depth": 6
+        },
+        {
+          "chain": "solana",
+          "tx_hash": "sol_tx_001",
+          "bridge_id": "wormhole",
+          "amount_usd": 498500,
+          "confidence": "medium",
+          "confidence_basis": "bridge settlement + solana finality",
+          "entity_mapping": "heuristic_explicit",
+          "confirmation_depth": 32
+        }
+      ]
+    }
+  },
+  "dex_trading_942": {
+    "rules_version": "1.0.0",
+    "wash_trading_flag_threshold_usd": 10000,
+    "price_deviation_threshold_pct": 5.0,
+    "fee_db": {
+      "rpc_per_query_usd": 0.004,
+      "indexing_per_query_usd": 0.003,
+      "compute_per_query_usd": 0.002
+    }
+  },
+  "dex_pools": {
+    "pool_uni_eth_usdc": {
+      "pool_id": "pool_uni_eth_usdc",
+      "dex": "uniswap",
+      "token0": "ETH",
+      "token1": "USDC",
+      "audited": true,
+      "audit_date": "2026-01-01"
+    },
+    "pool_pancake_bnb_busd": {
+      "pool_id": "pool_pancake_bnb_busd",
+      "dex": "pancakeswap",
+      "token0": "BNB",
+      "token1": "BUSD",
+      "audited": true,
+      "audit_date": "2026-01-15"
+    }
+  },
+  "dex_trades": [
+    {
+      "trade_id": "trade_001",
+      "pool_id": "pool_uni_eth_usdc",
+      "dex": "uniswap",
+      "side": "buy",
+      "amount_usd": 125000,
+      "token": "ETH",
+      "timestamp": "2026-08-28T01:00:00+00:00",
+      "trader_address": "0xabc123",
+      "wash_suspect": false
+    },
+    {
+      "trade_id": "trade_002",
+      "pool_id": "pool_uni_eth_usdc",
+      "dex": "uniswap",
+      "side": "sell",
+      "amount_usd": 98000,
+      "token": "ETH",
+      "timestamp": "2026-08-28T01:05:00+00:00",
+      "trader_address": "0xdef456",
+      "wash_suspect": false
+    },
+    {
+      "trade_id": "trade_003",
+      "pool_id": "pool_uni_eth_usdc",
+      "dex": "uniswap",
+      "side": "buy",
+      "amount_usd": 15000,
+      "token": "ETH",
+      "timestamp": "2026-08-28T01:06:00+00:00",
+      "trader_address": "0xwash001",
+      "wash_suspect": true,
+      "wash_reason": "same_address_both_sides"
+    },
+    {
+      "trade_id": "trade_004",
+      "pool_id": "pool_pancake_bnb_busd",
+      "dex": "pancakeswap",
+      "side": "buy",
+      "amount_usd": 45000,
+      "token": "BNB",
+      "timestamp": "2026-08-28T02:00:00+00:00",
+      "trader_address": "0xghi789",
+      "wash_suspect": false
+    }
+  ],
+  "oracle_prices_dex": {
+    "ETH": {"oracle_price_usd": 3480, "dex_price_usd": 3475, "deviation_pct": 0.14},
+    "BNB": {"oracle_price_usd": 580, "dex_price_usd": 612, "deviation_pct": 5.5}
+  },
+  "security_incidents_984": {
+    "rules_version": "1.0.0",
+    "fee_db": {
+      "ingest_per_incident_usd": 0.005,
+      "storage_per_incident_usd": 0.001
+    }
+  },
+  "exploit_incidents_984": {
+    "euler_finance_2023": {
+      "protocol_id": "euler",
+      "protocol_name": "Euler Finance",
+      "date": "2023-03-13",
+      "loss_usd": 197000000,
+      "cause": "Donation attack via flash loan",
+      "cause_classification": "reentrancy",
+      "auditor": "Trail of Bits",
+      "status": "patched",
+      "source": "rekt_news + on_chain_analysis",
+      "source_documented": true,
+      "no_rumors": true,
+      "evidence": [
+        {"type": "post_mortem", "url": "https://euler.finance/blog/post-mortem", "source": "protocol_official"},
+        {"type": "on_chain_tx", "tx_hash": "0xeuler_exploit_001", "source": "etherscan"}
+      ],
+      "status_transitions": [
+        {"from": "confirmed", "to": "patched", "timestamp": "2023-04-01T00:00:00Z", "logged": true}
+      ]
+    },
+    "ronin_bridge_2022": {
+      "protocol_id": "ronin",
+      "protocol_name": "Ronin Bridge",
+      "date": "2022-03-23",
+      "loss_usd": 625000000,
+      "cause": "Private key compromise via social engineering",
+      "cause_classification": "access_control",
+      "auditor": "CertiK",
+      "status": "patched",
+      "source": "sky_mavis_official + fbi_statement",
+      "source_documented": true,
+      "no_rumors": true,
+      "evidence": [
+        {"type": "official_statement", "url": "https://roninchain.com/blog", "source": "sky_mavis"},
+        {"type": "law_enforcement", "source": "fbi_public"}
+      ],
+      "status_transitions": [
+        {"from": "confirmed", "to": "disputed", "timestamp": "2022-03-24T00:00:00Z", "logged": true},
+        {"from": "disputed", "to": "patched", "timestamp": "2022-06-28T00:00:00Z", "logged": true}
+      ]
+    },
+    "curve_vyper_2023": {
+      "protocol_id": "curve",
+      "protocol_name": "Curve Finance",
+      "date": "2023-07-30",
+      "loss_usd": 73500000,
+      "cause": "Vyper compiler reentrancy bug",
+      "cause_classification": "reentrancy",
+      "auditor": null,
+      "status": "patched",
+      "source": "curve_official + blocksec_analysis",
+      "source_documented": true,
+      "no_rumors": true,
+      "evidence": [
+        {"type": "post_mortem", "url": "https://curve.fi", "source": "protocol_official"},
+        {"type": "analysis", "source": "blocksec"}
+      ],
+      "status_transitions": [
+        {"from": "confirmed", "to": "patched", "timestamp": "2023-08-15T00:00:00Z", "logged": true}
+      ]
+    }
+  }
+}

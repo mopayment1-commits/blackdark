@@ -1,0 +1,41 @@
+{
+  "query_performance_governance_990": {
+    "query_timeout_sec": 30,
+    "audit_retention_days": 90,
+    "slow_query_threshold_sec": 5.0,
+    "daily_cost_quota_usd": {
+      "free": 0,
+      "pro": 5,
+      "institution": 50
+    },
+    "cache_ttl_by_freshness": {
+      "fresh": 60,
+      "provisional": 300,
+      "stabilized": 3600
+    },
+    "fee_db": {
+      "monitoring_per_day_usd": 0.05,
+      "audit_storage_per_gb_usd": 0.02
+    }
+  },
+  "slow_queries_flagged": [
+    {
+      "query_id": "q_slow_001",
+      "elapsed_sec": 12.5,
+      "plan_analysis": "seq_scan on market_data — index recommended",
+      "ops_review_required": true
+    },
+    {
+      "query_id": "q_slow_002",
+      "elapsed_sec": 8.2,
+      "plan_analysis": "nested loop join — consider materialized view",
+      "ops_review_required": true
+    },
+    {
+      "query_id": "q_fast_003",
+      "elapsed_sec": 1.2,
+      "plan_analysis": "index scan — optimal",
+      "ops_review_required": false
+    }
+  ]
+}

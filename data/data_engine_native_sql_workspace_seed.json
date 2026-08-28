@@ -1,0 +1,69 @@
+{
+  "native_sql_workspace_978": {
+    "db_user": "bd_readonly",
+    "query_timeout_sec": 30,
+    "sandbox_read_only": true,
+    "daily_cost_quota_usd": {
+      "free": 1.0,
+      "pro": 50.0,
+      "institution": null
+    },
+    "fee_db": {
+      "compute_per_query_usd": 0.002,
+      "storage_per_query_usd": 0.0001,
+      "margin_pct": 0.15
+    }
+  },
+  "no_code_analytics_902": {
+    "rule_based_only": true,
+    "ml_formulas_rejected": true,
+    "canonical_datasets": [
+      {
+        "dataset_id": "canonical_market",
+        "table": "market_data",
+        "description": "Canonical market OHLCV + volume"
+      },
+      {
+        "dataset_id": "onchain_metrics",
+        "table": "onchain_metrics",
+        "description": "On-chain activity metrics"
+      }
+    ],
+    "metric_catalog": [
+      {"metric_id": "price_change_pct", "type": "numeric", "unit": "percent"},
+      {"metric_id": "volume_usd", "type": "numeric", "unit": "usd"},
+      {"metric_id": "market_cap_usd", "type": "numeric", "unit": "usd"},
+      {"metric_id": "funding_rate", "type": "numeric", "unit": "percent"},
+      {"metric_id": "active_addresses", "type": "numeric", "unit": "count"}
+    ],
+    "sample_result_rows": [
+      {"asset": "BTC", "computed_metric": 6.42},
+      {"asset": "ETH", "computed_metric": 4.18},
+      {"asset": "SOL", "computed_metric": 8.91}
+    ]
+  },
+  "dataset_version": {
+    "version": "2026.08.28",
+    "canonical_hash": "a3f9c2e1b4d56780"
+  },
+  "backtesting_sandbox_1005": {
+    "environment_version": "1.0.0",
+    "fee_rate_pct": 0.1,
+    "slippage_rate_pct": 0.05,
+    "fee_db": {
+      "historical_query_usd": 0.01,
+      "simulation_compute_usd": 0.02,
+      "storage_usd": 0.001
+    },
+    "historical_prices": {
+      "BTC": [
+        {"timestamp": "2025-01-01T00:00:00Z", "close": 42000, "rsi": 28, "first_available_at": "2025-01-01T00:00:00Z"},
+        {"timestamp": "2025-02-01T00:00:00Z", "close": 45000, "rsi": 55, "first_available_at": "2025-02-01T00:00:00Z"},
+        {"timestamp": "2025-03-01T00:00:00Z", "close": 48000, "rsi": 62, "first_available_at": "2025-03-01T00:00:00Z"},
+        {"timestamp": "2025-04-01T00:00:00Z", "close": 52000, "rsi": 72, "first_available_at": "2025-04-01T00:00:00Z"},
+        {"timestamp": "2025-05-01T00:00:00Z", "close": 58000, "rsi": 68, "first_available_at": "2025-05-01T00:00:00Z"},
+        {"timestamp": "2025-06-01T00:00:00Z", "close": 62000, "rsi": 60, "first_available_at": "2025-06-01T00:00:00Z"}
+      ]
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "curated_news_941": {
+    "rules_version": "1.0.0",
+    "dedupe_window_hours": 1,
+    "title_similarity_threshold": 0.85,
+    "fee_db": {
+      "api_ingest_per_article_usd": 0.003,
+      "storage_per_article_usd": 0.0005,
+      "dedupe_compute_per_batch_usd": 0.002
+    }
+  },
+  "trusted_sources": [
+    {"id": "coindesk", "name": "CoinDesk", "audited": true, "tier": "tier_1"},
+    {"id": "theblock", "name": "The Block", "audited": true, "tier": "tier_1"},
+    {"id": "decrypt", "name": "Decrypt", "audited": true, "tier": "tier_2"},
+    {"id": "binance_blog", "name": "Binance Blog", "audited": true, "tier": "official"}
+  ],
+  "raw_articles": [
+    {
+      "article_id": "raw_001",
+      "source_id": "coindesk",
+      "title": "Bitcoin Surges Past $65,000 on ETF Inflows",
+      "published_at": "2026-08-28T08:00:00+00:00",
+      "source_url": "https://www.coindesk.com/markets/btc-65000-etf",
+      "asset_tags": ["BTC"],
+      "topic_tags": ["etf", "markets"]
+    },
+    {
+      "article_id": "raw_002",
+      "source_id": "theblock",
+      "title": "Bitcoin Surges Past $65,000 on ETF Inflows",
+      "published_at": "2026-08-28T08:15:00+00:00",
+      "source_url": "https://www.theblock.co/post/btc-65000-etf",
+      "asset_tags": ["BTC"],
+      "topic_tags": ["etf", "markets"]
+    },
+    {
+      "article_id": "raw_003",
+      "source_id": "decrypt",
+      "title": "Ethereum Layer 2 TVL Hits New Record",
+      "published_at": "2026-08-28T06:00:00+00:00",
+      "source_url": "https://decrypt.co/eth-l2-tvl-record",
+      "asset_tags": ["ETH", "ARB"],
+      "topic_tags": ["defi", "layer2"]
+    },
+    {
+      "article_id": "raw_004",
+      "source_id": "binance_blog",
+      "title": "Binance Adds Support for New DeFi Tokens",
+      "published_at": "2026-08-27T14:00:00+00:00",
+      "source_url": "https://www.binance.com/en/blog/defi-tokens",
+      "asset_tags": ["UNI", "AAVE"],
+      "topic_tags": ["listing", "defi"]
+    }
+  ],
+  "topic_keywords": {
+    "etf": ["etf", "inflow", "fund"],
+    "defi": ["defi", "tvl", "yield"],
+    "layer2": ["layer 2", "l2", "rollup"],
+    "listing": ["listing", "listed", "support"]
+  }
+}

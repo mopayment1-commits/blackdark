@@ -1,0 +1,100 @@
+{
+  "token_dd_971": {
+    "rules_version": "1.0.0",
+    "fee_db": {
+      "multi_source_query_usd": 0.05,
+      "compute_per_report_usd": 0.02,
+      "storage_per_report_usd": 0.005
+    }
+  },
+  "tokens": {
+    "aave": {
+      "name": "Aave",
+      "chain": "ethereum",
+      "risk_score": 3,
+      "sections": {
+        "holders": {
+          "value": 185000,
+          "display": "185,000 unique holders",
+          "observed_at": "2026-08-28T02:00:00+00:00",
+          "freshness_label": "2h ago",
+          "source": "onchain_indexer",
+          "source_url": "https://etherscan.io/token/0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9"
+        },
+        "liquidity": {
+          "value": 420000000,
+          "display": "$420M DEX liquidity",
+          "observed_at": "2026-08-28T01:45:00+00:00",
+          "freshness_label": "2h ago",
+          "source": "market_radar",
+          "source_url": "/intelligence-ledger/market-radar/liquidity"
+        },
+        "flows": {
+          "value": "net_inflow",
+          "display": "Net inflow $12M (24h)",
+          "observed_at": "2026-08-28T02:15:00+00:00",
+          "freshness_label": "1h ago",
+          "source": "onchain_flow_tracker"
+        },
+        "smart_money": {
+          "value": "accumulating",
+          "display": "Smart money accumulating (12 wallets)",
+          "observed_at": "2026-08-28T01:30:00+00:00",
+          "freshness_label": "3h ago",
+          "source": "smart_money_tracker"
+        },
+        "risk": {
+          "value": 3,
+          "display": "Risk Score: 3/10 (Low)",
+          "observed_at": "2026-08-28T02:00:00+00:00",
+          "freshness_label": "2h ago",
+          "source": "risk_engine"
+        },
+        "tokenomics": {
+          "value": "deflationary_supply",
+          "display": "16M circulating, no unlock cliff",
+          "observed_at": "2026-08-28T00:00:00+00:00",
+          "freshness_label": "4h ago",
+          "source": "tokenomics_hub"
+        }
+      }
+    },
+    "new_token": {
+      "name": "NewToken",
+      "chain": "ethereum",
+      "risk_score": 8,
+      "sections": {
+        "holders": {
+          "value": 1200,
+          "display": "1,200 unique holders",
+          "observed_at": "2026-08-28T02:00:00+00:00",
+          "freshness_label": "2h ago",
+          "source": "onchain_indexer"
+        },
+        "liquidity": null,
+        "flows": {
+          "value": "unknown",
+          "display": "Insufficient flow data",
+          "observed_at": "2026-08-28T02:00:00+00:00",
+          "freshness_label": "2h ago",
+          "source": "onchain_flow_tracker"
+        },
+        "smart_money": null,
+        "risk": {
+          "value": 8,
+          "display": "Risk Score: 8/10 (High)",
+          "observed_at": "2026-08-28T02:00:00+00:00",
+          "freshness_label": "2h ago",
+          "source": "risk_engine"
+        },
+        "tokenomics": {
+          "value": "high_concentration",
+          "display": "Top 10 hold 85%",
+          "observed_at": "2026-08-28T01:00:00+00:00",
+          "freshness_label": "3h ago",
+          "source": "tokenomics_hub"
+        }
+      }
+    }
+  }
+}

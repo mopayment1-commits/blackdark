@@ -1,0 +1,45 @@
+{
+  "sector_comparables_1001": {
+    "concentration_methodology": "HHI + Gini + Top 10 holders %",
+    "fee_db": {
+      "aggregation_per_query_usd": 0.01,
+      "compute_per_query_usd": 0.005,
+      "storage_per_query_usd": 0.001
+    }
+  },
+  "sector_taxonomy": {
+    "version": "1.0.0",
+    "sectors": {
+      "lending": {
+        "definition": "Peer-to-peer and pool-based lending protocols",
+        "constituents": ["aave", "morpho", "compound"]
+      },
+      "dex": {
+        "definition": "Decentralized exchange protocols",
+        "constituents": ["uniswap", "curve", "pancakeswap"]
+      },
+      "perps": {
+        "definition": "Perpetual futures DEX protocols",
+        "constituents": ["gmx", "dydx", "hyperliquid"]
+      },
+      "yield": {
+        "definition": "Yield aggregator and vault protocols",
+        "constituents": ["yearn", "convex", "beefy"]
+      }
+    }
+  },
+  "peer_metrics": {
+    "aave": {"revenue": 12500000, "fees": 12500000, "users": 45000, "tvl": 9800000000, "self_reported_tvl": 9750000000, "source": "on_chain"},
+    "morpho": {"revenue": 8500000, "fees": 8500000, "users": 12000, "tvl": 2100000000, "self_reported_tvl": 2050000000, "source": "on_chain"},
+    "compound": {"revenue": 4200000, "fees": 4200000, "users": 18000, "tvl": 3200000000, "self_reported_tvl": 3180000000, "source": "on_chain"},
+    "uniswap": {"revenue": 156000000, "fees": 156000000, "users": 180000, "tvl": 4200000000, "self_reported_tvl": 4150000000, "source": "on_chain"},
+    "curve": {"revenue": 45000000, "fees": 45000000, "users": 65000, "tvl": 2800000000, "self_reported_tvl": 2750000000, "source": "on_chain"},
+    "pancakeswap": {"revenue": 38000000, "fees": 38000000, "users": 95000, "tvl": 1900000000, "self_reported_tvl": 1880000000, "source": "on_chain"},
+    "gmx": {"revenue": 8900000, "fees": 8900000, "users": 28000, "tvl": 450000000, "self_reported_tvl": 440000000, "source": "on_chain"},
+    "dydx": {"revenue": 12000000, "fees": 12000000, "users": 35000, "tvl": 380000000, "self_reported_tvl": 375000000, "source": "on_chain"},
+    "hyperliquid": {"revenue": 25000000, "fees": 25000000, "users": 42000, "tvl": 520000000, "self_reported_tvl": 510000000, "source": "on_chain"},
+    "yearn": {"revenue": 3200000, "fees": 3200000, "users": 8000, "tvl": 680000000, "self_reported_tvl": 670000000, "source": "on_chain"},
+    "convex": {"revenue": 5600000, "fees": 5600000, "users": 11000, "tvl": 1200000000, "self_reported_tvl": 1180000000, "source": "on_chain"},
+    "beefy": {"revenue": 1800000, "fees": 1800000, "users": 5000, "tvl": 320000000, "self_reported_tvl": 315000000, "source": "on_chain"}
+  }
+}

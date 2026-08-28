@@ -1,0 +1,77 @@
+{
+  "governance_963": {
+    "rules_version": "1.0.0",
+    "events_ref": 939,
+    "fee_db": {
+      "ingest_per_proposal_usd": 0.005,
+      "classification_per_proposal_usd": 0.002,
+      "storage_per_proposal_usd": 0.001
+    }
+  },
+  "proposals": {
+    "aave_fee_update_001": {
+      "protocol": "aave",
+      "title": "AAVE V3 Fee Parameter Update",
+      "description": "Adjust reserve factor and liquidation threshold for ETH collateral",
+      "type": "parameter_change",
+      "status": "active",
+      "official_source": true,
+      "official_source_url": "https://app.aave.com/governance/v3/proposal/001",
+      "vote_turnout_pct": 12.5,
+      "support_pct": 78.2,
+      "materiality": "high",
+      "affected_metrics": ["tvl", "revenue", "liquidation_risk"],
+      "parameter_impact": {
+        "parameter": "reserve_factor_eth",
+        "old_value": 0.10,
+        "new_value": 0.12,
+        "affected_metrics": ["tvl", "revenue"]
+      },
+      "status_transitions": [
+        {"from": "draft", "to": "active", "transitioned_at": "2026-08-25T10:00:00+00:00", "audited": true}
+      ]
+    },
+    "uniswap_treasury_002": {
+      "protocol": "uniswap",
+      "title": "UNI Treasury Grant Allocation",
+      "description": "Allocate 2M UNI from treasury for ecosystem grants",
+      "type": "treasury",
+      "status": "passed",
+      "official_source": true,
+      "official_source_url": "https://snapshot.org/#/uniswap/proposal/0xabc123",
+      "vote_turnout_pct": 18.3,
+      "support_pct": 91.5,
+      "materiality": "medium",
+      "affected_metrics": ["tokenomics", "treasury_balance"],
+      "parameter_impact": null,
+      "status_transitions": [
+        {"from": "draft", "to": "active", "transitioned_at": "2026-08-20T08:00:00+00:00", "audited": true},
+        {"from": "active", "to": "passed", "transitioned_at": "2026-08-27T16:00:00+00:00", "audited": true}
+      ]
+    },
+    "arbitrum_upgrade_003": {
+      "protocol": "arbitrum",
+      "title": "Arbitrum Stylus Upgrade Activation",
+      "description": "Enable Stylus smart contract language support on mainnet",
+      "type": "upgrade",
+      "status": "executed",
+      "official_source": true,
+      "official_source_url": "https://forum.arbitrum.foundation/t/stylus-upgrade",
+      "vote_turnout_pct": 22.1,
+      "support_pct": 96.8,
+      "materiality": "high",
+      "affected_metrics": ["network_activity", "developer_activity"],
+      "parameter_impact": {
+        "parameter": "stylus_enabled",
+        "old_value": false,
+        "new_value": true,
+        "affected_metrics": ["network_activity"]
+      },
+      "status_transitions": [
+        {"from": "draft", "to": "active", "transitioned_at": "2026-08-10T12:00:00+00:00", "audited": true},
+        {"from": "active", "to": "passed", "transitioned_at": "2026-08-18T18:00:00+00:00", "audited": true},
+        {"from": "passed", "to": "executed", "transitioned_at": "2026-08-25T06:00:00+00:00", "audited": true}
+      ]
+    }
+  }
+}

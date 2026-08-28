@@ -1,0 +1,64 @@
+{
+  "verification_engine_931": {
+    "rules_version": "1.0.0",
+    "audit_retention_years": 5,
+    "fee_db": {
+      "storage_per_claim_usd": 0.001,
+      "resolution_query_usd": 0.005
+    }
+  },
+  "locked_claims": {
+    "claim_001": {
+      "claim_id": "claim_001",
+      "asset": "BTC",
+      "claim_text": "BTC price will exceed $70000 within 7 days",
+      "claim_type": "hypothesis",
+      "target_definition": {"metric": "price_usd", "threshold": 70000, "direction": "above"},
+      "horizon_days": 7,
+      "locked_at": "2026-08-20T12:00:00+00:00",
+      "lock_hash": "a1b2c3d4e5f6",
+      "outcome_source": "oracle_api",
+      "status": "locked",
+      "outcome": null,
+      "immutable": true,
+      "version": 1
+    },
+    "claim_002": {
+      "claim_id": "claim_002",
+      "asset": "ETH",
+      "claim_text": "ETH price will exceed $5000 within 3 days",
+      "claim_type": "hypothesis",
+      "target_definition": {"metric": "price_usd", "threshold": 5000, "direction": "above"},
+      "horizon_days": 3,
+      "locked_at": "2026-08-25T12:00:00+00:00",
+      "lock_hash": "f6e5d4c3b2a1",
+      "outcome_source": "oracle_api",
+      "status": "locked",
+      "outcome": null,
+      "status": "locked",
+      "outcome": null,
+      "immutable": true,
+      "version": 1
+    },
+    "claim_003": {
+      "claim_id": "claim_003",
+      "asset": "AVAX",
+      "claim_text": "SOL price will exceed $200 within 14 days",
+      "claim_type": "hypothesis",
+      "target_definition": {"metric": "price_usd", "threshold": 200, "direction": "above"},
+      "horizon_days": 14,
+      "locked_at": "2026-08-28T00:00:00+00:00",
+      "lock_hash": "abc123def456",
+      "outcome_source": "oracle_api",
+      "status": "unresolved",
+      "outcome": null,
+      "immutable": true,
+      "version": 1
+    }
+  },
+  "oracle_prices": {
+    "BTC": {"price_usd": 71200, "timestamp": "2026-08-27T12:00:00+00:00"},
+    "ETH": {"price_usd": 3480, "timestamp": "2026-08-28T12:00:00+00:00"},
+    "SOL": {"price_usd": 142, "timestamp": "2026-08-28T12:00:00+00:00"}
+  }
+}

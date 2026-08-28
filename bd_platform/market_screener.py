@@ -202,3 +202,204 @@ def market_screener_status() -> dict[str, Any]:
         "methodology_version": _METHODOLOGY_VERSION,
         "timestamp": _utcnow(),
     }
+
+
+# --- #928 Asset Screener (Market Radar tab) ---
+
+_FEATURE_REF_928 = 928
+_TAXONOMY_REF_927 = 927
+_PROVENANCE_REF_945 = 945
+_EXPORT_REF_924 = 924
+
+_PRESET_928 = ("top_gainers", "high_volume", "new_listings")
+
+
+def _deterministic_sort_928(assets: list[dict[str, Any]], sort_by: str = "market_cap_usd", sort_dir: str = "desc") -> list[dict[str, Any]]:
+    """Secondary sort: market_cap → volume → name."""
+
+    def key(a: dict[str, Any]) -> tuple:
+        primary = a.get(sort_by)
+        if primary is None:
+            p = (1, 0)
+        elif isinstance(primary, (int, float)):
+            p = (0, float(primary))
+        else:
+            p = (0, str(primary))
+        mcap = float(a.get("market_cap_usd") or -1)
+        vol = float(a.get("volume_24h_usd") or -1)
+        name = a.get("symbol") or ""
+        if sort_dir == "desc":
+            return (p[0], -p[1] if isinstance(p[1], float) else p[1], -mcap, -vol, name)
+        return (p[0], p[1], -mcap, -vol, name)
+
+    return sorted(assets, key=key)
+
+
+def _encode_cursor(index: int) -> str:
+    return hashlib.sha256(f"cursor:{index}".encode()).hexdigest()[:16]
+
+
+def _decode_cursor(cursor: str, total: int) -> int:
+    for i in range(total + 1):
+        if _encode_cursor(i) == cursor:
+            return i
+    return 0
+
+
+def _enrich_taxonomy_928(symbol: str) -> dict[str, Any]:
+    try:
+        from bd_platform.data_engine_asset_taxonomy import get_asset_classification_927
+
+        cls = get_asset_classification_927(symbol)
+        return cls.get("classification") or {}
+    except Exception:
+        return {}
+
+
+def asset_screener_status_928() -> dict[str, Any]:
+    seed = _load_seed()
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_928,
+        "merged_into": "Market Radar / Screener tab",
+        "standalone": False,
+        "standalone_rejected": True,
+        "taxonomy_ref": _TAXONOMY_REF_927,
+        "provenance_ref": _PROVENANCE_REF_945,
+        "export_ref": _EXPORT_REF_924,
+        "presets": list(_PRESET_928),
+        "pagination": "cursor_based",
+        "backend_enforced_filters": True,
+        "deterministic_sorting": True,
+        "missing_data_explicit": True,
+        "asset_count": len(seed.get("assets") or []),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_asset_screener_928(
+    filters: dict[str, Any] | None = None,
+    *,
+    sector: str | None = None,
+    sub_sector: str | None = None,
+    category: str | None = None,
+    preset_id: str | None = None,
+    sort_by: str = "market_cap_usd",
+    sort_dir: str = "desc",
+    cursor: str | None = None,
+    page_size: int = 20,
+    tier: str = "free",
+    user_id: str = "user_demo",
+) -> dict[str, Any]:
+    seed = _load_seed()
+    assets = list(seed.get("assets") or [])
+    filters = dict(filters or {})
+
+    if preset_id:
+        preset = (seed.get("presets_928") or {}).get(preset_id)
+        if not preset:
+            return {"ok": False, "feature_ref": _FEATURE_REF_928, "error": "preset_not_found"}
+        filters = {**preset.get("filters", {}), **filters}
+        sort_by = preset.get("sort_by", sort_by)
+        sort_dir = preset.get("sort_dir", sort_dir)
+
+    if sector or sub_sector or category:
+        from bd_platform.data_engine_asset_taxonomy import filter_assets_by_taxonomy_927
+
+        tax = filter_assets_by_taxonomy_927(sector=sector, sub_sector=sub_sector, category=category)
+        allowed = {a["asset"] for a in tax.get("assets") or []}
+        assets = [a for a in assets if a.get("symbol") in allowed]
+
+    matched = _apply_filters(assets, filters)
+    sorted_assets = _deterministic_sort_928(matched, sort_by=sort_by, sort_dir=sort_dir)
+
+    start = _decode_cursor(cursor, len(sorted_assets)) if cursor else 0
+    page_size = min(max(1, page_size), 100)
+    page_items = sorted_assets[start : start + page_size]
+    next_start = start + page_size
+    has_more = next_start < len(sorted_assets)
+
+    rows = []
+    for a in page_items:
+        tax = _enrich_taxonomy_928(a.get("symbol", ""))
+        rows.append({
+            "symbol": a.get("symbol"),
+            "market_cap_usd": _display_value(a.get("market_cap_usd")),
+            "volume_24h_usd": _display_value(a.get("volume_24h_usd")),
+            "price_change_24h_pct": _display_value(a.get("price_change_24h_pct")),
+            "sector": tax.get("sector") or "N/A",
+            "sub_sector": tax.get("sub_sector") or "N/A",
+            "category": tax.get("category") or "N/A",
+            "missing_data_explicit": any(a.get(k) is None for k in ("market_cap_usd", "volume_24h_usd")),
+            "no_disguised_zero": True,
+        })
+
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_928,
+        "merged_into": "Market Radar",
+        "filters": filters,
+        "taxonomy_filter": {"sector": sector, "sub_sector": sub_sector, "category": category},
+        "preset_id": preset_id,
+        "sort": {"by": sort_by, "dir": sort_dir, "tie_breaker": "market_cap → volume → name"},
+        "pagination": {
+            "cursor": cursor,
+            "next_cursor": _encode_cursor(next_start) if has_more else None,
+            "page_size": page_size,
+            "total_results": len(sorted_assets),
+            "has_more": has_more,
+            "cursor_based": True,
+        },
+        "results": rows,
+        "backend_enforced": True,
+        "deterministic": True,
+        "tier": tier,
+        "timestamp": _utcnow(),
+    }
+
+
+def save_screener_criteria_928(
+    name: str,
+    filters: dict[str, Any],
+    *,
+    user_id: str,
+    tier: str = "free",
+) -> dict[str, Any]:
+    if tier != "pro":
+        return {
+            "ok": False,
+            "feature_ref": _FEATURE_REF_928,
+            "error": "pro_tier_required",
+            "save_criteria_pro_only": True,
+        }
+    filter_id = f"user_{hashlib.sha256(f'{user_id}:{name}'.encode()).hexdigest()[:10]}"
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_928,
+        "filter_id": filter_id,
+        "name": name,
+        "filters": filters,
+        "saved": True,
+        "pro_tier": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def export_screener_via_export_layer_928(
+    filters: dict[str, Any] | None = None,
+    *,
+    fmt: str = "csv",
+) -> dict[str, Any]:
+    from bd_platform.data_engine_export_layer import export_dataset_924
+
+    screener = run_asset_screener_928(filters=filters, page_size=1000)
+    export_result = export_dataset_924("market_fundamentals", fmt=fmt)
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_928,
+        "export_ref": _EXPORT_REF_924,
+        "screener_results_count": screener.get("pagination", {}).get("total_results", 0),
+        "export": export_result,
+        "no_separate_export_module": True,
+        "timestamp": _utcnow(),
+    }

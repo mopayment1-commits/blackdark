@@ -1,0 +1,21 @@
+{
+  "watchlists_904": {
+    "fee_db": {
+      "storage_per_watchlist_usd": 0.001,
+      "sync_per_watchlist_usd": 0.002,
+      "alert_delivery_usd": 0.0005
+    },
+    "sample_market_data": {
+      "BTC": {"price_usd": 64800, "volume_24h_usd": 28500000000, "change_24h_pct": 2.4},
+      "ETH": {"price_usd": 3480, "volume_24h_usd": 12400000000, "change_24h_pct": 1.8},
+      "SOL": {"price_usd": 142, "volume_24h_usd": 2100000000, "change_24h_pct": 5.2},
+      "ARB": {"price_usd": 0.82, "volume_24h_usd": 420000000, "change_24h_pct": -1.1},
+      "OP": {"price_usd": 1.65, "volume_24h_usd": 310000000, "change_24h_pct": 0.9}
+    },
+    "sample_events": [
+      {"asset": "ARB", "type": "unlock", "title": "ARB cliff unlock 92M tokens", "date": "2026-09-15"},
+      {"asset": "OP", "type": "narrative", "title": "OP Superchain momentum", "sentiment": "neutral"},
+      {"asset": "BTC", "type": "narrative", "title": "ETF inflow narrative", "sentiment": "positive"}
+    ]
+  }
+}

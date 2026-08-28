@@ -1836,6 +1836,128 @@ async def protocol_financials_page_route(protocol_id: str = Query(...)):
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/extension/status")
+async def onchain_extension_status_route():
+    """#12 On-Chain Extension — #923 AML Screening + #926 Entity Layer."""
+    from bd_platform.onchain_intelligence_extension import onchain_extension_status
+
+    return onchain_extension_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/screen")
+async def onchain_aml_screen_route(address: str = Query(..., min_length=42)):
+    from bd_platform.onchain_intelligence_extension import screen_address_923
+
+    return screen_address_923(address)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/fraud-screen")
+async def onchain_fraud_screen_route(address: str = Query(..., min_length=42), chain: str = Query("ethereum")):
+    """#960 Fraud / Suspicious Activity — merged into #923 AML/CFT."""
+    from bd_platform.onchain_intelligence_extension import screen_fraud_activity_960
+
+    return screen_fraud_activity_960(address, chain=chain)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/wallet-dd")
+async def onchain_wallet_dd_route(address: str = Query(..., min_length=42), chain: str = Query("ethereum")):
+    """#972 Instant Wallet Due Diligence — On-Chain Extension."""
+    from bd_platform.onchain_intelligence_extension import build_wallet_dd_report_972
+
+    return build_wallet_dd_report_972(address, chain=chain)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/labels")
+async def onchain_entity_labels_route(
+    address: str = Query(..., min_length=42),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.onchain_intelligence_extension import get_address_labels_926
+
+    return get_address_labels_926(address, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/cohorts/{cohort_id}")
+async def onchain_cohort_route(cohort_id: str):
+    from bd_platform.onchain_intelligence_extension import build_address_cohort_926
+
+    return build_address_cohort_926(cohort_id)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/e2e")
+async def onchain_extension_e2e_route():
+    from bd_platform.onchain_intelligence_extension import run_onchain_extension_e2e
+
+    return run_onchain_extension_e2e()
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/bridge-flows/status")
+async def onchain_bridge_flows_status_route():
+    """#930 Bridges Intelligence — On-Chain Extension sub-layer."""
+    from bd_platform.onchain_intelligence_extension import bridge_flows_status_930
+
+    return bridge_flows_status_930()
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/bridge-flows")
+async def onchain_bridge_flows_dashboard_route(
+    bridge_id: str | None = Query(None),
+    chain: str | None = Query(None),
+):
+    from bd_platform.onchain_intelligence_extension import build_bridge_flows_dashboard_930
+
+    return build_bridge_flows_dashboard_930(bridge_id=bridge_id, chain=chain)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/cross-chain-trace/{tx_hash}")
+async def onchain_cross_chain_trace_route(tx_hash: str):
+    """#937 Cross-Chain Trace — merged into #930."""
+    from bd_platform.onchain_intelligence_extension import trace_cross_chain_path_937
+
+    return trace_cross_chain_path_937(tx_hash)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/dex-activity/status")
+async def onchain_dex_activity_status_route():
+    """#942 DEX Trading Intelligence — On-Chain Extension sub-layer."""
+    from bd_platform.onchain_intelligence_extension import dex_trading_status_942
+
+    return dex_trading_status_942()
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/dex-activity")
+async def onchain_dex_activity_dashboard_route(
+    dex: str | None = Query(None),
+    token: str | None = Query(None),
+):
+    from bd_platform.onchain_intelligence_extension import build_dex_activity_dashboard_942
+
+    return build_dex_activity_dashboard_942(dex=dex, token=token)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/security-incidents/status")
+async def onchain_security_incidents_status_route():
+    """#984 Protocol Exploit Intelligence — merged into On-Chain Extension."""
+    from bd_platform.onchain_intelligence_extension import security_incidents_status_984
+
+    return security_incidents_status_984()
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/security-incidents")
+async def onchain_security_incidents_dashboard_route(protocol_id: str | None = Query(None)):
+    from bd_platform.onchain_intelligence_extension import build_exploit_dashboard_984
+
+    return build_exploit_dashboard_984(protocol_id)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/security-incidents/{incident_id}")
+async def onchain_security_incident_details_route(incident_id: str):
+    from bd_platform.onchain_intelligence_extension import get_incident_details_984
+
+    return get_incident_details_984(incident_id)
+
+
 @router.get("/intelligence-ledger/onchain-layer/smart-money-flow/status")
 async def smart_money_flow_status_route():
     """#408 Smart Money Flow Tracker (absorbs #459 Dormancy)."""
@@ -1991,6 +2113,60 @@ async def risk_score_asset_route(asset: str, portfolio_id: str = Query("demo_por
     from bd_platform.risk_score_surface import score_asset_risk
 
     return score_asset_risk(asset, portfolio_id=portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-assessment/status")
+async def portfolio_risk_assessment_status_route():
+    """#999 Risk Assessment — merged into Portfolio AI Risk Tab (insight-only)."""
+    from bd_platform.portfolio_ai_risk_assessment import risk_assessment_status_999
+
+    return risk_assessment_status_999()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-assessment")
+async def portfolio_risk_assessment_route(
+    portfolio_id: str = Query("demo_portfolio"),
+    user_id: str = Query("user_demo"),
+):
+    from bd_platform.portfolio_ai_risk_assessment import run_risk_assessment_999
+
+    return run_risk_assessment_999(portfolio_id, user_id=user_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-assessment/negative-tests")
+async def portfolio_risk_assessment_negative_tests_route():
+    from bd_platform.portfolio_ai_risk_assessment import run_negative_tests_999
+
+    return run_negative_tests_999()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-assessment/e2e")
+async def portfolio_risk_assessment_e2e_route():
+    from bd_platform.portfolio_ai_risk_assessment import run_risk_assessment_e2e_999
+
+    return run_risk_assessment_e2e_999()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/defi-strategy-risk/status")
+async def defi_strategy_risk_status_route():
+    """#951 DeFi Strategy Risk — Portfolio AI Risk Tab."""
+    from bd_platform.portfolio_ai_defi_strategy_risk import defi_strategy_risk_status_951
+
+    return defi_strategy_risk_status_951()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/defi-strategy-risk/e2e")
+async def defi_strategy_risk_e2e_route():
+    from bd_platform.portfolio_ai_defi_strategy_risk import run_defi_strategy_risk_e2e_951
+
+    return run_defi_strategy_risk_e2e_951()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/defi-strategy-risk/{strategy_id}")
+async def defi_strategy_risk_report_route(strategy_id: str):
+    from bd_platform.portfolio_ai_defi_strategy_risk import build_strategy_risk_report_951
+
+    return build_strategy_risk_report_951(strategy_id)
 
 
 @router.get("/intelligence-ledger/alert-center/status")
@@ -2985,6 +3161,177 @@ async def unified_portfolio_dashboard_route(portfolio_id: str = Query("demo_port
     return build_unified_portfolio_dashboard(portfolio_id)
 
 
+@router.get("/intelligence-ledger/portfolio-ai/watchlists/status")
+async def portfolio_ai_watchlists_status_route():
+    """#904 Custom Watchlists — merged into Portfolio AI."""
+    from bd_platform.portfolio_ai_watchlists import watchlists_status_904
+
+    return watchlists_status_904()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/watchlists")
+async def portfolio_ai_watchlists_list_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import list_watchlists_904
+
+    return list_watchlists_904(user_id=user_id, tenant_id=tenant_id, surface="portfolio_ai")
+
+
+@router.post("/intelligence-ledger/portfolio-ai/watchlists", responses=COMMON_ERROR_RESPONSES)
+async def portfolio_ai_watchlists_create_route(data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_watchlists import create_watchlist_904
+
+    return create_watchlist_904(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        tier=str(data.get("tier") or "free"),
+        name=str(data.get("name") or "Watchlist"),
+        surface="portfolio_ai",
+        asset_ids=data.get("asset_ids") or [],
+        alerts_config=data.get("alerts_config"),
+    )
+
+
+@router.put("/intelligence-ledger/portfolio-ai/watchlists/{watchlist_id}")
+async def portfolio_ai_watchlists_update_route(watchlist_id: str, data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_watchlists import update_watchlist_904
+
+    return update_watchlist_904(
+        watchlist_id,
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        tier=str(data.get("tier") or "free"),
+        name=data.get("name"),
+        asset_ids=data.get("asset_ids"),
+        alerts_config=data.get("alerts_config"),
+        order=data.get("order"),
+    )
+
+
+@router.delete("/intelligence-ledger/portfolio-ai/watchlists/{watchlist_id}")
+async def portfolio_ai_watchlists_delete_route(
+    watchlist_id: str,
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import delete_watchlist_904
+
+    return delete_watchlist_904(watchlist_id, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/watchlists/{watchlist_id}/dashboard")
+async def portfolio_ai_watchlists_dashboard_route(
+    watchlist_id: str,
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import build_portfolio_ai_watchlist_dashboard_904
+
+    return build_portfolio_ai_watchlist_dashboard_904(
+        user_id=user_id, tenant_id=tenant_id, watchlist_id=watchlist_id
+    )
+
+
+@router.get("/intelligence-ledger/portfolio-ai/watchlists/e2e")
+async def portfolio_ai_watchlists_e2e_route():
+    from bd_platform.portfolio_ai_watchlists import run_watchlists_e2e_904
+
+    return run_watchlists_e2e_904()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-connectors/status")
+async def portfolio_ai_exchange_connectors_status_route():
+    """#907 Multi-Account Sync — merged into Portfolio AI Exchange Connectors."""
+    from bd_platform.portfolio_ai_exchange_connectors import exchange_connectors_status_907
+
+    return exchange_connectors_status_907()
+
+
+@router.post("/intelligence-ledger/portfolio-ai/exchange-connectors/connect")
+async def portfolio_ai_exchange_connect_route(data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_exchange_connectors import connect_exchange_account_907
+
+    result = connect_exchange_account_907(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        exchange=str(data.get("exchange") or "binance"),
+        account_label=str(data.get("account_label") or "main"),
+        api_key_hint=str(data.get("api_key_hint") or "demo"),
+        permissions=data.get("permissions"),
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=400, detail=result)
+    return result
+
+
+@router.post("/intelligence-ledger/portfolio-ai/exchange-connectors/sync")
+async def portfolio_ai_exchange_sync_route(data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_exchange_connectors import sync_all_accounts_907
+
+    return sync_all_accounts_907(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+    )
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-connectors/consolidated")
+async def portfolio_ai_exchange_consolidated_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_exchange_connectors import build_consolidated_view_907
+
+    return build_consolidated_view_907(user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-connectors/e2e")
+async def portfolio_ai_exchange_connectors_e2e_route():
+    from bd_platform.portfolio_ai_exchange_connectors import run_exchange_connectors_e2e_907
+
+    return run_exchange_connectors_e2e_907()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/tax-pnl/status")
+async def portfolio_ai_tax_pnl_status_route():
+    """#918 Automated Tax & PnL Report Exporter — merged into Portfolio AI."""
+    from bd_platform.portfolio_ai_tax_pnl import tax_pnl_status_918
+
+    return tax_pnl_status_918()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/tax-pnl/report")
+async def portfolio_ai_tax_pnl_report_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+    method: str = Query("fifo"),
+):
+    from bd_platform.portfolio_ai_tax_pnl import build_tax_pnl_report_918
+
+    return build_tax_pnl_report_918(user_id=user_id, tenant_id=tenant_id, method=method)  # type: ignore[arg-type]
+
+
+@router.get("/intelligence-ledger/portfolio-ai/tax-pnl/export")
+async def portfolio_ai_tax_pnl_export_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+    method: str = Query("fifo"),
+    fmt: str = Query("csv"),
+):
+    from bd_platform.portfolio_ai_tax_pnl import build_tax_pnl_report_918, export_tax_pnl_report_918
+
+    report = build_tax_pnl_report_918(user_id=user_id, tenant_id=tenant_id, method=method)  # type: ignore[arg-type]
+    return export_tax_pnl_report_918(report, fmt=fmt)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/tax-pnl/e2e")
+async def portfolio_ai_tax_pnl_e2e_route():
+    from bd_platform.portfolio_ai_tax_pnl import run_tax_pnl_e2e_918
+
+    return run_tax_pnl_e2e_918()
+
+
 @router.get("/intelligence-ledger/portfolio-ai/wallet-profiler/status")
 async def wallet_profiler_status_route():
     """#620 Wallet Profiler — Sprint-2 Core UI."""
@@ -3184,6 +3531,96 @@ async def oracle_vwap_reconciliation_tests_route():
     from bd_platform.oracle_vwap_layer import run_reconciliation_tests
 
     return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/oracle-vwap/fmv/{symbol}")
+async def oracle_fmv_price_route(symbol: str):
+    """#959 Fair Market Value Pricing — Oracle API reference price."""
+    from bd_platform.oracle_vwap_layer import build_fmv_reference_price_959
+
+    result = build_fmv_reference_price_959(symbol, label="fmv")
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/oracle-vwap/reference-price/governance")
+async def oracle_reference_price_governance_route():
+    from bd_platform.oracle_vwap_layer import oracle_vwap_status
+
+    return oracle_vwap_status()
+
+
+@router.get("/intelligence-ledger/oracle-vwap/reference-price/{symbol}")
+async def oracle_reference_price_route(symbol: str):
+    """#993/#994/#995 Unified Reference Price — single endpoint."""
+    from bd_platform.oracle_vwap_layer import build_oracle_reference_price
+
+    result = build_oracle_reference_price(symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/oracle-vwap/real-volume/reconciliation")
+async def oracle_real_volume_reconciliation_route():
+    from bd_platform.oracle_vwap_layer import run_daily_volume_reconciliation_992
+
+    return run_daily_volume_reconciliation_992()
+
+
+@router.get("/intelligence-ledger/oracle-vwap/real-volume/backtest")
+async def oracle_real_volume_backtest_route():
+    from bd_platform.oracle_vwap_layer import run_real_volume_backtest_992
+
+    return run_real_volume_backtest_992()
+
+
+@router.get("/intelligence-ledger/oracle-vwap/real-volume/{symbol}/market-radar")
+async def oracle_real_volume_market_radar_route(symbol: str):
+    from bd_platform.oracle_vwap_layer import build_market_radar_real_volume_widget_992
+
+    return build_market_radar_real_volume_widget_992(symbol)
+
+
+@router.get("/intelligence-ledger/oracle-vwap/real-volume/{symbol}")
+async def oracle_real_volume_route(symbol: str):
+    """#992 Real Volume / Quality-Adjusted Volume."""
+    from bd_platform.oracle_vwap_layer import build_real_volume_992
+
+    result = build_real_volume_992(symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/internal/data-engine/query-governance/status")
+async def query_governance_status_route(_admin: dict = Depends(require_admin)):
+    """#990 Query Performance Governance — Data Engine ops layer."""
+    from bd_platform.data_engine_query_performance_governance import query_performance_governance_status_990
+
+    return query_performance_governance_status_990()
+
+
+@router.get("/internal/data-engine/query-governance/usage")
+async def query_governance_usage_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_query_performance_governance import build_ops_usage_summary_990
+
+    return build_ops_usage_summary_990()
+
+
+@router.get("/internal/data-engine/query-governance/slow-queries")
+async def query_governance_slow_queries_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_query_performance_governance import run_slow_query_analysis_990
+
+    return run_slow_query_analysis_990()
+
+
+@router.get("/internal/data-engine/query-governance/e2e")
+async def query_governance_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_query_performance_governance import run_query_governance_e2e_990
+
+    return run_query_governance_e2e_990()
 
 
 @router.get("/intelligence-ledger/net-edge-truth/status")
@@ -3475,6 +3912,52 @@ async def market_radar_combined_panel_route(
     return build_market_radar_panel(exchange, asset)
 
 
+@router.get("/intelligence-ledger/market-radar/watchlists/status")
+async def market_radar_watchlists_status_route():
+    """#904 Custom Watchlists — Market Radar surface."""
+    from bd_platform.portfolio_ai_watchlists import watchlists_status_904
+
+    return watchlists_status_904()
+
+
+@router.get("/intelligence-ledger/market-radar/watchlists")
+async def market_radar_watchlists_list_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import list_watchlists_904
+
+    return list_watchlists_904(user_id=user_id, tenant_id=tenant_id, surface="market_radar")
+
+
+@router.post("/intelligence-ledger/market-radar/watchlists")
+async def market_radar_watchlists_create_route(data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_watchlists import create_watchlist_904
+
+    return create_watchlist_904(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        tier=str(data.get("tier") or "free"),
+        name=str(data.get("name") or "Event Watchlist"),
+        surface="market_radar",
+        asset_ids=data.get("asset_ids") or [],
+        alerts_config=data.get("alerts_config"),
+    )
+
+
+@router.get("/intelligence-ledger/market-radar/watchlists/{watchlist_id}/dashboard")
+async def market_radar_watchlists_dashboard_route(
+    watchlist_id: str,
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import build_market_radar_watchlist_dashboard_904
+
+    return build_market_radar_watchlist_dashboard_904(
+        user_id=user_id, tenant_id=tenant_id, watchlist_id=watchlist_id
+    )
+
+
 @router.get("/intelligence-ledger/market-radar/news-digest")
 async def market_radar_news_digest_route(asset: str = Query("BTC"), limit: int = Query(10, ge=1, le=50)):
     """#768 Market News Digest — merged into Market Radar, source links mandatory."""
@@ -3744,6 +4227,40 @@ async def sentiment_intelligence_qa_route():
     from bd_platform.social_sentiment_intelligence import run_sentiment_intelligence_qa_783
 
     return run_sentiment_intelligence_qa_783()
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/news/status")
+async def curated_news_status_route():
+    """#941 Curated Crypto News — merged into Market Radar Sentiment."""
+    from bd_platform.market_radar_curated_news import curated_news_status_941
+
+    return curated_news_status_941()
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/news/sources")
+async def curated_news_sources_route():
+    from bd_platform.market_radar_curated_news import get_trusted_sources_941
+
+    return get_trusted_sources_941()
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/news")
+async def curated_news_feed_route(
+    asset: str | None = Query(None),
+    topic: str | None = Query(None),
+    source_id: str | None = Query(None),
+    sort_by: str = Query("chronology"),
+):
+    from bd_platform.market_radar_curated_news import build_news_feed_941
+
+    return build_news_feed_941(asset=asset, topic=topic, source_id=source_id, sort_by=sort_by)
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/news/e2e")
+async def curated_news_e2e_route():
+    from bd_platform.market_radar_curated_news import run_curated_news_e2e_941
+
+    return run_curated_news_e2e_941()
 
 
 @router.get("/intelligence-ledger/market-radar/sentiment/balance")
@@ -5393,6 +5910,388 @@ async def pit_integrity_e2e_route(_admin: dict = Depends(require_admin)):
     return run_pit_integrity_e2e_864()
 
 
+@router.get("/internal/data-engine/provenance-layer/status")
+async def provenance_layer_status_route(_admin: dict = Depends(require_admin)):
+    """#945 Data Quality & Provenance — #1003 + #1010 merged."""
+    from bd_platform.data_engine_provenance_layer import provenance_layer_status_945
+
+    return provenance_layer_status_945()
+
+
+@router.get("/internal/data-engine/provenance-layer")
+async def provenance_layer_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import build_provenance_layer_panel_945
+
+    return build_provenance_layer_panel_945()
+
+
+@router.get("/internal/data-engine/provenance-layer/lineage/{metric_id}")
+async def provenance_lineage_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import get_lineage_audit_1003
+
+    return get_lineage_audit_1003(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/audit/{metric_id}")
+async def provenance_audit_view_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    """#943 Data Provenance & Audit — merged into #945."""
+    from bd_platform.data_engine_provenance_layer import build_audit_view_943
+
+    return build_audit_view_943(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/normalize/{dataset_id}")
+async def provenance_normalize_route(dataset_id: str, _admin: dict = Depends(require_admin)):
+    """#944 Data Quality & Normalization — merged into #945."""
+    from bd_platform.data_engine_provenance_layer import normalize_dataset_944
+
+    return normalize_dataset_944(dataset_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/badge/{metric_id}")
+async def provenance_metric_badge_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    """#945/#946 — source/freshness/methodology badge."""
+    from bd_platform.data_engine_provenance_layer import build_full_metric_badge_945
+
+    return build_full_metric_badge_945(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/insight/{insight_id}/evidence")
+async def provenance_insight_evidence_route(insight_id: str, _admin: dict = Depends(require_admin)):
+    """#957 Evidence & Provenance — evidence linking merged into #945."""
+    from bd_platform.data_engine_provenance_layer import link_insight_evidence_957
+
+    return link_insight_evidence_957(insight_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/insight/{insight_id}/badge")
+async def provenance_insight_badge_route(insight_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import build_insight_evidence_badge_957
+
+    return build_insight_evidence_badge_957(insight_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/insight/{insight_id}/delivery")
+async def provenance_insight_delivery_route(insight_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import evaluate_critical_insight_delivery_957
+
+    return evaluate_critical_insight_delivery_957(insight_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/insight/{insight_id}/audit")
+async def provenance_insight_audit_route(insight_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import build_insight_audit_view_957
+
+    return build_insight_audit_view_957(insight_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/delivery/{metric_id}")
+async def provenance_metric_delivery_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    """#947 — fail-closed metric delivery evaluation."""
+    from bd_platform.data_engine_provenance_layer import evaluate_metric_delivery_947
+
+    return evaluate_metric_delivery_947(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/methodology/{metric_id}")
+async def provenance_methodology_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    """#948 — versioned methodology per metric."""
+    from bd_platform.data_engine_provenance_layer import get_methodology_version_948
+
+    return get_methodology_version_948(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/reconciliation")
+async def provenance_reconciliation_route(_admin: dict = Depends(require_admin)):
+    """#948 — QA/reconciliation tests."""
+    from bd_platform.data_engine_provenance_layer import run_qa_reconciliation_948
+
+    return run_qa_reconciliation_948()
+
+
+@router.get("/internal/data-engine/provenance-layer/e2e")
+async def provenance_layer_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import run_provenance_layer_e2e
+
+    return run_provenance_layer_e2e()
+
+
+@router.get("/internal/data-engine/provenance-layer/trace/{trace_id}")
+async def provenance_decision_trace_route(
+    trace_id: str,
+    tenant_id: str = Query("tenant_default"),
+    _admin: dict = Depends(require_admin),
+):
+    """#955 End-to-End Decision Traceability — merged into #945."""
+    from bd_platform.data_engine_provenance_layer import verify_decision_trace_integration_955
+
+    return verify_decision_trace_integration_955(trace_id, tenant_id=tenant_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/trace/{trace_id}/audit-export")
+async def provenance_decision_trace_audit_route(
+    trace_id: str,
+    tenant_id: str = Query("tenant_default"),
+    _admin: dict = Depends(require_admin),
+):
+    """#955 — audit export JSON dump."""
+    from bd_platform.intelligence_ledger_decision_certificate import export_decision_trace_audit_955
+
+    return export_decision_trace_audit_955(trace_id, tenant_id=tenant_id)
+
+
+@router.get("/internal/data-engine/stabilization/status")
+async def stabilization_status_route(_admin: dict = Depends(require_admin)):
+    """#950 Data Stabilization & Mutability Metadata — Data Engine ingest."""
+    from bd_platform.data_engine_stabilization_metadata import stabilization_status_950
+
+    return stabilization_status_950()
+
+
+@router.get("/internal/data-engine/stabilization/badge/{metric_id}")
+async def stabilization_badge_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_stabilization_metadata import get_metric_stability_badge_950
+
+    return get_metric_stability_badge_950(metric_id)
+
+
+@router.get("/internal/data-engine/stabilization/revisions/{metric_id}")
+async def stabilization_revisions_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_stabilization_metadata import get_revision_history_950
+
+    return get_revision_history_950(metric_id)
+
+
+@router.get("/internal/data-engine/stabilization/e2e")
+async def stabilization_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_stabilization_metadata import run_stabilization_e2e_950
+
+    return run_stabilization_e2e_950()
+
+
+@router.get("/internal/data-engine/historical-layer/status")
+async def historical_layer_status_route(_admin: dict = Depends(require_admin)):
+    """#967 Historical Full-Data Layer — #965 archive + #966 derivatives + #968 research."""
+    from bd_platform.data_engine_historical_layer import historical_layer_status_967
+
+    return historical_layer_status_967()
+
+
+@router.get("/internal/data-engine/historical-layer/archive")
+async def historical_archive_list_route(
+    data_type: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_historical_layer import list_archive_snapshots_965
+
+    return list_archive_snapshots_965(data_type=data_type)
+
+
+@router.get("/internal/data-engine/historical-layer/archive/{snapshot_id}")
+async def historical_archive_snapshot_route(snapshot_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_historical_layer import get_archive_snapshot_965
+
+    return get_archive_snapshot_965(snapshot_id)
+
+
+@router.get("/internal/data-engine/historical-layer/derivatives/{asset}/{metric}")
+async def historical_derivatives_route(
+    asset: str,
+    metric: str,
+    version: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_historical_layer import query_derivatives_history_966
+
+    return query_derivatives_history_966(asset, metric, version=version)
+
+
+@router.get("/internal/data-engine/historical-layer/research/{dataset_id}")
+async def historical_research_export_route(
+    dataset_id: str,
+    fmt: str = Query("parquet"),
+    version: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_historical_layer import export_research_dataset_968
+
+    return export_research_dataset_968(dataset_id, fmt=fmt, version=version)
+
+
+@router.get("/internal/data-engine/historical-layer/metric/{metric_id}")
+async def historical_metric_query_route(
+    metric_id: str,
+    version: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_historical_layer import query_historical_metric_967
+
+    return query_historical_metric_967(metric_id, version=version)
+
+
+@router.get("/internal/data-engine/historical-layer/e2e")
+async def historical_layer_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_historical_layer import run_historical_layer_e2e_967
+
+    return run_historical_layer_e2e_967()
+
+
+@router.get("/internal/data-engine/historical-layer/pit/{metric_id}")
+async def historical_pit_metric_route(
+    metric_id: str,
+    pit_version: str | None = Query(None),
+    as_of: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    """#980 Point-in-Time Immutable Metrics — merged into #967."""
+    from bd_platform.data_engine_historical_layer import query_pit_metric_980
+
+    return query_pit_metric_980(metric_id, pit_version=pit_version, as_of=as_of)
+
+
+@router.get("/internal/data-engine/historical-layer/pit/{metric_id}/snapshots")
+async def historical_pit_snapshots_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_historical_layer import list_pit_snapshots_980
+
+    return list_pit_snapshots_980(metric_id)
+
+
+@router.get("/internal/data-engine/export-layer/status")
+async def export_layer_status_route(_admin: dict = Depends(require_admin)):
+    """#924 API / Data Export — Data Engine export layer."""
+    from bd_platform.data_engine_export_layer import export_layer_status_924
+
+    return export_layer_status_924()
+
+
+@router.get("/internal/data-engine/export-layer/{dataset_id}")
+async def export_layer_export_route(
+    dataset_id: str,
+    fmt: str = Query("json"),
+    tenant_id: str = Query("tenant_default"),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_export_layer import export_dataset_924
+
+    return export_dataset_924(dataset_id, fmt=fmt, tenant_id=tenant_id)
+
+
+@router.get("/internal/data-engine/export-layer/contract-tests")
+async def export_layer_contract_tests_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_export_layer import run_export_contract_tests_924
+
+    return run_export_contract_tests_924()
+
+
+@router.get("/internal/data-engine/export-layer/e2e")
+async def export_layer_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_export_layer import run_export_layer_e2e_924
+
+    return run_export_layer_e2e_924()
+
+
+@router.get("/internal/data-engine/asset-taxonomy/status")
+async def asset_taxonomy_status_route(_admin: dict = Depends(require_admin)):
+    """#927 Asset Classification & Taxonomy — Data Engine schema."""
+    from bd_platform.data_engine_asset_taxonomy import asset_taxonomy_status_927
+
+    return asset_taxonomy_status_927()
+
+
+@router.get("/internal/data-engine/asset-taxonomy/version")
+async def asset_taxonomy_version_route(
+    version: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_asset_taxonomy import get_taxonomy_version_927
+
+    return get_taxonomy_version_927(version)
+
+
+@router.get("/internal/data-engine/asset-taxonomy/classification/{asset}")
+async def asset_taxonomy_classification_route(asset: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_asset_taxonomy import get_asset_classification_927
+
+    return get_asset_classification_927(asset)
+
+
+@router.get("/internal/data-engine/asset-taxonomy/history/{asset}")
+async def asset_taxonomy_history_route(asset: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_asset_taxonomy import get_classification_history_927
+
+    return get_classification_history_927(asset)
+
+
+@router.get("/internal/data-engine/asset-taxonomy/filter")
+async def asset_taxonomy_filter_route(
+    sector: str | None = Query(None),
+    sub_sector: str | None = Query(None),
+    category: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_asset_taxonomy import filter_assets_by_taxonomy_927
+
+    return filter_assets_by_taxonomy_927(sector=sector, sub_sector=sub_sector, category=category)
+
+
+@router.get("/internal/data-engine/asset-taxonomy/e2e")
+async def asset_taxonomy_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_asset_taxonomy import run_asset_taxonomy_e2e_927
+
+    return run_asset_taxonomy_e2e_927()
+
+
+@router.get("/internal/data-engine/entity-graph/status")
+async def entity_graph_status_route(_admin: dict = Depends(require_admin)):
+    """#940 Crypto Knowledge Graph — Data Engine Entity Graph layer."""
+    from bd_platform.data_engine_entity_graph import entity_graph_status_940
+
+    return entity_graph_status_940()
+
+
+@router.get("/internal/data-engine/entity-graph/entity/{entity_id}")
+async def entity_graph_entity_route(entity_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_entity_graph import get_entity_940
+
+    return get_entity_940(entity_id)
+
+
+@router.get("/internal/data-engine/entity-graph/edges/{entity_id}")
+async def entity_graph_edges_route(
+    entity_id: str,
+    edge_type: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_entity_graph import get_entity_edges_940
+
+    return get_entity_edges_940(entity_id, edge_type=edge_type)
+
+
+@router.get("/internal/data-engine/entity-graph/search")
+async def entity_graph_search_route(
+    q: str = Query(..., min_length=1),
+    entity_type: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_entity_graph import search_graph_940
+
+    return search_graph_940(q, entity_type=entity_type)
+
+
+@router.get("/internal/data-engine/entity-graph/merge-audit")
+async def entity_graph_merge_audit_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_entity_graph import get_merge_audit_940
+
+    return get_merge_audit_940()
+
+
+@router.get("/internal/data-engine/entity-graph/e2e")
+async def entity_graph_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_entity_graph import run_entity_graph_e2e_940
+
+    return run_entity_graph_e2e_940()
+
+
 @router.get("/intelligence-ledger/api-gateway/sdk/status")
 async def developer_sdk_status_route():
     """#853 Developer SDK — API Gateway DX layer."""
@@ -6252,6 +7151,618 @@ async def query_scheduler_e2e_route():
     return run_query_scheduler_e2e_818()
 
 
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace/status")
+async def native_sql_workspace_status_route():
+    """#978 Native SQL Workspace + #902 No-Code Builder tab."""
+    from bd_platform.data_engine_native_sql_workspace import native_sql_workspace_status_978
+
+    return native_sql_workspace_status_978()
+
+
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace")
+async def native_sql_workspace_panel_route():
+    from bd_platform.data_engine_native_sql_workspace import build_native_sql_workspace_panel_978
+
+    return build_native_sql_workspace_panel_978()
+
+
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace/metrics")
+async def native_sql_workspace_metrics_route():
+    from bd_platform.data_engine_native_sql_workspace import get_metric_catalog_902
+
+    return get_metric_catalog_902()
+
+
+@router.post("/intelligence-ledger/data-engine/native-sql-workspace/execute")
+async def native_sql_workspace_execute_route(data: dict = Body(default={})):
+    from bd_platform.data_engine_native_sql_workspace import execute_workspace_query
+
+    result = execute_workspace_query(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        tier=str(data.get("tier") or "pro"),
+        formula=data.get("formula"),
+        raw_sql=data.get("raw_sql"),
+        dataset=str(data.get("dataset") or "canonical_market"),
+        filters=data.get("filters"),
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=400, detail=result)
+    return result
+
+
+@router.post("/intelligence-ledger/data-engine/native-sql-workspace/save")
+async def native_sql_workspace_save_route(data: dict = Body(default={})):
+    from bd_platform.data_engine_native_sql_workspace import save_workspace_query
+
+    return save_workspace_query(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        name=str(data.get("name") or "Untitled"),
+        formula=data.get("formula"),
+        raw_sql=data.get("raw_sql"),
+        visibility=str(data.get("visibility") or "private"),
+    )
+
+
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace/e2e")
+async def native_sql_workspace_e2e_route():
+    from bd_platform.data_engine_native_sql_workspace import run_native_sql_workspace_e2e
+
+    return run_native_sql_workspace_e2e()
+
+
+@router.post("/intelligence-ledger/data-engine/native-sql-workspace/backtest")
+async def native_sql_workspace_backtest_route(data: dict = Body(default={})):
+    """#1005 Strategy Backtesting Sandbox — merged into #978."""
+    from bd_platform.data_engine_native_sql_workspace import run_backtest_sandbox_1005
+
+    return run_backtest_sandbox_1005(
+        strategy_rules=data.get("strategy_rules") or [],
+        asset=str(data.get("asset") or "BTC"),
+        seed=int(data.get("seed") or 42),
+        user_id=str(data.get("user_id") or "user_demo"),
+    )
+
+
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace/backtest/e2e")
+async def native_sql_workspace_backtest_e2e_route():
+    from bd_platform.data_engine_native_sql_workspace import run_backtesting_e2e_1005
+
+    return run_backtesting_e2e_1005()
+
+
+@router.get("/intelligence-ledger/research-portal/status")
+async def research_portal_status_route():
+    """#997 Research Intelligence Portal — #919 AI Analyst + #920 Deep Research."""
+    from bd_platform.research_intelligence_portal import research_portal_status_997
+
+    return research_portal_status_997()
+
+
+@router.get("/intelligence-ledger/research-portal")
+async def research_portal_panel_route():
+    from bd_platform.research_intelligence_portal import build_research_portal_panel_997
+
+    return build_research_portal_panel_997()
+
+
+@router.get("/intelligence-ledger/research-portal/ask")
+async def research_portal_ask_route(
+    query: str = Query(..., min_length=3),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+    tier: str = Query("pro"),
+):
+    """#919 AI Analyst — NL Query Interface (tool-grounded)."""
+    from bd_platform.research_intelligence_portal import ask_ai_analyst_919
+
+    return ask_ai_analyst_919(query, user_id=user_id, tenant_id=tenant_id, tier=tier)
+
+
+@router.post("/intelligence-ledger/research-portal/deep-research/plan")
+async def research_portal_deep_plan_route(data: dict = Body(default={})):
+    """#920 Deep Research — create plan (requires user approval)."""
+    from bd_platform.research_intelligence_portal import create_deep_research_plan_920
+
+    return create_deep_research_plan_920(
+        str(data.get("topic") or ""),
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+    )
+
+
+@router.post("/intelligence-ledger/research-portal/deep-research/approve")
+async def research_portal_deep_approve_route(data: dict = Body(default={})):
+    from bd_platform.research_intelligence_portal import approve_deep_research_plan_920
+
+    return approve_deep_research_plan_920(
+        str(data.get("job_id") or ""),
+        user_id=str(data.get("user_id") or "user_demo"),
+        approved=bool(data.get("approved", True)),
+    )
+
+
+@router.post("/intelligence-ledger/research-portal/deep-research/execute")
+async def research_portal_deep_execute_route(data: dict = Body(default={})):
+    from bd_platform.research_intelligence_portal import execute_deep_research_job_920
+
+    return execute_deep_research_job_920(
+        str(data.get("job_id") or ""),
+        simulate_failure=bool(data.get("simulate_failure", False)),
+    )
+
+
+@router.get("/intelligence-ledger/research-portal/deep-research/jobs")
+async def research_portal_deep_jobs_route(user_id: str | None = Query(None)):
+    from bd_platform.research_intelligence_portal import list_deep_research_jobs_920
+
+    return list_deep_research_jobs_920(user_id=user_id)
+
+
+@router.get("/intelligence-ledger/research-portal/deep-research/jobs/{job_id}")
+async def research_portal_deep_job_route(job_id: str):
+    from bd_platform.research_intelligence_portal import get_deep_research_job_920
+
+    return get_deep_research_job_920(job_id)
+
+
+@router.get("/intelligence-ledger/research-portal/e2e")
+async def research_portal_e2e_route():
+    from bd_platform.research_intelligence_portal import run_research_portal_e2e
+
+    return run_research_portal_e2e()
+
+
+@router.get("/intelligence-ledger/research-portal/auto-report")
+async def research_portal_auto_report_route(
+    frequency: str = Query("daily"),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    """#922 AI-Generated Reporting — template-based from computed metrics."""
+    from bd_platform.research_intelligence_portal import generate_auto_report_922
+
+    return generate_auto_report_922(frequency=frequency, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/research-portal/quarterly-report")
+async def research_portal_quarterly_report_route(
+    protocol_id: str = Query("aave"),
+    quarter: str = Query("Q2-2026"),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    """#989 Quarterly Protocol Performance Reports — merged into #997."""
+    from bd_platform.research_intelligence_portal import generate_quarterly_report_989
+
+    return generate_quarterly_report_989(protocol_id, quarter=quarter, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/research-portal/quarterly-report/archive")
+async def research_portal_quarterly_archive_route(protocol_id: str | None = Query(None)):
+    from bd_platform.research_intelligence_portal import list_quarterly_report_archive_989
+
+    return list_quarterly_report_archive_989(protocol_id)
+
+
+@router.get("/intelligence-ledger/research-portal/quarterly-report/e2e")
+async def research_portal_quarterly_e2e_route():
+    from bd_platform.research_intelligence_portal import run_quarterly_report_e2e_989
+
+    return run_quarterly_report_e2e_989()
+
+
+@router.get("/intelligence-ledger/research-portal/market-insights")
+async def research_portal_market_insights_route(
+    frequency: str = Query("weekly"),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    """#996 Market Insights template — merged into #997."""
+    from bd_platform.research_intelligence_portal import generate_market_insights_996
+
+    return generate_market_insights_996(frequency=frequency, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/research-portal/market-insights/e2e")
+async def research_portal_market_insights_e2e_route():
+    from bd_platform.research_intelligence_portal import run_market_insights_e2e_996
+
+    return run_market_insights_e2e_996()
+
+
+@router.get("/intelligence-ledger/research-portal/research-report")
+async def research_portal_research_report_route(
+    frequency: str = Query("weekly"),
+    assets: str | None = Query(None),
+    time_range: str = Query("7d"),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    """#998 Research Report template — merged into #997."""
+    from bd_platform.research_intelligence_portal import generate_research_report_998
+
+    asset_list = [a.strip() for a in assets.split(",")] if assets else None
+    return generate_research_report_998(
+        frequency=frequency,
+        assets=asset_list,
+        time_range=time_range,
+        user_id=user_id,
+        tenant_id=tenant_id,
+    )
+
+
+@router.get("/intelligence-ledger/research-portal/research-report/e2e")
+async def research_portal_research_report_e2e_route():
+    from bd_platform.research_intelligence_portal import run_research_report_e2e_998
+
+    return run_research_report_e2e_998()
+
+
+@router.get("/intelligence-ledger/research-portal/archive")
+async def research_portal_archive_route(
+    template: str | None = Query(None),
+    tenant_id: str | None = Query(None),
+):
+    from bd_platform.research_intelligence_portal import list_report_publication_archive_997
+
+    return list_report_publication_archive_997(template=template, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/ai-provenance/status")
+async def ai_provenance_policy_status_route():
+    """#921 AI Output Provenance — cross-cutting compliance policy."""
+    from bd_platform.ai_output_provenance_policy import ai_provenance_policy_status_921
+
+    return ai_provenance_policy_status_921()
+
+
+@router.get("/intelligence-ledger/ai-provenance/regression-tests")
+async def ai_provenance_regression_route():
+    from bd_platform.ai_output_provenance_policy import run_ai_provenance_regression_tests_921
+
+    return run_ai_provenance_regression_tests_921()
+
+
+@router.get("/intelligence-ledger/public-accuracy/verification/status")
+async def verification_engine_status_route():
+    """#931 Claims/Prediction Verification Engine — merged into #987."""
+    from bd_platform.public_accuracy_verification_engine import verification_engine_status_931
+
+    return verification_engine_status_931()
+
+
+@router.get("/intelligence-ledger/public-accuracy/verification/claim/{claim_id}")
+async def verification_claim_route(claim_id: str):
+    from bd_platform.public_accuracy_verification_engine import get_claim_verification_931
+
+    return get_claim_verification_931(claim_id)
+
+
+@router.post("/intelligence-ledger/public-accuracy/verification/freeze")
+async def verification_freeze_claim_route(data: dict = Body(default={})):
+    from bd_platform.public_accuracy_verification_engine import freeze_claim_931
+
+    return freeze_claim_931(
+        asset=data.get("asset", "BTC"),
+        claim_text=data.get("claim_text", ""),
+        target_definition=data.get("target_definition") or {},
+        horizon_days=int(data.get("horizon_days", 7)),
+        claim_type=data.get("claim_type", "hypothesis"),
+    )
+
+
+@router.post("/intelligence-ledger/public-accuracy/verification/resolve/{claim_id}")
+async def verification_resolve_claim_route(claim_id: str):
+    from bd_platform.public_accuracy_verification_engine import resolve_claim_931
+
+    return resolve_claim_931(claim_id)
+
+
+@router.get("/intelligence-ledger/public-accuracy/verification/grading-tests")
+async def verification_grading_tests_route():
+    from bd_platform.public_accuracy_verification_engine import run_verification_grading_tests_931
+
+    return run_verification_grading_tests_931()
+
+
+@router.get("/intelligence-ledger/public-accuracy/verification/e2e")
+async def verification_engine_e2e_route():
+    from bd_platform.public_accuracy_verification_engine import run_verification_engine_e2e_931
+
+    return run_verification_engine_e2e_931()
+
+
+@router.get("/intelligence-ledger/decision-intelligence/status")
+async def decision_intelligence_status_route():
+    """#938 Cross-Domain Research-to-Decision Intelligence."""
+    from bd_platform.intelligence_ledger_decision_intelligence import decision_intelligence_status_938
+
+    return decision_intelligence_status_938()
+
+
+@router.get("/intelligence-ledger/decision-intelligence/evidence")
+async def decision_intelligence_evidence_route():
+    from bd_platform.intelligence_ledger_decision_intelligence import normalize_evidence_938
+
+    return normalize_evidence_938()
+
+
+@router.get("/intelligence-ledger/decision-intelligence/contradictions")
+async def decision_intelligence_contradictions_route():
+    from bd_platform.intelligence_ledger_decision_intelligence import detect_contradictions_938
+
+    return detect_contradictions_938()
+
+
+@router.get("/intelligence-ledger/decision-intelligence/reasoning/{asset}")
+async def decision_intelligence_reasoning_route(asset: str):
+    from bd_platform.intelligence_ledger_decision_intelligence import build_reasoning_chain_938
+
+    return build_reasoning_chain_938(asset)
+
+
+@router.get("/intelligence-ledger/decision-intelligence/e2e")
+async def decision_intelligence_e2e_route():
+    from bd_platform.intelligence_ledger_decision_intelligence import run_decision_intelligence_e2e_938
+
+    return run_decision_intelligence_e2e_938()
+
+
+@router.get("/intelligence-ledger/decision-certificate/status")
+async def decision_certificate_status_route():
+    """#952 Decision Certificate + Institutional DD Export — Intelligence Ledger."""
+    from bd_platform.intelligence_ledger_decision_certificate import decision_certificate_status_952
+
+    return decision_certificate_status_952()
+
+
+@router.get("/intelligence-ledger/decision-certificate/e2e")
+async def decision_certificate_e2e_route():
+    from bd_platform.intelligence_ledger_decision_certificate import run_decision_certificate_e2e_952
+
+    return run_decision_certificate_e2e_952()
+
+
+@router.get("/intelligence-ledger/decision-certificate/trace/{trace_id}")
+async def decision_certificate_trace_route(
+    trace_id: str,
+    tenant_id: str = Query("tenant_default"),
+):
+    """#955 End-to-End Decision Traceability."""
+    from bd_platform.intelligence_ledger_decision_certificate import verify_decision_trace_955
+
+    return verify_decision_trace_955(trace_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/decision-certificate/trace/{trace_id}/audit-export")
+async def decision_certificate_trace_audit_route(
+    trace_id: str,
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.intelligence_ledger_decision_certificate import export_decision_trace_audit_955
+
+    return export_decision_trace_audit_955(trace_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/decision-certificate/{certificate_id}/export")
+async def decision_certificate_export_route(
+    certificate_id: str,
+    fmt: str = Query("json"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.intelligence_ledger_decision_certificate import export_decision_certificate_952
+
+    return export_decision_certificate_952(certificate_id, fmt=fmt, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/decision-certificate/{certificate_id}")
+async def decision_certificate_get_route(
+    certificate_id: str,
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.intelligence_ledger_decision_certificate import get_decision_certificate_952
+
+    return get_decision_certificate_952(certificate_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/sector-comparables/status")
+async def sector_comparables_status_route():
+    """#1001 Sector Comparables & Peer Analysis — Intelligence Ledger."""
+    from bd_platform.intelligence_ledger_sector_comparables import sector_comparables_status_1001
+
+    return sector_comparables_status_1001()
+
+
+@router.get("/intelligence-ledger/sector-comparables/taxonomy")
+async def sector_comparables_taxonomy_route():
+    from bd_platform.intelligence_ledger_sector_comparables import get_sector_taxonomy_1001
+
+    return get_sector_taxonomy_1001()
+
+
+@router.get("/intelligence-ledger/sector-comparables/e2e")
+async def sector_comparables_e2e_route():
+    from bd_platform.intelligence_ledger_sector_comparables import run_sector_comparables_e2e
+
+    return run_sector_comparables_e2e()
+
+
+@router.get("/intelligence-ledger/sector-comparables/{sector}")
+async def sector_comparables_dashboard_route(sector: str):
+    from bd_platform.intelligence_ledger_sector_comparables import build_sector_dashboard_1001
+
+    return build_sector_dashboard_1001(sector)
+
+
+@router.get("/intelligence-ledger/project-comparables/status")
+async def project_comparables_status_route():
+    """#982 Project Comparables — Intelligence Ledger Comparables insight."""
+    from bd_platform.intelligence_ledger_project_comparables import project_comparables_status_982
+
+    return project_comparables_status_982()
+
+
+@router.get("/intelligence-ledger/project-comparables/e2e")
+async def project_comparables_e2e_route():
+    from bd_platform.intelligence_ledger_project_comparables import run_project_comparables_e2e_982
+
+    return run_project_comparables_e2e_982()
+
+
+@router.get("/intelligence-ledger/project-comparables/{protocol_id}/criteria")
+async def project_comparables_criteria_route(protocol_id: str):
+    from bd_platform.intelligence_ledger_project_comparables import get_peer_selection_criteria_982
+
+    return get_peer_selection_criteria_982(protocol_id)
+
+
+@router.get("/intelligence-ledger/project-comparables/{protocol_id}")
+async def project_comparables_explorer_route(protocol_id: str):
+    from bd_platform.intelligence_ledger_project_comparables import build_comparable_explorer_982
+
+    return build_comparable_explorer_982(protocol_id)
+
+
+@router.get("/intelligence-ledger/protocol-kpis/status")
+async def protocol_kpi_status_route():
+    """#986 Protocol KPI Intelligence + #1004 Standardized Definitions."""
+    from bd_platform.protocol_kpi_intelligence import protocol_kpi_status_986
+
+    return protocol_kpi_status_986()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/definitions")
+async def protocol_kpi_definitions_route():
+    from bd_platform.protocol_kpi_intelligence import get_standard_definitions_1004
+
+    return get_standard_definitions_1004()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/explorer")
+async def protocol_kpi_explorer_route():
+    from bd_platform.protocol_kpi_intelligence import build_protocol_kpi_explorer_986
+
+    return build_protocol_kpi_explorer_986()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/e2e")
+async def protocol_kpi_e2e_route():
+    from bd_platform.protocol_kpi_intelligence import run_protocol_kpi_e2e
+
+    return run_protocol_kpi_e2e()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/source-parity")
+async def protocol_kpi_source_parity_route():
+    """#986 Source/methodology parity test — ±5% tolerance."""
+    from bd_platform.protocol_kpi_intelligence import run_source_parity_test_986
+
+    return run_source_parity_test_986()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/historical-qa/{protocol_id}")
+async def protocol_kpi_historical_qa_route(protocol_id: str):
+    from bd_platform.protocol_kpi_intelligence import run_historical_qa_986
+
+    return run_historical_qa_986(protocol_id)
+
+
+@router.get("/intelligence-ledger/protocol-kpis/protocol-type/{protocol_type}")
+async def protocol_kpi_type_schema_route(protocol_type: str):
+    from bd_platform.protocol_kpi_intelligence import get_protocol_type_schema_986
+
+    return get_protocol_type_schema_986(protocol_type)
+
+
+@router.get("/intelligence-ledger/protocol-kpis/development-activity/status")
+async def development_activity_status_route():
+    """#953 Development Activity Intelligence — merged into #986."""
+    from bd_platform.protocol_kpi_intelligence import development_activity_status_953
+
+    return development_activity_status_953()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/development-activity/repo-mapping/{protocol_id}")
+async def development_activity_repo_mapping_route(protocol_id: str):
+    from bd_platform.protocol_kpi_intelligence import get_repo_mapping_audit_953
+
+    return get_repo_mapping_audit_953(protocol_id)
+
+
+@router.get("/intelligence-ledger/protocol-kpis/development-activity/{protocol_id}")
+async def development_activity_chart_route(protocol_id: str):
+    from bd_platform.protocol_kpi_intelligence import build_development_activity_chart_953
+
+    return build_development_activity_chart_953(protocol_id)
+
+
+@router.get("/intelligence-ledger/protocol-kpis/{protocol_id}")
+async def protocol_kpi_normalize_route(protocol_id: str):
+    from bd_platform.protocol_kpi_intelligence import normalize_protocol_metrics_986
+
+    return normalize_protocol_metrics_986(protocol_id)
+
+
+@router.get("/intelligence-ledger/token-due-diligence/status")
+async def token_dd_status_route():
+    """#971 Instant Token Due Diligence — Intelligence Ledger."""
+    from bd_platform.intelligence_ledger_token_due_diligence import token_dd_status_971
+
+    return token_dd_status_971()
+
+
+@router.get("/intelligence-ledger/token-due-diligence/e2e")
+async def token_dd_e2e_route():
+    from bd_platform.intelligence_ledger_token_due_diligence import run_token_dd_e2e_971
+
+    return run_token_dd_e2e_971()
+
+
+@router.get("/intelligence-ledger/token-due-diligence/{token_id}")
+async def token_dd_report_route(token_id: str):
+    from bd_platform.intelligence_ledger_token_due_diligence import build_token_dd_report_971
+
+    return build_token_dd_report_971(token_id)
+
+
+@router.get("/intelligence-ledger/tokenomics/status")
+async def tokenomics_status_route():
+    """#1007 Token Allocation + #1009 Vesting Schedule — Intelligence Ledger."""
+    from bd_platform.intelligence_ledger_tokenomics import tokenomics_status
+
+    return tokenomics_status()
+
+
+@router.get("/intelligence-ledger/tokenomics/e2e")
+async def tokenomics_e2e_route():
+    from bd_platform.intelligence_ledger_tokenomics import run_tokenomics_e2e
+
+    return run_tokenomics_e2e()
+
+
+@router.get("/intelligence-ledger/tokenomics/{token_id}/allocation")
+async def tokenomics_allocation_route(token_id: str):
+    from bd_platform.intelligence_ledger_tokenomics import build_allocation_analysis_1007
+
+    return build_allocation_analysis_1007(token_id)
+
+
+@router.get("/intelligence-ledger/tokenomics/{token_id}/vesting")
+async def tokenomics_vesting_route(token_id: str, as_of: str | None = Query(None)):
+    from bd_platform.intelligence_ledger_tokenomics import compute_vesting_curve_1009
+
+    return compute_vesting_curve_1009(token_id, as_of=as_of)
+
+
+@router.get("/intelligence-ledger/tokenomics/{token_id}")
+async def tokenomics_panel_route(token_id: str):
+    from bd_platform.intelligence_ledger_tokenomics import build_tokenomics_panel
+
+    return build_tokenomics_panel(token_id)
+
+
 @router.get("/intelligence-ledger/ux-layer/progressive-disclosure/status")
 async def progressive_disclosure_status_route():
     """#815 Progressive Disclosure — cross-cutting UX pattern."""
@@ -6545,6 +8056,45 @@ async def uptime_shield_e2e_route(_admin: dict = Depends(require_admin)):
     return run_uptime_shield_e2e_862()
 
 
+@router.get("/internal/infrastructure/retention-privacy/status")
+async def retention_privacy_status_route(_admin: dict = Depends(require_admin)):
+    """#949 Data Retention & Privacy Governance — Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_retention_privacy_governance import retention_privacy_status_949
+
+    return retention_privacy_status_949()
+
+
+@router.get("/internal/infrastructure/retention-privacy/policy/{data_tier}")
+async def retention_policy_route(data_tier: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_retention_privacy_governance import get_retention_policy_949
+
+    return get_retention_policy_949(data_tier)
+
+
+@router.post("/internal/infrastructure/retention-privacy/deletion-request")
+async def retention_deletion_request_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_retention_privacy_governance import request_data_deletion_949
+
+    return request_data_deletion_949(data.get("user_id", "user_demo"))
+
+
+@router.get("/internal/infrastructure/retention-privacy/audit-trail")
+async def retention_audit_trail_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_retention_privacy_governance import get_access_audit_trail_949
+
+    return get_access_audit_trail_949()
+
+
+@router.get("/internal/infrastructure/retention-privacy/e2e")
+async def retention_privacy_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_retention_privacy_governance import run_retention_privacy_e2e_949
+
+    return run_retention_privacy_e2e_949()
+
+
 @router.get("/internal/data-engine/quality-monitor/status")
 async def quality_monitor_status_route(_admin: dict = Depends(require_admin)):
     """#824 Data Integrity Monitor — Data Engine quality_monitor (admin only)."""
@@ -6801,6 +8351,308 @@ async def market_screener_saved_filters_route():
     from bd_platform.market_screener import list_saved_filters
 
     return list_saved_filters()
+
+
+@router.get("/intelligence-ledger/market-radar/asset-screener/status")
+async def asset_screener_928_status_route():
+    """#928 Asset Screener — Market Radar Screener tab."""
+    from bd_platform.market_screener import asset_screener_status_928
+
+    return asset_screener_status_928()
+
+
+@router.get("/intelligence-ledger/market-radar/asset-screener")
+async def asset_screener_928_run_route(
+    sector: str | None = Query(None),
+    sub_sector: str | None = Query(None),
+    category: str | None = Query(None),
+    preset_id: str | None = Query(None),
+    sort_by: str = Query("market_cap_usd"),
+    sort_dir: str = Query("desc"),
+    cursor: str | None = Query(None),
+    page_size: int = Query(20, ge=1, le=100),
+    tier: str = Query("free"),
+):
+    from bd_platform.market_screener import run_asset_screener_928
+
+    return run_asset_screener_928(
+        sector=sector,
+        sub_sector=sub_sector,
+        category=category,
+        preset_id=preset_id,
+        sort_by=sort_by,
+        sort_dir=sort_dir,
+        cursor=cursor,
+        page_size=page_size,
+        tier=tier,
+    )
+
+
+@router.post("/intelligence-ledger/market-radar/asset-screener/save")
+async def asset_screener_928_save_route(
+    data: dict = Body(default={}),
+    tier: str = Query("free"),
+):
+    from bd_platform.market_screener import save_screener_criteria_928
+
+    return save_screener_criteria_928(
+        data.get("name", "Untitled"),
+        data.get("filters") or {},
+        user_id=data.get("user_id", "user_demo"),
+        tier=tier,
+    )
+
+
+@router.get("/intelligence-ledger/market-radar/asset-screener/export")
+async def asset_screener_928_export_route(fmt: str = Query("csv")):
+    """#928 export via #924 Data Engine Export Layer."""
+    from bd_platform.market_screener import export_screener_via_export_layer_928
+
+    return export_screener_via_export_layer_928(fmt=fmt)
+
+
+@router.get("/intelligence-ledger/market-radar/events/status")
+async def crypto_events_status_route():
+    """#939 Crypto Calendar / Events — Market Radar Events tab."""
+    from bd_platform.market_radar_crypto_events import crypto_events_status_939
+
+    return crypto_events_status_939()
+
+
+@router.get("/intelligence-ledger/market-radar/events")
+async def crypto_events_calendar_route(
+    asset: str | None = Query(None),
+    event_type: str | None = Query(None),
+):
+    from bd_platform.market_radar_crypto_events import build_crypto_calendar_939
+
+    return build_crypto_calendar_939(asset=asset, event_type=event_type)
+
+
+@router.get("/intelligence-ledger/market-radar/events/unlock-alerts")
+async def crypto_events_unlock_alerts_route(days_ahead: int = Query(7, ge=1, le=30)):
+    from bd_platform.market_radar_crypto_events import get_unlock_alerts_939
+
+    return get_unlock_alerts_939(days_ahead=days_ahead)
+
+
+@router.post("/intelligence-ledger/market-radar/events/revise")
+async def crypto_events_revise_route(data: dict = Body(default={})):
+    from bd_platform.market_radar_crypto_events import revise_event_date_939
+
+    return revise_event_date_939(
+        data.get("event_id", ""),
+        new_date=data.get("new_date", ""),
+        reason=data.get("reason", "official_date_change"),
+    )
+
+
+@router.get("/intelligence-ledger/market-radar/events/e2e")
+async def crypto_events_e2e_route():
+    from bd_platform.market_radar_crypto_events import run_crypto_events_e2e_939
+
+    return run_crypto_events_e2e_939()
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/futures-volume/status")
+async def futures_volume_status_route():
+    """#962 Futures Volume Intelligence — Market Radar Derivatives tab."""
+    from bd_platform.market_radar_futures_volume import futures_volume_status_962
+
+    return futures_volume_status_962()
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/futures-volume/e2e")
+async def futures_volume_e2e_route():
+    from bd_platform.market_radar_futures_volume import run_futures_volume_e2e_962
+
+    return run_futures_volume_e2e_962()
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/futures-volume/{asset}")
+async def futures_volume_dashboard_route(asset: str):
+    from bd_platform.market_radar_futures_volume import build_futures_volume_dashboard_962
+
+    return build_futures_volume_dashboard_962(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/governance/status")
+async def governance_status_route():
+    """#963 Governance & Proposal Intelligence — Market Radar Governance tab."""
+    from bd_platform.market_radar_governance import governance_status_963
+
+    return governance_status_963()
+
+
+@router.get("/intelligence-ledger/market-radar/governance/feed")
+async def governance_feed_route(protocol: str | None = Query(None)):
+    from bd_platform.market_radar_governance import build_governance_feed_963
+
+    return build_governance_feed_963(protocol=protocol)
+
+
+@router.get("/intelligence-ledger/market-radar/governance/e2e")
+async def governance_e2e_route():
+    from bd_platform.market_radar_governance import run_governance_e2e_963
+
+    return run_governance_e2e_963()
+
+
+@router.get("/intelligence-ledger/market-radar/governance/{proposal_id}")
+async def governance_proposal_route(proposal_id: str):
+    from bd_platform.market_radar_governance import get_proposal_details_963
+
+    return get_proposal_details_963(proposal_id)
+
+
+@router.get("/intelligence-ledger/market-radar/indices/status")
+async def indices_status_route():
+    """#970 Indices — Market Radar widget."""
+    from bd_platform.market_radar_indices import indices_status_970
+
+    return indices_status_970()
+
+
+@router.get("/intelligence-ledger/market-radar/indices/e2e")
+async def indices_e2e_route():
+    from bd_platform.market_radar_indices import run_indices_e2e_970
+
+    return run_indices_e2e_970()
+
+
+@router.get("/intelligence-ledger/market-radar/indices/{index_id}/constituents")
+async def indices_constituents_route(index_id: str):
+    from bd_platform.market_radar_indices import get_index_constituents_970
+
+    return get_index_constituents_970(index_id)
+
+
+@router.get("/intelligence-ledger/market-radar/indices/{index_id}/value")
+async def indices_value_route(index_id: str):
+    from bd_platform.market_radar_indices import get_index_value_970
+
+    return get_index_value_970(index_id)
+
+
+@router.get("/intelligence-ledger/market-radar/indices/{index_id}/rebalances")
+async def indices_rebalances_route(index_id: str):
+    from bd_platform.market_radar_indices import get_rebalance_history_970
+
+    return get_rebalance_history_970(index_id)
+
+
+@router.get("/intelligence-ledger/market-radar/indices/{index_id}/backtest")
+async def indices_backtest_route(index_id: str):
+    from bd_platform.market_radar_indices import run_index_backtest_970
+
+    return run_index_backtest_970(index_id)
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/status")
+async def narrative_sector_status_route():
+    """#974 Narrative & Sector Intelligence — Market Radar Narratives tab."""
+    from bd_platform.market_radar_narrative_sector import narrative_sector_status_974
+
+    return narrative_sector_status_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/leaderboard")
+async def narrative_leaderboard_route():
+    from bd_platform.market_radar_narrative_sector import build_narrative_leaderboard_974
+
+    return build_narrative_leaderboard_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/sector-heatmap")
+async def narrative_sector_heatmap_route():
+    from bd_platform.market_radar_narrative_sector import build_sector_heatmap_974
+
+    return build_sector_heatmap_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/backtest")
+async def narrative_backtest_route():
+    from bd_platform.market_radar_narrative_sector import run_narrative_backtest_974
+
+    return run_narrative_backtest_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/e2e")
+async def narrative_sector_e2e_route():
+    from bd_platform.market_radar_narrative_sector import run_narrative_sector_e2e_974
+
+    return run_narrative_sector_e2e_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/{narrative_id}")
+async def narrative_details_route(narrative_id: str):
+    from bd_platform.market_radar_narrative_sector import get_narrative_details_974
+
+    return get_narrative_details_974(narrative_id)
+
+
+@router.get("/intelligence-ledger/signal-engine/pattern-detection/status")
+async def signal_engine_pattern_status_route():
+    """#979 Pattern Recognition — Signal Engine sub-layer."""
+    from bd_platform.signal_engine_pattern_recognition import pattern_recognition_status_979
+
+    return pattern_recognition_status_979()
+
+
+@router.get("/intelligence-ledger/signal-engine/pattern-detection/e2e")
+async def signal_engine_pattern_e2e_route():
+    from bd_platform.signal_engine_pattern_recognition import run_pattern_recognition_e2e_979
+
+    return run_pattern_recognition_e2e_979()
+
+
+@router.get("/intelligence-ledger/signal-engine/pattern-detection/precision/{pattern_type}")
+async def signal_engine_pattern_precision_route(pattern_type: str):
+    from bd_platform.signal_engine_pattern_recognition import get_pattern_precision_report_979
+
+    return get_pattern_precision_report_979(pattern_type)
+
+
+@router.get("/intelligence-ledger/signal-engine/pattern-detection/{asset}")
+async def signal_engine_pattern_detect_route(asset: str):
+    from bd_platform.signal_engine_pattern_recognition import detect_patterns_979
+
+    return detect_patterns_979(asset)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/profitability-analyzer/status")
+async def profitability_analyzer_status_route():
+    """#981 Profitability Analyzer — merged into Portfolio AI."""
+    from bd_platform.portfolio_ai_profitability_analyzer import profitability_analyzer_status_981
+
+    return profitability_analyzer_status_981()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/profitability-analyzer/dashboard")
+async def profitability_analyzer_dashboard_route(
+    portfolio_id: str = Query("demo_portfolio"),
+    cost_basis_method: str = Query("fifo"),
+):
+    from bd_platform.portfolio_ai_profitability_analyzer import build_pnl_dashboard_981
+
+    return build_pnl_dashboard_981(portfolio_id, cost_basis_method=cost_basis_method)  # type: ignore[arg-type]
+
+
+@router.get("/intelligence-ledger/portfolio-ai/profitability-analyzer/export")
+async def profitability_analyzer_export_route(
+    portfolio_id: str = Query("demo_portfolio"),
+    fmt: str = Query("json"),
+):
+    from bd_platform.portfolio_ai_profitability_analyzer import export_pnl_report_981
+
+    return export_pnl_report_981(portfolio_id, fmt=fmt)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/profitability-analyzer/e2e")
+async def profitability_analyzer_e2e_route():
+    from bd_platform.portfolio_ai_profitability_analyzer import run_profitability_analyzer_e2e_981
+
+    return run_profitability_analyzer_e2e_981()
 
 
 @router.get("/intelligence-ledger/asset-screener/status")

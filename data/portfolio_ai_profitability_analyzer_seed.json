@@ -1,0 +1,74 @@
+{
+  "profitability_analyzer_981": {
+    "methodology_version": "1.0.0",
+    "cost_basis_default": "fifo",
+    "decimal_precision": 8,
+    "reconciliation_tolerance_pct": 0.01,
+    "fee_db": {
+      "compute_per_portfolio_usd": 0.03,
+      "storage_per_report_usd": 0.005,
+      "export_per_report_usd": 0.01
+    }
+  },
+  "portfolios": {
+    "demo_portfolio": {
+      "portfolio_change_usd": "3836.25000000",
+      "trades": [
+        {
+          "asset": "BTC",
+          "side": "buy",
+          "quantity": "0.5",
+          "price_usd": "60000.00000000",
+          "fee_usd": "15.00000000",
+          "fee_type": "exchange",
+          "timestamp": "2026-06-01T10:00:00+00:00"
+        },
+        {
+          "asset": "BTC",
+          "side": "sell",
+          "quantity": "0.25",
+          "price_usd": "65000.00000000",
+          "fee_usd": "8.12500000",
+          "fee_type": "exchange",
+          "realized_pnl_usd": "1176.87500000",
+          "timestamp": "2026-08-15T14:00:00+00:00"
+        },
+        {
+          "asset": "ETH",
+          "side": "buy",
+          "quantity": "5.0",
+          "price_usd": "3200.00000000",
+          "fee_usd": "5.00000000",
+          "fee_type": "gas",
+          "timestamp": "2026-07-01T08:00:00+00:00"
+        }
+      ],
+      "open_positions": [
+        {
+          "asset": "BTC",
+          "quantity": "0.25",
+          "entry_price_usd": "60000.00000000",
+          "current_price_usd": "64800.00000000",
+          "unrealized_pnl_usd": "1200.00000000",
+          "funding_fees_usd": "2.50000000"
+        },
+        {
+          "asset": "ETH",
+          "quantity": "5.0",
+          "entry_price_usd": "3200.00000000",
+          "current_price_usd": "3498.00000000",
+          "unrealized_pnl_usd": "1490.00000000",
+          "funding_fees_usd": "0.00000000"
+        }
+      ],
+      "edge_cases": [
+        {"type": "airdrop", "asset": "ARB", "classified": true, "user_override_allowed": true},
+        {"type": "staking_reward", "asset": "ETH", "classified": true, "user_override_allowed": true}
+      ],
+      "attribution": {
+        "by_asset": {"BTC": "2376.87500000", "ETH": "1490.00000000"},
+        "by_fee_type": {"exchange": "23.12500000", "gas": "5.00000000", "funding": "2.50000000"}
+      }
+    }
+  }
+}

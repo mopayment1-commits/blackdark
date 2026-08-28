@@ -8,6 +8,8 @@
       "symbol": "BTC",
       "market_cap_usd": 1200000000000,
       "volume_24h_usd": 28000000000,
+      "price_change_24h_pct": 2.1,
+      "listing_date": "2009-01-03",
       "bot_activity_score": 22,
       "exchange_quality_score": 95,
       "onchain_signal": "accumulation",
@@ -17,6 +19,8 @@
       "symbol": "ETH",
       "market_cap_usd": 420000000000,
       "volume_24h_usd": 15000000000,
+      "price_change_24h_pct": 1.5,
+      "listing_date": "2015-07-30",
       "bot_activity_score": 35,
       "exchange_quality_score": 92,
       "onchain_signal": "neutral",
@@ -26,6 +30,8 @@
       "symbol": "DOGE",
       "market_cap_usd": 18000000000,
       "volume_24h_usd": 1200000000,
+      "price_change_24h_pct": 8.4,
+      "listing_date": "2013-12-06",
       "bot_activity_score": 78,
       "exchange_quality_score": 65,
       "onchain_signal": null,
@@ -35,12 +41,37 @@
       "symbol": "SOL",
       "market_cap_usd": 85000000000,
       "volume_24h_usd": 3200000000,
+      "price_change_24h_pct": 5.2,
+      "listing_date": "2026-03-15",
       "bot_activity_score": 45,
       "exchange_quality_score": 88,
       "onchain_signal": "distribution",
       "yield_pct": 5.1
     }
   ],
+  "presets_928": {
+    "top_gainers": {
+      "name": "Top Gainers",
+      "rule_based": true,
+      "filters": {"price_change_24h_pct": {"min": 3.0}},
+      "sort_by": "price_change_24h_pct",
+      "sort_dir": "desc"
+    },
+    "high_volume": {
+      "name": "High Volume",
+      "rule_based": true,
+      "filters": {"volume_24h_usd": {"min": 5000000000}},
+      "sort_by": "volume_24h_usd",
+      "sort_dir": "desc"
+    },
+    "new_listings": {
+      "name": "New Listings",
+      "rule_based": true,
+      "filters": {"listing_date": {"min": "2026-01-01"}},
+      "sort_by": "listing_date",
+      "sort_dir": "desc"
+    }
+  },
   "saved_filters": {
     "low_bot_high_quality": {
       "name": "Low Bot + High Exchange Quality",

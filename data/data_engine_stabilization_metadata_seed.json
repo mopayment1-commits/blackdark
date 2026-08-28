@@ -1,0 +1,72 @@
+{
+  "stabilization_950": {
+    "rules_version": "1.0.0",
+    "historical_data_ref": 967,
+    "stabilization_blocks": {
+      "utxo": 6,
+      "account": 12,
+      "default": 12
+    },
+    "fee_db": {
+      "tracking_per_metric_usd": 0.0002,
+      "storage_per_revision_usd": 0.0005
+    }
+  },
+  "metrics": {
+    "btc_utxo_balance": {
+      "metric_id": "btc_utxo_balance",
+      "chain_type": "utxo",
+      "ingested_at": "2026-08-28T02:00:00+00:00",
+      "block_height": 850100,
+      "confirmations": 4,
+      "stabilization_blocks": 6,
+      "can_mutate": true,
+      "status": "provisional",
+      "value": 19850000
+    },
+    "eth_account_tvl": {
+      "metric_id": "eth_account_tvl",
+      "chain_type": "account",
+      "ingested_at": "2026-08-28T01:30:00+00:00",
+      "block_height": 21000050,
+      "confirmations": 15,
+      "stabilization_blocks": 12,
+      "can_mutate": false,
+      "status": "stabilized",
+      "value": 42000000000
+    },
+    "sol_active_addresses": {
+      "metric_id": "sol_active_addresses",
+      "chain_type": "account",
+      "ingested_at": "2026-08-28T02:25:00+00:00",
+      "block_height": 280000100,
+      "confirmations": 3,
+      "stabilization_blocks": 12,
+      "can_mutate": true,
+      "status": "fresh",
+      "value": 1250000
+    }
+  },
+  "revisions": [
+    {
+      "revision_id": "rev_btc_001",
+      "metric_id": "btc_utxo_balance",
+      "old_value": 19840000,
+      "new_value": 19850000,
+      "revised_at": "2026-08-27T18:00:00+00:00",
+      "reason": "block_reorg_correction",
+      "post_stabilization": true,
+      "audit_logged": true
+    }
+  ],
+  "cache_invalidation_log": [
+    {
+      "invalidation_id": "cache_inv_001",
+      "metric_id": "btc_utxo_balance",
+      "revision_id": "rev_btc_001",
+      "downstream_caches": ["market_radar", "protocol_kpis"],
+      "invalidated_at": "2026-08-27T18:00:05+00:00",
+      "tested": true
+    }
+  ]
+}
