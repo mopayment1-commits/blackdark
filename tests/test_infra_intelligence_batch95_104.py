@@ -68,7 +68,7 @@ def test_100_liquidation_proximity(seed):
 
     liq = evaluate_liquidation_alert_82(price=63000, liquidation_level=62000, seed=seed)
     assert "proximity_pct" in liq
-    assert liq["merged_features"] == [82, 100]
+    assert 82 in liq["merged_features"] and 100 in liq["merged_features"]
 
 
 def test_101_oracle_freshness(seed):

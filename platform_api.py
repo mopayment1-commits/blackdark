@@ -1514,3 +1514,80 @@ async def infra_intelligence_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.infra_intelligence_layer import run_infra_intelligence_e2e_95_104
 
     return run_infra_intelligence_e2e_95_104()
+
+
+# ─── Market Analysis (#105–#116) ──────────────────────────────────────────────────
+
+
+@router.get("/radar/market-health/contagion")
+async def contagion_vector_route():
+    from bd_platform.market_analysis_layer import compute_contagion_vector_106
+
+    return compute_contagion_vector_106()
+
+
+@router.get("/radar/market-health/gcli")
+async def gcli_route():
+    from bd_platform.market_analysis_layer import compute_gcli_112
+
+    return compute_gcli_112()
+
+
+@router.get("/radar/market-health/ls-ratio")
+async def whale_ls_ratio_route():
+    from bd_platform.market_analysis_layer import compute_whale_ls_ratio_114
+
+    return compute_whale_ls_ratio_114()
+
+
+@router.get("/radar/market-health/full")
+async def market_health_bundle_route():
+    from bd_platform.market_analysis_layer import attach_market_health_bundle_106_112_114
+    from bd_platform.infra_intelligence_layer import compute_leverage_overhang_104
+
+    bundle = attach_market_health_bundle_106_112_114()
+    bundle["leverage_overhang"] = compute_leverage_overhang_104()
+    return bundle
+
+
+@router.get("/radar/technical/orderbook-skew")
+async def orderbook_skew_route(
+    bid_depth_usd: float = Query(12_000_000),
+    ask_depth_usd: float = Query(8_000_000),
+    exchange: str = Query("binance"),
+):
+    from bd_platform.market_analysis_layer import compute_orderbook_skew_108
+
+    return compute_orderbook_skew_108(bid_depth_usd=bid_depth_usd, ask_depth_usd=ask_depth_usd, exchange=exchange)
+
+
+@router.get("/radar/technical/orderflow-imbalance")
+async def imbalance_delta_route():
+    from bd_platform.market_analysis_layer import compute_imbalance_delta_113
+
+    return compute_imbalance_delta_113()
+
+
+@router.get("/radar/technical/volume-velocity")
+async def volume_velocity_route(
+    volume_current: float = Query(3_000_000_000),
+    volume_previous: float = Query(1_000_000_000),
+):
+    from bd_platform.market_analysis_layer import compute_volume_velocity_115
+
+    return compute_volume_velocity_115(volume_current=volume_current, volume_previous=volume_previous)
+
+
+@router.get("/oracle/on-chain/derivatives/delta-flow")
+@router.get("/radar/derivatives/delta-pressure")
+async def delta_hedging_flow_route():
+    from bd_platform.market_analysis_layer import compute_delta_hedging_flow_116
+
+    return compute_delta_hedging_flow_116()
+
+
+@router.get("/market-analysis/e2e")
+async def market_analysis_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.market_analysis_layer import run_market_analysis_e2e_105_116
+
+    return run_market_analysis_e2e_105_116()

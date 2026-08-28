@@ -388,7 +388,7 @@ def build_whale_narrative_71(
     narrative_ar = matched["narrative_ar"] if matched else "حركة on-chain كبيرة رُصدت"
 
     fee = float((seed.get("whale_narrative_71") or {}).get("fee_db", {}).get("synthesis_usd", 0.002))
-    return {
+    result = {
         "ok": True,
         "feature_ref": 71,
         "narrative": {
@@ -402,6 +402,12 @@ def build_whale_narrative_71(
         "disclaimer": _disclaimer(),
         "fee_db": {"rpc_usd": 0.001, "synthesis_usd": fee},
     }
+    try:
+        from bd_platform.market_analysis_layer import attach_whale_extensions_107_110
+
+        return attach_whale_extensions_107_110(result, seed=seed)
+    except ImportError:
+        return result
 
 
 # ─── #72 Noise Filter ───────────────────────────────────────────────────────────
@@ -486,7 +492,7 @@ def build_multi_dim_analysis_73(
     composite = round(sum(d["score"] * d["weight"] for d in dims.values()), 2)
     fee_cfg = cfg.get("fee_db") or {}
     per_dim = float(fee_cfg.get("per_dimension_usd", 0.0003))
-    return {
+    result = {
         "ok": True,
         "feature_ref": 73,
         "asset": asset,
@@ -504,6 +510,12 @@ def build_multi_dim_analysis_73(
             "total_usd": round(per_dim * 4, 4),
         },
     }
+    try:
+        from bd_platform.market_analysis_layer import attach_macro_spx_to_multi_dim_111
+
+        return attach_macro_spx_to_multi_dim_111(result, seed=seed)
+    except ImportError:
+        return result
 
 
 # ─── #74 Backtesting ────────────────────────────────────────────────────────────
@@ -543,7 +555,7 @@ def run_backtest_74(
     ]
 
     fee = float((seed.get("backtesting_74") or {}).get("fee_db", {}).get("compute_usd", 0.01))
-    return {
+    result = {
         "ok": True,
         "feature_ref": 74,
         "asset": asset,
@@ -564,6 +576,12 @@ def run_backtest_74(
         },
         "fee_db": {"compute_usd": fee, "data_usd": 0.005},
     }
+    try:
+        from bd_platform.market_analysis_layer import attach_tail_risk_to_backtest_105
+
+        return attach_tail_risk_to_backtest_105(result, seed=seed)
+    except ImportError:
+        return result
 
 
 # ─── #75 Flexible Alerts Policy ─────────────────────────────────────────────────

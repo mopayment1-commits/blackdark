@@ -2050,6 +2050,38 @@ async def sybil_filter_public(wallets: str = "[]"):
     return filter_sybil_clusters_99(parsed if isinstance(parsed, list) else [])
 
 
+@app.get("/radar/market-health/gcli")
+async def radar_gcli():
+    """#112 — Global Crypto Liquidity Index."""
+    from bd_platform.market_analysis_layer import compute_gcli_112
+
+    return compute_gcli_112()
+
+
+@app.get("/radar/market-health/contagion")
+async def radar_contagion():
+    """#106 — Cross-margin contagion risk vector."""
+    from bd_platform.market_analysis_layer import compute_contagion_vector_106
+
+    return compute_contagion_vector_106()
+
+
+@app.get("/radar/technical/orderbook-skew")
+async def radar_orderbook_skew():
+    """#108 — CEX order book bid-ask skew."""
+    from bd_platform.market_analysis_layer import compute_orderbook_skew_108
+
+    return compute_orderbook_skew_108()
+
+
+@app.get("/radar/technical/volume-velocity")
+async def radar_volume_velocity():
+    """#115 — Volume velocity tracker."""
+    from bd_platform.market_analysis_layer import compute_volume_velocity_115
+
+    return compute_volume_velocity_115()
+
+
 @app.get("/docs", response_class=HTMLResponse)
 async def public_developer_docs_page(request: Request):
     """Limited public developer docs (evidence/read APIs) — not full execution surface."""

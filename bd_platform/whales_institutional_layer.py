@@ -184,6 +184,13 @@ def build_advanced_risk_report_77(
 
     fee = float((seed.get("advanced_risk_77") or {}).get("fee_db", {}).get("compute_usd", 0.002))
     drawdown_lifecycle = _compute_drawdown_duration_103(price_history or [], seed=seed)
+    tail_risk: dict[str, Any] = {}
+    try:
+        from bd_platform.market_analysis_layer import compute_tail_risk_alpha_105
+
+        tail_risk = compute_tail_risk_alpha_105(seed=seed)
+    except ImportError:
+        pass
     return {
         "ok": True,
         "feature_ref": 77,
@@ -193,6 +200,8 @@ def build_advanced_risk_report_77(
         "correlations": correlations,
         "stress_scenarios": scenarios,
         "drawdown_lifecycle": drawdown_lifecycle,
+        "tail_risk_alpha": tail_risk,
+        "merged_features": [77, 103, 105],
         "formula_visible": True,
         "cached_correlation_key": cache_key,
         "performance_target_ms": 800,
@@ -409,7 +418,7 @@ def evaluate_liquidation_alert_82(
     cascade_risk = "high" if distance_pct < 5 else ("medium" if distance_pct < 10 else "low")
     triggered = distance_pct < 8 and open_interest_usd > 100_000_000
     fee = float((seed.get("liquidation_alert_82") or {}).get("fee_db", {}).get("alert_usd", 0.0005))
-    return {
+    result = {
         "ok": True,
         "feature_ref": 82,
         "merged_features": [82, 100],
@@ -432,6 +441,12 @@ def evaluate_liquidation_alert_82(
         "public_data_only": True,
         "fee_db": {"alert_usd": fee},
     }
+    try:
+        from bd_platform.market_analysis_layer import attach_liquidation_anchors_109
+
+        return attach_liquidation_anchors_109(result, current_price=price, seed=seed)
+    except ImportError:
+        return result
 
 
 # ─── #83 SMB Institution Path (DEFERRED) ────────────────────────────────────────

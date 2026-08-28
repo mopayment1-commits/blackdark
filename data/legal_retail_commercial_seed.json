@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -515,5 +515,82 @@
     "route": "/radar/market-health",
     "policy": {"red_threshold": 3.0, "yellow_threshold": 2.0},
     "fee_db": {"compute_usd": 0.0015}
+  },
+  "tail_risk_alpha_105": {
+    "standalone": false,
+    "merged_into": ["backtesting_74", "advanced_risk_77", "ic_report_87"],
+    "policy": {"tail_event_threshold_pct": -5},
+    "fee_db": {"compute_usd": 0.002}
+  },
+  "contagion_vector_106": {
+    "standalone": false,
+    "route": "/radar/market-health/contagion",
+    "tier": "pro_institution",
+    "policy": {"rule_based_simulation": true},
+    "fee_db": {"compute_usd": 0.005}
+  },
+  "whale_retail_ratio_107": {
+    "standalone": false,
+    "merged_into": ["whale_narrative_71", "market_radar"],
+    "policy": {"whale_threshold_usd": 1000000, "retail_threshold_usd": 10000},
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "orderbook_skew_108": {
+    "standalone": false,
+    "route": "/radar/technical/orderbook-skew",
+    "merged_into": "ta_engine",
+    "policy": {"buy_pressure_threshold": 0.6, "sell_pressure_threshold": -0.6},
+    "fee_db": {"compute_usd": 0.0008}
+  },
+  "liquidation_anchors_109": {
+    "standalone": false,
+    "merged_into": "liquidation_alert_82",
+    "policy": {"sensitivity_pct": 3, "spike_sigma": 2},
+    "fee_db": {"storage_usd": 0.0002, "compare_usd": 0.0003}
+  },
+  "wallet_age_acceleration_110": {
+    "standalone": false,
+    "merged_into": "whale_narrative_71",
+    "policy": {"old_wallet_days": 730, "acceleration_threshold_pct": 300},
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "spx_correlation_111": {
+    "standalone": false,
+    "merged_into": "multi_dim_analysis_73",
+    "policy": {"method": "pearson", "windows": [30, 90, 180]},
+    "fee_db": {"compute_usd": 0.0005}
+  },
+  "gcli_112": {
+    "standalone": false,
+    "route": "/radar/market-health/gcli",
+    "tier": "pro",
+    "weights": {"order_book_depth": 0.40, "stablecoin_flows": 0.35, "on_chain_velocity": 0.25},
+    "fee_db": {"compute_usd": 0.008}
+  },
+  "imbalance_delta_113": {
+    "standalone": false,
+    "route": "/radar/technical/orderflow-imbalance",
+    "merged_into": "ta_engine",
+    "fee_db": {"compute_usd": 0.0007}
+  },
+  "whale_ls_ratio_114": {
+    "standalone": false,
+    "route": "/radar/market-health/ls-ratio",
+    "policy": {"whale_oi_threshold_usd": 500000, "noise_filter_usd": 50000},
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "volume_velocity_115": {
+    "standalone": false,
+    "route": "/radar/technical/volume-velocity",
+    "merged_into": "ta_engine",
+    "policy": {"surge_threshold_pct": 200, "slowdown_threshold_pct": -50},
+    "fee_db": {"compute_usd": 0.0004}
+  },
+  "delta_hedging_flow_116": {
+    "standalone": false,
+    "routes": ["/oracle/on-chain/derivatives/delta-flow", "/radar/derivatives/delta-pressure"],
+    "tier": "pro_institution",
+    "policy": {"time_window_minutes": 5},
+    "fee_db": {"compute_usd": 0.006}
   }
 }
