@@ -211,7 +211,13 @@ def build_advanced_risk_report_77(
     try:
         from bd_platform.advanced_ta_risk_layer import attach_leverage_risk_120
 
-        return attach_leverage_risk_120(result, seed=seed)
+        result = attach_leverage_risk_120(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.risk_infrastructure_layer import attach_correlation_decay_169
+
+        return attach_correlation_decay_169(result, seed=seed)
     except ImportError:
         return result
 

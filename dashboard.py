@@ -2003,6 +2003,38 @@ async def public_alert_delivery(channel: str = "telegram", user_tier: str = "pro
     return alert_delivery_status_161(channel=channel, user_tier=user_tier)
 
 
+@app.get("/portfolio/liquidity-impact")
+async def public_liquidity_impact(position_usd: float = 250_000, available_depth_usd: float = 1_200_000):
+    """#164 — Liquidity impact warning (panic button rejected)."""
+    from bd_platform.risk_infrastructure_layer import liquidity_impact_warning_164
+
+    return liquidity_impact_warning_164(position_usd=position_usd, available_depth_usd=available_depth_usd)
+
+
+@app.get("/oracle/on-chain/mining")
+async def public_hashrate_capitulation():
+    """#165 — Hashrate capitulation mining analysis."""
+    from bd_platform.risk_infrastructure_layer import hashrate_capitulation_forecast_165
+
+    return hashrate_capitulation_forecast_165()
+
+
+@app.get("/radar/derivatives/oi-momentum")
+async def public_oi_momentum(exchange: str = "binance"):
+    """#170 — Open Interest momentum delta."""
+    from bd_platform.risk_infrastructure_layer import compute_oi_momentum_delta_170
+
+    return compute_oi_momentum_delta_170(exchange=exchange)
+
+
+@app.get("/portfolio/risk/advanced/correlation-decay")
+async def public_correlation_decay():
+    """#169 — Correlation decay matrix."""
+    from bd_platform.risk_infrastructure_layer import compute_correlation_decay_matrix_169
+
+    return compute_correlation_decay_matrix_169()
+
+
 @app.post("/user/delete")
 async def user_delete_alias(body: dict = Body(default={})):
     """#58 — GDPR erasure alias (requires auth via privacy router for full flow)."""

@@ -1986,3 +1986,90 @@ async def intelligence_analysis_e2e_route(_admin: dict = Depends(require_admin))
     from bd_platform.intelligence_analysis_layer import run_intelligence_analysis_e2e_153_163
 
     return run_intelligence_analysis_e2e_153_163()
+
+
+# ─── Risk & Infrastructure (#164–#176) ──────────────────────────────────────────
+
+
+@router.get("/portfolio/liquidity-impact")
+async def liquidity_impact_route(position_usd: float = Query(250_000), available_depth_usd: float = Query(1_200_000)):
+    from bd_platform.risk_infrastructure_layer import liquidity_impact_warning_164
+
+    return liquidity_impact_warning_164(position_usd=position_usd, available_depth_usd=available_depth_usd)
+
+
+@router.get("/oracle/on-chain/mining")
+async def hashrate_capitulation_route():
+    from bd_platform.risk_infrastructure_layer import hashrate_capitulation_forecast_165
+
+    return hashrate_capitulation_forecast_165()
+
+
+@router.get("/brokerage/status")
+async def brokerage_rejected_route():
+    from bd_platform.risk_infrastructure_layer import brokerage_rejected_status_166
+
+    return brokerage_rejected_status_166()
+
+
+@router.get("/portfolio/risk/advanced/correlation-decay")
+async def correlation_decay_route():
+    from bd_platform.risk_infrastructure_layer import compute_correlation_decay_matrix_169
+
+    return compute_correlation_decay_matrix_169()
+
+
+@router.get("/radar/derivatives/oi-momentum")
+async def oi_momentum_route(exchange: str = Query("binance")):
+    from bd_platform.risk_infrastructure_layer import compute_oi_momentum_delta_170
+
+    return compute_oi_momentum_delta_170(exchange=exchange)
+
+
+@router.get("/intelligence/multi-dim/macro/m2")
+async def m2_macro_flow_route():
+    from bd_platform.risk_infrastructure_layer import compute_m2_macro_flow_171
+
+    return compute_m2_macro_flow_171()
+
+
+@router.get("/intelligence/institutional-memory-status")
+async def institutional_memory_route():
+    from bd_platform.risk_infrastructure_layer import institutional_memory_status_172
+
+    return institutional_memory_status_172()
+
+
+@router.get("/auth/institutional-rbac-status")
+async def institutional_rbac_route():
+    from bd_platform.risk_infrastructure_layer import institutional_rbac_status_173
+
+    return institutional_rbac_status_173()
+
+
+@router.get("/institution/full-white-label-status")
+async def full_white_label_route():
+    from bd_platform.risk_infrastructure_layer import full_white_label_status_174
+
+    return full_white_label_status_174()
+
+
+@router.get("/portfolio/risk-intelligence-status")
+async def risk_intelligence_route():
+    from bd_platform.risk_infrastructure_layer import risk_intelligence_status_175
+
+    return risk_intelligence_status_175()
+
+
+@router.get("/infrastructure/resilience-status")
+async def operational_resilience_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.risk_infrastructure_layer import operational_resilience_status_176
+
+    return operational_resilience_status_176()
+
+
+@router.get("/risk-infrastructure/e2e")
+async def risk_infrastructure_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.risk_infrastructure_layer import run_risk_infrastructure_e2e_164_176
+
+    return run_risk_infrastructure_e2e_164_176()

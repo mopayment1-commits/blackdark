@@ -425,7 +425,7 @@ def validate_oracle_freshness_101(
         action = "pass"
 
     fee = float((seed.get("oracle_latency_buffer_101") or {}).get("fee_db", {}).get("dual_query_usd", 0.0003))
-    return {
+    result = {
         "ok": accepted,
         "feature_ref": 101,
         "merged_into": "oracle_api",
@@ -440,6 +440,28 @@ def validate_oracle_freshness_101(
         "latency_check_ms": 8,
         "fee_db": {"dual_query_usd": fee},
     }
+    try:
+        from bd_platform.risk_infrastructure_layer import validate_time_sync_167
+
+        sync = validate_time_sync_167(
+            source_a_ts_ms=primary_timestamp_ms,
+            source_b_ts_ms=secondary_timestamp_ms,
+            server_ts_ms=max(primary_timestamp_ms, secondary_timestamp_ms) + 100,
+            seed=seed,
+        )
+        result["time_sync"] = {
+            "feature_ref": 167,
+            "sync_status": sync.get("sync_status"),
+            "ntp_sync_ok": sync.get("ntp_sync_ok"),
+            "middleware_http_status": sync.get("middleware_http_status"),
+        }
+        if sync.get("reject_reason"):
+            result["ok"] = False
+            result["accepted"] = False
+            result["action"] = "reject_stale_data"
+    except ImportError:
+        pass
+    return result
 
 
 # ─── #102 Impermanent Loss Vulnerability Score ─────────────────────────────────

@@ -100,6 +100,7 @@ def cluster_sybil_identities_129(
                 "wallet_count": len(group),
                 "cluster_score": cluster_score,
                 "same_entity_likely": True,
+                "avg_movement_usd": round(sum(amounts) * 50_000, 2),
                 "funding_source_hash": hashlib.sha256(funding.encode()).hexdigest()[:12],
                 "wallet_ids": [w.get("wallet_id", w.get("address", "")) for w in group],
                 "heuristics": {
@@ -114,7 +115,7 @@ def cluster_sybil_identities_129(
             })
 
     fee = float((seed.get("sybil_identity_linker_129") or {}).get("fee_db", {}).get("compute_usd", 0.002))
-    return {
+    result = {
         "ok": True,
         "feature_ref": 129,
         "route": "/oracle/on-chain/sybil-clustering",
@@ -129,6 +130,12 @@ def cluster_sybil_identities_129(
         "false_positive_target_pct": 5,
         "fee_db": {"compute_usd": fee},
     }
+    try:
+        from bd_platform.risk_infrastructure_layer import attach_cluster_index_168
+
+        return attach_cluster_index_168(result, seed=seed)
+    except ImportError:
+        return result
 
 
 def attach_sybil_clustering_129(sybil_result: dict[str, Any], *, wallets: list[dict[str, Any]] | None = None, seed: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -292,7 +299,7 @@ def compute_macro_event_nexus_133(
     risk_elevated = expected_impact > 5
     fee = float((seed.get("macro_event_nexus_133") or {}).get("fee_db", {}).get("compute_usd", 0.001))
 
-    return {
+    result = {
         "ok": True,
         "feature_ref": 133,
         "merged_into": ["multi_dim_analysis_73", "market_radar"],
@@ -313,6 +320,12 @@ def compute_macro_event_nexus_133(
         "historical_not_prediction": True,
         "fee_db": {"compute_usd": fee},
     }
+    try:
+        from bd_platform.risk_infrastructure_layer import attach_m2_macro_flow_171
+
+        return attach_m2_macro_flow_171(result, seed=seed)
+    except ImportError:
+        return result
 
 
 def attach_macro_nexus_to_multi_dim_133(multi_dim: dict[str, Any], *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
