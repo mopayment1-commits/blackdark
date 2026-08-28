@@ -47,7 +47,7 @@ _COMMON_PASSWORDS = {
 
 TOKEN_TTL_MINUTES = {
     "email_verify": int(os.getenv("IDENTITY_VERIFY_TTL_MIN", "60")),
-    "password_reset": int(os.getenv("IDENTITY_RESET_TTL_MIN", "45")),
+    "password_reset": int(os.getenv("IDENTITY_RESET_TTL_MIN", "15")),
 }
 
 AVATAR_DIR = Path(os.getenv("IDENTITY_AVATAR_DIR", "data/avatars"))
@@ -291,11 +291,18 @@ async def send_password_reset_email(user_id: int, email: str) -> dict[str, Any]:
     raw = await issue_auth_token(user_id, "password_reset")
     base = (os.getenv("APP_BASE_URL") or "http://127.0.0.1:8080").rstrip("/")
     link = f"{base}/reset-password?token={raw}"
+    try:
+        from password_recovery_hardening import password_changed_notification_body
+
+        support_note = password_changed_notification_body()
+    except ImportError:
+        support_note = "If this wasn't you, contact support immediately."
     body = (
         "Reset your BLACKDARK account access.\n\n"
         f"Open this one-time link within {TOKEN_TTL_MINUTES['password_reset']} minutes:\n{link}\n\n"
         "If you did not request this, ignore this message. "
-        "Your credentials will not change until you open the link.\n"
+        "Your credentials will not change until you open the link.\n\n"
+        f"{support_note}\n"
     )
     sent = await enqueue_identity_email(email, "Reset your BLACKDARK account access", body)
     out: dict[str, Any] = {"sent": True, "channel": "email_outbox_or_smtp"}

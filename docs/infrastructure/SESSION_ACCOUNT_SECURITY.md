@@ -68,3 +68,24 @@ Existing user MFA endpoints: `/api/auth/mfa/*`
 ## Sprint 0
 
 Blocks production if admin 2FA not configured in production environment.
+
+## Secure Password Recovery (#1019)
+
+Token-based email reset only — **no security questions**.
+
+| Control | Value |
+|---------|-------|
+| Token expiry | 15 minutes |
+| Single-use | Yes, hashed in DB |
+| Rate limit | 3/hour per email · 5/5min per IP |
+| New device | Email notification |
+| 2FA enabled | MFA challenge required before new password |
+| Session kill | All sessions invalidated on reset |
+| Audit | `data/password_recovery_audit.jsonl` (2y retention) |
+
+```
+GET /api/platform/session-security/password-recovery/status
+GET /api/platform/session-security/password-recovery/gate
+GET /api/platform/session-security/password-recovery/audit
+GET /api/platform/session-security/password-recovery/e2e
+```

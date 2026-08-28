@@ -36,6 +36,46 @@
       "incident_response_ref": 1017
     },
     "billing_actions_requiring_mfa": ["upgrade", "cancel", "downgrade"],
-    "role_elevation_requires_mfa": true
+    "role_elevation_requires_mfa": true,
+    "password_recovery": {
+      "policy": {
+        "token_based_only": true,
+        "security_questions_forbidden": true,
+        "token_expiry_minutes": 15,
+        "single_use_tokens": true,
+        "hashed_in_db": true,
+        "no_plaintext_tokens": true,
+        "session_invalidation_on_reset": true,
+        "billing_email_separate": true,
+        "non_custodial": true,
+        "audit_retention_days": 730,
+        "audit_append_only": true
+      },
+      "rate_limits": {
+        "per_email_per_hour": 3,
+        "per_ip_per_5_minutes": 5,
+        "email_window_seconds": 3600,
+        "ip_window_seconds": 300
+      },
+      "takeover_detection": {
+        "failed_attempts_per_hour": 3,
+        "incident_response_ref": 1017
+      },
+      "admin_reset": {
+        "secondary_approval_required": true,
+        "approval_token_env": "ADMIN_RESET_APPROVAL_TOKEN",
+        "mfa_reverification_required": true
+      },
+      "notification_template": {
+        "password_changed": "Your password was changed. If this wasn't you, contact support immediately."
+      },
+      "integrations": {
+        "rbac_ref": 1022,
+        "stripe_ref": 908,
+        "incident_response_ref": 1017,
+        "tos_ref": 1018,
+        "mfa_ref": 1033
+      }
+    }
   }
 }

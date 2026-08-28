@@ -576,6 +576,34 @@ async def session_security_e2e(_admin: dict = Depends(require_admin)):
     return run_session_security_e2e_1019()
 
 
+@router.get("/session-security/password-recovery/status")
+async def password_recovery_status():
+    from password_recovery_hardening import password_recovery_status as pr_status
+
+    return pr_status()
+
+
+@router.get("/session-security/password-recovery/gate")
+async def password_recovery_gate():
+    from password_recovery_hardening import check_password_recovery_gate
+
+    return check_password_recovery_gate()
+
+
+@router.get("/session-security/password-recovery/audit")
+async def password_recovery_audit(_admin: dict = Depends(require_admin)):
+    from password_recovery_hardening import get_password_recovery_audit_trail
+
+    return get_password_recovery_audit_trail()
+
+
+@router.get("/session-security/password-recovery/e2e")
+async def password_recovery_e2e(_admin: dict = Depends(require_admin)):
+    from password_recovery_hardening import run_password_recovery_e2e
+
+    return run_password_recovery_e2e()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),

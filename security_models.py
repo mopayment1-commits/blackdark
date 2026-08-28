@@ -37,6 +37,7 @@ class AuthForgotPasswordBody(BaseModel):
 class AuthResetPasswordBody(BaseModel):
     token: str = Field(min_length=16, max_length=200)
     password: str = Field(min_length=10, max_length=128)
+    mfa_code: str | None = Field(default=None, max_length=64)
 
 
 class AuthChangePasswordBody(BaseModel):

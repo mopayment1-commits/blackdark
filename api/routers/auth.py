@@ -227,13 +227,28 @@ async def auth_mfa_disable(
 async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
     """Always returns generic success to avoid account enumeration."""
     from database import fetch_user_by_email
-    from identity_service import send_password_reset_email, validate_email
+    from identity_service import validate_email
     from security_auth import check_login_rate_limit
 
     ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip() or "unknown"
     check_login_rate_limit(f"forgot:{ip}")
     try:
+        from password_recovery_hardening import assert_no_security_questions, check_password_recovery_rate_limits
+
+        assert_no_security_questions(body.model_dump())
+    except ImportError:
+        pass
+    try:
         email = validate_email(body.email)
+    except ValueError:
+        return {
+            "ok": True,
+            "message": "If an account exists for that email, a reset link was sent.",
+        }
+    try:
+        from password_recovery_hardening import check_password_recovery_rate_limits
+
+        check_password_recovery_rate_limits(email=email, ip=ip)
     except ValueError:
         return {
             "ok": True,
@@ -243,6 +258,18 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
     debug: dict[str, Any] = {}
     if user and int(user.get("password_is_set") if user.get("password_is_set") is not None else 1):
         try:
+            from password_recovery_hardening import send_hardened_password_reset
+
+            debug = await send_hardened_password_reset(
+                int(user["id"]),
+                email,
+                ip=ip,
+                user_agent=request.headers.get("user-agent"),
+                accept_language=request.headers.get("accept-language"),
+            )
+        except ImportError:
+            from identity_service import send_password_reset_email
+
             debug = await send_password_reset_email(int(user["id"]), email)
         except Exception:
             pass
@@ -257,45 +284,70 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
 
 
 @router.post("/reset-password", responses=COMMON_ERROR_RESPONSES)
-async def auth_reset_password(body: AuthResetPasswordBody):
-    from auth_service import create_session, hash_password
-    from database import (
-        delete_user_sessions_for_user,
-        fetch_user_by_id,
-        update_user_profile_fields,
-    )
-    from identity_service import consume_auth_token, validate_password
-
+async def auth_reset_password(body: AuthResetPasswordBody, request: Request):
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip() or "unknown"
     try:
-        user_id = await consume_auth_token(body.token, "password_reset")
-        user = await fetch_user_by_id(user_id)
-        if not user:
-            raise ValueError("Invalid or expired link")
-        email = str(user["email"])
-        validate_password(body.password, email=email)
-        await update_user_profile_fields(
-            user_id,
-            {
-                "password_hash": hash_password(body.password),
-                "password_is_set": 1,
-            },
+        from password_recovery_hardening import assert_no_security_questions, complete_hardened_password_reset
+
+        assert_no_security_questions(body.model_dump())
+        result = await complete_hardened_password_reset(
+            token=body.token,
+            new_password=body.password,
+            mfa_code=body.mfa_code,
+            ip=ip,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
         )
-        await delete_user_sessions_for_user(user_id)
-        session = await create_session(user_id)
+        user_id = result["user_id"]
+        from database import fetch_user_by_id
+
+        user = await fetch_user_by_id(user_id)
+        email = str((user or {}).get("email") or "")
+    except ImportError:
+        from auth_service import create_session, hash_password
+        from database import (
+            delete_user_sessions_for_user,
+            fetch_user_by_id,
+            update_user_profile_fields,
+        )
+        from identity_service import consume_auth_token, validate_password
+
+        try:
+            user_id = await consume_auth_token(body.token, "password_reset")
+            user = await fetch_user_by_id(user_id)
+            if not user:
+                raise ValueError("Invalid or expired link")
+            email = str(user["email"])
+            validate_password(body.password, email=email)
+            await update_user_profile_fields(
+                user_id,
+                {
+                    "password_hash": hash_password(body.password),
+                    "password_is_set": 1,
+                },
+            )
+            await delete_user_sessions_for_user(user_id)
+            session = await create_session(user_id)
+            result = {"token": session["token"], "expires_at": session["expires_at"]}
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+
     resp = JSONResponse(
         _session_response_body(
             {
                 "ok": True,
                 "message": "Password updated. You are signed in.",
-                "token": session["token"],
-                "expires_at": session["expires_at"],
-                "user": {"id": user_id, "email": email, "name": user.get("name") or ""},
+                "token": result["token"],
+                "expires_at": result["expires_at"],
+                "user": {"id": user_id, "email": email, "name": (user or {}).get("name") or ""},
             }
         )
     )
-    _attach_session_cookie(resp, session["token"])
+    _attach_session_cookie(resp, result["token"])
     return resp
 
 

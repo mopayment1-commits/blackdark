@@ -103,6 +103,14 @@ def session_security_status_1019(*, seed: dict[str, Any] | None = None) -> dict[
             "incident_response_ref": _INCIDENT_RESPONSE_REF,
         },
         "auth_flow": "login → password → 2FA (if enabled) → session",
+        "password_recovery": {
+            "token_expiry_minutes": (_cfg(seed).get("password_recovery") or {})
+            .get("policy", {})
+            .get("token_expiry_minutes", 15),
+            "security_questions_forbidden": (_cfg(seed).get("password_recovery") or {})
+            .get("policy", {})
+            .get("security_questions_forbidden", True),
+        },
         "runbook": _RUNBOOK,
         "timestamp": _utcnow(),
     }
@@ -366,6 +374,14 @@ def run_session_security_e2e_1019(*, seed: dict[str, Any] | None = None) -> dict
 
     gate = check_production_gate_1019(seed=seed)
     checks.append({"id": "production_gate", "passed": "admin_2fa_configured" in gate})
+
+    try:
+        from password_recovery_hardening import run_password_recovery_e2e
+
+        pr = run_password_recovery_e2e(seed=seed)
+        checks.append({"id": "password_recovery_e2e", "passed": pr["all_passed"] is True})
+    except ImportError:
+        checks.append({"id": "password_recovery_e2e", "passed": False})
 
     all_passed = all(c["passed"] for c in checks)
     return {
