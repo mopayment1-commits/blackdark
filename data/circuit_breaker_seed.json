@@ -1,0 +1,34 @@
+{
+  "feature_ref": "circuit_breaker_layer",
+  "merged_into": "Sprint 0/1 Infrastructure — API Gateway + Service Mesh",
+  "standalone_rejected": true,
+  "circuit_breaker_layer": {
+    "policy_version": "1.0.0",
+    "rule_based_only": true,
+    "ml_anomaly_detection": false,
+    "triggers": {
+      "error_rate_pct_60s": 50,
+      "latency_multiplier_baseline_60s": 2.0,
+      "resource_utilization_pct": 90
+    },
+    "recovery_backoff_seconds": [30, 60, 300],
+    "half_open_probe_requests": 3,
+    "trip_incident_threshold_per_hour": 3,
+    "scope": "per_service_graceful_degradation",
+    "user_degraded_badge_ref": 1030,
+    "cached_fallback_on_open": true,
+    "blocks_production": true,
+    "sprint": 0,
+    "defense_sequence": ["rate_limit_1046", "circuit_breaker", "ddos_1047"],
+    "integrations": {
+      "rate_limiting_ref": 1046,
+      "ddos_protection_ref": 1047,
+      "automatic_failover_ref": 1025,
+      "incident_response_ref": 1017,
+      "load_testing_ref": 1020,
+      "freshness_badge_ref": 1030,
+      "activity_audit_ref": 1038,
+      "provenance_ref": 945
+    }
+  }
+}

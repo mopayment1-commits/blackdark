@@ -642,6 +642,18 @@ async def viral_capacity_middleware(request: Request, call_next):
 
 
 @app.middleware("http")
+async def circuit_breaker_layer_middleware(request: Request, call_next):
+    """Circuit breaker (#1051) — per-service graceful degradation."""
+    import os
+
+    if os.getenv("CIRCUIT_BREAKER_ENABLED", "true").lower() not in {"1", "true", "yes"}:
+        return await call_next(request)
+    from circuit_breaker_middleware import circuit_breaker_middleware as _cb
+
+    return await _cb(request, call_next)
+
+
+@app.middleware("http")
 async def observability_metrics_middleware(request: Request, call_next):
     from observability import increment_metric
 
