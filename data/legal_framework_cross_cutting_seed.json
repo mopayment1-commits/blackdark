@@ -1,0 +1,144 @@
+{
+  "feature_ref": 830,
+  "control_ref": "PRV-001",
+  "merged_into": "Cross-Cutting Legal Foundation",
+  "standalone_rejected": true,
+  "cross_cutting": true,
+  "legal_framework_830": {
+    "sprint": 0,
+    "policy": {
+      "lawyer_review_required": true,
+      "lawyer_review_completed": false,
+      "no_generic_template_only": true,
+      "fintech_crypto_specialist": true,
+      "localization": ["en", "ar"],
+      "both_languages_binding": true,
+      "tos_required_clauses": [
+        "analytical_tool",
+        "not_financial_advice",
+        "no_buy_sell_recommendation",
+        "no_return_guarantee"
+      ],
+      "privacy_data_collection": [
+        "email",
+        "preferences",
+        "public_wallet_addresses"
+      ]
+    },
+    "fee_db": {
+      "tier": "compliance",
+      "ops_budget": true,
+      "note": "N/A user-facing — legal cost in compliance budget"
+    }
+  },
+  "terms_of_service": {
+    "en": {
+      "version": "2.0-sprint0",
+      "issued_at": "2026-08-28T00:00:00+00:00",
+      "lawyer_reviewed": false,
+      "classification": "BLACKDARK = data-driven analytical tool",
+      "clauses": {
+        "analytical_tool": "BLACKDARK provides data-driven analytical insights — not licensed financial advice.",
+        "not_financial_advice": "Outputs are informational only. Not investment, tax, or legal advice.",
+        "no_buy_sell_recommendation": "No buy, sell, hold, or transfer recommendations are made.",
+        "no_return_guarantee": "No guaranteed returns, profits, or outcomes are promised."
+      }
+    },
+    "ar": {
+      "version": "2.0-sprint0",
+      "issued_at": "2026-08-28T00:00:00+00:00",
+      "lawyer_reviewed": false,
+      "classification": "BLACKDARK = أداة تحليلية تقدم رؤى مدعومة بالبيانات",
+      "clauses": {
+        "analytical_tool": "BLACKDARK أداة تحليلية تقدم رؤى data-driven — لا استشارة مالية مرخّصة.",
+        "not_financial_advice": "المخرجات لأغراض معلوماتية فقط — ليست استشارة استثمارية أو ضريبية أو قانونية.",
+        "no_buy_sell_recommendation": "لا توصية شراء أو بيع أو احتفاظ أو تحويل.",
+        "no_return_guarantee": "لا ضمان عائد أو ربح أو نتيجة."
+      }
+    }
+  },
+  "privacy_policy": {
+    "en": {
+      "version": "2.0-sprint0",
+      "issued_at": "2026-08-28T00:00:00+00:00",
+      "lawyer_reviewed": false,
+      "data_collected": ["email", "preferences", "public_wallet_addresses"],
+      "data_not_collected": ["private_keys", "sensitive_wallet_data", "custodial_balances"],
+      "gdpr_ccpa_compliant": true,
+      "deletion_upon_request": true,
+      "retention_policy_ref": 949
+    },
+    "ar": {
+      "version": "2.0-sprint0",
+      "issued_at": "2026-08-28T00:00:00+00:00",
+      "lawyer_reviewed": false,
+      "data_collected": ["البريد الإلكتروني", "التفضيلات", "عناوين المحافظ العامة"],
+      "data_not_collected": ["المفاتيح الخاصة", "بيانات المحفظة الحساسة", "أرصدة الحفظ"],
+      "gdpr_ccpa_compliant": true,
+      "deletion_upon_request": true,
+      "retention_policy_ref": 949
+    }
+  },
+  "document_versions": {
+    "terms_of_service": {
+      "version": "2.0-sprint0",
+      "issued_at": "2026-08-28T00:00:00+00:00",
+      "languages": ["en", "ar"]
+    },
+    "privacy_policy": {
+      "version": "2.0-sprint0",
+      "issued_at": "2026-08-28T00:00:00+00:00",
+      "languages": ["en", "ar"]
+    }
+  },
+  "ai_output_footer": {
+    "not_financial_advice": "Not financial advice. Analytical insight only.",
+    "required_fields": ["not_financial_advice", "risk_score", "source"]
+  },
+  "signal_disclaimer": {
+    "wording": {
+      "label": "Potential opportunity — not a prediction",
+      "not_financial_advice": "Not financial advice."
+    }
+  },
+  "decision_intel_layers": {
+    "fact": {"label": "Fact", "description": "Verified data point"},
+    "inference": {"label": "Inference", "description": "Derived analytical conclusion"},
+    "hypothesis": {"label": "Hypothesis", "description": "Unverified scenario — not a recommendation"}
+  },
+  "billing_legal_note": {
+    "summary": "Tiered pricing and usage limits reflect analytical verification tiers — not arbitrary technical restrictions.",
+    "tiered_pricing_documented": true,
+    "billing_ref": 908
+  },
+  "multi_account_legal_note": {
+    "read_only": true,
+    "no_execution": true,
+    "no_custody": true,
+    "summary": "Multi-account sync is read-only. BLACKDARK does not execute trades or hold user assets.",
+    "multi_account_ref": 907
+  },
+  "incident_response_crossref": {
+    "incident_response_ref": 829,
+    "liability_limits_documented": true,
+    "notification_procedures_documented": true,
+    "data_breach_cross_referenced": true
+  },
+  "consent_audit_log": [
+    {
+      "consent_id": "cns_seed_001",
+      "user_id": "user_seed",
+      "consent_type": "registration",
+      "checkbox_explicit": true,
+      "accepted_tos": true,
+      "accepted_privacy": true,
+      "tos_version": "2.0-sprint0",
+      "privacy_version": "2.0-sprint0",
+      "lang": "en",
+      "accepted_at": "2026-08-01T10:00:00+00:00",
+      "immutable": true,
+      "audit_logged": true,
+      "chain_hash": "seed_consent_hash_001"
+    }
+  ]
+}

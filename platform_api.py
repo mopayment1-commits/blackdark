@@ -1063,3 +1063,67 @@ async def incident_response_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.infrastructure_incident_response_security_ops import run_incident_response_e2e_829
 
     return run_incident_response_e2e_829()
+
+
+@router.get("/legal-framework/status")
+async def legal_framework_status_route():
+    """#830 Legal Framework — cross-cutting ToS/Privacy policy (public)."""
+    from bd_platform.legal_framework_cross_cutting import legal_framework_status_830
+
+    return legal_framework_status_830()
+
+
+@router.get("/legal-framework/tos")
+async def legal_framework_tos_route(lang: str = Query("en")):
+    from bd_platform.legal_framework_cross_cutting import get_tos_summary_830
+
+    return get_tos_summary_830(lang=lang)
+
+
+@router.get("/legal-framework/privacy")
+async def legal_framework_privacy_route(lang: str = Query("en")):
+    from bd_platform.legal_framework_cross_cutting import get_privacy_policy_summary_830
+
+    return get_privacy_policy_summary_830(lang=lang)
+
+
+@router.post("/legal-framework/scan")
+async def legal_framework_scan_route(data: dict = Body(default={})):
+    from bd_platform.legal_framework_cross_cutting import scan_forbidden_language_830
+
+    return scan_forbidden_language_830(data.get("text", ""))
+
+
+@router.post("/legal-framework/consent")
+async def legal_framework_consent_route(
+    data: dict = Body(default={}),
+    user: dict = Depends(require_authenticated),
+):
+    from bd_platform.legal_framework_cross_cutting import record_user_consent_830
+
+    return record_user_consent_830(
+        user_id=str(user.get("id") or data.get("user_id", "anonymous")),
+        consent_type=data.get("consent_type", "explicit_ack"),
+        lang=data.get("lang", "en"),
+    )
+
+
+@router.get("/legal-framework/versions")
+async def legal_framework_versions_route():
+    from bd_platform.legal_framework_cross_cutting import get_document_versions_830
+
+    return get_document_versions_830()
+
+
+@router.get("/internal/legal-framework/audit-trail")
+async def legal_framework_audit_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import get_consent_audit_trail_830
+
+    return get_consent_audit_trail_830()
+
+
+@router.get("/internal/legal-framework/e2e")
+async def legal_framework_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import run_legal_framework_e2e_830
+
+    return run_legal_framework_e2e_830()

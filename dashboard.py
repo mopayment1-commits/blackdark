@@ -3596,6 +3596,12 @@ async def b2b_page(request: Request):
 @app.post("/api/legal/ack-terms")
 async def api_legal_ack_terms():
     """Record Terms acknowledgement (Layer-4 legal shield) for anonymous visitors."""
+    try:
+        from bd_platform.legal_framework_cross_cutting import record_user_consent_830
+
+        record_user_consent_830(user_id="anonymous_visitor", consent_type="cookie_ack")
+    except ImportError:
+        pass
     resp = JSONResponse({"ok": True, "acked": True})
     resp.set_cookie(
         "bd_terms_ack",

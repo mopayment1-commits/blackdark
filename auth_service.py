@@ -297,6 +297,12 @@ async def register_user(
     session = await create_session(user_id)
     tier = await resolve_user_tier(email)
     verify = await send_verification_email(user_id, email)
+    try:
+        from bd_platform.legal_framework_cross_cutting import record_user_consent_830
+
+        record_user_consent_830(user_id=str(user_id), consent_type="registration")
+    except ImportError:
+        pass
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
