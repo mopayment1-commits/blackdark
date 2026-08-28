@@ -195,6 +195,14 @@ async def build_execution_intelligence(
     }
 
     _LEDGER_CACHE[cache_key] = (time.time(), entry)
+
+    try:
+        from bd_platform.infrastructure_immutable_audit_store import attach_immutable_audit
+
+        entry = attach_immutable_audit(entry, trace_id=f"ledger_{asset_u}_{int(time.time())}")
+    except ImportError:
+        logger.debug("immutable audit store unavailable")
+
     return entry
 
 
