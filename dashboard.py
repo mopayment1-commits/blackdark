@@ -1971,6 +1971,14 @@ async def public_arbitrage_mind(asset: str = "BTC"):
     return analyze_arbitrage_opportunity_153(asset=asset)
 
 
+@app.get("/intelligence/impact-analysis")
+async def public_impact_analysis(order_usd: float, asset: str = "BTC", venue: str = "binance", depth_usd: float = 5_000_000):
+    """#78 — Impact analysis insight (smart routing rejected)."""
+    from bd_platform.whales_institutional_layer import build_impact_analysis_78
+
+    return build_impact_analysis_78(order_usd=order_usd, asset=asset, venue=venue, depth_usd=depth_usd)
+
+
 @app.get("/intelligence/stat-arb")
 async def public_stat_arb_insight(z_score: float = 2.3):
     """#155 — Statistical arbitrage insight (no execution)."""
@@ -2009,6 +2017,38 @@ async def public_liquidity_impact(position_usd: float = 250_000, available_depth
     from bd_platform.risk_infrastructure_layer import liquidity_impact_warning_164
 
     return liquidity_impact_warning_164(position_usd=position_usd, available_depth_usd=available_depth_usd)
+
+
+@app.get("/portfolio/dust-analysis")
+async def public_dust_analysis():
+    """#131 — Dust asset analysis (sweeper rejected)."""
+    from bd_platform.onchain_platform_layer import analyze_dust_assets_131
+
+    return analyze_dust_assets_131()
+
+
+@app.get("/portfolio/risk-alert")
+async def public_risk_alert(risk_score: float = 4.0, asset: str = "BTC"):
+    """#188 — Risk alert with decision journal (execution rejected)."""
+    from bd_platform.arbitrage_portfolio_ux_layer import risk_alert_user_confirmation_188
+
+    return risk_alert_user_confirmation_188(risk_score=risk_score, asset=asset)
+
+
+@app.get("/radar/technical/orderbook-inefficiency")
+async def public_orderbook_inefficiency():
+    """#127 — Order book inefficiency insight (exploiter rejected)."""
+    from bd_platform.advanced_ta_risk_layer import orderbook_inefficiency_insight_127
+
+    return orderbook_inefficiency_insight_127()
+
+
+@app.get("/oracle/on-chain/whale/behavior-analysis")
+async def public_whale_behavior_analysis(wallet: str = "0x1234...5678", buy_usd: float = 2_000_000):
+    """#216 — Whale behavior multi-angle analysis (counter-trading rejected)."""
+    from bd_platform.execution_rejected_layer import whale_behavior_analysis_216
+
+    return whale_behavior_analysis_216(wallet=wallet, buy_usd=buy_usd)
 
 
 @app.get("/oracle/on-chain/mining")

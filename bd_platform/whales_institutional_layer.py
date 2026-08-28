@@ -250,29 +250,40 @@ def build_impact_analysis_78(
     *,
     order_usd: float,
     asset: str = "BTC",
+    venue: str = "binance",
     depth_usd: float = 5_000_000,
     seed: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Insight only — estimated slippage, no routing or execution."""
     seed = seed or _load_seed()
-    participation = order_usd / max(depth_usd, 1)
-    slippage_pct = round(min(15.0, participation * 100 * 0.5), 3)
+    participation_pct = round(order_usd / max(depth_usd, 1) * 100, 2)
+    slippage_pct = round(min(15.0, participation_pct * 0.5), 3)
     fee = float((seed.get("impact_analysis_78") or {}).get("fee_db", {}).get("compute_usd", 0.001))
     return {
         "ok": True,
         "feature_ref": 78,
+        "route": "/intelligence/impact-analysis",
         "alternative_to_rejected_execution": True,
         "insight_only": True,
         "no_routing": True,
         "no_order_splitting": True,
         "asset": asset.upper(),
+        "venue": venue,
         "order_usd": order_usd,
+        "available_liquidity_usd": depth_usd,
+        "depth_participation_pct": participation_pct,
         "estimated_slippage_pct": slippage_pct,
         "narrative": {
-            "en": f"An order of ${order_usd:,.0f} on {asset} may cause ~{slippage_pct}% slippage based on current depth",
-            "ar": f"أمر بقيمة ${order_usd:,.0f} على {asset} قد يسبب انزلاق ~{slippage_pct}% بناءً على العمق الحالي",
+            "en": (
+                f"An order of ${order_usd:,.0f} on {asset} at {venue} may cause ~{slippage_pct}% slippage. "
+                f"Available liquidity: ${depth_usd:,.0f} — your size is {participation_pct}% of depth"
+            ),
+            "ar": (
+                f"أمر بقيمة ${order_usd:,.0f} على {asset} في {venue} قد يسبب انزلاق ~{slippage_pct}%. "
+                f"السيولة المتاحة: ${depth_usd:,.0f} — حجمك يمثل {participation_pct}% من العمق"
+            ),
         },
-        "formula": "slippage_pct = min(15, (order_usd / depth_usd) * 50)",
+        "formula": "slippage_pct = min(15, depth_participation_pct * 0.5)",
         "disclaimer": "Impact analysis insight — not execution advice",
         "fee_db": {"compute_usd": fee},
     }

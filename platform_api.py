@@ -1189,11 +1189,12 @@ async def advanced_risk_route(
 async def impact_analysis_route(
     order_usd: float = Query(...),
     asset: str = Query("BTC"),
+    venue: str = Query("binance"),
     depth_usd: float = Query(5_000_000),
 ):
     from bd_platform.whales_institutional_layer import build_impact_analysis_78
 
-    return build_impact_analysis_78(order_usd=order_usd, asset=asset, depth_usd=depth_usd)
+    return build_impact_analysis_78(order_usd=order_usd, asset=asset, venue=venue, depth_usd=depth_usd)
 
 
 @router.get("/intelligence/execution-status")
@@ -2380,3 +2381,27 @@ async def onchain_defi_sources_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.onchain_defi_sources_layer import run_onchain_defi_sources_e2e_204_216
 
     return run_onchain_defi_sources_e2e_204_216()
+
+
+@router.get("/oracle/on-chain/whale/behavior-analysis")
+async def whale_behavior_analysis_route(
+    wallet: str = Query("0x1234...5678"),
+    buy_usd: float = Query(2_000_000),
+):
+    from bd_platform.execution_rejected_layer import whale_behavior_analysis_216
+
+    return whale_behavior_analysis_216(wallet=wallet, buy_usd=buy_usd)
+
+
+@router.get("/execution-rejected/registry")
+async def execution_rejected_registry_route():
+    from bd_platform.execution_rejected_layer import execution_rejected_registry
+
+    return execution_rejected_registry()
+
+
+@router.get("/execution-rejected/e2e")
+async def execution_rejected_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.execution_rejected_layer import run_execution_rejected_e2e
+
+    return run_execution_rejected_e2e()
