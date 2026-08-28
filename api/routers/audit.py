@@ -9,6 +9,47 @@ from fastapi import APIRouter, Body, HTTPException, Query, Request, Response
 router = APIRouter(tags=["audit"])
 
 
+@router.get("/api/audit/user-activity")
+async def get_user_activity(
+    request: Request,
+    tenant_id: str | None = Query(None),
+    target_user_id: int | None = Query(None),
+    action: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=500),
+) -> dict[str, Any]:
+    from security_auth import optional_user_from_request
+    from user_activity_audit_trail import query_user_activity
+
+    user = await optional_user_from_request(
+        authorization=request.headers.get("Authorization"),
+        bd_token=request.cookies.get("bd_token"),
+    )
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    return query_user_activity(
+        viewer_email=str(user.get("email") or ""),
+        viewer_user_id=int(user["id"]) if user.get("id") else None,
+        tenant_id=tenant_id or request.headers.get("x-tenant-id"),
+        target_user_id=target_user_id,
+        action=action,
+        limit=limit,
+    )
+
+
+@router.get("/api/audit/user-activity/status")
+async def user_activity_status_endpoint() -> dict[str, Any]:
+    from user_activity_audit_trail import user_activity_status
+
+    return user_activity_status()
+
+
+@router.get("/api/audit/user-activity/gate")
+async def user_activity_gate_endpoint() -> dict[str, Any]:
+    from user_activity_audit_trail import check_user_activity_gate
+
+    return check_user_activity_gate()
+
+
 @router.post("/api/audit/log")
 async def post_audit_log(
     request: Request,

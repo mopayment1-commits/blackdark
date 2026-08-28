@@ -548,6 +548,34 @@ async def intelligence_ledger_slippage(
     )
 
 
+@router.get("/user-activity/status")
+async def platform_user_activity_status():
+    from user_activity_audit_trail import user_activity_status
+
+    return user_activity_status()
+
+
+@router.get("/user-activity/gate")
+async def platform_user_activity_gate():
+    from user_activity_audit_trail import check_user_activity_gate
+
+    return check_user_activity_gate()
+
+
+@router.get("/user-activity/audit")
+async def platform_user_activity_audit(_admin: dict = Depends(require_admin)):
+    from user_activity_audit_trail import get_user_activity_trail
+
+    return get_user_activity_trail()
+
+
+@router.get("/user-activity/e2e")
+async def platform_user_activity_e2e(_admin: dict = Depends(require_admin)):
+    from user_activity_audit_trail import run_user_activity_e2e
+
+    return run_user_activity_e2e()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),
