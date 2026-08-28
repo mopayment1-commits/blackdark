@@ -39,8 +39,15 @@ Real price spike exceeding threshold → **Confirmed Event** only if corroborate
 | #1017 | Incident Response — >3 outliers/hour from same source = auto-alert |
 | #1024 | Multi-source input for cross-validation |
 | #1025 | Outlier triggers failover — source marked unreliable |
+| #1054 | Live Feed Statistical Monitor — runs before outlier validation (streaming anomalies) |
 | #1020 | Load testing — ≤50ms overhead SLA |
 | #959 / #992 | Reference Pricing / Real Volume receive gated output |
+
+## Live Feed Statistical Monitor (#1054)
+
+Merged into this gate. See `docs/infrastructure/LIVE_FEED_STATISTICAL_MONITOR.md`.
+
+Sequence: **ingest → anomaly detection → outlier validation → serve/reject**
 
 ## API
 
@@ -49,6 +56,9 @@ GET  /api/v1/data/outlier/status
 GET  /api/v1/data/outlier/events
 GET  /api/v1/data/outlier/production-gate
 GET  /api/v1/data/outlier/e2e
+GET  /api/v1/data/outlier/anomaly/status
+GET  /api/v1/data/outlier/anomaly/events
+GET  /api/v1/data/outlier/anomaly/e2e
 ```
 
 ## Production gate

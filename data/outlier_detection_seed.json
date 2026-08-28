@@ -61,6 +61,53 @@
       "baseline_storage_usd": 0.00001,
       "event_logging_usd": 0.00001,
       "logged_per_data_point": true
+    },
+    "live_feed_statistical_monitor_1054": {
+      "policy": {
+        "enabled": true,
+        "rule_based_only": true,
+        "no_ml_anomaly_detection": true,
+        "max_latency_ms": 100,
+        "fail_closed": true,
+        "output_label": "Statistical Anomaly Detected — Under Review",
+        "methodology_version": "1.0.0"
+      },
+      "rules": {
+        "sigma_threshold": 3.0,
+        "rate_of_change_pct": 5.0,
+        "rate_of_change_window_sec": 30,
+        "variance_regime_shift_ratio": 2.5,
+        "volume_burst_max_price_move_pct": 1.0,
+        "cross_metric_min_price_pct": 2.0,
+        "cross_metric_max_volume_pct": -5.0,
+        "source_drift_pct": 1.5,
+        "source_drift_min_ticks": 5
+      },
+      "patterns": [
+        "price_regime_change",
+        "volume_burst",
+        "cross_metric_divergence",
+        "source_drift"
+      ],
+      "incident_alert": {
+        "incident_response_ref": 1017,
+        "sustained_seconds": 300,
+        "multi_source_triggers_incident": true
+      },
+      "integrations": {
+        "outlier_gate_ref": 1026,
+        "multi_source_ref": 1024,
+        "failover_ref": 1025,
+        "badge_ref": 1030,
+        "provenance_ref": 945,
+        "signal_integrity_ref": 1053
+      },
+      "fee_db": {
+        "evaluation_compute_usd": 0.00004,
+        "pattern_match_usd": 0.00002,
+        "event_logging_usd": 0.00001,
+        "logged_per_evaluation": true
+      }
     }
   },
   "baselines": {

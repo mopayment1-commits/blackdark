@@ -19,6 +19,7 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.OutlierDetectionGate")
 
 _FEATURE_REF = 1026
+_LIVE_FEED_ANOMALY_REF = 1054
 _MERGED_INTO = "Data Engine"
 _STANDALONE = False
 _SEED_PATH = Path("data/outlier_detection_seed.json")
@@ -44,6 +45,12 @@ _source_outlier_counts: dict[str, list[float]] = {}
 def reset_outlier_state() -> None:
     _outlier_events.clear()
     _source_outlier_counts.clear()
+    try:
+        from blackdark.data.live_feed_statistical_monitor import reset_live_feed_anomaly_state
+
+        reset_live_feed_anomaly_state()
+    except ImportError:
+        pass
 
 
 def _utcnow() -> str:
@@ -86,10 +93,16 @@ def outlier_gate_status_1026(*, seed: dict[str, Any] | None = None) -> dict[str,
         },
         "bounds": cfg.get("bounds") or {},
         "historical_baseline": cfg.get("historical_baseline") or {},
+        "live_feed_anomaly_monitor": {
+            "feature_ref": _LIVE_FEED_ANOMALY_REF,
+            "merged_into": _FEATURE_REF,
+            "sequence": "ingest → anomaly detection → outlier validation → serve/reject",
+        },
         "integrations": {
             "provenance_ref": _PROVENANCE_REF,
             "multi_source_ref": _MULTI_SOURCE_REF,
             "automatic_failover_ref": _FAILOVER_REF,
+            "live_feed_anomaly_ref": _LIVE_FEED_ANOMALY_REF,
             "reference_pricing_ref": _REFERENCE_PRICING_REF,
             "real_volume_ref": _REAL_VOLUME_REF,
             "incident_response_ref": _INCIDENT_RESPONSE_REF,
@@ -421,7 +434,7 @@ def apply_outlier_gate_to_observations(
 ) -> dict[str, Any]:
     """
     Cross-source outlier gate — suppress outliers, switch to normal source, log divergence.
-  #1024 multi-source input.
+    #1024 multi-source input. #1054 anomaly monitor runs first (ingest → anomaly → outlier).
     """
     started = time.perf_counter()
     seed = seed or _load_seed()
@@ -434,14 +447,29 @@ def apply_outlier_gate_to_observations(
             "outliers": [],
         }
 
-    valid_values = [float(o["value"]) for o in observations if o.get("value") is not None]
+    anomaly_meta: dict[str, Any] | None = None
+    working_obs = list(observations)
+    try:
+        from blackdark.data.live_feed_statistical_monitor import apply_anomaly_monitor_to_observations
+
+        anomaly_meta = apply_anomaly_monitor_to_observations(
+            data_type=data_type,
+            observations=working_obs,
+            symbol=symbol,
+            seed=seed,
+        )
+        working_obs = anomaly_meta["clean"]
+    except ImportError:
+        logger.debug("live feed statistical monitor unavailable")
+
+    valid_values = [float(o["value"]) for o in working_obs if o.get("value") is not None]
     peer_values = valid_values if len(valid_values) >= 2 else None
 
     clean: list[dict[str, Any]] = []
     outliers: list[dict[str, Any]] = []
     failover_actions: list[dict[str, Any]] = []
 
-    for obs in observations:
+    for obs in working_obs:
         if obs.get("value") is None:
             clean.append(obs)
             continue
@@ -502,7 +530,7 @@ def apply_outlier_gate_to_observations(
     duration_ms = (time.perf_counter() - started) * 1000.0
     max_ms = float((cfg.get("policy") or {}).get("max_overhead_ms", 50))
 
-    return {
+    result = {
         "gate_applied": True,
         "feature_ref": _FEATURE_REF,
         "data_type": data_type,
@@ -515,6 +543,12 @@ def apply_outlier_gate_to_observations(
         "within_overhead_sla": duration_ms <= max_ms,
         "timestamp": _utcnow(),
     }
+    if anomaly_meta:
+        result["anomaly_monitor"] = anomaly_meta
+        if anomaly_meta.get("anomaly_count", 0) > 0:
+            result["data_degraded"] = True
+            result["badge"] = anomaly_meta.get("badge") or "Data Degraded"
+    return result
 
 
 def apply_outlier_gate_to_response(
@@ -680,6 +714,14 @@ def run_outlier_e2e_1026(*, seed: dict[str, Any] | None = None) -> dict[str, Any
 
     overhead = normal.get("within_overhead_sla", True) and cross.get("within_overhead_sla", True)
     checks.append({"id": "overhead_sla_50ms", "passed": overhead is True})
+
+    try:
+        from blackdark.data.live_feed_statistical_monitor import run_live_feed_anomaly_e2e_1054
+
+        anomaly_e2e = run_live_feed_anomaly_e2e_1054(seed=seed)
+        checks.append({"id": "live_feed_anomaly_e2e", "passed": anomaly_e2e["all_passed"] is True})
+    except ImportError:
+        checks.append({"id": "live_feed_anomaly_e2e", "passed": False})
 
     all_passed = all(c["passed"] for c in checks)
     return {
