@@ -18,6 +18,12 @@ logger = logging.getLogger("BLACKDARK.AdminMFA")
 
 
 def mfa_policy_enabled() -> bool:
+    try:
+        from session_account_security_1019 import assert_no_skip_admin_mfa
+
+        assert_no_skip_admin_mfa()
+    except ImportError:
+        pass
     raw = os.getenv("ADMIN_MFA_REQUIRED", "").strip().lower()
     if raw in {"0", "false", "no", "off"}:
         return False

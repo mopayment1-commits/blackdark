@@ -1,0 +1,41 @@
+{
+  "feature_ref": 1019,
+  "merged_into": "#1019 Session/Account Security",
+  "standalone_rejected": true,
+  "session_account_security_1019": {
+    "policy": {
+      "enabled": true,
+      "totp_only": true,
+      "sms_forbidden": true,
+      "skip_admin_mfa_forbidden": true,
+      "admin_mfa_mandatory": true,
+      "backup_codes_count": 10,
+      "backup_codes_single_use": true,
+      "backup_codes_encrypted_at_rest": true,
+      "email_recovery_for_2fa_forbidden": true,
+      "lost_2fa_recovery": "support_ticket_identity_verification",
+      "audit_retention_days": 730,
+      "audit_append_only": true,
+      "methodology_version": "1.0.0",
+      "sprint": 0,
+      "non_custodial": true,
+      "disclaimer": "2FA protects platform account only — no wallet keys"
+    },
+    "tier_policy": {
+      "free": "optional",
+      "pro": "strongly_recommended",
+      "elite": "strongly_recommended",
+      "quant": "strongly_recommended",
+      "institutional": "mandatory"
+    },
+    "supported_factors": ["totp", "hardware_key", "recovery_codes"],
+    "forbidden_factors": ["sms"],
+    "integrations": {
+      "rbac_ref": 1022,
+      "stripe_ref": 908,
+      "incident_response_ref": 1017
+    },
+    "billing_actions_requiring_mfa": ["upgrade", "cancel", "downgrade"],
+    "role_elevation_requires_mfa": true
+  }
+}

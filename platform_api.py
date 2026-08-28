@@ -548,6 +548,34 @@ async def intelligence_ledger_slippage(
     )
 
 
+@router.get("/session-security/status")
+async def session_security_status():
+    from session_account_security_1019 import session_security_status_1019
+
+    return session_security_status_1019()
+
+
+@router.get("/session-security/production-gate")
+async def session_security_production_gate():
+    from session_account_security_1019 import check_production_gate_1019
+
+    return check_production_gate_1019()
+
+
+@router.get("/session-security/mfa-audit")
+async def session_security_mfa_audit(_admin: dict = Depends(require_admin)):
+    from session_account_security_1019 import get_mfa_audit_trail
+
+    return get_mfa_audit_trail()
+
+
+@router.get("/session-security/e2e")
+async def session_security_e2e(_admin: dict = Depends(require_admin)):
+    from session_account_security_1019 import run_session_security_e2e_1019
+
+    return run_session_security_e2e_1019()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),

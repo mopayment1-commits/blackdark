@@ -402,6 +402,15 @@ async def login_user(
         raise ValueError("Invalid email or password")
 
     mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
+    tier = await resolve_user_tier(email)
+    try:
+        from session_account_security_1019 import assert_tier_mfa_at_login
+
+        tier_mfa = assert_tier_mfa_at_login(
+            tier=tier, mfa_enabled=mfa_enabled, email=email
+        )
+    except ImportError:
+        tier_mfa = {}
     # Org-enforced MFA (Report-2 C-P0-02) — refuse login if org requires MFA and user not enrolled.
     org_mfa = await _login_org_mfa_policy(email, mfa_enabled=mfa_enabled, mfa_code=mfa_code)
 
@@ -412,11 +421,11 @@ async def login_user(
 
     await touch_user_login(int(user["id"]))
     session = await create_session(int(user["id"]))
-    tier = await resolve_user_tier(email)
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
         "mfa_required": False,
+        "tier_mfa": tier_mfa,
         "user": {
             "id": user["id"],
             "email": email,

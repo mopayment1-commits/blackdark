@@ -78,6 +78,30 @@ def require_permission(org_id: str, email: str, permission: str) -> dict[str, An
     return mem
 
 
+def require_permission_with_elevation_mfa(
+    org_id: str,
+    email: str,
+    permission: str,
+    *,
+    previous_role: str | None = None,
+    mfa_verified: bool = False,
+) -> dict[str, Any]:
+    """#1022 — role elevation requires 2FA re-verification."""
+    mem = require_permission(org_id, email, permission)
+    if previous_role:
+        try:
+            from session_account_security_1019 import assert_role_elevation_mfa
+
+            assert_role_elevation_mfa(
+                from_role=previous_role,
+                to_role=str(mem.get("role")),
+                mfa_verified=mfa_verified,
+            )
+        except ImportError:
+            pass
+    return mem
+
+
 def rbac_status() -> dict[str, Any]:
     return {
         "surface": "institutional_rbac",

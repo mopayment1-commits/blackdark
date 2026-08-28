@@ -265,12 +265,25 @@ async def billing_subscription(user: dict | None = Depends(optional_user)):
 
 
 @router.post("/cancel")
-async def billing_cancel_auto_renew(user: dict | None = Depends(optional_user)):
+async def billing_cancel_auto_renew(
+    data: dict = Body(default={}),
+    user: dict | None = Depends(optional_user),
+):
     from billing.subscription_engine import schedule_cancel_at_period_end
 
     if not user:
         raise HTTPException(status_code=401, detail="Login required")
     try:
+        mfa_code = data.get("mfa_code")
+        if mfa_code:
+            from session_account_security_1019 import assert_billing_action_mfa
+
+            await assert_billing_action_mfa(
+                int(user["id"]),
+                action="cancel",
+                mfa_code=str(mfa_code),
+                tier=user.get("tier"),
+            )
         sub = await schedule_cancel_at_period_end(int(user["id"]), actor=f"user:{user['id']}")
         return {"ok": True, "subscription": sub, "message": "Auto-renewal cancelled at period end."}
     except ValueError as exc:
