@@ -212,6 +212,19 @@ def build_market_data_feed_panel_879(
     }
 
 
+def build_websocket_streaming_config_879(
+    symbol: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#892 → #879 WebSocket streaming — merged infrastructure."""
+    gw_path = Path("data/api_gateway_seed.json")
+    gw_seed = json.loads(gw_path.read_text(encoding="utf-8")) if gw_path.is_file() else {}
+    from bd_platform.api_gateway_streaming import build_market_data_streaming_config_892
+
+    return build_market_data_streaming_config_892(symbol, seed=gw_seed)
+
+
 def run_market_data_ingestion_e2e_879(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     tests: list[dict[str, Any]] = []

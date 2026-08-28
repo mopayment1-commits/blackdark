@@ -1,0 +1,58 @@
+{
+  "feature_ref": 894,
+  "merged_into": "Data Ingestion Layer / #783 Sentiment Intelligence",
+  "component": "twitter_connector",
+  "twitter_connector_894": {
+    "free_tier": {
+      "monthly_tweet_limit": 1500,
+      "rate_limit_handling": "backoff_and_fallback"
+    },
+    "upgrade_path": "Basic $100/month",
+    "cache": {
+      "default_ttl_sec": 180,
+      "min_ttl_sec": 60,
+      "max_ttl_sec": 300
+    },
+    "fallback_sources": ["reddit", "telegram"],
+    "response_target_ms": 3000,
+    "uptime_target_pct": 99.0,
+    "fee_db": {
+      "api_tier_usd": 0.0,
+      "upgrade_budget_usd": 100.0,
+      "tier": "free"
+    }
+  },
+  "assets": {
+    "BTC": {
+      "tweet_count": 45,
+      "latency_ms": 280,
+      "mentions": [
+        {"text": "BTC ETF inflows strong", "sentiment": "positive", "user_id": "user_x1", "verified": true},
+        {"text": "Bitcoin accumulation phase", "sentiment": "positive", "user_id": "user_x2", "verified": true},
+        {"text": "BTC holding support", "sentiment": "neutral", "user_id": "user_x3", "verified": false}
+      ]
+    },
+    "ETH": {
+      "tweet_count": 32,
+      "latency_ms": 310,
+      "mentions": [
+        {"text": "ETH upgrade momentum", "sentiment": "positive", "user_id": "user_x4", "verified": true},
+        {"text": "Ethereum staking yields", "sentiment": "neutral", "user_id": "user_x5", "verified": false}
+      ]
+    }
+  },
+  "fallback_data": {
+    "BTC": {
+      "mentions": [
+        {"text": "BTC discussion on Reddit", "source": "reddit", "sentiment": "neutral"},
+        {"text": "BTC Telegram channel update", "source": "telegram", "sentiment": "positive"}
+      ]
+    },
+    "ETH": {
+      "mentions": [
+        {"text": "ETH Reddit thread", "source": "reddit", "sentiment": "neutral"},
+        {"text": "ETH Telegram alert", "source": "telegram", "sentiment": "neutral"}
+      ]
+    }
+  }
+}
