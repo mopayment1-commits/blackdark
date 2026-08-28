@@ -5093,6 +5093,64 @@ async def data_pipe_e2e_route():
     return run_data_pipe_e2e_834()
 
 
+@router.get("/internal/data-engine/architecture/status")
+async def data_architecture_status_route(_admin: dict = Depends(require_admin)):
+    """#878 Data Architecture + #881 Multi-Tier Storage (admin only)."""
+    from bd_platform.data_engine_architecture import data_architecture_status_878
+
+    return data_architecture_status_878()
+
+
+@router.get("/internal/data-engine/architecture")
+async def data_architecture_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_architecture import build_data_architecture_panel_878
+
+    return build_data_architecture_panel_878()
+
+
+@router.get("/internal/data-engine/architecture/storage")
+async def multi_tier_storage_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_architecture import multi_tier_storage_status_881
+
+    return multi_tier_storage_status_881()
+
+
+@router.get("/internal/data-engine/architecture/e2e")
+async def data_architecture_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_architecture import run_data_architecture_e2e_878
+
+    return run_data_architecture_e2e_878()
+
+
+@router.get("/intelligence-ledger/data-engine/market-data-ingestion/status")
+async def market_data_ingestion_status_route():
+    """#879 Market Data Feed — 10 venue spot ingestion."""
+    from bd_platform.data_engine_market_data_ingestion import market_data_ingestion_status_879
+
+    return market_data_ingestion_status_879()
+
+
+@router.get("/intelligence-ledger/data-engine/market-data-ingestion")
+async def market_data_ingestion_panel_route(symbol: str = Query("BTC")):
+    from bd_platform.data_engine_market_data_ingestion import build_market_data_feed_panel_879
+
+    return build_market_data_feed_panel_879(symbol)
+
+
+@router.get("/intelligence-ledger/data-engine/market-data-ingestion/latency-gap-qa")
+async def market_data_latency_gap_qa_route(symbol: str = Query("BTC")):
+    from bd_platform.data_engine_market_data_ingestion import run_latency_gap_qa_879
+
+    return run_latency_gap_qa_879(symbol)
+
+
+@router.get("/intelligence-ledger/data-engine/market-data-ingestion/e2e")
+async def market_data_ingestion_e2e_route():
+    from bd_platform.data_engine_market_data_ingestion import run_market_data_ingestion_e2e_879
+
+    return run_market_data_ingestion_e2e_879()
+
+
 @router.get("/intelligence-ledger/oracle/coingecko-terminal/status")
 async def coingecko_terminal_status_route():
     """#839 CoinGecko Terminal — Oracle API data source."""
@@ -5245,6 +5303,52 @@ async def developer_sdk_e2e_route():
     from bd_platform.api_gateway_developer_sdk import run_developer_sdk_e2e_853
 
     return run_developer_sdk_e2e_853()
+
+
+@router.get("/intelligence-ledger/api-gateway/rbac/status")
+async def rbac_entitlements_status_route():
+    """#866 Data Delivery & Entitlements — API Gateway RBAC layer."""
+    from bd_platform.api_gateway_rbac_entitlements import rbac_entitlements_status_866
+
+    return rbac_entitlements_status_866()
+
+
+@router.get("/intelligence-ledger/api-gateway/rbac")
+async def rbac_entitlements_dashboard_route():
+    from bd_platform.api_gateway_rbac_entitlements import build_enterprise_access_dashboard_866
+
+    return build_enterprise_access_dashboard_866()
+
+
+@router.get("/intelligence-ledger/api-gateway/rbac/entitlements")
+async def rbac_role_entitlements_route(role: str = Query("free")):
+    from bd_platform.api_gateway_rbac_entitlements import get_role_dataset_entitlements_866
+
+    result = get_role_dataset_entitlements_866(role)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/api-gateway/rbac/audit-trail")
+async def rbac_audit_trail_route(user_id: str | None = Query(None)):
+    from bd_platform.api_gateway_rbac_entitlements import get_audit_trail_866
+
+    return get_audit_trail_866(user_id=user_id)
+
+
+@router.get("/intelligence-ledger/api-gateway/rbac/security-tests")
+async def rbac_security_tests_route():
+    from bd_platform.api_gateway_rbac_entitlements import run_security_tests_866
+
+    return run_security_tests_866()
+
+
+@router.get("/intelligence-ledger/api-gateway/rbac/e2e")
+async def rbac_entitlements_e2e_route():
+    from bd_platform.api_gateway_rbac_entitlements import run_rbac_entitlements_e2e_866
+
+    return run_rbac_entitlements_e2e_866()
 
 
 @router.get("/intelligence-ledger/wallet-risk/status")

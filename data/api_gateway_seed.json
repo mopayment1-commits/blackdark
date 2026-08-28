@@ -223,5 +223,48 @@
       "development_usd": 500.0,
       "tier": "ops"
     }
+  },
+  "rbac_entitlements_866": {
+    "feature_ref": 866,
+    "merged_into": "API Gateway (#876) RBAC Layer",
+    "component": "rbac_entitlements",
+    "least_privilege": true,
+    "audit_trail_required": true,
+    "quota_enforcement_backend": true,
+    "dataset_entitlements": {
+      "free": {
+        "datasets": ["market_overview", "onchain_basic"],
+        "premium_datasets": [],
+        "endpoints_allowed": ["market_overview", "onchain_metrics", "usage"]
+      },
+      "pro": {
+        "datasets": ["market_overview", "onchain_basic", "onchain_advanced", "alerts"],
+        "premium_datasets": ["derivatives_summary"],
+        "endpoints_allowed": ["market_overview", "onchain_metrics", "risk_protocol", "alerts_subscribe", "usage"]
+      },
+      "institution": {
+        "datasets": ["market_overview", "onchain_basic", "onchain_advanced", "alerts", "audit", "sla"],
+        "premium_datasets": ["derivatives_summary", "premium_derivatives", "historical_export"],
+        "endpoints_allowed": ["market_overview", "onchain_metrics", "risk_protocol", "alerts_subscribe", "usage", "sla_metrics", "audit_export"]
+      }
+    },
+    "audit_trail_sample": [
+      {"user_id": "user_free_001", "role": "free", "endpoint": "/api/v1/market/overview", "method": "GET", "timestamp": "2026-08-27T12:00:00+00:00", "status_code": 200},
+      {"user_id": "user_pro_002", "role": "pro", "endpoint": "/api/v1/risk/protocol/aave", "method": "GET", "timestamp": "2026-08-27T12:01:00+00:00", "status_code": 200},
+      {"user_id": "user_inst_003", "role": "institution", "endpoint": "/api/v1/audit/export", "method": "GET", "timestamp": "2026-08-27T12:02:00+00:00", "status_code": 200}
+    ],
+    "load_test_evidence": {
+      "tool": "k6",
+      "target_rps": 1000,
+      "p99_ms_target": 500,
+      "p99_ms_observed": 142,
+      "error_rate_pct": 0.02,
+      "passed": true
+    },
+    "fee_db": {
+      "rbac_ops_usd": 20.0,
+      "audit_storage_usd": 15.0,
+      "tier": "ops"
+    }
   }
 }
