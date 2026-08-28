@@ -865,6 +865,49 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/suspicious-activity/status")
+async def suspicious_activity_status_api():
+    from suspicious_activity_engine import suspicious_activity_status
+
+    return suspicious_activity_status()
+
+
+@router.get("/suspicious-activity/gate")
+async def suspicious_activity_gate_api():
+    from suspicious_activity_engine import check_suspicious_activity_production_gate
+
+    return check_suspicious_activity_production_gate()
+
+
+@router.get("/suspicious-activity/e2e")
+async def suspicious_activity_e2e_api():
+    from suspicious_activity_engine import run_suspicious_activity_e2e
+
+    return run_suspicious_activity_e2e()
+
+
+@router.post("/suspicious-activity/freeze", responses=COMMON_ERROR_RESPONSES)
+async def suspicious_activity_freeze(user: dict = Depends(require_authenticated)):
+    from suspicious_activity_engine import freeze_account
+
+    return await freeze_account(int(user["id"]), reason="user_initiated_from_alert")
+
+
+@router.post("/suspicious-activity/whitelist-location", responses=COMMON_ERROR_RESPONSES)
+async def suspicious_activity_whitelist(
+    body: dict = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    from suspicious_activity_engine import approximate_location, whitelist_location
+
+    location = str(body.get("location") or "")
+    if not location and body.get("ip"):
+        location = approximate_location(ip=str(body["ip"]))
+    if not location:
+        raise HTTPException(status_code=400, detail="location or ip required")
+    return whitelist_location(int(user["id"]), location)
+
+
 @router.post("/ml/rl/train")
 async def rl_policy_train(_admin: dict = Depends(require_admin)):
     import random

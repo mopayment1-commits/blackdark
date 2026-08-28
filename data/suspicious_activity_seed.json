@@ -1,0 +1,39 @@
+{
+  "feature_ref": "suspicious_activity_engine",
+  "merged_into": "#1019 Session/Account Security + #1017 Incident Response",
+  "standalone_rejected": true,
+  "suspicious_activity_engine": {
+    "policy_version": "1.0.0",
+    "rule_based_only": true,
+    "ml_anomaly_detection": false,
+    "alert_latency_seconds_max": 30,
+    "triggers": [
+      "new_ip_geolocation",
+      "password_change",
+      "mfa_disable_or_change",
+      "api_key_modification",
+      "role_permission_change"
+    ],
+    "notification_channels": ["email", "in_app", "webhook"],
+    "account_freeze": {
+      "user_initiated": true,
+      "global_logout": true,
+      "api_key_suspension": true
+    },
+    "location_whitelist_days": 7,
+    "geolocation_precision": "city_approximate",
+    "no_gps": true,
+    "ops_escalation_severity": "high",
+    "mfa_disable_severity": "critical",
+    "audit_retention_days": 90,
+    "sprint": 1,
+    "integrations": {
+      "session_security_ref": 1019,
+      "incident_response_ref": 1017,
+      "activity_audit_ref": 1038,
+      "mfa_ref": 1033,
+      "password_recovery_ref": 1034,
+      "gdpr_ref": 1023
+    }
+  }
+}
