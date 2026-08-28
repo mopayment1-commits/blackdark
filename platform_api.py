@@ -1169,3 +1169,120 @@ async def pro_trader_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.pro_trader_layer import run_pro_trader_e2e_67_76
 
     return run_pro_trader_e2e_67_76()
+
+
+# ─── Whales & Institutional (#77–#86) ─────────────────────────────────────────
+
+
+@router.get("/portfolio/advanced-risk")
+async def advanced_risk_route(
+    concentration_pct: float = Query(50.0),
+    btc_shock_pct: float = Query(-20.0),
+):
+    from bd_platform.whales_institutional_layer import build_advanced_risk_report_77
+
+    holdings = [{"symbol": "BTC", "value_usd": concentration_pct * 1000, "btc_beta": 1.0}]
+    return build_advanced_risk_report_77(holdings, btc_shock_pct=btc_shock_pct)
+
+
+@router.get("/intelligence/impact-analysis")
+async def impact_analysis_route(
+    order_usd: float = Query(...),
+    asset: str = Query("BTC"),
+    depth_usd: float = Query(5_000_000),
+):
+    from bd_platform.whales_institutional_layer import build_impact_analysis_78
+
+    return build_impact_analysis_78(order_usd=order_usd, asset=asset, depth_usd=depth_usd)
+
+
+@router.get("/intelligence/execution-status")
+async def execution_rejected_status_route():
+    from bd_platform.whales_institutional_layer import execution_routing_status_78
+
+    return execution_routing_status_78()
+
+
+@router.post("/oracle/on-chain/surveillance")
+async def wallet_surveillance_route(data: dict = Body(default={})):
+    from bd_platform.whales_institutional_layer import analyze_wallet_surveillance_79
+
+    return analyze_wallet_surveillance_79(
+        wallet=str(data.get("wallet", "")),
+        suspicious_query_count=int(data.get("suspicious_query_count", 0)),
+        mev_bot_hits=int(data.get("mev_bot_hits", 0)),
+    )
+
+
+@router.get("/radar/exchange-health")
+async def exchange_health_route(exchange: str = Query("binance")):
+    from bd_platform.whales_institutional_layer import build_exchange_health_80
+
+    return build_exchange_health_80(exchange=exchange)
+
+
+@router.post("/portfolio/unified-view")
+async def unified_portfolio_route(data: dict = Body(default={})):
+    from bd_platform.whales_institutional_layer import build_unified_portfolio_view_81
+
+    return build_unified_portfolio_view_81(positions=data.get("positions"))
+
+
+@router.post("/radar/alerts/liquidation")
+async def liquidation_alert_route(data: dict = Body(default={})):
+    from bd_platform.whales_institutional_layer import evaluate_liquidation_alert_82
+
+    return evaluate_liquidation_alert_82(
+        asset=str(data.get("asset", "BTC")),
+        price=float(data.get("price", 0)),
+        liquidation_level=float(data.get("liquidation_level", 0)),
+        open_interest_usd=float(data.get("open_interest_usd", 0)),
+    )
+
+
+@router.get("/institution/smb-status")
+async def smb_institution_deferred_route():
+    from bd_platform.whales_institutional_layer import smb_institution_status_83
+
+    return smb_institution_status_83()
+
+
+@router.get("/transparency/performance")
+async def performance_ledger_route():
+    from bd_platform.whales_institutional_layer import build_performance_ledger_view_84
+
+    return build_performance_ledger_view_84()
+
+
+@router.post("/transparency/performance/record")
+async def performance_record_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.whales_institutional_layer import record_performance_entry_84
+
+    return record_performance_entry_84(
+        asset=str(data.get("asset", "BTC")),
+        insight=str(data.get("insight", "")),
+        risk_score=float(data.get("risk_score", 5)),
+        confidence=float(data.get("confidence", 5)),
+        response_id=str(data.get("response_id", "")),
+    )
+
+
+@router.get("/docs/openapi-status")
+async def openapi_status_route():
+    from bd_platform.whales_institutional_layer import openapi_documentation_status_85
+
+    return openapi_documentation_status_85()
+
+
+@router.get("/transparency/methodology")
+async def methodology_route(locale: str = Query("en")):
+    from bd_platform.whales_institutional_layer import build_methodology_docs_86
+
+    return build_methodology_docs_86(locale=locale)
+
+
+@router.get("/whales-institutional/e2e")
+async def whales_institutional_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.whales_institutional_layer import run_whales_institutional_e2e_77_86
+
+    return run_whales_institutional_e2e_77_86()

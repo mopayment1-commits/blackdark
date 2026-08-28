@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -316,6 +316,77 @@
     "fee_db": {
       "storage_usd": 0.0001,
       "comparison_usd": 0.0002
+    }
+  },
+  "advanced_risk_77": {
+    "standalone": false,
+    "tab": "advanced_risk",
+    "policy": {
+      "exposure_formula_explicit": true,
+      "correlation_30d": true,
+      "stress_test_rule_based": true,
+      "risk_insight_not_protection": true,
+      "performance_target_ms": 800
+    },
+    "fee_db": {"compute_usd": 0.002}
+  },
+  "impact_analysis_78": {
+    "standalone": false,
+    "execution_rejected": true,
+    "alternative_route": "/intelligence/impact-analysis",
+    "policy": {"insight_only": true, "no_routing": true, "no_order_splitting": true},
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "wallet_surveillance_79": {
+    "standalone": false,
+    "merged_into": [81, "on_chain_extension"],
+    "policy": {"insight_only": true, "no_auto_protection": true, "privacy_first": true},
+    "fee_db": {"analysis_usd": 0.001}
+  },
+  "exchange_health_80": {
+    "standalone": false,
+    "route": "/radar/exchange-health",
+    "policy": {"public_data_only": true, "not_official_warning": true},
+    "fee_db": {"compute_usd": 0.0015}
+  },
+  "unified_portfolio_81": {
+    "standalone": false,
+    "supported_chains": ["ethereum", "bsc", "arbitrum", "bitcoin"],
+    "policy": {"non_custodial": true, "encrypted_api_keys": true, "insight_not_management": true},
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "liquidation_alert_82": {
+    "standalone": false,
+    "route": "/radar/alerts/liquidation",
+    "policy": {"proactive": true, "no_auto_action": true, "public_data_only": true},
+    "fee_db": {"alert_usd": 0.0005}
+  },
+  "smb_institution_83": {
+    "standalone": false,
+    "status": "deferred",
+    "wave": 3,
+    "build_blocked_until": "500_active_pro_users"
+  },
+  "public_performance_ledger_84": {
+    "standalone": false,
+    "route": "/transparency/performance",
+    "policy": {"auditable": true, "append_only": true, "hit_rate_visible": true},
+    "fee_db": {"storage_usd": 0.0002, "tracking_usd": 0.0001}
+  },
+  "openapi_docs_85": {
+    "standalone": false,
+    "spec_version": "3.0+",
+    "swagger_ui": "/docs",
+    "webhooks": ["stripe", "alerts"],
+    "policy": {"fee_per_endpoint_documented": true, "examples_required": true}
+  },
+  "methodology_docs_86": {
+    "standalone": false,
+    "route": "/transparency/methodology",
+    "policy": {
+      "rule_based_only_sprint_2": true,
+      "quarterly_review": true,
+      "embedded_in_insights": true
     }
   }
 }

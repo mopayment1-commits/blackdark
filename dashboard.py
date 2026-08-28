@@ -371,6 +371,9 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         from bd_platform.pro_trader_layer import attach_portfolio_pro_layers_67_76
 
         result = attach_portfolio_pro_layers_67_76(result, user_tier="free")
+        from bd_platform.whales_institutional_layer import attach_portfolio_whale_layers_77_86
+
+        result = attach_portfolio_whale_layers_77_86(result)
     except ImportError:
         pass
     return result
@@ -1920,6 +1923,30 @@ async def public_share_card(body: dict = Body(default={})):
         asset=str(body.get("asset", "")),
         health_score=body.get("health_score"),
     )
+
+
+@app.get("/transparency/performance")
+async def transparency_performance_ledger():
+    """#84 — Public performance ledger for due diligence."""
+    from bd_platform.whales_institutional_layer import build_performance_ledger_view_84
+
+    return build_performance_ledger_view_84()
+
+
+@app.get("/transparency/methodology")
+async def transparency_methodology(locale: str = "en"):
+    """#86 — Public methodology and accuracy limits."""
+    from bd_platform.whales_institutional_layer import build_methodology_docs_86
+
+    return build_methodology_docs_86(locale=locale)
+
+
+@app.get("/radar/exchange-health")
+async def radar_exchange_health(exchange: str = "binance"):
+    """#80 — Exchange health dimension for Market Radar."""
+    from bd_platform.whales_institutional_layer import build_exchange_health_80
+
+    return build_exchange_health_80(exchange=exchange)
 
 
 @app.get("/docs", response_class=HTMLResponse)
@@ -4489,15 +4516,18 @@ async def api_infra_metrics():
 
 @app.get("/api/docs/openapi.json")
 async def api_openapi_export():
-    return app.openapi()
+    from bd_platform.whales_institutional_layer import enrich_openapi_with_fee_metadata_85
+
+    return enrich_openapi_with_fee_metadata_85(app.openapi())
 
 
 @app.get("/api/docs/public-openapi.json")
 async def api_public_openapi_export():
     """Evidence/read OpenAPI only — omits admin/billing/execution write surfaces."""
+    from bd_platform.whales_institutional_layer import enrich_openapi_with_fee_metadata_85
     from public_api_docs import filter_openapi_for_public
 
-    return filter_openapi_for_public(app.openapi())
+    return enrich_openapi_with_fee_metadata_85(filter_openapi_for_public(app.openapi()))
 
 
 @app.get("/api/docs/public-manifest")
