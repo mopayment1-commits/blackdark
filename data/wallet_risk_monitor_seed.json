@@ -1,0 +1,87 @@
+{
+  "feature_ref": 854,
+  "merged_into": "Intelligence Ledger",
+  "component": "wallet_risk_monitor",
+  "wallet_risk_monitor_854": {
+    "material_threshold_usd": 10000,
+    "material_threshold_supply_pct": 1.0,
+    "manual_review_required": true,
+    "fee_db": {
+      "on_chain_monitoring_usd": 25.0,
+      "tier": "ops"
+    }
+  },
+  "verified_wallets": {
+    "0xteam1arb000000000000000000000000000001": {
+      "asset": "ARB",
+      "role": "team_treasury",
+      "source": "official_announcement",
+      "source_confidence": "Verified: Official Source",
+      "source_url": "https://docs.arbitrum.foundation/token-unlock-schedule",
+      "is_internal": false
+    },
+    "0xteam1arb000000000000000000000000000002": {
+      "asset": "ARB",
+      "role": "founder_multisig",
+      "source": "whitepaper",
+      "source_confidence": "Verified: Official Source",
+      "source_url": "https://arbitrum.io/whitepaper",
+      "is_internal": false
+    },
+    "0xteam1arb000000000000000000000000000003": {
+      "asset": "ARB",
+      "role": "team_operations",
+      "source": "official_announcement",
+      "source_confidence": "Verified: Official Source",
+      "is_internal": true
+    }
+  },
+  "destination_registry": {
+    "exchange": [
+      {"name": "Binance", "address": "0x28c6c06298d514db089934071355e5743bf21d60"},
+      {"name": "Coinbase", "address": "0x71660c4005ba85c37ccec55d0c4493e669fe25e8"}
+    ],
+    "bridge": [
+      {"name": "Arbitrum Bridge", "address": "0x8315177ab297ba92a06054ce2aefd4a3fbd9d1a5"}
+    ],
+    "dex": [
+      {"name": "Uniswap V3", "address": "0x68b3465833fb72a70ecdf485e0e4c7b866ff9278"}
+    ]
+  },
+  "unlock_schedules": {
+    "ARB": [
+      {"unlock_date": "2026-08-20T00:00:00+00:00", "amount_tokens": 92500000, "context_window_days": 7}
+    ]
+  },
+  "transfers": {
+    "ARB": [
+      {
+        "transfer_id": "tx-arb-001",
+        "from_address": "0xteam1arb000000000000000000000000000001",
+        "to_address": "0x28c6c06298d514db089934071355e5743bf21d60",
+        "amount_usd": 2500000,
+        "supply_pct": 0.25,
+        "asset": "ARB",
+        "timestamp": "2026-08-22T14:30:00+00:00"
+      },
+      {
+        "transfer_id": "tx-arb-002",
+        "from_address": "0xteam1arb000000000000000000000000000003",
+        "to_address": "0xteam1arb000000000000000000000000000002",
+        "amount_usd": 500000,
+        "supply_pct": 0.05,
+        "asset": "ARB",
+        "timestamp": "2026-08-25T10:00:00+00:00"
+      },
+      {
+        "transfer_id": "tx-arb-003",
+        "from_address": "0xteam1arb000000000000000000000000000001",
+        "to_address": "0xdeadbeef000000000000000000000000000001",
+        "amount_usd": 500,
+        "supply_pct": 0.0001,
+        "asset": "ARB",
+        "timestamp": "2026-08-26T08:00:00+00:00"
+      }
+    ]
+  }
+}

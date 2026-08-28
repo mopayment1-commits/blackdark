@@ -1,0 +1,81 @@
+{
+  "feature_ref": 861,
+  "merged_into": "Market Radar",
+  "component": "funding_rates_overlay",
+  "funding_rate_intelligence_861": {
+    "venues": ["Binance", "Bybit", "OKX", "dYdX"],
+    "divergence_threshold_apr": 50.0,
+    "stale_sla_multiplier": 2.0,
+    "fee_db": {
+      "derivatives_api_usd": 15.0,
+      "calculation_usd": 2.0,
+      "tier": "ops"
+    }
+  },
+  "assets": {
+    "BTC": {
+      "venues": {
+        "Binance": {
+          "funding_rate": 0.00012,
+          "settlement_interval_hours": 8,
+          "settlement_verified": true,
+          "open_interest_usd": 8500000000,
+          "observed_at": "2026-08-27T23:00:00+00:00"
+        },
+        "Bybit": {
+          "funding_rate": 0.00015,
+          "settlement_interval_hours": 8,
+          "settlement_verified": true,
+          "open_interest_usd": 4200000000,
+          "observed_at": "2026-08-27T23:00:00+00:00"
+        },
+        "OKX": {
+          "funding_rate": 0.00011,
+          "settlement_interval_hours": 8,
+          "settlement_verified": true,
+          "open_interest_usd": 3100000000,
+          "observed_at": "2026-08-27T23:00:00+00:00"
+        },
+        "dYdX": {
+          "funding_rate": 0.00018,
+          "settlement_interval_hours": 1,
+          "settlement_verified": true,
+          "open_interest_usd": 450000000,
+          "observed_at": "2026-08-27T23:55:00+00:00"
+        }
+      }
+    },
+    "ETH": {
+      "venues": {
+        "Binance": {
+          "funding_rate": 0.00008,
+          "settlement_interval_hours": 8,
+          "settlement_verified": true,
+          "open_interest_usd": 3200000000,
+          "observed_at": "2026-08-27T23:00:00+00:00"
+        },
+        "Bybit": {
+          "funding_rate": 0.00010,
+          "settlement_interval_hours": 8,
+          "settlement_verified": true,
+          "open_interest_usd": 1800000000,
+          "observed_at": "2026-08-27T23:00:00+00:00"
+        },
+        "OKX": {
+          "funding_rate": 0.00009,
+          "settlement_interval_hours": 8,
+          "settlement_verified": true,
+          "open_interest_usd": 1200000000,
+          "observed_at": "2026-08-27T23:00:00+00:00"
+        },
+        "dYdX": {
+          "funding_rate": 0.00012,
+          "settlement_interval_hours": 1,
+          "settlement_verified": true,
+          "open_interest_usd": 180000000,
+          "observed_at": "2026-08-27T23:55:00+00:00"
+        }
+      }
+    }
+  }
+}

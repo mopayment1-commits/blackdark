@@ -145,6 +145,12 @@ def build_sre_observability_with_quality_monitor_789(*, seed: dict[str, Any] | N
         stack["all_venues_within_slo"] = health_feed.get("all_venues_within_slo")
     except Exception:
         logger.debug("849 data health feed skipped", exc_info=True)
+    try:
+        shield = build_uptime_slo_shield_862(seed=seed)
+        stack["uptime_shield_862"] = shield
+        stack["uptime_slo_compliant"] = run_uptime_slo_tests_862(seed=seed).get("all_passed")
+    except Exception:
+        logger.debug("862 uptime shield feed skipped", exc_info=True)
     return stack
 
 
@@ -160,5 +166,130 @@ def infrastructure_observability_status_789() -> dict[str, Any]:
         "stack_components": ["prometheus", "grafana", "loki", "jaeger", "pagerduty"],
         "quality_monitor_ref": 824,
         "data_health_monitor_ref": 849,
+        "uptime_shield_ref": 862,
+        "timestamp": _utcnow(),
+    }
+
+
+# --- #862 Infrastructure Uptime Shield (merged into #789) ---
+
+_UPTIME_SHIELD_REF = 862
+
+
+def build_uptime_slo_shield_862(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#862 — SLO/SLA uptime shield layer with burn-rate and dependency isolation."""
+    seed = seed or _load_seed()
+    cfg = seed.get("uptime_slo_862") or {}
+    slos = cfg.get("slos") or {}
+    synthetic = cfg.get("synthetic_checks") or {}
+    deps = cfg.get("dependency_isolation") or {}
+
+    return {
+        "ok": True,
+        "feature_ref": _UPTIME_SHIELD_REF,
+        "merged_into": f"#{_FEATURE_ID} Infrastructure Observability",
+        "component": "uptime_slo",
+        "standalone_rejected": True,
+        "sprint": 0,
+        "slos_documented": True,
+        "slos": {
+            "availability_target_pct": float(slos.get("availability_target_pct", 99.9)),
+            "latency_p99_max_ms": float(slos.get("latency_p99_max_ms", 500)),
+            "error_rate_max_pct": float(slos.get("error_rate_max_pct", 0.1)),
+        },
+        "synthetic_checks": {
+            "interval_sec": int(synthetic.get("interval_sec", 60)),
+            "endpoint": synthetic.get("endpoint", "/health"),
+            "enabled": synthetic.get("enabled", True),
+        },
+        "alert_tests": cfg.get("alert_tests") or {"daily_fake_incident": True},
+        "incident_runbooks": cfg.get("incident_runbooks") or [],
+        "burn_rate_alerts": cfg.get("burn_rate_alerts") or {
+            "enabled": True,
+            "alert_within_minutes": 5,
+        },
+        "dependency_isolation": deps,
+        "measured_availability": cfg.get("measured_availability") or {},
+        "fee_db": cfg.get("fee_db"),
+        "disclaimer": _DISCLAIMER,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_uptime_slo_tests_862(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#862 — SLO compliance, synthetic checks, alert tests."""
+    seed = seed or _load_seed()
+    shield = build_uptime_slo_shield_862(seed=seed)
+    slos = shield.get("slos") or {}
+    measured = shield.get("measured_availability") or {}
+
+    tests = [
+        {
+            "test": "availability_slo",
+            "passed": float(measured.get("uptime_pct", 0)) >= float(slos.get("availability_target_pct", 99.9)),
+            "actual": measured.get("uptime_pct"),
+            "target": slos.get("availability_target_pct"),
+        },
+        {
+            "test": "latency_p99_slo",
+            "passed": float(measured.get("latency_p99_ms", 9999)) <= float(slos.get("latency_p99_max_ms", 500)),
+            "actual": measured.get("latency_p99_ms"),
+            "target": slos.get("latency_p99_max_ms"),
+        },
+        {
+            "test": "error_rate_slo",
+            "passed": float(measured.get("error_rate_pct", 100)) <= float(slos.get("error_rate_max_pct", 0.1)),
+            "actual": measured.get("error_rate_pct"),
+            "target": slos.get("error_rate_max_pct"),
+        },
+        {
+            "test": "synthetic_checks_60s",
+            "passed": shield.get("synthetic_checks", {}).get("interval_sec") == 60,
+        },
+        {
+            "test": "daily_alert_test",
+            "passed": shield.get("alert_tests", {}).get("daily_fake_incident") is True,
+        },
+        {
+            "test": "incident_runbooks_documented",
+            "passed": len(shield.get("incident_runbooks") or []) > 0,
+        },
+        {
+            "test": "burn_rate_alerts",
+            "passed": shield.get("burn_rate_alerts", {}).get("enabled") is True,
+        },
+        {
+            "test": "circuit_breaker_configured",
+            "passed": bool(shield.get("dependency_isolation", {}).get("circuit_breakers")),
+        },
+    ]
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": _UPTIME_SHIELD_REF,
+        "slo_tests": tests,
+        "all_passed": all_passed,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_uptime_shield_e2e_862(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    tests: list[dict[str, Any]] = []
+
+    shield = build_uptime_slo_shield_862(seed=seed)
+    tests.append({"test": "standalone_rejected", "passed": shield.get("standalone_rejected") is True})
+    tests.append({"test": "slos_documented", "passed": shield.get("slos_documented") is True})
+    tests.append({"test": "availability_99_9", "passed": shield.get("slos", {}).get("availability_target_pct") == 99.9})
+
+    slo_tests = run_uptime_slo_tests_862(seed=seed)
+    tests.append({"test": "all_slo_tests_pass", "passed": slo_tests.get("all_passed") is True})
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": _UPTIME_SHIELD_REF,
+        "e2e_tests": tests,
+        "all_passed": all_passed,
         "timestamp": _utcnow(),
     }

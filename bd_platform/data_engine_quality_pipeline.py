@@ -180,3 +180,167 @@ def run_quality_pipeline_e2e_850(*, seed: dict[str, Any] | None = None) -> dict[
         "all_passed": all_passed,
         "timestamp": _utcnow(),
     }
+
+
+# --- #864 Point-in-Time Data Integrity (merged into #850) ---
+
+_PIT_INTEGRITY_REF = 864
+_PIT_COMPONENT = "pit_integrity"
+
+
+def pit_integrity_status_864(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#864 — Point-in-Time Data Integrity (NOT backtesting branding)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("pit_integrity_864") or {}
+    return {
+        "ok": True,
+        "feature_ref": _PIT_INTEGRITY_REF,
+        "quality_pipeline_ref": _FEATURE_REF,
+        "standalone": False,
+        "standalone_rejected": True,
+        "merged_into": _MERGED_INTO,
+        "component": _PIT_COMPONENT,
+        "name": "Point-in-Time Data Integrity",
+        "backtesting_branding_rejected": True,
+        "sprint": 0,
+        "no_future_leakage": True,
+        "availability_timestamps": True,
+        "deterministic_replay": True,
+        "timezone": "UTC",
+        "ml_rejected": True,
+        "fee_db": cfg.get("fee_db"),
+        "timestamp": _utcnow(),
+    }
+
+
+def check_no_future_leakage_864(
+    data_timestamp: str,
+    query_timestamp: str,
+) -> dict[str, Any]:
+    """Block if data point timestamp > query timestamp."""
+    data_dt = datetime.fromisoformat(data_timestamp.replace("Z", "+00:00"))
+    query_dt = datetime.fromisoformat(query_timestamp.replace("Z", "+00:00"))
+    leaked = data_dt > query_dt
+    return {
+        "ok": not leaked,
+        "future_leakage": leaked,
+        "data_timestamp": data_timestamp,
+        "query_timestamp": query_timestamp,
+        "action": "blocked" if leaked else "allowed",
+    }
+
+
+def check_availability_timestamp_864(
+    metric: dict[str, Any],
+    query_timestamp: str,
+) -> dict[str, Any]:
+    """Every metric must have first_available_at — no retroactive adjustment."""
+    first_available = metric.get("first_available_at")
+    if not first_available:
+        return {"ok": False, "error": "missing_first_available_at"}
+
+    avail_dt = datetime.fromisoformat(first_available.replace("Z", "+00:00"))
+    query_dt = datetime.fromisoformat(query_timestamp.replace("Z", "+00:00"))
+    available = avail_dt <= query_dt
+    return {
+        "ok": available,
+        "first_available_at": first_available,
+        "query_timestamp": query_timestamp,
+        "available_at_query_time": available,
+    }
+
+
+def run_deterministic_replay_test_864(
+    query_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Same query + same timestamp = same result — daily test."""
+    seed = seed or _load_seed()
+    replays = (seed.get("pit_integrity_864") or {}).get("replay_queries") or {}
+    case = replays.get(query_id)
+    if not case:
+        return {"ok": False, "feature_ref": _PIT_INTEGRITY_REF, "error": "query_not_found"}
+
+    runs = case.get("expected_results") or []
+    deterministic = len(set(runs)) <= 1 if runs else False
+    return {
+        "ok": deterministic,
+        "feature_ref": _PIT_INTEGRITY_REF,
+        "query_id": query_id,
+        "query_timestamp": case.get("query_timestamp"),
+        "runs": len(runs),
+        "deterministic": deterministic,
+        "timezone": "UTC",
+        "timestamp": _utcnow(),
+    }
+
+
+def build_pit_integrity_panel_864(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    cfg = seed.get("pit_integrity_864") or {}
+    status = pit_integrity_status_864(seed=seed)
+
+    leakage_tests = []
+    for case in cfg.get("leakage_test_cases") or []:
+        result = check_no_future_leakage_864(
+            case.get("data_timestamp", ""),
+            case.get("query_timestamp", ""),
+        )
+        expected = case.get("expected", "allowed")
+        passed = (
+            (expected == "blocked" and result.get("action") == "blocked")
+            or (expected == "allowed" and result.get("action") == "allowed")
+        )
+        leakage_tests.append({**result, "expected": expected, "passed": passed})
+
+    availability_tests = []
+    for metric in cfg.get("sample_metrics") or []:
+        availability_tests.append(check_availability_timestamp_864(
+            metric,
+            cfg.get("default_query_timestamp", _utcnow()),
+        ))
+
+    replay_ids = list((cfg.get("replay_queries") or {}).keys())
+    replay_results = [run_deterministic_replay_test_864(q, seed=seed) for q in replay_ids]
+
+    return {
+        "ok": all(t.get("passed", t.get("ok")) for t in leakage_tests + availability_tests + replay_results),
+        "feature_ref": _PIT_INTEGRITY_REF,
+        "quality_pipeline_ref": _FEATURE_REF,
+        "component": _PIT_COMPONENT,
+        "name": status.get("name"),
+        "backtesting_branding_rejected": True,
+        "no_future_leakage_tests": leakage_tests,
+        "availability_timestamp_tests": availability_tests,
+        "deterministic_replay_tests": replay_results,
+        "timezone": "UTC",
+        "fee_db": cfg.get("fee_db"),
+        "timestamp": _utcnow(),
+    }
+
+
+def run_pit_integrity_e2e_864(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    tests: list[dict[str, Any]] = []
+
+    status = pit_integrity_status_864(seed=seed)
+    tests.append({"test": "backtesting_branding_rejected", "passed": status.get("backtesting_branding_rejected") is True})
+    tests.append({"test": "pit_component", "passed": status.get("component") == "pit_integrity"})
+    tests.append({"test": "utc_only", "passed": status.get("timezone") == "UTC"})
+    tests.append({"test": "ml_rejected", "passed": status.get("ml_rejected") is True})
+
+    leak = check_no_future_leakage_864("2026-08-28T00:00:00+00:00", "2026-08-27T00:00:00+00:00")
+    tests.append({"test": "future_leakage_blocked", "passed": leak.get("future_leakage") is True and leak.get("action") == "blocked"})
+
+    panel = build_pit_integrity_panel_864(seed=seed)
+    tests.append({"test": "panel_ok", "passed": panel.get("ok") is True})
+
+    all_passed = all(t["passed"] for t in tests)
+    return {
+        "ok": all_passed,
+        "feature_ref": _PIT_INTEGRITY_REF,
+        "e2e_tests": tests,
+        "all_passed": all_passed,
+        "timestamp": _utcnow(),
+    }

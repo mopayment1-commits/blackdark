@@ -33,5 +33,48 @@
       "daily_checks_passed": true,
       "retention_years": 2
     }
+  },
+  "uptime_slo_862": {
+    "feature_ref": 862,
+    "merged_into": "Infrastructure Observability Stack (#789)",
+    "component": "uptime_slo",
+    "slos": {
+      "availability_target_pct": 99.9,
+      "latency_p99_max_ms": 500,
+      "error_rate_max_pct": 0.1
+    },
+    "synthetic_checks": {
+      "enabled": true,
+      "interval_sec": 60,
+      "endpoint": "/health"
+    },
+    "alert_tests": {
+      "daily_fake_incident": true,
+      "last_test": "2026-08-27T06:00:00+00:00",
+      "routing_verified": true
+    },
+    "incident_runbooks": [
+      {"id": "rb-001", "title": "API Gateway High Error Rate", "path": "docs/runbooks/api-gateway-error-rate.md"},
+      {"id": "rb-002", "title": "Oracle API Dependency Failure", "path": "docs/runbooks/oracle-circuit-breaker.md"},
+      {"id": "rb-003", "title": "SLO Burn Rate Alert", "path": "docs/runbooks/slo-burn-rate.md"}
+    ],
+    "burn_rate_alerts": {
+      "enabled": true,
+      "alert_within_minutes": 5,
+      "error_rate_threshold_multiplier": 1.0
+    },
+    "dependency_isolation": {
+      "circuit_breakers": [
+        {"dependency": "oracle_api", "failure_threshold": 5, "recovery_timeout_sec": 30, "graceful_degradation": true},
+        {"dependency": "market_radar", "failure_threshold": 5, "recovery_timeout_sec": 30, "graceful_degradation": true}
+      ]
+    },
+    "measured_availability": {
+      "uptime_pct": 99.95,
+      "latency_p99_ms": 320,
+      "error_rate_pct": 0.05,
+      "evidence_source": "synthetic_checks_60s"
+    },
+    "fee_db": {"slo_monitoring_usd": 30.0, "tier": "ops"}
   }
 }

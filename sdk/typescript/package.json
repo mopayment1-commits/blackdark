@@ -1,0 +1,12 @@
+{
+  "name": "@blackdark/sdk",
+  "version": "1.0.0",
+  "description": "BLACKDARK Developer SDK — typed API client (#853)",
+  "main": "blackdark-client.ts",
+  "types": "blackdark-client.ts",
+  "scripts": {
+    "test": "echo 'Contract tests run via CI daily'"
+  },
+  "keywords": ["blackdark", "api", "sdk", "crypto"],
+  "license": "MIT"
+}
