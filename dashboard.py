@@ -387,6 +387,17 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         from bd_platform.infra_intelligence_layer import attach_infra_layers_95_104
 
         result = attach_infra_layers_95_104(result)
+        from bd_platform.onchain_platform_layer import analyze_dust_assets_131, portfolio_stress_alert_139
+
+        holdings = result.get("holdings") or []
+        result["dust_analysis"] = analyze_dust_assets_131(
+            [{"symbol": h.get("symbol", h.get("asset", "")), "value_usd": h.get("value_usd", 0)} for h in holdings]
+            if holdings
+            else None
+        )
+        result["stress_alert"] = portfolio_stress_alert_139(
+            risk_score=float(result.get("risk_score", 5)),
+        )
     except ImportError:
         pass
     return result
@@ -2128,6 +2139,38 @@ async def oracle_dex_risk():
     from bd_platform.advanced_ta_risk_layer import dex_front_running_risk_126
 
     return dex_front_running_risk_126()
+
+
+@app.get("/oracle/on-chain/sybil-clustering")
+async def oracle_sybil_clustering():
+    """#129 — Sybil identity linker (extends #99)."""
+    from bd_platform.onchain_platform_layer import cluster_sybil_identities_129
+
+    return cluster_sybil_identities_129()
+
+
+@app.get("/oracle/on-chain/tx-risk")
+async def oracle_tx_risk():
+    """#130 — Transaction risk insight (shadow-fork rejected)."""
+    from bd_platform.onchain_platform_layer import transaction_risk_insight_130
+
+    return transaction_risk_insight_130()
+
+
+@app.get("/portfolio/stress-alert")
+async def portfolio_stress_alert(risk_score: float = 9.0):
+    """#139 — Portfolio stress alert (panic button rejected)."""
+    from bd_platform.onchain_platform_layer import portfolio_stress_alert_139
+
+    return portfolio_stress_alert_139(risk_score=risk_score)
+
+
+@app.get("/radar/market-health/liquidity-vortex")
+async def radar_liquidity_vortex():
+    """#135 — Liquidity vortex locator."""
+    from bd_platform.onchain_platform_layer import locate_liquidity_vortex_135
+
+    return locate_liquidity_vortex_135()
 
 
 @app.get("/docs", response_class=HTMLResponse)

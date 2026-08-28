@@ -513,7 +513,13 @@ def build_multi_dim_analysis_73(
     try:
         from bd_platform.market_analysis_layer import attach_macro_spx_to_multi_dim_111
 
-        return attach_macro_spx_to_multi_dim_111(result, seed=seed)
+        result = attach_macro_spx_to_multi_dim_111(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.onchain_platform_layer import attach_macro_nexus_to_multi_dim_133
+
+        return attach_macro_nexus_to_multi_dim_133(result, seed=seed)
     except ImportError:
         return result
 

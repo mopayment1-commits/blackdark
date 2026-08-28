@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -665,5 +665,74 @@
     "merged_into": "simple_language_64",
     "policy": {"rule_based_only": true, "ai_naming_rejected": true},
     "fee_db": {"translation_usd": 0.0001}
+  },
+  "sybil_identity_linker_129": {
+    "standalone": false,
+    "extends_ref": 99,
+    "route": "/oracle/on-chain/sybil-clustering",
+    "policy": {"cluster_score_threshold": 0.85, "weights": {"common_funding": 0.40, "temporal_coordination": 0.35, "size_correlation": 0.25}},
+    "fee_db": {"compute_usd": 0.002}
+  },
+  "tx_risk_insight_130": {
+    "status": "rejected_execution",
+    "alternative": "transaction_risk_insight",
+    "route": "/oracle/on-chain/tx-risk",
+    "fee_db": {"compute_usd": 0.0006}
+  },
+  "dust_analysis_131": {
+    "status": "rejected_execution",
+    "alternative": "dust_asset_analysis",
+    "route": "/portfolio/dust-analysis",
+    "fee_db": {"compute_usd": 0.0004}
+  },
+  "flash_loan_scanner_132": {
+    "standalone": false,
+    "route": "/oracle/on-chain/security/flash-loan-scan",
+    "self_patching_rejected": true,
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "macro_event_nexus_133": {
+    "standalone": false,
+    "merged_into": ["multi_dim_analysis_73", "market_radar"],
+    "policy": {"rule_based_only": true, "ai_naming_rejected": true},
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "delta_convergence_134": {
+    "standalone": false,
+    "route": "/radar/derivatives/delta-convergence",
+    "tier": "pro_institution",
+    "policy": {"divergence_threshold_pct": 15, "normal_threshold_pct": 5},
+    "fee_db": {"compute_usd": 0.004}
+  },
+  "liquidity_vortex_135": {
+    "standalone": false,
+    "route": "/radar/market-health/liquidity-vortex",
+    "policy": {"vortex_score_threshold": 80},
+    "fee_db": {"compute_usd": 0.002}
+  },
+  "support_chatbot_136": {
+    "standalone": false,
+    "route": "/support/chat",
+    "broker_advisor_rejected": true,
+    "policy": {"retention_days_max": 30, "no_financial_advice": true},
+    "fee_db": {"infra_usd": 0.0002}
+  },
+  "b2b_relationships_137": {
+    "status": "business_development_only",
+    "not_a_technical_feature": true,
+    "wave": 3,
+    "build_blocked_until": "500_active_pro_users"
+  },
+  "institution_features_138": {
+    "status": "wave_3_activation",
+    "merged_into": "institution_portal",
+    "activation_not_build": true
+  },
+  "portfolio_stress_alert_139": {
+    "status": "rejected_execution",
+    "alternative": "portfolio_stress_alert",
+    "route": "/portfolio/stress-alert",
+    "panic_button_rejected": true,
+    "fee_db": {"compute_usd": 0.0005}
   }
 }

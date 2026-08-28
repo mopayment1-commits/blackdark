@@ -362,7 +362,7 @@ def filter_sybil_clusters_99(
             clean.append(w)
 
     fee = float((seed.get("sybil_filter_99") or {}).get("fee_db", {}).get("compute_usd", 0.001))
-    return {
+    result = {
         "ok": True,
         "feature_ref": 99,
         "merged_into": ["sentiment_layer", "on_chain_extension"],
@@ -380,6 +380,12 @@ def filter_sybil_clusters_99(
         },
         "fee_db": {"compute_usd": fee},
     }
+    try:
+        from bd_platform.onchain_platform_layer import attach_sybil_clustering_129
+
+        return attach_sybil_clustering_129(result, wallets=wallets, seed=seed)
+    except ImportError:
+        return result
 
 
 # ─── #101 Oracle Latency Deviation Buffer ────────────────────────────────────────

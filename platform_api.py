@@ -1682,3 +1682,90 @@ async def advanced_ta_risk_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.advanced_ta_risk_layer import run_advanced_ta_risk_e2e_117_128
 
     return run_advanced_ta_risk_e2e_117_128()
+
+
+# ─── On-Chain Platform (#129–#139) ────────────────────────────────────────────────
+
+
+@router.post("/oracle/on-chain/sybil-clustering")
+async def sybil_clustering_route(data: dict = Body(default={})):
+    from bd_platform.onchain_platform_layer import cluster_sybil_identities_129
+
+    return cluster_sybil_identities_129(data.get("wallets") or [])
+
+
+@router.get("/oracle/on-chain/tx-risk")
+async def tx_risk_insight_route(swap_usd: float = Query(10000), pair: str = Query("ETH/USDC")):
+    from bd_platform.onchain_platform_layer import transaction_risk_insight_130
+
+    return transaction_risk_insight_130(swap_usd=swap_usd, pair=pair)
+
+
+@router.get("/portfolio/dust-analysis")
+async def dust_analysis_route():
+    from bd_platform.onchain_platform_layer import analyze_dust_assets_131
+
+    return analyze_dust_assets_131()
+
+
+@router.get("/oracle/on-chain/security/flash-loan-scan")
+async def flash_loan_scan_route(protocol: str = Query("aave_v3")):
+    from bd_platform.onchain_platform_layer import scan_flash_loan_vulnerabilities_132
+
+    return scan_flash_loan_vulnerabilities_132(protocol=protocol)
+
+
+@router.get("/radar/market-health/macro")
+async def macro_event_nexus_route(event: str = Query("CPI")):
+    from bd_platform.onchain_platform_layer import compute_macro_event_nexus_133
+
+    return compute_macro_event_nexus_133(event=event)
+
+
+@router.get("/radar/derivatives/delta-convergence")
+async def delta_convergence_route():
+    from bd_platform.onchain_platform_layer import compute_delta_convergence_134
+
+    return compute_delta_convergence_134()
+
+
+@router.get("/radar/market-health/liquidity-vortex")
+async def liquidity_vortex_route():
+    from bd_platform.onchain_platform_layer import locate_liquidity_vortex_135
+
+    return locate_liquidity_vortex_135()
+
+
+@router.post("/support/chat")
+async def support_chat_route(data: dict = Body(default={})):
+    from bd_platform.onchain_platform_layer import support_chat_response_136
+
+    return support_chat_response_136(message=str(data.get("message", "")), user_tier=str(data.get("user_tier", "free")))
+
+
+@router.get("/business/b2b-status")
+async def b2b_relationships_route():
+    from bd_platform.onchain_platform_layer import b2b_relationships_status_137
+
+    return b2b_relationships_status_137()
+
+
+@router.get("/institution/features-status")
+async def institution_features_route():
+    from bd_platform.onchain_platform_layer import institution_features_status_138
+
+    return institution_features_status_138()
+
+
+@router.get("/portfolio/stress-alert")
+async def portfolio_stress_alert_route(portfolio_loss_pct_1h: float = Query(15.0), risk_score: float = Query(9.0)):
+    from bd_platform.onchain_platform_layer import portfolio_stress_alert_139
+
+    return portfolio_stress_alert_139(portfolio_loss_pct_1h=portfolio_loss_pct_1h, risk_score=risk_score)
+
+
+@router.get("/onchain-platform/e2e")
+async def onchain_platform_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.onchain_platform_layer import run_onchain_platform_e2e_129_139
+
+    return run_onchain_platform_e2e_129_139()
