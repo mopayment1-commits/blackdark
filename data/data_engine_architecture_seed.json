@@ -75,5 +75,32 @@
   "quality_batches": {
     "market_ohlcv": "batch-20260827"
   },
-  "replay_checkpoint": "ckpt-btc-20260827"
+  "replay_checkpoint": "ckpt-btc-20260827",
+  "multi_tenant_isolation_899": {
+    "feature_ref": 899,
+    "merged_into": "Data Architecture (#878)",
+    "component": "multi_tenant_isolation",
+    "isolation_method": "row_level_security",
+    "accuracy_target_pct": 99.99,
+    "query_target_ms": 1000,
+    "retention_years_min": 2,
+    "real_time_update": true,
+    "tenants": {
+      "tenant_alpha": {"name": "Alpha Capital", "tier": "institution", "rls_policy": "tenant_alpha_only"},
+      "tenant_beta": {"name": "Beta Fund", "tier": "pro", "rls_policy": "tenant_beta_only"},
+      "tenant_gamma": {"name": "Gamma Research", "tier": "free", "rls_policy": "tenant_gamma_only"}
+    },
+    "quarterly_pen_test": {
+      "last_test_date": "2026-08-15T00:00:00+00:00",
+      "last_passed": true,
+      "cross_tenant_tests_passed": 12,
+      "rls_verified": true,
+      "mandatory": true
+    },
+    "fee_db": {
+      "rls_ops_usd": 35.0,
+      "pen_test_usd": 500.0,
+      "tier": "ops"
+    }
+  }
 }

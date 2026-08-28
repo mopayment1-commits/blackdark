@@ -1,0 +1,98 @@
+{
+  "feature_ref": 896,
+  "merged_into": "Data Engine",
+  "component": "ingestion_pipeline",
+  "ingestion_pipeline_896": {
+    "no_scraping": true,
+    "web_scraper_rejected": true,
+    "smart_branding_rejected": true,
+    "rule_based_only": true,
+    "official_apis_only": true,
+    "sources": ["coingecko", "binance", "fred"],
+    "fallback_chain": ["coingecko", "binance", "fred"],
+    "rate_limit_handling": "backoff_and_fallback",
+    "cache": {
+      "default_ttl_sec": 300,
+      "min_ttl_sec": 3600,
+      "max_ttl_sec": 86400,
+      "per_source_ttl_sec": {
+        "coingecko": 300,
+        "binance": 60,
+        "fred": 3600
+      }
+    },
+    "fee_db": {
+      "coingecko_api_usd": 25.0,
+      "binance_api_usd": 0.0,
+      "fred_api_usd": 0.0,
+      "tier": "ops"
+    }
+  },
+  "sources": {
+    "coingecko": {
+      "api_type": "official_rest",
+      "latency_ms": 450,
+      "uptime_pct": 99.5,
+      "assets": {
+        "BTC": {
+          "symbol": "BTC",
+          "price": 64850.25,
+          "volume": 28500000000,
+          "market_cap": 1275000000000,
+          "timestamp": "2026-08-28T00:55:00+00:00"
+        },
+        "ETH": {
+          "symbol": "ETH",
+          "price": 3485.50,
+          "volume": 15200000000,
+          "market_cap": 420000000000,
+          "timestamp": "2026-08-28T00:55:00+00:00"
+        }
+      }
+    },
+    "binance": {
+      "api_type": "official_rest",
+      "latency_ms": 120,
+      "uptime_pct": 99.8,
+      "assets": {
+        "BTC": {
+          "symbol": "BTC",
+          "price": 64848.00,
+          "volume": 18200000000,
+          "market_cap": 1274800000000,
+          "timestamp": "2026-08-28T00:55:01+00:00"
+        },
+        "ETH": {
+          "symbol": "ETH",
+          "price": 3484.80,
+          "volume": 9800000000,
+          "market_cap": 419800000000,
+          "timestamp": "2026-08-28T00:55:01+00:00"
+        }
+      }
+    },
+    "fred": {
+      "api_type": "official_rest",
+      "latency_ms": 800,
+      "uptime_pct": 99.9,
+      "assets": {
+        "BTC": {
+          "symbol": "BTC",
+          "price": 64852.00,
+          "volume": null,
+          "market_cap": null,
+          "timestamp": "2026-08-28T00:54:00+00:00"
+        }
+      }
+    }
+  },
+  "fallback_data": {
+    "BTC": {
+      "symbol": "BTC",
+      "price": 64800.00,
+      "volume": 25000000000,
+      "market_cap": 1270000000000,
+      "timestamp": "2026-08-28T00:50:00+00:00"
+    }
+  }
+}
