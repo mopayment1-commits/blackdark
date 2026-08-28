@@ -51,6 +51,7 @@ jobs:
             tests/test_profit_fee_algorithms.py tests/test_fast_scan_profit.py \
             tests/test_p0_financial_executability.py tests/test_money_decimal.py \
             tests/test_rc2_financial_truth.py tests/test_financial_precision_policy_batch1032.py \
+            tests/test_profitability_analyzer_batch981.py \
             -q --tb=short --cov-config=.coveragerc-profit-fee \
             --cov=fee_matrix --cov=slippage_guard --cov=fast_scan_engine \
             --cov=profit_fee_algorithms --cov=executable_edge_truth --cov=money_decimal \

@@ -583,6 +583,59 @@ async def financial_precision_e2e(_admin: dict = Depends(require_admin)):
     return run_financial_precision_e2e_1032()
 
 
+@router.get("/profitability-analyzer/status")
+async def profitability_analyzer_status():
+    from profitability_analyzer import profitability_analyzer_status_981
+
+    return profitability_analyzer_status_981()
+
+
+@router.get("/profitability-analyzer/production-gate")
+async def profitability_analyzer_production_gate():
+    from profitability_analyzer import check_production_gate_981
+
+    return check_production_gate_981()
+
+
+@router.get("/profitability-analyzer/audit-trail")
+async def profitability_analyzer_audit_trail(_admin: dict = Depends(require_admin)):
+    from profitability_analyzer import get_pnl_audit_trail
+
+    return get_pnl_audit_trail()
+
+
+@router.get("/profitability-analyzer/e2e")
+async def profitability_analyzer_e2e(_admin: dict = Depends(require_admin)):
+    from profitability_analyzer import run_profitability_analyzer_e2e_981
+
+    return run_profitability_analyzer_e2e_981()
+
+
+@router.post("/profitability-analyzer/net-profit")
+async def profitability_analyzer_net_profit(body: dict[str, Any] = Body(...)):
+    """Compute net profit after all 4 fee categories (#981)."""
+    from profitability_analyzer import compute_net_profit_engine
+
+    result = compute_net_profit_engine(
+        proceeds_usdt=float(body.get("proceeds_usdt", 0)),
+        cost_usdt=float(body.get("cost_usdt", 0)),
+        trading_fees_usdt=float(body.get("trading_fees_usdt", 0)),
+        withdrawal_fees_usdt=float(body.get("withdrawal_fees_usdt", 0)),
+        deposit_fees_usdt=float(body.get("deposit_fees_usdt", 0)),
+        network_gas_usdt=body.get("network_gas_usdt"),
+        slippage_buffer_usdt=float(body.get("slippage_buffer_usdt", 0)),
+        platform_fee_usdt=body.get("platform_fee_usdt"),
+        reference_price=body.get("reference_price"),
+        trade_id=body.get("trade_id"),
+        account_id=body.get("account_id"),
+        chain=str(body.get("chain", "ethereum")),
+        user_gas_override=body.get("user_gas_override"),
+    )
+    if result is None:
+        return {"ok": False, "reason": "incomplete_fees_or_gas_unknown"}
+    return {"ok": True, **result}
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),
