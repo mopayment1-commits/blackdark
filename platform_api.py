@@ -5122,6 +5122,64 @@ async def data_architecture_e2e_route(_admin: dict = Depends(require_admin)):
     return run_data_architecture_e2e_878()
 
 
+@router.get("/internal/data-engine/architecture/multi-tenant/status")
+async def multi_tenant_isolation_status_route(_admin: dict = Depends(require_admin)):
+    """#899 SaaS Multi-Tenant Database Isolation — RLS (admin only)."""
+    from bd_platform.data_engine_architecture import multi_tenant_isolation_status_899
+
+    return multi_tenant_isolation_status_899()
+
+
+@router.get("/internal/data-engine/architecture/multi-tenant")
+async def multi_tenant_isolation_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_architecture import build_multi_tenant_panel_899
+
+    return build_multi_tenant_panel_899()
+
+
+@router.get("/internal/data-engine/architecture/multi-tenant/e2e")
+async def multi_tenant_isolation_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_architecture import run_multi_tenant_e2e_899
+
+    return run_multi_tenant_e2e_899()
+
+
+@router.get("/intelligence-ledger/data-engine/ingestion-pipeline/status")
+async def ingestion_pipeline_status_route():
+    """#896 API Ingestion Pipeline — official APIs only, no scraping."""
+    from bd_platform.data_engine_ingestion_pipeline import ingestion_pipeline_status_896
+
+    return ingestion_pipeline_status_896()
+
+
+@router.get("/intelligence-ledger/data-engine/ingestion-pipeline")
+async def ingestion_pipeline_panel_route(symbol: str = Query("BTC")):
+    from bd_platform.data_engine_ingestion_pipeline import build_ingestion_pipeline_panel_896
+
+    return build_ingestion_pipeline_panel_896(symbol)
+
+
+@router.get("/intelligence-ledger/data-engine/ingestion-pipeline/aggregate")
+async def ingestion_pipeline_aggregate_route(symbol: str = Query("BTC")):
+    from bd_platform.data_engine_ingestion_pipeline import aggregate_market_snapshot_896
+
+    return aggregate_market_snapshot_896(symbol)
+
+
+@router.get("/intelligence-ledger/data-engine/ingestion-pipeline/source")
+async def ingestion_pipeline_source_route(source: str = Query("coingecko"), symbol: str = Query("BTC")):
+    from bd_platform.data_engine_ingestion_pipeline import fetch_from_source_896
+
+    return fetch_from_source_896(source, symbol)
+
+
+@router.get("/intelligence-ledger/data-engine/ingestion-pipeline/e2e")
+async def ingestion_pipeline_e2e_route():
+    from bd_platform.data_engine_ingestion_pipeline import run_ingestion_pipeline_e2e_896
+
+    return run_ingestion_pipeline_e2e_896()
+
+
 @router.get("/intelligence-ledger/data-engine/market-data-ingestion/status")
 async def market_data_ingestion_status_route():
     """#879 Market Data Feed — 10 venue spot ingestion."""
