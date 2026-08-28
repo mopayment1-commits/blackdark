@@ -5151,6 +5151,72 @@ async def market_data_ingestion_e2e_route():
     return run_market_data_ingestion_e2e_879()
 
 
+@router.get("/intelligence-ledger/data-engine/market-data-ingestion/websocket")
+async def market_data_websocket_streaming_route(symbol: str = Query("BTC")):
+    """#892 → #879 Market Data WebSocket streaming."""
+    from bd_platform.data_engine_market_data_ingestion import build_websocket_streaming_config_879
+
+    return build_websocket_streaming_config_879(symbol)
+
+
+@router.get("/intelligence-ledger/risk-rules/status")
+async def risk_rules_status_route():
+    """#889 Risk Curation — Intelligence Ledger risk_rules layer."""
+    from bd_platform.intelligence_ledger_risk_rules import risk_rules_status_889
+
+    return risk_rules_status_889()
+
+
+@router.get("/intelligence-ledger/risk-rules")
+async def risk_curation_panel_route(asset: str = Query("BTC")):
+    from bd_platform.intelligence_ledger_risk_rules import build_risk_curation_panel_889
+
+    return build_risk_curation_panel_889(asset)
+
+
+@router.get("/intelligence-ledger/risk-rules/approval-queue")
+async def risk_rules_approval_queue_route():
+    from bd_platform.intelligence_ledger_risk_rules import get_approval_queue_889
+
+    return get_approval_queue_889()
+
+
+@router.get("/intelligence-ledger/risk-rules/e2e")
+async def risk_rules_e2e_route():
+    from bd_platform.intelligence_ledger_risk_rules import run_risk_rules_e2e_889
+
+    return run_risk_rules_e2e_889()
+
+
+@router.get("/intelligence-ledger/data-ingestion/twitter/status")
+async def twitter_connector_status_route():
+    """#894 X API (Twitter) — Data Ingestion / #783 Sentiment."""
+    from blackdark.ingestion.twitter_connector import twitter_connector_status_894
+
+    return twitter_connector_status_894()
+
+
+@router.get("/intelligence-ledger/data-ingestion/twitter")
+async def twitter_connector_fetch_route(asset: str = Query("BTC")):
+    from blackdark.ingestion.twitter_connector import fetch_twitter_mentions_894
+
+    return fetch_twitter_mentions_894(asset)
+
+
+@router.get("/intelligence-ledger/data-ingestion/twitter/sentiment-feed")
+async def twitter_sentiment_feed_route(asset: str = Query("BTC")):
+    from blackdark.ingestion.twitter_connector import build_sentiment_feed_894
+
+    return build_sentiment_feed_894(asset)
+
+
+@router.get("/intelligence-ledger/data-ingestion/twitter/e2e")
+async def twitter_connector_e2e_route():
+    from blackdark.ingestion.twitter_connector import run_twitter_connector_e2e_894
+
+    return run_twitter_connector_e2e_894()
+
+
 @router.get("/intelligence-ledger/oracle/coingecko-terminal/status")
 async def coingecko_terminal_status_route():
     """#839 CoinGecko Terminal — Oracle API data source."""
@@ -5349,6 +5415,78 @@ async def rbac_entitlements_e2e_route():
     from bd_platform.api_gateway_rbac_entitlements import run_rbac_entitlements_e2e_866
 
     return run_rbac_entitlements_e2e_866()
+
+
+@router.get("/intelligence-ledger/api-gateway/sandbox/status")
+async def developer_sandbox_status_route():
+    """#885 Pro Developer Sandbox — isolated testing environment."""
+    from bd_platform.api_gateway_developer_sandbox import developer_sandbox_status_885
+
+    return developer_sandbox_status_885()
+
+
+@router.get("/intelligence-ledger/api-gateway/sandbox")
+async def developer_sandbox_console_route():
+    from bd_platform.api_gateway_developer_sandbox import build_sandbox_console_885
+
+    return build_sandbox_console_885()
+
+
+@router.get("/intelligence-ledger/api-gateway/sandbox/simulate")
+async def developer_sandbox_simulate_route(scenario_id: str = Query("scenario-001")):
+    from bd_platform.api_gateway_developer_sandbox import simulate_sandbox_request_885
+
+    return simulate_sandbox_request_885(scenario_id)
+
+
+@router.get("/intelligence-ledger/api-gateway/sandbox/reset")
+async def developer_sandbox_reset_route():
+    from bd_platform.api_gateway_developer_sandbox import reset_sandbox_state_885
+
+    return reset_sandbox_state_885()
+
+
+@router.get("/intelligence-ledger/api-gateway/sandbox/isolation-proof")
+async def developer_sandbox_isolation_route():
+    from bd_platform.api_gateway_developer_sandbox import prove_isolation_885
+
+    return prove_isolation_885()
+
+
+@router.get("/intelligence-ledger/api-gateway/sandbox/e2e")
+async def developer_sandbox_e2e_route():
+    from bd_platform.api_gateway_developer_sandbox import run_developer_sandbox_e2e_885
+
+    return run_developer_sandbox_e2e_885()
+
+
+@router.get("/intelligence-ledger/api-gateway/streaming/status")
+async def streaming_infrastructure_status_route():
+    """#892 WebSocket/Streaming — merged into #876 + #879."""
+    from bd_platform.api_gateway_streaming import streaming_infrastructure_status_892
+
+    return streaming_infrastructure_status_892()
+
+
+@router.get("/intelligence-ledger/api-gateway/streaming")
+async def streaming_infrastructure_panel_route(symbol: str = Query("BTC")):
+    from bd_platform.api_gateway_streaming import build_streaming_panel_892
+
+    return build_streaming_panel_892(symbol)
+
+
+@router.get("/intelligence-ledger/api-gateway/streaming/api-config")
+async def api_streaming_config_route():
+    from bd_platform.api_gateway_streaming import build_api_streaming_config_892
+
+    return build_api_streaming_config_892()
+
+
+@router.get("/intelligence-ledger/api-gateway/streaming/e2e")
+async def streaming_infrastructure_e2e_route():
+    from bd_platform.api_gateway_streaming import run_streaming_e2e_892
+
+    return run_streaming_e2e_892()
 
 
 @router.get("/intelligence-ledger/wallet-risk/status")

@@ -1,0 +1,123 @@
+{
+  "feature_ref": 889,
+  "merged_into": "Intelligence Ledger",
+  "component": "risk_rules",
+  "risk_rules_889": {
+    "current_version": "1.0",
+    "next_version": "1.1",
+    "migration_guide": {
+      "from": "1.0",
+      "to": "1.1",
+      "breaking_changes": false,
+      "notes": "v1.1 adds optional composite scoring fields — no enforcement changes"
+    },
+    "approval_workflow": {
+      "manual_review_required": true,
+      "no_auto_deploy": true,
+      "reviewers": ["risk_committee"]
+    },
+    "fee_db": {
+      "rule_evaluation_usd": 0.005,
+      "tier": "ops"
+    }
+  },
+  "rules": [
+    {
+      "id": "rule-001",
+      "name": "NVT Overvaluation",
+      "metric": "nvt_ratio",
+      "operator": ">",
+      "threshold": 100,
+      "label": "Overvalued",
+      "status": "published",
+      "version": "1.0",
+      "approved_by": "risk_committee",
+      "approved_at": "2026-08-20T00:00:00+00:00"
+    },
+    {
+      "id": "rule-002",
+      "name": "Extreme Funding",
+      "metric": "funding_apr_pct",
+      "operator": ">",
+      "threshold": 50,
+      "label": "Extreme",
+      "status": "published",
+      "version": "1.0",
+      "approved_by": "risk_committee",
+      "approved_at": "2026-08-20T00:00:00+00:00"
+    },
+    {
+      "id": "rule-003",
+      "name": "Revived Supply Risk",
+      "metric": "revived_supply_pct",
+      "operator": ">",
+      "threshold": 5,
+      "label": "Risk",
+      "status": "published",
+      "version": "1.0",
+      "approved_by": "risk_committee",
+      "approved_at": "2026-08-20T00:00:00+00:00"
+    },
+    {
+      "id": "rule-004",
+      "name": "High MVRV",
+      "metric": "mvrv_ratio",
+      "operator": ">",
+      "threshold": 3.5,
+      "label": "Elevated",
+      "status": "published",
+      "version": "1.0",
+      "approved_by": "risk_committee",
+      "approved_at": "2026-08-21T00:00:00+00:00"
+    },
+    {
+      "id": "rule-005",
+      "name": "Low Liquidity",
+      "metric": "liquidity_score",
+      "operator": "<",
+      "threshold": 30,
+      "label": "Thin Market",
+      "status": "published",
+      "version": "1.0",
+      "approved_by": "risk_committee",
+      "approved_at": "2026-08-21T00:00:00+00:00"
+    },
+    {
+      "id": "rule-006",
+      "name": "Unlock Pressure",
+      "metric": "unlock_supply_pct_30d",
+      "operator": ">",
+      "threshold": 10,
+      "label": "Unlock Pressure",
+      "status": "pending_review",
+      "version": "1.1",
+      "submitted_at": "2026-08-26T00:00:00+00:00"
+    },
+    {
+      "id": "rule-007",
+      "name": "Whale Concentration",
+      "metric": "top10_holder_pct",
+      "operator": ">",
+      "threshold": 60,
+      "label": "Concentrated",
+      "status": "draft",
+      "version": "1.1"
+    }
+  ],
+  "sample_metrics": {
+    "BTC": {
+      "nvt_ratio": 120,
+      "funding_apr_pct": 12.5,
+      "revived_supply_pct": 2.1,
+      "mvrv_ratio": 2.8,
+      "liquidity_score": 85
+    },
+    "ETH": {
+      "nvt_ratio": 85,
+      "funding_apr_pct": 55,
+      "revived_supply_pct": 6.2,
+      "mvrv_ratio": 1.9,
+      "liquidity_score": 78
+    }
+  }
+}

@@ -266,5 +266,49 @@
       "audit_storage_usd": 15.0,
       "tier": "ops"
     }
+  },
+  "developer_sandbox_885": {
+    "feature_ref": 885,
+    "merged_into": "API Gateway (#876) / SDK (#853)",
+    "component": "developer_sandbox",
+    "separate_db": true,
+    "sandbox_api_keys": {
+      "bd_sandbox_key_0001": {"user_id": "sandbox_user_001", "role": "sandbox", "label": "Sandbox test key"},
+      "bd_sandbox_key_0002": {"user_id": "sandbox_user_002", "role": "sandbox", "label": "Sandbox integration key"}
+    },
+    "fixture_templates": [
+      {"endpoint": "/api/v1/market/overview", "method": "GET", "expected_status": 200},
+      {"endpoint": "/api/v1/onchain/metrics/BTC", "method": "GET", "expected_status": 200},
+      {"endpoint": "/api/v1/risk/protocol/aave", "method": "GET", "expected_status": 403},
+      {"endpoint": "/api/v1/usage", "method": "GET", "expected_status": 200},
+      {"endpoint": "/api/v1/sandbox/rate-limit", "method": "GET", "expected_status": 429}
+    ],
+    "error_scenarios": [
+      {"id": "rate_limit", "expected_status": 429, "simulated": true},
+      {"id": "unauthorized", "expected_status": 401, "simulated": true},
+      {"id": "forbidden", "expected_status": 403, "simulated": true},
+      {"id": "server_error", "expected_status": 500, "simulated": true}
+    ],
+    "fee_db": {"sandbox_ops_usd": 30.0, "tier": "ops"}
+  },
+  "streaming_infrastructure_892": {
+    "feature_ref": 892,
+    "merged_into": "API Gateway (#876) + Market Data Feed (#879)",
+    "component": "streaming_infrastructure",
+    "api_streaming": {
+      "endpoint": "/ws/api/v1",
+      "channels": ["market", "onchain", "alerts"],
+      "sandbox_isolated": true
+    },
+    "market_data_streaming": {
+      "endpoint": "/ws/market-data",
+      "venues": 10
+    },
+    "slo_evidence": {
+      "response_ms": 450,
+      "accuracy_pct": 96.5,
+      "uptime_pct": 99.2
+    },
+    "fee_db": {"streaming_infra_usd": 40.0, "tier": "ops"}
   }
 }
