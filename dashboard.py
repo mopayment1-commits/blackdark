@@ -1,4 +1,5 @@
 import asyncio
+import json
 import logging
 import os
 import time
@@ -383,6 +384,9 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
             risk_score=float(result.get("risk_score", 5)),
             holdings=result.get("holdings"),
         )
+        from bd_platform.infra_intelligence_layer import attach_infra_layers_95_104
+
+        result = attach_infra_layers_95_104(result)
     except ImportError:
         pass
     return result
@@ -1980,6 +1984,70 @@ async def export_ic_report(
     from bd_platform.institutional_b2b_layer import build_ic_report_87
 
     return build_ic_report_87(source=source, asset=asset, verdict=verdict, risk_score=risk_score)
+
+
+@app.get("/admin/analytics")
+async def admin_usage_analytics():
+    """#95 — Internal usage analytics dashboard (admin only)."""
+    from bd_platform.infra_intelligence_layer import build_admin_analytics_dashboard_95
+
+    return build_admin_analytics_dashboard_95()
+
+
+@app.get("/radar/market-health")
+async def radar_market_health(
+    open_interest_usd: float = 8_000_000_000,
+    average_leverage: float = 12.0,
+    spot_liquidity_usd: float = 2_500_000_000,
+):
+    """#104 — Leverage ratio overhang factor."""
+    from bd_platform.infra_intelligence_layer import compute_leverage_overhang_104
+
+    return compute_leverage_overhang_104(
+        open_interest_usd=open_interest_usd,
+        average_leverage=average_leverage,
+        spot_liquidity_usd=spot_liquidity_usd,
+    )
+
+
+@app.get("/oracle/validate")
+async def oracle_validate_freshness(primary_ms: float = 1_000_000, secondary_ms: float = 1_000_200):
+    """#101 — Oracle latency deviation buffer."""
+    from bd_platform.infra_intelligence_layer import validate_oracle_freshness_101
+
+    return validate_oracle_freshness_101(
+        primary_timestamp_ms=primary_ms,
+        secondary_timestamp_ms=secondary_ms,
+    )
+
+
+@app.get("/oracle/on-chain/defi/il-score")
+async def oracle_defi_il_score(
+    price_ratio: float = 1.2,
+    volatility_30d: float = 0.45,
+    liquidity_depth_usd: float = 5_000_000,
+):
+    """#102 — Impermanent loss vulnerability score."""
+    from bd_platform.infra_intelligence_layer import compute_il_vulnerability_102
+
+    return compute_il_vulnerability_102(
+        price_ratio=price_ratio,
+        volatility_30d=volatility_30d,
+        liquidity_depth_usd=liquidity_depth_usd,
+    )
+
+
+@app.get("/radar/sentiment/filter")
+@app.get("/oracle/on-chain/filter")
+async def sybil_filter_public(wallets: str = "[]"):
+    """#99 — Sybil attack density filter."""
+    from bd_platform.infra_intelligence_layer import filter_sybil_clusters_99
+
+    try:
+        parsed = json.loads(wallets)
+    except json.JSONDecodeError:
+        parsed = []
+    return filter_sybil_clusters_99(parsed if isinstance(parsed, list) else [])
 
 
 @app.get("/docs", response_class=HTMLResponse)

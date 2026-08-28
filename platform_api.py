@@ -1388,3 +1388,129 @@ async def institutional_b2b_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.institutional_b2b_layer import run_institutional_b2b_e2e_87_94
 
     return run_institutional_b2b_e2e_87_94()
+
+
+# ─── Infrastructure & Intelligence (#95–#104) ───────────────────────────────────
+
+
+@router.get("/admin/analytics")
+async def usage_analytics_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infra_intelligence_layer import build_admin_analytics_dashboard_95
+
+    return build_admin_analytics_dashboard_95()
+
+
+@router.post("/admin/analytics/track")
+async def usage_analytics_track_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.infra_intelligence_layer import track_usage_event_95
+
+    return track_usage_event_95(
+        endpoint=str(data.get("endpoint", "/unknown")),
+        event_type=str(data.get("event_type", "api_call")),
+        feature=str(data.get("feature", "")),
+        duration_ms=float(data.get("duration_ms", 0)),
+        error=bool(data.get("error", False)),
+        user_id=str(data.get("user_id", "")),
+    )
+
+
+@router.get("/data-engine/streaming/status")
+async def streaming_stack_status_route():
+    from bd_platform.infra_intelligence_layer import streaming_stack_status_96
+
+    return streaming_stack_status_96()
+
+
+@router.post("/data-engine/streaming/enqueue")
+async def streaming_enqueue_route(data: dict = Body(default={})):
+    from bd_platform.infra_intelligence_layer import enqueue_stream_event_96
+
+    return enqueue_stream_event_96(source=str(data.get("source", "oracle")), payload=data.get("payload"))
+
+
+@router.post("/intelligence/feedback")
+async def flywheel_feedback_route(data: dict = Body(default={})):
+    from bd_platform.infra_intelligence_layer import submit_insight_feedback_97
+
+    return submit_insight_feedback_97(
+        insight_id=str(data.get("insight_id", "")),
+        feedback=str(data.get("feedback", "neutral")),  # type: ignore[arg-type]
+        actual_outcome=str(data.get("actual_outcome", "")),
+    )
+
+
+@router.get("/registry/status")
+async def sovereign_registry_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infra_intelligence_layer import sovereign_registry_status_98
+
+    return sovereign_registry_status_98()
+
+
+@router.post("/registry/register")
+async def sovereign_registry_register_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.infra_intelligence_layer import register_canonical_signal_98
+
+    return register_canonical_signal_98(
+        name=str(data.get("name", "")),
+        formula=str(data.get("formula", "")),
+        data_source=str(data.get("data_source", "")),
+        signal_type=str(data.get("signal_type", "custom")),
+    )
+
+
+@router.post("/radar/sentiment/filter")
+@router.post("/oracle/on-chain/filter")
+async def sybil_filter_route(data: dict = Body(default={})):
+    from bd_platform.infra_intelligence_layer import filter_sybil_clusters_99
+
+    return filter_sybil_clusters_99(data.get("wallets") or [])
+
+
+@router.get("/oracle/validate")
+async def oracle_freshness_route(
+    primary_ms: float = Query(1_000_000),
+    secondary_ms: float = Query(1_000_200),
+):
+    from bd_platform.infra_intelligence_layer import validate_oracle_freshness_101
+
+    return validate_oracle_freshness_101(
+        primary_timestamp_ms=primary_ms,
+        secondary_timestamp_ms=secondary_ms,
+    )
+
+
+@router.get("/oracle/on-chain/defi/il-score")
+async def il_vulnerability_route(
+    price_ratio: float = Query(1.2),
+    volatility_30d: float = Query(0.45),
+    liquidity_depth_usd: float = Query(5_000_000),
+):
+    from bd_platform.infra_intelligence_layer import compute_il_vulnerability_102
+
+    return compute_il_vulnerability_102(
+        price_ratio=price_ratio,
+        volatility_30d=volatility_30d,
+        liquidity_depth_usd=liquidity_depth_usd,
+    )
+
+
+@router.get("/radar/market-health")
+async def leverage_overhang_route(
+    open_interest_usd: float = Query(8_000_000_000),
+    average_leverage: float = Query(12.0),
+    spot_liquidity_usd: float = Query(2_500_000_000),
+):
+    from bd_platform.infra_intelligence_layer import compute_leverage_overhang_104
+
+    return compute_leverage_overhang_104(
+        open_interest_usd=open_interest_usd,
+        average_leverage=average_leverage,
+        spot_liquidity_usd=spot_liquidity_usd,
+    )
+
+
+@router.get("/infra-intelligence/e2e")
+async def infra_intelligence_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infra_intelligence_layer import run_infra_intelligence_e2e_95_104
+
+    return run_infra_intelligence_e2e_95_104()

@@ -55,10 +55,80 @@ def _risk_disclaimer(locale: str = "en") -> str:
 # ─── #77 Advanced Risk Tab ──────────────────────────────────────────────────────
 
 
+def _days_between(start: str, end: str) -> int:
+    try:
+        from datetime import datetime
+
+        fmt = "%Y-%m-%d"
+        d0 = datetime.strptime(str(start)[:10], fmt)
+        d1 = datetime.strptime(str(end)[:10], fmt)
+        return max(0, (d1 - d0).days)
+    except (ValueError, TypeError):
+        return 0
+
+
+def _compute_drawdown_duration_103(
+    price_history: list[dict[str, Any]],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#103 — Max drawdown duration lifecycle merged into advanced risk."""
+    if len(price_history) < 2:
+        return {
+            "feature_ref": 103,
+            "merged_into": "advanced_risk_77",
+            "max_drawdown_pct": 0,
+            "duration_days": 0,
+            "recovery_days": None,
+            "formula": "drawdown = (peak − trough) / peak; duration = trough_ts − peak_ts",
+            "historical_analysis_only": True,
+        }
+    peak_val = float(price_history[0].get("value_usd", 0) or 0)
+    peak_date = price_history[0].get("date", "")
+    max_dd = 0.0
+    trough_date = peak_date
+    for point in price_history:
+        val = float(point.get("value_usd", 0) or 0)
+        if val > peak_val:
+            peak_val = val
+            peak_date = point.get("date", peak_date)
+        dd = (peak_val - val) / peak_val * 100 if peak_val else 0
+        if dd > max_dd:
+            max_dd = dd
+            trough_date = point.get("date", trough_date)
+    recovery_days = None
+    recovered = False
+    for point in price_history:
+        if point.get("date", "") > trough_date and float(point.get("value_usd", 0) or 0) >= peak_val:
+            recovered = True
+            break
+    fee = float((seed or {}).get("drawdown_duration_103", {}).get("fee_db", {}).get("compute_usd", 0.0005))
+    duration = _days_between(peak_date, trough_date)
+    return {
+        "feature_ref": 103,
+        "merged_into": "advanced_risk_77",
+        "max_drawdown_pct": round(max_dd, 2),
+        "peak_date": peak_date,
+        "trough_date": trough_date,
+        "duration_days": duration,
+        "recovery_days": recovery_days,
+        "recovered": recovered,
+        "insight": {
+            "en": f"This drawdown took {duration} days to reach trough",
+            "ar": f"استغرق هذا التراجع {duration} يوماً للوصول للقاع",
+        },
+        "formula": "drawdown = (peak − trough) / peak; duration = trough_ts − peak_ts",
+        "historical_analysis_only": True,
+        "non_custodial": True,
+        "fee_db": {"compute_usd": fee},
+    }
+
+
 def build_advanced_risk_report_77(
     holdings: list[dict[str, Any]],
     *,
     btc_shock_pct: float = -20.0,
+    price_history: list[dict[str, Any]] | None = None,
     seed: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Exposure + correlation + stress scenarios — rule-based risk report."""
@@ -113,6 +183,7 @@ def build_advanced_risk_report_77(
     ]
 
     fee = float((seed.get("advanced_risk_77") or {}).get("fee_db", {}).get("compute_usd", 0.002))
+    drawdown_lifecycle = _compute_drawdown_duration_103(price_history or [], seed=seed)
     return {
         "ok": True,
         "feature_ref": 77,
@@ -121,6 +192,7 @@ def build_advanced_risk_report_77(
         "exposure": exposure,
         "correlations": correlations,
         "stress_scenarios": scenarios,
+        "drawdown_lifecycle": drawdown_lifecycle,
         "formula_visible": True,
         "cached_correlation_key": cache_key,
         "performance_target_ms": 800,
@@ -329,18 +401,27 @@ def evaluate_liquidation_alert_82(
 ) -> dict[str, Any]:
     seed = seed or _load_seed()
     distance_pct = round((price - liquidation_level) / price * 100, 2) if price else 0
+    proximity_pct = distance_pct  # #100 — same metric, quantified dimension
+    cfg100 = seed.get("liquidation_proximity_100") or {}
+    red_pct = float((cfg100.get("policy") or {}).get("red_threshold_pct", 5))
+    yellow_pct = float((cfg100.get("policy") or {}).get("yellow_threshold_pct", 10))
+    proximity_color = "red" if proximity_pct < red_pct else ("yellow" if proximity_pct < yellow_pct else "green")
     cascade_risk = "high" if distance_pct < 5 else ("medium" if distance_pct < 10 else "low")
     triggered = distance_pct < 8 and open_interest_usd > 100_000_000
     fee = float((seed.get("liquidation_alert_82") or {}).get("fee_db", {}).get("alert_usd", 0.0005))
     return {
         "ok": True,
         "feature_ref": 82,
+        "merged_features": [82, 100],
         "alert_type": "liquidation_cascade",
         "route": "/radar/alerts/liquidation",
         "asset": asset.upper(),
         "current_price": price,
         "liquidation_level": liquidation_level,
         "distance_pct": distance_pct,
+        "proximity_pct": proximity_pct,
+        "proximity_color": proximity_color,
+        "proximity_formula": "(Current Price − Nearest Liquidation Wall) / Current Price × 100",
         "cascade_risk": cascade_risk,
         "alert_fired": triggered,
         "why_level": {

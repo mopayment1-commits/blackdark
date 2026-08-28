@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -441,5 +441,79 @@
     "status": "deferred",
     "wave": 3,
     "merged_into": ["sla_89", "ic_report_87", "team_rbac_88"]
+  },
+  "usage_analytics_95": {
+    "standalone": false,
+    "route": "/admin/analytics",
+    "policy": {
+      "internal_only": true,
+      "admin_mfa_required": true,
+      "async_queue": "redis_streams",
+      "gdpr_compliant": true,
+      "no_third_party_tracking": true
+    },
+    "fee_db": {"infra_usd": 0.002}
+  },
+  "streaming_stack_96": {
+    "standalone": false,
+    "merged_into": "data_engine",
+    "transport": "redis_streams",
+    "policy": {
+      "ai_training_deferred": true,
+      "ml_blocked_until": "90_days_and_10000_signals_and_backtest",
+      "latency_target_ms": 100
+    },
+    "fee_db": {"compute_usd": 0.005, "bandwidth_usd": 0.001}
+  },
+  "data_flywheel_97": {
+    "standalone": false,
+    "merged_into": "intelligence_ledger",
+    "policy": {"rule_based_feedback": true, "no_ml_sprint_2": true},
+    "fee_db": {"storage_usd": 0.0002, "recompute_usd": 0.0003}
+  },
+  "signal_registry_98": {
+    "standalone": false,
+    "route": "/registry",
+    "policy": {"ci_validation": true, "unified_definitions": true, "sovereign": true},
+    "fee_db": {"storage_usd": 0.0001}
+  },
+  "sybil_filter_99": {
+    "standalone": false,
+    "merged_into": ["sentiment_layer", "on_chain_extension"],
+    "routes": ["/radar/sentiment/filter", "/oracle/on-chain/filter"],
+    "policy": {"coordination_threshold": 3, "false_positive_target_pct": 5},
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "liquidation_proximity_100": {
+    "standalone": false,
+    "merged_into": "liquidation_alert_82",
+    "policy": {"red_threshold_pct": 5, "yellow_threshold_pct": 10},
+    "fee_db": {"compute_usd": 0.0004}
+  },
+  "oracle_latency_buffer_101": {
+    "standalone": false,
+    "merged_into": "oracle_api",
+    "route": "/oracle/validate",
+    "policy": {"stale_threshold_sec": 5, "critical_threshold_sec": 15},
+    "fee_db": {"dual_query_usd": 0.0003}
+  },
+  "il_vulnerability_102": {
+    "standalone": false,
+    "merged_into": ["on_chain_extension", "intelligence_ledger"],
+    "route": "/oracle/on-chain/defi",
+    "policy": {"high_vulnerability_threshold": 70},
+    "fee_db": {"compute_usd": 0.001, "rpc_usd": 0.0005}
+  },
+  "drawdown_duration_103": {
+    "standalone": false,
+    "merged_into": "advanced_risk_77",
+    "fee_db": {"compute_usd": 0.0005}
+  },
+  "leverage_overhang_104": {
+    "standalone": false,
+    "merged_into": "market_radar",
+    "route": "/radar/market-health",
+    "policy": {"red_threshold": 3.0, "yellow_threshold": 2.0},
+    "fee_db": {"compute_usd": 0.0015}
   }
 }
