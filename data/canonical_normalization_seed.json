@@ -1,0 +1,115 @@
+{
+  "feature_ref": 1027,
+  "merged_into": "Data Engine",
+  "standalone_rejected": true,
+  "canonical_normalization_engine_1027": {
+    "policy": {
+      "enabled": true,
+      "rule_based_only": true,
+      "no_ml_normalization_sprint_2": true,
+      "blocks_production_if_incomplete": true,
+      "pipeline_sequence": ["ingest", "normalize", "outlier_check", "serve"],
+      "schema_version": "1.0.0"
+    },
+    "units": {
+      "price_currency": "USD",
+      "volume_native_plus_usd": true,
+      "timestamp_timezone": "UTC",
+      "immutable": true
+    },
+    "null_handling": {
+      "explicit_null": true,
+      "no_fabricated_zeros": true,
+      "flag_in_provenance": true
+    },
+    "format_unification": {
+      "internal_format": "jsonb",
+      "archive_format": "parquet",
+      "supported_inputs": ["json", "xml", "csv"],
+      "schema_enforced_at_ingest": true
+    },
+    "deduplication": {
+      "cross_source_enabled": true,
+      "strategy": "canonical_record_multi_provenance"
+    },
+    "fee_db": {
+      "compute_per_record_usd": 0.00002,
+      "schema_mapping_usd": 0.00001,
+      "dedup_usd": 0.000005,
+      "logged_per_operation": true
+    },
+    "integrations": {
+      "multi_source_ref": 1024,
+      "provenance_ref": 945,
+      "asset_taxonomy_ref": 927,
+      "reference_pricing_ref": 959,
+      "protocol_kpis_ref": 986,
+      "outlier_detection_ref": 1026
+    }
+  },
+  "schema_mappings": {
+    "binance": {
+      "version": "1.0.0",
+      "input_format": "json",
+      "fields": {
+        "symbol": "s",
+        "price_usd": "price",
+        "volume_native": "volume",
+        "timestamp": "E"
+      }
+    },
+    "coingecko": {
+      "version": "1.0.0",
+      "input_format": "json",
+      "nested": true,
+      "fields": {
+        "symbol": "id",
+        "price_usd": "usd",
+        "volume_native": "usd_24h_vol",
+        "timestamp": "last_updated_at"
+      }
+    },
+    "coinmarketcap": {
+      "version": "1.0.0",
+      "input_format": "json",
+      "fields": {
+        "symbol": "symbol",
+        "price_usd": "quote.USD.price",
+        "volume_native": "quote.USD.volume_24h",
+        "timestamp": "last_updated"
+      }
+    },
+    "thegraph": {
+      "version": "1.0.0",
+      "input_format": "json",
+      "fields": {
+        "symbol": "token.symbol",
+        "volume_native": "volumeUSD",
+        "timestamp": "timestamp"
+      }
+    },
+    "alchemy": {
+      "version": "1.0.0",
+      "input_format": "json",
+      "fields": {
+        "value": "result",
+        "timestamp": "timestamp"
+      }
+    },
+    "quicknode": {
+      "version": "1.0.0",
+      "input_format": "json",
+      "fields": {
+        "value": "result",
+        "timestamp": "timestamp"
+      }
+    }
+  },
+  "symbol_aliases": {
+    "Bitcoin": "BTC",
+    "Ethereum": "ETH",
+    "BTCUSDT": "BTC",
+    "ETHUSDT": "ETH",
+    "XBT": "BTC"
+  }
+}

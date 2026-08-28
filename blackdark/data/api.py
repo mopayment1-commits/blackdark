@@ -318,6 +318,34 @@ async def get_outlier_e2e(_: None = Depends(require_admin), __: None = Depends(_
     return run_outlier_e2e_1026()
 
 
+@router.get("/api/v1/data/normalization/status")
+async def get_normalization_status(_: None = Depends(_ensure_ready)):
+    from blackdark.data.canonical_normalization_engine import canonical_normalization_status_1027
+
+    return canonical_normalization_status_1027()
+
+
+@router.get("/api/v1/data/normalization/audit-trail")
+async def get_normalization_audit(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.canonical_normalization_engine import get_normalization_audit_trail
+
+    return get_normalization_audit_trail()
+
+
+@router.get("/api/v1/data/normalization/production-gate")
+async def get_normalization_production_gate(_: None = Depends(_ensure_ready)):
+    from blackdark.data.canonical_normalization_engine import check_production_gate_1027
+
+    return check_production_gate_1027()
+
+
+@router.get("/api/v1/data/normalization/e2e")
+async def get_normalization_e2e(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.canonical_normalization_engine import run_normalization_e2e_1027
+
+    return run_normalization_e2e_1027()
+
+
 @router.post("/api/v1/data/ingest", status_code=202)
 async def trigger_ingest(body: IngestRequest, _: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
 
