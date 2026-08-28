@@ -1,0 +1,87 @@
+{
+  "crypto_events_939": {
+    "rules_version": "1.0.0",
+    "official_sources_only": true,
+    "no_rumors": true,
+    "fee_db": {
+      "ingest_per_event_usd": 0.002,
+      "classification_per_event_usd": 0.001,
+      "storage_per_event_usd": 0.0005
+    }
+  },
+  "classification_keywords": {
+    "listing": ["listing", "listed", "list", "launch on"],
+    "unlock": ["unlock", "vesting", "token release"],
+    "upgrade": ["upgrade", "hard fork", "network upgrade"],
+    "governance": ["governance", "proposal", "vote", "snapshot"],
+    "partnership": ["partnership", "collaboration", "integrates with"]
+  },
+  "raw_events": [
+    {
+      "source_id": "src_binance_001",
+      "source_name": "Binance Announcements",
+      "source_url": "https://www.binance.com/en/support/announcement/listing-xyz",
+      "source_type": "exchange_official",
+      "title": "Binance Will List XYZ Token",
+      "asset": "XYZ",
+      "event_date": "2026-09-01T10:00:00+00:00",
+      "ingested_at": "2026-08-28T00:00:00+00:00",
+      "dedupe_key": "listing_xyz_2026-09-01"
+    },
+    {
+      "source_id": "src_coindesk_001",
+      "source_name": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/xyz-listing-binance",
+      "source_type": "trusted_media",
+      "title": "XYZ Token to List on Binance",
+      "asset": "XYZ",
+      "event_date": "2026-09-01T10:00:00+00:00",
+      "ingested_at": "2026-08-28T00:05:00+00:00",
+      "dedupe_key": "listing_xyz_2026-09-01"
+    },
+    {
+      "source_id": "src_arbitrum_001",
+      "source_name": "Arbitrum Blog",
+      "source_url": "https://blog.arbitrum.io/upgrade-nitro-v3",
+      "source_type": "project_blog",
+      "title": "Arbitrum Nitro v3 Network Upgrade",
+      "asset": "ARB",
+      "event_date": "2026-09-15T14:00:00+00:00",
+      "ingested_at": "2026-08-27T12:00:00+00:00",
+      "dedupe_key": "upgrade_arb_nitro_v3"
+    },
+    {
+      "source_id": "src_tokenunlocks_001",
+      "source_name": "Token Unlocks Official",
+      "source_url": "https://token.unlocks.app/aptos",
+      "source_type": "project_official",
+      "title": "APT Token Unlock — 11.31M tokens",
+      "asset": "APT",
+      "event_date": "2026-09-05T00:00:00+00:00",
+      "ingested_at": "2026-08-28T01:00:00+00:00",
+      "dedupe_key": "unlock_apt_2026-09-05"
+    },
+    {
+      "source_id": "src_snapshot_001",
+      "source_name": "Snapshot Governance",
+      "source_url": "https://snapshot.org/#/uniswap/proposal/42",
+      "source_type": "governance_forum",
+      "title": "UNI Governance Proposal #42 — Fee Switch",
+      "asset": "UNI",
+      "event_date": "2026-09-10T18:00:00+00:00",
+      "ingested_at": "2026-08-28T02:00:00+00:00",
+      "dedupe_key": "governance_uni_42"
+    }
+  ],
+  "revisions": [
+    {
+      "event_id": "evt_upgrade_arb_nitro_v3",
+      "revision_id": "rev_001",
+      "field": "event_date",
+      "old_value": "2026-09-10T14:00:00+00:00",
+      "new_value": "2026-09-15T14:00:00+00:00",
+      "revised_at": "2026-08-27T18:00:00+00:00",
+      "reason": "official_date_change"
+    }
+  ]
+}

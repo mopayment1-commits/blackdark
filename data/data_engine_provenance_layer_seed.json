@@ -16,6 +16,16 @@
       }
     }
   },
+  "data_normalization_944": {
+    "datasets": {
+      "defi_protocol_metrics": {
+        "schema_version": "1.0.0",
+        "normalized_fields": ["tvl_usd", "volume_24h_usd", "fees_usd"],
+        "source_schema": "raw_defi_feed_v2",
+        "target_schema": "canonical_defi_v1"
+      }
+    }
+  },
   "metric_lineage_registry": {
     "aave_tvl": {
       "chain": [

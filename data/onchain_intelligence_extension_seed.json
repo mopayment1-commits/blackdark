@@ -134,5 +134,84 @@
         }
       ]
     }
+  },
+  "dex_trading_942": {
+    "rules_version": "1.0.0",
+    "wash_trading_flag_threshold_usd": 10000,
+    "price_deviation_threshold_pct": 5.0,
+    "fee_db": {
+      "rpc_per_query_usd": 0.004,
+      "indexing_per_query_usd": 0.003,
+      "compute_per_query_usd": 0.002
+    }
+  },
+  "dex_pools": {
+    "pool_uni_eth_usdc": {
+      "pool_id": "pool_uni_eth_usdc",
+      "dex": "uniswap",
+      "token0": "ETH",
+      "token1": "USDC",
+      "audited": true,
+      "audit_date": "2026-01-01"
+    },
+    "pool_pancake_bnb_busd": {
+      "pool_id": "pool_pancake_bnb_busd",
+      "dex": "pancakeswap",
+      "token0": "BNB",
+      "token1": "BUSD",
+      "audited": true,
+      "audit_date": "2026-01-15"
+    }
+  },
+  "dex_trades": [
+    {
+      "trade_id": "trade_001",
+      "pool_id": "pool_uni_eth_usdc",
+      "dex": "uniswap",
+      "side": "buy",
+      "amount_usd": 125000,
+      "token": "ETH",
+      "timestamp": "2026-08-28T01:00:00+00:00",
+      "trader_address": "0xabc123",
+      "wash_suspect": false
+    },
+    {
+      "trade_id": "trade_002",
+      "pool_id": "pool_uni_eth_usdc",
+      "dex": "uniswap",
+      "side": "sell",
+      "amount_usd": 98000,
+      "token": "ETH",
+      "timestamp": "2026-08-28T01:05:00+00:00",
+      "trader_address": "0xdef456",
+      "wash_suspect": false
+    },
+    {
+      "trade_id": "trade_003",
+      "pool_id": "pool_uni_eth_usdc",
+      "dex": "uniswap",
+      "side": "buy",
+      "amount_usd": 15000,
+      "token": "ETH",
+      "timestamp": "2026-08-28T01:06:00+00:00",
+      "trader_address": "0xwash001",
+      "wash_suspect": true,
+      "wash_reason": "same_address_both_sides"
+    },
+    {
+      "trade_id": "trade_004",
+      "pool_id": "pool_pancake_bnb_busd",
+      "dex": "pancakeswap",
+      "side": "buy",
+      "amount_usd": 45000,
+      "token": "BNB",
+      "timestamp": "2026-08-28T02:00:00+00:00",
+      "trader_address": "0xghi789",
+      "wash_suspect": false
+    }
+  ],
+  "oracle_prices_dex": {
+    "ETH": {"oracle_price_usd": 3480, "dex_price_usd": 3475, "deviation_pct": 0.14},
+    "BNB": {"oracle_price_usd": 580, "dex_price_usd": 612, "deviation_pct": 5.5}
   }
 }

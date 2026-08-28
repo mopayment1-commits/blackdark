@@ -1902,6 +1902,24 @@ async def onchain_cross_chain_trace_route(tx_hash: str):
     return trace_cross_chain_path_937(tx_hash)
 
 
+@router.get("/intelligence-ledger/onchain-layer/extension/dex-activity/status")
+async def onchain_dex_activity_status_route():
+    """#942 DEX Trading Intelligence — On-Chain Extension sub-layer."""
+    from bd_platform.onchain_intelligence_extension import dex_trading_status_942
+
+    return dex_trading_status_942()
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/dex-activity")
+async def onchain_dex_activity_dashboard_route(
+    dex: str | None = Query(None),
+    token: str | None = Query(None),
+):
+    from bd_platform.onchain_intelligence_extension import build_dex_activity_dashboard_942
+
+    return build_dex_activity_dashboard_942(dex=dex, token=token)
+
+
 @router.get("/intelligence-ledger/onchain-layer/smart-money-flow/status")
 async def smart_money_flow_status_route():
     """#408 Smart Money Flow Tracker (absorbs #459 Dormancy)."""
@@ -4029,6 +4047,40 @@ async def sentiment_intelligence_qa_route():
     return run_sentiment_intelligence_qa_783()
 
 
+@router.get("/intelligence-ledger/market-radar/sentiment/news/status")
+async def curated_news_status_route():
+    """#941 Curated Crypto News — merged into Market Radar Sentiment."""
+    from bd_platform.market_radar_curated_news import curated_news_status_941
+
+    return curated_news_status_941()
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/news/sources")
+async def curated_news_sources_route():
+    from bd_platform.market_radar_curated_news import get_trusted_sources_941
+
+    return get_trusted_sources_941()
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/news")
+async def curated_news_feed_route(
+    asset: str | None = Query(None),
+    topic: str | None = Query(None),
+    source_id: str | None = Query(None),
+    sort_by: str = Query("chronology"),
+):
+    from bd_platform.market_radar_curated_news import build_news_feed_941
+
+    return build_news_feed_941(asset=asset, topic=topic, source_id=source_id, sort_by=sort_by)
+
+
+@router.get("/intelligence-ledger/market-radar/sentiment/news/e2e")
+async def curated_news_e2e_route():
+    from bd_platform.market_radar_curated_news import run_curated_news_e2e_941
+
+    return run_curated_news_e2e_941()
+
+
 @router.get("/intelligence-ledger/market-radar/sentiment/balance")
 async def sentiment_balance_widget_route(asset: str = Query("BTC")):
     """#782 sentiment_balance metric — merged into #783 sentiment layer."""
@@ -5698,6 +5750,22 @@ async def provenance_lineage_route(metric_id: str, _admin: dict = Depends(requir
     return get_lineage_audit_1003(metric_id)
 
 
+@router.get("/internal/data-engine/provenance-layer/audit/{metric_id}")
+async def provenance_audit_view_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    """#943 Data Provenance & Audit — merged into #945."""
+    from bd_platform.data_engine_provenance_layer import build_audit_view_943
+
+    return build_audit_view_943(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/normalize/{dataset_id}")
+async def provenance_normalize_route(dataset_id: str, _admin: dict = Depends(require_admin)):
+    """#944 Data Quality & Normalization — merged into #945."""
+    from bd_platform.data_engine_provenance_layer import normalize_dataset_944
+
+    return normalize_dataset_944(dataset_id)
+
+
 @router.get("/internal/data-engine/provenance-layer/e2e")
 async def provenance_layer_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.data_engine_provenance_layer import run_provenance_layer_e2e
@@ -5788,6 +5856,57 @@ async def asset_taxonomy_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.data_engine_asset_taxonomy import run_asset_taxonomy_e2e_927
 
     return run_asset_taxonomy_e2e_927()
+
+
+@router.get("/internal/data-engine/entity-graph/status")
+async def entity_graph_status_route(_admin: dict = Depends(require_admin)):
+    """#940 Crypto Knowledge Graph — Data Engine Entity Graph layer."""
+    from bd_platform.data_engine_entity_graph import entity_graph_status_940
+
+    return entity_graph_status_940()
+
+
+@router.get("/internal/data-engine/entity-graph/entity/{entity_id}")
+async def entity_graph_entity_route(entity_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_entity_graph import get_entity_940
+
+    return get_entity_940(entity_id)
+
+
+@router.get("/internal/data-engine/entity-graph/edges/{entity_id}")
+async def entity_graph_edges_route(
+    entity_id: str,
+    edge_type: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_entity_graph import get_entity_edges_940
+
+    return get_entity_edges_940(entity_id, edge_type=edge_type)
+
+
+@router.get("/internal/data-engine/entity-graph/search")
+async def entity_graph_search_route(
+    q: str = Query(..., min_length=1),
+    entity_type: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_entity_graph import search_graph_940
+
+    return search_graph_940(q, entity_type=entity_type)
+
+
+@router.get("/internal/data-engine/entity-graph/merge-audit")
+async def entity_graph_merge_audit_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_entity_graph import get_merge_audit_940
+
+    return get_merge_audit_940()
+
+
+@router.get("/internal/data-engine/entity-graph/e2e")
+async def entity_graph_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_entity_graph import run_entity_graph_e2e_940
+
+    return run_entity_graph_e2e_940()
 
 
 @router.get("/intelligence-ledger/api-gateway/sdk/status")
@@ -7632,6 +7751,49 @@ async def asset_screener_928_export_route(fmt: str = Query("csv")):
     from bd_platform.market_screener import export_screener_via_export_layer_928
 
     return export_screener_via_export_layer_928(fmt=fmt)
+
+
+@router.get("/intelligence-ledger/market-radar/events/status")
+async def crypto_events_status_route():
+    """#939 Crypto Calendar / Events — Market Radar Events tab."""
+    from bd_platform.market_radar_crypto_events import crypto_events_status_939
+
+    return crypto_events_status_939()
+
+
+@router.get("/intelligence-ledger/market-radar/events")
+async def crypto_events_calendar_route(
+    asset: str | None = Query(None),
+    event_type: str | None = Query(None),
+):
+    from bd_platform.market_radar_crypto_events import build_crypto_calendar_939
+
+    return build_crypto_calendar_939(asset=asset, event_type=event_type)
+
+
+@router.get("/intelligence-ledger/market-radar/events/unlock-alerts")
+async def crypto_events_unlock_alerts_route(days_ahead: int = Query(7, ge=1, le=30)):
+    from bd_platform.market_radar_crypto_events import get_unlock_alerts_939
+
+    return get_unlock_alerts_939(days_ahead=days_ahead)
+
+
+@router.post("/intelligence-ledger/market-radar/events/revise")
+async def crypto_events_revise_route(data: dict = Body(default={})):
+    from bd_platform.market_radar_crypto_events import revise_event_date_939
+
+    return revise_event_date_939(
+        data.get("event_id", ""),
+        new_date=data.get("new_date", ""),
+        reason=data.get("reason", "official_date_change"),
+    )
+
+
+@router.get("/intelligence-ledger/market-radar/events/e2e")
+async def crypto_events_e2e_route():
+    from bd_platform.market_radar_crypto_events import run_crypto_events_e2e_939
+
+    return run_crypto_events_e2e_939()
 
 
 @router.get("/intelligence-ledger/asset-screener/status")
