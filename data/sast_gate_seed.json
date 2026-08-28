@@ -1,0 +1,56 @@
+{
+  "feature_ref": "sast_gate",
+  "merged_into": "Sprint 0 CI/CD Infrastructure",
+  "standalone_rejected": true,
+  "sast_gate": {
+    "policy_version": "1.0.0",
+    "policy": {
+      "enabled": true,
+      "tools": ["bandit", "secrets_scan", "custom_rules"],
+      "preferred_tools": ["semgrep", "codeql", "bandit"],
+      "open_source_first": true,
+      "scan_every_pr": true,
+      "scan_every_main_merge": true,
+      "scan_deployment_candidates": true,
+      "max_scan_minutes": 10,
+      "block_critical_high": true,
+      "medium_warning_only": true,
+      "low_tracked_only": true,
+      "audit_retention_days": 730,
+      "suppression_requires_security_lead": true,
+      "blocks_production": true,
+      "sprint": 0
+    },
+    "severity_policy": {
+      "critical": "block_merge",
+      "high": "block_merge",
+      "medium": "warn_sprint_deadline",
+      "low": "track_only"
+    },
+    "rulesets": [
+      "OWASP_TOP_10",
+      "CWE_TOP_25",
+      "crypto_hardcoded_keys",
+      "weak_rng",
+      "improper_key_storage",
+      "decimal_financial_paths",
+      "rbac_endpoint_authz",
+      "plaintext_api_keys"
+    ],
+    "integrations": {
+      "incident_response_ref": 1017,
+      "encryption_policy_ref": 1039,
+      "credential_vault_ref": 1040,
+      "rbac_ref": 1022,
+      "activity_audit_ref": 1038,
+      "load_testing_ref": 1020
+    },
+    "financial_modules": [
+      "fee_matrix.py",
+      "slippage_guard.py",
+      "profit_fee_algorithms.py",
+      "executable_edge_truth.py",
+      "money_decimal.py"
+    ]
+  }
+}
