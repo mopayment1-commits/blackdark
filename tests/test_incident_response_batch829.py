@@ -27,6 +27,7 @@ def reset_state():
 def test_829_status_policy(ir_seed):
     status = ir.incident_response_status_829(seed=ir_seed)
     assert status["standalone_rejected"] is True
+    assert status["legacy_ref"] == 1017
     assert status["control_ref"] == "SEC-009"
     assert status["sprint"] == 0
     policy = status["policy"]

@@ -135,6 +135,23 @@ def test_828_e2e(backup_seed):
     assert len(e2e["checks"]) >= 20
 
 
+def test_828_bcp_governance(backup_seed):
+    bcp = backup_dr.business_continuity_plan_828(seed=backup_seed)
+    assert bcp["legacy_ref"] == 1016
+    assert bcp["signed_off"] is True
+    assert len(bcp["scenarios_covered"]) >= 6
+    assert bcp["rto_hours"] <= 2
+    assert bcp["rpo_hours"] <= 6
+
+
+def test_828_production_gate(backup_seed):
+    gate = backup_dr.check_production_gate_828(seed=backup_seed)
+    assert gate["blocks_production"] is True
+    assert gate["production_allowed"] is True
+    assert gate["checks"]["bcp_signed_off"] is True
+    assert gate["checks"]["geographic_separation_km"] is True
+
+
 def test_institutional_assurance_delegates():
     from institutional_assurance import backup_status, record_backup_drill
 

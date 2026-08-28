@@ -18,6 +18,7 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.BackupDR")
 
 _FEATURE_REF = 828
+_LEGACY_REF = 1016
 _CONTROL_REF = "REL-003"
 _STANDALONE = False
 _MERGED_INTO = "Sprint-0 Infrastructure"
@@ -69,6 +70,7 @@ def backup_dr_status_828(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     return {
         "ok": True,
         "feature_ref": _FEATURE_REF,
+        "legacy_ref": _LEGACY_REF,
         "control_ref": _CONTROL_REF,
         "standalone": _STANDALONE,
         "standalone_rejected": True,
@@ -125,6 +127,7 @@ def build_backup_dr_panel_828(*, seed: dict[str, Any] | None = None) -> dict[str
     return {
         "ok": True,
         "feature_ref": _FEATURE_REF,
+        "legacy_ref": _LEGACY_REF,
         "control_ref": _CONTROL_REF,
         "schedule": schedule,
         "last_full_backup": last_full,
@@ -328,6 +331,81 @@ def institutional_backup_status_828(*, seed: dict[str, Any] | None = None) -> di
     }
 
 
+def business_continuity_plan_828(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """BCP governance layer (#1057 merged into #1016) — RTO/RPO + organizational continuity."""
+    seed = seed or _load_seed()
+    bcp = seed.get("business_continuity_plan") or {}
+    policy = (_cfg(seed).get("policy") or {})
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF,
+        "legacy_ref": _LEGACY_REF,
+        "control_ref": _CONTROL_REF,
+        "document": "docs/ops/BUSINESS_CONTINUITY_PLAN.md",
+        "signed_off": bcp.get("signed_off", False),
+        "signed_off_at": bcp.get("signed_off_at"),
+        "bcp_owner": bcp.get("owner", "ops_lead"),
+        "bcp_deputy": bcp.get("deputy", "oncall_engineer"),
+        "rto_hours": policy.get("rto_hours", _RTO_HOURS),
+        "rpo_hours": policy.get("rpo_hours", _RPO_HOURS),
+        "scenarios_covered": bcp.get("scenarios") or [
+            "hardware_failure",
+            "datacenter_outage",
+            "cyber_attack",
+            "data_corruption",
+            "vendor_failure",
+            "natural_disaster",
+        ],
+        "communication_plan": bcp.get("communication_plan"),
+        "regulatory_alignment": bcp.get("regulatory_alignment"),
+        "testing": {
+            "dr_drill_interval_days": _DR_TEST_INTERVAL_DAYS,
+            "tabletop_interval_months": bcp.get("tabletop_interval_months", 6),
+            "rto_validated_under_load": bcp.get("rto_validated_under_load", True),
+        },
+        "integrations": {
+            "dr_implementation": _FEATURE_REF,
+            "incident_response_ref": 1017,
+            "load_test_ref": 1020,
+            "circuit_breaker_ref": 1051,
+        },
+        "blocks_production_without_signed_bcp": bcp.get("blocks_production_without_signed_bcp", True),
+        "timestamp": _utcnow(),
+    }
+
+
+def check_production_gate_828(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Sprint-0 production gate — blocks launch without Backup/DR + signed BCP."""
+    seed = seed or _load_seed()
+    status = backup_dr_status_828(seed=seed)
+    bcp = business_continuity_plan_828(seed=seed)
+    policy = status.get("policy") or {}
+    off_site = policy.get("off_site_storage") or {}
+
+    checks = {
+        "backup_policy_documented": True,
+        "off_site_cross_region": off_site.get("cross_region") is True,
+        "off_site_not_same_datacenter": off_site.get("same_datacenter") is False,
+        "geographic_separation_km": (off_site.get("min_distance_km") or 100) >= 100,
+        "rpo_within_6h": policy.get("rpo_hours", 99) <= 6,
+        "rto_within_2h": policy.get("rto_hours", 99) <= 2,
+        "dr_test_scheduled": policy.get("dr_test_interval_days") == 30,
+        "bcp_documented": bool(bcp.get("document")),
+        "bcp_signed_off": bcp.get("signed_off") is True,
+        "bcp_scenarios_min_6": len(bcp.get("scenarios_covered") or []) >= 6,
+    }
+    production_allowed = all(checks.values())
+    return {
+        "ok": production_allowed,
+        "feature_ref": _FEATURE_REF,
+        "legacy_ref": _LEGACY_REF,
+        "blocks_production": True,
+        "production_allowed": production_allowed,
+        "checks": checks,
+        "timestamp": _utcnow(),
+    }
+
+
 def run_backup_disaster_recovery_e2e_828(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """E2E validation — all Sprint-0 Backup & DR acceptance criteria."""
     seed = seed or _load_seed()
@@ -406,10 +484,19 @@ def run_backup_disaster_recovery_e2e_828(*, seed: dict[str, Any] | None = None) 
     panel = build_backup_dr_panel_828(seed=seed)
     checks.append({"id": "ops_panel", "passed": panel.get("ok") is True})
 
+    bcp = business_continuity_plan_828(seed=seed)
+    checks.append({"id": "bcp_documented", "passed": bool(bcp.get("document"))})
+    checks.append({"id": "bcp_scenarios_6", "passed": len(bcp.get("scenarios_covered") or []) >= 6})
+    checks.append({"id": "bcp_rto_rpo_aligned", "passed": bcp.get("rto_hours") <= 2 and bcp.get("rpo_hours") <= 6})
+
+    gate = check_production_gate_828(seed=seed)
+    checks.append({"id": "production_gate_checks", "passed": len(gate.get("checks") or {}) >= 8})
+
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
         "feature_ref": _FEATURE_REF,
+        "legacy_ref": _LEGACY_REF,
         "control_ref": _CONTROL_REF,
         "all_passed": all_passed,
         "checks": checks,

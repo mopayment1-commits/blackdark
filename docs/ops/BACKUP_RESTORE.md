@@ -30,6 +30,10 @@
 
 **Post-restore:** lineage integrity check via #945 Provenance.
 
+**BCP governance:** see `docs/ops/BUSINESS_CONTINUITY_PLAN.md` (#1057 merged into #1016).
+
+**Off-site geographic separation:** primary region ≠ backup region · minimum 100km apart · different availability zone · no shared network/power/staff infrastructure.
+
 ## Postgres
 
 ```bash
@@ -48,6 +52,8 @@ GET  /api/platform/internal/infrastructure/backup-dr/panel
 POST /api/platform/internal/infrastructure/backup-dr/record
 POST /api/platform/internal/infrastructure/backup-dr/drill
 GET  /api/platform/internal/infrastructure/backup-dr/audit-trail
+GET  /api/platform/internal/infrastructure/backup-dr/bcp
+GET  /api/platform/internal/infrastructure/backup-dr/production-gate
 GET  /api/platform/internal/infrastructure/backup-dr/e2e
 ```
 

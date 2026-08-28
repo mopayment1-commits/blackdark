@@ -949,6 +949,20 @@ async def backup_dr_e2e_route(_admin: dict = Depends(require_admin)):
     return run_backup_disaster_recovery_e2e_828()
 
 
+@router.get("/internal/infrastructure/backup-dr/bcp")
+async def backup_dr_bcp_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import business_continuity_plan_828
+
+    return business_continuity_plan_828()
+
+
+@router.get("/internal/infrastructure/backup-dr/production-gate")
+async def backup_dr_production_gate_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import check_production_gate_828
+
+    return check_production_gate_828()
+
+
 @router.get("/internal/infrastructure/incident-response/status")
 async def incident_response_status_route(_admin: dict = Depends(require_admin)):
     """#829 Incident Response & Security Operations — SEC-009 Sprint-0 Infrastructure."""

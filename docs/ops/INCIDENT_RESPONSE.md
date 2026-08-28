@@ -1,6 +1,6 @@
 # Incident Response Runbook
 
-**Control:** SEC-009 · **Feature:** #829 Incident Response & Security Operations Policy  
+**Control:** SEC-009 · **Feature:** #829 / #1017 Incident Response Plan  
 **Finding:** `F-OPS-01`  
 **Module:** `bd_platform/infrastructure_incident_response_security_ops.py`  
 **Audience:** On-call engineer without founder access

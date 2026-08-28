@@ -18,6 +18,7 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.IncidentResponse")
 
 _FEATURE_REF = 829
+_LEGACY_REF = 1017
 _CONTROL_REF = "SEC-009"
 _STANDALONE = False
 _MERGED_INTO = "Sprint-0 Infrastructure"
@@ -98,6 +99,7 @@ def incident_response_status_829(*, seed: dict[str, Any] | None = None) -> dict[
     return {
         "ok": True,
         "feature_ref": _FEATURE_REF,
+        "legacy_ref": _LEGACY_REF,
         "control_ref": _CONTROL_REF,
         "standalone": _STANDALONE,
         "standalone_rejected": True,
@@ -150,6 +152,7 @@ def build_incident_response_panel_829(*, seed: dict[str, Any] | None = None) -> 
     return {
         "ok": True,
         "feature_ref": _FEATURE_REF,
+        "legacy_ref": _LEGACY_REF,
         "control_ref": _CONTROL_REF,
         "roles": cfg.get("policy", {}).get("roles"),
         "escalation_policy": cfg.get("policy", {}).get("escalation"),
@@ -603,6 +606,7 @@ def run_incident_response_e2e_829(*, seed: dict[str, Any] | None = None) -> dict
     return {
         "ok": all_passed,
         "feature_ref": _FEATURE_REF,
+        "legacy_ref": _LEGACY_REF,
         "control_ref": _CONTROL_REF,
         "all_passed": all_passed,
         "checks": checks,
