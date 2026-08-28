@@ -5766,6 +5766,38 @@ async def provenance_normalize_route(dataset_id: str, _admin: dict = Depends(req
     return normalize_dataset_944(dataset_id)
 
 
+@router.get("/internal/data-engine/provenance-layer/badge/{metric_id}")
+async def provenance_metric_badge_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    """#945/#946 — source/freshness/methodology badge."""
+    from bd_platform.data_engine_provenance_layer import build_full_metric_badge_945
+
+    return build_full_metric_badge_945(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/delivery/{metric_id}")
+async def provenance_metric_delivery_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    """#947 — fail-closed metric delivery evaluation."""
+    from bd_platform.data_engine_provenance_layer import evaluate_metric_delivery_947
+
+    return evaluate_metric_delivery_947(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/methodology/{metric_id}")
+async def provenance_methodology_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    """#948 — versioned methodology per metric."""
+    from bd_platform.data_engine_provenance_layer import get_methodology_version_948
+
+    return get_methodology_version_948(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/reconciliation")
+async def provenance_reconciliation_route(_admin: dict = Depends(require_admin)):
+    """#948 — QA/reconciliation tests."""
+    from bd_platform.data_engine_provenance_layer import run_qa_reconciliation_948
+
+    return run_qa_reconciliation_948()
+
+
 @router.get("/internal/data-engine/provenance-layer/e2e")
 async def provenance_layer_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.data_engine_provenance_layer import run_provenance_layer_e2e
@@ -7435,6 +7467,45 @@ async def uptime_shield_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.infrastructure_observability_stack import run_uptime_shield_e2e_862
 
     return run_uptime_shield_e2e_862()
+
+
+@router.get("/internal/infrastructure/retention-privacy/status")
+async def retention_privacy_status_route(_admin: dict = Depends(require_admin)):
+    """#949 Data Retention & Privacy Governance — Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_retention_privacy_governance import retention_privacy_status_949
+
+    return retention_privacy_status_949()
+
+
+@router.get("/internal/infrastructure/retention-privacy/policy/{data_tier}")
+async def retention_policy_route(data_tier: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_retention_privacy_governance import get_retention_policy_949
+
+    return get_retention_policy_949(data_tier)
+
+
+@router.post("/internal/infrastructure/retention-privacy/deletion-request")
+async def retention_deletion_request_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_retention_privacy_governance import request_data_deletion_949
+
+    return request_data_deletion_949(data.get("user_id", "user_demo"))
+
+
+@router.get("/internal/infrastructure/retention-privacy/audit-trail")
+async def retention_audit_trail_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_retention_privacy_governance import get_access_audit_trail_949
+
+    return get_access_audit_trail_949()
+
+
+@router.get("/internal/infrastructure/retention-privacy/e2e")
+async def retention_privacy_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_retention_privacy_governance import run_retention_privacy_e2e_949
+
+    return run_retention_privacy_e2e_949()
 
 
 @router.get("/internal/data-engine/quality-monitor/status")

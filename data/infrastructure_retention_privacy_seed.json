@@ -1,0 +1,44 @@
+{
+  "retention_privacy_949": {
+    "sprint": 0,
+    "merged_into": "Sprint-0 Infrastructure",
+    "standalone_rejected": true,
+    "fee_db": {
+      "compliance_audit_storage_per_gb_month_usd": 0.05,
+      "deletion_processing_per_request_usd": 0.10
+    }
+  },
+  "retention_policies": {
+    "raw_data": {"retention_days": 90, "action": "delete_after_aggregate"},
+    "aggregated_data": {"retention_years": 2, "action": "archive_after"},
+    "archive_data": {"retention_years": 5, "action": "cold_storage"},
+    "access_audit_logs": {"retention_years": 2, "action": "retain"}
+  },
+  "privacy_policies": {
+    "right_to_erasure": true,
+    "deletion_logged": true,
+    "encryption_at_rest": true,
+    "encryption_in_transit": true,
+    "no_performance_sla": true
+  },
+  "deletion_requests": [
+    {
+      "request_id": "del_req_001",
+      "user_id": "user_demo",
+      "requested_at": "2026-08-20T10:00:00+00:00",
+      "completed_at": "2026-08-20T10:05:00+00:00",
+      "status": "completed",
+      "audit_logged": true
+    }
+  ],
+  "access_audit_log": [
+    {
+      "access_id": "acc_001",
+      "actor": "ops_admin",
+      "resource": "user_portfolio_data",
+      "action": "read",
+      "timestamp": "2026-08-28T01:00:00+00:00",
+      "encrypted_in_transit": true
+    }
+  ]
+}
