@@ -1,0 +1,80 @@
+{
+  "feature_ref": 908,
+  "merged_into": "Stripe Integration",
+  "component": "pay_per_request",
+  "pay_per_request_908": {
+    "gateway": "stripe",
+    "no_separate_gateway": true,
+    "stripe_metered_billing": true,
+    "stripe_meter_name": "api_requests",
+    "replay_window_minutes": 5,
+    "audit_retention_years": 2,
+    "webhook_immediate_balance": true,
+    "tier_limits_per_day": {
+      "free": 100,
+      "pro": 10000,
+      "institution": null
+    },
+    "fee_db": {
+      "stripe_fee_pct": 2.9,
+      "stripe_fee_fixed_usd": 0.003,
+      "tier": "monetization"
+    }
+  },
+  "endpoint_catalog": [
+    {
+      "endpoint_id": "market_overview",
+      "path": "/api/v1/market/overview",
+      "method": "GET",
+      "price_usd": 0.001,
+      "cost_usd": 0.0002,
+      "transparent": true,
+      "hidden_fees": false
+    },
+    {
+      "endpoint_id": "onchain_metrics",
+      "path": "/api/v1/onchain/metrics/{asset}",
+      "method": "GET",
+      "price_usd": 0.002,
+      "cost_usd": 0.0005,
+      "transparent": true,
+      "hidden_fees": false
+    },
+    {
+      "endpoint_id": "risk_protocol",
+      "path": "/api/v1/risk/protocol/{protocol_id}",
+      "method": "GET",
+      "price_usd": 0.005,
+      "cost_usd": 0.001,
+      "transparent": true,
+      "hidden_fees": false
+    },
+    {
+      "endpoint_id": "alerts_subscribe",
+      "path": "/api/v1/alerts/subscribe",
+      "method": "POST",
+      "price_usd": 0.01,
+      "cost_usd": 0.002,
+      "transparent": true,
+      "hidden_fees": false
+    },
+    {
+      "endpoint_id": "sla_metrics",
+      "path": "/api/v1/sla",
+      "method": "GET",
+      "price_usd": 0.02,
+      "cost_usd": 0.004,
+      "transparent": true,
+      "hidden_fees": false
+    },
+    {
+      "endpoint_id": "audit_export",
+      "path": "/api/v1/audit/export",
+      "method": "GET",
+      "price_usd": 0.05,
+      "cost_usd": 0.01,
+      "transparent": true,
+      "hidden_fees": false
+    }
+  ]
+}
