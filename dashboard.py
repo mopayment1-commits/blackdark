@@ -642,6 +642,14 @@ async def viral_capacity_middleware(request: Request, call_next):
 
 
 @app.middleware("http")
+async def security_rate_limit_middleware(request: Request, call_next):
+    """Security RL (#1046) — brute-force/scraping gate before billing quota."""
+    from security_rate_limiting import security_rate_limit_middleware as _rl
+
+    return await _rl(request, call_next)
+
+
+@app.middleware("http")
 async def observability_metrics_middleware(request: Request, call_next):
     from observability import increment_metric
 

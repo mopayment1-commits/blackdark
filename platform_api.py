@@ -865,6 +865,27 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/security-rate-limit/status")
+async def security_rate_limit_status_api():
+    from security_rate_limiting import security_rate_limiting_status
+
+    return security_rate_limiting_status()
+
+
+@router.get("/security-rate-limit/gate")
+async def security_rate_limit_gate_api():
+    from security_rate_limiting import check_security_rate_limiting_production_gate
+
+    return check_security_rate_limiting_production_gate()
+
+
+@router.get("/security-rate-limit/e2e")
+async def security_rate_limit_e2e_api():
+    from security_rate_limiting import run_security_rate_limiting_e2e
+
+    return run_security_rate_limiting_e2e()
+
+
 @router.post("/ml/rl/train")
 async def rl_policy_train(_admin: dict = Depends(require_admin)):
     import random

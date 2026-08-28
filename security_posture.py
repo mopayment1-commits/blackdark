@@ -146,6 +146,7 @@ def security_posture_report() -> dict[str, Any]:
             "rate_limiting": {
                 "login": "10 attempts / 5 min",
                 "login_backend": login_rate_limit_backend(),
+                "security_rate_limit_layer": "security_rate_limiting.py (#1046)",
                 "viral_class_limits": "oracle/auth/api when VIRAL_MODE or production",
             },
             "telegram_webhook": (
