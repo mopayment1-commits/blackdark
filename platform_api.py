@@ -2985,6 +2985,177 @@ async def unified_portfolio_dashboard_route(portfolio_id: str = Query("demo_port
     return build_unified_portfolio_dashboard(portfolio_id)
 
 
+@router.get("/intelligence-ledger/portfolio-ai/watchlists/status")
+async def portfolio_ai_watchlists_status_route():
+    """#904 Custom Watchlists — merged into Portfolio AI."""
+    from bd_platform.portfolio_ai_watchlists import watchlists_status_904
+
+    return watchlists_status_904()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/watchlists")
+async def portfolio_ai_watchlists_list_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import list_watchlists_904
+
+    return list_watchlists_904(user_id=user_id, tenant_id=tenant_id, surface="portfolio_ai")
+
+
+@router.post("/intelligence-ledger/portfolio-ai/watchlists", responses=COMMON_ERROR_RESPONSES)
+async def portfolio_ai_watchlists_create_route(data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_watchlists import create_watchlist_904
+
+    return create_watchlist_904(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        tier=str(data.get("tier") or "free"),
+        name=str(data.get("name") or "Watchlist"),
+        surface="portfolio_ai",
+        asset_ids=data.get("asset_ids") or [],
+        alerts_config=data.get("alerts_config"),
+    )
+
+
+@router.put("/intelligence-ledger/portfolio-ai/watchlists/{watchlist_id}")
+async def portfolio_ai_watchlists_update_route(watchlist_id: str, data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_watchlists import update_watchlist_904
+
+    return update_watchlist_904(
+        watchlist_id,
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        tier=str(data.get("tier") or "free"),
+        name=data.get("name"),
+        asset_ids=data.get("asset_ids"),
+        alerts_config=data.get("alerts_config"),
+        order=data.get("order"),
+    )
+
+
+@router.delete("/intelligence-ledger/portfolio-ai/watchlists/{watchlist_id}")
+async def portfolio_ai_watchlists_delete_route(
+    watchlist_id: str,
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import delete_watchlist_904
+
+    return delete_watchlist_904(watchlist_id, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/watchlists/{watchlist_id}/dashboard")
+async def portfolio_ai_watchlists_dashboard_route(
+    watchlist_id: str,
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import build_portfolio_ai_watchlist_dashboard_904
+
+    return build_portfolio_ai_watchlist_dashboard_904(
+        user_id=user_id, tenant_id=tenant_id, watchlist_id=watchlist_id
+    )
+
+
+@router.get("/intelligence-ledger/portfolio-ai/watchlists/e2e")
+async def portfolio_ai_watchlists_e2e_route():
+    from bd_platform.portfolio_ai_watchlists import run_watchlists_e2e_904
+
+    return run_watchlists_e2e_904()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-connectors/status")
+async def portfolio_ai_exchange_connectors_status_route():
+    """#907 Multi-Account Sync — merged into Portfolio AI Exchange Connectors."""
+    from bd_platform.portfolio_ai_exchange_connectors import exchange_connectors_status_907
+
+    return exchange_connectors_status_907()
+
+
+@router.post("/intelligence-ledger/portfolio-ai/exchange-connectors/connect")
+async def portfolio_ai_exchange_connect_route(data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_exchange_connectors import connect_exchange_account_907
+
+    result = connect_exchange_account_907(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        exchange=str(data.get("exchange") or "binance"),
+        account_label=str(data.get("account_label") or "main"),
+        api_key_hint=str(data.get("api_key_hint") or "demo"),
+        permissions=data.get("permissions"),
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=400, detail=result)
+    return result
+
+
+@router.post("/intelligence-ledger/portfolio-ai/exchange-connectors/sync")
+async def portfolio_ai_exchange_sync_route(data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_exchange_connectors import sync_all_accounts_907
+
+    return sync_all_accounts_907(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+    )
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-connectors/consolidated")
+async def portfolio_ai_exchange_consolidated_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_exchange_connectors import build_consolidated_view_907
+
+    return build_consolidated_view_907(user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/exchange-connectors/e2e")
+async def portfolio_ai_exchange_connectors_e2e_route():
+    from bd_platform.portfolio_ai_exchange_connectors import run_exchange_connectors_e2e_907
+
+    return run_exchange_connectors_e2e_907()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/tax-pnl/status")
+async def portfolio_ai_tax_pnl_status_route():
+    """#918 Automated Tax & PnL Report Exporter — merged into Portfolio AI."""
+    from bd_platform.portfolio_ai_tax_pnl import tax_pnl_status_918
+
+    return tax_pnl_status_918()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/tax-pnl/report")
+async def portfolio_ai_tax_pnl_report_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+    method: str = Query("fifo"),
+):
+    from bd_platform.portfolio_ai_tax_pnl import build_tax_pnl_report_918
+
+    return build_tax_pnl_report_918(user_id=user_id, tenant_id=tenant_id, method=method)  # type: ignore[arg-type]
+
+
+@router.get("/intelligence-ledger/portfolio-ai/tax-pnl/export")
+async def portfolio_ai_tax_pnl_export_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+    method: str = Query("fifo"),
+    fmt: str = Query("csv"),
+):
+    from bd_platform.portfolio_ai_tax_pnl import build_tax_pnl_report_918, export_tax_pnl_report_918
+
+    report = build_tax_pnl_report_918(user_id=user_id, tenant_id=tenant_id, method=method)  # type: ignore[arg-type]
+    return export_tax_pnl_report_918(report, fmt=fmt)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/tax-pnl/e2e")
+async def portfolio_ai_tax_pnl_e2e_route():
+    from bd_platform.portfolio_ai_tax_pnl import run_tax_pnl_e2e_918
+
+    return run_tax_pnl_e2e_918()
+
+
 @router.get("/intelligence-ledger/portfolio-ai/wallet-profiler/status")
 async def wallet_profiler_status_route():
     """#620 Wallet Profiler — Sprint-2 Core UI."""
@@ -3473,6 +3644,52 @@ async def market_radar_combined_panel_route(
     from bd_platform.market_radar_indicators import build_market_radar_panel
 
     return build_market_radar_panel(exchange, asset)
+
+
+@router.get("/intelligence-ledger/market-radar/watchlists/status")
+async def market_radar_watchlists_status_route():
+    """#904 Custom Watchlists — Market Radar surface."""
+    from bd_platform.portfolio_ai_watchlists import watchlists_status_904
+
+    return watchlists_status_904()
+
+
+@router.get("/intelligence-ledger/market-radar/watchlists")
+async def market_radar_watchlists_list_route(
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import list_watchlists_904
+
+    return list_watchlists_904(user_id=user_id, tenant_id=tenant_id, surface="market_radar")
+
+
+@router.post("/intelligence-ledger/market-radar/watchlists")
+async def market_radar_watchlists_create_route(data: dict = Body(default={})):
+    from bd_platform.portfolio_ai_watchlists import create_watchlist_904
+
+    return create_watchlist_904(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        tier=str(data.get("tier") or "free"),
+        name=str(data.get("name") or "Event Watchlist"),
+        surface="market_radar",
+        asset_ids=data.get("asset_ids") or [],
+        alerts_config=data.get("alerts_config"),
+    )
+
+
+@router.get("/intelligence-ledger/market-radar/watchlists/{watchlist_id}/dashboard")
+async def market_radar_watchlists_dashboard_route(
+    watchlist_id: str,
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.portfolio_ai_watchlists import build_market_radar_watchlist_dashboard_904
+
+    return build_market_radar_watchlist_dashboard_904(
+        user_id=user_id, tenant_id=tenant_id, watchlist_id=watchlist_id
+    )
 
 
 @router.get("/intelligence-ledger/market-radar/news-digest")
@@ -6250,6 +6467,67 @@ async def query_scheduler_e2e_route():
     from bd_platform.data_engine_query_scheduler import run_query_scheduler_e2e_818
 
     return run_query_scheduler_e2e_818()
+
+
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace/status")
+async def native_sql_workspace_status_route():
+    """#978 Native SQL Workspace + #902 No-Code Builder tab."""
+    from bd_platform.data_engine_native_sql_workspace import native_sql_workspace_status_978
+
+    return native_sql_workspace_status_978()
+
+
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace")
+async def native_sql_workspace_panel_route():
+    from bd_platform.data_engine_native_sql_workspace import build_native_sql_workspace_panel_978
+
+    return build_native_sql_workspace_panel_978()
+
+
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace/metrics")
+async def native_sql_workspace_metrics_route():
+    from bd_platform.data_engine_native_sql_workspace import get_metric_catalog_902
+
+    return get_metric_catalog_902()
+
+
+@router.post("/intelligence-ledger/data-engine/native-sql-workspace/execute")
+async def native_sql_workspace_execute_route(data: dict = Body(default={})):
+    from bd_platform.data_engine_native_sql_workspace import execute_workspace_query
+
+    result = execute_workspace_query(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        tier=str(data.get("tier") or "pro"),
+        formula=data.get("formula"),
+        raw_sql=data.get("raw_sql"),
+        dataset=str(data.get("dataset") or "canonical_market"),
+        filters=data.get("filters"),
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=400, detail=result)
+    return result
+
+
+@router.post("/intelligence-ledger/data-engine/native-sql-workspace/save")
+async def native_sql_workspace_save_route(data: dict = Body(default={})):
+    from bd_platform.data_engine_native_sql_workspace import save_workspace_query
+
+    return save_workspace_query(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+        name=str(data.get("name") or "Untitled"),
+        formula=data.get("formula"),
+        raw_sql=data.get("raw_sql"),
+        visibility=str(data.get("visibility") or "private"),
+    )
+
+
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace/e2e")
+async def native_sql_workspace_e2e_route():
+    from bd_platform.data_engine_native_sql_workspace import run_native_sql_workspace_e2e
+
+    return run_native_sql_workspace_e2e()
 
 
 @router.get("/intelligence-ledger/ux-layer/progressive-disclosure/status")
