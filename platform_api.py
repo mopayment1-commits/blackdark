@@ -865,6 +865,31 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/concentration-risk/status")
+async def concentration_risk_status_api():
+    from portfolio_concentration_risk import concentration_risk_status
+
+    return concentration_risk_status()
+
+
+@router.get("/concentration-risk/e2e")
+async def concentration_risk_e2e_api():
+    from portfolio_concentration_risk import run_concentration_risk_e2e
+
+    return run_concentration_risk_e2e()
+
+
+@router.post("/concentration-risk/thresholds", responses=COMMON_ERROR_RESPONSES)
+async def concentration_risk_thresholds(
+    body: dict = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    from portfolio_concentration_risk import save_user_thresholds
+
+    thresholds = {k: float(v) for k, v in (body.get("thresholds") or {}).items()}
+    return save_user_thresholds(int(user["id"]), thresholds)
+
+
 @router.post("/ml/rl/train")
 async def rl_policy_train(_admin: dict = Depends(require_admin)):
     import random

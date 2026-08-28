@@ -1,0 +1,26 @@
+{
+  "feature_ref": "portfolio_concentration_risk",
+  "merged_into": "Portfolio AI Risk Tab",
+  "standalone_rejected": true,
+  "portfolio_concentration_risk": {
+    "policy_version": "1.0.0",
+    "insight_only": true,
+    "no_execution": true,
+    "no_auto_rebalancing": true,
+    "default_alert_threshold_pct": 30,
+    "user_configurable_thresholds": true,
+    "decimal_precision": 8,
+    "alert_channels": ["in_app", "email", "push"],
+    "disclaimer": "Platform warns about concentration — does not protect or block trades.",
+    "sprint": 2,
+    "integrations": {
+      "multi_account_sync_ref": 907,
+      "reference_pricing_ref": 959,
+      "correlation_ref": 1049,
+      "var_ref": 1021,
+      "cvar_ref": 1022,
+      "provenance_ref": 945,
+      "accuracy_ledger_ref": 987
+    }
+  }
+}
