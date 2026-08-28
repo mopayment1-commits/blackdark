@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -1397,5 +1397,119 @@
     "route": "/intelligence/multi-dim/macro/fred",
     "merged_into": ["macro_dimension_133", "m2_macro_flow_171"],
     "fee_db": {"ingest_usd": 0.0005}
+  },
+  "audit_trail_242": {
+    "standalone": false,
+    "route": "/audit",
+    "immutable": true,
+    "retention_days": {"free": 90, "pro": 365, "desk": 2555},
+    "fee_db": {"storage_usd": 0.0001, "query_usd": 0.0002}
+  },
+  "bybit_api_243": {
+    "standalone": false,
+    "source": "bybit",
+    "merged_into": "oracle_api",
+    "role": "secondary_fallback",
+    "fee_db": {"ingest_usd": 0.0003}
+  },
+  "cointelegraph_rss_244": {
+    "standalone": false,
+    "merged_into": ["market_radar", "daily_top3_62"],
+    "route": "/radar/news",
+    "fee_db": {"ingest_usd": 0.0002}
+  },
+  "coinmarketcal_245": {
+    "standalone": false,
+    "merged_into": "market_radar",
+    "route": "/radar/events",
+    "activation_not_build": true
+  },
+  "etherscan_watchlist_246": {
+    "standalone": false,
+    "merged_into": "oracle_on_chain",
+    "privacy_first": true,
+    "fee_db": {"rpc_usd": 0.0005}
+  },
+  "weekly_digest_247": {
+    "standalone": false,
+    "merged_into": "intelligence_ledger",
+    "rule_based_only": true,
+    "fee_db": {"compute_usd": 0.005, "delivery_usd": 0.001}
+  },
+  "manual_performance_248": {
+    "standalone": false,
+    "route": "/portfolio/performance/manual",
+    "profit_analytics_rejected": true,
+    "fee_db": {"compute_usd": 0.002}
+  },
+  "trad_simulator_249": {
+    "status": "rejected",
+    "alternative": "backtest_74"
+  },
+  "execution_speed_250": {
+    "status": "rejected_execution"
+  },
+  "token_velocity_251": {
+    "standalone": false,
+    "merged_into": "oracle_on_chain",
+    "fee_db": {"compute_usd": 0.002, "rpc_usd": 0.0005}
+  },
+  "google_trends_252": {
+    "standalone": false,
+    "merged_into": "sentiment_layer",
+    "fee_db": {"ingest_usd": 0.0003}
+  },
+  "kill_rate_board_253": {
+    "standalone": false,
+    "merged_into": "proof_arena",
+    "public": true,
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "contradiction_replay_254": {
+    "standalone": false,
+    "merged_into": "proof_arena",
+    "fee_db": {"compute_usd": 0.002}
+  },
+  "committee_one_pager_255": {
+    "standalone": false,
+    "merged_into": "intelligence_ledger",
+    "pro_desk_tier_only": true
+  },
+  "half_life_clock_256": {
+    "standalone": false,
+    "merged_into": "signal_engine_11",
+    "fee_db": {"compute_usd": 0.0005}
+  },
+  "proof_arena_lite_257": {
+    "standalone": false,
+    "merged_into": "proof_arena",
+    "mode": "lite"
+  },
+  "since_you_left_258": {
+    "standalone": false,
+    "merged_into": "portfolio_ai",
+    "fee_db": {"query_usd": 0.001}
+  },
+  "anti_hype_mode_259": {
+    "standalone": false,
+    "merged_into": "user_preferences",
+    "client_side": true
+  },
+  "corpus_passport_260": {
+    "standalone": false,
+    "merged_into": "intelligence_ledger",
+    "requires_audit_trail_242": true
+  },
+  "pricing_model_261": {
+    "standalone": false,
+    "extends_ref": 60,
+    "route": "/stripe/tiers",
+    "tiers": {
+      "proof": {"price_usd": 0, "api_calls_per_day": 100},
+      "pro": {"price_usd": 29, "api_calls_per_day": 1000},
+      "desk": {"price_usd": 49, "api_calls_per_day": 10000},
+      "data_room": {"price_usd": 3000, "api_calls_per_day": null, "sla": "best_effort"}
+    },
+    "no_lifetime_access": true
   }
 }

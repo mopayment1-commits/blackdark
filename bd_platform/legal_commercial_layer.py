@@ -329,7 +329,7 @@ def create_sar_workflow_59(*, screening_id: str, notes: str = "") -> dict[str, A
 def subscription_tier_status_60(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     cfg = seed.get("subscription_tier_policy_60") or {}
-    return {
+    result = {
         "ok": True,
         "feature_ref": 60,
         "standalone": False,
@@ -340,6 +340,13 @@ def subscription_tier_status_60(*, seed: dict[str, Any] | None = None) -> dict[s
         "runbook": "docs/ops/SUBSCRIPTION_TIER_POLICY.md",
         "timestamp": _utcnow(),
     }
+    try:
+        from bd_platform.security_trust_data_layer import pricing_model_status_261
+
+        result["pricing_model_261"] = pricing_model_status_261(seed=seed)
+    except ImportError:
+        pass
+    return result
 
 
 def get_tier_limits_60(tier: str = "free", *, seed: dict[str, Any] | None = None) -> dict[str, Any]:

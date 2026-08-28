@@ -2179,6 +2179,30 @@ async def public_fred_macro():
     return ingest_fred_macro_241()
 
 
+@app.get("/public/kill-rate")
+async def public_kill_rate_widget():
+    """#253 — Public kill-rate discipline widget."""
+    from bd_platform.security_trust_data_layer import build_kill_rate_widget_253
+
+    return build_kill_rate_widget_253()
+
+
+@app.get("/portfolio/since-you-left")
+async def public_since_you_left():
+    """#258 — Since you left top-3 events widget."""
+    from bd_platform.security_trust_data_layer import since_you_left_top3_258
+
+    return since_you_left_top3_258()
+
+
+@app.get("/stripe/tiers")
+async def public_pricing_tiers():
+    """#261 — Pricing tiers (extends #60)."""
+    from bd_platform.security_trust_data_layer import pricing_model_status_261
+
+    return pricing_model_status_261()
+
+
 @app.get("/oracle/on-chain/mining")
 async def public_hashrate_capitulation():
     """#165 — Hashrate capitulation mining analysis."""

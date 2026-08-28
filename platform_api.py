@@ -2580,3 +2580,124 @@ async def intelligence_ux_extensions_e2e_route(_admin: dict = Depends(require_ad
     from bd_platform.intelligence_ux_extensions_layer import run_intelligence_ux_extensions_e2e_228_241
 
     return run_intelligence_ux_extensions_e2e_228_241()
+
+
+@router.post("/audit/log")
+async def audit_log_route(data: dict = Body(default={})):
+    from bd_platform.security_trust_data_layer import append_audit_event_242
+
+    return append_audit_event_242(
+        actor=str(data.get("actor", "system")),
+        action=str(data.get("action", "event")),
+        system=str(data.get("system", "platform")),
+        tier=str(data.get("tier", "free")),
+        metadata=data.get("metadata"),
+    )
+
+
+@router.get("/audit/export")
+async def audit_export_route(fmt: str = Query("json"), _admin: dict = Depends(require_admin)):
+    from bd_platform.security_trust_data_layer import export_audit_trail_242
+
+    return export_audit_trail_242(fmt=fmt)  # type: ignore[arg-type]
+
+
+@router.get("/oracle/prices/bybit")
+async def bybit_oracle_route(symbol: str = Query("BTC")):
+    from bd_platform.security_trust_data_layer import ingest_bybit_price_243
+
+    return ingest_bybit_price_243(symbol=symbol)
+
+
+@router.get("/radar/news/cointelegraph")
+async def cointelegraph_news_route():
+    from bd_platform.security_trust_data_layer import ingest_cointelegraph_rss_244
+
+    return ingest_cointelegraph_rss_244()
+
+
+@router.post("/oracle/on-chain/watch")
+async def etherscan_watch_route(data: dict = Body(default={})):
+    from bd_platform.security_trust_data_layer import add_etherscan_watch_246
+
+    return add_etherscan_watch_246(
+        address=str(data.get("address", "")),
+        threshold_eth=float(data.get("threshold_eth", 1000)),
+    )
+
+
+@router.get("/oracle/on-chain/watch")
+async def etherscan_watchlist_route():
+    from bd_platform.security_trust_data_layer import list_etherscan_watchlist_246
+
+    return list_etherscan_watchlist_246()
+
+
+@router.get("/intelligence/weekly-digest")
+async def weekly_digest_route():
+    from bd_platform.security_trust_data_layer import generate_weekly_digest_247
+
+    return generate_weekly_digest_247()
+
+
+@router.get("/portfolio/performance/manual")
+async def manual_performance_route():
+    from bd_platform.security_trust_data_layer import manual_performance_tracker_248
+
+    return manual_performance_tracker_248()
+
+
+@router.get("/oracle/on-chain/token-velocity")
+async def token_velocity_route(asset: str = Query("ETH")):
+    from bd_platform.security_trust_data_layer import compute_token_velocity_251
+
+    return compute_token_velocity_251(asset=asset)
+
+
+@router.get("/radar/sentiment/google-trends")
+async def google_trends_route(asset: str = Query("bitcoin")):
+    from bd_platform.security_trust_data_layer import ingest_google_trends_252
+
+    return ingest_google_trends_252(asset=asset)
+
+
+@router.get("/public/kill-rate")
+async def kill_rate_widget_route():
+    from bd_platform.security_trust_data_layer import build_kill_rate_widget_253
+
+    return build_kill_rate_widget_253()
+
+
+@router.get("/proof-arena/contradiction-replay")
+async def contradiction_replay_route():
+    from bd_platform.security_trust_data_layer import build_contradiction_replay_254
+
+    return build_contradiction_replay_254()
+
+
+@router.get("/portfolio/since-you-left")
+async def since_you_left_route():
+    from bd_platform.security_trust_data_layer import since_you_left_top3_258
+
+    return since_you_left_top3_258()
+
+
+@router.post("/settings/anti-hype")
+async def anti_hype_route(data: dict = Body(default={})):
+    from bd_platform.security_trust_data_layer import apply_anti_hype_mode_259
+
+    return apply_anti_hype_mode_259(str(data.get("text", "")), enabled=bool(data.get("enabled", True)))
+
+
+@router.get("/stripe/tiers")
+async def pricing_tiers_route():
+    from bd_platform.security_trust_data_layer import pricing_model_status_261
+
+    return pricing_model_status_261()
+
+
+@router.get("/security-trust-data/e2e")
+async def security_trust_data_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.security_trust_data_layer import run_security_trust_data_e2e_242_261
+
+    return run_security_trust_data_e2e_242_261()

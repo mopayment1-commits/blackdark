@@ -459,7 +459,13 @@ def explain_opportunity_151(
     try:
         from bd_platform.intelligence_ux_extensions_layer import attach_reasoning_explanation_229
 
-        return attach_reasoning_explanation_229(result, seed=seed)
+        result = attach_reasoning_explanation_229(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.security_trust_data_layer import attach_audit_log_id_242
+
+        return attach_audit_log_id_242(result, action="explain_opportunity")
     except ImportError:
         return result
 
