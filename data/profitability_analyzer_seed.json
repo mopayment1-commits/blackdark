@@ -1,0 +1,58 @@
+{
+  "feature_ref": 981,
+  "merged_into": "#981 Profitability Analyzer",
+  "standalone_rejected": true,
+  "profitability_analyzer_981": {
+    "policy": {
+      "enabled": true,
+      "insight_only": true,
+      "non_custodial": true,
+      "net_profit_default_display": true,
+      "gross_profit_labeled": true,
+      "gross_profit_hidden_by_default": true,
+      "methodology_version": "1.0.0",
+      "sprint": 2,
+      "disclaimer": "الربح الصافي = تقدير بناءً على الرسوم المعروفة — Risk Insight لا Protection"
+    },
+    "fee_categories": [
+      "trading",
+      "withdrawal",
+      "deposit",
+      "network_gas"
+    ],
+    "fee_sourcing": {
+      "trading": {"source": "exchange_sync_907", "method": "read_only_api_taker_fee"},
+      "withdrawal": {"source": "fee_matrix_exchange_docs", "method": "venue_withdrawal_schedule"},
+      "deposit": {"source": "fee_matrix_exchange_docs", "method": "venue_deposit_schedule"},
+      "network_gas": {"source": "gas_oracle_onchain", "method": "on_chain_tx_fee_analysis"}
+    },
+    "edge_case_fees": {
+      "bridge_fee": {"classified_as": "network_gas", "user_override_allowed": true},
+      "cross_chain_gas": {"classified_as": "network_gas", "user_override_allowed": true},
+      "failed_tx_gas": {"classified_as": "network_gas", "user_override_allowed": true},
+      "airdrop_claim_gas": {"classified_as": "network_gas", "user_override_allowed": true}
+    },
+    "precision": {
+      "financial_precision_ref": 1032,
+      "crypto_decimal_places": 8,
+      "fiat_decimal_places": 2,
+      "type_used": "Decimal"
+    },
+    "integrations": {
+      "multi_account_sync_ref": 907,
+      "reference_pricing_ref": 959,
+      "stripe_monetization_ref": 908,
+      "provenance_ref": 945,
+      "immutable_audit_ref": 1029,
+      "financial_precision_ref": 1032
+    },
+    "platform_fee_label": "platform_cost",
+    "market_fee_label": "market_cost",
+    "fee_db": {
+      "fee_query_usd": 0.00002,
+      "attribution_compute_usd": 0.00003,
+      "storage_usd": 0.00001,
+      "logged_per_pnl_report": true
+    }
+  }
+}
