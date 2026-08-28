@@ -1,0 +1,67 @@
+{
+  "futures_volume_962": {
+    "methodology_version": "1.0.0",
+    "usd_conversion": "notional_x_reference_price_959",
+    "fee_db": {
+      "api_per_exchange_usd": 0.002,
+      "storage_per_snapshot_usd": 0.001,
+      "compute_per_aggregation_usd": 0.003
+    }
+  },
+  "reference_prices": {
+    "BTC": 64980.0,
+    "ETH": 3498.0
+  },
+  "futures_venues": {
+    "BTC": {
+      "binance": {
+        "volume_notional": 125000,
+        "open_interest_notional": 45000,
+        "funding_rate": 0.0001,
+        "funding_rate_apr_pct": 10.95,
+        "liquidations_notional": 850,
+        "exchange_timestamp": "2026-08-28T02:00:00+00:00"
+      },
+      "bybit": {
+        "volume_notional": 98000,
+        "open_interest_notional": 38000,
+        "funding_rate": 0.00012,
+        "funding_rate_apr_pct": 13.14,
+        "liquidations_notional": 620,
+        "exchange_timestamp": "2026-08-28T02:00:00+00:00"
+      },
+      "okx": {
+        "volume_notional": 72000,
+        "open_interest_notional": 29000,
+        "funding_rate": 0.00009,
+        "funding_rate_apr_pct": 9.86,
+        "liquidations_notional": 410,
+        "exchange_timestamp": "2026-08-28T02:00:00+00:00"
+      },
+      "_aggregate": {
+        "funding_rate_apr_pct": 11.32
+      }
+    },
+    "ETH": {
+      "binance": {
+        "volume_notional": 2800000,
+        "open_interest_notional": 950000,
+        "funding_rate": 0.00008,
+        "funding_rate_apr_pct": 8.76,
+        "liquidations_notional": 12000,
+        "exchange_timestamp": "2026-08-28T02:00:00+00:00"
+      },
+      "bybit": {
+        "volume_notional": 1900000,
+        "open_interest_notional": 720000,
+        "funding_rate": 0.0001,
+        "funding_rate_apr_pct": 10.95,
+        "liquidations_notional": 8500,
+        "exchange_timestamp": "2026-08-28T02:00:00+00:00"
+      },
+      "_aggregate": {
+        "funding_rate_apr_pct": 9.85
+      }
+    }
+  }
+}

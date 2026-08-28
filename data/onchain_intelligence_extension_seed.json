@@ -22,6 +22,42 @@
       "velocity_threshold_breaches": 4
     }
   },
+  "fraud_screening_960": {
+    "rules_version": "1.0.0",
+    "fee_db": {
+      "screen_per_address_usd": 0.008,
+      "graph_query_usd": 0.004
+    },
+    "indicators": {
+      "cyclic_transfer_score": {"name": "Cyclic Transfer Pattern", "threshold": 0.7},
+      "mixer_interaction_score": {"name": "Mixer Interaction", "threshold": 0.6},
+      "rapid_peel_chain_score": {"name": "Rapid Peel Chain", "threshold": 0.65}
+    }
+  },
+  "fraud_profiles": {
+    "0x742d35cc6634c0532925a3b844bc9e7595f0bbe0": {
+      "cyclic_transfer_score": 0.82,
+      "mixer_interaction_score": 0.75,
+      "rapid_peel_chain_score": 0.7,
+      "graph_patterns": [
+        {
+          "pattern_id": "cyclic_transfer",
+          "name": "Cyclic Transfer",
+          "score": 0.82,
+          "threshold": 0.7,
+          "evidence": {"hops": 5, "cycle_detected": true}
+        }
+      ]
+    }
+  },
+  "risky_entities": {
+    "tornado_cash_legacy": {
+      "name": "Tornado Cash (sanctioned)",
+      "source": "ofac_public_list",
+      "source_documented": true,
+      "addresses": ["0x742d35cc6634c0532925a3b844bc9e7595f0bbe0"]
+    }
+  },
   "public_labels": {
     "0x742d35cc6634c0532925a3b844bc9e7595f0bbe0": {
       "label": "Binance Hot Wallet",

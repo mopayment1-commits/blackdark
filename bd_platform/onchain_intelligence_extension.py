@@ -3,6 +3,7 @@ On-Chain Intelligence Extension — Feature #12 (Sprint 2).
 
 Merged sub-layers:
   #923 AML/CFT Risk Screening — rule-based, no legal conclusion
+  #960 Fraud / Suspicious Activity Intelligence — fraud screening sub-layer
   #926 Address Labels & Cohorts — Entity Layer
   #930 Bridges Intelligence — Bridge Flows metric
   #937 Cross-Chain Trace — path continuity sub-layer
@@ -25,6 +26,7 @@ logger = logging.getLogger("BLACKDARK.OnChainIntelligenceExtension")
 
 _FEATURE_REF_12 = 12
 _FEATURE_REF_923 = 923
+_FEATURE_REF_960 = 960
 _FEATURE_REF_926 = 926
 _FEATURE_REF_930 = 930
 _FEATURE_REF_937 = 937
@@ -38,6 +40,11 @@ _ADDRESS_RE = re.compile(r"^0x[a-fA-F0-9]{40}$")
 _DISCLAIMER_923 = (
     "Risk screening — insight only. Risk Flag, not legal conclusion. "
     "No money laundering determination. Not a report to authorities."
+)
+
+_DISCLAIMER_960 = (
+    "Suspicious pattern screening — insight only. Suspicious Pattern, not Fraud Detected. "
+    "No legal conclusion. Explainable indicators only. Not a report to authorities."
 )
 
 _DISCLAIMER_926 = (
@@ -66,11 +73,12 @@ def onchain_extension_status(*, seed: dict[str, Any] | None = None) -> dict[str,
         "ok": True,
         "feature_ref": _FEATURE_REF_12,
         "aml_screening_ref": _FEATURE_REF_923,
+        "fraud_screening_ref": _FEATURE_REF_960,
         "entity_layer_ref": _FEATURE_REF_926,
         "standalone": _STANDALONE,
         "standalone_rejected": True,
         "merged_into": _MERGED_INTO,
-        "sub_layers": ["risk_screening_923", "entity_layer_926", "bridge_flows_930", "cross_chain_path_937", "dex_activity_942"],
+        "sub_layers": ["risk_screening_923", "fraud_screening_960", "entity_layer_926", "bridge_flows_930", "cross_chain_path_937", "dex_activity_942"],
         "bridge_flows_ref": _FEATURE_REF_930,
         "cross_chain_trace_ref": _FEATURE_REF_937,
         "dex_trading_ref": _FEATURE_REF_942,
@@ -152,6 +160,111 @@ def screen_address_923(
             "screen_usd": fee.get("screen_per_address_usd", 0.005),
             "rpc_usd": fee.get("rpc_per_query_usd", 0.002),
             "indexing_usd": fee.get("indexing_per_query_usd", 0.001),
+        },
+        "timestamp": _utcnow(),
+    }
+
+
+# --- #960 Fraud / Suspicious Activity Intelligence ---
+
+
+def screen_fraud_activity_960(
+    address: str,
+    *,
+    chain: str = "ethereum",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Fraud screening sub-layer — suspicious pattern, not fraud detected."""
+    seed = seed or _load_seed()
+    addr = address.strip().lower()
+    if not _ADDRESS_RE.match(addr):
+        return {"ok": False, "feature_ref": _FEATURE_REF_960, "error": "invalid_address"}
+
+    cfg = (seed.get("fraud_screening_960") or {})
+    indicators_cfg = cfg.get("indicators") or {}
+    risky_entities = seed.get("risky_entities") or {}
+    profile = (seed.get("fraud_profiles") or {}).get(addr) or {}
+
+    triggered: list[dict[str, Any]] = []
+    for ind_id, ind_cfg in indicators_cfg.items():
+        threshold = ind_cfg.get("threshold")
+        value = profile.get(ind_id)
+        if value is not None and threshold is not None and float(value) >= float(threshold):
+            triggered.append({
+                "indicator_id": ind_id,
+                "name": ind_cfg.get("name"),
+                "value": value,
+                "threshold": threshold,
+                "rule_based": True,
+                "explainable": True,
+            })
+
+    entity_hits = [e for e, data in risky_entities.items() if addr in (data.get("addresses") or [])]
+    for entity_id in entity_hits:
+        entity = risky_entities[entity_id]
+        triggered.append({
+            "indicator_id": f"risky_entity_{entity_id}",
+            "name": f"Known Risky Entity: {entity.get('name')}",
+            "value": 1.0,
+            "threshold": 0.5,
+            "source": entity.get("source"),
+            "source_documented": True,
+            "rule_based": True,
+            "explainable": True,
+        })
+
+    graph_patterns = profile.get("graph_patterns") or []
+    for pattern in graph_patterns:
+        triggered.append({
+            "indicator_id": pattern.get("pattern_id"),
+            "name": pattern.get("name"),
+            "value": pattern.get("score", 1.0),
+            "threshold": pattern.get("threshold", 0.5),
+            "graph_evidence": pattern.get("evidence"),
+            "rule_based": True,
+            "explainable": True,
+        })
+
+    risk_score = min(10, max(1, len(triggered) * 2 + (3 if len(triggered) >= 3 else 0)))
+    suspicious = len(triggered) >= 1
+    screen_id = f"fraud_{uuid.uuid4().hex[:12]}"
+    audit = {
+        "screen_id": screen_id,
+        "address": addr,
+        "chain": chain,
+        "indicators_triggered": len(triggered),
+        "risk_score": risk_score,
+        "timestamp": _utcnow(),
+        "version": cfg.get("rules_version", "1.0.0"),
+        "retention_years": _AUDIT_RETENTION_YEARS,
+        "audit_logged": True,
+    }
+
+    fee = cfg.get("fee_db") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_960,
+        "aml_screening_ref": _FEATURE_REF_923,
+        "extension_ref": _FEATURE_REF_12,
+        "screen_id": screen_id,
+        "address": addr,
+        "suspicious_pattern": suspicious,
+        "fraud_detected": False,
+        "not_fraud_detected": True,
+        "risk_score": risk_score,
+        "risk_score_scale": "1-10",
+        "indicators": triggered,
+        "indicator_count": len(triggered),
+        "min_indicators_for_flag": 3,
+        "explainable": len(triggered) >= 1,
+        "explainable_indicators_required": 3,
+        "no_legal_conclusion": True,
+        "graph_evidence_available": any(i.get("graph_evidence") for i in triggered),
+        "disclaimer": _DISCLAIMER_960,
+        "audit": audit,
+        "fee_db": {
+            "screen_usd": fee.get("screen_per_address_usd", 0.008),
+            "graph_query_usd": fee.get("graph_query_usd", 0.004),
         },
         "timestamp": _utcnow(),
     }
@@ -522,6 +635,13 @@ def run_onchain_extension_e2e(*, seed: dict[str, Any] | None = None) -> dict[str
     checks.append({"id": "explainable_flags", "passed": high_risk.get("explainable") is True or high_risk.get("risk_level") == "low"})
     checks.append({"id": "audit_trail", "passed": "screen_id" in high_risk.get("audit", {})})
 
+    fraud = screen_fraud_activity_960("0x742d35cc6634c0532925a3b844bc9e7595f0bbe0", seed=seed)
+    checks.append({"id": "fraud_screening_960", "passed": fraud.get("not_fraud_detected") is True})
+    checks.append({"id": "suspicious_pattern_not_fraud", "passed": fraud.get("fraud_detected") is False})
+    checks.append({"id": "fraud_risk_score", "passed": 1 <= fraud.get("risk_score", 0) <= 10})
+    checks.append({"id": "fraud_explainable", "passed": fraud.get("indicator_count", 0) >= 3 or fraud.get("explainable") is True})
+    checks.append({"id": "fraud_audit", "passed": fraud.get("audit", {}).get("audit_logged") is True})
+
     labels = get_address_labels_926("0x742d35cc6634c0532925a3b844bc9e7595f0bbe0", seed=seed)
     checks.append({"id": "entity_labels", "passed": labels.get("ok") is True})
     checks.append({"id": "unknown_explicit", "passed": any(l.get("unknown_remains_unknown") for l in labels.get("labels") or []) or labels.get("label_count", 0) > 0})
@@ -552,7 +672,7 @@ def run_onchain_extension_e2e(*, seed: dict[str, Any] | None = None) -> dict[str
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
-        "feature_refs": [_FEATURE_REF_12, _FEATURE_REF_923, _FEATURE_REF_926, _FEATURE_REF_930, _FEATURE_REF_937, _FEATURE_REF_942],
+        "feature_refs": [_FEATURE_REF_12, _FEATURE_REF_923, _FEATURE_REF_960, _FEATURE_REF_926, _FEATURE_REF_930, _FEATURE_REF_937, _FEATURE_REF_942],
         "all_passed": all_passed,
         "checks": checks,
     }

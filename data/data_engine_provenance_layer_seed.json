@@ -126,5 +126,51 @@
       ],
       "methodology_version": "1.0.0"
     }
+  },
+  "critical_insights_957": {
+    "aave_tvl_growth_signal": {
+      "insight_id": "aave_tvl_growth_signal",
+      "summary": "AAVE TVL growth above 30d median",
+      "value": "elevated",
+      "critical": true,
+      "qa_passed": true,
+      "fail_closed": true,
+      "observed_at": "2026-08-28T01:50:00+00:00",
+      "dataset_version": "defi_protocol_metrics_v1.2",
+      "methodology_version": "2.1.0",
+      "lineage_ref": "aave_tvl",
+      "evidence": [
+        {
+          "source_name": "ethereum_rpc",
+          "source_url": "https://etherscan.io/address/0xaave",
+          "timestamp": "2026-08-28T01:45:00+00:00",
+          "methodology": "sum_locked_assets"
+        },
+        {
+          "source_name": "defi_subgraph",
+          "source_url": "https://thegraph.com/explorer/subgraphs/aave",
+          "timestamp": "2026-08-28T01:44:00+00:00",
+          "methodology": "subgraph_tvl"
+        }
+      ],
+      "assumptions": [
+        "TVL excludes double-counted recursive deposits",
+        "USD conversion uses reference price #959 at observation time"
+      ]
+    },
+    "unverified_rumor_signal": {
+      "insight_id": "unverified_rumor_signal",
+      "summary": "Unverified listing rumor",
+      "value": "rumor",
+      "critical": true,
+      "qa_passed": false,
+      "fail_closed": true,
+      "observed_at": "2026-08-28T00:00:00+00:00",
+      "dataset_version": "social_feed_v0",
+      "methodology_version": "0.1.0",
+      "lineage_ref": null,
+      "evidence": [],
+      "assumptions": []
+    }
   }
 }

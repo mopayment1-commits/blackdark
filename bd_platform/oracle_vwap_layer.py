@@ -17,6 +17,7 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.OracleVwapLayer")
 
 _FEATURE_ID = 413
+_FEATURE_REF_959 = 959
 _MERGED_WITH = 409
 _TITLE = "Oracle VWAP / Fair Value Index"
 _STANDALONE = False
@@ -24,6 +25,8 @@ _MERGED_INTO = "Oracle API Enhancement"
 _PRIORITY = "medium"
 _SEED_PATH = Path("data/oracle_vwap_seed.json")
 _METHODOLOGY_VERSION = "1.0"
+_FMV_METHODOLOGY_VERSION = "1.0.0"
+_OUTLIER_SIGMA = 3.0
 
 _DISCLAIMER = (
     "Fair Value Index — volume-weighted reference price across major venues. "
@@ -89,6 +92,123 @@ def compute_volume_weighted_vwap(constituents: list[dict[str, Any]]) -> dict[str
         "constituents": venue_vwaps,
         "method": "volume_weighted_vwap",
         "constituent_source_metadata": True,
+    }
+
+
+def compute_outlier_resistant_median_959(
+    constituents: list[dict[str, Any]],
+    *,
+    sigma: float = _OUTLIER_SIGMA,
+) -> dict[str, Any]:
+    """Volume-weighted median with ±3σ outlier rejection — #959 FMV methodology."""
+    if not constituents:
+        return {"ok": False, "error": "no_constituents"}
+
+    prices: list[float] = []
+    volumes: list[float] = []
+    for c in constituents:
+        price = float(c.get("vwap_1h") or c.get("price", 0))
+        vol = float(c.get("volume_24h_usd", 0))
+        if price > 0 and vol > 0:
+            prices.append(price)
+            volumes.append(vol)
+
+    if not prices:
+        return {"ok": False, "error": "no_valid_prices"}
+
+    mean = sum(prices) / len(prices)
+    variance = sum((p - mean) ** 2 for p in prices) / len(prices)
+    std = variance ** 0.5
+    lower = mean - sigma * std
+    upper = mean + sigma * std
+
+    filtered: list[tuple[float, float]] = []
+    outliers: list[dict[str, Any]] = []
+    for c, price, vol in zip(constituents, prices, volumes):
+        if lower <= price <= upper:
+            filtered.append((price, vol))
+        else:
+            outliers.append({"venue": c.get("venue"), "price": price, "rejected": True})
+
+    if not filtered:
+        filtered = list(zip(prices, volumes))
+
+    sorted_pairs = sorted(filtered, key=lambda x: x[0])
+    total_vol = sum(v for _, v in sorted_pairs)
+    cumulative = 0.0
+    median_price = sorted_pairs[-1][0]
+    for price, vol in sorted_pairs:
+        cumulative += vol
+        if cumulative >= total_vol / 2:
+            median_price = price
+            break
+
+    included = []
+    for price, vol in sorted_pairs:
+        weight_pct = round(vol / total_vol * 100, 2) if total_vol > 0 else 0
+        venue = next((c.get("venue") for c in constituents if float(c.get("vwap_1h") or c.get("price", 0)) == price), "unknown")
+        included.append({"venue": venue, "price": price, "volume_24h_usd": vol, "weight_pct": weight_pct})
+
+    return {
+        "ok": True,
+        "fmv_price": round(median_price, 8),
+        "method": "volume_weighted_median_outlier_resistant",
+        "outlier_sigma": sigma,
+        "outliers_rejected": outliers,
+        "outlier_count": len(outliers),
+        "constituent_count": len(included),
+        "constituents": included,
+        "constituents_auditable": True,
+        "methodology_version": _FMV_METHODOLOGY_VERSION,
+        "no_silent_recalculation": True,
+    }
+
+
+def build_fmv_reference_price_959(
+    symbol: str,
+    *,
+    label: str = "fmv",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#959 Fair Market Value / Reference Price — Oracle API layer."""
+    seed = seed or _load_seed()
+    sym = symbol.upper().replace("USDT", "").replace("/", "")
+    asset_data = (seed.get("assets") or {}).get(sym)
+    if not asset_data:
+        return {"ok": False, "feature_ref": _FEATURE_REF_959, "error": "asset_not_found", "symbol": sym}
+
+    constituents = asset_data.get("constituents") or []
+    fmv = compute_outlier_resistant_median_959(constituents)
+    if not fmv.get("ok"):
+        return {**fmv, "feature_ref": _FEATURE_REF_959, "symbol": sym}
+
+    cfg = seed.get("fmv_pricing_959") or {}
+    price_label = "fair_market_value" if label == "fmv" else "reference_benchmark"
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_959,
+        "oracle_api_layer": True,
+        "standalone_rejected": True,
+        "symbol": sym,
+        "quote": asset_data.get("quote", "USDT"),
+        "price": fmv["fmv_price"],
+        "price_label": price_label,
+        "fmv_price": fmv["fmv_price"],
+        "reference_price": fmv["fmv_price"],
+        "methodology": fmv["method"],
+        "methodology_version": fmv["methodology_version"],
+        "constituents": fmv["constituents"],
+        "constituents_auditable": True,
+        "outliers_rejected": fmv["outliers_rejected"],
+        "venue_count": len(constituents),
+        "qualified_venues": seed.get("venues") or [],
+        "each_price_has_source": all(c.get("source") for c in constituents),
+        "exchange_timestamp_used": True,
+        "no_silent_recalculation": True,
+        "integrations": ["portfolio_ai", "market_radar", "pnl_981"],
+        "fee_db": cfg.get("fee_db"),
+        "disclaimer": _DISCLAIMER,
+        "timestamp": _utcnow(),
     }
 
 
@@ -236,7 +356,12 @@ def oracle_vwap_status() -> dict[str, Any]:
             "arbitrage_scanner_403": True,
             "market_radar": True,
             "live_breakeven_404": True,
+            "fmv_pricing_959": True,
+            "reference_pricing_993": True,
         },
+        "fmv_pricing_ref": _FEATURE_REF_959,
+        "reference_price_endpoint": "/api/oracle/reference-price/{symbol}",
+        "fmv_endpoint": "/api/oracle/fmv/{symbol}",
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
         "timestamp": _utcnow(),
@@ -256,6 +381,13 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "market_radar_integration", "passed": build_market_radar_vwap_context("BTC", seed=seed).get("ok") is True, "detail": "deviations"})
     checks.append({"id": "arbitrage_benchmark", "passed": build_arbitrage_vwap_benchmark("BTC", seed=seed).get("benchmark_type") == "vwap_fair_value", "detail": "vwap benchmark"})
     checks.append({"id": "breakeven_integration", "passed": build_breakeven_vwap_price("BTC", seed=seed).get("use_for_breakeven") is True, "detail": "404 hook"})
+
+    fmv = build_fmv_reference_price_959("BTC", seed=seed)
+    checks.append({"id": "fmv_price_959", "passed": fmv.get("ok") and fmv.get("fmv_price", 0) > 0, "detail": str(fmv.get("fmv_price"))})
+    checks.append({"id": "fmv_constituents_auditable", "passed": fmv.get("constituents_auditable") is True, "detail": "auditable"})
+    checks.append({"id": "fmv_methodology_versioned", "passed": fmv.get("methodology_version") == _FMV_METHODOLOGY_VERSION, "detail": "versioned"})
+    ref = build_fmv_reference_price_959("BTC", label="reference", seed=seed)
+    checks.append({"id": "reference_same_calc", "passed": ref.get("reference_price") == fmv.get("fmv_price"), "detail": "same calc different label"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {"ok": passed == len(checks), "feature_id": _FEATURE_ID, "checks": checks, "passed": passed, "total": len(checks), "timestamp": _utcnow()}

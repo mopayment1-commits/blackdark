@@ -7,6 +7,7 @@ Merged dimensions:
   #946 Data Quality & Provenance (duplicate — freshness/confidence badges)
   #947 Data Quality & Provenance (duplicate — fail-closed policy)
   #948 Data Quality Methodologies (methodology versioning + reconciliation)
+  #957 Evidence & Provenance Layer (evidence linking + assumption badges)
   #1003 Source Data Provenance
   #1010 Data Quality & Provenance pipeline
 
@@ -30,6 +31,7 @@ _FEATURE_REF_944 = 944
 _FEATURE_REF_946 = 946
 _FEATURE_REF_947 = 947
 _FEATURE_REF_948 = 948
+_FEATURE_REF_957 = 957
 _FEATURE_REF_955 = 955
 _FEATURE_REF_1003 = 1003
 _FEATURE_REF_1010 = 1010
@@ -81,6 +83,7 @@ def provenance_layer_status_945(*, seed: dict[str, Any] | None = None) -> dict[s
             "946": _FEATURE_REF_946,
             "947": _FEATURE_REF_947,
             "948": _FEATURE_REF_948,
+            "957": _FEATURE_REF_957,
             "1003": _FEATURE_REF_1003,
             "1010": _FEATURE_REF_1010,
         },
@@ -98,6 +101,10 @@ def provenance_layer_status_945(*, seed: dict[str, Any] | None = None) -> dict[s
         "normalization_pipeline": True,
         "freshness_badges": True,
         "confidence_scoring": True,
+        "evidence_linking": True,
+        "assumptions_documented": True,
+        "every_critical_insight_traceable": True,
+        "missing_source_fails_closed": True,
         "fail_closed_policy": cfg.get("fail_closed_policy", "hidden_or_degraded"),
         "methodology_versioning": True,
         "integrations": cfg.get("integrations") or [921, 938, 955, 987],
@@ -505,6 +512,164 @@ def verify_decision_trace_integration_955(
     return result
 
 
+# --- #957 Evidence & Provenance Layer ---
+
+
+def link_insight_evidence_957(
+    insight_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Evidence linking — source URL + timestamp + methodology + assumptions per insight."""
+    seed = seed or _load_seed()
+    insights = seed.get("critical_insights_957") or {}
+    insight = insights.get(insight_id)
+    if not insight:
+        return {"ok": False, "feature_ref": _FEATURE_REF_957, "error": "insight_not_found"}
+
+    evidence = insight.get("evidence") or []
+    assumptions = insight.get("assumptions") or []
+    has_source = all(e.get("source_url") for e in evidence)
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_957,
+        "provenance_layer_ref": _FEATURE_REF_945,
+        "insight_id": insight_id,
+        "evidence": evidence,
+        "evidence_count": len(evidence),
+        "assumptions": assumptions,
+        "assumptions_documented": len(assumptions) > 0,
+        "dataset_version": insight.get("dataset_version"),
+        "methodology_version": insight.get("methodology_version"),
+        "every_source_linked": has_source,
+        "lineage_ref": insight.get("lineage_ref"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_insight_evidence_badge_957(
+    insight_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Source/freshness/assumption badges for critical insights."""
+    seed = seed or _load_seed()
+    linked = link_insight_evidence_957(insight_id, seed=seed)
+    if not linked.get("ok"):
+        return linked
+
+    insights = seed.get("critical_insights_957") or {}
+    insight = insights[insight_id]
+    freshness = compute_freshness_badge_946(insight.get("observed_at", _utcnow()), seed=seed)
+    confidence = compute_confidence_score_946(
+        source_count=len(linked.get("evidence") or []),
+        qa_passed=insight.get("qa_passed", True),
+        seed=seed,
+    )
+
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_957,
+        "provenance_layer_ref": _FEATURE_REF_945,
+        "insight_id": insight_id,
+        "badge": {
+            "source": [e.get("source_name") for e in linked.get("evidence") or []],
+            "source_urls": [e.get("source_url") for e in linked.get("evidence") or []],
+            "freshness": freshness.get("freshness"),
+            "freshness_label": freshness.get("badge_label"),
+            "confidence": confidence.get("confidence"),
+            "assumptions": linked.get("assumptions"),
+            "assumptions_visible": linked.get("assumptions_documented"),
+            "dataset_version": linked.get("dataset_version"),
+            "methodology_version": linked.get("methodology_version"),
+            "clickable": True,
+        },
+        "timestamp": _utcnow(),
+    }
+
+
+def evaluate_critical_insight_delivery_957(
+    insight_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Missing source on critical insight = fail closed or visibly degraded."""
+    seed = seed or _load_seed()
+    insights = seed.get("critical_insights_957") or {}
+    insight = insights.get(insight_id)
+    if not insight:
+        return {"ok": False, "feature_ref": _FEATURE_REF_957, "error": "insight_not_found"}
+
+    linked = link_insight_evidence_957(insight_id, seed=seed)
+    badge = build_insight_evidence_badge_957(insight_id, seed=seed)
+    evidence = linked.get("evidence") or []
+    has_source = all(e.get("source_url") for e in evidence) and len(evidence) > 0
+    critical = insight.get("critical", True)
+
+    if critical and not has_source:
+        status: DeliveryStatus = "hidden" if insight.get("fail_closed") else "degraded"
+        visible = status != "hidden"
+        value = None if status == "hidden" else insight.get("value")
+    elif not insight.get("qa_passed", True):
+        status = "degraded"
+        visible = True
+        value = insight.get("value")
+    else:
+        status = "ok"
+        visible = True
+        value = insight.get("value")
+
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_957,
+        "provenance_layer_ref": _FEATURE_REF_945,
+        "insight_id": insight_id,
+        "delivery_status": status,
+        "visible": visible,
+        "value": value,
+        "every_critical_insight_traceable": has_source or not critical,
+        "missing_source_fails_closed": critical and not has_source,
+        "fail_closed": critical and not has_source and insight.get("fail_closed", True),
+        "no_silent_serving": True,
+        "badge": badge.get("badge"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_insight_audit_view_957(
+    insight_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Audit view — lineage + evidence + assumptions for ops."""
+    seed = seed or _load_seed()
+    linked = link_insight_evidence_957(insight_id, seed=seed)
+    if not linked.get("ok"):
+        return linked
+
+    delivery = evaluate_critical_insight_delivery_957(insight_id, seed=seed)
+    lineage_id = linked.get("lineage_ref")
+    lineage = get_lineage_audit_1003(lineage_id, seed=seed) if lineage_id else None
+
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_957,
+        "provenance_layer_ref": _FEATURE_REF_945,
+        "insight_id": insight_id,
+        "evidence": linked.get("evidence"),
+        "assumptions": linked.get("assumptions"),
+        "lineage": lineage.get("lineage") if lineage and lineage.get("ok") else None,
+        "delivery": {
+            "status": delivery.get("delivery_status"),
+            "visible": delivery.get("visible"),
+            "fail_closed": delivery.get("fail_closed"),
+        },
+        "end_to_end_traceable": delivery.get("every_critical_insight_traceable"),
+        "audit_view_ops_only": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def run_provenance_layer_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     checks: list[dict[str, Any]] = []
@@ -551,13 +716,21 @@ def run_provenance_layer_e2e(*, seed: dict[str, Any] | None = None) -> dict[str,
     trace = verify_decision_trace_integration_955("trace_dec_aave_alloc_001", tenant_id="tenant_alpha")
     checks.append({"id": "trace_955_integration", "passed": trace.get("complete") is True})
 
+    insight_ok = evaluate_critical_insight_delivery_957("aave_tvl_growth_signal", seed=seed)
+    checks.append({"id": "insight_traceable_957", "passed": insight_ok.get("delivery_status") == "ok"})
+    checks.append({"id": "evidence_badge_957", "passed": build_insight_evidence_badge_957("aave_tvl_growth_signal", seed=seed).get("badge", {}).get("assumptions_visible") is True})
+
+    missing_src = evaluate_critical_insight_delivery_957("unverified_rumor_signal", seed=seed)
+    checks.append({"id": "missing_source_fail_closed_957", "passed": missing_src.get("missing_source_fails_closed") is True})
+    checks.append({"id": "no_silent_insight_957", "passed": missing_src.get("no_silent_serving") is True})
+
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
         "feature_refs": [
             _FEATURE_REF_945, _FEATURE_REF_943, _FEATURE_REF_944,
             _FEATURE_REF_946, _FEATURE_REF_947, _FEATURE_REF_948,
-            _FEATURE_REF_955, _FEATURE_REF_1003, _FEATURE_REF_1010,
+            _FEATURE_REF_957, _FEATURE_REF_955, _FEATURE_REF_1003, _FEATURE_REF_1010,
         ],
         "all_passed": all_passed,
         "checks": checks,

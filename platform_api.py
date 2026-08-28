@@ -1851,6 +1851,14 @@ async def onchain_aml_screen_route(address: str = Query(..., min_length=42)):
     return screen_address_923(address)
 
 
+@router.get("/intelligence-ledger/onchain-layer/extension/fraud-screen")
+async def onchain_fraud_screen_route(address: str = Query(..., min_length=42), chain: str = Query("ethereum")):
+    """#960 Fraud / Suspicious Activity — merged into #923 AML/CFT."""
+    from bd_platform.onchain_intelligence_extension import screen_fraud_activity_960
+
+    return screen_fraud_activity_960(address, chain=chain)
+
+
 @router.get("/intelligence-ledger/onchain-layer/extension/labels")
 async def onchain_entity_labels_route(
     address: str = Query(..., min_length=42),
@@ -3461,6 +3469,28 @@ async def oracle_vwap_reconciliation_tests_route():
     from bd_platform.oracle_vwap_layer import run_reconciliation_tests
 
     return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/oracle-vwap/fmv/{symbol}")
+async def oracle_fmv_price_route(symbol: str):
+    """#959 Fair Market Value Pricing — Oracle API reference price."""
+    from bd_platform.oracle_vwap_layer import build_fmv_reference_price_959
+
+    result = build_fmv_reference_price_959(symbol, label="fmv")
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/oracle-vwap/reference-price/{symbol}")
+async def oracle_reference_price_route(symbol: str):
+    """#959/#993 Reference benchmark — same calc, different label."""
+    from bd_platform.oracle_vwap_layer import build_fmv_reference_price_959
+
+    result = build_fmv_reference_price_959(symbol, label="reference")
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
 
 
 @router.get("/intelligence-ledger/net-edge-truth/status")
@@ -5796,6 +5826,35 @@ async def provenance_metric_badge_route(metric_id: str, _admin: dict = Depends(r
     return build_full_metric_badge_945(metric_id)
 
 
+@router.get("/internal/data-engine/provenance-layer/insight/{insight_id}/evidence")
+async def provenance_insight_evidence_route(insight_id: str, _admin: dict = Depends(require_admin)):
+    """#957 Evidence & Provenance — evidence linking merged into #945."""
+    from bd_platform.data_engine_provenance_layer import link_insight_evidence_957
+
+    return link_insight_evidence_957(insight_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/insight/{insight_id}/badge")
+async def provenance_insight_badge_route(insight_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import build_insight_evidence_badge_957
+
+    return build_insight_evidence_badge_957(insight_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/insight/{insight_id}/delivery")
+async def provenance_insight_delivery_route(insight_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import evaluate_critical_insight_delivery_957
+
+    return evaluate_critical_insight_delivery_957(insight_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/insight/{insight_id}/audit")
+async def provenance_insight_audit_route(insight_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import build_insight_audit_view_957
+
+    return build_insight_audit_view_957(insight_id)
+
+
 @router.get("/internal/data-engine/provenance-layer/delivery/{metric_id}")
 async def provenance_metric_delivery_route(metric_id: str, _admin: dict = Depends(require_admin)):
     """#947 — fail-closed metric delivery evaluation."""
@@ -8019,6 +8078,57 @@ async def crypto_events_e2e_route():
     from bd_platform.market_radar_crypto_events import run_crypto_events_e2e_939
 
     return run_crypto_events_e2e_939()
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/futures-volume/status")
+async def futures_volume_status_route():
+    """#962 Futures Volume Intelligence — Market Radar Derivatives tab."""
+    from bd_platform.market_radar_futures_volume import futures_volume_status_962
+
+    return futures_volume_status_962()
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/futures-volume/e2e")
+async def futures_volume_e2e_route():
+    from bd_platform.market_radar_futures_volume import run_futures_volume_e2e_962
+
+    return run_futures_volume_e2e_962()
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/futures-volume/{asset}")
+async def futures_volume_dashboard_route(asset: str):
+    from bd_platform.market_radar_futures_volume import build_futures_volume_dashboard_962
+
+    return build_futures_volume_dashboard_962(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/governance/status")
+async def governance_status_route():
+    """#963 Governance & Proposal Intelligence — Market Radar Governance tab."""
+    from bd_platform.market_radar_governance import governance_status_963
+
+    return governance_status_963()
+
+
+@router.get("/intelligence-ledger/market-radar/governance/feed")
+async def governance_feed_route(protocol: str | None = Query(None)):
+    from bd_platform.market_radar_governance import build_governance_feed_963
+
+    return build_governance_feed_963(protocol=protocol)
+
+
+@router.get("/intelligence-ledger/market-radar/governance/e2e")
+async def governance_e2e_route():
+    from bd_platform.market_radar_governance import run_governance_e2e_963
+
+    return run_governance_e2e_963()
+
+
+@router.get("/intelligence-ledger/market-radar/governance/{proposal_id}")
+async def governance_proposal_route(proposal_id: str):
+    from bd_platform.market_radar_governance import get_proposal_details_963
+
+    return get_proposal_details_963(proposal_id)
 
 
 @router.get("/intelligence-ledger/asset-screener/status")

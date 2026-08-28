@@ -53,5 +53,14 @@
   },
   "cross_rates": {
     "ETH/BTC": 0.05387
+  },
+  "fmv_pricing_959": {
+    "methodology_version": "1.0.0",
+    "method": "volume_weighted_median_outlier_resistant",
+    "outlier_sigma": 3.0,
+    "fee_db": {
+      "aggregation_per_price_usd": 0.003,
+      "storage_per_snapshot_usd": 0.001
+    }
   }
 }
