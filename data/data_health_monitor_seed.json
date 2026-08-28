@@ -1,0 +1,33 @@
+{
+  "feature_ref": 849,
+  "merged_into": "Sprint-0 Infrastructure / Observability Stack",
+  "component": "data_health_monitor",
+  "data_health_monitor_849": {
+    "alerts_enabled": true,
+    "alert_channel": "pagerduty_devops",
+    "grafana_dashboard": "blackdark-data-health-internal"
+  },
+  "venues": {
+    "oracle_api": {
+      "slo_latency_ms": 500,
+      "latency_p99_ms": 320,
+      "gap_count": 0,
+      "error_rate_pct": 0.05,
+      "error_rate_max_pct": 0.1
+    },
+    "market_radar": {
+      "slo_latency_ms": 1000,
+      "latency_p99_ms": 680,
+      "gap_count": 0,
+      "error_rate_pct": 0.03,
+      "error_rate_max_pct": 0.1
+    },
+    "on_chain": {
+      "slo_latency_ms": 3000,
+      "latency_p99_ms": 2100,
+      "gap_count": 0,
+      "error_rate_pct": 0.08,
+      "error_rate_max_pct": 0.15
+    }
+  }
+}

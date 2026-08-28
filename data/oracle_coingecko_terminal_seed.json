@@ -1,0 +1,62 @@
+{
+  "feature_ref": 839,
+  "merged_into": "Oracle API",
+  "component": "coingecko_terminal_source",
+  "standalone_rejected": true,
+  "coingecko_terminal_source_839": {
+    "api": "GeckoTerminal",
+    "base_url": "https://api.geckoterminal.com/api/v2",
+    "cache_ttl_sec": {
+      "prices": 180,
+      "prices_min": 60,
+      "prices_max": 300,
+      "static_data": 3600,
+      "static_min": 3600,
+      "static_max": 86400
+    },
+    "fee_db": {
+      "api_calls_usd": 0.002,
+      "tier": "standard"
+    }
+  },
+  "datasets": {
+    "dex_volume_eth": {
+      "network": "eth",
+      "volume_24h_usd": 1250000000,
+      "volume_change_pct": 3.2,
+      "top_pools": 42
+    },
+    "liquidity_eth": {
+      "network": "eth",
+      "total_liquidity_usd": 890000000,
+      "liquidity_change_pct": 1.8
+    },
+    "pool_data_eth": {
+      "network": "eth",
+      "pool_count": 156,
+      "top_pool": "WETH/USDC",
+      "fee_tier_bps": 30
+    }
+  },
+  "fallback_sources": {
+    "dex_volume": {
+      "primary": "coinmarketcap",
+      "secondary": "internal_aggregation",
+      "data": {"volume_24h_usd": 1200000000, "source": "coinmarketcap_fallback"}
+    },
+    "liquidity": {
+      "primary": "coinmarketcap",
+      "secondary": "internal_aggregation",
+      "data": {"total_liquidity_usd": 870000000, "source": "internal_aggregation"}
+    },
+    "pool_data": {
+      "primary": "internal_aggregation",
+      "secondary": "coinmarketcap",
+      "data": {"pool_count": 150, "source": "internal_aggregation"}
+    }
+  },
+  "current_metrics": {
+    "uptime_pct": 99.5,
+    "avg_latency_ms": 420
+  }
+}

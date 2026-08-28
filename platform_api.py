@@ -95,6 +95,42 @@ async def platform_coverage():
     return coverage_report()
 
 
+@router.get("/coverage/registry")
+async def platform_coverage_registry():
+    """#843 Coverage Metadata Registry — machine-readable product coverage."""
+    from bd_platform.coverage_metadata_registry import build_coverage_registry_843
+
+    return build_coverage_registry_843()
+
+
+@router.get("/coverage/registry/status")
+async def platform_coverage_registry_status():
+    from bd_platform.coverage_metadata_registry import coverage_metadata_status_843
+
+    return coverage_metadata_status_843()
+
+
+@router.get("/coverage/registry/admin")
+async def platform_coverage_registry_admin(_admin: dict = Depends(require_admin)):
+    from bd_platform.coverage_metadata_registry import build_admin_coverage_view_843
+
+    return build_admin_coverage_view_843()
+
+
+@router.get("/coverage/registry/parity-tests")
+async def platform_coverage_registry_parity():
+    from bd_platform.coverage_metadata_registry import run_coverage_parity_tests_843
+
+    return run_coverage_parity_tests_843()
+
+
+@router.get("/coverage/registry/e2e")
+async def platform_coverage_registry_e2e():
+    from bd_platform.coverage_metadata_registry import run_coverage_registry_e2e_843
+
+    return run_coverage_registry_e2e_843()
+
+
 @router.get("/derivatives/overview")
 async def derivatives_overview(asset: str = Query("BTC")):
     from bd_platform.derivatives_hub import derivatives_overview as _fn
@@ -5055,6 +5091,102 @@ async def data_pipe_e2e_route():
     from bd_platform.data_engine_data_pipe import run_data_pipe_e2e_834
 
     return run_data_pipe_e2e_834()
+
+
+@router.get("/intelligence-ledger/oracle/coingecko-terminal/status")
+async def coingecko_terminal_status_route():
+    """#839 CoinGecko Terminal — Oracle API data source."""
+    from bd_platform.oracle_coingecko_terminal_source import coingecko_terminal_status_839
+
+    return coingecko_terminal_status_839()
+
+
+@router.get("/intelligence-ledger/oracle/coingecko-terminal")
+async def coingecko_terminal_fetch_route(
+    category: str = Query("dex_volume"),
+    asset: str = Query("ETH"),
+):
+    from bd_platform.oracle_coingecko_terminal_source import fetch_coingecko_terminal_data_839
+
+    result = fetch_coingecko_terminal_data_839(category, asset)  # type: ignore[arg-type]
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/oracle/coingecko-terminal/market-radar")
+async def coingecko_terminal_market_radar_route(asset: str = Query("ETH")):
+    from bd_platform.oracle_coingecko_terminal_source import build_market_radar_dex_feed_839
+
+    return build_market_radar_dex_feed_839(asset)
+
+
+@router.get("/intelligence-ledger/oracle/coingecko-terminal/e2e")
+async def coingecko_terminal_e2e_route():
+    from bd_platform.oracle_coingecko_terminal_source import run_coingecko_terminal_e2e_839
+
+    return run_coingecko_terminal_e2e_839()
+
+
+@router.get("/internal/data-health/status")
+async def data_health_status_route(_admin: dict = Depends(require_admin)):
+    """#849 Data Health / SLA Monitoring — per-venue SLOs (admin only)."""
+    from bd_platform.data_health_monitor import data_health_monitor_status_849
+
+    return data_health_monitor_status_849()
+
+
+@router.get("/internal/data-health")
+async def data_health_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_health_monitor import build_data_health_panel_849
+
+    return build_data_health_panel_849()
+
+
+@router.get("/internal/data-health/infra-feed")
+async def data_health_infra_feed_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_health_monitor import build_infra_observability_health_feed_849
+
+    return build_infra_observability_health_feed_849()
+
+
+@router.get("/internal/data-health/e2e")
+async def data_health_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_health_monitor import run_data_health_e2e_849
+
+    return run_data_health_e2e_849()
+
+
+@router.get("/internal/data-engine/quality-pipeline/status")
+async def quality_pipeline_status_route(_admin: dict = Depends(require_admin)):
+    """#850 Data Quality Pipeline — Data Engine quality_pipeline (admin only)."""
+    from bd_platform.data_engine_quality_pipeline import quality_pipeline_status_850
+
+    return quality_pipeline_status_850()
+
+
+@router.get("/internal/data-engine/quality-pipeline")
+async def quality_pipeline_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_quality_pipeline import build_quality_pipeline_panel_850
+
+    return build_quality_pipeline_panel_850()
+
+
+@router.get("/internal/data-engine/quality-pipeline/batch-qa")
+async def quality_pipeline_batch_qa_route(
+    batch_id: str = Query("batch-20260827"),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_quality_pipeline import run_pipeline_batch_qa_850
+
+    return run_pipeline_batch_qa_850(batch_id)
+
+
+@router.get("/internal/data-engine/quality-pipeline/e2e")
+async def quality_pipeline_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_quality_pipeline import run_quality_pipeline_e2e_850
+
+    return run_quality_pipeline_e2e_850()
 
 
 @router.get("/intelligence-ledger/onchain-layer/whale-clustering/status")

@@ -137,6 +137,14 @@ def build_sre_observability_with_quality_monitor_789(*, seed: dict[str, Any] | N
         stack["data_quality_checks_passed"] = feed.get("quality_metrics", {}).get("daily_checks_passed")
     except Exception:
         logger.debug("824 quality monitor feed skipped", exc_info=True)
+    try:
+        from bd_platform.data_health_monitor import build_infra_observability_health_feed_849
+
+        health_feed = build_infra_observability_health_feed_849()
+        stack["data_health_feed_849"] = health_feed
+        stack["all_venues_within_slo"] = health_feed.get("all_venues_within_slo")
+    except Exception:
+        logger.debug("849 data health feed skipped", exc_info=True)
     return stack
 
 
@@ -151,5 +159,6 @@ def infrastructure_observability_status_789() -> dict[str, Any]:
         "user_alerts_ref": 788,
         "stack_components": ["prometheus", "grafana", "loki", "jaeger", "pagerduty"],
         "quality_monitor_ref": 824,
+        "data_health_monitor_ref": 849,
         "timestamp": _utcnow(),
     }

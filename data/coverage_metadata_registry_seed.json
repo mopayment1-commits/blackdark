@@ -1,0 +1,58 @@
+{
+  "feature_ref": 843,
+  "merged_into": "DevOps / Documentation",
+  "component": "coverage_metadata_registry",
+  "coverage_registry_843": {
+    "schema_version": "1.0",
+    "auto_generated": true,
+    "parity_tolerance_pct": 0
+  },
+  "production_truth": {
+    "api_count": 12,
+    "ui_route_count": 8,
+    "data_source_count": 6
+  },
+  "apis": [
+    {"id": "oracle_api", "path": "/api/oracle", "status": "active", "sla_ms": 500},
+    {"id": "market_radar", "path": "/api/platform/intelligence-ledger/market-radar", "status": "active", "sla_ms": 1000},
+    {"id": "onchain_metrics", "path": "/api/platform/intelligence-ledger/onchain-layer", "status": "active", "sla_ms": 3000},
+    {"id": "api_gateway", "path": "/api/v1", "status": "active", "sla_ms": 500},
+    {"id": "billing", "path": "/api/billing", "status": "active", "sla_ms": 2000},
+    {"id": "coverage_registry", "path": "/api/platform/coverage/registry", "status": "active", "sla_ms": 1000},
+    {"id": "data_engine", "path": "/api/platform/intelligence-ledger/data-engine", "status": "active", "sla_ms": 1000},
+    {"id": "alert_engine", "path": "/api/platform/intelligence-ledger/alert-engine", "status": "active", "sla_ms": 1500},
+    {"id": "portfolio", "path": "/api/platform/portfolio", "status": "active", "sla_ms": 2000},
+    {"id": "defi", "path": "/api/platform/defi", "status": "active", "sla_ms": 2000},
+    {"id": "coingecko_terminal", "path": "/api/platform/oracle/coingecko-terminal", "status": "active", "sla_ms": 3000},
+    {"id": "coverage", "path": "/api/platform/coverage", "status": "active", "sla_ms": 5000}
+  ],
+  "ui_routes": [
+    {"path": "/dashboard", "status": "active", "surface": "main"},
+    {"path": "/radar", "status": "active", "surface": "market_radar"},
+    {"path": "/radar/chart", "status": "active", "surface": "chart"},
+    {"path": "/portfolio", "status": "active", "surface": "portfolio"},
+    {"path": "/admin/coverage", "status": "active", "surface": "admin"},
+    {"path": "/legacy/charts", "status": "deprecated", "deprecated_since": "2026-06-01"},
+    {"path": "/streamlit", "status": "deprecated", "deprecated_since": "2026-07-01"},
+    {"path": "/login", "status": "active", "surface": "auth"}
+  ],
+  "data_sources": [
+    {"id": "oracle_api", "type": "internal", "status": "active"},
+    {"id": "coingecko_terminal", "type": "external", "status": "active"},
+    {"id": "coinmarketcap", "type": "external", "status": "active"},
+    {"id": "glassnode", "type": "external", "status": "active"},
+    {"id": "stripe", "type": "external", "status": "active"},
+    {"id": "internal_aggregation", "type": "internal", "status": "active"}
+  ],
+  "slas": {
+    "oracle_api_ms": 500,
+    "market_radar_ms": 1000,
+    "on_chain_ms": 3000,
+    "api_gateway_ms": 500
+  },
+  "test_coverage": [
+    {"suite": "tests/test_wave_01_data_engine.py", "status": "active"},
+    {"suite": "tests/test_api_gateway_buying_power_batch.py", "status": "active"},
+    {"suite": "tests/test_integrity_token_rotation_batch824_826.py", "status": "active"}
+  ]
+}
