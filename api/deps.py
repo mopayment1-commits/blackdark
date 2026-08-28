@@ -61,6 +61,39 @@ def require_feature(feature: str):
     return _dependency
 
 
+def require_org_permission(permission: str):
+    """Backend-enforced tenant RBAC — Sprint 1 AuthZ layer."""
+
+    async def _dependency(
+        org_id: str,
+        user: Annotated[dict, Depends(optional_user)],
+    ) -> dict:
+        if user is None:
+            raise HTTPException(status_code=401, detail="Authentication required")
+        from bd_platform.infrastructure_authz_layer import authorize_request
+
+        result = authorize_request(
+            user_id=user.get("id"),
+            email=str(user.get("email") or ""),
+            tenant_id=org_id,
+            permission=permission,
+            resource=f"org:{org_id}",
+            user_tier=str(user.get("tier") or "free"),
+        )
+        if not result.get("allowed"):
+            raise HTTPException(
+                status_code=403,
+                detail={
+                    "error": "authz_denied",
+                    "permission": permission,
+                    "reason": result.get("reason") or "denied",
+                },
+            )
+        return user
+
+    return _dependency
+
+
 async def record_behavior(
     event_type: str,
     *,

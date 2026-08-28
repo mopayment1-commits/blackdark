@@ -1,0 +1,102 @@
+{
+  "feature": "authz_layer",
+  "control_ref": "SEC-010",
+  "merged_into": "Sprint-1 Infrastructure (AuthN #1019)",
+  "standalone_rejected": true,
+  "authz_layer": {
+    "policy": {
+      "backend_enforced": true,
+      "no_client_side_only": true,
+      "tenant_isolation": true,
+      "rls_enforced": true,
+      "audit_retention_years": 2,
+      "audit_append_only": true,
+      "blocks_production_if_incomplete": true
+    },
+    "fee_db": {
+      "per_authz_check_usd": 0.00001,
+      "sso_integration_cost_tier": "pro_institution",
+      "logged_fields": [
+        "analysis_cost_usd",
+        "permission",
+        "user_tier",
+        "allowed"
+      ]
+    }
+  },
+  "canonical_roles": {
+    "viewer": {
+      "label": "Viewer",
+      "description": "Read-only access",
+      "permissions": ["read", "decisions.view", "audit.view"]
+    },
+    "analyst": {
+      "label": "Analyst",
+      "description": "Export reports + saved queries",
+      "permissions": ["read", "decisions.view", "audit.view", "data.export", "sql.workspace", "queries.save"]
+    },
+    "admin": {
+      "label": "Admin",
+      "description": "Billing + users + API keys",
+      "permissions": [
+        "read",
+        "decisions.view",
+        "audit.view",
+        "data.export",
+        "sql.workspace",
+        "queries.save",
+        "billing.manage",
+        "users.manage",
+        "api.keys.manage",
+        "decision.certificate",
+        "org.manage",
+        "org.members",
+        "org.sso",
+        "org.mfa_policy"
+      ]
+    },
+    "super_admin": {
+      "label": "Super Admin",
+      "description": "Platform operations",
+      "permissions": ["platform.ops"]
+    }
+  },
+  "sso": {
+    "sprint": 2,
+    "protocols": ["saml2", "oidc"],
+    "idp_integrations": ["okta", "azure_ad", "google_workspace"],
+    "jit_default_role": "viewer",
+    "tiers": ["pro", "institution"]
+  },
+  "tier_capabilities": {
+    "viewer": {
+      "api_rate_limit": "standard",
+      "data_export": false,
+      "sql_workspace": false
+    },
+    "analyst": {
+      "api_rate_limit": "pro",
+      "data_export": true,
+      "sql_workspace": true
+    },
+    "admin": {
+      "api_rate_limit": "institution",
+      "data_export": true,
+      "sql_workspace": true,
+      "billing_manage": true
+    },
+    "super_admin": {
+      "api_rate_limit": "unlimited",
+      "platform_ops": true
+    }
+  },
+  "integrations": {
+    "authn_1019": "authentication layer — sessions, MFA, password policy",
+    "billing_908": "role determines tier capabilities and rate limits",
+    "data_export_924": "analyst+ export enabled; viewer blocked",
+    "sql_workspace_978": "analyst+ query access; viewer blocked",
+    "decision_cert_952": "admin role required for institutional certificate",
+    "incident_response_1017": "compromised account = RBAC revoke + session invalidation",
+    "privacy_1018": "role-based access cross-referenced in privacy policy"
+  }
+}
