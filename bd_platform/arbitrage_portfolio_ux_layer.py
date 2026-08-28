@@ -555,7 +555,12 @@ def attach_arbitrage_extensions_177_189_190(arbitrage: dict[str, Any], *, seed: 
         if ref not in merged:
             merged.append(ref)
     out["merged_features"] = merged
-    return out
+    try:
+        from bd_platform.onchain_defi_sources_layer import attach_arbitrage_predictive_210_214
+
+        return attach_arbitrage_predictive_210_214(out, seed=seed)
+    except ImportError:
+        return out
 
 
 # ─── E2E ────────────────────────────────────────────────────────────────────────

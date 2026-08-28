@@ -411,7 +411,13 @@ def build_whale_narrative_71(
     try:
         from bd_platform.arbitrage_portfolio_ux_layer import attach_whale_visualization_180
 
-        return attach_whale_visualization_180(result, seed=seed)
+        result = attach_whale_visualization_180(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.onchain_defi_sources_layer import attach_whale_contrarian_216
+
+        return attach_whale_contrarian_216(result, seed=seed)
     except ImportError:
         return result
 

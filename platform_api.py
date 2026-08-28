@@ -2310,3 +2310,73 @@ async def derivatives_ta_research_e2e_route(_admin: dict = Depends(require_admin
     from bd_platform.derivatives_ta_research_layer import run_derivatives_ta_research_e2e_192_203
 
     return run_derivatives_ta_research_e2e_192_203()
+
+
+@router.get("/oracle/on-chain/bsc")
+async def bscscan_oracle_route(address: str = Query("0x1234...abcd")):
+    from bd_platform.onchain_defi_sources_layer import ingest_bscscan_204
+
+    return ingest_bscscan_204(address=address)
+
+
+@router.get("/oracle/on-chain/sources/glassnode")
+async def glassnode_oracle_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_defi_sources_layer import ingest_glassnode_metrics_205
+
+    return ingest_glassnode_metrics_205(asset=asset)
+
+
+@router.get("/oracle/on-chain/defi/uniswap")
+async def uniswap_subgraph_route(pool: str = Query("ETH/USDC")):
+    from bd_platform.onchain_defi_sources_layer import ingest_uniswap_subgraph_206
+
+    return ingest_uniswap_subgraph_206(pool=pool)
+
+
+@router.get("/oracle/on-chain/defi/aave")
+async def aave_data_route(market: str = Query("USDC"), version: str = Query("v3")):
+    from bd_platform.onchain_defi_sources_layer import ingest_aave_data_207
+
+    return ingest_aave_data_207(market=market, version=version)
+
+
+@router.get("/radar/sentiment/social/reddit")
+async def reddit_sentiment_route():
+    from bd_platform.onchain_defi_sources_layer import ingest_reddit_sentiment_208
+
+    return ingest_reddit_sentiment_208()
+
+
+@router.get("/intelligence/arbitrage/predictive")
+async def predictive_arbitrage_route():
+    from bd_platform.onchain_defi_sources_layer import analyze_predictive_arbitrage_210
+
+    return analyze_predictive_arbitrage_210()
+
+
+@router.get("/portfolio/cross-margin-risk")
+async def cross_margin_risk_route(risk_score: float = Query(8.0)):
+    from bd_platform.onchain_defi_sources_layer import cross_margin_risk_alert_211
+
+    return cross_margin_risk_alert_211(risk_score=risk_score)
+
+
+@router.get("/portfolio/hedge-analysis")
+async def hedge_analysis_route(btc_exposure_pct: float = Query(70.0)):
+    from bd_platform.onchain_defi_sources_layer import hedge_effectiveness_analysis_212
+
+    return hedge_effectiveness_analysis_212(btc_exposure_pct=btc_exposure_pct)
+
+
+@router.get("/portfolio/capital-allocation")
+async def capital_allocation_route():
+    from bd_platform.onchain_defi_sources_layer import capital_allocation_insight_213
+
+    return capital_allocation_insight_213()
+
+
+@router.get("/onchain-defi-sources/e2e")
+async def onchain_defi_sources_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.onchain_defi_sources_layer import run_onchain_defi_sources_e2e_204_216
+
+    return run_onchain_defi_sources_e2e_204_216()

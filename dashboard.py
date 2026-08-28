@@ -2115,6 +2115,78 @@ async def public_cryptocompare_oracle(symbol: str = "BTC"):
     return ingest_cryptocompare_price_203(symbol=symbol)
 
 
+@app.get("/oracle/on-chain/bsc")
+async def public_bscscan_oracle(address: str = "0x1234...abcd"):
+    """#204 — BscScan BSC on-chain ingestion."""
+    from bd_platform.onchain_defi_sources_layer import ingest_bscscan_204
+
+    return ingest_bscscan_204(address=address)
+
+
+@app.get("/oracle/on-chain/sources/glassnode")
+async def public_glassnode_oracle(asset: str = "BTC"):
+    """#205 — Glassnode free-tier on-chain metrics."""
+    from bd_platform.onchain_defi_sources_layer import ingest_glassnode_metrics_205
+
+    return ingest_glassnode_metrics_205(asset=asset)
+
+
+@app.get("/oracle/on-chain/defi/uniswap")
+async def public_uniswap_subgraph(pool: str = "ETH/USDC"):
+    """#206 — Uniswap Subgraph DeFi data."""
+    from bd_platform.onchain_defi_sources_layer import ingest_uniswap_subgraph_206
+
+    return ingest_uniswap_subgraph_206(pool=pool)
+
+
+@app.get("/oracle/on-chain/defi/aave")
+async def public_aave_data(market: str = "USDC", version: str = "v3"):
+    """#207 — Aave lending/borrowing data."""
+    from bd_platform.onchain_defi_sources_layer import ingest_aave_data_207
+
+    return ingest_aave_data_207(market=market, version=version)
+
+
+@app.get("/radar/sentiment/social/reddit")
+async def public_reddit_sentiment():
+    """#208 — Reddit r/CryptoCurrency sentiment."""
+    from bd_platform.onchain_defi_sources_layer import ingest_reddit_sentiment_208
+
+    return ingest_reddit_sentiment_208()
+
+
+@app.get("/intelligence/arbitrage/predictive")
+async def public_predictive_arbitrage():
+    """#210 — Predictive arbitrage pattern (extends #153)."""
+    from bd_platform.onchain_defi_sources_layer import analyze_predictive_arbitrage_210
+
+    return analyze_predictive_arbitrage_210()
+
+
+@app.get("/portfolio/cross-margin-risk")
+async def public_cross_margin_risk(risk_score: float = 8.0):
+    """#211 — Cross-margin risk alert (safeguard rejected)."""
+    from bd_platform.onchain_defi_sources_layer import cross_margin_risk_alert_211
+
+    return cross_margin_risk_alert_211(risk_score=risk_score)
+
+
+@app.get("/portfolio/hedge-analysis")
+async def public_hedge_analysis(btc_exposure_pct: float = 70.0):
+    """#212 — Hedge effectiveness analysis (re-hedging rejected)."""
+    from bd_platform.onchain_defi_sources_layer import hedge_effectiveness_analysis_212
+
+    return hedge_effectiveness_analysis_212(btc_exposure_pct=btc_exposure_pct)
+
+
+@app.get("/portfolio/capital-allocation")
+async def public_capital_allocation():
+    """#213 — Capital allocation insight (auto-balancing rejected)."""
+    from bd_platform.onchain_defi_sources_layer import capital_allocation_insight_213
+
+    return capital_allocation_insight_213()
+
+
 @app.post("/user/delete")
 async def user_delete_alias(body: dict = Body(default={})):
     """#58 — GDPR erasure alias (requires auth via privacy router for full flow)."""
