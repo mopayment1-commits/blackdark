@@ -47,5 +47,92 @@
       "confidence": "medium",
       "version": "1.0.0"
     }
+  },
+  "bridge_flows_930": {
+    "cache_ttl_seconds": 3600,
+    "fee_db": {
+      "rpc_per_query_usd": 0.003,
+      "indexing_per_query_usd": 0.002,
+      "compute_per_query_usd": 0.001
+    }
+  },
+  "bridges": {
+    "wormhole": {
+      "name": "Wormhole",
+      "canonical_id": "bridge_wormhole_v1",
+      "supported_chains": ["ethereum", "solana", "arbitrum"],
+      "audited": true,
+      "audit_date": "2026-01-15"
+    },
+    "stargate": {
+      "name": "Stargate",
+      "canonical_id": "bridge_stargate_v1",
+      "supported_chains": ["ethereum", "arbitrum", "optimism"],
+      "audited": true,
+      "audit_date": "2026-02-01"
+    }
+  },
+  "bridge_flows": [
+    {
+      "bridge_id": "wormhole",
+      "source_chain": "ethereum",
+      "dest_chain": "solana",
+      "date": "2026-08-27",
+      "inflow_usd": 12500000,
+      "outflow_usd": 8200000,
+      "tx_count": 342
+    },
+    {
+      "bridge_id": "stargate",
+      "source_chain": "ethereum",
+      "dest_chain": "arbitrum",
+      "date": "2026-08-27",
+      "inflow_usd": 9800000,
+      "outflow_usd": 7100000,
+      "tx_count": 218
+    }
+  ],
+  "cross_chain_trace_937": {
+    "fee_db": {
+      "trace_per_path_usd": 0.01,
+      "rpc_multi_chain_usd": 0.005
+    }
+  },
+  "cross_chain_paths": {
+    "0xabc123def456": {
+      "path_id": "path_001",
+      "entity_mapping_note": "Address on chain A may differ from chain B — heuristic matching explicit",
+      "hops": [
+        {
+          "chain": "ethereum",
+          "tx_hash": "0xabc123def456",
+          "bridge_id": null,
+          "amount_usd": 500000,
+          "confidence": "high",
+          "confidence_basis": "12 confirmations on ethereum",
+          "confirmation_depth": 12
+        },
+        {
+          "chain": "bridge",
+          "tx_hash": "0xbridge_event_001",
+          "bridge_id": "wormhole",
+          "bridge_event": "lock_mint",
+          "amount_usd": 500000,
+          "confidence": "medium",
+          "confidence_basis": "wormhole reliability score + 6 confirmations",
+          "confirmation_depth": 6
+        },
+        {
+          "chain": "solana",
+          "tx_hash": "sol_tx_001",
+          "bridge_id": "wormhole",
+          "amount_usd": 498500,
+          "confidence": "medium",
+          "confidence_basis": "bridge settlement + solana finality",
+          "entity_mapping": "heuristic_explicit",
+          "confirmation_depth": 32
+        }
+      ]
+    }
   }
 }

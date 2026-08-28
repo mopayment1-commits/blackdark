@@ -1,0 +1,62 @@
+{
+  "decision_intelligence_938": {
+    "rules_version": "1.0.0",
+    "reasoning_chain": ["what_changed", "why", "evidence", "risk", "confidence", "decision_relevance"],
+    "fee_db": {
+      "compute_per_analysis_usd": 0.02,
+      "multi_source_query_usd": 0.01
+    }
+  },
+  "evidence_sources": {
+    "market": {
+      "source": "market_radar",
+      "freshness": "2026-08-28T01:30:00+00:00",
+      "metrics": {
+        "btc_price_usd": 64800,
+        "btc_price_change_24h_pct": 2.1,
+        "eth_funding_rate": 0.0008
+      }
+    },
+    "onchain": {
+      "source": "onchain_extension",
+      "freshness": "2026-08-28T01:00:00+00:00",
+      "metrics": {
+        "exchange_netflow_btc": -12500,
+        "whale_accumulation_score": 0.72
+      }
+    },
+    "sentiment": {
+      "source": "sentiment_intelligence",
+      "freshness": "2026-08-28T01:15:00+00:00",
+      "metrics": {
+        "weighted_sentiment_score": 0.65,
+        "social_volume_change_pct": 18.5
+      }
+    },
+    "governance": {
+      "source": "governance_tracker",
+      "freshness": "2026-08-27T18:00:00+00:00",
+      "metrics": {
+        "active_proposals": 3,
+        "governance_participation_pct": 12.4
+      }
+    }
+  },
+  "contradictions": [
+    {
+      "id": "contradiction_001",
+      "domains": ["onchain", "sentiment"],
+      "description": "On-chain shows exchange outflow (accumulation) but sentiment is elevated bullish",
+      "severity": "medium",
+      "explanation": "Retail sentiment may be lagging institutional on-chain accumulation"
+    }
+  ],
+  "asset_context": {
+    "BTC": {
+      "what_changed": "BTC price up 2.1% in 24h with exchange net outflow of 12,500 BTC",
+      "why": "Institutional accumulation pattern with declining exchange reserves",
+      "risk_factors": ["Elevated funding rates", "Sentiment divergence from on-chain"],
+      "decision_relevance": "Risk Score rose — monitor position sizing, not action directive"
+    }
+  }
+}

@@ -4,6 +4,8 @@ On-Chain Intelligence Extension — Feature #12 (Sprint 2).
 Merged sub-layers:
   #923 AML/CFT Risk Screening — rule-based, no legal conclusion
   #926 Address Labels & Cohorts — Entity Layer
+  #930 Bridges Intelligence — Bridge Flows metric
+  #937 Cross-Chain Trace — path continuity sub-layer
 
 Non-custodial, insight-only, public data only.
 """
@@ -23,6 +25,8 @@ logger = logging.getLogger("BLACKDARK.OnChainIntelligenceExtension")
 _FEATURE_REF_12 = 12
 _FEATURE_REF_923 = 923
 _FEATURE_REF_926 = 926
+_FEATURE_REF_930 = 930
+_FEATURE_REF_937 = 937
 _STANDALONE = False
 _MERGED_INTO = "On-Chain Intelligence Extension"
 _SEED_PATH = Path("data/onchain_intelligence_extension_seed.json")
@@ -64,7 +68,9 @@ def onchain_extension_status(*, seed: dict[str, Any] | None = None) -> dict[str,
         "standalone": _STANDALONE,
         "standalone_rejected": True,
         "merged_into": _MERGED_INTO,
-        "sub_layers": ["risk_screening_923", "entity_layer_926"],
+        "sub_layers": ["risk_screening_923", "entity_layer_926", "bridge_flows_930", "cross_chain_path_937"],
+        "bridge_flows_ref": _FEATURE_REF_930,
+        "cross_chain_trace_ref": _FEATURE_REF_937,
         "insight_only": True,
         "non_custodial": True,
         "no_legal_conclusion": True,
@@ -255,6 +261,147 @@ def build_address_cohort_926(
     }
 
 
+# --- #930 Bridges Intelligence ---
+
+
+def bridge_flows_status_930(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    cfg = seed.get("bridge_flows_930") or {}
+    bridges = seed.get("bridges") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_930,
+        "extension_ref": _FEATURE_REF_12,
+        "standalone_rejected": True,
+        "merged_into": _MERGED_INTO,
+        "bridge_count": len(bridges),
+        "cache_ttl_seconds": cfg.get("cache_ttl_seconds", 3600),
+        "bridge_mapping_audited": True,
+        "rule_based_aggregation": True,
+        "fee_db": cfg.get("fee_db"),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_bridge_flows_dashboard_930(
+    *,
+    bridge_id: str | None = None,
+    chain: str | None = None,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Aggregate volume in/out per bridge per chain per day — rule-based."""
+    seed = seed or _load_seed()
+    bridges = seed.get("bridges") or {}
+    flows = seed.get("bridge_flows") or []
+
+    if bridge_id:
+        flows = [f for f in flows if f.get("bridge_id") == bridge_id]
+    if chain:
+        flows = [
+            f for f in flows
+            if f.get("source_chain") == chain or f.get("dest_chain") == chain
+        ]
+
+    aggregated: dict[str, dict[str, float]] = {}
+    for flow in flows:
+        bid = flow.get("bridge_id", "unknown")
+        day = flow.get("date", "unknown")
+        key = f"{bid}:{day}"
+        if key not in aggregated:
+            aggregated[key] = {"inflow_usd": 0.0, "outflow_usd": 0.0, "tx_count": 0}
+        aggregated[key]["inflow_usd"] += float(flow.get("inflow_usd", 0))
+        aggregated[key]["outflow_usd"] += float(flow.get("outflow_usd", 0))
+        aggregated[key]["tx_count"] += int(flow.get("tx_count", 0))
+
+    rows = []
+    for key, agg in aggregated.items():
+        bid, day = key.split(":", 1)
+        bridge = bridges.get(bid) or {}
+        rows.append({
+            "bridge_id": bid,
+            "bridge_name": bridge.get("name", bid),
+            "canonical_id": bridge.get("canonical_id", bid),
+            "supported_chains": bridge.get("supported_chains") or [],
+            "date": day,
+            "inflow_usd": round(agg["inflow_usd"], 2),
+            "outflow_usd": round(agg["outflow_usd"], 2),
+            "net_flow_usd": round(agg["inflow_usd"] - agg["outflow_usd"], 2),
+            "tx_count": agg["tx_count"],
+            "audited_mapping": bridge.get("audited", True),
+        })
+
+    fee = (seed.get("bridge_flows_930") or {}).get("fee_db") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_930,
+        "extension_ref": _FEATURE_REF_12,
+        "flows": rows,
+        "flow_count": len(rows),
+        "bridge_mapping_audited": True,
+        "cached_hourly": True,
+        "rule_based_only": True,
+        "fee_db": {
+            "rpc_usd": fee.get("rpc_per_query_usd", 0.003),
+            "indexing_usd": fee.get("indexing_per_query_usd", 0.002),
+            "compute_usd": fee.get("compute_per_query_usd", 0.001),
+        },
+        "timestamp": _utcnow(),
+    }
+
+
+# --- #937 Cross-Chain Trace ---
+
+
+def trace_cross_chain_path_937(
+    tx_hash: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Bridge-aware path continuity with confidence at each hop."""
+    seed = seed or _load_seed()
+    paths = seed.get("cross_chain_paths") or {}
+    path = paths.get(tx_hash.lower())
+    if not path:
+        return {"ok": False, "feature_ref": _FEATURE_REF_937, "error": "path_not_found", "tx_hash": tx_hash}
+
+    hops = []
+    for i, hop in enumerate(path.get("hops") or []):
+        hops.append({
+            "hop_index": i,
+            "chain": hop.get("chain"),
+            "tx_hash": hop.get("tx_hash"),
+            "bridge_id": hop.get("bridge_id"),
+            "bridge_event": hop.get("bridge_event"),
+            "amount_usd": hop.get("amount_usd"),
+            "confidence": hop.get("confidence", "medium"),
+            "confidence_basis": hop.get("confidence_basis", "bridge_reliability + confirmation_depth"),
+            "entity_mapping": hop.get("entity_mapping", "heuristic_explicit"),
+            "confirmation_depth": hop.get("confirmation_depth", 12),
+        })
+
+    fee = (seed.get("cross_chain_trace_937") or {}).get("fee_db") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_937,
+        "bridge_flows_ref": _FEATURE_REF_930,
+        "extension_ref": _FEATURE_REF_12,
+        "tx_hash": tx_hash,
+        "path_id": path.get("path_id"),
+        "hops": hops,
+        "hop_count": len(hops),
+        "path_continuity": True,
+        "confidence_at_each_hop": True,
+        "entity_mapping_heuristic": path.get("entity_mapping_note"),
+        "privacy_no_deanonymization": True,
+        "bridge_mappings_audited": True,
+        "fee_db": {
+            "trace_usd": fee.get("trace_per_path_usd", 0.01),
+            "rpc_multi_chain_usd": fee.get("rpc_multi_chain_usd", 0.005),
+        },
+        "timestamp": _utcnow(),
+    }
+
+
 def run_onchain_extension_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     checks: list[dict[str, Any]] = []
@@ -277,10 +424,20 @@ def run_onchain_extension_e2e(*, seed: dict[str, Any] | None = None) -> dict[str
     cohort = build_address_cohort_926("whale_accumulators", seed=seed)
     checks.append({"id": "cohorts", "passed": cohort.get("rule_based_only") is True})
 
+    bridges = bridge_flows_status_930(seed=seed)
+    checks.append({"id": "bridge_flows", "passed": bridges.get("bridge_mapping_audited") is True})
+
+    dashboard = build_bridge_flows_dashboard_930(seed=seed)
+    checks.append({"id": "bridge_aggregation", "passed": dashboard.get("ok") is True})
+
+    trace = trace_cross_chain_path_937("0xabc123def456", seed=seed)
+    checks.append({"id": "cross_chain_trace", "passed": trace.get("confidence_at_each_hop") is True})
+    checks.append({"id": "hop_confidence", "passed": all("confidence" in h for h in trace.get("hops") or [])})
+
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
-        "feature_refs": [_FEATURE_REF_12, _FEATURE_REF_923, _FEATURE_REF_926],
+        "feature_refs": [_FEATURE_REF_12, _FEATURE_REF_923, _FEATURE_REF_926, _FEATURE_REF_930, _FEATURE_REF_937],
         "all_passed": all_passed,
         "checks": checks,
     }

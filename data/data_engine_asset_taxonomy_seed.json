@@ -1,0 +1,167 @@
+{
+  "asset_taxonomy_927": {
+    "current_version": "1.0.0",
+    "hierarchy_levels": ["sector", "sub_sector", "category", "asset"],
+    "fee_db": {
+      "storage_per_month_usd": 0.05,
+      "indexing_per_assignment_usd": 0.001
+    }
+  },
+  "taxonomy_versions": {
+    "1.0.0": {
+      "effective_from": "2026-01-01T00:00:00+00:00",
+      "sectors": {
+        "layer1": {
+          "label": "Layer 1",
+          "sub_sectors": {
+            "smart_contract": {
+              "label": "Smart Contract Platforms",
+              "categories": {
+                "general_purpose": {"label": "General Purpose", "assets": ["ETH", "SOL", "AVAX"]},
+                "modular": {"label": "Modular", "assets": ["ATOM", "TIA"]}
+              }
+            },
+            "payments": {
+              "label": "Payments",
+              "categories": {
+                "store_of_value": {"label": "Store of Value", "assets": ["BTC"]}
+              }
+            }
+          }
+        },
+        "defi": {
+          "label": "DeFi",
+          "sub_sectors": {
+            "dex": {
+              "label": "DEX",
+              "categories": {
+                "amm": {"label": "AMM", "assets": ["UNI", "SUSHI"]}
+              }
+            },
+            "lending": {
+              "label": "Lending",
+              "categories": {
+                "money_market": {"label": "Money Market", "assets": ["AAVE", "COMP"]}
+              }
+            }
+          }
+        }
+      }
+    },
+    "1.1.0": {
+      "effective_from": "2026-06-01T00:00:00+00:00",
+      "sectors": {
+        "layer1": {
+          "label": "Layer 1",
+          "sub_sectors": {
+            "smart_contract": {
+              "label": "Smart Contract Platforms",
+              "categories": {
+                "general_purpose": {"label": "General Purpose", "assets": ["ETH", "SOL", "AVAX", "SUI"]},
+                "modular": {"label": "Modular", "assets": ["ATOM", "TIA"]}
+              }
+            },
+            "payments": {
+              "label": "Payments",
+              "categories": {
+                "store_of_value": {"label": "Store of Value", "assets": ["BTC"]}
+              }
+            }
+          }
+        },
+        "defi": {
+          "label": "DeFi",
+          "sub_sectors": {
+            "dex": {
+              "label": "DEX",
+              "categories": {
+                "amm": {"label": "AMM", "assets": ["UNI", "SUSHI"]}
+              }
+            },
+            "lending": {
+              "label": "Lending",
+              "categories": {
+                "money_market": {"label": "Money Market", "assets": ["AAVE", "COMP"]}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "asset_assignments": {
+    "BTC": {
+      "current": {
+        "sector": "layer1",
+        "sub_sector": "payments",
+        "category": "store_of_value",
+        "source": "deterministic_mapping_rule",
+        "confidence": "high",
+        "version": "1.1.0",
+        "effective_date": "2026-01-01T00:00:00+00:00"
+      },
+      "history": []
+    },
+    "ETH": {
+      "current": {
+        "sector": "layer1",
+        "sub_sector": "smart_contract",
+        "category": "general_purpose",
+        "source": "deterministic_mapping_rule",
+        "confidence": "high",
+        "version": "1.1.0",
+        "effective_date": "2026-01-01T00:00:00+00:00"
+      },
+      "history": [
+        {
+          "sector": "layer1",
+          "sub_sector": "smart_contract",
+          "category": "general_purpose",
+          "version": "1.0.0",
+          "effective_date": "2026-01-01T00:00:00+00:00",
+          "superseded_date": "2026-06-01T00:00:00+00:00"
+        }
+      ]
+    },
+    "SOL": {
+      "current": {
+        "sector": "layer1",
+        "sub_sector": "smart_contract",
+        "category": "general_purpose",
+        "source": "deterministic_mapping_rule",
+        "confidence": "high",
+        "version": "1.1.0",
+        "effective_date": "2026-06-01T00:00:00+00:00"
+      },
+      "history": [
+        {
+          "sector": "defi",
+          "sub_sector": "dex",
+          "category": "amm",
+          "version": "1.0.0",
+          "effective_date": "2026-01-01T00:00:00+00:00",
+          "superseded_date": "2026-06-01T00:00:00+00:00",
+          "remap_reason": "sector_reclassification_v1.1.0"
+        }
+      ]
+    },
+    "UNI": {
+      "current": {
+        "sector": "defi",
+        "sub_sector": "dex",
+        "category": "amm",
+        "source": "deterministic_mapping_rule",
+        "confidence": "high",
+        "version": "1.0.0",
+        "effective_date": "2026-01-01T00:00:00+00:00"
+      },
+      "history": []
+    }
+  },
+  "mapping_rules": {
+    "coingecko_category_map": {
+      "smart-contract-platform": {"sector": "layer1", "sub_sector": "smart_contract", "category": "general_purpose"},
+      "decentralized-exchange": {"sector": "defi", "sub_sector": "dex", "category": "amm"}
+    }
+  }
+}
