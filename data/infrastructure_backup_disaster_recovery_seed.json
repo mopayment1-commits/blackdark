@@ -1,0 +1,133 @@
+{
+  "feature_ref": 828,
+  "control_ref": "REL-003",
+  "merged_into": "Sprint-0 Infrastructure",
+  "standalone_rejected": true,
+  "no_user_surface": true,
+  "backup_dr_828": {
+    "sprint": 0,
+    "policy": {
+      "full_backup_frequency": "daily",
+      "incremental_frequency_hours": 6,
+      "off_site_storage": {
+        "provider": "s3",
+        "primary_region": "eu-west-1",
+        "replica_region": "us-east-1",
+        "cross_region": true,
+        "same_datacenter": false,
+        "storage_class": "STANDARD_IA",
+        "bucket": "blackdark-backup-dr"
+      },
+      "encryption_at_rest": "AES-256",
+      "encryption_in_transit": "TLS 1.3",
+      "dr_test_interval_days": 30,
+      "real_restore_required": true,
+      "rpo_hours": 6,
+      "rto_hours": 2,
+      "retention": {
+        "daily_days": 30,
+        "weekly_weeks": 12,
+        "monthly_months": 12
+      }
+    },
+    "scope": [
+      "database",
+      "historical_archive",
+      "configuration",
+      "secrets_backup"
+    ],
+    "tenant_isolation": {
+      "per_tenant_key": true,
+      "no_cross_tenant_recovery": true,
+      "secrets_encrypted_separately": true
+    },
+    "fee_db": {
+      "storage_per_gb_month_usd": 0.023,
+      "cross_region_bandwidth_per_gb_usd": 0.02,
+      "dr_test_compute_per_run_usd": 2.5,
+      "tier": "ops",
+      "ops_budget": true
+    }
+  },
+  "backup_schedule": {
+    "full_backup_cron": "0 2 * * *",
+    "incremental_cron": "0 */6 * * *",
+    "off_site_replication": {
+      "enabled": true,
+      "lag_minutes_max": 30,
+      "verified": true
+    },
+    "scripts": {
+      "backup": "scripts/backup_postgres.py",
+      "restore": "scripts/restore_postgres.py"
+    }
+  },
+  "recent_backups": [
+    {
+      "backup_id": "bkp_20260828_full",
+      "backup_type": "full",
+      "timestamp": "2026-08-28T02:00:00+00:00",
+      "size_bytes": 2147483648,
+      "checksum_sha256": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+      "location": "s3://blackdark-backup-dr/eu-west-1/full/2026-08-28/",
+      "off_site_location": "s3://blackdark-backup-dr/us-east-1/full/2026-08-28/",
+      "encrypted_at_rest": true,
+      "test_result": "passed"
+    },
+    {
+      "backup_id": "bkp_20260828_incr06",
+      "backup_type": "incremental",
+      "timestamp": "2026-08-28T06:00:00+00:00",
+      "size_bytes": 134217728,
+      "checksum_sha256": "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456a1",
+      "location": "s3://blackdark-backup-dr/eu-west-1/incremental/2026-08-28T0600/",
+      "off_site_location": "s3://blackdark-backup-dr/us-east-1/incremental/2026-08-28T0600/",
+      "encrypted_at_rest": true,
+      "test_result": "passed"
+    }
+  ],
+  "dr_restore_tests": [
+    {
+      "test_id": "dr_20260728",
+      "backup_id": "bkp_20260728_full",
+      "completed_at": "2026-07-28T10:00:00+00:00",
+      "real_restore": true,
+      "simulation_only": false,
+      "rpo_minutes": 330,
+      "rto_minutes": 95,
+      "rpo_target_minutes": 360,
+      "rto_target_minutes": 120,
+      "rpo_met": true,
+      "rto_met": true,
+      "integrity_passed": true,
+      "lineage_integrity_passed": true,
+      "result": "success"
+    }
+  ],
+  "backup_audit_log": [
+    {
+      "operation_id": "bkp_20260828_full",
+      "backup_type": "full",
+      "timestamp": "2026-08-28T02:00:00+00:00",
+      "size_bytes": 2147483648,
+      "checksum_sha256": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+      "location": "s3://blackdark-backup-dr/eu-west-1/full/2026-08-28/",
+      "test_result": "passed",
+      "audit_logged": true
+    }
+  ],
+  "post_restore_lineage_check": {
+    "lineage_integrity_passed": true,
+    "provenance_ref": 945,
+    "checks": [
+      {"id": "lineage_graph_complete", "passed": true},
+      {"id": "raw_to_user_traceable", "passed": true}
+    ]
+  },
+  "alerting": {
+    "immediate_ops_alert": true,
+    "no_silent_failure": true,
+    "channels": ["pagerduty", "email"],
+    "rule_based_trigger": true
+  }
+}

@@ -477,6 +477,17 @@ def staging_mirror_status() -> dict[str, Any]:
 
 
 def record_backup_drill(*, rpo_minutes: int, rto_minutes: int, result: str) -> dict[str, Any]:
+    try:
+        from bd_platform.infrastructure_backup_disaster_recovery import record_dr_restore_test_828
+
+        out = record_dr_restore_test_828(
+            rpo_minutes=rpo_minutes,
+            rto_minutes=rto_minutes,
+            result=result,
+        )
+        return out.get("dr_test") or out
+    except ImportError:
+        pass
     row = {
         "drill_id": f"bk_{uuid4().hex[:8]}",
         "rpo_minutes": int(rpo_minutes),
@@ -489,6 +500,12 @@ def record_backup_drill(*, rpo_minutes: int, rto_minutes: int, result: str) -> d
 
 
 def backup_status() -> dict[str, Any]:
+    try:
+        from bd_platform.infrastructure_backup_disaster_recovery import institutional_backup_status_828
+
+        return institutional_backup_status_828()
+    except ImportError:
+        pass
     _ensure()
     rows = []
     if _BACKUP.exists():

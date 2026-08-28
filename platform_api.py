@@ -885,3 +885,65 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
     ]
     trained = train_ppo_policy(samples, epochs=30)
     return {"status": policy_status(), "trained": trained}
+
+
+@router.get("/internal/infrastructure/backup-dr/status")
+async def backup_dr_status_route(_admin: dict = Depends(require_admin)):
+    """#828 Backup & Disaster Recovery — REL-003 Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_backup_disaster_recovery import backup_dr_status_828
+
+    return backup_dr_status_828()
+
+
+@router.get("/internal/infrastructure/backup-dr/panel")
+async def backup_dr_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import build_backup_dr_panel_828
+
+    return build_backup_dr_panel_828()
+
+
+@router.post("/internal/infrastructure/backup-dr/record")
+async def backup_dr_record_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_backup_disaster_recovery import record_backup_operation_828
+
+    return record_backup_operation_828(
+        backup_type=data.get("backup_type", "full"),
+        size_bytes=int(data.get("size_bytes", 0)),
+        checksum=data.get("checksum", ""),
+        location=data.get("location", ""),
+        off_site_location=data.get("off_site_location", ""),
+        tenant_id=data.get("tenant_id", "platform"),
+        test_result=data.get("test_result", "passed"),
+    )
+
+
+@router.post("/internal/infrastructure/backup-dr/drill")
+async def backup_dr_drill_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_backup_disaster_recovery import record_dr_restore_test_828
+
+    return record_dr_restore_test_828(
+        backup_id=data.get("backup_id", ""),
+        rpo_minutes=data.get("rpo_minutes"),
+        rto_minutes=data.get("rto_minutes"),
+        result=data.get("result", "success"),
+    )
+
+
+@router.get("/internal/infrastructure/backup-dr/audit-trail")
+async def backup_dr_audit_trail_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import get_backup_audit_trail_828
+
+    return get_backup_audit_trail_828()
+
+
+@router.get("/internal/infrastructure/backup-dr/e2e")
+async def backup_dr_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import run_backup_disaster_recovery_e2e_828
+
+    return run_backup_disaster_recovery_e2e_828()
