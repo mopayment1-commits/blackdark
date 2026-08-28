@@ -1,0 +1,48 @@
+{
+  "feature_ref": "retention_deletion_policy",
+  "merged_into": ["#949 Data Retention Governance", "#1023 GDPR Compliance"],
+  "standalone_rejected": true,
+  "retention_deletion_policy": {
+    "policy_version": "1.0.0",
+    "policy": {
+      "enabled": true,
+      "soft_delete_grace_days": 30,
+      "erasure_execution_days": 30,
+      "automated_daily_job": true,
+      "legal_hold_admin_only": true,
+      "blocks_production_without_deletion": true,
+      "non_custodial": true,
+      "on_chain_data_immutable": true,
+      "wallet_keys_not_held": true,
+      "sprint": 0
+    },
+    "retention_tiers": {
+      "raw_data_days": 90,
+      "aggregated_days": 730,
+      "archive_days": 1825,
+      "audit_logs_days": 730,
+      "immutable_records_days": 1825,
+      "session_data_days": 90,
+      "activity_logs_days": 730,
+      "temporary_cache_days": 7,
+      "billing_metadata_days": 2555
+    },
+    "scopes": [
+      "personal_data",
+      "session_data",
+      "activity_logs",
+      "temporary_caches",
+      "billing_metadata",
+      "audit_trail",
+      "immutable_recommendation_records"
+    ],
+    "integrations": {
+      "data_retention_governance_ref": 949,
+      "gdpr_ref": 1023,
+      "activity_audit_ref": 1038,
+      "immutable_audit_ref": 1029,
+      "stripe_ref": 908,
+      "backup_dr_ref": 1016
+    }
+  }
+}
