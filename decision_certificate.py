@@ -27,13 +27,28 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
-def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
+def build_decision_certificate(
+    payload: dict[str, Any],
+    *,
+    org_id: str | None = None,
+    actor_email: str | None = None,
+) -> dict[str, Any]:
     """Build a public-safe Decision Certificate from an Oracle response.
 
     Proof Pass (free) cards carry a removable "Free Proof" watermark.
     Decision Pro / Decision Desk strip it — that is a primary Free→Pro lever.
+    Institutional tier (#952) requires Admin RBAC when org context is supplied.
     """
     tier = str(payload.get("tier") or "free").strip().lower()
+    if tier == "institutional" and org_id and actor_email:
+        try:
+            from institutional_rbac_hardening import assert_institutional_certificate_allowed
+
+            assert_institutional_certificate_allowed(org_id, actor_email)
+        except ImportError:
+            pass
+        except PermissionError as exc:
+            raise PermissionError("institutional_certificate_requires_admin") from exc
     is_free = tier in ("", "free")
     watermark = "Free Proof" if is_free else None
 

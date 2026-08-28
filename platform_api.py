@@ -548,6 +548,34 @@ async def intelligence_ledger_slippage(
     )
 
 
+@router.get("/rbac/status")
+async def platform_rbac_status():
+    from institutional_rbac_hardening import institutional_rbac_status
+
+    return institutional_rbac_status()
+
+
+@router.get("/rbac/gate")
+async def platform_rbac_gate():
+    from institutional_rbac_hardening import check_rbac_production_gate
+
+    return check_rbac_production_gate()
+
+
+@router.get("/rbac/audit")
+async def platform_rbac_audit(_admin: dict = Depends(require_admin)):
+    from institutional_rbac_hardening import get_authz_audit_trail
+
+    return get_authz_audit_trail()
+
+
+@router.get("/rbac/e2e")
+async def platform_rbac_e2e(_admin: dict = Depends(require_admin)):
+    from institutional_rbac_hardening import run_institutional_rbac_e2e
+
+    return run_institutional_rbac_e2e()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),

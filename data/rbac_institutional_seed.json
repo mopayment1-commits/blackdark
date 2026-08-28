@@ -1,0 +1,104 @@
+{
+  "feature_ref": 1022,
+  "merged_into": "#1022 RBAC Layer / Sprint 1 Infrastructure",
+  "standalone_rejected": true,
+  "institutional_rbac_1022": {
+    "policy": {
+      "backend_enforced": true,
+      "client_side_forbidden": true,
+      "tenant_isolation": true,
+      "least_privilege": true,
+      "separation_of_duties": true,
+      "audit_retention_days": 730,
+      "audit_append_only": true,
+      "sprint_core": 1,
+      "sprint_teams": 2,
+      "blocks_production_sprint1": true,
+      "methodology_version": "1.0.0"
+    },
+    "institutional_roles": {
+      "viewer": {
+        "label": "Viewer",
+        "description": "Read-only access to org data",
+        "permissions": ["decisions.view", "audit.view", "data.read"]
+      },
+      "analyst": {
+        "label": "Analyst",
+        "description": "Export + queries",
+        "permissions": [
+          "decisions.view",
+          "decisions.execute",
+          "audit.view",
+          "data.read",
+          "data.export",
+          "sql.workspace.query",
+          "compliance.export"
+        ]
+      },
+      "admin": {
+        "label": "Admin",
+        "description": "Billing + users + API keys",
+        "permissions": [
+          "decisions.view",
+          "decisions.execute",
+          "audit.view",
+          "data.read",
+          "data.export",
+          "sql.workspace.query",
+          "compliance.export",
+          "org.manage",
+          "org.members",
+          "org.members.manage",
+          "billing.manage",
+          "api.keys.manage",
+          "certificate.institutional.generate"
+        ]
+      },
+      "super_admin": {
+        "label": "Super Admin",
+        "description": "Platform operations",
+        "permissions": [
+          "decisions.view",
+          "decisions.execute",
+          "audit.view",
+          "data.read",
+          "data.export",
+          "sql.workspace.query",
+          "compliance.export",
+          "org.manage",
+          "org.members",
+          "org.members.manage",
+          "billing.manage",
+          "api.keys.manage",
+          "certificate.institutional.generate",
+          "org.sso",
+          "org.mfa_policy",
+          "platform.ops"
+        ]
+      }
+    },
+    "legacy_role_aliases": {
+      "compliance": "analyst",
+      "pm": "analyst",
+      "admin": "admin",
+      "analyst": "analyst",
+      "viewer": "viewer",
+      "super_admin": "super_admin"
+    },
+    "integrations": {
+      "session_ref": 1019,
+      "stripe_ref": 908,
+      "data_export_ref": 924,
+      "sql_workspace_ref": 978,
+      "decision_certificate_ref": 952,
+      "tos_ref": 1018
+    },
+    "team_management": {
+      "admin_can_create": true,
+      "admin_can_update": true,
+      "admin_can_delete": true,
+      "self_service": true,
+      "backend_enforced": true
+    }
+  }
+}

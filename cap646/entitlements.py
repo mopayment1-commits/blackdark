@@ -30,6 +30,9 @@ _ORG_PERMISSIONS: dict[int, str] = {
     103: "decisions.view",
     638: "compliance.view",
     641: "compliance.export",
+    924: "data.export",
+    978: "sql.workspace.query",
+    952: "certificate.institutional.generate",
 }
 
 

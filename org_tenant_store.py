@@ -313,7 +313,7 @@ async def list_members_pg(org_id: str) -> list[dict[str, Any]]:
 
 async def set_member_role_pg(org_id: str, email: str, role: str, *, actor_email: str) -> dict[str, Any]:
     actor = await member_of_pg(org_id, actor_email)
-    if not actor or actor.get("role") != "admin":
+    if not actor or actor.get("role") not in {"admin", "super_admin"}:
         raise PermissionError("admin_required")
     from database import get_connection
 
@@ -342,9 +342,40 @@ async def set_member_role_pg(org_id: str, email: str, role: str, *, actor_email:
     return updated
 
 
+async def remove_member_pg(org_id: str, email: str, *, actor_email: str) -> dict[str, Any]:
+    actor = await member_of_pg(org_id, actor_email)
+    if not actor or actor.get("role") not in {"admin", "super_admin"}:
+        raise PermissionError("admin_required")
+    from database import get_connection
+
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                """
+                SELECT * FROM org_memberships
+                WHERE org_id = ? AND email = ? AND status = 'active'
+                """,
+                (org_id, email.strip().lower()),
+            )
+        ).fetchone()
+        if not row:
+            raise ValueError("member_not_found")
+        await db.execute(
+            """
+            UPDATE org_memberships
+            SET status = 'removed', role_changed_at = ?, role_changed_by = ?
+            WHERE membership_id = ?
+            """,
+            (_utcnow(), actor_email.strip().lower(), row["membership_id"]),
+        )
+    updated = dict(row)
+    updated["status"] = "removed"
+    return updated
+
+
 async def set_org_mfa_required_pg(org_id: str, required: bool, *, actor_email: str) -> dict[str, Any]:
     actor = await member_of_pg(org_id, actor_email)
-    if not actor or actor.get("role") != "admin":
+    if not actor or actor.get("role") not in {"admin", "super_admin"}:
         raise PermissionError("admin_required")
     from database import get_connection
 
