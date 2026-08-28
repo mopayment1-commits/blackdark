@@ -255,6 +255,20 @@ async def get_reconciled_onchain(
     return reconcile_onchain(chain=chain)
 
 
+@router.get("/api/v1/data/reconciliation/failover/status")
+async def get_failover_status(_: None = Depends(_ensure_ready)):
+    from blackdark.data.multi_source_reconciliation import get_failover_status
+
+    return get_failover_status()
+
+
+@router.get("/api/v1/data/reconciliation/failover/events")
+async def get_failover_events(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.multi_source_reconciliation import get_failover_audit_trail
+
+    return get_failover_audit_trail()
+
+
 @router.get("/api/v1/data/reconciliation/audit-trail")
 async def get_reconciliation_audit(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
     from blackdark.data.multi_source_reconciliation import get_reconciliation_audit_trail

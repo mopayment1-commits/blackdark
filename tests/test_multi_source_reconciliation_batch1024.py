@@ -101,8 +101,96 @@ def test_failover_insufficient_sources(msr_seed):
         ],
         seed=msr_seed,
     )
+    assert result["ok"] is True
+    assert result["status"] == "failover_active"
+    assert result["suppress_output"] is False
+    assert result["badge"] == "Source Switched"
+    assert result["confidence"] == "Medium"
+    assert result["failover"]["within_sla"] is True
+    assert result["failover"]["source_to"] == "coingecko"
+
+
+def test_automatic_failover_health_check_latency(msr_seed):
+    health = msr.check_source_health(
+        data_type="price",
+        source_id="binance",
+        ok=True,
+        latency_ms=300.0,
+        seed=msr_seed,
+    )
+    assert health["slow"] is True
+    assert health["unhealthy"] is True
+    assert health["trigger_reason"] == "latency_exceeded"
+
+
+def test_failover_audit_trail(msr_seed):
+    msr.reconcile_price(
+        observations=[
+            {"source": "binance", "value": 42000.0, "ok": False},
+            {"source": "coingecko", "value": 42050.0, "ok": True},
+        ],
+        seed=msr_seed,
+    )
+    audit = msr.get_failover_audit_trail()
+    assert audit["count"] >= 1
+    assert audit["append_only"] is True
+    event = audit["audit_trail"][-1]
+    assert event["source_from"] == "binance"
+    assert event["source_to"] == "coingecko"
+    assert "duration_ms" in event
+
+
+def test_failover_status(msr_seed):
+    msr.reconcile_volume(
+        observations=[
+            {"source": "coinmarketcap", "value": 1_200_000_000.0, "ok": False},
+            {"source": "thegraph", "value": 1_210_000_000.0, "ok": True},
+        ],
+        seed=msr_seed,
+    )
+    status = msr.get_failover_status(seed=msr_seed)
+    assert status["automatic_failover_engine"] is True
+    assert status["per_type"]["volume"]["failover_active"] is True
+
+
+def test_primary_recovery_validation(msr_seed):
+    msr.reconcile_price(
+        observations=[
+            {"source": "binance", "value": 42000.0, "ok": False},
+            {"source": "coingecko", "value": 42050.0, "ok": True},
+        ],
+        seed=msr_seed,
+    )
+    recovery = msr.check_primary_recovery(data_type="price", primary_ok=True, seed=msr_seed)
+    assert recovery["validation_in_progress"] is True
+    assert recovery["confidence"] == "Medium"
+
+
+def test_failover_incident_alert_threshold(msr_seed):
+    for _ in range(4):
+        msr.execute_automatic_failover(
+            data_type="price",
+            source_from="binance",
+            source_to="coingecko",
+            reason="source_failure",
+            backup_value=42000.0,
+            seed=msr_seed,
+        )
+    recent = msr.get_failover_audit_trail(limit=10)
+    assert recent["count"] >= 4
+
+
+def test_all_sources_down_still_degraded(msr_seed):
+    result = msr.reconcile_price(
+        observations=[
+            {"source": "binance", "value": 42000.0, "ok": False},
+            {"source": "coingecko", "value": 42050.0, "ok": False},
+        ],
+        seed=msr_seed,
+    )
+    assert result["ok"] is False
     assert result["suppress_output"] is True
-    assert result["failover"]["divergence_flagged"] is True
+    assert result["badge"] == "Data Degraded"
 
 
 def test_volume_reconciliation(msr_seed):

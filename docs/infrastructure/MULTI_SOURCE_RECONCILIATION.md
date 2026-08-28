@@ -24,13 +24,26 @@ Merged into **Data Engine** — not a standalone module. Cross-validates Price, 
 |-----------|--------|
 | variance ≤ threshold | Average values, confidence High/Medium |
 | variance > threshold | Suppress output, alert ops, **Data Degraded** badge (#945 fail-closed) |
-| source failure | Failover to alternate source + divergence flag |
+| source failure | Automatic Failover Engine → backup source, **Source Switched** badge, confidence Medium |
 
-## Provenance tag (visible in API)
+## Automatic Failover Engine (inside #1024)
 
-```
-[Source A: value X | Source B: value Y | Variance: Z% | Confidence: High/Medium/Low]
-```
+No standalone module — detection, switch, logging, and recovery are part of the Multi-Source Layer.
+
+| Dimension | Rule |
+|-----------|------|
+| **Detection** | Health check every 30s (price/volume), every block (on-chain); latency >2× baseline = trigger |
+| **Switch** | Automatic — backup from source registry, no manual intervention |
+| **Speed** | Failover time ≤5 seconds (measured) |
+| **Logging** | Every event → #945 Provenance (source_from, source_to, reason, duration, timestamp) + #1017 auto-alert if >3 failovers/hour |
+| **User impact** | No service interruption — backup served with confidence Medium + badge **Source Switched** |
+| **Recovery** | Primary restored → automatic reversion after 5-minute validation before confidence returns to High |
+
+### Integrations
+
+- **#959 Reference Pricing**: price failover feeds reference price calculation (no stale price)
+- **#992 Real Volume**: volume failover feeds real volume (venue quality re-evaluated)
+- **#12 On-Chain Extension**: RPC node failover transparent with consensus across remaining nodes
 
 ## API
 
@@ -39,10 +52,24 @@ GET  /api/v1/data/reconciliation/status
 GET  /api/v1/data/reconciliation/price
 GET  /api/v1/data/reconciliation/volume
 GET  /api/v1/data/reconciliation/onchain
+GET  /api/v1/data/reconciliation/failover/status
+GET  /api/v1/data/reconciliation/failover/events
 GET  /api/v1/data/reconciliation/audit-trail
 GET  /api/v1/data/reconciliation/sprint1-gate
 GET  /api/v1/data/reconciliation/e2e
 ```
+
+```
+[Source A: value X | Source B: value Y | Variance: Z% | Confidence: High/Medium/Low]
+```
+
+Failover provenance tag:
+
+```
+[Failover: primary → backup | Value: X | Reason: source_failure | Confidence: Medium]
+```
+
+## API (reconciliation)
 
 ## Caching
 

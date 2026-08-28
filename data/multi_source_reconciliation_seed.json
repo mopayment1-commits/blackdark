@@ -20,7 +20,53 @@
       "ingest_per_source_usd": 0.0001,
       "validation_compute_usd": 0.00005,
       "failover_overhead_usd": 0.00002,
-      "logged_per_query": true
+      "health_check_per_source_usd": 0.00001,
+      "logged_per_query": true,
+      "logged_per_source_per_hour": true
+    },
+    "automatic_failover": {
+      "enabled": true,
+      "engine": "Automatic Failover Engine",
+      "merged_into": "multi_source_reconciliation_1024",
+      "standalone_rejected": true,
+      "health_check_interval_seconds": {
+        "price": 30,
+        "volume": 30,
+        "onchain": "per_block"
+      },
+      "latency_trigger_multiplier": 2.0,
+      "max_failover_time_seconds": 5,
+      "recovery_validation_minutes": 5,
+      "incident_alert_threshold_per_hour": 3,
+      "baselines_ms": {
+        "binance": 120,
+        "coingecko": 150,
+        "coinmarketcap": 180,
+        "thegraph": 200,
+        "alchemy": 100,
+        "quicknode": 110
+      },
+      "switch": {
+        "automatic": true,
+        "manual_intervention_required": false,
+        "backup_from_source_registry": true
+      },
+      "user_impact": {
+        "no_service_interruption": true,
+        "failover_confidence": "Medium",
+        "badge": "Source Switched"
+      },
+      "logging": {
+        "provenance_ref": 945,
+        "incident_response_ref": 1017,
+        "append_only": true,
+        "fields": ["source_from", "source_to", "reason", "duration", "timestamp"]
+      },
+      "integrations": {
+        "reference_pricing_959": "price failover feeds reference price — no stale price",
+        "real_volume_992": "volume failover feeds real volume — venue quality re-evaluated",
+        "onchain_extension_12": "RPC node failover transparent — consensus across remaining nodes"
+      }
     }
   },
   "sources": {
