@@ -375,7 +375,12 @@ def build_exchange_health_with_counterparty_92(
             "reason": "counterparty_threshold_exceeded",
             "rule_based": True,
         }
-    return base
+    try:
+        from bd_platform.advanced_ta_risk_layer import attach_risk_distribution_118
+
+        return attach_risk_distribution_118(base, seed=seed)
+    except ImportError:
+        return base
 
 
 # ─── #93 Confidence Calibration (extends #66/#76) ─────────────────────────────────

@@ -697,7 +697,7 @@ def update_journal_actual_76(*, entry_id: str, actual_price: float) -> dict[str,
 
 def build_journal_tab_76(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
-    return {
+    result = {
         "ok": True,
         "feature_ref": 76,
         "tab": "journal",
@@ -709,6 +709,12 @@ def build_journal_tab_76(*, seed: dict[str, Any] | None = None) -> dict[str, Any
         "encrypted": True,
         "disclaimer": "Personal learning journal — not verified investment performance.",
     }
+    try:
+        from bd_platform.advanced_ta_risk_layer import attach_journal_attribution_121
+
+        return attach_journal_attribution_121(result, seed=seed)
+    except ImportError:
+        return result
 
 
 # ─── Portfolio attach helper ────────────────────────────────────────────────────

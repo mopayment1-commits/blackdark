@@ -1591,3 +1591,94 @@ async def market_analysis_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.market_analysis_layer import run_market_analysis_e2e_105_116
 
     return run_market_analysis_e2e_105_116()
+
+
+# ─── Advanced TA & Risk (#117–#128) ───────────────────────────────────────────────
+
+
+@router.get("/radar/technical/liquidity-vacuum")
+async def liquidity_vacuum_route(
+    best_bid: float = Query(64980),
+    lowest_ask: float = Query(65120),
+    mid_price: float = Query(65050),
+):
+    from bd_platform.advanced_ta_risk_layer import compute_liquidity_vacuum_117
+
+    return compute_liquidity_vacuum_117(best_bid=best_bid, lowest_ask=lowest_ask, mid_price=mid_price)
+
+
+@router.get("/radar/technical/structural-break")
+async def structural_break_route():
+    from bd_platform.advanced_ta_risk_layer import compute_structural_break_122
+
+    return compute_structural_break_122()
+
+
+@router.get("/radar/technical/volume-profile")
+async def volume_profile_route(period: str = Query("session")):
+    from bd_platform.advanced_ta_risk_layer import compute_volume_profile_poc_123
+
+    return compute_volume_profile_poc_123(period=period)
+
+
+@router.get("/radar/technical/fvg-detector")
+async def fvg_detector_route():
+    from bd_platform.advanced_ta_risk_layer import detect_fair_value_gaps_124
+
+    return detect_fair_value_gaps_124()
+
+
+@router.get("/radar/technical/orderbook-inefficiency")
+async def orderbook_inefficiency_route():
+    from bd_platform.advanced_ta_risk_layer import orderbook_inefficiency_insight_127
+
+    return orderbook_inefficiency_insight_127()
+
+
+@router.get("/radar/on-chain/gas-alert")
+async def gas_spike_alert_route(current_gwei: float = Query(150), avg_7d_gwei: float = Query(50)):
+    from bd_platform.advanced_ta_risk_layer import gas_spike_alert_119
+
+    return gas_spike_alert_119(current_gwei=current_gwei, avg_7d_gwei=avg_7d_gwei)
+
+
+@router.get("/oracle/on-chain/dex-risk")
+async def dex_front_running_risk_route():
+    from bd_platform.advanced_ta_risk_layer import dex_front_running_risk_126
+
+    return dex_front_running_risk_126()
+
+
+@router.get("/portfolio/journal/attribution")
+async def pnl_attribution_route(actual_pnl_usd: float = Query(5000)):
+    from bd_platform.advanced_ta_risk_layer import compute_pnl_attribution_121
+
+    return compute_pnl_attribution_121(actual_pnl_usd=actual_pnl_usd)
+
+
+@router.get("/portfolio/leverage-risk")
+async def leverage_risk_route(leverage: float = Query(10.0), volatility_30d_pct: float = Query(5.0)):
+    from bd_platform.advanced_ta_risk_layer import compute_leverage_risk_analysis_120
+
+    return compute_leverage_risk_analysis_120(leverage=leverage, volatility_30d_pct=volatility_30d_pct)
+
+
+@router.get("/institution/custody-status")
+async def custody_tracking_status_route():
+    from bd_platform.advanced_ta_risk_layer import custody_tracking_status_125
+
+    return custody_tracking_status_125()
+
+
+@router.get("/intelligence/jargon")
+async def jargon_explanation_route(term: str = Query("Impermanent Loss"), locale: str = Query("en")):
+    from bd_platform.advanced_ta_risk_layer import jargon_explanation_128
+
+    return jargon_explanation_128(term, locale=locale)
+
+
+@router.get("/advanced-ta-risk/e2e")
+async def advanced_ta_risk_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.advanced_ta_risk_layer import run_advanced_ta_risk_e2e_117_128
+
+    return run_advanced_ta_risk_e2e_117_128()

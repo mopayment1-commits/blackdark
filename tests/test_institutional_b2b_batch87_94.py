@@ -59,7 +59,7 @@ def test_91_vwap(seed):
 def test_92_counterparty(seed):
     ex = inst.build_exchange_health_with_counterparty_92(seed=seed)
     assert "counterparty_risk" in ex
-    assert ex["merged_features"] == [80, 92]
+    assert 80 in ex["merged_features"] and 92 in ex["merged_features"]
 
 
 def test_93_calibration(seed):

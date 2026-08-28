@@ -2082,6 +2082,54 @@ async def radar_volume_velocity():
     return compute_volume_velocity_115()
 
 
+@app.get("/radar/technical/liquidity-vacuum")
+async def radar_liquidity_vacuum():
+    """#117 — Liquidity vacuum spotter."""
+    from bd_platform.advanced_ta_risk_layer import compute_liquidity_vacuum_117
+
+    return compute_liquidity_vacuum_117()
+
+
+@app.get("/radar/technical/structural-break")
+async def radar_structural_break():
+    """#122 — Rule-based structural break analysis."""
+    from bd_platform.advanced_ta_risk_layer import compute_structural_break_122
+
+    return compute_structural_break_122()
+
+
+@app.get("/radar/technical/volume-profile")
+async def radar_volume_profile():
+    """#123 — Volume profile POC."""
+    from bd_platform.advanced_ta_risk_layer import compute_volume_profile_poc_123
+
+    return compute_volume_profile_poc_123()
+
+
+@app.get("/radar/technical/fvg-detector")
+async def radar_fvg_detector():
+    """#124 — Fair Value Gap detector."""
+    from bd_platform.advanced_ta_risk_layer import detect_fair_value_gaps_124
+
+    return detect_fair_value_gaps_124()
+
+
+@app.get("/radar/on-chain/gas-alert")
+async def radar_gas_spike_alert():
+    """#119 — Gas spike alert (execution rejected alternative)."""
+    from bd_platform.advanced_ta_risk_layer import gas_spike_alert_119
+
+    return gas_spike_alert_119()
+
+
+@app.get("/oracle/on-chain/dex-risk")
+async def oracle_dex_risk():
+    """#126 — DEX front-running risk insight (shield rejected)."""
+    from bd_platform.advanced_ta_risk_layer import dex_front_running_risk_126
+
+    return dex_front_running_risk_126()
+
+
 @app.get("/docs", response_class=HTMLResponse)
 async def public_developer_docs_page(request: Request):
     """Limited public developer docs (evidence/read APIs) — not full execution surface."""

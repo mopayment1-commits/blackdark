@@ -191,7 +191,7 @@ def build_advanced_risk_report_77(
         tail_risk = compute_tail_risk_alpha_105(seed=seed)
     except ImportError:
         pass
-    return {
+    result = {
         "ok": True,
         "feature_ref": 77,
         "tab": "advanced_risk",
@@ -208,6 +208,12 @@ def build_advanced_risk_report_77(
         "disclaimer": _risk_disclaimer(),
         "fee_db": {"compute_usd": fee},
     }
+    try:
+        from bd_platform.advanced_ta_risk_layer import attach_leverage_risk_120
+
+        return attach_leverage_risk_120(result, seed=seed)
+    except ImportError:
+        return result
 
 
 # ─── #78 Impact Analysis (Execution REJECTED) ───────────────────────────────────

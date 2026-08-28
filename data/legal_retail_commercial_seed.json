@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -592,5 +592,78 @@
     "tier": "pro_institution",
     "policy": {"time_window_minutes": 5},
     "fee_db": {"compute_usd": 0.006}
+  },
+  "liquidity_vacuum_117": {
+    "standalone": false,
+    "route": "/radar/technical/liquidity-vacuum",
+    "merged_into": "ta_engine",
+    "policy": {"vacuum_threshold_pct": 1.5},
+    "fee_db": {"compute_usd": 0.0009}
+  },
+  "risk_distribution_118": {
+    "standalone": false,
+    "merged_into": ["exchange_health_80", "counterparty_risk_92"],
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "gas_spike_alert_119": {
+    "status": "rejected_execution",
+    "alternative": "gas_spike_alert",
+    "route": "/radar/on-chain/gas-alert",
+    "fee_db": {"compute_usd": 0.0004}
+  },
+  "leverage_risk_analysis_120": {
+    "standalone": false,
+    "merged_into": ["advanced_risk_77", "intelligence_ledger"],
+    "optimization_rejected": true,
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "pnl_attribution_121": {
+    "standalone": false,
+    "merged_into": ["journal_76", "discipline_66", "ic_report_87"],
+    "route": "/portfolio/journal/attribution",
+    "fee_db": {"compute_usd": 0.002}
+  },
+  "structural_break_122": {
+    "standalone": false,
+    "route": "/radar/technical/structural-break",
+    "merged_into": "ta_engine",
+    "policy": {"rule_based_only": true, "ai_rejected": true},
+    "fee_db": {"compute_usd": 0.0015}
+  },
+  "volume_profile_poc_123": {
+    "standalone": false,
+    "route": "/radar/technical/volume-profile",
+    "merged_into": "ta_engine",
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "fvg_detector_124": {
+    "standalone": false,
+    "route": "/radar/technical/fvg-detector",
+    "merged_into": "ta_engine",
+    "fee_db": {"compute_usd": 0.0008}
+  },
+  "custody_tracking_125": {
+    "status": "deferred",
+    "wave": 3,
+    "merged_into": "unified_portfolio_81",
+    "build_blocked_until": "institution_portal_stable"
+  },
+  "dex_front_running_risk_126": {
+    "status": "rejected_execution",
+    "alternative": "dex_front_running_risk_insight",
+    "route": "/oracle/on-chain/dex-risk",
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "orderbook_inefficiency_127": {
+    "status": "rejected_exploiter",
+    "alternative": "orderbook_inefficiency_insight",
+    "route": "/radar/technical/orderbook-inefficiency",
+    "fee_db": {"compute_usd": 0.0007}
+  },
+  "jargon_translator_128": {
+    "standalone": false,
+    "merged_into": "simple_language_64",
+    "policy": {"rule_based_only": true, "ai_naming_rejected": true},
+    "fee_db": {"translation_usd": 0.0001}
   }
 }

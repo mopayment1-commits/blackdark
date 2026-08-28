@@ -84,6 +84,36 @@ _GLOSSARY: dict[str, dict[str, str]] = {
         "simple_en": "risk level (1-10)",
         "simple_ar": "مستوى المخاطرة (1-10)",
     },
+    "Impermanent Loss": {
+        "en": "Temporary loss when asset prices change in a liquidity pool",
+        "ar": "خسارة مؤقتة عند تغير أسعار الأصول في مجمع السيولة",
+        "simple_en": "temporary pool loss",
+        "simple_ar": "خسارة مؤقتة في المجمع",
+    },
+    "Funding Rate": {
+        "en": "Periodic payment between long and short traders in perpetual futures",
+        "ar": "دفعة دورية بين المتداولين الطويل والقصير في العقود الدائمة",
+        "simple_en": "futures balancing fee",
+        "simple_ar": "رسوم توازن العقود",
+    },
+    "Liquidation": {
+        "en": "Forced closure of a leveraged position when margin is insufficient",
+        "ar": "إغلاق قسري لمركز برافعة عندما الهامش غير كافٍ",
+        "simple_en": "forced position close",
+        "simple_ar": "إغلاق قسري للمركز",
+    },
+    "VWAP": {
+        "en": "Volume-weighted average price — fair value based on traded volume",
+        "ar": "متوسط السعر المرجّح بالحجم — قيمة عادلة بناءً على الحجم المتداول",
+        "simple_en": "volume-weighted fair price",
+        "simple_ar": "سعر عادل مرجّح بالحجم",
+    },
+    "FVG": {
+        "en": "Fair Value Gap — price gap between candles that may act as support/resistance",
+        "ar": "فجوة القيمة العادلة — فجوة سعرية قد تعمل كدعم/مقاومة",
+        "simple_en": "price gap zone",
+        "simple_ar": "منطقة فجوة سعرية",
+    },
 }
 
 
