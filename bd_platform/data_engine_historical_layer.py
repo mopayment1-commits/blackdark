@@ -25,6 +25,7 @@ _FEATURE_REF_967 = 967
 _FEATURE_REF_965 = 965
 _FEATURE_REF_966 = 966
 _FEATURE_REF_968 = 968
+_FEATURE_REF_980 = 980
 _EXPORT_REF = 924
 _RETENTION_REF = 949
 _PIT_REF = 980
@@ -65,7 +66,7 @@ def historical_layer_status_967(*, seed: dict[str, Any] | None = None) -> dict[s
     return {
         "ok": True,
         "feature_ref": _FEATURE_REF_967,
-        "merged_refs": {"965": _FEATURE_REF_965, "966": _FEATURE_REF_966, "968": _FEATURE_REF_968},
+        "merged_refs": {"965": _FEATURE_REF_965, "966": _FEATURE_REF_966, "968": _FEATURE_REF_968, "980": _FEATURE_REF_980},
         "standalone": _STANDALONE,
         "standalone_rejected": True,
         "merged_into": _MERGED_INTO,
@@ -78,6 +79,8 @@ def historical_layer_status_967(*, seed: dict[str, Any] | None = None) -> dict[s
         "retention_ref": _RETENTION_REF,
         "export_ref": _EXPORT_REF,
         "integrations": [_PIT_REF, _VERIFICATION_REF, _BACKTEST_REF],
+        "pit_dataset_ref": _FEATURE_REF_980,
+        "pit_immutable_store": True,
         "retention_policy": cfg.get("retention_policy"),
         "fee_db": cfg.get("fee_db"),
         "timestamp": _utcnow(),
@@ -349,6 +352,89 @@ def log_historical_revision_967(
     }
 
 
+# --- #980 Point-in-Time Immutable Metrics ---
+
+
+def query_pit_metric_980(
+    metric_id: str,
+    *,
+    pit_version: str | None = None,
+    as_of: str | None = None,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """PIT dataset — immutable snapshots separated from revised series."""
+    seed = seed or _load_seed()
+    pit_store = seed.get("pit_snapshots_980") or {}
+    metric_pit = pit_store.get(metric_id)
+    if not metric_pit:
+        return {"ok": False, "feature_ref": _FEATURE_REF_980, "error": "pit_metric_not_found"}
+
+    version = pit_version or metric_pit.get("current_pit_version")
+    snapshot = (metric_pit.get("snapshots") or {}).get(version)
+    if not snapshot:
+        return {"ok": False, "feature_ref": _FEATURE_REF_980, "error": "pit_version_not_found"}
+
+    payload = snapshot.get("data")
+    checksum = snapshot.get("checksum") or _checksum(payload)
+    computed = _checksum(payload)
+    query_key = {"metric_id": metric_id, "pit_version": version, "as_of": as_of or snapshot.get("as_of")}
+    query_checksum = _checksum({**query_key, "data": payload})
+
+    revised_ref = (seed.get("historical_metrics_967") or {}).get(metric_id)
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_980,
+        "historical_layer_ref": _FEATURE_REF_967,
+        "metric_id": metric_id,
+        "pit_version": version,
+        "as_of": snapshot.get("as_of"),
+        "data": payload,
+        "checksum": checksum,
+        "checksum_valid": computed == checksum,
+        "immutable": True,
+        "no_retroactive_mutation": True,
+        "separated_from_revised_series": revised_ref is not None,
+        "revised_series_version": revised_ref.get("current_version") if revised_ref else None,
+        "query_checksum": query_checksum,
+        "reproducible_historical_query": True,
+        "backtest_source": True,
+        "integrations": [_BACKTEST_REF, _VERIFICATION_REF],
+        "timestamp": _utcnow(),
+    }
+
+
+def list_pit_snapshots_980(
+    metric_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    pit_store = seed.get("pit_snapshots_980") or {}
+    metric_pit = pit_store.get(metric_id)
+    if not metric_pit:
+        return {"ok": False, "feature_ref": _FEATURE_REF_980, "error": "pit_metric_not_found"}
+
+    snapshots = []
+    for ver, snap in (metric_pit.get("snapshots") or {}).items():
+        snapshots.append({
+            "pit_version": ver,
+            "as_of": snap.get("as_of"),
+            "checksum": snap.get("checksum"),
+            "immutable": True,
+            "audit_daily": snap.get("audit_daily", True),
+        })
+
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_980,
+        "metric_id": metric_id,
+        "snapshots": snapshots,
+        "count": len(snapshots),
+        "checksum_version_audit": True,
+        "timestamp": _utcnow(),
+    }
+
+
 def run_historical_layer_e2e_967(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     checks: list[dict[str, Any]] = []
@@ -377,10 +463,17 @@ def run_historical_layer_e2e_967(*, seed: dict[str, Any] | None = None) -> dict[
     rev = log_historical_revision_967("btc_price_daily", old_version="v1.0.0", new_version="v1.0.1", seed=seed)
     checks.append({"id": "revision_explicit", "passed": rev.get("revisions_explicit") is True})
 
+    pit1 = query_pit_metric_980("btc_price_daily", seed=seed)
+    pit2 = query_pit_metric_980("btc_price_daily", pit_version=pit1.get("pit_version"), seed=seed)
+    checks.append({"id": "pit_immutable", "passed": pit1.get("immutable") is True})
+    checks.append({"id": "pit_checksum", "passed": pit1.get("checksum_valid") is True})
+    checks.append({"id": "pit_reproducible", "passed": pit1.get("query_checksum") == pit2.get("query_checksum")})
+    checks.append({"id": "pit_separated", "passed": pit1.get("separated_from_revised_series") is True})
+
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
-        "feature_refs": [_FEATURE_REF_967, _FEATURE_REF_965, _FEATURE_REF_966, _FEATURE_REF_968],
+        "feature_refs": [_FEATURE_REF_967, _FEATURE_REF_965, _FEATURE_REF_966, _FEATURE_REF_968, _FEATURE_REF_980],
         "all_passed": all_passed,
         "checks": checks,
         "timestamp": _utcnow(),

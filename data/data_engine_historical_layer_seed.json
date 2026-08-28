@@ -239,5 +239,61 @@
         }
       }
     }
+  },
+  "pit_snapshots_980": {
+    "btc_price_daily": {
+      "current_pit_version": "pit_v1.0.0",
+      "snapshots": {
+        "pit_v1.0.0": {
+          "as_of": "2026-08-27T00:00:00+00:00",
+          "immutable": true,
+          "audit_daily": true,
+          "data": {
+            "points": [
+              {
+                "date": "2026-08-25",
+                "value": 64200
+              },
+              {
+                "date": "2026-08-26",
+                "value": 64650
+              },
+              {
+                "date": "2026-08-27",
+                "value": 64800
+              }
+            ]
+          },
+          "checksum": "47dfe6c1f5050ac50936020c01c4dac9cddae12d64e12400e0ec8f09e87b41e0"
+        }
+      }
+    },
+    "aave_tvl_daily": {
+      "current_pit_version": "pit_v2.1.0",
+      "snapshots": {
+        "pit_v2.1.0": {
+          "as_of": "2026-08-27T00:00:00+00:00",
+          "immutable": true,
+          "audit_daily": true,
+          "data": {
+            "points": [
+              {
+                "date": "2026-08-25",
+                "value": 11800000000
+              },
+              {
+                "date": "2026-08-26",
+                "value": 12100000000
+              },
+              {
+                "date": "2026-08-27",
+                "value": 12500000000
+              }
+            ]
+          },
+          "checksum": "82d99049b5fee6b5ecf5a8c6ed2f9863cc4d3f1149123ea14196eeb00ae39112"
+        }
+      }
+    }
   }
 }

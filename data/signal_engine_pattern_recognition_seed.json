@@ -1,0 +1,78 @@
+{
+  "pattern_recognition_979": {
+    "methodology_version": "1.0.0",
+    "rule_based_only": true,
+    "fee_db": {
+      "scan_per_asset_usd": 0.002,
+      "compute_per_pattern_usd": 0.001
+    }
+  },
+  "pattern_definitions_979": {
+    "rsi_divergence": {
+      "definition": "Price makes higher high while RSI makes lower high (bearish) or price lower low while RSI higher low (bullish)",
+      "geometric": "Two swing points on price and RSI with opposing slopes",
+      "historical_precision": 0.58,
+      "false_positive_rate": 0.42,
+      "invalidation_template": "Break below support X cancels bullish divergence"
+    },
+    "ma_cross": {
+      "definition": "Fast MA crosses above/below slow MA on candle close",
+      "geometric": "MA(fast) intersects MA(slow) at close price",
+      "historical_precision": 0.52,
+      "false_positive_rate": 0.48,
+      "invalidation_template": "Reverse cross cancels signal"
+    },
+    "support_resistance_break": {
+      "definition": "Close price breaks above resistance or below support with volume confirmation",
+      "geometric": "Close > resistance_level + volume > 1.5x average",
+      "historical_precision": 0.55,
+      "false_positive_rate": 0.45,
+      "invalidation_template": "Close back inside range cancels break"
+    }
+  },
+  "out_of_sample_evaluation_979": {
+    "rsi_divergence": {"evaluation_days": 30, "precision": 0.56, "included_in_training": false},
+    "ma_cross": {"evaluation_days": 30, "precision": 0.50, "included_in_training": false},
+    "support_resistance_break": {"evaluation_days": 30, "precision": 0.53, "included_in_training": false}
+  },
+  "pattern_assets": {
+    "BTC": {
+      "patterns": [
+        {
+          "type": "rsi_divergence",
+          "detected_at": "2026-08-27T00:00:00+00:00",
+          "candle_close_only": true,
+          "confirmed": true,
+          "confirmation_bar": "2026-08-27T04:00:00+00:00",
+          "confidence": "medium",
+          "false_positive_score": 0.42,
+          "invalidation": {"level": 63500, "condition": "break below 63500 cancels bullish divergence"}
+        },
+        {
+          "type": "ma_cross",
+          "detected_at": "2026-08-26T00:00:00+00:00",
+          "candle_close_only": true,
+          "confirmed": true,
+          "confirmation_bar": "2026-08-26T08:00:00+00:00",
+          "confidence": "low",
+          "false_positive_score": 0.48,
+          "invalidation": {"level": 64000, "condition": "reverse cross below MA50 cancels"}
+        }
+      ]
+    },
+    "ETH": {
+      "patterns": [
+        {
+          "type": "support_resistance_break",
+          "detected_at": "2026-08-27T12:00:00+00:00",
+          "candle_close_only": true,
+          "confirmed": true,
+          "confirmation_bar": "2026-08-27T16:00:00+00:00",
+          "confidence": "medium",
+          "false_positive_score": 0.45,
+          "invalidation": {"level": 3400, "condition": "close back inside 3400-3600 range cancels"}
+        }
+      ]
+    }
+  }
+}

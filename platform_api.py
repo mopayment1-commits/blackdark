@@ -6014,6 +6014,26 @@ async def historical_layer_e2e_route(_admin: dict = Depends(require_admin)):
     return run_historical_layer_e2e_967()
 
 
+@router.get("/internal/data-engine/historical-layer/pit/{metric_id}")
+async def historical_pit_metric_route(
+    metric_id: str,
+    pit_version: str | None = Query(None),
+    as_of: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    """#980 Point-in-Time Immutable Metrics — merged into #967."""
+    from bd_platform.data_engine_historical_layer import query_pit_metric_980
+
+    return query_pit_metric_980(metric_id, pit_version=pit_version, as_of=as_of)
+
+
+@router.get("/internal/data-engine/historical-layer/pit/{metric_id}/snapshots")
+async def historical_pit_snapshots_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_historical_layer import list_pit_snapshots_980
+
+    return list_pit_snapshots_980(metric_id)
+
+
 @router.get("/internal/data-engine/export-layer/status")
 async def export_layer_status_route(_admin: dict = Depends(require_admin)):
     """#924 API / Data Export — Data Engine export layer."""
@@ -8269,6 +8289,113 @@ async def indices_backtest_route(index_id: str):
     from bd_platform.market_radar_indices import run_index_backtest_970
 
     return run_index_backtest_970(index_id)
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/status")
+async def narrative_sector_status_route():
+    """#974 Narrative & Sector Intelligence — Market Radar Narratives tab."""
+    from bd_platform.market_radar_narrative_sector import narrative_sector_status_974
+
+    return narrative_sector_status_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/leaderboard")
+async def narrative_leaderboard_route():
+    from bd_platform.market_radar_narrative_sector import build_narrative_leaderboard_974
+
+    return build_narrative_leaderboard_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/sector-heatmap")
+async def narrative_sector_heatmap_route():
+    from bd_platform.market_radar_narrative_sector import build_sector_heatmap_974
+
+    return build_sector_heatmap_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/backtest")
+async def narrative_backtest_route():
+    from bd_platform.market_radar_narrative_sector import run_narrative_backtest_974
+
+    return run_narrative_backtest_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/e2e")
+async def narrative_sector_e2e_route():
+    from bd_platform.market_radar_narrative_sector import run_narrative_sector_e2e_974
+
+    return run_narrative_sector_e2e_974()
+
+
+@router.get("/intelligence-ledger/market-radar/narratives/{narrative_id}")
+async def narrative_details_route(narrative_id: str):
+    from bd_platform.market_radar_narrative_sector import get_narrative_details_974
+
+    return get_narrative_details_974(narrative_id)
+
+
+@router.get("/intelligence-ledger/signal-engine/pattern-detection/status")
+async def signal_engine_pattern_status_route():
+    """#979 Pattern Recognition — Signal Engine sub-layer."""
+    from bd_platform.signal_engine_pattern_recognition import pattern_recognition_status_979
+
+    return pattern_recognition_status_979()
+
+
+@router.get("/intelligence-ledger/signal-engine/pattern-detection/e2e")
+async def signal_engine_pattern_e2e_route():
+    from bd_platform.signal_engine_pattern_recognition import run_pattern_recognition_e2e_979
+
+    return run_pattern_recognition_e2e_979()
+
+
+@router.get("/intelligence-ledger/signal-engine/pattern-detection/precision/{pattern_type}")
+async def signal_engine_pattern_precision_route(pattern_type: str):
+    from bd_platform.signal_engine_pattern_recognition import get_pattern_precision_report_979
+
+    return get_pattern_precision_report_979(pattern_type)
+
+
+@router.get("/intelligence-ledger/signal-engine/pattern-detection/{asset}")
+async def signal_engine_pattern_detect_route(asset: str):
+    from bd_platform.signal_engine_pattern_recognition import detect_patterns_979
+
+    return detect_patterns_979(asset)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/profitability-analyzer/status")
+async def profitability_analyzer_status_route():
+    """#981 Profitability Analyzer — merged into Portfolio AI."""
+    from bd_platform.portfolio_ai_profitability_analyzer import profitability_analyzer_status_981
+
+    return profitability_analyzer_status_981()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/profitability-analyzer/dashboard")
+async def profitability_analyzer_dashboard_route(
+    portfolio_id: str = Query("demo_portfolio"),
+    cost_basis_method: str = Query("fifo"),
+):
+    from bd_platform.portfolio_ai_profitability_analyzer import build_pnl_dashboard_981
+
+    return build_pnl_dashboard_981(portfolio_id, cost_basis_method=cost_basis_method)  # type: ignore[arg-type]
+
+
+@router.get("/intelligence-ledger/portfolio-ai/profitability-analyzer/export")
+async def profitability_analyzer_export_route(
+    portfolio_id: str = Query("demo_portfolio"),
+    fmt: str = Query("json"),
+):
+    from bd_platform.portfolio_ai_profitability_analyzer import export_pnl_report_981
+
+    return export_pnl_report_981(portfolio_id, fmt=fmt)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/profitability-analyzer/e2e")
+async def profitability_analyzer_e2e_route():
+    from bd_platform.portfolio_ai_profitability_analyzer import run_profitability_analyzer_e2e_981
+
+    return run_profitability_analyzer_e2e_981()
 
 
 @router.get("/intelligence-ledger/asset-screener/status")
