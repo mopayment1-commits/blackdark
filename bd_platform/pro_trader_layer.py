@@ -722,8 +722,24 @@ def attach_portfolio_pro_layers_67_76(
     )
     out["share_card"] = share["card"]
     out["share"] = share["share"]
+    from bd_platform.retail_intelligence_layer import (
+        attach_discipline_to_portfolio_66,
+        build_discipline_tab_66,
+    )
+
+    out = attach_discipline_to_portfolio_66(out)
     out["journal_tab"] = build_journal_tab_76(seed=seed)
     out["alert_policy"] = get_alert_policy_75(user_tier=user_tier, seed=seed)
+    try:
+        from bd_platform.institutional_b2b_layer import attach_confidence_calibration_93
+
+        out["discipline_tab"] = attach_confidence_calibration_93(
+            out.get("discipline_tab") or build_discipline_tab_66(seed=seed),
+            journal_entries=(out.get("journal_tab") or {}).get("entries"),
+            seed=seed,
+        )
+    except ImportError:
+        pass
     return out
 
 

@@ -374,6 +374,15 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         from bd_platform.whales_institutional_layer import attach_portfolio_whale_layers_77_86
 
         result = attach_portfolio_whale_layers_77_86(result)
+        from bd_platform.institutional_b2b_layer import build_ic_report_87
+
+        result["ic_report_preview"] = build_ic_report_87(
+            source="portfolio",
+            asset="PORTFOLIO",
+            verdict="Neutral",
+            risk_score=float(result.get("risk_score", 5)),
+            holdings=result.get("holdings"),
+        )
     except ImportError:
         pass
     return result
@@ -1942,11 +1951,35 @@ async def transparency_methodology(locale: str = "en"):
 
 
 @app.get("/radar/exchange-health")
-async def radar_exchange_health(exchange: str = "binance"):
-    """#80 — Exchange health dimension for Market Radar."""
-    from bd_platform.whales_institutional_layer import build_exchange_health_80
+async def radar_exchange_health(exchange: str = "binance", withdrawal_latency_hours: float = 12.0):
+    """#80 + #92 — Exchange health with counterparty risk indicators."""
+    from bd_platform.institutional_b2b_layer import build_exchange_health_with_counterparty_92
 
-    return build_exchange_health_80(exchange=exchange)
+    return build_exchange_health_with_counterparty_92(
+        exchange=exchange, withdrawal_latency_hours=withdrawal_latency_hours
+    )
+
+
+@app.get("/radar/technical/vwap")
+async def radar_vwap_deviation():
+    """#91 — VWAP deviation index."""
+    from bd_platform.institutional_b2b_layer import compute_vwap_deviation_91
+
+    return compute_vwap_deviation_91()
+
+
+@app.get("/intelligence/export/ic-report")
+@app.get("/portfolio/export/ic-report")
+async def export_ic_report(
+    source: str = "intelligence",
+    asset: str = "BTC",
+    verdict: str = "Neutral",
+    risk_score: float = 6.0,
+):
+    """#87 — Investment Committee report export."""
+    from bd_platform.institutional_b2b_layer import build_ic_report_87
+
+    return build_ic_report_87(source=source, asset=asset, verdict=verdict, risk_score=risk_score)
 
 
 @app.get("/docs", response_class=HTMLResponse)

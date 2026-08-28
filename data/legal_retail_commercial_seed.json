@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -388,5 +388,58 @@
       "quarterly_review": true,
       "embedded_in_insights": true
     }
+  },
+  "ic_report_87": {
+    "standalone": false,
+    "routes": {
+      "intelligence": "/intelligence/export/ic-report",
+      "portfolio": "/portfolio/export/ic-report"
+    },
+    "formats": ["pdf", "html", "json"],
+    "policy": {
+      "rule_based_content": true,
+      "professional_tone": true,
+      "disclaimer_every_page": true,
+      "non_custodial": true
+    },
+    "fee_db": {"generate_usd": 0.01, "cdn_usd": 0.002}
+  },
+  "team_rbac_88": {
+    "standalone": false,
+    "roles": ["admin", "analyst", "viewer", "guest"],
+    "policy": {
+      "export_separate_from_view": true,
+      "per_user_api_keys": true,
+      "audit_log_required": true
+    },
+    "institution_seats": 5,
+    "fee_db": {"per_seat_usd": 15.0}
+  },
+  "sla_89": {
+    "status": "deferred",
+    "wave": 3,
+    "build_blocked_until": "500_active_pro_users"
+  },
+  "white_label_90": {
+    "status": "deferred",
+    "wave": 3,
+    "build_blocked_until": "1000_active_users"
+  },
+  "vwap_deviation_91": {
+    "merged_into": "/radar/technical",
+    "fee_db": {"compute_usd": 0.0004}
+  },
+  "counterparty_risk_92": {
+    "merged_into": "exchange_health_80",
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "confidence_calibration_93": {
+    "merged_into": ["discipline_66", "journal_76"],
+    "fee_db": {"compute_usd": 0.0003}
+  },
+  "audit_export_94": {
+    "status": "deferred",
+    "wave": 3,
+    "merged_into": ["sla_89", "ic_report_87", "team_rbac_88"]
   }
 }

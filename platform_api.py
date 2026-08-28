@@ -1286,3 +1286,105 @@ async def whales_institutional_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.whales_institutional_layer import run_whales_institutional_e2e_77_86
 
     return run_whales_institutional_e2e_77_86()
+
+
+# ─── Institutional B2B (#87–#94) ────────────────────────────────────────────────
+
+
+@router.post("/intelligence/export/ic-report")
+@router.post("/portfolio/export/ic-report")
+async def ic_report_route(data: dict = Body(default={})):
+    from bd_platform.institutional_b2b_layer import build_ic_report_87
+
+    return build_ic_report_87(
+        source=str(data.get("source", "intelligence")),
+        asset=str(data.get("asset", "BTC")),
+        verdict=str(data.get("verdict", "Neutral")),
+        risk_score=float(data.get("risk_score", 6.0)),
+        holdings=data.get("holdings"),
+        locale=str(data.get("locale", "en")),
+    )
+
+
+@router.get("/team/rbac/status")
+async def team_rbac_status_route():
+    from bd_platform.institutional_b2b_layer import team_rbac_status_88
+
+    return team_rbac_status_88()
+
+
+@router.post("/team/rbac/check")
+async def team_rbac_check_route(data: dict = Body(default={})):
+    from bd_platform.institutional_b2b_layer import check_team_permission_88
+
+    return check_team_permission_88(
+        role=str(data.get("role", "guest")),
+        action=str(data.get("action", "view")),
+        user_email=str(data.get("user_email", "")),
+        resource=str(data.get("resource", "")),
+        ip=str(data.get("ip", "")),
+    )
+
+
+@router.get("/institution/sla-status")
+async def sla_deferred_route():
+    from bd_platform.institutional_b2b_layer import sla_status_89
+
+    return sla_status_89()
+
+
+@router.get("/institution/white-label-status")
+async def white_label_deferred_route():
+    from bd_platform.institutional_b2b_layer import white_label_status_90
+
+    return white_label_status_90()
+
+
+@router.get("/radar/technical/vwap")
+async def vwap_route():
+    from bd_platform.institutional_b2b_layer import compute_vwap_deviation_91
+
+    return compute_vwap_deviation_91()
+
+
+@router.get("/radar/exchange-health/full")
+async def exchange_health_counterparty_route(
+    exchange: str = Query("binance"),
+    withdrawal_latency_hours: float = Query(12.0),
+):
+    from bd_platform.institutional_b2b_layer import build_exchange_health_with_counterparty_92
+
+    return build_exchange_health_with_counterparty_92(
+        exchange=exchange, withdrawal_latency_hours=withdrawal_latency_hours
+    )
+
+
+@router.post("/portfolio/confidence-calibration")
+async def confidence_calibration_route(data: dict = Body(default={})):
+    from bd_platform.institutional_b2b_layer import compute_confidence_calibration_93
+
+    return compute_confidence_calibration_93(
+        declared_confidence_pct=float(data.get("declared_confidence_pct", 80)),
+        journal_entries=data.get("journal_entries"),
+    )
+
+
+@router.get("/institution/audit-export/status")
+async def audit_export_status_route():
+    from bd_platform.institutional_b2b_layer import audit_export_status_94
+
+    return audit_export_status_94()
+
+
+@router.get("/institution/audit-export")
+async def audit_export_route(fmt: str = Query("json")):
+    from bd_platform.institutional_b2b_layer import export_rbac_audit_94
+
+    return export_rbac_audit_94(fmt=fmt)
+
+
+@router.get("/institutional-b2b/e2e")
+async def institutional_b2b_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.institutional_b2b_layer import run_institutional_b2b_e2e_87_94
+
+    return run_institutional_b2b_e2e_87_94()
