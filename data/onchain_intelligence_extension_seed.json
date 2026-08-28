@@ -58,6 +58,48 @@
       "addresses": ["0x742d35cc6634c0532925a3b844bc9e7595f0bbe0"]
     }
   },
+  "wallet_dd_972": {
+    "rules_version": "1.0.0",
+    "certificate_ref": 952,
+    "fee_db": {
+      "query_per_wallet_usd": 0.01,
+      "analysis_per_wallet_usd": 0.02,
+      "export_per_report_usd": 0.03
+    }
+  },
+  "wallet_dd_profiles_972": {
+    "0x742d35cc6634c0532925a3b844bc9e7595f0bbe0": {
+      "balance_usd": 125000000,
+      "tx_count": 450000,
+      "first_seen": "2019-06-01",
+      "last_active": "2026-08-28T01:00:00+00:00",
+      "profile_confidence": "high",
+      "profile_evidence": [{"tx_hash": "0xabc123", "type": "balance_snapshot", "source": "onchain_indexer"}],
+      "history_summary": "Exchange hot wallet — high volume",
+      "notable_txs": [{"tx_hash": "0xdef456", "value_usd": 5000000, "type": "outflow"}],
+      "history_evidence": [{"tx_hash": "0xdef456", "source": "etherscan"}],
+      "history_confidence": "high",
+      "top_counterparties": [
+        {"address": "0x28c6c06298d514db089934071355e5743bf21d60", "label": "Binance", "volume_usd": 2500000000}
+      ],
+      "counterparty_evidence": [{"tx_hash": "0xghi789", "counterparty": "0x28c6...", "source": "onchain_indexer"}],
+      "counterparty_confidence": "high",
+      "velocity_anomaly": null
+    },
+    "0x0000000000000000000000000000000000000001": {
+      "balance_usd": 0,
+      "tx_count": 0,
+      "profile_confidence": "low",
+      "profile_evidence": [],
+      "history_summary": "No activity",
+      "history_evidence": [],
+      "history_confidence": "low",
+      "top_counterparties": [],
+      "counterparty_evidence": [],
+      "counterparty_confidence": "low",
+      "velocity_anomaly": null
+    }
+  },
   "public_labels": {
     "0x742d35cc6634c0532925a3b844bc9e7595f0bbe0": {
       "label": "Binance Hot Wallet",

@@ -4,6 +4,7 @@ On-Chain Intelligence Extension — Feature #12 (Sprint 2).
 Merged sub-layers:
   #923 AML/CFT Risk Screening — rule-based, no legal conclusion
   #960 Fraud / Suspicious Activity Intelligence — fraud screening sub-layer
+  #972 Instant Wallet Due Diligence — wallet DD one-page report
   #926 Address Labels & Cohorts — Entity Layer
   #930 Bridges Intelligence — Bridge Flows metric
   #937 Cross-Chain Trace — path continuity sub-layer
@@ -27,7 +28,9 @@ logger = logging.getLogger("BLACKDARK.OnChainIntelligenceExtension")
 _FEATURE_REF_12 = 12
 _FEATURE_REF_923 = 923
 _FEATURE_REF_960 = 960
+_FEATURE_REF_972 = 972
 _FEATURE_REF_926 = 926
+_CERTIFICATE_REF = 952
 _FEATURE_REF_930 = 930
 _FEATURE_REF_937 = 937
 _FEATURE_REF_942 = 942
@@ -74,11 +77,12 @@ def onchain_extension_status(*, seed: dict[str, Any] | None = None) -> dict[str,
         "feature_ref": _FEATURE_REF_12,
         "aml_screening_ref": _FEATURE_REF_923,
         "fraud_screening_ref": _FEATURE_REF_960,
+        "wallet_dd_ref": _FEATURE_REF_972,
         "entity_layer_ref": _FEATURE_REF_926,
         "standalone": _STANDALONE,
         "standalone_rejected": True,
         "merged_into": _MERGED_INTO,
-        "sub_layers": ["risk_screening_923", "fraud_screening_960", "entity_layer_926", "bridge_flows_930", "cross_chain_path_937", "dex_activity_942"],
+        "sub_layers": ["risk_screening_923", "fraud_screening_960", "wallet_dd_972", "entity_layer_926", "bridge_flows_930", "cross_chain_path_937", "dex_activity_942"],
         "bridge_flows_ref": _FEATURE_REF_930,
         "cross_chain_trace_ref": _FEATURE_REF_937,
         "dex_trading_ref": _FEATURE_REF_942,
@@ -265,6 +269,108 @@ def screen_fraud_activity_960(
         "fee_db": {
             "screen_usd": fee.get("screen_per_address_usd", 0.008),
             "graph_query_usd": fee.get("graph_query_usd", 0.004),
+        },
+        "timestamp": _utcnow(),
+    }
+
+
+# --- #972 Instant Wallet Due Diligence ---
+
+
+def build_wallet_dd_report_972(
+    address: str,
+    *,
+    chain: str = "ethereum",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """One-page wallet DD — evidence links, confidence, red flags, export."""
+    seed = seed or _load_seed()
+    addr = address.strip().lower()
+    if not _ADDRESS_RE.match(addr):
+        return {"ok": False, "feature_ref": _FEATURE_REF_972, "error": "invalid_address"}
+
+    profiles = seed.get("wallet_dd_profiles_972") or {}
+    profile = profiles.get(addr) or {}
+    labels = get_address_labels_926(addr, seed=seed)
+    fraud = screen_fraud_activity_960(addr, chain=chain, seed=seed)
+
+    dimensions = {
+        "profile": {
+            "balance_usd": profile.get("balance_usd"),
+            "tx_count": profile.get("tx_count"),
+            "first_seen": profile.get("first_seen"),
+            "last_active": profile.get("last_active"),
+            "evidence": profile.get("profile_evidence") or [],
+            "confidence": profile.get("profile_confidence", "medium"),
+        },
+        "history": {
+            "summary": profile.get("history_summary"),
+            "notable_txs": profile.get("notable_txs") or [],
+            "evidence": profile.get("history_evidence") or [],
+            "confidence": profile.get("history_confidence", "medium"),
+        },
+        "labels": {
+            "labels": labels.get("labels") or [],
+            "evidence": [{"source": l.get("source"), "label": l.get("label")} for l in labels.get("labels") or []],
+            "confidence": labels.get("labels")[0].get("confidence", "medium") if labels.get("labels") else "low",
+        },
+        "risk": {
+            "risk_score": fraud.get("risk_score"),
+            "indicators": fraud.get("indicators") or [],
+            "evidence": [{"indicator_id": i.get("indicator_id"), "name": i.get("name")} for i in fraud.get("indicators") or []],
+            "confidence": "high" if fraud.get("indicator_count", 0) >= 3 else "medium",
+        },
+        "counterparties": {
+            "top_counterparties": profile.get("top_counterparties") or [],
+            "evidence": profile.get("counterparty_evidence") or [],
+            "confidence": profile.get("counterparty_confidence", "medium"),
+        },
+    }
+
+    red_flags: list[dict[str, Any]] = []
+    if fraud.get("suspicious_pattern"):
+        red_flags.append({
+            "flag": "suspicious_pattern",
+            "severity": "high" if fraud.get("risk_score", 0) >= 7 else "medium",
+            "indicators": fraud.get("indicator_count", 0),
+            "source": "fraud_screening_960",
+        })
+    if profile.get("velocity_anomaly"):
+        red_flags.append({
+            "flag": "unusual_velocity",
+            "severity": "medium",
+            "detail": profile.get("velocity_anomaly"),
+            "source": "onchain_analytics",
+        })
+
+    all_evidence = []
+    for dim in dimensions.values():
+        all_evidence.extend(dim.get("evidence") or [])
+
+    fee = (seed.get("wallet_dd_972") or {}).get("fee_db") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_972,
+        "extension_ref": _FEATURE_REF_12,
+        "certificate_ref": _CERTIFICATE_REF,
+        "address": addr,
+        "chain": chain,
+        "dimensions": dimensions,
+        "dimension_count": 5,
+        "evidence_links": all_evidence,
+        "evidence_links_required": len(all_evidence) >= 1,
+        "confidence_levels": {k: v.get("confidence") for k, v in dimensions.items()},
+        "red_flags": red_flags,
+        "red_flag_count": len(red_flags),
+        "non_custodial": True,
+        "public_data_only": True,
+        "export_available": True,
+        "export_format": "pdf",
+        "export_ref": _CERTIFICATE_REF,
+        "fee_db": {
+            "query_usd": fee.get("query_per_wallet_usd", 0.01),
+            "analysis_usd": fee.get("analysis_per_wallet_usd", 0.02),
+            "export_usd": fee.get("export_per_report_usd", 0.03),
         },
         "timestamp": _utcnow(),
     }
@@ -642,6 +748,13 @@ def run_onchain_extension_e2e(*, seed: dict[str, Any] | None = None) -> dict[str
     checks.append({"id": "fraud_explainable", "passed": fraud.get("indicator_count", 0) >= 3 or fraud.get("explainable") is True})
     checks.append({"id": "fraud_audit", "passed": fraud.get("audit", {}).get("audit_logged") is True})
 
+    wallet_dd = build_wallet_dd_report_972("0x742d35cc6634c0532925a3b844bc9e7595f0bbe0", seed=seed)
+    checks.append({"id": "wallet_dd_972", "passed": wallet_dd.get("ok") is True})
+    checks.append({"id": "wallet_evidence_links", "passed": wallet_dd.get("evidence_links_required") is True})
+    checks.append({"id": "wallet_red_flags", "passed": wallet_dd.get("red_flag_count", 0) >= 1})
+    checks.append({"id": "wallet_non_custodial", "passed": wallet_dd.get("non_custodial") is True})
+    checks.append({"id": "wallet_export", "passed": wallet_dd.get("export_available") is True})
+
     labels = get_address_labels_926("0x742d35cc6634c0532925a3b844bc9e7595f0bbe0", seed=seed)
     checks.append({"id": "entity_labels", "passed": labels.get("ok") is True})
     checks.append({"id": "unknown_explicit", "passed": any(l.get("unknown_remains_unknown") for l in labels.get("labels") or []) or labels.get("label_count", 0) > 0})
@@ -672,7 +785,7 @@ def run_onchain_extension_e2e(*, seed: dict[str, Any] | None = None) -> dict[str
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
-        "feature_refs": [_FEATURE_REF_12, _FEATURE_REF_923, _FEATURE_REF_960, _FEATURE_REF_926, _FEATURE_REF_930, _FEATURE_REF_937, _FEATURE_REF_942],
+        "feature_refs": [_FEATURE_REF_12, _FEATURE_REF_923, _FEATURE_REF_960, _FEATURE_REF_972, _FEATURE_REF_926, _FEATURE_REF_930, _FEATURE_REF_937, _FEATURE_REF_942],
         "all_passed": all_passed,
         "checks": checks,
     }

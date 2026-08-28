@@ -680,7 +680,7 @@ def run_provenance_layer_e2e(*, seed: dict[str, Any] | None = None) -> dict[str,
     checks.append({"id": "freshness_badges", "passed": status.get("freshness_badges") is True})
     checks.append({"id": "fail_closed", "passed": status.get("fail_closed_policy") is not None})
 
-    fresh = compute_freshness_badge_946("2026-08-28T01:55:00+00:00", seed=seed)
+    fresh = compute_freshness_badge_946(_utcnow(), seed=seed)
     checks.append({"id": "freshness_fresh", "passed": fresh.get("freshness") == "fresh"})
 
     conf = compute_confidence_score_946(source_count=3, qa_passed=True, seed=seed)

@@ -1,0 +1,243 @@
+{
+  "historical_layer_967": {
+    "rules_version": "1.0.0",
+    "retention_policy": {
+      "raw_days": 90,
+      "aggregated_years": 2,
+      "archive_years": 5,
+      "retention_ref": 949
+    },
+    "fee_db": {
+      "storage_per_gb_month_usd": 0.02,
+      "query_per_request_usd": 0.005,
+      "export_per_gb_usd": 0.01
+    }
+  },
+  "archive_snapshots_965": {
+    "snap_btc_ticks_20260827": {
+      "data_type": "ticks",
+      "version": "v1.0.0",
+      "created_at": "2026-08-27T00:00:00+00:00",
+      "immutable": true,
+      "data": {
+        "asset": "BTC",
+        "tick_count": 1250000,
+        "sample": [
+          {
+            "price": 64800,
+            "size": 0.5,
+            "ts": "2026-08-27T12:00:00+00:00"
+          }
+        ]
+      },
+      "checksum": "97b5a505c835552826498c206c59c585bd3338ae2296cb1ef24f9d4ca006035d"
+    },
+    "snap_eth_orderbook_20260827": {
+      "data_type": "orderbook",
+      "version": "v1.0.0",
+      "created_at": "2026-08-27T00:00:00+00:00",
+      "immutable": true,
+      "data": {
+        "asset": "ETH",
+        "levels": 50,
+        "bid_depth_usd": 15000000,
+        "ask_depth_usd": 14200000
+      },
+      "checksum": "9a5a6e6c12b32d9cd9105334e15016faca408344b1ed4855c70d731ce1072f8d"
+    },
+    "snap_rates_funding_20260827": {
+      "data_type": "rates",
+      "version": "v1.0.0",
+      "created_at": "2026-08-27T00:00:00+00:00",
+      "immutable": true,
+      "data": {
+        "asset": "BTC",
+        "funding_rate_8h": 0.0001,
+        "venues": [
+          "binance",
+          "bybit",
+          "okx"
+        ]
+      },
+      "checksum": "b5eb3b8baf6bc4bc182173c2c9b403645f18b87c262c3bc737e53b621418abd8"
+    }
+  },
+  "derivatives_history_966": {
+    "BTC": {
+      "open_interest": {
+        "current_version": "v1.0.0",
+        "versions": {
+          "v1.0.0": {
+            "methodology_version": "1.0.0",
+            "points": [
+              {
+                "date": "2026-08-25",
+                "value_usd": 28500000000
+              },
+              {
+                "date": "2026-08-26",
+                "value_usd": 29200000000
+              },
+              {
+                "date": "2026-08-27",
+                "value_usd": 30100000000
+              }
+            ]
+          }
+        }
+      },
+      "funding_rate": {
+        "current_version": "v1.0.0",
+        "versions": {
+          "v1.0.0": {
+            "methodology_version": "1.0.0",
+            "points": [
+              {
+                "date": "2026-08-25",
+                "apr_pct": 8.5
+              },
+              {
+                "date": "2026-08-26",
+                "apr_pct": 10.2
+              },
+              {
+                "date": "2026-08-27",
+                "apr_pct": 11.3
+              }
+            ]
+          }
+        }
+      },
+      "liquidations": {
+        "current_version": "v1.0.0",
+        "versions": {
+          "v1.0.0": {
+            "methodology_version": "1.0.0",
+            "points": [
+              {
+                "date": "2026-08-25",
+                "value_usd": 45000000
+              },
+              {
+                "date": "2026-08-26",
+                "value_usd": 62000000
+              },
+              {
+                "date": "2026-08-27",
+                "value_usd": 38000000
+              }
+            ]
+          }
+        }
+      },
+      "options": {
+        "current_version": "v1.0.0",
+        "versions": {
+          "v1.0.0": {
+            "methodology_version": "1.0.0",
+            "points": [
+              {
+                "date": "2026-08-25",
+                "put_call_ratio": 0.85
+              },
+              {
+                "date": "2026-08-26",
+                "put_call_ratio": 0.92
+              },
+              {
+                "date": "2026-08-27",
+                "put_call_ratio": 0.88
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "derivatives_revisions_966": [
+    {
+      "revision_id": "hist_rev_btc_funding_001",
+      "asset": "BTC",
+      "metric": "funding_rate",
+      "old_version": "v0.9.0",
+      "new_version": "v1.0.0",
+      "reason": "venue_aggregation_fix",
+      "revised_at": "2026-08-20T10:00:00+00:00"
+    }
+  ],
+  "research_datasets_968": {
+    "btc_market_research": {
+      "current_version": "v1.0.0",
+      "description": "BTC daily market metrics for research",
+      "versions": {
+        "v1.0.0": {
+          "rows": [
+            {
+              "date": "2026-08-25",
+              "price": 64200,
+              "volume_usd": 28500000000
+            },
+            {
+              "date": "2026-08-26",
+              "price": 64650,
+              "volume_usd": 30100000000
+            },
+            {
+              "date": "2026-08-27",
+              "price": 64800,
+              "volume_usd": 31200000000
+            }
+          ]
+        }
+      }
+    }
+  },
+  "historical_metrics_967": {
+    "btc_price_daily": {
+      "current_version": "v1.0.0",
+      "versions": {
+        "v1.0.0": {
+          "methodology_version": "1.3.0",
+          "immutable": true,
+          "points": [
+            {
+              "date": "2026-08-25",
+              "value": 64200
+            },
+            {
+              "date": "2026-08-26",
+              "value": 64650
+            },
+            {
+              "date": "2026-08-27",
+              "value": 64800
+            }
+          ]
+        }
+      }
+    },
+    "aave_tvl_daily": {
+      "current_version": "v2.1.0",
+      "versions": {
+        "v2.1.0": {
+          "methodology_version": "2.1.0",
+          "immutable": true,
+          "points": [
+            {
+              "date": "2026-08-25",
+              "value": 11800000000
+            },
+            {
+              "date": "2026-08-26",
+              "value": 12100000000
+            },
+            {
+              "date": "2026-08-27",
+              "value": 12500000000
+            }
+          ]
+        }
+      }
+    }
+  }
+}

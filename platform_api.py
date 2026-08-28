@@ -1859,6 +1859,14 @@ async def onchain_fraud_screen_route(address: str = Query(..., min_length=42), c
     return screen_fraud_activity_960(address, chain=chain)
 
 
+@router.get("/intelligence-ledger/onchain-layer/extension/wallet-dd")
+async def onchain_wallet_dd_route(address: str = Query(..., min_length=42), chain: str = Query("ethereum")):
+    """#972 Instant Wallet Due Diligence — On-Chain Extension."""
+    from bd_platform.onchain_intelligence_extension import build_wallet_dd_report_972
+
+    return build_wallet_dd_report_972(address, chain=chain)
+
+
 @router.get("/intelligence-ledger/onchain-layer/extension/labels")
 async def onchain_entity_labels_route(
     address: str = Query(..., min_length=42),
@@ -5939,6 +5947,73 @@ async def stabilization_e2e_route(_admin: dict = Depends(require_admin)):
     return run_stabilization_e2e_950()
 
 
+@router.get("/internal/data-engine/historical-layer/status")
+async def historical_layer_status_route(_admin: dict = Depends(require_admin)):
+    """#967 Historical Full-Data Layer — #965 archive + #966 derivatives + #968 research."""
+    from bd_platform.data_engine_historical_layer import historical_layer_status_967
+
+    return historical_layer_status_967()
+
+
+@router.get("/internal/data-engine/historical-layer/archive")
+async def historical_archive_list_route(
+    data_type: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_historical_layer import list_archive_snapshots_965
+
+    return list_archive_snapshots_965(data_type=data_type)
+
+
+@router.get("/internal/data-engine/historical-layer/archive/{snapshot_id}")
+async def historical_archive_snapshot_route(snapshot_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_historical_layer import get_archive_snapshot_965
+
+    return get_archive_snapshot_965(snapshot_id)
+
+
+@router.get("/internal/data-engine/historical-layer/derivatives/{asset}/{metric}")
+async def historical_derivatives_route(
+    asset: str,
+    metric: str,
+    version: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_historical_layer import query_derivatives_history_966
+
+    return query_derivatives_history_966(asset, metric, version=version)
+
+
+@router.get("/internal/data-engine/historical-layer/research/{dataset_id}")
+async def historical_research_export_route(
+    dataset_id: str,
+    fmt: str = Query("parquet"),
+    version: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_historical_layer import export_research_dataset_968
+
+    return export_research_dataset_968(dataset_id, fmt=fmt, version=version)
+
+
+@router.get("/internal/data-engine/historical-layer/metric/{metric_id}")
+async def historical_metric_query_route(
+    metric_id: str,
+    version: str | None = Query(None),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engine_historical_layer import query_historical_metric_967
+
+    return query_historical_metric_967(metric_id, version=version)
+
+
+@router.get("/internal/data-engine/historical-layer/e2e")
+async def historical_layer_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_historical_layer import run_historical_layer_e2e_967
+
+    return run_historical_layer_e2e_967()
+
+
 @router.get("/internal/data-engine/export-layer/status")
 async def export_layer_status_route(_admin: dict = Depends(require_admin)):
     """#924 API / Data Export — Data Engine export layer."""
@@ -7353,6 +7428,28 @@ async def protocol_kpi_normalize_route(protocol_id: str):
     return normalize_protocol_metrics_986(protocol_id)
 
 
+@router.get("/intelligence-ledger/token-due-diligence/status")
+async def token_dd_status_route():
+    """#971 Instant Token Due Diligence — Intelligence Ledger."""
+    from bd_platform.intelligence_ledger_token_due_diligence import token_dd_status_971
+
+    return token_dd_status_971()
+
+
+@router.get("/intelligence-ledger/token-due-diligence/e2e")
+async def token_dd_e2e_route():
+    from bd_platform.intelligence_ledger_token_due_diligence import run_token_dd_e2e_971
+
+    return run_token_dd_e2e_971()
+
+
+@router.get("/intelligence-ledger/token-due-diligence/{token_id}")
+async def token_dd_report_route(token_id: str):
+    from bd_platform.intelligence_ledger_token_due_diligence import build_token_dd_report_971
+
+    return build_token_dd_report_971(token_id)
+
+
 @router.get("/intelligence-ledger/tokenomics/status")
 async def tokenomics_status_route():
     """#1007 Token Allocation + #1009 Vesting Schedule — Intelligence Ledger."""
@@ -8129,6 +8226,49 @@ async def governance_proposal_route(proposal_id: str):
     from bd_platform.market_radar_governance import get_proposal_details_963
 
     return get_proposal_details_963(proposal_id)
+
+
+@router.get("/intelligence-ledger/market-radar/indices/status")
+async def indices_status_route():
+    """#970 Indices — Market Radar widget."""
+    from bd_platform.market_radar_indices import indices_status_970
+
+    return indices_status_970()
+
+
+@router.get("/intelligence-ledger/market-radar/indices/e2e")
+async def indices_e2e_route():
+    from bd_platform.market_radar_indices import run_indices_e2e_970
+
+    return run_indices_e2e_970()
+
+
+@router.get("/intelligence-ledger/market-radar/indices/{index_id}/constituents")
+async def indices_constituents_route(index_id: str):
+    from bd_platform.market_radar_indices import get_index_constituents_970
+
+    return get_index_constituents_970(index_id)
+
+
+@router.get("/intelligence-ledger/market-radar/indices/{index_id}/value")
+async def indices_value_route(index_id: str):
+    from bd_platform.market_radar_indices import get_index_value_970
+
+    return get_index_value_970(index_id)
+
+
+@router.get("/intelligence-ledger/market-radar/indices/{index_id}/rebalances")
+async def indices_rebalances_route(index_id: str):
+    from bd_platform.market_radar_indices import get_rebalance_history_970
+
+    return get_rebalance_history_970(index_id)
+
+
+@router.get("/intelligence-ledger/market-radar/indices/{index_id}/backtest")
+async def indices_backtest_route(index_id: str):
+    from bd_platform.market_radar_indices import run_index_backtest_970
+
+    return run_index_backtest_970(index_id)
 
 
 @router.get("/intelligence-ledger/asset-screener/status")
