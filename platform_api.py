@@ -2115,6 +2115,38 @@ async def risk_score_asset_route(asset: str, portfolio_id: str = Query("demo_por
     return score_asset_risk(asset, portfolio_id=portfolio_id)
 
 
+@router.get("/intelligence-ledger/portfolio-ai/risk-assessment/status")
+async def portfolio_risk_assessment_status_route():
+    """#999 Risk Assessment — merged into Portfolio AI Risk Tab (insight-only)."""
+    from bd_platform.portfolio_ai_risk_assessment import risk_assessment_status_999
+
+    return risk_assessment_status_999()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-assessment")
+async def portfolio_risk_assessment_route(
+    portfolio_id: str = Query("demo_portfolio"),
+    user_id: str = Query("user_demo"),
+):
+    from bd_platform.portfolio_ai_risk_assessment import run_risk_assessment_999
+
+    return run_risk_assessment_999(portfolio_id, user_id=user_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-assessment/negative-tests")
+async def portfolio_risk_assessment_negative_tests_route():
+    from bd_platform.portfolio_ai_risk_assessment import run_negative_tests_999
+
+    return run_negative_tests_999()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-assessment/e2e")
+async def portfolio_risk_assessment_e2e_route():
+    from bd_platform.portfolio_ai_risk_assessment import run_risk_assessment_e2e_999
+
+    return run_risk_assessment_e2e_999()
+
+
 @router.get("/intelligence-ledger/portfolio-ai/defi-strategy-risk/status")
 async def defi_strategy_risk_status_route():
     """#951 DeFi Strategy Risk — Portfolio AI Risk Tab."""
@@ -7319,6 +7351,63 @@ async def research_portal_quarterly_e2e_route():
     from bd_platform.research_intelligence_portal import run_quarterly_report_e2e_989
 
     return run_quarterly_report_e2e_989()
+
+
+@router.get("/intelligence-ledger/research-portal/market-insights")
+async def research_portal_market_insights_route(
+    frequency: str = Query("weekly"),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    """#996 Market Insights template — merged into #997."""
+    from bd_platform.research_intelligence_portal import generate_market_insights_996
+
+    return generate_market_insights_996(frequency=frequency, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/research-portal/market-insights/e2e")
+async def research_portal_market_insights_e2e_route():
+    from bd_platform.research_intelligence_portal import run_market_insights_e2e_996
+
+    return run_market_insights_e2e_996()
+
+
+@router.get("/intelligence-ledger/research-portal/research-report")
+async def research_portal_research_report_route(
+    frequency: str = Query("weekly"),
+    assets: str | None = Query(None),
+    time_range: str = Query("7d"),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    """#998 Research Report template — merged into #997."""
+    from bd_platform.research_intelligence_portal import generate_research_report_998
+
+    asset_list = [a.strip() for a in assets.split(",")] if assets else None
+    return generate_research_report_998(
+        frequency=frequency,
+        assets=asset_list,
+        time_range=time_range,
+        user_id=user_id,
+        tenant_id=tenant_id,
+    )
+
+
+@router.get("/intelligence-ledger/research-portal/research-report/e2e")
+async def research_portal_research_report_e2e_route():
+    from bd_platform.research_intelligence_portal import run_research_report_e2e_998
+
+    return run_research_report_e2e_998()
+
+
+@router.get("/intelligence-ledger/research-portal/archive")
+async def research_portal_archive_route(
+    template: str | None = Query(None),
+    tenant_id: str | None = Query(None),
+):
+    from bd_platform.research_intelligence_portal import list_report_publication_archive_997
+
+    return list_report_publication_archive_997(template=template, tenant_id=tenant_id)
 
 
 @router.get("/intelligence-ledger/ai-provenance/status")

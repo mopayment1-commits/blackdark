@@ -2,7 +2,9 @@
   "research_intelligence_portal_997": {
     "insight_only": true,
     "no_execution": true,
-    "tool_grounded": true
+    "tool_grounded": true,
+    "tenant_isolation": true,
+    "dataset_version": "2026.08.28"
   },
   "ai_analyst_919": {
     "description": "NL Query Interface — keyword-to-tool mapping, 100% grounded",
@@ -250,6 +252,178 @@
       {"protocol_id": "aave", "quarter": "Q2-2026", "version": "aave_Q2-2026_v1.0.0", "immutable": true},
       {"protocol_id": "aave", "quarter": "Q1-2026", "version": "aave_Q1-2026_v1.0.0", "immutable": true},
       {"protocol_id": "uniswap", "quarter": "Q2-2026", "version": "uniswap_Q2-2026_v1.0.0", "immutable": true}
+    ]
+  },
+  "market_insights_996": {
+    "fee_db": {
+      "generation_per_report_usd": 0.08,
+      "storage_per_report_usd": 0.02
+    },
+    "weekly_data": {
+      "market_summary": {
+        "title": "Market Summary",
+        "content": "Crypto markets showed mixed performance with BTC holding above $64K.",
+        "claims": [
+          {
+            "text": "BTC trading at $64,800 with $28.5B 24h volume",
+            "claim_type": "fact",
+            "evidence": [{"source": "market_data_engine", "metric": "price", "value": 64800, "provenance_ref": 945}]
+          }
+        ],
+        "charts": [
+          {"chart_id": "btc_price_weekly", "metric": "price", "generated_from_metrics": true, "source": "data_engine"}
+        ]
+      },
+      "key_metrics": {
+        "title": "Key Metrics",
+        "content": "Core platform metrics for the week.",
+        "claims": [
+          {
+            "text": "BTC NVT ratio at 42.3 — below 90-day average",
+            "claim_type": "fact",
+            "evidence": [{"source": "onchain_metrics", "metric": "nvt", "value": 42.3, "provenance_ref": 945}]
+          },
+          {
+            "text": "DeFi TVL flat week-over-week at $89.2B",
+            "claim_type": "fact",
+            "evidence": [{"source": "defi_intelligence", "metric": "tvl", "value": 89200000000, "provenance_ref": 945}]
+          }
+        ]
+      },
+      "narrative_analysis": {
+        "title": "Narrative Analysis",
+        "content": "ETF inflows narrative dominant; AI agents accelerating.",
+        "claims": [
+          {
+            "text": "AI Agents narrative acceleration score 72.5",
+            "claim_type": "fact",
+            "evidence": [{"source": "narrative_sector_974", "narrative_id": "ai_agents", "provenance_ref": 945}]
+          }
+        ]
+      },
+      "risk_alert": {
+        "title": "Risk Alert",
+        "content": "Funding mildly positive — monitor for volatility.",
+        "claims": [
+          {
+            "text": "BTC perpetual funding at 0.012% — mildly positive",
+            "claim_type": "fact",
+            "evidence": [{"source": "funding_intelligence", "metric": "funding_rate", "value": 0.012, "provenance_ref": 945}]
+          }
+        ]
+      }
+    }
+  },
+  "research_reports_998": {
+    "default_assets": ["BTC", "ETH"],
+    "fee_db": {
+      "generation_per_report_usd": 0.10,
+      "storage_per_report_usd": 0.02,
+      "delivery_per_report_usd": 0.01
+    },
+    "weekly_data": {
+      "executive_summary": {
+        "title": "Executive Summary",
+        "content": "Weekly research overview — evidence-grounded synthesis.",
+        "claims": [
+          {
+            "text": "BTC dominance at 54.2%",
+            "claim_type": "fact",
+            "reproducible": true,
+            "evidence": [{"source": "market_data_engine", "metric": "dominance", "value": 54.2, "provenance_ref": 945}]
+          }
+        ]
+      },
+      "market_context": {
+        "title": "Market Context",
+        "content": "Macro and crypto market context for the week.",
+        "claims": [
+          {
+            "text": "Total crypto market cap at $2.45T",
+            "claim_type": "fact",
+            "reproducible": true,
+            "evidence": [{"source": "market_data_engine", "metric": "market_cap", "value": 2450000000000, "provenance_ref": 945}]
+          }
+        ],
+        "charts": [
+          {"chart_id": "market_cap_weekly", "metric": "market_cap", "generated_from_metrics": true, "source": "data_engine"}
+        ]
+      },
+      "asset_analysis": {
+        "title": "Asset Analysis",
+        "content": "Deep dive on BTC and ETH performance.",
+        "claims": [
+          {
+            "text": "BTC 7d return +3.2%",
+            "claim_type": "fact",
+            "reproducible": true,
+            "evidence": [{"source": "market_data_engine", "asset": "BTC", "metric": "return_7d", "value": 3.2, "provenance_ref": 945}]
+          },
+          {
+            "text": "ETH 7d return +1.8%",
+            "claim_type": "fact",
+            "reproducible": true,
+            "evidence": [{"source": "market_data_engine", "asset": "ETH", "metric": "return_7d", "value": 1.8, "provenance_ref": 945}]
+          }
+        ],
+        "charts": [
+          {"chart_id": "btc_eth_returns", "metric": "return_7d", "generated_from_metrics": true, "source": "data_engine"}
+        ]
+      },
+      "risk_matrix": {
+        "title": "Risk Matrix",
+        "content": "Portfolio-level risk factors for the week.",
+        "claims": [
+          {
+            "text": "Market volatility index at 42 — moderate",
+            "claim_type": "fact",
+            "reproducible": true,
+            "evidence": [{"source": "volatility_analytics", "metric": "vix_crypto", "value": 42, "provenance_ref": 945}]
+          }
+        ]
+      }
+    },
+    "on_demand_data": {
+      "executive_summary": {
+        "title": "Executive Summary",
+        "content": "On-demand research report for selected assets.",
+        "claims": [
+          {
+            "text": "Custom asset analysis generated on-demand",
+            "claim_type": "fact",
+            "reproducible": true,
+            "evidence": [{"source": "research_portal_997", "provenance_ref": 945}]
+          }
+        ]
+      },
+      "market_context": {
+        "title": "Market Context",
+        "content": "Context for selected time range.",
+        "claims": []
+      },
+      "asset_analysis": {
+        "title": "Asset Analysis",
+        "content": "User-selected asset deep dive.",
+        "claims": [
+          {
+            "text": "SOL 30d return +12.4%",
+            "claim_type": "fact",
+            "reproducible": true,
+            "evidence": [{"source": "market_data_engine", "asset": "SOL", "metric": "return_30d", "value": 12.4, "provenance_ref": 945}]
+          }
+        ]
+      },
+      "risk_matrix": {
+        "title": "Risk Matrix",
+        "content": "Risk assessment for selected assets.",
+        "claims": []
+      }
+    }
+  },
+  "publication_archive_997": {
+    "reports": [
+      {"report_id": "rpt_archive_001", "template": "market_insights", "version": "market_insights_weekly_2026-08-21_v1.0.0", "issued_at": "2026-08-21T00:00:00Z", "tenant_id": "tenant_default", "immutable": true},
+      {"report_id": "rpt_archive_002", "template": "research_report", "version": "research_report_weekly_2026-08-21_v1.0.0", "issued_at": "2026-08-21T00:00:00Z", "tenant_id": "tenant_default", "immutable": true}
     ]
   }
 }

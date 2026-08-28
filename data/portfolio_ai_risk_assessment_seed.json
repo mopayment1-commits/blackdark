@@ -1,0 +1,50 @@
+{
+  "risk_assessment_999": {
+    "limits": {
+      "elevated_risk_pct": 60,
+      "high_risk_pct": 80,
+      "elevated_volatility": 0.5,
+      "extreme_volatility": 0.8,
+      "max_slippage_bps": 50,
+      "min_liquidity_score": 0.3,
+      "risk_budget_pct": 100
+    },
+    "fee_db": {
+      "compute_per_assessment_usd": 0.005,
+      "storage_per_assessment_usd": 0.001
+    }
+  },
+  "portfolios": {
+    "demo_portfolio": {
+      "exposure_pct": 45.0,
+      "volatility_30d": 0.32,
+      "estimated_slippage_bps": 12.5,
+      "liquidity_score": 0.85,
+      "multi_account_aggregated": true,
+      "elevated_risk_remediation": ["Monitor volatility", "Review position sizing"],
+      "high_risk_remediation": ["Reduce concentrated exposure", "Check slippage with reference pricing"]
+    },
+    "zero_balance": {
+      "exposure_pct": 0.0,
+      "volatility_30d": 0.0,
+      "estimated_slippage_bps": 0.0,
+      "liquidity_score": 1.0,
+      "multi_account_aggregated": true
+    },
+    "extreme_volatility": {
+      "exposure_pct": 72.0,
+      "volatility_30d": 0.92,
+      "estimated_slippage_bps": 35.0,
+      "liquidity_score": 0.55,
+      "multi_account_aggregated": true,
+      "high_risk_remediation": ["Extreme volatility detected — review hedging", "Reduce leverage exposure"]
+    },
+    "missing_data": {
+      "exposure_pct": 30.0,
+      "volatility_30d": null,
+      "estimated_slippage_bps": null,
+      "liquidity_score": 0.5,
+      "multi_account_aggregated": false
+    }
+  }
+}

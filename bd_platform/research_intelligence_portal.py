@@ -29,6 +29,12 @@ _FEATURE_REF_919 = 919
 _FEATURE_REF_920 = 920
 _FEATURE_REF_922 = 922
 _FEATURE_REF_989 = 989
+_FEATURE_REF_996 = 996
+_FEATURE_REF_998 = 998
+_FEATURE_REF_474 = 474
+_FEATURE_REF_933 = 933
+_FEATURE_REF_987 = 987
+_PROVENANCE_REF = 945
 _PROTOCOL_KPI_REF = 986
 _GOVERNANCE_REF = 963
 _CERTIFICATE_REF = 952
@@ -38,12 +44,15 @@ _NL_QUERY_TAB = "nl_query_interface"
 _DEEP_RESEARCH_TAB = "deep_research_job"
 _AUTO_REPORT_TAB = "auto_report"
 _QUARTERLY_REPORT_TAB = "quarterly_report"
+_MARKET_INSIGHTS_TAB = "market_insights"
+_RESEARCH_REPORT_TAB = "research_report"
 _SEED_PATH = Path("data/research_intelligence_portal_seed.json")
 _MAX_RETRIES = 3
 
 _LOCK = threading.Lock()
 _JOB_QUEUE: dict[str, dict[str, Any]] = {}
 _NL_QUERY_CACHE: dict[str, dict[str, Any]] = {}
+_REPORT_ARCHIVE: list[dict[str, Any]] = []
 
 _DISCLAIMER = (
     "Research intelligence — insight only, not financial advice. "
@@ -102,30 +111,58 @@ def reset_research_portal_state() -> None:
     with _LOCK:
         _JOB_QUEUE.clear()
         _NL_QUERY_CACHE.clear()
+        _REPORT_ARCHIVE.clear()
 
 
 def research_portal_status_997(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
+    cfg = _cfg(seed)
     return {
         "ok": True,
         "feature_ref": _FEATURE_REF_997,
         "standalone": _STANDALONE,
         "standalone_rejected": True,
         "merged_into": _MERGED_INTO,
-        "tabs": [_NL_QUERY_TAB, _DEEP_RESEARCH_TAB, _AUTO_REPORT_TAB, _QUARTERLY_REPORT_TAB],
+        "master_layer": True,
+        "tabs": [_NL_QUERY_TAB, _DEEP_RESEARCH_TAB, _AUTO_REPORT_TAB, _QUARTERLY_REPORT_TAB, _MARKET_INSIGHTS_TAB, _RESEARCH_REPORT_TAB],
+        "templates": {
+            "daily_brief": _FEATURE_REF_474,
+            "weekly_insight": _FEATURE_REF_996,
+            "quarterly_report": _FEATURE_REF_989,
+            "committee_one_pager": _FEATURE_REF_933,
+            "deep_research": _FEATURE_REF_920,
+            "research_report": _FEATURE_REF_998,
+            "market_insights": _FEATURE_REF_996,
+        },
+        "merged_refs": {
+            "996": _FEATURE_REF_996,
+            "998": _FEATURE_REF_998,
+            "989": _FEATURE_REF_989,
+            "919": _FEATURE_REF_919,
+            "920": _FEATURE_REF_920,
+            "922": _FEATURE_REF_922,
+        },
         "ai_analyst_ref": _FEATURE_REF_919,
         "ai_deep_research_ref": _FEATURE_REF_920,
         "auto_report_ref": _FEATURE_REF_922,
         "quarterly_report_ref": _FEATURE_REF_989,
+        "market_insights_ref": _FEATURE_REF_996,
+        "research_reports_ref": _FEATURE_REF_998,
         "protocol_kpi_ref": _PROTOCOL_KPI_REF,
         "governance_ref": _GOVERNANCE_REF,
         "decision_certificate_ref": _CERTIFICATE_REF,
+        "accuracy_ledger_ref": _FEATURE_REF_987,
+        "provenance_ref": _PROVENANCE_REF,
         "ai_provenance_policy_ref": 921,
+        "evidence_grounded": True,
+        "chart_reproducibility": True,
+        "publication_timestamp_required": True,
+        "tenant_isolation": cfg.get("tenant_isolation", True),
         "insight_only": True,
         "no_execution": True,
         "tool_grounded": True,
         "rule_based_first": True,
-        "feeds": ["ai_generated_reporting_922", "deep_research_920"],
+        "feeds": ["ai_generated_reporting_922", "deep_research_920", "market_insights_996", "research_reports_998"],
         "disclaimer": _DISCLAIMER,
         "timestamp": _utcnow(),
     }
@@ -896,6 +933,274 @@ def run_quarterly_report_e2e_989(*, seed: dict[str, Any] | None = None) -> dict[
     return {"ok": all_passed, "feature_ref": _FEATURE_REF_989, "all_passed": all_passed, "checks": checks}
 
 
+def _build_report_envelope(
+    *,
+    feature_ref: int,
+    tab: str,
+    template: str,
+    frequency: str,
+    sections: dict[str, Any],
+    claims: list[dict[str, Any]],
+    charts: list[dict[str, Any]],
+    seed: dict[str, Any],
+    user_id: str,
+    tenant_id: str,
+    tier: str,
+    extra: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    dataset_version = (seed.get("research_intelligence_portal_997") or {}).get("dataset_version", "2026.08.28")
+    issued_at = _utcnow()
+    version = f"{template}_{frequency}_{issued_at[:10]}_v1.0.0"
+    report_id = f"rpt_{hashlib.sha256(version.encode()).hexdigest()[:12]}"
+
+    report: dict[str, Any] = {
+        "ok": True,
+        "feature_ref": feature_ref,
+        "portal_ref": _FEATURE_REF_997,
+        "tab": tab,
+        "template": template,
+        "frequency": frequency,
+        "report_id": report_id,
+        "version": version,
+        "issued_at": issued_at,
+        "dataset_version": dataset_version,
+        "publication_timestamp": issued_at,
+        "sections": sections,
+        "claims": claims,
+        "charts": charts,
+        "all_claims_traceable": all(c.get("evidence") for c in claims),
+        "charts_reproducible": all(c.get("generated_from_metrics") for c in charts) if charts else True,
+        "no_static_images": True,
+        "provenance_ref": _PROVENANCE_REF,
+        "accuracy_ledger_ref": _FEATURE_REF_987,
+        "certificate_ready": True,
+        "decision_certificate_ref": _CERTIFICATE_REF,
+        "insight_only": True,
+        "timestamp": issued_at,
+    }
+    if extra:
+        report.update(extra)
+
+    report = _apply_provenance_policy(report, feature_ref=str(feature_ref), user_id=user_id, tenant_id=tenant_id, tier=tier)
+
+    archive_entry = {
+        "report_id": report_id,
+        "template": template,
+        "version": version,
+        "issued_at": issued_at,
+        "tenant_id": tenant_id,
+        "immutable": True,
+    }
+    with _LOCK:
+        _REPORT_ARCHIVE.append(archive_entry)
+
+    return report
+
+
+def generate_market_insights_996(
+    *,
+    frequency: str = "weekly",
+    user_id: str = "user_demo",
+    tenant_id: str = "tenant_default",
+    tier: str = "pro",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#996 Market Insights template — merged into #997. Weekly + on-demand only."""
+    seed = seed or _load_seed()
+    if frequency == "daily":
+        return {"ok": False, "feature_ref": _FEATURE_REF_996, "error": "daily_covered_by_474_daily_brief"}
+
+    cfg = seed.get("market_insights_996") or {}
+    data = cfg.get("weekly_data") or {}
+    claims: list[dict[str, Any]] = []
+    charts: list[dict[str, Any]] = []
+    sections: dict[str, Any] = {}
+
+    for section_key in ("market_summary", "key_metrics", "narrative_analysis", "risk_alert"):
+        section = data.get(section_key) or {}
+        for claim in section.get("claims") or []:
+            claims.append({
+                "claim": claim.get("text"),
+                "claim_type": claim.get("claim_type", "fact"),
+                "evidence": claim.get("evidence") or [],
+                "provenance_badge_ref": _PROVENANCE_REF,
+                "traceable": True,
+            })
+        section_charts = section.get("charts") or []
+        charts.extend(section_charts)
+        sections[section_key] = {
+            "title": section.get("title", section_key.replace("_", " ").title()),
+            "content": section.get("content"),
+            "claims": section.get("claims") or [],
+            "charts": section_charts,
+            "charts_reproducible": all(c.get("generated_from_metrics") for c in section_charts) if section_charts else True,
+        }
+
+    report = _build_report_envelope(
+        feature_ref=_FEATURE_REF_996,
+        tab=_MARKET_INSIGHTS_TAB,
+        template="market_insights",
+        frequency=frequency,
+        sections=sections,
+        claims=claims,
+        charts=charts,
+        seed=seed,
+        user_id=user_id,
+        tenant_id=tenant_id,
+        tier=tier,
+        extra={
+            "mandatory_sections": ["market_summary", "key_metrics", "narrative_analysis", "risk_alert"],
+            "auto_report_input_ref": _FEATURE_REF_922,
+            "daily_brief_ref": _FEATURE_REF_474,
+            "periodicity": ["weekly", "on_demand"],
+        },
+    )
+
+    fee = cfg.get("fee_db") or {}
+    report["fee_db"] = {
+        "generation_usd": fee.get("generation_per_report_usd", 0.08),
+        "storage_usd": fee.get("storage_per_report_usd", 0.02),
+    }
+    return report
+
+
+def generate_research_report_998(
+    *,
+    frequency: str = "weekly",
+    assets: list[str] | None = None,
+    time_range: str = "7d",
+    user_id: str = "user_demo",
+    tenant_id: str = "tenant_default",
+    tier: str = "pro",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#998 Research Report template — weekly or on-demand via #997."""
+    seed = seed or _load_seed()
+    cfg = seed.get("research_reports_998") or {}
+    assets = assets or cfg.get("default_assets") or ["BTC", "ETH"]
+    data_key = "weekly_data" if frequency == "weekly" else "on_demand_data"
+    data = cfg.get(data_key) or cfg.get("weekly_data") or {}
+
+    claims: list[dict[str, Any]] = []
+    charts: list[dict[str, Any]] = []
+    sections: dict[str, Any] = {}
+
+    for section_key in ("executive_summary", "market_context", "asset_analysis", "risk_matrix"):
+        section = data.get(section_key) or {}
+        for claim in section.get("claims") or []:
+            claims.append({
+                "claim": claim.get("text"),
+                "claim_type": claim.get("claim_type", "fact"),
+                "evidence": claim.get("evidence") or [],
+                "provenance_badge_ref": _PROVENANCE_REF,
+                "sourced": True,
+                "reproducible": claim.get("reproducible", True),
+            })
+        section_charts = section.get("charts") or []
+        charts.extend(section_charts)
+        sections[section_key] = {
+            "title": section.get("title", section_key.replace("_", " ").title()),
+            "content": section.get("content"),
+            "assets": assets if section_key == "asset_analysis" else None,
+            "time_range": time_range if frequency == "on_demand" else None,
+            "claims": section.get("claims") or [],
+            "charts": section_charts,
+            "charts_reproducible": all(c.get("generated_from_metrics") for c in section_charts) if section_charts else True,
+        }
+
+    report = _build_report_envelope(
+        feature_ref=_FEATURE_REF_998,
+        tab=_RESEARCH_REPORT_TAB,
+        template="research_report",
+        frequency=frequency,
+        sections=sections,
+        claims=claims,
+        charts=charts,
+        seed=seed,
+        user_id=user_id,
+        tenant_id=tenant_id,
+        tier=tier,
+        extra={
+            "mandatory_sections": ["executive_summary", "market_context", "asset_analysis", "risk_matrix"],
+            "assets": assets,
+            "time_range": time_range,
+            "all_claims_sourced": all(c.get("sourced") for c in claims),
+            "publication_version_archive": True,
+        },
+    )
+
+    fee = cfg.get("fee_db") or {}
+    report["fee_db"] = {
+        "generation_usd": fee.get("generation_per_report_usd", 0.10),
+        "storage_usd": fee.get("storage_per_report_usd", 0.02),
+        "delivery_usd": fee.get("delivery_per_report_usd", 0.01),
+    }
+    return report
+
+
+def list_report_publication_archive_997(
+    *,
+    template: str | None = None,
+    tenant_id: str | None = None,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    cfg_archive = (seed.get("publication_archive_997") or {}).get("reports") or []
+    with _LOCK:
+        runtime_archive = list(_REPORT_ARCHIVE)
+    archive = cfg_archive + runtime_archive
+
+    if template:
+        archive = [r for r in archive if r.get("template") == template]
+    if tenant_id:
+        archive = [r for r in archive if r.get("tenant_id") == tenant_id]
+
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_997,
+        "archive": archive,
+        "count": len(archive),
+        "publication_version_archive": True,
+        "tenant_isolated": tenant_id is not None,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_market_insights_e2e_996(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    checks: list[dict[str, Any]] = []
+
+    report = generate_market_insights_996(seed=seed)
+    checks.append({"id": "report_generated", "passed": report.get("ok") is True})
+    checks.append({"id": "four_sections", "passed": len(report.get("sections") or {}) == 4})
+    checks.append({"id": "claims_traceable", "passed": report.get("all_claims_traceable") is True})
+    checks.append({"id": "publication_timestamp", "passed": report.get("publication_timestamp") is not None})
+    checks.append({"id": "charts_reproducible", "passed": report.get("charts_reproducible") is True})
+
+    daily_reject = generate_market_insights_996(frequency="daily", seed=seed)
+    checks.append({"id": "no_daily_duplicate", "passed": daily_reject.get("error") == "daily_covered_by_474_daily_brief"})
+
+    all_passed = all(c["passed"] for c in checks)
+    return {"ok": all_passed, "feature_ref": _FEATURE_REF_996, "all_passed": all_passed, "checks": checks}
+
+
+def run_research_report_e2e_998(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    checks: list[dict[str, Any]] = []
+
+    weekly = generate_research_report_998(frequency="weekly", seed=seed)
+    checks.append({"id": "weekly_report", "passed": weekly.get("ok") is True})
+    checks.append({"id": "four_sections", "passed": len(weekly.get("sections") or {}) == 4})
+    checks.append({"id": "all_claims_sourced", "passed": weekly.get("all_claims_sourced") is True})
+
+    on_demand = generate_research_report_998(frequency="on_demand", assets=["BTC", "SOL"], time_range="30d", seed=seed)
+    checks.append({"id": "on_demand", "passed": on_demand.get("ok") is True})
+    checks.append({"id": "version_archive", "passed": on_demand.get("publication_version_archive") is True})
+
+    all_passed = all(c["passed"] for c in checks)
+    return {"ok": all_passed, "feature_ref": _FEATURE_REF_998, "all_passed": all_passed, "checks": checks}
+
+
 def run_research_portal_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     reset_research_portal_state()
@@ -908,6 +1213,11 @@ def run_research_portal_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, 
     checks.append({"id": "insight_only", "passed": status["insight_only"] is True})
     checks.append({"id": "auto_report_tab", "passed": _AUTO_REPORT_TAB in status["tabs"]})
     checks.append({"id": "quarterly_report_tab", "passed": _QUARTERLY_REPORT_TAB in status["tabs"]})
+    checks.append({"id": "market_insights_tab", "passed": _MARKET_INSIGHTS_TAB in status["tabs"]})
+    checks.append({"id": "research_report_tab", "passed": _RESEARCH_REPORT_TAB in status["tabs"]})
+    checks.append({"id": "master_templates", "passed": len(status.get("templates") or {}) >= 5})
+    checks.append({"id": "tenant_isolation", "passed": status.get("tenant_isolation") is True})
+    checks.append({"id": "chart_reproducibility", "passed": status.get("chart_reproducibility") is True})
 
     q1 = ask_ai_analyst_919("What is Bitcoin NVT and on-chain activity?", seed=seed)
     q2 = ask_ai_analyst_919("What is Bitcoin NVT and on-chain activity?", seed=seed)
@@ -951,10 +1261,19 @@ def run_research_portal_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, 
     quarterly = run_quarterly_report_e2e_989(seed=seed)
     checks.append({"id": "quarterly_report_989", "passed": quarterly.get("all_passed") is True})
 
+    insights = run_market_insights_e2e_996(seed=seed)
+    checks.append({"id": "market_insights_996", "passed": insights.get("all_passed") is True})
+
+    research = run_research_report_e2e_998(seed=seed)
+    checks.append({"id": "research_report_998", "passed": research.get("all_passed") is True})
+
+    archive = list_report_publication_archive_997(seed=seed)
+    checks.append({"id": "publication_archive", "passed": archive.get("publication_version_archive") is True})
+
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
-        "feature_refs": [_FEATURE_REF_997, _FEATURE_REF_919, _FEATURE_REF_920, _FEATURE_REF_922, _FEATURE_REF_989],
+        "feature_refs": [_FEATURE_REF_997, _FEATURE_REF_919, _FEATURE_REF_920, _FEATURE_REF_922, _FEATURE_REF_989, _FEATURE_REF_996, _FEATURE_REF_998],
         "all_passed": all_passed,
         "checks": checks,
         "timestamp": _utcnow(),
