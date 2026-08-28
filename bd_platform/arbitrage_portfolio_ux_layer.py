@@ -190,13 +190,27 @@ def build_command_center_dashboard_179(*, user_tier: str = "free", seed: dict[st
         pass
 
     fee = float(cfg.get("fee_db", {}).get("render_usd", 0.001))
+    try:
+        from bd_platform.intelligence_ux_extensions_layer import (
+            build_heatmap_component_233,
+            generate_market_summary_237,
+            live_dashboard_status_234,
+        )
+
+        widgets.append({"id": "heatmap", "feature_ref": 233, "source": "ui_component_library", "data": build_heatmap_component_233(seed=seed)})
+        widgets.append({"id": "summary", "feature_ref": 237, "source": "intelligence_ledger", "data": generate_market_summary_237(seed=seed)})
+        live_status = live_dashboard_status_234(seed=seed)
+    except ImportError:
+        live_status = None
+
     return {
         "ok": True,
         "feature_ref": 179,
         "route": "/dashboard",
         "merged_into": "ui_dashboard_layer",
         "widgets": widgets,
-        "widget_refs": [62, 67, 75, 65, 62],
+        "widget_refs": [62, 67, 75, 65, 62, 233, 237],
+        "live_dashboard_ref": live_status,
         "customizable_layout": True,
         "lazy_loading": True,
         "data_grid_ref": 162,
@@ -558,7 +572,13 @@ def attach_arbitrage_extensions_177_189_190(arbitrage: dict[str, Any], *, seed: 
     try:
         from bd_platform.onchain_defi_sources_layer import attach_arbitrage_predictive_210_214
 
-        return attach_arbitrage_predictive_210_214(out, seed=seed)
+        out = attach_arbitrage_predictive_210_214(out, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.intelligence_ux_extensions_layer import attach_arbitrage_comparison_230_232
+
+        return attach_arbitrage_comparison_230_232(out, seed=seed)
     except ImportError:
         return out
 

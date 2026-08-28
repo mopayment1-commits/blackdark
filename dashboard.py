@@ -2115,6 +2115,70 @@ async def public_etf_premium(asset: str = "BTC"):
     return analyze_etf_premium_227(asset=asset)
 
 
+@app.get("/portfolio/hedge-simulation")
+async def public_hedge_simulation(drawdown_pct: float = 15.0, hedge_pct: float = 20.0):
+    """#228 — Drawdown hedging simulation (portfolio insurance rejected)."""
+    from bd_platform.intelligence_ux_extensions_layer import simulate_drawdown_hedge_228
+
+    return simulate_drawdown_hedge_228(drawdown_pct=drawdown_pct, hedge_pct=hedge_pct)
+
+
+@app.get("/intelligence/explain")
+async def public_reasoning_explanation(asset: str = "BTC"):
+    """#229 — Rule-based opportunity reasoning (extends #151)."""
+    from bd_platform.intelligence_ux_extensions_layer import generate_reasoning_explanation_229
+
+    return generate_reasoning_explanation_229(asset=asset)
+
+
+@app.get("/intelligence/price-comparison")
+async def public_price_comparison(asset: str = "BTC"):
+    """#232 — Multi-venue price comparison (extends #153)."""
+    from bd_platform.intelligence_ux_extensions_layer import analyze_price_comparison_232
+
+    return analyze_price_comparison_232(asset=asset)
+
+
+@app.get("/radar/heatmap")
+async def public_heatmap():
+    """#233 — Market heatmap component data."""
+    from bd_platform.intelligence_ux_extensions_layer import build_heatmap_component_233
+
+    return build_heatmap_component_233()
+
+
+@app.get("/intelligence/summary")
+async def public_market_summary():
+    """#237 — One-sentence market oracle summary."""
+    from bd_platform.intelligence_ux_extensions_layer import generate_market_summary_237
+
+    return generate_market_summary_237()
+
+
+@app.get("/radar/scan")
+async def public_market_scan(threshold_score: float = 70.0):
+    """#238 — Market opportunity scan (no buy signals)."""
+    from bd_platform.intelligence_ux_extensions_layer import scan_market_opportunities_238
+
+    return scan_market_opportunities_238(threshold_score=threshold_score)
+
+
+@app.get("/oracle/on-chain/s2f")
+async def public_onchain_s2f(asset: str = "BTC"):
+    """#240 — Stock-to-Flow on-chain metric."""
+    from bd_platform.intelligence_ux_extensions_layer import compute_s2f_240
+
+    return compute_s2f_240(asset=asset)
+
+
+@app.get("/intelligence/multi-dim/macro/fred")
+async def public_fred_macro():
+    """#241 — FRED macro data source."""
+    from bd_platform.intelligence_ux_extensions_layer import ingest_fred_macro_241
+
+    return ingest_fred_macro_241()
+
+
 @app.get("/oracle/on-chain/mining")
 async def public_hashrate_capitulation():
     """#165 — Hashrate capitulation mining analysis."""

@@ -2496,3 +2496,87 @@ async def intelligence_market_extensions_e2e_route(_admin: dict = Depends(requir
     from bd_platform.intelligence_market_extensions_layer import run_intelligence_market_extensions_e2e_217_227
 
     return run_intelligence_market_extensions_e2e_217_227()
+
+
+@router.get("/portfolio/hedge-simulation")
+async def hedge_simulation_route(drawdown_pct: float = Query(15.0), hedge_pct: float = Query(20.0)):
+    from bd_platform.intelligence_ux_extensions_layer import simulate_drawdown_hedge_228
+
+    return simulate_drawdown_hedge_228(drawdown_pct=drawdown_pct, hedge_pct=hedge_pct)
+
+
+@router.get("/intelligence/explain")
+async def reasoning_explanation_route(asset: str = Query("BTC")):
+    from bd_platform.intelligence_ux_extensions_layer import generate_reasoning_explanation_229
+
+    return generate_reasoning_explanation_229(asset=asset)
+
+
+@router.get("/intelligence/arbitrage/cross-exchange")
+async def cross_exchange_divergence_route(asset: str = Query("BTC")):
+    from bd_platform.intelligence_ux_extensions_layer import analyze_cross_exchange_divergence_230
+
+    return analyze_cross_exchange_divergence_230(asset=asset)
+
+
+@router.get("/intelligence/arbitrage/triangular")
+async def triangular_arbitrage_route(asset: str = Query("USDT")):
+    from bd_platform.onchain_defi_sources_layer import analyze_triangular_arbitrage_214
+
+    return analyze_triangular_arbitrage_214(asset=asset)
+
+
+@router.get("/intelligence/price-comparison")
+async def price_comparison_route(asset: str = Query("BTC")):
+    from bd_platform.intelligence_ux_extensions_layer import analyze_price_comparison_232
+
+    return analyze_price_comparison_232(asset=asset)
+
+
+@router.get("/radar/heatmap")
+async def heatmap_component_route():
+    from bd_platform.intelligence_ux_extensions_layer import build_heatmap_component_233
+
+    return build_heatmap_component_233()
+
+
+@router.get("/intelligence/summary")
+async def market_summary_route():
+    from bd_platform.intelligence_ux_extensions_layer import generate_market_summary_237
+
+    return generate_market_summary_237()
+
+
+@router.get("/radar/scan")
+async def market_scan_route(threshold_score: float = Query(70.0)):
+    from bd_platform.intelligence_ux_extensions_layer import scan_market_opportunities_238
+
+    return scan_market_opportunities_238(threshold_score=threshold_score)
+
+
+@router.get("/oracle/on-chain/s2f")
+async def onchain_s2f_route(asset: str = Query("BTC")):
+    from bd_platform.intelligence_ux_extensions_layer import compute_s2f_240
+
+    return compute_s2f_240(asset=asset)
+
+
+@router.get("/radar/technical/s2f")
+async def technical_s2f_route(asset: str = Query("BTC")):
+    from bd_platform.intelligence_ux_extensions_layer import compute_s2f_240
+
+    return compute_s2f_240(asset=asset)
+
+
+@router.get("/intelligence/multi-dim/macro/fred")
+async def fred_macro_route():
+    from bd_platform.intelligence_ux_extensions_layer import ingest_fred_macro_241
+
+    return ingest_fred_macro_241()
+
+
+@router.get("/intelligence-ux-extensions/e2e")
+async def intelligence_ux_extensions_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.intelligence_ux_extensions_layer import run_intelligence_ux_extensions_e2e_228_241
+
+    return run_intelligence_ux_extensions_e2e_228_241()

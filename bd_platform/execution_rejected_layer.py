@@ -43,6 +43,7 @@ REJECTED_EXECUTION_FEATURES: dict[int, dict[str, Any]] = {
     221: {"alternative_route": "/radar/technical/slippage-analysis", "layer": "intelligence_market_extensions"},
     226: {"alternative_route": "/radar/events/launch-analysis", "layer": "intelligence_market_extensions"},
     227: {"alternative_route": "/intelligence/etf-premium", "layer": "intelligence_market_extensions"},
+    228: {"alternative_route": "/portfolio/hedge-simulation", "layer": "intelligence_ux_extensions"},
 }
 
 

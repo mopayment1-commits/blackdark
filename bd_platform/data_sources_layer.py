@@ -438,7 +438,7 @@ def explain_opportunity_151(
         "smart_money": {"value": "accumulating", "source": "whale_narrative_71"},
         "manipulation_absence": {"value": "low_risk", "source": "sybil_filter_99"},
     }
-    return {
+    result = {
         "ok": True,
         "feature_ref": 151,
         "status": "existing_ui_enhancement",
@@ -456,6 +456,12 @@ def explain_opportunity_151(
         "disclaimer": _disclaimer(),
         "fee_db": {"compute_usd": fee},
     }
+    try:
+        from bd_platform.intelligence_ux_extensions_layer import attach_reasoning_explanation_229
+
+        return attach_reasoning_explanation_229(result, seed=seed)
+    except ImportError:
+        return result
 
 
 # ─── #152 Alerts/Execution — REJECTED execution, existing alerts ───────────────

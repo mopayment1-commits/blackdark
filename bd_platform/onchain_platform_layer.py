@@ -329,7 +329,13 @@ def compute_macro_event_nexus_133(
     try:
         from bd_platform.derivatives_ta_research_layer import attach_macro_research_sources_196_197
 
-        return attach_macro_research_sources_196_197(result, seed=seed)
+        result = attach_macro_research_sources_196_197(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.intelligence_ux_extensions_layer import attach_fred_macro_241
+
+        return attach_fred_macro_241(result, seed=seed)
     except ImportError:
         return result
 
