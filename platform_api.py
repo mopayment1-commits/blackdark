@@ -4985,6 +4985,78 @@ async def api_gateway_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/api-gateway/throttling/status")
+async def api_gateway_throttling_status_route():
+    """#833 API Throttling — middleware in API Gateway."""
+    from bd_platform.api_gateway_throttling import throttling_status_833
+
+    return throttling_status_833()
+
+
+@router.get("/intelligence-ledger/api-gateway/throttling")
+async def api_gateway_throttling_panel_route():
+    from bd_platform.api_gateway_throttling import build_throttling_panel_833
+
+    return build_throttling_panel_833()
+
+
+@router.get("/intelligence-ledger/api-gateway/throttling/e2e")
+async def api_gateway_throttling_e2e_route():
+    from bd_platform.api_gateway_throttling import run_throttling_e2e_833
+
+    return run_throttling_e2e_833()
+
+
+@router.get("/intelligence-ledger/data-engine/data-pipe/status")
+async def data_pipe_status_route():
+    """#834 API Data Pipe — Data Engine core component."""
+    from bd_platform.data_engine_data_pipe import data_pipe_status_834
+
+    return data_pipe_status_834()
+
+
+@router.get("/intelligence-ledger/data-engine/data-pipe")
+async def data_pipe_panel_route():
+    from bd_platform.data_engine_data_pipe import build_data_pipe_panel_834
+
+    return build_data_pipe_panel_834()
+
+
+@router.get("/intelligence-ledger/data-engine/data-pipe/streaming")
+async def data_pipe_streaming_route(asset: str = Query("BTC")):
+    from bd_platform.data_engine_data_pipe import build_streaming_feed_config_834
+
+    return build_streaming_feed_config_834(asset)
+
+
+@router.get("/intelligence-ledger/data-engine/data-pipe/batch")
+async def data_pipe_batch_route(schedule: str = Query("daily")):
+    from bd_platform.data_engine_data_pipe import build_batch_export_config_834
+
+    return build_batch_export_config_834(schedule)
+
+
+@router.get("/intelligence-ledger/data-engine/data-pipe/schema")
+async def data_pipe_schema_route(version: str = Query("v1.0")):
+    from bd_platform.data_engine_data_pipe import get_schema_contract_834
+
+    return get_schema_contract_834(version)
+
+
+@router.get("/intelligence-ledger/data-engine/data-pipe/replay")
+async def data_pipe_replay_route(checkpoint_id: str = Query("ckpt-btc-20260827")):
+    from bd_platform.data_engine_data_pipe import replay_feed_from_checkpoint_834
+
+    return replay_feed_from_checkpoint_834(checkpoint_id)
+
+
+@router.get("/intelligence-ledger/data-engine/data-pipe/e2e")
+async def data_pipe_e2e_route():
+    from bd_platform.data_engine_data_pipe import run_data_pipe_e2e_834
+
+    return run_data_pipe_e2e_834()
+
+
 @router.get("/intelligence-ledger/onchain-layer/whale-clustering/status")
 async def whale_clustering_engine_status_route():
     """#637 Whale Clustering Engine — On-Chain Intelligence Core."""

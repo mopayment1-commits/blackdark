@@ -1,0 +1,72 @@
+{
+  "feature_ref": 834,
+  "merged_into": "Data Engine",
+  "component": "data_pipe",
+  "standalone_rejected": true,
+  "no_user_surface": true,
+  "data_pipe_834": {
+    "active_schema": "v1.0",
+    "websocket_endpoint": "/ws/prices",
+    "batch_schedules": ["hourly", "daily"],
+    "batch_format": "jsonl",
+    "backpressure_lag_threshold_ms": 3000,
+    "simulated_queue_depth": 42,
+    "fee_db": {
+      "bandwidth_usd": 12.0,
+      "storage_usd": 8.0,
+      "tier": "standard"
+    }
+  },
+  "quality_flags": {
+    "stale_threshold_sec": 30,
+    "freshness_levels": ["live", "near_real_time", "delayed", "stale"]
+  },
+  "schema_versions": {
+    "v1.0": {
+      "version": "v1.0",
+      "fields": ["message_id", "feed_id", "timestamp", "quality", "payload"],
+      "backward_compatible": true,
+      "frozen": true
+    },
+    "v1.1": {
+      "version": "v1.1",
+      "fields": ["message_id", "feed_id", "timestamp", "quality", "payload", "trace_id"],
+      "backward_compatible": true,
+      "migration_script": "scripts/migrate_data_pipe_v1_0_to_v1_1.py",
+      "additive_only": true
+    }
+  },
+  "checkpoints": {
+    "ckpt-btc-20260827": {
+      "feed_id": "price_stream_btc",
+      "offset": 0,
+      "created_at": "2026-08-27T00:00:00+00:00",
+      "messages": [
+        {
+          "message_id": "msg-replay001",
+          "feed_id": "price_stream_btc",
+          "schema_version": "v1.0",
+          "timestamp": "2026-08-27T12:00:00+00:00",
+          "quality": {"freshness": "live", "fresh": true},
+          "payload": {"asset": "BTC", "price": 60287.03}
+        },
+        {
+          "message_id": "msg-replay002",
+          "feed_id": "price_stream_btc",
+          "schema_version": "v1.0",
+          "timestamp": "2026-08-27T12:00:01+00:00",
+          "quality": {"freshness": "live", "fresh": true},
+          "payload": {"asset": "BTC", "price": 60290.15}
+        },
+        {
+          "message_id": "msg-replay003",
+          "feed_id": "price_stream_btc",
+          "schema_version": "v1.0",
+          "timestamp": "2026-08-27T12:00:02+00:00",
+          "quality": {"freshness": "live", "fresh": true},
+          "payload": {"asset": "BTC", "price": 60285.50}
+        }
+      ]
+    }
+  }
+}

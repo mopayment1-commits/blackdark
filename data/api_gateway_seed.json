@@ -165,5 +165,32 @@
         "fallback_grace_hours": 24
       }
     ]
+  },
+  "throttling_policy_833": {
+    "feature_ref": 833,
+    "merged_into": "API Gateway",
+    "component": "throttling_middleware",
+    "developer_tier_ref": 831,
+    "rate_limits_per_minute": {
+      "free": 100,
+      "pro": 1000,
+      "institution": 10000
+    },
+    "window_sec": 60,
+    "retry_after_sec": 60,
+    "cache_backend": "redis",
+    "cache_ttl_min_sec": 3600,
+    "cache_ttl_max_sec": 86400,
+    "fallback_enabled": true,
+    "secondary_source": "cached_snapshot",
+    "current_metrics": {
+      "uptime_pct": 99.95,
+      "avg_response_ms": 280
+    },
+    "fee_db": {
+      "rate_limit_ops_usd": 5.0,
+      "redis_cache_usd": 10.0,
+      "tier": "ops"
+    }
   }
 }
