@@ -1769,3 +1769,133 @@ async def onchain_platform_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.onchain_platform_layer import run_onchain_platform_e2e_129_139
 
     return run_onchain_platform_e2e_129_139()
+
+
+# ─── Data Sources & Intelligence (#140–#152) ─────────────────────────────────────
+
+
+@router.get("/institution/white-label-status")
+async def white_label_status_route():
+    from bd_platform.data_sources_layer import white_label_status_140
+
+    return white_label_status_140()
+
+
+@router.get("/radar/sentiment/feeds/coindesk")
+async def coindesk_feed_route():
+    from bd_platform.data_sources_layer import ingest_coindesk_feed_141
+
+    return ingest_coindesk_feed_141()
+
+
+@router.get("/radar/sentiment/sources/santiment")
+async def santiment_sentiment_route(asset: str = Query("BTC")):
+    from bd_platform.data_sources_layer import ingest_santiment_metrics_142
+
+    return ingest_santiment_metrics_142(asset=asset)
+
+
+@router.get("/radar/events/calendar")
+async def event_calendar_route():
+    from bd_platform.data_sources_layer import ingest_event_calendar_143
+
+    return ingest_event_calendar_143()
+
+
+@router.get("/oracle/on-chain/sources/whale-alert")
+async def whale_alert_route():
+    from bd_platform.data_sources_layer import ingest_whale_alert_144
+
+    return ingest_whale_alert_144()
+
+
+@router.get("/oracle/sources/cmc")
+async def cmc_oracle_route(symbol: str = Query("BTC"), price: float = Query(65050.0)):
+    from bd_platform.data_sources_layer import ingest_cmc_price_145
+
+    return ingest_cmc_price_145(symbol=symbol, price=price)
+
+
+@router.get("/oracle/sources/coinbase")
+async def coinbase_oracle_route(symbol: str = Query("BTC-USD"), price: float = Query(65045.0)):
+    from bd_platform.data_sources_layer import ingest_coinbase_price_146
+
+    return ingest_coinbase_price_146(symbol=symbol, price=price)
+
+
+@router.get("/oracle/consensus")
+async def oracle_consensus_route(
+    primary_price: float = Query(65050.0),
+    cmc_price: float = Query(65050.0),
+    coinbase_price: float = Query(65045.0),
+):
+    from bd_platform.data_sources_layer import validate_oracle_consensus_145_146
+
+    return validate_oracle_consensus_145_146(
+        primary_price=primary_price,
+        cmc_price=cmc_price,
+        coinbase_price=coinbase_price,
+    )
+
+
+@router.get("/signal-engine/status")
+async def signal_engine_status_route():
+    from bd_platform.data_sources_layer import signal_engine_status_147
+
+    return signal_engine_status_147()
+
+
+@router.get("/oracle/on-chain/sources/santiment")
+async def santiment_onchain_route(asset: str = Query("BTC")):
+    from bd_platform.data_sources_layer import ingest_santiment_metrics_142
+
+    return ingest_santiment_metrics_142(asset=asset)
+
+
+@router.get("/oracle/on-chain/sources/blockchain-com")
+async def blockchain_com_route(block_height: int = Query(850_000)):
+    from bd_platform.data_sources_layer import ingest_blockchain_com_148
+
+    return ingest_blockchain_com_148(block_height=block_height)
+
+
+@router.get("/oracle/on-chain/defi/defillama")
+async def defillama_onchain_route(protocol: str = Query("aave")):
+    from bd_platform.data_sources_layer import ingest_defillama_149
+
+    return ingest_defillama_149(protocol=protocol)
+
+
+@router.get("/radar/defi")
+async def defillama_radar_route(protocol: str = Query("aave")):
+    from bd_platform.data_sources_layer import ingest_defillama_149
+
+    return ingest_defillama_149(protocol=protocol)
+
+
+@router.get("/intelligence/score")
+async def opportunity_score_route():
+    from bd_platform.data_sources_layer import compute_opportunity_score_150
+
+    return compute_opportunity_score_150()
+
+
+@router.get("/intelligence/explain")
+async def explain_opportunity_route(asset: str = Query("BTC")):
+    from bd_platform.data_sources_layer import explain_opportunity_151
+
+    return explain_opportunity_151(asset=asset)
+
+
+@router.get("/alerts/execution-status")
+async def alerts_execution_status_route():
+    from bd_platform.data_sources_layer import alerts_execution_status_152
+
+    return alerts_execution_status_152()
+
+
+@router.get("/data-sources/e2e")
+async def data_sources_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_sources_layer import run_data_sources_e2e_140_152
+
+    return run_data_sources_e2e_140_152()

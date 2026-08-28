@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -734,5 +734,107 @@
     "route": "/portfolio/stress-alert",
     "panic_button_rejected": true,
     "fee_db": {"compute_usd": 0.0005}
+  },
+  "white_label_140": {
+    "status": "deferred",
+    "wave": 3,
+    "duplicate_of": 90,
+    "merged_into": "institution_portal_90",
+    "build_blocked_until": "1000_active_users",
+    "powered_by_blackdark_required": true,
+    "fee_db": {"infra_usd": 0.05, "margin_pct": 40}
+  },
+  "coindesk_rss_141": {
+    "standalone": false,
+    "route": "/radar/sentiment/feeds/coindesk",
+    "merged_into": "sentiment_layer",
+    "policy": {"deduplication_required": true, "rule_based_parsing": true},
+    "fee_db": {"ingest_usd": 0.0003, "bandwidth_usd": 0.0001}
+  },
+  "santiment_142": {
+    "standalone": false,
+    "routes": ["/radar/sentiment/sources/santiment", "/oracle/on-chain/sources/santiment"],
+    "merged_into": ["market_radar", "on_chain_extension"],
+    "policy": {"free_tier_only": true, "registry_ref": 98},
+    "fee_db": {"ingest_usd": 0.0005}
+  },
+  "cryptorank_calendar_143": {
+    "standalone": false,
+    "route": "/radar/events/calendar",
+    "merged_into": ["market_radar", "daily_top3_62"],
+    "policy": {"context_only_not_recommendation": true},
+    "fee_db": {"ingest_usd": 0.0004}
+  },
+  "whale_alert_144": {
+    "standalone": false,
+    "route": "/oracle/on-chain/sources/whale-alert",
+    "merged_into": ["on_chain_extension", "whale_narrative_71"],
+    "policy": {"privacy_first": true, "registry_ref": 98},
+    "fee_db": {"ingest_usd": 0.0006, "validation_usd": 0.0002}
+  },
+  "cmc_api_145": {
+    "standalone": false,
+    "route": "/oracle/sources/cmc",
+    "merged_into": "oracle_api",
+    "role": "secondary_redundancy",
+    "latency_buffer_ref": 101,
+    "fee_db": {"ingest_usd": 0.0003}
+  },
+  "coinbase_api_146": {
+    "standalone": false,
+    "route": "/oracle/sources/coinbase",
+    "merged_into": "oracle_api",
+    "role": "secondary_redundancy_regulated",
+    "latency_buffer_ref": 101,
+    "fee_db": {"ingest_usd": 0.0004}
+  },
+  "ai_trading_engine_147": {
+    "status": "rejected_execution",
+    "alternative": "signal_engine_11",
+    "no_buy_sell_hold": true,
+    "insight_only": true
+  },
+  "blockchain_com_148": {
+    "standalone": false,
+    "route": "/oracle/on-chain/sources/blockchain-com",
+    "merged_into": "on_chain_extension",
+    "role": "secondary_rpc_redundancy",
+    "fee_db": {"ingest_usd": 0.0005, "validation_usd": 0.0002}
+  },
+  "defillama_149": {
+    "standalone": false,
+    "routes": ["/oracle/on-chain/defi/defillama", "/radar/defi"],
+    "merged_into": ["on_chain_extension", "market_radar"],
+    "registry_ref": 98,
+    "fee_db": {"ingest_usd": 0.0005}
+  },
+  "opportunity_score_150": {
+    "standalone": false,
+    "route": "/intelligence/score",
+    "merged_into": ["intelligence_ledger", "signal_engine_11", "daily_top3_62"],
+    "weights": {
+      "liquidity": 0.20,
+      "news_sentiment": 0.15,
+      "whale_flow": 0.15,
+      "trend": 0.15,
+      "support_resistance": 0.10,
+      "funding": 0.10,
+      "spread": 0.10,
+      "manipulation_absence": 0.05
+    },
+    "fee_db": {"compute_usd": 0.002}
+  },
+  "explaining_opportunities_151": {
+    "standalone": false,
+    "status": "existing_ui_enhancement",
+    "merged_into": ["intelligence_ledger", "opportunity_score_150"],
+    "policy": {"dynamic_rule_based": true, "simple_language_ref": 64},
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "alerts_execution_152": {
+    "status": "rejected_execution",
+    "alerts_existing": true,
+    "merged_into": ["contextual_alerts_65", "flexible_alerts_75"],
+    "routes": ["/portfolio/alerts", "/radar/alerts"]
   }
 }

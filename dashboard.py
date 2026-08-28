@@ -1901,10 +1901,66 @@ async def public_glossary_api(locale: str = "en"):
 
 @app.get("/intelligence/daily-top3")
 async def public_daily_top3_page(tier: str = "free", locale: str = "en"):
-    """#62 — Daily top 3 opportunities (public JSON)."""
+    """#62 + #150 — Daily top 3 opportunities with composite Opportunity Score."""
     from bd_platform.retail_intelligence_layer import build_daily_top3_62
 
     return build_daily_top3_62(user_tier=tier, locale=locale)
+
+
+@app.get("/intelligence/score")
+async def public_opportunity_score():
+    """#150 — Composite Opportunity Score (0–100)."""
+    from bd_platform.data_sources_layer import compute_opportunity_score_150
+
+    return compute_opportunity_score_150()
+
+
+@app.get("/intelligence/explain")
+async def public_explain_opportunity(asset: str = "BTC"):
+    """#151 — Dynamic rule-based opportunity explanation."""
+    from bd_platform.data_sources_layer import explain_opportunity_151
+
+    return explain_opportunity_151(asset=asset)
+
+
+@app.get("/radar/sentiment/feeds/coindesk")
+async def public_coindesk_feed():
+    """#141 — CoinDesk RSS sentiment feed (deduplicated)."""
+    from bd_platform.data_sources_layer import ingest_coindesk_feed_141
+
+    return ingest_coindesk_feed_141()
+
+
+@app.get("/radar/events/calendar")
+async def public_event_calendar():
+    """#143 — CryptoRank event calendar context."""
+    from bd_platform.data_sources_layer import ingest_event_calendar_143
+
+    return ingest_event_calendar_143()
+
+
+@app.get("/radar/defi")
+async def public_defi_radar(protocol: str = "aave"):
+    """#149 — DefiLlama DeFi metrics for Market Radar."""
+    from bd_platform.data_sources_layer import ingest_defillama_149
+
+    return ingest_defillama_149(protocol=protocol)
+
+
+@app.get("/oracle/sources/cmc")
+async def public_cmc_oracle(symbol: str = "BTC"):
+    """#145 — CoinMarketCap secondary oracle source."""
+    from bd_platform.data_sources_layer import ingest_cmc_price_145
+
+    return ingest_cmc_price_145(symbol=symbol)
+
+
+@app.get("/oracle/sources/coinbase")
+async def public_coinbase_oracle(symbol: str = "BTC-USD"):
+    """#146 — Coinbase Advanced secondary oracle source."""
+    from bd_platform.data_sources_layer import ingest_coinbase_price_146
+
+    return ingest_coinbase_price_146(symbol=symbol)
 
 
 @app.post("/user/delete")

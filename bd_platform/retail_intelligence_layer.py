@@ -279,6 +279,12 @@ def build_daily_top3_62(
         "fee_db": {"compute_usd": fee, "tier": user_tier},
         "generated_at": _utcnow(),
     }
+    try:
+        from bd_platform.data_sources_layer import attach_opportunity_to_daily_top3_150
+
+        result = attach_opportunity_to_daily_top3_150(result, seed=seed)
+    except ImportError:
+        pass
     _daily_top3_cache["latest"] = result
     return result
 
