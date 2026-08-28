@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -1089,5 +1089,79 @@
     "historical_reopen_48h_pct": 70,
     "exploitation_language_rejected": true,
     "fee_db": {"compute_usd": 0.002}
+  },
+  "funding_rate_analysis_192": {
+    "standalone": false,
+    "route": "/radar/derivatives/funding",
+    "merged_into": ["ta_engine", "market_radar"],
+    "bullish_pressure_threshold_8h_pct": 0.01,
+    "fee_db": {"compute_usd": 0.002, "api_usd": 0.0005}
+  },
+  "auto_arbitrage_193": {
+    "status": "rejected_execution",
+    "alternative": "arbitrage_mind_153"
+  },
+  "cvd_194": {
+    "standalone": false,
+    "route": "/radar/technical/cvd",
+    "merged_into": ["ta_engine", "market_radar"],
+    "volume_source": "aggregated_tick",
+    "fee_db": {"compute_usd": 0.0015, "api_usd": 0.0004}
+  },
+  "strategy_simulator_195": {
+    "status": "simulator_only_execution_rejected",
+    "route": "/intelligence/strategy-simulator",
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "yahoo_finance_macro_196": {
+    "standalone": false,
+    "route": "/intelligence/multi-dim/macro/yahoo",
+    "extends_ref": 133,
+    "fee_db": {"ingest_usd": 0.0004}
+  },
+  "alpha_vantage_macro_197": {
+    "standalone": false,
+    "route": "/intelligence/multi-dim/macro/alpha-vantage",
+    "extends_ref": 133,
+    "free_tier_only": true,
+    "fee_db": {"ingest_usd": 0.0005}
+  },
+  "binance_research_198": {
+    "standalone": false,
+    "route": "/radar/sentiment/research/binance",
+    "merged_into": "sentiment_layer",
+    "fee_db": {"ingest_usd": 0.0003}
+  },
+  "messari_research_199": {
+    "standalone": false,
+    "route": "/radar/sentiment/research/messari",
+    "merged_into": "sentiment_layer",
+    "fee_db": {"ingest_usd": 0.0004}
+  },
+  "coingecko_reports_200": {
+    "standalone": false,
+    "route": "/radar/sentiment/research/coingecko",
+    "merged_into": "sentiment_layer",
+    "fee_db": {"ingest_usd": 0.0003}
+  },
+  "quantitative_analysis_201": {
+    "standalone": false,
+    "routes": ["/radar/technical/quant", "/intelligence/quant"],
+    "quantitative_trading_rejected": true,
+    "fee_db": {"compute_usd": 0.004}
+  },
+  "hidden_opportunities_202": {
+    "standalone": false,
+    "route": "/intelligence/discovery/low-volume",
+    "merged_into": ["intelligence_ledger", "daily_top3_62"],
+    "min_opportunity_score": 70,
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "cryptocompare_api_203": {
+    "standalone": false,
+    "route": "/oracle/sources/cryptocompare",
+    "merged_into": "oracle_api",
+    "role": "secondary_redundancy",
+    "fee_db": {"ingest_usd": 0.0003}
   }
 }

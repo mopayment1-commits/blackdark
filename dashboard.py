@@ -2075,6 +2075,46 @@ async def public_withdrawal_alert(exchange: str = "binance"):
     return withdrawal_suspension_alert_191(exchange=exchange)
 
 
+@app.get("/radar/derivatives/funding")
+async def public_funding_rate(asset: str = "BTC"):
+    """#192 — Funding rate analysis."""
+    from bd_platform.derivatives_ta_research_layer import analyze_funding_rate_192
+
+    return analyze_funding_rate_192(asset=asset)
+
+
+@app.get("/radar/technical/cvd")
+async def public_cvd(asset: str = "BTC"):
+    """#194 — Cumulative Volume Delta."""
+    from bd_platform.derivatives_ta_research_layer import compute_cvd_194
+
+    return compute_cvd_194(asset=asset)
+
+
+@app.get("/intelligence/strategy-simulator")
+async def public_strategy_simulator(strategy: str = "dca", amount_usd: float = 100.0):
+    """#195 — DCA/Grid strategy simulator (no execution)."""
+    from bd_platform.derivatives_ta_research_layer import strategy_simulator_195
+
+    return strategy_simulator_195(strategy=strategy, amount_usd=amount_usd)
+
+
+@app.get("/intelligence/discovery/low-volume")
+async def public_hidden_opportunities(asset: str = "RNDR"):
+    """#202 — Hidden opportunity discovery."""
+    from bd_platform.derivatives_ta_research_layer import discover_hidden_opportunities_202
+
+    return discover_hidden_opportunities_202(asset=asset)
+
+
+@app.get("/oracle/sources/cryptocompare")
+async def public_cryptocompare_oracle(symbol: str = "BTC"):
+    """#203 — CryptoCompare secondary oracle source."""
+    from bd_platform.derivatives_ta_research_layer import ingest_cryptocompare_price_203
+
+    return ingest_cryptocompare_price_203(symbol=symbol)
+
+
 @app.post("/user/delete")
 async def user_delete_alias(body: dict = Body(default={})):
     """#58 — GDPR erasure alias (requires auth via privacy router for full flow)."""

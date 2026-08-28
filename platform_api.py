@@ -2202,3 +2202,111 @@ async def arbitrage_portfolio_ux_e2e_route(_admin: dict = Depends(require_admin)
     from bd_platform.arbitrage_portfolio_ux_layer import run_arbitrage_portfolio_ux_e2e_177_191
 
     return run_arbitrage_portfolio_ux_e2e_177_191()
+
+
+# ─── Derivatives, TA & Research (#192–#203) ───────────────────────────────────────
+
+
+@router.get("/radar/derivatives/funding")
+async def funding_rate_route(asset: str = Query("BTC")):
+    from bd_platform.derivatives_ta_research_layer import analyze_funding_rate_192
+
+    return analyze_funding_rate_192(asset=asset)
+
+
+@router.get("/arbitrage/auto-execution-status")
+async def auto_arbitrage_rejected_route():
+    from bd_platform.derivatives_ta_research_layer import auto_arbitrage_rejected_status_193
+
+    return auto_arbitrage_rejected_status_193()
+
+
+@router.get("/radar/technical/cvd")
+async def cvd_route(asset: str = Query("BTC")):
+    from bd_platform.derivatives_ta_research_layer import compute_cvd_194
+
+    return compute_cvd_194(asset=asset)
+
+
+@router.get("/intelligence/strategy-simulator")
+async def strategy_simulator_route(strategy: str = Query("dca"), amount_usd: float = Query(100.0)):
+    from bd_platform.derivatives_ta_research_layer import strategy_simulator_195
+
+    return strategy_simulator_195(strategy=strategy, amount_usd=amount_usd)
+
+
+@router.get("/intelligence/multi-dim/macro/yahoo")
+async def yahoo_finance_macro_route():
+    from bd_platform.derivatives_ta_research_layer import ingest_yahoo_finance_macro_196
+
+    return ingest_yahoo_finance_macro_196()
+
+
+@router.get("/intelligence/multi-dim/macro/alpha-vantage")
+async def alpha_vantage_macro_route():
+    from bd_platform.derivatives_ta_research_layer import ingest_alpha_vantage_macro_197
+
+    return ingest_alpha_vantage_macro_197()
+
+
+@router.get("/radar/sentiment/research/binance")
+async def binance_research_route():
+    from bd_platform.derivatives_ta_research_layer import ingest_binance_research_198
+
+    return ingest_binance_research_198()
+
+
+@router.get("/radar/sentiment/research/messari")
+async def messari_research_route():
+    from bd_platform.derivatives_ta_research_layer import ingest_messari_research_199
+
+    return ingest_messari_research_199()
+
+
+@router.get("/radar/sentiment/research/coingecko")
+async def coingecko_reports_route():
+    from bd_platform.derivatives_ta_research_layer import ingest_coingecko_reports_200
+
+    return ingest_coingecko_reports_200()
+
+
+@router.get("/radar/technical/quant")
+async def quantitative_analysis_route():
+    from bd_platform.derivatives_ta_research_layer import quantitative_analysis_framework_201
+
+    return quantitative_analysis_framework_201()
+
+
+@router.get("/intelligence/quant")
+async def intelligence_quant_route():
+    from bd_platform.derivatives_ta_research_layer import quantitative_analysis_framework_201
+
+    return quantitative_analysis_framework_201()
+
+
+@router.get("/intelligence/discovery/low-volume")
+async def hidden_opportunities_route(asset: str = Query("RNDR")):
+    from bd_platform.derivatives_ta_research_layer import discover_hidden_opportunities_202
+
+    return discover_hidden_opportunities_202(asset=asset)
+
+
+@router.get("/oracle/sources/cryptocompare")
+async def cryptocompare_oracle_route(symbol: str = Query("BTC")):
+    from bd_platform.derivatives_ta_research_layer import ingest_cryptocompare_price_203
+
+    return ingest_cryptocompare_price_203(symbol=symbol)
+
+
+@router.get("/oracle/consensus-extended")
+async def oracle_consensus_extended_route(primary_price: float = Query(65050.0)):
+    from bd_platform.derivatives_ta_research_layer import validate_oracle_consensus_203
+
+    return validate_oracle_consensus_203(primary_price=primary_price)
+
+
+@router.get("/derivatives-ta-research/e2e")
+async def derivatives_ta_research_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.derivatives_ta_research_layer import run_derivatives_ta_research_e2e_192_203
+
+    return run_derivatives_ta_research_e2e_192_203()

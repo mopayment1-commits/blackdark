@@ -323,7 +323,13 @@ def compute_macro_event_nexus_133(
     try:
         from bd_platform.risk_infrastructure_layer import attach_m2_macro_flow_171
 
-        return attach_m2_macro_flow_171(result, seed=seed)
+        result = attach_m2_macro_flow_171(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.derivatives_ta_research_layer import attach_macro_research_sources_196_197
+
+        return attach_macro_research_sources_196_197(result, seed=seed)
     except ImportError:
         return result
 
