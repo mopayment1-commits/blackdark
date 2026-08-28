@@ -67,6 +67,12 @@ def reset_multi_source_state() -> None:
         reset_outlier_state()
     except ImportError:
         pass
+    try:
+        from blackdark.data.canonical_normalization_engine import reset_normalization_state
+
+        reset_normalization_state()
+    except ImportError:
+        pass
 
 
 def _utcnow() -> str:
@@ -655,6 +661,20 @@ def reconcile_observations(
     observations: [{"source": "binance", "value": 42000.0, "ok": True}, ...]
     """
     seed = seed or _load_seed()
+    normalization_meta: dict[str, Any] | None = None
+    try:
+        from blackdark.data.canonical_normalization_engine import normalize_observations
+
+        normalization_meta = normalize_observations(
+            data_type=data_type,
+            observations=observations,
+            symbol=symbol,
+            chain=chain,
+        )
+        observations = normalization_meta["observations"]
+    except ImportError:
+        logger.debug("canonical normalization engine unavailable")
+
     outlier_gate_meta: dict[str, Any] | None = None
     try:
         from blackdark.data.outlier_detection_gate import apply_outlier_gate_to_observations
@@ -684,6 +704,8 @@ def reconcile_observations(
             data_type=data_type, valid=valid, failed=failed, seed=seed
         )
         if failover_result is not None:
+            if normalization_meta:
+                failover_result["normalization"] = normalization_meta
             if outlier_gate_meta:
                 failover_result["outlier_gate"] = outlier_gate_meta
             _log_reconciliation(failover_result)
@@ -711,6 +733,8 @@ def reconcile_observations(
         _trigger_incident_if_needed(result, seed=seed)
         if outlier_gate_meta:
             result["outlier_gate"] = outlier_gate_meta
+        if normalization_meta:
+            result["normalization"] = normalization_meta
         return result
 
     a, b = valid[0], valid[1]
@@ -758,6 +782,8 @@ def reconcile_observations(
         _trigger_incident_if_needed(result, seed=seed)
         if outlier_gate_meta:
             result["outlier_gate"] = outlier_gate_meta
+        if normalization_meta:
+            result["normalization"] = normalization_meta
         return result
 
     reconciled_value = (float(a["value"]) + float(b["value"])) / 2.0
@@ -792,6 +818,8 @@ def reconcile_observations(
     _log_reconciliation(result)
     if outlier_gate_meta:
         result["outlier_gate"] = outlier_gate_meta
+    if normalization_meta:
+        result["normalization"] = normalization_meta
     return result
 
 
