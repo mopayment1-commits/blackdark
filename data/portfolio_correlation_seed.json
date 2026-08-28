@@ -1,0 +1,28 @@
+{
+  "feature_ref": "portfolio_correlation_analysis",
+  "merged_into": "Portfolio AI Risk Tab",
+  "standalone_rejected": true,
+  "portfolio_correlation_analysis": {
+    "policy_version": "1.0.0",
+    "methodology": "pearson",
+    "spearman_optional": true,
+    "ml": false,
+    "time_windows_days": [30, 90, 365],
+    "default_window_days": 90,
+    "correlation_precision_decimals": 4,
+    "insight_only": true,
+    "no_rebalance_enforcement": true,
+    "stability_reported": true,
+    "sprint": 2,
+    "integrations": {
+      "var_ref": 1021,
+      "cvar_ref": 1022,
+      "multi_account_sync_ref": 907,
+      "reference_pricing_ref": 959,
+      "historical_data_ref": 967,
+      "financial_precision_ref": 1031,
+      "provenance_ref": 945,
+      "accuracy_ledger_ref": 987
+    }
+  }
+}

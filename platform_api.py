@@ -865,6 +865,41 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/portfolio-risk-tab/status")
+async def portfolio_risk_tab_status_api():
+    from portfolio_risk_tab import portfolio_risk_tab_status
+
+    return portfolio_risk_tab_status()
+
+
+@router.get("/portfolio-risk-tab/e2e")
+async def portfolio_risk_tab_e2e_api():
+    from portfolio_risk_tab import run_portfolio_risk_tab_e2e
+
+    return run_portfolio_risk_tab_e2e()
+
+
+@router.get("/portfolio-cvar/status")
+async def portfolio_cvar_status_api():
+    from portfolio_cvar_metric import portfolio_cvar_status
+
+    return portfolio_cvar_status()
+
+
+@router.get("/portfolio-correlation/status")
+async def portfolio_correlation_status_api():
+    from portfolio_correlation_analysis import portfolio_correlation_status
+
+    return portfolio_correlation_status()
+
+
+@router.get("/portfolio-stress/status")
+async def portfolio_stress_status_api():
+    from portfolio_stress_testing import portfolio_stress_status
+
+    return portfolio_stress_status()
+
+
 @router.get("/portfolio-var/status")
 async def portfolio_var_status_api():
     from portfolio_var_metric import portfolio_var_status

@@ -1,0 +1,48 @@
+{
+  "feature_ref": "portfolio_stress_testing",
+  "merged_into": "Portfolio AI Risk Tab",
+  "standalone_rejected": true,
+  "portfolio_stress_testing": {
+    "policy_version": "1.0.0",
+    "methodology": "historical_worst_case",
+    "monte_carlo": false,
+    "scenarios": [
+      {
+        "id": "flash_crash",
+        "name": "Flash Crash",
+        "description": "Sudden 30%+ drop in one day",
+        "daily_drop_pct": 30
+      },
+      {
+        "id": "liquidity_freeze",
+        "name": "Liquidity Freeze",
+        "description": "Trading volume drops 80%",
+        "volume_drop_pct": 80
+      },
+      {
+        "id": "correlation_breakdown",
+        "name": "Correlation Breakdown",
+        "description": "Asset correlations converge to 1 under stress",
+        "stressed_correlation": 1.0
+      }
+    ],
+    "lookback_days": 90,
+    "worst_consecutive_days": 5,
+    "decimal_precision": 8,
+    "insight_only": true,
+    "no_crisis_prediction": true,
+    "stress_hit_rate_published": true,
+    "sprint": 2,
+    "integrations": {
+      "var_ref": 1021,
+      "cvar_ref": 1022,
+      "correlation_ref": 1049,
+      "multi_account_sync_ref": 907,
+      "reference_pricing_ref": 959,
+      "historical_data_ref": 967,
+      "financial_precision_ref": 1031,
+      "provenance_ref": 945,
+      "accuracy_ledger_ref": 987
+    }
+  }
+}

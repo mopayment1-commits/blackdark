@@ -353,14 +353,16 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "hero": "portfolio_ai",
     }
     try:
-        from portfolio_var_metric import compute_portfolio_var_from_holdings
+        from portfolio_risk_tab import compute_portfolio_risk_tab
 
-        result["var_metric"] = compute_portfolio_var_from_holdings(
-            holdings,
-            confidence=0.95,
-            horizon_days=1,
-        )
+        risk_tab = compute_portfolio_risk_tab(holdings, confidence=0.95, horizon_days=1)
+        result["risk_tab"] = risk_tab
+        result["var_metric"] = risk_tab.get("var_metric", {})
+        result["cvar_metric"] = risk_tab.get("cvar_metric", {})
+        result["correlation_analysis"] = risk_tab.get("correlation_analysis", {})
+        result["stress_testing"] = risk_tab.get("stress_testing", {})
     except Exception:
+        result["risk_tab"] = {"ok": False, "error": "risk_tab_unavailable"}
         result["var_metric"] = {"ok": False, "error": "var_unavailable"}
     _attach_portfolio_clarity(result, risk_level, risk_score)
     return result

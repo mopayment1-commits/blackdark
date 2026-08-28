@@ -8,13 +8,14 @@ no Monte Carlo / ML in Sprint 2.
 from __future__ import annotations
 
 import json
-import statistics
 from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
-from money_decimal import d, money
+from money_decimal import money
+
+from portfolio_risk_shared import build_portfolio_risk_context
 
 _FEATURE = "portfolio_var_metric"
 _SEED_PATH = Path("data/portfolio_var_seed.json")
@@ -101,40 +102,25 @@ def compute_portfolio_var_from_holdings(
     lookback_days: int = 90,
 ) -> dict[str, Any]:
     """Aggregate portfolio VaR from weighted holdings + historical returns."""
-    total_value = Decimal("0")
-    weighted_returns: list[float] = []
-
-    for h in holdings:
-        value = d(h.get("value_usd") or 0)
-        total_value += value
-        beta = float(h.get("btc_beta") or 1.0)
-        # Proxy daily returns from beta-scaled BTC historical vol (~2% daily stdev)
-        proxy_returns = [beta * 0.02 * ((i % 7) - 3) / 3 for i in range(lookback_days)]
-        if value > 0:
-            weight = float(value / total_value) if total_value > 0 else 1.0 / len(holdings)
-            if not weighted_returns:
-                weighted_returns = [r * weight for r in proxy_returns]
-            else:
-                weighted_returns = [a + r * weight for a, r in zip(weighted_returns, proxy_returns)]
-
-    if total_value <= 0:
-        return {"ok": False, "error": "empty_portfolio"}
+    ctx = build_portfolio_risk_context(holdings, lookback_days=lookback_days)
+    if not ctx.get("ok"):
+        return ctx
 
     var_result = compute_historical_var(
-        daily_returns=weighted_returns,
-        portfolio_value_usd=total_value,
+        daily_returns=ctx["weighted_returns"],
+        portfolio_value_usd=ctx["total_value_usd"],
         confidence=confidence,
         horizon_days=horizon_days,
     )
     if not var_result.get("ok"):
         return var_result
 
-    hit_rate = compute_var_hit_rate(daily_returns=weighted_returns, confidence=confidence)
+    hit_rate = compute_var_hit_rate(daily_returns=ctx["weighted_returns"], confidence=confidence)
 
     return {
         **var_result,
-        "portfolio_value_usd": str(money(total_value)),
-        "holdings_count": len(holdings),
+        "portfolio_value_usd": str(ctx["total_value_usd"]),
+        "holdings_count": ctx["holdings_count"],
         "hit_rate": hit_rate,
         "provenance": {
             "methodology_version": _cfg().get("policy_version", "1.0.0"),
