@@ -1,0 +1,44 @@
+{
+  "feature_ref": 850,
+  "merged_into": "Data Engine",
+  "component": "quality_pipeline",
+  "quality_pipeline_850": {
+    "pipeline_stages": ["read", "compute", "store", "distribute", "qa"],
+    "mandatory_tests": ["gap_detection", "outlier_detection", "reconciliation"],
+    "outlier_z_threshold": 3.0,
+    "reconciliation_tolerance_pct": 0.1,
+    "fee_db": {
+      "compute_usd": 0.01,
+      "storage_usd": 0.005,
+      "tier": "ops"
+    }
+  },
+  "quality_monitor_seed": {
+    "datasets": {
+      "market_ohlcv": {
+        "timestamps": [1700000000, 1700003600, 1700007200, 1700010800, 1700014400, 1700018000],
+        "expected_interval_sec": 3600,
+        "values": [60287.03, 59529.54, 59197.09, 58776.55, 59228.55, 59578.94],
+        "outlier_std_threshold": 3.0,
+        "max_outliers_allowed": 2,
+        "source_a_total": 1000000.0,
+        "source_b_total": 999990.0,
+        "tolerance_pct": 0.1
+      }
+    }
+  },
+  "batches": {
+    "batch-20260827": {
+      "dataset_id": "market_ohlcv",
+      "stage": "qa",
+      "records": 6,
+      "created_at": "2026-08-27T00:00:00+00:00"
+    },
+    "batch-20260826": {
+      "dataset_id": "market_ohlcv",
+      "stage": "qa",
+      "records": 6,
+      "created_at": "2026-08-26T00:00:00+00:00"
+    }
+  }
+}
