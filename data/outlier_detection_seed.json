@@ -1,0 +1,132 @@
+{
+  "feature_ref": 1026,
+  "merged_into": "Data Engine",
+  "standalone_rejected": true,
+  "outlier_detection_gate_1026": {
+    "policy": {
+      "enabled": true,
+      "fail_closed": true,
+      "blocks_production_if_incomplete": true,
+      "no_ml_anomaly_detection_sprint_2": true,
+      "max_overhead_ms": 50,
+      "methodology": "z_score_and_iqr",
+      "methodology_version": "1.0.0"
+    },
+    "bounds": {
+      "price": {
+        "method": "median_deviation_pct",
+        "tolerance_pct": 5.0,
+        "window_minutes": 5,
+        "description": "±5% from median last 5 minutes across sources"
+      },
+      "volume": {
+        "method": "z_score",
+        "sigma_threshold": 3.0,
+        "window_hours": 24,
+        "description": "±3σ from rolling 24h average"
+      },
+      "onchain": {
+        "method": "consensus_deviation_pct",
+        "tolerance_pct": 0.1,
+        "description": "±0.1% from consensus across nodes"
+      }
+    },
+    "historical_baseline": {
+      "rolling_window_days": 90,
+      "recalculated_daily": true,
+      "no_static_thresholds": true,
+      "last_recalculated": "2026-08-28T00:00:00+00:00"
+    },
+    "event_corroboration": {
+      "events_ref": 939,
+      "news_ref": 941,
+      "upgrade_flag": "Confirmed Event",
+      "requires_evidence": true,
+      "no_manual_override_without_evidence": true
+    },
+    "incident_alert": {
+      "incident_response_ref": 1017,
+      "threshold_per_source_per_hour": 3
+    },
+    "integrations": {
+      "provenance_ref": 945,
+      "multi_source_ref": 1024,
+      "automatic_failover_ref": 1025,
+      "reference_pricing_ref": 959,
+      "real_volume_ref": 992,
+      "load_test_ref": 1020
+    },
+    "fee_db": {
+      "validation_compute_usd": 0.00003,
+      "baseline_storage_usd": 0.00001,
+      "event_logging_usd": 0.00001,
+      "logged_per_data_point": true
+    },
+    "live_feed_statistical_monitor_1054": {
+      "policy": {
+        "enabled": true,
+        "rule_based_only": true,
+        "no_ml_anomaly_detection": true,
+        "max_latency_ms": 100,
+        "fail_closed": true,
+        "output_label": "Statistical Anomaly Detected — Under Review",
+        "methodology_version": "1.0.0"
+      },
+      "rules": {
+        "sigma_threshold": 3.0,
+        "rate_of_change_pct": 5.0,
+        "rate_of_change_window_sec": 30,
+        "variance_regime_shift_ratio": 2.5,
+        "volume_burst_max_price_move_pct": 1.0,
+        "cross_metric_min_price_pct": 2.0,
+        "cross_metric_max_volume_pct": -5.0,
+        "source_drift_pct": 1.5,
+        "source_drift_min_ticks": 5
+      },
+      "patterns": [
+        "price_regime_change",
+        "volume_burst",
+        "cross_metric_divergence",
+        "source_drift"
+      ],
+      "incident_alert": {
+        "incident_response_ref": 1017,
+        "sustained_seconds": 300,
+        "multi_source_triggers_incident": true
+      },
+      "integrations": {
+        "outlier_gate_ref": 1026,
+        "multi_source_ref": 1024,
+        "failover_ref": 1025,
+        "badge_ref": 1030,
+        "provenance_ref": 945,
+        "signal_integrity_ref": 1053
+      },
+      "fee_db": {
+        "evaluation_compute_usd": 0.00004,
+        "pattern_match_usd": 0.00002,
+        "event_logging_usd": 0.00001,
+        "logged_per_evaluation": true
+      }
+    }
+  },
+  "baselines": {
+    "BTC": {
+      "price": {
+        "median_5m": 42000.0,
+        "history_90d": {"mean": 41500.0, "std": 1200.0}
+      },
+      "volume": {
+        "mean_24h": 1200000000.0,
+        "std_24h": 80000000.0,
+        "history_90d": {"mean": 1150000000.0, "std": 95000000.0}
+      }
+    },
+    "ethereum": {
+      "onchain": {
+        "consensus": 19500000.0,
+        "history_90d": {"mean": 19450000.0, "std": 50000.0}
+      }
+    }
+  }
+}
