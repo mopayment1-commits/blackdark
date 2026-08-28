@@ -885,3 +885,128 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
     ]
     trained = train_ppo_policy(samples, epochs=30)
     return {"status": policy_status(), "trained": trained}
+
+
+# ─── Legal & Commercial (#57–#61) + Retail Intelligence (#62–#66) ─────────────
+
+
+@router.get("/legal/disclosure/status")
+async def service_disclosure_status_route():
+    from bd_platform.legal_commercial_layer import service_disclosure_status_57
+
+    return service_disclosure_status_57()
+
+
+@router.get("/legal/commercial/status")
+async def legal_commercial_status_route():
+    from bd_platform.legal_commercial_layer import (
+        aml_compliance_status_59,
+        gdpr_compliance_status_58,
+        payment_security_status_61,
+        service_disclosure_status_57,
+        subscription_tier_status_60,
+    )
+
+    return {
+        "disclosure_57": service_disclosure_status_57(),
+        "gdpr_58": gdpr_compliance_status_58(),
+        "aml_59": aml_compliance_status_59(),
+        "subscription_60": subscription_tier_status_60(),
+        "payment_security_61": payment_security_status_61(),
+    }
+
+
+@router.post("/legal/disclosure/attach")
+async def service_disclosure_attach_route(data: dict = Body(default={})):
+    from bd_platform.legal_commercial_layer import attach_service_disclosure_57
+
+    return attach_service_disclosure_57(data.get("payload") or data, locale=data.get("locale", "en"))
+
+
+@router.post("/legal/aml/evaluate")
+async def aml_evaluate_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.legal_commercial_layer import evaluate_aml_gate_59
+
+    return evaluate_aml_gate_59(
+        amount_usd=float(data.get("amount_usd", 0)),
+        email=str(data.get("email", "")),
+        name=str(data.get("name", "")),
+        pattern_score=float(data.get("pattern_score", 0)),
+    )
+
+
+@router.get("/legal/tiers/limits")
+async def tier_limits_route(tier: str = Query("free")):
+    from bd_platform.legal_commercial_layer import get_tier_limits_60, pricing_transparency_manifest_60
+
+    return {"limits": get_tier_limits_60(tier), "transparency": pricing_transparency_manifest_60()}
+
+
+@router.get("/legal/commercial/e2e")
+async def legal_commercial_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.legal_commercial_layer import run_legal_commercial_e2e_57_61
+
+    return run_legal_commercial_e2e_57_61()
+
+
+@router.get("/intelligence/daily-top3")
+async def daily_top3_route(tier: str = Query("free"), locale: str = Query("en")):
+    from bd_platform.retail_intelligence_layer import build_daily_top3_62
+
+    return build_daily_top3_62(user_tier=tier, locale=locale)
+
+
+@router.post("/intelligence/clear-answer")
+async def clear_answer_route(data: dict = Body(default={})):
+    from bd_platform.retail_intelligence_layer import build_one_clear_answer_63
+
+    return build_one_clear_answer_63(
+        verdict=data.get("verdict", "Neutral"),
+        reasons=data.get("reasons"),
+        risk_score=float(data.get("risk_score", 5.0)),
+        locale=data.get("locale", "en"),
+        raw_indicators=data.get("raw_indicators"),
+    )
+
+
+@router.get("/intelligence/glossary")
+async def glossary_route(locale: str = Query("en")):
+    from bd_platform.retail_intelligence_layer import glossary_manifest_64
+
+    return glossary_manifest_64(locale=locale)
+
+
+@router.post("/intelligence/contextual-alert/evaluate")
+async def contextual_alert_route(data: dict = Body(default={})):
+    from bd_platform.retail_intelligence_layer import evaluate_contextual_alert_65
+
+    return evaluate_contextual_alert_65(
+        user_id=str(data.get("user_id", "anonymous")),
+        user_tier=str(data.get("user_tier", "free")),
+        price=float(data.get("price", 0)),
+        opportunity_level=float(data.get("opportunity_level", 0)),
+        volume_zscore=float(data.get("volume_zscore", 0)),
+        asset=str(data.get("asset", "BTC")),
+        locale=data.get("locale", "en"),
+    )
+
+
+@router.post("/intelligence/discipline/compare")
+async def discipline_compare_route(data: dict = Body(default={})):
+    from bd_platform.retail_intelligence_layer import compare_discipline_66
+
+    return compare_discipline_66(
+        user_action=str(data.get("user_action", "")),
+        user_price=float(data.get("user_price", 0)),
+        system_verdict=str(data.get("system_verdict", "")),
+        system_price=float(data.get("system_price", 0)),
+        system_risk_score=float(data.get("system_risk_score", 5)),
+        asset=str(data.get("asset", "BTC")),
+    )
+
+
+@router.get("/intelligence/retail/e2e")
+async def retail_intelligence_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.retail_intelligence_layer import run_retail_intelligence_e2e_62_66
+
+    return run_retail_intelligence_e2e_62_66()

@@ -1,0 +1,186 @@
+{
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66],
+  "service_disclosure_57": {
+    "standalone": false,
+    "policy": {
+      "mandatory_all_touchpoints": true,
+      "multilingual": ["en", "ar"],
+      "no_licensed_advisory_claim": true,
+      "no_execution_claim": true,
+      "sprint_1_before_stripe": true
+    },
+    "disclosure_text": {
+      "en": "BLACKDARK is an analytical tool providing insights only — not licensed investment advice and no financial guarantees.",
+      "ar": "BLACKDARK هي أداة تحليلية تقدم insights فقط — لا توصيات استثمارية مرخّصة ولا ضمانات مالية."
+    },
+    "integrations": {
+      "footer_ref": 56,
+      "api_body_ref": "all_endpoints",
+      "email_template_ref": "all_emails"
+    }
+  },
+  "gdpr_compliance_58": {
+    "standalone": false,
+    "policy": {
+      "privacy_by_design": true,
+      "right_to_erasure_days": 30,
+      "data_portability_json": true,
+      "explicit_consent_required": true,
+      "no_mandatory_kyc_free_tier": true,
+      "no_wallet_storage": true,
+      "monthly_access_audit": true,
+      "eu_auto_enable": true
+    },
+    "dpo_contact": "privacy@blackdark.io",
+    "data_collected": ["email", "tier", "usage", "preferences"],
+    "integrations": {
+      "waitlist_ref": "waitlist",
+      "stripe_ref": 908,
+      "portfolio_ai_ref": "portfolio",
+      "privacy_policy_ref": 1018
+    }
+  },
+  "aml_compliance_59": {
+    "standalone": false,
+    "policy": {
+      "trigger_on_direct_financial": true,
+      "stripe_only_scope": true,
+      "no_kyc_free_tier": true,
+      "record_retention_years": 5,
+      "quarterly_review_required": true,
+      "sar_internal_only": true
+    },
+    "thresholds": {
+      "transaction_usd": 500.0,
+      "suspicious_pattern_score": 0.75
+    },
+    "integrations": {
+      "stripe_webhook_ref": "billing/webhook_processor",
+      "sanctions_provider": "sanctions.io_or_equivalent"
+    },
+    "fee_db": {
+      "screening_per_check_usd": 0.15,
+      "logged_per_transaction": true
+    }
+  },
+  "subscription_tier_policy_60": {
+    "standalone": false,
+    "policy": {
+      "extend_existing_stripe": true,
+      "no_lifetime_access": true,
+      "trial_days": 7,
+      "transparent_limits_on_pricing": true,
+      "rate_limits_as_verification_tool": true
+    },
+    "tiers": {
+      "free": {
+        "api_calls_per_day": 10,
+        "features": ["market_radar_basic", "portfolio_ai_limited"]
+      },
+      "pro": {
+        "api_calls_per_day": 500,
+        "features": ["intelligence_ledger", "signal_engine", "alerts"]
+      },
+      "institutional": {
+        "api_calls_per_day": 10000,
+        "features": ["on_chain", "custom_reports"]
+      }
+    },
+    "fee_db": {
+      "cost_per_call_logged": true,
+      "revenue_per_user_logged": true,
+      "margin_logged": true
+    }
+  },
+  "payment_security_policy_61": {
+    "standalone": false,
+    "policy": {
+      "stripe_pci_level_1": true,
+      "no_card_data_on_servers": true,
+      "stripe_elements_only": true,
+      "webhook_signature_verified": true,
+      "idempotency_keys_required": true,
+      "test_mode_before_live": true,
+      "pci_saq_a_via_stripe_checkout": true
+    },
+    "fee_db": {
+      "stripe_fee_pct": 2.9,
+      "stripe_fee_fixed_usd": 0.30,
+      "logged_per_transaction": true
+    }
+  },
+  "daily_top_opportunities_62": {
+    "standalone": false,
+    "route": "/intelligence/daily-top3",
+    "policy": {
+      "max_opportunities": 3,
+      "rule_based_only_sprint_2": true,
+      "backtest_days_required": 90,
+      "no_execution_button": true,
+      "methodology_visible": true,
+      "daily_brief_hour_local": 9
+    },
+    "scoring_weights": {
+      "risk": 0.25,
+      "liquidity": 0.25,
+      "volume": 0.25,
+      "momentum": 0.25
+    },
+    "fee_db": {
+      "compute_per_run_usd": 0.002,
+      "logged_per_user_tier": true
+    }
+  },
+  "one_clear_answer_63": {
+    "standalone": false,
+    "policy": {
+      "max_reason_points": 3,
+      "rule_based_only_sprint_2": true,
+      "verdict_types": ["Opportunity", "Neutral", "Risk"],
+      "insight_not_recommendation": true,
+      "expandable_raw_indicators": true
+    },
+    "fee_db": {
+      "synthesis_per_query_usd": 0.0005
+    }
+  },
+  "simple_language_64": {
+    "standalone": false,
+    "policy": {
+      "glossary_tooltips": true,
+      "rule_based_mapping": true,
+      "no_ml_nlp_sprint_1": true,
+      "technical_term_once_in_parens": true
+    },
+    "fee_db": {
+      "operational_cost_only": true
+    }
+  },
+  "contextual_alerts_65": {
+    "standalone": false,
+    "policy": {
+      "rule_based_triggers": true,
+      "no_auto_action": true,
+      "delivery_sla_seconds": 5,
+      "free_tier_daily_limit": 3,
+      "pro_unlimited": true
+    },
+    "fee_db": {
+      "cost_per_alert_usd": 0.0003,
+      "logged_per_tier": true
+    }
+  },
+  "portfolio_discipline_66": {
+    "standalone": false,
+    "policy": {
+      "manual_user_entry_only": true,
+      "non_custodial": true,
+      "weekly_report": true,
+      "no_financial_reward_punishment": true,
+      "encrypted_user_decisions": true
+    },
+    "fee_db": {
+      "report_compute_usd": 0.001
+    }
+  }
+}

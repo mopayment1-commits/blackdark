@@ -353,6 +353,23 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "hero": "portfolio_ai",
     }
     _attach_portfolio_clarity(result, risk_level, risk_score)
+    try:
+        from bd_platform.legal_commercial_layer import attach_service_disclosure_57
+        from bd_platform.retail_intelligence_layer import attach_discipline_to_portfolio_66, build_one_clear_answer_63
+
+        result = attach_discipline_to_portfolio_66(result)
+        result["clear_answer"] = build_one_clear_answer_63(
+            verdict="Risk" if risk_score >= 7 else ("Opportunity" if risk_score <= 4 else "Neutral"),
+            reasons=[
+                {"point": f"BTC beta {weighted_beta:.0%}", "rule_based": True},
+                {"point": f"Risk score {risk_score}/10", "rule_based": True},
+                {"point": recommendations[0] if recommendations else "Diversify exposure", "rule_based": True},
+            ],
+            risk_score=float(risk_score),
+        )
+        result = attach_service_disclosure_57(result)
+    except ImportError:
+        pass
     return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
@@ -1841,6 +1858,41 @@ async def public_accuracy_ledger_alias():
     from fastapi.responses import RedirectResponse
 
     return RedirectResponse(url=PATH_ORACLE_ACCURACY, status_code=307)
+
+
+@app.get("/api/glossary")
+@app.get("/api/platform/intelligence/glossary")
+async def public_glossary_api(locale: str = "en"):
+    """#64 — Simple language glossary (AR/EN)."""
+    from bd_platform.retail_intelligence_layer import glossary_manifest_64
+
+    return glossary_manifest_64(locale=locale)
+
+
+@app.get("/intelligence/daily-top3")
+async def public_daily_top3_page(tier: str = "free", locale: str = "en"):
+    """#62 — Daily top 3 opportunities (public JSON)."""
+    from bd_platform.retail_intelligence_layer import build_daily_top3_62
+
+    return build_daily_top3_62(user_tier=tier, locale=locale)
+
+
+@app.post("/user/delete")
+async def user_delete_alias(body: dict = Body(default={})):
+    """#58 — GDPR erasure alias (requires auth via privacy router for full flow)."""
+    from bd_platform.legal_commercial_layer import request_erasure_58
+
+    email = str(body.get("email", ""))
+    confirm = body.get("confirm") in {True, "true", "1"}
+    return request_erasure_58(user_email=email, confirmed=confirm)
+
+
+@app.get("/user/export")
+async def user_export_alias():
+    """#58 — GDPR portability info (full export via authenticated /api/privacy/dsr/export)."""
+    from bd_platform.legal_commercial_layer import gdpr_compliance_status_58
+
+    return gdpr_compliance_status_58()
 
 
 @app.get("/docs", response_class=HTMLResponse)
