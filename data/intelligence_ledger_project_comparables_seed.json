@@ -1,0 +1,147 @@
+{
+  "project_comparables_982": {
+    "ranking_methodology": "per_metric_rank + composite_average_rank",
+    "fee_db": {
+      "query_per_explorer_usd": 0.01,
+      "compute_per_explorer_usd": 0.005
+    }
+  },
+  "peer_groups": {
+    "aave": {
+      "sector": "lending",
+      "taxonomy_version": "1.0.0",
+      "market_cap_range": {"min_usd": 500000000, "max_usd": 5000000000},
+      "selection_criteria": {
+        "taxonomy_sector": "lending",
+        "market_cap_range_usd": "500M-5B",
+        "protocol_type": "lending",
+        "criteria_visible": true,
+        "methodology": "taxonomy (#927) + market cap range + sector match"
+      },
+      "peers": ["aave", "compound", "morpho"]
+    },
+    "uniswap": {
+      "sector": "dex",
+      "taxonomy_version": "1.0.0",
+      "market_cap_range": {"min_usd": 1000000000, "max_usd": 10000000000},
+      "selection_criteria": {
+        "taxonomy_sector": "dex",
+        "market_cap_range_usd": "1B-10B",
+        "protocol_type": "dex",
+        "criteria_visible": true,
+        "methodology": "taxonomy (#927) + market cap range + sector match"
+      },
+      "peers": ["uniswap", "curve", "balancer"]
+    }
+  },
+  "peer_metrics": {
+    "aave": {
+      "revenue": 12500000,
+      "revenue_rank": 1,
+      "revenue_normalized": 1.0,
+      "volume": 45000000000,
+      "volume_rank": 1,
+      "volume_normalized": 1.0,
+      "users": 45000,
+      "users_rank": 1,
+      "users_normalized": 1.0,
+      "tvl": 9800000000,
+      "tvl_rank": 1,
+      "tvl_normalized": 1.0,
+      "fees": 12500000,
+      "fees_rank": 1,
+      "fees_normalized": 1.0,
+      "growth": 12.5,
+      "growth_rank": 2,
+      "growth_normalized": 0.85,
+      "source": "protocol_kpi_986"
+    },
+    "compound": {
+      "revenue": 8200000,
+      "revenue_rank": 2,
+      "revenue_normalized": 0.66,
+      "volume": 28000000000,
+      "volume_rank": 2,
+      "volume_normalized": 0.62,
+      "users": 32000,
+      "users_rank": 2,
+      "users_normalized": 0.71,
+      "tvl": 5200000000,
+      "tvl_rank": 2,
+      "tvl_normalized": 0.53,
+      "fees": 8200000,
+      "fees_rank": 2,
+      "fees_normalized": 0.66,
+      "growth": 8.2,
+      "growth_rank": 3,
+      "growth_normalized": 0.66,
+      "source": "protocol_kpi_986"
+    },
+    "morpho": {
+      "revenue": 3200000,
+      "revenue_rank": 3,
+      "revenue_normalized": 0.26,
+      "volume": 15000000000,
+      "volume_rank": 3,
+      "volume_normalized": 0.33,
+      "users": 12000,
+      "users_rank": 3,
+      "users_normalized": 0.27,
+      "tvl": 2100000000,
+      "tvl_rank": 3,
+      "tvl_normalized": 0.21,
+      "fees": 3200000,
+      "fees_rank": 3,
+      "fees_normalized": 0.26,
+      "growth": null,
+      "growth_rank": null,
+      "growth_normalized": null,
+      "source": "protocol_kpi_986"
+    },
+    "uniswap": {
+      "revenue": 156000000,
+      "revenue_rank": 1,
+      "volume": 89000000000,
+      "volume_rank": 1,
+      "users": 180000,
+      "users_rank": 1,
+      "tvl": 4200000000,
+      "tvl_rank": 1,
+      "fees": 156000000,
+      "fees_rank": 1,
+      "growth": 18.4,
+      "growth_rank": 1,
+      "source": "protocol_kpi_986"
+    },
+    "curve": {
+      "revenue": 42000000,
+      "revenue_rank": 2,
+      "volume": 32000000000,
+      "volume_rank": 2,
+      "users": 85000,
+      "users_rank": 2,
+      "tvl": 2800000000,
+      "tvl_rank": 2,
+      "fees": 42000000,
+      "fees_rank": 2,
+      "growth": 5.1,
+      "growth_rank": 3,
+      "source": "protocol_kpi_986"
+    },
+    "balancer": {
+      "revenue": 8500000,
+      "revenue_rank": 3,
+      "volume": 12000000000,
+      "volume_rank": 3,
+      "users": 42000,
+      "users_rank": 3,
+      "tvl": 980000000,
+      "tvl_rank": 3,
+      "fees": 8500000,
+      "fees_rank": 3,
+      "growth": null,
+      "growth_rank": null,
+      "source": "protocol_kpi_986"
+    }
+  }
+}

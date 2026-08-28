@@ -161,5 +161,95 @@
       "generation_per_report_usd": 0.05,
       "delivery_per_report_usd": 0.01
     }
+  },
+  "quarterly_reports_989": {
+    "fee_db": {
+      "generation_per_report_usd": 0.15,
+      "storage_per_report_usd": 0.03,
+      "delivery_per_report_usd": 0.02
+    },
+    "templates": {
+      "mandatory_sections": ["executive_summary", "kpi_trends", "governance_updates", "risk_assessment", "outlook"]
+    },
+    "protocol_data": {
+      "aave": {
+        "executive_summary": {
+          "title": "Executive Summary",
+          "content": "AAVE maintained market leadership in lending with stable TVL growth.",
+          "claims": [
+            {
+              "text": "AAVE TVL grew 12.5% QoQ to $9.8B",
+              "claim_type": "fact",
+              "reproducible": true,
+              "evidence": [{"source": "protocol_kpi_986", "metric": "tvl", "value": 9800000000, "provenance_ref": 945}]
+            }
+          ]
+        },
+        "kpi_trends": {
+          "title": "KPI Trends",
+          "content": "Revenue, users, and TVL trends for Q2 2026.",
+          "charts": [
+            {"chart_id": "aave_tvl_trend", "metric": "tvl", "generated_from_metrics": true, "source": "protocol_kpi_986"},
+            {"chart_id": "aave_revenue_trend", "metric": "revenue", "generated_from_metrics": true, "source": "protocol_kpi_986"}
+          ],
+          "claims": [
+            {
+              "text": "Revenue reached $12.5M in Q2 2026",
+              "claim_type": "fact",
+              "reproducible": true,
+              "evidence": [{"source": "protocol_kpi_986", "metric": "revenue", "value": 12500000}]
+            }
+          ]
+        },
+        "governance_updates": {
+          "title": "Governance Updates",
+          "content": "Two governance proposals passed in Q2 2026.",
+          "claims": [
+            {
+              "text": "AIP-42 passed with 89% approval",
+              "claim_type": "fact",
+              "reproducible": true,
+              "evidence": [{"source": "governance_intelligence_963", "proposal_id": "aip_42"}]
+            }
+          ]
+        },
+        "risk_assessment": {
+          "title": "Risk Assessment",
+          "content": "No major security incidents in Q2 2026.",
+          "claims": [
+            {
+              "text": "Zero confirmed exploits in Q2 2026",
+              "claim_type": "fact",
+              "reproducible": true,
+              "evidence": [{"source": "security_incidents_984", "incident_count": 0}]
+            }
+          ]
+        },
+        "outlook": {
+          "title": "Outlook",
+          "content": "Continued growth expected based on current KPI trajectory — not a forecast.",
+          "claims": [
+            {
+              "text": "Growth trajectory positive based on 30d metrics",
+              "claim_type": "inference",
+              "reproducible": true,
+              "evidence": [{"source": "protocol_kpi_986", "metric": "growth", "value": 12.5}]
+            }
+          ]
+        },
+        "source_archive": [
+          {"source_id": "protocol_kpi_986", "timestamp": "2026-08-28T00:00:00Z"},
+          {"source_id": "governance_intelligence_963", "timestamp": "2026-08-28T00:00:00Z"}
+        ],
+        "publication_history": [
+          {"version": "aave_Q2-2026_v1.0.0", "published_at": "2026-07-15T00:00:00Z", "immutable": true}
+        ]
+      }
+    },
+    "archive": [
+      {"protocol_id": "aave", "quarter": "Q2-2026", "version": "aave_Q2-2026_v1.0.0", "immutable": true},
+      {"protocol_id": "aave", "quarter": "Q1-2026", "version": "aave_Q1-2026_v1.0.0", "immutable": true},
+      {"protocol_id": "uniswap", "quarter": "Q2-2026", "version": "uniswap_Q2-2026_v1.0.0", "immutable": true}
+    ]
   }
 }

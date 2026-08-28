@@ -291,5 +291,75 @@
   "oracle_prices_dex": {
     "ETH": {"oracle_price_usd": 3480, "dex_price_usd": 3475, "deviation_pct": 0.14},
     "BNB": {"oracle_price_usd": 580, "dex_price_usd": 612, "deviation_pct": 5.5}
+  },
+  "security_incidents_984": {
+    "rules_version": "1.0.0",
+    "fee_db": {
+      "ingest_per_incident_usd": 0.005,
+      "storage_per_incident_usd": 0.001
+    }
+  },
+  "exploit_incidents_984": {
+    "euler_finance_2023": {
+      "protocol_id": "euler",
+      "protocol_name": "Euler Finance",
+      "date": "2023-03-13",
+      "loss_usd": 197000000,
+      "cause": "Donation attack via flash loan",
+      "cause_classification": "reentrancy",
+      "auditor": "Trail of Bits",
+      "status": "patched",
+      "source": "rekt_news + on_chain_analysis",
+      "source_documented": true,
+      "no_rumors": true,
+      "evidence": [
+        {"type": "post_mortem", "url": "https://euler.finance/blog/post-mortem", "source": "protocol_official"},
+        {"type": "on_chain_tx", "tx_hash": "0xeuler_exploit_001", "source": "etherscan"}
+      ],
+      "status_transitions": [
+        {"from": "confirmed", "to": "patched", "timestamp": "2023-04-01T00:00:00Z", "logged": true}
+      ]
+    },
+    "ronin_bridge_2022": {
+      "protocol_id": "ronin",
+      "protocol_name": "Ronin Bridge",
+      "date": "2022-03-23",
+      "loss_usd": 625000000,
+      "cause": "Private key compromise via social engineering",
+      "cause_classification": "access_control",
+      "auditor": "CertiK",
+      "status": "patched",
+      "source": "sky_mavis_official + fbi_statement",
+      "source_documented": true,
+      "no_rumors": true,
+      "evidence": [
+        {"type": "official_statement", "url": "https://roninchain.com/blog", "source": "sky_mavis"},
+        {"type": "law_enforcement", "source": "fbi_public"}
+      ],
+      "status_transitions": [
+        {"from": "confirmed", "to": "disputed", "timestamp": "2022-03-24T00:00:00Z", "logged": true},
+        {"from": "disputed", "to": "patched", "timestamp": "2022-06-28T00:00:00Z", "logged": true}
+      ]
+    },
+    "curve_vyper_2023": {
+      "protocol_id": "curve",
+      "protocol_name": "Curve Finance",
+      "date": "2023-07-30",
+      "loss_usd": 73500000,
+      "cause": "Vyper compiler reentrancy bug",
+      "cause_classification": "reentrancy",
+      "auditor": null,
+      "status": "patched",
+      "source": "curve_official + blocksec_analysis",
+      "source_documented": true,
+      "no_rumors": true,
+      "evidence": [
+        {"type": "post_mortem", "url": "https://curve.fi", "source": "protocol_official"},
+        {"type": "analysis", "source": "blocksec"}
+      ],
+      "status_transitions": [
+        {"from": "confirmed", "to": "patched", "timestamp": "2023-08-15T00:00:00Z", "logged": true}
+      ]
+    }
   }
 }

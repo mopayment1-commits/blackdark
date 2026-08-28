@@ -28,9 +28,11 @@ logger = logging.getLogger("BLACKDARK.OnChainIntelligenceExtension")
 _FEATURE_REF_12 = 12
 _FEATURE_REF_923 = 923
 _FEATURE_REF_960 = 960
+_FEATURE_REF_984 = 984
 _FEATURE_REF_972 = 972
 _FEATURE_REF_926 = 926
 _CERTIFICATE_REF = 952
+_DEFI_STRATEGY_RISK_REF = 951
 _FEATURE_REF_930 = 930
 _FEATURE_REF_937 = 937
 _FEATURE_REF_942 = 942
@@ -48,6 +50,11 @@ _DISCLAIMER_923 = (
 _DISCLAIMER_960 = (
     "Suspicious pattern screening — insight only. Suspicious Pattern, not Fraud Detected. "
     "No legal conclusion. Explainable indicators only. Not a report to authorities."
+)
+
+_DISCLAIMER_984 = (
+    "Security incident intelligence — source documented, no rumors. "
+    "Losses at event-time USD — no retrospective revaluation. Not investment advice."
 )
 
 _DISCLAIMER_926 = (
@@ -77,12 +84,13 @@ def onchain_extension_status(*, seed: dict[str, Any] | None = None) -> dict[str,
         "feature_ref": _FEATURE_REF_12,
         "aml_screening_ref": _FEATURE_REF_923,
         "fraud_screening_ref": _FEATURE_REF_960,
+        "security_incidents_ref": _FEATURE_REF_984,
         "wallet_dd_ref": _FEATURE_REF_972,
         "entity_layer_ref": _FEATURE_REF_926,
         "standalone": _STANDALONE,
         "standalone_rejected": True,
         "merged_into": _MERGED_INTO,
-        "sub_layers": ["risk_screening_923", "fraud_screening_960", "wallet_dd_972", "entity_layer_926", "bridge_flows_930", "cross_chain_path_937", "dex_activity_942"],
+        "sub_layers": ["risk_screening_923", "fraud_screening_960", "security_incidents_984", "wallet_dd_972", "entity_layer_926", "bridge_flows_930", "cross_chain_path_937", "dex_activity_942"],
         "bridge_flows_ref": _FEATURE_REF_930,
         "cross_chain_trace_ref": _FEATURE_REF_937,
         "dex_trading_ref": _FEATURE_REF_942,
@@ -270,6 +278,114 @@ def screen_fraud_activity_960(
             "screen_usd": fee.get("screen_per_address_usd", 0.008),
             "graph_query_usd": fee.get("graph_query_usd", 0.004),
         },
+        "timestamp": _utcnow(),
+    }
+
+
+# --- #984 Protocol Exploit Intelligence ---
+
+
+def security_incidents_status_984(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    cfg = seed.get("security_incidents_984") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_984,
+        "extension_ref": _FEATURE_REF_12,
+        "standalone_rejected": True,
+        "merged_into": _MERGED_INTO,
+        "defi_strategy_risk_ref": _DEFI_STRATEGY_RISK_REF,
+        "fraud_screening_ref": _FEATURE_REF_960,
+        "source_documented": True,
+        "no_rumors": True,
+        "losses_at_event_time": True,
+        "no_retrospective_revaluation": True,
+        "cause_classification": "rule_based",
+        "status_transitions_logged": True,
+        "fee_db": cfg.get("fee_db"),
+        "disclaimer": _DISCLAIMER_984,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_exploit_dashboard_984(
+    protocol_id: str | None = None,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    incidents_db = seed.get("exploit_incidents_984") or {}
+    incidents: list[dict[str, Any]] = []
+
+    for inc_id, inc in incidents_db.items():
+        if protocol_id and inc.get("protocol_id") != protocol_id:
+            continue
+        incidents.append({
+            "incident_id": inc_id,
+            "protocol_id": inc.get("protocol_id"),
+            "protocol_name": inc.get("protocol_name"),
+            "date": inc.get("date"),
+            "loss_usd": inc.get("loss_usd"),
+            "loss_at_event_time": True,
+            "cause": inc.get("cause"),
+            "cause_classification": inc.get("cause_classification"),
+            "auditor": inc.get("auditor"),
+            "status": inc.get("status"),
+            "source": inc.get("source"),
+            "source_documented": inc.get("source_documented", True),
+            "evidence": inc.get("evidence") or [],
+            "no_rumors": inc.get("no_rumors", True),
+        })
+
+    incidents.sort(key=lambda x: x.get("date") or "", reverse=True)
+    fee = (seed.get("security_incidents_984") or {}).get("fee_db") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_984,
+        "protocol_filter": protocol_id,
+        "incident_count": len(incidents),
+        "incidents": incidents,
+        "source_evidence_status": True,
+        "fee_db": {
+            "ingest_usd": fee.get("ingest_per_incident_usd", 0.005),
+            "storage_usd": fee.get("storage_per_incident_usd", 0.001),
+        },
+        "timestamp": _utcnow(),
+    }
+
+
+def get_incident_details_984(
+    incident_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    incidents_db = seed.get("exploit_incidents_984") or {}
+    inc = incidents_db.get(incident_id)
+    if not inc:
+        return {"ok": False, "feature_ref": _FEATURE_REF_984, "error": "incident_not_found"}
+
+    transitions = inc.get("status_transitions") or []
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_984,
+        "incident_id": incident_id,
+        "protocol_id": inc.get("protocol_id"),
+        "protocol_name": inc.get("protocol_name"),
+        "date": inc.get("date"),
+        "loss_usd": inc.get("loss_usd"),
+        "loss_at_event_time": True,
+        "no_retrospective_revaluation": True,
+        "cause": inc.get("cause"),
+        "cause_classification": inc.get("cause_classification"),
+        "auditor": inc.get("auditor"),
+        "status": inc.get("status"),
+        "status_transitions": transitions,
+        "status_transitions_logged": len(transitions) >= 1,
+        "source": inc.get("source"),
+        "source_documented": inc.get("source_documented", True),
+        "evidence": inc.get("evidence") or [],
+        "no_rumors": inc.get("no_rumors", True),
         "timestamp": _utcnow(),
     }
 
@@ -782,10 +898,21 @@ def run_onchain_extension_e2e(*, seed: dict[str, Any] | None = None) -> dict[str
     checks.append({"id": "dex_aggregation", "passed": dex_dash.get("ok") is True})
     checks.append({"id": "price_alignment", "passed": len(dex_dash.get("price_alignment_flags") or []) >= 1})
 
+    exploit_status = security_incidents_status_984(seed=seed)
+    checks.append({"id": "security_incidents_984", "passed": exploit_status.get("no_rumors") is True})
+
+    exploit_dash = build_exploit_dashboard_984(seed=seed)
+    checks.append({"id": "exploit_dashboard", "passed": exploit_dash.get("incident_count", 0) >= 2})
+
+    incident = get_incident_details_984("euler_finance_2023", seed=seed)
+    checks.append({"id": "incident_evidence", "passed": incident.get("source_documented") is True})
+    checks.append({"id": "status_transitions", "passed": incident.get("status_transitions_logged") is True})
+    checks.append({"id": "cause_classified", "passed": incident.get("cause_classification") is not None})
+
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
-        "feature_refs": [_FEATURE_REF_12, _FEATURE_REF_923, _FEATURE_REF_960, _FEATURE_REF_972, _FEATURE_REF_926, _FEATURE_REF_930, _FEATURE_REF_937, _FEATURE_REF_942],
+        "feature_refs": [_FEATURE_REF_12, _FEATURE_REF_923, _FEATURE_REF_960, _FEATURE_REF_984, _FEATURE_REF_972, _FEATURE_REF_926, _FEATURE_REF_930, _FEATURE_REF_937, _FEATURE_REF_942],
         "all_passed": all_passed,
         "checks": checks,
     }

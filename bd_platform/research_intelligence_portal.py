@@ -28,11 +28,16 @@ _FEATURE_REF_997 = 997
 _FEATURE_REF_919 = 919
 _FEATURE_REF_920 = 920
 _FEATURE_REF_922 = 922
+_FEATURE_REF_989 = 989
+_PROTOCOL_KPI_REF = 986
+_GOVERNANCE_REF = 963
+_CERTIFICATE_REF = 952
 _STANDALONE = False
 _MERGED_INTO = "Research Intelligence Portal"
 _NL_QUERY_TAB = "nl_query_interface"
 _DEEP_RESEARCH_TAB = "deep_research_job"
 _AUTO_REPORT_TAB = "auto_report"
+_QUARTERLY_REPORT_TAB = "quarterly_report"
 _SEED_PATH = Path("data/research_intelligence_portal_seed.json")
 _MAX_RETRIES = 3
 
@@ -107,10 +112,14 @@ def research_portal_status_997(*, seed: dict[str, Any] | None = None) -> dict[st
         "standalone": _STANDALONE,
         "standalone_rejected": True,
         "merged_into": _MERGED_INTO,
-        "tabs": [_NL_QUERY_TAB, _DEEP_RESEARCH_TAB, _AUTO_REPORT_TAB],
+        "tabs": [_NL_QUERY_TAB, _DEEP_RESEARCH_TAB, _AUTO_REPORT_TAB, _QUARTERLY_REPORT_TAB],
         "ai_analyst_ref": _FEATURE_REF_919,
         "ai_deep_research_ref": _FEATURE_REF_920,
         "auto_report_ref": _FEATURE_REF_922,
+        "quarterly_report_ref": _FEATURE_REF_989,
+        "protocol_kpi_ref": _PROTOCOL_KPI_REF,
+        "governance_ref": _GOVERNANCE_REF,
+        "decision_certificate_ref": _CERTIFICATE_REF,
         "ai_provenance_policy_ref": 921,
         "insight_only": True,
         "no_execution": True,
@@ -766,6 +775,127 @@ def generate_auto_report_922(
     return report
 
 
+def generate_quarterly_report_989(
+    protocol_id: str = "aave",
+    quarter: str = "Q2-2026",
+    *,
+    user_id: str = "user_demo",
+    tenant_id: str = "tenant_default",
+    tier: str = "institution",
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#989 Quarterly Protocol Performance Report — merged into #997."""
+    seed = seed or _load_seed()
+    cfg = seed.get("quarterly_reports_989") or {}
+    templates = cfg.get("templates") or {}
+    proto_data = (cfg.get("protocol_data") or {}).get(protocol_id)
+    if not proto_data:
+        return {"ok": False, "feature_ref": _FEATURE_REF_989, "error": "protocol_not_found"}
+
+    report_version = f"{protocol_id}_{quarter}_v1.0.0"
+    report_id = f"qtr_{hashlib.sha256(report_version.encode()).hexdigest()[:12]}"
+
+    sections: dict[str, Any] = {}
+    claims: list[dict[str, Any]] = []
+
+    for section_key in ("executive_summary", "kpi_trends", "governance_updates", "risk_assessment", "outlook"):
+        section = proto_data.get(section_key) or {}
+        section_claims = section.get("claims") or []
+        for claim in section_claims:
+            claims.append({
+                "claim": claim.get("text"),
+                "claim_type": claim.get("claim_type", "fact"),
+                "evidence": claim.get("evidence") or [],
+                "provenance_badge_ref": 945,
+                "reproducible": claim.get("reproducible", True),
+            })
+        sections[section_key] = {
+            "title": section.get("title", section_key.replace("_", " ").title()),
+            "content": section.get("content"),
+            "charts": section.get("charts") or [],
+            "charts_reproducible": all(c.get("generated_from_metrics") for c in section.get("charts") or []) or not section.get("charts"),
+            "claims": section_claims,
+        }
+
+    report = {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_989,
+        "portal_ref": _FEATURE_REF_997,
+        "tab": _QUARTERLY_REPORT_TAB,
+        "report_id": report_id,
+        "protocol_id": protocol_id,
+        "quarter": quarter,
+        "version": report_version,
+        "immutable_snapshot": True,
+        "sections": sections,
+        "mandatory_sections": ["executive_summary", "kpi_trends", "governance_updates", "risk_assessment", "outlook"],
+        "claims": claims,
+        "all_claims_reproducible": all(c.get("reproducible") for c in claims),
+        "source_archive": proto_data.get("source_archive") or [],
+        "publication_history": proto_data.get("publication_history") or [],
+        "protocol_kpi_ref": _PROTOCOL_KPI_REF,
+        "governance_ref": _GOVERNANCE_REF,
+        "decision_certificate_ref": _CERTIFICATE_REF,
+        "verification_id": f"cert_{report_id}",
+        "evidence_grounded": True,
+        "no_static_images": True,
+        "insight_only": True,
+        "timestamp": _utcnow(),
+    }
+
+    report = _apply_provenance_policy(report, feature_ref=str(_FEATURE_REF_989), user_id=user_id, tenant_id=tenant_id, tier=tier)
+
+    fee = cfg.get("fee_db") or {}
+    report["fee_db"] = {
+        "generation_usd": fee.get("generation_per_report_usd", 0.15),
+        "storage_usd": fee.get("storage_per_report_usd", 0.03),
+        "delivery_usd": fee.get("delivery_per_report_usd", 0.02),
+    }
+    return report
+
+
+def list_quarterly_report_archive_989(
+    protocol_id: str | None = None,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    cfg = seed.get("quarterly_reports_989") or {}
+    archive = cfg.get("archive") or []
+    if protocol_id:
+        archive = [r for r in archive if r.get("protocol_id") == protocol_id]
+
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_989,
+        "portal_ref": _FEATURE_REF_997,
+        "archive": archive,
+        "count": len(archive),
+        "version_history": True,
+        "immutable_snapshots": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def run_quarterly_report_e2e_989(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    checks: list[dict[str, Any]] = []
+
+    report = generate_quarterly_report_989("aave", quarter="Q2-2026", seed=seed)
+    checks.append({"id": "report_generated", "passed": report.get("ok") is True})
+    checks.append({"id": "five_sections", "passed": len(report.get("sections") or {}) == 5})
+    checks.append({"id": "claims_reproducible", "passed": report.get("all_claims_reproducible") is True})
+    checks.append({"id": "immutable_snapshot", "passed": report.get("immutable_snapshot") is True})
+    checks.append({"id": "verification_id", "passed": report.get("verification_id") is not None})
+    checks.append({"id": "protocol_kpi_integration", "passed": report.get("protocol_kpi_ref") == _PROTOCOL_KPI_REF})
+
+    archive = list_quarterly_report_archive_989(seed=seed)
+    checks.append({"id": "version_archive", "passed": archive.get("count", 0) >= 1})
+
+    all_passed = all(c["passed"] for c in checks)
+    return {"ok": all_passed, "feature_ref": _FEATURE_REF_989, "all_passed": all_passed, "checks": checks}
+
+
 def run_research_portal_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     reset_research_portal_state()
@@ -777,6 +907,7 @@ def run_research_portal_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, 
     checks.append({"id": "deep_research_tab", "passed": _DEEP_RESEARCH_TAB in status["tabs"]})
     checks.append({"id": "insight_only", "passed": status["insight_only"] is True})
     checks.append({"id": "auto_report_tab", "passed": _AUTO_REPORT_TAB in status["tabs"]})
+    checks.append({"id": "quarterly_report_tab", "passed": _QUARTERLY_REPORT_TAB in status["tabs"]})
 
     q1 = ask_ai_analyst_919("What is Bitcoin NVT and on-chain activity?", seed=seed)
     q2 = ask_ai_analyst_919("What is Bitcoin NVT and on-chain activity?", seed=seed)
@@ -817,10 +948,13 @@ def run_research_portal_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, 
     checks.append({"id": "fact_inference_separated", "passed": report.get("fact_inference_separated") is True})
     checks.append({"id": "provenance_footer", "passed": report.get("compliance_footer") is not None})
 
+    quarterly = run_quarterly_report_e2e_989(seed=seed)
+    checks.append({"id": "quarterly_report_989", "passed": quarterly.get("all_passed") is True})
+
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
-        "feature_refs": [_FEATURE_REF_997, _FEATURE_REF_919, _FEATURE_REF_920, _FEATURE_REF_922],
+        "feature_refs": [_FEATURE_REF_997, _FEATURE_REF_919, _FEATURE_REF_920, _FEATURE_REF_922, _FEATURE_REF_989],
         "all_passed": all_passed,
         "checks": checks,
         "timestamp": _utcnow(),

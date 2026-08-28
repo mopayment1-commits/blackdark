@@ -26,27 +26,92 @@
   "protocols": {
     "aave": {
       "sector": "lending",
+      "protocol_type": "lending",
       "source": "on_chain + subgraph",
-      "raw_metrics": {"total_fees": 12500000, "active_users": 45000, "total_locked": 9800000000},
+      "raw_metrics": {"total_fees": 12500000, "active_users": 45000, "total_locked": 9800000000, "volume_30d": 45000000000, "growth_30d_pct": 12.5},
       "self_reported": {"total_fees": 12400000, "active_users": 46000, "total_locked": 9750000000}
     },
     "morpho": {
       "sector": "lending",
+      "protocol_type": "lending",
       "source": "on_chain",
-      "raw_metrics": {"peer_lending_volume": 3200000000, "unique_borrowers": 12000, "matched_volume": 2100000000},
+      "raw_metrics": {"peer_lending_volume": 3200000000, "unique_borrowers": 12000, "matched_volume": 2100000000, "volume_30d": 15000000000},
       "self_reported": {"peer_lending_volume": 3100000000, "unique_borrowers": 11500, "matched_volume": 2050000000}
     },
     "gmx": {
       "sector": "perps",
+      "protocol_type": "dex",
       "source": "on_chain + api",
-      "raw_metrics": {"trading_fees": 8900000, "unique_traders": 28000, "open_interest": 450000000},
+      "raw_metrics": {"trading_fees": 8900000, "unique_traders": 28000, "open_interest": 450000000, "volume_30d": 22000000000, "growth_30d_pct": 9.8},
       "self_reported": {"trading_fees": 8500000, "unique_traders": 27000, "open_interest": 440000000}
     },
     "uniswap": {
       "sector": "dex",
+      "protocol_type": "dex",
       "source": "on_chain + subgraph",
-      "raw_metrics": {"swap_fees": 156000000, "unique_traders": 180000, "pool_tvl": 4200000000},
+      "raw_metrics": {"swap_fees": 156000000, "unique_traders": 180000, "pool_tvl": 4200000000, "volume_30d": 89000000000, "growth_30d_pct": 18.4},
       "self_reported": {"swap_fees": 152000000, "unique_traders": 175000, "pool_tvl": 4150000000}
+    }
+  },
+  "protocol_type_schemas_986": {
+    "dex": {
+      "metrics": ["revenue", "volume", "users", "tvl", "fees", "growth"],
+      "definitions": {"volume": "Swap volume 30d", "tvl": "Pool TVL"}
+    },
+    "lending": {
+      "metrics": ["revenue", "volume", "users", "tvl", "fees", "growth"],
+      "definitions": {"volume": "Borrow/lend volume 30d", "tvl": "Total supplied assets"}
+    },
+    "yield": {
+      "metrics": ["revenue", "volume", "users", "tvl", "fees", "growth"],
+      "definitions": {"volume": "Deposit/withdraw volume", "tvl": "Vault TVL"}
+    },
+    "l1": {
+      "metrics": ["revenue", "volume", "users", "tvl", "fees", "growth"],
+      "definitions": {"volume": "Transaction volume", "tvl": "Staked assets"}
+    },
+    "l2": {
+      "metrics": ["revenue", "volume", "users", "tvl", "fees", "growth"],
+      "definitions": {"volume": "L2 transaction volume", "tvl": "Bridged TVL"}
+    }
+  },
+  "source_parity_tests_986": {
+    "aave_tvl_defillama_vs_onchain": {
+      "protocol_id": "aave",
+      "metric": "tvl",
+      "source_a": "defillama",
+      "source_b": "on_chain",
+      "source_a_value": 9800000000,
+      "source_b_value": 9750000000
+    },
+    "uniswap_fees_subgraph_vs_api": {
+      "protocol_id": "uniswap",
+      "metric": "fees",
+      "source_a": "subgraph",
+      "source_b": "api",
+      "source_a_value": 156000000,
+      "source_b_value": 152000000
+    }
+  },
+  "historical_qa_986": {
+    "aave": {
+      "backfill_complete": true,
+      "no_silent_mutation": true,
+      "revisions": [
+        {
+          "metric": "tvl",
+          "old_version": "v1.0.0",
+          "new_version": "v1.0.1",
+          "reason": "backfill_correction",
+          "original_immutable": true,
+          "timestamp": "2026-08-15T00:00:00+00:00"
+        }
+      ]
+    },
+    "uniswap": {
+      "backfill_complete": true,
+      "no_silent_mutation": true,
+      "revisions": []
     }
   },
   "development_activity_953": {

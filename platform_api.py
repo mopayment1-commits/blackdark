@@ -1936,6 +1936,28 @@ async def onchain_dex_activity_dashboard_route(
     return build_dex_activity_dashboard_942(dex=dex, token=token)
 
 
+@router.get("/intelligence-ledger/onchain-layer/extension/security-incidents/status")
+async def onchain_security_incidents_status_route():
+    """#984 Protocol Exploit Intelligence — merged into On-Chain Extension."""
+    from bd_platform.onchain_intelligence_extension import security_incidents_status_984
+
+    return security_incidents_status_984()
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/security-incidents")
+async def onchain_security_incidents_dashboard_route(protocol_id: str | None = Query(None)):
+    from bd_platform.onchain_intelligence_extension import build_exploit_dashboard_984
+
+    return build_exploit_dashboard_984(protocol_id)
+
+
+@router.get("/intelligence-ledger/onchain-layer/extension/security-incidents/{incident_id}")
+async def onchain_security_incident_details_route(incident_id: str):
+    from bd_platform.onchain_intelligence_extension import get_incident_details_984
+
+    return get_incident_details_984(incident_id)
+
+
 @router.get("/intelligence-ledger/onchain-layer/smart-money-flow/status")
 async def smart_money_flow_status_route():
     """#408 Smart Money Flow Tracker (absorbs #459 Dormancy)."""
@@ -7204,6 +7226,33 @@ async def research_portal_auto_report_route(
     return generate_auto_report_922(frequency=frequency, user_id=user_id, tenant_id=tenant_id)
 
 
+@router.get("/intelligence-ledger/research-portal/quarterly-report")
+async def research_portal_quarterly_report_route(
+    protocol_id: str = Query("aave"),
+    quarter: str = Query("Q2-2026"),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+):
+    """#989 Quarterly Protocol Performance Reports — merged into #997."""
+    from bd_platform.research_intelligence_portal import generate_quarterly_report_989
+
+    return generate_quarterly_report_989(protocol_id, quarter=quarter, user_id=user_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/research-portal/quarterly-report/archive")
+async def research_portal_quarterly_archive_route(protocol_id: str | None = Query(None)):
+    from bd_platform.research_intelligence_portal import list_quarterly_report_archive_989
+
+    return list_quarterly_report_archive_989(protocol_id)
+
+
+@router.get("/intelligence-ledger/research-portal/quarterly-report/e2e")
+async def research_portal_quarterly_e2e_route():
+    from bd_platform.research_intelligence_portal import run_quarterly_report_e2e_989
+
+    return run_quarterly_report_e2e_989()
+
+
 @router.get("/intelligence-ledger/ai-provenance/status")
 async def ai_provenance_policy_status_route():
     """#921 AI Output Provenance — cross-cutting compliance policy."""
@@ -7390,6 +7439,35 @@ async def sector_comparables_dashboard_route(sector: str):
     return build_sector_dashboard_1001(sector)
 
 
+@router.get("/intelligence-ledger/project-comparables/status")
+async def project_comparables_status_route():
+    """#982 Project Comparables — Intelligence Ledger Comparables insight."""
+    from bd_platform.intelligence_ledger_project_comparables import project_comparables_status_982
+
+    return project_comparables_status_982()
+
+
+@router.get("/intelligence-ledger/project-comparables/e2e")
+async def project_comparables_e2e_route():
+    from bd_platform.intelligence_ledger_project_comparables import run_project_comparables_e2e_982
+
+    return run_project_comparables_e2e_982()
+
+
+@router.get("/intelligence-ledger/project-comparables/{protocol_id}/criteria")
+async def project_comparables_criteria_route(protocol_id: str):
+    from bd_platform.intelligence_ledger_project_comparables import get_peer_selection_criteria_982
+
+    return get_peer_selection_criteria_982(protocol_id)
+
+
+@router.get("/intelligence-ledger/project-comparables/{protocol_id}")
+async def project_comparables_explorer_route(protocol_id: str):
+    from bd_platform.intelligence_ledger_project_comparables import build_comparable_explorer_982
+
+    return build_comparable_explorer_982(protocol_id)
+
+
 @router.get("/intelligence-ledger/protocol-kpis/status")
 async def protocol_kpi_status_route():
     """#986 Protocol KPI Intelligence + #1004 Standardized Definitions."""
@@ -7417,6 +7495,28 @@ async def protocol_kpi_e2e_route():
     from bd_platform.protocol_kpi_intelligence import run_protocol_kpi_e2e
 
     return run_protocol_kpi_e2e()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/source-parity")
+async def protocol_kpi_source_parity_route():
+    """#986 Source/methodology parity test — ±5% tolerance."""
+    from bd_platform.protocol_kpi_intelligence import run_source_parity_test_986
+
+    return run_source_parity_test_986()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/historical-qa/{protocol_id}")
+async def protocol_kpi_historical_qa_route(protocol_id: str):
+    from bd_platform.protocol_kpi_intelligence import run_historical_qa_986
+
+    return run_historical_qa_986(protocol_id)
+
+
+@router.get("/intelligence-ledger/protocol-kpis/protocol-type/{protocol_type}")
+async def protocol_kpi_type_schema_route(protocol_type: str):
+    from bd_platform.protocol_kpi_intelligence import get_protocol_type_schema_986
+
+    return get_protocol_type_schema_986(protocol_type)
 
 
 @router.get("/intelligence-ledger/protocol-kpis/development-activity/status")
