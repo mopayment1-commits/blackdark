@@ -39,6 +39,10 @@ REJECTED_EXECUTION_FEATURES: dict[int, dict[str, Any]] = {
     214: {"alternative_route": "/intelligence/arbitrage", "layer": "onchain_defi_sources"},
     215: {"alternative_route": "/oracle/on-chain/gas-profile", "layer": "onchain_defi_sources"},
     216: {"alternative_route": "/oracle/on-chain/whale/behavior-analysis", "layer": "onchain_defi_sources"},
+    217: {"alternative_route": "/intelligence/best-venue-analysis", "layer": "intelligence_market_extensions"},
+    221: {"alternative_route": "/radar/technical/slippage-analysis", "layer": "intelligence_market_extensions"},
+    226: {"alternative_route": "/radar/events/launch-analysis", "layer": "intelligence_market_extensions"},
+    227: {"alternative_route": "/intelligence/etf-premium", "layer": "intelligence_market_extensions"},
 }
 
 

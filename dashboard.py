@@ -2051,6 +2051,70 @@ async def public_whale_behavior_analysis(wallet: str = "0x1234...5678", buy_usd:
     return whale_behavior_analysis_216(wallet=wallet, buy_usd=buy_usd)
 
 
+@app.get("/intelligence/best-venue-analysis")
+async def public_best_venue_analysis(asset: str = "BTC", order_usd: float = 50_000):
+    """#217 — Best venue analysis (auto-router rejected)."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_best_venue_217
+
+    return analyze_best_venue_217(asset=asset, order_usd=order_usd)
+
+
+@app.get("/radar/sentiment/nlp")
+async def public_nlp_sentiment():
+    """#219 — Rule-based NLP sentiment analysis."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_nlp_sentiment_219
+
+    return analyze_nlp_sentiment_219()
+
+
+@app.get("/intelligence/backtest/pattern-outcome")
+async def public_pattern_outcome(asset: str = "BTC"):
+    """#220 — Historical pattern outcome analysis (extends #74)."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_pattern_outcome_220
+
+    return analyze_pattern_outcome_220(asset=asset)
+
+
+@app.get("/radar/technical/slippage-analysis")
+async def public_slippage_analysis(asset: str = "BTC", order_usd: float = 100_000):
+    """#221 — Market slippage analysis (execution quality rejected)."""
+    from bd_platform.intelligence_market_extensions_layer import market_slippage_analysis_221
+
+    return market_slippage_analysis_221(asset=asset, order_usd=order_usd)
+
+
+@app.get("/oracle/on-chain/defi/fundamentals")
+async def public_defi_fundamentals(protocol: str = "uniswap"):
+    """#223 — DeFi P/S fundamentals analysis."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_defi_fundamentals_223
+
+    return analyze_defi_fundamentals_223(protocol=protocol)
+
+
+@app.get("/intelligence/valuation/dcf-token")
+async def public_token_dcf(protocol: str = "aave"):
+    """#224 — Token DCF valuation model."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_token_dcf_224
+
+    return analyze_token_dcf_224(protocol=protocol)
+
+
+@app.get("/radar/events/launch-analysis")
+async def public_launch_analysis(token: str = "NEWTOKEN"):
+    """#226 — New token launch analysis (arbitrage rejected)."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_launch_event_226
+
+    return analyze_launch_event_226(token=token)
+
+
+@app.get("/intelligence/etf-premium")
+async def public_etf_premium(asset: str = "BTC"):
+    """#227 — ETF premium/discount analysis (arbitrage rejected)."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_etf_premium_227
+
+    return analyze_etf_premium_227(asset=asset)
+
+
 @app.get("/oracle/on-chain/mining")
 async def public_hashrate_capitulation():
     """#165 — Hashrate capitulation mining analysis."""

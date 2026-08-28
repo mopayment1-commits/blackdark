@@ -603,7 +603,13 @@ def run_backtest_74(
     try:
         from bd_platform.arbitrage_portfolio_ux_layer import attach_scenarios_178
 
-        return attach_scenarios_178(result, seed=seed)
+        result = attach_scenarios_178(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.intelligence_market_extensions_layer import attach_pattern_outcome_220
+
+        return attach_pattern_outcome_220(result, seed=seed)
     except ImportError:
         return result
 
@@ -736,7 +742,13 @@ def build_journal_tab_76(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     try:
         from bd_platform.advanced_ta_risk_layer import attach_journal_attribution_121
 
-        return attach_journal_attribution_121(result, seed=seed)
+        result = attach_journal_attribution_121(result, seed=seed)
+    except ImportError:
+        pass
+    try:
+        from bd_platform.intelligence_market_extensions_layer import attach_order_journal_218
+
+        return attach_order_journal_218(result, seed=seed)
     except ImportError:
         return result
 

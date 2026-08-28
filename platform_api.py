@@ -2405,3 +2405,94 @@ async def execution_rejected_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.execution_rejected_layer import run_execution_rejected_e2e
 
     return run_execution_rejected_e2e()
+
+
+@router.get("/intelligence/best-venue-analysis")
+async def best_venue_analysis_route(asset: str = Query("BTC"), order_usd: float = Query(50_000)):
+    from bd_platform.intelligence_market_extensions_layer import analyze_best_venue_217
+
+    return analyze_best_venue_217(asset=asset, order_usd=order_usd)
+
+
+@router.post("/portfolio/journal/orders")
+async def manual_order_journal_route(data: dict = Body(default={})):
+    from bd_platform.intelligence_market_extensions_layer import add_manual_order_journal_218
+
+    return add_manual_order_journal_218(
+        asset=str(data.get("asset", "BTC")),
+        target_price=float(data.get("target_price", 0)),
+        state=data.get("state", "Planned"),
+        filled_price=data.get("filled_price"),
+        expected_slippage_pct=float(data.get("expected_slippage_pct", 0.2)),
+        reason=str(data.get("reason", "")),
+    )
+
+
+@router.get("/portfolio/journal/orders")
+async def list_manual_order_journal_route():
+    from bd_platform.intelligence_market_extensions_layer import list_manual_order_journal_218
+
+    return list_manual_order_journal_218()
+
+
+@router.get("/radar/sentiment/nlp")
+async def nlp_sentiment_route():
+    from bd_platform.intelligence_market_extensions_layer import analyze_nlp_sentiment_219
+
+    return analyze_nlp_sentiment_219()
+
+
+@router.get("/intelligence/backtest/pattern-outcome")
+async def pattern_outcome_route(asset: str = Query("BTC"), pattern: str = Query("rsi_lt_30_volume_spike_whale_inflow")):
+    from bd_platform.intelligence_market_extensions_layer import analyze_pattern_outcome_220
+
+    return analyze_pattern_outcome_220(pattern=pattern, asset=asset)
+
+
+@router.get("/radar/technical/slippage-analysis")
+async def slippage_analysis_route(asset: str = Query("BTC"), order_usd: float = Query(100_000)):
+    from bd_platform.intelligence_market_extensions_layer import market_slippage_analysis_221
+
+    return market_slippage_analysis_221(asset=asset, order_usd=order_usd)
+
+
+@router.get("/admin/monitoring/exchange-latency")
+async def exchange_latency_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.intelligence_market_extensions_layer import monitor_exchange_latency_222
+
+    return monitor_exchange_latency_222()
+
+
+@router.get("/oracle/on-chain/defi/fundamentals")
+async def defi_fundamentals_route(protocol: str = Query("uniswap")):
+    from bd_platform.intelligence_market_extensions_layer import analyze_defi_fundamentals_223
+
+    return analyze_defi_fundamentals_223(protocol=protocol)
+
+
+@router.get("/intelligence/valuation/dcf-token")
+async def token_dcf_route(protocol: str = Query("aave")):
+    from bd_platform.intelligence_market_extensions_layer import analyze_token_dcf_224
+
+    return analyze_token_dcf_224(protocol=protocol)
+
+
+@router.get("/radar/events/launch-analysis")
+async def launch_analysis_route(token: str = Query("NEWTOKEN")):
+    from bd_platform.intelligence_market_extensions_layer import analyze_launch_event_226
+
+    return analyze_launch_event_226(token=token)
+
+
+@router.get("/intelligence/etf-premium")
+async def etf_premium_route(asset: str = Query("BTC")):
+    from bd_platform.intelligence_market_extensions_layer import analyze_etf_premium_227
+
+    return analyze_etf_premium_227(asset=asset)
+
+
+@router.get("/intelligence-market-extensions/e2e")
+async def intelligence_market_extensions_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.intelligence_market_extensions_layer import run_intelligence_market_extensions_e2e_217_227
+
+    return run_intelligence_market_extensions_e2e_217_227()

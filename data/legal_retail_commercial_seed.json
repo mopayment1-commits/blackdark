@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -1247,5 +1247,76 @@
     "extends_ref": 71,
     "counter_trading_rejected": true,
     "fee_db": {"compute_usd": 0.0025}
+  },
+  "best_venue_analysis_217": {
+    "standalone": false,
+    "route": "/intelligence/best-venue-analysis",
+    "auto_router_rejected": true,
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "manual_order_journal_218": {
+    "standalone": false,
+    "route": "/portfolio/journal/orders",
+    "extends_ref": 76,
+    "lifecycle_management_rejected": true,
+    "fee_db": {"storage_usd": 0.0002}
+  },
+  "nlp_sentiment_219": {
+    "standalone": false,
+    "route": "/radar/sentiment/nlp",
+    "merged_into": ["sentiment_layer", "market_radar", "multi_dim_73"],
+    "rule_based_only": true,
+    "fee_db": {"compute_usd": 0.0005, "parsing_usd": 0.0001}
+  },
+  "pattern_outcome_220": {
+    "standalone": false,
+    "route": "/intelligence/backtest/pattern-outcome",
+    "extends_ref": 74,
+    "roi_probability_rejected": true,
+    "fee_db": {"compute_usd": 0.004}
+  },
+  "slippage_analysis_221": {
+    "standalone": false,
+    "route": "/radar/technical/slippage-analysis",
+    "execution_monitoring_rejected": true,
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "exchange_latency_222": {
+    "standalone": false,
+    "route": "/admin/monitoring/exchange-latency",
+    "merged_into": ["oracle_validate_101", "time_sync_167", "operational_resilience_176", "latency_187"],
+    "slow_threshold_ms": 500,
+    "unresponsive_threshold_ms": 1000,
+    "fee_db": {"monitor_usd": 0.002}
+  },
+  "defi_fundamentals_223": {
+    "standalone": false,
+    "route": "/oracle/on-chain/defi/fundamentals",
+    "merged_into": ["on_chain_extension", "market_radar", "ic_report_87"],
+    "fee_db": {"compute_usd": 0.004, "rpc_usd": 0.001}
+  },
+  "token_dcf_224": {
+    "standalone": false,
+    "route": "/intelligence/valuation/dcf-token",
+    "wave": "3_activation",
+    "fee_db": {"compute_usd": 0.006}
+  },
+  "pwa_strategy_225": {
+    "standalone": false,
+    "status": "deferred_native_apps",
+    "pwa_alternative": true,
+    "native_apps_wave": "3+"
+  },
+  "launch_analysis_226": {
+    "standalone": false,
+    "route": "/radar/events/launch-analysis",
+    "launch_arbitrage_rejected": true,
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "etf_premium_227": {
+    "standalone": false,
+    "route": "/intelligence/etf-premium",
+    "etf_arbitrage_rejected": true,
+    "fee_db": {"compute_usd": 0.003}
   }
 }
