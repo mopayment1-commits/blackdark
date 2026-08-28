@@ -865,6 +865,27 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/pentest-policy/status")
+async def pentest_policy_status_api():
+    from pentest_policy import pentest_policy_status
+
+    return pentest_policy_status()
+
+
+@router.get("/pentest-policy/gate")
+async def pentest_policy_gate_api():
+    from pentest_policy import check_pentest_production_gate
+
+    return check_pentest_production_gate()
+
+
+@router.get("/pentest-policy/e2e")
+async def pentest_policy_e2e_api():
+    from pentest_policy import run_pentest_policy_e2e
+
+    return run_pentest_policy_e2e()
+
+
 @router.post("/ml/rl/train")
 async def rl_policy_train(_admin: dict = Depends(require_admin)):
     import random
