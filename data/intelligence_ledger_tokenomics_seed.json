@@ -1,0 +1,31 @@
+{
+  "tokens": {
+    "arb": {
+      "allocations": [
+        {"category": "team", "pct": 26.94, "source": "issuer_docs", "address": "0xteam..."},
+        {"category": "investors", "pct": 17.53, "source": "issuer_docs", "address": "0xinv..."},
+        {"category": "advisors", "pct": 1.13, "source": "issuer_docs"},
+        {"category": "community", "pct": 11.62, "source": "on_chain", "address": "0xcomm..."},
+        {"category": "ecosystem", "pct": 42.78, "source": "issuer_docs", "address": "0xeco..."}
+      ],
+      "top_holders": [
+        {"address": "0x1", "pct": 8.2, "label": "ecosystem_fund"},
+        {"address": "0x2", "pct": 6.5, "label": "team_vesting"},
+        {"address": "0x3", "pct": 5.1, "label": "investor_1"},
+        {"address": "0x4", "pct": 4.8},
+        {"address": "0x5", "pct": 3.2}
+      ],
+      "vesting_schedule": {
+        "genesis_date": "2023-03-23T00:00:00Z",
+        "cliff_months": 12,
+        "vesting_months": 48,
+        "total_tokens": 10000000000,
+        "unlock_frequency": "monthly",
+        "source": "issuer_docs + on_chain",
+        "revisions": [
+          {"date": "2024-06-01", "change": "Cliff extended by 1 month", "version": "1.1"}
+        ]
+      }
+    }
+  }
+}

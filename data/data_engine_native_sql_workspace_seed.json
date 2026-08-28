@@ -45,5 +45,25 @@
   "dataset_version": {
     "version": "2026.08.28",
     "canonical_hash": "a3f9c2e1b4d56780"
+  },
+  "backtesting_sandbox_1005": {
+    "environment_version": "1.0.0",
+    "fee_rate_pct": 0.1,
+    "slippage_rate_pct": 0.05,
+    "fee_db": {
+      "historical_query_usd": 0.01,
+      "simulation_compute_usd": 0.02,
+      "storage_usd": 0.001
+    },
+    "historical_prices": {
+      "BTC": [
+        {"timestamp": "2025-01-01T00:00:00Z", "close": 42000, "rsi": 28, "first_available_at": "2025-01-01T00:00:00Z"},
+        {"timestamp": "2025-02-01T00:00:00Z", "close": 45000, "rsi": 55, "first_available_at": "2025-02-01T00:00:00Z"},
+        {"timestamp": "2025-03-01T00:00:00Z", "close": 48000, "rsi": 62, "first_available_at": "2025-03-01T00:00:00Z"},
+        {"timestamp": "2025-04-01T00:00:00Z", "close": 52000, "rsi": 72, "first_available_at": "2025-04-01T00:00:00Z"},
+        {"timestamp": "2025-05-01T00:00:00Z", "close": 58000, "rsi": 68, "first_available_at": "2025-05-01T00:00:00Z"},
+        {"timestamp": "2025-06-01T00:00:00Z", "close": 62000, "rsi": 60, "first_available_at": "2025-06-01T00:00:00Z"}
+      ]
+    }
   }
 }

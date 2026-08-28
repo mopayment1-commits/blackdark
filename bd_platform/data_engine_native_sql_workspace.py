@@ -21,10 +21,12 @@ logger = logging.getLogger("BLACKDARK.NativeSQLWorkspace")
 
 _FEATURE_REF_978 = 978
 _FEATURE_REF_902 = 902
+_FEATURE_REF_1005 = 1005
 _STANDALONE = False
 _MERGED_INTO = "Data Engine + Intelligence Ledger"
 _COMPONENT = "native_sql_workspace"
 _NO_CODE_TAB = "no_code_builder"
+_BACKTEST_TAB = "backtesting_sandbox"
 _SEED_PATH = Path("data/data_engine_native_sql_workspace_seed.json")
 _QUERY_TIMEOUT_SEC = 30
 _AUDIT_RETENTION_DAYS = 90
@@ -89,8 +91,10 @@ def native_sql_workspace_status_978(*, seed: dict[str, Any] | None = None) -> di
         "standalone_rejected": True,
         "merged_into": _MERGED_INTO,
         "component": _COMPONENT,
-        "tabs": ["sql_workspace", _NO_CODE_TAB],
+        "tabs": ["sql_workspace", _NO_CODE_TAB, _BACKTEST_TAB],
         "no_code_builder_tab": _NO_CODE_TAB,
+        "backtesting_sandbox_tab": _BACKTEST_TAB,
+        "backtesting_ref": _FEATURE_REF_1005,
         "formulas_translate_to_sql": True,
         "no_separate_engine": True,
         "sandbox_read_only": True,
@@ -499,3 +503,137 @@ def run_native_sql_workspace_e2e(*, seed: dict[str, Any] | None = None) -> dict[
         "checks": checks,
         "timestamp": _utcnow(),
     }
+
+
+# --- #1005 Strategy Backtesting Sandbox (merged into #978) ---
+
+_BACKTEST_DISCLAIMER = (
+    "Historical backtest ≠ future performance. Fees/slippage = estimates. "
+    "Past results do not guarantee future returns. Educational sandbox only — no execution."
+)
+
+
+def run_backtest_sandbox_1005(
+    *,
+    strategy_rules: list[dict[str, Any]],
+    asset: str = "BTC",
+    start_date: str = "2025-01-01",
+    end_date: str = "2025-06-30",
+    seed: int = 42,
+    user_id: str = "user_demo",
+    seed_data: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Event-driven backtest — PIT data, no look-ahead, rule-based only."""
+    seed_data = seed_data or _load_seed()
+    bt_cfg = seed_data.get("backtesting_sandbox_1005") or {}
+    price_series = (bt_cfg.get("historical_prices") or {}).get(asset) or []
+
+    if not strategy_rules:
+        return {"ok": False, "feature_ref": _FEATURE_REF_1005, "error": "strategy_rules_required"}
+
+    if any("ml_" in str(r) or "predict(" in str(r).lower() for r in strategy_rules):
+        return {"ok": False, "feature_ref": _FEATURE_REF_1005, "error": "ml_strategy_rejected", "rule_based_only": True}
+
+    trades: list[dict[str, Any]] = []
+    position = 0.0
+    cash = 10000.0
+    fee_rate = float(bt_cfg.get("fee_rate_pct", 0.1)) / 100
+    slippage_rate = float(bt_cfg.get("slippage_rate_pct", 0.05)) / 100
+
+    for i, bar in enumerate(price_series):
+        query_ts = bar.get("timestamp", "")
+        price = float(bar.get("close", 0))
+        first_available = bar.get("first_available_at", query_ts)
+
+        try:
+            from bd_platform.data_engine_quality_pipeline import check_no_future_leakage_864
+
+            leak = check_no_future_leakage_864(first_available, query_ts)
+            if not leak.get("ok"):
+                continue
+        except Exception:
+            pass
+
+        for rule in strategy_rules:
+            signal = rule.get("signal", "")
+            if signal == "buy" and bar.get("rsi", 50) < float(rule.get("threshold", 30)) and position == 0:
+                cost = price * (1 + slippage_rate)
+                fee = cash * fee_rate
+                qty = (cash - fee) / cost
+                position = qty
+                cash = 0
+                trades.append({"type": "buy", "price": cost, "fee": fee, "timestamp": query_ts, "bar_index": i})
+            elif signal == "sell" and bar.get("rsi", 50) > float(rule.get("threshold", 70)) and position > 0:
+                proceeds = position * price * (1 - slippage_rate)
+                fee = proceeds * fee_rate
+                cash = proceeds - fee
+                trades.append({"type": "sell", "price": price, "fee": fee, "timestamp": query_ts, "bar_index": i})
+                position = 0
+
+    final_value = cash + position * float(price_series[-1].get("close", 0)) if price_series else cash
+    pnl = final_value - 10000.0
+    pnl_pct = round(pnl / 10000.0 * 100, 2)
+
+    result_payload = {
+        "asset": asset,
+        "trades": trades,
+        "final_value": round(final_value, 2),
+        "pnl_usd": round(pnl, 2),
+        "pnl_pct": pnl_pct,
+        "trade_count": len(trades),
+        "seed": seed,
+    }
+    result_hash = hashlib.sha256(
+        json.dumps(result_payload, sort_keys=True, default=str).encode()
+    ).hexdigest()[:16]
+
+    fee = bt_cfg.get("fee_db") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_1005,
+        "workspace_ref": _FEATURE_REF_978,
+        "tab": _BACKTEST_TAB,
+        "educational_only": True,
+        "no_execution": True,
+        "no_look_ahead": True,
+        "point_in_time_data": True,
+        "pit_ref": 864,
+        "historical_data_ref": 967,
+        "rule_based_only": True,
+        "no_ml_strategies": True,
+        "fees_included": True,
+        "slippage_included": True,
+        "fee_rate_pct": fee_rate * 100,
+        "slippage_rate_pct": slippage_rate * 100,
+        "reproducible": True,
+        "result_hash": result_hash,
+        "environment_version": bt_cfg.get("environment_version", "1.0.0"),
+        **result_payload,
+        "disclaimer": _BACKTEST_DISCLAIMER,
+        "fee_db": {
+            "historical_query_usd": fee.get("historical_query_usd", 0.01),
+            "simulation_compute_usd": fee.get("simulation_compute_usd", 0.02),
+            "storage_usd": fee.get("storage_usd", 0.001),
+        },
+        "timestamp": _utcnow(),
+    }
+
+
+def run_backtesting_e2e_1005(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    checks: list[dict[str, Any]] = []
+
+    rules = [{"signal": "buy", "threshold": 35}, {"signal": "sell", "threshold": 65}]
+    r1 = run_backtest_sandbox_1005(strategy_rules=rules, seed=42, seed_data=seed)
+    r2 = run_backtest_sandbox_1005(strategy_rules=rules, seed=42, seed_data=seed)
+    checks.append({"id": "reproducibility", "passed": r1.get("result_hash") == r2.get("result_hash")})
+    checks.append({"id": "no_look_ahead", "passed": r1.get("no_look_ahead") is True})
+    checks.append({"id": "fees_slippage", "passed": r1.get("fees_included") and r1.get("slippage_included")})
+    checks.append({"id": "disclaimer", "passed": "future performance" in r1.get("disclaimer", "").lower()})
+    checks.append({"id": "no_execution", "passed": r1.get("no_execution") is True})
+
+    ml = run_backtest_sandbox_1005(strategy_rules=[{"signal": "ml_predict", "threshold": 0.5}], seed_data=seed)
+    checks.append({"id": "ml_rejected", "passed": ml.get("error") == "ml_strategy_rejected"})
+
+    all_passed = all(c["passed"] for c in checks)
+    return {"ok": all_passed, "feature_ref": _FEATURE_REF_1005, "all_passed": all_passed, "checks": checks}

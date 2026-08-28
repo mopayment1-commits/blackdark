@@ -5610,6 +5610,35 @@ async def pit_integrity_e2e_route(_admin: dict = Depends(require_admin)):
     return run_pit_integrity_e2e_864()
 
 
+@router.get("/internal/data-engine/provenance-layer/status")
+async def provenance_layer_status_route(_admin: dict = Depends(require_admin)):
+    """#945 Data Quality & Provenance — #1003 + #1010 merged."""
+    from bd_platform.data_engine_provenance_layer import provenance_layer_status_945
+
+    return provenance_layer_status_945()
+
+
+@router.get("/internal/data-engine/provenance-layer")
+async def provenance_layer_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import build_provenance_layer_panel_945
+
+    return build_provenance_layer_panel_945()
+
+
+@router.get("/internal/data-engine/provenance-layer/lineage/{metric_id}")
+async def provenance_lineage_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import get_lineage_audit_1003
+
+    return get_lineage_audit_1003(metric_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/e2e")
+async def provenance_layer_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_provenance_layer import run_provenance_layer_e2e
+
+    return run_provenance_layer_e2e()
+
+
 @router.get("/intelligence-ledger/api-gateway/sdk/status")
 async def developer_sdk_status_route():
     """#853 Developer SDK — API Gateway DX layer."""
@@ -6530,6 +6559,26 @@ async def native_sql_workspace_e2e_route():
     return run_native_sql_workspace_e2e()
 
 
+@router.post("/intelligence-ledger/data-engine/native-sql-workspace/backtest")
+async def native_sql_workspace_backtest_route(data: dict = Body(default={})):
+    """#1005 Strategy Backtesting Sandbox — merged into #978."""
+    from bd_platform.data_engine_native_sql_workspace import run_backtest_sandbox_1005
+
+    return run_backtest_sandbox_1005(
+        strategy_rules=data.get("strategy_rules") or [],
+        asset=str(data.get("asset") or "BTC"),
+        seed=int(data.get("seed") or 42),
+        user_id=str(data.get("user_id") or "user_demo"),
+    )
+
+
+@router.get("/intelligence-ledger/data-engine/native-sql-workspace/backtest/e2e")
+async def native_sql_workspace_backtest_e2e_route():
+    from bd_platform.data_engine_native_sql_workspace import run_backtesting_e2e_1005
+
+    return run_backtesting_e2e_1005()
+
+
 @router.get("/intelligence-ledger/research-portal/status")
 async def research_portal_status_route():
     """#997 Research Intelligence Portal — #919 AI Analyst + #920 Deep Research."""
@@ -6610,6 +6659,107 @@ async def research_portal_e2e_route():
     from bd_platform.research_intelligence_portal import run_research_portal_e2e
 
     return run_research_portal_e2e()
+
+
+@router.get("/intelligence-ledger/sector-comparables/status")
+async def sector_comparables_status_route():
+    """#1001 Sector Comparables & Peer Analysis — Intelligence Ledger."""
+    from bd_platform.intelligence_ledger_sector_comparables import sector_comparables_status_1001
+
+    return sector_comparables_status_1001()
+
+
+@router.get("/intelligence-ledger/sector-comparables/taxonomy")
+async def sector_comparables_taxonomy_route():
+    from bd_platform.intelligence_ledger_sector_comparables import get_sector_taxonomy_1001
+
+    return get_sector_taxonomy_1001()
+
+
+@router.get("/intelligence-ledger/sector-comparables/e2e")
+async def sector_comparables_e2e_route():
+    from bd_platform.intelligence_ledger_sector_comparables import run_sector_comparables_e2e
+
+    return run_sector_comparables_e2e()
+
+
+@router.get("/intelligence-ledger/sector-comparables/{sector}")
+async def sector_comparables_dashboard_route(sector: str):
+    from bd_platform.intelligence_ledger_sector_comparables import build_sector_dashboard_1001
+
+    return build_sector_dashboard_1001(sector)
+
+
+@router.get("/intelligence-ledger/protocol-kpis/status")
+async def protocol_kpi_status_route():
+    """#986 Protocol KPI Intelligence + #1004 Standardized Definitions."""
+    from bd_platform.protocol_kpi_intelligence import protocol_kpi_status_986
+
+    return protocol_kpi_status_986()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/definitions")
+async def protocol_kpi_definitions_route():
+    from bd_platform.protocol_kpi_intelligence import get_standard_definitions_1004
+
+    return get_standard_definitions_1004()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/explorer")
+async def protocol_kpi_explorer_route():
+    from bd_platform.protocol_kpi_intelligence import build_protocol_kpi_explorer_986
+
+    return build_protocol_kpi_explorer_986()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/e2e")
+async def protocol_kpi_e2e_route():
+    from bd_platform.protocol_kpi_intelligence import run_protocol_kpi_e2e
+
+    return run_protocol_kpi_e2e()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/{protocol_id}")
+async def protocol_kpi_normalize_route(protocol_id: str):
+    from bd_platform.protocol_kpi_intelligence import normalize_protocol_metrics_986
+
+    return normalize_protocol_metrics_986(protocol_id)
+
+
+@router.get("/intelligence-ledger/tokenomics/status")
+async def tokenomics_status_route():
+    """#1007 Token Allocation + #1009 Vesting Schedule — Intelligence Ledger."""
+    from bd_platform.intelligence_ledger_tokenomics import tokenomics_status
+
+    return tokenomics_status()
+
+
+@router.get("/intelligence-ledger/tokenomics/e2e")
+async def tokenomics_e2e_route():
+    from bd_platform.intelligence_ledger_tokenomics import run_tokenomics_e2e
+
+    return run_tokenomics_e2e()
+
+
+@router.get("/intelligence-ledger/tokenomics/{token_id}/allocation")
+async def tokenomics_allocation_route(token_id: str):
+    from bd_platform.intelligence_ledger_tokenomics import build_allocation_analysis_1007
+
+    return build_allocation_analysis_1007(token_id)
+
+
+@router.get("/intelligence-ledger/tokenomics/{token_id}/vesting")
+async def tokenomics_vesting_route(token_id: str, as_of: str | None = Query(None)):
+    from bd_platform.intelligence_ledger_tokenomics import compute_vesting_curve_1009
+
+    return compute_vesting_curve_1009(token_id, as_of=as_of)
+
+
+@router.get("/intelligence-ledger/tokenomics/{token_id}")
+async def tokenomics_panel_route(token_id: str):
+    from bd_platform.intelligence_ledger_tokenomics import build_tokenomics_panel
+
+    return build_tokenomics_panel(token_id)
 
 
 @router.get("/intelligence-ledger/ux-layer/progressive-disclosure/status")

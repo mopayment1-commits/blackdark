@@ -1,0 +1,31 @@
+{
+  "provenance_layer_945": {
+    "fee_db": {
+      "lineage_storage_per_metric_usd": 0.0001,
+      "badge_compute_per_query_usd": 0.0005,
+      "audit_api_per_call_usd": 0.001
+    }
+  },
+  "data_quality_1010": {
+    "datasets": {
+      "defi_protocol_metrics": {
+        "range_valid": true,
+        "null_rate_pct": 0.5,
+        "stale": false,
+        "outliers_filtered": true
+      }
+    }
+  },
+  "metric_lineage_registry": {
+    "aave_tvl": {
+      "chain": [
+        {"stage": "raw", "source": "ethereum_rpc", "block": 21000000},
+        {"stage": "ingest", "pipeline": "defi_indexer_v2"},
+        {"stage": "transform", "formula": "sum_locked_assets", "version": "1.0.0"},
+        {"stage": "metric", "metric_id": "aave_tvl"},
+        {"stage": "api", "endpoint": "/api/platform/intelligence-ledger/protocol-kpis"},
+        {"stage": "user", "delivery": "api_response"}
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "protocol_kpi_986": {
+    "fee_db": {
+      "ingest_per_protocol_usd": 0.01,
+      "normalization_per_protocol_usd": 0.005,
+      "audit_per_protocol_usd": 0.002
+    }
+  },
+  "standardized_definitions_1004": {
+    "definitions": {}
+  },
+  "protocol_mappings": {
+    "aave": {
+      "metric_map": {"total_fees": "revenue", "active_users": "users", "total_locked": "tvl"},
+      "edge_case": null
+    },
+    "morpho": {
+      "metric_map": {"peer_lending_volume": "revenue", "unique_borrowers": "users", "matched_volume": "tvl"},
+      "edge_case": "Morpho = P2P not pool-based — TVL mapping uses matched volume not pooled assets"
+    },
+    "gmx": {
+      "metric_map": {"trading_fees": "fees", "unique_traders": "users", "open_interest": "tvl"},
+      "edge_case": "Perps protocol — TVL mapped to open interest"
+    }
+  },
+  "protocols": {
+    "aave": {
+      "sector": "lending",
+      "source": "on_chain + subgraph",
+      "raw_metrics": {"total_fees": 12500000, "active_users": 45000, "total_locked": 9800000000},
+      "self_reported": {"total_fees": 12400000, "active_users": 46000, "total_locked": 9750000000}
+    },
+    "morpho": {
+      "sector": "lending",
+      "source": "on_chain",
+      "raw_metrics": {"peer_lending_volume": 3200000000, "unique_borrowers": 12000, "matched_volume": 2100000000},
+      "self_reported": {"peer_lending_volume": 3100000000, "unique_borrowers": 11500, "matched_volume": 2050000000}
+    },
+    "gmx": {
+      "sector": "perps",
+      "source": "on_chain + api",
+      "raw_metrics": {"trading_fees": 8900000, "unique_traders": 28000, "open_interest": 450000000},
+      "self_reported": {"trading_fees": 8500000, "unique_traders": 27000, "open_interest": 440000000}
+    },
+    "uniswap": {
+      "sector": "dex",
+      "source": "on_chain + subgraph",
+      "raw_metrics": {"swap_fees": 156000000, "unique_traders": 180000, "pool_tvl": 4200000000},
+      "self_reported": {"swap_fees": 152000000, "unique_traders": 175000, "pool_tvl": 4150000000}
+    }
+  }
+}
