@@ -811,6 +811,41 @@ async def vault_status():
     return _fn()
 
 
+@router.get("/credential-vault/status")
+async def credential_vault_status_route():
+    from credential_vault_layer import credential_vault_status
+
+    return credential_vault_status()
+
+
+@router.get("/credential-vault/gate")
+async def credential_vault_gate_route():
+    from credential_vault_layer import check_credential_vault_production_gate
+
+    return check_credential_vault_production_gate()
+
+
+@router.get("/credential-vault/e2e")
+async def credential_vault_e2e_route():
+    from credential_vault_layer import run_credential_vault_e2e
+
+    return run_credential_vault_e2e()
+
+
+@router.get("/multi-account-sync/status")
+async def multi_account_sync_status_route():
+    from multi_account_sync import multi_account_sync_status
+
+    return multi_account_sync_status()
+
+
+@router.post("/multi-account-sync/run")
+async def multi_account_sync_run(user: dict = Depends(require_authenticated)):
+    from multi_account_sync import sync_all_user_accounts
+
+    return await sync_all_user_accounts(int(user["id"]))
+
+
 @router.post("/vault/store", responses=COMMON_ERROR_RESPONSES)
 async def vault_store(body: dict[str, Any] = Body(...), _admin: dict = Depends(require_admin)):
     from bd_platform.vault_client import store_secret
