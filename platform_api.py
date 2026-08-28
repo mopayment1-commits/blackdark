@@ -1170,3 +1170,83 @@ async def account_security_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.infrastructure_account_security import run_account_security_e2e_831
 
     return run_account_security_e2e_831()
+
+
+@router.get("/internal/infrastructure/performance-validation/status")
+async def performance_validation_status_route(_admin: dict = Depends(require_admin)):
+    """#832 Performance Validation Gate — REL-001 Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_performance_validation import performance_validation_status_832
+
+    return performance_validation_status_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/tooling")
+async def performance_validation_tooling_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_load_test_tooling_832
+
+    return get_load_test_tooling_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/endpoints")
+async def performance_validation_endpoints_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_critical_endpoints_832
+
+    return get_critical_endpoints_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/curl-proofs")
+async def performance_validation_curl_proofs_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_curl_proofs_832
+
+    return get_curl_proofs_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/scaling")
+async def performance_validation_scaling_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_scaling_stages_832
+
+    return get_scaling_stages_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/degradation-report")
+async def performance_validation_degradation_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_degradation_report_832
+
+    return get_degradation_report_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/sprint1-gate")
+async def performance_validation_sprint1_gate_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import check_sprint1_gate_832
+
+    return check_sprint1_gate_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/signed-evidence")
+async def performance_validation_signed_evidence_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_signed_load_evidence_832
+
+    return get_signed_load_evidence_832()
+
+
+@router.post("/internal/infrastructure/performance-validation/record-run")
+async def performance_validation_record_run_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_performance_validation import record_load_test_run_832
+
+    return record_load_test_run_832(
+        environment=data.get("environment", "production-like"),
+        concurrent_users=int(data.get("concurrent_users", 100)),
+        endpoint=data.get("endpoint", "/health/live"),
+        metrics=data.get("metrics", {}),
+        passed=bool(data.get("passed", True)),
+    )
+
+
+@router.get("/internal/infrastructure/performance-validation/e2e")
+async def performance_validation_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import run_performance_validation_e2e_832
+
+    return run_performance_validation_e2e_832()
