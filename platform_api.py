@@ -947,3 +947,119 @@ async def backup_dr_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.infrastructure_backup_disaster_recovery import run_backup_disaster_recovery_e2e_828
 
     return run_backup_disaster_recovery_e2e_828()
+
+
+@router.get("/internal/infrastructure/incident-response/status")
+async def incident_response_status_route(_admin: dict = Depends(require_admin)):
+    """#829 Incident Response & Security Operations — SEC-009 Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_incident_response_security_ops import incident_response_status_829
+
+    return incident_response_status_829()
+
+
+@router.get("/internal/infrastructure/incident-response/panel")
+async def incident_response_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import build_incident_response_panel_829
+
+    return build_incident_response_panel_829()
+
+
+@router.get("/internal/infrastructure/incident-response/runbook/{scenario}")
+async def incident_response_runbook_route(scenario: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_runbook_scenario_829
+
+    return get_runbook_scenario_829(scenario)
+
+
+@router.get("/internal/infrastructure/incident-response/escalation")
+async def incident_response_escalation_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_escalation_policy_829
+
+    return get_escalation_policy_829()
+
+
+@router.get("/internal/infrastructure/incident-response/isolation-playbooks")
+async def incident_response_isolation_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_isolation_playbooks_829
+
+    return get_isolation_playbooks_829()
+
+
+@router.get("/internal/infrastructure/incident-response/notification-template/{template_id}")
+async def incident_response_template_route(template_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_notification_template_829
+
+    return get_notification_template_829(template_id)
+
+
+@router.post("/internal/infrastructure/incident-response/incident")
+async def incident_response_record_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_incident_response_security_ops import record_incident_829
+
+    return record_incident_829(
+        scenario=data.get("scenario", "service_outage"),
+        severity=data.get("severity", "critical"),
+        title=data.get("title", ""),
+        tenant_id=data.get("tenant_id"),
+    )
+
+
+@router.post("/internal/infrastructure/incident-response/escalation")
+async def incident_response_escalation_record_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_incident_response_security_ops import record_escalation_829
+
+    return record_escalation_829(
+        incident_id=data.get("incident_id", ""),
+        level=data.get("level", "oncall"),
+        notified_role=data.get("notified_role", "oncall_engineer"),
+        minutes_elapsed=int(data.get("minutes_elapsed", 0)),
+    )
+
+
+@router.post("/internal/infrastructure/incident-response/isolation-drill")
+async def incident_response_drill_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_incident_response_security_ops import record_isolation_drill_829
+
+    return record_isolation_drill_829(
+        playbook=data.get("playbook", "api_kill_switch"),
+        result=data.get("result", "passed"),
+        tenant_isolation_tested=data.get("tenant_isolation_tested", True),
+    )
+
+
+@router.post("/internal/infrastructure/incident-response/notify")
+async def incident_response_notify_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_incident_response_security_ops import record_user_notification_829
+
+    return record_user_notification_829(
+        incident_id=data.get("incident_id", ""),
+        template_id=data.get("template_id", "critical_investigating"),
+        channel=data.get("channel", "email"),
+        message=data.get("message", ""),
+    )
+
+
+@router.get("/internal/infrastructure/incident-response/audit-trail")
+async def incident_response_audit_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_incident_audit_trail_829
+
+    return get_incident_audit_trail_829()
+
+
+@router.get("/internal/infrastructure/incident-response/e2e")
+async def incident_response_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import run_incident_response_e2e_829
+
+    return run_incident_response_e2e_829()

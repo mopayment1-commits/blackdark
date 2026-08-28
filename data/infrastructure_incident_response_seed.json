@@ -1,0 +1,245 @@
+{
+  "feature_ref": 829,
+  "control_ref": "SEC-009",
+  "merged_into": "Sprint-0 Infrastructure",
+  "standalone_rejected": true,
+  "no_user_surface": true,
+  "incident_response_829": {
+    "sprint": 0,
+    "policy": {
+      "auto_dr_trigger_critical": true,
+      "isolation_drill_interval_days": 90,
+      "tenant_isolation_in_drills": true,
+      "roles": {
+        "incident_commander": {
+          "title": "Incident Commander",
+          "responsibilities": [
+            "Declare incident severity and coordinate response",
+            "Authorize isolation actions and DR playbook trigger",
+            "Approve external communications"
+          ],
+          "accessible_24_7": true
+        },
+        "communications_lead": {
+          "title": "Communications Lead",
+          "responsibilities": [
+            "Draft user notifications using approved templates",
+            "Update status page and in-app banners",
+            "Ensure no guaranteed uptime language"
+          ],
+          "accessible_24_7": true
+        },
+        "technical_lead": {
+          "title": "Technical Lead",
+          "responsibilities": [
+            "Execute isolation playbooks",
+            "Lead technical investigation and containment",
+            "Coordinate with on-call engineers"
+          ],
+          "accessible_24_7": true
+        },
+        "legal_advisor": {
+          "title": "Legal Advisor",
+          "responsibilities": [
+            "Advise on regulatory notification for data leaks",
+            "Review external communications before release",
+            "Document legal obligations and timelines"
+          ],
+          "accessible_24_7": true,
+          "required_for_scenarios": ["data_leak", "breach"]
+        }
+      },
+      "escalation": {
+        "automated_alert": true,
+        "oncall_ack_minutes": 5,
+        "commander_notify_minutes": 15,
+        "legal_on_data_leak": true,
+        "chain": [
+          {"level": "automated_alert", "target": "monitoring_system", "sla_minutes": 0},
+          {"level": "oncall", "target": "oncall_engineer", "sla_minutes": 5},
+          {"level": "commander", "target": "incident_commander", "sla_minutes": 15},
+          {"level": "legal", "target": "legal_advisor", "sla_minutes": 30, "trigger": "data_leak_or_breach"}
+        ]
+      },
+      "isolation_playbooks": {
+        "api_kill_switch": {
+          "description": "Disable API write endpoints via kill switch",
+          "automation_hook": "platform_api.kill_switch",
+          "tested_every_days": 90
+        },
+        "firewall_rules": {
+          "description": "Block suspicious IPs / geo at edge WAF",
+          "automation_hook": "deploy/cloudflare/waf-rules.json",
+          "tested_every_days": 90
+        },
+        "db_read_only": {
+          "description": "Switch database to read-only mode",
+          "automation_hook": "postgres_backend.set_read_only",
+          "tested_every_days": 90
+        },
+        "tenant_isolation_trigger": {
+          "description": "Isolate affected tenant — prevent cross-tenant data access",
+          "automation_hook": "tenant_isolation.enforce",
+          "tested_every_days": 90
+        }
+      },
+      "user_notification": {
+        "critical_sla_hours": 1,
+        "channels": ["email", "in_app_banner", "status_page"],
+        "no_guaranteed_uptime": true,
+        "approved_phrases": ["investigating", "working to restore", "best effort"]
+      }
+    },
+    "fee_db": {
+      "tier": "ops",
+      "ops_budget": true,
+      "security_budget_usd_month": 0,
+      "note": "N/A user-facing — recorded in security ops budget"
+    }
+  },
+  "runbook_scenarios": {
+    "breach": {
+      "title": "Security Breach",
+      "severity": "critical",
+      "roles_involved": ["incident_commander", "technical_lead", "legal_advisor"],
+      "steps": [
+        "Automated alert fires — on-call ack within 5 minutes",
+        "Incident Commander declared — assess blast radius",
+        "Activate API kill switch if active exploitation detected",
+        "Preserve logs and evidence — append-only audit chain",
+        "Rotate compromised credentials via secrets vault",
+        "Notify Legal Advisor within 15 minutes",
+        "Draft user notification — best effort language only",
+        "Trigger DR playbook if data integrity compromised",
+        "Run post-incident provenance lineage check (#945)",
+        "Run billing integrity check (#908)",
+        "Postmortem within 72 hours"
+      ],
+      "isolation_actions": ["api_kill_switch", "firewall_rules", "tenant_isolation_trigger"],
+      "notification_required": true
+    },
+    "data_leak": {
+      "title": "Data Leak",
+      "severity": "critical",
+      "roles_involved": ["incident_commander", "communications_lead", "legal_advisor"],
+      "steps": [
+        "Confirm scope of leaked data — tenant isolation check",
+        "Contain leak source — revoke access tokens",
+        "Legal Advisor notified immediately",
+        "Assess regulatory notification requirements",
+        "Notify affected users within 1 hour — approved template",
+        "Enable tenant isolation trigger for affected tenant",
+        "Run provenance lineage integrity check (#945)",
+        "Document timeline in immutable audit log"
+      ],
+      "isolation_actions": ["tenant_isolation_trigger", "api_kill_switch"],
+      "notification_required": true
+    },
+    "service_outage": {
+      "title": "Service Outage",
+      "severity": "critical",
+      "roles_involved": ["incident_commander", "technical_lead", "communications_lead"],
+      "steps": [
+        "Confirm outage scope — /health/live, /health/ready",
+        "Technical Lead investigates root cause",
+        "Auto-trigger DR playbook for critical outage",
+        "Update status page — investigating / working to restore",
+        "Notify users within 1 hour if customer-facing",
+        "No guaranteed uptime language in communications",
+        "Restore service — verify production guard",
+        "Post-incident billing integrity check (#908)"
+      ],
+      "isolation_actions": ["db_read_only"],
+      "notification_required": true
+    },
+    "ddos": {
+      "title": "DDoS Attack",
+      "severity": "high",
+      "roles_involved": ["technical_lead", "incident_commander"],
+      "steps": [
+        "Confirm DDoS via edge metrics and rate limits",
+        "Activate WAF firewall rules — geo/rate limiting",
+        "Scale edge protection via CDN",
+        "Monitor legitimate traffic impact",
+        "Communicate via status page if user-visible degradation",
+        "Document attack vectors in audit log"
+      ],
+      "isolation_actions": ["firewall_rules"],
+      "notification_required": false
+    },
+    "key_compromise": {
+      "title": "Key / Credential Compromise",
+      "severity": "critical",
+      "roles_involved": ["technical_lead", "incident_commander", "legal_advisor"],
+      "steps": [
+        "Identify compromised key scope",
+        "Revoke and rotate via secrets vault immediately",
+        "API kill switch if signing keys compromised",
+        "Invalidate active sessions",
+        "Audit all access using compromised credentials",
+        "Notify users if their data may be affected — within 1 hour",
+        "Run billing idempotency replay protection test (#908)"
+      ],
+      "isolation_actions": ["api_kill_switch", "tenant_isolation_trigger"],
+      "notification_required": true
+    }
+  },
+  "notification_templates": {
+    "critical_investigating": {
+      "subject": "Service Incident — We Are Investigating",
+      "body": "We are aware of an issue affecting our platform and are actively investigating. Our team is working to restore service on a best-effort basis. We will provide updates as our investigation progresses.",
+      "channels": ["email", "in_app_banner", "status_page"],
+      "sla_hours": 1,
+      "no_guaranteed_uptime": true
+    },
+    "data_leak_notice": {
+      "subject": "Important Security Notice",
+      "body": "We identified a security incident that may have affected some account data. We are investigating and have taken immediate containment steps. We will share more details as our investigation continues.",
+      "channels": ["email", "in_app_banner"],
+      "sla_hours": 1,
+      "no_guaranteed_uptime": true
+    },
+    "service_degraded": {
+      "subject": "Service Degradation — Investigating",
+      "body": "Some platform features may be experiencing degraded performance. Our engineering team is investigating and working to restore normal operation.",
+      "channels": ["status_page", "in_app_banner"],
+      "sla_hours": 1,
+      "no_guaranteed_uptime": true
+    }
+  },
+  "isolation_drills": [
+    {
+      "drill_id": "iso_20260528",
+      "playbook": "api_kill_switch",
+      "completed_at": "2026-05-28T10:00:00+00:00",
+      "result": "passed",
+      "tenant_isolation_tested": true,
+      "no_cross_tenant_leak": true
+    }
+  ],
+  "incident_audit_log": [
+    {
+      "incident_id": "inc_seed_001",
+      "scenario": "service_outage",
+      "severity": "critical",
+      "status": "closed",
+      "opened_at": "2026-06-15T14:00:00+00:00",
+      "closed_at": "2026-06-15T16:30:00+00:00",
+      "dr_playbook_triggered": true,
+      "audit_logged": true,
+      "append_only": true,
+      "chain_hash": "seed_hash_001"
+    }
+  ],
+  "post_incident_provenance_check": {
+    "lineage_integrity_passed": true,
+    "provenance_ref": 945
+  },
+  "billing_integrity_check": {
+    "integrity_passed": true,
+    "billing_ref": 908,
+    "idempotency_replay_protection_tested": true,
+    "duplicate_charge_prevented": true
+  },
+  "dr_seed": null
+}
