@@ -849,6 +849,16 @@ async def _ensure_billing_subscription_tables(db: Any) -> None:
     )
 
 
+async def _ensure_user_session_columns(db: Any) -> None:
+    await _ensure_missing_columns(
+        db,
+        "user_sessions",
+        (
+            ("last_activity_at", "ALTER TABLE user_sessions ADD COLUMN last_activity_at TEXT"),
+        ),
+    )
+
+
 async def _ensure_user_profile_columns(db: Any) -> None:
     await _ensure_missing_columns(
         db,
@@ -1090,6 +1100,7 @@ async def _apply_migrations(db: Any) -> None:
     )
 
     await _ensure_user_profile_columns(db)
+    await _ensure_user_session_columns(db)
     await db.execute(
         "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_username ON users (username) WHERE username IS NOT NULL AND username != ''"
     )
@@ -4158,13 +4169,14 @@ async def fetch_user_by_session(token: str) -> dict[str, Any] | None:
 
 
 async def insert_user_session(user_id: int, token: str, expires_at: str) -> int:
+    now = _utcnow_iso()
     async with get_connection() as db:
         cursor = await db.execute(
             """
-            INSERT INTO user_sessions (user_id, token, expires_at, created_at)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO user_sessions (user_id, token, expires_at, created_at, last_activity_at)
+            VALUES (?, ?, ?, ?, ?)
             """,
-            (user_id, token, expires_at, _utcnow_iso()),
+            (user_id, token, expires_at, now, now),
         )
         return int(cursor.lastrowid or 0)
 
@@ -4182,6 +4194,57 @@ async def delete_user_sessions_for_user(user_id: int) -> int:
             (int(user_id),),
         )
         return int(cursor.rowcount or 0)
+
+
+async def count_user_sessions(user_id: int) -> int:
+    async with get_connection() as db:
+        row = await db.execute(
+            "SELECT COUNT(*) AS c FROM user_sessions WHERE user_id = ? AND expires_at > ?",
+            (int(user_id), _utcnow_iso()),
+        )
+        result = await row.fetchone()
+        return int(result["c"] if result else 0)
+
+
+async def enforce_user_session_limit(user_id: int, max_sessions: int, *, reserve_new: bool = True) -> int:
+    """Delete oldest sessions when count exceeds max_sessions. Returns evicted count."""
+    async with get_connection() as db:
+        rows = await db.execute(
+            """
+            SELECT id, token FROM user_sessions
+            WHERE user_id = ? AND expires_at > ?
+            ORDER BY created_at ASC
+            """,
+            (int(user_id), _utcnow_iso()),
+        )
+        sessions = await rows.fetchall()
+        allowed = max(0, int(max_sessions) - (1 if reserve_new else 0))
+        excess = len(sessions) - allowed
+        if excess <= 0:
+            return 0
+        evicted = 0
+        for row in sessions[:excess]:
+            await db.execute("DELETE FROM user_sessions WHERE id = ?", (int(row["id"]),))
+            evicted += 1
+        return evicted
+
+
+async def touch_user_session(token: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE user_sessions SET last_activity_at = ? WHERE token = ?",
+            (_utcnow_iso(), token),
+        )
+
+
+async def fetch_session_row(token: str) -> dict | None:
+    async with get_connection() as db:
+        rows = await db.execute(
+            "SELECT * FROM user_sessions WHERE token = ? AND expires_at > ?",
+            (token, _utcnow_iso()),
+        )
+        result = await rows.fetchone()
+        return dict(result) if result else None
 
 
 async def touch_user_login(user_id: int) -> None:

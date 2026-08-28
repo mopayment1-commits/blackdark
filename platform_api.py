@@ -1127,3 +1127,46 @@ async def legal_framework_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.legal_framework_cross_cutting import run_legal_framework_e2e_830
 
     return run_legal_framework_e2e_830()
+
+
+@router.get("/internal/infrastructure/account-security/status")
+async def account_security_status_route(_admin: dict = Depends(require_admin)):
+    """#831 Account Security Layer — SEC-003 Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_account_security import account_security_status_831
+
+    return account_security_status_831()
+
+
+@router.get("/internal/infrastructure/account-security/mfa-policy")
+async def account_security_mfa_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import get_mfa_policy_831
+
+    return get_mfa_policy_831()
+
+
+@router.get("/internal/infrastructure/account-security/session-policy")
+async def account_security_session_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import get_session_policy_831
+
+    return get_session_policy_831()
+
+
+@router.get("/internal/infrastructure/account-security/concurrent-limit/{tier}")
+async def account_security_concurrent_route(tier: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import get_concurrent_session_limit_831
+
+    return get_concurrent_session_limit_831(tier)
+
+
+@router.get("/internal/infrastructure/account-security/audit-trail")
+async def account_security_audit_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import get_auth_audit_trail_831
+
+    return get_auth_audit_trail_831()
+
+
+@router.get("/internal/infrastructure/account-security/e2e")
+async def account_security_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import run_account_security_e2e_831
+
+    return run_account_security_e2e_831()

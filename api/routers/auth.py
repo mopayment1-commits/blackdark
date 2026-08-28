@@ -239,6 +239,17 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
             "ok": True,
             "message": "If an account exists for that email, a reset link was sent.",
         }
+    try:
+        from bd_platform.infrastructure_account_security import check_password_reset_rate_limit_831
+
+        rl = check_password_reset_rate_limit_831(email)
+        if not rl.get("allowed"):
+            return {
+                "ok": True,
+                "message": "If an account exists for that email, a reset link was sent.",
+            }
+    except ImportError:
+        pass
     user = await fetch_user_by_email(email)
     debug: dict[str, Any] = {}
     if user and int(user.get("password_is_set") if user.get("password_is_set") is not None else 1):

@@ -384,7 +384,23 @@ async def _verify_login_mfa(user: dict[str, Any], email: str, mfa_code: str | No
     from mfa_service import verify_user_mfa
     from security_auth import record_login_failure
 
+    try:
+        from bd_platform.infrastructure_account_security import check_mfa_rate_limit_831, record_auth_event_831
+
+        rl = check_mfa_rate_limit_831(email)
+        if not rl.get("allowed"):
+            record_auth_event_831("mfa_attempt", email=email, success=False, detail={"rate_limited": True})
+            raise ValueError("Too many MFA attempts. Try again later.")
+    except ImportError:
+        pass
+
     ok = await verify_user_mfa(int(user["id"]), mfa_code)
+    try:
+        from bd_platform.infrastructure_account_security import record_auth_event_831
+
+        record_auth_event_831("mfa_attempt", user_id=user["id"], email=email, success=ok)
+    except ImportError:
+        pass
     if not ok:
         record_login_failure(email)
         raise ValueError("Invalid MFA code")
@@ -417,8 +433,8 @@ async def login_user(
         await _verify_login_mfa(user, email, mfa_code)
 
     await touch_user_login(int(user["id"]))
-    session = await create_session(int(user["id"]))
     tier = await resolve_user_tier(email)
+    session = await create_session(int(user["id"]), tier=tier)
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
@@ -453,8 +469,8 @@ async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
         raise ValueError("Invalid MFA code")
     _mfa_challenges.pop(challenge, None)
     await touch_user_login(user_id)
-    session = await create_session(user_id)
     tier = await resolve_user_tier(email)
+    session = await create_session(user_id, tier=tier)
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
@@ -463,19 +479,33 @@ async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
     }
 
 
-async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[str, Any]:
-    from database import delete_user_sessions_for_user, insert_user_session
+async def create_session(user_id: int, *, revoke_others: bool = False, tier: str = "free") -> dict[str, Any]:
+    from database import insert_user_session
     from security_auth import hash_session_token
 
-    # New login regenerates session and revokes prior tokens (fixation / theft radius).
+    try:
+        from bd_platform.infrastructure_account_security import (
+            compute_session_expiry_831,
+            enforce_concurrent_sessions_831,
+            record_auth_event_831,
+        )
+
+        expires_at = compute_session_expiry_831()
+        await enforce_concurrent_sessions_831(int(user_id), tier)
+        record_auth_event_831("login", user_id=user_id, success=True)
+    except ImportError:
+        expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()
+
     if revoke_others:
         try:
+            from database import delete_user_sessions_for_user
+
             await delete_user_sessions_for_user(int(user_id))
         except Exception:
             pass
+
     token = secrets.token_urlsafe(48)
     token_hash = hash_session_token(token)
-    expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()
     await insert_user_session(user_id, token_hash, expires_at)
     return {"token": token, "expires_at": expires_at}
 
@@ -498,11 +528,30 @@ async def logout_user(token: str) -> None:
 async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
     if not token:
         return None
-    from database import fetch_user_by_session
+    from database import delete_user_session, fetch_user_by_session, fetch_session_row, touch_user_session
     from security_auth import hash_session_token, is_production_env
 
     plain = token.strip()
-    row = await fetch_user_by_session(hash_session_token(plain))
+    token_hash = hash_session_token(plain)
+
+    try:
+        from bd_platform.infrastructure_account_security import (
+            check_session_idle_timeout_831,
+            record_auth_event_831,
+        )
+
+        session_row = await fetch_session_row(token_hash)
+        if session_row:
+            idle = check_session_idle_timeout_831(session_row.get("last_activity_at"))
+            if idle.get("idle_expired"):
+                await delete_user_session(token_hash)
+                record_auth_event_831("session_timeout", user_id=session_row.get("user_id"), success=False)
+                return None
+            await touch_user_session(token_hash)
+    except ImportError:
+        pass
+
+    row = await fetch_user_by_session(token_hash)
     # Legacy plaintext lookup: opt-in only, never in production.
     if row is None:
         allow_plain = os.getenv("ALLOW_PLAINTEXT_SESSION_LOOKUP", "").lower() in {
