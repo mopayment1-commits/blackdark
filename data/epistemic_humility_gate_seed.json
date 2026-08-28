@@ -1,0 +1,101 @@
+{
+  "feature": "epistemic_humility_gate",
+  "sprint": 2,
+  "merged_into": "Intelligence Ledger",
+  "standalone_rejected": true,
+  "surface": "/intelligence/gate",
+  "epistemic_humility_gate": {
+    "policy": {
+      "rule_based_only": true,
+      "no_ml_gate_logic": true,
+      "confidence_min": 5.0,
+      "sample_size_min": 30,
+      "conflict_threshold_pct": 15.0,
+      "stale_data_hours": 24,
+      "public_methodology": true,
+      "non_custodial": true,
+      "abstention_target_pct": { "min": 20, "max": 40 }
+    },
+    "fee_db": {
+      "base_evaluation_usd": 0.0002,
+      "per_evidence_usd": 0.00005,
+      "tier": "ops",
+      "logged_fields": [
+        "analysis_cost_usd",
+        "evidence_count",
+        "confidence_score",
+        "abstention_reason",
+        "user_tier"
+      ]
+    }
+  },
+  "public_methodology": {
+    "title": "Epistemic Humility Gate — Public Methodology",
+    "description": "Deterministic rule-based gate. No ML confidence scoring in Sprint 2.",
+    "triggers": [
+      {
+        "code": "CONFLICT",
+        "name": "Quantifiable evidence conflict",
+        "formula": "abs(fact_a - fact_b) / max(|fact_a|, |fact_b|) * 100 > conflict_threshold_pct",
+        "threshold_pct": 15.0,
+        "auditable": true
+      },
+      {
+        "code": "LOW_CONFIDENCE",
+        "name": "Statistical confidence below minimum",
+        "formula": "confidence_score < confidence_min",
+        "threshold": 5.0,
+        "scale": "0-10",
+        "auditable": true
+      },
+      {
+        "code": "INSUFFICIENT_DATA",
+        "name": "Sample size below minimum",
+        "formula": "sample_size < sample_size_min",
+        "threshold": 30,
+        "auditable": true
+      },
+      {
+        "code": "STALE_DATA",
+        "name": "Data freshness exceeded",
+        "formula": "data_age_hours > stale_data_hours",
+        "threshold_hours": 24,
+        "auditable": true
+      }
+    ],
+    "output_on_abstain": {
+      "token": "I DON'T KNOW",
+      "includes": ["reason_code", "evidence_summary", "missing_data", "disclaimer"]
+    }
+  },
+  "disclaimers": {
+    "en": "Insufficient data for reliable insight — not a prediction or confirmation.",
+    "ar": "بيانات غير كافية لرؤى موثوقة — لا توقع ولا تأكيد."
+  },
+  "integrations": {
+    "signal_engine_11": {
+      "gate_before_publish": true,
+      "rejected_logged": true
+    },
+    "ai_provenance_921": {
+      "gate_in_footer": true,
+      "blocked_label": "Blocked: insufficient evidence"
+    },
+    "decision_intelligence_938": {
+      "unsupported_blocks": true,
+      "hypothesis_without_evidence": "I DON'T KNOW"
+    },
+    "accuracy_ledger_987": {
+      "abstentions_status": "unresolved_abstained",
+      "prevents_win_rate_inflation": true
+    },
+    "provenance_945": {
+      "requires_stable_provenance": true
+    }
+  },
+  "monitoring": {
+    "panel": "gate_hit_rate",
+    "abstention_target_pct": { "min": 20, "max": 40 },
+    "daily_rollup": true
+  }
+}

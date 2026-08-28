@@ -170,6 +170,24 @@ async def build_execution_intelligence(
             }
         )
 
+    try:
+        from bd_platform.epistemic_humility_gate import evaluate_epistemic_gate
+
+        gate = evaluate_epistemic_gate(
+            asset=asset_u,
+            confidence_score=7.5,
+            sample_size=max(len(routes) * 15, 30),
+            fact_a=float((routes[0] or {}).get("effective_cost_bps") or 0) if routes else None,
+            fact_b=float((routes[-1] or {}).get("effective_cost_bps") or 0) if len(routes) > 1 else None,
+            data_age_hours=0.5 if oneinch.get("ok") else 48.0,
+            evidence=[{"source": r.get("source"), "venue": r.get("venue")} for r in routes],
+            output_layer="inference",
+            signal_type="execution_intelligence",
+        )
+    except Exception:
+        logger.debug("epistemic gate hook skipped", exc_info=True)
+        gate = None
+
     entry = {
         "ok": True,
         "success": True,
@@ -192,6 +210,7 @@ async def build_execution_intelligence(
         "sla_met": (time.perf_counter() - t0) <= 3.0,
         "timestamp": _utcnow(),
         "disclaimer": "Execution intelligence — not trade advice. Live execute requires user keys.",
+        "epistemic_gate": gate,
     }
 
     _LEDGER_CACHE[cache_key] = (time.time(), entry)

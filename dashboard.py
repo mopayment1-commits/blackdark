@@ -714,6 +714,13 @@ except ImportError:
     pass
 
 try:
+    from intelligence_gate_api import router as intelligence_gate_router
+
+    app.include_router(intelligence_gate_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.observability import router as observability_router
 
     app.include_router(observability_router)
