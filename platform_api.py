@@ -1048,3 +1048,147 @@ async def ops_foundation_e2e_route(_admin: dict = Depends(require_admin)):
     }
     all_passed = all(r.get("all_passed") for r in results.values())
     return {"ok": all_passed, "all_passed": all_passed, "modules": results}
+
+
+# ─── Trust Core (#1064–#1068, #1021, #1018) ───────────────────────────────────
+
+
+@router.get("/trust/falsifiability/status")
+async def falsifiability_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.falsifiability_policy import falsifiability_policy_status_1064
+
+    return falsifiability_policy_status_1064()
+
+
+@router.post("/trust/falsifiability/validate")
+async def falsifiability_validate_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.falsifiability_policy import validate_falsification_present_1064
+
+    return validate_falsification_present_1064(data.get("payload") or data, output_type=data.get("output_type", "insight"))
+
+
+@router.get("/trust/falsifiability/e2e")
+async def falsifiability_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.falsifiability_policy import run_falsifiability_e2e_1064
+
+    return run_falsifiability_e2e_1064()
+
+
+@router.get("/trust/ledger/status")
+async def public_ledger_status_route():
+    from bd_platform.public_accuracy_ledger import public_accuracy_ledger_status_1065
+
+    return public_accuracy_ledger_status_1065()
+
+
+@router.get("/trust/ledger/export")
+async def public_ledger_export_route(fmt: str = Query("json")):
+    from bd_platform.public_accuracy_ledger import export_ledger_1065
+
+    return export_ledger_1065(fmt=fmt)
+
+
+@router.get("/trust/ledger/e2e")
+async def public_ledger_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.public_accuracy_ledger import run_public_ledger_e2e_1065
+
+    return run_public_ledger_e2e_1065()
+
+
+@router.get("/trust/timestamping/status")
+async def timestamping_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.cryptographic_timestamping import cryptographic_timestamping_status_1066
+
+    return cryptographic_timestamping_status_1066()
+
+
+@router.get("/trust/timestamping/verify")
+async def timestamping_verify_route(
+    prediction_hash: str = Query(...),
+    timestamped_at: str = Query(...),
+    platform_signature: str = Query(...),
+    merkle_root: str = Query(""),
+    anchor_tx: str = Query(""),
+):
+    from bd_platform.cryptographic_timestamping import verify_prediction_timestamp_1066
+
+    return verify_prediction_timestamp_1066(
+        prediction_hash=prediction_hash,
+        timestamped_at=timestamped_at,
+        platform_signature=platform_signature,
+        merkle_root=merkle_root,
+        anchor_tx=anchor_tx,
+    )
+
+
+@router.get("/trust/timestamping/e2e")
+async def timestamping_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.cryptographic_timestamping import run_timestamping_e2e_1066
+
+    return run_timestamping_e2e_1066()
+
+
+@router.get("/trust/epistemic/status")
+async def epistemic_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.epistemic_humility_gate import epistemic_humility_status_1021
+
+    return epistemic_humility_status_1021()
+
+
+@router.post("/trust/epistemic/evaluate")
+async def epistemic_evaluate_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.epistemic_humility_gate import evaluate_epistemic_gate_1021
+
+    return evaluate_epistemic_gate_1021(
+        facts=data.get("facts"),
+        confidence_score=float(data.get("confidence_score", 7.0)),
+        sample_size=int(data.get("sample_size", 50)),
+        falsification_met=bool(data.get("falsification_met", False)),
+    )
+
+
+@router.get("/trust/epistemic/e2e")
+async def epistemic_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.epistemic_humility_gate import run_epistemic_gate_e2e_1021
+
+    return run_epistemic_gate_e2e_1021()
+
+
+@router.get("/trust/legal/status")
+async def legal_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import legal_framework_status_1018
+
+    return legal_framework_status_1018()
+
+
+@router.post("/trust/legal/scan")
+async def legal_scan_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import scan_forbidden_language_1018
+
+    return scan_forbidden_language_1018(data.get("text", ""))
+
+
+@router.get("/trust/legal/e2e")
+async def legal_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import run_legal_framework_e2e_1018
+
+    return run_legal_framework_e2e_1018()
+
+
+@router.get("/trust/core/e2e")
+async def trust_core_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.cryptographic_timestamping import run_timestamping_e2e_1066
+    from bd_platform.epistemic_humility_gate import run_epistemic_gate_e2e_1021
+    from bd_platform.falsifiability_policy import run_falsifiability_e2e_1064
+    from bd_platform.legal_framework_cross_cutting import run_legal_framework_e2e_1018
+    from bd_platform.public_accuracy_ledger import run_public_ledger_e2e_1065
+
+    results = {
+        "falsifiability_1064": run_falsifiability_e2e_1064(),
+        "public_ledger_1065": run_public_ledger_e2e_1065(),
+        "timestamping_1066": run_timestamping_e2e_1066(),
+        "epistemic_1021": run_epistemic_gate_e2e_1021(),
+        "legal_1018": run_legal_framework_e2e_1018(),
+    }
+    all_passed = all(r.get("all_passed") for r in results.values())
+    return {"ok": all_passed, "all_passed": all_passed, "modules": results}

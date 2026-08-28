@@ -1,0 +1,134 @@
+{
+  "feature_refs": [1064, 1065, 1066, 1021, 1018],
+  "falsifiability_policy_1064": {
+    "policy": {
+      "cross_cutting": true,
+      "standalone_rejected": true,
+      "falsification_mandatory": true,
+      "rule_based_only_sprint_2": true,
+      "three_condition_types_required": true,
+      "public_methodology": true,
+      "ci_regression_required": true,
+      "blocks_output_without_falsification": true,
+      "legal_protection": true
+    },
+    "condition_types": ["price_based", "time_based", "metric_based"],
+    "integrations": {
+      "epistemic_humility_ref": 1021,
+      "explainability_ref": 1063,
+      "claims_verification_ref": 931,
+      "public_accuracy_ledger_ref": 987,
+      "signal_engine_ref": 11,
+      "decision_intelligence_ref": 938
+    },
+    "fee_db": {
+      "definition_usd": 0.00003,
+      "evaluation_usd": 0.00002,
+      "verification_usd": 0.00001,
+      "logged_per_output": true
+    }
+  },
+  "public_accuracy_ledger_1065": {
+    "standalone": true,
+    "public_url": "/trust/ledger",
+    "internal_feed_ref": 987,
+    "policy": {
+      "immutable_publication": true,
+      "worm_store": true,
+      "no_edit_delete": true,
+      "errors_first_default": true,
+      "no_partial_correct_category": true,
+      "third_party_download": true,
+      "checksum_sha256": true,
+      "min_data_days_before_launch": 90
+    },
+    "calibration_metrics": ["brier_score", "hit_rate", "false_positive_rate", "sample_size"],
+    "integrations": {
+      "internal_ledger_ref": 987,
+      "claims_verification_ref": 931,
+      "falsifiability_ref": 1064,
+      "epistemic_humility_ref": 1021,
+      "live_badge_ref": 1030,
+      "timestamping_ref": 1066
+    },
+    "fee_db": {
+      "serving_per_query_usd": 0.0001,
+      "storage_per_gb_month_usd": 0.02,
+      "ops_budget": true
+    }
+  },
+  "cryptographic_timestamping_1066": {
+    "policy": {
+      "cross_cutting": true,
+      "standalone_ui_rejected": true,
+      "sha256_hash": true,
+      "utc_precision": true,
+      "platform_signed": true,
+      "merkle_batch_interval_hours": 1,
+      "third_party_anchoring": true,
+      "verification_api_public": true,
+      "no_backdating": true
+    },
+    "integrations": {
+      "claims_verification_ref": 931,
+      "decision_certificate_ref": 952,
+      "public_accuracy_ledger_ref": 1065,
+      "immutable_audit_ref": 1029,
+      "provenance_ref": 945
+    },
+    "fee_db": {
+      "hash_per_prediction_usd": 0.00001,
+      "merkle_batch_usd": 0.05,
+      "anchor_usd": 0.10,
+      "logged_per_prediction": true
+    }
+  },
+  "epistemic_humility_gate_1021": {
+    "merged_feature_ref": 1067,
+    "policy": {
+      "anti_fabrication": true,
+      "rule_based_only_sprint_2": true,
+      "no_ml_confidence_fabrication": true,
+      "no_override": true,
+      "public_methodology": true
+    },
+    "triggers": {
+      "conflict_threshold_pct": 15.0,
+      "min_confidence_score": 5.0,
+      "min_sample_size": 30
+    },
+    "reason_codes": ["CONFLICT", "LOW_CONFIDENCE", "INSUFFICIENT_DATA", "FALSIFICATION_CONDITION_MET"],
+    "integrations": {
+      "falsifiability_ref": 1064,
+      "signal_engine_ref": 11,
+      "ai_provenance_ref": 921,
+      "decision_intelligence_ref": 938,
+      "public_accuracy_ledger_ref": 1065
+    }
+  },
+  "legal_framework_1018": {
+    "merged_feature_ref": 1068,
+    "policy": {
+      "lawyer_review_required": true,
+      "blocks_production_without_signed": true,
+      "localization": ["en", "ar"],
+      "consent_checkbox_required": true,
+      "forbidden_language_scan": true,
+      "audit_retention_years": 5
+    },
+    "tos_clauses": [
+      "analytical_tool",
+      "not_financial_advice",
+      "no_buy_sell_recommendation",
+      "no_return_guarantee"
+    ],
+    "integrations": {
+      "ai_provenance_ref": 921,
+      "signal_engine_ref": 11,
+      "billing_ref": 908,
+      "multi_account_ref": 907,
+      "incident_response_ref": 1017,
+      "retention_ref": 949
+    }
+  }
+}

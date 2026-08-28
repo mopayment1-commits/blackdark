@@ -95,10 +95,11 @@ def build_rule_based_explanation(
     audit_trail_url: str = "",
     freshness_minutes: int | None = None,
     data_source: str = "",
+    falsification_conditions: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build 3-level explanation object — rule-based Sprint 2."""
     reasons = reasons or []
-    return {
+    explanation: dict[str, Any] = {
         "one_line_summary": {
             "en": summary_en,
             "ar": summary_ar or summary_en,
@@ -122,6 +123,15 @@ def build_rule_based_explanation(
         "provenance_refs": provenance_refs or [],
         "no_black_box": True,
     }
+    if falsification_conditions:
+        try:
+            from bd_platform.falsifiability_policy import attach_falsification_to_explanation
+
+            explanation = attach_falsification_to_explanation(explanation, falsification_conditions)
+        except ImportError:
+            breakdown = explanation.setdefault("detailed_breakdown", {})
+            breakdown["falsification_conditions"] = falsification_conditions
+    return explanation
 
 
 def build_idont_know_explanation(
@@ -177,6 +187,12 @@ def validate_explanation_present_1063(
         reasons = breakdown.get("reasons") or []
         if isinstance(risk, (int, float)) and len(reasons) < 3:
             errors.append("risk_score_needs_3_indicators")
+
+    fals = payload.get("falsification_conditions") or payload.get("falsification")
+    if fals and isinstance(explanation, dict):
+        breakdown = explanation.get("detailed_breakdown") or {}
+        if "falsification_conditions" not in breakdown and "when_wrong" not in breakdown:
+            errors.append("explanation_missing_falsification")
 
     valid = len(errors) == 0
     result = {
