@@ -849,6 +849,17 @@ async def _ensure_billing_subscription_tables(db: Any) -> None:
     )
 
 
+async def _ensure_user_session_columns(db: Any) -> None:
+    await _ensure_missing_columns(
+        db,
+        "user_sessions",
+        (
+            ("last_activity_at", "ALTER TABLE user_sessions ADD COLUMN last_activity_at TEXT"),
+            ("device_fingerprint", "ALTER TABLE user_sessions ADD COLUMN device_fingerprint TEXT"),
+        ),
+    )
+
+
 async def _ensure_user_profile_columns(db: Any) -> None:
     await _ensure_missing_columns(
         db,
@@ -1090,6 +1101,7 @@ async def _apply_migrations(db: Any) -> None:
     )
 
     await _ensure_user_profile_columns(db)
+    await _ensure_user_session_columns(db)
     await db.execute(
         "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_username ON users (username) WHERE username IS NOT NULL AND username != ''"
     )
@@ -4144,7 +4156,12 @@ async def fetch_user_by_session(token: str) -> dict[str, Any] | None:
         async with get_connection() as db:
             rows = await db.execute(
                 """
-                SELECT u.* FROM users u
+                SELECT u.*,
+                       s.created_at AS session_created_at,
+                       s.expires_at AS session_expires_at,
+                       s.last_activity_at,
+                       s.device_fingerprint AS session_device_fingerprint
+                FROM users u
                 JOIN user_sessions s ON s.user_id = u.id
                 WHERE s.token = ? AND s.expires_at > ?
                 """,
@@ -4157,16 +4174,71 @@ async def fetch_user_by_session(token: str) -> dict[str, Any] | None:
         return None
 
 
-async def insert_user_session(user_id: int, token: str, expires_at: str) -> int:
+async def insert_user_session(
+    user_id: int,
+    token: str,
+    expires_at: str,
+    *,
+    last_activity_at: str | None = None,
+    device_fingerprint: str | None = None,
+) -> int:
+    now = last_activity_at or _utcnow_iso()
     async with get_connection() as db:
         cursor = await db.execute(
             """
-            INSERT INTO user_sessions (user_id, token, expires_at, created_at)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO user_sessions (user_id, token, expires_at, created_at, last_activity_at, device_fingerprint)
+            VALUES (?, ?, ?, ?, ?, ?)
             """,
-            (user_id, token, expires_at, _utcnow_iso()),
+            (user_id, token, expires_at, _utcnow_iso(), now, device_fingerprint),
         )
         return int(cursor.lastrowid or 0)
+
+
+async def touch_user_session_activity(token: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE user_sessions SET last_activity_at = ? WHERE token = ?",
+            (_utcnow_iso(), token),
+        )
+
+
+async def count_user_sessions(user_id: int) -> int:
+    async with get_connection() as db:
+        rows = await db.execute(
+            "SELECT COUNT(*) AS c FROM user_sessions WHERE user_id = ? AND expires_at > ?",
+            (int(user_id), _utcnow_iso()),
+        )
+        result = await rows.fetchone()
+    return int((dict(result) if result else {}).get("c") or 0)
+
+
+async def delete_oldest_user_session(user_id: int) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        rows = await db.execute(
+            """
+            SELECT id, token, created_at FROM user_sessions
+            WHERE user_id = ? AND expires_at > ?
+            ORDER BY created_at ASC
+            LIMIT 1
+            """,
+            (int(user_id), _utcnow_iso()),
+        )
+        row = await rows.fetchone()
+        if not row:
+            return None
+        session = dict(row)
+        await db.execute("DELETE FROM user_sessions WHERE id = ?", (session["id"],))
+        return session
+
+
+async def list_user_session_tokens(user_id: int) -> list[str]:
+    async with get_connection() as db:
+        rows = await db.execute(
+            "SELECT token FROM user_sessions WHERE user_id = ?",
+            (int(user_id),),
+        )
+        results = await rows.fetchall()
+    return [str(dict(r).get("token") or "") for r in results if r]
 
 
 async def delete_user_session(token: str) -> None:

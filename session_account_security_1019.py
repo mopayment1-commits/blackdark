@@ -111,6 +111,17 @@ def session_security_status_1019(*, seed: dict[str, Any] | None = None) -> dict[
             .get("policy", {})
             .get("security_questions_forbidden", True),
         },
+        "session_lifecycle": {
+            "idle_timeout_minutes": (_cfg(seed).get("session_lifecycle") or {})
+            .get("policy", {})
+            .get("idle_timeout_minutes", 30),
+            "absolute_timeout_hours": (_cfg(seed).get("session_lifecycle") or {})
+            .get("policy", {})
+            .get("absolute_timeout_hours", 8),
+            "global_logout_endpoint": (_cfg(seed).get("session_lifecycle") or {})
+            .get("policy", {})
+            .get("global_logout_endpoint", "/auth/logout-all"),
+        },
         "runbook": _RUNBOOK,
         "timestamp": _utcnow(),
     }
@@ -382,6 +393,14 @@ def run_session_security_e2e_1019(*, seed: dict[str, Any] | None = None) -> dict
         checks.append({"id": "password_recovery_e2e", "passed": pr["all_passed"] is True})
     except ImportError:
         checks.append({"id": "password_recovery_e2e", "passed": False})
+
+    try:
+        from session_lifecycle_hardening import run_session_lifecycle_e2e
+
+        sl = run_session_lifecycle_e2e(seed=seed)
+        checks.append({"id": "session_lifecycle_e2e", "passed": sl["all_passed"] is True})
+    except ImportError:
+        checks.append({"id": "session_lifecycle_e2e", "passed": False})
 
     all_passed = all(c["passed"] for c in checks)
     return {

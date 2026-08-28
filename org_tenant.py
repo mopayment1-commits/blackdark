@@ -210,10 +210,28 @@ def set_member_role(org_id: str, email: str, role: str, *, actor_email: str) -> 
         rows = _iter_members()
         for r in rows:
             if r.get("org_id") == org_id and r.get("email") == email.strip().lower():
+                previous_role = str(r.get("role") or "viewer")
                 r["role"] = role
                 r["role_changed_at"] = _utcnow()
                 r["role_changed_by"] = actor_email.strip().lower()
                 _rewrite_members(rows)
+                try:
+                    from database import fetch_user_by_email
+
+                    user_row = _run_async(fetch_user_by_email(email.strip().lower()))
+                    if user_row:
+                        from session_lifecycle_hardening import on_role_change_kill_sessions
+
+                        _run_async(
+                            on_role_change_kill_sessions(
+                                user_id=int(user_row["id"]),
+                                email=email.strip().lower(),
+                                from_role=previous_role,
+                                to_role=role,
+                            )
+                        )
+                except ImportError:
+                    pass
                 return r
     raise ValueError("member_not_found")
 

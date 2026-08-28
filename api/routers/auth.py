@@ -135,7 +135,25 @@ async def auth_login(
         ip = request.client.host or "unknown"
     check_login_rate_limit(f"ip:{ip}")
     try:
-        result = await login_user(body.email, body.password, mfa_code=body.mfa_code)
+        from session_lifecycle_hardening import compute_device_fingerprint
+
+        device_fp = compute_device_fingerprint(
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            ip=ip,
+        )
+    except ImportError:
+        device_fp = None
+    try:
+        result = await login_user(
+            body.email,
+            body.password,
+            mfa_code=body.mfa_code,
+            device_fingerprint=device_fp,
+            ip=ip,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+        )
         if result.get("mfa_required"):
             return result
         background_tasks.add_task(record_behavior, "auth_login", user=result.get("user"))
@@ -150,11 +168,35 @@ async def auth_login(
 
 
 @router.post("/mfa/complete", responses=COMMON_ERROR_RESPONSES)
-async def auth_mfa_complete(body: AuthMfaChallengeBody, background_tasks: BackgroundTasks):
+async def auth_mfa_complete(
+    body: AuthMfaChallengeBody,
+    request: Request,
+    background_tasks: BackgroundTasks,
+):
     from auth_service import complete_mfa_login
 
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    if not ip and request.client:
+        ip = request.client.host or "unknown"
     try:
-        result = await complete_mfa_login(body.challenge, body.code)
+        from session_lifecycle_hardening import compute_device_fingerprint
+
+        device_fp = compute_device_fingerprint(
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            ip=ip,
+        )
+    except ImportError:
+        device_fp = None
+    try:
+        result = await complete_mfa_login(
+            body.challenge,
+            body.code,
+            device_fingerprint=device_fp,
+            ip=ip,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+        )
         background_tasks.add_task(record_behavior, "auth_login_mfa", user=result.get("user"))
         from observability import increment_metric
 
@@ -524,13 +566,36 @@ async def auth_logout(
 
 
 @router.post("/logout-all", responses=COMMON_ERROR_RESPONSES)
-async def auth_logout_all(user: dict | None = Depends(optional_user)):
+async def auth_logout_all(
+    request: Request,
+    user: dict | None = Depends(optional_user),
+):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
-    from database import delete_user_sessions_for_user
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    if not ip and request.client:
+        ip = request.client.host or "unknown"
+    try:
+        from session_lifecycle_hardening import global_logout_all
 
-    await delete_user_sessions_for_user(int(user["id"]))
-    resp = JSONResponse({"ok": True, "message": "All sessions revoked. Please log in again."})
+        result = await global_logout_all(
+            int(user["id"]),
+            email=str(user.get("email") or ""),
+            ip=ip,
+            actor=str(user.get("email") or ""),
+        )
+    except ImportError:
+        from database import delete_user_sessions_for_user
+
+        revoked = await delete_user_sessions_for_user(int(user["id"]))
+        result = {"ok": True, "sessions_revoked": revoked}
+    resp = JSONResponse(
+        {
+            "ok": True,
+            "message": "All sessions revoked. Please log in again.",
+            **result,
+        }
+    )
     _clear_session_cookie(resp)
     return resp
 

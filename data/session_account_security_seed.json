@@ -37,6 +37,38 @@
     },
     "billing_actions_requiring_mfa": ["upgrade", "cancel", "downgrade"],
     "role_elevation_requires_mfa": true,
+    "session_lifecycle": {
+      "policy": {
+        "idle_timeout_minutes": 30,
+        "absolute_timeout_hours": 8,
+        "backend_enforced": true,
+        "client_side_forbidden": true,
+        "concurrent_session_limit": 5,
+        "invalidate_oldest_on_limit": true,
+        "device_binding_required": true,
+        "new_device_email_notification": true,
+        "global_logout_endpoint": "/auth/logout-all",
+        "billing_session_isolated": true,
+        "audit_retention_days": 730,
+        "audit_append_only": true,
+        "non_custodial": true,
+        "disclaimer": "Session management protects platform account only — no wallet keys"
+      },
+      "takeover_detection": {
+        "post_logout_window_seconds": 900,
+        "incident_response_ref": 1017
+      },
+      "notification_template": {
+        "global_logout": "You have been signed out from all devices on BLACKDARK."
+      },
+      "integrations": {
+        "rbac_ref": 1022,
+        "stripe_ref": 908,
+        "incident_response_ref": 1017,
+        "tos_ref": 1018,
+        "mfa_ref": 1033
+      }
+    },
     "password_recovery": {
       "policy": {
         "token_based_only": true,

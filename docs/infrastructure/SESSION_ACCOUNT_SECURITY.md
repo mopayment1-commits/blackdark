@@ -89,3 +89,33 @@ GET /api/platform/session-security/password-recovery/gate
 GET /api/platform/session-security/password-recovery/audit
 GET /api/platform/session-security/password-recovery/e2e
 ```
+
+## Session Lifecycle Hardening (#1019)
+
+Backend-enforced session policy — reduces exploitation window on session theft.
+
+| Control | Value |
+|---------|-------|
+| Idle timeout | 30 minutes (backend-enforced) |
+| Absolute timeout | 8 hours from creation |
+| Global logout | `POST /auth/logout-all` — kills all sessions + revocation list |
+| Device binding | Session linked to device fingerprint; new device → email |
+| Concurrent sessions | Max 5; oldest invalidated on limit |
+| Audit | `data/session_audit.jsonl` (2y retention) |
+
+### Integrations
+
+| Ref | Behavior |
+|-----|----------|
+| #1022 RBAC | Role elevation kills existing sessions |
+| #1033 2FA | Disabling 2FA forces global logout |
+| #1017 Incident | Suspicious login after global logout → auto-alert |
+| #908 Stripe | Billing session isolated — global logout does not cancel subscription |
+| #1018 ToS | User notification on global logout (timestamped, logged) |
+
+```
+GET /api/platform/session-security/lifecycle/status
+GET /api/platform/session-security/lifecycle/gate
+GET /api/platform/session-security/lifecycle/audit
+GET /api/platform/session-security/lifecycle/e2e
+```

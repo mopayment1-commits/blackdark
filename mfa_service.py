@@ -189,7 +189,18 @@ async def disable_mfa(user_id: int, code: str) -> dict[str, Any]:
         log_mfa_event("disable", user_id=user_id)
     except ImportError:
         pass
-    return {"enabled": False}
+    try:
+        from database import fetch_user_by_id
+        from session_lifecycle_hardening import on_mfa_disable_global_logout
+
+        user_row = await fetch_user_by_id(user_id)
+        await on_mfa_disable_global_logout(
+            user_id,
+            email=str((user_row or {}).get("email") or ""),
+        )
+    except ImportError:
+        pass
+    return {"enabled": False, "reauth_required": True, "mfa_setup_required": True}
 
 
 async def verify_user_mfa(user_id: int, code: str) -> bool:
