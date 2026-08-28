@@ -87,4 +87,20 @@ def dataset_response(
         body["freshness_sla_seconds"] = sla
     if extra:
         body.update(extra)
+
+    try:
+        from bd_platform.data_freshness_badge import attach_freshness_to_response
+
+        cat = "volume" if dataset in ("funding_rates", "open_interest") else "price"
+        if dataset == "events":
+            cat = "governance"
+        body = attach_freshness_to_response(
+            body,
+            category=cat,  # type: ignore[arg-type]
+            timestamp=latest_record_at,
+            source=dataset,
+        )
+    except ImportError:
+        pass
+
     return body

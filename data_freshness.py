@@ -47,7 +47,7 @@ def freshness_chip(
 
 
 def attach_oracle_freshness(payload: dict[str, Any]) -> dict[str, Any]:
-    """Best-effort attach freshness from live book / payload fields."""
+    """Best-effort attach freshness from live book / payload fields — #1030 badge."""
     out = dict(payload)
     ms = out.get("freshness_ms")
     age = out.get("data_age_sec") or out.get("quote_age_sec")
@@ -66,6 +66,22 @@ def attach_oracle_freshness(payload: dict[str, Any]) -> dict[str, Any]:
     chip = freshness_chip(freshness_ms=ms, age_sec=age)
     out["data_freshness"] = chip
     out["freshness_ms"] = chip.get("freshness_ms")
+    try:
+        from bd_platform.data_freshness_badge import attach_freshness_to_response
+
+        ts = None
+        if chip.get("as_of_unix"):
+            from datetime import UTC, datetime
+
+            ts = datetime.fromtimestamp(float(chip["as_of_unix"]), UTC).isoformat()
+        out = attach_freshness_to_response(
+            out,
+            category="price",
+            source=str(out.get("source") or "oracle"),
+            timestamp=ts,
+        )
+    except ImportError:
+        pass
     try:
         from data_provenance_score import attach_provenance
 

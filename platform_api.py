@@ -597,6 +597,27 @@ async def immutable_audit_e2e(_admin: dict = Depends(require_admin)):
     return run_immutable_audit_e2e_1029()
 
 
+@router.get("/freshness-badge/status")
+async def freshness_badge_status():
+    from bd_platform.data_freshness_badge import freshness_badge_status_1030
+
+    return freshness_badge_status_1030()
+
+
+@router.get("/freshness-badge/component-gate")
+async def freshness_badge_component_gate():
+    from bd_platform.data_freshness_badge import check_component_gate_1030
+
+    return check_component_gate_1030()
+
+
+@router.get("/freshness-badge/e2e")
+async def freshness_badge_e2e(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_freshness_badge import run_freshness_badge_e2e_1030
+
+    return run_freshness_badge_e2e_1030()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),

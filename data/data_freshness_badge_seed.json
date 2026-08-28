@@ -1,0 +1,71 @@
+{
+  "feature_ref": 1030,
+  "merged_into": "Cross-Cutting UI",
+  "standalone_rejected": true,
+  "data_freshness_badge_1030": {
+    "policy": {
+      "enabled": true,
+      "rule_based_only": true,
+      "design_system_enforced": true,
+      "enforcement_sprint": 2,
+      "enforcement_enabled": false,
+      "component_sprint": "1",
+      "methodology_version": "1.0.0"
+    },
+    "states": ["Live", "Delayed", "Stabilized", "Provisional", "Recovered"],
+    "thresholds_ms": {
+      "price": {
+        "expected_interval_ms": 300000,
+        "delayed_multiplier": 2.0,
+        "description": "Live if <5 minutes"
+      },
+      "volume": {
+        "expected_interval_ms": 3600000,
+        "delayed_multiplier": 2.0,
+        "description": "Live if <1 hour"
+      },
+      "onchain": {
+        "expected_interval_ms": 12000,
+        "delayed_multiplier": 2.0,
+        "description": "Live if <1 block"
+      },
+      "governance": {
+        "expected_interval_ms": 86400000,
+        "delayed_multiplier": 2.0,
+        "description": "Live if <24 hours"
+      }
+    },
+    "timestamp": {
+      "format": "ISO8601",
+      "timezone": "UTC",
+      "relative_supplement_allowed": true,
+      "relative_only_forbidden": true
+    },
+    "badge": {
+      "includes": ["source_name", "timestamp", "state"],
+      "clickable_provenance": true,
+      "provenance_ref": 945
+    },
+    "integrations": {
+      "provenance_ref": 945,
+      "data_stabilization_ref": 950,
+      "source_provenance_ref": 1003,
+      "outlier_detection_ref": 1026,
+      "gap_recovery_ref": 1028,
+      "ai_output_provenance_ref": 921
+    },
+    "fee_db": {
+      "badge_render_usd": 0.000001,
+      "provenance_query_usd": 0.000005,
+      "timestamp_format_usd": 0.000001,
+      "logged_per_data_point": true
+    },
+    "surfaces": [
+      "market_radar",
+      "portfolio_ai",
+      "intelligence_ledger",
+      "onchain_extension",
+      "research_portal"
+    ]
+  }
+}

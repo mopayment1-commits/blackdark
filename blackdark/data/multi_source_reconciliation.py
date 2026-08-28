@@ -870,6 +870,24 @@ def _apply_outlier_response_gate(
         return result
 
 
+def _apply_freshness_badge(
+    result: dict[str, Any],
+    *,
+    data_type: DataType,
+) -> dict[str, Any]:
+    try:
+        from bd_platform.data_freshness_badge import attach_freshness_to_response
+
+        category = "onchain" if data_type == "onchain" else data_type
+        return attach_freshness_to_response(
+            result,
+            category=category,  # type: ignore[arg-type]
+            timestamp=result.get("timestamp"),
+        )
+    except ImportError:
+        return result
+
+
 def reconcile_price(
     *,
     symbol: str = "BTC",
@@ -899,6 +917,7 @@ def reconcile_price(
     result["symbol"] = symbol
     result["reference_pricing_ref"] = _REFERENCE_PRICING_REF
     result = _apply_outlier_response_gate(result, data_type="price", symbol=symbol)
+    result = _apply_freshness_badge(result, data_type="price")
     if not explicit:
         _CACHE[cache_key] = (time.time(), result)
     return result
@@ -933,6 +952,7 @@ def reconcile_volume(
     result["symbol"] = symbol
     result["real_volume_ref"] = _REAL_VOLUME_REF
     result = _apply_outlier_response_gate(result, data_type="volume", symbol=symbol)
+    result = _apply_freshness_badge(result, data_type="volume")
     if not explicit:
         _CACHE[cache_key] = (time.time(), result)
     return result
@@ -967,6 +987,7 @@ def reconcile_onchain(
     result["chain"] = chain
     result["onchain_extension_ref"] = _ONCHAIN_EXT_REF
     result = _apply_outlier_response_gate(result, data_type="onchain", chain=chain)
+    result = _apply_freshness_badge(result, data_type="onchain")
     if not explicit:
         _CACHE[cache_key] = (time.time(), result)
     return result

@@ -203,6 +203,18 @@ async def build_execution_intelligence(
     except ImportError:
         logger.debug("immutable audit store unavailable")
 
+    try:
+        from bd_platform.data_freshness_badge import attach_freshness_to_response
+
+        entry = attach_freshness_to_response(
+            entry,
+            category="price",
+            source=str((entry.get("recommended_route") or {}).get("source") or "intelligence_ledger"),
+            timestamp=entry.get("timestamp"),
+        )
+    except ImportError:
+        logger.debug("data freshness badge unavailable")
+
     return entry
 
 
