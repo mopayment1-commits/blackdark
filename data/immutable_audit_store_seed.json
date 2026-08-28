@@ -1,0 +1,59 @@
+{
+  "feature_ref": 1029,
+  "merged_into": "Cross-Cutting Infrastructure",
+  "standalone_rejected": true,
+  "immutable_recommendation_audit_store_1029": {
+    "policy": {
+      "enabled": true,
+      "worm_physical": true,
+      "no_edit": true,
+      "no_delete": true,
+      "no_soft_delete": true,
+      "no_override": true,
+      "selective_scope": true,
+      "enforcement_sprint": 2,
+      "enforcement_enabled": false,
+      "infrastructure_sprint": "0/1",
+      "blocks_production_without_infrastructure": true
+    },
+    "storage": {
+      "store_type": "append_only_jsonl",
+      "physically_isolated": true,
+      "path": "data/immutable_recommendation_audit/immutable_store.jsonl",
+      "encrypted_at_rest": "AES-256",
+      "cross_region_backup_ref": 1016
+    },
+    "retention": {
+      "minimum_years": 5,
+      "legal_compliance": true,
+      "auto_cleanup_after_retention": true,
+      "legal_hold_check_required": true
+    },
+    "access_control": {
+      "read_only_audit_api": true,
+      "write_system_process_only": true,
+      "rbac_ref": 1022,
+      "allowed_roles": ["admin", "super_admin", "compliance_officer"],
+      "tenant_isolation": true
+    },
+    "integrity": {
+      "daily_verification": true,
+      "hash_algorithm": "SHA-256",
+      "merkle_tree_per_batch": true,
+      "mismatch_incident_ref": 1017
+    },
+    "integrations": {
+      "provenance_ref": 945,
+      "decision_traceability_ref": 955,
+      "decision_certificate_ref": 952,
+      "public_accuracy_ledger_ref": 987,
+      "point_in_time_metrics_ref": 980
+    },
+    "fee_db": {
+      "storage_per_record_usd": 0.00005,
+      "verification_compute_usd": 0.00002,
+      "cross_region_replication_usd": 0.00001,
+      "logged_per_recommendation": true
+    }
+  }
+}

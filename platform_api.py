@@ -548,6 +548,55 @@ async def intelligence_ledger_slippage(
     )
 
 
+@router.get("/immutable-audit/status")
+async def immutable_audit_status():
+    from bd_platform.infrastructure_immutable_audit_store import immutable_audit_status_1029
+
+    return immutable_audit_status_1029()
+
+
+@router.get("/immutable-audit/verify/{verification_id}")
+async def immutable_audit_verify(verification_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_immutable_audit_store import verify_record
+
+    return verify_record(verification_id)
+
+
+@router.get("/immutable-audit/record/{verification_id}")
+async def immutable_audit_record(verification_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_immutable_audit_store import get_immutable_record
+
+    return get_immutable_record(verification_id)
+
+
+@router.get("/immutable-audit/trail")
+async def immutable_audit_trail(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_immutable_audit_store import get_immutable_audit_trail
+
+    return get_immutable_audit_trail()
+
+
+@router.get("/immutable-audit/infrastructure-gate")
+async def immutable_audit_infrastructure_gate():
+    from bd_platform.infrastructure_immutable_audit_store import check_infrastructure_gate_1029
+
+    return check_infrastructure_gate_1029()
+
+
+@router.get("/immutable-audit/integrity-check")
+async def immutable_audit_integrity_check(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_immutable_audit_store import run_daily_integrity_check
+
+    return run_daily_integrity_check()
+
+
+@router.get("/immutable-audit/e2e")
+async def immutable_audit_e2e(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_immutable_audit_store import run_immutable_audit_e2e_1029
+
+    return run_immutable_audit_e2e_1029()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),
