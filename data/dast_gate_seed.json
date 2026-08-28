@@ -1,0 +1,57 @@
+{
+  "feature_ref": "dast_gate",
+  "merged_into": "Sprint 0 CI/CD Infrastructure",
+  "standalone_rejected": true,
+  "dast_gate": {
+    "policy_version": "1.0.0",
+    "policy": {
+      "enabled": true,
+      "tools": ["owasp_zap_baseline", "passive_http_scan", "custom_runtime_rules"],
+      "preferred_tools": ["owasp_zap", "burp_community", "passive_http_scan"],
+      "primary_target": "staging",
+      "production_read_only": true,
+      "no_destructive_on_production": true,
+      "weekly_automated_scan": true,
+      "monthly_deep_scan": true,
+      "post_deployment_ad_hoc": true,
+      "throttle_rps": 2,
+      "off_peak_preferred": true,
+      "block_critical_high_production": true,
+      "audit_retention_days": 730,
+      "suppression_requires_security_lead": true,
+      "blocks_production": true,
+      "sprint": 0
+    },
+    "severity_policy": {
+      "critical": "incident_response_trigger",
+      "high": "incident_response_trigger",
+      "medium": "ticket_next_sprint",
+      "low": "track_only"
+    },
+    "scan_modes": {
+      "weekly": "passive_plus_rbac",
+      "monthly": "deep_authenticated",
+      "ci": "asgi_local_smoke"
+    },
+    "protected_endpoints_sample": [
+      "/api/platform/keys/status",
+      "/api/platform/vault/read",
+      "/api/user/exchange-keys",
+      "/api/security/events"
+    ],
+    "public_read_only_paths": [
+      "/api/security/status",
+      "/api/privacy/status",
+      "/health"
+    ],
+    "integrations": {
+      "sast_gate_ref": 1042,
+      "incident_response_ref": 1017,
+      "encryption_policy_ref": 1039,
+      "rbac_ref": 1022,
+      "credential_vault_ref": 1040,
+      "load_testing_ref": 1020,
+      "activity_audit_ref": 1038
+    }
+  }
+}

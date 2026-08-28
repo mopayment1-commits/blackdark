@@ -1,0 +1,7 @@
+{
+  "suppressions": [],
+  "policy": {
+    "requires_security_lead_approval": true,
+    "required_fields": ["rule_id", "endpoint", "reason", "approved_by_security_lead", "approved_at"]
+  }
+}
