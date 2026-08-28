@@ -73,6 +73,12 @@ def reset_multi_source_state() -> None:
         reset_normalization_state()
     except ImportError:
         pass
+    try:
+        from blackdark.data.gap_detection_recovery_engine import reset_gap_recovery_state
+
+        reset_gap_recovery_state()
+    except ImportError:
+        pass
 
 
 def _utcnow() -> str:
@@ -661,6 +667,19 @@ def reconcile_observations(
     observations: [{"source": "binance", "value": 42000.0, "ok": True}, ...]
     """
     seed = seed or _load_seed()
+    gap_recovery_meta: dict[str, Any] | None = None
+    try:
+        from blackdark.data.gap_detection_recovery_engine import apply_gap_recovery_to_observations
+
+        gap_recovery_meta = apply_gap_recovery_to_observations(
+            data_type=data_type,
+            observations=observations,
+            symbol=symbol,
+        )
+        observations = gap_recovery_meta["observations"]
+    except ImportError:
+        logger.debug("gap detection recovery engine unavailable")
+
     normalization_meta: dict[str, Any] | None = None
     try:
         from blackdark.data.canonical_normalization_engine import normalize_observations
@@ -704,6 +723,8 @@ def reconcile_observations(
             data_type=data_type, valid=valid, failed=failed, seed=seed
         )
         if failover_result is not None:
+            if gap_recovery_meta:
+                failover_result["gap_recovery"] = gap_recovery_meta
             if normalization_meta:
                 failover_result["normalization"] = normalization_meta
             if outlier_gate_meta:
@@ -731,6 +752,8 @@ def reconcile_observations(
         }
         _log_reconciliation(result)
         _trigger_incident_if_needed(result, seed=seed)
+        if gap_recovery_meta:
+            result["gap_recovery"] = gap_recovery_meta
         if outlier_gate_meta:
             result["outlier_gate"] = outlier_gate_meta
         if normalization_meta:
@@ -780,6 +803,8 @@ def reconcile_observations(
         }
         _log_reconciliation(result)
         _trigger_incident_if_needed(result, seed=seed)
+        if gap_recovery_meta:
+            result["gap_recovery"] = gap_recovery_meta
         if outlier_gate_meta:
             result["outlier_gate"] = outlier_gate_meta
         if normalization_meta:
@@ -816,6 +841,8 @@ def reconcile_observations(
         "timestamp": _utcnow(),
     }
     _log_reconciliation(result)
+    if gap_recovery_meta:
+        result["gap_recovery"] = gap_recovery_meta
     if outlier_gate_meta:
         result["outlier_gate"] = outlier_gate_meta
     if normalization_meta:

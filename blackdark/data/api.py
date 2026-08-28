@@ -346,6 +346,34 @@ async def get_normalization_e2e(_: None = Depends(require_admin), __: None = Dep
     return run_normalization_e2e_1027()
 
 
+@router.get("/api/v1/data/gap-recovery/status")
+async def get_gap_recovery_status(_: None = Depends(_ensure_ready)):
+    from blackdark.data.gap_detection_recovery_engine import gap_recovery_status_1028
+
+    return gap_recovery_status_1028()
+
+
+@router.get("/api/v1/data/gap-recovery/events")
+async def get_gap_recovery_events(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.gap_detection_recovery_engine import get_gap_audit_trail
+
+    return get_gap_audit_trail()
+
+
+@router.get("/api/v1/data/gap-recovery/production-gate")
+async def get_gap_recovery_production_gate(_: None = Depends(_ensure_ready)):
+    from blackdark.data.gap_detection_recovery_engine import check_production_gate_1028
+
+    return check_production_gate_1028()
+
+
+@router.get("/api/v1/data/gap-recovery/e2e")
+async def get_gap_recovery_e2e(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.gap_detection_recovery_engine import run_gap_recovery_e2e_1028
+
+    return run_gap_recovery_e2e_1028()
+
+
 @router.post("/api/v1/data/ingest", status_code=202)
 async def trigger_ingest(body: IngestRequest, _: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
 
