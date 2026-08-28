@@ -6530,6 +6530,88 @@ async def native_sql_workspace_e2e_route():
     return run_native_sql_workspace_e2e()
 
 
+@router.get("/intelligence-ledger/research-portal/status")
+async def research_portal_status_route():
+    """#997 Research Intelligence Portal — #919 AI Analyst + #920 Deep Research."""
+    from bd_platform.research_intelligence_portal import research_portal_status_997
+
+    return research_portal_status_997()
+
+
+@router.get("/intelligence-ledger/research-portal")
+async def research_portal_panel_route():
+    from bd_platform.research_intelligence_portal import build_research_portal_panel_997
+
+    return build_research_portal_panel_997()
+
+
+@router.get("/intelligence-ledger/research-portal/ask")
+async def research_portal_ask_route(
+    query: str = Query(..., min_length=3),
+    user_id: str = Query("user_demo"),
+    tenant_id: str = Query("tenant_default"),
+    tier: str = Query("pro"),
+):
+    """#919 AI Analyst — NL Query Interface (tool-grounded)."""
+    from bd_platform.research_intelligence_portal import ask_ai_analyst_919
+
+    return ask_ai_analyst_919(query, user_id=user_id, tenant_id=tenant_id, tier=tier)
+
+
+@router.post("/intelligence-ledger/research-portal/deep-research/plan")
+async def research_portal_deep_plan_route(data: dict = Body(default={})):
+    """#920 Deep Research — create plan (requires user approval)."""
+    from bd_platform.research_intelligence_portal import create_deep_research_plan_920
+
+    return create_deep_research_plan_920(
+        str(data.get("topic") or ""),
+        user_id=str(data.get("user_id") or "user_demo"),
+        tenant_id=str(data.get("tenant_id") or "tenant_default"),
+    )
+
+
+@router.post("/intelligence-ledger/research-portal/deep-research/approve")
+async def research_portal_deep_approve_route(data: dict = Body(default={})):
+    from bd_platform.research_intelligence_portal import approve_deep_research_plan_920
+
+    return approve_deep_research_plan_920(
+        str(data.get("job_id") or ""),
+        user_id=str(data.get("user_id") or "user_demo"),
+        approved=bool(data.get("approved", True)),
+    )
+
+
+@router.post("/intelligence-ledger/research-portal/deep-research/execute")
+async def research_portal_deep_execute_route(data: dict = Body(default={})):
+    from bd_platform.research_intelligence_portal import execute_deep_research_job_920
+
+    return execute_deep_research_job_920(
+        str(data.get("job_id") or ""),
+        simulate_failure=bool(data.get("simulate_failure", False)),
+    )
+
+
+@router.get("/intelligence-ledger/research-portal/deep-research/jobs")
+async def research_portal_deep_jobs_route(user_id: str | None = Query(None)):
+    from bd_platform.research_intelligence_portal import list_deep_research_jobs_920
+
+    return list_deep_research_jobs_920(user_id=user_id)
+
+
+@router.get("/intelligence-ledger/research-portal/deep-research/jobs/{job_id}")
+async def research_portal_deep_job_route(job_id: str):
+    from bd_platform.research_intelligence_portal import get_deep_research_job_920
+
+    return get_deep_research_job_920(job_id)
+
+
+@router.get("/intelligence-ledger/research-portal/e2e")
+async def research_portal_e2e_route():
+    from bd_platform.research_intelligence_portal import run_research_portal_e2e
+
+    return run_research_portal_e2e()
+
+
 @router.get("/intelligence-ledger/ux-layer/progressive-disclosure/status")
 async def progressive_disclosure_status_route():
     """#815 Progressive Disclosure — cross-cutting UX pattern."""

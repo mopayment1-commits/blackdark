@@ -1,0 +1,150 @@
+{
+  "research_intelligence_portal_997": {
+    "insight_only": true,
+    "no_execution": true,
+    "tool_grounded": true
+  },
+  "ai_analyst_919": {
+    "description": "NL Query Interface — keyword-to-tool mapping, 100% grounded",
+    "insufficient_data_message": "Insufficient data — no unsupported inference.",
+    "default_tools": [
+      {"tool_id": "market_overview", "dataset_id": "canonical_market"}
+    ],
+    "confidence_thresholds": {"high": 3, "medium": 2},
+    "advisory_block_patterns": ["should i buy", "should i sell", "recommend"],
+    "fee_db": {
+      "query_per_question_usd": 0.003,
+      "model_per_question_usd": 0.0,
+      "verification_per_question_usd": 0.001
+    }
+  },
+  "ai_deep_research_920": {
+    "description": "Deep Research Job — async cited long-form reports",
+    "plan_sections": ["Executive Summary", "Quantitative Evidence", "Qualitative Context", "Risk Factors", "Conclusion"],
+    "report_sections": ["summary", "evidence", "risk", "conclusion"],
+    "min_sources_per_claim": 3,
+    "fee_db": {
+      "compute_per_report_usd": 0.10,
+      "storage_per_report_usd": 0.02,
+      "time_per_report_usd": 0.05
+    }
+  },
+  "internal_datasets": {
+    "canonical_onchain": {
+      "tools": {
+        "onchain_metrics": {
+          "source": "On-Chain Metrics Library",
+          "source_id": "onchain:btc_metrics_001",
+          "record_id": "btc_nvt_20260828",
+          "timestamp": "2026-08-28T00:00:00Z",
+          "metric": "NVT Ratio",
+          "summary": "BTC NVT ratio at 42.3 — below 90-day average of 48.1",
+          "risk": "On-chain activity may lag price moves"
+        }
+      }
+    },
+    "market_derivatives": {
+      "tools": {
+        "funding_rates": {
+          "source": "Funding Rate Intelligence",
+          "source_id": "derivatives:funding_btc_001",
+          "record_id": "btc_funding_20260828",
+          "timestamp": "2026-08-28T00:00:00Z",
+          "metric": "Funding Rate",
+          "summary": "BTC perpetual funding at 0.012% — mildly positive",
+          "risk": "Funding spikes may precede volatility"
+        }
+      }
+    },
+    "canonical_market": {
+      "tools": {
+        "market_overview": {
+          "source": "Market Data Engine",
+          "source_id": "market:btc_overview_001",
+          "record_id": "btc_market_20260828",
+          "timestamp": "2026-08-28T00:00:00Z",
+          "metric": "Price & Volume",
+          "summary": "BTC trading at $64,800 with $28.5B 24h volume",
+          "risk": "Volume concentration on major exchanges"
+        }
+      }
+    },
+    "defi_intelligence": {
+      "tools": {
+        "defi_tvl": {
+          "source": "DeFi TVL Tracker",
+          "source_id": "defi:tvl_aggregate_001",
+          "record_id": "defi_tvl_20260828",
+          "timestamp": "2026-08-28T00:00:00Z",
+          "summary": "Total DeFi TVL at $89.2B — flat week-over-week"
+        }
+      }
+    },
+    "qualitative_research": {
+      "tools": {
+        "sentiment_feed": {
+          "source": "Sentiment Intelligence",
+          "source_id": "qual:sentiment_btc_001",
+          "record_id": "btc_sentiment_20260828",
+          "timestamp": "2026-08-28T00:00:00Z",
+          "summary": "BTC social sentiment neutral-to-positive — ETF narrative dominant"
+        }
+      }
+    }
+  },
+  "source_registry": {
+    "onchain:btc_metrics_001": {
+      "name": "On-Chain Metrics Library",
+      "dataset_id": "canonical_onchain",
+      "tool_id": "onchain_metrics",
+      "verified": true,
+      "payload": {
+        "summary": "BTC NVT ratio at 42.3",
+        "timestamp": "2026-08-28T00:00:00Z"
+      }
+    },
+    "derivatives:funding_btc_001": {
+      "name": "Funding Rate Intelligence",
+      "dataset_id": "market_derivatives",
+      "tool_id": "funding_rates",
+      "verified": true,
+      "payload": {
+        "summary": "BTC funding at 0.012%",
+        "timestamp": "2026-08-28T00:00:00Z"
+      }
+    },
+    "market:btc_overview_001": {
+      "name": "Market Data Engine",
+      "dataset_id": "canonical_market",
+      "tool_id": "market_overview",
+      "verified": true,
+      "payload": {
+        "summary": "BTC $64,800 / $28.5B volume",
+        "timestamp": "2026-08-28T00:00:00Z"
+      }
+    },
+    "qual:sentiment_btc_001": {
+      "name": "Sentiment Intelligence",
+      "dataset_id": "qualitative_research",
+      "tool_id": "sentiment_feed",
+      "verified": true,
+      "payload": {
+        "summary": "Neutral-to-positive sentiment",
+        "timestamp": "2026-08-28T00:00:00Z"
+      }
+    }
+  },
+  "topic_sources": {
+    "bitcoin on-chain metrics and funding rates": [
+      "onchain:btc_metrics_001",
+      "derivatives:funding_btc_001",
+      "market:btc_overview_001",
+      "qual:sentiment_btc_001"
+    ],
+    "retry test topic": [
+      "onchain:btc_metrics_001",
+      "derivatives:funding_btc_001",
+      "market:btc_overview_001"
+    ]
+  }
+}
