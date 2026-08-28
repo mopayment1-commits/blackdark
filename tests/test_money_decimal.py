@@ -18,6 +18,13 @@ def test_apply_fee_and_net():
     assert float(net) == 98.65
 
 
+def test_crypto_and_fiat_precision_policy():
+    assert md.crypto_money("1.123456789") == Decimal("1.12345679")
+    assert md.fiat_money("10.125") == Decimal("10.13")
+    meta = md.financial_audit_metadata(asset_type="fiat")
+    assert meta["precision"] == 2
+
+
 def test_net_cross_uses_decimal_model():
     import profit_fee_algorithms as pfa
 
