@@ -62,5 +62,80 @@
       "aggregation_per_price_usd": 0.003,
       "storage_per_snapshot_usd": 0.001
     }
+  },
+  "reference_price_governance_993": {
+    "methodology_version": "1.0.0",
+    "method": "volume_weighted_median_outlier_resistant",
+    "outlier_sigma": 3.0,
+    "inclusion_criteria": "liquidity + spread + uptime + audit history",
+    "fee_db": {
+      "aggregation_per_price_usd": 0.003,
+      "storage_per_snapshot_usd": 0.001
+    }
+  },
+  "methodology_governance_995": {
+    "version_bump_on_change": true,
+    "approval_required": true,
+    "audit_on_change": true
+  },
+  "recalculation_audit_994": {
+    "BTC": [
+      {"version": "1.0.0", "timestamp": "2026-08-26T19:00:00Z", "constituent_count": 12, "price": 64988.5},
+      {"version": "1.0.0", "timestamp": "2026-08-26T18:00:00Z", "constituent_count": 12, "price": 64975.2}
+    ],
+    "ETH": [
+      {"version": "1.0.0", "timestamp": "2026-08-26T19:00:00Z", "constituent_count": 12, "price": 3499.1}
+    ]
+  },
+  "vetted_venues_993": {
+    "included": ["binance", "okx", "bybit", "coinbase", "kraken", "bitfinex", "kucoin", "gate", "htx", "bitstamp", "gemini", "crypto_com"],
+    "excluded": ["wash_exchange"],
+    "auditable": true,
+    "no_hidden_changes": true
+  },
+  "real_volume_992": {
+    "methodology_version": "1.0.0",
+    "methodology": "venue quality score (liquidity + spread + uptime + audit history)",
+    "venue_quality_threshold": 0.6,
+    "backtest_days": 90,
+    "fee_db": {
+      "aggregation_per_asset_usd": 0.005,
+      "audit_per_day_usd": 0.002,
+      "storage_per_snapshot_usd": 0.001
+    }
+  },
+  "venue_quality_scores_992": {
+    "binance": {"liquidity": 0.98, "spread": 0.95, "uptime": 0.99, "audit_history": 0.92, "threshold": 0.6, "volume_24h_usd": 28500000000},
+    "okx": {"liquidity": 0.95, "spread": 0.93, "uptime": 0.98, "audit_history": 0.90, "threshold": 0.6, "volume_24h_usd": 12000000000},
+    "bybit": {"liquidity": 0.94, "spread": 0.92, "uptime": 0.97, "audit_history": 0.88, "threshold": 0.6, "volume_24h_usd": 9800000000},
+    "coinbase": {"liquidity": 0.96, "spread": 0.94, "uptime": 0.99, "audit_history": 0.95, "threshold": 0.6, "volume_24h_usd": 5200000000},
+    "kraken": {"liquidity": 0.90, "spread": 0.91, "uptime": 0.98, "audit_history": 0.93, "threshold": 0.6, "volume_24h_usd": 2100000000},
+    "bitfinex": {"liquidity": 0.88, "spread": 0.89, "uptime": 0.96, "audit_history": 0.85, "threshold": 0.6, "volume_24h_usd": 1800000000},
+    "kucoin": {"liquidity": 0.85, "spread": 0.87, "uptime": 0.95, "audit_history": 0.80, "threshold": 0.6, "volume_24h_usd": 1500000000},
+    "gate": {"liquidity": 0.82, "spread": 0.85, "uptime": 0.94, "audit_history": 0.78, "threshold": 0.6, "volume_24h_usd": 1200000000},
+    "htx": {"liquidity": 0.80, "spread": 0.83, "uptime": 0.93, "audit_history": 0.75, "threshold": 0.6, "volume_24h_usd": 900000000},
+    "bitstamp": {"liquidity": 0.88, "spread": 0.90, "uptime": 0.97, "audit_history": 0.91, "threshold": 0.6, "volume_24h_usd": 600000000},
+    "gemini": {"liquidity": 0.87, "spread": 0.91, "uptime": 0.98, "audit_history": 0.94, "threshold": 0.6, "volume_24h_usd": 400000000},
+    "crypto_com": {"liquidity": 0.84, "spread": 0.86, "uptime": 0.95, "audit_history": 0.82, "threshold": 0.6, "volume_24h_usd": 800000000},
+    "wash_exchange": {"liquidity": 0.30, "spread": 0.25, "uptime": 0.70, "audit_history": 0.15, "threshold": 0.6, "volume_24h_usd": 5000000000},
+    "uniswap_v3": {"liquidity": 0.91, "spread": 0.88, "uptime": 0.96, "audit_history": 0.85, "threshold": 0.6, "volume_24h_usd": 3200000000, "dex": true}
+  },
+  "volume_data_992": {
+    "BTC": {
+      "reported_volume_24h_usd": 58000000000,
+      "real_volume_24h_usd": 52800000000,
+      "dex_volume_included": true,
+      "dex_volume_usd": 3200000000
+    },
+    "ETH": {
+      "reported_volume_24h_usd": 32000000000,
+      "real_volume_24h_usd": 29500000000,
+      "dex_volume_included": true,
+      "dex_volume_usd": 1800000000
+    }
+  },
+  "real_volume_backtest_992": {
+    "BTC": {"days": 90, "reconciliation_pass_rate": 0.98},
+    "ETH": {"days": 90, "reconciliation_pass_rate": 0.97}
   }
 }

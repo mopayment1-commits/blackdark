@@ -3512,15 +3512,83 @@ async def oracle_fmv_price_route(symbol: str):
     return result
 
 
+@router.get("/intelligence-ledger/oracle-vwap/reference-price/governance")
+async def oracle_reference_price_governance_route():
+    from bd_platform.oracle_vwap_layer import oracle_vwap_status
+
+    return oracle_vwap_status()
+
+
 @router.get("/intelligence-ledger/oracle-vwap/reference-price/{symbol}")
 async def oracle_reference_price_route(symbol: str):
-    """#959/#993 Reference benchmark — same calc, different label."""
-    from bd_platform.oracle_vwap_layer import build_fmv_reference_price_959
+    """#993/#994/#995 Unified Reference Price — single endpoint."""
+    from bd_platform.oracle_vwap_layer import build_oracle_reference_price
 
-    result = build_fmv_reference_price_959(symbol, label="reference")
+    result = build_oracle_reference_price(symbol)
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/oracle-vwap/real-volume/reconciliation")
+async def oracle_real_volume_reconciliation_route():
+    from bd_platform.oracle_vwap_layer import run_daily_volume_reconciliation_992
+
+    return run_daily_volume_reconciliation_992()
+
+
+@router.get("/intelligence-ledger/oracle-vwap/real-volume/backtest")
+async def oracle_real_volume_backtest_route():
+    from bd_platform.oracle_vwap_layer import run_real_volume_backtest_992
+
+    return run_real_volume_backtest_992()
+
+
+@router.get("/intelligence-ledger/oracle-vwap/real-volume/{symbol}/market-radar")
+async def oracle_real_volume_market_radar_route(symbol: str):
+    from bd_platform.oracle_vwap_layer import build_market_radar_real_volume_widget_992
+
+    return build_market_radar_real_volume_widget_992(symbol)
+
+
+@router.get("/intelligence-ledger/oracle-vwap/real-volume/{symbol}")
+async def oracle_real_volume_route(symbol: str):
+    """#992 Real Volume / Quality-Adjusted Volume."""
+    from bd_platform.oracle_vwap_layer import build_real_volume_992
+
+    result = build_real_volume_992(symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/internal/data-engine/query-governance/status")
+async def query_governance_status_route(_admin: dict = Depends(require_admin)):
+    """#990 Query Performance Governance — Data Engine ops layer."""
+    from bd_platform.data_engine_query_performance_governance import query_performance_governance_status_990
+
+    return query_performance_governance_status_990()
+
+
+@router.get("/internal/data-engine/query-governance/usage")
+async def query_governance_usage_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_query_performance_governance import build_ops_usage_summary_990
+
+    return build_ops_usage_summary_990()
+
+
+@router.get("/internal/data-engine/query-governance/slow-queries")
+async def query_governance_slow_queries_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_query_performance_governance import run_slow_query_analysis_990
+
+    return run_slow_query_analysis_990()
+
+
+@router.get("/internal/data-engine/query-governance/e2e")
+async def query_governance_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_query_performance_governance import run_query_governance_e2e_990
+
+    return run_query_governance_e2e_990()
 
 
 @router.get("/intelligence-ledger/net-edge-truth/status")
