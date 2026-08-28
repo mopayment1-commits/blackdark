@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -181,6 +181,141 @@
     },
     "fee_db": {
       "report_compute_usd": 0.001
+    }
+  },
+  "portfolio_health_score_67": {
+    "standalone": false,
+    "policy": {
+      "score_range": [0, 100],
+      "single_color": true,
+      "no_tables_default": true,
+      "expandable_formula": true,
+      "customizable_weights": true,
+      "distribution_not_diagnosis": true
+    },
+    "default_weights": {
+      "concentration": 0.30,
+      "volatility": 0.25,
+      "correlation": 0.25,
+      "diversification": 0.20
+    },
+    "fee_db": {
+      "compute_per_query_usd": 0.0008
+    }
+  },
+  "share_card_68": {
+    "standalone": false,
+    "landing_url": "https://blackdark.app",
+    "policy": {
+      "one_click": true,
+      "png_and_svg": true,
+      "bilingual": true,
+      "disclaimer_mandatory": true,
+      "no_sensitive_wallet_data": true,
+      "viral_utm_tracking": true
+    },
+    "fee_db": {
+      "render_per_card_usd": 0.001
+    }
+  },
+  "time_to_value_69": {
+    "standalone": false,
+    "policy": {
+      "target_seconds": 60,
+      "guest_mode": true,
+      "no_gatekeeping": true,
+      "weekly_review": true
+    },
+    "fee_db": {
+      "guest_usage_as_cac": true
+    }
+  },
+  "custom_opportunity_filter_70": {
+    "standalone": false,
+    "policy": {
+      "rule_based_only": true,
+      "pro_only_custom": true,
+      "default_top3_for_free": true,
+      "max_latency_ms": 300
+    },
+    "fee_db": {
+      "query_usd": 0.001
+    }
+  },
+  "whale_narrative_71": {
+    "standalone": false,
+    "route": "/oracle/on-chain/narrative",
+    "policy": {
+      "rule_based_patterns": true,
+      "privacy_first": true,
+      "tx_hash_auditable": true
+    },
+    "fee_db": {
+      "synthesis_usd": 0.002
+    }
+  },
+  "noise_filter_72": {
+    "standalone": false,
+    "policy": {
+      "signal_threshold": 70,
+      "rejection_rate_target_pct": 80,
+      "rule_based_heuristics": true
+    },
+    "fee_db": {
+      "analysis_usd": 0.0015
+    }
+  },
+  "multi_dim_analysis_73": {
+    "standalone": false,
+    "route": "/intelligence/multi-dim",
+    "dimension_weights": {
+      "technical": 0.30,
+      "on_chain": 0.25,
+      "sentiment": 0.20,
+      "macro": 0.25
+    },
+    "fee_db": {
+      "per_dimension_usd": 0.0003
+    }
+  },
+  "backtesting_74": {
+    "standalone": false,
+    "route": "/intelligence/backtest",
+    "policy": {
+      "rule_based_only": true,
+      "min_days": 90,
+      "no_execution": true,
+      "real_historical_data": true
+    },
+    "fee_db": {
+      "compute_usd": 0.01
+    }
+  },
+  "flexible_alerts_75": {
+    "standalone": false,
+    "policy": {
+      "cost_based_limits": true,
+      "free_daily_limit": 3,
+      "pro_unlimited": true,
+      "institutional_priority_queue": true,
+      "no_auto_action": true
+    },
+    "fee_db": {
+      "per_alert_usd": 0.0003
+    }
+  },
+  "decision_journal_76": {
+    "standalone": false,
+    "extends_discipline_ref": 66,
+    "policy": {
+      "manual_entry_only": true,
+      "encrypted": true,
+      "weekly_monthly_review": true,
+      "learning_not_performance_claim": true
+    },
+    "fee_db": {
+      "storage_usd": 0.0001,
+      "comparison_usd": 0.0002
     }
   }
 }

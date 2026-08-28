@@ -1010,3 +1010,162 @@ async def retail_intelligence_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.retail_intelligence_layer import run_retail_intelligence_e2e_62_66
 
     return run_retail_intelligence_e2e_62_66()
+
+
+# ─── Pro Trader & Portfolio UX (#67–#76) ────────────────────────────────────────
+
+
+@router.get("/portfolio/health-score")
+async def portfolio_health_score_route(
+    concentration_pct: float = Query(50.0),
+    volatility_score: float = Query(5.0),
+    correlation_score: float = Query(5.0),
+    diversification_score: float = Query(5.0),
+):
+    from bd_platform.pro_trader_layer import compute_health_score_67
+
+    return compute_health_score_67(
+        concentration_pct=concentration_pct,
+        volatility_score=volatility_score,
+        correlation_score=correlation_score,
+        diversification_score=diversification_score,
+    )
+
+
+@router.post("/share/card")
+async def share_card_route(data: dict = Body(default={})):
+    from bd_platform.pro_trader_layer import build_share_card_68
+
+    return build_share_card_68(
+        card_type=str(data.get("card_type", "insight")),
+        title=str(data.get("title", "")),
+        summary=str(data.get("summary", "")),
+        risk_score=float(data.get("risk_score", 5.0)),
+        locale=str(data.get("locale", "en")),
+        asset=str(data.get("asset", "")),
+        health_score=data.get("health_score"),
+        utm_campaign=str(data.get("utm_campaign", "share_card")),
+    )
+
+
+@router.get("/onboarding/ttv")
+async def ttv_onboarding_route():
+    from bd_platform.pro_trader_layer import get_onboarding_config_69
+
+    return get_onboarding_config_69()
+
+
+@router.post("/onboarding/ttv/track")
+async def ttv_track_route(data: dict = Body(default={})):
+    from bd_platform.pro_trader_layer import evaluate_ttv_flow_69, track_ttv_event_69
+
+    elapsed = float(data.get("elapsed_seconds", 0))
+    if data.get("event"):
+        track_ttv_event_69(event=str(data["event"]), elapsed_seconds=elapsed, user_id=str(data.get("user_id", "guest")))
+    return evaluate_ttv_flow_69(elapsed_seconds=elapsed)
+
+
+@router.post("/intelligence/filter")
+async def opportunity_filter_route(data: dict = Body(default={})):
+    from bd_platform.pro_trader_layer import apply_opportunity_filter_70, save_filter_preset_70
+
+    if data.get("save_preset"):
+        return save_filter_preset_70(
+            user_id=str(data.get("user_id", "user")),
+            preset_name=str(data.get("preset_name", "default")),
+            filters=data.get("filters") or {},
+        )
+    return apply_opportunity_filter_70(
+        candidates=data.get("candidates"),
+        filters=data.get("filters"),
+        preset_name=str(data.get("preset_name", "")),
+        user_tier=str(data.get("user_tier", "pro")),
+    )
+
+
+@router.post("/oracle/on-chain/narrative")
+async def whale_narrative_route(data: dict = Body(default={})):
+    from bd_platform.pro_trader_layer import build_whale_narrative_71
+
+    return build_whale_narrative_71(
+        wallet=str(data.get("wallet", "0x1234...5678")),
+        amount_eth=float(data.get("amount_eth", 0)),
+        direction=str(data.get("direction", "to_exchange")),
+        to_cold=bool(data.get("to_cold", False)),
+        tx_hash=str(data.get("tx_hash", "")),
+    )
+
+
+@router.post("/oracle/on-chain/classify")
+async def noise_filter_route(data: dict = Body(default={})):
+    from bd_platform.pro_trader_layer import classify_onchain_signal_72
+
+    return classify_onchain_signal_72(
+        movement_type=str(data.get("movement_type", "transfer")),
+        same_entity=bool(data.get("same_entity", False)),
+        is_collateral=bool(data.get("is_collateral", False)),
+        is_exchange_internal=bool(data.get("is_exchange_internal", False)),
+        amount_usd=float(data.get("amount_usd", 0)),
+    )
+
+
+@router.get("/intelligence/multi-dim")
+async def multi_dim_route(
+    asset: str = Query("BTC"),
+    technical: float = Query(5.0),
+    on_chain: float = Query(5.0),
+    sentiment: float = Query(5.0),
+    macro: float = Query(5.0),
+):
+    from bd_platform.pro_trader_layer import build_multi_dim_analysis_73
+
+    return build_multi_dim_analysis_73(
+        asset=asset, technical=technical, on_chain=on_chain, sentiment=sentiment, macro=macro
+    )
+
+
+@router.post("/intelligence/backtest")
+async def backtest_route(data: dict = Body(default={})):
+    from bd_platform.pro_trader_layer import run_backtest_74
+
+    return run_backtest_74(
+        rules=data.get("rules"),
+        days=int(data.get("days", 90)),
+        asset=str(data.get("asset", "BTC")),
+    )
+
+
+@router.get("/alerts/policy")
+async def alert_policy_route(tier: str = Query("free")):
+    from bd_platform.pro_trader_layer import get_alert_policy_75
+
+    return get_alert_policy_75(user_tier=tier)
+
+
+@router.post("/portfolio/journal")
+async def journal_add_route(data: dict = Body(default={})):
+    from bd_platform.pro_trader_layer import add_journal_entry_76, update_journal_actual_76
+
+    if data.get("entry_id") and data.get("actual_price") is not None:
+        return update_journal_actual_76(entry_id=str(data["entry_id"]), actual_price=float(data["actual_price"]))
+    return add_journal_entry_76(
+        asset=str(data.get("asset", "BTC")),
+        price=float(data.get("price", 0)),
+        prediction=str(data.get("prediction", "")),
+        reason=str(data.get("reason", "")),
+        user_email=str(data.get("user_email", "")),
+    )
+
+
+@router.get("/portfolio/journal")
+async def journal_list_route():
+    from bd_platform.pro_trader_layer import build_journal_tab_76
+
+    return build_journal_tab_76()
+
+
+@router.get("/pro-trader/e2e")
+async def pro_trader_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.pro_trader_layer import run_pro_trader_e2e_67_76
+
+    return run_pro_trader_e2e_67_76()

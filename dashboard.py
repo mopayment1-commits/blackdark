@@ -368,6 +368,9 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
             risk_score=float(risk_score),
         )
         result = attach_service_disclosure_57(result)
+        from bd_platform.pro_trader_layer import attach_portfolio_pro_layers_67_76
+
+        result = attach_portfolio_pro_layers_67_76(result, user_tier="free")
     except ImportError:
         pass
     return result
@@ -1893,6 +1896,30 @@ async def user_export_alias():
     from bd_platform.legal_commercial_layer import gdpr_compliance_status_58
 
     return gdpr_compliance_status_58()
+
+
+@app.get("/onboarding/ttv")
+async def public_ttv_onboarding():
+    """#69 — Time to Value onboarding config (guest mode, <60s target)."""
+    from bd_platform.pro_trader_layer import get_onboarding_config_69
+
+    return get_onboarding_config_69()
+
+
+@app.post("/share/card")
+async def public_share_card(body: dict = Body(default={})):
+    """#68 — One-click share card generation."""
+    from bd_platform.pro_trader_layer import build_share_card_68
+
+    return build_share_card_68(
+        card_type=str(body.get("card_type", "insight")),
+        title=str(body.get("title", "BLACKDARK Insight")),
+        summary=str(body.get("summary", "")),
+        risk_score=float(body.get("risk_score", 5.0)),
+        locale=str(body.get("locale", "en")),
+        asset=str(body.get("asset", "")),
+        health_score=body.get("health_score"),
+    )
 
 
 @app.get("/docs", response_class=HTMLResponse)
