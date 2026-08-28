@@ -632,6 +632,34 @@ async def session_lifecycle_e2e(_admin: dict = Depends(require_admin)):
     return run_session_lifecycle_e2e()
 
 
+@router.get("/session-security/oauth/status")
+async def oauth_login_status():
+    from oauth_login_hardening import oauth_login_status as oauth_status_fn
+
+    return oauth_status_fn()
+
+
+@router.get("/session-security/oauth/gate")
+async def oauth_login_gate():
+    from oauth_login_hardening import check_oauth_login_gate
+
+    return check_oauth_login_gate()
+
+
+@router.get("/session-security/oauth/audit")
+async def oauth_login_audit(_admin: dict = Depends(require_admin)):
+    from oauth_login_hardening import get_oauth_audit_trail
+
+    return get_oauth_audit_trail()
+
+
+@router.get("/session-security/oauth/e2e")
+async def oauth_login_e2e(_admin: dict = Depends(require_admin)):
+    from oauth_login_hardening import run_oauth_login_e2e
+
+    return run_oauth_login_e2e()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),

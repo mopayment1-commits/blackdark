@@ -1055,6 +1055,29 @@ async def _apply_migrations(db: Any) -> None:
         )
         """
     )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS oauth_provider_links (
+            id                INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id           INTEGER NOT NULL,
+            tenant_id         TEXT    NOT NULL DEFAULT 'platform',
+            provider          TEXT    NOT NULL,
+            subject           TEXT    NOT NULL,
+            scope             TEXT    NOT NULL,
+            access_token_enc  TEXT,
+            refresh_token_enc TEXT,
+            token_expires_at  TEXT,
+            linked_at         TEXT    NOT NULL,
+            UNIQUE(tenant_id, provider, subject)
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_oauth_links_user
+            ON oauth_provider_links (user_id, tenant_id)
+        """
+    )
 
     await db.execute(
         """
@@ -4355,17 +4378,33 @@ async def clear_user_mfa(user_id: int) -> None:
         )
 
 
-async def fetch_user_by_oauth(provider: str, subject: str) -> dict[str, Any] | None:
+async def fetch_user_by_oauth(
+    provider: str,
+    subject: str,
+    *,
+    tenant_id: str = "platform",
+) -> dict[str, Any] | None:
     if not provider or not subject:
         return None
     try:
         async with get_connection() as db:
             rows = await db.execute(
                 """
-                SELECT * FROM users
-                WHERE oauth_provider = ? AND oauth_subject = ?
+                SELECT u.* FROM users u
+                JOIN oauth_provider_links l ON l.user_id = u.id
+                WHERE l.provider = ? AND l.subject = ? AND l.tenant_id = ?
                 """,
-                (provider.strip().lower(), subject.strip()),
+                (provider.strip().lower(), subject.strip(), tenant_id.strip().lower()),
+            )
+            result = await rows.fetchone()
+            if result:
+                return dict(result)
+            rows = await db.execute(
+                """
+                SELECT * FROM users
+                WHERE oauth_provider = ? AND oauth_subject = ? AND ? = 'platform'
+                """,
+                (provider.strip().lower(), subject.strip(), tenant_id.strip().lower()),
             )
             result = await rows.fetchone()
         return dict(result) if result else None
@@ -4374,16 +4413,138 @@ async def fetch_user_by_oauth(provider: str, subject: str) -> dict[str, Any] | N
         return None
 
 
-async def link_user_oauth(user_id: int, provider: str, subject: str) -> None:
+async def upsert_oauth_provider_link(
+    *,
+    user_id: int,
+    provider: str,
+    subject: str,
+    tenant_id: str = "platform",
+    scope: str = "",
+    access_token_enc: str | None = None,
+    refresh_token_enc: str | None = None,
+    token_expires_at: str | None = None,
+) -> None:
+    now = _utcnow_iso()
+    provider_key = provider.strip().lower()
+    tenant_key = tenant_id.strip().lower()
     async with get_connection() as db:
+        rows = await db.execute(
+            """
+            SELECT id FROM oauth_provider_links
+            WHERE tenant_id = ? AND provider = ? AND subject = ?
+            """,
+            (tenant_key, provider_key, subject.strip()),
+        )
+        existing = await rows.fetchone()
+        if existing:
+            await db.execute(
+                """
+                UPDATE oauth_provider_links
+                SET user_id = ?, scope = ?, access_token_enc = ?,
+                    refresh_token_enc = ?, token_expires_at = ?, linked_at = ?
+                WHERE id = ?
+                """,
+                (
+                    int(user_id),
+                    scope,
+                    access_token_enc,
+                    refresh_token_enc,
+                    token_expires_at,
+                    now,
+                    int(dict(existing)["id"]),
+                ),
+            )
+        else:
+            await db.execute(
+                """
+                INSERT INTO oauth_provider_links (
+                    user_id, tenant_id, provider, subject, scope,
+                    access_token_enc, refresh_token_enc, token_expires_at, linked_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    int(user_id),
+                    tenant_key,
+                    provider_key,
+                    subject.strip(),
+                    scope,
+                    access_token_enc,
+                    refresh_token_enc,
+                    token_expires_at,
+                    now,
+                ),
+            )
         await db.execute(
             """
             UPDATE users
             SET oauth_provider = ?, oauth_subject = ?
             WHERE id = ?
             """,
-            (provider.strip().lower(), subject.strip(), user_id),
+            (provider_key, subject.strip(), int(user_id)),
         )
+
+
+async def delete_oauth_provider_link(
+    user_id: int,
+    provider: str,
+    *,
+    tenant_id: str = "platform",
+) -> bool:
+    provider_key = provider.strip().lower()
+    tenant_key = tenant_id.strip().lower()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            DELETE FROM oauth_provider_links
+            WHERE user_id = ? AND provider = ? AND tenant_id = ?
+            """,
+            (int(user_id), provider_key, tenant_key),
+        )
+        removed = int(cursor.rowcount or 0) > 0
+        rows = await db.execute(
+            """
+            SELECT oauth_provider FROM users WHERE id = ?
+            """,
+            (int(user_id),),
+        )
+        user_row = await rows.fetchone()
+        if user_row and dict(user_row).get("oauth_provider") == provider_key:
+            await db.execute(
+                """
+                UPDATE users SET oauth_provider = NULL, oauth_subject = NULL WHERE id = ?
+                """,
+                (int(user_id),),
+            )
+    return removed
+
+
+async def list_oauth_provider_links(
+    user_id: int,
+    *,
+    tenant_id: str = "platform",
+) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await db.execute(
+            """
+            SELECT provider, subject, scope, linked_at, tenant_id
+            FROM oauth_provider_links
+            WHERE user_id = ? AND tenant_id = ?
+            ORDER BY linked_at DESC
+            """,
+            (int(user_id), tenant_id.strip().lower()),
+        )
+        results = await rows.fetchall()
+    return [dict(r) for r in results]
+
+
+async def link_user_oauth(user_id: int, provider: str, subject: str) -> None:
+    await upsert_oauth_provider_link(
+        user_id=user_id,
+        provider=provider,
+        subject=subject,
+        scope="",
+    )
 
 
 async def create_oauth_user(email: str, name: str, provider: str, subject: str) -> int:

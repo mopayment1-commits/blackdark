@@ -69,6 +69,39 @@
         "mfa_ref": 1033
       }
     },
+    "oauth_login": {
+      "policy": {
+        "optional_only": true,
+        "email_password_always_available": true,
+        "limited_scope_only": true,
+        "admin_oauth_forbidden": true,
+        "no_oauth_only_accounts": true,
+        "password_backup_required": true,
+        "mfa_not_bypassed": true,
+        "link_requires_email_confirmation": true,
+        "tokens_encrypted_at_rest": true,
+        "tokens_never_exposed_to_client": true,
+        "tenant_isolation": true,
+        "audit_retention_days": 730,
+        "audit_append_only": true,
+        "non_custodial": true,
+        "disclaimer": "OAuth protects platform account only — no wallet keys"
+      },
+      "providers": {
+        "allowed": ["google", "github", "twitter"],
+        "scopes": {
+          "google": ["openid", "email", "profile"],
+          "github": ["read:user", "user:email"],
+          "twitter": ["users.read", "users.email"]
+        }
+      },
+      "integrations": {
+        "session_ref": 1019,
+        "rbac_ref": 1022,
+        "mfa_ref": 1033,
+        "password_recovery_ref": 1034
+      }
+    },
     "password_recovery": {
       "policy": {
         "token_based_only": true,

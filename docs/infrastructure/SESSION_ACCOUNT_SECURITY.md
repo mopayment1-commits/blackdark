@@ -119,3 +119,28 @@ GET /api/platform/session-security/lifecycle/gate
 GET /api/platform/session-security/lifecycle/audit
 GET /api/platform/session-security/lifecycle/e2e
 ```
+
+## OAuth Social Login (#1019)
+
+Optional social login — email/password + TOTP always available.
+
+| Control | Value |
+|---------|-------|
+| Providers | Google · GitHub · Twitter/X |
+| Scope | Email + public profile only |
+| Admin | OAuth forbidden — email/password + TOTP required |
+| 2FA | OAuth does not bypass 2FA |
+| Account linking | Email confirmation required — no auto-merge |
+| Password backup | No OAuth-only accounts — password backup required |
+| Tokens | Encrypted at-rest, never exposed to client |
+| Revocation | Unlink provider without deleting account |
+| Audit | `data/oauth_audit.jsonl` (2y retention) |
+
+```
+GET /api/platform/session-security/oauth/status
+GET /api/platform/session-security/oauth/gate
+GET /api/platform/session-security/oauth/audit
+GET /api/platform/session-security/oauth/e2e
+```
+
+User endpoints: `/api/auth/oauth/*`

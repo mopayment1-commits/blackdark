@@ -122,6 +122,17 @@ def session_security_status_1019(*, seed: dict[str, Any] | None = None) -> dict[
             .get("policy", {})
             .get("global_logout_endpoint", "/auth/logout-all"),
         },
+        "oauth_login": {
+            "optional_only": (_cfg(seed).get("oauth_login") or {})
+            .get("policy", {})
+            .get("optional_only", True),
+            "providers": (_cfg(seed).get("oauth_login") or {})
+            .get("providers", {})
+            .get("allowed", ["google", "github", "twitter"]),
+            "limited_scope_only": (_cfg(seed).get("oauth_login") or {})
+            .get("policy", {})
+            .get("limited_scope_only", True),
+        },
         "runbook": _RUNBOOK,
         "timestamp": _utcnow(),
     }
@@ -401,6 +412,14 @@ def run_session_security_e2e_1019(*, seed: dict[str, Any] | None = None) -> dict
         checks.append({"id": "session_lifecycle_e2e", "passed": sl["all_passed"] is True})
     except ImportError:
         checks.append({"id": "session_lifecycle_e2e", "passed": False})
+
+    try:
+        from oauth_login_hardening import run_oauth_login_e2e
+
+        oauth_e2e = run_oauth_login_e2e(seed=seed)
+        checks.append({"id": "oauth_login_e2e", "passed": oauth_e2e["all_passed"] is True})
+    except ImportError:
+        checks.append({"id": "oauth_login_e2e", "passed": False})
 
     all_passed = all(c["passed"] for c in checks)
     return {

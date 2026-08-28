@@ -521,6 +521,7 @@ async def auth_oauth_start(provider: str):
 @router.get("/oauth/{provider}/callback", responses=COMMON_ERROR_RESPONSES)
 async def auth_oauth_callback(
     provider: str,
+    request: Request,
     code: str | None = Query(None),
     state: str | None = Query(None),
     error: str | None = Query(None),
@@ -532,14 +533,42 @@ async def auth_oauth_callback(
     from identity_service import validate_oauth_state_async
     from oauth_service import exchange_code, login_or_link_oauth_user
 
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    if not ip and request.client:
+        ip = request.client.host or "unknown"
+    try:
+        from session_lifecycle_hardening import compute_device_fingerprint
+
+        device_fp = compute_device_fingerprint(
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            ip=ip,
+        )
+    except ImportError:
+        device_fp = None
+    tenant_id = (request.headers.get("x-tenant-id") or "").strip() or None
     try:
         await validate_oauth_state_async(provider, state)
-        profile = await exchange_code(provider, code)
-        result = await login_or_link_oauth_user(profile)
+        profile = await exchange_code(provider, code, state=state)
+        result = await login_or_link_oauth_user(
+            profile,
+            ip=ip,
+            device_fingerprint=device_fp,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            tenant_id=tenant_id,
+        )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"OAuth provider failure: {exc}") from exc
+
+    if result.get("link_confirmation_required"):
+        return JSONResponse(result)
+    if result.get("mfa_required"):
+        return JSONResponse(result)
 
     token = result.get("token")
     base = (os.getenv("APP_BASE_URL") or "").rstrip("/")
@@ -547,9 +576,106 @@ async def auth_oauth_callback(
         resp = RedirectResponse(url=f"{base}/dashboard?oauth=1", status_code=302)
         _attach_session_cookie(resp, str(token))
         return resp
-    resp = JSONResponse(result)
+    resp = JSONResponse(_session_response_body(result))
     _attach_session_cookie(resp, token)
     return resp
+
+
+@router.get("/oauth/{provider}/confirm-link", responses=COMMON_ERROR_RESPONSES)
+async def auth_oauth_confirm_link(
+    provider: str,
+    request: Request,
+    token: str = Query(...),
+):
+    from oauth_login_hardening import complete_oauth_link_confirmation
+    from oauth_service import login_or_link_oauth_user
+
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    tenant_id = (request.headers.get("x-tenant-id") or "").strip() or None
+    try:
+        link = await complete_oauth_link_confirmation(
+            token=token, provider=provider, tenant_id=tenant_id
+        )
+        from database import fetch_user_by_id
+
+        user = await fetch_user_by_id(int(link["user_id"]))
+        profile = {
+            "provider": provider,
+            "subject": str((user or {}).get("oauth_subject") or ""),
+            "email": str((user or {}).get("email") or ""),
+            "name": str((user or {}).get("name") or ""),
+            "scope": "",
+        }
+        result = await login_or_link_oauth_user(profile, ip=ip, tenant_id=tenant_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    resp = JSONResponse(_session_response_body(result))
+    if result.get("token"):
+        _attach_session_cookie(resp, result["token"])
+    return resp
+
+
+@router.post("/oauth/mfa/complete", responses=COMMON_ERROR_RESPONSES)
+async def auth_oauth_mfa_complete(body: AuthMfaChallengeBody, request: Request):
+    from oauth_service import complete_oauth_mfa_login
+
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    try:
+        from session_lifecycle_hardening import compute_device_fingerprint
+
+        device_fp = compute_device_fingerprint(
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            ip=ip,
+        )
+    except ImportError:
+        device_fp = None
+    try:
+        result = await complete_oauth_mfa_login(
+            body.challenge,
+            body.code,
+            device_fingerprint=device_fp,
+            ip=ip,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+    resp = JSONResponse(_session_response_body(result))
+    _attach_session_cookie(resp, result.get("token"))
+    return resp
+
+
+@router.post("/oauth/{provider}/unlink", responses=COMMON_ERROR_RESPONSES)
+async def auth_oauth_unlink(
+    provider: str,
+    request: Request,
+    user: dict | None = Depends(optional_user),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from oauth_login_hardening import unlink_oauth_provider
+
+    tenant_id = (request.headers.get("x-tenant-id") or "").strip() or None
+    try:
+        return await unlink_oauth_provider(int(user["id"]), provider, tenant_id=tenant_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/oauth/linked", responses=COMMON_ERROR_RESPONSES)
+async def auth_oauth_linked(
+    request: Request,
+    user: dict | None = Depends(optional_user),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from database import list_oauth_provider_links
+    from oauth_login_hardening import resolve_tenant_id
+
+    tenant_id = resolve_tenant_id((request.headers.get("x-tenant-id") or "").strip() or None)
+    links = await list_oauth_provider_links(int(user["id"]), tenant_id=tenant_id)
+    return {"ok": True, "tenant_id": tenant_id, "providers": links}
 
 
 @router.post("/logout")

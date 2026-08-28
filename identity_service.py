@@ -48,6 +48,7 @@ _COMMON_PASSWORDS = {
 TOKEN_TTL_MINUTES = {
     "email_verify": int(os.getenv("IDENTITY_VERIFY_TTL_MIN", "60")),
     "password_reset": int(os.getenv("IDENTITY_RESET_TTL_MIN", "15")),
+    "oauth_link_confirm": int(os.getenv("IDENTITY_OAUTH_LINK_TTL_MIN", "60")),
 }
 
 AVATAR_DIR = Path(os.getenv("IDENTITY_AVATAR_DIR", "data/avatars"))
@@ -179,7 +180,7 @@ def identity_architecture() -> dict[str, Any]:
     return {
         "product": "BLACKDARK Trust OS",
         "primary_authenticator": "email",
-        "login_methods": ["email_password", "google_oauth", "github_oauth"],
+        "login_methods": ["email_password", "google_oauth", "github_oauth", "twitter_oauth"],
         "phone_auth": False,
         "username": {
             "login": False,
