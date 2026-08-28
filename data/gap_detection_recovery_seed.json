@@ -1,0 +1,77 @@
+{
+  "feature_ref": 1028,
+  "merged_into": "Data Engine",
+  "standalone_rejected": true,
+  "gap_detection_recovery_engine_1028": {
+    "policy": {
+      "enabled": true,
+      "rule_based_only": true,
+      "no_ml_gap_filling_sprint_2": true,
+      "no_silent_gaps": true,
+      "silent_gap_pipeline_failure": true,
+      "blocks_production_if_incomplete": true,
+      "pipeline_sequence": ["detect_gap", "failover", "backfill", "validate", "normalize", "outlier_check", "serve"]
+    },
+    "expected_intervals": {
+      "price": {
+        "seconds": 300,
+        "description": ">5 minutes = gap"
+      },
+      "volume": {
+        "seconds": 3600,
+        "description": ">1 hour = gap"
+      },
+      "onchain": {
+        "seconds": 12,
+        "description": ">1 block = gap"
+      }
+    },
+    "recovery": {
+      "backfill_from_alternate_sources": true,
+      "historical_archive_ref": 967,
+      "no_extrapolation_without_flag": true,
+      "no_interpolation_without_flag": true,
+      "recovered_badge_prefix": "Recovered from",
+      "unrecovered_badge": "Data Gap",
+      "unrecovered_display": "N/A"
+    },
+    "provenance": {
+      "provenance_ref": 945,
+      "fields": ["gap_start", "gap_end", "sources_attempted", "recovery_status"],
+      "append_only": true
+    },
+    "incident_alert": {
+      "incident_response_ref": 1017,
+      "silent_gap_alert": true
+    },
+    "integrations": {
+      "multi_source_ref": 1024,
+      "automatic_failover_ref": 1025,
+      "outlier_detection_ref": 1026,
+      "data_stabilization_ref": 950,
+      "point_in_time_metrics_ref": 980,
+      "historical_archive_ref": 967
+    },
+    "fee_db": {
+      "gap_detection_usd": 0.00001,
+      "backfill_attempt_usd": 0.00005,
+      "source_query_usd": 0.0001,
+      "storage_usd": 0.00001,
+      "logged_per_gap": true
+    },
+    "mock_backfill_values": {
+      "price": {
+        "binance": 42000.0,
+        "coingecko": 42050.0
+      },
+      "volume": {
+        "coinmarketcap": 1200000000.0,
+        "thegraph": 1210000000.0
+      },
+      "onchain": {
+        "alchemy": 19500000.0,
+        "quicknode": 19501950.0
+      }
+    }
+  }
+}
