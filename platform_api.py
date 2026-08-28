@@ -1899,3 +1899,90 @@ async def data_sources_e2e_route(_admin: dict = Depends(require_admin)):
     from bd_platform.data_sources_layer import run_data_sources_e2e_140_152
 
     return run_data_sources_e2e_140_152()
+
+
+# ─── Intelligence & Analysis (#153–#163) ────────────────────────────────────────
+
+
+@router.get("/intelligence/arbitrage")
+async def arbitrage_mind_route(asset: str = Query("BTC")):
+    from bd_platform.intelligence_analysis_layer import analyze_arbitrage_opportunity_153
+
+    return analyze_arbitrage_opportunity_153(asset=asset)
+
+
+@router.get("/intelligence/financial-brain-status")
+async def financial_brain_status_route():
+    from bd_platform.intelligence_analysis_layer import financial_brain_status_154
+
+    return financial_brain_status_154()
+
+
+@router.get("/intelligence/stat-arb")
+async def stat_arb_insight_route(z_score: float = Query(2.3)):
+    from bd_platform.intelligence_analysis_layer import stat_arb_insight_155
+
+    return stat_arb_insight_155(z_score=z_score)
+
+
+@router.get("/data-engine/asset-registry")
+async def asset_registry_route():
+    from bd_platform.intelligence_analysis_layer import asset_registry_105_coins_156
+
+    return asset_registry_105_coins_156()
+
+
+@router.get("/oracle/on-chain/advanced-status")
+async def onchain_advanced_status_route():
+    from bd_platform.intelligence_analysis_layer import onchain_advanced_status_157
+
+    return onchain_advanced_status_157()
+
+
+@router.get("/data-engine/multi-venue-websocket")
+async def multi_venue_websocket_route():
+    from bd_platform.intelligence_analysis_layer import multi_venue_websocket_status_158
+
+    return multi_venue_websocket_status_158()
+
+
+@router.get("/oracle/on-chain/gas-profile")
+async def gas_volatility_profile_route(current_gwei: float = Query(18.0)):
+    from bd_platform.intelligence_analysis_layer import compute_gas_volatility_profile_159
+
+    return compute_gas_volatility_profile_159(current_gwei=current_gwei)
+
+
+@router.get("/radar/technical/volatility-squeeze")
+async def volatility_squeeze_route():
+    from bd_platform.intelligence_analysis_layer import detect_volatility_squeeze_160
+
+    return detect_volatility_squeeze_160()
+
+
+@router.get("/alerts/delivery")
+async def alert_delivery_route(channel: str = Query("telegram"), user_tier: str = Query("pro")):
+    from bd_platform.intelligence_analysis_layer import alert_delivery_status_161
+
+    return alert_delivery_status_161(channel=channel, user_tier=user_tier)
+
+
+@router.get("/ui/data-grid-status")
+async def data_grid_ui_status_route():
+    from bd_platform.intelligence_analysis_layer import data_grid_ui_status_162
+
+    return data_grid_ui_status_162()
+
+
+@router.get("/intelligence/export/institutional-insight")
+async def institutional_insight_report_route(asset: str = Query("BTC"), locale: str = Query("en")):
+    from bd_platform.intelligence_analysis_layer import build_institutional_insight_report_163
+
+    return build_institutional_insight_report_163(asset=asset, locale=locale)
+
+
+@router.get("/intelligence-analysis/e2e")
+async def intelligence_analysis_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.intelligence_analysis_layer import run_intelligence_analysis_e2e_153_163
+
+    return run_intelligence_analysis_e2e_153_163()

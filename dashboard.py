@@ -1963,6 +1963,46 @@ async def public_coinbase_oracle(symbol: str = "BTC-USD"):
     return ingest_coinbase_price_146(symbol=symbol)
 
 
+@app.get("/intelligence/arbitrage")
+async def public_arbitrage_mind(asset: str = "BTC"):
+    """#153 — Theoretical arbitrage with full cost breakdown."""
+    from bd_platform.intelligence_analysis_layer import analyze_arbitrage_opportunity_153
+
+    return analyze_arbitrage_opportunity_153(asset=asset)
+
+
+@app.get("/intelligence/stat-arb")
+async def public_stat_arb_insight(z_score: float = 2.3):
+    """#155 — Statistical arbitrage insight (no execution)."""
+    from bd_platform.intelligence_analysis_layer import stat_arb_insight_155
+
+    return stat_arb_insight_155(z_score=z_score)
+
+
+@app.get("/oracle/on-chain/gas-profile")
+async def public_gas_profile(current_gwei: float = 18.0):
+    """#159 — Gas volatility profiling and optimal windows."""
+    from bd_platform.intelligence_analysis_layer import compute_gas_volatility_profile_159
+
+    return compute_gas_volatility_profile_159(current_gwei=current_gwei)
+
+
+@app.get("/radar/technical/volatility-squeeze")
+async def public_volatility_squeeze():
+    """#160 — Bollinger × Keltner squeeze indicator."""
+    from bd_platform.intelligence_analysis_layer import detect_volatility_squeeze_160
+
+    return detect_volatility_squeeze_160()
+
+
+@app.get("/alerts/delivery")
+async def public_alert_delivery(channel: str = "telegram", user_tier: str = "pro"):
+    """#161 — Telegram/Discord alert delivery channel config."""
+    from bd_platform.intelligence_analysis_layer import alert_delivery_status_161
+
+    return alert_delivery_status_161(channel=channel, user_tier=user_tier)
+
+
 @app.post("/user/delete")
 async def user_delete_alias(body: dict = Body(default={})):
     """#58 — GDPR erasure alias (requires auth via privacy router for full flow)."""

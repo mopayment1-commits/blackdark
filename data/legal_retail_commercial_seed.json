@@ -1,5 +1,5 @@
 {
-  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152],
+  "feature_refs": [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163],
   "service_disclosure_57": {
     "standalone": false,
     "policy": {
@@ -836,5 +836,91 @@
     "alerts_existing": true,
     "merged_into": ["contextual_alerts_65", "flexible_alerts_75"],
     "routes": ["/portfolio/alerts", "/radar/alerts"]
+  },
+  "arbitrage_mind_153": {
+    "standalone": false,
+    "route": "/intelligence/arbitrage",
+    "merged_into": ["intelligence_ledger", "market_radar", "signal_engine_11"],
+    "net_spread_threshold_pct": 0.5,
+    "venue_fees_pct": {"binance": 0.10, "okx": 0.10, "uniswap": 0.30},
+    "gas_withdrawal_usd": 15.0,
+    "slippage_estimate_pct": 0.15,
+    "fee_db": {"compute_usd": 0.004, "multi_venue_query_usd": 0.001}
+  },
+  "financial_brain_154": {
+    "status": "merged_not_standalone",
+    "merged_into": ["intelligence_ledger_10", "multi_dim_analysis_73"],
+    "activation_not_build": true
+  },
+  "stat_arb_insight_155": {
+    "status": "insight_only_execution_rejected",
+    "route": "/intelligence/stat-arb",
+    "historical_mean_reversion_pct": 78,
+    "fee_db": {"compute_usd": 0.003}
+  },
+  "asset_registry_156": {
+    "standalone": false,
+    "merged_into": ["data_engine", "oracle_api"],
+    "target_count": 105,
+    "selection_criteria": {
+      "min_market_cap_usd": 100000000,
+      "min_volume_24h_usd": 1000000,
+      "min_venues": 3
+    },
+    "fee_db": {"ingest_per_asset_usd": 0.0001}
+  },
+  "onchain_advanced_157": {
+    "status": "merged_not_standalone",
+    "merged_into": ["on_chain_extension_12", "whale_narrative_71", "advanced_risk_77"],
+    "activation_not_build": true
+  },
+  "multi_venue_websocket_158": {
+    "standalone": false,
+    "extends_ref": 96,
+    "merged_into": "streaming_stack_96",
+    "venues": ["binance", "okx", "coinbase", "bybit"],
+    "latency_target_ms": 50,
+    "fee_db": {"bandwidth_usd": 0.002, "connections_usd": 0.001}
+  },
+  "gas_volatility_profile_159": {
+    "standalone": false,
+    "route": "/oracle/on-chain/gas-profile",
+    "merged_into": ["on_chain_extension", "market_radar"],
+    "history_days": 30,
+    "fee_db": {"compute_usd": 0.0015, "rpc_usd": 0.0003}
+  },
+  "volatility_squeeze_160": {
+    "standalone": false,
+    "route": "/radar/technical/volatility-squeeze",
+    "merged_into": ["ta_engine", "signal_engine_11", "market_radar"],
+    "bollinger_period": 20,
+    "bollinger_std": 2.0,
+    "keltner_period": 20,
+    "keltner_mult": 1.5,
+    "fee_db": {"compute_usd": 0.001}
+  },
+  "alert_delivery_161": {
+    "standalone": false,
+    "route": "/alerts/delivery",
+    "merged_into": ["contextual_alerts_65", "flexible_alerts_75"],
+    "rate_limit_minutes": 5,
+    "delivery_target_seconds": 3,
+    "fee_db": {"delivery_usd": 0.0002}
+  },
+  "data_grid_ui_162": {
+    "standalone": false,
+    "merged_into": "ui_component_library",
+    "target_fps": 60,
+    "target_rows": 10000,
+    "fee_db": {"development_usd": 0}
+  },
+  "institutional_insight_report_163": {
+    "standalone": false,
+    "route": "/intelligence/export/ic-report",
+    "merged_into": ["ic_report_87", "performance_ledger_84", "multi_dim_analysis_73"],
+    "alpha_language_rejected": true,
+    "predictive_language_rejected": true,
+    "wave_3_activation": false,
+    "fee_db": {"generate_usd": 0.02, "institution_margin_pct": 25}
   }
 }

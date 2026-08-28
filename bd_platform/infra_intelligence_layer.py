@@ -137,7 +137,7 @@ def build_admin_analytics_dashboard_95(*, seed: dict[str, Any] | None = None) ->
 def streaming_stack_status_96(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     cfg = seed.get("streaming_stack_96") or {}
-    return {
+    result = {
         "ok": True,
         "feature_ref": 96,
         "merged_into": "data_engine",
@@ -154,6 +154,13 @@ def streaming_stack_status_96(*, seed: dict[str, Any] | None = None) -> dict[str
         "fee_db": cfg.get("fee_db", {}),
         "timestamp": _utcnow(),
     }
+    try:
+        from bd_platform.intelligence_analysis_layer import multi_venue_websocket_status_158
+
+        result["multi_venue_websocket"] = multi_venue_websocket_status_158(seed=seed)
+    except ImportError:
+        pass
+    return result
 
 
 def enqueue_stream_event_96(
