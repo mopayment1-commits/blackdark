@@ -1,0 +1,89 @@
+{
+  "feature_ref": 879,
+  "merged_into": "Data Engine",
+  "component": "market_data_ingestion",
+  "market_data_ingestion_879": {
+    "venues": ["Binance", "Coinbase", "Kraken", "OKX", "Bybit", "Bitfinex", "Huobi", "Gate.io", "MEXC", "KuCoin"],
+    "spot_first": true,
+    "transport": "rest_polling",
+    "gap_threshold_sec": 30,
+    "qa_reference_now": "2026-08-27T23:59:55+00:00",
+    "fee_db": {
+      "api_subscriptions_usd": 120.0,
+      "bandwidth_usd": 45.0,
+      "tier": "ops"
+    }
+  },
+  "venues": {
+    "Binance": {
+      "latency_ms": 85,
+      "last_tick_at": "2026-08-27T23:59:50+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64850.25, "volume": 12500.5, "timestamp": "2026-08-27T23:59:50+00:00"}
+      }
+    },
+    "Coinbase": {
+      "latency_ms": 120,
+      "last_tick_at": "2026-08-27T23:59:48+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64848.00, "volume": 8200.3, "timestamp": "2026-08-27T23:59:48+00:00"}
+      }
+    },
+    "Kraken": {
+      "latency_ms": 150,
+      "last_tick_at": "2026-08-27T23:59:49+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64852.10, "volume": 5100.8, "timestamp": "2026-08-27T23:59:49+00:00"}
+      }
+    },
+    "OKX": {
+      "latency_ms": 95,
+      "last_tick_at": "2026-08-27T23:59:51+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64849.75, "volume": 9800.2, "timestamp": "2026-08-27T23:59:51+00:00"}
+      }
+    },
+    "Bybit": {
+      "latency_ms": 90,
+      "last_tick_at": "2026-08-27T23:59:50+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64851.00, "volume": 11200.0, "timestamp": "2026-08-27T23:59:50+00:00"}
+      }
+    },
+    "Bitfinex": {
+      "latency_ms": 180,
+      "last_tick_at": "2026-08-27T23:59:47+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64855.50, "volume": 3200.1, "timestamp": "2026-08-27T23:59:47+00:00"}
+      }
+    },
+    "Huobi": {
+      "latency_ms": 110,
+      "last_tick_at": "2026-08-27T23:59:49+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64847.80, "volume": 6700.4, "timestamp": "2026-08-27T23:59:49+00:00"}
+      }
+    },
+    "Gate.io": {
+      "latency_ms": 130,
+      "last_tick_at": "2026-08-27T23:59:48+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64846.20, "volume": 4500.6, "timestamp": "2026-08-27T23:59:48+00:00"}
+      }
+    },
+    "MEXC": {
+      "latency_ms": 100,
+      "last_tick_at": "2026-08-27T23:59:50+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64850.00, "volume": 7800.9, "timestamp": "2026-08-27T23:59:50+00:00"}
+      }
+    },
+    "KuCoin": {
+      "latency_ms": 115,
+      "last_tick_at": "2026-08-27T23:59:49+00:00",
+      "ticks": {
+        "BTC": {"symbol": "BTC", "price": 64849.30, "volume": 5900.7, "timestamp": "2026-08-27T23:59:49+00:00"}
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "feature_ref": 878,
+  "storage_ref": 881,
+  "merged_into": "Data Engine",
+  "component": "data_architecture",
+  "data_architecture_878": {
+    "no_institutional_branding": true,
+    "streaming": {
+      "engine": "Kafka/Redis Streams",
+      "ingestion_pipeline": true,
+      "delivery": "at_least_once"
+    },
+    "historical": {
+      "engine": "TimescaleDB/PostgreSQL",
+      "time_series_optimized": true
+    },
+    "partitioning": {
+      "strategy": "by_date_and_asset",
+      "query_performance": "optimized"
+    },
+    "cache": {
+      "engine": "Redis",
+      "ttl_min_sec": 60,
+      "ttl_max_sec": 300,
+      "hot_data": true
+    },
+    "retention_policy": {
+      "hot_days": 30,
+      "warm_days": 365,
+      "cold_years_min": 2,
+      "explicit": true
+    },
+    "backup_restore": {
+      "daily_backup": true,
+      "weekly_restore_test_passed": true,
+      "last_restore_test": "2026-08-27T06:00:00+00:00"
+    },
+    "capacity_evidence": {
+      "peak_multiplier": 10,
+      "expected_peak_rps": 500,
+      "observed_peak_rps": 5200,
+      "passed": true,
+      "load_test_date": "2026-08-27"
+    },
+    "fee_db": {
+      "infrastructure_usd": 200.0,
+      "storage_usd": 150.0,
+      "tier": "ops"
+    }
+  },
+  "multi_tier_storage_881": {
+    "feature_ref": 881,
+    "merged_into": "Data Architecture (#878)",
+    "component": "multi_tier_storage",
+    "hot": {
+      "engine": "TimescaleDB",
+      "retention_days": 30,
+      "description": "PostgreSQL extension — real-time hot data"
+    },
+    "warm": {
+      "engine": "ClickHouse",
+      "retention_days": 365,
+      "description": "Analytics queries — 1 year"
+    },
+    "cold": {
+      "engine": "Parquet/S3",
+      "retention_years_min": 2,
+      "description": "Archive — long-term storage"
+    },
+    "query_routing": "hot → warm → cold",
+    "query_target_ms": 1000,
+    "accuracy_target_pct": 99.99,
+    "real_time_update": true
+  },
+  "quality_batches": {
+    "market_ohlcv": "batch-20260827"
+  },
+  "replay_checkpoint": "ckpt-btc-20260827"
+}
