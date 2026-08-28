@@ -30,6 +30,7 @@ _FEATURE_REF_944 = 944
 _FEATURE_REF_946 = 946
 _FEATURE_REF_947 = 947
 _FEATURE_REF_948 = 948
+_FEATURE_REF_955 = 955
 _FEATURE_REF_1003 = 1003
 _FEATURE_REF_1010 = 1010
 _STANDALONE = False
@@ -100,6 +101,7 @@ def provenance_layer_status_945(*, seed: dict[str, Any] | None = None) -> dict[s
         "fail_closed_policy": cfg.get("fail_closed_policy", "hidden_or_degraded"),
         "methodology_versioning": True,
         "integrations": cfg.get("integrations") or [921, 938, 955, 987],
+        "decision_traceability_ref": _FEATURE_REF_955,
         "retention_years_min": _RETENTION_YEARS_MIN,
         "fee_db": cfg.get("fee_db"),
         "disclaimer": _DISCLAIMER,
@@ -490,6 +492,19 @@ def normalize_dataset_944(dataset_id: str, *, seed: dict[str, Any] | None = None
     }
 
 
+def verify_decision_trace_integration_955(
+    trace_id: str,
+    *,
+    tenant_id: str = "tenant_default",
+) -> dict[str, Any]:
+    """#955 cross-cutting — delegates to Decision Certificate trace engine."""
+    from bd_platform.intelligence_ledger_decision_certificate import verify_decision_trace_955
+
+    result = verify_decision_trace_955(trace_id, tenant_id=tenant_id)
+    result["provenance_layer_ref"] = _FEATURE_REF_945
+    return result
+
+
 def run_provenance_layer_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     checks: list[dict[str, Any]] = []
@@ -533,13 +548,16 @@ def run_provenance_layer_e2e(*, seed: dict[str, Any] | None = None) -> dict[str,
     badge = build_full_metric_badge_945("btc_price", seed=seed)
     checks.append({"id": "full_badge", "passed": badge.get("badge", {}).get("freshness") is not None})
 
+    trace = verify_decision_trace_integration_955("trace_dec_aave_alloc_001", tenant_id="tenant_alpha")
+    checks.append({"id": "trace_955_integration", "passed": trace.get("complete") is True})
+
     all_passed = all(c["passed"] for c in checks)
     return {
         "ok": all_passed,
         "feature_refs": [
             _FEATURE_REF_945, _FEATURE_REF_943, _FEATURE_REF_944,
             _FEATURE_REF_946, _FEATURE_REF_947, _FEATURE_REF_948,
-            _FEATURE_REF_1003, _FEATURE_REF_1010,
+            _FEATURE_REF_955, _FEATURE_REF_1003, _FEATURE_REF_1010,
         ],
         "all_passed": all_passed,
         "checks": checks,

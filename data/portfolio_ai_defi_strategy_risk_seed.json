@@ -1,0 +1,40 @@
+{
+  "defi_strategy_risk_951": {
+    "rules_version": "1.0.0",
+    "onchain_extension_ref": 12,
+    "protocol_kpi_ref": 986,
+    "fee_db": {
+      "compute_per_strategy_usd": 0.02,
+      "storage_per_report_usd": 0.005
+    }
+  },
+  "strategies": {
+    "eth_loop_aave": {
+      "strategy_id": "eth_loop_aave",
+      "name": "ETH Yield Loop on Aave",
+      "protocols": ["aave", "chainlink_oracle"],
+      "leverage": 2.5,
+      "historical_apy_pct": 4.2,
+      "dependencies": ["aave", "chainlink_oracle", "weth", "usdc"],
+      "il_risk": "low",
+      "liquidation_risk": "medium"
+    },
+    "uni_lp_eth_usdc": {
+      "strategy_id": "uni_lp_eth_usdc",
+      "name": "Uniswap V3 ETH/USDC LP",
+      "protocols": ["uniswap", "chainlink_oracle"],
+      "leverage": 1.0,
+      "historical_apy_pct": 8.5,
+      "dependencies": ["uniswap", "chainlink_oracle", "weth", "usdc"],
+      "il_risk": "high",
+      "liquidation_risk": "low"
+    }
+  },
+  "dependency_graph": {
+    "aave": {"depends_on": ["chainlink_oracle", "weth"], "type": "protocol"},
+    "uniswap": {"depends_on": ["chainlink_oracle", "weth", "usdc"], "type": "protocol"},
+    "chainlink_oracle": {"depends_on": [], "type": "oracle"},
+    "weth": {"depends_on": ["ethereum"], "type": "asset"},
+    "usdc": {"depends_on": ["circle_bridge"], "type": "stablecoin"}
+  }
+}

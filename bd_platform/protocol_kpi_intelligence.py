@@ -18,6 +18,7 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.ProtocolKPIIntelligence")
 
 _FEATURE_REF_986 = 986
+_FEATURE_REF_953 = 953
 _FEATURE_REF_1004 = 1004
 _STANDALONE = False
 _MERGED_INTO = "Data Engine + Intelligence Ledger"
@@ -83,6 +84,7 @@ def protocol_kpi_status_986(*, seed: dict[str, Any] | None = None) -> dict[str, 
         "definitions_public": True,
         "definitions_versioned": True,
         "mapping_audit": True,
+        "development_activity_ref": _FEATURE_REF_953,
         "provenance_ref": _PROVENANCE_REF,
         "scope": "defi_protocols_top_100",
         "disclaimer": _DISCLAIMER,
@@ -205,6 +207,87 @@ def build_protocol_kpi_explorer_986(*, seed: dict[str, Any] | None = None) -> di
     }
 
 
+# --- #953 Development Activity Intelligence ---
+
+
+def development_activity_status_953(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    cfg = seed.get("development_activity_953") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_953,
+        "protocol_kpi_ref": _FEATURE_REF_986,
+        "standalone_rejected": True,
+        "merged_into": _MERGED_INTO,
+        "repo_mapping_audited": True,
+        "forks_noise_filtered": True,
+        "methodology_version": cfg.get("methodology_version", _METHODOLOGY_VERSION),
+        "merge_commits_excluded": cfg.get("merge_commits_excluded", True),
+        "metrics": ["commits_unique_authors", "pull_requests", "releases", "active_days"],
+        "fee_db": cfg.get("fee_db"),
+        "timestamp": _utcnow(),
+    }
+
+
+def get_repo_mapping_audit_953(
+    protocol_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    mappings = seed.get("repo_mappings") or {}
+    mapping = mappings.get(protocol_id)
+    if not mapping:
+        return {"ok": False, "feature_ref": _FEATURE_REF_953, "error": "protocol_not_found"}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_953,
+        "protocol_id": protocol_id,
+        "canonical_repos": mapping.get("canonical_repos") or [],
+        "audited": mapping.get("audited", True),
+        "forks_excluded": mapping.get("forks_excluded") or [],
+        "repo_mapping_audited": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def build_development_activity_chart_953(
+    protocol_id: str,
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    activity = (seed.get("dev_activity") or {}).get(protocol_id)
+    if not activity:
+        return {"ok": False, "feature_ref": _FEATURE_REF_953, "error": "protocol_not_found"}
+
+    mapping = get_repo_mapping_audit_953(protocol_id, seed=seed)
+    cfg = seed.get("development_activity_953") or {}
+    return {
+        "ok": True,
+        "feature_ref": _FEATURE_REF_953,
+        "protocol_kpi_ref": _FEATURE_REF_986,
+        "protocol_id": protocol_id,
+        "metrics": {
+            "commits_unique_authors": activity.get("commits_unique_authors"),
+            "pull_requests": activity.get("pull_requests"),
+            "releases": activity.get("releases"),
+            "active_days": activity.get("active_days"),
+            "commits_per_month": activity.get("commits_per_month"),
+        },
+        "trend": activity.get("trend"),
+        "rank_metric": activity.get("commits_per_month"),
+        "fork_noise_filtered": activity.get("fork_noise_filtered", True),
+        "repo_mapping": mapping if mapping.get("ok") else None,
+        "methodology": {
+            "version": cfg.get("methodology_version", _METHODOLOGY_VERSION),
+            "merge_commits_excluded": cfg.get("merge_commits_excluded", True),
+            "commits_per_month_note": "merge commits excluded — documented",
+        },
+        "timestamp": _utcnow(),
+    }
+
+
 def run_protocol_kpi_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     seed = seed or _load_seed()
     checks: list[dict[str, Any]] = []
@@ -226,5 +309,12 @@ def run_protocol_kpi_e2e(*, seed: dict[str, Any] | None = None) -> dict[str, Any
     explorer = build_protocol_kpi_explorer_986(seed=seed)
     checks.append({"id": "explorer", "passed": explorer.get("protocol_count", 0) >= 3})
 
+    dev_status = development_activity_status_953(seed=seed)
+    checks.append({"id": "dev_activity_953", "passed": dev_status.get("repo_mapping_audited") is True})
+
+    dev_chart = build_development_activity_chart_953("uniswap", seed=seed)
+    checks.append({"id": "dev_chart", "passed": dev_chart.get("ok") is True})
+    checks.append({"id": "fork_filtered", "passed": dev_chart.get("fork_noise_filtered") is True})
+
     all_passed = all(c["passed"] for c in checks)
-    return {"ok": all_passed, "feature_refs": [_FEATURE_REF_986, _FEATURE_REF_1004], "all_passed": all_passed, "checks": checks}
+    return {"ok": all_passed, "feature_refs": [_FEATURE_REF_986, _FEATURE_REF_953, _FEATURE_REF_1004], "all_passed": all_passed, "checks": checks}

@@ -48,5 +48,47 @@
       "raw_metrics": {"swap_fees": 156000000, "unique_traders": 180000, "pool_tvl": 4200000000},
       "self_reported": {"swap_fees": 152000000, "unique_traders": 175000, "pool_tvl": 4150000000}
     }
+  },
+  "development_activity_953": {
+    "methodology_version": "1.0.0",
+    "merge_commits_excluded": true,
+    "fork_filter": "stars_threshold + commit_uniqueness",
+    "fee_db": {
+      "github_api_per_repo_usd": 0.01,
+      "storage_per_project_usd": 0.002,
+      "compute_per_aggregation_usd": 0.005
+    }
+  },
+  "repo_mappings": {
+    "uniswap": {
+      "canonical_repos": ["Uniswap/v4-core", "Uniswap/v3-core"],
+      "audited": true,
+      "forks_excluded": ["uniswap-fork/v3-copy"]
+    },
+    "aave": {
+      "canonical_repos": ["aave/aave-v3-core"],
+      "audited": true,
+      "forks_excluded": []
+    }
+  },
+  "dev_activity": {
+    "uniswap": {
+      "commits_unique_authors": 142,
+      "pull_requests": 38,
+      "releases": 4,
+      "active_days": 22,
+      "commits_per_month": 580,
+      "trend": "up",
+      "fork_noise_filtered": true
+    },
+    "aave": {
+      "commits_unique_authors": 68,
+      "pull_requests": 21,
+      "releases": 2,
+      "active_days": 18,
+      "commits_per_month": 210,
+      "trend": "stable",
+      "fork_noise_filtered": true
+    }
   }
 }

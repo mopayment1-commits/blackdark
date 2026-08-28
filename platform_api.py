@@ -2077,6 +2077,28 @@ async def risk_score_asset_route(asset: str, portfolio_id: str = Query("demo_por
     return score_asset_risk(asset, portfolio_id=portfolio_id)
 
 
+@router.get("/intelligence-ledger/portfolio-ai/defi-strategy-risk/status")
+async def defi_strategy_risk_status_route():
+    """#951 DeFi Strategy Risk — Portfolio AI Risk Tab."""
+    from bd_platform.portfolio_ai_defi_strategy_risk import defi_strategy_risk_status_951
+
+    return defi_strategy_risk_status_951()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/defi-strategy-risk/e2e")
+async def defi_strategy_risk_e2e_route():
+    from bd_platform.portfolio_ai_defi_strategy_risk import run_defi_strategy_risk_e2e_951
+
+    return run_defi_strategy_risk_e2e_951()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/defi-strategy-risk/{strategy_id}")
+async def defi_strategy_risk_report_route(strategy_id: str):
+    from bd_platform.portfolio_ai_defi_strategy_risk import build_strategy_risk_report_951
+
+    return build_strategy_risk_report_951(strategy_id)
+
+
 @router.get("/intelligence-ledger/alert-center/status")
 async def unified_alert_center_status_route():
     from bd_platform.unified_alert_center import unified_alert_center_status
@@ -5805,6 +5827,59 @@ async def provenance_layer_e2e_route(_admin: dict = Depends(require_admin)):
     return run_provenance_layer_e2e()
 
 
+@router.get("/internal/data-engine/provenance-layer/trace/{trace_id}")
+async def provenance_decision_trace_route(
+    trace_id: str,
+    tenant_id: str = Query("tenant_default"),
+    _admin: dict = Depends(require_admin),
+):
+    """#955 End-to-End Decision Traceability — merged into #945."""
+    from bd_platform.data_engine_provenance_layer import verify_decision_trace_integration_955
+
+    return verify_decision_trace_integration_955(trace_id, tenant_id=tenant_id)
+
+
+@router.get("/internal/data-engine/provenance-layer/trace/{trace_id}/audit-export")
+async def provenance_decision_trace_audit_route(
+    trace_id: str,
+    tenant_id: str = Query("tenant_default"),
+    _admin: dict = Depends(require_admin),
+):
+    """#955 — audit export JSON dump."""
+    from bd_platform.intelligence_ledger_decision_certificate import export_decision_trace_audit_955
+
+    return export_decision_trace_audit_955(trace_id, tenant_id=tenant_id)
+
+
+@router.get("/internal/data-engine/stabilization/status")
+async def stabilization_status_route(_admin: dict = Depends(require_admin)):
+    """#950 Data Stabilization & Mutability Metadata — Data Engine ingest."""
+    from bd_platform.data_engine_stabilization_metadata import stabilization_status_950
+
+    return stabilization_status_950()
+
+
+@router.get("/internal/data-engine/stabilization/badge/{metric_id}")
+async def stabilization_badge_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_stabilization_metadata import get_metric_stability_badge_950
+
+    return get_metric_stability_badge_950(metric_id)
+
+
+@router.get("/internal/data-engine/stabilization/revisions/{metric_id}")
+async def stabilization_revisions_route(metric_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_stabilization_metadata import get_revision_history_950
+
+    return get_revision_history_950(metric_id)
+
+
+@router.get("/internal/data-engine/stabilization/e2e")
+async def stabilization_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_stabilization_metadata import run_stabilization_e2e_950
+
+    return run_stabilization_e2e_950()
+
+
 @router.get("/internal/data-engine/export-layer/status")
 async def export_layer_status_route(_admin: dict = Depends(require_admin)):
     """#924 API / Data Export — Data Engine export layer."""
@@ -7075,6 +7150,63 @@ async def decision_intelligence_e2e_route():
     return run_decision_intelligence_e2e_938()
 
 
+@router.get("/intelligence-ledger/decision-certificate/status")
+async def decision_certificate_status_route():
+    """#952 Decision Certificate + Institutional DD Export — Intelligence Ledger."""
+    from bd_platform.intelligence_ledger_decision_certificate import decision_certificate_status_952
+
+    return decision_certificate_status_952()
+
+
+@router.get("/intelligence-ledger/decision-certificate/e2e")
+async def decision_certificate_e2e_route():
+    from bd_platform.intelligence_ledger_decision_certificate import run_decision_certificate_e2e_952
+
+    return run_decision_certificate_e2e_952()
+
+
+@router.get("/intelligence-ledger/decision-certificate/trace/{trace_id}")
+async def decision_certificate_trace_route(
+    trace_id: str,
+    tenant_id: str = Query("tenant_default"),
+):
+    """#955 End-to-End Decision Traceability."""
+    from bd_platform.intelligence_ledger_decision_certificate import verify_decision_trace_955
+
+    return verify_decision_trace_955(trace_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/decision-certificate/trace/{trace_id}/audit-export")
+async def decision_certificate_trace_audit_route(
+    trace_id: str,
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.intelligence_ledger_decision_certificate import export_decision_trace_audit_955
+
+    return export_decision_trace_audit_955(trace_id, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/decision-certificate/{certificate_id}/export")
+async def decision_certificate_export_route(
+    certificate_id: str,
+    fmt: str = Query("json"),
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.intelligence_ledger_decision_certificate import export_decision_certificate_952
+
+    return export_decision_certificate_952(certificate_id, fmt=fmt, tenant_id=tenant_id)
+
+
+@router.get("/intelligence-ledger/decision-certificate/{certificate_id}")
+async def decision_certificate_get_route(
+    certificate_id: str,
+    tenant_id: str = Query("tenant_default"),
+):
+    from bd_platform.intelligence_ledger_decision_certificate import get_decision_certificate_952
+
+    return get_decision_certificate_952(certificate_id, tenant_id=tenant_id)
+
+
 @router.get("/intelligence-ledger/sector-comparables/status")
 async def sector_comparables_status_route():
     """#1001 Sector Comparables & Peer Analysis — Intelligence Ledger."""
@@ -7131,6 +7263,28 @@ async def protocol_kpi_e2e_route():
     from bd_platform.protocol_kpi_intelligence import run_protocol_kpi_e2e
 
     return run_protocol_kpi_e2e()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/development-activity/status")
+async def development_activity_status_route():
+    """#953 Development Activity Intelligence — merged into #986."""
+    from bd_platform.protocol_kpi_intelligence import development_activity_status_953
+
+    return development_activity_status_953()
+
+
+@router.get("/intelligence-ledger/protocol-kpis/development-activity/repo-mapping/{protocol_id}")
+async def development_activity_repo_mapping_route(protocol_id: str):
+    from bd_platform.protocol_kpi_intelligence import get_repo_mapping_audit_953
+
+    return get_repo_mapping_audit_953(protocol_id)
+
+
+@router.get("/intelligence-ledger/protocol-kpis/development-activity/{protocol_id}")
+async def development_activity_chart_route(protocol_id: str):
+    from bd_platform.protocol_kpi_intelligence import build_development_activity_chart_953
+
+    return build_development_activity_chart_953(protocol_id)
 
 
 @router.get("/intelligence-ledger/protocol-kpis/{protocol_id}")
