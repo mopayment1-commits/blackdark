@@ -119,6 +119,52 @@ async def billing_multi_currency_e2e():
     return run_stripe_multi_currency_e2e_829()
 
 
+@router.get("/pay-per-request/status")
+async def billing_pay_per_request_status():
+    """#908 Pay-Per-Request Data Access — Stripe metered billing."""
+    from billing.stripe_pay_per_request import pay_per_request_status_908
+
+    return pay_per_request_status_908()
+
+
+@router.get("/pay-per-request/pricing")
+async def billing_pay_per_request_pricing():
+    from billing.stripe_pay_per_request import get_endpoint_pricing_catalog_908
+
+    return get_endpoint_pricing_catalog_908()
+
+
+@router.get("/pay-per-request")
+async def billing_pay_per_request_panel():
+    from billing.stripe_pay_per_request import build_pay_per_request_panel_908
+
+    return build_pay_per_request_panel_908()
+
+
+@router.post("/pay-per-request/charge", responses=COMMON_ERROR_RESPONSES)
+async def billing_pay_per_request_charge(data: dict = Body(default={})):
+    from billing.stripe_pay_per_request import charge_pay_per_request_908
+
+    result = charge_pay_per_request_908(
+        user_id=str(data.get("user_id") or "user_demo"),
+        tier=str(data.get("tier") or "pro"),
+        endpoint_id=str(data.get("endpoint_id") or "market_overview"),
+        idempotency_key=str(data.get("idempotency_key") or ""),
+        nonce=str(data.get("nonce") or ""),
+        request_timestamp=data.get("request_timestamp"),
+    )
+    if not result.get("ok"):
+        raise HTTPException(status_code=402 if result.get("error") == "daily_limit_exceeded" else 400, detail=result)
+    return result
+
+
+@router.get("/pay-per-request/e2e")
+async def billing_pay_per_request_e2e():
+    from billing.stripe_pay_per_request import run_pay_per_request_e2e_908
+
+    return run_pay_per_request_e2e_908()
+
+
 @router.get("/payments")
 async def billing_payments_architecture():
     """USD payment architecture + security posture (no secrets)."""
