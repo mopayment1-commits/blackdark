@@ -127,6 +127,29 @@ def security_posture_report() -> dict[str, Any]:
     pentest = pentest_attestation_status()
     attested = verify_pentest_attestation()
 
+    dep_gate: dict[str, Any] = {"ok": False, "detail": "dependency_scan_gate unavailable"}
+    try:
+        from dependency_scan_gate import check_dependency_scan_production_gate, dependency_scan_gate_status
+
+        dep_status = dependency_scan_gate_status()
+        dep_prod = check_dependency_scan_production_gate()
+        dep_gate = {
+            "ok": dep_prod.get("ok", False),
+            "detail": dep_status.get("policy", {}),
+            "production_gate": dep_prod,
+            "security_trilogy": {"sast": 1042, "dast": 1043, "dependency": 1044},
+        }
+    except Exception:
+        pass
+
+    checks.append(
+        {
+            "id": "dependency_sbom_scan_gate",
+            "ok": dep_gate.get("ok", False),
+            "detail": "pip-audit + CycloneDX SBOM + license scan (#1044)",
+        }
+    )
+
     return {
         "product": "BLACKDARK",
         "surface": "security_posture",
@@ -153,7 +176,8 @@ def security_posture_report() -> dict[str, Any]:
                 if os.getenv("TELEGRAM_WEBHOOK_SECRET")
                 else "set TELEGRAM_WEBHOOK_SECRET"
             ),
-            "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
+            "dependency_scanning": "Dependency & SBOM gate (#1044) — pip-audit + CycloneDX + license",
+            "dependency_scan_gate": dep_gate,
             "admin_endpoints": "X-Admin-Key or admin email",
         },
         "checks": checks,

@@ -1,0 +1,47 @@
+{
+  "feature_ref": "dependency_scan_gate",
+  "merged_into": "Sprint 0 CI/CD Infrastructure",
+  "standalone_rejected": true,
+  "dependency_scan_gate": {
+    "policy_version": "1.0.0",
+    "policy": {
+      "enabled": true,
+      "tools": ["pip_audit", "cyclonedx_sbom", "license_inventory"],
+      "preferred_tools": ["pip_audit", "snyk", "dependabot", "owasp_dependency_check"],
+      "open_source_first": true,
+      "scan_every_pr": true,
+      "scan_every_merge": true,
+      "scan_deployment_candidates": true,
+      "block_critical_cve": true,
+      "high_cve_sprint_deadline": true,
+      "sbom_format": "CycloneDX",
+      "sbom_per_release": true,
+      "license_compliance_scan": true,
+      "dependency_pinning_required": true,
+      "hash_verification_required": true,
+      "suppression_requires_security_lead": true,
+      "audit_retention_days": 730,
+      "blocks_production": true,
+      "sprint": 0
+    },
+    "severity_policy": {
+      "critical": "block_merge",
+      "high": "block_merge",
+      "medium": "track_remediate_sprint",
+      "low": "track_only"
+    },
+    "lockfiles": [
+      "requirements.txt",
+      "requirements.lock.txt",
+      "requirements.hashes.txt"
+    ],
+    "copyleft_licenses": ["GPL", "AGPL", "SSPL", "LGPL"],
+    "integrations": {
+      "sast_gate_ref": 1042,
+      "dast_gate_ref": 1043,
+      "incident_response_ref": 1017,
+      "immutable_audit_ref": 1029,
+      "activity_audit_ref": 1038
+    }
+  }
+}

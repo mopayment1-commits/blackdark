@@ -1,0 +1,7 @@
+{
+  "suppressions": [],
+  "policy": {
+    "requires_security_lead_approval": true,
+    "required_fields": ["cve_id", "dependency", "reason", "approved_by_security_lead", "approved_at"]
+  }
+}
