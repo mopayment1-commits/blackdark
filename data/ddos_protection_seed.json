@@ -1,0 +1,47 @@
+{
+  "feature_ref": "ddos_protection_layer",
+  "merged_into": "Sprint 0 Infrastructure — CDN/Edge + API Gateway",
+  "standalone_rejected": true,
+  "ddos_protection_layer": {
+    "policy_version": "1.0.0",
+    "network_layer": {
+      "providers": ["cloudflare", "aws_shield", "fastly"],
+      "volumetric_absorption": true,
+      "upstream_protection": true
+    },
+    "application_layer": {
+      "waf_enabled": true,
+      "rate_limiting_ref": 1046,
+      "protections": ["sql_injection", "xss", "bot_mitigation"]
+    },
+    "origin_hardening": {
+      "connection_limits": true,
+      "resource_pools": true,
+      "no_edge_only_reliance": true
+    },
+    "failover": {
+      "auto_failover_secondary_region": true,
+      "dns_based": true,
+      "health_checked": true,
+      "dr_ref": 1016
+    },
+    "legitimate_traffic": {
+      "challenge_rate_max_percent": 1,
+      "false_positive_monitored": true,
+      "load_test_validated_ref": 1020
+    },
+    "non_custodial": true,
+    "audit_retention_days": 90,
+    "blocks_production": true,
+    "sprint": 0,
+    "defense_sequence": ["ddos_edge_l3_l4", "waf_l7", "security_rate_limit", "auth", "rbac", "service"],
+    "integrations": {
+      "rate_limiting_ref": 1046,
+      "incident_response_ref": 1017,
+      "load_testing_ref": 1020,
+      "activity_audit_ref": 1038,
+      "backup_dr_ref": 1016,
+      "stripe_billing_ref": 908
+    }
+  }
+}
