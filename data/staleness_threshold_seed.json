@@ -1,0 +1,63 @@
+{
+  "feature_ref": 1031,
+  "merged_into": "#945 + #1017 + #1025",
+  "standalone_rejected": true,
+  "staleness_threshold_policy_engine_1031": {
+    "policy": {
+      "enabled": true,
+      "rule_based_only": true,
+      "no_ml_detection": true,
+      "no_silent_degradation": true,
+      "health_check_interval_seconds": 30,
+      "methodology_version": "1.0.0",
+      "alert_automation_sprint": 1,
+      "alert_automation_enabled": true,
+      "blocks_production_without_definitions": true
+    },
+    "thresholds_seconds": {
+      "price": 300,
+      "volume": 3600,
+      "onchain": 12,
+      "governance": 86400,
+      "news": 1800
+    },
+    "tier_multipliers": {
+      "free": 1.5,
+      "pro": 0.85,
+      "institution": 0.75,
+      "whale": 0.75,
+      "default": 1.0
+    },
+    "escalation": {
+      "incident_multiplier": 2.0,
+      "failover_multiplier": 3.0,
+      "incident_response_ref": 1017,
+      "automatic_failover_ref": 1025
+    },
+    "freshness_scores": {
+      "provenance_ref": 945,
+      "breach": "Degraded",
+      "breach_2x": "Failed"
+    },
+    "internal_alert": {
+      "user_facing": false,
+      "freshness_badge_ref": 1030,
+      "channels": ["slack", "pagerduty"],
+      "ops_only": true
+    },
+    "integrations": {
+      "provenance_ref": 945,
+      "incident_response_ref": 1017,
+      "automatic_failover_ref": 1025,
+      "outlier_detection_ref": 1026,
+      "gap_recovery_ref": 1028,
+      "freshness_badge_ref": 1030
+    },
+    "fee_db": {
+      "evaluation_usd": 0.00001,
+      "alert_dispatch_usd": 0.00005,
+      "escalation_action_usd": 0.0001,
+      "logged_per_evaluation": true
+    }
+  }
+}

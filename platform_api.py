@@ -618,6 +618,46 @@ async def freshness_badge_e2e(_admin: dict = Depends(require_admin)):
     return run_freshness_badge_e2e_1030()
 
 
+@router.get("/staleness-policy/status")
+async def staleness_policy_status():
+    from bd_platform.staleness_threshold_policy_engine import staleness_policy_status_1031
+
+    return staleness_policy_status_1031()
+
+
+@router.get("/staleness-policy/production-gate")
+async def staleness_policy_production_gate():
+    from bd_platform.staleness_threshold_policy_engine import check_production_gate_1031
+
+    return check_production_gate_1031()
+
+
+@router.get("/staleness-policy/health-check")
+async def staleness_policy_health_check(_admin: dict = Depends(require_admin)):
+    from bd_platform.staleness_threshold_policy_engine import run_health_check_cycle
+
+    return run_health_check_cycle(
+        [
+            {"source_id": "binance", "category": "price", "delay_seconds": 60},
+            {"source_id": "coingecko", "category": "price", "delay_seconds": 400},
+        ]
+    )
+
+
+@router.get("/staleness-policy/audit-trail")
+async def staleness_policy_audit_trail(_admin: dict = Depends(require_admin)):
+    from bd_platform.staleness_threshold_policy_engine import get_staleness_audit_trail
+
+    return get_staleness_audit_trail()
+
+
+@router.get("/staleness-policy/e2e")
+async def staleness_policy_e2e(_admin: dict = Depends(require_admin)):
+    from bd_platform.staleness_threshold_policy_engine import run_staleness_policy_e2e_1031
+
+    return run_staleness_policy_e2e_1031()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),

@@ -79,6 +79,12 @@ def reset_multi_source_state() -> None:
         reset_gap_recovery_state()
     except ImportError:
         pass
+    try:
+        from bd_platform.staleness_threshold_policy_engine import reset_staleness_policy_state
+
+        reset_staleness_policy_state()
+    except ImportError:
+        pass
 
 
 def _utcnow() -> str:
@@ -870,6 +876,20 @@ def _apply_outlier_response_gate(
         return result
 
 
+def _extract_primary_source(result: dict[str, Any]) -> str:
+    if result.get("source"):
+        return str(result["source"])
+    prov = result.get("provenance") or {}
+    if prov.get("source_a"):
+        return str(prov["source_a"])
+    fo = result.get("failover") or {}
+    if fo.get("source"):
+        return str(fo["source"])
+    if fo.get("primary"):
+        return str(fo["primary"])
+    return "unknown"
+
+
 def _apply_freshness_badge(
     result: dict[str, Any],
     *,
@@ -877,12 +897,19 @@ def _apply_freshness_badge(
 ) -> dict[str, Any]:
     try:
         from bd_platform.data_freshness_badge import attach_freshness_to_response
+        from bd_platform.staleness_threshold_policy_engine import evaluate_and_attach_freshness
 
         category = "onchain" if data_type == "onchain" else data_type
-        return attach_freshness_to_response(
+        out = attach_freshness_to_response(
             result,
             category=category,  # type: ignore[arg-type]
             timestamp=result.get("timestamp"),
+            source=_extract_primary_source(result),
+        )
+        return evaluate_and_attach_freshness(
+            out,
+            source_id=_extract_primary_source(out),
+            category=category,  # type: ignore[arg-type]
         )
     except ImportError:
         return result
