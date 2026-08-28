@@ -5189,6 +5189,125 @@ async def quality_pipeline_e2e_route(_admin: dict = Depends(require_admin)):
     return run_quality_pipeline_e2e_850()
 
 
+@router.get("/internal/data-engine/quality-pipeline/pit-integrity/status")
+async def pit_integrity_status_route(_admin: dict = Depends(require_admin)):
+    """#864 Point-in-Time Data Integrity — merged into #850 (admin only)."""
+    from bd_platform.data_engine_quality_pipeline import pit_integrity_status_864
+
+    return pit_integrity_status_864()
+
+
+@router.get("/internal/data-engine/quality-pipeline/pit-integrity")
+async def pit_integrity_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_quality_pipeline import build_pit_integrity_panel_864
+
+    return build_pit_integrity_panel_864()
+
+
+@router.get("/internal/data-engine/quality-pipeline/pit-integrity/e2e")
+async def pit_integrity_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.data_engine_quality_pipeline import run_pit_integrity_e2e_864
+
+    return run_pit_integrity_e2e_864()
+
+
+@router.get("/intelligence-ledger/api-gateway/sdk/status")
+async def developer_sdk_status_route():
+    """#853 Developer SDK — API Gateway DX layer."""
+    from bd_platform.api_gateway_developer_sdk import developer_sdk_status_853
+
+    return developer_sdk_status_853()
+
+
+@router.get("/intelligence-ledger/api-gateway/sdk")
+async def developer_sdk_panel_route():
+    from bd_platform.api_gateway_developer_sdk import build_developer_sdk_panel_853
+
+    return build_developer_sdk_panel_853()
+
+
+@router.get("/intelligence-ledger/api-gateway/sdk/contract-tests")
+async def developer_sdk_contract_tests_route():
+    from bd_platform.api_gateway_developer_sdk import run_contract_tests_853
+
+    return run_contract_tests_853()
+
+
+@router.get("/intelligence-ledger/api-gateway/sdk/openapi-registry")
+async def developer_sdk_openapi_registry_route():
+    from bd_platform.api_gateway_developer_sdk import get_openapi_endpoint_registry_853
+
+    return get_openapi_endpoint_registry_853()
+
+
+@router.get("/intelligence-ledger/api-gateway/sdk/e2e")
+async def developer_sdk_e2e_route():
+    from bd_platform.api_gateway_developer_sdk import run_developer_sdk_e2e_853
+
+    return run_developer_sdk_e2e_853()
+
+
+@router.get("/intelligence-ledger/wallet-risk/status")
+async def wallet_risk_monitor_status_route():
+    """#854 Developer Wallet Tracker — Intelligence Ledger risk layer."""
+    from bd_platform.intelligence_ledger_wallet_risk_monitor import wallet_risk_monitor_status_854
+
+    return wallet_risk_monitor_status_854()
+
+
+@router.get("/intelligence-ledger/wallet-risk")
+async def wallet_risk_panel_route(asset: str = Query("ARB")):
+    from bd_platform.intelligence_ledger_wallet_risk_monitor import build_wallet_risk_panel_854
+
+    return build_wallet_risk_panel_854(asset)
+
+
+@router.get("/intelligence-ledger/wallet-risk/asset-card")
+async def wallet_risk_asset_card_route(asset: str = Query("ARB")):
+    from bd_platform.intelligence_ledger_wallet_risk_monitor import build_asset_card_wallet_badge_854
+
+    return build_asset_card_wallet_badge_854(asset)
+
+
+@router.get("/intelligence-ledger/wallet-risk/e2e")
+async def wallet_risk_e2e_route():
+    from bd_platform.intelligence_ledger_wallet_risk_monitor import run_wallet_risk_e2e_854
+
+    return run_wallet_risk_e2e_854()
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/funding/status")
+async def funding_rates_status_route():
+    """#861 Funding Rate Intelligence — Market Radar derivatives overlay."""
+    from bd_platform.market_radar_funding_rates import funding_rate_intelligence_status_861
+
+    return funding_rate_intelligence_status_861()
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/funding")
+async def funding_rates_panel_route(asset: str = Query("BTC")):
+    from bd_platform.market_radar_funding_rates import build_funding_rates_panel_861
+
+    result = build_funding_rates_panel_861(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/funding/asset-card")
+async def funding_rates_asset_card_route(asset: str = Query("BTC")):
+    from bd_platform.market_radar_funding_rates import build_derivatives_risk_badge_861
+
+    return build_derivatives_risk_badge_861(asset)
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives/funding/e2e")
+async def funding_rates_e2e_route():
+    from bd_platform.market_radar_funding_rates import run_funding_rates_e2e_861
+
+    return run_funding_rates_e2e_861()
+
+
 @router.get("/intelligence-ledger/onchain-layer/whale-clustering/status")
 async def whale_clustering_engine_status_route():
     """#637 Whale Clustering Engine — On-Chain Intelligence Core."""
@@ -6102,6 +6221,28 @@ async def infrastructure_observability_slo_tests_route(_admin: dict = Depends(re
     from bd_platform.infrastructure_observability_stack import run_infra_observability_slo_tests_789
 
     return run_infra_observability_slo_tests_789()
+
+
+@router.get("/internal/infrastructure-observability/uptime-shield/status")
+async def uptime_shield_status_route(_admin: dict = Depends(require_admin)):
+    """#862 Infrastructure Uptime Shield — SLO/SLA layer (admin only)."""
+    from bd_platform.infrastructure_observability_stack import build_uptime_slo_shield_862
+
+    return build_uptime_slo_shield_862()
+
+
+@router.get("/internal/infrastructure-observability/uptime-shield/slo-tests")
+async def uptime_shield_slo_tests_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_observability_stack import run_uptime_slo_tests_862
+
+    return run_uptime_slo_tests_862()
+
+
+@router.get("/internal/infrastructure-observability/uptime-shield/e2e")
+async def uptime_shield_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_observability_stack import run_uptime_shield_e2e_862
+
+    return run_uptime_shield_e2e_862()
 
 
 @router.get("/internal/data-engine/quality-monitor/status")

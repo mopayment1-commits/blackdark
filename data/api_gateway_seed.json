@@ -192,5 +192,36 @@
       "redis_cache_usd": 10.0,
       "tier": "ops"
     }
+  },
+  "sdk_package_853": {
+    "feature_ref": 853,
+    "merged_into": "API Gateway (#876) Developer Experience Layer",
+    "sdk_version": "1.0.0",
+    "semver_policy": {
+      "current": "1.0.0",
+      "next_minor": "1.1.0",
+      "migration_guide_required": true
+    },
+    "migration_guide": {
+      "from": "1.0.0",
+      "to": "1.1.0",
+      "breaking_changes": false,
+      "notes": "v1.1 adds optional pagination cursor fields only — no breaking changes"
+    },
+    "contract_tests": [
+      {"endpoint_id": "market_overview", "sdk_method_path": "/api/v1/market/overview", "path_match": true, "tolerance_pct": 0},
+      {"endpoint_id": "onchain_metrics", "sdk_method_path": "/api/v1/onchain/metrics/{asset}", "path_match": true, "tolerance_pct": 0},
+      {"endpoint_id": "risk_protocol", "sdk_method_path": "/api/v1/risk/protocol/{protocol_id}", "path_match": true, "tolerance_pct": 0},
+      {"endpoint_id": "usage", "sdk_method_path": "/api/v1/usage", "path_match": true, "tolerance_pct": 0}
+    ],
+    "examples": [
+      {"id": "ts-market-overview", "language": "typescript", "path": "sdk/examples/typescript/market-overview.ts", "syntax_valid": true, "ci_tested": true},
+      {"id": "ts-pagination", "language": "typescript", "path": "sdk/examples/typescript/pagination.ts", "syntax_valid": true, "ci_tested": true},
+      {"id": "py-usage", "language": "python", "path": "sdk/examples/python/usage.py", "syntax_valid": true, "ci_tested": true}
+    ],
+    "fee_db": {
+      "development_usd": 500.0,
+      "tier": "ops"
+    }
   }
 }
