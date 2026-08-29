@@ -1,4 +1,4 @@
-"""Oracle /quick warm cache — pre-fetch top assets into local memory cache (no Redis required)."""
+"""Oracle /quick warm cache — pre-fetch top assets into shared Redis (memory fallback)."""
 
 from __future__ import annotations
 
@@ -88,9 +88,11 @@ async def _warm_one(asset: str, lang: str, ux_mode: str) -> bool:
 
 
 async def warm_oracle_quick_cache_once() -> dict[str, Any]:
-    """Populate local quick cache for top assets × langs before user traffic."""
+    """Populate shared oracle quick cache (Redis when available, else per-process memory)."""
     if not _enabled():
         return {"ok": False, "reason": "disabled"}
+    from viral_capacity import cache_backend
+
     assets = oracle_warm_assets()
     warmed = 0
     failed = 0
@@ -102,12 +104,19 @@ async def warm_oracle_quick_cache_once() -> dict[str, Any]:
                 else:
                     failed += 1
     logger.info(
-        "Oracle quick warm cache | assets=%d warmed=%d failed=%d",
+        "Oracle quick warm cache | backend=%s assets=%d warmed=%d failed=%d",
+        cache_backend(),
         len(assets),
         warmed,
         failed,
     )
-    return {"ok": True, "assets": len(assets), "warmed": warmed, "failed": failed}
+    return {
+        "ok": True,
+        "backend": cache_backend(),
+        "assets": len(assets),
+        "warmed": warmed,
+        "failed": failed,
+    }
 
 
 async def _warm_job() -> None:

@@ -1,8 +1,9 @@
 {
   "base": "http://127.0.0.1:8765",
-  "oracle_quick_p95_ms": 998.5380494999999,
-  "cache_hits": 18272,
-  "cache_misses": 7319,
-  "cache_hit_rate": 0.7140010159821812,
+  "redis_url": "redis://127.0.0.1:6379/0",
+  "oracle_quick_p95_ms": 191.1877104999998,
+  "cache_hits": 103849,
+  "cache_misses": 210,
+  "cache_hit_rate": 0.9979819141064203,
   "http_req_failed_rate": 0
 }
