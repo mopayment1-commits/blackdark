@@ -74,14 +74,14 @@ def run_axe_cli_audit(url: str | None = None) -> dict[str, Any]:
         return {"ok": False, "error": "ACCESSIBILITY_AUDIT_URL not set"}
     try:
         proc = subprocess.run(
-            ["npx", "--yes", "@axe-core/cli", url, "--exit"],
+            ["npx", "--yes", "@axe-core/cli", target, "--exit"],
             capture_output=True,
             text=True,
             timeout=120,
             cwd=str(ROOT),
         )
         return {
-            "url": url,
+            "url": target,
             "exit_code": proc.returncode,
             "stdout": (proc.stdout or "")[-4000:],
             "stderr": (proc.stderr or "")[-2000:],
