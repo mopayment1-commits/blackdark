@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT))
 from openpyxl import load_workbook
 from openpyxl.styles import Alignment
 
-from pdf_capability_registry import batch_test_module_for, discover_bindings, execute_capability
+from pdf_capability_registry import batch_test_module_for, discover_bindings, execute_capability, execute_evidence, resolve_evidence_binding
 
 XLSX = ROOT / "capabilities_checklist.xlsx"
 OUT = ROOT / "capabilities_checklist.xlsx"
@@ -36,22 +36,24 @@ def format_status(status: str, evidence: str) -> str:
     return f"{status} — {evidence}" if evidence else status
 
 
-async def upgrade_batch(ids: list[int], *, dry_run: bool = False) -> list[dict]:
+async def upgrade_batch(ids: list[int], *, evidence_map: dict[int, str] | None = None, dry_run: bool = False) -> list[dict]:
     results = []
+    evidence_map = evidence_map or {}
     for cid in ids:
-        exec_result = await execute_capability(cid)
-        binding = discover_bindings().get(cid)
+        evidence = evidence_map.get(cid, "")
+        exec_result = await execute_evidence(cid, evidence)
+        binding = discover_bindings().get(cid) or resolve_evidence_binding(evidence)
         test_mod = batch_test_module_for(cid)
         ok = bool(exec_result.get("ok"))
         if ok and binding:
-            evidence = f"{binding[0]}.{binding[1]}"
+            evidence_out = f"{binding[0]}.{binding[1]}"
             if test_mod:
-                evidence += f" + {test_mod}"
+                evidence_out += f" + {test_mod}"
             results.append(
                 {
                     "id": cid,
                     "status": "مبني وشغال فعليًا",
-                    "evidence": evidence,
+                    "evidence": evidence_out,
                     "exec": exec_result,
                 }
             )
@@ -84,10 +86,13 @@ async def main() -> None:
 
     wb = load_workbook(XLSX)
     partial_ids: list[int] = []
+    evidence_map: dict[int, str] = {}
     for r in wb.active.iter_rows(min_row=2, values_only=True):
-        st, _ = parse_row(r[3])
+        st, ev = parse_row(r[3])
         if st == "مبني جزئيًا":
-            partial_ids.append(int(r[0]))
+            cid = int(r[0])
+            partial_ids.append(cid)
+            evidence_map[cid] = ev
 
     if args.ids:
         partial_ids = [int(x.strip()) for x in args.ids.split(",") if x.strip()]
@@ -102,7 +107,7 @@ async def main() -> None:
     upgrades: dict[int, tuple[str, str]] = {}
     ok_count = 0
     for cid in partial_ids:
-        res = (await upgrade_batch([cid]))[0]
+        res = (await upgrade_batch([cid], evidence_map=evidence_map))[0]
         if res.get("status") == "مبني وشغال فعليًا":
             upgrades[cid] = (res["status"], res["evidence"])
             ok_count += 1
