@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-08-27T10:10:19.620642+00:00",
+  "generated_at": "2026-08-29T18:04:53.656887+00:00",
   "product_thesis": "978-capability Decision Intelligence platform — evidence-first closure",
   "verdict": "VERIFIED COMPLETE",
   "internal_closure": {
+    "FUNCTIONALLY_INCOMPLETE": 0,
     "INTERNAL_PARTIAL": 0,
-    "INTERNAL_NOT_IMPLEMENTED": 0,
-    "FUNCTIONALLY_INCOMPLETE": 0
+    "INTERNAL_NOT_IMPLEMENTED": 0
   },
   "cap978_counts": {
     "VERIFIED_COMPLETE": 938,
     "CANONICALLY_COVERED": 37,
-    "EXTERNAL_EVIDENCE_REQUIRED": 1,
-    "EXTERNAL_BLOCKED": 2
+    "EXTERNAL_BLOCKED": 2,
+    "EXTERNAL_EVIDENCE_REQUIRED": 1
   },
   "extension_counts": {
     "VERIFIED_COMPLETE": 329,
-    "EXTERNAL_BLOCKED": 2,
-    "CANONICALLY_COVERED": 1
+    "CANONICALLY_COVERED": 1,
+    "EXTERNAL_BLOCKED": 2
   },
   "governing_controls": {
     "counts": {
@@ -30,14 +30,14 @@
     "internal_closure": true,
     "e2e": {
       "verdict": "VERIFIED_COMPLETE",
-      "chain_id": "chain_d42e1c4667ed",
+      "chain_id": "chain_9c72dc764267",
       "acceptance_evidence": {
-        "prediction_id": "pred_chain_d42e1c4667ed",
-        "decision_id": "dec_7442cb163c764b3b",
-        "exposure_id": "exp_4310ab531dae4e8c",
-        "certificate_hash": "2aa613f4c678a79f82cad1c91c8d58b5da84e997531263198017f6f2288bc09e",
-        "signal_id": "pred_chain_d42e1c4667ed",
-        "outcome_id": "out_chain_d42e1c4667ed"
+        "prediction_id": "pred_chain_9c72dc764267",
+        "decision_id": "dec_939b75025c474159",
+        "exposure_id": "exp_626a49a1bfe64a8e",
+        "certificate_hash": "e9d6925ddd60bfc5ce2b317ce3bd2e2d2dd13b75f3c84eae777f015f7a183c31",
+        "signal_id": "pred_chain_9c72dc764267",
+        "outcome_id": "out_chain_9c72dc764267"
       },
       "stage_count": 12,
       "failed_stages": []
@@ -46,7 +46,8 @@
   "external_registry_summary": {
     "total": 4,
     "counts": {
-      "EXTERNAL_EVIDENCE_REQUIRED": 2,
+      "EXTERNAL_EVIDENCE_REQUIRED": 1,
+      "VERIFIED_COMPLETE": 1,
       "EXTERNAL_BLOCKED": 2
     }
   },
@@ -90,11 +91,11 @@
     {
       "label": "extension_blocked",
       "capability_id": 647,
-      "success": false,
-      "classification": "NOT_READY",
+      "success": true,
+      "classification": "VERIFIED_COMPLETE",
       "surface": "real_time_feed",
       "backend_module": "bd_platform.free_tier_capabilities",
-      "proof_hash": "0689d2e7365511c565d265a509a54a62a64f713d803468d09ecfa58736e7eb27"
+      "proof_hash": "dbc71a19bb3b6fcd66b50ba954ab145c0ca63465c757d55129ce6c00e21e7920"
     },
     {
       "label": "extension_internal",
@@ -172,5 +173,5 @@
     "curl /api/cap646/evidence-room",
     "curl /api/cap646/platform-chain/e2e?symbol=BTC"
   ],
-  "snapshot_hash": "dce1c718ba978b576b994567288cde24080ad91fb235c21ffdb203e30a597de4"
+  "snapshot_hash": "c103ed0190a0499a9cad9f3639afa3d5e9056ff10b68c2264d3c65eb4feb547d"
 }

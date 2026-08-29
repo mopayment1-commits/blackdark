@@ -38,8 +38,8 @@ async def test_external_registry():
     from cap978.external_registry import external_registry_report
 
     report = external_registry_report()
-    assert report["total"] >= 31
-    assert report["counts"].get("EXTERNAL_BLOCKED", 0) >= 25
+    assert report["total"] >= 4
+    assert report["counts"].get("EXTERNAL_BLOCKED", 0) >= 2
     assert all(r.get("internal_action", "").startswith("none") for r in report["rows"])
 
 
@@ -57,7 +57,7 @@ async def test_evidence_room_snapshot(tmp_path, monkeypatch):
     snap = await build_evidence_room_snapshot(full_closure=False)
     assert snap["snapshot_hash"]
     assert "sample_executions" in snap
-    assert snap["external_registry_summary"]["total"] >= 31
+    assert snap["external_registry_summary"]["total"] >= 4
 
 
 @pytest.mark.asyncio

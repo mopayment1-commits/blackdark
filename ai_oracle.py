@@ -24,14 +24,21 @@ from onchain_tracker import (
     inject_oracle_onchain_analytics,
 )
 from oracle_data_hub import hub_score_adjustment, synthesize_with_free_llm_chain
+from oracle_safe_language import (
+    SAFE_VERDICT_BULLISH,
+    SAFE_VERDICT_RISK,
+    SafeOracleVerdict,
+    accepted_analytical_sentence,
+    build_analytical_prompt,
+    format_analytical_sentence,
+    normalize_llm_sentence,
+    probability_from_score,
+    verdict_from_analytics,
+)
 from sentiment_engine import (
     build_sentiment_panic_warning,
     is_extreme_negative_sentiment,
 )
-
-# Sonar S1192: duplicated string literals
-STR_BUY_NOW = 'Buy Now'
-STR_DO_NOT_TOUCH = 'Do Not Touch'
 
 logger = logging.getLogger("BLACKDARK.AIOracle")
 
@@ -41,7 +48,7 @@ OpportunityKind = Literal[
     "spot_futures",
     "funding",
 ]
-OracleVerdict = Literal[STR_BUY_NOW, STR_DO_NOT_TOUCH]
+OracleVerdict = SafeOracleVerdict
 
 
 class OpportunityMetrics(BaseModel):
@@ -489,17 +496,30 @@ def _rules_oracle(
         opportunity_score >= config.AI_ORACLE_MIN_SCORE
         and explanation.confidence_percent >= config.AI_ORACLE_MIN_CONFIDENCE
     )
+    prob = probability_from_score(opportunity_score)
     if actionable:
         reason = explanation.reasons[0] if explanation.reasons else "Positive net edge detected."
+        verdict = SAFE_VERDICT_BULLISH
         return OracleResponse(
-            verdict=STR_BUY_NOW,
-            sentence=f"Buy Now — {asset}: {reason}",
+            verdict=verdict,
+            sentence=format_analytical_sentence(
+                asset,
+                probability=prob,
+                reason=reason,
+                verdict=verdict,
+            ),
         )
 
     top_risk = explanation.risk_factors[0] if explanation.risk_factors else "Edge is too thin."
+    verdict = SAFE_VERDICT_RISK
     return OracleResponse(
-        verdict=STR_DO_NOT_TOUCH,
-        sentence=f"Do Not Touch — {asset}: {top_risk}",
+        verdict=verdict,
+        sentence=format_analytical_sentence(
+            asset,
+            probability=prob,
+            reason=top_risk,
+            verdict=verdict,
+        ),
     )
 
 
@@ -512,15 +532,12 @@ async def _openai_oracle(
     if not api_key:
         return None
 
-    prompt = (
-        "You are a disciplined crypto execution desk analyst. "
-        "Return exactly one sentence starting with either 'Buy Now' or 'Do Not Touch' "
-        "followed by an em dash and a concise reason.\n"
-        f"Asset: {asset}\n"
-        f"Score: {opportunity_score}\n"
-        f"Summary: {explanation.summary}\n"
-        f"Reasons: {' | '.join(explanation.reasons)}\n"
-        f"Risks: {' | '.join(explanation.risk_factors)}"
+    prompt = build_analytical_prompt(
+        asset=asset,
+        score=opportunity_score,
+        summary=explanation.summary,
+        reasons=" | ".join(explanation.reasons),
+        risks=" | ".join(explanation.risk_factors),
     )
 
     payload = {
@@ -549,9 +566,7 @@ async def _openai_oracle(
                 response.raise_for_status()
                 data = await response.json()
         sentence = data["choices"][0]["message"]["content"].strip()
-        verdict: OracleVerdict = (
-            STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
-        )
+        verdict, sentence = normalize_llm_sentence(sentence, asset=asset, score=opportunity_score)
         return OracleResponse(verdict=verdict, sentence=sentence)
     except Exception as exc:
         logger.warning("OpenAI oracle fallback triggered: %s", exc)
@@ -566,10 +581,10 @@ async def _ollama_oracle(
     base_url = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
     model = os.getenv("OLLAMA_MODEL", "llama3.2")
 
-    prompt = (
-        "Return one sentence only. Start with 'Buy Now' or 'Do Not Touch', then em dash, "
-        f"then reason. Asset={asset}, score={opportunity_score}, "
-        f"summary={explanation.summary}"
+    prompt = build_analytical_prompt(
+        asset=asset,
+        score=opportunity_score,
+        summary=explanation.summary,
     )
 
     try:
@@ -584,21 +599,19 @@ async def _ollama_oracle(
         sentence = str(data.get("response", "")).strip().split("\n")[0]
         if not sentence:
             return None
-        verdict: OracleVerdict = (
-            STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
-        )
+        verdict, sentence = normalize_llm_sentence(sentence, asset=asset, score=opportunity_score)
         return OracleResponse(verdict=verdict, sentence=sentence)
     except Exception as exc:
         logger.warning("Ollama oracle fallback triggered: %s", exc)
         return None
 
 
-def _oracle_response_from_sentence(sentence: str) -> OracleResponse | None:
+def _oracle_response_from_sentence(sentence: str, *, asset: str, score: float) -> OracleResponse | None:
     sentence = sentence.strip()
-    if not sentence:
+    if not sentence or not accepted_analytical_sentence(sentence):
         return None
-    verdict: OracleVerdict = STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
-    return OracleResponse(verdict=verdict, sentence=sentence)
+    verdict, normalized = normalize_llm_sentence(sentence, asset=asset, score=score)
+    return OracleResponse(verdict=verdict, sentence=normalized)
 
 
 async def _free_chain_oracle_response(
@@ -615,7 +628,7 @@ async def _free_chain_oracle_response(
         explanation.summary,
         hub,
     )
-    return _oracle_response_from_sentence(sentence or "")
+    return _oracle_response_from_sentence(sentence or "", asset=asset, score=opportunity_score)
 
 
 async def _provider_oracle_response(
@@ -730,9 +743,10 @@ async def _oracle_with_internal_verdict(
     internal = str(finalized.get("internal_verdict") or oracle.verdict)
     conflict = finalized.get("dimension_conflict", {})
     if conflict.get("veto") or conflict.get("abstain") or truth.get("reject"):
-        internal = STR_DO_NOT_TOUCH
+        internal = SAFE_VERDICT_RISK
+    safe_verdict = internal if internal in {SAFE_VERDICT_BULLISH, SAFE_VERDICT_RISK, "NEUTRAL_OBSERVE"} else oracle.verdict
     return OracleResponse(
-        verdict=internal if internal in {STR_BUY_NOW, STR_DO_NOT_TOUCH} else oracle.verdict,
+        verdict=safe_verdict,
         sentence=inject_oracle_onchain_analytics(
             oracle.sentence,
             explanation.asset,
