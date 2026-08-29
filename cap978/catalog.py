@@ -20,7 +20,7 @@ from cap646.catalog import (  # noqa: E402
     matrix_by_id,
 )
 
-# Extension vendor IDs closed via free-tier surfaces (see bd_platform.free_tier_capabilities)
+# Extension vendor IDs — runtime is_external() + free-tier proxies; not closure registry rows.
 EXTENSION_EXTERNAL_IDS: frozenset[int] = frozenset()
 
 # Extension duplicates of base canonical capabilities (same goal/behavior)
@@ -49,6 +49,13 @@ def is_extension(capability_id: int) -> bool:
 
 
 def is_external(capability_id: int) -> bool:
+    try:
+        from bd_platform.free_tier_capabilities import FREE_TIER_EXTENSION_IDS
+
+        if capability_id in FREE_TIER_EXTENSION_IDS:
+            return False
+    except Exception:
+        pass
     if capability_id == 658:
         try:
             from bigquery_export import bigquery_live_ready

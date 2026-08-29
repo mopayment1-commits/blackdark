@@ -5574,6 +5574,53 @@ async def landing_alias(request: Request):
     return await landing_page(request)
 
 
+@app.get("/data-lineage", response_class=HTMLResponse)
+async def data_lineage_page(request: Request, symbol: str = "BTC/USDT", decision_id: str = ""):
+    from data_lineage_viz import build_lineage_graph
+
+    graph = await build_lineage_graph(symbol=symbol, decision_id=decision_id or None)
+    return render_page(
+        request,
+        "data_lineage.html",
+        {"graph": graph, "symbol": symbol, "decision_id": decision_id, **_footer_ctx()},
+    )
+
+
+@app.get("/api/reconciliation/run")
+async def api_reconciliation_run(symbol: str = "BTC/USDT"):
+    from reconciliation_engine import reconcile_symbol
+
+    return await reconcile_symbol(symbol)
+
+
+@app.get("/api/vendor-risk")
+async def api_vendor_risk():
+    from vendor_risk_monitor import vendor_risk_dashboard
+
+    return await vendor_risk_dashboard()
+
+
+@app.get("/api/feature-flags")
+async def api_feature_flags():
+    from feature_flags import list_flags
+
+    return list_flags()
+
+
+@app.get("/api/experiments/registry")
+async def api_experiment_registry():
+    from experiment_registry import mrm_summary
+
+    return mrm_summary()
+
+
+@app.get("/api/deploy/rollback/status")
+async def api_deploy_rollback_status():
+    from deploy_rollback import rollback_status
+
+    return rollback_status()
+
+
 if __name__ == "__main__":
     import uvicorn
 

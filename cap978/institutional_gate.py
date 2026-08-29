@@ -107,7 +107,15 @@ def validate_external_registry_integrity() -> list[dict[str, Any]]:
         _ok(checks, "external_registry_controls")
 
     if report["capability_ids_blocked"] != CLOSURE_BASELINE["external_registry"]["capability_ids_blocked"]:
-        _fail(checks, "external_registry_cap_count", str(report["capability_ids_blocked"]))
+        # ID644 may be VERIFIED_COMPLETE when signed capacity is valid (blocked count drops by 1).
+        signed_644 = any(
+            r.get("id") == 644 and r.get("classification") == "VERIFIED_COMPLETE" for r in rows
+        )
+        expected = CLOSURE_BASELINE["external_registry"]["capability_ids_blocked"] - (1 if signed_644 else 0)
+        if report["capability_ids_blocked"] != expected:
+            _fail(checks, "external_registry_cap_count", str(report["capability_ids_blocked"]))
+        else:
+            _ok(checks, "external_registry_cap_count", f"signed_644={signed_644}")
     else:
         _ok(checks, "external_registry_cap_count")
 
