@@ -1,0 +1,8 @@
+{
+  "base": "http://127.0.0.1:8765",
+  "oracle_quick_p95_ms": 3444.8364134500002,
+  "cache_hits": 2572,
+  "cache_misses": 2702,
+  "cache_hit_rate": 0.4876753886992795,
+  "http_req_failed_rate": 0
+}

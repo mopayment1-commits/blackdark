@@ -1,0 +1,3 @@
+py-spy> Sampling process 100 times a second for 185 seconds. Press Control-C to exit.
+
+py-spy> Wrote flamegraph data to 'docs/performance/oracle_flamegraph.svg'. Samples: 31539 Errors: 9

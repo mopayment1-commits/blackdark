@@ -1,0 +1,187 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /workspace
+configfile: pytest.ini
+plugins: anyio-4.14.2, asyncio-1.4.0, cov-7.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 4 items
+
+tests/test_oracle_perf.py .FF.                                           [100%]
+
+=================================== FAILURES ===================================
+____________________ test_oracle_quick_ar_lang_perf_profile ____________________
+tests/test_oracle_perf.py:31: in test_oracle_quick_ar_lang_perf_profile
+    assert response.status_code == 200
+E   assert 429 == 200
+E    +  where 429 = <Response [429 Too Many Requests]>.status_code
+----------------------------- Captured stderr call -----------------------------
+{"timestamp": "2026-08-29 21:21:55,148", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/BTC/quick 628.4ms"}
+{"timestamp": "2026-08-29 21:21:55,224", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:21:55,230", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/BTC/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:21:55,868", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/ETH/quick 636.5ms"}
+{"timestamp": "2026-08-29 21:21:55,942", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:21:55,946", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/ETH/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:21:56,427", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:21:56,579", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/SOL/quick 631.5ms"}
+{"timestamp": "2026-08-29 21:21:56,652", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:21:56,657", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/SOL/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:21:57,288", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/ADA/quick 628.5ms"}
+{"timestamp": "2026-08-29 21:21:57,363", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:21:57,367", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/ADA/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:21:57,446", "level": "WARNING", "logger": "BLACKDARK.OracleDataHub", "message": "Binance funding fetch failed | asset=ARBUSDT"}
+{"timestamp": "2026-08-29 21:21:57,449", "level": "WARNING", "logger": "BLACKDARK.OracleDataHub", "message": "Binance OI fetch failed | asset=ARBUSDT"}
+{"timestamp": "2026-08-29 21:21:57,453", "level": "WARNING", "logger": "BLACKDARK.OracleDataHub", "message": "Binance long/short ratio fetch failed | asset=ARBUSDT"}
+{"timestamp": "2026-08-29 21:21:57,997", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/AAVE/quick 629.0ms"}
+{"timestamp": "2026-08-29 21:21:58,070", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:21:58,074", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/AAVE/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:21:58,691", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/ARB/quick 615.3ms"}
+{"timestamp": "2026-08-29 21:21:58,765", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:21:58,771", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/ARB/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:21:59,383", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:21:59,396", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/LINK/quick 623.7ms"}
+{"timestamp": "2026-08-29 21:21:59,471", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:21:59,475", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/LINK/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:00,092", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/XRP/quick 615.1ms"}
+{"timestamp": "2026-08-29 21:22:00,169", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:00,173", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/XRP/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:00,406", "level": "WARNING", "logger": "BLACKDARK.OracleDataHub", "message": "Binance funding fetch failed | asset=ARKMUSDT"}
+{"timestamp": "2026-08-29 21:22:00,410", "level": "WARNING", "logger": "BLACKDARK.OracleDataHub", "message": "Binance OI fetch failed | asset=ARKMUSDT"}
+{"timestamp": "2026-08-29 21:22:00,413", "level": "WARNING", "logger": "BLACKDARK.OracleDataHub", "message": "Binance long/short ratio fetch failed | asset=ARKMUSDT"}
+{"timestamp": "2026-08-29 21:22:00,799", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/BTC/quick 624.3ms"}
+{"timestamp": "2026-08-29 21:22:00,870", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:00,874", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/BTC/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:01,491", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/ETH/quick 615.1ms"}
+{"timestamp": "2026-08-29 21:22:01,565", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:01,570", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/ETH/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:02,204", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/SOL/quick 632.3ms"}
+{"timestamp": "2026-08-29 21:22:02,282", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:02,287", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/SOL/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:02,350", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:02,968", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/ADA/quick 680.2ms"}
+{"timestamp": "2026-08-29 21:22:03,043", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:03,049", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/ADA/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:03,681", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/AAVE/quick 630.6ms"}
+{"timestamp": "2026-08-29 21:22:03,756", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:03,761", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/AAVE/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:04,389", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/ARB/quick 625.9ms"}
+{"timestamp": "2026-08-29 21:22:04,462", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:04,468", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/ARB/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:05,115", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/LINK/quick 645.9ms"}
+{"timestamp": "2026-08-29 21:22:05,188", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:05,193", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/LINK/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:05,810", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/XRP/quick 614.9ms"}
+{"timestamp": "2026-08-29 21:22:05,881", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:05,887", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/XRP/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:06,528", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/BTC/quick 639.7ms"}
+{"timestamp": "2026-08-29 21:22:06,603", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:06,608", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/BTC/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:07,239", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/ETH/quick 629.4ms"}
+{"timestamp": "2026-08-29 21:22:07,313", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:07,317", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/ETH/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:07,926", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/SOL/quick 607.4ms"}
+{"timestamp": "2026-08-29 21:22:08,001", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:08,005", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/SOL/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:08,625", "level": "WARNING", "logger": "BLACKDARK.Wave00", "message": "slow request GET /oracle/ADA/quick 618.6ms"}
+{"timestamp": "2026-08-29 21:22:08,700", "level": "ERROR", "logger": "BLACKDARK.OracleAuditChain", "message": "oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl"}
+{"timestamp": "2026-08-29 21:22:08,705", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/ADA/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 200 OK\""}
+{"timestamp": "2026-08-29 21:22:08,708", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/AAVE/quick?ux_mode=beginner&lang=ar \"HTTP/1.1 429 Too Many Requests\""}
+------------------------------ Captured log call -------------------------------
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/BTC/quick 628.4ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/BTC/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/ETH/quick 636.5ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/ETH/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/SOL/quick 631.5ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/SOL/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/ADA/quick 628.5ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/ADA/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.OracleDataHub:oracle_data_hub.py:283 Binance funding fetch failed | asset=ARBUSDT
+WARNING  BLACKDARK.OracleDataHub:oracle_data_hub.py:308 Binance OI fetch failed | asset=ARBUSDT
+WARNING  BLACKDARK.OracleDataHub:oracle_data_hub.py:321 Binance long/short ratio fetch failed | asset=ARBUSDT
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/AAVE/quick 629.0ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/AAVE/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/ARB/quick 615.3ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/ARB/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/LINK/quick 623.7ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/LINK/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/XRP/quick 615.1ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/XRP/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.OracleDataHub:oracle_data_hub.py:283 Binance funding fetch failed | asset=ARKMUSDT
+WARNING  BLACKDARK.OracleDataHub:oracle_data_hub.py:308 Binance OI fetch failed | asset=ARKMUSDT
+WARNING  BLACKDARK.OracleDataHub:oracle_data_hub.py:321 Binance long/short ratio fetch failed | asset=ARKMUSDT
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/BTC/quick 624.3ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/BTC/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/ETH/quick 615.1ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/ETH/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/SOL/quick 632.3ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/SOL/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/ADA/quick 680.2ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/ADA/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/AAVE/quick 630.6ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/AAVE/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/ARB/quick 625.9ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/ARB/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/LINK/quick 645.9ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/LINK/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/XRP/quick 614.9ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/XRP/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/BTC/quick 639.7ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/BTC/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/ETH/quick 629.4ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/ETH/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/SOL/quick 607.4ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/SOL/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+WARNING  BLACKDARK.Wave00:wave_00_hardening.py:135 slow request GET /oracle/ADA/quick 618.6ms
+ERROR    BLACKDARK.OracleAuditChain:oracle_audit_chain.py:109 oracle_audit_chain_integrity_failed broken_at=3656 path=data/oracle_audit_chain.jsonl
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/ADA/quick?ux_mode=beginner&lang=ar "HTTP/1.1 200 OK"
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/AAVE/quick?ux_mode=beginner&lang=ar "HTTP/1.1 429 Too Many Requests"
+_______________________ test_oracle_explain_perf_profile _______________________
+tests/test_oracle_perf.py:37: in test_oracle_explain_perf_profile
+    assert response.status_code in {200, 403, 404}
+E   assert 429 in {200, 403, 404}
+E    +  where 429 = <Response [429 Too Many Requests]>.status_code
+----------------------------- Captured stderr call -----------------------------
+{"timestamp": "2026-08-29 21:22:08,903", "level": "INFO", "logger": "httpx", "message": "HTTP Request: GET http://testserver/oracle/BTC/explain \"HTTP/1.1 429 Too Many Requests\""}
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/oracle/BTC/explain "HTTP/1.1 429 Too Many Requests"
+=============================== warnings summary ===============================
+tests/test_oracle_perf.py::test_oracle_quick_perf_profile
+  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_oracle_perf.py: 60 warnings
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape
+
+tests/test_oracle_perf.py: 12 warnings
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:204: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape[::-1]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_oracle_perf.py::test_oracle_quick_ar_lang_perf_profile - as...
+FAILED tests/test_oracle_perf.py::test_oracle_explain_perf_profile - assert 4...
+============= 2 failed, 2 passed, 73 warnings in 121.79s (0:02:01) =============
