@@ -129,7 +129,7 @@ def compliance_footer_block(
     data_sources: str = "live market + institutional context + labeled flywheel",
 ) -> dict[str, str]:
     """Anti-Hype Compliance Footer (Section Z #5) — shared under AI outputs."""
-    return {
+    block = {
         "surface": surface,
         "data_source": data_sources,
         "trust_basis": trust_basis,
@@ -139,3 +139,11 @@ def compliance_footer_block(
         ),
         "regulator_note": "Built for auditability against AI-washing enforcement patterns (prove-it, not trust-me).",
     }
+    try:
+        from bd_platform.legal_commercial_layer import get_service_disclosure_text
+
+        block["service_disclosure_57"] = get_service_disclosure_text(locale="en")
+        block["service_disclosure_57_ar"] = get_service_disclosure_text(locale="ar")
+    except ImportError:
+        pass
+    return block
