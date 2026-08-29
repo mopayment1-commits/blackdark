@@ -4750,6 +4750,41 @@ async def acquisition_assets_audit():
     return audit
 
 
+@app.get("/api/acquisition/ma-intelligence")
+async def ma_intelligence_route(symbol: str = "BTC"):
+    from ma_intelligence_service import build_ma_intelligence_report
+
+    return await build_ma_intelligence_report(symbol=symbol)
+
+
+@app.get("/api/platform/exchanges/{exchange_id}/currencies/deposit")
+async def exchange_deposit_currencies_route(exchange_id: str):
+    from exchange_currency_status import deposit_currencies_open
+
+    return await deposit_currencies_open(exchange=exchange_id)
+
+
+@app.get("/api/platform/exchanges/{exchange_id}/currencies/withdrawal")
+async def exchange_withdrawal_currencies_route(exchange_id: str):
+    from exchange_currency_status import withdrawal_currencies_closed
+
+    return await withdrawal_currencies_closed(exchange=exchange_id)
+
+
+@app.get("/api/platform/intelligence/comparison-engine")
+async def comparison_engine_route(symbol: str = "BTC", quote_amount: float | None = None):
+    from comparison_engine import run_comparison_engine
+
+    return await run_comparison_engine(symbol=symbol, quote_amount=quote_amount)
+
+
+@app.get("/api/platform/accessibility/audit")
+async def accessibility_audit_route():
+    from accessibility_audit_service import build_accessibility_audit_report
+
+    return await build_accessibility_audit_report()
+
+
 @app.get("/api/behavior/stats")
 async def behavior_data_stats(days: int = 30):
     from behavior_data_service import behavior_data_status, fetch_behavior_asset_stats

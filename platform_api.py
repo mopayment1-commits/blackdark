@@ -2533,6 +2533,34 @@ async def price_comparison_route(asset: str = Query("BTC")):
     return analyze_price_comparison_232(asset=asset)
 
 
+@router.get("/intelligence/comparison-engine")
+async def comparison_engine_platform_route(symbol: str = Query("BTC"), quote_amount: float | None = None):
+    from comparison_engine import run_comparison_engine
+
+    return await run_comparison_engine(symbol=symbol, quote_amount=quote_amount)
+
+
+@router.get("/exchanges/{exchange_id}/currencies/deposit")
+async def platform_deposit_currencies(exchange_id: str):
+    from exchange_currency_status import deposit_currencies_open
+
+    return await deposit_currencies_open(exchange=exchange_id)
+
+
+@router.get("/exchanges/{exchange_id}/currencies/withdrawal")
+async def platform_withdrawal_currencies(exchange_id: str):
+    from exchange_currency_status import withdrawal_currencies_closed
+
+    return await withdrawal_currencies_closed(exchange=exchange_id)
+
+
+@router.get("/accessibility/audit")
+async def platform_accessibility_audit():
+    from accessibility_audit_service import build_accessibility_audit_report
+
+    return await build_accessibility_audit_report()
+
+
 @router.get("/radar/heatmap")
 async def heatmap_component_route():
     from bd_platform.intelligence_ux_extensions_layer import build_heatmap_component_233
