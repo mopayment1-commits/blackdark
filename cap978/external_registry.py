@@ -87,15 +87,15 @@ def external_registry_rows() -> list[dict[str, Any]]:
     for cid in SIGNED_INFRA_SLOTS:
         if cid in EXTERNAL_EVIDENCE_SLOTS:
             continue
+        signed_ok = False
         if cid == 644:
             try:
                 from institutional_assurance import get_signed_capacity, verify_signed_capacity
 
                 cap = get_signed_capacity()
-                if cap and verify_signed_capacity(cap):
-                    continue
+                signed_ok = bool(cap and verify_signed_capacity(cap))
             except Exception:
-                pass
+                signed_ok = False
         row = cat.get(cid, {})
         rows.append(
             {
@@ -103,10 +103,11 @@ def external_registry_rows() -> list[dict[str, Any]]:
                 "scope": "base_646",
                 "capability": row.get("capability", f"ID{cid}"),
                 "track": row.get("track"),
-                "classification": "EXTERNAL_EVIDENCE_REQUIRED",
+                "classification": "VERIFIED_COMPLETE" if signed_ok else "EXTERNAL_EVIDENCE_REQUIRED",
                 "blocker_type": "signed_load_evidence",
                 "reason": "Signed multi-worker capacity/load attestation — ID644",
                 "internal_action": "none — requires signed load test under production topology",
+                "signed": signed_ok,
             }
         )
 
@@ -132,10 +133,15 @@ def external_registry_report() -> dict[str, Any]:
     for row in rows:
         cls = row["classification"]
         by_class[cls] = by_class.get(cls, 0) + 1
+    blocked_caps = [
+        r
+        for r in rows
+        if isinstance(r.get("id"), int) and r.get("classification") != "VERIFIED_COMPLETE"
+    ]
     return {
         "total": len(rows),
         "counts": by_class,
-        "capability_ids_blocked": len([r for r in rows if isinstance(r.get("id"), int)]),
+        "capability_ids_blocked": len(blocked_caps),
         "controls_blocked": len([r for r in rows if isinstance(r.get("id"), str)]),
         "rows": rows,
         "policy": "EXTERNAL_BLOCKED and EXTERNAL_EVIDENCE_REQUIRED are excluded from internal closure numerator",

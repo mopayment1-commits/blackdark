@@ -182,7 +182,7 @@ CHANGELOG: list[dict[str, str]] = [
 
 def footer_manifest() -> dict[str, Any]:
     contact = contact_channels()
-    return {
+    manifest = {
         "brand": "BLACKDARK",
         "tagline": "Trust OS — Decide. Prove it. Share it.",
         "story": "Prove → Operate → Desk → Room",
@@ -221,6 +221,13 @@ def footer_manifest() -> dict[str, Any]:
         "contact": contact,
         "disclaimer_line": "Four-layer legal shield active. Not financial advice. AI cannot guarantee returns. Verify on the Public Accuracy Ledger.",
     }
+    try:
+        from bd_platform.legal_commercial_layer import get_footer_disclosure_57
+
+        manifest["service_disclosure_57"] = get_footer_disclosure_57()
+    except ImportError:
+        pass
+    return manifest
 
 
 def site_services_manifest() -> dict[str, Any]:

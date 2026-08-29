@@ -213,6 +213,11 @@ async def run_soft_launch_closure(
     from cap978.institutional_gate import CLOSURE_BASELINE
 
     expected_blocked = CLOSURE_BASELINE["external_registry"]["capability_ids_blocked"]
+    signed_644 = any(
+        r.get("id") == 644 and r.get("classification") == "VERIFIED_COMPLETE" for r in external["rows"]
+    )
+    if signed_644:
+        expected_blocked -= 1
     checks.append(
         {
             "name": "external_registry_labeled",

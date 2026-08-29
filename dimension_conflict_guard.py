@@ -81,6 +81,11 @@ def apply_dimension_conflict_guard(
     return adjusted, meta
 
 
+"""Arbitrage oracle verdict with conflict veto — safe analytics labels only."""
+
+from oracle_safe_language import SAFE_VERDICT_BULLISH, SAFE_VERDICT_RISK, verdict_from_analytics
+
+
 def arbitrage_verdict_with_conflict(
     score: float,
     confidence: float,
@@ -88,10 +93,13 @@ def arbitrage_verdict_with_conflict(
 ) -> str:
     """Arbitrage oracle verdict with conflict veto."""
     if conflict_meta.get("veto") or conflict_meta.get("abstain"):
-        return "Do Not Touch"
-    if score >= min_buy_score() and confidence >= float(getattr(config, "AI_ORACLE_MIN_CONFIDENCE", 60)):
-        return "Buy Now"
-    return "Do Not Touch"
+        return SAFE_VERDICT_RISK
+    return verdict_from_analytics(
+        score,
+        confidence,
+        min_score=min_buy_score(),
+        min_confidence=float(getattr(config, "AI_ORACLE_MIN_CONFIDENCE", 60)),
+    )
 
 
 def execution_allowed(

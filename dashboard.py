@@ -1,4 +1,5 @@
 import asyncio
+import json
 import logging
 import os
 import time
@@ -353,6 +354,52 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "hero": "portfolio_ai",
     }
     _attach_portfolio_clarity(result, risk_level, risk_score)
+    try:
+        from bd_platform.legal_commercial_layer import attach_service_disclosure_57
+        from bd_platform.retail_intelligence_layer import attach_discipline_to_portfolio_66, build_one_clear_answer_63
+
+        result = attach_discipline_to_portfolio_66(result)
+        result["clear_answer"] = build_one_clear_answer_63(
+            verdict="Risk" if risk_score >= 7 else ("Opportunity" if risk_score <= 4 else "Neutral"),
+            reasons=[
+                {"point": f"BTC beta {weighted_beta:.0%}", "rule_based": True},
+                {"point": f"Risk score {risk_score}/10", "rule_based": True},
+                {"point": recommendations[0] if recommendations else "Diversify exposure", "rule_based": True},
+            ],
+            risk_score=float(risk_score),
+        )
+        result = attach_service_disclosure_57(result)
+        from bd_platform.pro_trader_layer import attach_portfolio_pro_layers_67_76
+
+        result = attach_portfolio_pro_layers_67_76(result, user_tier="free")
+        from bd_platform.whales_institutional_layer import attach_portfolio_whale_layers_77_86
+
+        result = attach_portfolio_whale_layers_77_86(result)
+        from bd_platform.institutional_b2b_layer import build_ic_report_87
+
+        result["ic_report_preview"] = build_ic_report_87(
+            source="portfolio",
+            asset="PORTFOLIO",
+            verdict="Neutral",
+            risk_score=float(result.get("risk_score", 5)),
+            holdings=result.get("holdings"),
+        )
+        from bd_platform.infra_intelligence_layer import attach_infra_layers_95_104
+
+        result = attach_infra_layers_95_104(result)
+        from bd_platform.onchain_platform_layer import analyze_dust_assets_131, portfolio_stress_alert_139
+
+        holdings = result.get("holdings") or []
+        result["dust_analysis"] = analyze_dust_assets_131(
+            [{"symbol": h.get("symbol", h.get("asset", "")), "value_usd": h.get("value_usd", 0)} for h in holdings]
+            if holdings
+            else None
+        )
+        result["stress_alert"] = portfolio_stress_alert_139(
+            risk_score=float(result.get("risk_score", 5)),
+        )
+    except ImportError:
+        pass
     return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
@@ -1841,6 +1888,761 @@ async def public_accuracy_ledger_alias():
     from fastapi.responses import RedirectResponse
 
     return RedirectResponse(url=PATH_ORACLE_ACCURACY, status_code=307)
+
+
+@app.get("/api/glossary")
+@app.get("/api/platform/intelligence/glossary")
+async def public_glossary_api(locale: str = "en"):
+    """#64 — Simple language glossary (AR/EN)."""
+    from bd_platform.retail_intelligence_layer import glossary_manifest_64
+
+    return glossary_manifest_64(locale=locale)
+
+
+@app.get("/intelligence/daily-top3")
+async def public_daily_top3_page(tier: str = "free", locale: str = "en"):
+    """#62 + #150 — Daily top 3 opportunities with composite Opportunity Score."""
+    from bd_platform.retail_intelligence_layer import build_daily_top3_62
+
+    return build_daily_top3_62(user_tier=tier, locale=locale)
+
+
+@app.get("/intelligence/score")
+async def public_opportunity_score():
+    """#150 — Composite Opportunity Score (0–100)."""
+    from bd_platform.data_sources_layer import compute_opportunity_score_150
+
+    return compute_opportunity_score_150()
+
+
+@app.get("/intelligence/explain")
+async def public_explain_opportunity(asset: str = "BTC"):
+    """#151 — Dynamic rule-based opportunity explanation."""
+    from bd_platform.data_sources_layer import explain_opportunity_151
+
+    return explain_opportunity_151(asset=asset)
+
+
+@app.get("/radar/sentiment/feeds/coindesk")
+async def public_coindesk_feed():
+    """#141 — CoinDesk RSS sentiment feed (deduplicated)."""
+    from bd_platform.data_sources_layer import ingest_coindesk_feed_141
+
+    return ingest_coindesk_feed_141()
+
+
+@app.get("/radar/events/calendar")
+async def public_event_calendar():
+    """#143 — CryptoRank event calendar context."""
+    from bd_platform.data_sources_layer import ingest_event_calendar_143
+
+    return ingest_event_calendar_143()
+
+
+@app.get("/radar/defi")
+async def public_defi_radar(protocol: str = "aave"):
+    """#149 — DefiLlama DeFi metrics for Market Radar."""
+    from bd_platform.data_sources_layer import ingest_defillama_149
+
+    return ingest_defillama_149(protocol=protocol)
+
+
+@app.get("/oracle/sources/cmc")
+async def public_cmc_oracle(symbol: str = "BTC"):
+    """#145 — CoinMarketCap secondary oracle source."""
+    from bd_platform.data_sources_layer import ingest_cmc_price_145
+
+    return ingest_cmc_price_145(symbol=symbol)
+
+
+@app.get("/oracle/sources/coinbase")
+async def public_coinbase_oracle(symbol: str = "BTC-USD"):
+    """#146 — Coinbase Advanced secondary oracle source."""
+    from bd_platform.data_sources_layer import ingest_coinbase_price_146
+
+    return ingest_coinbase_price_146(symbol=symbol)
+
+
+@app.get("/intelligence/arbitrage")
+async def public_arbitrage_mind(asset: str = "BTC"):
+    """#153 — Theoretical arbitrage with full cost breakdown."""
+    from bd_platform.intelligence_analysis_layer import analyze_arbitrage_opportunity_153
+
+    return analyze_arbitrage_opportunity_153(asset=asset)
+
+
+@app.get("/intelligence/impact-analysis")
+async def public_impact_analysis(order_usd: float, asset: str = "BTC", venue: str = "binance", depth_usd: float = 5_000_000):
+    """#78 — Impact analysis insight (smart routing rejected)."""
+    from bd_platform.whales_institutional_layer import build_impact_analysis_78
+
+    return build_impact_analysis_78(order_usd=order_usd, asset=asset, venue=venue, depth_usd=depth_usd)
+
+
+@app.get("/intelligence/stat-arb")
+async def public_stat_arb_insight(z_score: float = 2.3):
+    """#155 — Statistical arbitrage insight (no execution)."""
+    from bd_platform.intelligence_analysis_layer import stat_arb_insight_155
+
+    return stat_arb_insight_155(z_score=z_score)
+
+
+@app.get("/oracle/on-chain/gas-profile")
+async def public_gas_profile(current_gwei: float = 18.0):
+    """#159 — Gas volatility profiling and optimal windows."""
+    from bd_platform.intelligence_analysis_layer import compute_gas_volatility_profile_159
+
+    return compute_gas_volatility_profile_159(current_gwei=current_gwei)
+
+
+@app.get("/radar/technical/volatility-squeeze")
+async def public_volatility_squeeze():
+    """#160 — Bollinger × Keltner squeeze indicator."""
+    from bd_platform.intelligence_analysis_layer import detect_volatility_squeeze_160
+
+    return detect_volatility_squeeze_160()
+
+
+@app.get("/alerts/delivery")
+async def public_alert_delivery(channel: str = "telegram", user_tier: str = "pro"):
+    """#161 — Telegram/Discord alert delivery channel config."""
+    from bd_platform.intelligence_analysis_layer import alert_delivery_status_161
+
+    return alert_delivery_status_161(channel=channel, user_tier=user_tier)
+
+
+@app.get("/portfolio/liquidity-impact")
+async def public_liquidity_impact(position_usd: float = 250_000, available_depth_usd: float = 1_200_000):
+    """#164 — Liquidity impact warning (panic button rejected)."""
+    from bd_platform.risk_infrastructure_layer import liquidity_impact_warning_164
+
+    return liquidity_impact_warning_164(position_usd=position_usd, available_depth_usd=available_depth_usd)
+
+
+@app.get("/portfolio/dust-analysis")
+async def public_dust_analysis():
+    """#131 — Dust asset analysis (sweeper rejected)."""
+    from bd_platform.onchain_platform_layer import analyze_dust_assets_131
+
+    return analyze_dust_assets_131()
+
+
+@app.get("/portfolio/risk-alert")
+async def public_risk_alert(risk_score: float = 4.0, asset: str = "BTC"):
+    """#188 — Risk alert with decision journal (execution rejected)."""
+    from bd_platform.arbitrage_portfolio_ux_layer import risk_alert_user_confirmation_188
+
+    return risk_alert_user_confirmation_188(risk_score=risk_score, asset=asset)
+
+
+@app.get("/radar/technical/orderbook-inefficiency")
+async def public_orderbook_inefficiency():
+    """#127 — Order book inefficiency insight (exploiter rejected)."""
+    from bd_platform.advanced_ta_risk_layer import orderbook_inefficiency_insight_127
+
+    return orderbook_inefficiency_insight_127()
+
+
+@app.get("/oracle/on-chain/whale/behavior-analysis")
+async def public_whale_behavior_analysis(wallet: str = "0x1234...5678", buy_usd: float = 2_000_000):
+    """#216 — Whale behavior multi-angle analysis (counter-trading rejected)."""
+    from bd_platform.execution_rejected_layer import whale_behavior_analysis_216
+
+    return whale_behavior_analysis_216(wallet=wallet, buy_usd=buy_usd)
+
+
+@app.get("/intelligence/best-venue-analysis")
+async def public_best_venue_analysis(asset: str = "BTC", order_usd: float = 50_000):
+    """#217 — Best venue analysis (auto-router rejected)."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_best_venue_217
+
+    return analyze_best_venue_217(asset=asset, order_usd=order_usd)
+
+
+@app.get("/radar/sentiment/nlp")
+async def public_nlp_sentiment():
+    """#219 — Rule-based NLP sentiment analysis."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_nlp_sentiment_219
+
+    return analyze_nlp_sentiment_219()
+
+
+@app.get("/intelligence/backtest/pattern-outcome")
+async def public_pattern_outcome(asset: str = "BTC"):
+    """#220 — Historical pattern outcome analysis (extends #74)."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_pattern_outcome_220
+
+    return analyze_pattern_outcome_220(asset=asset)
+
+
+@app.get("/radar/technical/slippage-analysis")
+async def public_slippage_analysis(asset: str = "BTC", order_usd: float = 100_000):
+    """#221 — Market slippage analysis (execution quality rejected)."""
+    from bd_platform.intelligence_market_extensions_layer import market_slippage_analysis_221
+
+    return market_slippage_analysis_221(asset=asset, order_usd=order_usd)
+
+
+@app.get("/oracle/on-chain/defi/fundamentals")
+async def public_defi_fundamentals(protocol: str = "uniswap"):
+    """#223 — DeFi P/S fundamentals analysis."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_defi_fundamentals_223
+
+    return analyze_defi_fundamentals_223(protocol=protocol)
+
+
+@app.get("/intelligence/valuation/dcf-token")
+async def public_token_dcf(protocol: str = "aave"):
+    """#224 — Token DCF valuation model."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_token_dcf_224
+
+    return analyze_token_dcf_224(protocol=protocol)
+
+
+@app.get("/radar/events/launch-analysis")
+async def public_launch_analysis(token: str = "NEWTOKEN"):
+    """#226 — New token launch analysis (arbitrage rejected)."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_launch_event_226
+
+    return analyze_launch_event_226(token=token)
+
+
+@app.get("/intelligence/etf-premium")
+async def public_etf_premium(asset: str = "BTC"):
+    """#227 — ETF premium/discount analysis (arbitrage rejected)."""
+    from bd_platform.intelligence_market_extensions_layer import analyze_etf_premium_227
+
+    return analyze_etf_premium_227(asset=asset)
+
+
+@app.get("/portfolio/hedge-simulation")
+async def public_hedge_simulation(drawdown_pct: float = 15.0, hedge_pct: float = 20.0):
+    """#228 — Drawdown hedging simulation (portfolio insurance rejected)."""
+    from bd_platform.intelligence_ux_extensions_layer import simulate_drawdown_hedge_228
+
+    return simulate_drawdown_hedge_228(drawdown_pct=drawdown_pct, hedge_pct=hedge_pct)
+
+
+@app.get("/intelligence/explain")
+async def public_reasoning_explanation(asset: str = "BTC"):
+    """#229 — Rule-based opportunity reasoning (extends #151)."""
+    from bd_platform.intelligence_ux_extensions_layer import generate_reasoning_explanation_229
+
+    return generate_reasoning_explanation_229(asset=asset)
+
+
+@app.get("/intelligence/price-comparison")
+async def public_price_comparison(asset: str = "BTC"):
+    """#232 — Multi-venue price comparison (extends #153)."""
+    from bd_platform.intelligence_ux_extensions_layer import analyze_price_comparison_232
+
+    return analyze_price_comparison_232(asset=asset)
+
+
+@app.get("/radar/heatmap")
+async def public_heatmap():
+    """#233 — Market heatmap component data."""
+    from bd_platform.intelligence_ux_extensions_layer import build_heatmap_component_233
+
+    return build_heatmap_component_233()
+
+
+@app.get("/intelligence/summary")
+async def public_market_summary():
+    """#237 — One-sentence market oracle summary."""
+    from bd_platform.intelligence_ux_extensions_layer import generate_market_summary_237
+
+    return generate_market_summary_237()
+
+
+@app.get("/radar/scan")
+async def public_market_scan(threshold_score: float = 70.0):
+    """#238 — Market opportunity scan (no buy signals)."""
+    from bd_platform.intelligence_ux_extensions_layer import scan_market_opportunities_238
+
+    return scan_market_opportunities_238(threshold_score=threshold_score)
+
+
+@app.get("/oracle/on-chain/s2f")
+async def public_onchain_s2f(asset: str = "BTC"):
+    """#240 — Stock-to-Flow on-chain metric."""
+    from bd_platform.intelligence_ux_extensions_layer import compute_s2f_240
+
+    return compute_s2f_240(asset=asset)
+
+
+@app.get("/intelligence/multi-dim/macro/fred")
+async def public_fred_macro():
+    """#241 — FRED macro data source."""
+    from bd_platform.intelligence_ux_extensions_layer import ingest_fred_macro_241
+
+    return ingest_fred_macro_241()
+
+
+@app.get("/public/kill-rate")
+async def public_kill_rate_widget():
+    """#253 — Public kill-rate discipline widget."""
+    from bd_platform.security_trust_data_layer import build_kill_rate_widget_253
+
+    return build_kill_rate_widget_253()
+
+
+@app.get("/portfolio/since-you-left")
+async def public_since_you_left():
+    """#258 — Since you left top-3 events widget."""
+    from bd_platform.security_trust_data_layer import since_you_left_top3_258
+
+    return since_you_left_top3_258()
+
+
+@app.get("/stripe/tiers")
+async def public_pricing_tiers():
+    """#261 — Pricing tiers (extends #60)."""
+    from bd_platform.security_trust_data_layer import pricing_model_status_261
+
+    return pricing_model_status_261()
+
+
+@app.get("/oracle/on-chain/mining")
+async def public_hashrate_capitulation():
+    """#165 — Hashrate capitulation mining analysis."""
+    from bd_platform.risk_infrastructure_layer import hashrate_capitulation_forecast_165
+
+    return hashrate_capitulation_forecast_165()
+
+
+@app.get("/radar/derivatives/oi-momentum")
+async def public_oi_momentum(exchange: str = "binance"):
+    """#170 — Open Interest momentum delta."""
+    from bd_platform.risk_infrastructure_layer import compute_oi_momentum_delta_170
+
+    return compute_oi_momentum_delta_170(exchange=exchange)
+
+
+@app.get("/portfolio/risk/advanced/correlation-decay")
+async def public_correlation_decay():
+    """#169 — Correlation decay matrix."""
+    from bd_platform.risk_infrastructure_layer import compute_correlation_decay_matrix_169
+
+    return compute_correlation_decay_matrix_169()
+
+
+@app.get("/dashboard")
+async def public_command_center(tier: str = "free"):
+    """#179 — Unified command center dashboard."""
+    from bd_platform.arbitrage_portfolio_ux_layer import build_command_center_dashboard_179
+
+    return build_command_center_dashboard_179(user_tier=tier)
+
+
+@app.get("/intelligence/arbitrage/cost-analysis")
+async def public_arbitrage_cost_analysis(asset: str = "BTC"):
+    """#177 — Fee, slippage and capacity cost analysis."""
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_arbitrage_cost_177
+
+    return analyze_arbitrage_cost_177(asset=asset)
+
+
+@app.get("/portfolio/liquidity-capacity")
+async def public_liquidity_capacity(order_size_usd: float = 50_000):
+    """#189 — Liquidity capacity analysis."""
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_liquidity_capacity_189
+
+    return analyze_liquidity_capacity_189(order_size_usd=order_size_usd)
+
+
+@app.get("/intelligence/arbitrage/geographic")
+async def public_geographic_arbitrage(asset: str = "BTC"):
+    """#190 — Geographic arbitrage premium analysis."""
+    from bd_platform.arbitrage_portfolio_ux_layer import analyze_geographic_arbitrage_190
+
+    return analyze_geographic_arbitrage_190(asset=asset)
+
+
+@app.get("/radar/exchange-health/withdrawal-alert")
+async def public_withdrawal_alert(exchange: str = "binance"):
+    """#191 — Withdrawal suspension alert (no exploitation language)."""
+    from bd_platform.arbitrage_portfolio_ux_layer import withdrawal_suspension_alert_191
+
+    return withdrawal_suspension_alert_191(exchange=exchange)
+
+
+@app.get("/radar/derivatives/funding")
+async def public_funding_rate(asset: str = "BTC"):
+    """#192 — Funding rate analysis."""
+    from bd_platform.derivatives_ta_research_layer import analyze_funding_rate_192
+
+    return analyze_funding_rate_192(asset=asset)
+
+
+@app.get("/radar/technical/cvd")
+async def public_cvd(asset: str = "BTC"):
+    """#194 — Cumulative Volume Delta."""
+    from bd_platform.derivatives_ta_research_layer import compute_cvd_194
+
+    return compute_cvd_194(asset=asset)
+
+
+@app.get("/intelligence/strategy-simulator")
+async def public_strategy_simulator(strategy: str = "dca", amount_usd: float = 100.0):
+    """#195 — DCA/Grid strategy simulator (no execution)."""
+    from bd_platform.derivatives_ta_research_layer import strategy_simulator_195
+
+    return strategy_simulator_195(strategy=strategy, amount_usd=amount_usd)
+
+
+@app.get("/intelligence/discovery/low-volume")
+async def public_hidden_opportunities(asset: str = "RNDR"):
+    """#202 — Hidden opportunity discovery."""
+    from bd_platform.derivatives_ta_research_layer import discover_hidden_opportunities_202
+
+    return discover_hidden_opportunities_202(asset=asset)
+
+
+@app.get("/oracle/sources/cryptocompare")
+async def public_cryptocompare_oracle(symbol: str = "BTC"):
+    """#203 — CryptoCompare secondary oracle source."""
+    from bd_platform.derivatives_ta_research_layer import ingest_cryptocompare_price_203
+
+    return ingest_cryptocompare_price_203(symbol=symbol)
+
+
+@app.get("/oracle/on-chain/bsc")
+async def public_bscscan_oracle(address: str = "0x1234...abcd"):
+    """#204 — BscScan BSC on-chain ingestion."""
+    from bd_platform.onchain_defi_sources_layer import ingest_bscscan_204
+
+    return ingest_bscscan_204(address=address)
+
+
+@app.get("/oracle/on-chain/sources/glassnode")
+async def public_glassnode_oracle(asset: str = "BTC"):
+    """#205 — Glassnode free-tier on-chain metrics."""
+    from bd_platform.onchain_defi_sources_layer import ingest_glassnode_metrics_205
+
+    return ingest_glassnode_metrics_205(asset=asset)
+
+
+@app.get("/oracle/on-chain/defi/uniswap")
+async def public_uniswap_subgraph(pool: str = "ETH/USDC"):
+    """#206 — Uniswap Subgraph DeFi data."""
+    from bd_platform.onchain_defi_sources_layer import ingest_uniswap_subgraph_206
+
+    return ingest_uniswap_subgraph_206(pool=pool)
+
+
+@app.get("/oracle/on-chain/defi/aave")
+async def public_aave_data(market: str = "USDC", version: str = "v3"):
+    """#207 — Aave lending/borrowing data."""
+    from bd_platform.onchain_defi_sources_layer import ingest_aave_data_207
+
+    return ingest_aave_data_207(market=market, version=version)
+
+
+@app.get("/radar/sentiment/social/reddit")
+async def public_reddit_sentiment():
+    """#208 — Reddit r/CryptoCurrency sentiment."""
+    from bd_platform.onchain_defi_sources_layer import ingest_reddit_sentiment_208
+
+    return ingest_reddit_sentiment_208()
+
+
+@app.get("/intelligence/arbitrage/predictive")
+async def public_predictive_arbitrage():
+    """#210 — Predictive arbitrage pattern (extends #153)."""
+    from bd_platform.onchain_defi_sources_layer import analyze_predictive_arbitrage_210
+
+    return analyze_predictive_arbitrage_210()
+
+
+@app.get("/portfolio/cross-margin-risk")
+async def public_cross_margin_risk(risk_score: float = 8.0):
+    """#211 — Cross-margin risk alert (safeguard rejected)."""
+    from bd_platform.onchain_defi_sources_layer import cross_margin_risk_alert_211
+
+    return cross_margin_risk_alert_211(risk_score=risk_score)
+
+
+@app.get("/portfolio/hedge-analysis")
+async def public_hedge_analysis(btc_exposure_pct: float = 70.0):
+    """#212 — Hedge effectiveness analysis (re-hedging rejected)."""
+    from bd_platform.onchain_defi_sources_layer import hedge_effectiveness_analysis_212
+
+    return hedge_effectiveness_analysis_212(btc_exposure_pct=btc_exposure_pct)
+
+
+@app.get("/portfolio/capital-allocation")
+async def public_capital_allocation():
+    """#213 — Capital allocation insight (auto-balancing rejected)."""
+    from bd_platform.onchain_defi_sources_layer import capital_allocation_insight_213
+
+    return capital_allocation_insight_213()
+
+
+@app.post("/user/delete")
+async def user_delete_alias(body: dict = Body(default={})):
+    """#58 — GDPR erasure alias (requires auth via privacy router for full flow)."""
+    from bd_platform.legal_commercial_layer import request_erasure_58
+
+    email = str(body.get("email", ""))
+    confirm = body.get("confirm") in {True, "true", "1"}
+    return request_erasure_58(user_email=email, confirmed=confirm)
+
+
+@app.get("/user/export")
+async def user_export_alias():
+    """#58 — GDPR portability info (full export via authenticated /api/privacy/dsr/export)."""
+    from bd_platform.legal_commercial_layer import gdpr_compliance_status_58
+
+    return gdpr_compliance_status_58()
+
+
+@app.get("/onboarding/ttv")
+async def public_ttv_onboarding():
+    """#69 — Time to Value onboarding config (guest mode, <60s target)."""
+    from bd_platform.pro_trader_layer import get_onboarding_config_69
+
+    return get_onboarding_config_69()
+
+
+@app.post("/share/card")
+async def public_share_card(body: dict = Body(default={})):
+    """#68 — One-click share card generation."""
+    from bd_platform.pro_trader_layer import build_share_card_68
+
+    return build_share_card_68(
+        card_type=str(body.get("card_type", "insight")),
+        title=str(body.get("title", "BLACKDARK Insight")),
+        summary=str(body.get("summary", "")),
+        risk_score=float(body.get("risk_score", 5.0)),
+        locale=str(body.get("locale", "en")),
+        asset=str(body.get("asset", "")),
+        health_score=body.get("health_score"),
+    )
+
+
+@app.get("/transparency/performance")
+async def transparency_performance_ledger():
+    """#84 — Public performance ledger for due diligence."""
+    from bd_platform.whales_institutional_layer import build_performance_ledger_view_84
+
+    return build_performance_ledger_view_84()
+
+
+@app.get("/transparency/methodology")
+async def transparency_methodology(locale: str = "en"):
+    """#86 — Public methodology and accuracy limits."""
+    from bd_platform.whales_institutional_layer import build_methodology_docs_86
+
+    return build_methodology_docs_86(locale=locale)
+
+
+@app.get("/radar/exchange-health")
+async def radar_exchange_health(exchange: str = "binance", withdrawal_latency_hours: float = 12.0):
+    """#80 + #92 — Exchange health with counterparty risk indicators."""
+    from bd_platform.institutional_b2b_layer import build_exchange_health_with_counterparty_92
+
+    return build_exchange_health_with_counterparty_92(
+        exchange=exchange, withdrawal_latency_hours=withdrawal_latency_hours
+    )
+
+
+@app.get("/radar/technical/vwap")
+async def radar_vwap_deviation():
+    """#91 — VWAP deviation index."""
+    from bd_platform.institutional_b2b_layer import compute_vwap_deviation_91
+
+    return compute_vwap_deviation_91()
+
+
+@app.get("/intelligence/export/ic-report")
+@app.get("/portfolio/export/ic-report")
+async def export_ic_report(
+    source: str = "intelligence",
+    asset: str = "BTC",
+    verdict: str = "Neutral",
+    risk_score: float = 6.0,
+):
+    """#87 — Investment Committee report export."""
+    from bd_platform.institutional_b2b_layer import build_ic_report_87
+
+    return build_ic_report_87(source=source, asset=asset, verdict=verdict, risk_score=risk_score)
+
+
+@app.get("/admin/analytics")
+async def admin_usage_analytics():
+    """#95 — Internal usage analytics dashboard (admin only)."""
+    from bd_platform.infra_intelligence_layer import build_admin_analytics_dashboard_95
+
+    return build_admin_analytics_dashboard_95()
+
+
+@app.get("/radar/market-health")
+async def radar_market_health(
+    open_interest_usd: float = 8_000_000_000,
+    average_leverage: float = 12.0,
+    spot_liquidity_usd: float = 2_500_000_000,
+):
+    """#104 — Leverage ratio overhang factor."""
+    from bd_platform.infra_intelligence_layer import compute_leverage_overhang_104
+
+    return compute_leverage_overhang_104(
+        open_interest_usd=open_interest_usd,
+        average_leverage=average_leverage,
+        spot_liquidity_usd=spot_liquidity_usd,
+    )
+
+
+@app.get("/oracle/validate")
+async def oracle_validate_freshness(primary_ms: float = 1_000_000, secondary_ms: float = 1_000_200):
+    """#101 — Oracle latency deviation buffer."""
+    from bd_platform.infra_intelligence_layer import validate_oracle_freshness_101
+
+    return validate_oracle_freshness_101(
+        primary_timestamp_ms=primary_ms,
+        secondary_timestamp_ms=secondary_ms,
+    )
+
+
+@app.get("/oracle/on-chain/defi/il-score")
+async def oracle_defi_il_score(
+    price_ratio: float = 1.2,
+    volatility_30d: float = 0.45,
+    liquidity_depth_usd: float = 5_000_000,
+):
+    """#102 — Impermanent loss vulnerability score."""
+    from bd_platform.infra_intelligence_layer import compute_il_vulnerability_102
+
+    return compute_il_vulnerability_102(
+        price_ratio=price_ratio,
+        volatility_30d=volatility_30d,
+        liquidity_depth_usd=liquidity_depth_usd,
+    )
+
+
+@app.get("/radar/sentiment/filter")
+@app.get("/oracle/on-chain/filter")
+async def sybil_filter_public(wallets: str = "[]"):
+    """#99 — Sybil attack density filter."""
+    from bd_platform.infra_intelligence_layer import filter_sybil_clusters_99
+
+    try:
+        parsed = json.loads(wallets)
+    except json.JSONDecodeError:
+        parsed = []
+    return filter_sybil_clusters_99(parsed if isinstance(parsed, list) else [])
+
+
+@app.get("/radar/market-health/gcli")
+async def radar_gcli():
+    """#112 — Global Crypto Liquidity Index."""
+    from bd_platform.market_analysis_layer import compute_gcli_112
+
+    return compute_gcli_112()
+
+
+@app.get("/radar/market-health/contagion")
+async def radar_contagion():
+    """#106 — Cross-margin contagion risk vector."""
+    from bd_platform.market_analysis_layer import compute_contagion_vector_106
+
+    return compute_contagion_vector_106()
+
+
+@app.get("/radar/technical/orderbook-skew")
+async def radar_orderbook_skew():
+    """#108 — CEX order book bid-ask skew."""
+    from bd_platform.market_analysis_layer import compute_orderbook_skew_108
+
+    return compute_orderbook_skew_108()
+
+
+@app.get("/radar/technical/volume-velocity")
+async def radar_volume_velocity():
+    """#115 — Volume velocity tracker."""
+    from bd_platform.market_analysis_layer import compute_volume_velocity_115
+
+    return compute_volume_velocity_115()
+
+
+@app.get("/radar/technical/liquidity-vacuum")
+async def radar_liquidity_vacuum():
+    """#117 — Liquidity vacuum spotter."""
+    from bd_platform.advanced_ta_risk_layer import compute_liquidity_vacuum_117
+
+    return compute_liquidity_vacuum_117()
+
+
+@app.get("/radar/technical/structural-break")
+async def radar_structural_break():
+    """#122 — Rule-based structural break analysis."""
+    from bd_platform.advanced_ta_risk_layer import compute_structural_break_122
+
+    return compute_structural_break_122()
+
+
+@app.get("/radar/technical/volume-profile")
+async def radar_volume_profile():
+    """#123 — Volume profile POC."""
+    from bd_platform.advanced_ta_risk_layer import compute_volume_profile_poc_123
+
+    return compute_volume_profile_poc_123()
+
+
+@app.get("/radar/technical/fvg-detector")
+async def radar_fvg_detector():
+    """#124 — Fair Value Gap detector."""
+    from bd_platform.advanced_ta_risk_layer import detect_fair_value_gaps_124
+
+    return detect_fair_value_gaps_124()
+
+
+@app.get("/radar/on-chain/gas-alert")
+async def radar_gas_spike_alert():
+    """#119 — Gas spike alert (execution rejected alternative)."""
+    from bd_platform.advanced_ta_risk_layer import gas_spike_alert_119
+
+    return gas_spike_alert_119()
+
+
+@app.get("/oracle/on-chain/dex-risk")
+async def oracle_dex_risk():
+    """#126 — DEX front-running risk insight (shield rejected)."""
+    from bd_platform.advanced_ta_risk_layer import dex_front_running_risk_126
+
+    return dex_front_running_risk_126()
+
+
+@app.get("/oracle/on-chain/sybil-clustering")
+async def oracle_sybil_clustering():
+    """#129 — Sybil identity linker (extends #99)."""
+    from bd_platform.onchain_platform_layer import cluster_sybil_identities_129
+
+    return cluster_sybil_identities_129()
+
+
+@app.get("/oracle/on-chain/tx-risk")
+async def oracle_tx_risk():
+    """#130 — Transaction risk insight (shadow-fork rejected)."""
+    from bd_platform.onchain_platform_layer import transaction_risk_insight_130
+
+    return transaction_risk_insight_130()
+
+
+@app.get("/portfolio/stress-alert")
+async def portfolio_stress_alert(risk_score: float = 9.0):
+    """#139 — Portfolio stress alert (panic button rejected)."""
+    from bd_platform.onchain_platform_layer import portfolio_stress_alert_139
+
+    return portfolio_stress_alert_139(risk_score=risk_score)
+
+
+@app.get("/radar/market-health/liquidity-vortex")
+async def radar_liquidity_vortex():
+    """#135 — Liquidity vortex locator."""
+    from bd_platform.onchain_platform_layer import locate_liquidity_vortex_135
+
+    return locate_liquidity_vortex_135()
 
 
 @app.get("/docs", response_class=HTMLResponse)
@@ -3948,6 +4750,41 @@ async def acquisition_assets_audit():
     return audit
 
 
+@app.get("/api/acquisition/ma-intelligence")
+async def ma_intelligence_route(symbol: str = "BTC"):
+    from ma_intelligence_service import build_ma_intelligence_report
+
+    return await build_ma_intelligence_report(symbol=symbol)
+
+
+@app.get("/api/platform/exchanges/{exchange_id}/currencies/deposit")
+async def exchange_deposit_currencies_route(exchange_id: str):
+    from exchange_currency_status import deposit_currencies_open
+
+    return await deposit_currencies_open(exchange=exchange_id)
+
+
+@app.get("/api/platform/exchanges/{exchange_id}/currencies/withdrawal")
+async def exchange_withdrawal_currencies_route(exchange_id: str):
+    from exchange_currency_status import withdrawal_currencies_closed
+
+    return await withdrawal_currencies_closed(exchange=exchange_id)
+
+
+@app.get("/api/platform/intelligence/comparison-engine")
+async def comparison_engine_route(symbol: str = "BTC", quote_amount: float | None = None):
+    from comparison_engine import run_comparison_engine
+
+    return await run_comparison_engine(symbol=symbol, quote_amount=quote_amount)
+
+
+@app.get("/api/platform/accessibility/audit")
+async def accessibility_audit_route():
+    from accessibility_audit_service import build_accessibility_audit_report
+
+    return await build_accessibility_audit_report()
+
+
 @app.get("/api/behavior/stats")
 async def behavior_data_stats(days: int = 30):
     from behavior_data_service import behavior_data_status, fetch_behavior_asset_stats
@@ -4410,15 +5247,18 @@ async def api_infra_metrics():
 
 @app.get("/api/docs/openapi.json")
 async def api_openapi_export():
-    return app.openapi()
+    from bd_platform.whales_institutional_layer import enrich_openapi_with_fee_metadata_85
+
+    return enrich_openapi_with_fee_metadata_85(app.openapi())
 
 
 @app.get("/api/docs/public-openapi.json")
 async def api_public_openapi_export():
     """Evidence/read OpenAPI only — omits admin/billing/execution write surfaces."""
+    from bd_platform.whales_institutional_layer import enrich_openapi_with_fee_metadata_85
     from public_api_docs import filter_openapi_for_public
 
-    return filter_openapi_for_public(app.openapi())
+    return enrich_openapi_with_fee_metadata_85(filter_openapi_for_public(app.openapi()))
 
 
 @app.get("/api/docs/public-manifest")
@@ -4767,6 +5607,53 @@ async def checkout_cancel(request: Request):
 @app.get("/landing", response_class=HTMLResponse)
 async def landing_alias(request: Request):
     return await landing_page(request)
+
+
+@app.get("/data-lineage", response_class=HTMLResponse)
+async def data_lineage_page(request: Request, symbol: str = "BTC/USDT", decision_id: str = ""):
+    from data_lineage_viz import build_lineage_graph
+
+    graph = await build_lineage_graph(symbol=symbol, decision_id=decision_id or None)
+    return render_page(
+        request,
+        "data_lineage.html",
+        {"graph": graph, "symbol": symbol, "decision_id": decision_id, **_footer_ctx()},
+    )
+
+
+@app.get("/api/reconciliation/run")
+async def api_reconciliation_run(symbol: str = "BTC/USDT"):
+    from reconciliation_engine import reconcile_symbol
+
+    return await reconcile_symbol(symbol)
+
+
+@app.get("/api/vendor-risk")
+async def api_vendor_risk():
+    from vendor_risk_monitor import vendor_risk_dashboard
+
+    return await vendor_risk_dashboard()
+
+
+@app.get("/api/feature-flags")
+async def api_feature_flags():
+    from feature_flags import list_flags
+
+    return list_flags()
+
+
+@app.get("/api/experiments/registry")
+async def api_experiment_registry():
+    from experiment_registry import mrm_summary
+
+    return mrm_summary()
+
+
+@app.get("/api/deploy/rollback/status")
+async def api_deploy_rollback_status():
+    from deploy_rollback import rollback_status
+
+    return rollback_status()
 
 
 if __name__ == "__main__":

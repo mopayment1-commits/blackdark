@@ -13,8 +13,8 @@ def test_founder_confirmed_price_ladder():
     assert by["free"]["price_usd_month"] == 0
     assert by["free"]["name"] == "Proof Pass"
     assert by["pro"]["price_usd_month"] == 29
-    assert by["whale"]["price_usd_month"] == 49
-    assert by["whale"]["name"] == "Decision Desk"
+    assert by["elite"]["price_usd_month"] == 49
+    assert by["elite"]["name"] == "Decision Desk"
     assert by["institutional"]["price_usd_month_from"] == 3000
     assert "3,000" in by["institutional"]["price_display"]
     assert "open" in by["institutional"]["price_display"].lower()
@@ -22,7 +22,7 @@ def test_founder_confirmed_price_ladder():
 
 def test_pricing_tiers_order():
     ids = [t["id"] for t in TIERS]
-    assert ids[:4] == ["free", "pro", "whale", "institutional"]
+    assert ids == ["free", "pro", "elite", "quant", "institutional"]
     cat = pricing_catalog()
     assert cat["currency"] == "USD"
     assert "MORNING_SESSION_FINAL_BINDING" in cat["binding"]

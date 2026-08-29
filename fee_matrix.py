@@ -14,6 +14,7 @@ import asyncio
 import logging
 import math
 import time
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -169,6 +170,128 @@ def trading_fees_usdt(
     if rate is None:
         return None
     return notional * rate
+
+
+def _fee_timestamp_iso() -> str:
+    return datetime.now(UTC).isoformat()
+
+
+async def calculate_opportunity_fees(
+    opportunity_id: str,
+    exchange: str,
+    symbol: str,
+    side: str,
+    notional: float,
+    *,
+    gross_profit_usdt: float | None = None,
+    gas_fee_usdt: float = 0.0,
+    market: str = "spot",
+    use_maker: bool = False,
+) -> dict[str, Any] | None:
+    """
+    Calculate fees for one opportunity leg and persist to the fees table.
+
+    Returns None when any required fee cell is unknown (fail-closed).
+    """
+    if not opportunity_id or notional <= 0:
+        return None
+
+    side_n = (side or "").lower().strip()
+    if side_n not in {"buy", "sell"}:
+        return None
+
+    rate = maker_fee(exchange, market=market) if use_maker else taker_fee(exchange, market=market)
+    if rate is None:
+        return None
+
+    trading_usdt = trading_fees_usdt(
+        exchange,
+        notional,
+        market=market,
+        use_maker=use_maker,
+    )
+    if trading_usdt is None:
+        return None
+
+    withdrawal: float | None = 0.0
+    deposit: float | None = 0.0
+    if side_n == "buy":
+        withdrawal = withdrawal_fee_usdt(exchange, symbol)
+        if withdrawal is None:
+            return None
+    else:
+        deposit = deposit_fee_usdt(exchange, symbol)
+        if deposit is None:
+            return None
+
+    withdrawal_f = float(withdrawal or 0.0)
+    deposit_f = float(deposit or 0.0)
+    gas_f = float(gas_fee_usdt or 0.0)
+    total_fee = trading_usdt + withdrawal_f + deposit_f + gas_f
+    net_profit = None
+    if gross_profit_usdt is not None:
+        net_profit = float(gross_profit_usdt) - total_fee
+
+    record = {
+        "opportunity_id": opportunity_id,
+        "exchange": (exchange or "").lower().strip(),
+        "symbol": symbol,
+        "side": side_n,
+        "trading_fee_pct": rate,
+        "trading_fee_usdt": trading_usdt,
+        "withdrawal_fee_usdt": withdrawal_f,
+        "deposit_fee_usdt": deposit_f,
+        "gas_fee_usdt": gas_f,
+        "total_fee_usdt": total_fee,
+        "net_profit_usdt": net_profit,
+        "timestamp": _fee_timestamp_iso(),
+    }
+
+    from database import insert_fee_record
+
+    row_id = await insert_fee_record(
+        record["opportunity_id"],
+        record["exchange"],
+        record["symbol"],
+        record["side"],
+        trading_fee_pct=record["trading_fee_pct"],
+        trading_fee_usdt=record["trading_fee_usdt"],
+        withdrawal_fee_usdt=record["withdrawal_fee_usdt"],
+        deposit_fee_usdt=record["deposit_fee_usdt"],
+        gas_fee_usdt=record["gas_fee_usdt"],
+        total_fee_usdt=record["total_fee_usdt"],
+        net_profit_usdt=record["net_profit_usdt"],
+        timestamp=record["timestamp"],
+    )
+    record["id"] = row_id
+    return record
+
+
+def calculate_opportunity_fees_sync(
+    opportunity_id: str,
+    exchange: str,
+    symbol: str,
+    side: str,
+    notional: float,
+    **kwargs: Any,
+) -> dict[str, Any] | None:
+    """Sync wrapper for calculate_opportunity_fees (used from sync arbitrage builders)."""
+    coro = calculate_opportunity_fees(
+        opportunity_id,
+        exchange,
+        symbol,
+        side,
+        notional,
+        **kwargs,
+    )
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        return asyncio.run(coro)
+    task = loop.create_task(coro)
+    if task.done():
+        return task.result()
+    raise RuntimeError("calculate_opportunity_fees must be awaited inside a running event loop")
 
 
 def _load_ccxt_modules() -> tuple[Any, Any, Any] | None:
