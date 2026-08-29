@@ -38,7 +38,7 @@ ORACLE_CONCURRENCY = int(os.getenv("VIRAL_ORACLE_CONCURRENCY", "32"))
 ORACLE_RL_PER_MIN = int(os.getenv("VIRAL_ORACLE_RL_PER_MIN", "60"))
 AUTH_RL_PER_MIN = int(os.getenv("VIRAL_AUTH_RL_PER_MIN", "30"))
 API_RL_PER_MIN = int(os.getenv("VIRAL_API_RL_PER_MIN", "120"))
-QUICK_CACHE_TTL_SEC = float(os.getenv("VIRAL_QUICK_CACHE_TTL_SEC", "2.0"))
+QUICK_CACHE_TTL_SEC = float(os.getenv("VIRAL_QUICK_CACHE_TTL_SEC", "60.0"))
 SHED_RETRY_AFTER_SEC = int(os.getenv("VIRAL_SHED_RETRY_AFTER_SEC", "2"))
 
 _inflight = 0
