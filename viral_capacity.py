@@ -193,6 +193,35 @@ def redis_live() -> bool:
         return False
 
 
+def _drop_redis_client() -> None:
+    """Drop a broken Redis connection so the next call can reconnect (oracle cache fallback)."""
+    global _redis, _rl_backend
+    with _redis_lock:
+        _redis = None
+    _rl_backend = "memory"
+
+
+def _memory_quick_cache_get(key: str) -> dict[str, Any] | None:
+    with _quick_lock:
+        row = _quick_cache.get(key)
+        if not row:
+            return None
+        expires, payload = row
+        if time.time() > expires:
+            _quick_cache.pop(key, None)
+            return None
+        out = dict(payload)
+        out["viral_cache"] = "hit"
+        return out
+
+
+def _memory_quick_cache_set(key: str, body: dict[str, Any], ttl: float) -> None:
+    with _quick_lock:
+        if len(_quick_cache) > 5000:
+            _quick_cache.clear()
+        _quick_cache[key] = (time.time() + max(0.2, ttl), body)
+
+
 def _client_key(request: Request) -> str:
     forwarded = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
     host = forwarded or (request.client.host if request.client else "unknown")
@@ -358,6 +387,13 @@ def _cache_key(symbol: str, lang: str, mode: str) -> str:
 def quick_cache_get(symbol: str, lang: str, mode: str) -> dict[str, Any] | None:
     global _cache_backend
     key = _cache_key(symbol, lang, mode)
+    ttl = float(os.getenv("VIRAL_QUICK_CACHE_TTL_SEC", str(QUICK_CACHE_TTL_SEC)))
+
+    hit = _memory_quick_cache_get(key)
+    if hit is not None:
+        _cache_backend = "memory"
+        return hit
+
     client = _redis_client()
     if client is not None:
         try:
@@ -365,6 +401,7 @@ def quick_cache_get(symbol: str, lang: str, mode: str) -> dict[str, Any] | None:
             if raw:
                 payload = json.loads(raw)
                 if isinstance(payload, dict):
+                    _memory_quick_cache_set(key, payload, ttl)
                     out = dict(payload)
                     out["viral_cache"] = "hit"
                     _cache_backend = "redis"
@@ -372,19 +409,14 @@ def quick_cache_get(symbol: str, lang: str, mode: str) -> dict[str, Any] | None:
         except asyncio.CancelledError:
             raise
         except Exception:
-            logger.debug("Redis quick cache get failed", exc_info=True)
-    with _quick_lock:
-        row = _quick_cache.get(key)
-        if not row:
-            return None
-        expires, payload = row
-        if time.time() > expires:
-            _quick_cache.pop(key, None)
-            return None
-        out = dict(payload)
-        out["viral_cache"] = "hit"
+            _drop_redis_client()
+            logger.debug("Redis quick cache get failed — memory fallback", exc_info=True)
+
+    hit = _memory_quick_cache_get(key)
+    if hit is not None:
         _cache_backend = "memory"
-        return out
+        return hit
+    return None
 
 
 def quick_cache_set(symbol: str, lang: str, mode: str, payload: dict[str, Any]) -> None:
@@ -392,6 +424,8 @@ def quick_cache_set(symbol: str, lang: str, mode: str, payload: dict[str, Any]) 
     ttl = float(os.getenv("VIRAL_QUICK_CACHE_TTL_SEC", str(QUICK_CACHE_TTL_SEC)))
     key = _cache_key(symbol, lang, mode)
     body = {k: v for k, v in dict(payload).items() if k != "viral_cache"}
+    _memory_quick_cache_set(key, body, ttl)
+
     client = _redis_client()
     if client is not None:
         try:
@@ -405,12 +439,9 @@ def quick_cache_set(symbol: str, lang: str, mode: str, payload: dict[str, Any]) 
         except asyncio.CancelledError:
             raise
         except Exception:
-            logger.debug("Redis quick cache set failed", exc_info=True)
-    with _quick_lock:
-        if len(_quick_cache) > 5000:
-            _quick_cache.clear()
-        _quick_cache[key] = (time.time() + max(0.2, ttl), body)
-        _cache_backend = "memory"
+            _drop_redis_client()
+            logger.debug("Redis quick cache set failed — local memory only", exc_info=True)
+    _cache_backend = "memory"
 
 
 async def run_oracle_bounded(coro_factory: Callable[[], Any]) -> Any:
