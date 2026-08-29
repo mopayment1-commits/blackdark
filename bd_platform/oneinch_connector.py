@@ -258,6 +258,8 @@ async def _fetch_oneinch_quote_inner(
             "timestamp": _utcnow(),
         }
 
+    canonical_id = f"{asset_u}/{quote_asset.upper()}"
+
     result = {
         "ok": True,
         "success": True,

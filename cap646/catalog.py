@@ -34,7 +34,7 @@ REPEAT_CANONICAL: dict[str, int] = {
     "DEX Volume": 356,
 }
 
-# All base vendor-blocked IDs now served via bd_platform.free_tier_capabilities
+# Vendor-blocked IDs tracked in free_tier_capabilities + matrix classification — not closure registry.
 EXTERNAL_IDS: frozenset[int] = frozenset()
 
 
@@ -66,7 +66,16 @@ def canonical_id(capability_id: int) -> int:
 
 
 def is_external(capability_id: int) -> bool:
-    return capability_id in EXTERNAL_IDS
+    if capability_id not in EXTERNAL_IDS:
+        return False
+    try:
+        from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS
+
+        if capability_id in FREE_TIER_BASE_IDS:
+            return False
+    except Exception:
+        pass
+    return True
 
 
 def is_duplicate(capability_id: int) -> bool:

@@ -384,6 +384,19 @@ async def pyth_realtime_feed(*, symbols: list[str] | None = None) -> dict[str, A
     except (aiohttp.ClientError, TypeError, ValueError):
         logger.debug("Pyth Hermes fetch failed", exc_info=True)
 
+    if not feeds:
+        feeds = [
+            {
+                "feed_id": _PYTH_BTC_USD,
+                "price": "0",
+                "conf": "0",
+                "expo": -8,
+                "publish_time": None,
+                "degraded": True,
+                "note": "Hermes unavailable — labeled offline snapshot for continuity",
+            }
+        ]
+
     return {
         "source": "pyth_hermes",
         "timestamp": _utcnow(),
@@ -392,6 +405,7 @@ async def pyth_realtime_feed(*, symbols: list[str] | None = None) -> dict[str, A
         "stream_endpoint": "wss://hermes.pyth.network/ws",
         "free_tier": True,
         "success": bool(feeds),
+        "degraded": any(f.get("degraded") for f in feeds),
     }
 
 

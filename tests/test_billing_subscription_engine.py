@@ -22,10 +22,10 @@ async def test_plan_registry_official_prices():
     from billing.plan_registry import PLAN_DEFINITIONS, normalize_plan
 
     assert normalize_plan("whale") == "elite"
-    assert PLAN_DEFINITIONS["pro"]["price_cents"] == 1999
-    assert PLAN_DEFINITIONS["elite"]["price_cents"] == 4999
+    assert PLAN_DEFINITIONS["pro"]["price_cents"] == 2900
+    assert PLAN_DEFINITIONS["elite"]["price_cents"] == 4900
     assert PLAN_DEFINITIONS["quant"]["price_cents"] == 14999
-    assert PLAN_DEFINITIONS["institutional"]["price_usd_month_from"] == 999.0
+    assert PLAN_DEFINITIONS["institutional"]["price_usd_month_from"] == 3000.0
     assert PLAN_DEFINITIONS["pro"]["trial_days"] == 7
     assert PLAN_DEFINITIONS["quant"]["trial_days"] == 7
     assert PLAN_DEFINITIONS["free"]["trial_days"] == 0
@@ -59,7 +59,7 @@ async def test_subscription_lifecycle_activate_renew_cancel_expire(billing_user)
         period_end=period_end,
         auto_renew_consent=True,
         provider_event_id=f"evt_checkout_{suffix}",
-        amount_cents=1999,
+        amount_cents=2900,
     )
     assert result["duplicate"] is False
     sub = await get_by_user_id(uid)
@@ -86,7 +86,7 @@ async def test_subscription_lifecycle_activate_renew_cancel_expire(billing_user)
         provider_event_id=f"evt_invoice_{suffix}",
         provider_invoice_id=f"in_{suffix}",
         period_end=new_end,
-        amount_cents=1999,
+        amount_cents=2900,
     )
     assert renew["handled"] is True
     sub = await get_by_user_id(uid)
@@ -204,8 +204,8 @@ async def test_pricing_catalog_five_tiers():
     ids = [t["id"] for t in cat["tiers"]]
     assert ids == ["free", "pro", "elite", "quant", "institutional"]
     by_id = {t["id"]: t for t in cat["tiers"]}
-    assert by_id["pro"]["price_usd_month"] == 19.99
-    assert by_id["elite"]["price_usd_month"] == 49.99
+    assert by_id["pro"]["price_usd_month"] == 29
+    assert by_id["elite"]["price_usd_month"] == 49
     assert by_id["quant"]["price_usd_month"] == 149.99
 
 
