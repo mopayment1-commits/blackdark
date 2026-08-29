@@ -16,7 +16,6 @@ from typing import Any, Callable, get_args, get_origin
 ROOT = Path(__file__).resolve().parent
 _SCAN_ROOTS = (
     ROOT / "bd_platform",
-    ROOT,
 )
 _SKIP_FILES = frozenset(
     {
@@ -27,10 +26,34 @@ _SKIP_FILES = frozenset(
 )
 
 _MANUAL: dict[int, tuple[str, str]] = {
+    2: ("trade_simulator", "simulate_spot_trade"),
+    18: ("bd_platform.alert_orchestration", "alert_orchestration_status_18"),
+    29: ("bd_platform.retail_intelligence_layer", "compare_discipline_66"),
+    31: ("bd_platform.retail_intelligence_layer", "build_discipline_tab_66"),
+    49: ("bd_platform.flash_crash_protection", "flash_crash_protection_status_49"),
     113: ("ma_intelligence_service", "build_ma_intelligence_report"),
+    270: ("bd_platform.free_integrations", "holder_analytics"),
+    288: ("bd_platform.correlation_mindshare", "compute_mindshare_correlation_288"),
+    316: ("bd_platform.sse_stream", "sse_digest_status_316"),
+    331: ("bd_platform.intelligence_analysis_layer", "analyze_arbitrage_opportunity_153"),
+    378: ("exchange_currency_status", "deposit_currencies_open"),
+    379: ("bd_platform.arbitrage_portfolio_ux_layer", "analyze_liquidity_capacity_189"),
     380: ("exchange_currency_status", "deposit_currencies_open"),
     381: ("exchange_currency_status", "withdrawal_currencies_closed"),
+    390: ("bd_platform.whales_institutional_layer", "build_exchange_health_80"),
+    393: ("data_sources_registry", "registry_summary"),
+    396: ("bd_platform.news_classifier", "coindesk_feed"),
+    409: ("bd_platform.quicktake_feed", "quicktake_feed_status_409"),
+    517: ("comparison_engine", "run_comparison_engine"),
+    528: ("bd_platform.market_rankings", "market_rankings"),
     627: ("comparison_engine", "run_comparison_engine"),
+    630: ("bd_platform.intelligence_ux_extensions_layer", "scan_market_opportunities_238"),
+    702: ("graphql_schema", "graphql_health"),
+    745: ("subscription_analytics", "subscription_analytics_status_745"),
+    752: ("institutional_assurance", "backup_status"),
+    753: ("institutional_assurance", "ir_program"),
+    816: ("dimension_conflict_guard", "dimension_conflict_status"),
+    819: ("blackdark.data.db", "data_engine_available"),
 }
 
 _MODULE_ENTRYPOINTS: dict[str, str] = {
@@ -40,7 +63,7 @@ _MODULE_ENTRYPOINTS: dict[str, str] = {
     "sentiment_manipulation_guard": "sentiment_manipulation_status",
     "stale_price_guard": "guard_enabled",
     "acquisition_assets_service": "build_acquisition_assets_report",
-    "retail_intelligence_layer": "build_one_clear_answer_63",
+    "retail_intelligence_layer": "compare_discipline_66",
     "risk_manager": "is_trading_frozen",
     "drawdown_guard": "drawdown_status",
     "money_decimal": "money_float",
@@ -256,7 +279,7 @@ def _infer_param_default(name: str, annotation: Any) -> Any:
     nl = name.lower()
     ann = _annotation_name(annotation)
 
-    if "dict" in ann or nl in {
+    if "dict[" in ann or ann.endswith("dict") or nl in {
         "payload",
         "body",
         "data",
@@ -284,6 +307,12 @@ def _infer_param_default(name: str, annotation: Any) -> Any:
 
     if nl in {"price", "opportunity_level"}:
         return 50_000.0 if nl == "price" else 0.75
+    if nl in {"side"}:
+        return "buy"
+    if nl in {"limit"}:
+        return 10
+    if nl in {"amount_usd"}:
+        return 100.0
     if nl in {"verdict"}:
         return "Neutral"
     if nl in {"reasons"}:
