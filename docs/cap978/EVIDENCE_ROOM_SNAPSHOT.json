@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-27T10:10:19.620642+00:00",
-  "product_thesis": "978-capability Decision Intelligence platform \u2014 evidence-first closure",
+  "generated_at": "2026-08-29T17:50:04.412362+00:00",
+  "product_thesis": "978-capability Decision Intelligence platform — evidence-first closure",
   "verdict": "VERIFIED COMPLETE",
   "internal_closure": {
     "INTERNAL_PARTIAL": 0,
@@ -30,14 +30,14 @@
     "internal_closure": true,
     "e2e": {
       "verdict": "VERIFIED_COMPLETE",
-      "chain_id": "chain_d42e1c4667ed",
+      "chain_id": "chain_0951ce37fd98",
       "acceptance_evidence": {
-        "prediction_id": "pred_chain_d42e1c4667ed",
-        "decision_id": "dec_7442cb163c764b3b",
-        "exposure_id": "exp_4310ab531dae4e8c",
-        "certificate_hash": "2aa613f4c678a79f82cad1c91c8d58b5da84e997531263198017f6f2288bc09e",
-        "signal_id": "pred_chain_d42e1c4667ed",
-        "outcome_id": "out_chain_d42e1c4667ed"
+        "prediction_id": "pred_chain_0951ce37fd98",
+        "decision_id": "dec_709bbcd1acf24507",
+        "exposure_id": "exp_95b809e59e8041a2",
+        "certificate_hash": "1e9c05711966d36eaad474c339183875ef6e2ec4a7f1904dd8bb3ed9064a0854",
+        "signal_id": "pred_chain_0951ce37fd98",
+        "outcome_id": "out_chain_0951ce37fd98"
       },
       "stage_count": 12,
       "failed_stages": []
@@ -46,7 +46,8 @@
   "external_registry_summary": {
     "total": 4,
     "counts": {
-      "EXTERNAL_EVIDENCE_REQUIRED": 2,
+      "EXTERNAL_EVIDENCE_REQUIRED": 1,
+      "VERIFIED_COMPLETE": 1,
       "EXTERNAL_BLOCKED": 2
     }
   },
@@ -90,11 +91,11 @@
     {
       "label": "extension_blocked",
       "capability_id": 647,
-      "success": false,
-      "classification": "NOT_READY",
+      "success": true,
+      "classification": "VERIFIED_COMPLETE",
       "surface": "real_time_feed",
       "backend_module": "bd_platform.free_tier_capabilities",
-      "proof_hash": "0689d2e7365511c565d265a509a54a62a64f713d803468d09ecfa58736e7eb27"
+      "proof_hash": "dbc71a19bb3b6fcd66b50ba954ab145c0ca63465c757d55129ce6c00e21e7920"
     },
     {
       "label": "extension_internal",
@@ -172,5 +173,704 @@
     "curl /api/cap646/evidence-room",
     "curl /api/cap646/platform-chain/e2e?symbol=BTC"
   ],
-  "snapshot_hash": "dce1c718ba978b576b994567288cde24080ad91fb235c21ffdb203e30a597de4"
+  "snapshot_hash": "f981fca5d96310da10530cc022fbbc4d4380d79ca3633141af23beb9a526c7dd",
+  "external_registry_rows": [
+    {
+      "id": 645,
+      "scope": "base_646",
+      "capability": "Security Verification Evidence",
+      "track": "T02",
+      "classification": "EXTERNAL_EVIDENCE_REQUIRED",
+      "blocker_type": "independent_attestation",
+      "reason": "ID645 pentest attestation",
+      "internal_action": "none — requires external auditor attestation"
+    },
+    {
+      "id": 644,
+      "scope": "base_646",
+      "capability": "Capacity / Load Evidence",
+      "track": "T01",
+      "classification": "VERIFIED_COMPLETE",
+      "blocker_type": "signed_load_evidence",
+      "reason": "Signed multi-worker capacity/load attestation — ID644",
+      "internal_action": "none — requires signed load test under production topology",
+      "signed": true
+    },
+    {
+      "id": "SEC-008",
+      "scope": "governing_control",
+      "capability": "SEC-008",
+      "track": "SEC",
+      "classification": "EXTERNAL_BLOCKED",
+      "blocker_type": "external_infrastructure_or_audit",
+      "reason": "Third-party penetration test attestation — ID645 slot",
+      "internal_action": "none — human/external provisioning required"
+    },
+    {
+      "id": "SEC-009",
+      "scope": "governing_control",
+      "capability": "SEC-009",
+      "track": "SEC",
+      "classification": "EXTERNAL_BLOCKED",
+      "blocker_type": "external_infrastructure_or_audit",
+      "reason": "SOC2/ISO certification — external audit firm",
+      "internal_action": "none — human/external provisioning required"
+    }
+  ],
+  "closure_detail": {
+    "verdict": "VERIFIED COMPLETE",
+    "total": 978,
+    "cap978": {
+      "counts": {
+        "VERIFIED_COMPLETE": 938,
+        "CANONICALLY_COVERED": 37,
+        "EXTERNAL_EVIDENCE_REQUIRED": 1,
+        "EXTERNAL_BLOCKED": 2
+      },
+      "base_646": {
+        "VERIFIED_COMPLETE": 938,
+        "CANONICALLY_COVERED": 37,
+        "EXTERNAL_EVIDENCE_REQUIRED": 1,
+        "EXTERNAL_BLOCKED": 2
+      },
+      "extension_647_978": {
+        "VERIFIED_COMPLETE": 329,
+        "EXTERNAL_BLOCKED": 2,
+        "CANONICALLY_COVERED": 1
+      },
+      "incomplete_sample": [],
+      "internal_closure": true,
+      "INTERNAL_PARTIAL": 0,
+      "INTERNAL_NOT_IMPLEMENTED": 0,
+      "FUNCTIONALLY_INCOMPLETE": 0
+    },
+    "governing_controls": {
+      "total": 42,
+      "counts": {
+        "VERIFIED_COMPLETE": 38,
+        "EXTERNAL_BLOCKED": 4
+      },
+      "rows": [
+        {
+          "id": "GOV-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "docs/PRODUCT_CONSTITUTION_AR.md",
+            "docs/BLACKDARK_MASTER_DECISION_REGISTER.md"
+          ],
+          "note": ""
+        },
+        {
+          "id": "GOV-002",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "org_rbac.role_matrix"
+          ],
+          "note": "roles=5"
+        },
+        {
+          "id": "GOV-003",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "stale_price_guard",
+            "net_edge_truth"
+          ],
+          "note": ""
+        },
+        {
+          "id": "ARC-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "architecture_due_diligence"
+          ],
+          "note": ""
+        },
+        {
+          "id": "ARC-002",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "service_bus.py"
+          ],
+          "note": ""
+        },
+        {
+          "id": "QUA-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "tests=163"
+          ],
+          "note": "automated test suite present"
+        },
+        {
+          "id": "SEC-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "rate_limit=memory"
+          ],
+          "note": ""
+        },
+        {
+          "id": "SEC-002",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "api_key_security_guard"
+          ],
+          "note": "fernet_aes128_cbc"
+        },
+        {
+          "id": "SEC-003",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "security_middleware.py"
+          ],
+          "note": ""
+        },
+        {
+          "id": "SEC-004",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "org_mfa_policy"
+          ],
+          "note": "{'surface': 'org_enforced_mfa', 'product_complete': True, 'org_id': None, 'require_mfa': None, 'factors': ['totp', 'recovery_codes'], 'webauthn_ready': True, 'api': {'set_policy': 'POST /api/institutional/orgs/{org_id}/mfa-policy', 'check': 'GET /api/institutional/mfa-policy/check'}, 'login_integration': 'auth_service.login_user → assert_login_mfa_policy'}"
+        },
+        {
+          "id": "SEC-005",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "secrets_vault.get_vault_key"
+          ],
+          "note": ""
+        },
+        {
+          "id": "SEC-006",
+          "status": "EXTERNAL_BLOCKED",
+          "evidence": [],
+          "note": "SSO IdP configuration external — set ENTERPRISE_OIDC_* on production"
+        },
+        {
+          "id": "SEC-007",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "org_tenant"
+          ],
+          "note": "sqlite"
+        },
+        {
+          "id": "SEC-008",
+          "status": "EXTERNAL_BLOCKED",
+          "evidence": [],
+          "note": "Third-party pentest attestation — ID645 slot"
+        },
+        {
+          "id": "SEC-009",
+          "status": "EXTERNAL_BLOCKED",
+          "evidence": [],
+          "note": "SOC2/ISO certification path — external audit"
+        },
+        {
+          "id": "DAT-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "sources=10"
+          ],
+          "note": ""
+        },
+        {
+          "id": "DAT-002",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "data_provenance_score"
+          ],
+          "note": "caution"
+        },
+        {
+          "id": "DAT-003",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "cap646.evidence_class"
+          ],
+          "note": ""
+        },
+        {
+          "id": "DAT-004",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "oracle_integrity.live_source_sql"
+          ],
+          "note": "synthetic excluded"
+        },
+        {
+          "id": "REL-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "production_guard"
+          ],
+          "note": "None"
+        },
+        {
+          "id": "REL-002",
+          "status": "EXTERNAL_BLOCKED",
+          "evidence": [],
+          "note": "Signed multi-worker HA load — ID644 / SIGNED_LOAD_EVIDENCE_JSON"
+        },
+        {
+          "id": "REL-003",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "health_sidecar.py"
+          ],
+          "note": ""
+        },
+        {
+          "id": "REL-004",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "docs/ops/INCIDENT_RESPONSE.md"
+          ],
+          "note": ""
+        },
+        {
+          "id": "REL-005",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "tests/test_rc2_chaos_resilience.py",
+            "production_guard"
+          ],
+          "note": ""
+        },
+        {
+          "id": "QA-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            ".github/workflows"
+          ],
+          "note": ""
+        },
+        {
+          "id": "QA-002",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "oracle_audit_chain"
+          ],
+          "note": "valid=True"
+        },
+        {
+          "id": "QA-003",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "locked_predictions.glass_box_status"
+          ],
+          "note": "{'feature': 'locked_predictions', 'hero_deepening': ['decision_certificate', 'public_accuracy_ledger'], 'total': 6, 'locked': 2, 'unlocked': 4, 'launch_narrative': 'glass_box_challenge', 'public_page_hint': '/oracle-accuracy#locked'}"
+        },
+        {
+          "id": "QA-004",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "platform_compounding_stores"
+          ],
+          "note": "simulated vs live separated"
+        },
+        {
+          "id": "AI-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "decision_certificate"
+          ],
+          "note": "ok"
+        },
+        {
+          "id": "AI-002",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "compliance_footer"
+          ],
+          "note": "SHADOW_LIVE_FORWARD"
+        },
+        {
+          "id": "AI-003",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "ml.drift_monitor"
+          ],
+          "note": "envelope_present"
+        },
+        {
+          "id": "AI-004",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "signal_registry"
+          ],
+          "note": "live"
+        },
+        {
+          "id": "AI-005",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "data_moat_guard"
+          ],
+          "note": "{'enabled': True, 'live_only': True, 'block_synthetic_seed': True, 'require_features_json': True, 'production_mode': True}"
+        },
+        {
+          "id": "FIN-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "fee_matrix"
+          ],
+          "note": "{'exchanges': 100, 'last_refresh': 0.0, 'refresh_interval_sec': 3600, 'sample': {'binance': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'okx': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bybit': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinbase': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kraken': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kucoin': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'gateio': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'quickswap': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}}}"
+        },
+        {
+          "id": "FIN-002",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "money_decimal.money"
+          ],
+          "note": "123.4568"
+        },
+        {
+          "id": "FIN-003",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "risk_manager"
+          ],
+          "note": "{'trading_frozen': False, 'freeze_reason': '', 'freeze_until_ts': None, 'drift_freeze_active': False, 'max_slippage_bps': 80.0, 'poison_threshold_pct': 15.0, 'stop_loss_pct': 2.0, 'active_stop_losses': 0, 'recent_poison_events': [], 'config_slippage_buffer_bps': 5.0, 'honest_scope': {'shipped': ['slippage gate', 'poison / freeze kill-switch', 'stop-loss hooks', 'drawdown freeze (when enabled)'], 'not_shipped': ['institutional VaR 99% desk', 'Expected Shortfall / CVaR engine', 'formal position-limit ledger'], 'note': 'Risk Intelligence here is execution safety — not a full buy-side risk platform.'}}"
+        },
+        {
+          "id": "FIN-004",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "net_edge_truth"
+          ],
+          "note": ""
+        },
+        {
+          "id": "PRV-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "docs/ops/PRIVACY_AND_AUDIT_ROADMAP.md"
+          ],
+          "note": ""
+        },
+        {
+          "id": "PRV-002",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "regulatory_compliance_guard"
+          ],
+          "note": "Analytics indicate positive momentum gua"
+        },
+        {
+          "id": "UX-001",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "trust_os_lenses.lenses_manifest"
+          ],
+          "note": "lenses=4"
+        },
+        {
+          "id": "UX-002",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "templates/cap646_hub.html",
+            "/cap646"
+          ],
+          "note": ""
+        },
+        {
+          "id": "UX-003",
+          "status": "VERIFIED_COMPLETE",
+          "evidence": [
+            "freshness_chip"
+          ],
+          "note": "fresh"
+        }
+      ],
+      "internal_closure": true,
+      "verdict": "VERIFIED COMPLETE"
+    },
+    "data_platform_chain": {
+      "chain": "Raw→Derived→Entity/Event→Feature→Signal→Prediction/Decision→Confidence→User Exposure→Outcome→Evidence/Error→Learning→Model Version",
+      "links": [
+        {
+          "link": "raw_lake",
+          "ok": true,
+          "result_keys": [
+            "registry",
+            "sources_tracked",
+            "sources_ok",
+            "health"
+          ]
+        },
+        {
+          "link": "raw_hot",
+          "ok": true,
+          "result_keys": [
+            "enqueued",
+            "dropped",
+            "flushed",
+            "flush_errors",
+            "buffer_depth",
+            "last_flush_at",
+            "active_backends"
+          ]
+        },
+        {
+          "link": "source_ingestion",
+          "ok": true,
+          "result_keys": [
+            "capability_id",
+            "surface",
+            "generated_at",
+            "architecture",
+            "provenance_sample",
+            "provenance",
+            "lineage",
+            "success",
+            "evidence_class",
+            "evidence_metadata",
+            "compliance_footer"
+          ]
+        },
+        {
+          "link": "derived_normalize",
+          "ok": true,
+          "result_keys": [
+            "capability_id",
+            "surface",
+            "generated_at",
+            "symbol",
+            "canonical_layer",
+            "normalized_context",
+            "provenance",
+            "schema_version",
+            "success",
+            "evidence_class",
+            "evidence_metadata",
+            "compliance_footer"
+          ]
+        },
+        {
+          "link": "freshness_assurance",
+          "ok": true,
+          "result_keys": [
+            "capability_id",
+            "surface",
+            "generated_at",
+            "symbol",
+            "guard_enabled",
+            "quote_fresh",
+            "quote_age_ms",
+            "quote_reason",
+            "freshness_chip",
+            "feed_lag_scan",
+            "hub_stats",
+            "policy",
+            "executable_fresh",
+            "success",
+            "evidence_class",
+            "evidence_metadata",
+            "compliance_footer"
+          ]
+        },
+        {
+          "link": "entity_event_library",
+          "ok": true,
+          "result_keys": [
+            "status",
+            "total",
+            "by_category",
+            "path"
+          ]
+        },
+        {
+          "link": "feature_store",
+          "ok": true,
+          "result_keys": [
+            "asset",
+            "price",
+            "ret_1h",
+            "ret_4h",
+            "ret_24h",
+            "volatility",
+            "universe_size_exchanges",
+            "universe_size_assets",
+            "sentiment_score",
+            "sentiment_momentum",
+            "obi_score",
+            "obi_imbalance",
+            "macro_weight",
+            "funding_spread_bps",
+            "whale_sii",
+            "onchain_netflow"
+          ]
+        },
+        {
+          "link": "provenance_score",
+          "ok": true,
+          "result_keys": [
+            "surface",
+            "generated_at",
+            "symbol",
+            "score",
+            "band",
+            "posture",
+            "components",
+            "live_ingestion_ready_ids",
+            "honesty",
+            "api",
+            "disclaimer"
+          ]
+        },
+        {
+          "link": "signal_registry",
+          "ok": true,
+          "result_keys": [
+            "total_in_memory",
+            "labeled",
+            "unlabeled",
+            "linked_prediction_ids",
+            "by_type",
+            "by_label",
+            "by_type_performance",
+            "lexicon",
+            "status",
+            "persist_path",
+            "moat_claim",
+            "generated_at",
+            "uptime_seconds"
+          ]
+        },
+        {
+          "link": "decision_certificate",
+          "ok": true,
+          "result_keys": [
+            "asset",
+            "prediction_id",
+            "chain_hash",
+            "decision_action",
+            "decision_sentence",
+            "opportunity_score",
+            "truth_score",
+            "half_life_seconds",
+            "market_regime",
+            "ux_mode",
+            "tier",
+            "watermark",
+            "upgrade_cta",
+            "issued_at",
+            "public_accuracy",
+            "engine",
+            "certificate_hash",
+            "verify_url",
+            "permalink",
+            "share_text",
+            "share_urls",
+            "export_text",
+            "compliance"
+          ]
+        },
+        {
+          "link": "decision_ledger",
+          "ok": true,
+          "result_keys": [
+            "status",
+            "total",
+            "linked_outcomes",
+            "linked_exposure",
+            "by_evidence_class",
+            "path"
+          ]
+        },
+        {
+          "link": "user_exposure",
+          "ok": true,
+          "result_keys": [
+            "status",
+            "total",
+            "by_surface",
+            "by_tier",
+            "path"
+          ]
+        },
+        {
+          "link": "outcome_ledger",
+          "ok": true,
+          "result_keys": [
+            "immutable_chain",
+            "cumulative",
+            "synthetic_demo_data",
+            "recent",
+            "auto_accumulation",
+            "note"
+          ]
+        },
+        {
+          "link": "failure_corpus",
+          "ok": true,
+          "result_keys": [
+            "status",
+            "total",
+            "by_category",
+            "by_source",
+            "kill_rate_board",
+            "path"
+          ]
+        },
+        {
+          "link": "learning_memory",
+          "ok": true,
+          "result_keys": [
+            "total_events",
+            "total_training_runs",
+            "total_flywheel_cycles",
+            "best_accuracy",
+            "created_at",
+            "last_event",
+            "last_updated",
+            "events_by_type",
+            "last_labeled_export_count",
+            "best_model_version"
+          ]
+        },
+        {
+          "link": "platform_e2e",
+          "ok": true,
+          "result_keys": [
+            "chain_id",
+            "generated_at",
+            "symbol",
+            "evidence_class",
+            "verdict",
+            "stages",
+            "errors",
+            "acceptance_evidence",
+            "internal_closure"
+          ]
+        }
+      ],
+      "failed": [],
+      "e2e": {
+        "verdict": "VERIFIED_COMPLETE",
+        "chain_id": "chain_b8bfad19a829",
+        "acceptance_evidence": {
+          "prediction_id": "pred_chain_b8bfad19a829",
+          "decision_id": "dec_83cf729757cf41ff",
+          "exposure_id": "exp_e50b7b3e1ec1457b",
+          "certificate_hash": "14289fedad3df46dbedab13155a3cc8e35e938fcee88f7ee0bdaa57c6c9fa5cf",
+          "signal_id": "pred_chain_b8bfad19a829",
+          "outcome_id": "out_chain_b8bfad19a829"
+        },
+        "stage_count": 12,
+        "failed_stages": []
+      },
+      "verdict": "VERIFIED_COMPLETE",
+      "internal_closure": true
+    },
+    "references": {
+      "cap978": "docs/cap978/CAP978_CATALOG.json",
+      "cap646": "docs/cap646/CAP646_CATALOG.json",
+      "governing": "docs/governing/INSTITUTIONAL_GOVERNING_REFERENCE.md",
+      "data_platform": "docs/governing/DATA_PLATFORM_GOVERNING_REFERENCE.md",
+      "source_pdf": "Project_978_Capabilities_Grouped_d117.pdf"
+    }
+  }
 }

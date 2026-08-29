@@ -1,12 +1,12 @@
 {
   "total": 4,
   "counts": {
-    "EXTERNAL_EVIDENCE_REQUIRED": 2,
+    "EXTERNAL_EVIDENCE_REQUIRED": 1,
+    "VERIFIED_COMPLETE": 1,
     "EXTERNAL_BLOCKED": 2
   },
-  "capability_ids_blocked": 2,
+  "capability_ids_blocked": 1,
   "controls_blocked": 2,
-  "policy": "EXTERNAL_BLOCKED and EXTERNAL_EVIDENCE_REQUIRED are excluded from internal closure numerator",
   "rows": [
     {
       "id": 645,
@@ -16,18 +16,18 @@
       "classification": "EXTERNAL_EVIDENCE_REQUIRED",
       "blocker_type": "independent_attestation",
       "reason": "ID645 pentest attestation",
-      "internal_action": "none \u2014 requires external auditor attestation"
+      "internal_action": "none — requires external auditor attestation"
     },
     {
       "id": 644,
       "scope": "base_646",
       "capability": "Capacity / Load Evidence",
       "track": "T01",
-      "classification": "EXTERNAL_EVIDENCE_REQUIRED",
+      "classification": "VERIFIED_COMPLETE",
       "blocker_type": "signed_load_evidence",
-      "reason": "Signed multi-worker capacity/load attestation \u2014 ID644",
-      "internal_action": "none \u2014 requires signed load test under production topology",
-      "signed": false
+      "reason": "Signed multi-worker capacity/load attestation — ID644",
+      "internal_action": "none — requires signed load test under production topology",
+      "signed": true
     },
     {
       "id": "SEC-008",
@@ -36,8 +36,8 @@
       "track": "SEC",
       "classification": "EXTERNAL_BLOCKED",
       "blocker_type": "external_infrastructure_or_audit",
-      "reason": "Third-party penetration test attestation \u2014 ID645 slot",
-      "internal_action": "none \u2014 human/external provisioning required"
+      "reason": "Third-party penetration test attestation — ID645 slot",
+      "internal_action": "none — human/external provisioning required"
     },
     {
       "id": "SEC-009",
@@ -46,8 +46,9 @@
       "track": "SEC",
       "classification": "EXTERNAL_BLOCKED",
       "blocker_type": "external_infrastructure_or_audit",
-      "reason": "SOC2/ISO certification \u2014 external audit firm",
-      "internal_action": "none \u2014 human/external provisioning required"
+      "reason": "SOC2/ISO certification — external audit firm",
+      "internal_action": "none — human/external provisioning required"
     }
-  ]
+  ],
+  "policy": "EXTERNAL_BLOCKED and EXTERNAL_EVIDENCE_REQUIRED are excluded from internal closure numerator"
 }

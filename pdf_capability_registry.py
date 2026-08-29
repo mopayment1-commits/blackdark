@@ -127,6 +127,8 @@ async def execute_capability(capability_id: int) -> dict[str, Any]:
 
 def batch_test_module_for(capability_id: int) -> str | None:
     """Map capability ID to existing batch test file if in a known range."""
+    if capability_id in (113, 380, 381, 627):
+        return "tests/test_missing_capabilities_closure.py"
     ranges = [
         (57, 66, "tests/test_legal_retail_batch57_66.py"),
         (67, 76, "tests/test_pro_trader_batch67_76.py"),
@@ -149,6 +151,4 @@ def batch_test_module_for(capability_id: int) -> str | None:
     for lo, hi, path in ranges:
         if lo <= capability_id <= hi:
             return path if (ROOT / path).is_file() else None
-    if capability_id in (113, 380, 381, 627):
-        return "tests/test_missing_capabilities_closure.py"
     return None
