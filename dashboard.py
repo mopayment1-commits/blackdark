@@ -595,6 +595,12 @@ async def _shutdown_background_runtime(app: FastAPI) -> None:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Yield immediately so Railway /health/live passes, then boot in background."""
+    try:
+        from aggregator import init_shared_http_session
+
+        await init_shared_http_session()
+    except Exception:
+        logger.exception("Shared HTTP session init failed")
     boot_task = asyncio.create_task(_background_boot(app), name="blackdark-boot")
     try:
         from blackdark.data.db import data_engine_available, init_data_engine
@@ -606,6 +612,12 @@ async def lifespan(app: FastAPI):
     logger.info("BLACKDARK API live — DB/services loading in background.")
     yield
     await _shutdown_lifespan_services(app, boot_task)
+    try:
+        from aggregator import close_shared_http_session
+
+        await close_shared_http_session()
+    except Exception:
+        logger.exception("Shared HTTP session shutdown failed")
 
 
 # Public /docs is our evidence/read developer page (not full Swagger dump).
