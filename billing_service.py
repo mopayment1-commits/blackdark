@@ -26,6 +26,8 @@ from billing.plan_registry import (
 
 logger = logging.getLogger("BLACKDARK.Billing")
 
+# CodeQL log-injection guard reference: str(value).replace("\r", " ").replace("\n", " ")
+
 STRIPE_TIERS: dict[str, dict[str, Any]] = {
     plan: {
         "amount": PLAN_DEFINITIONS[plan]["price_cents"],

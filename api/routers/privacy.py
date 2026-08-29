@@ -42,3 +42,31 @@ async def dsr_erase(
         raise HTTPException(status_code=400, detail="No email on account")
     confirm = body.get("confirm") in {True, "true", "1"}
     return await erase_user_data(email, confirmed=confirm)
+
+
+@router.post("/consent")
+async def record_consent(
+    user: dict = Depends(require_authenticated),
+    body: dict = Body(default={}),
+):
+    """#58 — explicit GDPR consent logging."""
+    from bd_platform.legal_commercial_layer import record_gdpr_consent_58
+
+    email = str(user.get("email") or body.get("email") or "")
+    if not email:
+        raise HTTPException(status_code=400, detail="No email")
+    return record_gdpr_consent_58(
+        user_email=email,
+        marketing=bool(body.get("marketing", False)),
+        cookies=bool(body.get("cookies", True)),
+        locale=str(body.get("locale", "en")),
+        country=str(body.get("country", "")),
+    )
+
+
+@router.get("/gdpr/status")
+async def gdpr_layer_status():
+    """#58 — GDPR compliance layer status."""
+    from bd_platform.legal_commercial_layer import gdpr_compliance_status_58
+
+    return gdpr_compliance_status_58()
