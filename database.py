@@ -1499,6 +1499,27 @@ async def _ensure_compounding_tables(db: Any) -> None:
             created_at TEXT NOT NULL
         )
         """,
+        """
+        CREATE TABLE IF NOT EXISTS fees (
+            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+            opportunity_id      TEXT    NOT NULL,
+            exchange            TEXT    NOT NULL,
+            symbol              TEXT    NOT NULL,
+            side                TEXT    NOT NULL,
+            trading_fee_pct     REAL,
+            trading_fee_usdt    REAL,
+            withdrawal_fee_usdt REAL,
+            deposit_fee_usdt    REAL,
+            gas_fee_usdt        REAL,
+            total_fee_usdt      REAL    NOT NULL,
+            net_profit_usdt     REAL,
+            timestamp           TEXT    NOT NULL
+        )
+        """,
+        """
+        CREATE INDEX IF NOT EXISTS idx_fees_opp_exchange_symbol
+            ON fees (opportunity_id, exchange, symbol)
+        """,
     ]
     for stmt in statements:
         await db.execute(stmt)
@@ -1858,6 +1879,86 @@ async def fetch_latest_funding_rates() -> dict[str, dict[str, dict[str, Any]]]:
         }
 
     return rates
+
+
+async def insert_fee_record(
+    opportunity_id: str,
+    exchange: str,
+    symbol: str,
+    side: str,
+    *,
+    trading_fee_pct: float | None,
+    trading_fee_usdt: float | None,
+    withdrawal_fee_usdt: float | None = None,
+    deposit_fee_usdt: float | None = None,
+    gas_fee_usdt: float | None = None,
+    total_fee_usdt: float,
+    net_profit_usdt: float | None = None,
+    timestamp: str | None = None,
+) -> int:
+    ts = timestamp or _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO fees (
+                opportunity_id, exchange, symbol, side,
+                trading_fee_pct, trading_fee_usdt,
+                withdrawal_fee_usdt, deposit_fee_usdt, gas_fee_usdt,
+                total_fee_usdt, net_profit_usdt, timestamp
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                opportunity_id,
+                exchange.lower().strip(),
+                symbol,
+                side.lower().strip(),
+                trading_fee_pct,
+                trading_fee_usdt,
+                withdrawal_fee_usdt,
+                deposit_fee_usdt,
+                gas_fee_usdt,
+                total_fee_usdt,
+                net_profit_usdt,
+                ts,
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_fee_record(
+    opportunity_id: str,
+    exchange: str,
+    symbol: str,
+) -> dict[str, Any] | None:
+    """Return the latest persisted fee row for an opportunity leg (fail-closed read path)."""
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT
+                    id, opportunity_id, exchange, symbol, side,
+                    trading_fee_pct, trading_fee_usdt,
+                    withdrawal_fee_usdt, deposit_fee_usdt, gas_fee_usdt,
+                    total_fee_usdt, net_profit_usdt, timestamp
+                FROM fees
+                WHERE opportunity_id = ? AND exchange = ? AND symbol = ?
+                ORDER BY timestamp DESC, id DESC
+                LIMIT 1
+                """,
+                (opportunity_id, exchange.lower().strip(), symbol),
+            )
+            row = await rows.fetchone()
+        if row is None:
+            return None
+        return dict(row)
+    except Exception:
+        logger.exception(
+            "Unable to read fee record | opportunity_id=%s exchange=%s symbol=%s",
+            opportunity_id,
+            exchange,
+            symbol,
+        )
+        return None
 
 
 async def insert_evaluated_opportunity(

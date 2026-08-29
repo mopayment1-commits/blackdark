@@ -46,8 +46,10 @@ def get_vault_key() -> bytes:
         return _derive_fernet_key(master)
     if _is_production():
         raise RuntimeError("SECRETS_MASTER_KEY or SECRETS_VAULT_KEY must be set in production")
-    logger.warning("SECRETS_MASTER_KEY not set — using dev-only vault key")
-    return _derive_fernet_key("blackdark-dev-change-me-in-production")
+    raise RuntimeError(
+        "SECRETS_MASTER_KEY or SECRETS_VAULT_KEY must be set — "
+        "no dev fallback vault key is permitted"
+    )
 
 
 def _fernet_instance():

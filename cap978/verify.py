@@ -15,6 +15,7 @@ from cap646.entitlements import entitlement_engine
 from cap978.catalog import catalog_by_id, is_duplicate, is_external
 from cap978.extension_registry import resolve_extension_binding
 from data_provenance_score import attach_provenance
+from bd_platform.free_tier_capabilities import FREE_TIER_EXTENSION_IDS, execute_free_tier_capability
 
 
 async def execute_extension(capability_id: int, *, user: dict[str, Any] | None = None, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -22,6 +23,16 @@ async def execute_extension(capability_id: int, *, user: dict[str, Any] | None =
     row = catalog_by_id().get(capability_id)
     if not row:
         return ai_compliance_footer({"success": False, "error": "unknown_capability_id", "capability_id": capability_id})
+
+    if capability_id in FREE_TIER_EXTENSION_IDS:
+        free_result = await execute_free_tier_capability(capability_id, params=params)
+        free_result.setdefault("capability", row["capability"])
+        free_result.setdefault("track", row.get("track"))
+        free_result.setdefault("scope", row.get("scope"))
+        free_result.setdefault("classification", "VERIFIED_COMPLETE" if free_result.get("success") else "NOT_READY")
+        from cap646.domain_enrichment import enrich_capability_result
+
+        return await enrich_capability_result(capability_id, ai_compliance_footer(free_result), params=params)
 
     if is_external(capability_id):
         return ai_compliance_footer(
@@ -33,18 +44,6 @@ async def execute_extension(capability_id: int, *, user: dict[str, Any] | None =
                 "error": "external_vendor_or_rights_required",
             }
         )
-
-    from bd_platform.free_tier_capabilities import FREE_TIER_EXTENSION_IDS, execute_free_tier_capability
-
-    if capability_id in FREE_TIER_EXTENSION_IDS:
-        free_result = await execute_free_tier_capability(capability_id, params=params)
-        free_result.setdefault("capability", row["capability"])
-        free_result.setdefault("track", row.get("track"))
-        free_result.setdefault("scope", row.get("scope"))
-        free_result.setdefault("classification", "VERIFIED_COMPLETE" if free_result.get("success") else "NOT_READY")
-        from cap646.domain_enrichment import enrich_capability_result
-
-        return await enrich_capability_result(capability_id, ai_compliance_footer(free_result), params=params)
 
     if is_duplicate(capability_id):
         from cap646.runtime import execute_capability

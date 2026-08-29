@@ -47,6 +47,47 @@ logger = logging.getLogger("BLACKDARK.Aggregator")
 REQUEST_TIMEOUT_SECONDS = 15
 DEFAULT_OPPORTUNITY_SCORE = 0.0
 
+_SHARED_HTTP_HEADERS = {
+    "User-Agent": "BLACKDARK/1.0 (+https://blackdark.io)",
+    "Accept": "application/json",
+}
+_shared_http_session: aiohttp.ClientSession | None = None
+
+
+def _http_timeout() -> aiohttp.ClientTimeout:
+    return aiohttp.ClientTimeout(total=REQUEST_TIMEOUT_SECONDS)
+
+
+async def init_shared_http_session() -> aiohttp.ClientSession:
+    """Create one process-wide aiohttp session for Binance/OKX/Bybit REST (reused, no per-request TLS)."""
+    global _shared_http_session
+    if _shared_http_session is not None and not _shared_http_session.closed:
+        return _shared_http_session
+    _shared_http_session = aiohttp.ClientSession(
+        timeout=_http_timeout(),
+        headers=_SHARED_HTTP_HEADERS,
+    )
+    logger.info("Shared aiohttp ClientSession initialized.")
+    return _shared_http_session
+
+
+def get_shared_http_session() -> aiohttp.ClientSession:
+    if _shared_http_session is None or _shared_http_session.closed:
+        raise RuntimeError(
+            "Shared HTTP session not initialized; call init_shared_http_session() at startup."
+        )
+    return _shared_http_session
+
+
+async def close_shared_http_session() -> None:
+    global _shared_http_session
+    if _shared_http_session is not None and not _shared_http_session.closed:
+        await _shared_http_session.close()
+        await asyncio.sleep(0)
+        logger.info("Shared aiohttp ClientSession closed.")
+    _shared_http_session = None
+
+
 MarketType = Literal["spot", "cross", "perpetual"]
 
 EXCHANGE_ENDPOINTS: dict[str, dict[str, Any]] = {
@@ -1017,8 +1058,7 @@ class Aggregator:
 
         await start_hot_pipeline()
 
-        timeout = aiohttp.ClientTimeout(total=REQUEST_TIMEOUT_SECONDS)
-        self._session = aiohttp.ClientSession(timeout=timeout)
+        self._session = await init_shared_http_session()
         self._register_signal_handlers()
 
         exchanges = [
@@ -1055,6 +1095,7 @@ class Aggregator:
             )
         finally:
             await self._close_session()
+            await close_shared_http_session()
             await shutdown_hot_pipeline()
             close_all_pools()
 
@@ -1108,10 +1149,8 @@ class Aggregator:
                 signal.signal(sig, lambda _signum, _frame: _request_shutdown())
 
     async def _close_session(self) -> None:
-        if self._session is not None and not self._session.closed:
-            await self._session.close()
-            await asyncio.sleep(0)
-            logger.info("aiohttp ClientSession closed.")
+        # Shared session lifecycle is owned by init_shared_http_session / close_shared_http_session.
+        self._session = None
 
 
 async def run_aggregator() -> None:

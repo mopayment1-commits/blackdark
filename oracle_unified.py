@@ -277,6 +277,75 @@ def _conflict_penalty(
     return penalty
 
 
+async def _require_persisted_fee_record(
+    opportunity_id: str,
+    exchange: str,
+    symbol: str,
+    side: str,
+) -> dict[str, Any]:
+    """Fail-closed fee DB gate — missing persisted row blocks the opportunity."""
+    from database import fetch_fee_record
+
+    record = await fetch_fee_record(opportunity_id, exchange, symbol)
+    if record is None:
+        return {
+            "ok": False,
+            "blocked": True,
+            "reason": "fee_record_missing",
+            "opportunity_id": opportunity_id,
+            "exchange": exchange.lower().strip(),
+            "symbol": symbol,
+            "side": side.lower().strip(),
+        }
+    if (record.get("side") or "").lower() != (side or "").lower().strip():
+        return {
+            "ok": False,
+            "blocked": True,
+            "reason": "fee_record_side_mismatch",
+            "opportunity_id": opportunity_id,
+            "exchange": exchange.lower().strip(),
+            "symbol": symbol,
+            "side": side.lower().strip(),
+            "record_side": record.get("side"),
+        }
+    return {"ok": True, "blocked": False, "fee_record": record}
+
+
+def _blocked_fee_gate_result(
+    asset: str,
+    breakdown: dict[str, Any],
+    fee_gate: dict[str, Any],
+) -> dict[str, Any]:
+    from regulatory_compliance_guard import to_public_verdict
+
+    conflict_meta = {
+        "veto": True,
+        "abstain": True,
+        "fee_gate": fee_gate.get("reason", "fee_record_missing"),
+    }
+    return {
+        "asset": asset.upper(),
+        "opportunity_score": 0,
+        "verdict": to_public_verdict("WAIT"),
+        "internal_verdict": "blocked",
+        "market_regime": breakdown.get("market_regime", "neutral"),
+        "dimension_weights": breakdown.get("dimension_weights", {}),
+        "modal_breakdown": breakdown,
+        "dimension_conflict": conflict_meta,
+        "timeframe_confluence": {"aligned": None, "score_penalty": 0.0},
+        "hub_adjustment": breakdown.get("hub_adjustment", 0.0),
+        "hub_reasons": breakdown.get("hub_reasons") or [],
+        "hub_risks": [*list(breakdown.get("hub_risks") or []), "Fee DB record missing — fail-closed block."],
+        "ml": {"available": False, "nudge": 0.0},
+        "rl_policy": {"available": False, "nudge": 0.0},
+        "confidence": 20,
+        "engine": ENGINE_ID,
+        "fee_gate": fee_gate,
+        "blocked": True,
+        "net_profit_usdt": None,
+    }
+
+
 async def finalize_unified_score(
     adjusted_score: float,
     asset: str,
@@ -286,9 +355,20 @@ async def finalize_unified_score(
     change_24h: float = 0.0,
     quote_volume: float = 0.0,
     include_ml: bool = True,
+    opportunity_id: str | None = None,
+    exchange: str | None = None,
+    symbol: str | None = None,
+    side: str | None = None,
 ) -> dict[str, Any]:
     """Apply optional ML nudge + dimension conflict guard and emit verdicts."""
     asset = asset.upper()
+    fee_gate: dict[str, Any] | None = None
+
+    if opportunity_id and exchange and symbol and side:
+        fee_gate = await _require_persisted_fee_record(opportunity_id, exchange, symbol, side)
+        if fee_gate.get("blocked"):
+            return _blocked_fee_gate_result(asset, breakdown, fee_gate)
+
     adjusted = float(adjusted_score)
     ml_meta: dict[str, Any] = {"available": False, "nudge": 0.0}
     if include_ml:
@@ -329,6 +409,12 @@ async def finalize_unified_score(
         conflict_meta,
     )
 
+    fee_record = None
+    net_profit_usdt = None
+    if fee_gate and fee_gate.get("ok"):
+        fee_record = fee_gate.get("fee_record")
+        net_profit_usdt = fee_record.get("net_profit_usdt") if fee_record else None
+
     return {
         "asset": asset,
         "opportunity_score": final_score,
@@ -346,6 +432,8 @@ async def finalize_unified_score(
         "rl_policy": rl_meta,
         "confidence": confidence,
         "engine": ENGINE_ID,
+        "fee_record": fee_record,
+        "net_profit_usdt": net_profit_usdt,
     }
 
 

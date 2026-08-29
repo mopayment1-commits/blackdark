@@ -206,6 +206,24 @@ python scripts/load_test_1m_simulation.py
 - [x] Local Soft Launch buyer-DD probe recorded (honest, non-HA)  
 - [x] Local Soft Launch with Postgres+Redis single-worker probe recorded (honest, **still non-HA**)  
 - [x] First signed HA run on Postgres+Redis multi-worker recorded above  
+- [x] Consultant remediation re-run (2026-08-29, 2-worker local) recorded below  
 - [ ] Results attached to acquirer evidence pack discussion  
 
 Multi-worker Postgres+Redis HA row is filled. Still do **not** claim proven 1k–10k concurrent *global* production capacity without multi-replica staging.
+
+### 2026-08-29T14:55:00Z — Consultant closure re-run @ `8584e70` (2-worker local, NOT signed HA)
+
+| Field | Value |
+|-------|--------|
+| Date (UTC) | 2026-08-29T14:55:00Z |
+| Commit | `8584e70` (branch `cursor/consultant-13-fixes-e85e`) |
+| Environment | local / `127.0.0.1:8080`, Soft Launch posture |
+| Workers / replicas | **2 × 1** (`WEB_CONCURRENCY=2`, `parallelism=2`) |
+| Postgres | yes |
+| Redis | yes (viral readiness `approved=False`, rate-limit backend mixed) |
+| Script | `scripts/load_test_concurrent.py --workers 20 --requests 60` |
+| Results | live p50/p95=51.1/61.2ms ok=1.0 · ready 47.4/56.1 · trust_os 453.2/639.5 ok=1.0 · oracle_quick 80.2/739.5 ok=1.0 · compliance 66.5/131.6 ok=1.0 |
+| Controlled degradation | viral_health, viral_readiness, arb_scan ok_rate=0 (429 capacity gates) |
+| Error rate | **0 hard errors** on scored endpoints |
+| Notes | **NOT signed HA** (`viral_production_approved=false`). Honest multi-worker codepath probe for consultant item #6. |
+| Operator | cloud-agent consultant-13-fixes |

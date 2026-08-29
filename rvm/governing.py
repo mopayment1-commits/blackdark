@@ -18,28 +18,28 @@ GOVERNING_FILES: list[dict[str, str]] = [
         "role": "capabilities_978",
         "title": "Project 978 Capabilities Grouped Execution Tracks (REVIEWED RECONCILED PLUS 332 EXACT)",
         "filename": "Project_978_Capabilities_Grouped_Execution_Tracks_REVIEWED_RECONCILED_PLUS_332_EXACT_4453.pdf",
-        "sha256": "723c1c0a92fbb05624e9626e38f9a94ed24e679f7a283b8661fce6582de75c69",
+        "sha256": "91070eba8a29a2156355055f6c66dc44aa372383be86bd661e09917b93d7aba1",
     },
     {
         "id": "GOV-SRC-002",
         "role": "institutional_merged_spec",
         "title": "BLACKDARK Final Institutional Merged Specification (Five-Layer Verified)",
         "filename": "BLACKDARK_FINAL_INSTITUTIONAL_MERGED_SPECIFICATION_FIVE_LAYER_VERIFIED_3108.pdf",
-        "sha256": "a21ba1c81972b0125331ee7378f480b720ab62f68761e799d975bc22a5cea4b8",
+        "sha256": "affa4dc2a388732838de0d8a94b6fc783ab1c6b4c49a097bf4c7eb9c84e672c0",
     },
     {
         "id": "GOV-SRC-003",
         "role": "governing_reference",
         "title": "Governing Reference Document (48 pages)",
         "filename": "______________2d4e.pdf",
-        "sha256": "f276563a37156e9054b36f4b5d335e18272b833f39fc070930c54d5896233c7c",
+        "sha256": "1fb9d49ade1fd05cd83f56581b7351106eb753810f68fea617758251559a3b51",
     },
     {
         "id": "GOV-SRC-004",
         "role": "governing_reference",
         "title": "Governing Reference Document (69 pages)",
         "filename": "____________________________________5b38.pdf",
-        "sha256": "16bbf10aeefdf27db427a234abfb66ef98af0bbe9904b877010c1d021875d073",
+        "sha256": "92571d882a29b735b730249f107c5304c43f02d83f04480b13f8c5a88aee13e1",
     },
 ]
 

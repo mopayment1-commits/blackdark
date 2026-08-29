@@ -584,17 +584,9 @@ def _llm_synthesis_prompt(
     summary: str,
     hub_context: dict[str, Any],
 ) -> str:
-    macro = hub_context.get("macro") or {}
-    sentiment = hub_context.get("sentiment") or {}
-    geo = hub_context.get("geo_news") or {}
-    return (
-        "You are a crypto oracle. Return ONE sentence starting with 'Buy Now' or 'Do Not Touch', "
-        "then em dash, then reason. Consider war/peace news, macro, fear/greed, derivatives.\n"
-        f"Asset={asset}, score={opportunity_score}, summary={summary}\n"
-        f"Macro regime={macro.get('macro_regime_proxy')}, "
-        f"FearGreed={sentiment.get('fear_greed_index')}, "
-        f"Geo headlines={geo.get('geopolitical_headline_count')}"
-    )
+    from oracle_safe_language import build_hub_llm_prompt
+
+    return build_hub_llm_prompt(asset, opportunity_score, summary, hub_context)
 
 
 def _llm_handlers() -> dict[str, Any]:
@@ -614,7 +606,9 @@ def _llm_chain_names() -> list[str]:
 
 
 def _accepted_llm_sentence(sentence: str | None) -> bool:
-    return bool(sentence and ("Buy Now" in sentence or "Do Not Touch" in sentence))
+    from oracle_safe_language import accepted_analytical_sentence
+
+    return accepted_analytical_sentence(sentence)
 
 
 async def synthesize_with_free_llm_chain(

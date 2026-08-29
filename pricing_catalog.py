@@ -2,7 +2,7 @@
 BLACKDARK Trust OS — Pricing catalog (binding).
 
 Official tiers: FREE · PRO · ELITE · QUANT · INSTITUTIONAL
-FREE $0 · PRO $19.99 · ELITE $49.99 · QUANT $149.99 · INSTITUTIONAL from $999/mo
+FREE $0 · PRO $29 · ELITE $49 · QUANT $149.99 · INSTITUTIONAL from $3,000/mo
 7-day trial on all paid self-serve tiers.
 """
 
@@ -116,7 +116,13 @@ def _tier_card(plan_id: str) -> dict[str, Any]:
     return card
 
 
-TIERS: list[dict[str, Any]] = [_tier_card(pid) for pid in ("free", "pro", "elite", "quant", "institutional")]
+TIERS: list[dict[str, Any]] = [
+    _tier_card("free"),
+    _tier_card("pro"),
+    _tier_card("elite"),
+    _tier_card("quant"),
+    _tier_card("institutional"),
+]
 
 INTEGRATION_ADDENDUM: list[dict[str, str]] = [
     {"item": "Data licensing", "default": "Internal use only; redistribution negotiated"},
@@ -143,6 +149,11 @@ UNIQUE_BY_TIER: dict[str, list[str]] = {
         "Alerts + Net-Edge Truth Score",
     ],
     "decision_elite": [
+        "B2B / API key",
+        "Evidence Pack + Stealth Advisor",
+        "Whale Signal-to-Noise filter",
+    ],
+    "decision_desk": [
         "B2B / API key",
         "Evidence Pack + Stealth Advisor",
         "Whale Signal-to-Noise filter",
@@ -237,7 +248,7 @@ def pricing_catalog() -> dict[str, Any]:
         "currency": "USD",
         "option": PRICING_OPTION,
         "canon": "FREE · PRO · ELITE · QUANT · INSTITUTIONAL — binding commercial ladder",
-        "binding": "billing/plan_registry.py · docs/PRICING_TRUST_OS.md",
+        "binding": "MORNING_SESSION_FINAL_BINDING · billing/plan_registry.py · docs/PRICING_TRUST_OS.md",
         "story": PRICING_STORY,
         "value_equation": VALUE_EQUATION,
         "unique_by_tier": UNIQUE_BY_TIER,
