@@ -601,6 +601,16 @@ async def lifespan(app: FastAPI):
         await init_shared_http_session()
     except Exception:
         logger.exception("Shared HTTP session init failed")
+    try:
+        from oracle_quick_warm_cache import (
+            start_oracle_quick_warm_scheduler,
+            warm_oracle_quick_cache_once,
+        )
+
+        await warm_oracle_quick_cache_once()
+        start_oracle_quick_warm_scheduler()
+    except Exception:
+        logger.exception("Oracle quick warm cache init failed")
     boot_task = asyncio.create_task(_background_boot(app), name="blackdark-boot")
     try:
         from blackdark.data.db import data_engine_available, init_data_engine
@@ -618,6 +628,12 @@ async def lifespan(app: FastAPI):
         await close_shared_http_session()
     except Exception:
         logger.exception("Shared HTTP session shutdown failed")
+    try:
+        from oracle_quick_warm_cache import stop_oracle_quick_warm_scheduler
+
+        stop_oracle_quick_warm_scheduler()
+    except Exception:
+        logger.exception("Oracle quick warm cache shutdown failed")
 
 
 # Public /docs is our evidence/read developer page (not full Swagger dump).
