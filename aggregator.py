@@ -52,40 +52,70 @@ _SHARED_HTTP_HEADERS = {
     "Accept": "application/json",
 }
 _shared_http_session: aiohttp.ClientSession | None = None
+_shared_http_session_loop: asyncio.AbstractEventLoop | None = None
 
 
 def _http_timeout() -> aiohttp.ClientTimeout:
     return aiohttp.ClientTimeout(total=REQUEST_TIMEOUT_SECONDS)
 
 
+def _current_loop() -> asyncio.AbstractEventLoop | None:
+    try:
+        return asyncio.get_running_loop()
+    except RuntimeError:
+        return None
+
+
 async def init_shared_http_session() -> aiohttp.ClientSession:
     """Create one process-wide aiohttp session for Binance/OKX/Bybit REST (reused, no per-request TLS)."""
-    global _shared_http_session
-    if _shared_http_session is not None and not _shared_http_session.closed:
+    global _shared_http_session, _shared_http_session_loop
+    loop = _current_loop()
+    if (
+        _shared_http_session is not None
+        and not _shared_http_session.closed
+        and _shared_http_session_loop is loop
+    ):
         return _shared_http_session
+    if _shared_http_session is not None and not _shared_http_session.closed:
+        await _shared_http_session.close()
     _shared_http_session = aiohttp.ClientSession(
         timeout=_http_timeout(),
         headers=_SHARED_HTTP_HEADERS,
     )
+    _shared_http_session_loop = loop
     logger.info("Shared aiohttp ClientSession initialized.")
     return _shared_http_session
 
 
 def get_shared_http_session() -> aiohttp.ClientSession:
-    if _shared_http_session is None or _shared_http_session.closed:
-        raise RuntimeError(
-            "Shared HTTP session not initialized; call init_shared_http_session() at startup."
-        )
+    """Return the shared session, creating it lazily when startup init was skipped (tests/CLI)."""
+    global _shared_http_session, _shared_http_session_loop
+    loop = _current_loop()
+    if (
+        _shared_http_session is not None
+        and not _shared_http_session.closed
+        and _shared_http_session_loop is loop
+    ):
+        return _shared_http_session
+    if _shared_http_session is not None and not _shared_http_session.closed:
+        _shared_http_session = None
+    _shared_http_session = aiohttp.ClientSession(
+        timeout=_http_timeout(),
+        headers=_SHARED_HTTP_HEADERS,
+    )
+    _shared_http_session_loop = loop
+    logger.info("Shared aiohttp ClientSession initialized (lazy).")
     return _shared_http_session
 
 
 async def close_shared_http_session() -> None:
-    global _shared_http_session
+    global _shared_http_session, _shared_http_session_loop
     if _shared_http_session is not None and not _shared_http_session.closed:
         await _shared_http_session.close()
         await asyncio.sleep(0)
         logger.info("Shared aiohttp ClientSession closed.")
     _shared_http_session = None
+    _shared_http_session_loop = None
 
 
 MarketType = Literal["spot", "cross", "perpetual"]
