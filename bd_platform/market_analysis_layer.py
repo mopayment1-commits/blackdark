@@ -650,12 +650,19 @@ def attach_whale_extensions_107_110(narrative: dict[str, Any], *, seed: dict[str
     return out
 
 
-def attach_macro_spx_to_multi_dim_111(multi_dim: dict[str, Any], *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    out = dict(multi_dim)
+def attach_macro_spx_to_multi_dim_111(multi_dim: dict[str, Any] | None = None, *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    if not multi_dim or not (multi_dim.get("dimensions") or {}).get("macro"):
+        from bd_platform.pro_trader_layer import build_multi_dim_analysis_73
+
+        out = dict(build_multi_dim_analysis_73(seed=seed))
+    else:
+        out = dict(multi_dim)
     spx = compute_spx_correlation_111(seed=seed)
     dims = dict(out.get("dimensions") or {})
-    dims["macro"]["spx_correlation"] = spx
-    dims["macro"]["score"] = round((dims["macro"].get("score", 5) + abs(spx["pearson_r"]) * 10) / 2, 2)
+    macro = dict(dims.get("macro") or {})
+    macro["spx_correlation"] = spx
+    macro["score"] = round((macro.get("score", 5) + abs(spx["pearson_r"]) * 10) / 2, 2)
+    dims["macro"] = macro
     out["dimensions"] = dims
     out["merged_features"] = [73, 111]
     return out

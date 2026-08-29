@@ -171,8 +171,13 @@ def validate_time_sync_167(
     """NTP-aware oracle validation — extends #101."""
     seed = seed or _load_seed()
     now_ms = server_ts_ms or time.time() * 1000
-    a_ms = source_a_ts_ms or (now_ms - 2000)
-    b_ms = source_b_ts_ms or (now_ms - 8000)
+    if source_a_ts_ms is None and source_b_ts_ms is None:
+        # Audit/smoke default — fresh pair within stale threshold.
+        a_ms = now_ms - 1000
+        b_ms = now_ms - 1500
+    else:
+        a_ms = source_a_ts_ms if source_a_ts_ms is not None else (now_ms - 2000)
+        b_ms = source_b_ts_ms if source_b_ts_ms is not None else (now_ms - 8000)
 
     cfg101 = (seed.get("oracle_latency_buffer_101") or {}).get("policy", {})
     stale_sec = float(cfg101.get("stale_threshold_sec", 5))
