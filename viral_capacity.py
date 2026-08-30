@@ -239,6 +239,26 @@ def _memory_hit(bucket: str, limit: int, window_sec: int = 60) -> bool:
     return False
 
 
+def reset_rate_limit_state_for_tests(*, prefixes: tuple[str, ...] = ("oracle", "api", "web", "auth")) -> None:
+    """Clear in-process RL buckets (and best-effort Redis oracle keys) for perf/isolation tests."""
+    _memory_buckets.clear()
+    client = _redis_client()
+    if client is None:
+        return
+    try:
+        for prefix in prefixes:
+            pattern = f"bd:{prefix}:rl:*"
+            cursor = 0
+            while True:
+                cursor, keys = client.scan(cursor=cursor, match=pattern, count=200)
+                if keys:
+                    client.delete(*keys)
+                if cursor == 0:
+                    break
+    except Exception:
+        logger.debug("Redis RL test reset skipped", exc_info=True)
+
+
 def check_rate_limit(key: str, *, limit: int, window_sec: int = 60, prefix: str = "viral") -> None:
     """Raise 429 when rate exceeded. Redis shared when available."""
     global _rl_backend

@@ -3,10 +3,36 @@
 from __future__ import annotations
 
 import asyncio
+import os
 
 import pytest
 
 ASSETS = ["BTC", "ETH", "SOL", "ADA", "AAVE", "ARB", "LINK", "XRP"]
+# Module issues 80+ Oracle hits in <60s; default VIRAL_ORACLE_RL_PER_MIN=60 → 429.
+_ORACLE_PERF_RL_PER_MIN = "100000"
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _oracle_perf_rate_limit_headroom():
+    """Perf module hammers /oracle/* — raise RL ceiling and clear buckets between tests."""
+    from viral_capacity import reset_rate_limit_state_for_tests
+
+    previous = os.environ.get("VIRAL_ORACLE_RL_PER_MIN")
+    os.environ["VIRAL_ORACLE_RL_PER_MIN"] = _ORACLE_PERF_RL_PER_MIN
+    reset_rate_limit_state_for_tests()
+    yield
+    reset_rate_limit_state_for_tests()
+    if previous is None:
+        os.environ.pop("VIRAL_ORACLE_RL_PER_MIN", None)
+    else:
+        os.environ["VIRAL_ORACLE_RL_PER_MIN"] = previous
+
+
+@pytest.fixture(autouse=True)
+def _oracle_perf_reset_rl_buckets():
+    from viral_capacity import reset_rate_limit_state_for_tests
+
+    reset_rate_limit_state_for_tests()
 
 
 @pytest.fixture(scope="module")
