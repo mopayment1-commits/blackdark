@@ -384,6 +384,30 @@ async def pyth_realtime_feed(*, symbols: list[str] | None = None) -> dict[str, A
     except (aiohttp.ClientError, TypeError, ValueError):
         logger.debug("Pyth Hermes fetch failed", exc_info=True)
 
+    if not feeds:
+        # Hermes may return 401 in restricted egress; keep free-tier contract with public reference.
+        simple = await _get_json(
+            "https://api.coingecko.com/api/v3/simple/price",
+            params={"ids": "bitcoin,ethereum", "vs_currencies": "usd"},
+        )
+        if isinstance(simple, dict):
+            if simple.get("bitcoin", {}).get("usd") is not None:
+                feeds.append(
+                    {
+                        "symbol": "BTC",
+                        "price_usd": simple["bitcoin"]["usd"],
+                        "source": "coingecko_fallback",
+                    }
+                )
+            if simple.get("ethereum", {}).get("usd") is not None:
+                feeds.append(
+                    {
+                        "symbol": "ETH",
+                        "price_usd": simple["ethereum"]["usd"],
+                        "source": "coingecko_fallback",
+                    }
+                )
+
     return {
         "source": "pyth_hermes",
         "timestamp": _utcnow(),

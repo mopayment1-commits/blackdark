@@ -22,10 +22,10 @@ async def test_plan_registry_official_prices():
     from billing.plan_registry import PLAN_DEFINITIONS, normalize_plan
 
     assert normalize_plan("whale") == "elite"
-    assert PLAN_DEFINITIONS["pro"]["price_cents"] == 1999
-    assert PLAN_DEFINITIONS["elite"]["price_cents"] == 4999
-    assert PLAN_DEFINITIONS["quant"]["price_cents"] == 14999
-    assert PLAN_DEFINITIONS["institutional"]["price_usd_month_from"] == 999.0
+    assert PLAN_DEFINITIONS["pro"]["price_cents"] == 1900
+    assert PLAN_DEFINITIONS["elite"]["price_cents"] == 4900
+    assert PLAN_DEFINITIONS["quant"]["price_cents"] == 19900
+    assert PLAN_DEFINITIONS["institutional"]["price_display"] == "Custom pricing"
     assert PLAN_DEFINITIONS["pro"]["trial_days"] == 7
     assert PLAN_DEFINITIONS["quant"]["trial_days"] == 7
     assert PLAN_DEFINITIONS["free"]["trial_days"] == 0

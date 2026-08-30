@@ -20,8 +20,9 @@ from cap646.catalog import (  # noqa: E402
     matrix_by_id,
 )
 
-# Extension vendor IDs closed via free-tier surfaces (see bd_platform.free_tier_capabilities)
-EXTENSION_EXTERNAL_IDS: frozenset[int] = frozenset()
+from bd_platform.free_tier_capabilities import FREE_TIER_EXTENSION_IDS  # noqa: E402
+
+EXTENSION_EXTERNAL_IDS: frozenset[int] = FREE_TIER_EXTENSION_IDS | frozenset({649, 658})
 
 # Extension duplicates of base canonical capabilities (same goal/behavior)
 EXTENSION_CANONICAL: dict[str, int] = {
@@ -49,6 +50,10 @@ def is_extension(capability_id: int) -> bool:
 
 
 def is_external(capability_id: int) -> bool:
+    from bd_platform.free_tier_capabilities import FREE_TIER_CAP_IDS
+
+    if capability_id in FREE_TIER_CAP_IDS:
+        return False
     if capability_id == 658:
         try:
             from bigquery_export import bigquery_live_ready

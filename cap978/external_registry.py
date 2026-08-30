@@ -92,7 +92,9 @@ def external_registry_rows() -> list[dict[str, Any]]:
                 from institutional_assurance import get_signed_capacity, verify_signed_capacity
 
                 cap = get_signed_capacity()
-                if cap and verify_signed_capacity(cap):
+                # 644 requires production-grade signed capacity, not staging — see 2026-08-30 decision.
+                env = str((cap or {}).get("environment") or "").strip().lower()
+                if cap and env == "production" and verify_signed_capacity(cap):
                     continue
             except Exception:
                 pass
