@@ -1925,6 +1925,40 @@ async def insert_fee_record(
         return int(cursor.lastrowid or 0)
 
 
+async def fetch_latest_fee_for_symbol(
+    exchange: str,
+    symbol: str,
+) -> dict[str, Any] | None:
+    """Return the newest persisted fee row for an exchange/symbol pair (fail-closed read path)."""
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT
+                    id, opportunity_id, exchange, symbol, side,
+                    trading_fee_pct, trading_fee_usdt,
+                    withdrawal_fee_usdt, deposit_fee_usdt, gas_fee_usdt,
+                    total_fee_usdt, net_profit_usdt, timestamp
+                FROM fees
+                WHERE exchange = ? AND symbol = ?
+                ORDER BY timestamp DESC, id DESC
+                LIMIT 1
+                """,
+                (exchange.lower().strip(), symbol),
+            )
+            row = await rows.fetchone()
+        if row is None:
+            return None
+        return dict(row)
+    except Exception:
+        logger.exception(
+            "Unable to read latest fee row | exchange=%s symbol=%s",
+            exchange,
+            symbol,
+        )
+        return None
+
+
 async def fetch_fee_record(
     opportunity_id: str,
     exchange: str,

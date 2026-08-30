@@ -7,7 +7,6 @@ from typing import Any
 from fastapi import Request
 
 DEFAULT_FEE_EXCHANGE = "binance"
-REFERENCE_NOTIONAL_USDT = 10_000.0
 
 
 def wants_oracle_json(request: Request) -> bool:
@@ -66,49 +65,71 @@ def format_hold_period(payload: dict[str, Any]) -> str:
     return f"{secs / 86_400:.1f}d"
 
 
-def build_fee_snapshot(asset: str, payload: dict[str, Any]) -> dict[str, Any]:
-    """Estimate round-trip fees via fee_matrix (net after fees on reference notional)."""
-    from fee_matrix import taker_fee, trading_fees_usdt, withdrawal_fee_usdt
-
-    exchange = DEFAULT_FEE_EXCHANGE
-    notional = REFERENCE_NOTIONAL_USDT
-    truth = payload.get("net_edge_truth") or {}
-    if truth.get("net_profit_usdt") is not None:
-        return {
-            "exchange": exchange,
-            "notional_usdt": notional,
-            "trading_fees_usdt": truth.get("trading_fees_usdt"),
-            "withdrawal_fee_usdt": truth.get("withdrawal_fee_usdt"),
-            "total_fee_usdt": truth.get("total_fees_usdt") or truth.get("total_fee_usdt"),
-            "net_profit_usdt": truth.get("net_profit_usdt"),
-            "mode": str(truth.get("mode") or "truth"),
-            "label": "Net after fees (truth layer)",
-        }
-
-    rate = taker_fee(exchange)
-    leg_fee = trading_fees_usdt(exchange, notional)
-    withdrawal = withdrawal_fee_usdt(exchange, asset)
-    if rate is None or leg_fee is None:
-        return {
-            "exchange": exchange,
-            "notional_usdt": notional,
-            "mode": "unavailable",
-            "label": "Fee data unavailable (fail-closed)",
-        }
-    round_trip_trading = float(leg_fee) * 2.0
-    withdrawal_f = float(withdrawal) if withdrawal is not None else None
-    total_fee = round_trip_trading + (withdrawal_f or 0.0)
+def _fee_row_snapshot(row: dict[str, Any], *, mode: str) -> dict[str, Any]:
     return {
-        "exchange": exchange,
-        "notional_usdt": notional,
-        "taker_rate_pct": round(float(rate) * 100, 4),
-        "trading_fees_usdt": round(round_trip_trading, 4),
-        "withdrawal_fee_usdt": withdrawal_f,
-        "total_fee_usdt": round(total_fee, 4),
-        "net_profit_usdt": None,
-        "mode": "estimated_round_trip",
-        "label": f"Est. round-trip fees on {_format_usd(notional)} notional",
+        "exchange": row.get("exchange") or DEFAULT_FEE_EXCHANGE,
+        "opportunity_id": row.get("opportunity_id"),
+        "symbol": row.get("symbol"),
+        "side": row.get("side"),
+        "trading_fees_usdt": row.get("trading_fee_usdt"),
+        "withdrawal_fee_usdt": row.get("withdrawal_fee_usdt"),
+        "deposit_fee_usdt": row.get("deposit_fee_usdt"),
+        "gas_fee_usdt": row.get("gas_fee_usdt"),
+        "total_fee_usdt": row.get("total_fee_usdt"),
+        "net_profit_usdt": row.get("net_profit_usdt"),
+        "trading_fee_pct": row.get("trading_fee_pct"),
+        "timestamp": row.get("timestamp"),
+        "mode": mode,
+        "label": "Net after fees (persisted fees table)",
     }
+
+
+def _fee_unavailable_snapshot(*, symbol: str) -> dict[str, Any]:
+    return {
+        "exchange": DEFAULT_FEE_EXCHANGE,
+        "symbol": symbol,
+        "mode": "unavailable",
+        "label": "Fee data unavailable — no persisted fees row (fail-closed)",
+    }
+
+
+async def build_fee_snapshot_from_db(asset: str, payload: dict[str, Any]) -> dict[str, Any]:
+    """Read fee economics only from the durable `fees` table (no fee_matrix UI bypass)."""
+    from database import fetch_fee_record, fetch_latest_fee_for_symbol
+
+    pair = f"{asset.upper()}/USDT"
+    exchange = DEFAULT_FEE_EXCHANGE
+
+    fee_record = payload.get("fee_record")
+    if isinstance(fee_record, dict) and fee_record.get("total_fee_usdt") is not None:
+        return _fee_row_snapshot(fee_record, mode="payload_fee_record")
+
+    for opp_key in ("opportunity_id", "prediction_id"):
+        opp_id = payload.get(opp_key)
+        if not opp_id:
+            continue
+        row = await fetch_fee_record(str(opp_id), exchange, pair)
+        if row is not None:
+            return _fee_row_snapshot(row, mode="persisted_opportunity")
+
+    row = await fetch_latest_fee_for_symbol(exchange, pair)
+    if row is not None:
+        return _fee_row_snapshot(row, mode="persisted_latest_symbol")
+
+    return _fee_unavailable_snapshot(symbol=pair)
+
+
+def build_fee_snapshot(asset: str, payload: dict[str, Any]) -> dict[str, Any]:
+    """Sync shim — prefer ``build_fee_snapshot_from_db`` in async routes."""
+    import asyncio
+
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        return asyncio.run(build_fee_snapshot_from_db(asset, payload))
+    if loop.is_running():
+        raise RuntimeError("build_fee_snapshot cannot run inside a running loop; await build_fee_snapshot_from_db")
+    return loop.run_until_complete(build_fee_snapshot_from_db(asset, payload))
 
 
 def _driver_card(key: str, title: str, value: str, detail: str, tone: str = "neutral") -> dict[str, str]:
@@ -187,7 +208,7 @@ def certificate_href(payload: dict[str, Any]) -> str | None:
     return f"/oracle-accuracy?{'&'.join(query)}"
 
 
-def build_oracle_v2_context(
+async def build_oracle_v2_context(
     payload: dict[str, Any],
     *,
     asset: str,
@@ -206,7 +227,7 @@ def build_oracle_v2_context(
         or payload.get("action")
         or f"{verdict} on {asset}"
     )
-    fee = build_fee_snapshot(asset, payload)
+    fee = await build_fee_snapshot_from_db(asset, payload)
     return {
         "asset": asset.upper(),
         "price_display": _format_usd(price),

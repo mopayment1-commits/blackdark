@@ -3877,7 +3877,7 @@ async def oracle(
         from oracle_ui import build_oracle_v2_context, wants_oracle_json
 
         if not wants_oracle_json(request):
-            ctx = build_oracle_v2_context(
+            ctx = await build_oracle_v2_context(
                 cleaned,
                 asset=asset,
                 price=price,

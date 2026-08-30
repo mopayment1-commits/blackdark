@@ -4,6 +4,10 @@ from __future__ import annotations
 
 import pytest
 
+import config
+import database
+import fee_matrix
+
 
 @pytest.fixture(scope="module")
 def oracle_client():
@@ -55,7 +59,7 @@ def test_oracle_json_accept_header(oracle_client):
 
 
 def test_oracle_ui_helpers():
-    from oracle_ui import build_oracle_v2_context, verdict_tone, wants_oracle_json
+    from oracle_ui import verdict_tone, wants_oracle_json
 
     class _Req:
         headers = {"accept": "application/json"}
@@ -71,7 +75,58 @@ def test_oracle_ui_helpers():
     assert verdict_tone("WAIT") == "yellow"
     assert verdict_tone("SELL") == "red"
 
-    ctx = build_oracle_v2_context(
+
+@pytest.mark.asyncio
+async def test_oracle_v2_fee_snapshot_reads_persisted_fees_table(tmp_path, monkeypatch):
+    from oracle_ui import build_fee_snapshot_from_db
+
+    db_path = tmp_path / "oracle_v2_fees.db"
+    monkeypatch.setattr(config, "DATA_DIR", tmp_path)
+    monkeypatch.setattr(config, "DB_PATH", db_path)
+    fee_matrix._matrix.clear()
+    await database.init_db()
+    await fee_matrix.calculate_opportunity_fees(
+        "oracle-ui-btc",
+        "binance",
+        "BTC/USDT",
+        "buy",
+        10_000.0,
+        gross_profit_usdt=42.0,
+    )
+
+    fee = await build_fee_snapshot_from_db("BTC", {})
+    assert fee["mode"] == "persisted_latest_symbol"
+    assert fee["total_fee_usdt"] is not None
+    assert fee["net_profit_usdt"] is not None
+    assert fee["net_profit_usdt"] < 42.0
+
+
+@pytest.mark.asyncio
+async def test_oracle_v2_fee_snapshot_fail_closed_without_row(tmp_path, monkeypatch):
+    from oracle_ui import build_fee_snapshot_from_db
+
+    db_path = tmp_path / "oracle_v2_empty.db"
+    monkeypatch.setattr(config, "DATA_DIR", tmp_path)
+    monkeypatch.setattr(config, "DB_PATH", db_path)
+    fee_matrix._matrix.clear()
+    await database.init_db()
+
+    fee = await build_fee_snapshot_from_db("BTC", {})
+    assert fee["mode"] == "unavailable"
+    assert "fail-closed" in fee["label"].lower()
+
+
+@pytest.mark.asyncio
+async def test_oracle_v2_context_async(tmp_path, monkeypatch):
+    from oracle_ui import build_oracle_v2_context
+
+    db_path = tmp_path / "oracle_v2_ctx.db"
+    monkeypatch.setattr(config, "DATA_DIR", tmp_path)
+    monkeypatch.setattr(config, "DB_PATH", db_path)
+    fee_matrix._matrix.clear()
+    await database.init_db()
+
+    ctx = await build_oracle_v2_context(
         {
             "verdict": "WAIT",
             "confidence": 72,
@@ -90,3 +145,4 @@ def test_oracle_ui_helpers():
     assert ctx["confidence"] == 72
     assert len(ctx["drivers"]) == 3
     assert ctx["hold_period"] == "1.0h"
+    assert ctx["fee"]["mode"] == "unavailable"

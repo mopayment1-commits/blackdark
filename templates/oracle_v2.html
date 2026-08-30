@@ -276,11 +276,13 @@
 
     <section class="fee-card" aria-label="Fee estimate">
         <div>{{ fee.label }}</div>
+        {% if fee.mode != 'unavailable' %}
         <div>Total fees: <strong>{{ fee_total_display }}</strong>
         {% if net_profit_display %}
         · Net: <strong>{{ net_profit_display }}</strong>
         {% endif %}
         </div>
+        {% endif %}
     </section>
 
     <div class="actions">
