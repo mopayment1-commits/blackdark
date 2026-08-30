@@ -147,6 +147,11 @@ UNIQUE_BY_TIER: dict[str, list[str]] = {
         "Evidence Pack + Stealth Advisor",
         "Whale Signal-to-Noise filter",
     ],
+    "decision_desk": [
+        "B2B / API key",
+        "Evidence Pack + Stealth Advisor",
+        "Whale Signal-to-Noise filter",
+    ],
     "decision_quant": [
         "Quant backtesting suite",
         "100k API calls / month",

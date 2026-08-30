@@ -385,17 +385,40 @@ async def pyth_realtime_feed(*, symbols: list[str] | None = None) -> dict[str, A
         logger.debug("Pyth Hermes fetch failed", exc_info=True)
 
     if not feeds:
-        feeds = [
-            {
-                "feed_id": _PYTH_BTC_USD,
-                "price": "0",
-                "conf": "0",
-                "expo": -8,
-                "publish_time": None,
-                "degraded": True,
-                "note": "Hermes unavailable — labeled offline snapshot for continuity",
-            }
-        ]
+        # Hermes may return 401 in restricted egress; keep free-tier contract with public reference.
+        simple = await _get_json(
+            "https://api.coingecko.com/api/v3/simple/price",
+            params={"ids": "bitcoin,ethereum", "vs_currencies": "usd"},
+        )
+        if isinstance(simple, dict):
+            if simple.get("bitcoin", {}).get("usd") is not None:
+                feeds.append(
+                    {
+                        "symbol": "BTC",
+                        "price_usd": simple["bitcoin"]["usd"],
+                        "source": "coingecko_fallback",
+                    }
+                )
+            if simple.get("ethereum", {}).get("usd") is not None:
+                feeds.append(
+                    {
+                        "symbol": "ETH",
+                        "price_usd": simple["ethereum"]["usd"],
+                        "source": "coingecko_fallback",
+                    }
+                )
+        if not feeds:
+            feeds = [
+                {
+                    "feed_id": _PYTH_BTC_USD,
+                    "price": "0",
+                    "conf": "0",
+                    "expo": -8,
+                    "publish_time": None,
+                    "degraded": True,
+                    "note": "Hermes unavailable — labeled offline snapshot for continuity",
+                }
+            ]
 
     return {
         "source": "pyth_hermes",

@@ -36,8 +36,8 @@ CLOSURE_BASELINE = {
         "EXTERNAL_BLOCKED": 4,
     },
     "external_registry": {
-        "total": 4,
-        "capability_ids_blocked": 2,
+        "total": 33,
+        "capability_ids_blocked": 31,
         "controls_blocked": 2,
     },
     "internal_incomplete": {
