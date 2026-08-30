@@ -43,6 +43,8 @@ CHECKLIST = ROOT / "capabilities_checklist.xlsx"
 HERO_WRAPPER_TESTS = {
     "tests/test_hero_batch_01_capabilities.py",
     "tests/test_hero_batch_02_capabilities.py",
+    "tests/test_hero_batch_03_capabilities.py",
+    "tests/test_hero_batch_04_capabilities.py",
 }
 
 INDEPENDENT_TEST_RANGES = [

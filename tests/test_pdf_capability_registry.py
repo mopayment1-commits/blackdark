@@ -26,3 +26,5 @@ def test_batch_test_mapping():
     assert batch_test_module_for(113) == "tests/test_missing_capabilities_closure.py"
     assert batch_test_module_for(270) == "tests/test_hero_batch_03_capabilities.py"
     assert batch_test_module_for(262) == "tests/test_hero_batch_03_capabilities.py"
+    assert batch_test_module_for(350) == "tests/test_hero_batch_04_capabilities.py"
+    assert batch_test_module_for(301) == "tests/test_charting_market_intelligence_batch301_400.py"
