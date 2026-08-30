@@ -1,1512 +1,887 @@
 {
-  "summary": {
-    "batch": "partial_closure_batch_hero_01",
-    "processed": 100,
-    "ok": 100,
-    "fail": 0,
-    "skip_no_binding": 0,
-    "timestamp": "2026-08-30T14:17:56.079533+00:00"
+  "batch": "hero_batch_01",
+  "deep_audit_at": "2026-08-30T14:53:00.440134+00:00",
+  "total": 109,
+  "classification_counts": {
+    "VERIFIED-DEEP": 76,
+    "DEFERRED/DELEGATED": 15,
+    "WRAPPER-ONLY-UNVERIFIED": 18
   },
-  "capabilities": [
-    {
-      "id": 638,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.contradiction_replay_clip_638",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.build_contradiction_replay_254",
-        "capability_id": 638
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 640,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.half_life_heat_clock_640",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.compute_half_life_clock_256",
-        "capability_id": 640
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 5,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.l1_order_book_5",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
-        "capability_id": 5
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 641,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.proof_arena_lite_641",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.proof_arena_lite_status_257",
-        "capability_id": 641
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 644,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.corpus_passport_644",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.corpus_passport_status_260",
-        "capability_id": 644
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 33,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.wallet_tracking_privacy_33",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.retail_intelligence_layer.build_one_clear_answer_63",
-        "capability_id": 33
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 111,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.hodl_waves_model_111",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.market_analysis_layer.compute_spx_correlation_111",
-        "capability_id": 111
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 1,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.order_flow_intelligence_1",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.footprint_analytics.footprint_snapshot",
-        "capability_id": 1
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 2,
-      "status": "ok",
-      "binding": "trade_simulator.simulate_spot_trade",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "trade_simulator.simulate_spot_trade",
-        "capability_id": 2
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 3,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.wallet_profiler_for_token_3",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.free_tier_capabilities.wallet_profiler_for_token",
-        "capability_id": 3
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 4,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.smart_money_tracking_4",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.free_tier_capabilities.smart_money_tracking",
-        "capability_id": 4
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 14,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.whale_movement_alerts_14",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "market_context.whale_alert_message",
-        "capability_id": 14
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 44,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.alpha_engine_44",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.intelligence_analysis_layer.analyze_arbitrage_opportunity_153",
-        "capability_id": 44
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 47,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.exchange_health_certification_47",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer.build_exchange_health_80",
-        "capability_id": 47
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 60,
-      "status": "ok",
-      "binding": "bd_platform.legal_commercial_layer.pricing_transparency_manifest_60",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.legal_commercial_layer.pricing_transparency_manifest_60",
-        "capability_id": 60
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 63,
-      "status": "ok",
-      "binding": "bd_platform.retail_intelligence_layer.attach_clear_answer_63",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.retail_intelligence_layer.attach_clear_answer_63",
-        "capability_id": 63
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 86,
-      "status": "ok",
-      "binding": "bd_platform.whales_institutional_layer.run_whales_institutional_e2e_77_86",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer.run_whales_institutional_e2e_77_86",
-        "capability_id": 86
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 103,
-      "status": "ok",
-      "binding": "bd_platform.whales_institutional_layer._compute_drawdown_duration_103",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer._compute_drawdown_duration_103",
-        "capability_id": 103
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 126,
-      "status": "ok",
-      "binding": "bd_platform.advanced_ta_risk_layer.dex_front_running_risk_126",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.advanced_ta_risk_layer.dex_front_running_risk_126",
-        "capability_id": 126
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 330,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.ai_trading_engine_330",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "trade_simulator.simulate_spot_trade",
-        "capability_id": 330
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 356,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.marketwatch_rss_feeds_356",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.ingest_cointelegraph_rss_244",
-        "capability_id": 356
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 637,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.public_kill_rate_board_637",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.build_kill_rate_widget_253",
-        "capability_id": 637
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 639,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.committee_one_pager_auto_639",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.committee_one_pager_status_255",
-        "capability_id": 639
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 642,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.since_you_left_top3_642",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.since_you_left_top3_258",
-        "capability_id": 642
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 6,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.l2_order_book_6",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
-        "capability_id": 6
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 73,
-      "status": "ok",
-      "binding": "bd_platform.pro_trader_layer.build_multi_dim_analysis_73",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.build_multi_dim_analysis_73",
-        "capability_id": 73
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 164,
-      "status": "ok",
-      "binding": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
-        "capability_id": 164
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 183,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.onchain_usage_intelligence_183",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
-        "capability_id": 183
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 197,
-      "status": "ok",
-      "binding": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
-        "capability_id": 197
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 224,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.new_listing_detection_224",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
-        "capability_id": 224
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 279,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.chart_sharing_279",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.build_share_card_68",
-        "capability_id": 279
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 299,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.sentiment_analysis_engine_299",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.news_classifier.classify_headlines",
-        "capability_id": 299
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 339,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.multi_factor_alpha_ranking_339",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.apply_opportunity_filter_70",
-        "capability_id": 339
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 437,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.correlation_contagion_risk_437",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.correlation_mindshare.compute_mindshare_correlation_288",
-        "capability_id": 437
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 441,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.strategy_vetting_algorithm_441",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.intelligence_analysis_layer.stat_arb_insight_155",
-        "capability_id": 441
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 458,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.metric_methodology_registry_458",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer.build_methodology_docs_86",
-        "capability_id": 458
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 525,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.strategy_backtesting_525",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.run_backtest_74",
-        "capability_id": 525
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 578,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.shadow_fork_pre_execution_578",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.execution_rejected_layer.whale_behavior_analysis_216",
-        "capability_id": 578
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 584,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.coindesk_rss_feed_584",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.news_classifier.coindesk_feed",
-        "capability_id": 584
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 629,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.single_sentence_oracle_629",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "regulatory_compliance_guard.compliant_oracle_sentence",
-        "capability_id": 629
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 631,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.unified_live_technical_analysis_631",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.intelligence_ux_extensions_layer.live_ta_status_239",
-        "capability_id": 631
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 635,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.trad_simulator_635",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.trad_simulator_rejected_status_249",
-        "capability_id": 635
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 645,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.multi_source_data_fusion_645",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.data_sources_layer.compute_opportunity_score_150",
-        "capability_id": 645
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 704,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.unified_exchange_connector_704",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.free_tier_capabilities.defi_risk_radar",
-        "capability_id": 704
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 708,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.asset_registry_105_coins_708",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.intelligence_analysis_layer.asset_registry_105_coins_156",
-        "capability_id": 708
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 725,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.white_label_api_brokerage_725",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.risk_infrastructure_layer.full_white_label_status_174",
-        "capability_id": 725
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 7,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.l3_order_book_7",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
-        "capability_id": 7
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 49,
-      "status": "ok",
-      "binding": "bd_platform.flash_crash_protection.flash_crash_protection_status_49",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.flash_crash_protection.flash_crash_protection_status_49",
-        "capability_id": 49
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 50,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.mvrv_z_score_50",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.onchain_platform_layer.compute_macro_event_nexus_133",
-        "capability_id": 50
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 55,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.due_diligence_report_55",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "due_diligence_bundle.build_full_due_diligence_bundle",
-        "capability_id": 55
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 62,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.treasury_intelligence_62",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.institutional_b2b_layer.build_ic_report_87",
-        "capability_id": 62
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 118,
-      "status": "ok",
-      "binding": "bd_platform.advanced_ta_risk_layer.attach_risk_distribution_118",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.advanced_ta_risk_layer.attach_risk_distribution_118",
-        "capability_id": 118
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 214,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.whale_intelligence_214",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.build_whale_narrative_71",
-        "capability_id": 214
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 245,
-      "status": "ok",
-      "binding": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
-        "capability_id": 245
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 382,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.single_sentence_financial_button_382",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "heroes_quality.heroes_quality_manifest",
-        "capability_id": 382
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 812,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.clear_explanation_per_alert_812",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "heroes_quality.build_oqs_why_block",
-        "capability_id": 812
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 814,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.public_accuracy_ledger_814",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "heroes_quality.build_ledger_share_kit",
-        "capability_id": 814
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 815,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.timestamped_prediction_proof_815",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "oracle_audit_chain.chain_summary",
-        "capability_id": 815
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 9,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.execution_risk_score_9",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer.build_impact_analysis_78",
-        "capability_id": 9
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 10,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.opportunity_alert_10",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "instant_alert_engine.engine_stats",
-        "capability_id": 10
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 11,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.defi_onchain_arbitrage_11",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "arbitrage_service.scan_arbitrage_opportunities",
-        "capability_id": 11
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 12,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.realtime_risk_alerts_12",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer.evaluate_liquidation_alert_82",
-        "capability_id": 12
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 13,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.smart_alerts_13",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-        "capability_id": 13
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 15,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.flash_loan_attack_proximity_15",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.onchain_platform_layer.scan_flash_loan_vulnerabilities_132",
-        "capability_id": 15
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 17,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.pro_alert_service_17",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "alert_service.subscribe_alerts",
-        "capability_id": 17
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 18,
-      "status": "ok",
-      "binding": "bd_platform.alert_orchestration.alert_orchestration_status_18",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.alert_orchestration.alert_orchestration_status_18",
-        "capability_id": 18
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 19,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.custom_metric_alerts_19",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.get_alert_policy_75",
-        "capability_id": 19
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 20,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.logging_metrics_tracing_20",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.append_audit_event_242",
-        "capability_id": 20
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 21,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.unified_alert_center_21",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.alert_orchestration.alert_orchestration_status_18",
-        "capability_id": 21
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 22,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.custom_watchlists_22",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.list_etherscan_watchlist_246",
-        "capability_id": 22
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 25,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.orderflow_anomaly_detection_25",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.footprint_analytics.footprint_snapshot",
-        "capability_id": 25
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 27,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.custom_alerts_27",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-        "capability_id": 27
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 28,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.contextual_decision_alert_28",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.retail_intelligence_layer.evaluate_contextual_alert_65",
-        "capability_id": 28
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 29,
-      "status": "ok",
-      "binding": "bd_platform.retail_intelligence_layer.compare_discipline_66",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.retail_intelligence_layer.compare_discipline_66",
-        "capability_id": 29
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 30,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.flexible_usage_alerts_30",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-        "capability_id": 30
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 34,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.cex_bid_ask_skew_radar_34",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
-        "capability_id": 34
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 36,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.panic_button_36",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "risk_manager.is_trading_frozen",
-        "capability_id": 36
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 37,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.auto_trade_alerts_37",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-        "capability_id": 37
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 40,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.full_fill_feasibility_40",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.arbitrage_portfolio_ux_layer.analyze_liquidity_capacity_189",
-        "capability_id": 40
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 45,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.arkham_intelligence_free_45",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.free_tier_capabilities.smart_money_leaderboard",
-        "capability_id": 45
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 46,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.asymmetric_slippage_cost_46",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.slippage_tolerance_optimizer.optimize_slippage_tolerance",
-        "capability_id": 46
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 48,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.exchange_netflow_intelligence_48",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.security_trust_data_layer.ingest_bybit_price_243",
-        "capability_id": 48
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 56,
-      "status": "ok",
-      "binding": "bd_platform.heroes_capability_layer.research_library_56",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.market_analysis_layer.attach_market_health_bundle_106_112_114",
-        "capability_id": 56
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 59,
-      "status": "ok",
-      "binding": "bd_platform.legal_commercial_layer.create_sar_workflow_59",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.legal_commercial_layer.create_sar_workflow_59",
-        "capability_id": 59
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 69,
-      "status": "ok",
-      "binding": "bd_platform.pro_trader_layer.evaluate_ttv_flow_69",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.evaluate_ttv_flow_69",
-        "capability_id": 69
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 71,
-      "status": "ok",
-      "binding": "bd_platform.pro_trader_layer.build_whale_narrative_71",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.build_whale_narrative_71",
-        "capability_id": 71
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 72,
-      "status": "ok",
-      "binding": "bd_platform.pro_trader_layer.classify_onchain_signal_72",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.classify_onchain_signal_72",
-        "capability_id": 72
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 74,
-      "status": "ok",
-      "binding": "bd_platform.pro_trader_layer.run_backtest_74",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.run_backtest_74",
-        "capability_id": 74
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 75,
-      "status": "ok",
-      "binding": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-        "capability_id": 75
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 77,
-      "status": "ok",
-      "binding": "bd_platform.whales_institutional_layer.build_advanced_risk_report_77",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer.build_advanced_risk_report_77",
-        "capability_id": 77
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 79,
-      "status": "ok",
-      "binding": "bd_platform.whales_institutional_layer.analyze_wallet_surveillance_79",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer.analyze_wallet_surveillance_79",
-        "capability_id": 79
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 81,
-      "status": "ok",
-      "binding": "bd_platform.whales_institutional_layer.build_unified_portfolio_view_81",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer.build_unified_portfolio_view_81",
-        "capability_id": 81
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 85,
-      "status": "ok",
-      "binding": "bd_platform.whales_institutional_layer.enrich_openapi_with_fee_metadata_85",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.whales_institutional_layer.enrich_openapi_with_fee_metadata_85",
-        "capability_id": 85
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 88,
-      "status": "ok",
-      "binding": "bd_platform.institutional_b2b_layer.map_org_role_to_team_88",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.institutional_b2b_layer.map_org_role_to_team_88",
-        "capability_id": 88
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 91,
-      "status": "ok",
-      "binding": "bd_platform.institutional_b2b_layer.compute_vwap_deviation_91",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.institutional_b2b_layer.compute_vwap_deviation_91",
-        "capability_id": 91
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 92,
-      "status": "ok",
-      "binding": "bd_platform.institutional_b2b_layer.build_exchange_health_with_counterparty_92",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.institutional_b2b_layer.build_exchange_health_with_counterparty_92",
-        "capability_id": 92
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 96,
-      "status": "ok",
-      "binding": "bd_platform.infra_intelligence_layer.enqueue_stream_event_96",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.infra_intelligence_layer.enqueue_stream_event_96",
-        "capability_id": 96
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 98,
-      "status": "ok",
-      "binding": "bd_platform.infra_intelligence_layer.validate_signal_uniqueness_98",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.infra_intelligence_layer.validate_signal_uniqueness_98",
-        "capability_id": 98
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 106,
-      "status": "ok",
-      "binding": "bd_platform.market_analysis_layer.compute_contagion_vector_106",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.market_analysis_layer.compute_contagion_vector_106",
-        "capability_id": 106
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
-    },
-    {
-      "id": 110,
-      "status": "ok",
-      "binding": "bd_platform.market_analysis_layer.attach_whale_extensions_107_110",
-      "exec": {
-        "ok": true,
-        "error": null,
-        "binding": "bd_platform.market_analysis_layer.attach_whale_extensions_107_110",
-        "capability_id": 110
-      },
-      "completion_pct": 100,
-      "missing_parts": "—",
-      "test_module": "tests/test_hero_batch_01_capabilities.py",
-      "live_ok": true
+  "verified_deep_honest": 76,
+  "wrapper_only_unverified": 18,
+  "deferred_delegated": 15,
+  "rows": [
+    {
+      "capability_id": 638,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.build_contradiction_replay_254",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 640,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.compute_half_life_clock_256",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 5,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 641,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.security_trust_data_layer.proof_arena_lite_status_257",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 644,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.corpus_passport_status_260",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 33,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.retail_intelligence_layer.build_one_clear_answer_63",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 111,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_spx_correlation_111",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 1,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.footprint_analytics.footprint_snapshot",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 2,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "trade_simulator.simulate_spot_trade",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 3,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.free_tier_capabilities.wallet_profiler_for_token",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 4,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.free_tier_capabilities.smart_money_tracking",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 14,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "market_context.whale_alert_message",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 44,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.intelligence_analysis_layer.analyze_arbitrage_opportunity_153",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 47,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.build_exchange_health_80",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 60,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.legal_commercial_layer.pricing_transparency_manifest_60",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 63,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.retail_intelligence_layer.attach_clear_answer_63",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 86,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.whales_institutional_layer.run_whales_institutional_e2e_77_86",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 103,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer._compute_drawdown_duration_103",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 126,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.advanced_ta_risk_layer.dex_front_running_risk_126",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 330,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "trade_simulator.simulate_spot_trade",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 356,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.ingest_cointelegraph_rss_244",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 637,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.build_kill_rate_widget_253",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 639,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.committee_one_pager_status_255",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 642,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.since_you_left_top3_258",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 6,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 73,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.build_multi_dim_analysis_73",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 164,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 183,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 197,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 224,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 279,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.build_share_card_68",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 299,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.news_classifier.classify_headlines",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 339,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.apply_opportunity_filter_70",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 437,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.correlation_mindshare.compute_mindshare_correlation_288",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 441,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.intelligence_analysis_layer.stat_arb_insight_155",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 458,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.build_methodology_docs_86",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 525,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.run_backtest_74",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 578,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.execution_rejected_layer.whale_behavior_analysis_216",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 584,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.news_classifier.coindesk_feed",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 629,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "regulatory_compliance_guard.compliant_oracle_sentence",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 631,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.intelligence_ux_extensions_layer.live_ta_status_239",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 635,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.security_trust_data_layer.trad_simulator_rejected_status_249",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 645,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.data_sources_layer.compute_opportunity_score_150",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 704,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.free_tier_capabilities.defi_risk_radar",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 708,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.intelligence_analysis_layer.asset_registry_105_coins_156",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 725,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.risk_infrastructure_layer.full_white_label_status_174",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 7,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 49,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.flash_crash_protection.flash_crash_protection_status_49",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 50,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.onchain_platform_layer.compute_macro_event_nexus_133",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 55,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "due_diligence_bundle.build_full_due_diligence_bundle",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 62,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_b2b_layer.build_ic_report_87",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 118,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.advanced_ta_risk_layer.attach_risk_distribution_118",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 214,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.build_whale_narrative_71",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 245,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 382,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "heroes_quality.heroes_quality_manifest",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 812,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "heroes_quality.build_oqs_why_block",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 814,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "heroes_quality.build_ledger_share_kit",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 815,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "oracle_audit_chain.chain_summary",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 9,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.whales_institutional_layer.build_impact_analysis_78",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 10,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "instant_alert_engine.engine_stats",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 11,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "arbitrage_service.scan_arbitrage_opportunities",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 12,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.evaluate_liquidation_alert_82",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 13,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 15,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.onchain_platform_layer.scan_flash_loan_vulnerabilities_132",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 17,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "alert_service.subscribe_alerts",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 18,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.alert_orchestration.alert_orchestration_status_18",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 19,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.get_alert_policy_75",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 20,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.append_audit_event_242",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 21,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.alert_orchestration.alert_orchestration_status_18",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 22,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.list_etherscan_watchlist_246",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 25,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.footprint_analytics.footprint_snapshot",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 27,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 28,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.retail_intelligence_layer.evaluate_contextual_alert_65",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 29,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.retail_intelligence_layer.compare_discipline_66",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 30,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 34,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 36,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "risk_manager.is_trading_frozen",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 37,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 40,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.arbitrage_portfolio_ux_layer.analyze_liquidity_capacity_189",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 45,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.free_tier_capabilities.smart_money_leaderboard",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 46,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.slippage_tolerance_optimizer.optimize_slippage_tolerance",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 48,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.security_trust_data_layer.ingest_bybit_price_243",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 56,
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "underlying": "bd_platform.market_analysis_layer.attach_market_health_bundle_106_112_114",
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 59,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.legal_commercial_layer.create_sar_workflow_59",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 69,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_ttv_flow_69",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 71,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.build_whale_narrative_71",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 72,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.classify_onchain_signal_72",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 74,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.run_backtest_74",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 75,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 77,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.build_advanced_risk_report_77",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 79,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.analyze_wallet_surveillance_79",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 81,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.build_unified_portfolio_view_81",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 85,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.enrich_openapi_with_fee_metadata_85",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 88,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_b2b_layer.map_org_role_to_team_88",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 91,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_b2b_layer.compute_vwap_deviation_91",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 92,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_b2b_layer.build_exchange_health_with_counterparty_92",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 96,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.infra_intelligence_layer.enqueue_stream_event_96",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 98,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.infra_intelligence_layer.validate_signal_uniqueness_98",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 106,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_contagion_vector_106",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 110,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.attach_whale_extensions_107_110",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 103,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer._compute_drawdown_duration_103",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 106,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_contagion_vector_106",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 110,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.attach_whale_extensions_107_110",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 111,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_spx_correlation_111",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 118,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.advanced_ta_risk_layer.attach_risk_distribution_118",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 126,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.advanced_ta_risk_layer.dex_front_running_risk_126",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 164,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 183,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 197,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
     }
   ]
 }
