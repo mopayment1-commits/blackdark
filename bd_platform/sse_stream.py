@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
-from collections.abc import AsyncIterator
+from typing import Any, AsyncIterator
 from datetime import UTC, datetime
 
 
@@ -41,6 +41,19 @@ async def _snapshot_event() -> dict:
 
     payload["type"] = "snapshot"
     return payload
+
+
+async def sse_digest_status_316(*, limit: int = 5) -> dict[str, Any]:
+    """AI digest / SSE snapshot status for PDF capability #316."""
+    snap = await _snapshot_event()
+    return {
+        "ok": True,
+        "success": True,
+        "capability_id": 316,
+        "transport": "sse",
+        "snapshot": snap,
+        "limit": limit,
+    }
 
 
 async def sse_event_generator(*, interval_sec: float = 5.0) -> AsyncIterator[str]:

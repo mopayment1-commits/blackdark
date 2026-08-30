@@ -44,11 +44,11 @@ async def _rest_get(
     headers: dict[str, str] | None = None,
     session: aiohttp.ClientSession | None = None,
 ) -> Any | None:
-    owns_session = session is None
     try:
-        if owns_session:
-            session = aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS)
-        assert session is not None
+        if session is None:
+            from aggregator import get_shared_http_session
+
+            session = get_shared_http_session()
         async with session.get(url, params=params, headers=headers) as resp:
             if resp.status != 200:
                 logger.debug(
@@ -60,9 +60,6 @@ async def _rest_get(
             return await resp.json()
     except (aiohttp.ClientError, TypeError, ValueError):
         return None
-    finally:
-        if owns_session and session is not None:
-            await session.close()
 
 
 def sector_for_asset(asset: str) -> str:
@@ -442,13 +439,15 @@ async def fetch_binance_ticker(pair: str) -> dict | None:
     if ws_row is not None:
         return ws_row
 
-    async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
-        row = await _primary_rest_ticker(pair, session)
-        if row is not None:
-            return row
-        row = await _fallback_rest_ticker(asset, session)
-        if row is not None:
-            return row
+    from aggregator import get_shared_http_session
+
+    session = get_shared_http_session()
+    row = await _primary_rest_ticker(pair, session)
+    if row is not None:
+        return row
+    row = await _fallback_rest_ticker(asset, session)
+    if row is not None:
+        return row
 
     logger.warning("All price sources failed | asset=%s", _safe_asset_label(asset).replace("\r", " ").replace("\n", " "))
     return None
@@ -487,9 +486,11 @@ async def probe_price_sources(symbol: str = "BTC") -> dict[str, Any]:
     """Ops diagnostic — which price APIs respond from this host (Railway DD)."""
     asset, pair = normalize_oracle_symbol(symbol)
     checks: dict[str, Any] = {}
-    async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
-        checks.update(await _probe_binance_hosts(pair, session))
-        checks.update(await _probe_rest_fallbacks(asset, session))
+    from aggregator import get_shared_http_session
+
+    session = get_shared_http_session()
+    checks.update(await _probe_binance_hosts(pair, session))
+    checks.update(await _probe_rest_fallbacks(asset, session))
     resolved = await fetch_binance_ticker(pair)
     return {
         "symbol": asset,
@@ -623,19 +624,20 @@ async def fetch_binance_market_overview_pack(limit: int | None = None) -> dict[s
             "source_host": None,
         }
 
-    timeout = aiohttp.ClientTimeout(total=15)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
-        for host in _BINANCE_REST_HOSTS:
-            rows = await _fetch_binance_24hr_rows(session, host)
-            if not rows:
-                continue
-            assets = _overview_from_24hr_rows(rows, limit)
-            if assets:
-                return {
-                    "assets": assets,
-                    "data_source": f"binance:{host}",
-                    "source_host": host,
-                }
+    from aggregator import get_shared_http_session
+
+    session = get_shared_http_session()
+    for host in _BINANCE_REST_HOSTS:
+        rows = await _fetch_binance_24hr_rows(session, host)
+        if not rows:
+            continue
+        assets = _overview_from_24hr_rows(rows, limit)
+        if assets:
+            return {
+                "assets": assets,
+                "data_source": f"binance:{host}",
+                "source_host": host,
+            }
 
     assets = await _overview_from_tracked_tickers(limit)
     return {
@@ -663,8 +665,10 @@ async def fetch_live_whale_signal(pair: str, price: float) -> str:
     url = f"https://api.binance.com/api/v3/aggTrades?symbol={pair}&limit=200"
     threshold_usd = 75_000
     try:
-        timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+        from aggregator import get_shared_http_session
+
+        session = get_shared_http_session()
+        async with session.get(url) as resp:
             if resp.status != 200:
                 return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
             trades = await resp.json()
@@ -1125,19 +1129,21 @@ async def fetch_binance_klines(pair: str, interval: str = "1h", limit: int = 200
     # Prefer Vision/US first — same Railway egress pattern as fetch_binance_ticker.
     hosts = ("data-api.binance.vision", "api.binance.us", "api.binance.com")
     try:
-        async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
-            for host in hosts:
-                url = f"https://{host}/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
-                try:
-                    async with session.get(url) as resp:
-                        if resp.status != 200:
-                            continue
-                        rows = await resp.json()
-                    closes = [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
-                    if closes:
-                        return closes
-                except (aiohttp.ClientError, TypeError, ValueError):
-                    continue
+        from aggregator import get_shared_http_session
+
+        session = get_shared_http_session()
+        for host in hosts:
+            url = f"https://{host}/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
+            try:
+                async with session.get(url) as resp:
+                    if resp.status != 200:
+                        continue
+                    rows = await resp.json()
+                closes = [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
+                if closes:
+                    return closes
+            except (aiohttp.ClientError, TypeError, ValueError):
+                continue
     except (aiohttp.ClientError, TypeError, ValueError):
         return []
     return []

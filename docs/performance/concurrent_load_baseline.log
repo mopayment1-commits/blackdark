@@ -1,0 +1,14 @@
+Viral readiness: approved=False codepath=False redis=memory parallelism={'workers': 2, 'replicas': 1, 'parallelism': 2}
+Concurrent load | base=http://127.0.0.1:8765 workers=20 requests/endpoint=60 strict_2xx=False
+
+  live: p50=62.9ms p95=73.4ms max=425.2ms ok=60 controlled=0 errors=0/60 ok_rate=1.0 capacity_ok_rate=1.0
+  ready: p50=22.9ms p95=42.2ms max=95.4ms ok=60 controlled=0 errors=0/60 ok_rate=1.0 capacity_ok_rate=1.0
+  viral_health: p50=24.7ms p95=30.7ms max=31.6ms ok=0 controlled=60 errors=0/60 ok_rate=0.0 capacity_ok_rate=1.0
+  trust_os: p50=458.8ms p95=895.2ms max=1092.0ms ok=60 controlled=0 errors=0/60 ok_rate=1.0 capacity_ok_rate=1.0
+  scale_readiness: p50=99.6ms p95=1018.2ms max=1388.9ms ok=60 controlled=0 errors=0/60 ok_rate=1.0 capacity_ok_rate=1.0
+  viral_readiness: p50=79.7ms p95=392.4ms max=567.5ms ok=60 controlled=0 errors=0/60 ok_rate=1.0 capacity_ok_rate=1.0
+  oracle_quick: p50=513.3ms p95=1282.8ms max=1283.6ms ok=60 controlled=0 errors=0/60 ok_rate=1.0 capacity_ok_rate=1.0
+  arb_scan: p50=11061.2ms p95=12889.2ms max=13634.0ms ok=0 controlled=0 errors=60/60 ok_rate=0.0 capacity_ok_rate=0.0
+  compliance_html: p50=1372.3ms p95=2536.5ms max=2630.0ms ok=60 controlled=0 errors=0/60 ok_rate=1.0 capacity_ok_rate=1.0
+
+NOTE: Passing this harness does NOT equal signed HA proof. Append Postgres+Redis multi-worker results to docs/LOAD_TEST_RUN_LOG.md. 429/503 count as controlled degradation unless --strict-2xx.

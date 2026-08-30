@@ -45,6 +45,60 @@ def test_quick_cache_roundtrip():
     assert hit["ok"] is True
 
 
+def test_quick_cache_graceful_without_redis_url(monkeypatch):
+    import config
+    import viral_capacity as vc
+
+    monkeypatch.delenv("REDIS_URL", raising=False)
+    monkeypatch.setattr(config, "REDIS_URL", "", raising=False)
+    vc._redis = None
+    vc._redis_fail_until = 0.0
+    vc._quick_cache.clear()
+
+    vc.quick_cache_set("ETH", "en", "beginner", {"symbol": "ETH", "ok": True})
+    hit = vc.quick_cache_get("ETH", "en", "beginner")
+    assert hit is not None
+    assert hit["viral_cache"] == "hit"
+    assert vc.cache_backend() == "memory"
+
+
+def test_quick_cache_survives_transient_redis_outage(monkeypatch):
+    import config
+    import viral_capacity as vc
+
+    redis_url = (getattr(config, "REDIS_URL", "") or "redis://127.0.0.1:6379/0").strip()
+    if not redis_url:
+        pytest.skip("REDIS_URL not configured")
+    monkeypatch.setenv("REDIS_URL", redis_url)
+    monkeypatch.setattr(config, "REDIS_URL", redis_url, raising=False)
+    vc._redis = None
+    vc._redis_fail_until = 0.0
+    vc._quick_cache.clear()
+
+    vc.quick_cache_set("SOL", "en", "beginner", {"symbol": "SOL", "ok": True})
+    assert vc.cache_backend() == "redis"
+
+    client = vc._redis_client()
+    assert client is not None
+    original_get = client.get
+
+    def _broken_get(*args, **kwargs):
+        raise ConnectionError("simulated redis outage")
+
+    monkeypatch.setattr(client, "get", _broken_get)
+    hit = vc.quick_cache_get("SOL", "en", "beginner")
+    assert hit is not None
+    assert hit["viral_cache"] == "hit"
+    assert hit["ok"] is True
+
+    monkeypatch.setattr(client, "get", original_get)
+    vc._drop_redis_client()
+    remote = vc._redis_client()
+    assert remote is not None
+    raw = remote.get("bd:viral:qcache:SOL:en:beginner")
+    assert raw is not None
+
+
 def test_viral_readiness_honesty(monkeypatch):
     monkeypatch.setenv("SOFT_LAUNCH", "true")
     monkeypatch.setenv("VIRAL_MODE", "true")

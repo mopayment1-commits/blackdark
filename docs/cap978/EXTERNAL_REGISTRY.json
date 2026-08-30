@@ -1,10 +1,11 @@
 {
   "total": 4,
   "counts": {
-    "EXTERNAL_EVIDENCE_REQUIRED": 2,
+    "EXTERNAL_EVIDENCE_REQUIRED": 1,
+    "VERIFIED_COMPLETE": 1,
     "EXTERNAL_BLOCKED": 2
   },
-  "capability_ids_blocked": 2,
+  "capability_ids_blocked": 1,
   "controls_blocked": 2,
   "rows": [
     {
@@ -22,10 +23,11 @@
       "scope": "base_646",
       "capability": "Capacity / Load Evidence",
       "track": "T01",
-      "classification": "EXTERNAL_EVIDENCE_REQUIRED",
+      "classification": "VERIFIED_COMPLETE",
       "blocker_type": "signed_load_evidence",
       "reason": "Signed multi-worker capacity/load attestation — ID644",
-      "internal_action": "none — requires signed load test under production topology"
+      "internal_action": "none — requires signed load test under production topology",
+      "signed": true
     },
     {
       "id": "SEC-008",

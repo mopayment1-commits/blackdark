@@ -5,6 +5,18 @@ from __future__ import annotations
 import pytest
 
 
+@pytest.fixture(autouse=True)
+async def _reset_shared_http_session():
+  """Avoid cross-test aiohttp loop/session pollution (pytest-asyncio per-test loops)."""
+  yield
+  try:
+    from aggregator import close_shared_http_session
+
+    await close_shared_http_session()
+  except Exception:
+    pass
+
+
 @pytest.mark.asyncio
 async def test_institutional_controls_42():
     from cap646.institutional_controls import verify_all_controls
