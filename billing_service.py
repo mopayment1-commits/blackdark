@@ -118,6 +118,13 @@ def create_checkout_session(
     if tier not in STRIPE_TIERS:
         raise ValueError(f"Invalid tier: {tier}")
 
+    logger.info(
+        "billing_checkout_request tier=%s email=%s user_id=%s",
+        str(tier).replace("\r", " ").replace("\n", " "),
+        str(customer_email or "").replace("\r", " ").replace("\n", " "),
+        str(user_id if user_id is not None else "").replace("\r", " ").replace("\n", " "),
+    )
+
     success_url, cancel_url = _base_urls()
     price_id = _price_id_for_tier(tier)
 
@@ -167,7 +174,7 @@ def create_checkout_session(
     session_kwargs["subscription_data"] = sub_data
 
     session = stripe.checkout.Session.create(**session_kwargs)
-    return {
+    response = {
         "url": session.url,
         "session_id": session.id,
         "tier": tier,
@@ -176,6 +183,13 @@ def create_checkout_session(
         "trial_days": trial_days,
         "pci_note": "Card data collected only on Stripe-hosted Checkout.",
     }
+    logger.info(
+        "billing_checkout_response session_id=%s tier=%s provider=%s",
+        str(session.id).replace("\r", " ").replace("\n", " "),
+        str(tier).replace("\r", " ").replace("\n", " "),
+        "stripe",
+    )
+    return response
 
 
 def create_billing_portal_session(stripe_customer_id: str) -> dict[str, Any]:
@@ -190,15 +204,43 @@ def create_billing_portal_session(stripe_customer_id: str) -> dict[str, Any]:
 
 
 async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
+    event_id = str(event.get("id") or "")
+    event_type = str(event.get("type") or "")
+    logger.info(
+        "billing_stripe_webhook_request event_id=%s type=%s",
+        event_id.replace("\r", " ").replace("\n", " "),
+        event_type.replace("\r", " ").replace("\n", " "),
+    )
     from billing.webhook_processor import process_stripe_event
 
-    return await process_stripe_event(event)
+    result = await process_stripe_event(event)
+    logger.info(
+        "billing_stripe_webhook_response event_id=%s action=%s handled=%s",
+        event_id.replace("\r", " ").replace("\n", " "),
+        str(result.get("action") or "").replace("\r", " ").replace("\n", " "),
+        str(result.get("handled")).replace("\r", " ").replace("\n", " "),
+    )
+    return result
 
 
 async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
+    ctx = _lemon_event_context(event)
+    logger.info(
+        "billing_lemon_webhook_request event_name=%s lemon_id=%s email=%s",
+        str(ctx["event_name"]).replace("\r", " ").replace("\n", " "),
+        str(ctx["lemon_id"]).replace("\r", " ").replace("\n", " "),
+        str(ctx["email"]).replace("\r", " ").replace("\n", " "),
+    )
     from billing.webhook_processor import process_lemon_event
 
-    return await process_lemon_event(event)
+    result = await process_lemon_event(event)
+    logger.info(
+        "billing_lemon_webhook_response event_name=%s action=%s handled=%s",
+        str(ctx["event_name"]).replace("\r", " ").replace("\n", " "),
+        str(result.get("action") or "").replace("\r", " ").replace("\n", " "),
+        str(result.get("handled")).replace("\r", " ").replace("\n", " "),
+    )
+    return result
 
 
 def _map_stripe_status(stripe_status: str) -> str:

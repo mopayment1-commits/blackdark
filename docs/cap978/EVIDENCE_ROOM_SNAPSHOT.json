@@ -44,10 +44,10 @@
     }
   },
   "external_registry_summary": {
-    "total": 4,
+    "total": 33,
     "counts": {
-      "EXTERNAL_EVIDENCE_REQUIRED": 2,
-      "EXTERNAL_BLOCKED": 2
+      "EXTERNAL_BLOCKED": 31,
+      "EXTERNAL_EVIDENCE_REQUIRED": 2
     }
   },
   "sample_executions": [

@@ -43,6 +43,7 @@ async def test_external_registry():
     assert all(r.get("internal_action", "").startswith("none") for r in report["rows"])
 
 
+@pytest.mark.slow
 @pytest.mark.asyncio
 async def test_evidence_room_snapshot(tmp_path, monkeypatch):
     import config
@@ -77,6 +78,7 @@ async def test_unified_execute_base_and_extension(tmp_path, monkeypatch):
     assert ext.get("success") is True or ext.get("classification")
 
 
+@pytest.mark.slow
 @pytest.mark.asyncio
 async def test_cap978_full_institutional_closure(tmp_path, monkeypatch):
     import config
