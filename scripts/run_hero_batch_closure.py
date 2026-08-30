@@ -119,6 +119,8 @@ def test_module_for(capability_id: int, batch_name: str) -> str | None:
     mod = batch_test_module_for(capability_id)
     if mod and (ROOT / mod).is_file():
         return mod
+    if batch_name.startswith("batch_03"):
+        return "tests/test_hero_batch_03_capabilities.py"
     if batch_name.startswith("batch_02"):
         return "tests/test_hero_batch_02_capabilities.py"
     if batch_name.startswith("batch_hero_01"):

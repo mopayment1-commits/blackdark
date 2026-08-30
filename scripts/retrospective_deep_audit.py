@@ -63,6 +63,7 @@ INDEPENDENT_TEST_RANGES = [
     (217, 227, "tests/test_intelligence_market_extensions_batch217_227.py"),
     (228, 241, "tests/test_intelligence_ux_extensions_batch228_241.py"),
     (242, 261, "tests/test_security_trust_data_batch242_261.py"),
+    (262, 300, "tests/test_derivatives_onchain_intelligence_batch262_300.py"),
 ]
 
 
@@ -146,16 +147,15 @@ def _resolve_binding(cap_id: int, heroes_map: dict[int, tuple[str, str]], bindin
 
 
 def _is_stub_source(source: str) -> bool:
-    low = source.lower()
     if "raise NotImplementedError" in source:
         return True
-    for marker in STUB_MARKERS:
-        if marker in low and ("return {" in low or "raise " in low):
-            if marker in ("deferred", "rejected"):
-                return True
-    if re.search(r'"status"\s*:\s*"(deferred|rejected)"', source, re.I):
+    if re.search(r'"status"\s*:\s*"(deferred|rejected|rejected_execution)"', source, re.I):
         return True
-    if re.search(r"'status'\s*:\s*'(deferred|rejected)'", source, re.I):
+    if re.search(r"'status'\s*:\s*'(deferred|rejected|rejected_execution)'", source, re.I):
+        return True
+    if re.search(r'"build_blocked"\s*:\s*True', source):
+        return True
+    if re.search(r'"activation_not_build"\s*:\s*True', source):
         return True
     return False
 
@@ -204,7 +204,16 @@ def _scan_independent_tests(cap_id: int, module: str, func_name: str) -> tuple[b
                     return True, cand, f"module_test:{short_mod}"
 
     # 3) Search all non-hero tests for underlying function reference
+    extra_tests = [
+        "tests/test_batch03_underlying_closure.py",
+        "tests/test_hero_batch01_underlying_closure.py",
+    ]
     if func_name:
+        for test_path in extra_tests:
+            if (ROOT / test_path).is_file():
+                text = (ROOT / test_path).read_text(encoding="utf-8", errors="replace")
+                if func_name in text or str(cap_id) in text:
+                    return True, test_path, f"closure_test:{func_name}"
         for test_file in sorted((ROOT / "tests").glob("test_*.py")):
             if test_file.name in {p.split("/")[-1] for p in HERO_WRAPPER_TESTS}:
                 continue
@@ -315,24 +324,14 @@ def _classify(
     prior_impl_class: str | None,
     live_detail: dict[str, Any],
 ) -> str:
-    blob = json.dumps(live_detail, default=str).lower()
-    deferred_markers = (
-        "deferred",
-        "rejected",
-        "duplicate_not_build",
-        "build_blocked",
-        "insights_only_no_execution",
-    )
     is_deferred = (
         prior_impl_class == "deferred"
         or underlying_reason == "stub_or_deferred"
-        or any(m in blob for m in deferred_markers)
-        or live_detail.get("status") in {"deferred", "rejected"}
+        or live_detail.get("status") in {"deferred", "rejected", "rejected_execution", "build_blocked"}
+        or live_detail.get("build_blocked") is True
+        or live_detail.get("activation_not_build") is True
     )
-    is_delegated = (
-        prior_impl_class == "delegated"
-        and binding_kind == "delegated"
-    )
+    is_delegated = prior_impl_class == "delegated" and binding_kind == "delegated"
 
     if is_deferred or is_delegated:
         return "DEFERRED/DELEGATED"
@@ -391,7 +390,9 @@ async def audit_all() -> dict[str, Any]:
 
         reg_binding = bindings.get(cap_id)
         if not prior_impl and reg_binding:
-            prior_impl = classify_implementation(cap_id, reg_binding, live_detail)
+            impl_guess = classify_implementation(cap_id, reg_binding, live_detail)
+            if impl_guess != "deferred":
+                prior_impl = impl_guess
 
         live_binding = live_detail.get("binding", "")
         if live_binding:

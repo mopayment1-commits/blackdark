@@ -24,3 +24,5 @@ async def test_execute_known_binding():
 def test_batch_test_mapping():
     assert batch_test_module_for(57) == "tests/test_legal_retail_batch57_66.py"
     assert batch_test_module_for(113) == "tests/test_missing_capabilities_closure.py"
+    assert batch_test_module_for(270) == "tests/test_hero_batch_03_capabilities.py"
+    assert batch_test_module_for(262) == "tests/test_hero_batch_03_capabilities.py"
