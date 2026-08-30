@@ -1,0 +1,2044 @@
+{
+  "audit_type": "batch_05_deep_quad",
+  "audited_at": "2026-08-30T20:27:03.424203+00:00",
+  "total_capabilities": 100,
+  "classification_counts": {
+    "VERIFIED-DEEP": 97,
+    "REUSED-LINK": 3,
+    "WRAPPER-ONLY-UNVERIFIED": 0,
+    "DEFERRED/DELEGATED": 0
+  },
+  "verified_deep_native_count": 97,
+  "reused_link_count": 3,
+  "verified_deep_honest_count": 100,
+  "verified_deep_pct": 100.0,
+  "wrapper_only_unverified_count": 0,
+  "deferred_delegated_count": 0,
+  "rows": [
+    {
+      "capability_id": 401,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "bridges_intelligence_401",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_401",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 402,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "yields_screener_402",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_402",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 403,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "yield_history_403",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_403",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 404,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "borrowing_rates_404",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_404",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 405,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "liquid_staking_intelligence_405",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_405",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 406,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "rwa_intelligence_406",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_406",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 407,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "raises_funding_rounds_407",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_407",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 408,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "investor_profiles_408",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_408",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 409,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.quicktake_feed",
+      "underlying_function": "quicktake_feed_status_409",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_409",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 410,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "treasury_intelligence_410",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_410",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 411,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "airdrop_incentive_intelligence_411",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_411",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 412,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "capital_formation_radar_412",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_412",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 413,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "defi_opportunity_screener_413",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_413",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 414,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "defi_risk_passport_414",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_414",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 415,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "api_aggregation_layer_415",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_415",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 416,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "cross_defi_decision_intelligence_416",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_416",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 417,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "cross_chain_fundamentals_417",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_417",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 418,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "protocol_fundamentals_418",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_418",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 419,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "stablecoin_intelligence_419",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_419",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 420,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "stablecoin_activity_breakdown_420",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_420",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 421,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "developer_activity_421",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_421",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 422,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "sector_ecosystem_comparables_422",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_422",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 423,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "equities_crypto_research_423",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_423",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 424,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "consensus_estimates_424",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_424",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 425,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "ai_analyst_425",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_425",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 426,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "thesis_research_workspace_426",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_426",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 427,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "comparable_company_protocol_analysis_427",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_427",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 428,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "excel_sheets_integration_428",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_428",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 429,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "api_data_platform_429",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_429",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 430,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "research_templates_430",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_430",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 431,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "dashboards_431",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_431",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 432,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "stablecoin_payment_intelligence_432",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_432",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 433,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "on_chain_usage_intelligence_433",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_433",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 434,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "revenue_fees_economic_activity_434",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_434",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 435,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "cross_market_research_copilot_435",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_435",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 436,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "investment_thesis_scoring_436",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_436",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 437,
+      "batch": "batch_05",
+      "classification": "REUSED-LINK",
+      "prior_implementation_class": "delegated",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.correlation_mindshare",
+      "underlying_function": "compute_mindshare_correlation_288",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_437",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_mindshare_correlation_288",
+          "suffix_id": 288,
+          "capability_id": 437
+        }
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 438,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "lending_market_risk_438",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_438",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 439,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "collateral_risk_439",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_439",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 440,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "liquidation_risk_440",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_440",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 441,
+      "batch": "batch_05",
+      "classification": "REUSED-LINK",
+      "prior_implementation_class": "delegated",
+      "binding_kind": "heroes_wrapper_traced",
+      "underlying_module": "bd_platform.intelligence_analysis_layer",
+      "underlying_function": "stat_arb_insight_155",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_441",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "stat_arb_insight_155",
+          "suffix_id": 155,
+          "capability_id": 441
+        },
+        "heroes_delegate": true
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 442,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "liquidity_risk_442",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_442",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 443,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "protocol_exploit_intelligence_443",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_443",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 444,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "stablecoin_risk_intelligence_444",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_444",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 445,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "defi_strategy_risk_445",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_445",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 446,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "real_time_risk_alerts_446",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_446",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 447,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "dao_treasury_risk_447",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_447",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 448,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "institutional_risk_api_448",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_448",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 449,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "curated_on_chain_dashboards_449",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_449",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 450,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "narrative_driven_research_450",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_450",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 451,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "protocol_dominance_451",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_451",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 452,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "aave_multi_chain_analytics_452",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_452",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 453,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "risk_curation_453",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_453",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 454,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "capital_protection_controls_454",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_454",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 455,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "stress_testing_455",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_455",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 456,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "cross_protocol_contagion_456",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_456",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 457,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "protocol_risk_passport_457",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_457",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 458,
+      "batch": "batch_05",
+      "classification": "REUSED-LINK",
+      "prior_implementation_class": "delegated",
+      "binding_kind": "heroes_wrapper_traced",
+      "underlying_module": "bd_platform.whales_institutional_layer",
+      "underlying_function": "build_methodology_docs_86",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_458",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_methodology_docs_86",
+          "suffix_id": 86,
+          "capability_id": 458
+        },
+        "heroes_delegate": true
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 459,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "network_data_pro_metrics_459",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_459",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 460,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "atlas_blockchain_search_460",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_460",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 461,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "address_balance_search_461",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_461",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 462,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "transaction_search_462",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_462",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 463,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "block_search_463",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_463",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 464,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "balance_updates_464",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_464",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 465,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "stablecoin_network_metrics_465",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_465",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 466,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "market_data_feed_466",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_466",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 467,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "market_data_pro_467",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_467",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 468,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "reference_rates_468",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_468",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 469,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "indexes_469",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_469",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 470,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "realized_metrics_470",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_470",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 471,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "supply_metrics_471",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_471",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 472,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "mining_validator_metrics_472",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_472",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 473,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "fee_metrics_473",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_473",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 474,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "activity_metrics_474",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_474",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 475,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "custom_metric_workbench_475",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_475",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 476,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "community_charts_api_476",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_476",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 477,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "market_network_join_477",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_477",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 478,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "data_quality_methodologies_478",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_478",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 479,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "historical_research_dataset_479",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_479",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 480,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "institutional_apis_480",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_480",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 481,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "cross_network_decision_intelligence_481",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_481",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 482,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "institutional_trade_data_482",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_482",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 483,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "order_book_data_483",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_483",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 484,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "ohlcv_data_484",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_484",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 485,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "derivatives_data_485",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_485",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 486,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "open_interest_data_486",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_486",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 487,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "funding_rate_data_487",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_487",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 488,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "index_data_488",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_488",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 489,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "reference_pricing_489",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_489",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 490,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "exchange_metadata_490",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_490",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 491,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "asset_metadata_491",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_491",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 492,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "historical_market_archive_492",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_492",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 493,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "real_time_streams_493",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_493",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 494,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "market_aggregates_494",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_494",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 495,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "liquidity_analytics_495",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_495",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 496,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "volatility_analytics_496",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_496",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 497,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "market_cap_supply_497",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_497",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 498,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "etf_etp_data_498",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_498",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 499,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "api_coverage_registry_499",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_499",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 500,
+      "batch": "batch_05",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "data_quality_normalization_500",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "independent_test_pattern": "range_batch_500",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    }
+  ]
+}
