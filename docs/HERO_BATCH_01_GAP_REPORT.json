@@ -1,14 +1,13 @@
 {
   "batch": "hero_batch_01",
-  "deep_audit_at": "2026-08-30T14:53:00.440134+00:00",
+  "deep_audit_at": "2026-08-30T15:04:45.634902+00:00",
   "total": 109,
   "classification_counts": {
-    "VERIFIED-DEEP": 76,
-    "DEFERRED/DELEGATED": 15,
-    "WRAPPER-ONLY-UNVERIFIED": 18
+    "VERIFIED-DEEP": 94,
+    "DEFERRED/DELEGATED": 15
   },
-  "verified_deep_honest": 76,
-  "wrapper_only_unverified": 18,
+  "verified_deep_honest": 94,
+  "wrapper_only_unverified": 0,
   "deferred_delegated": 15,
   "rows": [
     {
@@ -77,9 +76,9 @@
     },
     {
       "capability_id": 2,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "trade_simulator.simulate_spot_trade",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "origin/main"
     },
@@ -101,9 +100,9 @@
     },
     {
       "capability_id": 14,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "market_context.whale_alert_message",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "origin/main"
     },
@@ -165,9 +164,9 @@
     },
     {
       "capability_id": 330,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "trade_simulator.simulate_spot_trade",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "origin/main"
     },
@@ -261,9 +260,9 @@
     },
     {
       "capability_id": 299,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.news_classifier.classify_headlines",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "origin/main"
     },
@@ -277,9 +276,9 @@
     },
     {
       "capability_id": 437,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.correlation_mindshare.compute_mindshare_correlation_288",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
@@ -317,17 +316,17 @@
     },
     {
       "capability_id": 584,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.news_classifier.coindesk_feed",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "origin/main"
     },
     {
       "capability_id": 629,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "regulatory_compliance_guard.compliant_oracle_sentence",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "origin/main"
     },
@@ -389,9 +388,9 @@
     },
     {
       "capability_id": 49,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.flash_crash_protection.flash_crash_protection_status_49",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
@@ -405,9 +404,9 @@
     },
     {
       "capability_id": 55,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "due_diligence_bundle.build_full_due_diligence_bundle",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "origin/main"
     },
@@ -485,9 +484,9 @@
     },
     {
       "capability_id": 10,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "instant_alert_engine.engine_stats",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "origin/main"
     },
@@ -509,9 +508,9 @@
     },
     {
       "capability_id": 13,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
@@ -525,17 +524,17 @@
     },
     {
       "capability_id": 17,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "alert_service.subscribe_alerts",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "origin/main"
     },
     {
       "capability_id": 18,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.alert_orchestration.alert_orchestration_status_18",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
@@ -557,9 +556,9 @@
     },
     {
       "capability_id": 21,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.alert_orchestration.alert_orchestration_status_18",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
@@ -581,9 +580,9 @@
     },
     {
       "capability_id": 27,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
@@ -605,9 +604,9 @@
     },
     {
       "capability_id": 30,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
@@ -629,9 +628,9 @@
     },
     {
       "capability_id": 37,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
@@ -669,9 +668,9 @@
     },
     {
       "capability_id": 56,
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.attach_market_health_bundle_106_112_114",
-      "independent_test_passed": false,
+      "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
