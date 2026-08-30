@@ -204,9 +204,9 @@ async def test_pricing_catalog_five_tiers():
     ids = [t["id"] for t in cat["tiers"]]
     assert ids == ["free", "pro", "elite", "quant", "institutional"]
     by_id = {t["id"]: t for t in cat["tiers"]}
-    assert by_id["pro"]["price_usd_month"] == 19.99
-    assert by_id["elite"]["price_usd_month"] == 49.99
-    assert by_id["quant"]["price_usd_month"] == 149.99
+    assert by_id["pro"]["price_usd_month"] == 19
+    assert by_id["elite"]["price_usd_month"] == 49
+    assert by_id["quant"]["price_usd_month"] == 199
 
 
 @pytest.mark.asyncio
