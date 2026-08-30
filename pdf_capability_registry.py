@@ -455,7 +455,14 @@ def batch_test_module_for(capability_id: int) -> str | None:
 
         batch04_ids = json.loads(batch04.read_text(encoding="utf-8")).get("capability_ids", [])
         if capability_id in batch04_ids:
-            return "tests/test_hero_batch_04_capabilities.py"
+            return "tests/test_charting_market_intelligence_batch301_400.py"
+    batch05 = ROOT / "scripts" / "partial_batches" / "batch_05_401_500.json"
+    if batch05.is_file():
+        import json
+
+        batch05_ids = json.loads(batch05.read_text(encoding="utf-8")).get("capability_ids", [])
+        if capability_id in batch05_ids:
+            return "tests/test_defi_yield_intelligence_batch401_500.py"
     if capability_id in (113, 380, 381, 627):
         return "tests/test_missing_capabilities_closure.py"
     batch02 = ROOT / "scripts" / "partial_batches" / "batch_02_101_200.json"
@@ -485,6 +492,7 @@ def batch_test_module_for(capability_id: int) -> str | None:
         (242, 261, "tests/test_security_trust_data_batch242_261.py"),
         (262, 300, "tests/test_derivatives_onchain_intelligence_batch262_300.py"),
         (301, 400, "tests/test_charting_market_intelligence_batch301_400.py"),
+        (401, 500, "tests/test_defi_yield_intelligence_batch401_500.py"),
     ]
     for lo, hi, path in ranges:
         if lo <= capability_id <= hi:

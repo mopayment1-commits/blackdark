@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.retrospective_deep_audit import (  # noqa: E402
     _classify,
+    _empty_counts,
     _git_on_main,
     _load_gap_impl_classes,
     _load_ids,
@@ -27,6 +28,8 @@ from scripts.retrospective_deep_audit import (  # noqa: E402
     _update_checklist,
     _update_evidence,
     _update_gap,
+    _detect_reuse_link,
+    audit_capability_row,
 )
 from scripts.retrospective_deep_audit import _binding_from_live, _live_verify  # noqa: E402
 from scripts.run_hero_batch_closure import classify_implementation, run_closure  # noqa: E402
@@ -47,67 +50,48 @@ async def audit_batch04() -> dict:
     gap_classes = _load_gap_impl_classes(GAP) if GAP.is_file() else {}
 
     rows = []
-    counts = {"VERIFIED-DEEP": 0, "WRAPPER-ONLY-UNVERIFIED": 0, "DEFERRED/DELEGATED": 0}
+    counts = _empty_counts()
 
     for cap_id in ids:
         prior_impl = gap_classes.get(cap_id)
-        module, func_name, binding_kind = _resolve_binding(cap_id, heroes_map, bindings)
-        live_ok, live_detail = await _live_verify(cap_id)
-        reg_binding = bindings.get(cap_id)
-        if reg_binding:
-            impl_guess = classify_implementation(cap_id, reg_binding, live_detail)
-            if impl_guess != "deferred":
-                prior_impl = prior_impl or impl_guess
-
-        live_binding = live_detail.get("binding", "")
-        if live_binding:
-            lm, lf = _binding_from_live(live_binding)
-            if lm and lf and not lm.endswith("heroes_capability_layer"):
-                module, func_name = lm, lf
-                if binding_kind == "heroes_wrapper":
-                    binding_kind = "heroes_wrapper_traced"
-
-        real, real_reason = _underlying_real_code(module, func_name)
-        has_test, test_file, test_pat = _scan_independent_tests(cap_id, module, func_name)
-        test_passed = False
-        test_output = ""
-        if has_test and test_file:
-            test_passed, test_output = _run_independent_test(test_file, cap_id, func_name)
-
-        mod_path = module.replace(".", "/") + ".py" if module else ""
-        on_main = _git_on_main(mod_path) if mod_path and (ROOT / mod_path).exists() else False
-        source_branch = "origin/main" if on_main else "capabilities-826-import"
-
-        classification = _classify(
-            cap_id, real, real_reason, has_test, test_passed, live_ok,
-            binding_kind, prior_impl, live_detail,
+        row = await audit_capability_row(
+            cap_id,
+            batch="batch_04",
+            heroes_map=heroes_map,
+            bindings=bindings,
+            prior_impl=prior_impl,
         )
-        counts[classification] += 1
+        counts[row["classification"]] += 1
         rows.append({
-            "capability_id": cap_id,
-            "batch": "batch_04",
-            "classification": classification,
-            "prior_implementation_class": prior_impl,
-            "binding_kind": binding_kind,
-            "underlying_module": module,
-            "underlying_function": func_name,
-            "underlying_real_code": real,
-            "underlying_real_reason": real_reason,
-            "independent_test_file": test_file,
-            "independent_test_pattern": test_pat,
-            "independent_test_passed": test_passed,
-            "live_ok": live_ok,
-            "source_branch": source_branch,
+            "capability_id": row["capability_id"],
+            "batch": row["batch"],
+            "classification": row["classification"],
+            "prior_implementation_class": row["prior_implementation_class"],
+            "binding_kind": row["binding_kind"],
+            "underlying_module": row["underlying_module"],
+            "underlying_function": row["underlying_function"],
+            "underlying_real_code": row["underlying_real_code"],
+            "underlying_real_reason": row["underlying_real_reason"],
+            "independent_test_file": row["independent_test_file"],
+            "independent_test_pattern": row["independent_test_pattern"],
+            "independent_test_passed": row["independent_test_passed"],
+            "live_ok": row["live_ok"],
+            "reuse_link": row.get("reuse_link", False),
+            "reuse_meta": row.get("reuse_meta", {}),
+            "source_branch": row["source_branch"],
         })
 
     total = len(ids)
+    quad = counts["VERIFIED-DEEP"] + counts["REUSED-LINK"]
     return {
         "audit_type": "batch_04_deep_quad",
         "audited_at": datetime.now(timezone.utc).isoformat(),
         "total_capabilities": total,
         "classification_counts": counts,
-        "verified_deep_honest_count": counts["VERIFIED-DEEP"],
-        "verified_deep_pct": round(100.0 * counts["VERIFIED-DEEP"] / total, 1),
+        "verified_deep_native_count": counts["VERIFIED-DEEP"],
+        "reused_link_count": counts["REUSED-LINK"],
+        "verified_deep_honest_count": quad,
+        "verified_deep_pct": round(100.0 * quad / total, 1),
         "wrapper_only_unverified_count": counts["WRAPPER-ONLY-UNVERIFIED"],
         "deferred_delegated_count": counts["DEFERRED/DELEGATED"],
         "rows": rows,
@@ -127,9 +111,12 @@ def write_md(report: dict) -> None:
         "",
         "| Classification | Count | % |",
         "|---|---:|---:|",
-        f"| **VERIFIED-DEEP** | **{c['VERIFIED-DEEP']}** | {report['verified_deep_pct']}% |",
+        f"| **VERIFIED-DEEP (native)** | **{c['VERIFIED-DEEP']}** | {round(100*c['VERIFIED-DEEP']/total,1)}% |",
+        f"| **REUSED-LINK** | **{c['REUSED-LINK']}** | {round(100*c['REUSED-LINK']/total,1)}% |",
         f"| WRAPPER-ONLY-UNVERIFIED | {c['WRAPPER-ONLY-UNVERIFIED']} | {round(100*c['WRAPPER-ONLY-UNVERIFIED']/total,1)}% |",
         f"| DEFERRED/DELEGATED | {c['DEFERRED/DELEGATED']} | {round(100*c['DEFERRED/DELEGATED']/total,1)}% |",
+        "",
+        f"Quad-passing total: **{report['verified_deep_honest_count']}**",
         "",
         "## DEFERRED/DELEGATED (documented deferrals only)",
         "",
@@ -154,8 +141,8 @@ def write_md(report: dict) -> None:
 def write_sample_dossier(report: dict) -> None:
     import random
 
-    verified = [r for r in report["rows"] if r["classification"] == "VERIFIED-DEEP"]
-    sample = random.Random(40400).sample(verified, min(10, len(verified)))
+    quad_pass = [r for r in report["rows"] if r["classification"] in ("VERIFIED-DEEP", "REUSED-LINK")]
+    sample = random.Random(40400).sample(quad_pass, min(10, len(quad_pass)))
     dossier = {
         "batch": "batch_04_301_400",
         "sample_size": len(sample),

@@ -1,19 +1,29 @@
 {
-  "batch": "hero_batch_02_101_200",
-  "deep_audit_at": "2026-08-30T15:04:45.635442+00:00",
+  "batch": "batch_02",
+  "deep_audit_at": "2026-08-30T20:17:18.597938+00:00",
   "total": 109,
   "classification_counts": {
-    "VERIFIED-DEEP": 71,
-    "DEFERRED/DELEGATED": 38
+    "REUSED-LINK": 2,
+    "VERIFIED-DEEP": 64,
+    "DEFERRED/DELEGATED": 43
   },
-  "verified_deep_honest": 71,
+  "verified_deep_native": 64,
+  "reused_link": 2,
+  "verified_deep_honest": 66,
   "wrapper_only_unverified": 0,
-  "deferred_delegated": 38,
+  "deferred_delegated": 43,
   "rows": [
     {
       "capability_id": 111,
-      "classification": "VERIFIED-DEEP",
+      "classification": "REUSED-LINK",
       "underlying": "bd_platform.market_analysis_layer.compute_spx_correlation_111",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -22,6 +32,10 @@
       "capability_id": 103,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.whales_institutional_layer._compute_drawdown_duration_103",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -30,6 +44,10 @@
       "capability_id": 126,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.advanced_ta_risk_layer.dex_front_running_risk_126",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -38,6 +56,10 @@
       "capability_id": 164,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -46,6 +68,17 @@
       "capability_id": 183,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "transaction_risk_insight_130",
+          "suffix_id": 130,
+          "capability_id": 183
+        }
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -54,6 +87,10 @@
       "capability_id": 197,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -62,6 +99,10 @@
       "capability_id": 118,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.advanced_ta_risk_layer.attach_risk_distribution_118",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -70,6 +111,10 @@
       "capability_id": 106,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.compute_contagion_vector_106",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -78,6 +123,10 @@
       "capability_id": 110,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.attach_whale_extensions_107_110",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -86,6 +135,10 @@
       "capability_id": 101,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.infra_intelligence_layer.validate_oracle_freshness_101",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -94,6 +147,10 @@
       "capability_id": 102,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.infra_intelligence_layer.compute_il_vulnerability_102",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -102,6 +159,10 @@
       "capability_id": 103,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.whales_institutional_layer._compute_drawdown_duration_103",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -110,6 +171,10 @@
       "capability_id": 104,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.infra_intelligence_layer.run_infra_intelligence_e2e_95_104",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -118,6 +183,10 @@
       "capability_id": 105,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.attach_tail_risk_to_backtest_105",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -126,6 +195,10 @@
       "capability_id": 106,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.compute_contagion_vector_106",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -134,6 +207,10 @@
       "capability_id": 107,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.compute_whale_retail_ratio_107",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -142,6 +219,10 @@
       "capability_id": 108,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -150,6 +231,10 @@
       "capability_id": 109,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.attach_liquidation_anchors_109",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -158,14 +243,25 @@
       "capability_id": 110,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.attach_whale_extensions_107_110",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
     {
       "capability_id": 111,
-      "classification": "VERIFIED-DEEP",
+      "classification": "REUSED-LINK",
       "underlying": "bd_platform.market_analysis_layer.compute_spx_correlation_111",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -174,6 +270,10 @@
       "capability_id": 112,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.compute_gcli_112",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -182,6 +282,10 @@
       "capability_id": 113,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.compute_imbalance_delta_113",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -190,6 +294,10 @@
       "capability_id": 114,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.attach_market_health_bundle_106_112_114",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -198,6 +306,10 @@
       "capability_id": 115,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.compute_volume_velocity_115",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -206,6 +318,10 @@
       "capability_id": 116,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.market_analysis_layer.run_market_analysis_e2e_105_116",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -214,6 +330,10 @@
       "capability_id": 117,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.advanced_ta_risk_layer.compute_liquidity_vacuum_117",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -222,6 +342,10 @@
       "capability_id": 118,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.advanced_ta_risk_layer.attach_risk_distribution_118",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -230,6 +354,10 @@
       "capability_id": 119,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.advanced_ta_risk_layer.gas_spike_alert_119",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -238,6 +366,10 @@
       "capability_id": 120,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.advanced_ta_risk_layer.attach_leverage_risk_120",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -246,6 +378,10 @@
       "capability_id": 121,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.advanced_ta_risk_layer.attach_journal_attribution_121",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -254,6 +390,10 @@
       "capability_id": 122,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.advanced_ta_risk_layer.compute_structural_break_122",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -262,6 +402,10 @@
       "capability_id": 123,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.advanced_ta_risk_layer.compute_volume_profile_poc_123",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -270,6 +414,10 @@
       "capability_id": 124,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.advanced_ta_risk_layer.detect_fair_value_gaps_124",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -278,6 +426,10 @@
       "capability_id": 125,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.advanced_ta_risk_layer.custody_tracking_status_125",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -286,6 +438,10 @@
       "capability_id": 126,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.advanced_ta_risk_layer.dex_front_running_risk_126",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -294,6 +450,10 @@
       "capability_id": 127,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.advanced_ta_risk_layer.orderbook_inefficiency_insight_127",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -302,6 +462,10 @@
       "capability_id": 128,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.advanced_ta_risk_layer.run_advanced_ta_risk_e2e_117_128",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -310,6 +474,10 @@
       "capability_id": 129,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.onchain_platform_layer.attach_sybil_clustering_129",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -318,6 +486,10 @@
       "capability_id": 130,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -326,6 +498,10 @@
       "capability_id": 131,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.analyze_dust_assets_131",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -334,6 +510,10 @@
       "capability_id": 132,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.scan_flash_loan_vulnerabilities_132",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -342,6 +522,10 @@
       "capability_id": 133,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.onchain_platform_layer.attach_macro_nexus_to_multi_dim_133",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -350,6 +534,10 @@
       "capability_id": 134,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.onchain_platform_layer.compute_delta_convergence_134",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -358,6 +546,10 @@
       "capability_id": 135,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.locate_liquidity_vortex_135",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -366,6 +558,10 @@
       "capability_id": 136,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.support_chat_response_136",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -374,6 +570,10 @@
       "capability_id": 137,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.b2b_relationships_status_137",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -382,6 +582,10 @@
       "capability_id": 138,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.institution_features_status_138",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -390,6 +594,10 @@
       "capability_id": 139,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.run_onchain_platform_e2e_129_139",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -398,6 +606,10 @@
       "capability_id": 140,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.data_sources_layer.white_label_status_140",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -406,6 +618,10 @@
       "capability_id": 141,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.data_sources_layer.ingest_coindesk_feed_141",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -414,6 +630,10 @@
       "capability_id": 142,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.data_sources_layer.ingest_santiment_metrics_142",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -422,6 +642,10 @@
       "capability_id": 143,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.data_sources_layer.ingest_event_calendar_143",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -430,6 +654,10 @@
       "capability_id": 144,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.data_sources_layer.ingest_whale_alert_144",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -438,6 +666,10 @@
       "capability_id": 145,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.data_sources_layer.ingest_cmc_price_145",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -446,6 +678,10 @@
       "capability_id": 146,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.data_sources_layer.validate_oracle_consensus_145_146",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -454,6 +690,10 @@
       "capability_id": 147,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.data_sources_layer.signal_engine_status_147",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -462,6 +702,10 @@
       "capability_id": 148,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.data_sources_layer.ingest_blockchain_com_148",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -470,6 +714,10 @@
       "capability_id": 149,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.data_sources_layer.ingest_defillama_149",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -478,6 +726,10 @@
       "capability_id": 150,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.data_sources_layer.attach_opportunity_to_daily_top3_150",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -486,6 +738,10 @@
       "capability_id": 151,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.data_sources_layer.explain_opportunity_151",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -494,6 +750,10 @@
       "capability_id": 152,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.data_sources_layer.run_data_sources_e2e_140_152",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -502,14 +762,22 @@
       "capability_id": 153,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.intelligence_analysis_layer.analyze_arbitrage_opportunity_153",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
     {
       "capability_id": 154,
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.intelligence_analysis_layer.financial_brain_status_154",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -518,6 +786,10 @@
       "capability_id": 155,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.intelligence_analysis_layer.stat_arb_insight_155",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -526,14 +798,22 @@
       "capability_id": 156,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.intelligence_analysis_layer.asset_registry_105_coins_156",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
     {
       "capability_id": 157,
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.intelligence_analysis_layer.onchain_advanced_status_157",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -542,6 +822,10 @@
       "capability_id": 158,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.intelligence_analysis_layer.multi_venue_websocket_status_158",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -550,6 +834,10 @@
       "capability_id": 159,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.intelligence_analysis_layer.compute_gas_volatility_profile_159",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -558,6 +846,10 @@
       "capability_id": 160,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.intelligence_analysis_layer.detect_volatility_squeeze_160",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -566,6 +858,10 @@
       "capability_id": 161,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.intelligence_analysis_layer.alert_delivery_status_161",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -574,14 +870,22 @@
       "capability_id": 162,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.intelligence_analysis_layer.data_grid_ui_status_162",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
     {
       "capability_id": 163,
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.intelligence_analysis_layer.run_intelligence_analysis_e2e_153_163",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -590,6 +894,10 @@
       "capability_id": 164,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -598,6 +906,10 @@
       "capability_id": 165,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.risk_infrastructure_layer.hashrate_capitulation_forecast_165",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -606,6 +918,10 @@
       "capability_id": 166,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.risk_infrastructure_layer.brokerage_rejected_status_166",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -614,6 +930,10 @@
       "capability_id": 167,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.risk_infrastructure_layer.validate_time_sync_167",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -622,6 +942,10 @@
       "capability_id": 168,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.risk_infrastructure_layer.attach_cluster_index_168",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -630,6 +954,10 @@
       "capability_id": 169,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.risk_infrastructure_layer.attach_correlation_decay_169",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -638,6 +966,10 @@
       "capability_id": 170,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.risk_infrastructure_layer.compute_oi_momentum_delta_170",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -646,22 +978,34 @@
       "capability_id": 171,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.risk_infrastructure_layer.attach_m2_macro_flow_171",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
     {
       "capability_id": 172,
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.risk_infrastructure_layer.institutional_memory_status_172",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
     {
       "capability_id": 173,
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.risk_infrastructure_layer.institutional_rbac_status_173",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -670,14 +1014,22 @@
       "capability_id": 174,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.risk_infrastructure_layer.full_white_label_status_174",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
     {
       "capability_id": 175,
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.risk_infrastructure_layer.risk_intelligence_status_175",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -686,6 +1038,10 @@
       "capability_id": 176,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.risk_infrastructure_layer.run_risk_infrastructure_e2e_164_176",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -694,6 +1050,10 @@
       "capability_id": 177,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.analyze_arbitrage_cost_177",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -702,6 +1062,10 @@
       "capability_id": 178,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_scenarios_178",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -710,6 +1074,10 @@
       "capability_id": 179,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.build_command_center_dashboard_179",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -718,14 +1086,22 @@
       "capability_id": 180,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_whale_visualization_180",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
     },
     {
       "capability_id": 181,
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.committee_packets_status_181",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -734,6 +1110,10 @@
       "capability_id": 182,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.white_label_infrastructure_status_182",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -742,6 +1122,17 @@
       "capability_id": 183,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "transaction_risk_insight_130",
+          "suffix_id": 130,
+          "capability_id": 183
+        }
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -750,6 +1141,10 @@
       "capability_id": 184,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.fund_reporting_status_184",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -758,6 +1153,10 @@
       "capability_id": 185,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.acquisition_evidence_package_185",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -766,6 +1165,10 @@
       "capability_id": 186,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.continuous_learning_status_186",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -774,6 +1177,10 @@
       "capability_id": 187,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.latency_monitoring_status_187",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -782,6 +1189,10 @@
       "capability_id": 188,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.risk_alert_user_confirmation_188",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -790,6 +1201,10 @@
       "capability_id": 189,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.analyze_liquidity_capacity_189",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -798,6 +1213,10 @@
       "capability_id": 190,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_arbitrage_extensions_177_189_190",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -806,6 +1225,10 @@
       "capability_id": 191,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.arbitrage_portfolio_ux_layer.run_arbitrage_portfolio_ux_e2e_177_191",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -814,6 +1237,10 @@
       "capability_id": 192,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.derivatives_ta_research_layer.analyze_funding_rate_192",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -822,6 +1249,10 @@
       "capability_id": 193,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.derivatives_ta_research_layer.auto_arbitrage_rejected_status_193",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -830,6 +1261,10 @@
       "capability_id": 194,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.derivatives_ta_research_layer.compute_cvd_194",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -838,6 +1273,10 @@
       "capability_id": 195,
       "classification": "DEFERRED/DELEGATED",
       "underlying": "bd_platform.derivatives_ta_research_layer.strategy_simulator_195",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -846,6 +1285,10 @@
       "capability_id": 196,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.derivatives_ta_research_layer.ingest_yahoo_finance_macro_196",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -854,6 +1297,10 @@
       "capability_id": 197,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -862,6 +1309,10 @@
       "capability_id": 198,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.derivatives_ta_research_layer.ingest_binance_research_198",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -870,6 +1321,10 @@
       "capability_id": 199,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.derivatives_ta_research_layer.ingest_messari_research_199",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
@@ -878,6 +1333,10 @@
       "capability_id": 200,
       "classification": "VERIFIED-DEEP",
       "underlying": "bd_platform.derivatives_ta_research_layer.ingest_coingecko_reports_200",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
       "independent_test_passed": true,
       "live_ok": true,
       "source_branch": "capabilities-826-import"
