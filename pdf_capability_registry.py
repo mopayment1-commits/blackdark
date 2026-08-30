@@ -42,7 +42,7 @@ _MANUAL: dict[int, tuple[str, str]] = {
     270: ("bd_platform.derivatives_onchain_intelligence_layer", "liquidation_cascade_proximity_270"),
     288: ("bd_platform.correlation_mindshare", "compute_mindshare_correlation_288"),
     316: ("bd_platform.sse_stream", "sse_digest_status_316"),
-    331: ("bd_platform.intelligence_analysis_layer", "analyze_arbitrage_opportunity_153"),
+    331: ("bd_platform.charting_market_intelligence_layer", "etf_reference_rates_inav_331"),
     378: ("exchange_currency_status", "deposit_currencies_open"),
     379: ("bd_platform.arbitrage_portfolio_ux_layer", "analyze_liquidity_capacity_189"),
     380: ("exchange_currency_status", "deposit_currencies_open"),
@@ -449,6 +449,13 @@ def batch_test_module_for(capability_id: int) -> str | None:
         batch03_ids = json.loads(batch03.read_text(encoding="utf-8")).get("capability_ids", [])
         if capability_id in batch03_ids:
             return "tests/test_hero_batch_03_capabilities.py"
+    batch04 = ROOT / "scripts" / "partial_batches" / "batch_04_301_400.json"
+    if batch04.is_file():
+        import json
+
+        batch04_ids = json.loads(batch04.read_text(encoding="utf-8")).get("capability_ids", [])
+        if capability_id in batch04_ids:
+            return "tests/test_hero_batch_04_capabilities.py"
     if capability_id in (113, 380, 381, 627):
         return "tests/test_missing_capabilities_closure.py"
     batch02 = ROOT / "scripts" / "partial_batches" / "batch_02_101_200.json"
@@ -477,6 +484,7 @@ def batch_test_module_for(capability_id: int) -> str | None:
         (228, 241, "tests/test_intelligence_ux_extensions_batch228_241.py"),
         (242, 261, "tests/test_security_trust_data_batch242_261.py"),
         (262, 300, "tests/test_derivatives_onchain_intelligence_batch262_300.py"),
+        (301, 400, "tests/test_charting_market_intelligence_batch301_400.py"),
     ]
     for lo, hi, path in ranges:
         if lo <= capability_id <= hi:
