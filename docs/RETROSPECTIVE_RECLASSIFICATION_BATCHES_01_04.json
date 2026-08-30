@@ -3,9 +3,9 @@
   "audited_at": "2026-08-30T20:17:18.574901+00:00",
   "total_capabilities": 400,
   "classification_counts": {
-    "VERIFIED-DEEP": 285,
+    "VERIFIED-DEEP": 165,
     "REUSED-LINK": 51,
-    "WRAPPER-ONLY-UNVERIFIED": 0,
+    "WRAPPER-ONLY-UNVERIFIED": 120,
     "DEFERRED/DELEGATED": 64
   },
   "per_batch_counts": {
@@ -22,22 +22,22 @@
       "DEFERRED/DELEGATED": 40
     },
     "batch_03": {
-      "VERIFIED-DEEP": 87,
+      "VERIFIED-DEEP": 55,
       "REUSED-LINK": 2,
-      "WRAPPER-ONLY-UNVERIFIED": 0,
+      "WRAPPER-ONLY-UNVERIFIED": 32,
       "DEFERRED/DELEGATED": 11
     },
     "batch_04": {
-      "VERIFIED-DEEP": 96,
+      "VERIFIED-DEEP": 8,
       "REUSED-LINK": 4,
-      "WRAPPER-ONLY-UNVERIFIED": 0,
+      "WRAPPER-ONLY-UNVERIFIED": 88,
       "DEFERRED/DELEGATED": 0
     }
   },
-  "verified_deep_native_count": 285,
+  "verified_deep_native_count": 165,
   "reused_link_count": 51,
   "quad_passing_total": 336,
-  "wrapper_only_unverified_count": 0,
+  "wrapper_only_unverified_count": 120,
   "deferred_delegated_count": 64,
   "rows": [
     {
@@ -11328,7 +11328,7 @@
     {
       "capability_id": 262,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11365,12 +11365,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_262 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002174+00:00"
     },
     {
       "capability_id": 263,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11407,12 +11410,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_263 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002185+00:00"
     },
     {
       "capability_id": 264,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11449,12 +11455,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_264 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002188+00:00"
     },
     {
       "capability_id": 265,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11491,12 +11500,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_265 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002191+00:00"
     },
     {
       "capability_id": 266,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11533,12 +11545,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_266 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002194+00:00"
     },
     {
       "capability_id": 267,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11575,12 +11590,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_267 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002196+00:00"
     },
     {
       "capability_id": 268,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11617,12 +11635,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_268 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002199+00:00"
     },
     {
       "capability_id": 269,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11659,12 +11680,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_269 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002201+00:00"
     },
     {
       "capability_id": 270,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11701,12 +11725,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_270 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002204+00:00"
     },
     {
       "capability_id": 271,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11743,7 +11770,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_271 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002206+00:00"
     },
     {
       "capability_id": 272,
@@ -11790,7 +11820,7 @@
     {
       "capability_id": 273,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11827,7 +11857,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_273 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002208+00:00"
     },
     {
       "capability_id": 274,
@@ -11874,7 +11907,7 @@
     {
       "capability_id": 275,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11911,12 +11944,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_275 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002211+00:00"
     },
     {
       "capability_id": 276,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11953,12 +11989,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_276 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002213+00:00"
     },
     {
       "capability_id": 277,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -11995,12 +12034,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_277 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002215+00:00"
     },
     {
       "capability_id": 278,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12037,7 +12079,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_278 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002217+00:00"
     },
     {
       "capability_id": 279,
@@ -12093,7 +12138,7 @@
     {
       "capability_id": 280,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12130,12 +12175,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_280 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002220+00:00"
     },
     {
       "capability_id": 281,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12172,12 +12220,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_281 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002222+00:00"
     },
     {
       "capability_id": 282,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12214,12 +12265,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_282 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002225+00:00"
     },
     {
       "capability_id": 283,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12256,12 +12310,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_283 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002227+00:00"
     },
     {
       "capability_id": 284,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12298,12 +12355,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_284 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002230+00:00"
     },
     {
       "capability_id": 285,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12340,12 +12400,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_285 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002233+00:00"
     },
     {
       "capability_id": 286,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12382,12 +12445,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_286 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002235+00:00"
     },
     {
       "capability_id": 287,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12424,7 +12490,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_287 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002237+00:00"
     },
     {
       "capability_id": 288,
@@ -12471,7 +12540,7 @@
     {
       "capability_id": 289,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12508,12 +12577,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_289 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002240+00:00"
     },
     {
       "capability_id": 290,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12550,12 +12622,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_290 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002242+00:00"
     },
     {
       "capability_id": 291,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12592,12 +12667,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_291 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002244+00:00"
     },
     {
       "capability_id": 292,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12634,12 +12712,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_292 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002247+00:00"
     },
     {
       "capability_id": 293,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12676,12 +12757,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_293 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002249+00:00"
     },
     {
       "capability_id": 294,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12718,12 +12802,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_294 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002251+00:00"
     },
     {
       "capability_id": 295,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12760,12 +12847,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_295 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002254+00:00"
     },
     {
       "capability_id": 296,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12802,7 +12892,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_296 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002256+00:00"
     },
     {
       "capability_id": 297,
@@ -12849,7 +12942,7 @@
     {
       "capability_id": 298,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -12886,7 +12979,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=03; layer=bd_platform.derivatives_onchain_intelligence_layer; cap_298 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002259+00:00"
     },
     {
       "capability_id": 299,
@@ -12972,7 +13068,7 @@
     {
       "capability_id": 301,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13009,12 +13105,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_301 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002262+00:00"
     },
     {
       "capability_id": 302,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13051,12 +13150,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_302 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002264+00:00"
     },
     {
       "capability_id": 303,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13093,12 +13195,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_303 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002267+00:00"
     },
     {
       "capability_id": 304,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13135,12 +13240,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_304 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002269+00:00"
     },
     {
       "capability_id": 305,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13177,12 +13285,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_305 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002271+00:00"
     },
     {
       "capability_id": 306,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13219,12 +13330,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_306 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002274+00:00"
     },
     {
       "capability_id": 307,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13261,12 +13375,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_307 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002276+00:00"
     },
     {
       "capability_id": 308,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13303,12 +13420,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_308 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002279+00:00"
     },
     {
       "capability_id": 309,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13345,12 +13465,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_309 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002281+00:00"
     },
     {
       "capability_id": 310,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13387,12 +13510,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_310 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002283+00:00"
     },
     {
       "capability_id": 311,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13429,12 +13555,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_311 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002286+00:00"
     },
     {
       "capability_id": 312,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13471,12 +13600,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_312 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002288+00:00"
     },
     {
       "capability_id": 313,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13513,12 +13645,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_313 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002290+00:00"
     },
     {
       "capability_id": 314,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13555,12 +13690,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_314 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002293+00:00"
     },
     {
       "capability_id": 315,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13597,7 +13735,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_315 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002295+00:00"
     },
     {
       "capability_id": 316,
@@ -13643,7 +13784,7 @@
     {
       "capability_id": 317,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13680,12 +13821,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_317 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002298+00:00"
     },
     {
       "capability_id": 318,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13722,12 +13866,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_318 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002300+00:00"
     },
     {
       "capability_id": 319,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13764,12 +13911,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_319 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002303+00:00"
     },
     {
       "capability_id": 320,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13806,12 +13956,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_320 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002305+00:00"
     },
     {
       "capability_id": 321,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13848,12 +14001,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_321 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002308+00:00"
     },
     {
       "capability_id": 322,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13890,12 +14046,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_322 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002310+00:00"
     },
     {
       "capability_id": 323,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13932,12 +14091,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_323 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002312+00:00"
     },
     {
       "capability_id": 324,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -13974,12 +14136,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_324 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002315+00:00"
     },
     {
       "capability_id": 325,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14016,12 +14181,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_325 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002317+00:00"
     },
     {
       "capability_id": 326,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14058,12 +14226,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_326 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002319+00:00"
     },
     {
       "capability_id": 327,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14100,12 +14271,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_327 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002322+00:00"
     },
     {
       "capability_id": 328,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14142,12 +14316,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_328 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002324+00:00"
     },
     {
       "capability_id": 329,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14184,7 +14361,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_329 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002326+00:00"
     },
     {
       "capability_id": 330,
@@ -14231,7 +14411,7 @@
     {
       "capability_id": 331,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14268,12 +14448,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_331 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002329+00:00"
     },
     {
       "capability_id": 332,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14310,12 +14493,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_332 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002332+00:00"
     },
     {
       "capability_id": 333,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14352,12 +14538,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_333 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002334+00:00"
     },
     {
       "capability_id": 334,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14394,12 +14583,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_334 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002336+00:00"
     },
     {
       "capability_id": 335,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14436,12 +14628,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_335 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002339+00:00"
     },
     {
       "capability_id": 336,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14478,12 +14673,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_336 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002341+00:00"
     },
     {
       "capability_id": 337,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14520,12 +14718,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_337 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002343+00:00"
     },
     {
       "capability_id": 338,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14562,7 +14763,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_338 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002346+00:00"
     },
     {
       "capability_id": 339,
@@ -14618,7 +14822,7 @@
     {
       "capability_id": 340,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14655,12 +14859,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_340 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002348+00:00"
     },
     {
       "capability_id": 341,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14697,12 +14904,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_341 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002351+00:00"
     },
     {
       "capability_id": 342,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14739,12 +14949,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_342 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002354+00:00"
     },
     {
       "capability_id": 343,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14781,12 +14994,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_343 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002357+00:00"
     },
     {
       "capability_id": 344,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14823,12 +15039,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_344 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002359+00:00"
     },
     {
       "capability_id": 345,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14865,12 +15084,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_345 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002362+00:00"
     },
     {
       "capability_id": 346,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14907,12 +15129,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_346 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002364+00:00"
     },
     {
       "capability_id": 347,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14949,12 +15174,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_347 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002367+00:00"
     },
     {
       "capability_id": 348,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -14991,12 +15219,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_348 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002369+00:00"
     },
     {
       "capability_id": 349,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15033,12 +15264,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_349 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002372+00:00"
     },
     {
       "capability_id": 350,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15075,12 +15309,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_350 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002374+00:00"
     },
     {
       "capability_id": 351,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15117,12 +15354,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_351 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002377+00:00"
     },
     {
       "capability_id": 352,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15159,12 +15399,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_352 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002379+00:00"
     },
     {
       "capability_id": 353,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15201,12 +15444,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_353 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002382+00:00"
     },
     {
       "capability_id": 354,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15243,12 +15489,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_354 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002384+00:00"
     },
     {
       "capability_id": 355,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15285,7 +15534,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_355 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002387+00:00"
     },
     {
       "capability_id": 356,
@@ -15339,7 +15591,7 @@
     {
       "capability_id": 357,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15376,12 +15628,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_357 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002389+00:00"
     },
     {
       "capability_id": 358,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15418,12 +15673,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_358 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002392+00:00"
     },
     {
       "capability_id": 359,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15460,12 +15718,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_359 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002394+00:00"
     },
     {
       "capability_id": 360,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15502,12 +15763,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_360 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002397+00:00"
     },
     {
       "capability_id": 361,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15544,12 +15808,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_361 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002399+00:00"
     },
     {
       "capability_id": 362,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15586,12 +15853,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_362 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002402+00:00"
     },
     {
       "capability_id": 363,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15628,12 +15898,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_363 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002405+00:00"
     },
     {
       "capability_id": 364,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15670,12 +15943,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_364 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002407+00:00"
     },
     {
       "capability_id": 365,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15712,12 +15988,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_365 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002410+00:00"
     },
     {
       "capability_id": 366,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15754,12 +16033,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_366 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002412+00:00"
     },
     {
       "capability_id": 367,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15796,12 +16078,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_367 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002415+00:00"
     },
     {
       "capability_id": 368,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15838,12 +16123,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_368 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002417+00:00"
     },
     {
       "capability_id": 369,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15880,12 +16168,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_369 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002420+00:00"
     },
     {
       "capability_id": 370,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15922,12 +16213,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_370 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002422+00:00"
     },
     {
       "capability_id": 371,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -15964,12 +16258,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_371 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002425+00:00"
     },
     {
       "capability_id": 372,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16006,12 +16303,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_372 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002428+00:00"
     },
     {
       "capability_id": 373,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16048,12 +16348,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_373 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002431+00:00"
     },
     {
       "capability_id": 374,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16090,12 +16393,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_374 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002433+00:00"
     },
     {
       "capability_id": 375,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16132,12 +16438,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_375 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002436+00:00"
     },
     {
       "capability_id": 376,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16174,12 +16483,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_376 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002439+00:00"
     },
     {
       "capability_id": 377,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16216,7 +16528,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_377 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002441+00:00"
     },
     {
       "capability_id": 378,
@@ -16437,7 +16752,7 @@
     {
       "capability_id": 383,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16474,12 +16789,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_383 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002445+00:00"
     },
     {
       "capability_id": 384,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16516,12 +16834,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_384 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002448+00:00"
     },
     {
       "capability_id": 385,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16558,12 +16879,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_385 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002451+00:00"
     },
     {
       "capability_id": 386,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16600,12 +16924,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_386 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002454+00:00"
     },
     {
       "capability_id": 387,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16642,12 +16969,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_387 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002456+00:00"
     },
     {
       "capability_id": 388,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16684,12 +17014,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_388 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002459+00:00"
     },
     {
       "capability_id": 389,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16726,7 +17059,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_389 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002462+00:00"
     },
     {
       "capability_id": 390,
@@ -16780,7 +17116,7 @@
     {
       "capability_id": 391,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16817,12 +17153,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_391 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002464+00:00"
     },
     {
       "capability_id": 392,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16859,7 +17198,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_392 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002467+00:00"
     },
     {
       "capability_id": 393,
@@ -16904,7 +17246,7 @@
     {
       "capability_id": 394,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16941,12 +17283,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_394 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002470+00:00"
     },
     {
       "capability_id": 395,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -16983,7 +17328,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_395 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002473+00:00"
     },
     {
       "capability_id": 396,
@@ -17030,7 +17378,7 @@
     {
       "capability_id": 397,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -17067,12 +17415,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_397 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002475+00:00"
     },
     {
       "capability_id": 398,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -17109,12 +17460,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_398 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002478+00:00"
     },
     {
       "capability_id": 399,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -17151,12 +17505,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_399 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002481+00:00"
     },
     {
       "capability_id": 400,
       "batch": "batch_04",
-      "classification": "VERIFIED-DEEP",
+      "classification": "WRAPPER-ONLY-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.charting_market_intelligence_layer",
@@ -17193,7 +17550,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "template_seed_stub": true,
+      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=04; layer=bd_platform.charting_market_intelligence_layer; cap_400 seed metric.",
+      "reclassified_at": "2026-08-30T22:48:26.002484+00:00"
     }
-  ]
+  ],
+  "template_seed_stub_reclassified_count": 120
 }

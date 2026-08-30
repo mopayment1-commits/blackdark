@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Generate derivatives_onchain_intelligence_layer.py for capabilities #262–#300."""
 
+raise RuntimeError(
+    "BANNED (2026-08-30): template _base/_metric generator prohibited by integrity policy. "
+    "See docs/TEMPLATE_STUB_RECLASSIFICATION_MANIFEST.json"
+)
+
 from pathlib import Path
 
 SPECS = {

@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Generate institutional_delivery_intelligence_layer.py for capabilities #501–#600."""
 
+raise RuntimeError(
+    "BANNED (2026-08-30): template _base/_metric generator prohibited by integrity policy. "
+    "See docs/TEMPLATE_STUB_RECLASSIFICATION_MANIFEST.json"
+)
+
 from __future__ import annotations
 
 import json

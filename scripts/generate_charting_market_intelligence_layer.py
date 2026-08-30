@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Generate charting_market_intelligence_layer.py for capabilities #301–#400."""
 
+raise RuntimeError(
+    "BANNED (2026-08-30): template _base/_metric generator prohibited by integrity policy. "
+    "See docs/TEMPLATE_STUB_RECLASSIFICATION_MANIFEST.json"
+)
+
 from __future__ import annotations
 
 import json
