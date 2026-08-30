@@ -39,7 +39,7 @@ _MANUAL: dict[int, tuple[str, str]] = {
     49: ("bd_platform.flash_crash_protection", "flash_crash_protection_status_49"),
     111: ("bd_platform.market_analysis_layer", "compute_spx_correlation_111"),
     113: ("ma_intelligence_service", "build_ma_intelligence_report"),
-    270: ("bd_platform.free_integrations", "holder_analytics"),
+    270: ("bd_platform.derivatives_onchain_intelligence_layer", "liquidation_cascade_proximity_270"),
     288: ("bd_platform.correlation_mindshare", "compute_mindshare_correlation_288"),
     316: ("bd_platform.sse_stream", "sse_digest_status_316"),
     331: ("bd_platform.intelligence_analysis_layer", "analyze_arbitrage_opportunity_153"),
@@ -442,6 +442,15 @@ def batch_test_module_for(capability_id: int) -> str | None:
         hero_ids = json.loads(hero_manifest.read_text(encoding="utf-8")).get("capability_ids", [])
         if capability_id in hero_ids:
             return "tests/test_hero_batch_01_capabilities.py"
+    batch03 = ROOT / "scripts" / "partial_batches" / "batch_03_201_300.json"
+    if batch03.is_file():
+        import json
+
+        batch03_ids = json.loads(batch03.read_text(encoding="utf-8")).get("capability_ids", [])
+        if capability_id in batch03_ids:
+            return "tests/test_hero_batch_03_capabilities.py"
+    if capability_id in (113, 380, 381, 627):
+        return "tests/test_missing_capabilities_closure.py"
     batch02 = ROOT / "scripts" / "partial_batches" / "batch_02_101_200.json"
     if batch02.is_file():
         import json
@@ -449,8 +458,6 @@ def batch_test_module_for(capability_id: int) -> str | None:
         batch02_ids = json.loads(batch02.read_text(encoding="utf-8")).get("capability_ids", [])
         if capability_id in batch02_ids:
             return "tests/test_hero_batch_02_capabilities.py"
-    if capability_id in (113, 380, 381, 627):
-        return "tests/test_missing_capabilities_closure.py"
     ranges = [
         (57, 66, "tests/test_legal_retail_batch57_66.py"),
         (67, 76, "tests/test_pro_trader_batch67_76.py"),
@@ -469,6 +476,7 @@ def batch_test_module_for(capability_id: int) -> str | None:
         (217, 227, "tests/test_intelligence_market_extensions_batch217_227.py"),
         (228, 241, "tests/test_intelligence_ux_extensions_batch228_241.py"),
         (242, 261, "tests/test_security_trust_data_batch242_261.py"),
+        (262, 300, "tests/test_derivatives_onchain_intelligence_batch262_300.py"),
     ]
     for lo, hi, path in ranges:
         if lo <= capability_id <= hi:
