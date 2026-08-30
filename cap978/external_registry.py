@@ -35,6 +35,26 @@ _CONTROL_EXTERNAL = [
 _BASE_VENDOR_REASON = "Paid on-chain/market data vendor — API rights + contract required"
 
 
+def production_signed_capacity_closes_644() -> bool:
+    """True when verified production signed capacity satisfies CAP-644 closure."""
+    try:
+        from institutional_assurance import get_signed_capacity, verify_signed_capacity
+
+        cap = get_signed_capacity()
+        env = str((cap or {}).get("environment") or "").strip().lower()
+        return bool(cap and env == "production" and verify_signed_capacity(cap))
+    except Exception:
+        return False
+
+
+def expected_external_capability_ids() -> set[int]:
+    """Capability slots represented in the external registry (env-aware for CAP-644)."""
+    slots = set(BASE_EXTERNAL_IDS) | set(EXTENSION_EXTERNAL_IDS) | set(EXTERNAL_EVIDENCE_SLOTS) | set(SIGNED_INFRA_SLOTS)
+    if production_signed_capacity_closes_644():
+        slots.discard(644)
+    return slots
+
+
 def external_registry_rows() -> list[dict[str, Any]]:
     cat = catalog_by_id()
     rows: list[dict[str, Any]] = []
@@ -87,17 +107,8 @@ def external_registry_rows() -> list[dict[str, Any]]:
     for cid in SIGNED_INFRA_SLOTS:
         if cid in EXTERNAL_EVIDENCE_SLOTS:
             continue
-        if cid == 644:
-            try:
-                from institutional_assurance import get_signed_capacity, verify_signed_capacity
-
-                cap = get_signed_capacity()
-                # 644 requires production-grade signed capacity, not staging — see 2026-08-30 decision.
-                env = str((cap or {}).get("environment") or "").strip().lower()
-                if cap and env == "production" and verify_signed_capacity(cap):
-                    continue
-            except Exception:
-                pass
+        if cid == 644 and production_signed_capacity_closes_644():
+            continue
         row = cat.get(cid, {})
         rows.append(
             {

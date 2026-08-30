@@ -9,7 +9,7 @@ from typing import Any
 from cap646.catalog import EXTERNAL_IDS as BASE_EXTERNAL_IDS
 from cap646.waves import EXTERNAL_EVIDENCE_SLOTS, SIGNED_INFRA_SLOTS
 from cap978.catalog import EXTENSION_EXTERNAL_IDS, catalog_by_id, load_catalog
-from cap978.external_registry import external_registry_report
+from cap978.external_registry import expected_external_capability_ids, external_registry_report
 
 _ROOT = Path(__file__).resolve().parent.parent
 _EVIDENCE_SNAPSHOT = _ROOT / "docs" / "cap978" / "EVIDENCE_ROOM_SNAPSHOT.json"
@@ -87,7 +87,7 @@ def validate_external_registry_integrity() -> list[dict[str, Any]]:
     report = external_registry_report()
     rows = report["rows"]
 
-    expected_cap_ids = set(BASE_EXTERNAL_IDS) | set(EXTENSION_EXTERNAL_IDS) | set(EXTERNAL_EVIDENCE_SLOTS) | set(SIGNED_INFRA_SLOTS)
+    expected_cap_ids = expected_external_capability_ids()
     registry_cap_ids = {r["id"] for r in rows if isinstance(r.get("id"), int)}
     if registry_cap_ids != expected_cap_ids:
         missing = sorted(expected_cap_ids - registry_cap_ids)

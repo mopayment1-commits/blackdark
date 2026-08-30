@@ -20,12 +20,13 @@ def _bootstrap_test_secrets():
 
 @pytest.fixture(scope="session", autouse=True)
 def _bootstrap_signed_capacity():
-    """Publish verifiable signed capacity for CAP-644 institutional gate in CI."""
+    """Publish staging signed capacity so CAP-644 stays in external registry during tests."""
     from institutional_assurance import get_signed_capacity, publish_signed_capacity, verify_signed_capacity
 
-    if not verify_signed_capacity(get_signed_capacity()):
+    cap = get_signed_capacity()
+    if not cap or str(cap.get("environment") or "").lower() == "production" or not verify_signed_capacity(cap):
         publish_signed_capacity(
-            environment="production",
+            environment="staging",
             workers=2,
             postgres=True,
             redis=True,
@@ -35,7 +36,7 @@ def _bootstrap_signed_capacity():
             p99_ms=167.5,
             error_rate=0.0,
             operator="pytest-institutional-gate",
-            notes="SIGNED: pytest bootstrap for CAP-644 institutional gate",
+            notes="SIGNED: pytest bootstrap — staging keeps CAP-644 registry slot deterministic",
         )
     yield
 
