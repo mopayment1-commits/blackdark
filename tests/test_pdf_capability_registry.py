@@ -28,3 +28,5 @@ def test_batch_test_mapping():
     assert batch_test_module_for(262) == "tests/test_hero_batch_03_capabilities.py"
     assert batch_test_module_for(350) == "tests/test_charting_market_intelligence_batch301_400.py"
     assert batch_test_module_for(301) == "tests/test_charting_market_intelligence_batch301_400.py"
+    assert batch_test_module_for(450) == "tests/test_defi_yield_intelligence_batch401_500.py"
+    assert batch_test_module_for(550) == "tests/test_institutional_delivery_intelligence_batch501_600.py"

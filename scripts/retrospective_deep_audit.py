@@ -47,6 +47,7 @@ HERO_WRAPPER_TESTS = {
     "tests/test_hero_batch_03_capabilities.py",
     "tests/test_hero_batch_04_capabilities.py",
     "tests/test_hero_batch_05_capabilities.py",
+    "tests/test_hero_batch_06_capabilities.py",
 }
 
 INDEPENDENT_TEST_RANGES = [
@@ -70,6 +71,7 @@ INDEPENDENT_TEST_RANGES = [
     (262, 300, "tests/test_derivatives_onchain_intelligence_batch262_300.py"),
     (301, 400, "tests/test_charting_market_intelligence_batch301_400.py"),
     (401, 500, "tests/test_defi_yield_intelligence_batch401_500.py"),
+    (501, 600, "tests/test_institutional_delivery_intelligence_batch501_600.py"),
 ]
 
 
@@ -357,7 +359,10 @@ def _run_independent_test(test_file: str, cap_id: int, func_name: str) -> tuple[
         cmd = [sys.executable, "-m", "pytest", *nodeids, "-q", "--tb=line"]
     else:
         text = tf.read_text(encoding="utf-8", errors="replace")
-        if "test_defi_yield_capability" in text:
+        if "test_institutional_delivery_capability" in text:
+            nodeid = f"{test_file}::test_institutional_delivery_capability[{cap_id}]"
+            cmd = [sys.executable, "-m", "pytest", nodeid, "-q", "--tb=line"]
+        elif "test_defi_yield_capability" in text:
             nodeid = f"{test_file}::test_defi_yield_capability[{cap_id}]"
             cmd = [sys.executable, "-m", "pytest", nodeid, "-q", "--tb=line"]
         else:
