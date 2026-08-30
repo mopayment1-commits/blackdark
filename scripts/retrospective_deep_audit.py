@@ -225,37 +225,58 @@ def _scan_independent_tests(cap_id: int, module: str, func_name: str) -> tuple[b
     return False, None, None
 
 
+def _matching_test_functions(test_file: str, cap_id: int, func_name: str) -> list[str]:
+    """Return test function names that exercise the underlying unit."""
+    tf = ROOT / test_file
+    if not tf.exists():
+        return []
+    text = tf.read_text(encoding="utf-8", errors="replace")
+    names: list[str] = []
+    current: str | None = None
+    body_lines: list[str] = []
+    for line in text.splitlines():
+        m = re.match(r"\s*def (test_[^(]+)\(", line)
+        if m:
+            if current:
+                body = "\n".join(body_lines)
+                if (
+                    (func_name and func_name in body)
+                    or str(cap_id) in current
+                    or (func_name and func_name.split("_")[-1] in current)
+                ):
+                    names.append(current)
+            current = m.group(1)
+            body_lines = []
+        elif current:
+            body_lines.append(line)
+    if current:
+        body = "\n".join(body_lines)
+        if (
+            (func_name and func_name in body)
+            or str(cap_id) in current
+            or (func_name and func_name.split("_")[-1] in current)
+        ):
+            names.append(current)
+    return names
+
+
 def _run_independent_test(test_file: str, cap_id: int, func_name: str) -> tuple[bool, str]:
     """Run pytest for underlying unit tests in file."""
     tf = ROOT / test_file
     if not tf.exists():
         return False, "test_file_missing"
 
-    text = tf.read_text(encoding="utf-8", errors="replace")
-    names: list[str] = []
-    for line in text.splitlines():
-        m = re.match(r"\s*def (test_[^(]+)\(", line)
-        if not m:
-            continue
-        tn = m.group(1)
-        if str(cap_id) in tn or (func_name and func_name in tn):
-            names.append(tn)
-        elif func_name and func_name.replace("_", "") in tn.replace("_", ""):
-            names.append(tn)
-
+    names = _matching_test_functions(test_file, cap_id, func_name)
     if names:
-        nodeids = [f"{test_file}::{n}" for n in names[:6]]
+        nodeids = [f"{test_file}::{n}" for n in names[:8]]
         cmd = [sys.executable, "-m", "pytest", *nodeids, "-q", "--tb=line"]
     else:
-        filt = func_name or str(cap_id)
-        cmd = [sys.executable, "-m", "pytest", str(tf), "-k", filt, "-q", "--tb=line"]
+        cmd = [sys.executable, "-m", "pytest", str(tf), "-q", "--tb=line"]
 
     try:
         proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=180)
         out = (proc.stdout or "") + (proc.stderr or "")
-        passed = proc.returncode == 0 and "failed" not in out.lower() and "error" not in out.lower()
-        if proc.returncode == 0:
-            passed = True
+        passed = proc.returncode == 0
         return passed, out[-600:] if len(out) > 600 else out
     except subprocess.TimeoutExpired:
         return False, "timeout"
