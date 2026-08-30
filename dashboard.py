@@ -3817,6 +3817,42 @@ def _sanitize_oracle_response(payload: dict[str, Any], user: dict | None) -> dic
     return sanitize_oracle_payload(payload)
 
 
+async def _build_sanitized_oracle_payload(
+    symbol: str,
+    *,
+    background_tasks: BackgroundTasks,
+    user: dict | None,
+    ux_mode: str,
+    lang: str,
+) -> tuple[str, float, float, dict[str, Any]]:
+    await _enforce_oracle_quota(user)
+    asset, pair, _market, price, volume, quote_volume, change = await _oracle_market_inputs(symbol)
+    payload = await _build_primary_oracle_payload(
+        asset,
+        pair,
+        price,
+        volume,
+        quote_volume,
+        change,
+    )
+    payload = _enrich_oracle_decision_safe(payload, ux_mode, lang)
+    payload = await _attach_oracle_prediction_proof(payload, asset)
+    _attach_oracle_certificate(payload, user)
+    _attach_oracle_scenarios_safe(payload)
+    _attach_oqs_why_safe(payload)
+    await _dispatch_oracle_act_alert_safe(payload, asset)
+    _queue_oracle_behavior_task(background_tasks, user, asset, payload)
+    _increment_oracle_queries_metric()
+    payload = _attach_oracle_freshness_safe(payload, asset)
+    payload = _apply_zero_tolerance_safe(payload)
+    try:
+        cleaned = _sanitize_oracle_response(payload, user)
+    except Exception:
+        logger.exception("oracle sanitize failed")
+        cleaned = payload
+    return asset, price, change, cleaned
+
+
 @app.get("/oracle/{symbol}", responses=COMMON_ERROR_RESPONSES)
 async def oracle(
     symbol: str,
@@ -3831,31 +3867,25 @@ async def oracle(
         return reserved
 
     try:
-        await _enforce_oracle_quota(user)
-        asset, pair, _market, price, volume, quote_volume, change = await _oracle_market_inputs(symbol)
-        payload = await _build_primary_oracle_payload(
-            asset,
-            pair,
-            price,
-            volume,
-            quote_volume,
-            change,
+        asset, price, change, cleaned = await _build_sanitized_oracle_payload(
+            symbol,
+            background_tasks=background_tasks,
+            user=user,
+            ux_mode=ux_mode,
+            lang=lang,
         )
-        payload = _enrich_oracle_decision_safe(payload, ux_mode, lang)
-        payload = await _attach_oracle_prediction_proof(payload, asset)
-        _attach_oracle_certificate(payload, user)
-        _attach_oracle_scenarios_safe(payload)
-        _attach_oqs_why_safe(payload)
-        await _dispatch_oracle_act_alert_safe(payload, asset)
-        _queue_oracle_behavior_task(background_tasks, user, asset, payload)
-        _increment_oracle_queries_metric()
-        payload = _attach_oracle_freshness_safe(payload, asset)
-        payload = _apply_zero_tolerance_safe(payload)
-        try:
-            cleaned = _sanitize_oracle_response(payload, user)
-        except Exception:
-            logger.exception("oracle sanitize failed")
-            cleaned = payload
+        from oracle_ui import build_oracle_v2_context, wants_oracle_json
+
+        if not wants_oracle_json(request):
+            ctx = build_oracle_v2_context(
+                cleaned,
+                asset=asset,
+                price=price,
+                change=change,
+                ux_mode=ux_mode,
+                lang=lang,
+            )
+            return render_page(request, "oracle_v2.html", {**ctx, **_footer_ctx()})
         return JSONResponse(cleaned)
     except HTTPException:
         raise

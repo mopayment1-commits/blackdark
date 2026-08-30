@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BLACKDARK Oracle — one-sentence decision for {{ asset }}">
+    <title>BLACKDARK — Oracle {{ asset }}</title>
+    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --card: #111118;
+            --border: #2a2a35;
+            --text: #e4e4e7;
+            --muted: #71717a;
+            --accent: #22d3ee;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray: #52525b;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--bd-font-body, "IBM Plex Sans", sans-serif);
+            background: radial-gradient(900px 420px at 50% -10%, #132018 0%, var(--bg) 55%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(10,10,15,0.92);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        nav a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+        .logo { font-weight: 800; letter-spacing: 0.04em; }
+        main {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 1.25rem 1rem 2.5rem;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 1.25rem;
+        }
+        .asset-name {
+            font-size: clamp(2rem, 8vw, 2.6rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .price-row {
+            margin-top: 0.35rem;
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+        }
+        .price {
+            font-size: clamp(1.5rem, 6vw, 2rem);
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .change.pos { color: var(--success); }
+        .change.neg { color: var(--danger); }
+        .verdict-card {
+            border-radius: 16px;
+            padding: 1.25rem 1.1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            background: var(--card);
+        }
+        .verdict-card.green { border-color: rgba(34,197,94,0.45); background: linear-gradient(180deg, rgba(34,197,94,0.12), var(--card)); }
+        .verdict-card.yellow { border-color: rgba(245,158,11,0.45); background: linear-gradient(180deg, rgba(245,158,11,0.12), var(--card)); }
+        .verdict-card.red { border-color: rgba(239,68,68,0.45); background: linear-gradient(180deg, rgba(239,68,68,0.12), var(--card)); }
+        .verdict-card.gray { border-color: rgba(113,113,122,0.45); }
+        .verdict-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 0.35rem;
+        }
+        .verdict-value {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .decision-sentence {
+            font-size: 1.05rem;
+            color: #d4d4d8;
+        }
+        .confidence-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .confidence-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+        .confidence-bar {
+            height: 10px;
+            border-radius: 999px;
+            background: #1f1f28;
+            overflow: hidden;
+        }
+        .confidence-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            width: {{ confidence }}%;
+        }
+        .drivers {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 480px) {
+            .drivers { grid-template-columns: repeat(3, 1fr); }
+        }
+        .driver {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.85rem;
+            min-height: 96px;
+        }
+        .driver-title {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+        }
+        .driver-value {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 0.25rem 0;
+        }
+        .driver-detail {
+            font-size: 0.78rem;
+            color: #a1a1aa;
+            line-height: 1.35;
+        }
+        .driver.positive .driver-value { color: var(--success); }
+        .driver.negative .driver-value { color: var(--danger); }
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .badge {
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: #1a1a24;
+        }
+        .fee-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.88rem;
+        }
+        .fee-card strong { color: var(--accent); }
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            margin-bottom: 1.25rem;
+        }
+        @media (min-width: 420px) {
+            .actions { flex-direction: row; }
+        }
+        .btn {
+            flex: 1;
+            text-align: center;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            background: #1a1a24;
+            color: var(--text);
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: rgba(34,211,238,0.15);
+            border-color: rgba(34,211,238,0.45);
+            color: var(--accent);
+        }
+        .btn[disabled] {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+        .disclaimer {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--muted);
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .meta {
+            text-align: center;
+            font-size: 0.72rem;
+            color: #52525b;
+            margin-top: 0.65rem;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="/" class="logo">BLACKDARK</a>
+    <a href="/platform">← Platform</a>
+</nav>
+<main>
+    <header class="hero">
+        <h1 class="asset-name">{{ asset }}</h1>
+        <div class="price-row">
+            <span class="price">{{ price_display }}</span>
+            <span class="change {% if change_24h >= 0 %}pos{% else %}neg{% endif %}">{{ change_display }}</span>
+        </div>
+    </header>
+
+    <section class="verdict-card {{ verdict_tone }}" aria-label="Oracle verdict">
+        <div class="verdict-label">Verdict</div>
+        <div class="verdict-value">{{ verdict }}</div>
+        <p class="decision-sentence">{{ decision_sentence }}</p>
+    </section>
+
+    <section class="confidence-block" aria-label="Confidence">
+        <div class="confidence-head">
+            <span>Confidence</span>
+            <span>{{ confidence }}%</span>
+        </div>
+        <div class="confidence-bar" role="progressbar" aria-valuenow="{{ confidence }}" aria-valuemin="0" aria-valuemax="100">
+            <div class="confidence-fill"></div>
+        </div>
+    </section>
+
+    <section class="drivers" aria-label="Key drivers">
+        {% for driver in drivers %}
+        <article class="driver {{ driver.tone }}">
+            <div class="driver-title">{{ driver.title }}</div>
+            <div class="driver-value">{{ driver.value }}</div>
+            <div class="driver-detail">{{ driver.detail }}</div>
+        </article>
+        {% endfor %}
+    </section>
+
+    <div class="badges">
+        <span class="badge">Hold {{ hold_period }}</span>
+        <span class="badge">Risk {{ risk_level }}</span>
+        {% if opportunity_score is not none %}
+        <span class="badge">Score {{ opportunity_score }}</span>
+        {% endif %}
+    </div>
+
+    <section class="fee-card" aria-label="Fee estimate">
+        <div>{{ fee.label }}</div>
+        <div>Total fees: <strong>{{ fee_total_display }}</strong>
+        {% if net_profit_display %}
+        · Net: <strong>{{ net_profit_display }}</strong>
+        {% endif %}
+        </div>
+    </section>
+
+    <div class="actions">
+        {% if certificate_href %}
+        <a class="btn btn-primary" href="{{ certificate_href }}">View Decision Certificate</a>
+        {% else %}
+        <a class="btn btn-primary" href="/oracle-accuracy">View Decision Certificate</a>
+        {% endif %}
+        <button class="btn" type="button" disabled title="Coming soon">Share</button>
+    </div>
+
+    <footer class="disclaimer">
+        Not financial advice. DYOR.
+    </footer>
+    {% if timestamp_human %}
+    <p class="meta">Updated {{ timestamp_human }} · mode {{ ux_mode }}</p>
+    {% endif %}
+</main>
+{% include "partials/site_footer.html" %}
+</body>
+</html>
