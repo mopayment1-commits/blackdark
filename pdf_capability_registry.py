@@ -377,6 +377,13 @@ def _default_kwargs(fn: Callable[..., Any], capability_id: int | None = None) ->
         inferred = _infer_param_default(name, param.annotation)
         if inferred is not None:
             kwargs[name] = inferred
+    if capability_id == 167:
+        import time
+
+        now = time.time() * 1000
+        kwargs.setdefault("source_a_ts_ms", now - 500)
+        kwargs.setdefault("source_b_ts_ms", now - 800)
+        kwargs.setdefault("server_ts_ms", now)
     return kwargs
 
 
@@ -435,6 +442,13 @@ def batch_test_module_for(capability_id: int) -> str | None:
         hero_ids = json.loads(hero_manifest.read_text(encoding="utf-8")).get("capability_ids", [])
         if capability_id in hero_ids:
             return "tests/test_hero_batch_01_capabilities.py"
+    batch02 = ROOT / "scripts" / "partial_batches" / "batch_02_101_200.json"
+    if batch02.is_file():
+        import json
+
+        batch02_ids = json.loads(batch02.read_text(encoding="utf-8")).get("capability_ids", [])
+        if capability_id in batch02_ids:
+            return "tests/test_hero_batch_02_capabilities.py"
     if capability_id in (113, 380, 381, 627):
         return "tests/test_missing_capabilities_closure.py"
     ranges = [
