@@ -94,6 +94,128 @@ def _addr(params: dict[str, Any]) -> str:
     ).strip()
 
 
+def _nvt_signal(ratio: float) -> str:
+    if ratio > 120:
+        return "Overheated (high NVT)"
+    if ratio > 40:
+        return "Fair range"
+    return "Undervalued zone"
+
+
+async def _resolve_nvt_payload(
+    symbol: str,
+    *,
+    notional: float = 10_000,
+) -> tuple[dict[str, Any], dict[str, Any], bool]:
+    """Return (nvt, financial_models, success) with consistent ratio/signal."""
+    from market_context import fetch_binance_ticker
+    from research_lab import _SUPPLY_ESTIMATES, compute_financial_models
+
+    asset = symbol.upper().replace("USDT", "")
+    models = await compute_financial_models(asset, notional=notional)
+    nvt = dict(models.get("nvt") or {}) if not models.get("error") else {}
+    ratio = float(nvt.get("ratio") or 0)
+    if ratio > 0 and nvt.get("signal"):
+        return nvt, models, True
+
+    ticker = await fetch_binance_ticker(f"{asset}USDT")
+    if not ticker:
+        return {}, {"asset": asset, "error": "Market data unavailable"}, False
+
+    price = float(ticker.get("price") or 0)
+    quote_volume = float(ticker.get("quote_volume") or ticker.get("volume_24h") or 0)
+    supply = float(_SUPPLY_ESTIMATES.get(asset, 100_000_000))
+    market_cap = price * supply
+    if quote_volume <= 0 or price <= 0:
+        return {}, {"asset": asset, "error": "Quote volume unavailable for NVT"}, False
+
+    ratio = round(market_cap / quote_volume, 2)
+    nvt = {
+        "ratio": ratio,
+        "signal": _nvt_signal(ratio),
+        "method": "market_cap / 24h_quote_volume",
+        "source": ticker.get("source"),
+    }
+    models = {
+        "asset": asset,
+        "price": price,
+        "market_cap_estimate_usd": round(market_cap, 0),
+        "quote_volume_24h": round(quote_volume, 0),
+        "notional_for_var": notional,
+        "nvt": nvt,
+        "data_source": ticker.get("source"),
+    }
+    return nvt, models, True
+
+
+async def _build_watchlist_items(
+    *,
+    symbol: str,
+    address: str,
+    params: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    """Return (all_items, onchain_items, market_items)."""
+    from bd_platform.security_trust_data_layer import add_etherscan_watch_246, list_etherscan_watchlist_246
+    from market_context import fetch_binance_market_overview_pack
+
+    onchain_raw = list_etherscan_watchlist_246()
+    onchain_watches = list(onchain_raw.get("watches") or [])
+    if not onchain_watches and address:
+        add_etherscan_watch_246(
+            address=address,
+            threshold_eth=float(params.get("threshold_eth") or 1000.0),
+        )
+        onchain_watches = list(list_etherscan_watchlist_246().get("watches") or [])
+
+    onchain_items = [
+        {
+            "type": "onchain",
+            "address": watch.get("address"),
+            "threshold_eth": watch.get("threshold_eth"),
+            "label": f"On-chain watch {str(watch.get('address') or '')[:10]}...",
+            "privacy_first": watch.get("privacy_first", True),
+            "created_at": watch.get("created_at"),
+        }
+        for watch in onchain_watches
+    ]
+
+    pack = await fetch_binance_market_overview_pack(limit=int(params.get("limit") or 12))
+    assets = list(pack.get("assets") or [])
+    primary = symbol.upper()
+    market_items: list[dict[str, Any]] = []
+    seen: set[str] = set()
+
+    def _market_item(row: dict[str, Any]) -> dict[str, Any]:
+        sym = str(row.get("symbol") or "").upper()
+        return {
+            "type": "market",
+            "symbol": sym,
+            "price": row.get("price"),
+            "change_24h": row.get("change_24h"),
+            "volume_24h": row.get("volume_24h"),
+            "verdict": row.get("verdict"),
+            "sector": row.get("sector"),
+            "list_id": "default_market",
+            "label": f"{sym} market watch",
+        }
+
+    primary_row = next((row for row in assets if str(row.get("symbol") or "").upper() == primary), None)
+    if primary_row:
+        market_items.append(_market_item(primary_row))
+        seen.add(primary)
+
+    for row in assets:
+        sym = str(row.get("symbol") or "").upper()
+        if not sym or sym in seen:
+            continue
+        market_items.append(_market_item(row))
+        seen.add(sym)
+        if len(market_items) >= int(params.get("limit") or 12):
+            break
+
+    return onchain_items + market_items, onchain_items, market_items
+
+
 async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
     if capability_id not in BATCH01_DEDICATED_IDS:
         raise ValueError(f"capability {capability_id} is not in batch01 dedicated spine")
@@ -535,23 +657,16 @@ async def _cap044_exchange_balance_netflow(*, symbol: str, address: str, params:
 
 
 async def _cap055_nvt_fair_value(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from research_lab import compute_financial_models
-    from market_context import probe_price_sources
-
-    models = await compute_financial_models(symbol, notional=float(params.get("notional") or 10_000))
-    nvt = models.get("nvt") or {}
-    if not nvt or models.get("error"):
-        probe = await probe_price_sources(symbol)
-        price = float((probe or {}).get("binance") or (probe or {}).get("price") or 0)
-        volume = float((probe or {}).get("quote_volume") or (probe or {}).get("volume") or 1)
-        ratio = round(price * 19_700_000 / volume, 2) if volume > 0 and symbol == "BTC" else 0.0
-        nvt = {
-            "ratio": ratio,
-            "signal": "Fair range" if 40 < ratio < 120 else ("Overheated (high NVT)" if ratio >= 120 else "Undervalued zone"),
-            "proxy": True,
-            "source": "probe_price_sources",
-        }
-        models = {"asset": symbol, "nvt": nvt, "probe": probe}
+    nvt, models, ok = await _resolve_nvt_payload(
+        symbol,
+        notional=float(params.get("notional") or 10_000),
+    )
+    ratio = float(nvt.get("ratio") or 0)
+    signal = nvt.get("signal")
+    if ok and ratio > 0 and signal == _nvt_signal(ratio):
+        success = True
+    else:
+        success = False
 
     return ai_compliance_footer(
         {
@@ -559,10 +674,11 @@ async def _cap055_nvt_fair_value(*, symbol: str, address: str, params: dict[str,
             "surface": EXPECTED_SURFACE[55],
             "symbol": symbol,
             "nvt": nvt,
-            "fair_value_signal": nvt.get("signal"),
-            "nvt_ratio": nvt.get("ratio"),
+            "fair_value_signal": signal,
+            "nvt_ratio": ratio,
             "financial_models": models,
-            "success": bool(nvt),
+            "success": success,
+            "error": None if success else (models.get("error") or "NVT unavailable"),
         }
     )
 
@@ -733,14 +849,29 @@ async def _cap060_metric_smart_alerts(*, symbol: str, address: str, params: dict
 
 
 async def _cap214_watchlists(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.charting_market_intelligence_layer import watchlists_308
-    from bd_platform.security_trust_data_layer import list_etherscan_watchlist_246
-
-    onchain = list_etherscan_watchlist_246()
-    market = watchlists_308(symbol=symbol)
+    items, onchain_items, market_items = await _build_watchlist_items(
+        symbol=symbol,
+        address=address,
+        params=params,
+    )
     combined = {
-        "onchain_watches": onchain.get("watches") or [],
-        "market_watchlists": market.get("watchlists"),
+        "items": items,
+        "onchain_watches": onchain_items,
+        "market_watchlists": market_items,
+        "lists": [
+            {
+                "list_id": "onchain",
+                "name": "On-chain address watches",
+                "count": len(onchain_items),
+                "items": onchain_items,
+            },
+            {
+                "list_id": "market",
+                "name": "Market token watchlist",
+                "count": len(market_items),
+                "items": market_items,
+            },
+        ],
         "symbol": symbol,
     }
     return ai_compliance_footer(
@@ -749,8 +880,8 @@ async def _cap214_watchlists(*, symbol: str, address: str, params: dict[str, Any
             "surface": EXPECTED_SURFACE[214],
             "symbol": symbol,
             "watchlists": combined,
-            "count": len(combined["onchain_watches"]),
-            "success": onchain.get("ok", True),
+            "count": len(items),
+            "success": len(items) > 0,
         }
     )
 

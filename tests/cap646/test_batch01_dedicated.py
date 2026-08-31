@@ -55,10 +55,22 @@ async def test_cap006_screener_has_ranked_tokens():
 async def test_cap214_watchlists_not_market_probe():
     from cap646.batch01_dedicated import execute
 
-    result = await execute(214, params={"symbol": "BTC"})
+    result = await execute(
+        214,
+        params={
+            "symbol": "BTC",
+            "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+        },
+    )
     assert result["surface"] == "watchlists"
     assert "watchlists" in result
     assert "probe" not in result
+    items = result["watchlists"]["items"]
+    assert isinstance(items, list)
+    assert len(items) > 0
+    assert all(isinstance(item, dict) for item in items)
+    assert isinstance(result["watchlists"]["market_watchlists"], list)
+    assert result["count"] == len(items)
 
 
 @pytest.mark.asyncio
@@ -68,6 +80,15 @@ async def test_cap055_nvt_not_generic_onchain():
     result = await execute(55, params={"symbol": "BTC"})
     assert result["surface"] == "nvt_fair_value_model"
     assert "nvt" in result
+    ratio = float(result["nvt_ratio"])
+    signal = result["fair_value_signal"]
+    assert ratio > 0
+    if ratio > 120:
+        assert signal == "Overheated (high NVT)"
+    elif ratio > 40:
+        assert signal == "Fair range"
+    else:
+        assert signal == "Undervalued zone"
 
 
 @pytest.mark.asyncio
