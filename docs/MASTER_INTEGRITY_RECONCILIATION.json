@@ -1,0 +1,282 @@
+{
+  "generated_at": "2026-08-31T09:50:55.620676+00:00",
+  "executive_headline": "Of 576 re-audited unique capabilities, 4 (0.69%) are PRODUCTION-ALIGNED with fully matching production path.",
+  "invariants": {
+    "unique_capability_ids": 576,
+    "evidence_row_count": 600,
+    "classification_sum": 576,
+    "all_checks_passed": true,
+    "errors": []
+  },
+  "master_reconciliation_table": {
+    "columns": [
+      "PRODUCTION-ALIGNED",
+      "SPLIT-BRAIN-UNVERIFIED",
+      "DEFERRED/TEMPLATE-STUB",
+      "DEFERRED-EARLY-BATCH",
+      "EXTENSION-PENDING-CAP646"
+    ],
+    "counts": {
+      "PRODUCTION-ALIGNED": 4,
+      "SPLIT-BRAIN-UNVERIFIED": 202,
+      "DEFERRED/TEMPLATE-STUB": 307,
+      "DEFERRED-EARLY-BATCH": 57,
+      "EXTENSION-PENDING-CAP646": 6
+    },
+    "total": 576
+  },
+  "deferred_early_batch_reconciliation": {
+    "global_unique_count": 57,
+    "global_unique_ids": [
+      9,
+      15,
+      50,
+      104,
+      119,
+      120,
+      122,
+      125,
+      126,
+      127,
+      128,
+      130,
+      131,
+      132,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      147,
+      151,
+      152,
+      153,
+      154,
+      155,
+      157,
+      164,
+      166,
+      172,
+      173,
+      174,
+      175,
+      176,
+      181,
+      183,
+      185,
+      186,
+      188,
+      190,
+      191,
+      193,
+      195,
+      209,
+      215,
+      224,
+      231,
+      234,
+      235,
+      236,
+      239,
+      245,
+      249,
+      250,
+      631,
+      635,
+      641
+    ],
+    "file_level_counts_per_evidence_file": {
+      "batch01": 11,
+      "batch02": 40,
+      "batch03": 11,
+      "batch04": 0,
+      "batch05": 0,
+      "batch06": 0
+    },
+    "file_level_sum_naive": 62,
+    "double_counted_overlap_ids": {
+      "batch01&batch02": [
+        126,
+        164,
+        183
+      ],
+      "batch01&batch03": [
+        224,
+        245
+      ]
+    },
+    "double_counted_overlap_total": 5,
+    "equation": "file-level unique sums batch01(11)+batch02(40)+batch03(11)=62; minus overlaps 5 = 57",
+    "primary_batch_partition": {
+      "batch01": {
+        "count": 6,
+        "ids": [
+          9,
+          15,
+          50,
+          631,
+          635,
+          641
+        ]
+      },
+      "batch02": {
+        "count": 40,
+        "ids": [
+          104,
+          119,
+          120,
+          122,
+          125,
+          126,
+          127,
+          128,
+          130,
+          131,
+          132,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          147,
+          151,
+          152,
+          153,
+          154,
+          155,
+          157,
+          164,
+          166,
+          172,
+          173,
+          174,
+          175,
+          176,
+          181,
+          183,
+          185,
+          186,
+          188,
+          190,
+          191,
+          193,
+          195
+        ]
+      },
+      "batch03": {
+        "count": 11,
+        "ids": [
+          209,
+          215,
+          224,
+          231,
+          234,
+          235,
+          236,
+          239,
+          245,
+          249,
+          250
+        ]
+      }
+    },
+    "primary_partition_equation": "batch01(6)+batch02(40)+batch03(11)=57",
+    "why_11_plus_40_plus_11_not_57": "11+40+11=62 counts IDs in every evidence file they appear in. Five IDs are duplicated across files (b01∩b02: 126,164,183; b01∩b03: 224,245). 62-5=57 global unique.",
+    "batch01_count_history": {
+      "13_in_old_summary_table": "ERRATA — summed file appearances / pre-dedup; no file ever had 13 unique DEFERRED rows",
+      "12_before_725_extension_reclass": "batch01 evidence file had 12 unique DEFERRED (including #725)",
+      "11_current": "batch01 evidence file after #725 → EXTENSION-PENDING-CAP646",
+      "the_one_id_removed": 725
+    }
+  },
+  "extension_phantom_distribution": {
+    "total_phantoms_audited": 7,
+    "in_576_evidence": {
+      "count": 6,
+      "ids": [
+        704,
+        708,
+        725,
+        812,
+        814,
+        815
+      ],
+      "batch12_scope": 6
+    },
+    "outside_576_evidence": {
+      "count": 1,
+      "ids": [
+        813
+      ],
+      "note": "#813 — CAP978 extension (T19), completion-report manual binding, checklist updated; not in hero batch evidence universe"
+    },
+    "per_id": {
+      "704": {
+        "primary_batch": "batch01",
+        "evidence_files": [
+          "batch01"
+        ],
+        "in_batch01_manifest": true
+      },
+      "708": {
+        "primary_batch": "batch01",
+        "evidence_files": [
+          "batch01"
+        ],
+        "in_batch01_manifest": true
+      },
+      "725": {
+        "primary_batch": "batch01",
+        "evidence_files": [
+          "batch01"
+        ],
+        "in_batch01_manifest": true
+      },
+      "812": {
+        "primary_batch": "batch01",
+        "evidence_files": [
+          "batch01"
+        ],
+        "in_batch01_manifest": true
+      },
+      "814": {
+        "primary_batch": "batch01",
+        "evidence_files": [
+          "batch01"
+        ],
+        "in_batch01_manifest": true
+      },
+      "815": {
+        "primary_batch": "batch01",
+        "evidence_files": [
+          "batch01"
+        ],
+        "in_batch01_manifest": true
+      }
+    },
+    "id_813_status": {
+      "in_hero_evidence_576": false,
+      "in_capabilities_checklist": true,
+      "in_extension_manifest": true,
+      "cap978_catalog": true,
+      "cap646_registry": false,
+      "action": "EXTENSION-PENDING-CAP646 documented in checklist + manifest; outside 576 by design"
+    }
+  },
+  "pytest_not_slow": {
+    "started_at": "2026-08-31T09:48:04.743072+00:00",
+    "ended_at": "2026-08-31T09:50:55.620055+00:00",
+    "duration_reported_by_pytest": "168.96s (0:02:48)",
+    "exit_code": 0,
+    "summary": "2189 passed, 2 skipped, 4 deselected, 9739 warnings in 168.96s (0:02:48)",
+    "passed": true,
+    "note": "Duration varies run-to-run (machine load, cache warmth, async teardown); compare exit_code and pass count, not wall seconds."
+  },
+  "historical_pytest_durations": {
+    "run_2026-08-31T09:01:43Z": "172.85s",
+    "run_2026-08-31T09:27:35Z": "167.86s",
+    "explanation": "Duration varies run-to-run (machine load, cache warmth, async teardown); compare exit_code and pass count, not wall seconds."
+  }
+}
