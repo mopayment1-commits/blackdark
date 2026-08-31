@@ -1,0 +1,40 @@
+{
+  "feature_id": 518,
+  "title": "Bucketed CVD",
+  "standalone_rejected": true,
+  "merged_into": "On-Chain Metrics Layer / Bucketed CVD",
+  "layer": "On-Chain Layer",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "bucket_definitions": {
+    "version": "1.0",
+    "buckets": [
+      {"id": "retail", "label": "Retail", "min_usd": 0, "max_usd": 10000},
+      {"id": "medium", "label": "Medium", "min_usd": 10000, "max_usd": 100000},
+      {"id": "whale", "label": "Whale", "min_usd": 100000, "max_usd": null}
+    ]
+  },
+  "assets": {
+    "BTC": {
+      "trades": [
+        {"side": "buy", "size_usd": 5000},
+        {"side": "buy", "size_usd": 8000},
+        {"side": "sell", "size_usd": 3000},
+        {"side": "buy", "size_usd": 150000},
+        {"side": "sell", "size_usd": 200000},
+        {"side": "buy", "size_usd": 50000},
+        {"side": "sell", "size_usd": 75000},
+        {"side": "buy", "size_usd": 2000}
+      ]
+    },
+    "ETH": {
+      "trades": [
+        {"side": "buy", "size_usd": 4000},
+        {"side": "sell", "size_usd": 6000},
+        {"side": "buy", "size_usd": 120000},
+        {"side": "sell", "size_usd": 80000}
+      ]
+    }
+  }
+}

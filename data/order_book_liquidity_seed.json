@@ -1,0 +1,192 @@
+{
+  "feature_id": 269,
+  "standalone": false,
+  "archived_standalone_ticket": true,
+  "merged_into": "Wave 01 Data Engine",
+  "sprint": 1,
+  "dashboard_deferred": "Sprint 2 Intelligence Ledger",
+  "last_updated": "2026-08-25",
+  "sla": {
+    "gap_detection_latency_min": 5,
+    "sequence_gap_detection_latency_ms": 500,
+    "replay_coverage_pairs": 100,
+    "spread_variance_bps": 1.0
+  },
+  "retention": {
+    "top_50_days": 365,
+    "other_days": 30,
+    "compression": "gzip",
+    "auto_delete": true
+  },
+  "gaps": [
+    {
+      "timestamp": "2026-08-25T14:32:00+00:00",
+      "venue": "binance",
+      "pair": "BTC/USDT",
+      "expected_depth_usd": 530000000,
+      "actual_depth_usd": 412000000,
+      "duration_seconds": 180,
+      "root_cause": "API_down",
+      "alert_threshold_pct": 10
+    },
+    {
+      "timestamp": "2026-08-25T16:05:00+00:00",
+      "venue": "okx",
+      "pair": "ETH/USDT",
+      "expected_depth_usd": 186000000,
+      "actual_depth_usd": 178000000,
+      "duration_seconds": 45,
+      "root_cause": "stale_data",
+      "alert_threshold_pct": 10
+    },
+    {
+      "timestamp": "2026-08-25T18:00:00+00:00",
+      "venue": "kraken",
+      "pair": "SOL/USD",
+      "expected_depth_usd": 52000000,
+      "actual_depth_usd": 51500000,
+      "duration_seconds": 30,
+      "root_cause": "venue_maintenance",
+      "alert_threshold_pct": 10
+    }
+  ],
+  "replay_tests": [
+    {
+      "pair": "BTC/USDT",
+      "venue": "binance",
+      "test_date": "2026-08-25",
+      "expected_spread_bps": 2.1,
+      "replayed_spread_bps": 2.08,
+      "variance_threshold_bps": 1.0,
+      "passed": true
+    },
+    {
+      "pair": "ETH/USDT",
+      "venue": "coinbase",
+      "test_date": "2026-08-25",
+      "expected_spread_bps": 2.8,
+      "replayed_spread_bps": 2.75,
+      "variance_threshold_bps": 1.0,
+      "passed": true
+    },
+    {
+      "pair": "SOL/USDT",
+      "venue": "bybit",
+      "test_date": "2026-08-24",
+      "expected_spread_bps": 4.5,
+      "replayed_spread_bps": 5.8,
+      "variance_threshold_bps": 1.0,
+      "passed": false
+    }
+  ],
+  "sequence_gaps": [
+    {
+      "timestamp": "2026-08-25T14:32:05+00:00",
+      "venue": "binance",
+      "pair": "BTC/USDT",
+      "book_level": "L2",
+      "expected_sequence": 48291001,
+      "received_sequence": 48291004,
+      "recovered": true,
+      "recovery_method": "snapshot_resync"
+    },
+    {
+      "timestamp": "2026-08-25T16:10:12+00:00",
+      "venue": "okx",
+      "pair": "ETH/USDT",
+      "book_level": "L2",
+      "expected_sequence": 9182734,
+      "received_sequence": 9182735,
+      "recovered": true,
+      "recovery_method": "delta_replay"
+    }
+  ],
+  "sequence_replay_tests": [
+    {
+      "pair": "BTC/USDT",
+      "venue": "binance",
+      "test_date": "2026-08-25",
+      "book_level": "L2",
+      "expected_sequences": 10000,
+      "replayed_sequences": 10000,
+      "gaps_detected": 2,
+      "gaps_recovered": 2,
+      "passed": true
+    },
+    {
+      "pair": "ETH/USDT",
+      "venue": "okx",
+      "test_date": "2026-08-24",
+      "book_level": "L2",
+      "expected_sequences": 8500,
+      "replayed_sequences": 8497,
+      "gaps_detected": 3,
+      "gaps_recovered": 2,
+      "passed": false
+    }
+  ],
+  "market_depth": {
+    "BTC/USDT": {
+      "binance": {
+        "book_level": "L2",
+        "levels": 10,
+        "bids": [
+          [94980.0, 12.5],
+          [94970.0, 8.2],
+          [94960.0, 15.0],
+          [94950.0, 20.1],
+          [94940.0, 18.5],
+          [94930.0, 22.0],
+          [94920.0, 16.8],
+          [94910.0, 14.2],
+          [94900.0, 19.5],
+          [94890.0, 21.0]
+        ],
+        "asks": [
+          [95020.0, 10.8],
+          [95030.0, 9.5],
+          [95040.0, 14.2],
+          [95050.0, 17.8],
+          [95060.0, 19.0],
+          [95070.0, 16.5],
+          [95080.0, 13.2],
+          [95090.0, 15.8],
+          [95100.0, 18.0],
+          [95110.0, 20.5]
+        ],
+        "slippage_sizes_usd": [10000, 100000, 1000000]
+      }
+    },
+    "ETH/USDT": {
+      "okx": {
+        "book_level": "L2",
+        "levels": 10,
+        "bids": [
+          [3420.0, 150.0],
+          [3419.5, 120.0],
+          [3419.0, 180.0],
+          [3418.5, 200.0],
+          [3418.0, 160.0],
+          [3417.5, 140.0],
+          [3417.0, 175.0],
+          [3416.5, 190.0],
+          [3416.0, 155.0],
+          [3415.5, 165.0]
+        ],
+        "asks": [
+          [3421.0, 145.0],
+          [3421.5, 130.0],
+          [3422.0, 170.0],
+          [3422.5, 195.0],
+          [3423.0, 150.0],
+          [3423.5, 140.0],
+          [3424.0, 160.0],
+          [3424.5, 185.0],
+          [3425.0, 155.0],
+          [3425.5, 170.0]
+        ],
+        "slippage_sizes_usd": [10000, 100000, 500000]
+      }
+    }
+  }
+}

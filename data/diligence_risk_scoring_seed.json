@@ -1,0 +1,351 @@
+{
+  "feature_id": 460,
+  "title": "Diligence Risk Scoring",
+  "legal_name": "Diligence Risk Scoring Engine",
+  "standalone": false,
+  "merged_into": "Sprint-2 Risk Layer Core",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "scoring_engine_version": "1.0.0",
+  "last_updated": "2026-08-26",
+  "no_opaque_score": true,
+  "category_weights": {
+    "asset_diligence": 0.35,
+    "collateral_risk": 0.25,
+    "correlation_risk": 0.20,
+    "venue_diligence": 0.20
+  },
+  "severity_points": {
+    "critical": 90,
+    "high": 70,
+    "medium": 45,
+    "low": 20,
+    "info": 5
+  },
+  "evidence_quality_confidence": {
+    "high": 1.0,
+    "medium": 0.75,
+    "low": 0.5,
+    "unknown": 0.3
+  },
+  "freshness_decay_hours": {
+    "fresh_max": 24,
+    "aging_max": 72,
+    "stale_max": 168
+  },
+  "net_edge_integration": {
+    "feature_ref": 417,
+    "risk_penalty_weight": 0.30,
+    "confidence_weight": 0.15
+  },
+  "collateral_weights": {
+    "volatility_pct": 0.25,
+    "liquidity_depth": 0.25,
+    "concentration_pct": 0.20,
+    "oracle_health": 0.15,
+    "depeg_history": 0.15
+  },
+  "collateral_grade_thresholds": {
+    "A": 25,
+    "B": 45,
+    "C": 65,
+    "D": 85
+  },
+  "token_risk_604": {
+    "feature_ref": 604,
+    "merged_into": 460,
+    "weights_version": "1.0.0",
+    "weights": {
+      "liquidity": 0.30,
+      "concentration": 0.25,
+      "volatility": 0.20,
+      "smart_contract_risk": 0.15,
+      "oracle_dependency": 0.10
+    },
+    "portfolio_assets": {
+      "demo_portfolio": ["BTC", "ETH", "UNI"]
+    },
+    "tokens": {
+      "BTC": {
+        "liquidity": 18,
+        "concentration": 35,
+        "volatility": 42,
+        "smart_contract_risk": 10,
+        "oracle_dependency": 5
+      },
+      "ETH": {
+        "liquidity": 22,
+        "concentration": 48,
+        "volatility": 55,
+        "smart_contract_risk": 28,
+        "oracle_dependency": 15
+      },
+      "UNI": {
+        "liquidity": 58,
+        "concentration": 72,
+        "volatility": 68,
+        "smart_contract_risk": 45,
+        "oracle_dependency": 35
+      }
+    },
+    "evidence": {
+      "liquidity": [
+        {"metric": "24h_volume_usd", "value": 850000000, "source": "cex_dex_aggregator"},
+        {"metric": "order_book_depth_1pct", "value": 42000000, "source": "fill_feasibility"},
+        {"metric": "dex_pool_tvl", "value": 1200000000, "source": "defillama"}
+      ],
+      "concentration": [
+        {"metric": "top10_holder_pct", "value": 42.5, "source": "holder_analytics"},
+        {"metric": "exchange_reserve_pct", "value": 18.2, "source": "exchange_intelligence"},
+        {"metric": "team_vesting_locked_pct", "value": 12.0, "source": "token_unlock_tracker"}
+      ],
+      "volatility": [
+        {"metric": "realized_vol_30d_pct", "value": 72.0, "source": "volatility_analytics"},
+        {"metric": "max_drawdown_90d_pct", "value": -38.5, "source": "price_history"},
+        {"metric": "beta_vs_btc", "value": 1.35, "source": "correlation_matrix"}
+      ],
+      "smart_contract_risk": [
+        {"metric": "audit_coverage", "value": "partial", "source": "defi_audit_registry"},
+        {"metric": "upgradeable_proxy", "value": true, "source": "contract_scanner"},
+        {"metric": "incident_count_12m", "value": 1, "source": "security_feed"}
+      ],
+      "oracle_dependency": [
+        {"metric": "oracle_sources", "value": 2, "source": "oracle_risk_482"},
+        {"metric": "price_deviation_bps", "value": 15, "source": "oracle_vwap"},
+        {"metric": "staleness_incidents_30d", "value": 0, "source": "oracle_monitor"}
+      ]
+    }
+  },
+  "entities": {
+    "BTC": {
+      "entity_id": "BTC",
+      "display_name": "Bitcoin",
+      "findings": {
+        "asset_diligence": [
+          {
+            "finding_id": "btc_fd_001",
+            "title": "Institutional custody adoption",
+            "severity": "low",
+            "evidence_quality": "high",
+            "freshness_hours": 12,
+            "source": "etf_flow_tracker",
+            "detail": "Sustained ETF inflows with audited custody chains"
+          },
+          {
+            "finding_id": "btc_fd_002",
+            "title": "Hash rate distribution",
+            "severity": "medium",
+            "evidence_quality": "high",
+            "freshness_hours": 18,
+            "source": "mining_pool_index",
+            "detail": "Top-3 pools control 58% of hash rate"
+          }
+        ],
+        "collateral_risk": [
+          {
+            "finding_id": "btc_col_001",
+            "title": "CEX collateral concentration",
+            "severity": "medium",
+            "evidence_quality": "medium",
+            "freshness_hours": 36,
+            "source": "exchange_reserve_tracker",
+            "detail": "Wrapped BTC on major CEXs represents 4.2% of supply"
+          }
+        ],
+        "correlation_risk": [
+          {
+            "finding_id": "btc_corr_001",
+            "title": "Equity beta elevated",
+            "severity": "medium",
+            "evidence_quality": "high",
+            "freshness_hours": 8,
+            "source": "macro_correlation_model",
+            "detail": "30d beta to SPX at 0.72"
+          }
+        ],
+        "venue_diligence": [
+          {
+            "finding_id": "btc_ven_001",
+            "title": "Primary venue health",
+            "severity": "low",
+            "evidence_quality": "high",
+            "freshness_hours": 6,
+            "source": "exchange_health_monitor",
+            "detail": "Binance Grade A on exchange health monitor"
+          }
+        ]
+      }
+    },
+    "ETH": {
+      "entity_id": "ETH",
+      "display_name": "Ethereum",
+      "collateral_metrics": {
+        "volatility_30d_pct": 48.0,
+        "liquidity_depth_score": 92.0,
+        "concentration_pct": 35.0,
+        "oracle_health_score": 88.0,
+        "depeg_history_score": 85.0
+      },
+      "findings": {
+        "asset_diligence": [
+          {
+            "finding_id": "eth_fd_001",
+            "title": "Staking concentration",
+            "severity": "high",
+            "evidence_quality": "high",
+            "freshness_hours": 14,
+            "source": "beacon_chain_analytics",
+            "detail": "Top-5 staking entities control 42% of staked ETH"
+          },
+          {
+            "finding_id": "eth_fd_002",
+            "title": "Smart contract audit coverage",
+            "severity": "low",
+            "evidence_quality": "medium",
+            "freshness_hours": 120,
+            "source": "defi_audit_registry",
+            "detail": "Major DeFi protocols have recent audits"
+          }
+        ],
+        "collateral_risk": [
+          {
+            "finding_id": "eth_col_001",
+            "title": "LST depeg risk",
+            "severity": "high",
+            "evidence_quality": "high",
+            "freshness_hours": 4,
+            "source": "lst_peg_monitor",
+            "detail": "stETH/ETH peg within 8bps — within normal range"
+          },
+          {
+            "finding_id": "eth_col_002",
+            "title": "Aave collateral utilization",
+            "severity": "medium",
+            "evidence_quality": "medium",
+            "freshness_hours": 48,
+            "source": "lending_protocol_index",
+            "detail": "ETH utilization at 78% on Aave v3"
+          }
+        ],
+        "correlation_risk": [
+          {
+            "finding_id": "eth_corr_001",
+            "title": "BTC correlation spike",
+            "severity": "medium",
+            "evidence_quality": "high",
+            "freshness_hours": 10,
+            "source": "correlation_matrix",
+            "detail": "30d ETH/BTC correlation at 0.89"
+          }
+        ],
+        "venue_diligence": [
+          {
+            "finding_id": "eth_ven_001",
+            "title": "DEX liquidity depth",
+            "severity": "low",
+            "evidence_quality": "high",
+            "freshness_hours": 2,
+            "source": "fill_feasibility_simulator",
+            "detail": "Uniswap v3 depth adequate for institutional size"
+          }
+        ]
+      }
+    },
+    "UNI": {
+      "entity_id": "UNI",
+      "display_name": "Uniswap",
+      "collateral_metrics": {
+        "volatility_30d_pct": 72.0,
+        "liquidity_depth_score": 55.0,
+        "concentration_pct": 68.0,
+        "oracle_health_score": 60.0,
+        "depeg_history_score": 50.0
+      },
+      "findings": {
+        "asset_diligence": [
+          {
+            "finding_id": "uni_fd_001",
+            "title": "Governance token unlock schedule",
+            "severity": "high",
+            "evidence_quality": "medium",
+            "freshness_hours": 96,
+            "source": "token_unlock_tracker",
+            "detail": "12% supply unlock in next 90 days"
+          }
+        ],
+        "collateral_risk": [
+          {
+            "finding_id": "uni_col_001",
+            "title": "LP impermanent loss exposure",
+            "severity": "medium",
+            "evidence_quality": "low",
+            "freshness_hours": 200,
+            "source": "defi_risk_model",
+            "detail": "Stale IL estimate — confidence reduced"
+          }
+        ],
+        "correlation_risk": [
+          {
+            "finding_id": "uni_corr_001",
+            "title": "DeFi sector correlation",
+            "severity": "high",
+            "evidence_quality": "medium",
+            "freshness_hours": 24,
+            "source": "sector_correlation_index",
+            "detail": "0.85 avg correlation with DeFi basket"
+          }
+        ],
+        "venue_diligence": [
+          {
+            "finding_id": "uni_ven_001",
+            "title": "Protocol governance activity",
+            "severity": "low",
+            "evidence_quality": "low",
+            "freshness_hours": 180,
+            "source": "governance_feed",
+            "detail": "Low voter turnout on recent proposals"
+          }
+        ]
+      }
+    }
+  },
+  "opportunities": [
+    {
+      "opportunity_id": "opp_btc_cex_dex",
+      "asset": "BTC",
+      "symbol": "BTC/USDT",
+      "buy_venue": "binance",
+      "sell_venue": "uniswap",
+      "net_profit_usdt": 1.25,
+      "total_slippage_bps": 12.0,
+      "trading_fees_usdt": 0.18,
+      "withdrawal_fee_usdt": 0.35,
+      "quote_age_ms": 420
+    },
+    {
+      "opportunity_id": "opp_eth_cex_dex",
+      "asset": "ETH",
+      "symbol": "ETH/USDT",
+      "buy_venue": "coinbase",
+      "sell_venue": "uniswap",
+      "net_profit_usdt": 0.85,
+      "total_slippage_bps": 18.0,
+      "trading_fees_usdt": 0.22,
+      "withdrawal_fee_usdt": 0.28,
+      "quote_age_ms": 680
+    },
+    {
+      "opportunity_id": "opp_uni_dex",
+      "asset": "UNI",
+      "symbol": "UNI/USDT",
+      "buy_venue": "kucoin",
+      "sell_venue": "uniswap",
+      "net_profit_usdt": 0.55,
+      "total_slippage_bps": 35.0,
+      "trading_fees_usdt": 0.15,
+      "withdrawal_fee_usdt": 0.12,
+      "quote_age_ms": 1200
+    }
+  ]
+}

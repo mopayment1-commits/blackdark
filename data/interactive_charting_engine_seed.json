@@ -1,0 +1,30 @@
+{
+  "feature_id": 726,
+  "feature_ids": [726, 732],
+  "renamed_from": "CryptoQuant (Free Data/Charts)",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "performance": {
+    "tested_candles": 50000,
+    "measured_latency_ms": 45
+  },
+  "indicator_categories": ["trend", "momentum", "volatility", "volume", "oscillator"],
+  "indicators": [
+    "SMA", "EMA", "WMA", "VWAP", "Bollinger Bands", "Keltner Channel", "Donchian Channel",
+    "RSI", "MACD", "Stochastic", "CCI", "Williams %R", "ROC", "Momentum", "ADX", "DMI",
+    "ATR", "Standard Deviation", "HV", "OBV", "CMF", "MFI", "Volume Profile", "VWMA",
+    "Ichimoku", "Parabolic SAR", "Supertrend", "Pivot Points", "Fibonacci", "ZigZag",
+    "Aroon", "TRIX", "PPO", "AO", "AC", "Chaikin Oscillator", "Elder Ray", "Force Index",
+    "KST", "Ultimate Oscillator", "TSI", "RVI", "Coppock", "DPO", "EMA Cross", "SMA Cross",
+    "Hull MA", "ALMA", "TEMA", "DEMA", "Linear Regression", "Correlation", "Beta",
+    "Sharpe Ratio Display", "Drawdown Overlay"
+  ],
+  "layouts": {
+    "default": {
+      "charts": 2,
+      "indicators": ["RSI", "MACD"],
+      "drawing_tools_enabled": true
+    }
+  }
+}

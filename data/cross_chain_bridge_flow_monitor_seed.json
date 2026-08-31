@@ -1,0 +1,70 @@
+{
+  "feature_ids": [506, 521],
+  "renamed_from": ["Cross-Chain Bridge Volume Inflow"],
+  "title": "Cross-Chain Bridge Flow Monitor",
+  "absorbed_tickets": {"521": "Duplicate of #506 — merged"},
+  "no_ai_engine": true,
+  "no_trading_signals": true,
+  "layer": "On-Chain Layer",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "indexing": {
+    "aggregation": "sum(transaction_amounts) grouped by bridge_route, time_window",
+    "transaction_counting": "count(cross_chain_bridge_transactions) per route per window",
+    "entity_tagging": "known_entity_labels when available, else Unknown",
+    "no_ml": true,
+    "no_ai": true
+  },
+  "bridges": {
+    "wormhole": {"name": "Wormhole", "chains": ["ethereum", "solana", "arbitrum"]},
+    "stargate": {"name": "Stargate", "chains": ["ethereum", "arbitrum", "optimism", "polygon"]},
+    "hop": {"name": "Hop Protocol", "chains": ["ethereum", "arbitrum", "optimism"]}
+  },
+  "flows": [
+    {
+      "bridge_id": "wormhole",
+      "source_chain": "ethereum",
+      "dest_chain": "solana",
+      "direction": "inflow",
+      "amount_usd": 52000000,
+      "transaction_count": 1842,
+      "entity_tag": "Unknown",
+      "freshness_seconds": 120,
+      "timestamp": "2026-08-26T10:00:00Z"
+    },
+    {
+      "bridge_id": "stargate",
+      "source_chain": "arbitrum",
+      "dest_chain": "ethereum",
+      "direction": "inflow",
+      "amount_usd": 18500000,
+      "transaction_count": 956,
+      "entity_tag": "Tagged: DeFi Protocol",
+      "freshness_seconds": 180,
+      "timestamp": "2026-08-26T10:05:00Z"
+    },
+    {
+      "bridge_id": "hop",
+      "source_chain": "ethereum",
+      "dest_chain": "optimism",
+      "direction": "outflow",
+      "amount_usd": -8200000,
+      "transaction_count": 412,
+      "entity_tag": "Unknown",
+      "freshness_seconds": 240,
+      "timestamp": "2026-08-26T10:10:00Z"
+    },
+    {
+      "bridge_id": "wormhole",
+      "source_chain": "solana",
+      "dest_chain": "ethereum",
+      "direction": "inflow",
+      "amount_usd": 31000000,
+      "transaction_count": 1105,
+      "entity_tag": "Tagged: Market Maker",
+      "freshness_seconds": 90,
+      "timestamp": "2026-08-26T10:15:00Z"
+    }
+  ]
+}

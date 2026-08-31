@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Capital Awareness</title>
+<link rel="icon" href="/static/img/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--card:#0d1117;--line:#243040;--fg:#f2efe6;--muted:#8b949e;--accent:#22d3ee;--warn:#f59e0b;--err:#f87171;--ok:#34d399}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:var(--bg);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:.85rem 1.25rem;border-bottom:1px solid var(--line)}
+.logo{font-weight:800;color:var(--accent);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.875rem}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1rem}
+.card{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:1.25rem;margin-bottom:1rem}
+.badge{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;border:1px solid var(--warn);color:var(--warn);margin-bottom:.75rem}
+.alert{padding:.5rem .75rem;border-radius:8px;margin:.5rem 0;font-size:.85rem;border:1px solid var(--line)}
+.alert.watch{border-color:var(--warn);color:var(--warn)}
+.alert.elevated{border-color:var(--err);color:var(--err)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin:1rem 0}
+.kv span{display:block;font-size:.7rem;color:var(--muted)}
+.disclaimer{font-size:.75rem;color:var(--muted);margin-top:1rem;border-top:1px solid var(--line);padding-top:.75rem}
+</style>
+</head>
+<body data-page="portfolio">
+<nav><a href="/" class="logo">BLACKDARK</a><div><a href="/portfolio-ai/live-breakeven">Breakeven</a><a href="/portfolio-ai/strategy-simulator">Simulator</a><a href="/intelligence-ledger">Hub</a></div></nav>
+<main>
+  <div id="riskScoreStrip" class="risk-score-strip"></div>
+  <span class="badge">NON-EXECUTIVE — Alerts only</span>
+  <h1>Capital Awareness Controls</h1>
+  <p style="color:var(--muted)">Risk Awareness Layer — no automatic fund movement. Not insurance or guarantee.</p>
+  <div class="card" id="panel">Loading…</div>
+</main>
+<link rel="stylesheet" href="/static/css/capability.css">
+<div id="decisionCardSticky" hidden></div>
+<script src="/static/js/dom_safe.js"></script>
+<script src="/static/js/capability_core.js"></script>
+<script src="/static/js/decision_card_global.js"></script>
+<script>
+(function(){
+  const { esc } = window.BDDomSafe || { esc: s => String(s??"") };
+  fetch("/api/platform/intelligence-ledger/portfolio-ai/capital-awareness")
+    .then(r => r.json())
+    .then(d => {
+      let html = `<div class="kv">
+        <div><span>Risk Budget Used</span><strong>${esc(d.risk_budget?.budget_used_pct)}%</strong></div>
+        <div><span>Max Loss Allowed</span><strong>${esc(d.risk_budget?.user_configured_max_loss_pct)}%</strong></div>
+        <div><span>Drawdown</span><strong>${esc(d.portfolio_summary?.current_drawdown_pct)}%</strong></div>
+        <div><span>Portfolio Value</span><strong>$${Number(d.portfolio_summary?.total_value_usd||0).toLocaleString()}</strong></div>
+      </div>`;
+      html += "<h3>Stress Scenarios</h3>";
+      (d.scenario_stress?.scenarios||[]).forEach(s => { html += `<div class="alert watch">${esc(s.display)}</div>`; });
+      html += "<h3>Portfolio Alerts</h3>";
+      (d.portfolio_ai_alerts?.alerts||[]).forEach(a => { html += `<div class="alert ${esc(a.severity)}">${esc(a.display)}</div>`; });
+      html += `<div class="disclaimer">${esc(d.sla_terms?.legal_text||d.disclaimer)}</div>`;
+      document.getElementById("panel").innerHTML = html;
+      if (window.BDDecisionCard) window.BDDecisionCard.activateFromPayload({
+        verdict: "PROTECT",
+        decision_sentence: "Review risk budget and stress scenarios — no automatic fund movement.",
+        display: d.portfolio_ai_alerts?.display,
+      });
+    })
+    .catch(e => { document.getElementById("panel").textContent = String(e); });
+})();
+</script>
+</body>
+</html>

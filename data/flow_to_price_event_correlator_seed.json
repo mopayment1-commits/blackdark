@@ -1,0 +1,109 @@
+{
+  "feature_id": 556,
+  "renamed_from": "Flow-to-Price Explanation Engine",
+  "title": "Flow-to-Price Event Correlator",
+  "layer": "Intelligence Layer",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "correlation_window_seconds": 3600,
+  "last_updated": "2026-08-26",
+  "price_events": {
+    "btc_move_2026_08_26": {
+      "asset": "BTC",
+      "timestamp": "2026-08-26T14:00:00Z",
+      "price_usd": 95000.0,
+      "price_change_pct": -3.2,
+      "correlation_window_seconds": 3600
+    },
+    "eth_move_2026_08_26": {
+      "asset": "ETH",
+      "timestamp": "2026-08-26T15:30:00Z",
+      "price_usd": 4200.0,
+      "price_change_pct": 2.1,
+      "correlation_window_seconds": 3600
+    }
+  },
+  "flow_events": {
+    "BTC": [
+      {
+        "event_id": "flow-001",
+        "category": "exchange_flow",
+        "description": "Large exchange inflow to Binance",
+        "timestamp": "2026-08-26T13:45:00Z",
+        "value_usd": 50000000.0,
+        "source": "exchange_intelligence_layer",
+        "evidence_id": "ev-binance-inflow-001",
+        "evidence_link": "/api/platform/intelligence-ledger/onchain-layer/exchange-intelligence?exchange_id=binance",
+        "data_completeness_pct": 95.0
+      },
+      {
+        "event_id": "flow-002",
+        "category": "whale_flow",
+        "description": "Whale wallet transfer to exchange cluster",
+        "timestamp": "2026-08-26T13:50:00Z",
+        "value_usd": 25000000.0,
+        "source": "entity_intelligence_layer",
+        "evidence_id": "ev-whale-transfer-001",
+        "evidence_link": "/api/platform/intelligence-ledger/entity-intelligence?entity_id=entity_whale_alpha",
+        "data_completeness_pct": 88.0
+      },
+      {
+        "event_id": "flow-003",
+        "category": "miner_flow",
+        "description": "Miner-to-exchange flow observed",
+        "timestamp": "2026-08-26T13:55:00Z",
+        "value_usd": 7600000.0,
+        "source": "miner_intelligence_layer",
+        "evidence_id": "ev-miner-mte-001",
+        "evidence_link": "/api/platform/intelligence-ledger/onchain-layer/miner-intelligence?miner_id=miner_foundry_usa",
+        "data_completeness_pct": 92.0
+      },
+      {
+        "event_id": "flow-004",
+        "category": "derivatives",
+        "description": "Large liquidation cascade on BTC perps",
+        "timestamp": "2026-08-26T13:58:00Z",
+        "value_usd": 120000000.0,
+        "source": "derivatives_feed",
+        "evidence_id": "ev-liq-cascade-001",
+        "evidence_link": "/api/platform/intelligence-ledger/derivatives-layer/liquidations?asset=BTC",
+        "data_completeness_pct": 90.0
+      },
+      {
+        "event_id": "flow-005",
+        "category": "stablecoin_flow",
+        "description": "USDT mint to exchange wallets",
+        "timestamp": "2026-08-26T13:40:00Z",
+        "value_usd": 80000000.0,
+        "source": "stablecoin_tracker",
+        "evidence_id": "ev-usdt-mint-001",
+        "evidence_link": "/api/platform/intelligence-ledger/onchain-layer/stablecoin-flows",
+        "data_completeness_pct": 85.0
+      },
+      {
+        "event_id": "flow-006",
+        "category": "liquidity",
+        "description": "Order book depth reduction on BTC/USDT",
+        "timestamp": "2026-08-26T14:02:00Z",
+        "value_usd": 15000000.0,
+        "source": "order_book_feed",
+        "evidence_id": "ev-liquidity-001",
+        "evidence_link": "/api/platform/intelligence-ledger/market-layer/order-book?asset=BTC",
+        "data_completeness_pct": 78.0
+      }
+    ],
+    "ETH": [
+      {
+        "event_id": "flow-eth-001",
+        "category": "exchange_flow",
+        "description": "ETH exchange inflow spike",
+        "timestamp": "2026-08-26T15:20:00Z",
+        "value_usd": 30000000.0,
+        "source": "exchange_intelligence_layer",
+        "evidence_id": "ev-eth-inflow-001",
+        "evidence_link": "/api/platform/intelligence-ledger/onchain-layer/exchange-intelligence?exchange_id=coinbase&asset=ETH",
+        "data_completeness_pct": 93.0
+      }
+    ]
+  }
+}

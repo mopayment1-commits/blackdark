@@ -1,0 +1,164 @@
+{
+  "epic_feature_id": 577,
+  "feature_ids": [577, 574, 578, 737, 741],
+  "title": "On-Chain Metrics Library",
+  "standalone_rejected": true,
+  "layer": "Foundation Layer",
+  "sprint": 0,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "metric_definitions": {
+    "active_addresses": {
+      "name": "Active Addresses (24h)",
+      "formula": "count(distinct addresses with >=1 on-chain tx in rolling 24h window)",
+      "formula_version": "1.0",
+      "source": "blockchain_indexer",
+      "unit": "addresses",
+      "update_frequency": "hourly"
+    },
+    "transaction_count": {
+      "name": "Transaction Count (24h)",
+      "formula": "sum(confirmed transactions in rolling 24h window)",
+      "formula_version": "1.0",
+      "source": "blockchain_indexer",
+      "unit": "transactions",
+      "update_frequency": "hourly"
+    },
+    "hash_rate": {
+      "name": "Network Hash Rate",
+      "formula": "mean(block_hash_rate) over trailing 144 blocks",
+      "formula_version": "1.0",
+      "source": "miner_intelligence_layer",
+      "unit": "EH/s",
+      "update_frequency": "daily"
+    },
+    "exchange_netflow": {
+      "name": "Exchange Net Flow",
+      "formula": "exchange_inflow_usd - exchange_outflow_usd (24h)",
+      "formula_version": "1.0",
+      "source": "exchange_intelligence_layer",
+      "unit": "USD",
+      "update_frequency": "hourly"
+    },
+    "stablecoin_exchange_reserve": {
+      "name": "Stablecoin Exchange Reserve",
+      "formula": "sum(exchange_wallet_balance * price_usd) per labeled entity",
+      "formula_version": "1.0",
+      "source": "stablecoin_health_monitor_467",
+      "unit": "USD",
+      "update_frequency": "hourly",
+      "task_ref": 601
+    },
+    "transaction_volume_usd": {
+      "name": "Transaction Volume (USD, entity-adjusted)",
+      "formula": "sum(usd_value_at_tx_time) excluding spam/internal/self/dust",
+      "formula_version": "1.0",
+      "source": "blockchain_indexer",
+      "unit": "USD",
+      "update_frequency": "daily",
+      "task_ref": 612
+    }
+  },
+  "assets": {
+    "BTC": {
+      "metrics": {
+        "active_addresses": {"value": 892450, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "transaction_count": {"value": 312500, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "hash_rate": {"value": 612.4, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "exchange_netflow": {"value": -125000000, "available": true, "as_of": "2026-08-26T12:00:00Z"}
+      }
+    },
+    "ETH": {
+      "metrics": {
+        "active_addresses": {"value": 485200, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "transaction_count": {"value": 1120000, "available": true, "as_of": "2026-08-26T12:00:00Z"},
+        "hash_rate": {"value": null, "available": false, "as_of": null},
+        "exchange_netflow": {"value": 45000000, "available": true, "as_of": "2026-08-26T12:00:00Z"}
+      }
+    }
+  },
+  "historical_qa": {
+    "periods_tested": 36,
+    "formula_consistency_pct": 98.5,
+    "missing_not_zero_enforced": true,
+    "last_qa_run": "2026-08-26T00:00:00Z"
+  },
+  "usage_intelligence_578": {
+    "task_id": "578",
+    "title": "On-Chain Usage Intelligence",
+    "spam_bot_policy": {
+      "exclude_bots": true,
+      "bot_detection_method": "heuristic_activity_pattern",
+      "spam_tx_threshold_usd": 1.0
+    }
+  },
+  "usage_metrics": {
+    "BTC": {
+      "daily_active_addresses": 892450,
+      "bot_filtered_addresses": 45000,
+      "chain_normalization_factor": 1.0,
+      "app_normalization_factor": 1.0,
+      "transaction_count": 312500,
+      "transaction_volume_usd": 12500000000
+    },
+    "ETH": {
+      "daily_active_addresses": 485200,
+      "bot_filtered_addresses": 62000,
+      "chain_normalization_factor": 0.95,
+      "app_normalization_factor": 1.05,
+      "transaction_count": 1120000,
+      "transaction_volume_usd": 8200000000
+    }
+  },
+  "transaction_volume_intelligence_612": {
+    "task_id": "612",
+    "merged_into": 577,
+    "transfer_policy": {
+      "exclude_internal_exchange": true,
+      "exclude_self_transfer": true,
+      "exclude_dust": true,
+      "exclude_spam": true,
+      "dust_threshold_usd": 1.0
+    },
+    "assets": {
+      "BTC": {
+        "prior_period_volume_usd": 11800000000,
+        "anomaly": {"detected": false},
+        "daily_volume_chart": [
+          {"date": "2026-08-20", "volume_usd": 9800000000},
+          {"date": "2026-08-21", "volume_usd": 10200000000},
+          {"date": "2026-08-22", "volume_usd": 11500000000},
+          {"date": "2026-08-23", "volume_usd": 12100000000},
+          {"date": "2026-08-24", "volume_usd": 12500000000}
+        ],
+        "transfers": [
+          {"native_amount": 150, "usd_value_at_tx_time": 9750000, "is_internal_exchange": false, "is_self_transfer": false, "is_spam": false},
+          {"native_amount": 80, "usd_value_at_tx_time": 5200000, "is_internal_exchange": false, "is_self_transfer": false, "is_spam": false},
+          {"native_amount": 200, "usd_value_at_tx_time": 13000000, "is_internal_exchange": true, "is_self_transfer": false, "is_spam": false},
+          {"native_amount": 5, "usd_value_at_tx_time": 325000, "is_internal_exchange": false, "is_self_transfer": true, "is_spam": false},
+          {"native_amount": 0.001, "usd_value_at_tx_time": 0.65, "is_internal_exchange": false, "is_self_transfer": false, "is_spam": false},
+          {"native_amount": 10, "usd_value_at_tx_time": 650000, "is_internal_exchange": false, "is_self_transfer": false, "is_spam": true}
+        ]
+      },
+      "ETH": {
+        "prior_period_volume_usd": 7800000000,
+        "anomaly": {"detected": true, "detail": "volume spike +18% vs 30d avg"},
+        "daily_volume_chart": [
+          {"date": "2026-08-20", "volume_usd": 7200000000},
+          {"date": "2026-08-21", "volume_usd": 7500000000},
+          {"date": "2026-08-22", "volume_usd": 8000000000},
+          {"date": "2026-08-23", "volume_usd": 8100000000},
+          {"date": "2026-08-24", "volume_usd": 8200000000}
+        ],
+        "transfers": [
+          {"native_amount": 5000, "usd_value_at_tx_time": 21000000, "is_internal_exchange": false, "is_self_transfer": false, "is_spam": false},
+          {"native_amount": 1200, "usd_value_at_tx_time": 5040000, "is_internal_exchange": false, "is_self_transfer": false, "is_spam": false}
+        ]
+      }
+    },
+    "historical_qa_parity": [
+      {"period": "2026-07", "external_source": "glassnode", "internal_volume_usd": 365000000000, "external_volume_usd": 370000000000, "tolerance_pct": 5},
+      {"period": "2026-07", "external_source": "cryptoquant", "internal_volume_usd": 362000000000, "external_volume_usd": 368000000000, "tolerance_pct": 5}
+    ]
+  }
+}

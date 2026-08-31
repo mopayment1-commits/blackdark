@@ -1,0 +1,65 @@
+{
+  "feature_id": 298,
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Token Incentives & Emissions Module",
+  "sprint": 2,
+  "wave": 2,
+  "current_phase": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "protocols": {
+    "aave": {
+      "name": "Aave",
+      "chain": "ethereum",
+      "category": "defi_lending"
+    },
+    "curve": {
+      "name": "Curve Finance",
+      "chain": "ethereum",
+      "category": "defi_dex"
+    },
+    "uniswap": {
+      "name": "Uniswap",
+      "chain": "ethereum",
+      "category": "defi_dex"
+    }
+  },
+  "emissions": [
+    {
+      "protocol": "aave",
+      "token": "AAVE",
+      "emission_amount": 1500,
+      "price_at_emission_usd": 92.5,
+      "emission_timestamp_utc": "2026-08-20T00:00:00+00:00",
+      "emissions_source": "on_chain_query",
+      "emissions_source_url": "https://etherscan.io/token/0xaave"
+    },
+    {
+      "protocol": "aave",
+      "token": "AAVE",
+      "emission_amount": 1200,
+      "price_at_emission_usd": 88.0,
+      "emission_timestamp_utc": "2026-08-15T00:00:00+00:00",
+      "emissions_source": "protocol_docs",
+      "emissions_source_url": "https://docs.aave.com/emissions"
+    },
+    {
+      "protocol": "curve",
+      "token": "CRV",
+      "emission_amount": 50000,
+      "price_at_emission_usd": 0.42,
+      "emission_timestamp_utc": "2026-08-18T00:00:00+00:00",
+      "emissions_source": "on_chain_query",
+      "emissions_source_url": "https://etherscan.io/token/0xcurve"
+    },
+    {
+      "protocol": "uniswap",
+      "token": "UNI",
+      "emission_amount": 8000,
+      "price_at_emission_usd": 6.25,
+      "emission_timestamp_utc": "2026-08-10T00:00:00+00:00",
+      "emissions_source": "protocol_docs",
+      "emissions_source_url": "https://docs.uniswap.org/emissions"
+    }
+  ]
+}

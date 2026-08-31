@@ -1,0 +1,88 @@
+# Portfolio Intelligence Layer — #515 #557 #558 #569
+
+## Epic Decision
+
+Four portfolio tickets merged into **Portfolio Intelligence Layer** (Sprint 1 Portfolio Layer).
+
+| Task | Sub-Module | Role |
+|------|------------|------|
+| #515 | Historical Portfolio Snapshot | Point-in-time reconstruction |
+| #557 | Global Asset Tracker | Unified cross-exchange/wallet view |
+| #558 | Historical Wallet Balance Tool | Point-in-time address balance lookup |
+| #569 | Multi-Chain Portfolio Tracker | Cross-chain dedupe + exposure metrics |
+
+Depends on: **#541 Entity Resolution** + **#516 Asset Intelligence Profiles**
+
+## #569 — Multi-Chain Portfolio Tracker
+
+Renamed from **Multi-Chain Portfolio Intelligence**.
+
+| Rule | Implementation |
+|------|----------------|
+| Exposure metrics (not risk) | Exposure Breakdown by Asset/Chain |
+| Bridged asset dedupe | Canonical groups (WBTC → BTC, etc.) |
+| Stale data flags | Per-holding stale visibility |
+| Chain coverage | Explicit per-chain coverage |
+| PnL disclaimer | On every PnL output |
+| No advisory | No rebalancing suggestions |
+
+PnL disclaimer: *"Calculated from available on-chain data | Not tax advice | Past performance does not indicate future results."*
+
+## #557 — Global Asset Tracker
+
+| Rule | Implementation |
+|------|----------------|
+| No advisory | "Total Assets: $X" — no buy/sell suggestions |
+| Reconciliation tests | Automated — prevents double-counting |
+| Duplicate prevention | Dedup by source_id + asset + network |
+| Stale/missing visible | stale_count + missing_count flagged |
+| Historical snapshots | #515 snapshot sub-module |
+
+## #558 — Historical Wallet Balance Tool
+
+| Rule | Implementation |
+|------|----------------|
+| No standalone | Merged into Portfolio Intelligence Module |
+| Chain coverage explicit | Per-chain coverage_pct displayed |
+| Reorg/revision handling | canonical_block + reorg_depth tracked |
+| Exact timestamp semantics | block_timestamp documented |
+
+## Acceptance Criteria
+
+| Criterion | Implementation |
+|-----------|----------------|
+| Reconciliation tests | Automated — mandatory |
+| Duplicate prevention | Dedup logic with count |
+| Stale/missing visibility | Flags on tracker panel |
+| Historical snapshots | #515 point-in-time |
+| Chain coverage explicit | Per-chain coverage block |
+| Reorg revision handling | Revision ID + canonical block |
+| No advisory language | Banned terms enforced |
+| Bridged asset dedupe | #569 cross-chain dedupe |
+| Exposure metrics not risk | #569 exposure breakdown |
+| PnL disclaimer | #569 on all PnL outputs |
+
+## API
+
+```
+GET /api/platform/intelligence-ledger/portfolio-layer/snapshots/status
+GET /api/platform/intelligence-ledger/portfolio-layer/snapshots?portfolio_id=demo_portfolio
+GET /api/platform/intelligence-ledger/portfolio-layer/wallet-balance?address=...&chain=ethereum&timestamp=...
+GET /api/platform/intelligence-ledger/portfolio-layer/multi-chain-tracker?portfolio_id=demo_portfolio
+GET /api/platform/intelligence-ledger/portfolio-layer/reconciliation-tests
+```
+
+## Layer Architecture
+
+```
+Foundation Layer (Sprint 0)
+├── #541 Entity Resolution Engine
+└── #516 Asset Intelligence Profiles
+
+Portfolio Layer (Sprint 1)
+└── Portfolio Intelligence Layer (Epic #557)
+    ├── #515 Historical Portfolio Snapshot
+    ├── #557 Global Asset Tracker
+    ├── #558 Historical Wallet Balance Tool
+    └── #569 Multi-Chain Portfolio Tracker
+```

@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "epic_feature_ids": [570, 571, 584, 585],
+  "layer": "Data Layer",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "formula": {
+    "expression": "nvt = network_value_usd / transfer_volume_usd | historical_percentile = percentile_rank(nvt, historical_window)",
+    "variants": {
+      "nvt_standard": {"window_days": 30, "transfer_type": "all"},
+      "nvt_entity_adjusted": {"window_days": 30, "transfer_type": "entity_adjusted", "preferred": true},
+      "nvt_90d": {"window_days": 90, "transfer_type": "entity_adjusted"}
+    }
+  },
+  "assets": {
+    "bitcoin": {
+      "name": "Bitcoin",
+      "network_value_usd": 1300000000000,
+      "entity_adjusted_transfers": {
+        "volume_30d_usd": 180000000000
+      },
+      "raw_transfers": {
+        "volume_30d_usd": 220000000000
+      },
+      "entity_adjusted_transfers_90d": {
+        "volume_90d_usd": 520000000000
+      },
+      "historical_nvt": [45, 52, 58, 62, 68, 72, 75, 78, 82, 88, 95, 102, 110, 55, 60, 65, 70, 74, 80, 85, 90, 48, 53, 57],
+      "historical_nvt_90d": [50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 52, 58, 63, 68, 73, 78, 83, 88, 93]
+    },
+    "ethereum": {
+      "name": "Ethereum",
+      "network_value_usd": 420000000000,
+      "entity_adjusted_transfers": {
+        "volume_30d_usd": 95000000000
+      },
+      "raw_transfers": {
+        "volume_30d_usd": 130000000000
+      },
+      "entity_adjusted_transfers_90d": {
+        "volume_90d_usd": 280000000000
+      },
+      "historical_nvt": [28, 32, 35, 38, 42, 45, 48, 52, 55, 58, 62, 30, 34, 37, 40, 44, 47, 50, 54, 57, 60, 33, 36, 41],
+      "historical_nvt_90d": [30, 34, 38, 42, 46, 50, 54, 58, 62, 32, 36, 40, 44, 48, 52, 56, 60]
+    }
+  },
+  "backtest": {
+    "periods_tested": 36,
+    "percentile_accuracy_pct": 94.2,
+    "deterministic": true,
+    "no_trading_backtest": true
+  },
+  "realized_cap": {
+    "bitcoin": {
+      "name": "Bitcoin",
+      "chain": "bitcoin",
+      "methodology_version": "1.0",
+      "formula_version": "1.0",
+      "chain_rules": {
+        "model": "UTXO last-move valuation",
+        "supply_basis": "circulating",
+        "replay": "exact_block_level"
+      },
+      "spot_price_usd": 94800,
+      "realized_price_usd": 38500,
+      "realized_cap_usd": 762300000000,
+      "entity_adjusted_realized_price_usd": 39200,
+      "entity_adjusted_realized_cap_usd": 775560000000,
+      "entity_adjusted_available": true,
+      "circulating_supply": 19800000,
+      "historical_realized_cap": [720000000000, 735000000000, 748000000000, 762300000000],
+      "exact_historical_replay": true,
+      "missing": false,
+      "qa": {
+        "periods_tested": 36,
+        "replay_accuracy_pct": 99.1,
+        "last_qa_run": "2026-08-26T00:00:00Z"
+      }
+    },
+    "ethereum": {
+      "name": "Ethereum",
+      "chain": "ethereum",
+      "methodology_version": "1.0",
+      "formula_version": "1.0",
+      "chain_rules": {
+        "model": "account-state last-transfer valuation",
+        "supply_basis": "circulating",
+        "replay": "exact_block_level"
+      },
+      "spot_price_usd": 4180,
+      "realized_price_usd": 2100,
+      "realized_cap_usd": 252000000000,
+      "entity_adjusted_realized_price_usd": 2250,
+      "entity_adjusted_realized_cap_usd": 270000000000,
+      "entity_adjusted_available": true,
+      "circulating_supply": 120000000,
+      "historical_realized_cap": [240000000000, 245000000000, 248000000000, 252000000000],
+      "exact_historical_replay": true,
+      "missing": false,
+      "qa": {
+        "periods_tested": 36,
+        "replay_accuracy_pct": 98.5,
+        "last_qa_run": "2026-08-26T00:00:00Z"
+      }
+    }
+  }
+}

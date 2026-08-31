@@ -1,0 +1,25 @@
+{
+  "feature_id": 724,
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "universe": {
+    "version": "2.3",
+    "last_rebalance": "2026-08-01",
+    "asset_count": 100,
+    "benchmark": "Top 100 by market cap, rebalanced monthly",
+    "rebalance_frequency": "monthly"
+  },
+  "breadth": {
+    "advancing": 58,
+    "declining": 32,
+    "unchanged": 8,
+    "missing": 2,
+    "constituents": [
+      {"asset": "BTC", "return_1d_pct": 1.2, "status": "advancing"},
+      {"asset": "ETH", "return_1d_pct": 0.8, "status": "advancing"},
+      {"asset": "SOL", "return_1d_pct": -0.5, "status": "declining"},
+      {"asset": "LUNA", "return_1d_pct": null, "status": "missing", "greyed_out": true, "note": "delisted — retained in history"}
+    ]
+  }
+}

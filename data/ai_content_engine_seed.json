@@ -1,0 +1,144 @@
+{
+  "feature_ids": [511, 512, 513, 575],
+  "title": "AI Content Engine",
+  "no_standalone_ui": true,
+  "layer": "Intelligence Layer",
+  "sprint": 2,
+  "wave": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "legal_review": {
+    "complete": true,
+    "date": "2026-08-22",
+    "required_for_513": true
+  },
+  "evidence_items": [
+    {
+      "asset": "BTC",
+      "statement": "Wallet 0xAbC... moved $25M to Binance Hot Wallet",
+      "amount_usd": 25000000,
+      "destination": "Binance Hot Wallet",
+      "transaction_refs": ["0xabc123"],
+      "entity_refs": ["0xAbC1234567890dEf1234567890aBc1234567890Ab"],
+      "source": "onchain_indexer",
+      "freshness_seconds": 300,
+      "timestamp": "2026-08-26T10:00:00Z"
+    },
+    {
+      "asset": "ETH",
+      "statement": "Wallet 0xDeF... transferred $8.5M to Cold Storage",
+      "amount_usd": 8500000,
+      "destination": "Cold Storage",
+      "transaction_refs": ["0xdef456"],
+      "entity_refs": ["0xDeF9876543210aBc9876543210dEf9876543210Cd"],
+      "source": "whale_tracker",
+      "freshness_seconds": 600,
+      "timestamp": "2026-08-26T11:00:00Z"
+    }
+  ],
+  "digests": {
+    "daily": {
+      "period": "daily",
+      "summary": "Cross-market activity summary with evidence-linked claims.",
+      "freshness_seconds": 1800,
+      "timestamp": "2026-08-26T12:00:00Z",
+      "regression_evaluation_set": true,
+      "claims": [
+        {
+          "statement": "BTC whale inflow to exchanges increased 40% in 24h",
+          "why_it_matters": "Exchange deposit patterns may indicate distribution context",
+          "source_links": ["https://internal/evidence/ev_001"],
+          "transaction_refs": ["0xabc123"],
+          "entity_refs": ["0xAbC1234567890dEf1234567890aBc1234567890Ab"]
+        },
+        {
+          "statement": "ETH funding rate turned negative across major venues",
+          "why_it_matters": "Derivatives positioning shift",
+          "source_links": ["https://internal/evidence/ev_002"],
+          "transaction_refs": [],
+          "entity_refs": []
+        }
+      ]
+    }
+  },
+  "news_items": [
+    {
+      "asset": "BTC",
+      "headline": "Bitcoin ETF sees $500M net inflow amid institutional demand",
+      "summary": "Spot Bitcoin ETF products recorded significant net inflows over the past 24 hours.",
+      "source": "Reuters",
+      "source_url": "https://www.reuters.com/markets/currencies/bitcoin-etf-inflow-2026",
+      "published_at": "2026-08-26T08:00:00Z",
+      "tags": ["etf", "institutional", "inflow"],
+      "dedupe_key": "btc_etf_inflow_20260826"
+    },
+    {
+      "asset": "BTC",
+      "headline": "Bitcoin ETF sees $500M net inflow amid institutional demand",
+      "summary": "Duplicate headline for deduplication test — should be removed.",
+      "source": "Reuters",
+      "source_url": "https://www.reuters.com/markets/currencies/bitcoin-etf-inflow-2026",
+      "published_at": "2026-08-26T08:05:00Z",
+      "tags": ["etf"],
+      "dedupe_key": "btc_etf_inflow_20260826"
+    },
+    {
+      "asset": "BTC",
+      "headline": "On-chain exchange outflows decline for third consecutive week",
+      "summary": "Net exchange outflows for BTC decreased, suggesting reduced selling pressure context.",
+      "source": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/btc-exchange-outflows-2026",
+      "published_at": "2026-08-26T06:30:00Z",
+      "tags": ["on-chain", "exchange-flow"],
+      "dedupe_key": "btc_outflows_20260826"
+    },
+    {
+      "asset": "ETH",
+      "headline": "Ethereum L2 activity hits new daily transaction record",
+      "summary": "Layer-2 networks processed a record number of transactions in the past 24 hours.",
+      "source": "The Block",
+      "source_url": "https://www.theblock.co/post/ethereum-l2-record-2026",
+      "published_at": "2026-08-26T09:15:00Z",
+      "tags": ["ethereum", "l2", "activity"],
+      "dedupe_key": "eth_l2_record_20260826"
+    },
+    {
+      "asset": "SOL",
+      "headline": "Solana DeFi TVL crosses $8B milestone",
+      "summary": "Total value locked in Solana DeFi protocols reached a new high.",
+      "source": "Decrypt",
+      "source_url": "https://decrypt.co/solana-defi-tvl-2026",
+      "published_at": "2026-08-25T22:00:00Z",
+      "tags": ["solana", "defi", "tvl"],
+      "dedupe_key": "sol_tvl_20260825"
+    }
+  ],
+  "screener": {
+    "default_weights": {
+      "price": 0.2,
+      "volume": 0.15,
+      "liquidity": 0.15,
+      "derivatives": 0.15,
+      "on_chain": 0.15,
+      "sentiment": 0.1,
+      "risk": 0.1
+    },
+    "assets": [
+      {
+        "symbol": "BTC",
+        "factors": {"price": 0.8, "volume": 0.9, "liquidity": 0.95, "derivatives": 0.7, "on_chain": 0.75, "sentiment": 0.4, "risk": 0.6},
+        "stale_penalty_applied": false
+      },
+      {
+        "symbol": "ETH",
+        "factors": {"price": 0.7, "volume": 0.85, "liquidity": 0.9, "derivatives": 0.65, "on_chain": 0.8, "sentiment": 0.5, "risk": 0.55},
+        "stale_penalty_applied": false
+      },
+      {
+        "symbol": "SOL",
+        "factors": {"price": 0.6, "volume": 0.7, "liquidity": 0.6, "derivatives": 0.5, "on_chain": 0.65, "sentiment": 0.7, "risk": 0.4},
+        "stale_penalty_applied": true
+      }
+    ]
+  }
+}

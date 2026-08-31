@@ -1,0 +1,83 @@
+{
+  "feature_id": 316,
+  "renamed_from": "Cross-Domain Decision Intelligence",
+  "title": "Epistemic Output Framework",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "design_principle": true,
+  "cross_cutting": true,
+  "last_updated": "2026-08-26",
+  "panels": {
+    "btc_macro_synthesis": {
+      "title": "BTC Cross-Domain Analysis",
+      "asset": "BTC",
+      "analysis_summary": "Cross-domain synthesis across derivatives positioning, DEX liquidity, risk metrics, narratives, sentiment, and market state. Confirming signals in derivatives and market state; contradicting narrative vs on-chain accumulation patterns.",
+      "domain_signals": [
+        {"domain": "derivatives", "direction": "bullish", "metric": "funding_rate_negative", "value": -0.0002},
+        {"domain": "dex", "direction": "neutral", "metric": "liquidity_depth", "value": "stable"},
+        {"domain": "risk", "direction": "cautious", "metric": "volatility_regime", "value": "elevated"},
+        {"domain": "narratives", "direction": "bearish", "metric": "social_sentiment", "value": -0.3},
+        {"domain": "sentiment", "direction": "bearish", "metric": "fear_greed", "value": 42},
+        {"domain": "market_state", "direction": "bullish", "metric": "breadth", "value": 0.62}
+      ],
+      "epistemic_items": [
+        {
+          "epistemic_type": "fact",
+          "statement": "BTC perpetual funding rate is -0.02% on Binance (negative funding = longs pay shorts)",
+          "verified": true,
+          "provenance_metric_id": "spot.btc_usdt.aggregated_price",
+          "evidence": [
+            {
+              "evidence_id": "ev_funding_001",
+              "provenance_metric_id": "spot.btc_usdt.aggregated_price",
+              "source": "Binance API v3",
+              "description": "Funding rate snapshot 2026-08-26T00:00:00Z"
+            }
+          ]
+        },
+        {
+          "epistemic_type": "fact",
+          "statement": "Fear & Greed Index reads 42 (Fear zone)",
+          "verified": true,
+          "evidence": [
+            {
+              "evidence_id": "ev_fng_001",
+              "source": "Alternative.me API",
+              "description": "Daily Fear & Greed snapshot"
+            }
+          ]
+        },
+        {
+          "epistemic_type": "inference",
+          "statement": "Derivatives positioning and market breadth suggest accumulation despite negative sentiment — domains partially confirming",
+          "confidence_pct": 72,
+          "supporting_fact_refs": ["ev_funding_001", "ev_fng_001"],
+          "evidence_confidence_assessment_id": "btc-halving-impact-2024",
+          "evidence": [
+            {
+              "evidence_id": "ev_cross_001",
+              "provenance_metric_id": "spot.btc_usdt.aggregated_price",
+              "description": "Cross-domain confirm/contradict analysis"
+            }
+          ]
+        },
+        {
+          "epistemic_type": "hypothesis",
+          "statement": "If funding remains negative for 7+ days while breadth stays above 0.55, short squeeze risk may increase",
+          "probability_range_pct": [35, 60],
+          "test_conditions": [
+            "Funding rate < 0 for 7 consecutive days",
+            "Market breadth > 0.55",
+            "OI increase > 5%"
+          ],
+          "evidence": [
+            {
+              "evidence_id": "ev_hyp_001",
+              "description": "Historical pattern library — not prediction guarantee"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

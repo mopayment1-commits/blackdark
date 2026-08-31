@@ -1,0 +1,86 @@
+{
+  "feature_id": 719,
+  "feature_ids": [719, 131, 121],
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "baseline_version": "1.0",
+  "last_updated": "2026-08-26",
+  "backtest": {
+    "total_alerts": 100,
+    "correct_alerts": 85,
+    "false_positives": 15,
+    "window": "2025-01 to 2026-08"
+  },
+  "baselines": {
+    "BTC": {
+      "volume_24h": {
+        "rolling_mean": 2800000000,
+        "rolling_std": 350000000,
+        "sample_days": 30,
+        "documented": true
+      },
+      "liquidity_depth": {
+        "rolling_mean": 520000000,
+        "rolling_std": 45000000,
+        "sample_days": 30,
+        "documented": true
+      },
+      "default": {
+        "rolling_mean": 100,
+        "rolling_std": 15,
+        "sample_days": 5,
+        "documented": true
+      }
+    }
+  },
+  "metrics": {
+    "BTC": [
+      {
+        "metric": "volume_24h",
+        "asset": "BTC",
+        "venue": "binance",
+        "current_value": 4200000000,
+        "contributing_metrics": ["volume_24h", "trade_count"],
+        "context": "Volume spike vs 30D baseline"
+      },
+      {
+        "metric": "liquidity_depth",
+        "asset": "BTC",
+        "venue": "aggregate",
+        "current_value": 380000000,
+        "contributing_metrics": ["bid_depth", "ask_depth"],
+        "context": "Depth drop — unusual liquidity (#131)"
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "alert_id": "a1",
+      "type": "unusual_liquidity",
+      "absorbed_from": 131,
+      "asset": "BTC",
+      "venue": "binance",
+      "metric": "liquidity_depth",
+      "z_score": 3.8,
+      "deviation_pct": -27.0,
+      "severity": "high",
+      "contributing_metrics": ["bid_depth", "ask_depth"],
+      "context": "Unusual liquidity withdrawal",
+      "display": "BTC unusual liquidity — z=3.8"
+    },
+    {
+      "alert_id": "a2",
+      "type": "large_liquidity_event",
+      "absorbed_from": 121,
+      "asset": "ETH",
+      "venue": "okx",
+      "metric": "large_trade_usd",
+      "z_score": 4.2,
+      "deviation_pct": 85.0,
+      "severity": "high",
+      "contributing_metrics": ["trade_size_usd"],
+      "context": "Large liquidity event detected",
+      "display": "ETH large liquidity event — z=4.2"
+    }
+  ]
+}

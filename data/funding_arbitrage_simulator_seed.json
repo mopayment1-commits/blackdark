@@ -1,0 +1,69 @@
+{
+  "feature_id": 338,
+  "renamed_from": "Funding_Arbitrage_Engine",
+  "title": "Funding Arbitrage Simulator",
+  "wave": 3,
+  "sprint": 3,
+  "tier": "pro/institution",
+  "formula_version": "1.0",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "legal_review": {
+    "complete": true,
+    "date": "2026-08-20",
+    "compliance_framework": "BLACKDARK Pro/Institution liability framework v1"
+  },
+  "backtest": {
+    "paper_simulation_validated": true,
+    "events_replayed": 120,
+    "point_in_time_replay": true,
+    "no_forward_performance_claim": true
+  },
+  "scenarios": [
+    {
+      "scenario_id": "s1",
+      "asset": "BTC",
+      "long_venue": "binance",
+      "short_venue": "bybit",
+      "funding_rate": 0.00045,
+      "funding_interval_hours": 8,
+      "fees_pct": 0.10,
+      "borrow_cost_pct": 0.05,
+      "slippage_pct": 0.03,
+      "basis_risk_penalty_pct": 0.02,
+      "liquidity_penalty_pct": 0.01,
+      "point_in_time_utc": "2026-08-26T10:00:00+00:00",
+      "confidence": "medium"
+    },
+    {
+      "scenario_id": "s2",
+      "asset": "BTC",
+      "long_venue": "okx",
+      "short_venue": "deribit",
+      "funding_rate": 0.00038,
+      "funding_interval_hours": 8,
+      "fees_pct": 0.12,
+      "borrow_cost_pct": 0.06,
+      "slippage_pct": 0.04,
+      "basis_risk_penalty_pct": 0.03,
+      "liquidity_penalty_pct": 0.02,
+      "point_in_time_utc": "2026-08-26T10:00:00+00:00",
+      "confidence": "low"
+    },
+    {
+      "scenario_id": "s3",
+      "asset": "ETH",
+      "long_venue": "binance",
+      "short_venue": "bybit",
+      "funding_rate": 0.00012,
+      "funding_interval_hours": 8,
+      "fees_pct": 0.10,
+      "borrow_cost_pct": 0.04,
+      "slippage_pct": 0.02,
+      "basis_risk_penalty_pct": 0.01,
+      "liquidity_penalty_pct": 0.01,
+      "point_in_time_utc": "2026-08-26T10:00:00+00:00",
+      "confidence": "high"
+    }
+  ]
+}

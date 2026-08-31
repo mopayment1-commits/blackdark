@@ -1,0 +1,86 @@
+{
+  "feature_id": 286,
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Sector Rotation & Flow Module",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "taxonomy": {
+    "version": "1.0",
+    "base_sources": ["Messari", "The Block"],
+    "sector_count": 8,
+    "custom_sectors": [
+      {"name": "AI Agents", "custom": true, "flagged": true}
+    ]
+  },
+  "survivorship": {
+    "delisted_count": 12,
+    "universe_version": "2026.08.1",
+    "point_in_time": true
+  },
+  "universe": {
+    "version": "2026.08.1",
+    "asset_count": 250,
+    "as_of": "2026-08-25",
+    "versioned": true
+  },
+  "sectors": {
+    "Layer 1": {
+      "relative_strength": 0.72,
+      "flow_rotation_score": 0.65,
+      "return_7d_pct": 3.2,
+      "return_30d_pct": 12.5,
+      "liquidity_usd": 45000000000,
+      "volume_change_pct": 8.5,
+      "sentiment_score": 0.62,
+      "assets": [
+        {"symbol": "BTC", "above_ma50": true, "return_30d": 0.15},
+        {"symbol": "ETH", "above_ma50": true, "return_30d": 0.08},
+        {"symbol": "SOL", "above_ma50": false, "return_30d": -0.05},
+        {"symbol": "ADA", "above_ma50": true, "return_30d": 0.03}
+      ]
+    },
+    "DeFi": {
+      "relative_strength": 0.45,
+      "flow_rotation_score": 0.38,
+      "return_7d_pct": -1.8,
+      "return_30d_pct": -5.2,
+      "liquidity_usd": 8500000000,
+      "volume_change_pct": -12.3,
+      "sentiment_score": 0.41,
+      "assets": [
+        {"symbol": "UNI", "above_ma50": false, "return_30d": -0.12},
+        {"symbol": "AAVE", "above_ma50": false, "return_30d": -0.08},
+        {"symbol": "MKR", "above_ma50": true, "return_30d": 0.02}
+      ]
+    },
+    "AI": {
+      "relative_strength": 0.88,
+      "flow_rotation_score": 0.82,
+      "return_7d_pct": 8.5,
+      "return_30d_pct": 28.3,
+      "liquidity_usd": 5200000000,
+      "volume_change_pct": 45.2,
+      "sentiment_score": 0.78,
+      "assets": [
+        {"symbol": "FET", "above_ma50": true, "return_30d": 0.35},
+        {"symbol": "RNDR", "above_ma50": true, "return_30d": 0.22},
+        {"symbol": "TAO", "above_ma50": true, "return_30d": 0.18}
+      ]
+    },
+    "Meme": {
+      "relative_strength": 0.55,
+      "flow_rotation_score": 0.48,
+      "return_7d_pct": 2.1,
+      "return_30d_pct": 5.8,
+      "liquidity_usd": 3200000000,
+      "volume_change_pct": 15.0,
+      "sentiment_score": 0.55,
+      "assets": [
+        {"symbol": "DOGE", "above_ma50": true, "return_30d": 0.06},
+        {"symbol": "SHIB", "above_ma50": false, "return_30d": -0.03},
+        {"symbol": "PEPE", "above_ma50": true, "return_30d": 0.12}
+      ]
+    }
+  }
+}

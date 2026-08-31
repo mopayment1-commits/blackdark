@@ -1,0 +1,46 @@
+{
+  "feature_id": 520,
+  "title": "Cost Basis Distribution",
+  "standalone_rejected": true,
+  "merged_into": "On-Chain Analytics Layer / Cost Basis Distribution",
+  "layer": "On-Chain Layer",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "cohort_rules": {
+    "version": "1.0",
+    "rules": [
+      "acquisition_price_at_transfer_time",
+      "holder_balance_snapshot_at_as_of",
+      "no_future_price_data",
+      "cohort_aggregation_by_price_band"
+    ]
+  },
+  "assets": {
+    "BTC": {
+      "as_of": "2026-08-26T00:00:00Z",
+      "current_price": 65000,
+      "no_future_leakage": true,
+      "historical_validation": true,
+      "holders": [
+        {"address": "0x001", "balance": 500, "acquisition_price": 30000},
+        {"address": "0x002", "balance": 200, "acquisition_price": 45000},
+        {"address": "0x003", "balance": 150, "acquisition_price": 60000},
+        {"address": "0x004", "balance": 100, "acquisition_price": 70000},
+        {"address": "0x005", "balance": 80, "acquisition_price": 55000},
+        {"address": "0x006", "balance": 50, "acquisition_price": 40000}
+      ]
+    },
+    "ETH": {
+      "as_of": "2026-08-26T00:00:00Z",
+      "current_price": 3500,
+      "no_future_leakage": true,
+      "historical_validation": true,
+      "holders": [
+        {"address": "0x101", "balance": 5000, "acquisition_price": 2000},
+        {"address": "0x102", "balance": 3000, "acquisition_price": 2800},
+        {"address": "0x103", "balance": 2000, "acquisition_price": 4000}
+      ]
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "feature_id": 1008,
+  "builds_on": 742,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "assets": [
+    {
+      "symbol": "BTC",
+      "market_cap_usd": 1200000000000,
+      "volume_24h_usd": 28000000000,
+      "price_change_24h_pct": 1.8,
+      "funding_rate": 0.0001,
+      "open_interest_usd": 18500000000,
+      "tvl_usd": null,
+      "yield_pct": null,
+      "bot_activity_score": 22,
+      "exchange_quality_score": 95,
+      "onchain_signal": "accumulation",
+      "mvrv_z": 1.2
+    },
+    {
+      "symbol": "ETH",
+      "market_cap_usd": 420000000000,
+      "volume_24h_usd": 15000000000,
+      "price_change_24h_pct": 2.1,
+      "funding_rate": 0.00015,
+      "open_interest_usd": 9200000000,
+      "tvl_usd": 28500000000,
+      "yield_pct": 3.2,
+      "bot_activity_score": 35,
+      "exchange_quality_score": 92,
+      "onchain_signal": "neutral",
+      "mvrv_z": 0.8
+    },
+    {
+      "symbol": "SOL",
+      "market_cap_usd": 85000000000,
+      "volume_24h_usd": 3200000000,
+      "price_change_24h_pct": 4.5,
+      "funding_rate": 0.0002,
+      "open_interest_usd": 2100000000,
+      "tvl_usd": 1800000000,
+      "yield_pct": 5.1,
+      "bot_activity_score": 45,
+      "exchange_quality_score": 88,
+      "onchain_signal": "distribution",
+      "mvrv_z": 2.1
+    },
+    {
+      "symbol": "DOGE",
+      "market_cap_usd": 18000000000,
+      "volume_24h_usd": 1200000000,
+      "price_change_24h_pct": -1.2,
+      "funding_rate": 0.0003,
+      "open_interest_usd": 450000000,
+      "tvl_usd": null,
+      "yield_pct": null,
+      "bot_activity_score": 78,
+      "exchange_quality_score": 65,
+      "onchain_signal": null,
+      "mvrv_z": null
+    },
+    {
+      "symbol": "AAVE",
+      "market_cap_usd": 2200000000,
+      "volume_24h_usd": 180000000,
+      "price_change_24h_pct": 0.8,
+      "funding_rate": null,
+      "open_interest_usd": null,
+      "tvl_usd": 12500000000,
+      "yield_pct": 2.8,
+      "bot_activity_score": 30,
+      "exchange_quality_score": 90,
+      "onchain_signal": "accumulation",
+      "mvrv_z": null
+    },
+    {
+      "symbol": "ARB",
+      "market_cap_usd": 3200000000,
+      "volume_24h_usd": 320000000,
+      "price_change_24h_pct": 3.2,
+      "funding_rate": 0.00008,
+      "open_interest_usd": 380000000,
+      "tvl_usd": 2800000000,
+      "yield_pct": 1.5,
+      "bot_activity_score": 55,
+      "exchange_quality_score": 82,
+      "onchain_signal": "neutral",
+      "mvrv_z": 0.5
+    }
+  ],
+  "builtin_presets": {
+    "high_mcap_low_bot": {
+      "name": "High Market Cap + Low Bot Activity",
+      "version": "1.0",
+      "category": "on_chain",
+      "shareable": true,
+      "sort_by": "market_cap_usd",
+      "sort_dir": "desc",
+      "filters": {
+        "market_cap_usd": {"min": 1000000000},
+        "bot_activity_score": {"max": 40}
+      }
+    },
+    "defi_yield": {
+      "name": "DeFi Yield Screen",
+      "version": "1.1",
+      "category": "fundamental",
+      "shareable": true,
+      "sort_by": "yield_pct",
+      "sort_dir": "desc",
+      "filters": {
+        "yield_pct": {"min": 2.0},
+        "tvl_usd": {"min": 1000000000}
+      }
+    },
+    "derivatives_momentum": {
+      "name": "Derivatives Momentum",
+      "version": "1.0",
+      "category": "derivatives",
+      "shareable": true,
+      "sort_by": "open_interest_usd",
+      "sort_dir": "desc",
+      "filters": {
+        "open_interest_usd": {"min": 500000000},
+        "funding_rate": {"min": 0}
+      }
+    }
+  },
+  "user_presets": {
+    "user_whale_watch": {
+      "name": "My Whale Watch List",
+      "saved": true,
+      "shareable": false,
+      "sort_by": "volume_24h_usd",
+      "sort_dir": "desc",
+      "filters": {
+        "market_cap_usd": {"min": 50000000000}
+      }
+    }
+  }
+}

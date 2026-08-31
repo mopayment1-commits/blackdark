@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Strategy Simulator</title>
+<link rel="icon" href="/static/img/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--card:#0d1117;--line:#243040;--fg:#f2efe6;--muted:#8b949e;--accent:#a78bfa;--ok:#34d399}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:var(--bg);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:.85rem 1.25rem;border-bottom:1px solid var(--line)}
+.logo{font-weight:800;color:var(--accent);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.875rem}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1rem}
+.card{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:1.25rem;margin-bottom:1rem}
+.sim-badge{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;border:1px solid var(--accent);color:var(--accent);margin-bottom:.75rem}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin:1rem 0}
+.kv span{display:block;font-size:.7rem;color:var(--muted)}
+.btn{background:var(--accent);color:#000;border:none;border-radius:8px;padding:.5rem 1rem;font-weight:600;cursor:pointer;margin-top:.5rem}
+.disclaimer{font-size:.75rem;color:var(--muted);margin-top:1rem;border-top:1px solid var(--line);padding-top:.75rem}
+</style>
+</head>
+<body data-page="portfolio">
+<nav><a href="/" class="logo">BLACKDARK</a><div><a href="/portfolio-ai/risk-awareness">Risk</a><a href="/simulator">Simulator</a><a href="/intelligence-ledger">Hub</a></div></nav>
+<main>
+  <div id="riskScoreStrip" class="risk-score-strip"></div>
+  <span class="sim-badge">SIMULATION — Paper Portfolio</span>
+  <h1>Strategy Simulator</h1>
+  <p style="color:var(--muted)">Real money order placement blocked. Paper trading on real market data.</p>
+  <div class="card" id="panel">Loading…</div>
+  <div class="card">
+    <h3 style="margin-top:0">Apply Signal to Paper Portfolio</h3>
+    <button class="btn" id="applyBtn">SIMULATION: Apply BTC Momentum Signal</button>
+    <div id="applyResult" style="margin-top:.75rem;font-size:.9rem"></div>
+  </div>
+</main>
+<script src="/static/js/dom_safe.js"></script>
+<script>
+(function(){
+  const { esc } = window.BDDomSafe || { esc: s => String(s??"") };
+  fetch("/api/platform/intelligence-ledger/portfolio-ai/strategy-simulator")
+    .then(r => r.json())
+    .then(d => {
+      const p = d.paper_portfolio||{};
+      const bt = d.backtest_30d?.results||{};
+      let html = `<div class="kv">
+        <div><span>Paper Balance</span><strong>$${Number(p.current_balance_usd||0).toLocaleString()}</strong></div>
+        <div><span>Positions</span><strong>${esc(p.position_count)}</strong></div>
+        <div><span>30d Return</span><strong>${esc(bt.return_pct)}%</strong></div>
+        <div><span>30d Max DD</span><strong>${esc(bt.max_drawdown_pct)}%</strong></div>
+      </div>`;
+      html += `<p>${esc(d.backtest_30d?.display||"")}</p>`;
+      html += `<p>${esc(d.risk_budget_integration?.display||"")}</p>`;
+      html += `<div class="disclaimer">${esc(d.sla_terms?.legal_text||d.disclaimer)}</div>`;
+      document.getElementById("panel").innerHTML = html;
+      if (window.BDDecisionCard) window.BDDecisionCard.activateFromPayload({
+        verdict: "SIMULATE",
+        decision_sentence: "Paper portfolio only — real money orders blocked.",
+        display: d.disclaimer,
+      });
+    });
+  document.getElementById("applyBtn").addEventListener("click", () => {
+    fetch("/api/platform/intelligence-ledger/portfolio-ai/strategy-simulator/apply-signal?signal_id=sig_btc_momentum")
+      .then(r => r.json())
+      .then(d => { document.getElementById("applyResult").textContent = d.display || d.error || "done"; });
+  });
+})();
+</script>
+<link rel="stylesheet" href="/static/css/capability.css">
+<div id="decisionCardSticky" hidden></div>
+<script src="/static/js/capability_core.js"></script>
+<script src="/static/js/decision_card_global.js"></script>
+</body>
+</html>

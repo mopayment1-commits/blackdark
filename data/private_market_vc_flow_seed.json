@@ -1,0 +1,121 @@
+{
+  "feature_id": 314,
+  "title": "Private Market & VC Flow Intelligence",
+  "wave": 2,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "absorbed_tickets": {
+    "341": "Fundraising Velocity Indicator (standalone rejected)"
+  },
+  "fundraising_velocity": {
+    "formula_version": "1.0",
+    "backtest": {
+      "events_tested": 85,
+      "accuracy_pct": 72.5,
+      "false_positive_rate_pct": 18.0
+    }
+  },
+  "projects": [
+    {
+      "project_id": "proj_layerzero",
+      "company": "LayerZero Labs",
+      "sector": "infrastructure",
+      "stage": "Series B",
+      "funding_velocity_usd_per_month": 40000000,
+      "investor_breadth": 12,
+      "investor_quality_tier": "tier_1",
+      "valuation_usd": 3000000000,
+      "valuation_disclosed": true,
+      "rounds_last_90d": 2,
+      "sector_trend": "accelerating"
+    },
+    {
+      "project_id": "proj_zksync",
+      "company": "ZKSync App",
+      "sector": "infrastructure",
+      "stage": "Series A",
+      "funding_velocity_usd_per_month": 15000000,
+      "investor_breadth": 5,
+      "investor_quality_tier": "tier_1",
+      "valuation_usd": null,
+      "valuation_disclosed": false,
+      "rounds_last_90d": 1,
+      "sector_trend": "stable"
+    },
+    {
+      "project_id": "proj_gaming",
+      "company": "NFT Gaming Co",
+      "sector": "gaming",
+      "stage": "Seed",
+      "funding_velocity_usd_per_month": 2666667,
+      "investor_breadth": 3,
+      "investor_quality_tier": "tier_2",
+      "valuation_usd": null,
+      "valuation_disclosed": false,
+      "rounds_last_90d": 1,
+      "sector_trend": "decelerating"
+    }
+  ],
+  "rounds": [
+    {
+      "round_id": "rnd_001",
+      "company": "LayerZero Labs",
+      "sector": "infrastructure",
+      "stage": "Series B",
+      "geography": "US",
+      "amount_usd": 120000000,
+      "original_currency": "USD",
+      "announcement_date": "2026-04-15",
+      "investors": ["a16z crypto", "Sequoia"],
+      "source": "crunchbase_api",
+      "crypto_native": true,
+      "stablecoin_round": false
+    },
+    {
+      "round_id": "rnd_002",
+      "company": "MegaProtocol",
+      "sector": "defi",
+      "stage": "Strategic",
+      "geography": "Singapore",
+      "amount_usd": 650000000,
+      "original_currency": "USDC",
+      "fx_rate_at_announcement": 1.0,
+      "announcement_date": "2026-06-01",
+      "investors": ["Strategic Partner"],
+      "source": "theblock",
+      "crypto_native": true,
+      "stablecoin_round": true
+    },
+    {
+      "round_id": "rnd_003",
+      "company": "ZKSync App",
+      "sector": "infrastructure",
+      "stage": "Series A",
+      "geography": "EU",
+      "amount_usd": 45000000,
+      "original_currency": "ETH",
+      "fx_rate_at_announcement": 3400,
+      "announcement_date": "2026-05-20",
+      "investors": ["Paradigm"],
+      "source": "messari_pro",
+      "crypto_native": true,
+      "revision_history": [
+        {"date": "2026-05-25", "field": "amount_usd", "previous": 40000000, "current": 45000000}
+      ]
+    },
+    {
+      "round_id": "rnd_004",
+      "company": "NFT Gaming Co",
+      "sector": "gaming",
+      "stage": "Seed",
+      "geography": "US",
+      "amount_usd": 8000000,
+      "original_currency": "USD",
+      "announcement_date": "2026-07-10",
+      "investors": ["Animoca"],
+      "source": "manual_curation",
+      "crypto_native": true
+    }
+  ]
+}

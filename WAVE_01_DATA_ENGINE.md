@@ -21,6 +21,8 @@ Foundational data collection and provenance layer. Every data point is sourced, 
 | 4 background jobs (Binance OHLCV 1m/1h, funding, CoinGecko) | ✅ APScheduler |
 | Backfill CLI (`python -m blackdark.data backfill ...`) | ✅ |
 | Provenance endpoint | ✅ |
+| Instrument Master (#268 merged) | ✅ Mapping schema + cost tiers |
+| Order Book Liquidity (#269 merged) | ✅ Gap detection + replay tests |
 | k6 script (`scripts/k6_wave_01_data.js`) | ✅ |
 | Unit tests | ✅ |
 
@@ -74,10 +76,18 @@ curl -sS "$PROD/api/v1/data/open-interest?symbol=BTCUSDT&limit=5"
 # 5.6 Status
 curl -sS "$PROD/api/v1/data/status"
 
-# 5.7 Events
+# 5.7 Instrument master (#268)
+curl -sS "$PROD/api/v1/data/instrument-master/status"
+curl -sS "$PROD/api/v1/data/instrument-master/mappings?tier=hot&limit=10"
+
+# 5.8 Order book liquidity (#269)
+curl -sS "$PROD/api/v1/data/order-book-liquidity/status"
+curl -sS "$PROD/api/v1/data/order-book-liquidity/gaps?limit=10"
+
+# 5.9 Events
 curl -sS "$PROD/api/v1/data/events?limit=5"
 
-# 5.8 Provenance (replace UUID from ohlcv response)
+# 5.10 Provenance (replace UUID from ohlcv response)
 curl -sS "$PROD/api/v1/data/provenance/<record-uuid>"
 ```
 

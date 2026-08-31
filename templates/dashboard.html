@@ -137,7 +137,7 @@
         body.lens-room #trust-pulse { opacity:.92; }
     </style>
 </head>
-<body>
+<body data-page="dashboard">
     <nav>
         <div class="nav-inner">
             <a href="/" class="logo">BLACKDARK</a>
@@ -150,6 +150,8 @@
                     <a class="lens-nav" href="/dashboard?lens=desk">Desk</a>
                     <a class="lens-nav" href="/data-room?lens=room">Room</a>
                     <a href="/oracle-accuracy">Verify</a>
+                    <a href="/intelligence-ledger">Intelligence</a>
+                    <a href="/launch-center">Launch</a>
                     <a href="/profile">Profile &amp; Billing</a>
                 </div>
                 {% include 'partials/top_utility.html' %}
@@ -211,10 +213,16 @@
             <a class="btn secondary" href="/miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">Miss Feed</a>
             <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
             <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype">Anti-Hype</button>
+            <a class="btn secondary" href="/exchanges" style="text-decoration:none;display:inline-flex;align-items:center">Exchanges</a>
+            <a class="btn secondary" href="/stablecoins" style="text-decoration:none;display:inline-flex;align-items:center">Stablecoins</a>
+            <a class="btn secondary" href="/arbitrage" style="text-decoration:none;display:inline-flex;align-items:center">Arbitrage</a>
+            <a class="btn secondary" href="/brief" style="text-decoration:none;display:inline-flex;align-items:center">Brief</a>
+            <a class="btn secondary" href="/whales" style="text-decoration:none;display:inline-flex;align-items:center">Whales</a>
             <a class="btn secondary section-operate-plus" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">My book</a>
             <a class="btn secondary section-desk-only" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Desk tools</a>
             <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
         </div>
+        <div id="riskScoreStrip" class="risk-score-strip hide-in-room" style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;font-size:.78rem;display:flex;flex-wrap:wrap;gap:.5rem"></div>
         <div class="picks hide-in-room">
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;BTC&quot;]">BTC</button>
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;ETH&quot;]">ETH</button>
@@ -338,11 +346,20 @@
         </section>
 
         <section id="alerts" class="section-operate-plus hide-in-room">
-            <h2 id="alertsTitle">Alerts</h2>
-            <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
+            <h2 id="alertsTitle">Alert Center</h2>
+            <p class="sub" id="tgStatus">Unified feed: Arbitrage · Risk · Whale · Events · Exchange · Stablecoin</p>
             <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
+            <div class="alert-filter" id="alertFilters">
+                <button type="button" class="active" data-filter="">All</button>
+                <button type="button" data-filter="arbitrage">Arbitrage</button>
+                <button type="button" data-filter="risk">Risk</button>
+                <button type="button" data-filter="whale">Whale</button>
+                <button type="button" data-filter="events">Events</button>
+                <button type="button" data-filter="exchange">Exchange</button>
+                <button type="button" data-filter="stablecoin">Stablecoin</button>
+            </div>
             <div class="toolbar">
-                <button class="btn secondary" data-bd-call="loadInbox">Refresh Inbox</button>
+                <button class="btn secondary" data-bd-call="loadInbox">Refresh Feed</button>
                 <button class="btn secondary" data-bd-call="testTelegram">Test Telegram</button>
             </div>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
@@ -1160,24 +1177,36 @@
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
         }
 
+        let inboxAlertFilter = '';
+
         async function loadInbox() {
             const el = document.getElementById('inbox');
             const status = document.getElementById('tgStatus');
             try {
-                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
+                const q = inboxAlertFilter ? `&alert_type=${encodeURIComponent(inboxAlertFilter)}` : '';
+                const res = await fetch(`/api/alerts/unified-feed?limit=20${q}`, { headers: authHeaders() });
                 const data = await res.json();
-                const stats = data.stats || {};
-                status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
+                const counts = data.counts_by_type || {};
+                status.textContent = `Unified Alert Center · ${data.count || 0} shown · arb ${counts.arbitrage||0} risk ${counts.risk||0} whale ${counts.whale||0} events ${counts.events||0}`;
                 const rows = data.alerts || [];
                 el.innerHTML = rows.length ? rows.map(a => `
-                    <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(a.id)}&quot;]">
+                    <div class="arb-card">
+                        <span style="font-size:.68rem;color:#71717a;text-transform:uppercase">${esc(a.alert_type||'alert')}</span>
                         <strong>${esc(a.title||'Alert')}</strong>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
-                        <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
-                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${esc(a.severity||'info')}</div>
+                    </div>`).join('') : '<div class="empty">No alerts in this filter</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Alert feed unavailable</div>'; }
         }
+
+        document.getElementById('alertFilters')?.addEventListener('click', (e) => {
+            const btn = e.target.closest('button[data-filter]');
+            if (!btn) return;
+            document.querySelectorAll('#alertFilters button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            inboxAlertFilter = btn.dataset.filter || '';
+            loadInbox();
+        });
 
         async function markInboxRead(id) {
             if (!id) return;
@@ -1708,5 +1737,11 @@
             window.scrollTo(0, 0);
         }
     </script>
+    <link rel="stylesheet" href="/static/css/capability.css">
+    <script src="/static/js/dom_safe.js"></script>
+    <script src="/static/js/capability_core.js"></script>
+    <script src="/static/js/decision_card_global.js"></script>
+    <div id="decisionCardSticky" hidden></div>
+    <div id="provPopover" class="prov-pop"></div>
 </body>
 </html>

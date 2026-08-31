@@ -1,0 +1,99 @@
+{
+  "feature_id": 282,
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Flow Anomaly Detection",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "baselines": [
+    {
+      "asset": "BTC",
+      "venue": "binance",
+      "metric": "cvd_hourly",
+      "window_days": 30,
+      "trades_per_day": 45000,
+      "documented": true,
+      "rolling_mean": 1250000,
+      "rolling_std": 320000,
+      "iqr_q1": 980000,
+      "iqr_q3": 1520000,
+      "current_value": 2850000,
+      "sample_trade_ids": ["t-88291001", "t-88291045", "t-88291102"],
+      "sample_bucket_ids": ["bucket-14h-20260825"]
+    },
+    {
+      "asset": "BTC",
+      "venue": "okx",
+      "metric": "volume_bucket_5m",
+      "window_days": 30,
+      "trades_per_day": 28000,
+      "documented": true,
+      "rolling_mean": 850000,
+      "rolling_std": 180000,
+      "iqr_q1": 720000,
+      "iqr_q3": 980000,
+      "current_value": 920000,
+      "sample_trade_ids": ["t-okx-44102"],
+      "sample_bucket_ids": ["bucket-5m-20260825-1430"]
+    },
+    {
+      "asset": "ETH",
+      "venue": "binance",
+      "metric": "cvd_hourly",
+      "window_days": 30,
+      "trades_per_day": 62000,
+      "documented": true,
+      "rolling_mean": 4200000,
+      "rolling_std": 890000,
+      "iqr_q1": 3500000,
+      "iqr_q3": 4900000,
+      "current_value": 4100000,
+      "sample_trade_ids": ["t-eth-99102"],
+      "sample_addresses": []
+    },
+    {
+      "asset": "SOL",
+      "venue": "bybit",
+      "metric": "cvd_hourly",
+      "window_days": 30,
+      "trades_per_day": 450,
+      "documented": true,
+      "rolling_mean": 120000,
+      "rolling_std": 35000,
+      "iqr_q1": 95000,
+      "iqr_q3": 145000,
+      "current_value": 130000,
+      "sample_trade_ids": []
+    }
+  ],
+  "alerts": [
+    {
+      "asset": "BTC",
+      "venue": "binance",
+      "metric": "cvd_hourly",
+      "expected_range": "980000 – 1520000",
+      "actual_value": 2850000,
+      "deviation_pct": 128.0,
+      "detection_method": "z_score",
+      "confidence": "high",
+      "timestamp": "2026-08-25T14:32:00+00:00",
+      "trade_ids": ["t-88291001", "t-88291045", "t-88291102"],
+      "addresses": ["0xabc123"],
+      "bucket_ids": ["bucket-14h-20260825"]
+    },
+    {
+      "asset": "ETH",
+      "venue": "coinbase",
+      "metric": "volume_spike_1h",
+      "expected_range": "2.1M – 3.8M",
+      "actual_value": 5.2,
+      "deviation_pct": 38.5,
+      "detection_method": "iqr",
+      "confidence": "medium",
+      "timestamp": "2026-08-25T16:05:00+00:00",
+      "trade_ids": ["t-cb-55201"],
+      "addresses": [],
+      "bucket_ids": ["bucket-1h-20260825-1600"]
+    }
+  ]
+}

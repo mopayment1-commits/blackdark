@@ -1,0 +1,57 @@
+{
+  "feature_id": 580,
+  "title": "Prediction Trend Analyzer",
+  "standalone": false,
+  "merged_into": "Data Layer / Sprint 1",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-27",
+  "config": {
+    "min_liquidity_usd": 50000,
+    "source_attribution_required": true,
+    "correlation_not_causation": true
+  },
+  "events": {
+    "btc_etf_approval": {
+      "title": "BTC spot ETF approval by Q4 2026",
+      "source": "polymarket",
+      "source_timestamp": "2026-08-27T10:00:00Z",
+      "probability": 0.72,
+      "previous_probability": 0.65,
+      "liquidity_usd": 2500000,
+      "affected_assets": ["BTC", "GBTC"],
+      "market_correlation": {
+        "btc_7d_return_pct": 4.2,
+        "correlation_coefficient": 0.45,
+        "note": "Correlation observed — not causal claim"
+      },
+      "evidence_links": [
+        {"type": "market_url", "url": "https://polymarket.com/event/btc-etf"}
+      ]
+    },
+    "eth_upgrade": {
+      "title": "Ethereum Pectra upgrade success",
+      "source": "polymarket",
+      "source_timestamp": "2026-08-27T09:30:00Z",
+      "probability": 0.88,
+      "previous_probability": 0.85,
+      "liquidity_usd": 890000,
+      "affected_assets": ["ETH"],
+      "market_correlation": {
+        "eth_7d_return_pct": 2.1,
+        "correlation_coefficient": 0.32
+      },
+      "evidence_links": []
+    },
+    "low_liquidity_event": {
+      "title": "Obscure altcoin listing",
+      "source": "polymarket",
+      "source_timestamp": "2026-08-27T08:00:00Z",
+      "probability": 0.15,
+      "previous_probability": 0.12,
+      "liquidity_usd": 5000,
+      "affected_assets": ["ALT"],
+      "evidence_links": []
+    }
+  }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#22d3ee">
+<title>BLACKDARK — Launch Center</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--card:#0d1117;--line:#243040;--fg:#f2efe6;--muted:#8b949e;--accent:#22d3ee;--ok:#34d399;--warn:#f59e0b;--err:#f87171}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:linear-gradient(165deg,#070a0f,#0d1520);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:.85rem 1.25rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--accent);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.875rem}
+main{max-width:1100px;margin:0 auto;padding:1.5rem 1rem 3rem}
+h1{font-family:Syne,sans-serif;margin:0 0 .25rem}
+.sub{color:var(--muted);margin:0 0 1.25rem;line-height:1.55}
+.verdict{display:inline-block;padding:.4rem .9rem;border-radius:999px;font-size:.8rem;font-weight:600;margin-bottom:1rem}
+.verdict.ok{background:rgba(52,211,153,.15);color:var(--ok);border:1px solid var(--ok)}
+.verdict.warn{background:rgba(245,158,11,.12);color:var(--warn);border:1px solid var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.75rem;margin-bottom:1.5rem}
+.card{border:1px solid var(--line);border-radius:12px;padding:1rem;background:var(--card);text-decoration:none;color:inherit;display:block;transition:border-color .15s}
+.card:hover{border-color:var(--accent)}
+.card h3{margin:0 0 .35rem;font-size:.95rem;color:var(--accent)}
+.card p{margin:0;font-size:.78rem;color:var(--muted);line-height:1.45}
+.section{border:1px solid var(--line);border-radius:12px;padding:1rem;background:var(--card);margin-bottom:1rem}
+.section h2{font-size:.95rem;margin:0 0 .75rem;color:var(--accent)}
+.check{display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--line);font-size:.8rem}
+.check:last-child{border-bottom:none}
+.pass{color:var(--ok)}.fail{color:var(--err)}.ext{color:var(--warn)}
+.live-strip{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;font-size:.8rem}
+.live-item{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.5rem .75rem}
+.live-item .label{color:var(--muted);font-size:.68rem}
+.live-item .val{font-weight:600;margin-top:.15rem}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">BLACKDARK</a>
+  <div>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/intelligence-ledger">Intelligence Ledger</a>
+    <a href="/launch-center" class="active">Launch Center</a>
+    <a href="/institutional">Institutional</a>
+  </div>
+</nav>
+<main>
+  <h1>Launch Center</h1>
+  <p class="sub">مركز الإطلاق — مسارات المستخدم، جاهزية هندسية، وبيانات سوق حية. لا نصيحة استثمارية.</p>
+  <div id="verdict" class="verdict warn">جاري التحميل…</div>
+  <div class="live-strip" id="liveStrip"></div>
+  <h2 style="font-size:1rem;margin:1rem 0 .5rem">ابدأ من هنا</h2>
+  <div class="grid" id="journeys"></div>
+  <div class="section">
+    <h2>جاهزية هندسية (داخلية)</h2>
+    <div id="internalChecks"></div>
+  </div>
+  <div class="section">
+    <h2>عناصر خارجية / بشرية (لا تمنع الاستخدام)</h2>
+    <div id="externalChecks"></div>
+  </div>
+</main>
+<script src="/static/js/dom_escape.js"></script>
+<script src="/static/js/launch_center.js"></script>
+</body>
+</html>

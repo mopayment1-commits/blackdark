@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#22d3ee">
+<title>BLACKDARK — Live Breakeven Tracker</title>
+<link rel="icon" href="/static/img/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--card:#0d1117;--elev:#161b22;--line:#243040;--fg:#f2efe6;--muted:#8b949e;--accent:#22d3ee;--ok:#34d399;--warn:#f59e0b;--err:#f87171}
+*{box-sizing:border-box}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:linear-gradient(165deg,#070a0f,#0d1520);min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.25rem;border-bottom:1px solid var(--line);background:rgba(7,10,15,.92)}
+.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--accent);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.875rem}
+main{max-width:900px;margin:0 auto;padding:1.5rem 1rem 3rem}
+h1{font-family:Syne,sans-serif;margin:0 0 .25rem}
+.sub{color:var(--muted);font-size:.9rem;margin-bottom:1.25rem;line-height:1.5}
+.card{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:1.25rem;margin-bottom:1rem}
+.toolbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
+select,input{background:var(--elev);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:.5rem .65rem;font-size:.85rem}
+.btn{background:linear-gradient(135deg,var(--accent),#06b6d4);color:#000;border:none;border-radius:8px;padding:.5rem 1rem;font-weight:600;cursor:pointer}
+.btn.secondary{background:var(--elev);color:var(--fg);border:1px solid var(--line)}
+.breakeven-hero{text-align:center;padding:1rem 0}
+.be-price{font-size:2.2rem;font-weight:700;color:var(--accent)}
+.be-label{color:var(--muted);font-size:.85rem}
+.kv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem;margin:1rem 0}
+.kv-grid span{display:block;font-size:.7rem;color:var(--muted)}
+.kv-grid strong{font-size:.95rem}
+.fee-lines ul{margin:.5rem 0;padding-left:1.2rem;font-size:.82rem;color:var(--muted)}
+.alerts .alert{padding:.5rem .75rem;border-radius:8px;margin-top:.5rem;font-size:.82rem;border:1px solid var(--line)}
+.alerts .alert.watch{border-color:var(--warn);color:var(--warn)}
+.alerts .alert.elevated{border-color:var(--err);color:var(--err)}
+.disclaimer{font-size:.75rem;color:var(--muted);margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--line)}
+.drift{font-size:.75rem;text-align:center;margin:.5rem 0}
+.drift.ok{color:var(--ok)}.drift.warn{color:var(--warn)}
+.state{text-align:center;padding:2rem;color:var(--muted)}
+.state.error{color:var(--err)}
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#beStatus{font-size:.75rem;color:var(--muted);text-align:right;margin-bottom:.5rem}
+.sim-result{font-size:.9rem;color:var(--fg)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">BLACKDARK</a>
+  <div>
+    <a href="/intelligence-ledger">Intelligence Ledger</a>
+    <a href="/launch-center">Launch Center</a>
+  </div>
+</nav>
+<main>
+  <h1>Live Breakeven Tracker</h1>
+  <p class="sub">Dynamic Cost Basis — fee-transparent breakeven with client-side instant preview. Not investment advice.</p>
+
+  <div class="card">
+    <div id="beStatus"></div>
+    <div class="toolbar">
+      <select id="positionSelect">
+        <option value="pos_btc_001">BTC — pos_btc_001</option>
+        <option value="pos_eth_002">ETH — pos_eth_002</option>
+        <option value="pos_sol_003">SOL — pos_sol_003</option>
+      </select>
+      <button type="button" class="btn" id="loadBtn">Refresh</button>
+    </div>
+    <div id="bePanel"><div class="state"><span class="spinner"></span></div></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Breakeven Scenario Simulator</h3>
+    <p class="sub" style="margin-bottom:.75rem">Hypothetical DCA — see impact on breakeven before acting.</p>
+    <div class="toolbar">
+      <input type="number" id="dcaQty" placeholder="DCA qty" step="0.01" value="0.1">
+      <input type="number" id="dcaPrice" placeholder="DCA price" step="1" value="62000">
+      <button type="button" class="btn secondary" id="simBtn">Simulate</button>
+    </div>
+    <div id="simResult"></div>
+  </div>
+</main>
+<script src="/static/js/dom_safe.js"></script>
+<script src="/static/js/live_breakeven_tracker.js"></script>
+</body>
+</html>

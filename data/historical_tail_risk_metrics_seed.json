@@ -1,0 +1,100 @@
+{
+  "feature_ids": [503, 504],
+  "renamed_from": [
+    "Conditional Value at Risk (CVaR)",
+    "Value at Risk (VaR)"
+  ],
+  "title": "Historical Tail Risk Estimates (VaR/CVaR)",
+  "standalone_rejected": true,
+  "merged_into": "Data Layer / Risk Metrics Layer / Historical Tail Risk Metrics",
+  "risk_metrics_layer": "Risk Metrics Layer",
+  "sibling_feature_id": 501,
+  "wave": 1,
+  "sprint": 1,
+  "formula_version": "1.0",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "legal_review": {
+    "complete": true,
+    "date": "2026-08-22",
+    "rule_based_validation_months": 3
+  },
+  "formula": {
+    "expression": "historical_var = percentile(returns, 1 - confidence) | historical_cvar = mean(returns where return <= historical_var)",
+    "method": "historical_simulation",
+    "inputs": [
+      "historical_daily_returns",
+      "portfolio_weights",
+      "notional_usd",
+      "confidence_level",
+      "lookback_days"
+    ],
+    "confidence_levels": [0.90, 0.95, 0.99],
+    "lookback_days_default": 252,
+    "no_ml": true,
+    "var_definition": "Estimated historical loss percentile based on past returns distribution. NOT maximum potential loss.",
+    "cvar_definition": "Average of historical returns at or beyond the VaR threshold. Descriptive tail statistic — not a forecast."
+  },
+  "backtest": {
+    "observations_tested": 2520,
+    "var_accuracy_pct": 96.2,
+    "cvar_accuracy_pct": 95.8,
+    "no_ml": true
+  },
+  "assets": {
+    "BTC": {
+      "lookback_days": 252,
+      "data_sources": ["binance_1d_returns", "on_chain"],
+      "historical_daily_returns": [
+        -0.042, -0.018, 0.012, 0.025, -0.031, 0.008, 0.015, -0.055, 0.003, -0.022,
+        0.019, -0.011, 0.007, -0.038, 0.021, -0.005, 0.014, -0.027, 0.033, -0.016,
+        0.009, -0.048, 0.004, 0.018, -0.013, 0.026, -0.009, 0.011, -0.034, 0.006,
+        -0.019, 0.022, -0.007, 0.013, -0.041, 0.017, -0.003, 0.028, -0.024, 0.010,
+        -0.015, 0.031, -0.008, 0.005, -0.036, 0.020, -0.012, 0.016, -0.029, 0.024
+      ]
+    },
+    "ETH": {
+      "lookback_days": 252,
+      "data_sources": ["binance_1d_returns", "on_chain"],
+      "historical_daily_returns": [
+        -0.058, -0.025, 0.018, 0.032, -0.045, 0.012, 0.022, -0.072, 0.005, -0.031,
+        0.028, -0.016, 0.011, -0.052, 0.035, -0.008, 0.019, -0.038, 0.045, -0.022,
+        0.014, -0.065, 0.007, 0.025, -0.019, 0.038, -0.013, 0.016, -0.048, 0.009,
+        -0.027, 0.033, -0.011, 0.018, -0.055, 0.024, -0.005, 0.037, -0.032, 0.015,
+        -0.021, 0.042, -0.012, 0.008, -0.049, 0.028, -0.017, 0.022, -0.041, 0.031
+      ]
+    },
+    "SOL": {
+      "lookback_days": 252,
+      "data_sources": ["binance_1d_returns", "on_chain"],
+      "historical_daily_returns": [
+        -0.085, -0.042, 0.035, 0.055, -0.072, 0.022, 0.038, -0.098, 0.012, -0.055,
+        0.048, -0.028, 0.019, -0.078, 0.062, -0.015, 0.032, -0.065, 0.075, -0.038,
+        0.025, -0.092, 0.015, 0.042, -0.032, 0.058, -0.022, 0.028, -0.068, 0.018,
+        -0.045, 0.052, -0.019, 0.029, -0.082, 0.038, -0.009, 0.055, -0.048, 0.025,
+        -0.035, 0.065, -0.021, 0.014, -0.075, 0.042, -0.028, 0.035, -0.062, 0.048
+      ]
+    }
+  },
+  "portfolios": {
+    "demo_balanced": {
+      "name": "Demo Balanced Portfolio",
+      "notional_usd": 100000,
+      "lookback_days": 252,
+      "networks_supported": 22,
+      "data_sources": ["wallet_balances", "on_chain", "market_data"],
+      "holdings": [
+        {"asset": "BTC", "weight": 0.50},
+        {"asset": "ETH", "weight": 0.30},
+        {"asset": "SOL", "weight": 0.20}
+      ],
+      "historical_daily_returns": [
+        -0.048, -0.021, 0.015, 0.028, -0.038, 0.010, 0.018, -0.062, 0.004, -0.026,
+        0.023, -0.013, 0.009, -0.044, 0.028, -0.006, 0.016, -0.032, 0.038, -0.019,
+        0.011, -0.055, 0.006, 0.021, -0.016, 0.032, -0.011, 0.013, -0.040, 0.007,
+        -0.022, 0.027, -0.009, 0.015, -0.048, 0.020, -0.004, 0.032, -0.028, 0.012,
+        -0.018, 0.035, -0.010, 0.006, -0.042, 0.024, -0.014, 0.019, -0.035, 0.027
+      ]
+    }
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "feature_id": 443,
+  "title": "Event & Sentiment Monitor",
+  "legal_name": "Event & Sentiment Monitor",
+  "renamed_from": "Event-Driven Arbitrage",
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Sprint-2 Event & Sentiment Monitor",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "monitoring_only": true,
+  "alerts_only": true,
+  "no_auto_execution": true,
+  "update_interval_minutes": 15,
+  "nlp_accuracy_target_pct": 80,
+  "archive_retention_days": 365,
+  "source_coverage_minimum": 5,
+  "cancelled_v1": {
+    "google_trends": true,
+    "execution_language": true,
+    "auto_trading": true
+  },
+  "banned_language": [
+    "buy",
+    "sell",
+    "automatic",
+    "exploit",
+    "short",
+    "شراء",
+    "بيع",
+    "آلي",
+    "استغلال"
+  ],
+  "sources": {
+    "twitter": {"enabled": true, "weight": 0.28, "provider": "LunarCrush"},
+    "reddit": {"enabled": true, "weight": 0.22, "provider": "LunarCrush"},
+    "telegram": {"enabled": true, "weight": 0.20, "provider": "Kaito"},
+    "news": {"enabled": true, "weight": 0.20, "provider": "CryptoPanic"},
+    "economic_calendar": {"enabled": true, "weight": 0.10, "provider": "TradingView"}
+  },
+  "nlp": {
+    "model": "finbert-lite-v2",
+    "model_version": "2.1",
+    "accuracy_pct": 83.2,
+    "last_evaluated": "2026-08-20",
+    "labels": ["positive", "neutral", "negative"]
+  },
+  "fear_greed_weights": {
+    "unrealized_pnl": 0.40,
+    "funding_rates": 0.30,
+    "social_volume": 0.30
+  },
+  "event_types": [
+    "hard_fork",
+    "listing",
+    "delisting",
+    "regulatory",
+    "unlock_schedule",
+    "network_migration",
+    "merger"
+  ],
+  "assets": {
+    "BTC": {
+      "market_cap_usd": 1.28e12,
+      "volume_24h_usd": 3.2e10,
+      "price_usd": 64800.0,
+      "on_chain_supply": 19850000,
+      "last_on_chain_price_usd": 64750.0,
+      "unrealized_pnl_ratio": 0.62,
+      "funding_rate": 0.00045,
+      "social_volume_24h": 2850000,
+      "social_volume_baseline": 2200000,
+      "sources": {
+        "twitter": {"sentiment_score": 0.68, "volume": 980000, "mentions_24h": 42000},
+        "reddit": {"sentiment_score": 0.55, "volume": 620000, "mentions_24h": 18500},
+        "telegram": {"sentiment_score": 0.61, "volume": 750000, "mentions_24h": 31000},
+        "news": {"sentiment_score": 0.58, "volume": 500000, "mentions_24h": 890}
+      }
+    },
+    "ETH": {
+      "market_cap_usd": 4.2e11,
+      "volume_24h_usd": 1.5e10,
+      "price_usd": 3480.0,
+      "on_chain_supply": 120500000,
+      "last_on_chain_price_usd": 3475.0,
+      "unrealized_pnl_ratio": 0.48,
+      "funding_rate": 0.00012,
+      "social_volume_24h": 1420000,
+      "social_volume_baseline": 1300000,
+      "sources": {
+        "twitter": {"sentiment_score": 0.52, "volume": 480000, "mentions_24h": 22000},
+        "reddit": {"sentiment_score": 0.48, "volume": 310000, "mentions_24h": 9800},
+        "telegram": {"sentiment_score": 0.50, "volume": 380000, "mentions_24h": 15000},
+        "news": {"sentiment_score": 0.45, "volume": 250000, "mentions_24h": 620}
+      }
+    },
+    "ARB": {
+      "market_cap_usd": 2.8e9,
+      "volume_24h_usd": 4.5e8,
+      "price_usd": 0.82,
+      "on_chain_supply": 3400000000,
+      "last_on_chain_price_usd": 0.815,
+      "unrealized_pnl_ratio": 0.35,
+      "funding_rate": -0.00008,
+      "social_volume_24h": 185000,
+      "social_volume_baseline": 120000,
+      "sources": {
+        "twitter": {"sentiment_score": 0.72, "volume": 85000, "mentions_24h": 4200},
+        "reddit": {"sentiment_score": 0.65, "volume": 42000, "mentions_24h": 1800},
+        "telegram": {"sentiment_score": 0.70, "volume": 38000, "mentions_24h": 2100},
+        "news": {"sentiment_score": 0.78, "volume": 20000, "mentions_24h": 145}
+      }
+    }
+  },
+  "events": [
+    {
+      "event_id": "btc-hardfork-2026-q4",
+      "asset": "BTC",
+      "event_type": "hard_fork",
+      "title": "Bitcoin Core v28 consensus upgrade",
+      "scheduled_at_utc": "2026-10-15T00:00:00+00:00",
+      "impact": "medium",
+      "alert_only": true,
+      "source": "Bitcoin Core mailing list"
+    },
+    {
+      "event_id": "arb-binance-listing-2026-08",
+      "asset": "ARB",
+      "event_type": "listing",
+      "title": "Binance spot listing announcement",
+      "scheduled_at_utc": "2026-08-28T10:00:00+00:00",
+      "impact": "high",
+      "alert_only": true,
+      "source": "Binance announcements"
+    },
+    {
+      "event_id": "eth-unlock-2026-09",
+      "asset": "ETH",
+      "event_type": "unlock_schedule",
+      "title": "ETH staking withdrawal queue milestone",
+      "scheduled_at_utc": "2026-09-05T12:00:00+00:00",
+      "impact": "medium",
+      "alert_only": true,
+      "source": "Beaconcha.in"
+    },
+    {
+      "event_id": "btc-sec-regulatory-2026-09",
+      "asset": "BTC",
+      "event_type": "regulatory",
+      "title": "US SEC crypto custody rule clarification",
+      "scheduled_at_utc": "2026-09-12T14:00:00+00:00",
+      "impact": "high",
+      "alert_only": true,
+      "source": "Federal Register"
+    },
+    {
+      "event_id": "doge-delist-2026-08",
+      "asset": "DOGE",
+      "event_type": "delisting",
+      "title": "Major exchange delisting review",
+      "scheduled_at_utc": "2026-08-30T08:00:00+00:00",
+      "impact": "high",
+      "alert_only": true,
+      "source": "Exchange notice"
+    },
+    {
+      "event_id": "matic-migration-2026-10",
+      "asset": "MATIC",
+      "event_type": "network_migration",
+      "title": "Polygon token migration to POL",
+      "scheduled_at_utc": "2026-10-01T00:00:00+00:00",
+      "impact": "high",
+      "alert_only": true,
+      "source": "Polygon governance"
+    },
+    {
+      "event_id": "rndr-fet-merger-2026-11",
+      "asset": "RNDR",
+      "event_type": "merger",
+      "title": "Render + Fetch.ai merger announcement",
+      "scheduled_at_utc": "2026-11-20T12:00:00+00:00",
+      "impact": "medium",
+      "alert_only": true,
+      "source": "Project governance"
+    }
+  ],
+  "archive": {
+    "retention_days": 365,
+    "earliest_record": "2025-08-26T00:00:00+00:00",
+    "records_count": 35040,
+    "update_interval_minutes": 15
+  },
+  "price_correlation": {
+    "lookback_hours": 24,
+    "min_data_points": 96
+  }
+}

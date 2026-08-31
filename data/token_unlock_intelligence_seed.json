@@ -1,0 +1,180 @@
+{
+  "feature_id": 707,
+  "feature_ids": [703, 704, 707, 708],
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Token Unlock Intelligence Engine",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "formula_version": "1.0",
+  "last_updated": "2026-08-26",
+  "calibration": {
+    "similar_unlocks_sample_size": 142,
+    "price_declined_pct_of_time": 60.0,
+    "median_drawdown_pct": -8.5,
+    "calibration_window": "2022-2026"
+  },
+  "events": [
+    {
+      "event_id": "arb-2026-08-16",
+      "asset": "ARB",
+      "name": "Arbitrum",
+      "unlock_date": "2026-08-16",
+      "unlock_amount_native": 92500000,
+      "unlock_usd": 98000000,
+      "unlock_pct_circulating": 2.8,
+      "unlock_pct_total_supply": 0.93,
+      "circulating_supply_usd": 3500000000,
+      "adv_usd": 180000000,
+      "recipient_type": "team_vesting",
+      "exchange_inflow_signal": 0.35,
+      "volatility_context": 0.55,
+      "sentiment_context": 0.62,
+      "historical_similarity": 0.72,
+      "primary_source_url": "https://docs.arbitrum.foundation/token-unlock-schedule",
+      "source_type": "protocol_docs",
+      "assumptions": ["Vesting cliff completed Aug 2026", "Price at emission timestamp used for USD"],
+      "revision_history": [
+        {"date": "2026-06-01", "change": "Initial schedule from protocol docs"},
+        {"date": "2026-07-15", "change": "Adjusted amount per on-chain verification"}
+      ],
+      "comparable_events": [
+        {"asset": "OP", "date": "2025-05-31", "drawdown_pct": -12.3, "unlock_pct": 2.5},
+        {"asset": "APT", "date": "2025-04-12", "drawdown_pct": -9.1, "unlock_pct": 3.1}
+      ]
+    },
+    {
+      "event_id": "apt-2026-08-12",
+      "asset": "APT",
+      "name": "Aptos",
+      "unlock_date": "2026-08-12",
+      "unlock_amount_native": 11300000,
+      "unlock_usd": 52000000,
+      "unlock_pct_circulating": 1.9,
+      "unlock_pct_total_supply": 0.45,
+      "circulating_supply_usd": 2800000000,
+      "adv_usd": 95000000,
+      "recipient_type": "investor_vesting",
+      "exchange_inflow_signal": 0.55,
+      "volatility_context": 0.48,
+      "sentiment_context": 0.45,
+      "historical_similarity": 0.68,
+      "primary_source_url": "https://aptosfoundation.org/vesting",
+      "source_type": "protocol_docs",
+      "assumptions": ["Investor tranche 4 of 8"],
+      "revision_history": [
+        {"date": "2026-05-20", "change": "Initial from foundation docs"}
+      ],
+      "comparable_events": [
+        {"asset": "SUI", "date": "2025-03-01", "drawdown_pct": -15.2, "unlock_pct": 2.1}
+      ]
+    },
+    {
+      "event_id": "op-2026-08-30",
+      "asset": "OP",
+      "name": "Optimism",
+      "unlock_date": "2026-08-30",
+      "unlock_amount_native": 31300000,
+      "unlock_usd": 67000000,
+      "unlock_pct_circulating": 2.2,
+      "unlock_pct_total_supply": 0.73,
+      "circulating_supply_usd": 3100000000,
+      "adv_usd": 120000000,
+      "recipient_type": "investor_vesting",
+      "exchange_inflow_signal": 0.42,
+      "volatility_context": 0.52,
+      "sentiment_context": 0.58,
+      "historical_similarity": 0.75,
+      "primary_source_url": "https://community.optimism.io/docs/governance/allocations",
+      "source_type": "protocol_docs",
+      "assumptions": ["Governance allocation tranche"],
+      "revision_history": [
+        {"date": "2026-04-10", "change": "Initial schedule"}
+      ],
+      "comparable_events": [
+        {"asset": "ARB", "date": "2025-03-16", "drawdown_pct": -11.8, "unlock_pct": 2.6}
+      ]
+    },
+    {
+      "event_id": "imx-2026-08-20",
+      "asset": "IMX",
+      "name": "Immutable",
+      "unlock_date": "2026-08-20",
+      "unlock_amount_native": 25000000,
+      "unlock_usd": 31000000,
+      "unlock_pct_circulating": 1.4,
+      "unlock_pct_total_supply": 0.35,
+      "circulating_supply_usd": 2200000000,
+      "adv_usd": 45000000,
+      "recipient_type": "team_vesting",
+      "exchange_inflow_signal": 0.28,
+      "volatility_context": 0.62,
+      "sentiment_context": 0.55,
+      "historical_similarity": 0.55,
+      "primary_source_url": "https://immutable.com/vesting",
+      "source_type": "protocol_docs",
+      "assumptions": ["Team allocation monthly unlock"],
+      "revision_history": [],
+      "comparable_events": []
+    },
+    {
+      "event_id": "sui-2026-09-01",
+      "asset": "SUI",
+      "name": "Sui",
+      "unlock_date": "2026-09-01",
+      "unlock_amount_native": 68000000,
+      "unlock_usd": 145000000,
+      "unlock_pct_circulating": 6.5,
+      "unlock_pct_total_supply": 1.2,
+      "circulating_supply_usd": 2200000000,
+      "adv_usd": 85000000,
+      "recipient_type": "investor_vesting",
+      "exchange_inflow_signal": 0.48,
+      "volatility_context": 0.58,
+      "sentiment_context": 0.50,
+      "historical_similarity": 0.70,
+      "primary_source_url": "https://token.unlocks.app/sui",
+      "source_type": "token_unlocks",
+      "assumptions": ["Investor tranche per TokenUnlocks schedule"],
+      "revision_history": [
+        {"date": "2026-07-01", "change": "Initial from TokenUnlocks"},
+        {"date": "2026-08-10", "change": "Amount revised per on-chain vesting contract"}
+      ],
+      "comparable_events": [
+        {"asset": "APT", "date": "2025-04-12", "drawdown_pct": -12.0, "unlock_pct": 6.2}
+      ]
+    },
+    {
+      "event_id": "unknown-schedule",
+      "asset": "NEW",
+      "name": "New Protocol",
+      "unlock_date": "2026-09-15",
+      "unlock_amount_native": null,
+      "unlock_usd": null,
+      "unlock_pct_circulating": null,
+      "recipient_type": "unknown",
+      "primary_source_url": "https://example.com/pending-verification",
+      "source_type": "pending",
+      "assumptions": ["Schedule announced but amounts not yet verified"],
+      "revision_history": [
+        {"date": "2026-08-20", "change": "Event listed — amounts pending on-chain verification"}
+      ],
+      "comparable_events": []
+    }
+  ],
+  "unlock_forecaster_607": {
+    "feature_ref": 607,
+    "alert_horizon_days": 30,
+    "unlock_alert_threshold_pct": 5,
+    "portfolio_exposure": {
+      "demo_portfolio": {
+        "ARB": 8.0,
+        "SUI": 12.0,
+        "OP": 3.0
+      }
+    },
+    "alert_test_signals": [
+      {"test_id": "unlock_alert_qa_1", "delivered": true, "verified": true, "detail": "Internal team received test unlock alert"},
+      {"test_id": "unlock_alert_qa_2", "delivered": true, "verified": true, "detail": "Capital protection unlock alert verified"}
+    ]
+  }
+}

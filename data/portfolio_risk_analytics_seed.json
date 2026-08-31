@@ -1,0 +1,23 @@
+{
+  "feature_id": 723,
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "universes": {
+    "default": {
+      "assets": ["BTC", "ETH", "SOL", "AAVE"],
+      "cross_chain": true
+    }
+  },
+  "correlations": {
+    "default": {
+      "window_days": 30,
+      "matrix": {
+        "BTC": {"BTC": 1.0, "ETH": 0.78, "SOL": 0.65, "AAVE": 0.55},
+        "ETH": {"BTC": 0.78, "ETH": 1.0, "SOL": 0.72, "AAVE": 0.68},
+        "SOL": {"BTC": 0.65, "ETH": 0.72, "SOL": 1.0, "AAVE": 0.60},
+        "AAVE": {"BTC": 0.55, "ETH": 0.68, "SOL": 0.60, "AAVE": 1.0}
+      }
+    }
+  }
+}
