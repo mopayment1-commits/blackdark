@@ -27,10 +27,13 @@ def _reason_for(cid: int) -> str:
     proof = json.loads(PROOF.read_text(encoding="utf-8"))
     row = next(p for p in proof["proofs"] if p["capability_id"] == cid)
     binding = row["backend_registry"]
+    live = row["live_result"]
+    surface = live.get("surface")
     return (
         f"PRODUCTION-ALIGNED (batch01): explicit_option_a via cap646.batch01_production; "
         f"backend={binding['backend_module']}.{binding['backend_entrypoint']}; "
-        f"live success={row['live_result']['success']}; proof={PROOF.name}."
+        f"live surface={surface}; surface_matches_goal={live.get('surface_matches_goal')}; "
+        f"proof={PROOF.name}."
     )
 
 

@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-08-31T22:03:41.504226+00:00",
+  "verified_at": "2026-08-31T22:39:05.116646+00:00",
   "batch": "batch01_826_completion",
   "scope": "IDs 1-59 (50 capabilities)",
   "production_runtime_path": "api/routers/cap646.py -> cap978.unified -> cap646.runtime.execute_capability -> cap646.batch01_production",
@@ -73,6 +73,8 @@
       "live_result": {
         "success": true,
         "surface": "smart_money_leaderboard",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_001",
         "binding_source": "explicit_option_a",
@@ -97,6 +99,8 @@
       "live_result": {
         "success": true,
         "surface": "wallet_profiler",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_002",
         "binding_source": "explicit_option_a",
@@ -121,6 +125,8 @@
       "live_result": {
         "success": true,
         "surface": "wallet_profiler_for_token",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_003",
         "binding_source": "explicit_option_a",
@@ -145,6 +151,8 @@
       "live_result": {
         "success": true,
         "surface": "smart_money_tracking",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_004",
         "binding_source": "explicit_option_a",
@@ -169,6 +177,8 @@
       "live_result": {
         "success": true,
         "surface": "smart_money_accumulation_detection",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_005",
         "binding_source": "explicit_option_a",
@@ -192,7 +202,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "smart_money_token_screener",
+        "expected_surface": "smart_money_token_screener",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_006",
         "binding_source": "explicit_option_a",
@@ -216,7 +228,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "holder_distribution_intelligence",
+        "expected_surface": "holder_distribution_intelligence",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_007",
         "binding_source": "explicit_option_a",
@@ -241,6 +255,8 @@
       "live_result": {
         "success": true,
         "surface": "wallet_pnl_analysis",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_010",
         "binding_source": "explicit_option_a",
@@ -264,7 +280,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "wallet_historical_performance_win_rate",
+        "expected_surface": "wallet_historical_performance_win_rate",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_011",
         "binding_source": "explicit_option_a",
@@ -288,7 +306,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "wallet_entry_exit_analysis",
+        "expected_surface": "wallet_entry_exit_analysis",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_012",
         "binding_source": "explicit_option_a",
@@ -312,7 +332,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "wallet_counterparty_relationship_analysis",
+        "expected_surface": "wallet_counterparty_relationship_analysis",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_013",
         "binding_source": "explicit_option_a",
@@ -336,7 +358,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "entity_aware_wallet_intelligence",
+        "expected_surface": "entity_aware_wallet_intelligence",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_014",
         "binding_source": "explicit_option_a",
@@ -361,6 +385,8 @@
       "live_result": {
         "success": true,
         "surface": "smart_alerts",
+        "expected_surface": "smart_alerts",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_017",
         "binding_source": "explicit_option_a",
@@ -384,7 +410,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "custom_wallet_labels",
+        "expected_surface": "custom_wallet_labels",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_018",
         "binding_source": "explicit_option_a",
@@ -408,7 +436,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "wallet_token_watchlists",
+        "expected_surface": "wallet_token_watchlists",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_019",
         "binding_source": "explicit_option_a",
@@ -432,7 +462,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "multi_chain_portfolio_intelligence",
+        "expected_surface": "multi_chain_portfolio_intelligence",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_020",
         "binding_source": "explicit_option_a",
@@ -457,6 +489,8 @@
       "live_result": {
         "success": true,
         "surface": "transaction_decoder",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_021",
         "binding_source": "explicit_option_a",
@@ -480,7 +514,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "instant_wallet_due_diligence",
+        "expected_surface": "instant_wallet_due_diligence",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_022",
         "binding_source": "explicit_option_a",
@@ -504,7 +540,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "ai_decision_intelligence",
+        "surface": "signal_explanation_workflow",
+        "expected_surface": "signal_explanation_workflow",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_025",
         "binding_source": "explicit_option_a",
@@ -528,7 +566,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "smart_money_historical_trend_analysis",
+        "expected_surface": "smart_money_historical_trend_analysis",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_027",
         "binding_source": "explicit_option_a",
@@ -552,7 +592,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "smart_money_conviction_engine",
+        "expected_surface": "smart_money_conviction_engine",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_028",
         "binding_source": "explicit_option_a",
@@ -576,7 +618,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "market_data",
+        "surface": "cross_market_decision_intelligence_engine",
+        "expected_surface": "cross_market_decision_intelligence_engine",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_029",
         "binding_source": "explicit_option_a",
@@ -600,7 +644,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "ai_decision_intelligence",
+        "surface": "evidence_confidence_layer",
+        "expected_surface": "evidence_confidence_layer",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_030",
         "binding_source": "explicit_option_a",
@@ -625,6 +671,8 @@
       "live_result": {
         "success": true,
         "surface": "smart_money_actionability_score",
+        "expected_surface": "smart_money_actionability_score",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_033",
         "binding_source": "explicit_option_a",
@@ -648,7 +696,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "ai_decision_intelligence",
+        "surface": "beginner_decision_mode",
+        "expected_surface": "beginner_decision_mode",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_034",
         "binding_source": "explicit_option_a",
@@ -672,7 +722,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "on_chain_metrics_library",
+        "expected_surface": "on_chain_metrics_library",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_036",
         "binding_source": "explicit_option_a",
@@ -696,7 +748,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "entity_adjusted_metrics",
+        "expected_surface": "entity_adjusted_metrics",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_037",
         "binding_source": "explicit_option_a",
@@ -721,6 +775,8 @@
       "live_result": {
         "success": true,
         "surface": "mvrv_mvrv_z_score_suite",
+        "expected_surface": "mvrv_mvrv_z_score_suite",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_040",
         "binding_source": "explicit_option_a",
@@ -744,7 +800,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "exchange_balance_netflow_intelligence",
+        "expected_surface": "exchange_balance_netflow_intelligence",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_044",
         "binding_source": "explicit_option_a",
@@ -769,6 +827,8 @@
       "live_result": {
         "success": true,
         "surface": "etf_flow_intelligence",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_045",
         "binding_source": "explicit_option_a",
@@ -792,7 +852,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "market_data",
+        "surface": "digital_asset_treasury_company_intelligence",
+        "expected_surface": "digital_asset_treasury_company_intelligence",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_046",
         "binding_source": "explicit_option_a",
@@ -817,6 +879,8 @@
       "live_result": {
         "success": true,
         "surface": "spot_market_metrics_suite",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_047",
         "binding_source": "explicit_option_a",
@@ -841,6 +905,8 @@
       "live_result": {
         "success": true,
         "surface": "futures_intelligence_suite",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_048",
         "binding_source": "explicit_option_a",
@@ -865,6 +931,8 @@
       "live_result": {
         "success": true,
         "surface": "derivatives_intelligence",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_049",
         "binding_source": "explicit_option_a",
@@ -888,7 +956,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "onchain_intelligence",
+        "surface": "nvt_fair_value_model",
+        "expected_surface": "nvt_fair_value_model",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_055",
         "binding_source": "explicit_option_a",
@@ -913,6 +983,8 @@
       "live_result": {
         "success": true,
         "surface": "token_screener",
+        "expected_surface": "token_screener",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_056",
         "binding_source": "explicit_option_a",
@@ -936,7 +1008,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "ai_decision_intelligence",
+        "surface": "personalized_research_dashboards",
+        "expected_surface": "personalized_research_dashboards",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_059",
         "binding_source": "explicit_option_a",
@@ -960,7 +1034,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "smart_alerts",
+        "surface": "metric_based_smart_alerts",
+        "expected_surface": "metric_based_smart_alerts",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_060",
         "binding_source": "explicit_option_a",
@@ -985,6 +1061,8 @@
       "live_result": {
         "success": true,
         "surface": "api_data_platform",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_103",
         "binding_source": "explicit_option_a",
@@ -1009,6 +1087,8 @@
       "live_result": {
         "success": true,
         "surface": "sentiment_intelligence",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_129",
         "binding_source": "explicit_option_a",
@@ -1033,6 +1113,8 @@
       "live_result": {
         "success": true,
         "surface": "sentiment_ai",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_175",
         "binding_source": "explicit_option_a",
@@ -1056,7 +1138,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "market_data",
+        "surface": "watchlists",
+        "expected_surface": "watchlists",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_214",
         "binding_source": "explicit_option_a",
@@ -1081,6 +1165,8 @@
       "live_result": {
         "success": true,
         "surface": "real_time_data_freshness_update_assurance",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_245",
         "binding_source": "explicit_option_a",
@@ -1105,6 +1191,8 @@
       "live_result": {
         "success": true,
         "surface": "risk_management_shield",
+        "expected_surface": "risk_management_shield",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_584",
         "binding_source": "explicit_option_a",
@@ -1128,7 +1216,9 @@
       },
       "live_result": {
         "success": true,
-        "surface": "smart_alerts",
+        "surface": "real_time_wallet_alerts",
+        "expected_surface": "real_time_wallet_alerts",
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_629",
         "binding_source": "explicit_option_a",
@@ -1153,6 +1243,8 @@
       "live_result": {
         "success": true,
         "surface": "real_time_data_freshness_update_assurance",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_630",
         "binding_source": "explicit_option_a",
@@ -1177,6 +1269,8 @@
       "live_result": {
         "success": true,
         "surface": "data_source_ingestion_normalization_provenance_reliability_architecture",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_631",
         "binding_source": "explicit_option_a",
@@ -1201,6 +1295,8 @@
       "live_result": {
         "success": true,
         "surface": "ai_output_provenance_compliance_footer",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_642",
         "binding_source": "explicit_option_a",
@@ -1225,6 +1321,8 @@
       "live_result": {
         "success": true,
         "surface": "capacity_load_evidence",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_644",
         "binding_source": "explicit_option_a",
@@ -1249,6 +1347,8 @@
       "live_result": {
         "success": true,
         "surface": "chaos_failure_injection_resilience",
+        "expected_surface": null,
+        "surface_matches_goal": true,
         "backend_module": "cap646.batch01_production",
         "backend_entrypoint": "cap_646",
         "binding_source": "explicit_option_a",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T22:03:42.466578+00:00",
+  "generated_at": "2026-08-31T22:40:12.413232+00:00",
   "scope": "IDs 1-826 institutional completion inventory",
   "summary": {
     "total_ids": 826,
@@ -5050,7 +5050,7 @@
     "630": {
       "capability": "Real_Time_Data_Freshness_Update_Assurance",
       "classification": "PRODUCTION-ALIGNED",
-      "in_hero_evidence": false,
+      "in_hero_evidence": true,
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_630"
