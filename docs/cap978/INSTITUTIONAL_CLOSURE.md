@@ -4,6 +4,18 @@
 **Source PDF:** `Project_978_Capabilities_Grouped_b618.pdf`  
 **Catalog:** `CAP978_CATALOG.json` (646 base + 332 extension)
 
+## Scope tiers (978 vs 826 vs 678)
+
+| Tier | IDs | Count | Purpose |
+|---|---:|---:|---|
+| **Full catalog / `--full` gate** | 1–978 | 978 | Institutional closure baseline (PDF + frozen counts) |
+| **Project delivery scope** | 1–826 | 826 | Agreed import/delivery (`646` base + extension `647–826`) |
+| **CI sample / `sample=True`** | 1–646 + 647–678 | 678 | Fast structural gate (no live network) |
+
+The **152 capabilities** with IDs **827–978** are real `extension_647_978` catalog rows (track T19). They are **outside the 826 delivery scope by design**, not a numbering gap or duplicate set. Full-mode gate (`--full`) scans all 978; routine CI uses the 678 sample.
+
+Constants: `cap978/catalog.py` (`PROJECT_SCOPE_TOTAL`, `POST_PROJECT_EXTENSION_TOTAL`, `CI_SAMPLE_TOTAL`).
+
 ## Verdict
 
 | Classification | Count |
