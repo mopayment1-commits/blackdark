@@ -19,7 +19,7 @@
     {
       "capability_id": 501,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -36,13 +36,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_501 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998255+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Institutional Delivery.",
+      "reclassified_at": "2026-08-31T08:58:47.056220+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 502,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -59,13 +61,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_502 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998264+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Benchmark Administration Metadata.",
+      "reclassified_at": "2026-08-31T08:58:47.056227+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 503,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -82,13 +86,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_503 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998267+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Market Data Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056230+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 504,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -105,13 +111,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_504 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998270+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Unified Exchange Connector Layer.",
+      "reclassified_at": "2026-08-31T08:58:47.056231+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 505,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -128,13 +136,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_505 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998273+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Tick Trade Data.",
+      "reclassified_at": "2026-08-31T08:58:47.056233+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 506,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -151,13 +161,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_506 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998276+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Quote Data.",
+      "reclassified_at": "2026-08-31T08:58:47.056235+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 507,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -174,13 +186,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_507 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998279+00:00"
+      "reclassification_reason": "PRODUCTION-ALIGNED: explicit_option_a binding verified live via cap646.runtime.execute_capability; backend=cap646.fallbacks.resolve_ohlcv_closes; surface=ohlcv; proof=OPTION_A_PRODUCTION_PROOF.json.",
+      "reclassified_at": "2026-08-31T08:58:47.751013+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_a_verified": true
     },
     {
       "capability_id": 508,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -197,13 +211,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_508 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998283+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=L1 Order Book.",
+      "reclassified_at": "2026-08-31T08:58:47.056236+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 509,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -220,13 +236,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_509 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998286+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=L2 Order Book.",
+      "reclassified_at": "2026-08-31T08:58:47.056238+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 510,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -243,13 +261,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_510 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998289+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=L3 Order Book.",
+      "reclassified_at": "2026-08-31T08:58:47.056239+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 511,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -266,13 +286,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_511 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998292+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Options Market Data.",
+      "reclassified_at": "2026-08-31T08:58:47.056241+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 512,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -289,13 +311,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_512 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998296+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Funding / OI / Liquidation Metrics.",
+      "reclassified_at": "2026-08-31T08:58:47.056242+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 513,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -312,13 +336,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_513 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998299+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Asset & Symbol Metadata.",
+      "reclassified_at": "2026-08-31T08:58:47.056244+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 514,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -335,13 +361,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_514 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998302+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Historical Flat Files.",
+      "reclassified_at": "2026-08-31T08:58:47.056245+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 515,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -358,13 +386,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_515 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998305+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=REST API.",
+      "reclassified_at": "2026-08-31T08:58:47.056247+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 516,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -381,8 +411,10 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_516 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998308+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=WebSocket Streaming.",
+      "reclassified_at": "2026-08-31T08:58:47.056248+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 517,
@@ -411,7 +443,7 @@
     {
       "capability_id": 518,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -428,13 +460,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_518 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998311+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=MCP for AI.",
+      "reclassified_at": "2026-08-31T08:58:47.056250+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 519,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -451,13 +485,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_519 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998314+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Exchange Rates / VWAP.",
+      "reclassified_at": "2026-08-31T08:58:47.056251+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 520,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -474,13 +510,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_520 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998317+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Indexes.",
+      "reclassified_at": "2026-08-31T08:58:47.056253+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 521,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -497,13 +535,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_521 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998320+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Volatility Index.",
+      "reclassified_at": "2026-08-31T08:58:47.056254+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 522,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -520,13 +560,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_522 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998323+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=EMS Integration Boundary.",
+      "reclassified_at": "2026-08-31T08:58:47.056256+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 523,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -543,13 +585,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_523 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998326+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Data Health / SLA Monitoring.",
+      "reclassified_at": "2026-08-31T08:58:47.056257+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 524,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -566,13 +610,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_524 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998329+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Symbol Mapping Engine.",
+      "reclassified_at": "2026-08-31T08:58:47.056259+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 525,
       "batch": "batch_06",
-      "classification": "REUSED-LINK",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "deferred",
       "binding_kind": "heroes_wrapper_traced",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -596,12 +642,16 @@
         },
         "heroes_delegate": true
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "REUSED-LINK",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.run_backtest_74; production=data_provenance_score.compute_data_provenance_score (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.284275+00:00"
     },
     {
       "capability_id": 526,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -618,13 +668,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_526 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998333+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=AI Market Data Grounding Layer.",
+      "reclassified_at": "2026-08-31T08:58:47.056261+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 527,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -641,8 +693,10 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_527 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998336+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquidation Heatmap.",
+      "reclassified_at": "2026-08-31T08:58:47.056262+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 528,
@@ -671,7 +725,7 @@
     {
       "capability_id": 529,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -688,13 +742,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_529 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998339+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquidation Cascade Model.",
+      "reclassified_at": "2026-08-31T08:58:47.056264+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 530,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -711,13 +767,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_530 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998342+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Global Liquidation Metrics.",
+      "reclassified_at": "2026-08-31T08:58:47.056266+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 531,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -734,13 +792,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_531 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998345+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Open Interest.",
+      "reclassified_at": "2026-08-31T08:58:47.056267+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 532,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -757,13 +817,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_532 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998348+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Funding Rates.",
+      "reclassified_at": "2026-08-31T08:58:47.056269+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 533,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -780,13 +842,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_533 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998352+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Order Flow Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056270+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 534,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -803,13 +867,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_534 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998355+00:00"
+      "reclassification_reason": "PRODUCTION-ALIGNED: explicit_option_a binding verified live via cap646.runtime.execute_capability; backend=cap646.data_spine.bucketed_cvd_report; surface=bucketed_cvd; proof=OPTION_A_PRODUCTION_PROOF.json.",
+      "reclassified_at": "2026-08-31T08:58:47.751049+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_a_verified": true
     },
     {
       "capability_id": 535,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -826,13 +892,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_535 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998358+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Whale vs Retail Flow.",
+      "reclassified_at": "2026-08-31T08:58:47.056272+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 536,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -849,13 +917,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_536 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998361+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Slippage Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056273+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 537,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -872,13 +942,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_537 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998364+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Global Order Book Metrics.",
+      "reclassified_at": "2026-08-31T08:58:47.056275+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 538,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -895,13 +967,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_538 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998367+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Order Book Imbalance.",
+      "reclassified_at": "2026-08-31T08:58:47.056276+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 539,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -918,13 +992,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_539 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998370+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquidity Zones.",
+      "reclassified_at": "2026-08-31T08:58:47.056278+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 540,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -941,13 +1017,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_540 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998374+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Bot Activity Detection.",
+      "reclassified_at": "2026-08-31T08:58:47.056280+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 541,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -964,13 +1042,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_541 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998377+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Market Positioning.",
+      "reclassified_at": "2026-08-31T08:58:47.056281+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 542,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -987,13 +1067,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_542 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998380+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquidation Pressure Score.",
+      "reclassified_at": "2026-08-31T08:58:47.056283+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 543,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1010,13 +1092,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_543 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998383+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Orderflow Anomaly Detection.",
+      "reclassified_at": "2026-08-31T08:58:47.056284+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 544,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1033,13 +1117,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_544 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998386+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=API Indicator Platform.",
+      "reclassified_at": "2026-08-31T08:58:47.056286+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 545,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1056,13 +1142,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_545 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998389+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Trader Cohort Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056287+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 546,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1079,13 +1167,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_546 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998392+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Derivatives Decision Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056289+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 547,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1102,13 +1192,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_547 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998395+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=High-Resolution Multi-Pane Charts.",
+      "reclassified_at": "2026-08-31T08:58:47.056290+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 548,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1125,13 +1217,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_548 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998399+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Derivatives Dashboard.",
+      "reclassified_at": "2026-08-31T08:58:47.056292+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 549,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1148,13 +1242,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_549 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998402+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Funding Rate Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056293+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 550,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1171,13 +1267,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_550 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998405+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Open Interest Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056295+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 551,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1194,13 +1292,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_551 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998408+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquidation Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056296+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 552,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1217,13 +1317,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_552 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998412+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Futures Volume.",
+      "reclassified_at": "2026-08-31T08:58:47.056298+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 553,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1240,13 +1342,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_553 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998415+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Basis Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056299+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 554,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1263,13 +1367,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_554 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998419+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Spot Market Data.",
+      "reclassified_at": "2026-08-31T08:58:47.056301+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 555,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1286,13 +1392,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_555 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998422+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Options Analytics.",
+      "reclassified_at": "2026-08-31T08:58:47.056302+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 556,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1309,13 +1417,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_556 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998425+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Options IV Surface.",
+      "reclassified_at": "2026-08-31T08:58:47.056304+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 557,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1332,13 +1442,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_557 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998428+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Options Skew.",
+      "reclassified_at": "2026-08-31T08:58:47.056305+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 558,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1355,13 +1467,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_558 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998431+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Options Term Structure.",
+      "reclassified_at": "2026-08-31T08:58:47.056307+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 559,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1378,13 +1492,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_559 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998435+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=TradFi Context.",
+      "reclassified_at": "2026-08-31T08:58:47.056308+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 560,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1401,13 +1517,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_560 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998438+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Multi-Indicator Workspace.",
+      "reclassified_at": "2026-08-31T08:58:47.056310+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 561,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1424,13 +1542,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_561 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998441+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Real-Time Prices.",
+      "reclassified_at": "2026-08-31T08:58:47.056311+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 562,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1447,13 +1567,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_562 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998444+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Historical Data.",
+      "reclassified_at": "2026-08-31T08:58:47.056313+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 563,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1470,13 +1592,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_563 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998447+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=API Data Access.",
+      "reclassified_at": "2026-08-31T08:58:47.056314+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 564,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1493,13 +1617,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_564 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998451+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=News Context.",
+      "reclassified_at": "2026-08-31T08:58:47.056316+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 565,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1516,13 +1642,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_565 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998454+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Asset Correlation.",
+      "reclassified_at": "2026-08-31T08:58:47.056317+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 566,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1539,13 +1667,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_566 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998457+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Derivatives Regime Engine.",
+      "reclassified_at": "2026-08-31T08:58:47.056319+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 567,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1562,13 +1692,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_567 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998460+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Market Decision Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.056320+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 568,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1585,13 +1717,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_568 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998463+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Security_First_Architecture.",
+      "reclassified_at": "2026-08-31T08:58:47.056322+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 569,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1608,13 +1742,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_569 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998467+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=API_Security_Encryption.",
+      "reclassified_at": "2026-08-31T08:58:47.056323+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 570,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1631,13 +1767,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_570 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998470+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=High_Availability_Architecture.",
+      "reclassified_at": "2026-08-31T08:58:47.056324+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 571,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1654,13 +1792,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_571 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998473+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Infrastructure_Uptime_Shield.",
+      "reclassified_at": "2026-08-31T08:58:47.056326+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 572,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1677,13 +1817,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_572 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998476+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Institutional_Data_Architecture.",
+      "reclassified_at": "2026-08-31T08:58:47.056327+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 573,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1700,13 +1842,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_573 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998480+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Flexible_Connector_Microservice.",
+      "reclassified_at": "2026-08-31T08:58:47.056329+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 574,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1723,13 +1867,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_574 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998483+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Institutional_API_Gateway.",
+      "reclassified_at": "2026-08-31T08:58:47.056330+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 575,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1746,13 +1892,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_575 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998486+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=API_Data_Pipe.",
+      "reclassified_at": "2026-08-31T08:58:47.056332+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 576,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1769,13 +1917,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_576 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998489+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Developer_SDK.",
+      "reclassified_at": "2026-08-31T08:58:47.056333+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 577,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1792,13 +1942,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_577 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998493+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Pro_Developer_Sandbox.",
+      "reclassified_at": "2026-08-31T08:58:47.056334+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 578,
       "batch": "batch_06",
-      "classification": "REUSED-LINK",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.execution_rejected_layer",
@@ -1820,12 +1972,16 @@
           "capability_id": 578
         }
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "REUSED-LINK",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.execution_rejected_layer.whale_behavior_analysis_216; production=bd_platform.portfolio_rebalancer.portfolio_snapshot (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.284286+00:00"
     },
     {
       "capability_id": 579,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1842,13 +1998,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_579 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998496+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Global_Asset_Tracker.",
+      "reclassified_at": "2026-08-31T08:58:47.056336+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 580,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1865,13 +2023,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_580 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998499+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Multi_Account_Sync.",
+      "reclassified_at": "2026-08-31T08:58:47.056337+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 581,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1888,13 +2048,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_581 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998503+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=On_Chain_Balance_Monitor.",
+      "reclassified_at": "2026-08-31T08:58:47.056339+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 582,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1911,13 +2073,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_582 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998506+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Profitability_Analyzer.",
+      "reclassified_at": "2026-08-31T08:58:47.056340+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 583,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1934,13 +2098,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_583 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998509+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Margin_Risk_Calculator.",
+      "reclassified_at": "2026-08-31T08:58:47.056341+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 584,
       "batch": "batch_06",
-      "classification": "REUSED-LINK",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "delegated",
       "binding_kind": "heroes_wrapper_traced",
       "underlying_module": "bd_platform.news_classifier",
@@ -1958,12 +2124,16 @@
         ],
         "heroes_delegate": true
       },
-      "source_branch": "origin/main"
+      "source_branch": "origin/main",
+      "prior_classification": "REUSED-LINK",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.news_classifier.coindesk_feed; production=risk_manager.risk_status (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.284289+00:00"
     },
     {
       "capability_id": 585,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -1980,13 +2150,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_585 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998512+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Volatility_Scoring_System.",
+      "reclassified_at": "2026-08-31T08:58:47.056343+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 586,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2003,13 +2175,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_586 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998516+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Volatility_Surface_Analyzer.",
+      "reclassified_at": "2026-08-31T08:58:47.056344+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 587,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2026,13 +2200,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_587 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998519+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Delta_Neutral_Calculator.",
+      "reclassified_at": "2026-08-31T08:58:47.056346+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 588,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2049,13 +2225,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_588 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998523+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=High_Precision_Backtesting.",
+      "reclassified_at": "2026-08-31T08:58:47.056347+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 589,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2072,13 +2250,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_589 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998526+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Strategy_Vetting_Algorithm.",
+      "reclassified_at": "2026-08-31T08:58:47.056349+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 590,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2095,13 +2275,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_590 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998529+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=AI_Quant_Rating_Engine.",
+      "reclassified_at": "2026-08-31T08:58:47.056350+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 591,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2118,13 +2300,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_591 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998533+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Sentiment_Analysis_Engine.",
+      "reclassified_at": "2026-08-31T08:58:47.056352+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 592,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2141,13 +2325,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_592 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998536+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Social_Sentiment_Engine.",
+      "reclassified_at": "2026-08-31T08:58:47.056353+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 593,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2164,13 +2350,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_593 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998540+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Social_Hype_Analyzer.",
+      "reclassified_at": "2026-08-31T08:58:47.056355+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 594,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2187,13 +2375,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_594 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998543+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Narrative_Alert_System.",
+      "reclassified_at": "2026-08-31T08:58:47.056356+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 595,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2210,13 +2400,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_595 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998546+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=AI_Digest_Generator.",
+      "reclassified_at": "2026-08-31T08:58:47.056357+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 596,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2233,13 +2425,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_596 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998550+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=AI_Agent_Consultant.",
+      "reclassified_at": "2026-08-31T08:58:47.056359+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 597,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2256,13 +2450,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_597 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998553+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Natural_Language_Interpreter.",
+      "reclassified_at": "2026-08-31T08:58:47.056360+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 598,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2279,13 +2475,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_598 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998556+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Wallet_Shadowing.",
+      "reclassified_at": "2026-08-31T08:58:47.056362+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 599,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2302,13 +2500,15 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_599 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998560+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Entity_Tagging_System.",
+      "reclassified_at": "2026-08-31T08:58:47.056363+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 600,
       "batch": "batch_06",
-      "classification": "WRAPPER-ONLY-UNVERIFIED",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
@@ -2325,8 +2525,10 @@
       },
       "source_branch": "capabilities-826-import",
       "template_seed_stub": true,
-      "reclassification_reason": "WRAPPER-ONLY-UNVERIFIED: TEMPLATE-SEED-STUB — generated _base()+_metric() surface; static metric from data/legal_retail_commercial_seed.json cap_{id}; no unique domain logic; production /api/cap646 uses cap646 backend_registry handlers, not this template binding. batch=06; layer=bd_platform.institutional_delivery_intelligence_layer; cap_600 seed metric.",
-      "reclassified_at": "2026-08-30T22:48:25.998563+00:00"
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Whale_Clustering_Engine.",
+      "reclassified_at": "2026-08-31T08:58:47.056365+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     }
   ],
   "template_seed_stub_reclassified_count": 95,

@@ -1,0 +1,14 @@
+{
+  "reclassified_at": "2026-08-31T08:58:49.039655+00:00",
+  "total": 5,
+  "classification": "EXTENSION-PENDING-CAP646",
+  "ids": [
+    704,
+    708,
+    812,
+    814,
+    815
+  ],
+  "reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
+  "verification_path": "Register in cap646 catalog + backend_registry OR CAP978 extension closure track"
+}

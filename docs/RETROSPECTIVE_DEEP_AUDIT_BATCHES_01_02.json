@@ -20,7 +20,7 @@
     {
       "capability_id": 638,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -53,12 +53,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.build_contradiction_replay_254; production=oracle_track_record.public_track_record (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271281+00:00"
     },
     {
       "capability_id": 640,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -91,12 +95,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.compute_half_life_clock_256; production=oracle_track_record.public_track_record (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271292+00:00"
     },
     {
       "capability_id": 5,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.market_analysis_layer",
@@ -129,7 +137,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.market_analysis_layer.compute_orderbook_skew_108; production=bd_platform.onchain_hub.dexscreener_pairs (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271296+00:00"
     },
     {
       "capability_id": 641,
@@ -172,7 +184,7 @@
     {
       "capability_id": 644,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -205,12 +217,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.corpus_passport_status_260; production=scale_readiness.scale_readiness_report (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271298+00:00"
     },
     {
       "capability_id": 33,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.retail_intelligence_layer",
@@ -243,12 +259,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.retail_intelligence_layer.build_one_clear_answer_63; production=whale_tracker.get_latest_whale_alerts (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271301+00:00"
     },
     {
       "capability_id": 111,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.market_analysis_layer",
@@ -281,12 +301,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.market_analysis_layer.compute_spx_correlation_111; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271303+00:00"
     },
     {
       "capability_id": 1,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.footprint_analytics",
@@ -319,7 +343,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=bd_platform.footprint_analytics.footprint_snapshot; production=whale_tracker.get_latest_whale_alerts (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271305+00:00"
     },
     {
       "capability_id": 2,
@@ -366,7 +394,7 @@
     {
       "capability_id": 3,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.free_tier_capabilities",
@@ -399,12 +427,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.free_tier_capabilities.wallet_profiler_for_token; production=bd_platform.onchain_hub.debank_wallet (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271307+00:00"
     },
     {
       "capability_id": 4,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.free_tier_capabilities",
@@ -437,12 +469,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.free_tier_capabilities.smart_money_tracking; production=whale_tracker.get_latest_whale_alerts (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271308+00:00"
     },
     {
       "capability_id": 14,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "market_context",
@@ -474,12 +510,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=market_context.whale_alert_message; production=bd_platform.onchain_hub.debank_wallet (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271310+00:00"
     },
     {
       "capability_id": 44,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_analysis_layer",
@@ -512,12 +552,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.intelligence_analysis_layer.analyze_arbitrage_opportunity_153; production=bd_platform.portfolio_rebalancer.portfolio_snapshot (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271313+00:00"
     },
     {
       "capability_id": 47,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.whales_institutional_layer",
@@ -550,7 +594,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.whales_institutional_layer.build_exchange_health_80; production=market_context.probe_price_sources (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271314+00:00"
     },
     {
       "capability_id": 60,
@@ -756,7 +804,7 @@
     {
       "capability_id": 330,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "trade_simulator",
@@ -789,12 +837,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=trade_simulator.simulate_spot_trade; production=market_context.probe_price_sources (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271317+00:00"
     },
     {
       "capability_id": 356,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -827,12 +879,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.ingest_cointelegraph_rss_244; production=cap646.fallbacks.resolve_dex_volume_snapshot (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271319+00:00"
     },
     {
       "capability_id": 637,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -865,12 +921,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.build_kill_rate_widget_253; production=trust_pulse.build_trust_pulse (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271321+00:00"
     },
     {
       "capability_id": 639,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -903,12 +963,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.committee_one_pager_status_255; production=net_edge_truth.compute_net_edge_truth (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271323+00:00"
     },
     {
       "capability_id": 642,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -941,12 +1005,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.since_you_left_top3_258; production=data_provenance_score.compute_data_provenance_score (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271324+00:00"
     },
     {
       "capability_id": 6,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.market_analysis_layer",
@@ -979,7 +1047,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.market_analysis_layer.compute_orderbook_skew_108; production=whale_tracker.get_latest_whale_alerts (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271326+00:00"
     },
     {
       "capability_id": 73,
@@ -1180,7 +1252,7 @@
     {
       "capability_id": 279,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -1213,12 +1285,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.build_share_card_68; production=onchain_tracker.build_onchain_context_safe (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271328+00:00"
     },
     {
       "capability_id": 299,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.news_classifier",
@@ -1250,12 +1326,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_GENERIC_HANDLER; audit=bd_platform.news_classifier.classify_headlines; production=trust_pulse.build_trust_pulse (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271330+00:00"
     },
     {
       "capability_id": 339,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -1288,12 +1368,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.apply_opportunity_filter_70; production=data_provenance_score.compute_data_provenance_score (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271332+00:00"
     },
     {
       "capability_id": 437,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.correlation_mindshare",
@@ -1326,12 +1410,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.correlation_mindshare.compute_mindshare_correlation_288; production=bd_platform.onchain_hub.defillama_raises (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271334+00:00"
     },
     {
       "capability_id": 441,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "delegated",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_analysis_layer",
@@ -1364,12 +1452,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "DEFERRED/DELEGATED",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.intelligence_analysis_layer.stat_arb_insight_155; production=trust_pulse.build_trust_pulse (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271335+00:00"
     },
     {
       "capability_id": 458,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.whales_institutional_layer",
@@ -1402,12 +1494,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.whales_institutional_layer.build_methodology_docs_86; production=trust_pulse.build_trust_pulse (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271337+00:00"
     },
     {
       "capability_id": 525,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -1440,12 +1536,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.run_backtest_74; production=data_provenance_score.compute_data_provenance_score (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271339+00:00"
     },
     {
       "capability_id": 578,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.execution_rejected_layer",
@@ -1478,12 +1578,16 @@
         "independent_test": false,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "DEFERRED/DELEGATED",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.execution_rejected_layer.whale_behavior_analysis_216; production=bd_platform.portfolio_rebalancer.portfolio_snapshot (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271340+00:00"
     },
     {
       "capability_id": 584,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.news_classifier",
@@ -1516,12 +1620,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.news_classifier.coindesk_feed; production=risk_manager.risk_status (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271342+00:00"
     },
     {
       "capability_id": 629,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "regulatory_compliance_guard",
@@ -1553,7 +1661,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=regulatory_compliance_guard.compliant_oracle_sentence; production=instant_alert_engine.engine_stats (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271344+00:00"
     },
     {
       "capability_id": 631,
@@ -1634,7 +1746,7 @@
     {
       "capability_id": 645,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.data_sources_layer",
@@ -1667,12 +1779,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.data_sources_layer.compute_opportunity_score_150; production=security_posture.security_posture_report (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271346+00:00"
     },
     {
       "capability_id": 704,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "EXTENSION-PENDING-CAP646",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.free_tier_capabilities",
@@ -1705,12 +1821,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
+      "reclassified_at": "2026-08-31T08:58:48.486703+00:00"
     },
     {
       "capability_id": 708,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "EXTENSION-PENDING-CAP646",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_analysis_layer",
@@ -1743,7 +1862,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
+      "reclassified_at": "2026-08-31T08:58:48.486712+00:00"
     },
     {
       "capability_id": 725,
@@ -1786,7 +1908,7 @@
     {
       "capability_id": 7,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.market_analysis_layer",
@@ -1819,7 +1941,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.market_analysis_layer.compute_orderbook_skew_108; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271348+00:00"
     },
     {
       "capability_id": 49,
@@ -1904,7 +2030,7 @@
     {
       "capability_id": 55,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "due_diligence_bundle",
@@ -1937,12 +2063,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=due_diligence_bundle.build_full_due_diligence_bundle; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271350+00:00"
     },
     {
       "capability_id": 62,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.institutional_b2b_layer",
@@ -1975,7 +2105,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.institutional_b2b_layer.build_ic_report_87; production=ml.market_replay_bootstrap.bootstrap_market_replay_dataset (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271351+00:00"
     },
     {
       "capability_id": 118,
@@ -2019,7 +2153,7 @@
     {
       "capability_id": 214,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -2052,7 +2186,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.build_whale_narrative_71; production=blackdark.canonical.layer.get_canonical_layer (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271353+00:00"
     },
     {
       "capability_id": 245,
@@ -2095,7 +2233,7 @@
     {
       "capability_id": 382,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "heroes_quality",
@@ -2127,12 +2265,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=heroes_quality.heroes_quality_manifest; production=blackdark.canonical.layer.get_canonical_layer (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271355+00:00"
     },
     {
       "capability_id": 812,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "EXTENSION-PENDING-CAP646",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "heroes_quality",
@@ -2165,12 +2307,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
+      "reclassified_at": "2026-08-31T08:58:48.486716+00:00"
     },
     {
       "capability_id": 814,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "EXTENSION-PENDING-CAP646",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "heroes_quality",
@@ -2203,12 +2348,15 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
+      "reclassified_at": "2026-08-31T08:58:48.486717+00:00"
     },
     {
       "capability_id": 815,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "EXTENSION-PENDING-CAP646",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "oracle_audit_chain",
@@ -2241,7 +2389,10 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
+      "reclassified_at": "2026-08-31T08:58:48.486718+00:00"
     },
     {
       "capability_id": 9,
@@ -2284,7 +2435,7 @@
     {
       "capability_id": 10,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "instant_alert_engine",
@@ -2316,12 +2467,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=instant_alert_engine.engine_stats; production=bd_platform.onchain_hub.debank_wallet (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271357+00:00"
     },
     {
       "capability_id": 11,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "arbitrage_service",
@@ -2354,12 +2509,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=arbitrage_service.scan_arbitrage_opportunities; production=bd_platform.onchain_hub.debank_wallet (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271359+00:00"
     },
     {
       "capability_id": 12,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.whales_institutional_layer",
@@ -2392,12 +2551,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.whales_institutional_layer.evaluate_liquidation_alert_82; production=bd_platform.onchain_hub.debank_wallet (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271360+00:00"
     },
     {
       "capability_id": 13,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -2430,7 +2593,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.evaluate_flexible_alert_75; production=bd_platform.onchain_hub.debank_wallet (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271362+00:00"
     },
     {
       "capability_id": 15,
@@ -2473,7 +2640,7 @@
     {
       "capability_id": 17,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "alert_service",
@@ -2506,7 +2673,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=alert_service.subscribe_alerts; production=instant_alert_engine.engine_stats (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271364+00:00"
     },
     {
       "capability_id": 18,
@@ -2552,7 +2723,7 @@
     {
       "capability_id": 19,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -2585,12 +2756,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.get_alert_policy_75; production=bd_platform.onchain_hub.debank_wallet (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271366+00:00"
     },
     {
       "capability_id": 20,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -2621,12 +2796,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.append_audit_event_242; production=bd_platform.portfolio_rebalancer.portfolio_snapshot (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271367+00:00"
     },
     {
       "capability_id": 21,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.alert_orchestration",
@@ -2659,12 +2838,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.alert_orchestration.alert_orchestration_status_18; production=scale_readiness.scale_readiness_report (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271369+00:00"
     },
     {
       "capability_id": 22,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -2697,12 +2880,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.list_etherscan_watchlist_246; production=bd_platform.onchain_hub.debank_wallet (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271370+00:00"
     },
     {
       "capability_id": 25,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.footprint_analytics",
@@ -2735,12 +2922,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_GENERIC_HANDLER; audit=bd_platform.footprint_analytics.footprint_snapshot; production=trust_pulse.build_trust_pulse (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271372+00:00"
     },
     {
       "capability_id": 27,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -2773,12 +2964,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.evaluate_flexible_alert_75; production=whale_tracker.get_latest_whale_alerts (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271373+00:00"
     },
     {
       "capability_id": 28,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.retail_intelligence_layer",
@@ -2810,12 +3005,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.retail_intelligence_layer.evaluate_contextual_alert_65; production=whale_tracker.get_latest_whale_alerts (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271375+00:00"
     },
     {
       "capability_id": 29,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.retail_intelligence_layer",
@@ -2845,12 +3044,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.retail_intelligence_layer.compare_discipline_66; production=trust_pulse.build_trust_pulse (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271377+00:00"
     },
     {
       "capability_id": 30,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -2883,12 +3086,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.evaluate_flexible_alert_75; production=data_provenance_score.compute_data_provenance_score (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271378+00:00"
     },
     {
       "capability_id": 34,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.market_analysis_layer",
@@ -2921,12 +3128,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.market_analysis_layer.compute_orderbook_skew_108; production=trust_pulse.build_trust_pulse (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271380+00:00"
     },
     {
       "capability_id": 36,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "risk_manager",
@@ -2957,12 +3168,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_OTHER; audit=risk_manager.is_trading_frozen; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271381+00:00"
     },
     {
       "capability_id": 37,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -2995,12 +3210,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.evaluate_flexible_alert_75; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271383+00:00"
     },
     {
       "capability_id": 40,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.arbitrage_portfolio_ux_layer",
@@ -3033,12 +3252,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.arbitrage_portfolio_ux_layer.analyze_liquidity_capacity_189; production=bd_platform.onchain_hub.lookintobitcoin_macro (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.271385+00:00"
     },
     {
       "capability_id": 45,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.free_tier_capabilities",
@@ -3071,12 +3294,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.free_tier_capabilities.smart_money_leaderboard; production=market_context.probe_price_sources (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271386+00:00"
     },
     {
       "capability_id": 46,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.slippage_tolerance_optimizer",
@@ -3109,12 +3336,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_GENERIC_HANDLER; audit=bd_platform.slippage_tolerance_optimizer.optimize_slippage_tolerance; production=market_context.probe_price_sources (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271388+00:00"
     },
     {
       "capability_id": 48,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -3147,12 +3378,16 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.security_trust_data_layer.ingest_bybit_price_243; production=bd_platform.derivatives_hub.derivatives_overview (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.271389+00:00"
     },
     {
       "capability_id": 56,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "wrapper_only_unverified",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.market_analysis_layer",
@@ -3185,7 +3420,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.market_analysis_layer.attach_market_health_bundle_106_112_114; production=oracle_track_record.public_track_record (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271391+00:00"
     },
     {
       "capability_id": 59,
@@ -4294,7 +4533,7 @@
     {
       "capability_id": 111,
       "batch": "batch_01",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "verified_deep",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.market_analysis_layer",
@@ -4327,7 +4566,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.market_analysis_layer.compute_spx_correlation_111; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.271394+00:00"
     },
     {
       "capability_id": 112,
