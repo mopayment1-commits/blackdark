@@ -1,0 +1,213 @@
+{
+  "feature_id": 408,
+  "absorbed_feature_ref": 459,
+  "title": "Smart Money Flow Tracker",
+  "absorbed_title": "Age Consumed / Dormancy Intelligence",
+  "standalone": false,
+  "merged_into": "On-Chain Intelligence / Smart Money Flow Tracker",
+  "sprint": 2,
+  "priority": "medium",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "chain_methodologies": {
+    "bitcoin": {
+      "model": "UTXO",
+      "age_consumed_formula": "sum(coin_age_days × amount_btc) for spent outputs",
+      "dormancy_formula": "weighted_avg_days_since_last_move × amount",
+      "notes": "UTXO coin-age destroyed on spend; dormancy tracks last-move timestamp per output"
+    },
+    "ethereum": {
+      "model": "Account",
+      "age_consumed_formula": "sum(token_age_days × amount_eth) for transfers above dust threshold",
+      "dormancy_formula": "days_since_last_transfer × transfer_amount",
+      "notes": "Account model uses last-transfer timestamp; ERC-20 uses token contract age"
+    },
+    "solana": {
+      "model": "Account",
+      "age_consumed_formula": "sum(slot_age × lamports) / 1e9 for non-dust transfers",
+      "dormancy_formula": "slot_to_days(last_active_slot) × amount",
+      "notes": "Slot-based age converted to days at ~2.5 slots/sec"
+    }
+  },
+  "transfer_filtering": {
+    "dust_threshold_btc": 0.0001,
+    "dust_threshold_eth": 0.001,
+    "dust_threshold_usd": 10.0,
+    "exclude_exchange_internal": true,
+    "exchange_internal_labels": ["binance_hot", "coinbase_custody", "kraken_cold"],
+    "exclude_contract_self_transfers": true
+  },
+  "historical_validation": {
+    "lookback_days": 365,
+    "min_spike_samples": 12,
+    "price_correlation_target": 0.55,
+    "validated": true,
+    "backtest_summary": "Dormancy spikes >80 score showed 0.62 correlation with 7d price moves (n=48)"
+  },
+  "assets": {
+    "BTC": {
+      "chain": "bitcoin",
+      "age_consumed_24h": 125000,
+      "age_consumed_baseline": 45000,
+      "dormant_coins_moved_btc": 8200,
+      "avg_dormancy_days": 1840,
+      "whale_threshold_btc": 100,
+      "largest_transfer_btc": 2500,
+      "largest_transfer_dormancy_days": 3650,
+      "price_change_7d_pct": -4.2,
+      "sopr_7d_avg": 0.982,
+      "sopr_daily": [
+        {"sopr": 1.01, "sample_transfer": {"label": "whale", "transfer_type": "transfer"}},
+        {"sopr": 0.99, "sample_transfer": {"label": "retail", "transfer_type": "transfer"}},
+        {"sopr": 0.97, "sample_transfer": {"label": "binance_cold", "transfer_type": "transfer"}},
+        {"sopr": 0.98},
+        {"sopr": 0.96},
+        {"sopr": 0.99},
+        {"sopr": 0.98}
+      ]
+    },
+    "ETH": {
+      "chain": "ethereum",
+      "age_consumed_24h": 890000,
+      "age_consumed_baseline": 320000,
+      "dormant_coins_moved_eth": 45000,
+      "avg_dormancy_days": 920,
+      "whale_threshold_eth": 1000,
+      "largest_transfer_eth": 12000,
+      "largest_transfer_dormancy_days": 2100,
+      "price_change_7d_pct": 2.1,
+      "sopr_7d_avg": 1.015,
+      "sopr_daily": [
+        {"sopr": 1.02},
+        {"sopr": 1.01},
+        {"sopr": 1.03},
+        {"sopr": 1.00},
+        {"sopr": 1.02},
+        {"sopr": 1.01},
+        {"sopr": 1.02}
+      ]
+    }
+  },
+  "sopr_methodology_488": {
+    "feature_ref": 488,
+    "formula": "realized_value / acquisition_value for spent outputs",
+    "transfer_filtering": "internal, exchange cold wallet, staking deposit, contract interaction excluded",
+    "lookback_days": 7
+  },
+  "sopr_filtering_488": {
+    "exclude_transfer_types": ["internal_transfer", "staking_deposit", "contract_interaction"],
+    "exchange_cold_wallet_labels": ["binance_cold", "coinbase_custody", "kraken_cold"]
+  },
+  "sopr_alerts_488": {
+    "portfolio_exposure_threshold_pct": 20
+  },
+  "portfolio_asset_exposure": {
+    "demo_portfolio": {
+      "BTC": 31.2,
+      "ETH": 20.8
+    }
+  },
+  "accumulation_distribution_590": {
+    "thresholds": {
+      "accumulation_inflow_usd": 10000000,
+      "distribution_outflow_usd": -10000000,
+      "persistence_days_min": 3
+    },
+    "false_positive_review": {
+      "last_review": "2026-08-20",
+      "false_positive_rate_pct": 8.5,
+      "review_cycle_days": 30
+    }
+  },
+  "accumulation_assets": {
+    "BTC": {
+      "net_flow_30d_usd": 25000000,
+      "persistence_days": 5,
+      "wallet_cluster": "institutional_cluster_a"
+    },
+    "ETH": {
+      "net_flow_30d_usd": -8000000,
+      "persistence_days": 2,
+      "wallet_cluster": "whale_cluster_b"
+    }
+  },
+  "historical_trend_593": {
+    "classification_version": "1.0",
+    "high_activity_threshold_usd": 50000000
+  },
+    "historical_flows": {
+    "BTC": {
+      "daily_net_flow_usd": [45000000, 52000000, 48000000, null, 55000000, 60000000, 58000000],
+      "missing_days": 1,
+      "missing_visible": true
+    },
+    "ETH": {
+      "daily_net_flow_usd": [12000000, 8000000, 5000000, 3000000, 2000000],
+      "missing_days": 0,
+      "missing_visible": true
+    }
+  },
+  "smart_money_tracking_598": {
+    "alert_threshold_usd": 1000000,
+    "missed_event_recovery": "backfill_on_reconnect",
+    "latency": {
+      "target_ms": 5000,
+      "last_event_latency_ms": 1200
+    }
+  },
+  "watchlists": {
+    "default": {
+      "name": "Default Smart Money Watchlist",
+      "wallet_count": 3,
+      "events": [
+        {
+          "event_id": "evt-001",
+          "wallet_address": "0xwhale001",
+          "entity_id": "entity_whale_alpha",
+          "entity_label": "Whale Alpha",
+          "classification": "institutional",
+          "movement_type": "inflow",
+          "value_usd": 5200000,
+          "asset": "ETH",
+          "timestamp": "2026-08-27T12:00:00Z",
+          "tx_hash": "0xabc001"
+        },
+        {
+          "event_id": "evt-002",
+          "wallet_address": "0xwhale002",
+          "entity_id": "entity_fund_beta",
+          "entity_label": "Fund Beta",
+          "classification": "fund",
+          "movement_type": "outflow",
+          "value_usd": 3100000,
+          "asset": "BTC",
+          "timestamp": "2026-08-27T11:45:00Z",
+          "tx_hash": "0xabc002"
+        },
+        {
+          "event_id": "evt-001",
+          "wallet_address": "0xwhale001",
+          "entity_id": "entity_whale_alpha",
+          "entity_label": "Whale Alpha",
+          "classification": "institutional",
+          "movement_type": "inflow",
+          "value_usd": 5200000,
+          "asset": "ETH",
+          "timestamp": "2026-08-27T12:00:00Z",
+          "tx_hash": "0xabc001"
+        },
+        {
+          "wallet_address": "0xwhale003",
+          "entity_id": "entity_unknown",
+          "entity_label": "Unclassified",
+          "classification": "unknown",
+          "movement_type": "transfer",
+          "value_usd": 500000,
+          "asset": "SOL",
+          "timestamp": "2026-08-27T11:30:00Z",
+          "tx_hash": "0xabc003"
+        }
+      ]
+    }
+  }
+}

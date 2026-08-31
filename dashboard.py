@@ -706,6 +706,60 @@ async def institutional_audit_middleware(request: Request, call_next):
     return response
 
 
+@app.middleware("http")
+async def intelligence_ledger_evidence_middleware(request: Request, call_next):
+    """Attach evidence metadata + compliance footer to Intelligence Ledger JSON responses."""
+    response = await call_next(request)
+    path = request.url.path or ""
+    if (
+        not path.startswith("/api/platform/intelligence-ledger")
+        or response.status_code != 200
+        or "application/json" not in (response.headers.get("content-type") or "")
+    ):
+        return response
+    body = b""
+    async for chunk in response.body_iterator:
+        body += chunk
+    if body[:2] == b"\x1f\x8b":
+        import gzip
+
+        try:
+            body = gzip.decompress(body)
+        except OSError:
+            from starlette.responses import Response
+
+            return Response(content=body, status_code=response.status_code, headers=dict(response.headers))
+    if not body:
+        from starlette.responses import Response
+
+        return Response(
+            content=body,
+            status_code=response.status_code,
+            headers=dict(response.headers),
+            media_type="application/json",
+        )
+    try:
+        import json as _json
+
+        from starlette.responses import JSONResponse
+
+        from bd_platform.institutional_standards import wrap_intelligence_response
+
+        payload = _json.loads(body.decode("utf-8"))
+        if isinstance(payload, dict):
+            module_hint = path.removeprefix("/api/platform/intelligence-ledger/").strip("/")
+            payload = wrap_intelligence_response(
+                payload,
+                module_id=module_hint.split("/")[0] if module_hint else None,
+            )
+        return JSONResponse(content=payload, status_code=response.status_code)
+    except Exception:
+        from starlette.responses import Response
+
+        logger.debug("intelligence ledger evidence middleware fallback for %s", path)
+        return Response(content=body, status_code=response.status_code, media_type="application/json")
+
+
 try:
     from platform_api import router as platform_router
 
@@ -1662,6 +1716,151 @@ async def dashboard_page(request: Request):
     return render_page(request, "dashboard.html", _footer_ctx())
 
 
+_CAPABILITY_PAGES: dict[str, tuple[str, str]] = {
+    "exchanges": ("Exchange Health Monitor", "Venue grades A+ → F · counterparty risk shield"),
+    "stablecoins": ("Stablecoin Health Monitor", "De-peg probability + AAA–D grade · early warning"),
+    "arbitrage": ("Arbitrage Scanner", "Net-Edge Truth Score · executable cost breakdown"),
+    "brief": ("Daily Market Brief", "What changed · Why · Risks — evidence-linked narrative"),
+    "whales": ("Whale Tracker", "Accumulation / distribution · smart money flow"),
+    "liquidity": ("Liquidity Analyzer", "Fill feasibility + slippage heatmap"),
+    "defi": ("DeFi Opportunities", "Risk-adjusted APY + protocol grade"),
+    "unlocks": ("Token Unlocks", "Calendar + severity impact"),
+    "correlation": ("Correlation Risk", "Heatmap + contagion context"),
+    "stress-test": ("Scenario Stress Test", "5 mandatory scenarios + portfolio impact"),
+    "thesis": ("Investment Thesis", "6-dimension evidence rubric — not price probability"),
+    "sopr": ("SOPR / Profitability", "Profit/loss regime on-chain"),
+    "dormancy": ("Age Consumed / Dormancy", "Spikes + whale context"),
+    "clusters": ("Whale Clusters", "Cluster view + confidence"),
+    "dex-screener": ("DEX Screener", "Pools + risk flags"),
+    "treasuries": ("Treasury Intel", "Runway + allocation"),
+    "metrics": ("On-Chain Metrics Library", "Searchable catalog + formulas"),
+}
+
+
+def _capability_page(
+    request: Request,
+    capability_id: str,
+    *,
+    extra: dict[str, Any] | None = None,
+) -> HTMLResponse:
+    meta = _CAPABILITY_PAGES.get(capability_id)
+    if not meta:
+        raise HTTPException(status_code=404, detail="capability_not_found")
+    title, subtitle = meta
+    ctx: dict[str, Any] = {
+        "capability_id": capability_id,
+        "capability_title": title,
+        "capability_subtitle": subtitle,
+    }
+    if extra:
+        ctx.update(extra)
+    return render_page(request, "capability_page.html", ctx)
+
+
+@app.get("/exchanges", response_class=HTMLResponse)
+async def exchanges_capability_page(request: Request):
+    return _capability_page(request, "exchanges")
+
+
+@app.get("/stablecoins", response_class=HTMLResponse)
+async def stablecoins_capability_page(request: Request):
+    return _capability_page(request, "stablecoins")
+
+
+@app.get("/arbitrage", response_class=HTMLResponse)
+async def arbitrage_capability_page(request: Request):
+    return _capability_page(request, "arbitrage")
+
+
+@app.get("/brief", response_class=HTMLResponse)
+async def brief_capability_page(request: Request):
+    return _capability_page(request, "brief")
+
+
+@app.get("/whales", response_class=HTMLResponse)
+async def whales_capability_page(request: Request):
+    return _capability_page(request, "whales")
+
+
+@app.get("/liquidity", response_class=HTMLResponse)
+async def liquidity_capability_page(request: Request):
+    return _capability_page(request, "liquidity")
+
+
+@app.get("/defi", response_class=HTMLResponse)
+async def defi_capability_page(request: Request):
+    return _capability_page(request, "defi")
+
+
+@app.get("/unlocks", response_class=HTMLResponse)
+async def unlocks_capability_page(request: Request):
+    return _capability_page(request, "unlocks")
+
+
+@app.get("/correlation", response_class=HTMLResponse)
+async def correlation_capability_page(request: Request):
+    return _capability_page(request, "correlation")
+
+
+@app.get("/stress-test", response_class=HTMLResponse)
+async def stress_test_capability_page(request: Request):
+    return _capability_page(request, "stress-test")
+
+
+@app.get("/thesis/{asset}", response_class=HTMLResponse)
+async def thesis_asset_capability_page(request: Request, asset: str = "BTC"):
+    return _capability_page(request, "thesis", extra={"thesis_asset": asset.upper()})
+
+
+@app.get("/thesis", response_class=HTMLResponse)
+async def thesis_capability_page(request: Request):
+    return _capability_page(request, "thesis", extra={"thesis_asset": "BTC"})
+
+
+@app.get("/sopr", response_class=HTMLResponse)
+async def sopr_capability_page(request: Request):
+    return _capability_page(request, "sopr")
+
+
+@app.get("/dormancy", response_class=HTMLResponse)
+async def dormancy_capability_page(request: Request):
+    return _capability_page(request, "dormancy")
+
+
+@app.get("/clusters", response_class=HTMLResponse)
+async def clusters_capability_page(request: Request):
+    return _capability_page(request, "clusters")
+
+
+@app.get("/dex-screener", response_class=HTMLResponse)
+async def dex_screener_capability_page(request: Request):
+    return _capability_page(request, "dex-screener")
+
+
+@app.get("/treasuries", response_class=HTMLResponse)
+async def treasuries_capability_page(request: Request):
+    return _capability_page(request, "treasuries")
+
+
+@app.get("/metrics-library", response_class=HTMLResponse)
+async def metrics_capability_page(request: Request):
+    return _capability_page(request, "metrics")
+
+
+@app.get("/simulator", response_class=HTMLResponse)
+async def simulator_redirect_page():
+    return RedirectResponse(url="/portfolio-ai/strategy-simulator", status_code=302)
+
+
+@app.get("/wallet/{address}", response_class=HTMLResponse)
+async def wallet_profiler_page(request: Request, address: str):
+    return render_page(
+        request,
+        "wallet_profiler.html",
+        {"wallet_address": address},
+    )
+
+
 @app.get("/discipline-mirror", response_class=HTMLResponse)
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
@@ -1801,6 +2000,77 @@ async def institutional_hub_page(request: Request):
 @app.get("/cap646", response_class=HTMLResponse)
 async def cap646_hub_page(request: Request):
     return render_page(request, "cap646_hub.html", _footer_ctx())
+
+
+@app.get("/intelligence-ledger", response_class=HTMLResponse)
+async def intelligence_ledger_hub_page(request: Request):
+    """Intelligence Ledger Hub — consumer UI for all 100+ analytical modules."""
+    return render_page(request, "intelligence_ledger.html", _footer_ctx())
+
+
+@app.get("/api/intelligence-ledger/catalog")
+async def intelligence_ledger_catalog_route():
+    from bd_platform.intelligence_ledger_hub import build_catalog
+
+    return {"ok": True, "catalog": build_catalog(), "count": len(build_catalog())}
+
+
+@app.get("/api/intelligence-ledger/hub")
+async def intelligence_ledger_hub_route():
+    from bd_platform.intelligence_ledger_hub import build_hub_context
+
+    return build_hub_context()
+
+
+@app.get("/api/intelligence-ledger/launch-readiness")
+async def intelligence_ledger_launch_readiness_route():
+    from bd_platform.intelligence_ledger_hub import build_launch_readiness_report
+
+    return build_launch_readiness_report()
+
+
+@app.get("/launch-center", response_class=HTMLResponse)
+async def launch_center_page(request: Request):
+    """Unified user entry — journeys, engineering readiness, live market strip."""
+    return render_page(request, "launch_center.html", _footer_ctx())
+
+
+@app.get("/ask", response_class=HTMLResponse)
+async def natural_language_ask_page(request: Request):
+    """#573 Natural Language Interpreter — UX layer query interface."""
+    return render_page(request, "ask.html", _footer_ctx())
+
+
+@app.get("/portfolio-ai/live-breakeven", response_class=HTMLResponse)
+async def live_breakeven_tracker_page(request: Request):
+    """#404 Live Breakeven Tracker — Dynamic Cost Basis UI."""
+    return render_page(request, "live_breakeven.html", _footer_ctx())
+
+
+@app.get("/portfolio-ai/risk-awareness", response_class=HTMLResponse)
+async def capital_awareness_page(request: Request):
+    """#410 Capital Awareness Controls — Risk Awareness UI."""
+    return render_page(request, "capital_awareness.html", _footer_ctx())
+
+
+@app.get("/portfolio-ai/strategy-simulator", response_class=HTMLResponse)
+async def strategy_simulator_page(request: Request):
+    """#411 Strategy Simulator — Paper Portfolio UI."""
+    return render_page(request, "strategy_simulator.html", _footer_ctx())
+
+
+@app.get("/api/institutional-standards/status")
+async def institutional_standards_status_route():
+    from bd_platform.institutional_standards import institutional_standards_status
+
+    return institutional_standards_status()
+
+
+@app.get("/api/live-market/strip")
+async def live_market_strip_route():
+    from bd_platform.live_market_context import build_live_market_strip
+
+    return await build_live_market_strip()
 
 
 @app.get("/model-card", response_class=HTMLResponse)
@@ -3804,6 +4074,17 @@ async def alerts_inbox(
         "alerts": list_in_app_alerts(limit=limit, user_email=email, unread_only=unread_only),
         "works_without_telegram": True,
     }
+
+
+@app.get("/api/alerts/unified-feed", responses=COMMON_ERROR_RESPONSES)
+async def alerts_unified_feed(
+    limit: int = 50,
+    alert_type: str | None = None,
+):
+    """Unified Alert Center — 6 sources, chronological feed."""
+    from bd_platform.unified_alert_center import build_unified_alert_feed
+
+    return build_unified_alert_feed(limit=limit, alert_type=alert_type)
 
 
 @app.post("/api/alerts/inbox/{alert_id}/read", responses=COMMON_ERROR_RESPONSES)

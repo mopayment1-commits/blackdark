@@ -1,0 +1,118 @@
+{
+  "feature_id": 427,
+  "title": "Spread Calculation Engine",
+  "legal_name": "Economics Engine",
+  "standalone": false,
+  "merged_into": "Unified Arbitrage Engine (#429)",
+  "sprint": 2,
+  "priority": "critical",
+  "methodology_version": "1.0",
+  "engine_version": "2.0.0",
+  "last_updated": "2026-08-26",
+  "decimal_precision": true,
+  "synchronized_timestamps_required": true,
+  "max_timestamp_drift_ms": 500,
+  "stale_threshold_ms": 5000,
+  "min_fill_ratio": 0.95,
+  "fx_quote_normalization": {
+    "base_quote": "USDT",
+    "supported_quotes": ["USDT", "USD", "USDC"]
+  },
+  "regression_fixtures": [
+    {
+      "id": "cross_venue_btc_fresh",
+      "input": {
+        "buy_venue": "okx",
+        "sell_venue": "binance",
+        "symbol": "BTC/USDT",
+        "quote_usd": "1000",
+        "size": "0.0105",
+        "buy_book": {
+          "asks": [[94975.0, 5.0], [94980.0, 8.0]],
+          "bids": [[94970.0, 5.0]],
+          "freshness": {"snapshot_age_ms": 200, "exchange_timestamp_ms": 1000000}
+        },
+        "sell_book": {
+          "bids": [[95020.0, 6.0], [95015.0, 10.0]],
+          "asks": [[95025.0, 5.0]],
+          "freshness": {"snapshot_age_ms": 180, "exchange_timestamp_ms": 1000100}
+        }
+      },
+      "expect": {"reject": false, "has_net_spread": true, "fee_included": true}
+    },
+    {
+      "id": "stale_book_rejected",
+      "input": {
+        "buy_venue": "okx",
+        "sell_venue": "binance",
+        "symbol": "BTC/USDT",
+        "quote_usd": "1000",
+        "buy_book": {
+          "asks": [[94975.0, 5.0]],
+          "freshness": {"snapshot_age_ms": 8000, "exchange_timestamp_ms": 900000}
+        },
+        "sell_book": {
+          "bids": [[95020.0, 6.0]],
+          "freshness": {"snapshot_age_ms": 200, "exchange_timestamp_ms": 1000100}
+        }
+      },
+      "expect": {"reject": true, "reason": "stale_book"}
+    },
+    {
+      "id": "timestamp_drift_rejected",
+      "input": {
+        "buy_venue": "okx",
+        "sell_venue": "binance",
+        "symbol": "BTC/USDT",
+        "quote_usd": "1000",
+        "buy_book": {
+          "asks": [[94975.0, 5.0]],
+          "freshness": {"snapshot_age_ms": 200, "exchange_timestamp_ms": 1000000}
+        },
+        "sell_book": {
+          "bids": [[95020.0, 6.0]],
+          "freshness": {"snapshot_age_ms": 200, "exchange_timestamp_ms": 1002000}
+        }
+      },
+      "expect": {"reject": true, "reason": "timestamp_not_synchronized"}
+    },
+    {
+      "id": "deterministic_repeat",
+      "input": {
+        "buy_venue": "binance",
+        "sell_venue": "okx",
+        "symbol": "ETH/USDT",
+        "quote_usd": "500",
+        "size": "0.14",
+        "buy_book": {
+          "asks": [[3502.0, 20.0], [3503.0, 15.0]],
+          "freshness": {"snapshot_age_ms": 150, "exchange_timestamp_ms": 2000000}
+        },
+        "sell_book": {
+          "bids": [[3505.0, 18.0], [3504.0, 12.0]],
+          "freshness": {"snapshot_age_ms": 140, "exchange_timestamp_ms": 2000040}
+        }
+      },
+      "expect": {"deterministic": true, "reject": false}
+    },
+    {
+      "id": "insufficient_depth_rejected",
+      "input": {
+        "buy_venue": "okx",
+        "sell_venue": "binance",
+        "symbol": "BTC/USDT",
+        "quote_usd": "1000",
+        "size": "50.0",
+        "buy_book": {
+          "asks": [[94975.0, 0.001]],
+          "freshness": {"snapshot_age_ms": 200, "exchange_timestamp_ms": 3000000}
+        },
+        "sell_book": {
+          "bids": [[95020.0, 0.001]],
+          "freshness": {"snapshot_age_ms": 200, "exchange_timestamp_ms": 3000100}
+        }
+      },
+      "expect": {"reject": true, "reason": "insufficient_executable_depth"}
+    }
+  ]
+}

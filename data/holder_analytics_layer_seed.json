@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0",
+  "epic": "Holder Analytics Layer",
+  "tasks": ["#559", "#560"],
+  "cohort_thresholds": {
+    "version": "1.0",
+    "sth_max_days": 155,
+    "lth_min_days": 155,
+    "effective_from": "2026-01-01T00:00:00Z",
+    "rule": "holding_duration_days < 155 => STH; >= 155 => LTH"
+  },
+  "provenance": {
+    "source": "onchain_indexer",
+    "label_source": "entity_resolution_v1",
+    "freshness_seconds": 600
+  },
+  "excluded_wallets": {
+    "BTC": {
+      "exchange": [
+        {"address": "0x28c6c06298d514db089934071355e5743bf21d60", "entity": "binance", "source": "entity_resolution_v1"},
+        {"address": "0x3f5ce5fbfe3e628ad0af38df2233fe8dd0a5a0a0", "entity": "binance_cold", "source": "entity_resolution_v1"}
+      ],
+      "contract": [
+        {"address": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599", "entity": "wbtc_contract", "source": "verified_registry"}
+      ],
+      "bridge": [
+        {"address": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c", "entity": "bridge_wrapper", "source": "verified_registry"}
+      ]
+    },
+    "default": {
+      "exchange": [],
+      "contract": [],
+      "bridge": []
+    }
+  },
+  "assets": {
+    "BTC": {
+      "as_of": "2026-08-26T10:00:00Z",
+      "current_price": 95000.0,
+      "no_reclassification_leakage": true,
+      "provenance": {
+        "source": "onchain_indexer",
+        "label_source": "entity_resolution_v1",
+        "freshness_seconds": 600
+      },
+      "distribution_bands": [
+        {"label": "whale", "min_balance": 1000, "max_balance": null},
+        {"label": "large", "min_balance": 100, "max_balance": 1000},
+        {"label": "medium", "min_balance": 10, "max_balance": 100},
+        {"label": "small", "min_balance": 1, "max_balance": 10},
+        {"label": "retail", "min_balance": 0, "max_balance": 1}
+      ],
+      "holders": [
+        {
+          "address": "0xholder001",
+          "balance": 500.0,
+          "holding_duration_days": 45,
+          "acquisition_price": 62000.0,
+          "entity_type": "individual"
+        },
+        {
+          "address": "0xholder002",
+          "balance": 2500.0,
+          "holding_duration_days": 400,
+          "acquisition_price": 28000.0,
+          "entity_type": "individual"
+        },
+        {
+          "address": "0xholder003",
+          "balance": 80.0,
+          "holding_duration_days": 200,
+          "acquisition_price": 45000.0,
+          "entity_type": "individual"
+        },
+        {
+          "address": "0xholder004",
+          "balance": 5.5,
+          "holding_duration_days": 30,
+          "acquisition_price": 88000.0,
+          "entity_type": "individual"
+        },
+        {
+          "address": "0x28c6c06298d514db089934071355e5743bf21d60",
+          "balance": 12000.0,
+          "holding_duration_days": 10,
+          "acquisition_price": 90000.0,
+          "entity_type": "exchange"
+        },
+        {
+          "address": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+          "balance": 8000.0,
+          "holding_duration_days": 365,
+          "acquisition_price": 50000.0,
+          "entity_type": "contract"
+        }
+      ]
+    },
+    "ETH": {
+      "as_of": "2026-08-26T10:00:00Z",
+      "current_price": 3400.0,
+      "no_reclassification_leakage": true,
+      "holders": [
+        {
+          "address": "0xeth_holder001",
+          "balance": 10000.0,
+          "holding_duration_days": 90,
+          "acquisition_price": 2200.0,
+          "entity_type": "individual"
+        },
+        {
+          "address": "0xeth_holder002",
+          "balance": 50000.0,
+          "holding_duration_days": 500,
+          "acquisition_price": 1200.0,
+          "entity_type": "individual"
+        }
+      ]
+    }
+  }
+}

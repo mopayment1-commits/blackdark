@@ -1,4 +1,8 @@
-"""Token unlocks — free tier: known schedule + CoinGecko supply pressure."""
+"""Token unlocks — free tier: known schedule + CoinGecko supply pressure.
+
+#703+#704+#707+#708 merged into bd_platform.token_unlock_intelligence_engine (Sprint 2).
+Free tier endpoint retained for backward compatibility.
+"""
 
 from __future__ import annotations
 

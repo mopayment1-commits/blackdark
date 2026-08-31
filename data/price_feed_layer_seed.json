@@ -1,0 +1,76 @@
+{
+  "feature_id": 283,
+  "standalone": false,
+  "archived_standalone_ticket": true,
+  "sprint": 0,
+  "merged_into": "Sprint 0 Infrastructure / Price Feed Layer",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "streaming": {
+    "mode": "websocket",
+    "fallback": "rest_poll",
+    "venues_connected": 4,
+    "venues_total": 5,
+    "updates_per_second": 120
+  },
+  "venues": {
+    "binance": {"id": "binance", "default_pair": "BTC/USDT"},
+    "okx": {"id": "okx", "default_pair": "BTC/USDT"},
+    "bybit": {"id": "bybit", "default_pair": "BTC/USDT"},
+    "kraken": {"id": "kraken", "default_pair": "BTC/USDT"}
+  },
+  "assets": {
+    "BTC": [
+      {
+        "venue": "binance",
+        "pair": "BTC/USDT",
+        "feed_type": "spot",
+        "bid": 94980.0,
+        "ask": 95020.0,
+        "latency_ms": 38,
+        "snapshot_age_ms": 120,
+        "exchange_timestamp": "2026-08-25T23:50:00+00:00",
+        "streaming": true,
+        "stale_threshold_ms": 5000
+      },
+      {
+        "venue": "okx",
+        "pair": "BTC/USDT",
+        "feed_type": "spot",
+        "bid": 94975.0,
+        "ask": 95015.0,
+        "latency_ms": 52,
+        "snapshot_age_ms": 180,
+        "exchange_timestamp": "2026-08-25T23:50:00+00:00",
+        "streaming": true,
+        "stale_threshold_ms": 5000
+      },
+      {
+        "venue": "binance",
+        "pair": "BTCUSDT",
+        "feed_type": "perp",
+        "bid": 94970.0,
+        "ask": 95010.0,
+        "latency_ms": 45,
+        "snapshot_age_ms": 95,
+        "exchange_timestamp": "2026-08-25T23:50:00+00:00",
+        "streaming": true,
+        "stale_threshold_ms": 5000
+      }
+    ],
+    "ETH": [
+      {
+        "venue": "binance",
+        "pair": "ETH/USDT",
+        "feed_type": "spot",
+        "bid": 3420.0,
+        "ask": 3421.0,
+        "latency_ms": 35,
+        "snapshot_age_ms": 110,
+        "exchange_timestamp": "2026-08-25T23:50:01+00:00",
+        "streaming": true,
+        "stale_threshold_ms": 5000
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "feature_id": 573,
+  "title": "Natural Language Interpreter",
+  "layer": "UX Layer",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "permissions": {
+    "guest": ["market_conditions", "onchain_metrics", "news_panel", "nvt_context"],
+    "authenticated": ["exchange_flow", "portfolio_tracker"],
+    "pro": ["exchange_flow", "portfolio_tracker", "market_conditions", "onchain_metrics", "news_panel", "nvt_context"],
+    "admin": ["*"]
+  },
+  "fallback_messages": {
+    "empty_query": "Please enter an analytical question about available data.",
+    "ambiguous_query": "I can show you available data. Please clarify your analytical question.",
+    "unsupported": "That analysis is not supported. Try exchange flow, market conditions, on-chain metrics, or news.",
+    "advisory_blocked": "I can show you data only — not buy/sell advice."
+  }
+}

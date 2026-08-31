@@ -1,0 +1,133 @@
+{
+  "feature_id": 429,
+  "merged_categories": {
+    "triangular_price_divergence": 428,
+    "cross_venue": 403,
+    "on_chain_arbitrage": 438,
+    "opportunity_alerts": 434,
+    "derivatives_arbitrage": 440
+  },
+  "title": "Unified Arbitrage Opportunity Engine",
+  "legal_name": "Unified Arbitrage Opportunity Engine",
+  "triangular_legal_name": "Triangular Price Divergence Scanner",
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Sprint-2 Core",
+  "sprint": 2,
+  "priority": "critical",
+  "methodology_version": "1.0",
+  "economics_engine_version": "2.0.0",
+  "economics_engine_feature_ref": 427,
+  "last_updated": "2026-08-26",
+  "no_real_money_auto_execution": true,
+  "simulation_only": true,
+  "default_trading_fee_bps": 10,
+  "default_slippage_bps": 8,
+  "stablecoin_depeg_threshold_bps": 15,
+  "min_net_edge_bps": 5,
+  "dedupe_tolerance_bps": 2,
+  "venues": {
+    "binance": {
+      "venue": "binance",
+      "pairs": {
+        "BTC/USDT": {"bid": 94980.0, "ask": 95020.0},
+        "ETH/USDT": {"bid": 3498.0, "ask": 3502.0},
+        "ETH/BTC": {"bid": 0.03682, "ask": 0.03688},
+        "USDC/USDT": {"bid": 0.9996, "ask": 1.0004},
+        "DAI/USDT": {"bid": 0.9992, "ask": 1.0008}
+      }
+    },
+    "okx": {
+      "venue": "okx",
+      "pairs": {
+        "BTC/USDT": {"bid": 94975.0, "ask": 95015.0},
+        "ETH/USDT": {"bid": 3497.5, "ask": 3501.5},
+        "ETH/BTC": {"bid": 0.03680, "ask": 0.03686},
+        "USDC/USDT": {"bid": 0.9970, "ask": 0.9980}
+      }
+    }
+  },
+  "triangular_loops": [
+    {
+      "loop_id": "tri_btc_eth_usdt",
+      "venue": "binance",
+      "legs": ["BTC/USDT", "ETH/BTC", "ETH/USDT"],
+      "direction": "usdt_cycle"
+    },
+    {
+      "loop_id": "tri_eth_btc_usdt_okx",
+      "venue": "okx",
+      "legs": ["ETH/USDT", "ETH/BTC", "BTC/USDT"],
+      "direction": "usdt_cycle"
+    }
+  ],
+  "cross_venue_opportunities": [
+    {
+      "opportunity_id": "cv_btc_binance_okx",
+      "opportunity_type": "cross_venue",
+      "asset": "BTC",
+      "symbol": "BTC/USDT",
+      "buy_venue": "okx",
+      "sell_venue": "binance",
+      "buy_price": 94800.0,
+      "sell_price": 95200.0,
+      "quote_usd": 1000,
+      "withdrawal_fee_usdt": 0.35,
+      "transfer_cost_usdt": 0.0,
+      "quote_age_ms": 380
+    }
+  ],
+  "duplicate_pair": [
+    {
+      "opportunity_id": "cv_btc_binance_okx_dup",
+      "opportunity_type": "cross_venue",
+      "asset": "BTC",
+      "symbol": "BTC/USDT",
+      "buy_venue": "okx",
+      "sell_venue": "binance",
+      "buy_price": 95014.5,
+      "sell_price": 94980.5,
+      "quote_usd": 1000,
+      "withdrawal_fee_usdt": 0.35,
+      "transfer_cost_usdt": 0.0,
+      "quote_age_ms": 400
+    }
+  ],
+  "defi_opportunities": [
+    {
+      "opportunity_id": "defi_eth_lst_001",
+      "scan_type": "on_chain_arbitrage",
+      "asset": "ETH",
+      "symbol": "ETH/USDT",
+      "chain": "ethereum",
+      "venue_buy": "uniswap_v3",
+      "venue_sell": "curve",
+      "price_divergence_bps": 22.5,
+      "implied_yield_pct": 3.8,
+      "gas_cost_estimate_usd": 8.5,
+      "lst_peg_deviation_bps": 6.2,
+      "display": "ETH/stETH peg deviation 6.2 bps + yield differential 3.8%"
+    },
+    {
+      "opportunity_id": "defi_uni_liq_001",
+      "scan_type": "on_chain_arbitrage",
+      "asset": "UNI",
+      "symbol": "UNI/USDT",
+      "chain": "ethereum",
+      "venue_buy": "sushiswap",
+      "venue_sell": "uniswap_v3",
+      "price_divergence_bps": 18.0,
+      "gas_cost_estimate_usd": 11.0,
+      "liquidation_discount_pct": 4.5,
+      "collateral_ratio": 1.12,
+      "display": "UNI DEX divergence 18 bps — liquidation discount 4.5% monitoring only"
+    }
+  ],
+  "alert_config": {
+    "min_net_edge_truth_score": 55,
+    "max_fill_risk_pct": 65,
+    "channels": ["push", "email"],
+    "max_delay_minutes": 1,
+    "accuracy_sla_cancelled": true,
+    "worth_studying_not_execution": true
+  }
+}

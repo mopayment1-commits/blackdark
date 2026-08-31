@@ -12,6 +12,26 @@ from security_auth import require_admin
 router = APIRouter(tags=["oracle"])
 
 
+@router.get("/api/oracle/fair-value-index/{symbol}")
+async def oracle_fair_value_index(symbol: str):
+    """#413 Fair Value Index — VWAP across major venues with constituent/source metadata."""
+    from bd_platform.oracle_vwap_layer import build_fair_value_index
+
+    result = build_fair_value_index(symbol)
+    if not result.get("ok"):
+        from fastapi import HTTPException
+
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/api/oracle/vwap/status")
+async def oracle_vwap_status_route():
+    from bd_platform.oracle_vwap_layer import oracle_vwap_status
+
+    return oracle_vwap_status()
+
+
 @router.get("/api/oracle/data-hub")
 async def oracle_data_hub_overview():
     from oracle_data_hub import build_hub_context_safe

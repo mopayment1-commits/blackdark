@@ -1,0 +1,60 @@
+{
+  "feature_id": 519,
+  "renamed_from": "Candle / Price-Move Investigator",
+  "title": "Price-Move Event Correlator",
+  "layer": "Intelligence Layer",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "correlation_window_seconds": 300,
+  "last_updated": "2026-08-26",
+  "candles": {
+    "btc_2026_08_26_14h": {
+      "asset": "BTC",
+      "timestamp": "2026-08-26T14:00:00Z",
+      "open": 64800,
+      "close": 65500,
+      "price_change_pct": 1.08
+    },
+    "eth_2026_08_26_14h": {
+      "asset": "ETH",
+      "timestamp": "2026-08-26T14:00:00Z",
+      "open": 3480,
+      "close": 3520,
+      "price_change_pct": 1.15
+    }
+  },
+  "events": {
+    "BTC": [
+      {
+        "event_type": "whale_transfer",
+        "description": "Wallet 0xAbC... moved $25M to Binance Hot Wallet",
+        "timestamp": "2026-08-26T14:02:00Z",
+        "source": "onchain_indexer",
+        "evidence_id": "ev_whale_001"
+      },
+      {
+        "event_type": "derivatives",
+        "description": "Funding rate turned negative (-0.02%)",
+        "timestamp": "2026-08-26T14:01:30Z",
+        "source": "binance_api",
+        "evidence_id": "ev_funding_001"
+      },
+      {
+        "event_type": "exchange_flow",
+        "description": "Exchange outflow velocity +200% vs 30-day average",
+        "timestamp": "2026-08-26T13:58:00Z",
+        "source": "exchange_flow_monitor",
+        "evidence_id": "ev_outflow_001"
+      }
+    ],
+    "ETH": [
+      {
+        "event_type": "whale_transfer",
+        "description": "Wallet 0xDeF... transferred $8.5M to Cold Storage",
+        "timestamp": "2026-08-26T14:01:00Z",
+        "source": "whale_tracker",
+        "evidence_id": "ev_whale_002"
+      }
+    ]
+  }
+}

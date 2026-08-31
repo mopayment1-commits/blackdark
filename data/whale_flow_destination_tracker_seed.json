@@ -1,0 +1,57 @@
+{
+  "feature_id": 510,
+  "renamed_from": "Whale Wallet Inflow Wallet Destination AI Profiling",
+  "title": "Whale Flow Destination Tracker",
+  "standalone_rejected": true,
+  "merged_into": "On-Chain Intelligence Layer / Whale Intelligence Module",
+  "layer": "On-Chain Intelligence Layer",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "destination_rules": {
+    "rules": [
+      "known_exchange_address_match",
+      "contract_type_identification",
+      "cold_wallet_pattern_detection",
+      "defi_protocol_address_match"
+    ],
+    "no_ai": true
+  },
+  "known_addresses": {
+    "0x28c6c06298d514db089934071355e5743bf21d60": {
+      "type": "exchange",
+      "label": "Binance Hot Wallet",
+      "confidence": "heuristic_high"
+    },
+    "0x47ac0fb4f2d84898e4d9e7eff4ca54e2aa8f0c0": {
+      "type": "cold_wallet",
+      "label": "Cold Storage",
+      "confidence": "heuristic_medium"
+    },
+    "0x7a250d5630b4cf539739df2c5dacb4c659f2488d": {
+      "type": "defi",
+      "label": "Uniswap V2 Router",
+      "confidence": "heuristic_high"
+    }
+  },
+  "flows": [
+    {
+      "whale_address": "0xAbC1234567890dEf1234567890aBc1234567890Ab",
+      "asset": "BTC",
+      "amount_usd": 25000000,
+      "destination_address": "0x28c6c06298d514db089934071355e5743bf21d60",
+      "chain": "ethereum",
+      "tx_hash": "0xabc123",
+      "timestamp": "2026-08-26T10:00:00Z"
+    },
+    {
+      "whale_address": "0xDeF9876543210aBc9876543210dEf9876543210Cd",
+      "asset": "ETH",
+      "amount_usd": 8500000,
+      "destination_address": "0x47ac0fb4f2d84898e4d9e7eff4ca54e2aa8f0c0",
+      "chain": "ethereum",
+      "tx_hash": "0xdef456",
+      "timestamp": "2026-08-26T11:00:00Z"
+    }
+  ]
+}

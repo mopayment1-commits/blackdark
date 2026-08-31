@@ -1,0 +1,241 @@
+{
+  "feature_id": 410,
+  "title": "Capital Awareness Controls",
+  "legal_name": "Risk Awareness Layer",
+  "standalone": false,
+  "merged_into": "Portfolio AI + Intelligence Ledger / Risk Layer",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "non_executive": true,
+  "no_automatic_fund_movement": true,
+  "sla_terms": {
+    "no_automatic_fund_movement": true,
+    "no_execution_api_keys": true,
+    "recommendations_and_alerts_only": true,
+    "explicit_user_boundary_required": true,
+    "legal_text": "BLACKDARK never moves funds automatically. No stop-loss execution, no auto-rebalance, no order placement without explicit user action outside this platform. Risk Awareness alerts are informational only — not insurance, guarantee, or protection of capital."
+  },
+  "risk_budget": {
+    "default_max_loss_pct": 10.0,
+    "user_configured_max_loss_pct": 8.0,
+    "warning_threshold_pct": 75.0,
+    "currency": "USD"
+  },
+  "portfolio": {
+    "portfolio_id": "demo_portfolio",
+    "total_value_usd": 250000,
+    "peak_value_usd": 275000,
+    "current_drawdown_pct": 9.09
+  },
+  "positions": {
+    "pos_btc_001": {
+      "position_id": "pos_btc_001",
+      "asset": "BTC",
+      "symbol": "BTC",
+      "sector": "Layer 1",
+      "value_usd": 78000,
+      "weight_pct": 31.2,
+      "volatility_30d": 0.42,
+      "concentration_pct": 31.2,
+      "correlation_to_portfolio": 0.88,
+      "liquidity_depth_score": 95,
+      "funding_rate_stress": 0.15,
+      "max_drawdown_30d_pct": 12.5
+    },
+    "pos_eth_002": {
+      "position_id": "pos_eth_002",
+      "asset": "ETH",
+      "symbol": "ETH",
+      "sector": "Layer 1",
+      "value_usd": 52000,
+      "weight_pct": 20.8,
+      "volatility_30d": 0.48,
+      "concentration_pct": 20.8,
+      "correlation_to_portfolio": 0.82,
+      "liquidity_depth_score": 92,
+      "funding_rate_stress": 0.22,
+      "max_drawdown_30d_pct": 15.2
+    },
+    "pos_defi_003": {
+      "position_id": "pos_defi_003",
+      "asset": "UNI",
+      "symbol": "UNI",
+      "sector": "DeFi",
+      "value_usd": 35000,
+      "weight_pct": 14.0,
+      "volatility_30d": 0.62,
+      "concentration_pct": 14.0,
+      "correlation_to_portfolio": 0.71,
+      "liquidity_depth_score": 68,
+      "funding_rate_stress": 0.35,
+      "max_drawdown_30d_pct": 22.0
+    }
+  },
+  "sector_exposure": {
+    "Layer 1": 52.0,
+    "DeFi": 14.0,
+    "Infrastructure": 12.0,
+    "Gaming": 8.0,
+    "Other": 14.0
+  },
+  "stress_scenarios": {
+    "max_drawdown": {
+      "scenario_id": "stress_mdd",
+      "name": "Max Drawdown Shock",
+      "price_shock_pct": -25,
+      "portfolio_loss_usd": 62500,
+      "portfolio_loss_pct": 25.0,
+      "controlled_blast_radius": true,
+      "assumptions": {"price_shock_pct": -25}
+    },
+    "correlation_shock": {
+      "scenario_id": "stress_corr",
+      "name": "Correlation Shock (diversification fails)",
+      "correlation_spike_to": 0.95,
+      "correlation_spike_loss_pct": 22.0,
+      "diversification_benefit_lost_pct": 40,
+      "portfolio_loss_usd": 45000,
+      "portfolio_loss_pct": 18.0,
+      "controlled_blast_radius": true,
+      "assumptions": {"correlation_spike_to": 0.95}
+    },
+    "liquidity_freeze": {
+      "scenario_id": "stress_liq",
+      "name": "Liquidity Freeze",
+      "illiquid_assets_pct": 22.0,
+      "slippage_multiplier": 5.0,
+      "exit_cost_usd": 18500,
+      "portfolio_impact_pct": 7.4,
+      "controlled_blast_radius": true,
+      "assumptions": {"slippage_multiplier": 5.0, "illiquid_pct": 22.0}
+    },
+    "stablecoin_depeg": {
+      "scenario_id": "stress_depeg",
+      "name": "Stablecoin Depeg",
+      "depeg_asset": "USDT",
+      "depeg_pct": 3.5,
+      "stablecoin_exposure_pct": 18.0,
+      "portfolio_loss_usd": 15750,
+      "portfolio_loss_pct": 6.3,
+      "controlled_blast_radius": true,
+      "assumptions": {"depeg_pct": 3.5, "exposure_pct": 18.0}
+    },
+    "exchange_insolvency": {
+      "scenario_id": "stress_insolvency",
+      "name": "Exchange Insolvency",
+      "affected_exchange": "mid_tier_cex",
+      "custody_exposure_pct": 12.0,
+      "recovery_rate_pct": 40.0,
+      "portfolio_loss_usd": 18000,
+      "portfolio_loss_pct": 7.2,
+      "controlled_blast_radius": true,
+      "assumptions": {"recovery_rate_pct": 40.0, "custody_exposure_pct": 12.0}
+    }
+  },
+  "portfolio_stress_test": {
+    "feature_ref": 453,
+    "title": "Portfolio Stress Test",
+    "renamed_from": "AI Portfolio Stress Testing Simulator",
+    "coverage_target_pct": 80,
+    "repeatable": true,
+    "controlled_blast_radius": true,
+    "documentation_complete": true
+  },
+  "correlation_matrix": {
+    "lookback_days": 30,
+    "stress_correlation_to": 1.0,
+    "assets": ["BTC", "ETH", "UNI"],
+    "matrix_30d": {
+      "BTC_ETH": 0.82,
+      "BTC_UNI": 0.71,
+      "ETH_UNI": 0.68
+    }
+  },
+  "contagion_risk": {
+    "sector_exposure": {
+      "Layer 1": 52.0,
+      "DeFi": 14.0,
+      "Infrastructure": 12.0,
+      "Gaming": 8.0,
+      "Other": 14.0
+    },
+    "chain_exposure": {
+      "ethereum": 58.0,
+      "bitcoin": 31.0,
+      "solana": 6.0,
+      "other": 5.0
+    },
+    "stablecoin_dependency": {
+      "portfolio_pct": 18.0,
+      "primary_stable": "USDT",
+      "depeg_history_12m": 0.02
+    }
+  },
+  "cancelled_sla": {
+    "response_2_seconds": true,
+    "accuracy_95_pct": true,
+    "uptime_99_pct": true,
+    "real_time_update": true
+  },
+  "virtual_portfolios": {
+    "demo_portfolio": {
+      "portfolio_id": "demo_portfolio",
+      "label": "Demo Virtual Portfolio"
+    },
+    "conservative_portfolio": {
+      "portfolio_id": "conservative_portfolio",
+      "label": "Conservative Virtual Portfolio"
+    }
+  },
+  "signals": {
+    "sig_btc_momentum": {
+      "signal_id": "sig_btc_momentum",
+      "asset": "BTC",
+      "signal_type": "momentum",
+      "direction": "bullish_analytics"
+    },
+    "sig_eth_flow": {
+      "signal_id": "sig_eth_flow",
+      "asset": "ETH",
+      "signal_type": "exchange_flow",
+      "direction": "bearish_analytics"
+    }
+  },
+  "real_time_risk_alerts_484": {
+    "feature_ref": 484,
+    "title": "Real-Time Risk Alerts",
+    "backend_enforced": true,
+    "channels": ["push", "email", "sms"],
+    "mandatory_thresholds": {
+      "drawdown_pct": 8.0,
+      "concentration_pct": 25.0,
+      "correlation_spike": 0.85,
+      "exchange_health_drop": 60.0
+    }
+  },
+  "risk_analytics_485": {
+    "feature_ref": 485,
+    "title": "Risk Analytics",
+    "model_validated": true,
+    "tos_reference": "Risk model assumptions documented in Terms of Service Section 12.4",
+    "var": {
+      "method": "parametric",
+      "z_score_95": 1.645,
+      "z_score_99": 2.326,
+      "assumptions": {
+        "normal_distribution": true,
+        "lookback_days": 30,
+        "confidence_levels": [0.95, 0.99]
+      }
+    },
+    "liquidity": {
+      "max_slippage_pct": 2.0,
+      "assumptions": {
+        "slippage_model": "depth_score_linear",
+        "order_type": "market"
+      }
+    }
+  }
+}

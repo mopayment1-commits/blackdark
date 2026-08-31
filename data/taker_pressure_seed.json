@@ -1,0 +1,117 @@
+{
+  "feature_id": 296,
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Taker Pressure Module",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "classification_tests": [
+    {
+      "venue": "binance",
+      "market_type": "cex_spot",
+      "asset": "BTC",
+      "test_date": "2026-08-25",
+      "official_cvd_source": "binance_agg_trades",
+      "accuracy_pct": 97.2,
+      "passed": true
+    },
+    {
+      "venue": "binance",
+      "market_type": "cex_perp",
+      "asset": "BTC",
+      "test_date": "2026-08-25",
+      "official_cvd_source": "binance_futures_agg_trades",
+      "accuracy_pct": 96.8,
+      "passed": true
+    },
+    {
+      "venue": "okx",
+      "market_type": "cex_spot",
+      "asset": "BTC",
+      "test_date": "2026-08-25",
+      "official_cvd_source": "okx_trades_api",
+      "accuracy_pct": 95.5,
+      "passed": true
+    },
+    {
+      "venue": "okx",
+      "market_type": "cex_perp",
+      "asset": "ETH",
+      "test_date": "2026-08-25",
+      "official_cvd_source": "okx_swap_trades",
+      "accuracy_pct": 95.1,
+      "passed": true
+    },
+    {
+      "venue": "kraken",
+      "market_type": "cex_spot",
+      "asset": "BTC",
+      "test_date": "2026-08-25",
+      "official_cvd_source": "kraken_trades",
+      "accuracy_pct": 94.2,
+      "passed": false
+    }
+  ],
+  "assets": {
+    "BTC": {
+      "rolling_window_min": 60,
+      "venues": [
+        {
+          "venue": "binance",
+          "market_type": "cex_spot",
+          "trade_side_available": true,
+          "taker_buy_volume": 1250000000,
+          "taker_sell_volume": 980000000,
+          "rolling_window_min": 60,
+          "source": "binance_agg_trades",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        },
+        {
+          "venue": "binance",
+          "market_type": "cex_perp",
+          "trade_side_available": true,
+          "taker_buy_volume": 2850000000,
+          "taker_sell_volume": 2420000000,
+          "rolling_window_min": 60,
+          "source": "binance_futures_agg_trades",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        },
+        {
+          "venue": "okx",
+          "market_type": "cex_spot",
+          "trade_side_available": true,
+          "taker_buy_volume": 620000000,
+          "taker_sell_volume": 580000000,
+          "rolling_window_min": 60,
+          "source": "okx_trades_api",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        },
+        {
+          "venue": "coinbase",
+          "market_type": "cex_spot",
+          "trade_side_available": false,
+          "taker_buy_volume": 0,
+          "taker_sell_volume": 0,
+          "rolling_window_min": 60,
+          "source": "coinbase_trades",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        }
+      ]
+    },
+    "ETH": {
+      "rolling_window_min": 60,
+      "venues": [
+        {
+          "venue": "binance",
+          "market_type": "cex_perp",
+          "trade_side_available": true,
+          "taker_buy_volume": 890000000,
+          "taker_sell_volume": 720000000,
+          "rolling_window_min": 60,
+          "source": "binance_futures_agg_trades",
+          "timestamp_utc": "2026-08-26T00:00:00+00:00"
+        }
+      ]
+    }
+  }
+}

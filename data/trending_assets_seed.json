@@ -1,0 +1,54 @@
+{
+  "feature_id": 300,
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Trending Assets Module",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "as_of_timestamp_utc": "2026-08-26T00:00:00+00:00",
+  "dependency_feature_id": 272,
+  "alias_rules": {
+    "BTC": ["Bitcoin"],
+    "ETH": ["Ethereum"],
+    "PEPE": ["Pepe"],
+    "WIF": ["dogwifhat"]
+  },
+  "assets": [
+    {
+      "symbol": "PEPE",
+      "mentions_daily": 45000,
+      "mentions_current": 52000,
+      "mentions_baseline": 18000
+    },
+    {
+      "symbol": "WIF",
+      "mentions_daily": 28000,
+      "mentions_current": 35000,
+      "mentions_baseline": 12000
+    },
+    {
+      "symbol": "SOL",
+      "mentions_daily": 85000,
+      "mentions_current": 92000,
+      "mentions_baseline": 70000
+    },
+    {
+      "symbol": "BTC",
+      "mentions_daily": 125000,
+      "mentions_current": 130000,
+      "mentions_baseline": 120000
+    },
+    {
+      "symbol": "SHIB",
+      "mentions_daily": 45,
+      "mentions_current": 50,
+      "mentions_baseline": 10
+    },
+    {
+      "symbol": "OBSCURE",
+      "mentions_daily": 200,
+      "mentions_current": 205,
+      "mentions_baseline": 200
+    }
+  ]
+}

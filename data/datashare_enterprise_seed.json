@@ -1,0 +1,19 @@
+{
+  "feature_id": 730,
+  "status": "deferred",
+  "wave": 3,
+  "sprint_deferred": "Wave 3 — after Sprint 2",
+  "methodology_version": "0.1-draft",
+  "schema_version": "1.0-draft",
+  "last_updated": "2026-08-26",
+  "schema_contracts": {
+    "breaking_change_notice_days": 30,
+    "announcement_required": true
+  },
+  "platform_roadmap": ["snowflake", "bigquery", "databricks"],
+  "compliance": {
+    "soc2_required": true,
+    "encryption_in_transit": true,
+    "encryption_at_rest": true
+  }
+}

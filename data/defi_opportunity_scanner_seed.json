@@ -1,0 +1,455 @@
+{
+  "feature_id": 438,
+  "title": "DeFi Opportunity Scanner",
+  "legal_name": "DeFi Opportunity Scanner",
+  "standalone": false,
+  "merged_into": "Unified Arbitrage Opportunity Engine (#429) / DeFi Layer",
+  "sprint": 2,
+  "priority": "medium",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "monitoring_only": true,
+  "simulation_only": true,
+  "no_auto_execution": true,
+  "absorbed_features": {
+    "465": "DEX Screener",
+    "470": "LP Position Risk Calculator",
+    "473": "Liquidity Risk",
+    "482": "Oracle Risk",
+    "491": "Smart Contract and Protocol Risk"
+  },
+  "dex_screener_465": {
+    "feature_ref": 465,
+    "title": "DEX Screener",
+    "dexs_v1": ["uniswap", "pancakeswap", "raydium", "jupiter"],
+    "honeypot_provider": "honeypot.is",
+    "no_internal_detector_v1": true,
+    "default_filters": {
+      "min_liquidity_usd": 100000,
+      "min_volume_24h_usd": 10000,
+      "min_pool_age_days": 7
+    },
+    "rank_by": ["liquidity_usd", "volume_24h_usd", "velocity_score", "risk_score"]
+  },
+  "lp_position_risk_470": {
+    "feature_ref": 470,
+    "legal_name": "LP Position Risk Calculator",
+    "renamed_from": "Impermanent Loss Live Simulator",
+    "cancelled_sla": {
+      "response_2_seconds": true,
+      "accuracy_95_pct": true,
+      "uptime_99_pct": true,
+      "real_time_update": true
+    }
+  },
+  "liquidity_risk_473": {
+    "feature_ref": 473,
+    "update_interval_minutes": 15,
+    "accuracy_tolerance_pct": 0.1,
+    "historical_retention_days": 365,
+    "protocol_count_v1": 6,
+    "mandatory_indicators": [
+      "tvl_trend",
+      "utilization_rate",
+      "borrow_supply_ratio",
+      "liquidation_threshold"
+    ]
+  },
+  "dex_pools": [
+    {
+      "pool_id": "uni_eth_usdc_001",
+      "dex": "uniswap",
+      "chain": "ethereum",
+      "pair": "ETH/USDC",
+      "token0": "ETH",
+      "token1": "USDC",
+      "liquidity_usd": 45000000,
+      "volume_24h_usd": 12500000,
+      "price_usd": 3480.0,
+      "pool_age_days": 890,
+      "velocity_score": 0.28,
+      "contract_verified": true,
+      "liquidity_locked": true,
+      "owner_renounced": true,
+      "tax_token": false,
+      "honeypot_check": {"provider": "honeypot.is", "is_honeypot": false, "checked": true}
+    },
+    {
+      "pool_id": "cake_bnb_busd_001",
+      "dex": "pancakeswap",
+      "chain": "bsc",
+      "pair": "BNB/BUSD",
+      "token0": "BNB",
+      "token1": "BUSD",
+      "liquidity_usd": 8200000,
+      "volume_24h_usd": 2100000,
+      "price_usd": 585.0,
+      "pool_age_days": 420,
+      "velocity_score": 0.26,
+      "contract_verified": true,
+      "liquidity_locked": true,
+      "owner_renounced": true,
+      "tax_token": false,
+      "honeypot_check": {"provider": "honeypot.is", "is_honeypot": false, "checked": true}
+    },
+    {
+      "pool_id": "ray_sol_usdc_001",
+      "dex": "raydium",
+      "chain": "solana",
+      "pair": "SOL/USDC",
+      "token0": "SOL",
+      "token1": "USDC",
+      "liquidity_usd": 15000000,
+      "volume_24h_usd": 4800000,
+      "price_usd": 148.5,
+      "pool_age_days": 310,
+      "velocity_score": 0.32,
+      "contract_verified": true,
+      "liquidity_locked": false,
+      "owner_renounced": false,
+      "tax_token": false,
+      "honeypot_check": {"provider": "honeypot.is", "is_honeypot": false, "checked": true}
+    },
+    {
+      "pool_id": "jup_sol_usdt_001",
+      "dex": "jupiter",
+      "chain": "solana",
+      "pair": "SOL/USDT",
+      "token0": "SOL",
+      "token1": "USDT",
+      "liquidity_usd": 6200000,
+      "volume_24h_usd": 1850000,
+      "price_usd": 148.2,
+      "pool_age_days": 180,
+      "velocity_score": 0.30,
+      "contract_verified": true,
+      "liquidity_locked": true,
+      "owner_renounced": true,
+      "tax_token": false,
+      "honeypot_check": {"provider": "honeypot.is", "is_honeypot": false, "checked": true}
+    },
+    {
+      "pool_id": "uni_meme_eth_001",
+      "dex": "uniswap",
+      "chain": "ethereum",
+      "pair": "MEME/ETH",
+      "token0": "MEME",
+      "token1": "ETH",
+      "liquidity_usd": 85000,
+      "volume_24h_usd": 42000,
+      "price_usd": 0.00012,
+      "pool_age_days": 3,
+      "velocity_score": 0.49,
+      "contract_verified": false,
+      "liquidity_locked": false,
+      "owner_renounced": false,
+      "tax_token": true,
+      "honeypot_check": {"provider": "honeypot.is", "is_honeypot": true, "checked": true}
+    },
+    {
+      "pool_id": "cake_new_bnb_001",
+      "dex": "pancakeswap",
+      "chain": "bsc",
+      "pair": "NEW/BNB",
+      "token0": "NEW",
+      "token1": "BNB",
+      "liquidity_usd": 150000,
+      "volume_24h_usd": 85000,
+      "price_usd": 0.0045,
+      "pool_age_days": 12,
+      "velocity_score": 0.57,
+      "contract_verified": true,
+      "liquidity_locked": false,
+      "owner_renounced": false,
+      "tax_token": true,
+      "honeypot_check": {"provider": "honeypot.is", "is_honeypot": false, "checked": true}
+    }
+  ],
+  "pool_mapping": {
+    "ETH/USDC": {
+      "uniswap": "uni_eth_usdc_001",
+      "pancakeswap": null,
+      "raydium": null,
+      "jupiter": null
+    },
+    "SOL/USDC": {
+      "uniswap": null,
+      "pancakeswap": null,
+      "raydium": "ray_sol_usdc_001",
+      "jupiter": "jup_sol_usdt_001"
+    },
+    "BNB/BUSD": {
+      "uniswap": null,
+      "pancakeswap": "cake_bnb_busd_001",
+      "raydium": null,
+      "jupiter": null
+    }
+  },
+  "lp_positions": [
+    {
+      "position_id": "lp_eth_usdc_demo",
+      "pair": "ETH/USDC",
+      "token0": "ETH",
+      "token1": "USDC",
+      "entry_price_ratio": 1.0,
+      "current_price_ratio": 1.15,
+      "pool_ratio": 0.5,
+      "position_value_usd": 10000,
+      "fees_apy": 12.5,
+      "days_held": 30,
+      "asset_ref": "ETH"
+    },
+    {
+      "position_id": "lp_uni_eth_demo",
+      "pair": "UNI/ETH",
+      "token0": "UNI",
+      "token1": "ETH",
+      "entry_price_ratio": 1.0,
+      "current_price_ratio": 0.82,
+      "pool_ratio": 0.5,
+      "position_value_usd": 5000,
+      "fees_apy": 18.0,
+      "days_held": 45,
+      "asset_ref": "UNI"
+    }
+  ],
+  "liquidity_protocols": {
+    "aave": {
+      "protocol": "Aave",
+      "chain": "ethereum",
+      "tvl_usd": 12500000000,
+      "tvl_trend_7d_pct": 2.3,
+      "utilization_rate": 0.72,
+      "borrow_supply_ratio": 0.68,
+      "liquidation_threshold": 0.82,
+      "supply_apy": 3.2,
+      "borrow_apy": 5.8
+    },
+    "compound": {
+      "protocol": "Compound",
+      "chain": "ethereum",
+      "tvl_usd": 2800000000,
+      "tvl_trend_7d_pct": -1.1,
+      "utilization_rate": 0.65,
+      "borrow_supply_ratio": 0.61,
+      "liquidation_threshold": 0.80,
+      "supply_apy": 2.8,
+      "borrow_apy": 5.2
+    },
+    "uniswap": {
+      "protocol": "Uniswap",
+      "chain": "ethereum",
+      "tvl_usd": 4200000000,
+      "tvl_trend_7d_pct": 0.8,
+      "utilization_rate": 0.45,
+      "borrow_supply_ratio": null,
+      "liquidation_threshold": null,
+      "supply_apy": 8.5,
+      "borrow_apy": null
+    },
+    "curve": {
+      "protocol": "Curve",
+      "chain": "ethereum",
+      "tvl_usd": 2100000000,
+      "tvl_trend_7d_pct": -0.5,
+      "utilization_rate": 0.58,
+      "borrow_supply_ratio": 0.55,
+      "liquidation_threshold": 0.85,
+      "supply_apy": 4.1,
+      "borrow_apy": 6.5
+    },
+    "lido": {
+      "protocol": "Lido",
+      "chain": "ethereum",
+      "tvl_usd": 28500000000,
+      "tvl_trend_7d_pct": 1.5,
+      "utilization_rate": 0.92,
+      "borrow_supply_ratio": null,
+      "liquidation_threshold": null,
+      "supply_apy": 3.8,
+      "borrow_apy": null
+    },
+    "maker": {
+      "protocol": "Maker",
+      "chain": "ethereum",
+      "tvl_usd": 8200000000,
+      "tvl_trend_7d_pct": 0.3,
+      "utilization_rate": 0.48,
+      "borrow_supply_ratio": 0.42,
+      "liquidation_threshold": 0.75,
+      "supply_apy": 1.2,
+      "borrow_apy": 4.5
+    }
+  },
+  "defi_opportunities": [
+    {
+      "opportunity_id": "defi_eth_lst_001",
+      "scan_type": "on_chain_arbitrage",
+      "asset": "ETH",
+      "symbol": "ETH/USDT",
+      "chain": "ethereum",
+      "venue_buy": "uniswap_v3",
+      "venue_sell": "curve",
+      "price_divergence_bps": 22.5,
+      "implied_yield_pct": 3.8,
+      "gas_cost_estimate_usd": 8.5,
+      "lst_peg_deviation_bps": 6.2,
+      "display": "ETH/stETH peg deviation 6.2 bps + yield differential 3.8%"
+    },
+    {
+      "opportunity_id": "defi_uni_liq_001",
+      "scan_type": "on_chain_arbitrage",
+      "asset": "UNI",
+      "symbol": "UNI/USDT",
+      "chain": "ethereum",
+      "venue_buy": "sushiswap",
+      "venue_sell": "uniswap_v3",
+      "price_divergence_bps": 18.0,
+      "gas_cost_estimate_usd": 11.0,
+      "liquidation_discount_pct": 4.5,
+      "collateral_ratio": 1.12,
+      "display": "UNI DEX divergence 18 bps — liquidation discount 4.5% monitoring only"
+    }
+  ],
+  "default_trading_fee_bps": 10,
+  "default_slippage_bps": 8,
+  "oracle_risk_482": {
+    "feature_ref": 482,
+    "title": "Oracle Risk",
+    "source_config_version": "1.0",
+    "portfolio_exposure_threshold_pct": 5,
+    "mandatory_indicators": [
+      "oracle_count",
+      "heartbeat_freshness",
+      "deviation_history",
+      "dependency_depth"
+    ]
+  },
+  "oracle_protocols": {
+    "aave": {
+      "protocol": "Aave",
+      "chain": "ethereum",
+      "heartbeat_seconds": 3600,
+      "last_heartbeat_age_seconds": 420,
+      "deviation_history_bps": [8, 12, 5, 15, 9],
+      "dependency_depth": 2,
+      "stablecoin_oracle_linked": ["USDC", "DAI"],
+      "oracle_sources": [
+        {"provider": "chainlink", "type": "aggregator", "version": "v3", "heartbeat_seconds": 3600, "deviation_threshold_bps": 50},
+        {"provider": "chainlink", "type": "fallback", "version": "v3", "heartbeat_seconds": 3600, "deviation_threshold_bps": 100}
+      ]
+    },
+    "maker": {
+      "protocol": "Maker",
+      "chain": "ethereum",
+      "heartbeat_seconds": 3600,
+      "last_heartbeat_age_seconds": 1800,
+      "deviation_history_bps": [3, 6, 4, 7, 5],
+      "dependency_depth": 1,
+      "stablecoin_oracle_linked": ["DAI"],
+      "oracle_sources": [
+        {"provider": "chainlink", "type": "aggregator", "version": "v3", "heartbeat_seconds": 3600, "deviation_threshold_bps": 50}
+      ]
+    },
+    "curve": {
+      "protocol": "Curve",
+      "chain": "ethereum",
+      "heartbeat_seconds": 1800,
+      "last_heartbeat_age_seconds": 900,
+      "deviation_history_bps": [15, 22, 18, 30, 12],
+      "dependency_depth": 3,
+      "stablecoin_oracle_linked": ["USDT", "USDC"],
+      "oracle_sources": [
+        {"provider": "chainlink", "type": "aggregator", "version": "v3", "heartbeat_seconds": 3600, "deviation_threshold_bps": 50},
+        {"provider": "pyth", "type": "pull", "version": "v2", "heartbeat_seconds": 400, "deviation_threshold_bps": 30}
+      ]
+    },
+    "lido": {
+      "protocol": "Lido",
+      "chain": "ethereum",
+      "heartbeat_seconds": 86400,
+      "last_heartbeat_age_seconds": 7200,
+      "deviation_history_bps": [25, 40, 18, 55, 32],
+      "dependency_depth": 2,
+      "stablecoin_oracle_linked": [],
+      "oracle_sources": [
+        {"provider": "chainlink", "type": "steth_usd", "version": "v3", "heartbeat_seconds": 86400, "deviation_threshold_bps": 200}
+      ]
+    }
+  },
+  "portfolio_protocol_exposure": {
+    "demo_portfolio": {
+      "aave": 8.5,
+      "maker": 3.2,
+      "curve": 2.1,
+      "lido": 6.8
+    }
+  },
+  "opportunity_protocol_map": {
+    "defi_eth_lst_001": "lido",
+    "defi_uni_liq_001": "uniswap",
+    "eth": "aave",
+    "uni": "uniswap"
+  },
+  "smart_contract_risk_491": {
+    "feature_ref": 491,
+    "title": "Smart Contract and Protocol Risk",
+    "data_sources_v1": ["defillama", "immunefi"],
+    "no_internal_scanner_v1": true,
+    "cancelled_sla": {
+      "response_2_seconds": true,
+      "accuracy_95_pct": true,
+      "uptime_99_pct": true,
+      "real_time_update": true
+    },
+    "mandatory_indicators": [
+      "contract_verified",
+      "audit_history",
+      "bug_bounty_active",
+      "admin_keys_renounced",
+      "upgradeability"
+    ]
+  },
+  "protocol_contracts": {
+    "aave": {
+      "protocol": "Aave",
+      "chain": "ethereum",
+      "contract_verified_etherscan": true,
+      "audit_history": ["certik", "openzeppelin"],
+      "bug_bounty_active": true,
+      "admin_keys_renounced": false,
+      "upgradeability": "governance_timelock",
+      "data_sources": ["defillama", "immunefi"]
+    },
+    "uniswap": {
+      "protocol": "Uniswap",
+      "chain": "ethereum",
+      "contract_verified_etherscan": true,
+      "audit_history": ["trail_of_bits"],
+      "bug_bounty_active": true,
+      "admin_keys_renounced": true,
+      "upgradeability": "immutable",
+      "data_sources": ["defillama", "immunefi"]
+    },
+    "lido": {
+      "protocol": "Lido",
+      "chain": "ethereum",
+      "contract_verified_etherscan": true,
+      "audit_history": ["certik", "mixbytes"],
+      "bug_bounty_active": true,
+      "admin_keys_renounced": false,
+      "upgradeability": "upgradeable_proxy",
+      "data_sources": ["defillama", "immunefi"]
+    },
+    "curve": {
+      "protocol": "Curve",
+      "chain": "ethereum",
+      "contract_verified_etherscan": true,
+      "audit_history": ["chainsecurity"],
+      "bug_bounty_active": false,
+      "admin_keys_renounced": false,
+      "upgradeability": "governance_timelock",
+      "data_sources": ["defillama"]
+    }
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "feature_id": 404,
+  "title": "Live Breakeven Tracker",
+  "legal_name": "Dynamic Cost Basis",
+  "standalone": false,
+  "merged_into": "Portfolio AI / Position Analytics Layer",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "legal_review": {
+    "complete": true,
+    "date": "2026-08-26",
+    "auto_calculation_name_forbidden": true
+  },
+  "accuracy_target": {
+    "tolerance_pct": 0.01,
+    "description": "±0.01% from actual breakeven after all costs deducted"
+  },
+  "refresh_policy": {
+    "client_side_instant": true,
+    "server_refresh_seconds": 30
+  },
+  "fee_defaults": {
+    "maker_fee_pct": 0.1,
+    "taker_fee_pct": 0.1
+  },
+  "capital_protection_feature_id": 410,
+  "capital_protection": {
+    "breakeven_proximity_alert_pct": 1.5,
+    "max_loss_breach_alert_pct": 5.0,
+    "enabled": true
+  },
+  "positions": {
+    "pos_btc_001": {
+      "position_id": "pos_btc_001",
+      "asset": "BTC",
+      "symbol": "BTC",
+      "venue": "binance",
+      "position_type": "spot",
+      "current_price": 65000,
+      "remaining_quantity": 1.2,
+      "user_owns_asset": true,
+      "events": [
+        {
+          "event_id": "e1",
+          "type": "buy",
+          "timestamp": "2026-06-01T10:00:00Z",
+          "quantity": 1.0,
+          "price": 60000,
+          "fee_type": "taker",
+          "fee_pct": 0.1,
+          "network_fee_usd": 5.25,
+          "slippage_usd": 12.0,
+          "label": "Initial entry"
+        },
+        {
+          "event_id": "e2",
+          "type": "buy",
+          "timestamp": "2026-07-15T14:30:00Z",
+          "quantity": 0.5,
+          "price": 58000,
+          "fee_type": "maker",
+          "fee_pct": 0.1,
+          "network_fee_usd": 3.10,
+          "slippage_usd": 6.50,
+          "label": "DCA entry"
+        },
+        {
+          "event_id": "e3",
+          "type": "sell",
+          "timestamp": "2026-08-01T09:00:00Z",
+          "quantity": 0.3,
+          "price": 65000,
+          "fee_type": "taker",
+          "fee_pct": 0.1,
+          "network_fee_usd": 4.80,
+          "slippage_usd": 8.20,
+          "label": "Partial exit"
+        },
+        {
+          "event_id": "e4",
+          "type": "funding",
+          "timestamp": "2026-08-10T00:00:00Z",
+          "amount_usd": 18.75,
+          "label": "Funding rate accumulation (perp hedge)"
+        }
+      ]
+    },
+    "pos_eth_002": {
+      "position_id": "pos_eth_002",
+      "asset": "ETH",
+      "symbol": "ETH",
+      "venue": "bybit",
+      "position_type": "perp",
+      "current_price": 3500,
+      "remaining_quantity": 10.0,
+      "user_owns_asset": true,
+      "events": [
+        {
+          "event_id": "e1",
+          "type": "buy",
+          "timestamp": "2026-05-20T08:00:00Z",
+          "quantity": 8.0,
+          "price": 3200,
+          "fee_type": "maker",
+          "fee_pct": 0.1,
+          "network_fee_usd": 2.50,
+          "slippage_usd": 4.00,
+          "label": "Average entry"
+        },
+        {
+          "event_id": "e2",
+          "type": "buy",
+          "timestamp": "2026-07-01T12:00:00Z",
+          "quantity": 2.0,
+          "price": 3100,
+          "fee_type": "maker",
+          "fee_pct": 0.1,
+          "network_fee_usd": 1.20,
+          "slippage_usd": 2.10,
+          "label": "DCA entry"
+        },
+        {
+          "event_id": "e3",
+          "type": "funding",
+          "timestamp": "2026-08-01T00:00:00Z",
+          "amount_usd": 42.30,
+          "label": "Funding rate accumulation"
+        },
+        {
+          "event_id": "e4",
+          "type": "funding",
+          "timestamp": "2026-08-15T00:00:00Z",
+          "amount_usd": 38.90,
+          "label": "Funding rate accumulation"
+        }
+      ]
+    },
+    "pos_sol_003": {
+      "position_id": "pos_sol_003",
+      "asset": "SOL",
+      "symbol": "SOL",
+      "venue": "binance",
+      "position_type": "spot",
+      "current_price": 150,
+      "remaining_quantity": 50.0,
+      "user_owns_asset": false,
+      "events": [
+        {
+          "event_id": "e1",
+          "type": "buy",
+          "timestamp": "2026-08-01T10:00:00Z",
+          "quantity": 50.0,
+          "price": 145,
+          "fee_type": "taker",
+          "fee_pct": 0.1,
+          "network_fee_usd": 0.15,
+          "slippage_usd": 1.25,
+          "label": "Single entry"
+        }
+      ]
+    }
+  },
+  "user_holdings": {
+    "BTC": {"owns": true, "position_id": "pos_btc_001"},
+    "ETH": {"owns": true, "position_id": "pos_eth_002"},
+    "SOL": {"owns": false}
+  }
+}

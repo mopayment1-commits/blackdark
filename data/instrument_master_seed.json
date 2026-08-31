@@ -1,0 +1,130 @@
+{
+  "feature_id": 268,
+  "standalone": false,
+  "archived_standalone_ticket": true,
+  "merged_into": "Wave 01 Data Engine",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "compute_budget": "pre-defined cap",
+  "auto_archive_threshold_usd": 1000,
+  "auto_archive_days": 90,
+  "cost_tiers": {
+    "hot_pct": 5,
+    "warm_pct": 15,
+    "cold_pct": 80
+  },
+  "sla": {
+    "latency_ms_top_5k": 500,
+    "coverage_accuracy_pct": 99.2,
+    "coverage_benchmark": "CoinGecko",
+    "uptime_sla_pct": 99.9
+  },
+  "absorbed_tickets": {
+    "325": "Derivatives Asset Class Expansion (standalone rejected)"
+  },
+  "coverage": {
+    "validated_instruments": 48250,
+    "top_5k_realtime": true,
+    "accuracy_vs_coingecko_pct": 99.2
+  },
+  "instruments": [
+    {
+      "instrument_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "venue": "binance",
+      "venue_type": "CEX",
+      "asset_class": "spot",
+      "base": "BTC",
+      "quote": "USDT",
+      "mapping_confidence_pct": 99.5,
+      "min_confidence_pct": 80,
+      "last_verified": "2026-08-25T20:00:00+00:00",
+      "tier": "hot",
+      "daily_volume_usd": 28500000000,
+      "source_tag": "binance:spot:BTCUSDT",
+      "reused_table": "ohlcv_data"
+    },
+    {
+      "instrument_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "venue": "binance",
+      "venue_type": "CEX",
+      "asset_class": "perp",
+      "base": "BTC",
+      "quote": "USDT",
+      "contract_symbol": "BTCUSDT",
+      "expiry": null,
+      "funding_interval_hours": 8,
+      "index_reference": {
+        "name": "BTCUSDT Index",
+        "source_tag": "binance:index:BTCUSDT"
+      },
+      "mapping_confidence_pct": 99.8,
+      "min_confidence_pct": 80,
+      "last_verified": "2026-08-25T20:00:00+00:00",
+      "tier": "hot",
+      "daily_volume_usd": 42000000000,
+      "source_tag": "binance:futures:BTCUSDT",
+      "reused_table": "funding_rates"
+    },
+    {
+      "instrument_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "venue": "deribit",
+      "venue_type": "Derivatives",
+      "asset_class": "option",
+      "base": "BTC",
+      "quote": "USD",
+      "mapping_confidence_pct": 97.2,
+      "min_confidence_pct": 80,
+      "last_verified": "2026-08-25T18:00:00+00:00",
+      "tier": "hot",
+      "daily_volume_usd": 850000000,
+      "source_tag": "deribit:options:BTC",
+      "reused_table": "open_interest"
+    },
+    {
+      "instrument_id": "d4e5f6a7-b8c9-0123-def0-234567890123",
+      "venue": "uniswap-v3",
+      "venue_type": "DEX",
+      "asset_class": "spot",
+      "base": "ETH",
+      "quote": "USDC",
+      "mapping_confidence_pct": 94.5,
+      "min_confidence_pct": 80,
+      "last_verified": "2026-08-25T16:00:00+00:00",
+      "tier": "warm",
+      "daily_volume_usd": 320000000,
+      "source_tag": "uniswap-v3:eth-usdc-0.05",
+      "reused_table": "market_snapshots"
+    },
+    {
+      "instrument_id": "e5f6a7b8-c9d0-1234-ef01-345678901234",
+      "venue": "kraken",
+      "venue_type": "CEX",
+      "asset_class": "spot",
+      "base": "SOL",
+      "quote": "USD",
+      "mapping_confidence_pct": 88.0,
+      "min_confidence_pct": 80,
+      "last_verified": "2026-08-24T12:00:00+00:00",
+      "tier": "warm",
+      "daily_volume_usd": 45000000,
+      "source_tag": "kraken:spot:SOLUSD",
+      "reused_table": "ohlcv_data"
+    },
+    {
+      "instrument_id": "f6a7b8c9-d0e1-2345-f012-456789012345",
+      "venue": "gateio",
+      "venue_type": "CEX",
+      "asset_class": "spot",
+      "base": "ALT",
+      "quote": "USDT",
+      "mapping_confidence_pct": 72.0,
+      "min_confidence_pct": 80,
+      "last_verified": "2026-08-20T08:00:00+00:00",
+      "tier": "cold",
+      "daily_volume_usd": 850,
+      "source_tag": "gateio:spot:ALTUSDT",
+      "reused_table": "ohlcv_data"
+    }
+  ]
+}

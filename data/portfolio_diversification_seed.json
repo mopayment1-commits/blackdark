@@ -1,0 +1,44 @@
+{
+  "feature_id": 717,
+  "standalone": false,
+  "merged_into": "Portfolio AI / Diversification Health Score",
+  "merged_with": [109, 199],
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "portfolios": {
+    "default": {
+      "name": "Sample Pro Portfolio",
+      "visible_asset_count": 10,
+      "holdings": [
+        {"asset": "BTC", "weight_pct": 35, "value_usd": 35000, "cost_basis_usd": 28000, "avg_correlation": 0.45},
+        {"asset": "ETH", "weight_pct": 25, "value_usd": 25000, "cost_basis_usd": 22000, "avg_correlation": 0.72, "correlated_with": "BTC", "correlation": 0.78},
+        {"asset": "SOL", "weight_pct": 10, "value_usd": 10000, "cost_basis_usd": 8000, "avg_correlation": 0.65},
+        {"asset": "AAVE", "weight_pct": 8, "value_usd": 8000, "cost_basis_usd": 7500, "avg_correlation": 0.55},
+        {"asset": "UNI", "weight_pct": 7, "value_usd": 7000, "cost_basis_usd": 6500, "avg_correlation": 0.60},
+        {"asset": "LINK", "weight_pct": 5, "value_usd": 5000, "cost_basis_usd": 4800, "avg_correlation": 0.58},
+        {"asset": "ARB", "weight_pct": 4, "value_usd": 4000, "cost_basis_usd": 3500, "avg_correlation": 0.62},
+        {"asset": "OP", "weight_pct": 3, "value_usd": 3000, "cost_basis_usd": 2800, "avg_correlation": 0.64},
+        {"asset": "MATIC", "weight_pct": 2, "value_usd": 2000, "cost_basis_usd": 1900, "avg_correlation": 0.59},
+        {"asset": "USDC", "weight_pct": 1, "value_usd": 1000, "cost_basis_usd": 1000, "avg_correlation": 0.05}
+      ],
+      "sectors": {
+        "L1": 70,
+        "DeFi": 19,
+        "Infrastructure": 8,
+        "Stablecoin": 3
+      },
+      "chains": {
+        "Bitcoin": 35,
+        "Ethereum": 52,
+        "Solana": 10,
+        "Multi-chain": 3
+      },
+      "market_cap_tiers": {
+        "Large": 60,
+        "Mid": 30,
+        "Small": 10
+      }
+    }
+  }
+}

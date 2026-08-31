@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#22d3ee">
+<title>BLACKDARK — Ask</title>
+<link rel="icon" href="/static/img/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--card:#0d1117;--line:#243040;--fg:#f2efe6;--muted:#8b949e;--accent:#22d3ee;--ok:#34d399;--warn:#f59e0b;--err:#f87171}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:linear-gradient(165deg,#070a0f,#0d1520);min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.25rem;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:.5rem}
+.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--accent);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.875rem}
+nav a.active{color:var(--accent)}
+main{max-width:960px;margin:0 auto;padding:1.5rem 1rem 3rem}
+h1{font-family:Syne,sans-serif;margin:0 0 .25rem;font-size:1.6rem}
+.sub{color:var(--muted);margin:0 0 1rem;line-height:1.55;font-size:.9rem}
+.live-strip{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+.live-item{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.45rem .7rem;font-size:.78rem}
+.live-item .label{color:var(--muted);font-size:.65rem}
+.live-item .val{font-weight:600;margin-top:.1rem}
+.query-box{display:flex;gap:.5rem;margin-bottom:.75rem}
+.query-box input{flex:1;padding:.75rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:.95rem}
+.query-box input:disabled{opacity:.6}
+.query-box button{padding:.75rem 1.25rem;border-radius:10px;border:0;background:var(--accent);color:#062016;font-weight:700;cursor:pointer}
+.query-box button:disabled{opacity:.55;cursor:not-allowed}
+.tier-note{font-size:.72rem;color:var(--muted);margin-bottom:.75rem}
+.examples{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+.examples button{background:var(--card);border:1px solid var(--line);color:var(--muted);padding:.35rem .65rem;border-radius:999px;font-size:.75rem;cursor:pointer}
+.examples button:hover{border-color:var(--accent);color:var(--accent)}
+.result{border:1px solid var(--line);border-radius:12px;padding:1rem;background:var(--card);min-height:140px}
+.badge{display:inline-block;padding:.2rem .55rem;border-radius:999px;font-size:.7rem;font-weight:600;margin-bottom:.5rem}
+.badge.ok{background:rgba(52,211,153,.15);color:var(--ok)}
+.badge.warn{background:rgba(245,158,11,.12);color:var(--warn)}
+.badge.err{background:rgba(248,113,113,.12);color:var(--err)}
+.meta{font-size:.78rem;color:var(--muted);margin:.35rem 0}
+.card{border:1px solid var(--line);border-radius:10px;padding:.85rem;margin-top:.65rem;background:#0a0e14}
+.card h3{margin:0 0 .45rem;font-size:.88rem;color:var(--accent)}
+.display-line{font-size:.92rem;line-height:1.5;margin:.35rem 0}
+.kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.45rem;margin-top:.5rem}
+.kv-item .k{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.kv-item .v{font-size:.82rem;margin-top:.15rem;word-break:break-word}
+.news-item{padding:.55rem 0;border-bottom:1px solid var(--line)}
+.news-item:last-child{border-bottom:none}
+.news-item a{color:var(--accent);text-decoration:none;font-weight:600}
+.news-item a:hover{text-decoration:underline}
+.tag{display:inline-block;font-size:.62rem;padding:.12rem .4rem;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:.25rem}
+.spinner{width:28px;height:28px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:1rem auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-box{border:1px solid var(--err);background:rgba(248,113,113,.08);border-radius:10px;padding:.85rem;color:var(--err)}
+.disclaimer{font-size:.72rem;color:var(--muted);margin-top:1rem;border-top:1px solid var(--line);padding-top:.75rem}
+details{margin-top:.75rem;font-size:.75rem;color:var(--muted)}
+details pre{background:#0a0e14;border:1px solid var(--line);border-radius:8px;padding:.65rem;overflow:auto;max-height:260px}
+@media(max-width:640px){.query-box{flex-direction:column}nav a{margin-left:.5rem;font-size:.8rem}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">BLACKDARK</a>
+  <div>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/intelligence-ledger">Intelligence Ledger</a>
+    <a href="/launch-center">Launch Center</a>
+    <a href="/ask" class="active">Ask</a>
+  </div>
+</nav>
+<main>
+  <h1>Ask — Natural Language Interpreter</h1>
+  <p class="sub">اطرح سؤالاً تحليلياً بلغة طبيعية. لا نصيحة شراء/بيع — بيانات فقط مع أدلة.</p>
+  <div class="live-strip" id="liveStrip"><div class="live-item"><div class="label">السوق</div><div class="val">جاري التحميل…</div></div></div>
+  <div class="query-box">
+    <input id="queryInput" type="text" placeholder="What is Bitcoin's exchange flow?" autocomplete="off" />
+    <button id="askBtn" type="button">Ask</button>
+  </div>
+  <p class="tier-note" id="tierNote">وضع الضيف — بعض التحليلات تتطلب تسجيل الدخول.</p>
+  <div class="examples" id="examples"></div>
+  <div class="result" id="result">
+    <span class="meta">اختر مثالاً أو اكتب سؤالاً تحليلياً.</span>
+  </div>
+  <p class="disclaimer">Feature #573 — rule-based guardrails. Advisory queries redirect to data. Not investment advice.</p>
+</main>
+<script src="/static/js/dom_escape.js"></script>
+<script src="/static/js/ask.js"></script>
+</body>
+</html>

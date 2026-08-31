@@ -1,0 +1,70 @@
+{
+  "feature_id": 501,
+  "renamed_from": "Volatility_Scoring_System",
+  "title": "Cross-Asset Volatility Regime Analyzer",
+  "wave": 1,
+  "sprint": 1,
+  "formula_version": "1.0",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "legal_review": {
+    "complete": true,
+    "date": "2026-08-20",
+    "rule_based_validation_months": 3
+  },
+  "formula": {
+    "expression": "hv_percentile = percentile_rank(realized_vol, 252d_window) | regime = classify(hv_percentile, asset_distribution)",
+    "inputs": ["realized_volatility", "implied_volatility", "atr", "returns", "liquidity"],
+    "thresholds": {
+      "low_regime_percentile": 33,
+      "high_regime_percentile": 67,
+      "documented": true,
+      "no_arbitrary": true
+    }
+  },
+  "backtest": {
+    "events_tested": 120,
+    "regime_accuracy_pct": 71.5,
+    "no_arbitrary_thresholds": true
+  },
+  "assets": {
+    "BTC": {
+      "historical_volatility_percentile": 42,
+      "realized_volatility": 0.045,
+      "realized_vol_annualized_pct": 45.0,
+      "realized_vol_source": "binance_1h_returns",
+      "implied_volatility": 0.048,
+      "implied_vol_source": "deribit_dvol",
+      "atr": 1850,
+      "atr_period": 14,
+      "return_30d_pct": 8.5,
+      "volume_24h_usd": 28500000000,
+      "liquidity_tier": "tier_1"
+    },
+    "ETH": {
+      "historical_volatility_percentile": 55,
+      "realized_volatility": 0.058,
+      "realized_vol_annualized_pct": 58.0,
+      "realized_vol_source": "binance_1h_returns",
+      "implied_volatility": 0.062,
+      "implied_vol_source": "deribit_dvol",
+      "atr": 120,
+      "atr_period": 14,
+      "return_30d_pct": 12.3,
+      "volume_24h_usd": 15000000000,
+      "liquidity_tier": "tier_1"
+    },
+    "SOL": {
+      "historical_volatility_percentile": 78,
+      "realized_volatility": 0.085,
+      "realized_vol_annualized_pct": 85.0,
+      "realized_vol_source": "binance_1h_returns",
+      "implied_volatility": null,
+      "atr": 8.5,
+      "atr_period": 14,
+      "return_30d_pct": -5.2,
+      "volume_24h_usd": 3200000000,
+      "liquidity_tier": "tier_2"
+    }
+  }
+}

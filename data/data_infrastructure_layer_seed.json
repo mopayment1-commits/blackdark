@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0.0",
+  "layer": "Data Infrastructure Layer",
+  "tasks": ["#564", "#581"],
+  "sprint": 0,
+  "wave": 0,
+  "default_as_of": "2026-08-26T14:00:00Z",
+  "join_rules": {
+    "version": "1.0",
+    "alignment_method": "as_of_timestamp",
+    "max_forward_tolerance_seconds": 0,
+    "rules": [
+      "network_data_timestamp <= market_data_timestamp",
+      "no_future_market_data_in_join",
+      "as_of_boundary_enforced"
+    ]
+  },
+  "network_data": [
+    {
+      "record_id": "net-001",
+      "asset": "BTC",
+      "timestamp": "2026-08-26T13:00:00Z",
+      "metric": "active_addresses",
+      "value": 950000,
+      "chain": "bitcoin",
+      "source": "onchain_indexer"
+    },
+    {
+      "record_id": "net-002",
+      "asset": "BTC",
+      "timestamp": "2026-08-26T13:30:00Z",
+      "metric": "exchange_netflow",
+      "value": -50000000,
+      "chain": "bitcoin",
+      "source": "exchange_intelligence_layer"
+    },
+    {
+      "record_id": "net-003",
+      "asset": "ETH",
+      "timestamp": "2026-08-26T13:45:00Z",
+      "metric": "gas_used",
+      "value": 15000000,
+      "chain": "ethereum",
+      "source": "onchain_indexer"
+    },
+    {
+      "record_id": "net-004",
+      "asset": "BTC",
+      "timestamp": "2026-08-26T14:30:00Z",
+      "metric": "hash_rate",
+      "value": 650000000,
+      "chain": "bitcoin",
+      "source": "onchain_indexer"
+    }
+  ],
+  "market_data": [
+    {
+      "record_id": "mkt-001",
+      "asset": "BTC",
+      "timestamp": "2026-08-26T12:00:00Z",
+      "price_usd": 94000.0,
+      "source": "ohlcv_feed"
+    },
+    {
+      "record_id": "mkt-002",
+      "asset": "BTC",
+      "timestamp": "2026-08-26T13:00:00Z",
+      "price_usd": 94500.0,
+      "source": "ohlcv_feed"
+    },
+    {
+      "record_id": "mkt-003",
+      "asset": "BTC",
+      "timestamp": "2026-08-26T13:30:00Z",
+      "price_usd": 94800.0,
+      "source": "ohlcv_feed"
+    },
+    {
+      "record_id": "mkt-004",
+      "asset": "ETH",
+      "timestamp": "2026-08-26T13:00:00Z",
+      "price_usd": 4150.0,
+      "source": "ohlcv_feed"
+    },
+    {
+      "record_id": "mkt-005",
+      "asset": "ETH",
+      "timestamp": "2026-08-26T13:45:00Z",
+      "price_usd": 4180.0,
+      "source": "ohlcv_feed"
+    },
+    {
+      "record_id": "mkt-006",
+      "asset": "BTC",
+      "timestamp": "2026-08-26T15:00:00Z",
+      "price_usd": 96000.0,
+      "source": "ohlcv_feed"
+    }
+  ],
+  "market_metrics_581": {
+    "task_id": "581",
+    "title": "Price / Volume / Market Metrics",
+    "stale_threshold_seconds": 300,
+    "outlier_handling": {
+      "method": "z_score",
+      "zscore_threshold": 3.0
+    }
+  },
+  "market_metrics": {
+    "BTC": {
+      "price_usd": 94800.0,
+      "volume_24h_usd": 28500000000,
+      "market_cap_usd": 1870000000000,
+      "returns": {"1d": 1.2, "7d": 4.5, "30d": 12.3},
+      "volume_change_24h_pct": 8.5,
+      "market_cap_change_24h_pct": 1.2,
+      "price_30d_mean": 92000.0,
+      "price_30d_std": 2500.0,
+      "source": "ohlcv_feed",
+      "as_of": "2026-08-26T13:30:00Z",
+      "freshness_seconds": 120,
+      "missing": false
+    },
+    "ETH": {
+      "price_usd": 4180.0,
+      "volume_24h_usd": 15200000000,
+      "market_cap_usd": 502000000000,
+      "returns": {"1d": 0.8, "7d": 3.2, "30d": 8.1},
+      "volume_change_24h_pct": 5.2,
+      "market_cap_change_24h_pct": 0.8,
+      "price_30d_mean": 4000.0,
+      "price_30d_std": 180.0,
+      "source": "ohlcv_feed",
+      "as_of": "2026-08-26T13:45:00Z",
+      "freshness_seconds": 90,
+      "missing": false
+    },
+    "STALE": {
+      "price_usd": 100.0,
+      "volume_24h_usd": 500000,
+      "market_cap_usd": 10000000,
+      "returns": {"1d": 0.0},
+      "source": "delayed_feed",
+      "as_of": "2026-08-26T10:00:00Z",
+      "freshness_seconds": 7200,
+      "missing": false
+    }
+  }
+}

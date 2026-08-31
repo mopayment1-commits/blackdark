@@ -1,0 +1,57 @@
+{
+  "feature_id": 413,
+  "merged_with": 409,
+  "title": "Oracle VWAP / Fair Value Index",
+  "standalone": false,
+  "merged_into": "Oracle API Enhancement",
+  "priority": "medium",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "venue_count": 12,
+  "venues": [
+    "binance", "okx", "bybit", "coinbase", "kraken", "bitfinex",
+    "kucoin", "gate", "htx", "bitstamp", "gemini", "crypto_com"
+  ],
+  "stale_threshold_seconds": 300,
+  "assets": {
+    "BTC": {
+      "symbol": "BTC",
+      "quote": "USDT",
+      "constituents": [
+        {"venue": "binance", "price": 65012.5, "volume_24h_usd": 28500000000, "vwap_1h": 64980.2, "source": "binance_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "okx", "price": 65005.0, "volume_24h_usd": 12000000000, "vwap_1h": 64975.8, "source": "okx_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "bybit", "price": 65008.0, "volume_24h_usd": 9800000000, "vwap_1h": 64978.1, "source": "bybit_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "coinbase", "price": 65025.0, "volume_24h_usd": 5200000000, "vwap_1h": 64995.0, "source": "coinbase_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "kraken", "price": 65018.0, "volume_24h_usd": 2100000000, "vwap_1h": 64988.5, "source": "kraken_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "bitfinex", "price": 65000.0, "volume_24h_usd": 1800000000, "vwap_1h": 64970.0, "source": "bitfinex_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "kucoin", "price": 65010.0, "volume_24h_usd": 1500000000, "vwap_1h": 64982.0, "source": "kucoin_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "gate", "price": 65006.0, "volume_24h_usd": 1200000000, "vwap_1h": 64976.5, "source": "gate_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "htx", "price": 65003.0, "volume_24h_usd": 900000000, "vwap_1h": 64974.0, "source": "htx_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "bitstamp", "price": 65022.0, "volume_24h_usd": 600000000, "vwap_1h": 64992.0, "source": "bitstamp_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "gemini", "price": 65028.0, "volume_24h_usd": 400000000, "vwap_1h": 64998.0, "source": "gemini_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "crypto_com", "price": 65015.0, "volume_24h_usd": 800000000, "vwap_1h": 64985.0, "source": "crypto_com_api", "timestamp": "2026-08-26T19:00:00Z"}
+      ]
+    },
+    "ETH": {
+      "symbol": "ETH",
+      "quote": "USDT",
+      "constituents": [
+        {"venue": "binance", "price": 3502.5, "volume_24h_usd": 15000000000, "vwap_1h": 3498.2, "source": "binance_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "okx", "price": 3501.0, "volume_24h_usd": 6000000000, "vwap_1h": 3497.5, "source": "okx_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "bybit", "price": 3501.8, "volume_24h_usd": 4500000000, "vwap_1h": 3497.8, "source": "bybit_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "coinbase", "price": 3504.0, "volume_24h_usd": 2800000000, "vwap_1h": 3500.0, "source": "coinbase_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "kraken", "price": 3503.2, "volume_24h_usd": 900000000, "vwap_1h": 3499.1, "source": "kraken_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "bitfinex", "price": 3500.5, "volume_24h_usd": 700000000, "vwap_1h": 3496.8, "source": "bitfinex_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "kucoin", "price": 3502.0, "volume_24h_usd": 500000000, "vwap_1h": 3498.0, "source": "kucoin_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "gate", "price": 3501.5, "volume_24h_usd": 400000000, "vwap_1h": 3497.6, "source": "gate_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "htx", "price": 3500.8, "volume_24h_usd": 350000000, "vwap_1h": 3497.2, "source": "htx_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "bitstamp", "price": 3503.8, "volume_24h_usd": 200000000, "vwap_1h": 3499.5, "source": "bitstamp_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "gemini", "price": 3504.5, "volume_24h_usd": 150000000, "vwap_1h": 3500.2, "source": "gemini_api", "timestamp": "2026-08-26T19:00:00Z"},
+        {"venue": "crypto_com", "price": 3502.2, "volume_24h_usd": 300000000, "vwap_1h": 3498.5, "source": "crypto_com_api", "timestamp": "2026-08-26T19:00:00Z"}
+      ]
+    }
+  },
+  "cross_rates": {
+    "ETH/BTC": 0.05387
+  }
+}

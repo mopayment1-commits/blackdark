@@ -1,0 +1,358 @@
+{
+  "schema_version": "1.0.0",
+  "layer": "Portfolio Intelligence Layer",
+  "tasks": ["#515", "#557", "#558", "#569", "#579"],
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "symbol_normalization": {
+    "WBTC": "BTC",
+    "WETH": "ETH",
+    "BTC.B": "BTC"
+  },
+  "chain_coverage": {
+    "ethereum": {
+      "supported": true,
+      "coverage_pct": 99.5,
+      "display": "Ethereum — full coverage"
+    },
+    "bitcoin": {
+      "supported": true,
+      "coverage_pct": 100.0,
+      "display": "Bitcoin — full coverage"
+    },
+    "solana": {
+      "supported": true,
+      "coverage_pct": 95.0,
+      "display": "Solana — 95% coverage"
+    },
+    "arbitrum": {
+      "supported": true,
+      "coverage_pct": 92.0,
+      "display": "Arbitrum — 92% coverage"
+    }
+  },
+  "bridge_dedupe_map": {
+    "canonical_groups": {
+      "BTC": ["BTC", "WBTC", "BTC.B"],
+      "ETH": ["ETH", "WETH", "STETH"]
+    }
+  },
+  "portfolios": {
+    "demo_portfolio": {
+      "name": "Demo Portfolio",
+      "latest_snapshot_timestamp": "2026-08-01T00:00:00Z",
+      "available_snapshots": [
+        "2026-07-01T00:00:00Z",
+        "2026-08-01T00:00:00Z"
+      ]
+    }
+  },
+  "snapshots": {
+    "demo_portfolio:2026-08-01T00:00:00Z": {
+      "holdings": [
+        {"asset": "BTC", "amount": 2.5, "price_usd": 65000, "value_usd": 162500, "label_as_of_snapshot": true},
+        {"asset": "ETH", "amount": 15.0, "price_usd": 3500, "value_usd": 52500, "label_as_of_snapshot": true},
+        {"asset": "SOL", "amount": 200.0, "price_usd": 150, "value_usd": 30000, "label_as_of_snapshot": true}
+      ],
+      "prices_as_of": "2026-08-01T00:00:00Z",
+      "no_current_label_leakage": true
+    },
+    "demo_portfolio:2026-07-01T00:00:00Z": {
+      "holdings": [
+        {"asset": "BTC", "amount": 2.5, "price_usd": 60000, "value_usd": 150000, "label_as_of_snapshot": true},
+        {"asset": "ETH", "amount": 15.0, "price_usd": 3200, "value_usd": 48000, "label_as_of_snapshot": true}
+      ],
+      "prices_as_of": "2026-07-01T00:00:00Z",
+      "no_current_label_leakage": true
+    }
+  },
+  "global_assets": {
+    "demo_portfolio": {
+      "as_of": "2026-08-26T14:00:00Z",
+      "fx_applied": true,
+      "holdings": [
+        {
+          "source_id": "binance_spot",
+          "source_type": "exchange",
+          "asset": "BTC",
+          "network": "bitcoin",
+          "amount": 1.5,
+          "value_usd": 142500.0,
+          "freshness_seconds": 120,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "coinbase_spot",
+          "source_type": "exchange",
+          "asset": "BTC",
+          "network": "bitcoin",
+          "amount": 1.0,
+          "value_usd": 95000.0,
+          "freshness_seconds": 300,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "eth_wallet_001",
+          "source_type": "wallet",
+          "asset": "ETH",
+          "network": "ethereum",
+          "amount": 10.0,
+          "value_usd": 42000.0,
+          "freshness_seconds": 600,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "sol_wallet_001",
+          "source_type": "wallet",
+          "asset": "SOL",
+          "network": "solana",
+          "amount": 500.0,
+          "value_usd": 75000.0,
+          "freshness_seconds": 1800,
+          "stale": true,
+          "missing": false
+        },
+        {
+          "source_id": "binance_spot",
+          "source_type": "exchange",
+          "asset": "BTC",
+          "network": "bitcoin",
+          "amount": 1.5,
+          "value_usd": 142500.0,
+          "freshness_seconds": 120,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "unknown_defi",
+          "source_type": "defi",
+          "asset": "USDC",
+          "network": "ethereum",
+          "amount": 0,
+          "value_usd": 0,
+          "freshness_seconds": 0,
+          "stale": false,
+          "missing": true
+        }
+      ]
+    }
+  },
+  "multi_chain_trackers": {
+    "demo_portfolio": {
+      "as_of": "2026-08-26T14:00:00Z",
+      "fx_applied": true,
+      "chains_covered": ["ethereum", "bitcoin", "arbitrum", "solana"],
+      "pnl": {
+        "cost_basis_usd": 380000.0,
+        "realized_pnl_usd": 12500.0
+      },
+      "holdings": [
+        {
+          "source_id": "eth_wallet_001",
+          "source_type": "wallet",
+          "asset": "ETH",
+          "network": "ethereum",
+          "amount": 10.0,
+          "value_usd": 42000.0,
+          "freshness_seconds": 300,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "arb_wallet_001",
+          "source_type": "wallet",
+          "asset": "WETH",
+          "network": "arbitrum",
+          "amount": 5.0,
+          "value_usd": 21000.0,
+          "freshness_seconds": 600,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "btc_wallet_001",
+          "source_type": "wallet",
+          "asset": "BTC",
+          "network": "bitcoin",
+          "amount": 1.5,
+          "value_usd": 142500.0,
+          "freshness_seconds": 900,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "eth_bridge_001",
+          "source_type": "wallet",
+          "asset": "WBTC",
+          "network": "ethereum",
+          "amount": 0.5,
+          "value_usd": 47500.0,
+          "freshness_seconds": 1200,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "eth_bridge_dup",
+          "source_type": "wallet",
+          "asset": "WBTC",
+          "network": "ethereum",
+          "amount": 0.5,
+          "value_usd": 47500.0,
+          "freshness_seconds": 1200,
+          "stale": false,
+          "missing": false
+        },
+        {
+          "source_id": "sol_wallet_001",
+          "source_type": "wallet",
+          "asset": "SOL",
+          "network": "solana",
+          "amount": 500.0,
+          "value_usd": 75000.0,
+          "freshness_seconds": 5400,
+          "stale": true,
+          "missing": false
+        },
+        {
+          "source_id": "defi_aave",
+          "source_type": "defi",
+          "asset": "USDC",
+          "network": "ethereum",
+          "amount": 25000.0,
+          "value_usd": 25000.0,
+          "freshness_seconds": 1800,
+          "stale": false,
+          "missing": false
+        }
+      ],
+      "defi_positions": [
+        {
+          "protocol": "Aave V3",
+          "chain": "ethereum",
+          "position_type": "supply",
+          "asset": "USDC",
+          "amount": 25000.0,
+          "value_usd": 25000.0,
+          "freshness_seconds": 1800,
+          "stale": false
+        },
+        {
+          "protocol": "Uniswap V3",
+          "chain": "ethereum",
+          "position_type": "lp",
+          "asset": "ETH/USDC",
+          "amount": null,
+          "value_usd": 18500.0,
+          "freshness_seconds": 2400,
+          "stale": false
+        }
+      ]
+    }
+  },
+  "wallets": {
+    "ethereum:0xabc1234567890def1234567890abc1234567890ab": {
+      "address": "0xabc1234567890def1234567890abc1234567890ab",
+      "chain": "ethereum",
+      "reorg_handling": {
+        "reorg_handled": true,
+        "revision_id": "rev-eth-001"
+      },
+      "historical_balances": {
+        "2026-08-01T00:00:00Z": {
+          "exact_timestamp_semantics": "block_timestamp",
+          "balances": [
+            {"asset": "ETH", "amount": 10.0, "value_usd": 35000.0},
+            {"asset": "USDC", "amount": 50000.0, "value_usd": 50000.0}
+          ],
+          "total_value_usd": 85000.0,
+          "valuation_available": true,
+          "reorg_handling": {
+            "reorg_handled": true,
+            "revision_id": "rev-eth-001",
+            "canonical_block": 18500000,
+            "reorg_depth": 0
+          }
+        },
+        "2026-07-01T00:00:00Z": {
+          "exact_timestamp_semantics": "block_timestamp",
+          "balances": [
+            {"asset": "ETH", "amount": 12.0, "value_usd": 38400.0}
+          ],
+          "total_value_usd": 38400.0,
+          "valuation_available": true,
+          "reorg_handling": {
+            "reorg_handled": true,
+            "revision_id": "rev-eth-002",
+            "canonical_block": 17600000,
+            "reorg_depth": 1
+          }
+        }
+      }
+    },
+    "bitcoin:bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh": {
+      "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+      "chain": "bitcoin",
+      "historical_balances": {
+        "2026-08-01T00:00:00Z": {
+          "exact_timestamp_semantics": "block_timestamp",
+          "balances": [
+            {"asset": "BTC", "amount": 2.5, "value_usd": 162500.0}
+          ],
+          "total_value_usd": 162500.0,
+          "valuation_available": true,
+          "reorg_handling": {
+            "reorg_handled": true,
+            "revision_id": "rev-btc-001",
+            "canonical_block": 850000,
+            "reorg_depth": 0
+          }
+        }
+      }
+    }
+  },
+  "address_validation": {
+    "ethereum": {
+      "min_length": 42,
+      "max_length": 42,
+      "rules": ["0x prefix", "hex characters", "checksum optional"]
+    },
+    "bitcoin": {
+      "min_length": 26,
+      "max_length": 62,
+      "rules": ["bech32 or legacy format"]
+    }
+  },
+  "spam_token_filter": {
+    "min_value_usd": 1.0,
+    "blocked_symbols": ["SCAM", "AIRDROP"]
+  },
+  "balance_alert_threshold_usd": {
+    "min_change": 1000
+  },
+  "statistical_anomaly": {
+    "deviation_threshold_pct": 100
+  },
+  "wallet_trackers": {
+    "ethereum:0x0000000000000000000000000000000000000001": {
+      "holdings": [
+        {"symbol": "ETH", "amount": 10.0, "value_usd": 42000.0},
+        {"symbol": "USDC", "amount": 50000.0, "value_usd": 50000.0},
+        {"symbol": "SCAM", "amount": 1000000.0, "value_usd": 0.01},
+        {"symbol": "DUST", "amount": 1.0, "value_usd": 0.50}
+      ],
+      "balance_change_24h_usd": 5500.0,
+      "avg_balance_30d_usd": 40000.0,
+      "price_provenance": {
+        "ETH": {"source": "coinbase", "as_of": "2026-08-27T12:00:00Z"},
+        "USDC": {"source": "chainlink", "as_of": "2026-08-27T12:00:00Z"}
+      },
+      "reorg_handling": {
+        "reorg_handled": true,
+        "canonical_block": 18500000
+      }
+    }
+  }
+}

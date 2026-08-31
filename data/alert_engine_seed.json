@@ -1,0 +1,106 @@
+{
+  "feature_id": 289,
+  "renamed_from": "Smart Alerts",
+  "official_name": "Alert Engine",
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Alert Engine",
+  "sprint": 2,
+  "current_phase": 1,
+  "methodology_version": "1.1",
+  "last_updated": "2026-08-26",
+  "absorbed_tickets": {
+    "323": "Derivatives Alert Rules & Thresholds"
+  },
+  "rules": [
+    {
+      "rule_id": "alert-001",
+      "name": "BTC above 100k",
+      "type": "price",
+      "condition": {"field": "price", "operator": ">=", "threshold": 100000},
+      "current_value": 95020,
+      "paused": false,
+      "last_fired_at": "2026-08-25T10:00:00+00:00"
+    },
+    {
+      "rule_id": "alert-002",
+      "name": "ETH RSI oversold",
+      "type": "indicator",
+      "condition": {"field": "rsi_14", "operator": "<=", "threshold": 30},
+      "current_value": 42,
+      "paused": true,
+      "phase": 2
+    },
+    {
+      "rule_id": "alert-003",
+      "name": "BTC support break",
+      "type": "drawing",
+      "condition": {"field": "price", "operator": "crosses_below", "threshold": 94000},
+      "current_value": 95020,
+      "paused": true,
+      "phase": 3
+    }
+  ],
+  "derivatives_rules": [
+    {
+      "rule_id": "deriv-001",
+      "name": "BTC OI surge",
+      "type": "derivatives",
+      "asset": "BTC",
+      "metric": "oi_change_pct",
+      "condition": {"operator": ">=", "threshold": 10},
+      "current_value": 12.5,
+      "anomaly_input_enabled": true,
+      "paused": false
+    },
+    {
+      "rule_id": "deriv-002",
+      "name": "BTC funding extreme",
+      "type": "derivatives",
+      "asset": "BTC",
+      "metric": "funding_rate",
+      "condition": {"operator": ">=", "threshold": 0.001},
+      "current_value": 0.0008,
+      "anomaly_input_enabled": true,
+      "paused": false
+    },
+    {
+      "rule_id": "deriv-003",
+      "name": "ETH liquidation spike",
+      "type": "derivatives",
+      "asset": "ETH",
+      "metric": "liquidation_usd",
+      "condition": {"operator": ">=", "threshold": 50000000},
+      "current_value": 62000000,
+      "anomaly_triggered": true,
+      "anomaly_input_enabled": true,
+      "paused": false,
+      "last_fired_at": "2026-08-26T08:00:00+00:00"
+    }
+  ],
+  "delivery_log": [
+    {
+      "alert_id": "del-001",
+      "rule_id": "alert-001",
+      "channel": "push",
+      "attempts": 1,
+      "success": true,
+      "timestamp": "2026-08-25T14:30:00+00:00"
+    },
+    {
+      "alert_id": "del-002",
+      "rule_id": "alert-001",
+      "channel": "email",
+      "attempts": 2,
+      "success": true,
+      "timestamp": "2026-08-25T14:30:05+00:00"
+    },
+    {
+      "alert_id": "del-003",
+      "rule_id": "alert-002",
+      "channel": "webhook",
+      "attempts": 3,
+      "success": false,
+      "timestamp": "2026-08-24T09:15:00+00:00"
+    }
+  ]
+}
