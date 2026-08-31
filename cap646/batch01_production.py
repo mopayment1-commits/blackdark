@@ -71,9 +71,9 @@ _BATCH01_DATA = frozenset({630, 631})
 _BATCH01_AI = frozenset({175, 25, 30, 34, 59, 642})
 _BATCH01_ONCHAIN = frozenset({5, 6, 7, 11, 12, 13, 14, 18, 19, 20, 22, 27, 28, 36, 37, 44, 55})
 _BATCH01_INSTITUTIONAL = frozenset({103, 644, 646})
-_BATCH01_DEDICATED = frozenset({33, 40, 56, 584})
 
 
+from cap646.batch01_dedicated import BATCH01_DEDICATED_IDS
 from cap646.evidence_class import ai_compliance_footer
 
 
@@ -89,71 +89,17 @@ def _stamp_batch01(result: dict[str, Any], capability_id: int) -> dict[str, Any]
     return result
 
 
-async def _execute_dedicated(capability_id: int, *, params: dict[str, Any]) -> dict[str, Any]:
-    symbol = str(params.get("symbol") or "BTC").upper().replace("/USDT", "")
-
-    if capability_id == 33:
-        from whale_tracker import get_latest_whale_alerts
-
-        alerts = await get_latest_whale_alerts(limit=10)
-        score = min(100.0, max(0.0, len(alerts) * 12.5))
-        return ai_compliance_footer(
-            {
-                "capability_id": 33,
-                "surface": "smart_money_actionability_score",
-                "alerts": alerts,
-                "actionability_score": score,
-                "success": True,
-            }
-        )
-
-    if capability_id == 40:
-        from bd_platform.onchain_hub import lookintobitcoin_macro
-
-        macro = await lookintobitcoin_macro()
-        return ai_compliance_footer(
-            {
-                "capability_id": 40,
-                "surface": "mvrv_mvrv_z_score_suite",
-                "macro": macro,
-                "success": bool(macro),
-            }
-        )
-
-    if capability_id == 56:
-        from bd_platform.market_rankings import market_rankings
-
-        rankings = await market_rankings()
-        return ai_compliance_footer(
-            {
-                "capability_id": 56,
-                "surface": "token_screener",
-                "screener": rankings,
-                "success": bool(rankings),
-            }
-        )
-
-    if capability_id == 584:
-        from risk_manager import risk_status
-
-        status = risk_status()
-        return ai_compliance_footer(
-            {
-                "capability_id": 584,
-                "surface": "risk_management_shield",
-                "risk": status,
-                "success": bool(status),
-            }
-        )
-
-    raise ValueError(f"batch01 dedicated: unmapped capability {capability_id}")
-
-
 async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
     if capability_id not in BATCH01_IDS:
         raise ValueError(f"capability {capability_id} is not in batch01 production spine")
 
     params = dict(params or {})
+
+    if capability_id in BATCH01_DEDICATED_IDS:
+        from cap646.batch01_dedicated import execute as execute_dedicated
+
+        result = await execute_dedicated(capability_id, params=params)
+        return _stamp_batch01(result, capability_id)
 
     if capability_id in _BATCH01_FREE_TIER:
         from bd_platform.free_tier_capabilities import execute_free_tier_capability
@@ -190,9 +136,6 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
         from cap646.handlers.institutional import handle_institutional_capability
 
         result = await handle_institutional_capability(capability_id, params=params)
-        return _stamp_batch01(result, capability_id)
-    elif capability_id in _BATCH01_DEDICATED:
-        result = await _execute_dedicated(capability_id, params=params)
         return _stamp_batch01(result, capability_id)
     else:
         raise ValueError(f"batch01: unmapped capability {capability_id}")

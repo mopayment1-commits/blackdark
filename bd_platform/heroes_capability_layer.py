@@ -221,8 +221,11 @@ def contextual_decision_alert_28(*, symbol: str = "BTC", price: float = 50_000.0
         28,
         "bd_platform.retail_intelligence_layer",
         "evaluate_contextual_alert_65",
+        user_tier="pro",
         price=price,
-        opportunity_level=0.72,
+        opportunity_level=7.5,
+        volume_zscore=2.0,
+        asset=symbol,
     )
 
 

@@ -15,6 +15,15 @@ if str(ROOT) not in sys.path:
 
 from cap646.batch01_production import BATCH01_IDS, batch01_entrypoint
 
+try:
+    from cap646.batch01_dedicated import EXPECTED_SURFACE, GENERIC_SURFACES
+except ImportError:
+    EXPECTED_SURFACE = {}
+    GENERIC_SURFACES = frozenset()
+
+# #17 catalog name is "Smart Alerts" — canonical surface is smart_alerts (not generic misroute).
+ACCEPTED_CANONICAL_SURFACES: dict[int, str] = {17: "smart_alerts"}
+
 
 async def _prove_one(capability_id: int) -> dict:
     from cap646.backend_registry import binding_for
@@ -32,6 +41,14 @@ async def _prove_one(capability_id: int) -> dict:
         },
     )
     row = catalog_by_id().get(capability_id, {})
+    live_surface = result.get("surface")
+    expected_surface = EXPECTED_SURFACE.get(capability_id) or ACCEPTED_CANONICAL_SURFACES.get(capability_id)
+    surface_ok = True
+    if expected_surface:
+        surface_ok = live_surface == expected_surface
+    elif live_surface in GENERIC_SURFACES:
+        surface_ok = False
+
     return {
         "capability_id": capability_id,
         "catalog_name": row.get("capability"),
@@ -42,7 +59,9 @@ async def _prove_one(capability_id: int) -> dict:
         "backend_registry": binding,
         "live_result": {
             "success": result.get("success"),
-            "surface": result.get("surface"),
+            "surface": live_surface,
+            "expected_surface": expected_surface,
+            "surface_matches_goal": surface_ok,
             "backend_module": result.get("backend_module"),
             "backend_entrypoint": result.get("backend_entrypoint"),
             "binding_source": result.get("binding_source"),
@@ -54,6 +73,7 @@ async def _prove_one(capability_id: int) -> dict:
             and bool(result.get("success"))
             and result.get("production_spine") == "batch01"
             and result.get("backend_entrypoint") == batch01_entrypoint(capability_id)
+            and surface_ok
         ),
     }
 
