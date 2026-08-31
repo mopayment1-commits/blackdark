@@ -109,6 +109,7 @@ jobs:
       - name: CAP978 institutional gate (sample)
         env:
           SERVICE_BUS_LOCAL: "true"
+          BLACKDARK_CI_DETERMINISTIC_CLOSURE: "true"
           PYTHONPATH: ${{ github.workspace }}
         run: |
           python scripts/bootstrap_free_human_ops.py --admin-email ci@blackdark.local

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -23,6 +24,9 @@ async def main() -> int:
         help="Write commercial launch checklist JSON to path",
     )
     args = parser.parse_args()
+
+    if args.ci:
+        os.environ["BLACKDARK_CI_DETERMINISTIC_CLOSURE"] = "1"
 
     import database
 
@@ -59,6 +63,7 @@ async def main() -> int:
         sample=not args.full,
         check_artifacts=not args.no_artifacts,
         include_commercial=bool(args.write_checklist) or args.full,
+        ci_deterministic=True if args.ci else None,
     )
     print(json.dumps({k: v for k, v in report.items() if k != "commercial_launch"}, indent=2, ensure_ascii=False))
 
