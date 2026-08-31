@@ -27,7 +27,7 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
     338: BackendBinding(
         338,
         "cap646.data_spine",
-        "data_quality_pipeline_report",
+        "data_quality_pipeline_report_FAILPROBE_NONEXISTENT",
         "data_quality_pipeline",
         "none",
         "explicit_option_a",
