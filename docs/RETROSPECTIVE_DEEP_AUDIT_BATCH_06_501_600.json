@@ -3,12 +3,13 @@
   "audited_at": "2026-08-30T21:58:13.703182+00:00",
   "total_capabilities": 100,
   "classification_counts": {
-    "VERIFIED-DEEP": 2,
+    "VERIFIED-DEEP": 0,
     "REUSED-LINK": 3,
     "WRAPPER-ONLY-UNVERIFIED": 95,
+    "SPLIT-BRAIN-UNVERIFIED": 2,
     "DEFERRED/DELEGATED": 0
   },
-  "verified_deep_native_count": 2,
+  "verified_deep_native_count": 0,
   "reused_link_count": 3,
   "verified_deep_honest_count": 5,
   "verified_deep_pct": 100.0,
@@ -386,7 +387,7 @@
     {
       "capability_id": 517,
       "batch": "batch_06",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "comparison_engine",
@@ -401,7 +402,11 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=comparison_engine.run_comparison_engine; production=data_provenance_score.compute_data_provenance_score (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.171419+00:00"
     },
     {
       "capability_id": 518,
@@ -642,7 +647,7 @@
     {
       "capability_id": 528,
       "batch": "batch_06",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.market_rankings",
@@ -657,7 +662,11 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "origin/main"
+      "source_branch": "origin/main",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.market_rankings.market_rankings; production=bd_platform.liquidation_radar.liquidation_radar (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.171427+00:00"
     },
     {
       "capability_id": 529,
@@ -2321,5 +2330,8 @@
     }
   ],
   "template_seed_stub_reclassified_count": 95,
-  "template_seed_stub_reclassified_at": "2026-08-30T22:48:25.998572+00:00"
+  "template_seed_stub_reclassified_at": "2026-08-30T22:48:25.998572+00:00",
+  "split_brain_unverified_count": 2,
+  "split_brain_routing_reclassified_count": 2,
+  "split_brain_routing_reclassified_at": "2026-08-31T07:55:53.171445+00:00"
 }

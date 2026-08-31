@@ -22,11 +22,16 @@ from cap646.handlers.verified import handle_verified_capability
 from cap646.waves import WAVE_D
 
 VERIFIED_IDS = frozenset({49, 50, 62, 63, 632, 638, 639, 640, 641})
+OPTION_A_IDS = frozenset({338, 500, 507, 534})
 WAVE_D_SET = set(WAVE_D)
 
 
 def _route_handler(track: str, name: str, capability_id: int):
     nl = name.lower()
+    if capability_id in OPTION_A_IDS:
+        if capability_id in {338, 500}:
+            return handle_data_capability
+        return handle_market_capability
     if capability_id == 329:
         return handle_institutional_capability
     if capability_id in VERIFIED_IDS:
