@@ -1,0 +1,1261 @@
+{
+  "verified_at": "2026-08-31T22:03:41.504226+00:00",
+  "batch": "batch01_826_completion",
+  "scope": "IDs 1-59 (50 capabilities)",
+  "production_runtime_path": "api/routers/cap646.py -> cap978.unified -> cap646.runtime.execute_capability -> cap646.batch01_production",
+  "capability_ids": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    10,
+    11,
+    12,
+    13,
+    14,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    25,
+    27,
+    28,
+    29,
+    30,
+    33,
+    34,
+    36,
+    37,
+    40,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    55,
+    56,
+    59,
+    60,
+    103,
+    129,
+    175,
+    214,
+    245,
+    584,
+    629,
+    630,
+    631,
+    642,
+    644,
+    646
+  ],
+  "all_verified": true,
+  "proofs": [
+    {
+      "capability_id": 1,
+      "catalog_name": "Smart Money Leaderboard",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_001",
+      "backend_registry": {
+        "capability_id": 1,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_001",
+        "surface": "smart_money_leaderboard",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "smart_money_leaderboard",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_001",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 2,
+      "catalog_name": "Wallet Profiler",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_002",
+      "backend_registry": {
+        "capability_id": 2,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_002",
+        "surface": "wallet_profiler",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "wallet_profiler",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_002",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 3,
+      "catalog_name": "Wallet Profiler for Token",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_003",
+      "backend_registry": {
+        "capability_id": 3,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_003",
+        "surface": "wallet_profiler_for_token",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "wallet_profiler_for_token",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_003",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 4,
+      "catalog_name": "Smart Money Tracking",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_004",
+      "backend_registry": {
+        "capability_id": 4,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_004",
+        "surface": "smart_money_tracking",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "smart_money_tracking",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_004",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 5,
+      "catalog_name": "Smart Money Accumulation / Distribution Detection",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_005",
+      "backend_registry": {
+        "capability_id": 5,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_005",
+        "surface": "smart_money_accumulation_distribution_detection",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "smart_money_accumulation_detection",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_005",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 6,
+      "catalog_name": "Smart Money Token Screener",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_006",
+      "backend_registry": {
+        "capability_id": 6,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_006",
+        "surface": "smart_money_token_screener",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_006",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 7,
+      "catalog_name": "Holder Distribution Intelligence",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_007",
+      "backend_registry": {
+        "capability_id": 7,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_007",
+        "surface": "holder_distribution_intelligence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_007",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 10,
+      "catalog_name": "Wallet PnL Analysis",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_010",
+      "backend_registry": {
+        "capability_id": 10,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_010",
+        "surface": "wallet_pnl_analysis",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "wallet_pnl_analysis",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_010",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 11,
+      "catalog_name": "Wallet Historical Performance & Win Rate",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_011",
+      "backend_registry": {
+        "capability_id": 11,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_011",
+        "surface": "wallet_historical_performance_win_rate",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_011",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 12,
+      "catalog_name": "Wallet Entry / Exit Analysis",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_012",
+      "backend_registry": {
+        "capability_id": 12,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_012",
+        "surface": "wallet_entry_exit_analysis",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_012",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 13,
+      "catalog_name": "Wallet Counterparty & Relationship Analysis",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_013",
+      "backend_registry": {
+        "capability_id": 13,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_013",
+        "surface": "wallet_counterparty_relationship_analysis",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_013",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 14,
+      "catalog_name": "Entity-Aware Wallet Intelligence",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_014",
+      "backend_registry": {
+        "capability_id": 14,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_014",
+        "surface": "entity_aware_wallet_intelligence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_014",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 17,
+      "catalog_name": "Smart Alerts",
+      "track": "T13",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_017",
+      "backend_registry": {
+        "capability_id": 17,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_017",
+        "surface": "smart_alerts",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "smart_alerts",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_017",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 18,
+      "catalog_name": "Custom Wallet Labels",
+      "track": "T16",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_018",
+      "backend_registry": {
+        "capability_id": 18,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_018",
+        "surface": "custom_wallet_labels",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_018",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 19,
+      "catalog_name": "Wallet & Token Watchlists",
+      "track": "T16",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_019",
+      "backend_registry": {
+        "capability_id": 19,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_019",
+        "surface": "wallet_token_watchlists",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_019",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 20,
+      "catalog_name": "Multi-Chain Portfolio Intelligence",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_020",
+      "backend_registry": {
+        "capability_id": 20,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_020",
+        "surface": "multi_chain_portfolio_intelligence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_020",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 21,
+      "catalog_name": "Transaction Decoder",
+      "track": "T01",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_021",
+      "backend_registry": {
+        "capability_id": 21,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_021",
+        "surface": "transaction_decoder",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "transaction_decoder",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_021",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 22,
+      "catalog_name": "Instant Wallet Due Diligence",
+      "track": "T17",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_022",
+      "backend_registry": {
+        "capability_id": 22,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_022",
+        "surface": "instant_wallet_due_diligence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_022",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 25,
+      "catalog_name": "Signal → Explanation Workflow",
+      "track": "T12",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_025",
+      "backend_registry": {
+        "capability_id": 25,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_025",
+        "surface": "signal_explanation_workflow",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "ai_decision_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_025",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 27,
+      "catalog_name": "Smart Money Historical Trend Analysis",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_027",
+      "backend_registry": {
+        "capability_id": 27,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_027",
+        "surface": "smart_money_historical_trend_analysis",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_027",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 28,
+      "catalog_name": "Smart Money Conviction Engine",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_028",
+      "backend_registry": {
+        "capability_id": 28,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_028",
+        "surface": "smart_money_conviction_engine",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_028",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 29,
+      "catalog_name": "Cross-Market Decision Intelligence Engine",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_029",
+      "backend_registry": {
+        "capability_id": 29,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_029",
+        "surface": "cross_market_decision_intelligence_engine",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "market_data",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_029",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 30,
+      "catalog_name": "Evidence & Confidence Layer",
+      "track": "T12",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_030",
+      "backend_registry": {
+        "capability_id": 30,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_030",
+        "surface": "evidence_confidence_layer",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "ai_decision_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_030",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 33,
+      "catalog_name": "Smart Money Actionability Score",
+      "track": "T08",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_033",
+      "backend_registry": {
+        "capability_id": 33,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_033",
+        "surface": "smart_money_actionability_score",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "smart_money_actionability_score",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_033",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 34,
+      "catalog_name": "Beginner Decision Mode",
+      "track": "T01",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_034",
+      "backend_registry": {
+        "capability_id": 34,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_034",
+        "surface": "beginner_decision_mode",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "ai_decision_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_034",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 36,
+      "catalog_name": "On-Chain Metrics Library",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_036",
+      "backend_registry": {
+        "capability_id": 36,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_036",
+        "surface": "on_chain_metrics_library",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_036",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 37,
+      "catalog_name": "Entity-Adjusted Metrics",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_037",
+      "backend_registry": {
+        "capability_id": 37,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_037",
+        "surface": "entity_adjusted_metrics",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_037",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 40,
+      "catalog_name": "MVRV / MVRV Z-Score Suite",
+      "track": "T10",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_040",
+      "backend_registry": {
+        "capability_id": 40,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_040",
+        "surface": "mvrv_mvrv_z_score_suite",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "mvrv_mvrv_z_score_suite",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_040",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 44,
+      "catalog_name": "Exchange Balance & Netflow Intelligence",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_044",
+      "backend_registry": {
+        "capability_id": 44,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_044",
+        "surface": "exchange_balance_netflow_intelligence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_044",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 45,
+      "catalog_name": "ETF Flow Intelligence",
+      "track": "T04",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_045",
+      "backend_registry": {
+        "capability_id": 45,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_045",
+        "surface": "etf_flow_intelligence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "etf_flow_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_045",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 46,
+      "catalog_name": "Digital Asset Treasury Company Intelligence",
+      "track": "T04",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_046",
+      "backend_registry": {
+        "capability_id": 46,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_046",
+        "surface": "digital_asset_treasury_company_intelligence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "market_data",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_046",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 47,
+      "catalog_name": "Spot Market Metrics Suite",
+      "track": "T04",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_047",
+      "backend_registry": {
+        "capability_id": 47,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_047",
+        "surface": "spot_market_metrics_suite",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "spot_market_metrics_suite",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_047",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 48,
+      "catalog_name": "Futures Intelligence Suite",
+      "track": "T05",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_048",
+      "backend_registry": {
+        "capability_id": 48,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_048",
+        "surface": "futures_intelligence_suite",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "futures_intelligence_suite",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_048",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 49,
+      "catalog_name": "Options Intelligence Suite",
+      "track": "T08",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_049",
+      "backend_registry": {
+        "capability_id": 49,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_049",
+        "surface": "options_intelligence_suite",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "derivatives_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_049",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 55,
+      "catalog_name": "NVT Fair-Value Model",
+      "track": "T09",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_055",
+      "backend_registry": {
+        "capability_id": 55,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_055",
+        "surface": "nvt_fair_value_model",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "onchain_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_055",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 56,
+      "catalog_name": "Token Screener",
+      "track": "T17",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_056",
+      "backend_registry": {
+        "capability_id": 56,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_056",
+        "surface": "token_screener",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "token_screener",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_056",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 59,
+      "catalog_name": "Personalized Research Dashboards",
+      "track": "T16",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_059",
+      "backend_registry": {
+        "capability_id": 59,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_059",
+        "surface": "personalized_research_dashboards",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "ai_decision_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_059",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 60,
+      "catalog_name": "Metric-Based Smart Alerts",
+      "track": "T13",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_060",
+      "backend_registry": {
+        "capability_id": 60,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_060",
+        "surface": "metric_based_smart_alerts",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "smart_alerts",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_060",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 103,
+      "catalog_name": "API Data Platform",
+      "track": "T17",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_103",
+      "backend_registry": {
+        "capability_id": 103,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_103",
+        "surface": "api_data_platform",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "api_data_platform",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_103",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 129,
+      "catalog_name": "Sentiment Intelligence",
+      "track": "T04",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_129",
+      "backend_registry": {
+        "capability_id": 129,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_129",
+        "surface": "sentiment_intelligence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "sentiment_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_129",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 175,
+      "catalog_name": "Social Sentiment Intelligence",
+      "track": "T12",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_175",
+      "backend_registry": {
+        "capability_id": 175,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_175",
+        "surface": "social_sentiment_intelligence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "sentiment_ai",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_175",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 214,
+      "catalog_name": "Watchlists",
+      "track": "T11",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_214",
+      "backend_registry": {
+        "capability_id": 214,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_214",
+        "surface": "watchlists",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "market_data",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_214",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 245,
+      "catalog_name": "Market Health & Freshness",
+      "track": "T13",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_245",
+      "backend_registry": {
+        "capability_id": 245,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_245",
+        "surface": "market_health_freshness",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "real_time_data_freshness_update_assurance",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_245",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 584,
+      "catalog_name": "Risk_Management_Shield",
+      "track": "T05",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_584",
+      "backend_registry": {
+        "capability_id": 584,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_584",
+        "surface": "risk_management_shield",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "risk_management_shield",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_584",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 629,
+      "catalog_name": "Real-Time Wallet Alerts",
+      "track": "T13",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_629",
+      "backend_registry": {
+        "capability_id": 629,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_629",
+        "surface": "real_time_wallet_alerts",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "smart_alerts",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_629",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 630,
+      "catalog_name": "Real_Time_Data_Freshness_Update_Assurance",
+      "track": "T03",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_630",
+      "backend_registry": {
+        "capability_id": 630,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_630",
+        "surface": "real_time_data_freshness_update_assurance",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "real_time_data_freshness_update_assurance",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_630",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 631,
+      "catalog_name": "Data_Source_Ingestion_Normalization_Provenance_Reliability_Architecture",
+      "track": "T03",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_631",
+      "backend_registry": {
+        "capability_id": 631,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_631",
+        "surface": "data_source_ingestion_normalization_provenance_reliability_architecture",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "data_source_ingestion_normalization_provenance_reliability_architecture",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_631",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 642,
+      "catalog_name": "AI Output Provenance / Compliance Footer",
+      "track": "T17",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_642",
+      "backend_registry": {
+        "capability_id": 642,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_642",
+        "surface": "ai_output_provenance_compliance_footer",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "ai_output_provenance_compliance_footer",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_642",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 644,
+      "catalog_name": "Capacity / Load Evidence",
+      "track": "T01",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_644",
+      "backend_registry": {
+        "capability_id": 644,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_644",
+        "surface": "capacity_load_evidence",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "capacity_load_evidence",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_644",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 646,
+      "catalog_name": "Chaos / Failure-Injection Resilience Testing",
+      "track": "T01",
+      "production_path": "cap646.runtime.execute_capability -> cap646.batch01_production.cap_646",
+      "backend_registry": {
+        "capability_id": 646,
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_646",
+        "surface": "chaos_failure_injection_resilience_testing",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "chaos_failure_injection_resilience",
+        "backend_module": "cap646.batch01_production",
+        "backend_entrypoint": "cap_646",
+        "binding_source": "explicit_option_a",
+        "production_spine": "batch01",
+        "classification": "PRODUCTION-ALIGNED"
+      },
+      "option_a_verified": true
+    }
+  ]
+}
