@@ -13,11 +13,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-EXTENSION_IDS = frozenset({704, 708, 812, 814, 815})
+EXTENSION_IDS = frozenset({704, 708, 725, 812, 813, 814, 815})
 REASON = (
-    "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from "
-    "cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated "
-    "CAP978 extension verification track — not auditable via /api/cap646/{id} today."
+    "EXTENSION-PENDING-CAP646: ID present in CAP978/heroes evidence but absent from "
+    "cap646.backend_registry (binding_for KeyError). Historical quad-evidence used "
+    "pdf_capability_registry — apparent success did NOT prove production /api/cap646 path. "
+    "Requires cap646 registration or dedicated CAP978 extension verification track."
 )
 
 EVIDENCE = ROOT / "data/hero_batch_01_evidence.jsonl"

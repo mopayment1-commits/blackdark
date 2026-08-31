@@ -1,5 +1,17 @@
 {
-  "generated_at": "2026-08-31T09:01:43.778741+00:00",
+  "generated_at": "2026-08-31T09:27:35.433168+00:00",
+  "executive_headline": "Of 576 re-audited unique capabilities, only 4 (0.69%) are verified with a fully matching production path today.",
+  "production_aligned_rate": {
+    "numerator": 4,
+    "denominator": 576,
+    "percent": 0.69,
+    "ids": [
+      338,
+      500,
+      507,
+      534
+    ]
+  },
   "scope": "Hero batches 01-06 evidence universe",
   "evidence_rows": 600,
   "unique_capability_ids": 576,
@@ -30,9 +42,9 @@
     584
   ],
   "classification_counts_unique_ids": {
-    "DEFERRED/DELEGATED": 58,
+    "DEFERRED-EARLY-BATCH": 57,
     "DEFERRED/TEMPLATE-STUB": 307,
-    "EXTENSION-PENDING-CAP646": 5,
+    "EXTENSION-PENDING-CAP646": 6,
     "PRODUCTION-ALIGNED": 4,
     "SPLIT-BRAIN-UNVERIFIED": 202
   },
@@ -145,11 +157,13 @@
     ]
   },
   "extension_pending_cap646": {
-    "count": 5,
+    "count": 7,
     "ids": [
       704,
       708,
+      725,
       812,
+      813,
       814,
       815
     ],
@@ -163,7 +177,7 @@
   },
   "pytest_not_slow": {
     "exit_code": 0,
-    "summary": "2189 passed, 2 skipped, 4 deselected, 9739 warnings in 172.85s (0:02:52)",
+    "summary": "2189 passed, 2 skipped, 4 deselected, 9739 warnings in 167.86s (0:02:47)",
     "passed": true
   },
   "manifests": {
@@ -172,6 +186,9 @@
     "split_brain_bcd": "docs/SPLIT_BRAIN_BCD_RECLASSIFICATION_MANIFEST.json",
     "option_b_deferred": "docs/OPTION_B_DEFERRED_RECLASSIFICATION_MANIFEST.json",
     "option_a_aligned": "docs/OPTION_A_PRODUCTION_ALIGNED_MANIFEST.json",
-    "option_a_proof": "docs/OPTION_A_PRODUCTION_PROOF.json"
+    "option_a_proof": "docs/OPTION_A_PRODUCTION_PROOF.json",
+    "registry_phantom_audit": "docs/REGISTRY_PHANTOM_SUCCESS_AUDIT.json",
+    "batches_01_02_distribution": "docs/BATCHES_01_02_DISTRIBUTION_REPORT.json",
+    "deferred_early_batch_rename": "docs/DEFERRED_EARLY_BATCH_RENAME_MANIFEST.json"
   }
 }

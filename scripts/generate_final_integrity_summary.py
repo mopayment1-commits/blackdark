@@ -24,7 +24,7 @@ EVIDENCE_FILES = [
     ROOT / "data/hero_batch_06_501_600_evidence.jsonl",
 ]
 
-EXTENSION_PENDING = frozenset({704, 708, 812, 814, 815})
+EXTENSION_PENDING = frozenset({704, 708, 725, 812, 813, 814, 815})
 OPTION_A = frozenset({338, 500, 507, 534})
 
 
@@ -106,11 +106,24 @@ def main() -> None:
     )
 
     production_aligned = sorted(cid for cid, row in by_id.items() if row.get("deep_audit_classification") == "PRODUCTION-ALIGNED")
+    pct_aligned = round(100.0 * len(production_aligned) / max(1, len(unique_ids)), 2)
 
     pytest_result = _run_pytest()
 
+    executive_headline = (
+        f"Of {len(unique_ids)} re-audited unique capabilities, only {len(production_aligned)} "
+        f"({pct_aligned}%) are verified with a fully matching production path today."
+    )
+
     out: dict[str, Any] = {
         "generated_at": datetime.now(UTC).isoformat(),
+        "executive_headline": executive_headline,
+        "production_aligned_rate": {
+            "numerator": len(production_aligned),
+            "denominator": len(unique_ids),
+            "percent": pct_aligned,
+            "ids": production_aligned,
+        },
         "scope": "Hero batches 01-06 evidence universe",
         "evidence_rows": len(all_rows),
         "unique_capability_ids": len(unique_ids),
@@ -171,6 +184,9 @@ def main() -> None:
             "option_b_deferred": "docs/OPTION_B_DEFERRED_RECLASSIFICATION_MANIFEST.json",
             "option_a_aligned": "docs/OPTION_A_PRODUCTION_ALIGNED_MANIFEST.json",
             "option_a_proof": "docs/OPTION_A_PRODUCTION_PROOF.json",
+            "registry_phantom_audit": "docs/REGISTRY_PHANTOM_SUCCESS_AUDIT.json",
+            "batches_01_02_distribution": "docs/BATCHES_01_02_DISTRIBUTION_REPORT.json",
+            "deferred_early_batch_rename": "docs/DEFERRED_EARLY_BATCH_RENAME_MANIFEST.json",
         },
     }
 
@@ -182,6 +198,12 @@ def main() -> None:
         "# Final integrity summary — hero batches 01–06",
         "",
         f"**Generated:** {out['generated_at']}",
+        "",
+        "## Executive headline",
+        "",
+        f"> **{executive_headline}**",
+        "",
+        f"PRODUCTION-ALIGNED IDs: `{', '.join(str(i) for i in production_aligned)}`",
         "",
         "## Classification counts (unique IDs)",
         "",

@@ -1,14 +1,20 @@
 # Final integrity summary — hero batches 01–06
 
-**Generated:** 2026-08-31T09:01:43.778741+00:00
+**Generated:** 2026-08-31T09:27:35.433168+00:00
+
+## Executive headline
+
+> **Of 576 re-audited unique capabilities, only 4 (0.69%) are verified with a fully matching production path today.**
+
+PRODUCTION-ALIGNED IDs: `338, 500, 507, 534`
 
 ## Classification counts (unique IDs)
 
 | Classification | Count |
 |----------------|------:|
-| `DEFERRED/DELEGATED` | 58 |
+| `DEFERRED-EARLY-BATCH` | 57 |
 | `DEFERRED/TEMPLATE-STUB` | 307 |
-| `EXTENSION-PENDING-CAP646` | 5 |
+| `EXTENSION-PENDING-CAP646` | 6 |
 | `PRODUCTION-ALIGNED` | 4 |
 | `SPLIT-BRAIN-UNVERIFIED` | 202 |
 
@@ -33,7 +39,7 @@
 
 ## 5) Extension pending (CAP646)
 
-IDs: `704, 708, 812, 814, 815`
+IDs: `704, 708, 725, 812, 813, 814, 815`
 
 Present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for raises KeyError). Require cap646 registration or dedicated CAP978-only verification path — not closed under cap646 program until registered.
 
@@ -45,5 +51,5 @@ Present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_r
 
 ## pytest -m "not slow"
 
-`2189 passed, 2 skipped, 4 deselected, 9739 warnings in 172.85s (0:02:52)`
+`2189 passed, 2 skipped, 4 deselected, 9739 warnings in 167.86s (0:02:47)`
 

@@ -7,7 +7,7 @@
     "REUSED-LINK": 0,
     "WRAPPER-ONLY-UNVERIFIED": 32,
     "SPLIT-BRAIN-UNVERIFIED": 54,
-    "DEFERRED/DELEGATED": 11
+    "DEFERRED-EARLY-BATCH": 11
   },
   "verified_deep_honest_count": 57,
   "verified_deep_pct": 89.0,
@@ -177,7 +177,7 @@
     {
       "capability_id": 209,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -188,7 +188,8 @@
       "independent_test_pattern": "range_batch_209",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 210,
@@ -293,7 +294,7 @@
     {
       "capability_id": 215,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -304,7 +305,8 @@
       "independent_test_pattern": "range_batch_215",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 216,
@@ -469,7 +471,7 @@
     {
       "capability_id": 224,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "delegated",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -480,7 +482,8 @@
       "independent_test_pattern": "range_batch_224",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 225,
@@ -605,7 +608,7 @@
     {
       "capability_id": 231,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -616,7 +619,8 @@
       "independent_test_pattern": "range_batch_231",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 232,
@@ -661,7 +665,7 @@
     {
       "capability_id": 234,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -672,12 +676,13 @@
       "independent_test_pattern": "range_batch_234",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 235,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -688,12 +693,13 @@
       "independent_test_pattern": "range_batch_235",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 236,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -704,7 +710,8 @@
       "independent_test_pattern": "range_batch_236",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 237,
@@ -749,7 +756,7 @@
     {
       "capability_id": 239,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -760,7 +767,8 @@
       "independent_test_pattern": "range_batch_239",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 240,
@@ -865,7 +873,7 @@
     {
       "capability_id": 245,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -876,7 +884,8 @@
       "independent_test_pattern": "range_batch_245",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 246,
@@ -941,7 +950,7 @@
     {
       "capability_id": 249,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -952,12 +961,13 @@
       "independent_test_pattern": "range_batch_249",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 250,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -968,7 +978,8 @@
       "independent_test_pattern": "range_batch_250",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 251,

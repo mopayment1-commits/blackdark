@@ -9,7 +9,7 @@
     "REUSED-LINK": 0,
     "WRAPPER-ONLY-UNVERIFIED": 0,
     "SPLIT-BRAIN-UNVERIFIED": 86,
-    "DEFERRED/DELEGATED": 45
+    "DEFERRED-EARLY-BATCH": 45
   },
   "verified_deep_honest_count": 153,
   "verified_deep_pct": 76.5,
@@ -146,7 +146,7 @@
     {
       "capability_id": 641,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -179,7 +179,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 644,
@@ -766,7 +767,7 @@
     {
       "capability_id": 126,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.advanced_ta_risk_layer",
@@ -799,7 +800,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 330,
@@ -1098,7 +1100,7 @@
     {
       "capability_id": 164,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.risk_infrastructure_layer",
@@ -1131,12 +1133,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 183,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -1169,7 +1172,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 197,
@@ -1708,7 +1712,7 @@
     {
       "capability_id": 635,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -1741,7 +1745,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 645,
@@ -1823,8 +1828,8 @@
         "source_traced": true
       },
       "prior_classification": "VERIFIED-DEEP",
-      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
-      "reclassified_at": "2026-08-31T08:58:48.486703+00:00"
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978/heroes evidence but absent from cap646.backend_registry (binding_for KeyError). Historical quad-evidence used pdf_capability_registry — apparent success did NOT prove production /api/cap646 path. Requires cap646 registration or dedicated CAP978 extension verification track.",
+      "reclassified_at": "2026-08-31T09:24:29.029633+00:00"
     },
     {
       "capability_id": 708,
@@ -1864,13 +1869,13 @@
         "source_traced": true
       },
       "prior_classification": "VERIFIED-DEEP",
-      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
-      "reclassified_at": "2026-08-31T08:58:48.486712+00:00"
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978/heroes evidence but absent from cap646.backend_registry (binding_for KeyError). Historical quad-evidence used pdf_capability_registry — apparent success did NOT prove production /api/cap646 path. Requires cap646 registration or dedicated CAP978 extension verification track.",
+      "reclassified_at": "2026-08-31T09:24:29.029642+00:00"
     },
     {
       "capability_id": 725,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "EXTENSION-PENDING-CAP646",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.risk_infrastructure_layer",
@@ -1903,7 +1908,11 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true,
+      "prior_classification": "DEFERRED-EARLY-BATCH",
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978/heroes evidence but absent from cap646.backend_registry (binding_for KeyError). Historical quad-evidence used pdf_capability_registry — apparent success did NOT prove production /api/cap646 path. Requires cap646 registration or dedicated CAP978 extension verification track.",
+      "reclassified_at": "2026-08-31T09:24:29.029644+00:00"
     },
     {
       "capability_id": 7,
@@ -1992,7 +2001,7 @@
     {
       "capability_id": 50,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -2025,7 +2034,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 55,
@@ -2309,8 +2319,8 @@
         "source_traced": true
       },
       "prior_classification": "VERIFIED-DEEP",
-      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
-      "reclassified_at": "2026-08-31T08:58:48.486716+00:00"
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978/heroes evidence but absent from cap646.backend_registry (binding_for KeyError). Historical quad-evidence used pdf_capability_registry — apparent success did NOT prove production /api/cap646 path. Requires cap646 registration or dedicated CAP978 extension verification track.",
+      "reclassified_at": "2026-08-31T09:24:29.029647+00:00"
     },
     {
       "capability_id": 814,
@@ -2350,8 +2360,8 @@
         "source_traced": true
       },
       "prior_classification": "VERIFIED-DEEP",
-      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
-      "reclassified_at": "2026-08-31T08:58:48.486717+00:00"
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978/heroes evidence but absent from cap646.backend_registry (binding_for KeyError). Historical quad-evidence used pdf_capability_registry — apparent success did NOT prove production /api/cap646 path. Requires cap646 registration or dedicated CAP978 extension verification track.",
+      "reclassified_at": "2026-08-31T09:24:29.029648+00:00"
     },
     {
       "capability_id": 815,
@@ -2391,13 +2401,13 @@
         "source_traced": true
       },
       "prior_classification": "VERIFIED-DEEP",
-      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978 catalog and batch-01 evidence but absent from cap646.backend_registry (binding_for KeyError). Requires cap646 registration or dedicated CAP978 extension verification track — not auditable via /api/cap646/{id} today.",
-      "reclassified_at": "2026-08-31T08:58:48.486718+00:00"
+      "reclassification_reason": "EXTENSION-PENDING-CAP646: ID present in CAP978/heroes evidence but absent from cap646.backend_registry (binding_for KeyError). Historical quad-evidence used pdf_capability_registry — apparent success did NOT prove production /api/cap646 path. Requires cap646 registration or dedicated CAP978 extension verification track.",
+      "reclassified_at": "2026-08-31T09:24:29.029649+00:00"
     },
     {
       "capability_id": 9,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.whales_institutional_layer",
@@ -2430,7 +2440,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 10,
@@ -2602,7 +2613,7 @@
     {
       "capability_id": 15,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -2635,7 +2646,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 17,
@@ -4255,7 +4267,7 @@
     {
       "capability_id": 104,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.infra_intelligence_layer",
@@ -4286,7 +4298,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 105,
@@ -4863,7 +4876,7 @@
     {
       "capability_id": 119,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.advanced_ta_risk_layer",
@@ -4896,12 +4909,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 120,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.advanced_ta_risk_layer",
@@ -4931,7 +4945,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 121,
@@ -4974,7 +4989,7 @@
     {
       "capability_id": 122,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.advanced_ta_risk_layer",
@@ -5007,7 +5022,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 123,
@@ -5096,7 +5112,7 @@
     {
       "capability_id": 125,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.advanced_ta_risk_layer",
@@ -5129,12 +5145,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 126,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.advanced_ta_risk_layer",
@@ -5167,12 +5184,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 127,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.advanced_ta_risk_layer",
@@ -5205,12 +5223,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 128,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.advanced_ta_risk_layer",
@@ -5241,7 +5260,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 129,
@@ -5285,7 +5305,7 @@
     {
       "capability_id": 130,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -5318,12 +5338,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 131,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -5356,12 +5377,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 132,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -5394,7 +5416,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 133,
@@ -5480,7 +5503,7 @@
     {
       "capability_id": 135,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -5513,12 +5536,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 136,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -5551,12 +5575,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 137,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -5589,12 +5614,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 138,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -5627,12 +5653,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 139,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -5663,12 +5690,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 140,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.data_sources_layer",
@@ -5701,7 +5729,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 141,
@@ -5958,7 +5987,7 @@
     {
       "capability_id": 147,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.data_sources_layer",
@@ -5991,7 +6020,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 148,
@@ -6118,7 +6148,7 @@
     {
       "capability_id": 151,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.data_sources_layer",
@@ -6151,12 +6181,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 152,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.data_sources_layer",
@@ -6187,12 +6218,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 153,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_analysis_layer",
@@ -6225,7 +6257,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 154,
@@ -6268,7 +6301,7 @@
     {
       "capability_id": 155,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_analysis_layer",
@@ -6301,7 +6334,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 156,
@@ -6636,7 +6670,7 @@
     {
       "capability_id": 164,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.risk_infrastructure_layer",
@@ -6669,7 +6703,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 165,
@@ -6716,7 +6751,7 @@
     {
       "capability_id": 166,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.risk_infrastructure_layer",
@@ -6749,7 +6784,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 167,
@@ -7032,7 +7068,7 @@
     {
       "capability_id": 174,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.risk_infrastructure_layer",
@@ -7065,7 +7101,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 175,
@@ -7108,7 +7145,7 @@
     {
       "capability_id": 176,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.risk_infrastructure_layer",
@@ -7139,7 +7176,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 177,
@@ -7386,7 +7424,7 @@
     {
       "capability_id": 183,
       "batch": "batch_01",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_platform_layer",
@@ -7419,7 +7457,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 184,
@@ -7466,7 +7505,7 @@
     {
       "capability_id": 185,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.arbitrage_portfolio_ux_layer",
@@ -7499,12 +7538,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 186,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.arbitrage_portfolio_ux_layer",
@@ -7537,7 +7577,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 187,
@@ -7584,7 +7625,7 @@
     {
       "capability_id": 188,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.arbitrage_portfolio_ux_layer",
@@ -7617,7 +7658,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 189,
@@ -7664,7 +7706,7 @@
     {
       "capability_id": 190,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.arbitrage_portfolio_ux_layer",
@@ -7697,12 +7739,13 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 191,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.arbitrage_portfolio_ux_layer",
@@ -7733,7 +7776,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 192,
@@ -7780,7 +7824,7 @@
     {
       "capability_id": 193,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_ta_research_layer",
@@ -7813,7 +7857,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 194,
@@ -7860,7 +7905,7 @@
     {
       "capability_id": 195,
       "batch": "batch_02",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "deferred",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_ta_research_layer",
@@ -7893,7 +7938,8 @@
         "independent_test": true,
         "live_verify": true,
         "source_traced": true
-      }
+      },
+      "deferred_early_batch": true
     },
     {
       "capability_id": 196,

@@ -7,7 +7,7 @@
     "REUSED-LINK": 3,
     "WRAPPER-ONLY-UNVERIFIED": 96,
     "SPLIT-BRAIN-UNVERIFIED": 1,
-    "DEFERRED/DELEGATED": 0
+    "DEFERRED-EARLY-BATCH": 0
   },
   "verified_deep_native_count": 0,
   "reused_link_count": 3,
