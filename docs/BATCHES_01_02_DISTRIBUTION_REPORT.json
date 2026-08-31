@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-08-31T09:28:17.838007+00:00",
+  "note_97_verified_deep": "Historical 97 VERIFIED-DEEP (batches 01-02) was unique-ID count in evidence JSONL before SPLIT-BRAIN/EXTENSION reclassifications, using dedup across overlapping batch-01 hero pulls. Current audit file has 200 rows (109 batch-01 scope + 91 batch-02-only 101-200).",
+  "deferred_early_batch_clarification": "DEFERRED-EARLY-BATCH (57 unique across ALL batches 01-06; was 58 before #725 moved to EXTENSION-PENDING-CAP646) is NOT the same as SPLIT-BRAIN B/C/D (58). Zero ID overlap. Prior label DEFERRED/DELEGATED was misleading when described as 'from batches 01-02 only' — actual split: b01=11, b02-range=40, b03=11 unique (evidence files).",
+  "distribution": {
+    "all_200_audit_rows": {
+      "SPLIT-BRAIN-UNVERIFIED": 143,
+      "DEFERRED-EARLY-BATCH": 51,
+      "EXTENSION-PENDING-CAP646": 6
+    },
+    "batch01_manifest_100": {
+      "SPLIT-BRAIN-UNVERIFIED": 89,
+      "DEFERRED-EARLY-BATCH": 14,
+      "EXTENSION-PENDING-CAP646": 6
+    },
+    "batch02_range_101_200": {
+      "SPLIT-BRAIN-UNVERIFIED": 66,
+      "DEFERRED-EARLY-BATCH": 43
+    },
+    "batch01_only_not_in_101_200": {
+      "SPLIT-BRAIN-UNVERIFIED": 77,
+      "DEFERRED-EARLY-BATCH": 8,
+      "EXTENSION-PENDING-CAP646": 6
+    },
+    "overlap_101_200_in_batch01": {
+      "SPLIT-BRAIN-UNVERIFIED": 12,
+      "DEFERRED-EARLY-BATCH": 6
+    }
+  },
+  "evidence_file_unique": {
+    "hero_batch_01_evidence.jsonl": {
+      "SPLIT-BRAIN-UNVERIFIED": 83,
+      "DEFERRED-EARLY-BATCH": 11,
+      "EXTENSION-PENDING-CAP646": 6
+    },
+    "hero_batch_02_101_200_evidence.jsonl": {
+      "SPLIT-BRAIN-UNVERIFIED": 60,
+      "DEFERRED-EARLY-BATCH": 40
+    }
+  },
+  "historical_verified_deep_count_pre_reclass": 97
+}

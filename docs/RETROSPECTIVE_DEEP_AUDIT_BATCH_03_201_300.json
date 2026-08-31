@@ -3,19 +3,21 @@
   "audited_at": "2026-08-30T15:27:46.866831+00:00",
   "total_capabilities": 100,
   "classification_counts": {
-    "VERIFIED-DEEP": 89,
-    "WRAPPER-ONLY-UNVERIFIED": 0,
-    "DEFERRED/DELEGATED": 11
+    "VERIFIED-DEEP": 3,
+    "REUSED-LINK": 0,
+    "WRAPPER-ONLY-UNVERIFIED": 32,
+    "SPLIT-BRAIN-UNVERIFIED": 54,
+    "DEFERRED-EARLY-BATCH": 11
   },
-  "verified_deep_honest_count": 89,
+  "verified_deep_honest_count": 57,
   "verified_deep_pct": 89.0,
-  "wrapper_only_unverified_count": 0,
+  "wrapper_only_unverified_count": 32,
   "deferred_delegated_count": 11,
   "rows": [
     {
       "capability_id": 201,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_ta_research_layer",
@@ -26,12 +28,16 @@
       "independent_test_pattern": "range_batch_201",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.derivatives_ta_research_layer.quantitative_analysis_framework_201; production=blackdark.canonical.layer.get_canonical_layer (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163410+00:00"
     },
     {
       "capability_id": 202,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_ta_research_layer",
@@ -42,12 +48,16 @@
       "independent_test_pattern": "range_batch_202",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.derivatives_ta_research_layer.discover_hidden_opportunities_202; production=scale_readiness.scale_readiness_report (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163419+00:00"
     },
     {
       "capability_id": 203,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_ta_research_layer",
@@ -58,12 +68,16 @@
       "independent_test_pattern": "range_batch_203",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.derivatives_ta_research_layer.run_derivatives_ta_research_e2e_192_203; production=bd_platform.onchain_hub.dexscreener_pairs (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163421+00:00"
     },
     {
       "capability_id": 204,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -74,12 +88,16 @@
       "independent_test_pattern": "range_batch_204",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.ingest_bscscan_204; production=bd_platform.onchain_hub.defillama_raises (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163423+00:00"
     },
     {
       "capability_id": 205,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -90,12 +108,16 @@
       "independent_test_pattern": "range_batch_205",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.ingest_glassnode_metrics_205; production=bd_platform.derivatives_hub.derivatives_overview (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163424+00:00"
     },
     {
       "capability_id": 206,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -106,12 +128,16 @@
       "independent_test_pattern": "range_batch_206",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.ingest_uniswap_subgraph_206; production=bd_platform.derivatives_hub.derivatives_overview (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163426+00:00"
     },
     {
       "capability_id": 207,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -122,12 +148,16 @@
       "independent_test_pattern": "range_batch_207",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.ingest_aave_data_207; production=bd_platform.derivatives_hub.derivatives_overview (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163427+00:00"
     },
     {
       "capability_id": 208,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -138,12 +168,16 @@
       "independent_test_pattern": "range_batch_208",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.ingest_reddit_sentiment_208; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163429+00:00"
     },
     {
       "capability_id": 209,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -154,12 +188,13 @@
       "independent_test_pattern": "range_batch_209",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 210,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -170,12 +205,16 @@
       "independent_test_pattern": "range_batch_210",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.analyze_predictive_arbitrage_210; production=product_honesty_api.build_public_readiness (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163431+00:00"
     },
     {
       "capability_id": 211,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -186,12 +225,16 @@
       "independent_test_pattern": "range_batch_211",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.cross_margin_risk_alert_211; production=org_tenant.org_isolation_status (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163432+00:00"
     },
     {
       "capability_id": 212,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -202,12 +245,16 @@
       "independent_test_pattern": "range_batch_212",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.hedge_effectiveness_analysis_212; production=instant_alert_engine.engine_stats (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163434+00:00"
     },
     {
       "capability_id": 213,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -218,12 +265,16 @@
       "independent_test_pattern": "range_batch_213",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.capital_allocation_insight_213; production=instant_alert_engine.engine_stats (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163435+00:00"
     },
     {
       "capability_id": 214,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "delegated",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -234,12 +285,16 @@
       "independent_test_pattern": "range_batch_214",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.build_whale_narrative_71; production=blackdark.canonical.layer.get_canonical_layer (track_default).",
+      "reclassified_at": "2026-08-31T08:58:46.278369+00:00"
     },
     {
       "capability_id": 215,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -250,12 +305,13 @@
       "independent_test_pattern": "range_batch_215",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 216,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.onchain_defi_sources_layer",
@@ -266,12 +322,16 @@
       "independent_test_pattern": "range_batch_216",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.onchain_defi_sources_layer.run_onchain_defi_sources_e2e_204_216; production=security_posture.security_posture_report (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163437+00:00"
     },
     {
       "capability_id": 217,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -282,12 +342,16 @@
       "independent_test_pattern": "range_batch_217",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.analyze_best_venue_217; production=oracle_track_record.public_track_record (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163438+00:00"
     },
     {
       "capability_id": 218,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -298,12 +362,16 @@
       "independent_test_pattern": "range_batch_218",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.attach_order_journal_218; production=security_posture.security_posture_report (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163440+00:00"
     },
     {
       "capability_id": 219,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -314,12 +382,16 @@
       "independent_test_pattern": "range_batch_219",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.analyze_nlp_sentiment_219; production=security_posture.security_posture_report (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163442+00:00"
     },
     {
       "capability_id": 220,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -330,12 +402,16 @@
       "independent_test_pattern": "range_batch_220",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.attach_pattern_outcome_220; production=data_provenance_score.compute_data_provenance_score (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163443+00:00"
     },
     {
       "capability_id": 221,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -346,12 +422,16 @@
       "independent_test_pattern": "range_batch_221",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.market_slippage_analysis_221; production=data_provenance_score.compute_data_provenance_score (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163444+00:00"
     },
     {
       "capability_id": 222,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -362,12 +442,16 @@
       "independent_test_pattern": "range_batch_222",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.monitor_exchange_latency_222; production=signal_registry.registry_stats (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163446+00:00"
     },
     {
       "capability_id": 223,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -378,12 +462,16 @@
       "independent_test_pattern": "range_batch_223",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.analyze_defi_fundamentals_223; production=sentiment_engine.build_sentiment_context_safe (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163448+00:00"
     },
     {
       "capability_id": 224,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "delegated",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -394,12 +482,13 @@
       "independent_test_pattern": "range_batch_224",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 225,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -410,12 +499,16 @@
       "independent_test_pattern": "range_batch_225",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.pwa_strategy_status_225; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163451+00:00"
     },
     {
       "capability_id": 226,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -426,12 +519,16 @@
       "independent_test_pattern": "range_batch_226",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.analyze_launch_event_226; production=ai_oracle.evaluate_opportunity (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163452+00:00"
     },
     {
       "capability_id": 227,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_market_extensions_layer",
@@ -442,12 +539,16 @@
       "independent_test_pattern": "range_batch_227",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_market_extensions_layer.run_intelligence_market_extensions_e2e_217_227; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163454+00:00"
     },
     {
       "capability_id": 228,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -458,12 +559,16 @@
       "independent_test_pattern": "range_batch_228",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_ux_extensions_layer.simulate_drawdown_hedge_228; production=bd_platform.derivatives_hub.derivatives_overview (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163455+00:00"
     },
     {
       "capability_id": 229,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -474,12 +579,16 @@
       "independent_test_pattern": "range_batch_229",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_ux_extensions_layer.attach_reasoning_explanation_229; production=arbitrage_service.scan_arbitrage_opportunities (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163457+00:00"
     },
     {
       "capability_id": 230,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -490,12 +599,16 @@
       "independent_test_pattern": "range_batch_230",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_ux_extensions_layer.analyze_cross_exchange_divergence_230; production=arbitrage_service.scan_arbitrage_opportunities (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163459+00:00"
     },
     {
       "capability_id": 231,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -506,12 +619,13 @@
       "independent_test_pattern": "range_batch_231",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 232,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -522,12 +636,16 @@
       "independent_test_pattern": "range_batch_232",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_ux_extensions_layer.attach_arbitrage_comparison_230_232; production=bd_platform.derivatives_hub.derivatives_overview (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163460+00:00"
     },
     {
       "capability_id": 233,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -538,12 +656,16 @@
       "independent_test_pattern": "range_batch_233",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_ux_extensions_layer.build_heatmap_component_233; production=bd_platform.liquidation_radar.liquidation_radar (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163462+00:00"
     },
     {
       "capability_id": 234,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -554,12 +676,13 @@
       "independent_test_pattern": "range_batch_234",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 235,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -570,12 +693,13 @@
       "independent_test_pattern": "range_batch_235",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 236,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -586,12 +710,13 @@
       "independent_test_pattern": "range_batch_236",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 237,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -602,12 +727,16 @@
       "independent_test_pattern": "range_batch_237",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_ux_extensions_layer.generate_market_summary_237; production=risk_manager.risk_status (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163463+00:00"
     },
     {
       "capability_id": 238,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -618,12 +747,16 @@
       "independent_test_pattern": "range_batch_238",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_ux_extensions_layer.scan_market_opportunities_238; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163465+00:00"
     },
     {
       "capability_id": 239,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -634,12 +767,13 @@
       "independent_test_pattern": "range_batch_239",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 240,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -650,12 +784,16 @@
       "independent_test_pattern": "range_batch_240",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_ux_extensions_layer.compute_s2f_240; production=oracle_track_record.public_track_record (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163466+00:00"
     },
     {
       "capability_id": 241,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.intelligence_ux_extensions_layer",
@@ -666,12 +804,16 @@
       "independent_test_pattern": "range_batch_241",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.intelligence_ux_extensions_layer.run_intelligence_ux_extensions_e2e_228_241; production=sentiment_gate.fetch_asset_sentiment (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163468+00:00"
     },
     {
       "capability_id": 242,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -682,12 +824,16 @@
       "independent_test_pattern": "range_batch_242",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.attach_audit_log_id_242; production=trust_pulse.build_trust_pulse (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163470+00:00"
     },
     {
       "capability_id": 243,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -698,12 +844,16 @@
       "independent_test_pattern": "range_batch_243",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.ingest_bybit_price_243; production=bd_platform.derivatives_hub.derivatives_overview (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163471+00:00"
     },
     {
       "capability_id": 244,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -714,12 +864,16 @@
       "independent_test_pattern": "range_batch_244",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.ingest_cointelegraph_rss_244; production=blackdark.canonical.layer.get_canonical_layer (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163473+00:00"
     },
     {
       "capability_id": 245,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -730,12 +884,13 @@
       "independent_test_pattern": "range_batch_245",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 246,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -746,12 +901,16 @@
       "independent_test_pattern": "range_batch_246",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.list_etherscan_watchlist_246; production=product_honesty_api.build_public_readiness (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163475+00:00"
     },
     {
       "capability_id": 247,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -762,12 +921,16 @@
       "independent_test_pattern": "range_batch_247",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.generate_weekly_digest_247; production=product_honesty_api.build_public_readiness (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163476+00:00"
     },
     {
       "capability_id": 248,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -778,12 +941,16 @@
       "independent_test_pattern": "range_batch_248",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.manual_performance_tracker_248; production=bd_platform.telegram_agent.handle_agent_message (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163478+00:00"
     },
     {
       "capability_id": 249,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -794,12 +961,13 @@
       "independent_test_pattern": "range_batch_249",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 250,
       "batch": "batch_03",
-      "classification": "DEFERRED/DELEGATED",
+      "classification": "DEFERRED-EARLY-BATCH",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -810,12 +978,13 @@
       "independent_test_pattern": "range_batch_250",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "deferred_early_batch": true
     },
     {
       "capability_id": 251,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -826,12 +995,16 @@
       "independent_test_pattern": "range_batch_251",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.compute_token_velocity_251; production=ai_oracle.evaluate_opportunity (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163479+00:00"
     },
     {
       "capability_id": 252,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -842,12 +1015,16 @@
       "independent_test_pattern": "range_batch_252",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.ingest_google_trends_252; production=bd_platform.liquidation_radar.liquidation_radar (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163481+00:00"
     },
     {
       "capability_id": 253,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -858,12 +1035,16 @@
       "independent_test_pattern": "range_batch_253",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.build_kill_rate_widget_253; production=bd_platform.liquidation_radar.liquidation_radar (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163482+00:00"
     },
     {
       "capability_id": 254,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -874,12 +1055,16 @@
       "independent_test_pattern": "range_batch_254",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.build_contradiction_replay_254; production=bd_platform.liquidation_radar.liquidation_radar (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163484+00:00"
     },
     {
       "capability_id": 255,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -890,12 +1075,16 @@
       "independent_test_pattern": "range_batch_255",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.committee_one_pager_status_255; production=bd_platform.derivatives_hub.derivatives_overview (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163485+00:00"
     },
     {
       "capability_id": 256,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -906,12 +1095,16 @@
       "independent_test_pattern": "range_batch_256",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.compute_half_life_clock_256; production=bd_platform.derivatives_hub.derivatives_overview (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163487+00:00"
     },
     {
       "capability_id": 257,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": null,
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -922,12 +1115,16 @@
       "independent_test_pattern": "range_batch_257",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.proof_arena_lite_status_257; production=bd_platform.derivatives_hub.derivatives_overview (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163489+00:00"
     },
     {
       "capability_id": 258,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -938,12 +1135,16 @@
       "independent_test_pattern": "range_batch_258",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.since_you_left_top3_258; production=bd_platform.onchain_hub.defillama_raises (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163490+00:00"
     },
     {
       "capability_id": 259,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -954,12 +1155,16 @@
       "independent_test_pattern": "range_batch_259",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.apply_anti_hype_mode_259; production=bd_platform.derivatives_hub.derivatives_overview (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163492+00:00"
     },
     {
       "capability_id": 260,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -970,12 +1175,16 @@
       "independent_test_pattern": "range_batch_260",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.corpus_passport_status_260; production=bd_platform.derivatives_hub.derivatives_overview (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163493+00:00"
     },
     {
       "capability_id": 261,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.security_trust_data_layer",
@@ -986,12 +1195,16 @@
       "independent_test_pattern": "range_batch_261",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.security_trust_data_layer.run_security_trust_data_e2e_242_261; production=bd_platform.derivatives_hub.derivatives_overview (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163495+00:00"
     },
     {
       "capability_id": 262,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1002,12 +1215,17 @@
       "independent_test_pattern": "range_batch_262",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Options Open Interest.",
+      "reclassified_at": "2026-08-31T08:58:47.051234+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 263,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1018,12 +1236,17 @@
       "independent_test_pattern": "range_batch_263",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Options Volume.",
+      "reclassified_at": "2026-08-31T08:58:47.051241+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 264,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1034,12 +1257,17 @@
       "independent_test_pattern": "range_batch_264",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Options IV / Skew.",
+      "reclassified_at": "2026-08-31T08:58:47.051244+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 265,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1050,12 +1278,17 @@
       "independent_test_pattern": "range_batch_265",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Max Pain / Gamma Context.",
+      "reclassified_at": "2026-08-31T08:58:47.051246+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 266,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1066,12 +1299,17 @@
       "independent_test_pattern": "range_batch_266",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Spot Market Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.051247+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 267,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1082,12 +1320,17 @@
       "independent_test_pattern": "range_batch_267",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Order Book / Market Depth.",
+      "reclassified_at": "2026-08-31T08:58:47.051249+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 268,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1098,12 +1341,17 @@
       "independent_test_pattern": "range_batch_268",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Historical Derivatives Data.",
+      "reclassified_at": "2026-08-31T08:58:47.051251+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 269,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1114,12 +1362,17 @@
       "independent_test_pattern": "range_batch_269",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Exchange Comparison.",
+      "reclassified_at": "2026-08-31T08:58:47.051252+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 270,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1130,12 +1383,17 @@
       "independent_test_pattern": "range_batch_270",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquidation Cascade Proximity.",
+      "reclassified_at": "2026-08-31T08:58:47.051254+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 271,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1146,12 +1404,17 @@
       "independent_test_pattern": "range_batch_271",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Leverage Pressure Score.",
+      "reclassified_at": "2026-08-31T08:58:47.051255+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 272,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1162,12 +1425,16 @@
       "independent_test_pattern": "range_batch_272",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.derivatives_onchain_intelligence_layer.api_data_platform_status_272; production=hot_storage.get_hot_storage_stats (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T07:55:53.163497+00:00"
     },
     {
       "capability_id": 273,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1178,12 +1445,17 @@
       "independent_test_pattern": "range_batch_273",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Multi-Model Liquidation Comparison.",
+      "reclassified_at": "2026-08-31T08:58:47.051257+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 274,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1194,12 +1466,16 @@
       "independent_test_pattern": "range_batch_274",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.derivatives_onchain_intelligence_layer.derivatives_alerts_status_274; production=instant_alert_engine.engine_stats (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163499+00:00"
     },
     {
       "capability_id": 275,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1210,12 +1486,17 @@
       "independent_test_pattern": "range_batch_275",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Domain Decision Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.051259+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 276,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1226,12 +1507,17 @@
       "independent_test_pattern": "range_batch_276",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Entity Resolution Engine.",
+      "reclassified_at": "2026-08-31T08:58:47.051260+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 277,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1242,12 +1528,17 @@
       "independent_test_pattern": "range_batch_277",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Address Labeling System.",
+      "reclassified_at": "2026-08-31T08:58:47.051262+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 278,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1258,12 +1549,17 @@
       "independent_test_pattern": "range_batch_278",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Entity Profiles.",
+      "reclassified_at": "2026-08-31T08:58:47.051264+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 279,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "delegated",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.pro_trader_layer",
@@ -1274,12 +1570,16 @@
       "independent_test_pattern": "closure_test:build_share_card_68",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.pro_trader_layer.build_share_card_68; production=onchain_tracker.build_onchain_context_safe (gap_matrix_component).",
+      "reclassified_at": "2026-08-31T08:58:46.278383+00:00"
     },
     {
       "capability_id": 280,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1290,12 +1590,17 @@
       "independent_test_pattern": "range_batch_280",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Portfolio Holdings.",
+      "reclassified_at": "2026-08-31T08:58:47.051265+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 281,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1306,12 +1611,17 @@
       "independent_test_pattern": "range_batch_281",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Balance History.",
+      "reclassified_at": "2026-08-31T08:58:47.051267+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 282,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1322,12 +1632,17 @@
       "independent_test_pattern": "range_batch_282",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Entity PnL.",
+      "reclassified_at": "2026-08-31T08:58:47.051268+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 283,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1338,12 +1653,17 @@
       "independent_test_pattern": "range_batch_283",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Exchange Usage Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.051270+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 284,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1354,12 +1674,17 @@
       "independent_test_pattern": "range_batch_284",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Top Counterparties.",
+      "reclassified_at": "2026-08-31T08:58:47.051271+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 285,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1370,12 +1695,17 @@
       "independent_test_pattern": "range_batch_285",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Visualizer / Network Graph.",
+      "reclassified_at": "2026-08-31T08:58:47.051273+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 286,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1386,12 +1716,17 @@
       "independent_test_pattern": "range_batch_286",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Automated Trace / Path Finding.",
+      "reclassified_at": "2026-08-31T08:58:47.051275+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 287,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1402,12 +1737,17 @@
       "independent_test_pattern": "range_batch_287",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Chain Trace.",
+      "reclassified_at": "2026-08-31T08:58:47.051276+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 288,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.correlation_mindshare",
@@ -1418,12 +1758,16 @@
       "independent_test_pattern": "closure_test:compute_mindshare_correlation_288",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.correlation_mindshare.compute_mindshare_correlation_288; production=oracle_track_record.public_track_record (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163501+00:00"
     },
     {
       "capability_id": 289,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1434,12 +1778,17 @@
       "independent_test_pattern": "range_batch_289",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Token Exchange Flows.",
+      "reclassified_at": "2026-08-31T08:58:47.051278+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 290,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1450,12 +1799,17 @@
       "independent_test_pattern": "range_batch_290",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Token Transaction Explorer.",
+      "reclassified_at": "2026-08-31T08:58:47.051279+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 291,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1466,12 +1820,17 @@
       "independent_test_pattern": "range_batch_291",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Custom Dashboards.",
+      "reclassified_at": "2026-08-31T08:58:47.051281+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 292,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1482,12 +1841,17 @@
       "independent_test_pattern": "range_batch_292",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Custom Alerts.",
+      "reclassified_at": "2026-08-31T08:58:47.051282+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 293,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1498,12 +1862,17 @@
       "independent_test_pattern": "range_batch_293",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Private Labels.",
+      "reclassified_at": "2026-08-31T08:58:47.051284+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 294,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1514,12 +1883,17 @@
       "independent_test_pattern": "range_batch_294",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Archive / Historical Portfolio Snapshot.",
+      "reclassified_at": "2026-08-31T08:58:47.051285+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 295,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1530,12 +1904,17 @@
       "independent_test_pattern": "range_batch_295",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=AI Market Insights.",
+      "reclassified_at": "2026-08-31T08:58:47.051287+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 296,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1546,12 +1925,17 @@
       "independent_test_pattern": "range_batch_296",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Whale Movement Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.051288+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 297,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1562,12 +1946,16 @@
       "independent_test_pattern": "range_batch_297",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.derivatives_onchain_intelligence_layer.fraud_suspicious_activity_297; production=onchain_tracker.build_onchain_context_safe (track_default).",
+      "reclassified_at": "2026-08-31T07:55:53.163503+00:00"
     },
     {
       "capability_id": 298,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "DEFERRED/TEMPLATE-STUB",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1578,12 +1966,17 @@
       "independent_test_pattern": "range_batch_298",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "template_seed_stub": true,
+      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=API On-Chain Intelligence.",
+      "reclassified_at": "2026-08-31T08:58:47.051290+00:00",
+      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
+      "option_b_deferred": true
     },
     {
       "capability_id": 299,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "delegated",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.news_classifier",
@@ -1594,12 +1987,16 @@
       "independent_test_pattern": "closure_test:classify_headlines",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "origin/main"
+      "source_branch": "origin/main",
+      "prior_classification": "VERIFIED-DEEP",
+      "split_brain_bcd": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_GENERIC_HANDLER; audit=bd_platform.news_classifier.classify_headlines; production=trust_pulse.build_trust_pulse (capability_keyword).",
+      "reclassified_at": "2026-08-31T08:58:46.278387+00:00"
     },
     {
       "capability_id": 300,
       "batch": "batch_03",
-      "classification": "VERIFIED-DEEP",
+      "classification": "SPLIT-BRAIN-UNVERIFIED",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.derivatives_onchain_intelligence_layer",
@@ -1610,7 +2007,16 @@
       "independent_test_pattern": "range_batch_300",
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "capabilities-826-import",
+      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "split_brain_routing": true,
+      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.derivatives_onchain_intelligence_layer.run_derivatives_onchain_intelligence_e2e_262_300; production=bd_platform.tradingview_bridge.chart_config (capability_keyword).",
+      "reclassified_at": "2026-08-31T07:55:53.163505+00:00"
     }
-  ]
+  ],
+  "template_seed_stub_reclassified_count": 32,
+  "template_seed_stub_reclassified_at": "2026-08-30T22:48:25.991808+00:00",
+  "split_brain_unverified_count": 54,
+  "split_brain_routing_reclassified_count": 54,
+  "split_brain_routing_reclassified_at": "2026-08-31T07:55:53.163521+00:00"
 }

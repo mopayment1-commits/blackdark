@@ -1,4 +1,16 @@
-"""CAP978 catalog — official 978-capability scope (646 base + 332 extension)."""
+"""CAP978 catalog — official 978-capability scope (646 base + 332 extension).
+
+Scope tiers (contiguous IDs, no gaps or renumbering):
+- **978 (full catalog / ``--full`` gate):** IDs 1–978 — institutional closure baseline
+  (``Project_978_Capabilities_Grouped_*.pdf``).
+- **826 (agreed project / import scope):** IDs 1–826 — 646 base + extension 647–826 (180 rows).
+  Delivery batches and ``capabilities-826-import`` target this tier.
+- **678 (CI sample / ``sample=True``):** IDs 1–646 + 647–678 (32 extension rows) — fast structural gate.
+
+The 152 IDs **827–978** are real ``extension_647_978`` catalog rows (track T19), not numbering
+errors or duplicates. They are **outside the 826 delivery scope by design** but included in the
+978 institutional baseline and full-mode gate.
+"""
 
 from __future__ import annotations
 
@@ -9,6 +21,27 @@ from typing import Any
 
 _ROOT = Path(__file__).resolve().parent.parent
 _CATALOG = _ROOT / "docs" / "cap978" / "CAP978_CATALOG.json"
+
+# Official catalog bounds (contiguous 1..978).
+CATALOG_TOTAL = 978
+BASE_SCOPE_MAX_ID = 646
+EXTENSION_SCOPE_MIN_ID = 647
+EXTENSION_SCOPE_MAX_ID = 978
+EXTENSION_TOTAL = 332
+
+# Agreed project delivery scope (646 + extension 647..826).
+PROJECT_SCOPE_TOTAL = 826
+PROJECT_EXTENSION_MAX_ID = 826
+PROJECT_EXTENSION_TOTAL = 180
+
+# Post-project extension reserved in full catalog only (827..978).
+POST_PROJECT_EXTENSION_MIN_ID = 827
+POST_PROJECT_EXTENSION_TOTAL = 152
+
+# CI sample structural gate (646 + extension 647..678).
+CI_SAMPLE_TOTAL = 678
+CI_SAMPLE_EXTENSION_MAX_ID = 678
+CI_SAMPLE_EXTENSION_TOTAL = 32
 
 # Reuse cap646 duplicate/external/canonical maps for base scope
 from cap646.catalog import (  # noqa: E402
