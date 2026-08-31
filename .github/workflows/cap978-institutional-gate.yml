@@ -40,13 +40,14 @@ jobs:
       - name: Institutional gate (sample + artifacts)
         env:
           SERVICE_BUS_LOCAL: "true"
+          BLACKDARK_CI_DETERMINISTIC_CLOSURE: "true"
           PYTHONPATH: ${{ github.workspace }}
         run: |
           python scripts/bootstrap_free_human_ops.py --admin-email ci@blackdark.local
           python scripts/verify_institutional_closure.py --ci --write-checklist docs/cap978/COMMERCIAL_LAUNCH_CHECKLIST.json
           python scripts/run_soft_launch_closure.py
           set -a && source .env.softlaunch.local && set +a
-          python -m pytest tests/cap646/test_institutional_gate.py tests/cap646/test_soft_launch_closure.py -q --tb=short -k "not test_institutional_gate_full"
+          python -m pytest tests/cap646/test_institutional_gate.py tests/cap646/test_soft_launch_closure.py -q --tb=short -m "" -k "not test_institutional_gate_full"
 
   gate-full:
     if: github.event_name == 'schedule' || (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'))
@@ -70,4 +71,4 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}
         run: |
           python scripts/verify_institutional_closure.py --full
-          python -m pytest tests/cap646/test_institutional_gate.py::test_institutional_gate_full -q --tb=short
+          python -m pytest tests/cap646/test_institutional_gate.py::test_institutional_gate_full -q --tb=short -m ""

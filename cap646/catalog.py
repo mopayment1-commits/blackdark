@@ -34,8 +34,10 @@ REPEAT_CANONICAL: dict[str, int] = {
     "DEX Volume": 356,
 }
 
-# All base vendor-blocked IDs now served via bd_platform.free_tier_capabilities
-EXTERNAL_IDS: frozenset[int] = frozenset()
+# Vendor slots stay EXTERNAL in the formal registry; free-tier surfaces are proxies.
+from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS  # noqa: E402
+
+EXTERNAL_IDS: frozenset[int] = FREE_TIER_BASE_IDS
 
 
 @lru_cache(maxsize=1)
@@ -66,6 +68,10 @@ def canonical_id(capability_id: int) -> int:
 
 
 def is_external(capability_id: int) -> bool:
+    from bd_platform.free_tier_capabilities import FREE_TIER_CAP_IDS
+
+    if capability_id in FREE_TIER_CAP_IDS:
+        return False
     return capability_id in EXTERNAL_IDS
 
 

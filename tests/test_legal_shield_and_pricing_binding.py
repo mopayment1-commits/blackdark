@@ -12,26 +12,29 @@ def test_founder_confirmed_price_ladder():
     by = _by_id()
     assert by["free"]["price_usd_month"] == 0
     assert by["free"]["name"] == "Proof Pass"
-    assert by["pro"]["price_usd_month"] == 29
-    assert by["whale"]["price_usd_month"] == 49
-    assert by["whale"]["name"] == "Decision Desk"
-    assert by["institutional"]["price_usd_month_from"] == 3000
-    assert "3,000" in by["institutional"]["price_display"]
-    assert "open" in by["institutional"]["price_display"].lower()
+    assert by["pro"]["price_usd_month"] == 19
+    assert by["elite"]["price_usd_month"] == 49
+    assert by["elite"]["name"] == "Decision Elite"
+    assert by["quant"]["price_usd_month"] == 199
+    assert by["quant"]["name"] == "Decision Quant"
+    assert by["institutional"]["self_serve"] is False
+    assert "custom" in by["institutional"]["price_display"].lower()
 
 
 def test_pricing_tiers_order():
     ids = [t["id"] for t in TIERS]
-    assert ids[:4] == ["free", "pro", "whale", "institutional"]
+    assert ids == ["free", "pro", "elite", "quant", "institutional"]
     cat = pricing_catalog()
     assert cat["currency"] == "USD"
-    assert "MORNING_SESSION_FINAL_BINDING" in cat["binding"]
+    assert "billing/plan_registry.py" in cat["binding"]
 
 
-def test_no_rejected_199_whale_desk_in_catalog():
+def test_quant_199_no_legacy_whale_desk_label():
+    by = _by_id()
+    assert by["quant"]["price_usd_month"] == 199
     blob = str(TIERS)
-    assert "199" not in blob
     assert "Whale Desk" not in blob
+    assert "Decision Desk" not in blob
 
 
 def test_legal_shield_prefix_in_certificate_module():

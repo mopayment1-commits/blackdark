@@ -1,0 +1,18 @@
+{
+  "reclassified_at": "2026-08-31T09:24:29.679175+00:00",
+  "total": 7,
+  "classification": "EXTENSION-PENDING-CAP646",
+  "ids": [
+    704,
+    708,
+    725,
+    812,
+    813,
+    814,
+    815
+  ],
+  "reason": "EXTENSION-PENDING-CAP646: ID present in CAP978/heroes evidence but absent from cap646.backend_registry (binding_for KeyError). Historical quad-evidence used pdf_capability_registry — apparent success did NOT prove production /api/cap646 path. Requires cap646 registration or dedicated CAP978 extension verification track.",
+  "verification_path": "Register in cap646 catalog + backend_registry OR CAP978 extension closure track",
+  "supplemental_record": "docs/EXTENSION_PENDING_CAP646_ID_813.json",
+  "in_576_evidence_universe": false
+}

@@ -2,7 +2,7 @@
 BLACKDARK Trust OS — Pricing catalog (binding).
 
 Official tiers: FREE · PRO · ELITE · QUANT · INSTITUTIONAL
-FREE $0 · PRO $19.99 · ELITE $49.99 · QUANT $149.99 · INSTITUTIONAL from $999/mo
+FREE $0 · PRO $19 · ELITE $49 · QUANT $199 · INSTITUTIONAL custom pricing
 7-day trial on all paid self-serve tiers.
 """
 
@@ -143,6 +143,11 @@ UNIQUE_BY_TIER: dict[str, list[str]] = {
         "Alerts + Net-Edge Truth Score",
     ],
     "decision_elite": [
+        "B2B / API key",
+        "Evidence Pack + Stealth Advisor",
+        "Whale Signal-to-Noise filter",
+    ],
+    "decision_desk": [
         "B2B / API key",
         "Evidence Pack + Stealth Advisor",
         "Whale Signal-to-Noise filter",

@@ -1,0 +1,69 @@
+........................................................................ [  3%]
+........................................................................ [  7%]
+........................................................................ [ 10%]
+........................................................................ [ 14%]
+........................................................................ [ 18%]
+........................................................................ [ 21%]
+........................................................................ [ 25%]
+........................................................................ [ 29%]
+........................................................................ [ 32%]
+.....................s.................................................. [ 36%]
+........................................................................ [ 40%]
+........................................................................ [ 43%]
+........................................................................ [ 47%]
+........................................................................ [ 50%]
+........................................................................ [ 54%]
+........................................................................ [ 58%]
+........................................................................ [ 61%]
+........................................................................ [ 65%]
+........................................................................ [ 69%]
+........................................................................ [ 72%]
+........................................................................ [ 76%]
+........................................................................ [ 80%]
+......................................................................s. [ 83%]
+........................................................................ [ 87%]
+........................................................................ [ 90%]
+........................................................................ [ 94%]
+...................Traceback (most recent call last):
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 107, in run
+    future.get_loop().call_soon_threadsafe(set_result, future, result)
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 840, in call_soon_threadsafe
+    self._check_closed()
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 541, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 110, in run
+    future.get_loop().call_soon_threadsafe(set_exception, future, e)
+..................................................... [ 98%]
+....................................                                     [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/cap646/test_triple_closure.py: 4865 warnings
+tests/test_hero_batch_01_capabilities.py: 972 warnings
+tests/test_launch_readiness.py: 977 warnings
+tests/test_production_e2e_hardening.py: 972 warnings
+tests/test_rvm_system.py: 972 warnings
+tests/test_unique_differentiators.py: 977 warnings
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape
+
+tests/cap646/test_triple_closure.py::test_triple_closure_sample
+tests/test_launch_readiness.py::test_regime_router_attaches_regime
+tests/test_unique_differentiators.py::test_evaluate_opportunity_attaches_differentiators
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:204: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape[::-1]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+EXIT=0
+1978 passed, 2 skipped, 4 deselected, 9739 warnings in 166.26s (0:02:46)

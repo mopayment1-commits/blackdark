@@ -1,0 +1,22 @@
+{
+  "registered_at": "2026-08-31T09:45:00+00:00",
+  "capability_id": 813,
+  "classification": "EXTENSION-PENDING-CAP646",
+  "scope": "outside_hero_batches_01_06_evidence_universe",
+  "catalog": {
+    "source": "docs/cap978/CAP978_CATALOG.json",
+    "track": "T19",
+    "capability": "Cross-Derivatives Decision Intelligence",
+    "scope": "extension_647_978"
+  },
+  "in_hero_batch_01_manifest": false,
+  "in_hero_evidence_jsonl": false,
+  "in_capabilities_checklist": true,
+  "cap646_registry_ok": false,
+  "cap646_binding_error": "KeyError:not_in_cap646_catalog",
+  "pdf_registry_ok": false,
+  "historical_claim": "HERO_BATCH_01_COMPLETION_REPORT manual binding (#629, #812-#815, #382, #111)",
+  "incident_class": "REGISTRY_PHANTOM_SUCCESS",
+  "reclassification_reason": "EXTENSION-PENDING-CAP646: CAP978 extension ID cited in batch-01 completion manual bindings but never in hero evidence JSONL or cap646 registry. Same severity as #725/#812/#814/#815 phantom-success class.",
+  "verification_path": "Register in cap646 catalog + backend_registry OR CAP978 extension closure track"
+}

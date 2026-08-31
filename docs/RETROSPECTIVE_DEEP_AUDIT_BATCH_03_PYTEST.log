@@ -1,0 +1,238 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /workspace
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.14.2, asyncio-1.4.0, cov-7.1.0, xdist-3.8.0, timeout-2.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 1584 items
+
+tests/cap646/test_cap646_closure.py .......                              [  0%]
+tests/cap646/test_cap978_closure.py ..FF..                               [  0%]
+tests/cap646/test_institutional_gate.py .FFFFF                           [  1%]
+tests/cap646/test_soft_launch_closure.py .F.                             [  1%]
+tests/cap646/test_triple_closure.py .......                              [  1%]
+tests/cap646/test_wave_dod_e2e.py .......                                [  2%]
+tests/test_address_intelligence.py .......                               [  2%]
+tests/test_advanced_ta_risk_batch117_128.py .............                [  3%]
+tests/test_alpha_engine.py .....                                         [  3%]
+tests/test_arb_truth_gate.py ...                                         [  4%]
+tests/test_arbitrage_engine.py ..                                        [  4%]
+tests/test_arbitrage_portfolio_ux_batch177_191.py ..................     [  5%]
+tests/test_audit_critical_paths.py ......                                [  5%]
+tests/test_auth_identity_profile.py ......                               [  6%]
+tests/test_auto_keys.py ..                                               [  6%]
+tests/test_b2b_websocket_lifecycle.py .....                              [  6%]
+tests/test_batch03_underlying_closure.py ......                          [  6%]
+tests/test_bigquery_export.py ....                                       [  7%]
+tests/test_billing_subscription_engine.py .........                      [  7%]
+tests/test_brand_coverage_radical_closure.py ......                      [  8%]
+tests/test_browser_extension.py .                                        [  8%]
+tests/test_canonical_layer.py ...........                                [  8%]
+tests/test_cex_dex.py ..                                                 [  8%]
+tests/test_codeql_18_closure.py ..........                               [  9%]
+tests/test_codeql_cleartext_logging_closure.py .........                 [ 10%]
+tests/test_codeql_hygiene_port.py ...                                    [ 10%]
+tests/test_codeql_secret_logging_closure.py ..........                   [ 10%]
+tests/test_codeql_ssrf_log_safety.py ..F.....                            [ 11%]
+tests/test_coingecko_ingestion.py ......                                 [ 11%]
+tests/test_com_msa.py .....                                              [ 12%]
+tests/test_com_sla.py ....                                               [ 12%]
+tests/test_com_support.py ...                                            [ 12%]
+tests/test_core_extended.py ..........                                   [ 13%]
+tests/test_core_modules.py .....                                         [ 13%]
+tests/test_critical_ops_closure.py .....                                 [ 13%]
+tests/test_cso_priority_chain.py .....                                   [ 14%]
+tests/test_d01_data_state.py .......                                     [ 14%]
+tests/test_d02_secrets_vault.py ....                                     [ 14%]
+tests/test_d06_institutional_api.py ....                                 [ 15%]
+tests/test_d09_flow_filter.py ....                                       [ 15%]
+tests/test_d13_auth_abuse.py ....                                        [ 15%]
+tests/test_d15_evidence_closure.py ....                                  [ 15%]
+tests/test_data_sources.py ....                                          [ 16%]
+tests/test_data_sources_batch140_152.py ..............                   [ 17%]
+tests/test_dbt_connector.py ...                                          [ 17%]
+tests/test_dd_radical_institutional_closure.py ..............            [ 18%]
+tests/test_dec_autonomous_closure.py ........                            [ 18%]
+tests/test_dec_motion_and_oqs_weights.py ....                            [ 18%]
+tests/test_deferred_nonhuman_closure.py .........                        [ 19%]
+tests/test_derivatives_onchain_intelligence_batch262_300.py ............ [ 20%]
+............................                                             [ 21%]
+tests/test_derivatives_ta_research_batch192_203.py ..............        [ 22%]
+tests/test_didit_kyc.py ...                                              [ 23%]
+tests/test_domain_enrichment.py ...                                      [ 23%]
+tests/test_english_ui_rule.py ..                                         [ 23%]
+tests/test_enterprise_sso_auth0.py .....                                 [ 23%]
+tests/test_env_secrets_loader.py .........                               [ 24%]
+tests/test_execution_keys.py ..                                          [ 24%]
+tests/test_expert_execution_closure.py ........                          [ 24%]
+tests/test_f1_f10_unique_full_ship.py ............                       [ 25%]
+tests/test_fast_scan_profit.py .....                                     [ 25%]
+tests/test_fee_matrix.py ...................                             [ 27%]
+tests/test_final_826_closure.py .........................                [ 28%]
+tests/test_flywheel_bootstrap.py ....                                    [ 28%]
+tests/test_free_human_ops_playbook.py ..                                 [ 29%]
+tests/test_free_tier_capabilities.py ..............s..................   [ 31%]
+tests/test_graphql_schema.py ..                                          [ 31%]
+tests/test_gtm_service.py .                                              [ 31%]
+tests/test_health_sidecar.py .                                           [ 31%]
+tests/test_hero_batch01_underlying_closure.py ....................       [ 32%]
+tests/test_hero_batch_01_capabilities.py ............................... [ 34%]
+........................................................................ [ 39%]
+......                                                                   [ 39%]
+tests/test_hero_batch_02_capabilities.py ............................... [ 41%]
+......................................................................   [ 45%]
+tests/test_hero_batch_03_capabilities.py ............................... [ 47%]
+......................................................................   [ 52%]
+tests/test_heroes_quality_polish.py .........                            [ 52%]
+tests/test_heroes_strategy.py .............                              [ 53%]
+tests/test_i18n_25_locales.py ......                                     [ 54%]
+tests/test_i18n_language_actually_switches.py ...                        [ 54%]
+tests/test_il_simulator.py ...........                                   [ 54%]
+tests/test_in_app_alerts.py ...                                          [ 55%]
+tests/test_infra_intelligence_batch95_104.py ...........                 [ 55%]
+tests/test_infra_metrics.py ...                                          [ 56%]
+tests/test_ins_tenant_postgres.py .                                      [ 56%]
+tests/test_institutional_b2b_batch87_94.py ..........                    [ 56%]
+tests/test_institutional_compounding.py ........                         [ 57%]
+tests/test_intelligence_analysis_batch153_163.py ............            [ 58%]
+tests/test_intelligence_ledger.py .......                                [ 58%]
+tests/test_intelligence_market_extensions_batch217_227.py .............. [ 59%]
+                                                                         [ 59%]
+tests/test_intelligence_ux_extensions_batch228_241.py .................. [ 60%]
+                                                                         [ 60%]
+tests/test_key_manager.py ....                                           [ 60%]
+tests/test_latency_drift_fix.py ....                                     [ 60%]
+tests/test_launch_checklist.py ..                                        [ 61%]
+tests/test_launch_hardening.py .........                                 [ 61%]
+tests/test_launch_readiness.py ..........                                [ 62%]
+tests/test_legal_retail_batch57_66.py ..............                     [ 63%]
+tests/test_legal_shield_and_pricing_binding.py FFF....                   [ 63%]
+tests/test_lighthouse_landing.py .....                                   [ 63%]
+tests/test_market_analysis_batch105_116.py ...............               [ 64%]
+tests/test_market_intelligence.py ..........                             [ 65%]
+tests/test_missing_capabilities_closure.py ....FF                        [ 65%]
+tests/test_ml_integrity.py .......                                       [ 66%]
+tests/test_money_decimal.py ...                                          [ 66%]
+tests/test_nonhuman_100_closure.py ..........                            [ 67%]
+tests/test_onchain_defi_sources_batch204_216.py ................         [ 68%]
+tests/test_onchain_platform_batch129_139.py ............                 [ 68%]
+tests/test_options_fetcher.py .                                          [ 69%]
+tests/test_oracle_audit_chain.py ...                                     [ 69%]
+tests/test_oracle_track_record.py ...                                    [ 69%]
+tests/test_p0_authz_hardening.py .......                                 [ 69%]
+tests/test_p0_financial_executability.py ..........                      [ 70%]
+tests/test_p0_radical_hardening.py ..........                            [ 71%]
+tests/test_p1_session_hardening.py .............                         [ 71%]
+tests/test_path_safety.py ....                                           [ 72%]
+tests/test_payments_usd_security.py FF.....                              [ 72%]
+tests/test_pdf_capability_registry.py ..F                                [ 72%]
+tests/test_pentest_attestation.py ........                               [ 73%]
+tests/test_phase01_audit_registry.py .....                               [ 73%]
+tests/test_plan_audit.py ..                                              [ 73%]
+tests/test_platform_features.py ................                         [ 74%]
+tests/test_platform_production_readiness.py ..                           [ 74%]
+tests/test_postgres_backend.py ...                                       [ 75%]
+tests/test_postgres_migration_integrity.py ....                          [ 75%]
+tests/test_pricing_trust_os.py ....                                      [ 75%]
+tests/test_pro_trader_batch67_76.py ...............                      [ 76%]
+tests/test_product_constitution.py ....                                  [ 76%]
+tests/test_production_e2e_hardening.py ....................              [ 78%]
+tests/test_production_guard.py ....                                      [ 78%]
+tests/test_profit_fee_algorithms.py .......                              [ 78%]
+tests/test_radical_dd_scale_closure.py ...........                       [ 79%]
+tests/test_rc2_chaos_resilience.py s...                                  [ 79%]
+tests/test_rc2_financial_truth.py ...........                            [ 80%]
+tests/test_rc2_oracle_contract.py ...                                    [ 80%]
+tests/test_regime_models.py ..                                           [ 80%]
+tests/test_regime_train_and_complete.py ...                              [ 80%]
+tests/test_report_gap_closure.py ........                                [ 81%]
+tests/test_risk_infrastructure_batch164_176.py ...............           [ 82%]
+tests/test_risk_manager.py .......                                       [ 82%]
+tests/test_roadmap_audit.py ........                                     [ 83%]
+tests/test_rvm_system.py F.....                                          [ 83%]
+tests/test_security.py .....                                             [ 83%]
+tests/test_security_hardening.py ...........                             [ 84%]
+tests/test_security_max_closure.py ......                                [ 85%]
+tests/test_security_trust_data_batch242_261.py ......................    [ 86%]
+tests/test_sentiment_gate.py ...                                         [ 86%]
+tests/test_service_bus.py ....                                           [ 86%]
+tests/test_service_bus_distributed.py ..                                 [ 86%]
+tests/test_signal_registry_public.py ..                                  [ 87%]
+tests/test_site_companion_services.py .......                            [ 87%]
+tests/test_slippage_guard.py ...................                         [ 88%]
+tests/test_slippage_intelligence.py ....                                 [ 89%]
+tests/test_softlaunch_no_shell_taint.py ...                              [ 89%]
+tests/test_sonar_new_coverage_closure.py ..........................      [ 90%]
+tests/test_sonar_project_version_baseline.py ..                          [ 90%]
+tests/test_sonar_template_js_parse_hygiene.py .....                      [ 91%]
+tests/test_sql_safety.py ......                                          [ 91%]
+tests/test_strategic_correction.py .....                                 [ 91%]
+tests/test_subscription_dialect_safety.py ....                           [ 92%]
+tests/test_technical_due_diligence.py .....                              [ 92%]
+tests/test_track_record_backfill.py ..                                   [ 92%]
+tests/test_trust_os_design_system.py ....                                [ 92%]
+tests/test_trust_os_execution.py ......                                  [ 93%]
+tests/test_trust_os_lenses_ux.py .....                                   [ 93%]
+tests/test_trust_pulse.py ......                                         [ 94%]
+tests/test_unique_differentiators.py .......                             [ 94%]
+tests/test_universe_rollout.py ...                                       [ 94%]
+tests/test_viral_capacity.py ............                                [ 95%]
+tests/test_visible_chrome_critical_surfaces.py .......                   [ 95%]
+tests/test_wave_00_hardening.py .......                                  [ 96%]
+tests/test_wave_01_data_engine.py .......                                [ 96%]
+tests/test_wave_01_institutional.py ...                                  [ 96%]
+tests/test_wave_01_systems.py .....                                      [ 97%]
+tests/test_whales_institutional_batch77_86.py ............               [ 97%]
+tests/test_wow_unique_surfaces.py ............F                          [ 98%]
+tests/test_xss_sink_hardening.py ...............                         [ 99%]
+tests/test_zero_tolerance.py ....                                        [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/cap646/test_cap978_closure.py: 10737 warnings
+tests/cap646/test_institutional_gate.py: 13678 warnings
+tests/cap646/test_triple_closure.py: 4865 warnings
+tests/test_hero_batch_01_capabilities.py: 972 warnings
+tests/test_launch_readiness.py: 977 warnings
+tests/test_production_e2e_hardening.py: 972 warnings
+tests/test_rvm_system.py: 972 warnings
+tests/test_unique_differentiators.py: 977 warnings
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape
+
+tests/cap646/test_cap978_closure.py: 9 warnings
+tests/cap646/test_institutional_gate.py: 14 warnings
+tests/cap646/test_triple_closure.py: 1 warning
+tests/test_launch_readiness.py: 1 warning
+tests/test_unique_differentiators.py: 1 warning
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:204: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape[::-1]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/cap646/test_cap978_closure.py::test_external_registry - assert 3...
+FAILED tests/cap646/test_cap978_closure.py::test_evidence_room_snapshot - ass...
+FAILED tests/cap646/test_institutional_gate.py::test_external_registry_integrity
+FAILED tests/cap646/test_institutional_gate.py::test_committed_artifacts_match_baseline
+FAILED tests/cap646/test_institutional_gate.py::test_commercial_launch_checklist
+FAILED tests/cap646/test_institutional_gate.py::test_institutional_gate_sample
+FAILED tests/cap646/test_institutional_gate.py::test_institutional_gate_full
+FAILED tests/cap646/test_soft_launch_closure.py::test_soft_launch_closure_code_complete
+FAILED tests/test_codeql_ssrf_log_safety.py::test_listed_modules_inline_log_scrub_not_helper_only
+FAILED tests/test_legal_shield_and_pricing_binding.py::test_founder_confirmed_price_ladder
+FAILED tests/test_legal_shield_and_pricing_binding.py::test_pricing_tiers_order
+FAILED tests/test_legal_shield_and_pricing_binding.py::test_no_rejected_199_whale_desk_in_catalog
+FAILED tests/test_missing_capabilities_closure.py::test_accessibility_static_audit
+FAILED tests/test_missing_capabilities_closure.py::test_accessibility_api_report
+FAILED tests/test_payments_usd_security.py::test_payments_architecture_usd_no_pan
+FAILED tests/test_payments_usd_security.py::test_billing_tiers_currency_usd
+FAILED tests/test_pdf_capability_registry.py::test_batch_test_mapping - Asser...
+FAILED tests/test_rvm_system.py::test_governing_sources_present_and_hashed - ...
+FAILED tests/test_wow_unique_surfaces.py::test_tier_unique_and_wow_eight - As...
+=== 19 failed, 1563 passed, 2 skipped, 34177 warnings in 1471.19s (0:24:31) ====

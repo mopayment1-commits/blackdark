@@ -1,0 +1,1241 @@
+{
+  "batch": "batch_05_401_500",
+  "deep_audit_at": "2026-08-30T20:27:03.428708+00:00",
+  "total": 100,
+  "classification_counts": {
+    "VERIFIED-DEEP": 97,
+    "REUSED-LINK": 3
+  },
+  "verified_deep_native": 97,
+  "reused_link": 3,
+  "verified_deep_honest": 100,
+  "wrapper_only_unverified": 0,
+  "deferred_delegated": 0,
+  "rows": [
+    {
+      "capability_id": 401,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.bridges_intelligence_401",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 402,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.yields_screener_402",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 403,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.yield_history_403",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 404,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.borrowing_rates_404",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 405,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.liquid_staking_intelligence_405",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 406,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.rwa_intelligence_406",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 407,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.raises_funding_rounds_407",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 408,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.investor_profiles_408",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 409,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.quicktake_feed.quicktake_feed_status_409",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 410,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.treasury_intelligence_410",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 411,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.airdrop_incentive_intelligence_411",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 412,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.capital_formation_radar_412",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 413,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.defi_opportunity_screener_413",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 414,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.defi_risk_passport_414",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 415,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.api_aggregation_layer_415",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 416,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.cross_defi_decision_intelligence_416",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 417,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.cross_chain_fundamentals_417",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 418,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.protocol_fundamentals_418",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 419,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.stablecoin_intelligence_419",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 420,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.stablecoin_activity_breakdown_420",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 421,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.developer_activity_421",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 422,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.sector_ecosystem_comparables_422",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 423,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.equities_crypto_research_423",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 424,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.consensus_estimates_424",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 425,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.ai_analyst_425",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 426,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.thesis_research_workspace_426",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 427,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.comparable_company_protocol_analysis_427",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 428,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.excel_sheets_integration_428",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 429,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.api_data_platform_429",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 430,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.research_templates_430",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 431,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.dashboards_431",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 432,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.stablecoin_payment_intelligence_432",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 433,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.on_chain_usage_intelligence_433",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 434,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.revenue_fees_economic_activity_434",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 435,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.cross_market_research_copilot_435",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 436,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.investment_thesis_scoring_436",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 437,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.correlation_mindshare.compute_mindshare_correlation_288",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_mindshare_correlation_288",
+          "suffix_id": 288,
+          "capability_id": 437
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 438,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.lending_market_risk_438",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 439,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.collateral_risk_439",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 440,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.liquidation_risk_440",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 441,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.intelligence_analysis_layer.stat_arb_insight_155",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "stat_arb_insight_155",
+          "suffix_id": 155,
+          "capability_id": 441
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 442,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.liquidity_risk_442",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 443,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.protocol_exploit_intelligence_443",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 444,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.stablecoin_risk_intelligence_444",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 445,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.defi_strategy_risk_445",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 446,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.real_time_risk_alerts_446",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 447,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.dao_treasury_risk_447",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 448,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.institutional_risk_api_448",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 449,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.curated_on_chain_dashboards_449",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 450,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.narrative_driven_research_450",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 451,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.protocol_dominance_451",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 452,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.aave_multi_chain_analytics_452",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 453,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.risk_curation_453",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 454,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.capital_protection_controls_454",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 455,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.stress_testing_455",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 456,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.cross_protocol_contagion_456",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 457,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.protocol_risk_passport_457",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 458,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.whales_institutional_layer.build_methodology_docs_86",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_methodology_docs_86",
+          "suffix_id": 86,
+          "capability_id": 458
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 459,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.network_data_pro_metrics_459",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 460,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.atlas_blockchain_search_460",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 461,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.address_balance_search_461",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 462,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.transaction_search_462",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 463,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.block_search_463",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 464,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.balance_updates_464",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 465,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.stablecoin_network_metrics_465",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 466,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.market_data_feed_466",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 467,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.market_data_pro_467",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 468,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.reference_rates_468",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 469,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.indexes_469",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 470,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.realized_metrics_470",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 471,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.supply_metrics_471",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 472,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.mining_validator_metrics_472",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 473,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.fee_metrics_473",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 474,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.activity_metrics_474",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 475,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.custom_metric_workbench_475",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 476,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.community_charts_api_476",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 477,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.market_network_join_477",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 478,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.data_quality_methodologies_478",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 479,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.historical_research_dataset_479",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 480,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.institutional_apis_480",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 481,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.cross_network_decision_intelligence_481",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 482,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.institutional_trade_data_482",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 483,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.order_book_data_483",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 484,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.ohlcv_data_484",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 485,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.derivatives_data_485",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 486,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.open_interest_data_486",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 487,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.funding_rate_data_487",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 488,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.index_data_488",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 489,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.reference_pricing_489",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 490,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.exchange_metadata_490",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 491,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.asset_metadata_491",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 492,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.historical_market_archive_492",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 493,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.real_time_streams_493",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 494,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.market_aggregates_494",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 495,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.liquidity_analytics_495",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 496,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.volatility_analytics_496",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 497,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.market_cap_supply_497",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 498,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.etf_etp_data_498",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 499,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.api_coverage_registry_499",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 500,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.defi_yield_intelligence_layer.data_quality_normalization_500",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    }
+  ]
+}

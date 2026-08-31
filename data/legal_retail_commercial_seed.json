@@ -1,0 +1,3267 @@
+{
+  "feature_refs": [
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158,
+    159,
+    160,
+    161,
+    162,
+    163,
+    164,
+    165,
+    166,
+    167,
+    168,
+    169,
+    170,
+    171,
+    172,
+    173,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179,
+    180,
+    181,
+    182,
+    183,
+    184,
+    185,
+    186,
+    187,
+    188,
+    189,
+    190,
+    191,
+    192,
+    193,
+    194,
+    195,
+    196,
+    197,
+    198,
+    199,
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209,
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    219,
+    220,
+    221,
+    222,
+    223,
+    224,
+    225,
+    226,
+    227,
+    228,
+    229,
+    230,
+    231,
+    232,
+    233,
+    234,
+    235,
+    236,
+    237,
+    238,
+    239,
+    240,
+    241,
+    242,
+    243,
+    244,
+    245,
+    246,
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261
+  ],
+  "service_disclosure_57": {
+    "standalone": false,
+    "policy": {
+      "mandatory_all_touchpoints": true,
+      "multilingual": [
+        "en",
+        "ar"
+      ],
+      "no_licensed_advisory_claim": true,
+      "no_execution_claim": true,
+      "sprint_1_before_stripe": true
+    },
+    "disclosure_text": {
+      "en": "BLACKDARK is an analytical tool providing insights only — not licensed investment advice and no financial guarantees.",
+      "ar": "BLACKDARK هي أداة تحليلية تقدم insights فقط — لا توصيات استثمارية مرخّصة ولا ضمانات مالية."
+    },
+    "integrations": {
+      "footer_ref": 56,
+      "api_body_ref": "all_endpoints",
+      "email_template_ref": "all_emails"
+    }
+  },
+  "gdpr_compliance_58": {
+    "standalone": false,
+    "policy": {
+      "privacy_by_design": true,
+      "right_to_erasure_days": 30,
+      "data_portability_json": true,
+      "explicit_consent_required": true,
+      "no_mandatory_kyc_free_tier": true,
+      "no_wallet_storage": true,
+      "monthly_access_audit": true,
+      "eu_auto_enable": true
+    },
+    "dpo_contact": "privacy@blackdark.io",
+    "data_collected": [
+      "email",
+      "tier",
+      "usage",
+      "preferences"
+    ],
+    "integrations": {
+      "waitlist_ref": "waitlist",
+      "stripe_ref": 908,
+      "portfolio_ai_ref": "portfolio",
+      "privacy_policy_ref": 1018
+    }
+  },
+  "aml_compliance_59": {
+    "standalone": false,
+    "policy": {
+      "trigger_on_direct_financial": true,
+      "stripe_only_scope": true,
+      "no_kyc_free_tier": true,
+      "record_retention_years": 5,
+      "quarterly_review_required": true,
+      "sar_internal_only": true
+    },
+    "thresholds": {
+      "transaction_usd": 500.0,
+      "suspicious_pattern_score": 0.75
+    },
+    "integrations": {
+      "stripe_webhook_ref": "billing/webhook_processor",
+      "sanctions_provider": "sanctions.io_or_equivalent"
+    },
+    "fee_db": {
+      "screening_per_check_usd": 0.15,
+      "logged_per_transaction": true
+    }
+  },
+  "subscription_tier_policy_60": {
+    "standalone": false,
+    "policy": {
+      "extend_existing_stripe": true,
+      "no_lifetime_access": true,
+      "trial_days": 7,
+      "transparent_limits_on_pricing": true,
+      "rate_limits_as_verification_tool": true
+    },
+    "tiers": {
+      "free": {
+        "api_calls_per_day": 10,
+        "features": [
+          "market_radar_basic",
+          "portfolio_ai_limited"
+        ]
+      },
+      "pro": {
+        "api_calls_per_day": 500,
+        "features": [
+          "intelligence_ledger",
+          "signal_engine",
+          "alerts"
+        ]
+      },
+      "institutional": {
+        "api_calls_per_day": 10000,
+        "features": [
+          "on_chain",
+          "custom_reports"
+        ]
+      }
+    },
+    "fee_db": {
+      "cost_per_call_logged": true,
+      "revenue_per_user_logged": true,
+      "margin_logged": true
+    }
+  },
+  "payment_security_policy_61": {
+    "standalone": false,
+    "policy": {
+      "stripe_pci_level_1": true,
+      "no_card_data_on_servers": true,
+      "stripe_elements_only": true,
+      "webhook_signature_verified": true,
+      "idempotency_keys_required": true,
+      "test_mode_before_live": true,
+      "pci_saq_a_via_stripe_checkout": true
+    },
+    "fee_db": {
+      "stripe_fee_pct": 2.9,
+      "stripe_fee_fixed_usd": 0.3,
+      "logged_per_transaction": true
+    }
+  },
+  "daily_top_opportunities_62": {
+    "standalone": false,
+    "route": "/intelligence/daily-top3",
+    "policy": {
+      "max_opportunities": 3,
+      "rule_based_only_sprint_2": true,
+      "backtest_days_required": 90,
+      "no_execution_button": true,
+      "methodology_visible": true,
+      "daily_brief_hour_local": 9
+    },
+    "scoring_weights": {
+      "risk": 0.25,
+      "liquidity": 0.25,
+      "volume": 0.25,
+      "momentum": 0.25
+    },
+    "fee_db": {
+      "compute_per_run_usd": 0.002,
+      "logged_per_user_tier": true
+    }
+  },
+  "one_clear_answer_63": {
+    "standalone": false,
+    "policy": {
+      "max_reason_points": 3,
+      "rule_based_only_sprint_2": true,
+      "verdict_types": [
+        "Opportunity",
+        "Neutral",
+        "Risk"
+      ],
+      "insight_not_recommendation": true,
+      "expandable_raw_indicators": true
+    },
+    "fee_db": {
+      "synthesis_per_query_usd": 0.0005
+    }
+  },
+  "simple_language_64": {
+    "standalone": false,
+    "policy": {
+      "glossary_tooltips": true,
+      "rule_based_mapping": true,
+      "no_ml_nlp_sprint_1": true,
+      "technical_term_once_in_parens": true
+    },
+    "fee_db": {
+      "operational_cost_only": true
+    }
+  },
+  "contextual_alerts_65": {
+    "standalone": false,
+    "policy": {
+      "rule_based_triggers": true,
+      "no_auto_action": true,
+      "delivery_sla_seconds": 5,
+      "free_tier_daily_limit": 3,
+      "pro_unlimited": true
+    },
+    "fee_db": {
+      "cost_per_alert_usd": 0.0003,
+      "logged_per_tier": true
+    }
+  },
+  "portfolio_discipline_66": {
+    "standalone": false,
+    "policy": {
+      "manual_user_entry_only": true,
+      "non_custodial": true,
+      "weekly_report": true,
+      "no_financial_reward_punishment": true,
+      "encrypted_user_decisions": true
+    },
+    "fee_db": {
+      "report_compute_usd": 0.001
+    }
+  },
+  "portfolio_health_score_67": {
+    "standalone": false,
+    "policy": {
+      "score_range": [
+        0,
+        100
+      ],
+      "single_color": true,
+      "no_tables_default": true,
+      "expandable_formula": true,
+      "customizable_weights": true,
+      "distribution_not_diagnosis": true
+    },
+    "default_weights": {
+      "concentration": 0.3,
+      "volatility": 0.25,
+      "correlation": 0.25,
+      "diversification": 0.2
+    },
+    "fee_db": {
+      "compute_per_query_usd": 0.0008
+    }
+  },
+  "share_card_68": {
+    "standalone": false,
+    "landing_url": "https://blackdark.app",
+    "policy": {
+      "one_click": true,
+      "png_and_svg": true,
+      "bilingual": true,
+      "disclaimer_mandatory": true,
+      "no_sensitive_wallet_data": true,
+      "viral_utm_tracking": true
+    },
+    "fee_db": {
+      "render_per_card_usd": 0.001
+    }
+  },
+  "time_to_value_69": {
+    "standalone": false,
+    "policy": {
+      "target_seconds": 60,
+      "guest_mode": true,
+      "no_gatekeeping": true,
+      "weekly_review": true
+    },
+    "fee_db": {
+      "guest_usage_as_cac": true
+    }
+  },
+  "custom_opportunity_filter_70": {
+    "standalone": false,
+    "policy": {
+      "rule_based_only": true,
+      "pro_only_custom": true,
+      "default_top3_for_free": true,
+      "max_latency_ms": 300
+    },
+    "fee_db": {
+      "query_usd": 0.001
+    }
+  },
+  "whale_narrative_71": {
+    "standalone": false,
+    "route": "/oracle/on-chain/narrative",
+    "policy": {
+      "rule_based_patterns": true,
+      "privacy_first": true,
+      "tx_hash_auditable": true
+    },
+    "fee_db": {
+      "synthesis_usd": 0.002
+    }
+  },
+  "noise_filter_72": {
+    "standalone": false,
+    "policy": {
+      "signal_threshold": 70,
+      "rejection_rate_target_pct": 80,
+      "rule_based_heuristics": true
+    },
+    "fee_db": {
+      "analysis_usd": 0.0015
+    }
+  },
+  "multi_dim_analysis_73": {
+    "standalone": false,
+    "route": "/intelligence/multi-dim",
+    "dimension_weights": {
+      "technical": 0.3,
+      "on_chain": 0.25,
+      "sentiment": 0.2,
+      "macro": 0.25
+    },
+    "fee_db": {
+      "per_dimension_usd": 0.0003
+    }
+  },
+  "backtesting_74": {
+    "standalone": false,
+    "route": "/intelligence/backtest",
+    "policy": {
+      "rule_based_only": true,
+      "min_days": 90,
+      "no_execution": true,
+      "real_historical_data": true
+    },
+    "fee_db": {
+      "compute_usd": 0.01
+    }
+  },
+  "flexible_alerts_75": {
+    "standalone": false,
+    "policy": {
+      "cost_based_limits": true,
+      "free_daily_limit": 3,
+      "pro_unlimited": true,
+      "institutional_priority_queue": true,
+      "no_auto_action": true
+    },
+    "fee_db": {
+      "per_alert_usd": 0.0003
+    }
+  },
+  "decision_journal_76": {
+    "standalone": false,
+    "extends_discipline_ref": 66,
+    "policy": {
+      "manual_entry_only": true,
+      "encrypted": true,
+      "weekly_monthly_review": true,
+      "learning_not_performance_claim": true
+    },
+    "fee_db": {
+      "storage_usd": 0.0001,
+      "comparison_usd": 0.0002
+    }
+  },
+  "advanced_risk_77": {
+    "standalone": false,
+    "tab": "advanced_risk",
+    "policy": {
+      "exposure_formula_explicit": true,
+      "correlation_30d": true,
+      "stress_test_rule_based": true,
+      "risk_insight_not_protection": true,
+      "performance_target_ms": 800
+    },
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "impact_analysis_78": {
+    "standalone": false,
+    "execution_rejected": true,
+    "alternative_route": "/intelligence/impact-analysis",
+    "policy": {
+      "insight_only": true,
+      "no_routing": true,
+      "no_order_splitting": true
+    },
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "wallet_surveillance_79": {
+    "standalone": false,
+    "merged_into": [
+      81,
+      "on_chain_extension"
+    ],
+    "policy": {
+      "insight_only": true,
+      "no_auto_protection": true,
+      "privacy_first": true
+    },
+    "fee_db": {
+      "analysis_usd": 0.001
+    }
+  },
+  "exchange_health_80": {
+    "standalone": false,
+    "route": "/radar/exchange-health",
+    "policy": {
+      "public_data_only": true,
+      "not_official_warning": true
+    },
+    "fee_db": {
+      "compute_usd": 0.0015
+    }
+  },
+  "unified_portfolio_81": {
+    "standalone": false,
+    "supported_chains": [
+      "ethereum",
+      "bsc",
+      "arbitrum",
+      "bitcoin"
+    ],
+    "policy": {
+      "non_custodial": true,
+      "encrypted_api_keys": true,
+      "insight_not_management": true
+    },
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "liquidation_alert_82": {
+    "standalone": false,
+    "route": "/radar/alerts/liquidation",
+    "policy": {
+      "proactive": true,
+      "no_auto_action": true,
+      "public_data_only": true
+    },
+    "fee_db": {
+      "alert_usd": 0.0005
+    }
+  },
+  "smb_institution_83": {
+    "standalone": false,
+    "status": "deferred",
+    "wave": 3,
+    "build_blocked_until": "500_active_pro_users"
+  },
+  "public_performance_ledger_84": {
+    "standalone": false,
+    "route": "/transparency/performance",
+    "policy": {
+      "auditable": true,
+      "append_only": true,
+      "hit_rate_visible": true
+    },
+    "fee_db": {
+      "storage_usd": 0.0002,
+      "tracking_usd": 0.0001
+    }
+  },
+  "openapi_docs_85": {
+    "standalone": false,
+    "spec_version": "3.0+",
+    "swagger_ui": "/docs",
+    "webhooks": [
+      "stripe",
+      "alerts"
+    ],
+    "policy": {
+      "fee_per_endpoint_documented": true,
+      "examples_required": true
+    }
+  },
+  "methodology_docs_86": {
+    "standalone": false,
+    "route": "/transparency/methodology",
+    "policy": {
+      "rule_based_only_sprint_2": true,
+      "quarterly_review": true,
+      "embedded_in_insights": true
+    }
+  },
+  "ic_report_87": {
+    "standalone": false,
+    "routes": {
+      "intelligence": "/intelligence/export/ic-report",
+      "portfolio": "/portfolio/export/ic-report"
+    },
+    "formats": [
+      "pdf",
+      "html",
+      "json"
+    ],
+    "policy": {
+      "rule_based_content": true,
+      "professional_tone": true,
+      "disclaimer_every_page": true,
+      "non_custodial": true
+    },
+    "fee_db": {
+      "generate_usd": 0.01,
+      "cdn_usd": 0.002
+    }
+  },
+  "team_rbac_88": {
+    "standalone": false,
+    "roles": [
+      "admin",
+      "analyst",
+      "viewer",
+      "guest"
+    ],
+    "policy": {
+      "export_separate_from_view": true,
+      "per_user_api_keys": true,
+      "audit_log_required": true
+    },
+    "institution_seats": 5,
+    "fee_db": {
+      "per_seat_usd": 15.0
+    }
+  },
+  "sla_89": {
+    "status": "deferred",
+    "wave": 3,
+    "build_blocked_until": "500_active_pro_users"
+  },
+  "white_label_90": {
+    "status": "deferred",
+    "wave": 3,
+    "build_blocked_until": "1000_active_users"
+  },
+  "vwap_deviation_91": {
+    "merged_into": "/radar/technical",
+    "fee_db": {
+      "compute_usd": 0.0004
+    }
+  },
+  "counterparty_risk_92": {
+    "merged_into": "exchange_health_80",
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "confidence_calibration_93": {
+    "merged_into": [
+      "discipline_66",
+      "journal_76"
+    ],
+    "fee_db": {
+      "compute_usd": 0.0003
+    }
+  },
+  "audit_export_94": {
+    "status": "deferred",
+    "wave": 3,
+    "merged_into": [
+      "sla_89",
+      "ic_report_87",
+      "team_rbac_88"
+    ]
+  },
+  "usage_analytics_95": {
+    "standalone": false,
+    "route": "/admin/analytics",
+    "policy": {
+      "internal_only": true,
+      "admin_mfa_required": true,
+      "async_queue": "redis_streams",
+      "gdpr_compliant": true,
+      "no_third_party_tracking": true
+    },
+    "fee_db": {
+      "infra_usd": 0.002
+    }
+  },
+  "streaming_stack_96": {
+    "standalone": false,
+    "merged_into": "data_engine",
+    "transport": "redis_streams",
+    "policy": {
+      "ai_training_deferred": true,
+      "ml_blocked_until": "90_days_and_10000_signals_and_backtest",
+      "latency_target_ms": 100
+    },
+    "fee_db": {
+      "compute_usd": 0.005,
+      "bandwidth_usd": 0.001
+    }
+  },
+  "data_flywheel_97": {
+    "standalone": false,
+    "merged_into": "intelligence_ledger",
+    "policy": {
+      "rule_based_feedback": true,
+      "no_ml_sprint_2": true
+    },
+    "fee_db": {
+      "storage_usd": 0.0002,
+      "recompute_usd": 0.0003
+    }
+  },
+  "signal_registry_98": {
+    "standalone": false,
+    "route": "/registry",
+    "policy": {
+      "ci_validation": true,
+      "unified_definitions": true,
+      "sovereign": true
+    },
+    "fee_db": {
+      "storage_usd": 0.0001
+    }
+  },
+  "sybil_filter_99": {
+    "standalone": false,
+    "merged_into": [
+      "sentiment_layer",
+      "on_chain_extension"
+    ],
+    "routes": [
+      "/radar/sentiment/filter",
+      "/oracle/on-chain/filter"
+    ],
+    "policy": {
+      "coordination_threshold": 3,
+      "false_positive_target_pct": 5
+    },
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "liquidation_proximity_100": {
+    "standalone": false,
+    "merged_into": "liquidation_alert_82",
+    "policy": {
+      "red_threshold_pct": 5,
+      "yellow_threshold_pct": 10
+    },
+    "fee_db": {
+      "compute_usd": 0.0004
+    }
+  },
+  "oracle_latency_buffer_101": {
+    "standalone": false,
+    "merged_into": "oracle_api",
+    "route": "/oracle/validate",
+    "policy": {
+      "stale_threshold_sec": 5,
+      "critical_threshold_sec": 15
+    },
+    "fee_db": {
+      "dual_query_usd": 0.0003
+    }
+  },
+  "il_vulnerability_102": {
+    "standalone": false,
+    "merged_into": [
+      "on_chain_extension",
+      "intelligence_ledger"
+    ],
+    "route": "/oracle/on-chain/defi",
+    "policy": {
+      "high_vulnerability_threshold": 70
+    },
+    "fee_db": {
+      "compute_usd": 0.001,
+      "rpc_usd": 0.0005
+    }
+  },
+  "drawdown_duration_103": {
+    "standalone": false,
+    "merged_into": "advanced_risk_77",
+    "fee_db": {
+      "compute_usd": 0.0005
+    }
+  },
+  "leverage_overhang_104": {
+    "standalone": false,
+    "merged_into": "market_radar",
+    "route": "/radar/market-health",
+    "policy": {
+      "red_threshold": 3.0,
+      "yellow_threshold": 2.0
+    },
+    "fee_db": {
+      "compute_usd": 0.0015
+    }
+  },
+  "tail_risk_alpha_105": {
+    "standalone": false,
+    "merged_into": [
+      "backtesting_74",
+      "advanced_risk_77",
+      "ic_report_87"
+    ],
+    "policy": {
+      "tail_event_threshold_pct": -5
+    },
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "contagion_vector_106": {
+    "standalone": false,
+    "route": "/radar/market-health/contagion",
+    "tier": "pro_institution",
+    "policy": {
+      "rule_based_simulation": true
+    },
+    "fee_db": {
+      "compute_usd": 0.005
+    }
+  },
+  "whale_retail_ratio_107": {
+    "standalone": false,
+    "merged_into": [
+      "whale_narrative_71",
+      "market_radar"
+    ],
+    "policy": {
+      "whale_threshold_usd": 1000000,
+      "retail_threshold_usd": 10000
+    },
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "orderbook_skew_108": {
+    "standalone": false,
+    "route": "/radar/technical/orderbook-skew",
+    "merged_into": "ta_engine",
+    "policy": {
+      "buy_pressure_threshold": 0.6,
+      "sell_pressure_threshold": -0.6
+    },
+    "fee_db": {
+      "compute_usd": 0.0008
+    }
+  },
+  "liquidation_anchors_109": {
+    "standalone": false,
+    "merged_into": "liquidation_alert_82",
+    "policy": {
+      "sensitivity_pct": 3,
+      "spike_sigma": 2
+    },
+    "fee_db": {
+      "storage_usd": 0.0002,
+      "compare_usd": 0.0003
+    }
+  },
+  "wallet_age_acceleration_110": {
+    "standalone": false,
+    "merged_into": "whale_narrative_71",
+    "policy": {
+      "old_wallet_days": 730,
+      "acceleration_threshold_pct": 300
+    },
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "spx_correlation_111": {
+    "standalone": false,
+    "merged_into": "multi_dim_analysis_73",
+    "policy": {
+      "method": "pearson",
+      "windows": [
+        30,
+        90,
+        180
+      ]
+    },
+    "fee_db": {
+      "compute_usd": 0.0005
+    }
+  },
+  "gcli_112": {
+    "standalone": false,
+    "route": "/radar/market-health/gcli",
+    "tier": "pro",
+    "weights": {
+      "order_book_depth": 0.4,
+      "stablecoin_flows": 0.35,
+      "on_chain_velocity": 0.25
+    },
+    "fee_db": {
+      "compute_usd": 0.008
+    }
+  },
+  "imbalance_delta_113": {
+    "standalone": false,
+    "route": "/radar/technical/orderflow-imbalance",
+    "merged_into": "ta_engine",
+    "fee_db": {
+      "compute_usd": 0.0007
+    }
+  },
+  "whale_ls_ratio_114": {
+    "standalone": false,
+    "route": "/radar/market-health/ls-ratio",
+    "policy": {
+      "whale_oi_threshold_usd": 500000,
+      "noise_filter_usd": 50000
+    },
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "volume_velocity_115": {
+    "standalone": false,
+    "route": "/radar/technical/volume-velocity",
+    "merged_into": "ta_engine",
+    "policy": {
+      "surge_threshold_pct": 200,
+      "slowdown_threshold_pct": -50
+    },
+    "fee_db": {
+      "compute_usd": 0.0004
+    }
+  },
+  "delta_hedging_flow_116": {
+    "standalone": false,
+    "routes": [
+      "/oracle/on-chain/derivatives/delta-flow",
+      "/radar/derivatives/delta-pressure"
+    ],
+    "tier": "pro_institution",
+    "policy": {
+      "time_window_minutes": 5
+    },
+    "fee_db": {
+      "compute_usd": 0.006
+    }
+  },
+  "liquidity_vacuum_117": {
+    "standalone": false,
+    "route": "/radar/technical/liquidity-vacuum",
+    "merged_into": "ta_engine",
+    "policy": {
+      "vacuum_threshold_pct": 1.5
+    },
+    "fee_db": {
+      "compute_usd": 0.0009
+    }
+  },
+  "risk_distribution_118": {
+    "standalone": false,
+    "merged_into": [
+      "exchange_health_80",
+      "counterparty_risk_92"
+    ],
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "gas_spike_alert_119": {
+    "status": "rejected_execution",
+    "alternative": "gas_spike_alert",
+    "route": "/radar/on-chain/gas-alert",
+    "fee_db": {
+      "compute_usd": 0.0004
+    }
+  },
+  "leverage_risk_analysis_120": {
+    "standalone": false,
+    "merged_into": [
+      "advanced_risk_77",
+      "intelligence_ledger"
+    ],
+    "optimization_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "pnl_attribution_121": {
+    "standalone": false,
+    "merged_into": [
+      "journal_76",
+      "discipline_66",
+      "ic_report_87"
+    ],
+    "route": "/portfolio/journal/attribution",
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "structural_break_122": {
+    "standalone": false,
+    "route": "/radar/technical/structural-break",
+    "merged_into": "ta_engine",
+    "policy": {
+      "rule_based_only": true,
+      "ai_rejected": true
+    },
+    "fee_db": {
+      "compute_usd": 0.0015
+    }
+  },
+  "volume_profile_poc_123": {
+    "standalone": false,
+    "route": "/radar/technical/volume-profile",
+    "merged_into": "ta_engine",
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "fvg_detector_124": {
+    "standalone": false,
+    "route": "/radar/technical/fvg-detector",
+    "merged_into": "ta_engine",
+    "fee_db": {
+      "compute_usd": 0.0008
+    }
+  },
+  "custody_tracking_125": {
+    "status": "deferred",
+    "wave": 3,
+    "merged_into": "unified_portfolio_81",
+    "build_blocked_until": "institution_portal_stable"
+  },
+  "dex_front_running_risk_126": {
+    "status": "rejected_execution",
+    "alternative": "dex_front_running_risk_insight",
+    "route": "/oracle/on-chain/dex-risk",
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "orderbook_inefficiency_127": {
+    "status": "rejected_exploiter",
+    "alternative": "orderbook_inefficiency_insight",
+    "route": "/radar/technical/orderbook-inefficiency",
+    "fee_db": {
+      "compute_usd": 0.0007
+    }
+  },
+  "jargon_translator_128": {
+    "standalone": false,
+    "merged_into": "simple_language_64",
+    "policy": {
+      "rule_based_only": true,
+      "ai_naming_rejected": true
+    },
+    "fee_db": {
+      "translation_usd": 0.0001
+    }
+  },
+  "sybil_identity_linker_129": {
+    "standalone": false,
+    "extends_ref": 99,
+    "route": "/oracle/on-chain/sybil-clustering",
+    "policy": {
+      "cluster_score_threshold": 0.85,
+      "weights": {
+        "common_funding": 0.4,
+        "temporal_coordination": 0.35,
+        "size_correlation": 0.25
+      }
+    },
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "tx_risk_insight_130": {
+    "status": "rejected_execution",
+    "alternative": "transaction_risk_insight",
+    "route": "/oracle/on-chain/tx-risk",
+    "fee_db": {
+      "compute_usd": 0.0006
+    }
+  },
+  "dust_analysis_131": {
+    "status": "rejected_execution",
+    "alternative": "dust_asset_analysis",
+    "route": "/portfolio/dust-analysis",
+    "fee_db": {
+      "compute_usd": 0.0004
+    }
+  },
+  "flash_loan_scanner_132": {
+    "standalone": false,
+    "route": "/oracle/on-chain/security/flash-loan-scan",
+    "self_patching_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "macro_event_nexus_133": {
+    "standalone": false,
+    "merged_into": [
+      "multi_dim_analysis_73",
+      "market_radar"
+    ],
+    "policy": {
+      "rule_based_only": true,
+      "ai_naming_rejected": true
+    },
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "delta_convergence_134": {
+    "standalone": false,
+    "route": "/radar/derivatives/delta-convergence",
+    "tier": "pro_institution",
+    "policy": {
+      "divergence_threshold_pct": 15,
+      "normal_threshold_pct": 5
+    },
+    "fee_db": {
+      "compute_usd": 0.004
+    }
+  },
+  "liquidity_vortex_135": {
+    "standalone": false,
+    "route": "/radar/market-health/liquidity-vortex",
+    "policy": {
+      "vortex_score_threshold": 80
+    },
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "support_chatbot_136": {
+    "standalone": false,
+    "route": "/support/chat",
+    "broker_advisor_rejected": true,
+    "policy": {
+      "retention_days_max": 30,
+      "no_financial_advice": true
+    },
+    "fee_db": {
+      "infra_usd": 0.0002
+    }
+  },
+  "b2b_relationships_137": {
+    "status": "business_development_only",
+    "not_a_technical_feature": true,
+    "wave": 3,
+    "build_blocked_until": "500_active_pro_users"
+  },
+  "institution_features_138": {
+    "status": "wave_3_activation",
+    "merged_into": "institution_portal",
+    "activation_not_build": true
+  },
+  "portfolio_stress_alert_139": {
+    "status": "rejected_execution",
+    "alternative": "portfolio_stress_alert",
+    "route": "/portfolio/stress-alert",
+    "panic_button_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.0005
+    }
+  },
+  "white_label_140": {
+    "status": "deferred",
+    "wave": 3,
+    "duplicate_of": 90,
+    "merged_into": "institution_portal_90",
+    "build_blocked_until": "1000_active_users",
+    "powered_by_blackdark_required": true,
+    "fee_db": {
+      "infra_usd": 0.05,
+      "margin_pct": 40
+    }
+  },
+  "coindesk_rss_141": {
+    "standalone": false,
+    "route": "/radar/sentiment/feeds/coindesk",
+    "merged_into": "sentiment_layer",
+    "policy": {
+      "deduplication_required": true,
+      "rule_based_parsing": true
+    },
+    "fee_db": {
+      "ingest_usd": 0.0003,
+      "bandwidth_usd": 0.0001
+    }
+  },
+  "santiment_142": {
+    "standalone": false,
+    "routes": [
+      "/radar/sentiment/sources/santiment",
+      "/oracle/on-chain/sources/santiment"
+    ],
+    "merged_into": [
+      "market_radar",
+      "on_chain_extension"
+    ],
+    "policy": {
+      "free_tier_only": true,
+      "registry_ref": 98
+    },
+    "fee_db": {
+      "ingest_usd": 0.0005
+    }
+  },
+  "cryptorank_calendar_143": {
+    "standalone": false,
+    "route": "/radar/events/calendar",
+    "merged_into": [
+      "market_radar",
+      "daily_top3_62"
+    ],
+    "policy": {
+      "context_only_not_recommendation": true
+    },
+    "fee_db": {
+      "ingest_usd": 0.0004
+    }
+  },
+  "whale_alert_144": {
+    "standalone": false,
+    "route": "/oracle/on-chain/sources/whale-alert",
+    "merged_into": [
+      "on_chain_extension",
+      "whale_narrative_71"
+    ],
+    "policy": {
+      "privacy_first": true,
+      "registry_ref": 98
+    },
+    "fee_db": {
+      "ingest_usd": 0.0006,
+      "validation_usd": 0.0002
+    }
+  },
+  "cmc_api_145": {
+    "standalone": false,
+    "route": "/oracle/sources/cmc",
+    "merged_into": "oracle_api",
+    "role": "secondary_redundancy",
+    "latency_buffer_ref": 101,
+    "fee_db": {
+      "ingest_usd": 0.0003
+    }
+  },
+  "coinbase_api_146": {
+    "standalone": false,
+    "route": "/oracle/sources/coinbase",
+    "merged_into": "oracle_api",
+    "role": "secondary_redundancy_regulated",
+    "latency_buffer_ref": 101,
+    "fee_db": {
+      "ingest_usd": 0.0004
+    }
+  },
+  "ai_trading_engine_147": {
+    "status": "rejected_execution",
+    "alternative": "signal_engine_11",
+    "no_buy_sell_hold": true,
+    "insight_only": true
+  },
+  "blockchain_com_148": {
+    "standalone": false,
+    "route": "/oracle/on-chain/sources/blockchain-com",
+    "merged_into": "on_chain_extension",
+    "role": "secondary_rpc_redundancy",
+    "fee_db": {
+      "ingest_usd": 0.0005,
+      "validation_usd": 0.0002
+    }
+  },
+  "defillama_149": {
+    "standalone": false,
+    "routes": [
+      "/oracle/on-chain/defi/defillama",
+      "/radar/defi"
+    ],
+    "merged_into": [
+      "on_chain_extension",
+      "market_radar"
+    ],
+    "registry_ref": 98,
+    "fee_db": {
+      "ingest_usd": 0.0005
+    }
+  },
+  "opportunity_score_150": {
+    "standalone": false,
+    "route": "/intelligence/score",
+    "merged_into": [
+      "intelligence_ledger",
+      "signal_engine_11",
+      "daily_top3_62"
+    ],
+    "weights": {
+      "liquidity": 0.2,
+      "news_sentiment": 0.15,
+      "whale_flow": 0.15,
+      "trend": 0.15,
+      "support_resistance": 0.1,
+      "funding": 0.1,
+      "spread": 0.1,
+      "manipulation_absence": 0.05
+    },
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "explaining_opportunities_151": {
+    "standalone": false,
+    "status": "existing_ui_enhancement",
+    "merged_into": [
+      "intelligence_ledger",
+      "opportunity_score_150"
+    ],
+    "policy": {
+      "dynamic_rule_based": true,
+      "simple_language_ref": 64
+    },
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "alerts_execution_152": {
+    "status": "rejected_execution",
+    "alerts_existing": true,
+    "merged_into": [
+      "contextual_alerts_65",
+      "flexible_alerts_75"
+    ],
+    "routes": [
+      "/portfolio/alerts",
+      "/radar/alerts"
+    ]
+  },
+  "arbitrage_mind_153": {
+    "standalone": false,
+    "route": "/intelligence/arbitrage",
+    "merged_into": [
+      "intelligence_ledger",
+      "market_radar",
+      "signal_engine_11"
+    ],
+    "net_spread_threshold_pct": 0.5,
+    "venue_fees_pct": {
+      "binance": 0.1,
+      "okx": 0.1,
+      "uniswap": 0.3
+    },
+    "gas_withdrawal_usd": 15.0,
+    "slippage_estimate_pct": 0.15,
+    "fee_db": {
+      "compute_usd": 0.004,
+      "multi_venue_query_usd": 0.001
+    }
+  },
+  "financial_brain_154": {
+    "status": "merged_not_standalone",
+    "merged_into": [
+      "intelligence_ledger_10",
+      "multi_dim_analysis_73"
+    ],
+    "activation_not_build": true
+  },
+  "stat_arb_insight_155": {
+    "status": "insight_only_execution_rejected",
+    "route": "/intelligence/stat-arb",
+    "historical_mean_reversion_pct": 78,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "asset_registry_156": {
+    "standalone": false,
+    "merged_into": [
+      "data_engine",
+      "oracle_api"
+    ],
+    "target_count": 105,
+    "selection_criteria": {
+      "min_market_cap_usd": 100000000,
+      "min_volume_24h_usd": 1000000,
+      "min_venues": 3
+    },
+    "fee_db": {
+      "ingest_per_asset_usd": 0.0001
+    }
+  },
+  "onchain_advanced_157": {
+    "status": "merged_not_standalone",
+    "merged_into": [
+      "on_chain_extension_12",
+      "whale_narrative_71",
+      "advanced_risk_77"
+    ],
+    "activation_not_build": true
+  },
+  "multi_venue_websocket_158": {
+    "standalone": false,
+    "extends_ref": 96,
+    "merged_into": "streaming_stack_96",
+    "venues": [
+      "binance",
+      "okx",
+      "coinbase",
+      "bybit"
+    ],
+    "latency_target_ms": 50,
+    "fee_db": {
+      "bandwidth_usd": 0.002,
+      "connections_usd": 0.001
+    }
+  },
+  "gas_volatility_profile_159": {
+    "standalone": false,
+    "route": "/oracle/on-chain/gas-profile",
+    "merged_into": [
+      "on_chain_extension",
+      "market_radar"
+    ],
+    "history_days": 30,
+    "fee_db": {
+      "compute_usd": 0.0015,
+      "rpc_usd": 0.0003
+    }
+  },
+  "volatility_squeeze_160": {
+    "standalone": false,
+    "route": "/radar/technical/volatility-squeeze",
+    "merged_into": [
+      "ta_engine",
+      "signal_engine_11",
+      "market_radar"
+    ],
+    "bollinger_period": 20,
+    "bollinger_std": 2.0,
+    "keltner_period": 20,
+    "keltner_mult": 1.5,
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "alert_delivery_161": {
+    "standalone": false,
+    "route": "/alerts/delivery",
+    "merged_into": [
+      "contextual_alerts_65",
+      "flexible_alerts_75"
+    ],
+    "rate_limit_minutes": 5,
+    "delivery_target_seconds": 3,
+    "fee_db": {
+      "delivery_usd": 0.0002
+    }
+  },
+  "data_grid_ui_162": {
+    "standalone": false,
+    "merged_into": "ui_component_library",
+    "target_fps": 60,
+    "target_rows": 10000,
+    "fee_db": {
+      "development_usd": 0
+    }
+  },
+  "institutional_insight_report_163": {
+    "standalone": false,
+    "route": "/intelligence/export/ic-report",
+    "merged_into": [
+      "ic_report_87",
+      "performance_ledger_84",
+      "multi_dim_analysis_73"
+    ],
+    "alpha_language_rejected": true,
+    "predictive_language_rejected": true,
+    "wave_3_activation": false,
+    "fee_db": {
+      "generate_usd": 0.02,
+      "institution_margin_pct": 25
+    }
+  },
+  "liquidity_impact_warning_164": {
+    "status": "insight_only_panic_button_rejected",
+    "route": "/portfolio/liquidity-impact",
+    "merged_into": "portfolio_ai",
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "hashrate_capitulation_165": {
+    "standalone": false,
+    "route": "/oracle/on-chain/mining",
+    "merged_into": [
+      "on_chain_extension",
+      "market_radar"
+    ],
+    "hashrate_drop_threshold_pct": 10,
+    "historical_bottom_cases": 3,
+    "historical_total_cases": 4,
+    "fee_db": {
+      "compute_usd": 0.0025,
+      "api_usd": 0.0005
+    }
+  },
+  "brokerage_api_166": {
+    "status": "rejected_brokerage",
+    "alternative": "white_label_insights_api_90",
+    "insights_only": true
+  },
+  "time_sync_latency_167": {
+    "standalone": false,
+    "extends_ref": 101,
+    "merged_into": "oracle_validate_101",
+    "stale_threshold_sec": 5,
+    "critical_threshold_sec": 15,
+    "fee_db": {
+      "monitoring_usd": 0.0004
+    }
+  },
+  "whale_cluster_index_168": {
+    "standalone": false,
+    "extends_ref": 129,
+    "merged_into": "sybil_clustering_129",
+    "no_duplicate_pricing": true
+  },
+  "correlation_decay_matrix_169": {
+    "standalone": false,
+    "route": "/portfolio/risk/advanced/correlation-decay",
+    "merged_into": [
+      "advanced_risk_77",
+      "multi_dim_analysis_73"
+    ],
+    "unreliable_decay_threshold_pct": 50,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "oi_momentum_delta_170": {
+    "standalone": false,
+    "route": "/radar/derivatives/oi-momentum",
+    "merged_into": [
+      "market_radar",
+      "leverage_overhang_104"
+    ],
+    "entry_threshold_pct": 15,
+    "exit_threshold_pct": -15,
+    "fee_db": {
+      "compute_usd": 0.002,
+      "api_usd": 0.0005
+    }
+  },
+  "m2_macro_flow_171": {
+    "standalone": false,
+    "route": "/intelligence/multi-dim/macro/m2",
+    "extends_ref": 133,
+    "merged_into": [
+      "macro_dimension_133",
+      "market_radar"
+    ],
+    "historical_btc_move_30d_pct": 12.0,
+    "fee_db": {
+      "compute_usd": 0.0015,
+      "api_usd": 0.0003
+    }
+  },
+  "institutional_memory_172": {
+    "status": "merged_not_standalone",
+    "merged_into": [
+      "data_flywheel_97",
+      "performance_ledger_84"
+    ],
+    "activation_not_build": true
+  },
+  "institutional_rbac_173": {
+    "status": "merged_not_standalone",
+    "duplicate_of": 88,
+    "merged_into": "team_rbac_88"
+  },
+  "full_white_label_174": {
+    "status": "deferred",
+    "wave": 3,
+    "duplicate_of": [
+      90,
+      140
+    ],
+    "merged_into": "institution_portal_90",
+    "build_blocked_until": "1000_active_users"
+  },
+  "risk_intelligence_175": {
+    "status": "merged_not_standalone",
+    "merged_into": "advanced_risk_77",
+    "risk_insight_not_protection": true
+  },
+  "operational_resilience_176": {
+    "sprint": 0,
+    "internal_only": true,
+    "status_page": "status.blackdark.io",
+    "fee_db": {
+      "infra_usd": 0.05
+    }
+  },
+  "arbitrage_cost_analysis_177": {
+    "standalone": false,
+    "route": "/intelligence/arbitrage/cost-analysis",
+    "extends_ref": 153,
+    "net_spread_threshold_pct": 0.5,
+    "fee_db": {
+      "compute_usd": 0.005,
+      "multi_venue_query_usd": 0.001
+    }
+  },
+  "scenario_drawdown_178": {
+    "standalone": false,
+    "routes": [
+      "/portfolio/risk/advanced/scenarios",
+      "/intelligence/backtest/scenarios"
+    ],
+    "merged_into": [
+      "advanced_risk_77",
+      "backtesting_74"
+    ],
+    "fee_db": {
+      "compute_usd": 0.006
+    }
+  },
+  "command_center_179": {
+    "standalone": false,
+    "route": "/dashboard",
+    "load_target_ms": 1000,
+    "fee_db": {
+      "render_usd": 0.001
+    }
+  },
+  "whale_flow_visualization_180": {
+    "standalone": false,
+    "route": "/oracle/on-chain/whale/visualization",
+    "extends_ref": 71,
+    "fee_db": {
+      "render_usd": 0.001
+    }
+  },
+  "committee_packets_181": {
+    "duplicate_of": 87,
+    "merged_into": "ic_report_87"
+  },
+  "white_label_infrastructure_182": {
+    "duplicate_of": [
+      90,
+      140,
+      174
+    ],
+    "merged_into": "institution_portal_90",
+    "wave": 3
+  },
+  "b2b_fund_integration_183": {
+    "status": "activation_not_build",
+    "merged_into": [
+      "openapi_85",
+      "institution_portal_83",
+      "team_rbac_88"
+    ],
+    "wave": 3
+  },
+  "fund_reporting_184": {
+    "duplicate_of": [
+      87,
+      181
+    ],
+    "merged_into": "ic_report_87"
+  },
+  "acquisition_evidence_185": {
+    "status": "deferred_bd_asset",
+    "wave": "3+",
+    "build_blocked_until": "core_systems_stable",
+    "fee_db": {
+      "compilation_usd": 0.05
+    }
+  },
+  "continuous_learning_186": {
+    "duplicate_of": 97,
+    "merged_into": "data_flywheel_97"
+  },
+  "latency_monitoring_187": {
+    "merged_into": [
+      "oracle_validate_101",
+      "time_sync_167",
+      "operational_resilience_176"
+    ]
+  },
+  "execution_rejected_188": {
+    "status": "rejected_execution",
+    "alternative": "risk_alert_decision_journal",
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "liquidity_capacity_189": {
+    "standalone": false,
+    "routes": [
+      "/intelligence/arbitrage/capacity",
+      "/portfolio/liquidity-capacity"
+    ],
+    "extends_ref": 153,
+    "capacity_ratio_threshold_pct": 10,
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "geographic_arbitrage_190": {
+    "standalone": false,
+    "route": "/intelligence/arbitrage/geographic",
+    "extends_ref": 153,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "withdrawal_suspension_alert_191": {
+    "standalone": false,
+    "route": "/radar/exchange-health/withdrawal-alert",
+    "extends_ref": 80,
+    "historical_reopen_48h_pct": 70,
+    "exploitation_language_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "funding_rate_analysis_192": {
+    "standalone": false,
+    "route": "/radar/derivatives/funding",
+    "merged_into": [
+      "ta_engine",
+      "market_radar"
+    ],
+    "bullish_pressure_threshold_8h_pct": 0.01,
+    "fee_db": {
+      "compute_usd": 0.002,
+      "api_usd": 0.0005
+    }
+  },
+  "auto_arbitrage_193": {
+    "status": "rejected_execution",
+    "alternative": "arbitrage_mind_153"
+  },
+  "cvd_194": {
+    "standalone": false,
+    "route": "/radar/technical/cvd",
+    "merged_into": [
+      "ta_engine",
+      "market_radar"
+    ],
+    "volume_source": "aggregated_tick",
+    "fee_db": {
+      "compute_usd": 0.0015,
+      "api_usd": 0.0004
+    }
+  },
+  "strategy_simulator_195": {
+    "status": "simulator_only_execution_rejected",
+    "route": "/intelligence/strategy-simulator",
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "yahoo_finance_macro_196": {
+    "standalone": false,
+    "route": "/intelligence/multi-dim/macro/yahoo",
+    "extends_ref": 133,
+    "fee_db": {
+      "ingest_usd": 0.0004
+    }
+  },
+  "alpha_vantage_macro_197": {
+    "standalone": false,
+    "route": "/intelligence/multi-dim/macro/alpha-vantage",
+    "extends_ref": 133,
+    "free_tier_only": true,
+    "fee_db": {
+      "ingest_usd": 0.0005
+    }
+  },
+  "binance_research_198": {
+    "standalone": false,
+    "route": "/radar/sentiment/research/binance",
+    "merged_into": "sentiment_layer",
+    "fee_db": {
+      "ingest_usd": 0.0003
+    }
+  },
+  "messari_research_199": {
+    "standalone": false,
+    "route": "/radar/sentiment/research/messari",
+    "merged_into": "sentiment_layer",
+    "fee_db": {
+      "ingest_usd": 0.0004
+    }
+  },
+  "coingecko_reports_200": {
+    "standalone": false,
+    "route": "/radar/sentiment/research/coingecko",
+    "merged_into": "sentiment_layer",
+    "fee_db": {
+      "ingest_usd": 0.0003
+    }
+  },
+  "quantitative_analysis_201": {
+    "standalone": false,
+    "routes": [
+      "/radar/technical/quant",
+      "/intelligence/quant"
+    ],
+    "quantitative_trading_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.004
+    }
+  },
+  "hidden_opportunities_202": {
+    "standalone": false,
+    "route": "/intelligence/discovery/low-volume",
+    "merged_into": [
+      "intelligence_ledger",
+      "daily_top3_62"
+    ],
+    "min_opportunity_score": 70,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "cryptocompare_api_203": {
+    "standalone": false,
+    "route": "/oracle/sources/cryptocompare",
+    "merged_into": "oracle_api",
+    "role": "secondary_redundancy",
+    "fee_db": {
+      "ingest_usd": 0.0003
+    }
+  },
+  "bscscan_api_204": {
+    "standalone": false,
+    "route": "/oracle/on-chain/bsc",
+    "merged_into": [
+      "on_chain_extension_12",
+      "whale_narrative_71",
+      "unified_portfolio_81"
+    ],
+    "chain": "BSC",
+    "token_standard": "BEP-20",
+    "fee_db": {
+      "ingest_usd": 0.0005,
+      "validation_usd": 0.0002
+    }
+  },
+  "glassnode_205": {
+    "standalone": false,
+    "route": "/oracle/on-chain/sources/glassnode",
+    "merged_into": [
+      "on_chain_extension",
+      "market_radar",
+      "macro_dimension_133"
+    ],
+    "free_tier_only": true,
+    "fee_db": {
+      "ingest_usd": 0.0006
+    }
+  },
+  "uniswap_subgraph_206": {
+    "standalone": false,
+    "route": "/oracle/on-chain/defi/uniswap",
+    "merged_into": [
+      "on_chain_extension",
+      "il_score_102",
+      "gcli_112",
+      "defillama_149"
+    ],
+    "fee_db": {
+      "ingest_usd": 0.0005
+    }
+  },
+  "aave_api_207": {
+    "standalone": false,
+    "route": "/oracle/on-chain/defi/aave",
+    "merged_into": [
+      "on_chain_extension",
+      "exchange_health_80",
+      "defillama_149"
+    ],
+    "fee_db": {
+      "ingest_usd": 0.0005
+    }
+  },
+  "reddit_api_208": {
+    "standalone": false,
+    "route": "/radar/sentiment/social/reddit",
+    "merged_into": [
+      "sentiment_layer",
+      "market_radar",
+      "daily_top3_62"
+    ],
+    "subreddit": "r/CryptoCurrency",
+    "fee_db": {
+      "ingest_usd": 0.0004,
+      "parsing_usd": 0.0001
+    }
+  },
+  "blockchain_wallets_209": {
+    "standalone": false,
+    "duplicate_of": 148,
+    "route": "/oracle/on-chain/sources/blockchain-com",
+    "activation_not_build": true
+  },
+  "predictive_arbitrage_210": {
+    "standalone": false,
+    "route": "/intelligence/arbitrage/predictive",
+    "extends_ref": 153,
+    "historical_hit_rate_pct": 73,
+    "opportunity_probability_pct": 68,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "cross_margin_risk_alert_211": {
+    "standalone": false,
+    "route": "/portfolio/cross-margin-risk",
+    "safeguard_rejected": true,
+    "merged_into": [
+      "advanced_risk_77",
+      "contagion_106",
+      "portfolio_ai"
+    ],
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "hedge_analysis_212": {
+    "standalone": false,
+    "route": "/portfolio/hedge-analysis",
+    "rehedging_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "capital_allocation_213": {
+    "standalone": false,
+    "route": "/portfolio/capital-allocation",
+    "auto_balancing_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "triangular_arbitrage_214": {
+    "standalone": false,
+    "extends_ref": 153,
+    "in_flight_modification_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "flash_loan_gas_215": {
+    "standalone": false,
+    "status": "rejected_execution",
+    "alternative": "gas_volatility_profile_159"
+  },
+  "whale_contrarian_216": {
+    "standalone": false,
+    "extends_ref": 71,
+    "counter_trading_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.0025
+    }
+  },
+  "best_venue_analysis_217": {
+    "standalone": false,
+    "route": "/intelligence/best-venue-analysis",
+    "auto_router_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "manual_order_journal_218": {
+    "standalone": false,
+    "route": "/portfolio/journal/orders",
+    "extends_ref": 76,
+    "lifecycle_management_rejected": true,
+    "fee_db": {
+      "storage_usd": 0.0002
+    }
+  },
+  "nlp_sentiment_219": {
+    "standalone": false,
+    "route": "/radar/sentiment/nlp",
+    "merged_into": [
+      "sentiment_layer",
+      "market_radar",
+      "multi_dim_73"
+    ],
+    "rule_based_only": true,
+    "fee_db": {
+      "compute_usd": 0.0005,
+      "parsing_usd": 0.0001
+    }
+  },
+  "pattern_outcome_220": {
+    "standalone": false,
+    "route": "/intelligence/backtest/pattern-outcome",
+    "extends_ref": 74,
+    "roi_probability_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.004
+    }
+  },
+  "slippage_analysis_221": {
+    "standalone": false,
+    "route": "/radar/technical/slippage-analysis",
+    "execution_monitoring_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "exchange_latency_222": {
+    "standalone": false,
+    "route": "/admin/monitoring/exchange-latency",
+    "merged_into": [
+      "oracle_validate_101",
+      "time_sync_167",
+      "operational_resilience_176",
+      "latency_187"
+    ],
+    "slow_threshold_ms": 500,
+    "unresponsive_threshold_ms": 1000,
+    "fee_db": {
+      "monitor_usd": 0.002
+    }
+  },
+  "defi_fundamentals_223": {
+    "standalone": false,
+    "route": "/oracle/on-chain/defi/fundamentals",
+    "merged_into": [
+      "on_chain_extension",
+      "market_radar",
+      "ic_report_87"
+    ],
+    "fee_db": {
+      "compute_usd": 0.004,
+      "rpc_usd": 0.001
+    }
+  },
+  "token_dcf_224": {
+    "standalone": false,
+    "route": "/intelligence/valuation/dcf-token",
+    "wave": "3_activation",
+    "fee_db": {
+      "compute_usd": 0.006
+    }
+  },
+  "pwa_strategy_225": {
+    "standalone": false,
+    "status": "deferred_native_apps",
+    "pwa_alternative": true,
+    "native_apps_wave": "3+"
+  },
+  "launch_analysis_226": {
+    "standalone": false,
+    "route": "/radar/events/launch-analysis",
+    "launch_arbitrage_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "etf_premium_227": {
+    "standalone": false,
+    "route": "/intelligence/etf-premium",
+    "etf_arbitrage_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "drawdown_hedge_simulation_228": {
+    "standalone": false,
+    "route": "/portfolio/hedge-simulation",
+    "portfolio_insurance_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "reasoning_explanation_229": {
+    "standalone": false,
+    "route": "/intelligence/explain",
+    "extends_ref": 151,
+    "rule_based_only": true,
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "cross_exchange_arbitrage_230": {
+    "standalone": false,
+    "duplicate_of": 153,
+    "route": "/intelligence/arbitrage/cross-exchange",
+    "activation_not_build": true
+  },
+  "triangular_arbitrage_231": {
+    "standalone": false,
+    "duplicate_of": [
+      153,
+      214
+    ],
+    "route": "/intelligence/arbitrage/triangular",
+    "activation_not_build": true
+  },
+  "price_comparison_232": {
+    "standalone": false,
+    "route": "/intelligence/price-comparison",
+    "extends_ref": 153,
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "heatmap_component_233": {
+    "standalone": false,
+    "component": true,
+    "merged_into": [
+      "ui_component_library",
+      "command_center_179",
+      "market_radar"
+    ]
+  },
+  "live_dashboard_234": {
+    "standalone": false,
+    "duplicate_of": 179,
+    "activation_not_build": true
+  },
+  "whale_intelligence_235": {
+    "standalone": false,
+    "duplicate_of": 71,
+    "activation_not_build": true
+  },
+  "subscription_tiers_236": {
+    "standalone": false,
+    "duplicate_of": 60,
+    "activation_not_build": true
+  },
+  "market_summary_237": {
+    "standalone": false,
+    "route": "/intelligence/summary",
+    "fee_db": {
+      "compute_usd": 0.003
+    }
+  },
+  "market_scan_238": {
+    "standalone": false,
+    "route": "/radar/scan",
+    "extends_ref": 11,
+    "buy_signal_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.004
+    }
+  },
+  "live_ta_239": {
+    "standalone": false,
+    "merged_into": [
+      3,
+      158,
+      179
+    ],
+    "activation_not_build": true
+  },
+  "stock_to_flow_240": {
+    "standalone": false,
+    "routes": [
+      "/oracle/on-chain/s2f",
+      "/radar/technical/s2f"
+    ],
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "fred_api_241": {
+    "standalone": false,
+    "route": "/intelligence/multi-dim/macro/fred",
+    "merged_into": [
+      "macro_dimension_133",
+      "m2_macro_flow_171"
+    ],
+    "fee_db": {
+      "ingest_usd": 0.0005
+    }
+  },
+  "audit_trail_242": {
+    "standalone": false,
+    "route": "/audit",
+    "immutable": true,
+    "retention_days": {
+      "free": 90,
+      "pro": 365,
+      "desk": 2555
+    },
+    "fee_db": {
+      "storage_usd": 0.0001,
+      "query_usd": 0.0002
+    }
+  },
+  "bybit_api_243": {
+    "standalone": false,
+    "source": "bybit",
+    "merged_into": "oracle_api",
+    "role": "secondary_fallback",
+    "fee_db": {
+      "ingest_usd": 0.0003
+    }
+  },
+  "cointelegraph_rss_244": {
+    "standalone": false,
+    "merged_into": [
+      "market_radar",
+      "daily_top3_62"
+    ],
+    "route": "/radar/news",
+    "fee_db": {
+      "ingest_usd": 0.0002
+    }
+  },
+  "coinmarketcal_245": {
+    "standalone": false,
+    "merged_into": "market_radar",
+    "route": "/radar/events",
+    "activation_not_build": true
+  },
+  "etherscan_watchlist_246": {
+    "standalone": false,
+    "merged_into": "oracle_on_chain",
+    "privacy_first": true,
+    "fee_db": {
+      "rpc_usd": 0.0005
+    }
+  },
+  "weekly_digest_247": {
+    "standalone": false,
+    "merged_into": "intelligence_ledger",
+    "rule_based_only": true,
+    "fee_db": {
+      "compute_usd": 0.005,
+      "delivery_usd": 0.001
+    }
+  },
+  "manual_performance_248": {
+    "standalone": false,
+    "route": "/portfolio/performance/manual",
+    "profit_analytics_rejected": true,
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "trad_simulator_249": {
+    "status": "rejected",
+    "alternative": "backtest_74"
+  },
+  "execution_speed_250": {
+    "status": "rejected_execution"
+  },
+  "token_velocity_251": {
+    "standalone": false,
+    "merged_into": "oracle_on_chain",
+    "fee_db": {
+      "compute_usd": 0.002,
+      "rpc_usd": 0.0005
+    }
+  },
+  "google_trends_252": {
+    "standalone": false,
+    "merged_into": "sentiment_layer",
+    "fee_db": {
+      "ingest_usd": 0.0003
+    }
+  },
+  "kill_rate_board_253": {
+    "standalone": false,
+    "merged_into": "proof_arena",
+    "public": true,
+    "fee_db": {
+      "compute_usd": 0.001
+    }
+  },
+  "contradiction_replay_254": {
+    "standalone": false,
+    "merged_into": "proof_arena",
+    "fee_db": {
+      "compute_usd": 0.002
+    }
+  },
+  "committee_one_pager_255": {
+    "standalone": false,
+    "merged_into": "intelligence_ledger",
+    "pro_desk_tier_only": true
+  },
+  "half_life_clock_256": {
+    "standalone": false,
+    "merged_into": "signal_engine_11",
+    "fee_db": {
+      "compute_usd": 0.0005
+    }
+  },
+  "proof_arena_lite_257": {
+    "standalone": false,
+    "merged_into": "proof_arena",
+    "mode": "lite"
+  },
+  "since_you_left_258": {
+    "standalone": false,
+    "merged_into": "portfolio_ai",
+    "fee_db": {
+      "query_usd": 0.001
+    }
+  },
+  "anti_hype_mode_259": {
+    "standalone": false,
+    "merged_into": "user_preferences",
+    "client_side": true
+  },
+  "corpus_passport_260": {
+    "standalone": false,
+    "merged_into": "intelligence_ledger",
+    "requires_audit_trail_242": true
+  },
+  "pricing_model_261": {
+    "standalone": false,
+    "extends_ref": 60,
+    "route": "/stripe/tiers",
+    "tiers": {
+      "proof": {
+        "price_usd": 0,
+        "api_calls_per_day": 100
+      },
+      "pro": {
+        "price_usd": 29,
+        "api_calls_per_day": 1000
+      },
+      "desk": {
+        "price_usd": 49,
+        "api_calls_per_day": 10000
+      },
+      "data_room": {
+        "price_usd": 3000,
+        "api_calls_per_day": null,
+        "sla": "best_effort"
+      }
+    },
+    "no_lifetime_access": true
+  },
+  "cap_301": {
+    "metric": 2001.0
+  },
+  "cap_302": {
+    "metric": 2004.7
+  },
+  "cap_303": {
+    "metric": 2008.4
+  },
+  "cap_304": {
+    "metric": 2012.1
+  },
+  "cap_305": {
+    "metric": 2015.8
+  },
+  "cap_306": {
+    "metric": 2019.5
+  },
+  "cap_307": {
+    "metric": 2023.2
+  },
+  "cap_308": {
+    "metric": 2026.9
+  },
+  "cap_309": {
+    "metric": 2030.6
+  },
+  "cap_310": {
+    "metric": 2034.3
+  },
+  "cap_311": {
+    "metric": 2038.0
+  },
+  "cap_312": {
+    "metric": 2041.7
+  },
+  "cap_313": {
+    "metric": 2045.4
+  },
+  "cap_314": {
+    "metric": 2049.1
+  },
+  "cap_315": {
+    "metric": 2052.8
+  },
+  "cap_317": {
+    "metric": 2060.2
+  },
+  "cap_318": {
+    "metric": 2063.9
+  },
+  "cap_319": {
+    "metric": 2067.6
+  },
+  "cap_320": {
+    "metric": 2071.3
+  },
+  "cap_321": {
+    "metric": 2075.0
+  },
+  "cap_322": {
+    "metric": 2078.7
+  },
+  "cap_323": {
+    "metric": 2082.4
+  },
+  "cap_324": {
+    "metric": 2086.1
+  },
+  "cap_325": {
+    "metric": 2089.8
+  },
+  "cap_326": {
+    "metric": 2093.5
+  },
+  "cap_327": {
+    "metric": 2097.2
+  },
+  "cap_328": {
+    "metric": 2100.9
+  },
+  "cap_329": {
+    "metric": 2104.6
+  },
+  "cap_332": {
+    "metric": 2115.7
+  },
+  "cap_333": {
+    "metric": 2119.4
+  },
+  "cap_334": {
+    "metric": 2123.1
+  },
+  "cap_335": {
+    "metric": 2126.8
+  },
+  "cap_336": {
+    "metric": 2130.5
+  },
+  "cap_337": {
+    "metric": 2134.2
+  },
+  "cap_338": {
+    "metric": 2137.9
+  },
+  "cap_340": {
+    "metric": 2145.3
+  },
+  "cap_341": {
+    "metric": 2149.0
+  },
+  "cap_342": {
+    "metric": 2152.7
+  },
+  "cap_343": {
+    "metric": 2156.4
+  },
+  "cap_344": {
+    "metric": 2160.1
+  },
+  "cap_345": {
+    "metric": 2163.8
+  },
+  "cap_346": {
+    "metric": 2167.5
+  },
+  "cap_347": {
+    "metric": 2171.2
+  },
+  "cap_348": {
+    "metric": 2174.9
+  },
+  "cap_349": {
+    "metric": 2178.6
+  },
+  "cap_350": {
+    "metric": 2182.3
+  },
+  "cap_351": {
+    "metric": 2186.0
+  },
+  "cap_352": {
+    "metric": 2189.7
+  },
+  "cap_353": {
+    "metric": 2193.4
+  },
+  "cap_354": {
+    "metric": 2197.1
+  },
+  "cap_355": {
+    "metric": 2200.8
+  },
+  "cap_357": {
+    "metric": 2208.2
+  },
+  "cap_358": {
+    "metric": 2211.9
+  },
+  "cap_359": {
+    "metric": 2215.6
+  },
+  "cap_360": {
+    "metric": 2219.3
+  },
+  "cap_361": {
+    "metric": 2223.0
+  },
+  "cap_362": {
+    "metric": 2226.7
+  },
+  "cap_363": {
+    "metric": 2230.4
+  },
+  "cap_364": {
+    "metric": 2234.1
+  },
+  "cap_365": {
+    "metric": 2237.8
+  },
+  "cap_366": {
+    "metric": 2241.5
+  },
+  "cap_367": {
+    "metric": 2245.2
+  },
+  "cap_368": {
+    "metric": 2248.9
+  },
+  "cap_369": {
+    "metric": 2252.6
+  },
+  "cap_370": {
+    "metric": 2256.3
+  },
+  "cap_371": {
+    "metric": 2260.0
+  },
+  "cap_372": {
+    "metric": 2263.7
+  },
+  "cap_373": {
+    "metric": 2267.4
+  },
+  "cap_374": {
+    "metric": 2271.1
+  },
+  "cap_375": {
+    "metric": 2274.8
+  },
+  "cap_376": {
+    "metric": 2278.5
+  },
+  "cap_377": {
+    "metric": 2282.2
+  },
+  "cap_383": {
+    "metric": 2304.4
+  },
+  "cap_384": {
+    "metric": 2308.1
+  },
+  "cap_385": {
+    "metric": 2311.8
+  },
+  "cap_386": {
+    "metric": 2315.5
+  },
+  "cap_387": {
+    "metric": 2319.2
+  },
+  "cap_388": {
+    "metric": 2322.9
+  },
+  "cap_389": {
+    "metric": 2326.6
+  },
+  "cap_391": {
+    "metric": 2334.0
+  },
+  "cap_392": {
+    "metric": 2337.7
+  },
+  "cap_394": {
+    "metric": 2345.1
+  },
+  "cap_395": {
+    "metric": 2348.8
+  },
+  "cap_397": {
+    "metric": 2356.2
+  },
+  "cap_398": {
+    "metric": 2359.9
+  },
+  "cap_399": {
+    "metric": 2363.6
+  },
+  "cap_400": {
+    "metric": 2367.3
+  },
+  "cap_401": {
+    "metric": 3001.0
+  },
+  "cap_402": {
+    "metric": 3004.7
+  },
+  "cap_403": {
+    "metric": 3008.4
+  },
+  "cap_404": {
+    "metric": 3012.1
+  },
+  "cap_405": {
+    "metric": 3015.8
+  },
+  "cap_406": {
+    "metric": 3019.5
+  },
+  "cap_407": {
+    "metric": 3023.2
+  },
+  "cap_408": {
+    "metric": 3026.9
+  },
+  "cap_410": {
+    "metric": 3034.3
+  },
+  "cap_411": {
+    "metric": 3038.0
+  },
+  "cap_412": {
+    "metric": 3041.7
+  },
+  "cap_413": {
+    "metric": 3045.4
+  },
+  "cap_414": {
+    "metric": 3049.1
+  },
+  "cap_415": {
+    "metric": 3052.8
+  },
+  "cap_416": {
+    "metric": 3056.5
+  },
+  "cap_417": {
+    "metric": 3060.2
+  },
+  "cap_418": {
+    "metric": 3063.9
+  },
+  "cap_419": {
+    "metric": 3067.6
+  },
+  "cap_420": {
+    "metric": 3071.3
+  },
+  "cap_421": {
+    "metric": 3075.0
+  },
+  "cap_422": {
+    "metric": 3078.7
+  },
+  "cap_423": {
+    "metric": 3082.4
+  },
+  "cap_424": {
+    "metric": 3086.1
+  },
+  "cap_425": {
+    "metric": 3089.8
+  },
+  "cap_426": {
+    "metric": 3093.5
+  },
+  "cap_427": {
+    "metric": 3097.2
+  },
+  "cap_428": {
+    "metric": 3100.9
+  },
+  "cap_429": {
+    "metric": 3104.6
+  },
+  "cap_430": {
+    "metric": 3108.3
+  },
+  "cap_431": {
+    "metric": 3112.0
+  },
+  "cap_432": {
+    "metric": 3115.7
+  },
+  "cap_433": {
+    "metric": 3119.4
+  },
+  "cap_434": {
+    "metric": 3123.1
+  },
+  "cap_435": {
+    "metric": 3126.8
+  },
+  "cap_436": {
+    "metric": 3130.5
+  },
+  "cap_438": {
+    "metric": 3137.9
+  },
+  "cap_439": {
+    "metric": 3141.6
+  },
+  "cap_440": {
+    "metric": 3145.3
+  },
+  "cap_442": {
+    "metric": 3152.7
+  },
+  "cap_443": {
+    "metric": 3156.4
+  },
+  "cap_444": {
+    "metric": 3160.1
+  },
+  "cap_445": {
+    "metric": 3163.8
+  },
+  "cap_446": {
+    "metric": 3167.5
+  },
+  "cap_447": {
+    "metric": 3171.2
+  },
+  "cap_448": {
+    "metric": 3174.9
+  },
+  "cap_449": {
+    "metric": 3178.6
+  },
+  "cap_450": {
+    "metric": 3182.3
+  },
+  "cap_451": {
+    "metric": 3186.0
+  },
+  "cap_452": {
+    "metric": 3189.7
+  },
+  "cap_453": {
+    "metric": 3193.4
+  },
+  "cap_454": {
+    "metric": 3197.1
+  },
+  "cap_455": {
+    "metric": 3200.8
+  },
+  "cap_456": {
+    "metric": 3204.5
+  },
+  "cap_457": {
+    "metric": 3208.2
+  },
+  "cap_459": {
+    "metric": 3215.6
+  },
+  "cap_460": {
+    "metric": 3219.3
+  },
+  "cap_461": {
+    "metric": 3223.0
+  },
+  "cap_462": {
+    "metric": 3226.7
+  },
+  "cap_463": {
+    "metric": 3230.4
+  },
+  "cap_464": {
+    "metric": 3234.1
+  },
+  "cap_465": {
+    "metric": 3237.8
+  },
+  "cap_466": {
+    "metric": 3241.5
+  },
+  "cap_467": {
+    "metric": 3245.2
+  },
+  "cap_468": {
+    "metric": 3248.9
+  },
+  "cap_469": {
+    "metric": 3252.6
+  },
+  "cap_470": {
+    "metric": 3256.3
+  },
+  "cap_471": {
+    "metric": 3260.0
+  },
+  "cap_472": {
+    "metric": 3263.7
+  },
+  "cap_473": {
+    "metric": 3267.4
+  },
+  "cap_474": {
+    "metric": 3271.1
+  },
+  "cap_475": {
+    "metric": 3274.8
+  },
+  "cap_476": {
+    "metric": 3278.5
+  },
+  "cap_477": {
+    "metric": 3282.2
+  },
+  "cap_478": {
+    "metric": 3285.9
+  },
+  "cap_479": {
+    "metric": 3289.6
+  },
+  "cap_480": {
+    "metric": 3293.3
+  },
+  "cap_481": {
+    "metric": 3297.0
+  },
+  "cap_482": {
+    "metric": 3300.7
+  },
+  "cap_483": {
+    "metric": 3304.4
+  },
+  "cap_484": {
+    "metric": 3308.1
+  },
+  "cap_485": {
+    "metric": 3311.8
+  },
+  "cap_486": {
+    "metric": 3315.5
+  },
+  "cap_487": {
+    "metric": 3319.2
+  },
+  "cap_488": {
+    "metric": 3322.9
+  },
+  "cap_489": {
+    "metric": 3326.6
+  },
+  "cap_490": {
+    "metric": 3330.3
+  },
+  "cap_491": {
+    "metric": 3334.0
+  },
+  "cap_492": {
+    "metric": 3337.7
+  },
+  "cap_493": {
+    "metric": 3341.4
+  },
+  "cap_494": {
+    "metric": 3345.1
+  },
+  "cap_495": {
+    "metric": 3348.8
+  },
+  "cap_496": {
+    "metric": 3352.5
+  },
+  "cap_497": {
+    "metric": 3356.2
+  },
+  "cap_498": {
+    "metric": 3359.9
+  },
+  "cap_499": {
+    "metric": 3363.6
+  },
+  "cap_500": {
+    "metric": 3367.3
+  },
+  "cap_501": {
+    "metric": 4001.0
+  },
+  "cap_502": {
+    "metric": 4004.7
+  },
+  "cap_503": {
+    "metric": 4008.4
+  },
+  "cap_504": {
+    "metric": 4012.1
+  },
+  "cap_505": {
+    "metric": 4015.8
+  },
+  "cap_506": {
+    "metric": 4019.5
+  },
+  "cap_507": {
+    "metric": 4023.2
+  },
+  "cap_508": {
+    "metric": 4026.9
+  },
+  "cap_509": {
+    "metric": 4030.6
+  },
+  "cap_510": {
+    "metric": 4034.3
+  },
+  "cap_511": {
+    "metric": 4038.0
+  },
+  "cap_512": {
+    "metric": 4041.7
+  },
+  "cap_513": {
+    "metric": 4045.4
+  },
+  "cap_514": {
+    "metric": 4049.1
+  },
+  "cap_515": {
+    "metric": 4052.8
+  },
+  "cap_516": {
+    "metric": 4056.5
+  },
+  "cap_518": {
+    "metric": 4063.9
+  },
+  "cap_519": {
+    "metric": 4067.6
+  },
+  "cap_520": {
+    "metric": 4071.3
+  },
+  "cap_521": {
+    "metric": 4075.0
+  },
+  "cap_522": {
+    "metric": 4078.7
+  },
+  "cap_523": {
+    "metric": 4082.4
+  },
+  "cap_524": {
+    "metric": 4086.1
+  },
+  "cap_526": {
+    "metric": 4093.5
+  },
+  "cap_527": {
+    "metric": 4097.2
+  },
+  "cap_529": {
+    "metric": 4104.6
+  },
+  "cap_530": {
+    "metric": 4108.3
+  },
+  "cap_531": {
+    "metric": 4112.0
+  },
+  "cap_532": {
+    "metric": 4115.7
+  },
+  "cap_533": {
+    "metric": 4119.4
+  },
+  "cap_534": {
+    "metric": 4123.1
+  },
+  "cap_535": {
+    "metric": 4126.8
+  },
+  "cap_536": {
+    "metric": 4130.5
+  },
+  "cap_537": {
+    "metric": 4134.2
+  },
+  "cap_538": {
+    "metric": 4137.9
+  },
+  "cap_539": {
+    "metric": 4141.6
+  },
+  "cap_540": {
+    "metric": 4145.3
+  },
+  "cap_541": {
+    "metric": 4149.0
+  },
+  "cap_542": {
+    "metric": 4152.7
+  },
+  "cap_543": {
+    "metric": 4156.4
+  },
+  "cap_544": {
+    "metric": 4160.1
+  },
+  "cap_545": {
+    "metric": 4163.8
+  },
+  "cap_546": {
+    "metric": 4167.5
+  },
+  "cap_547": {
+    "metric": 4171.2
+  },
+  "cap_548": {
+    "metric": 4174.9
+  },
+  "cap_549": {
+    "metric": 4178.6
+  },
+  "cap_550": {
+    "metric": 4182.3
+  },
+  "cap_551": {
+    "metric": 4186.0
+  },
+  "cap_552": {
+    "metric": 4189.7
+  },
+  "cap_553": {
+    "metric": 4193.4
+  },
+  "cap_554": {
+    "metric": 4197.1
+  },
+  "cap_555": {
+    "metric": 4200.8
+  },
+  "cap_556": {
+    "metric": 4204.5
+  },
+  "cap_557": {
+    "metric": 4208.2
+  },
+  "cap_558": {
+    "metric": 4211.9
+  },
+  "cap_559": {
+    "metric": 4215.6
+  },
+  "cap_560": {
+    "metric": 4219.3
+  },
+  "cap_561": {
+    "metric": 4223.0
+  },
+  "cap_562": {
+    "metric": 4226.7
+  },
+  "cap_563": {
+    "metric": 4230.4
+  },
+  "cap_564": {
+    "metric": 4234.1
+  },
+  "cap_565": {
+    "metric": 4237.8
+  },
+  "cap_566": {
+    "metric": 4241.5
+  },
+  "cap_567": {
+    "metric": 4245.2
+  },
+  "cap_568": {
+    "metric": 4248.9
+  },
+  "cap_569": {
+    "metric": 4252.6
+  },
+  "cap_570": {
+    "metric": 4256.3
+  },
+  "cap_571": {
+    "metric": 4260.0
+  },
+  "cap_572": {
+    "metric": 4263.7
+  },
+  "cap_573": {
+    "metric": 4267.4
+  },
+  "cap_574": {
+    "metric": 4271.1
+  },
+  "cap_575": {
+    "metric": 4274.8
+  },
+  "cap_576": {
+    "metric": 4278.5
+  },
+  "cap_577": {
+    "metric": 4282.2
+  },
+  "cap_579": {
+    "metric": 4289.6
+  },
+  "cap_580": {
+    "metric": 4293.3
+  },
+  "cap_581": {
+    "metric": 4297.0
+  },
+  "cap_582": {
+    "metric": 4300.7
+  },
+  "cap_583": {
+    "metric": 4304.4
+  },
+  "cap_585": {
+    "metric": 4311.8
+  },
+  "cap_586": {
+    "metric": 4315.5
+  },
+  "cap_587": {
+    "metric": 4319.2
+  },
+  "cap_588": {
+    "metric": 4322.9
+  },
+  "cap_589": {
+    "metric": 4326.6
+  },
+  "cap_590": {
+    "metric": 4330.3
+  },
+  "cap_591": {
+    "metric": 4334.0
+  },
+  "cap_592": {
+    "metric": 4337.7
+  },
+  "cap_593": {
+    "metric": 4341.4
+  },
+  "cap_594": {
+    "metric": 4345.1
+  },
+  "cap_595": {
+    "metric": 4348.8
+  },
+  "cap_596": {
+    "metric": 4352.5
+  },
+  "cap_597": {
+    "metric": 4356.2
+  },
+  "cap_598": {
+    "metric": 4359.9
+  },
+  "cap_599": {
+    "metric": 4363.6
+  },
+  "cap_600": {
+    "metric": 4367.3
+  }
+}

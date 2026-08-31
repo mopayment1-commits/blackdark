@@ -22,6 +22,43 @@ class BackendBinding:
     source: str = "track_default"
 
 
+# Option A — explicit production bindings (not pdf_registry / audit layer)
+_EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
+    338: BackendBinding(
+        338,
+        "cap646.data_spine",
+        "data_quality_pipeline_report",
+        "data_quality_pipeline",
+        "none",
+        "explicit_option_a",
+    ),
+    500: BackendBinding(
+        500,
+        "cap646.data_spine",
+        "normalization_report",
+        "data_quality_normalization",
+        "symbol",
+        "explicit_option_a",
+    ),
+    507: BackendBinding(
+        507,
+        "cap646.fallbacks",
+        "resolve_ohlcv_closes",
+        "ohlcv",
+        "symbol",
+        "explicit_option_a",
+    ),
+    534: BackendBinding(
+        534,
+        "cap646.data_spine",
+        "bucketed_cvd_report",
+        "bucketed_cvd",
+        "symbol",
+        "explicit_option_a",
+    ),
+}
+
+
 def _slug(name: str) -> str:
     s = re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_")
     return s[:80] or "capability"
@@ -199,6 +236,10 @@ def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
 
 @lru_cache(maxsize=646)
 def resolve_binding(capability_id: int) -> BackendBinding:
+    explicit = _EXPLICIT_BINDINGS.get(capability_id)
+    if explicit is not None:
+        return explicit
+
     row = catalog_by_id()[capability_id]
     matrix = matrix_by_id().get(capability_id, {})
     name = row["capability"]

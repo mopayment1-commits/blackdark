@@ -1,0 +1,1235 @@
+{
+  "batch": "batch_06_501_600",
+  "deep_audit_at": "2026-08-30T21:58:13.707592+00:00",
+  "total": 100,
+  "classification_counts": {
+    "VERIFIED-DEEP": 97,
+    "REUSED-LINK": 3
+  },
+  "verified_deep_native": 97,
+  "reused_link": 3,
+  "verified_deep_honest": 100,
+  "wrapper_only_unverified": 0,
+  "deferred_delegated": 0,
+  "rows": [
+    {
+      "capability_id": 501,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.institutional_delivery_501",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 502,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.benchmark_administration_metadata_502",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 503,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.cross_market_data_intelligence_503",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 504,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.unified_exchange_connector_layer_504",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 505,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.tick_trade_data_505",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 506,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.quote_data_506",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 507,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.ohlcv_507",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 508,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.l1_order_book_508",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 509,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.l2_order_book_509",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 510,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.l3_order_book_510",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 511,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.options_market_data_511",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 512,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.funding_oi_liquidation_metrics_512",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 513,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.asset_symbol_metadata_513",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 514,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.historical_flat_files_514",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 515,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.rest_api_515",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 516,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.websocket_streaming_516",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 517,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "comparison_engine.run_comparison_engine",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 518,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.mcp_for_ai_518",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 519,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.exchange_rates_vwap_519",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 520,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.indexes_520",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 521,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.volatility_index_521",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 522,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.ems_integration_boundary_522",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 523,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.data_health_sla_monitoring_523",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 524,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.symbol_mapping_engine_524",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 525,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.run_backtest_74",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "run_backtest_74",
+          "suffix_id": 74,
+          "capability_id": 525
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 526,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.ai_market_data_grounding_layer_526",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 527,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.liquidation_heatmap_527",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 528,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_rankings.market_rankings",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 529,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.liquidation_cascade_model_529",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 530,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.global_liquidation_metrics_530",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 531,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 532,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.funding_rates_532",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 533,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.order_flow_intelligence_533",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 534,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.bucketed_cvd_534",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 535,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.whale_vs_retail_flow_535",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 536,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.slippage_intelligence_536",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 537,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.global_order_book_metrics_537",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 538,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.order_book_imbalance_538",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 539,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.liquidity_zones_539",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 540,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.bot_activity_detection_540",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 541,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.market_positioning_541",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 542,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.liquidation_pressure_score_542",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 543,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.orderflow_anomaly_detection_543",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 544,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.api_indicator_platform_544",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 545,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.trader_cohort_intelligence_545",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 546,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.cross_derivatives_decision_intelligence_546",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 547,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.high_resolution_multi_pane_charts_547",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 548,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.derivatives_dashboard_548",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 549,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.funding_rate_intelligence_549",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 550,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 551,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.liquidation_intelligence_551",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 552,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.futures_volume_552",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 553,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.basis_intelligence_553",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 554,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.spot_market_data_554",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 555,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.options_analytics_555",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 556,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.options_iv_surface_556",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 557,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.options_skew_557",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 558,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.options_term_structure_558",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 559,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.tradfi_context_559",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 560,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.multi_indicator_workspace_560",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 561,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.real_time_prices_561",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 562,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.historical_data_562",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 563,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.api_data_access_563",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 564,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.news_context_564",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 565,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.cross_asset_correlation_565",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 566,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.derivatives_regime_engine_566",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 567,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.cross_market_decision_intelligence_567",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 568,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.security_first_architecture_568",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 569,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.api_security_encryption_569",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 570,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.high_availability_architecture_570",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 571,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.infrastructure_uptime_shield_571",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 572,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.institutional_data_architecture_572",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 573,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.flexible_connector_microservice_573",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 574,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.institutional_api_gateway_574",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 575,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.api_data_pipe_575",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 576,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.developer_sdk_576",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 577,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.pro_developer_sandbox_577",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 578,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.execution_rejected_layer.whale_behavior_analysis_216",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "whale_behavior_analysis_216",
+          "suffix_id": 216,
+          "capability_id": 578
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 579,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.global_asset_tracker_579",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 580,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.multi_account_sync_580",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 581,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.on_chain_balance_monitor_581",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 582,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.profitability_analyzer_582",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 583,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.margin_risk_calculator_583",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 584,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.news_classifier.coindesk_feed",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 585,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.volatility_scoring_system_585",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 586,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.volatility_surface_analyzer_586",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 587,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.delta_neutral_calculator_587",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 588,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.high_precision_backtesting_588",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 589,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.strategy_vetting_algorithm_589",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 590,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.ai_quant_rating_engine_590",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 591,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.sentiment_analysis_engine_591",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 592,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.social_sentiment_engine_592",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 593,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.social_hype_analyzer_593",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 594,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.narrative_alert_system_594",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 595,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.ai_digest_generator_595",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 596,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.ai_agent_consultant_596",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 597,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.natural_language_interpreter_597",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 598,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.wallet_shadowing_598",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 599,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.entity_tagging_system_599",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 600,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_delivery_intelligence_layer.whale_clustering_engine_600",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    }
+  ]
+}
