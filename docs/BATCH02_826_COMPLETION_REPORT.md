@@ -1,56 +1,56 @@
-# Batch 02 — 826 Completion Report (CLOSURE — STOP for review)
+# Batch 02 — 826 Completion Report (NOT CLOSED)
 
 **Date:** 2026-09-01  
 **Branch:** `cursor/complete-826-batch02-e85e`  
-**Scope:** **IDs 101–150 (50 capabilities)**  
-**Status:** **NOT CLOSED** — honest audit: **44 new PRODUCTION-ALIGNED + 2 batch01 overlap + 1 REUSED-LINK + 3 NOT_COMPLETE** (see `docs/BATCH02_HONEST_CLOSURE_AUDIT.md`)
+**Scope:** IDs 101–150 (50 capabilities)  
+**Status:** **NOT CLOSED** — awaiting explicit approval after honest decomposition
 
 ---
 
-## 1) Closure summary
+## 1) Honest closure numbers
 
-| Metric | Value |
-|--------|------:|
-| Capabilities in batch | **50** |
-| ID range | **101–150** |
-| New PRODUCTION-ALIGNED (independent) | **44** |
-| Batch 01 overlap (re-verified, not new) | **2** (#103, #129) |
-| REUSED-LINK (catalog duplicate) | **1** (#110) |
-| NOT_COMPLETE | **3** (#106, #107, #125) |
-| Dedicated backends (code exists) | **50** (`cap646.batch02_dedicated`) |
-| `pytest -m "not slow"` | **0 failed** (2484 passed) |
-| Surface/path proof (technical) | `docs/BATCH02_PRODUCTION_PROOF.json` — **does not imply 50 independent completions** |
+| Bucket | Count | IDs |
+|--------|------:|-----|
+| **New PRODUCTION-ALIGNED** | **44** | 101–102, 104–105, 108–109, 111–124, 126–128, 130–150 |
+| **Overlap with Batch 01** | **2** | 103, 129 |
+| **REUSED-LINK / catalog alias** | **4** | 106, 107, 110, 125 |
+| **NOT_COMPLETE** | **0** | — |
+| **Total in scope** | **50** | 101–150 |
 
-### Production spine
-
-- **New:** `cap646/batch02_production.py` + `cap646/batch02_dedicated.py`
-- **Routing:** `cap646.runtime.execute_capability` → `batch02_production.execute` → `batch02_dedicated.execute`
-- **Duplicate-safe:** Batch 01/02 spines execute on **requested** capability ID before duplicate canonical redirect (fixes #106/#107/#110/#125 split-brain)
+**Not claimed:** 50/50 independent PRODUCTION-ALIGNED.
 
 ---
 
-## 2) Live content proof (5+ formerly-generic)
+## 2) Duplicate decomposition (spine before redirect)
 
-| ID | Catalog | Surface (live) | Payload sample |
-|----|---------|----------------|----------------|
-| **101** | AI Data Analyst / Ask AI | `ai_data_analyst_ask_ai` | `oracle_freshness.accepted` + deviation thresholds |
-| **102** | AI-Generated Reporting | `ai_generated_reporting` | `il_vulnerability.vulnerability_score` + formula |
-| **110** | Cross-Domain Decision Intelligence | `cross_domain_decision_intelligence_layer` | whale extensions + retail ratio |
-| **116** | Market Pair Intelligence | `market_pair_intelligence` | `market_pair_intelligence.all_passed` e2e checks |
-| **144** | Fund & Fund-Manager Intelligence | `fund_fund_manager_intelligence` | whale alert feed items |
+See `docs/BATCH02_HONEST_CLOSURE_AUDIT.md` and `docs/BATCH02_CLASSIFICATION.json`.
 
-Artifact: `docs/BATCH02_PRODUCTION_PROOF.json`
+| ID | Canonical | Post-spine goal match | Classification |
+|----|-----------|----------------------|----------------|
+| 106 | 63 | Original goal (DQP/provenance) | REUSED-LINK |
+| 107 | 64 | Original goal (methodology registry) | REUSED-LINK |
+| 110 | 69 | Original goal (cross-domain decision) | REUSED-LINK |
+| 125 | 85 | Original goal (futures OI) | REUSED-LINK |
 
----
-
-## 3) 50/50 PRODUCTION-ALIGNED IDs
-
-`101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150`
-
-**NOT_COMPLETE:** 0
+Backends fixed in `cap646/batch02_dedicated.py` (#106, #107, #125 were NOT_COMPLETE before fix).
 
 ---
 
-## 4) STOP — awaiting explicit approval before Batch 03
+## 3) Overlap (#103, #129)
+
+- Completed in **Batch 01** (`BATCH01_IDS`).
+- Batch 02: **batch01 spine re-invocation only** (`production_spine=batch01`).
+- **Not** counted among 44 new completions.
+
+---
+
+## 4) Production spine
+
+- `cap646/batch02_production.py` + `cap646/batch02_dedicated.py`
+- Routing: batch01/batch02 spines execute on **requested** ID before duplicate canonical redirect
+
+---
+
+## 5) STOP — Batch 03 blocked
 
 Per institutional directive: **Batch 03 is NOT started.** Await explicit user approval.

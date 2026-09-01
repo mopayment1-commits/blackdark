@@ -1,6 +1,7 @@
 {
   "batch": "batch02_826_completion",
   "scope": "IDs 101–150 (50 capabilities)",
+  "status": "NOT_CLOSED",
   "priority": "infra + market analysis + TA risk + onchain platform + data sources",
   "capability_ids": [
     101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
@@ -11,7 +12,21 @@
   ],
   "production_spine": "cap646.batch02_production",
   "binding_source": "explicit_option_a",
+  "closure_summary": {
+    "total_in_scope": 50,
+    "new_production_aligned": 44,
+    "overlap_batch01": 2,
+    "reused_link": 4,
+    "not_complete": 0
+  },
+  "new_production_aligned_ids": [
+    101, 102, 104, 105, 108, 109, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120,
+    121, 122, 123, 124, 126, 127, 128, 130, 131, 132, 133, 134, 135, 136, 137, 138,
+    139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150
+  ],
   "overlap_batch01_ids": [103, 129],
+  "reused_link_ids": [106, 107, 110, 125],
+  "not_complete_ids": [],
   "completion_criteria": [
     "functional_completeness",
     "functional_correctness",
@@ -20,5 +35,5 @@
     "reliability",
     "user_facing_surface_where_applicable"
   ],
-  "production_aligned_count": 50
+  "classification_artifact": "docs/BATCH02_CLASSIFICATION.json"
 }

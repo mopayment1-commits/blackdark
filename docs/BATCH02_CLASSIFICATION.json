@@ -1,0 +1,69 @@
+{
+  "batch": "batch02_826_completion",
+  "scope": "IDs 101–150",
+  "status": "NOT_CLOSED",
+  "generated_at": "2026-09-01T06:40:00+00:00",
+  "closure_summary": {
+    "total_in_scope": 50,
+    "new_production_aligned": 44,
+    "overlap_batch01": 2,
+    "reused_link": 4,
+    "not_complete": 0
+  },
+  "new_production_aligned_ids": [
+    101, 102, 104, 105, 108, 109, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120,
+    121, 122, 123, 124, 126, 127, 128, 130, 131, 132, 133, 134, 135, 136, 137, 138,
+    139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150
+  ],
+  "overlap_batch01_ids": [103, 129],
+  "reused_link_ids": [106, 107, 110, 125],
+  "not_complete_ids": [],
+  "duplicates": {
+    "106": {
+      "canonical_id": 63,
+      "catalog_goal": "Data Quality & Provenance Layer",
+      "canonical_goal": "Data Quality & Provenance Layer",
+      "post_spine_result": "matches_original_goal",
+      "classification": "REUSED-LINK",
+      "catalog_basis": "REPEAT_CANONICAL + gap matrix DUPLICATE/ALREADY_COVERED"
+    },
+    "107": {
+      "canonical_id": 64,
+      "catalog_goal": "Metric Methodology Registry",
+      "canonical_goal": "Metric Methodology Registry",
+      "post_spine_result": "matches_original_goal",
+      "classification": "REUSED-LINK",
+      "catalog_basis": "REPEAT_CANONICAL + gap matrix DUPLICATE/ALREADY_COVERED"
+    },
+    "110": {
+      "canonical_id": 69,
+      "catalog_goal": "Cross-Domain Decision Intelligence Layer",
+      "canonical_goal": "Cross-Domain Decision Intelligence Layer",
+      "post_spine_result": "matches_original_goal",
+      "classification": "REUSED-LINK",
+      "catalog_basis": "REPEAT_CANONICAL + gap matrix DUPLICATE/ALREADY_COVERED"
+    },
+    "125": {
+      "canonical_id": 85,
+      "catalog_goal": "Futures Open Interest Intelligence",
+      "canonical_goal": "Futures Open Interest Intelligence",
+      "post_spine_result": "matches_original_goal",
+      "classification": "REUSED-LINK",
+      "catalog_basis": "REPEAT_CANONICAL + gap matrix DUPLICATE/ALREADY_COVERED"
+    }
+  },
+  "overlap": {
+    "103": {
+      "catalog_goal": "API Data Platform",
+      "completed_in_batch01": true,
+      "batch02_backend": "none — batch01 spine re-invocation only",
+      "classification": "OVERLAP_BATCH01"
+    },
+    "129": {
+      "catalog_goal": "Sentiment Intelligence",
+      "completed_in_batch01": true,
+      "batch02_backend": "none — batch01 spine re-invocation only",
+      "classification": "OVERLAP_BATCH01"
+    }
+  }
+}

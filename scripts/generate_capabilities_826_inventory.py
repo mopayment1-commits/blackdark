@@ -18,6 +18,7 @@ from cap978.catalog import PROJECT_SCOPE_TOTAL
 EVIDENCE_GLOBS = sorted((ROOT / "data").glob("hero_batch_*_evidence.jsonl"))
 OPTION_A_MANIFEST = ROOT / "docs/OPTION_A_PRODUCTION_ALIGNED_MANIFEST.json"
 BATCH01_MANIFEST = ROOT / "docs/BATCH01_826_COMPLETION_MANIFEST.json"
+BATCH02_CLASSIFICATION = ROOT / "docs/BATCH02_CLASSIFICATION.json"
 
 
 def _load_evidence() -> dict[int, dict[str, Any]]:
@@ -45,15 +46,36 @@ def main() -> None:
     if BATCH01_MANIFEST.is_file():
         production_aligned |= set(json.loads(BATCH01_MANIFEST.read_text()).get("capability_ids", []))
     batch02_manifest = ROOT / "docs/BATCH02_826_COMPLETION_MANIFEST.json"
+    batch02_new_aligned: set[int] = set()
+    batch02_overlap: set[int] = set()
+    batch02_reused: set[int] = set()
+    batch02_not_complete: set[int] = set()
     if batch02_manifest.is_file():
-        production_aligned |= set(json.loads(batch02_manifest.read_text()).get("capability_ids", []))
+        b02 = json.loads(batch02_manifest.read_text())
+        batch02_new_aligned = set(b02.get("new_production_aligned_ids", []))
+        batch02_overlap = set(b02.get("overlap_batch01_ids", []))
+        batch02_reused = set(b02.get("reused_link_ids", []))
+        batch02_not_complete = set(b02.get("not_complete_ids", []))
+        production_aligned |= batch02_new_aligned
+    if BATCH02_CLASSIFICATION.is_file():
+        b02c = json.loads(BATCH02_CLASSIFICATION.read_text())
+        batch02_new_aligned |= set(b02c.get("new_production_aligned_ids", []))
+        batch02_overlap |= set(b02c.get("overlap_batch01_ids", []))
+        batch02_reused |= set(b02c.get("reused_link_ids", []))
+        batch02_not_complete |= set(b02c.get("not_complete_ids", []))
 
     per_id: dict[str, Any] = {}
     counts: dict[str, int] = {}
     for cid in range(1, PROJECT_SCOPE_TOTAL + 1):
         ev = evidence.get(cid)
         cls = ev.get("deep_audit_classification") if ev else "NOT_IN_HERO_AUDIT"
-        if cid in BATCH01_IDS or cid in BATCH02_IDS:
+        if cid in batch02_reused:
+            cls = "REUSED-LINK"
+        elif cid in batch02_overlap:
+            cls = "OVERLAP_BATCH01"
+        elif cid in batch02_not_complete:
+            cls = "NOT_COMPLETE"
+        elif cid in BATCH01_IDS or cid in batch02_new_aligned:
             cls = "PRODUCTION-ALIGNED"
         elif cid in production_aligned:
             cls = "PRODUCTION-ALIGNED"

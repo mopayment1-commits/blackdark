@@ -1,17 +1,19 @@
 {
-  "generated_at": "2026-09-01T00:19:18.030597+00:00",
+  "generated_at": "2026-09-01T06:41:29.573826+00:00",
   "scope": "IDs 1-826 institutional completion inventory",
   "summary": {
     "total_ids": 826,
     "classification_counts": {
-      "PRODUCTION-ALIGNED": 102,
+      "PRODUCTION-ALIGNED": 96,
       "NOT_IN_HERO_AUDIT": 248,
       "DEFERRED-EARLY-BATCH": 36,
       "SPLIT-BRAIN-UNVERIFIED": 127,
+      "OVERLAP_BATCH01": 2,
+      "REUSED-LINK": 4,
       "DEFERRED/TEMPLATE-STUB": 307,
       "EXTENSION-PENDING-CAP646": 6
     },
-    "production_aligned_count": 102,
+    "production_aligned_count": 96,
     "user_facing_count": 20
   },
   "per_id": {
@@ -833,7 +835,7 @@
     },
     "103": {
       "capability": "API Data Platform",
-      "classification": "PRODUCTION-ALIGNED",
+      "classification": "OVERLAP_BATCH01",
       "in_hero_evidence": true,
       "user_facing": true,
       "binding_source": "explicit_option_a",
@@ -857,7 +859,7 @@
     },
     "106": {
       "capability": "Data Quality & Provenance Layer",
-      "classification": "PRODUCTION-ALIGNED",
+      "classification": "REUSED-LINK",
       "in_hero_evidence": true,
       "user_facing": false,
       "binding_source": "explicit_option_a",
@@ -865,7 +867,7 @@
     },
     "107": {
       "capability": "Metric Methodology Registry",
-      "classification": "PRODUCTION-ALIGNED",
+      "classification": "REUSED-LINK",
       "in_hero_evidence": true,
       "user_facing": false,
       "binding_source": "explicit_option_a",
@@ -889,7 +891,7 @@
     },
     "110": {
       "capability": "Cross-Domain Decision Intelligence Layer",
-      "classification": "PRODUCTION-ALIGNED",
+      "classification": "REUSED-LINK",
       "in_hero_evidence": true,
       "user_facing": false,
       "binding_source": "explicit_option_a",
@@ -1009,7 +1011,7 @@
     },
     "125": {
       "capability": "Futures Open Interest Intelligence",
-      "classification": "PRODUCTION-ALIGNED",
+      "classification": "REUSED-LINK",
       "in_hero_evidence": true,
       "user_facing": false,
       "binding_source": "explicit_option_a",
@@ -1041,7 +1043,7 @@
     },
     "129": {
       "capability": "Sentiment Intelligence",
-      "classification": "PRODUCTION-ALIGNED",
+      "classification": "OVERLAP_BATCH01",
       "in_hero_evidence": true,
       "user_facing": true,
       "binding_source": "explicit_option_a",

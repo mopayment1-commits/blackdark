@@ -153,14 +153,26 @@ async def _cap105(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
 
 async def _cap106(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.market_analysis_layer import compute_contagion_vector_106
-    payload = compute_contagion_vector_106(seed=_seed())
+    from data_provenance_score import compute_data_provenance_score
+    from hot_storage import get_hot_storage_stats
+
+    provenance = compute_data_provenance_score(symbol=symbol)
+    hot = get_hot_storage_stats()
+    payload = {
+        "provenance": provenance,
+        "hot_storage": hot.__dict__ if hasattr(hot, "__dict__") else hot,
+        "catalog_link": {"duplicate_of": 63, "classification": "REUSED-LINK"},
+    }
     return _wrap(106, symbol=symbol, payload_key="data_quality_provenance", payload=payload)
 
 
 async def _cap107(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.market_analysis_layer import compute_whale_retail_ratio_107
-    payload = compute_whale_retail_ratio_107(seed=_seed())
+    from signal_registry import registry_stats
+
+    payload = {
+        "methodology_registry": registry_stats(),
+        "catalog_link": {"duplicate_of": 64, "classification": "REUSED-LINK"},
+    }
     return _wrap(107, symbol=symbol, payload_key="metric_methodology", payload=payload)
 
 
@@ -185,9 +197,17 @@ async def _cap109(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
 
 async def _cap110(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.market_analysis_layer import attach_whale_extensions_107_110
-    from bd_platform.pro_trader_layer import build_whale_narrative_71
-    payload = attach_whale_extensions_107_110(build_whale_narrative_71(seed=_seed()), seed=_seed())
+    from bd_platform.institutional_delivery_intelligence_layer import cross_market_decision_intelligence_567
+    from bd_platform.pro_trader_layer import build_multi_dim_analysis_73
+
+    multi_dim = build_multi_dim_analysis_73(asset=symbol, seed=_seed())
+    cross = cross_market_decision_intelligence_567(symbol=symbol)
+    payload = {
+        "multi_dimensional": multi_dim,
+        "cross_market": cross,
+        "composite_score": multi_dim.get("composite_score"),
+        "catalog_link": {"duplicate_of": 69, "classification": "REUSED-LINK"},
+    }
     return _wrap(110, symbol=symbol, payload_key="cross_domain_decision", payload=payload)
 
 
@@ -286,8 +306,16 @@ async def _cap124(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
 
 async def _cap125(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.advanced_ta_risk_layer import custody_tracking_status_125
-    payload = custody_tracking_status_125(seed=_seed())
+    from bd_platform.derivatives_hub import derivatives_overview
+
+    overview = await derivatives_overview(symbol)
+    oi = (overview.get("free_tier") or {}) if isinstance(overview, dict) else {}
+    payload = {
+        "derivatives_overview": overview,
+        "open_interest_usd": oi.get("open_interest_usd"),
+        "open_interest_contracts": oi.get("open_interest_contracts"),
+        "catalog_link": {"duplicate_of": 85, "classification": "REUSED-LINK"},
+    }
     return _wrap(125, symbol=symbol, payload_key="futures_open_interest", payload=payload)
 
 

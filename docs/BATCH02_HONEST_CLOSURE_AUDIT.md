@@ -1,34 +1,63 @@
-# Batch 02 — Honest Closure Audit (mandatory review)
+# Batch 02 — Honest Closure Audit (post-decomposition)
 
 **Date:** 2026-09-01  
 **Scope:** IDs 101–150  
-**Verdict:** **NOT 50/50 independent PRODUCTION-ALIGNED** — see breakdown below.
+**Verdict:** **NOT CLOSED** — honest count: **44 new PRODUCTION-ALIGNED + 2 overlap + 4 REUSED-LINK + 0 NOT_COMPLETE**
 
 ---
 
-## 1) Catalog duplicates in Batch 02 scope
+## 1) Catalog duplicates — per-ID decomposition
 
-| Requested | Canonical | Catalog goal (both) | Same payload as canonical? | Matches #requested goal? | Classification |
-|-----------|-----------|---------------------|----------------------------|--------------------------|----------------|
-| **106** | 63 | Data Quality & Provenance Layer | **No** — batch02: `compute_contagion_vector_106`; canonical 63: `hot_storage` via verified handler | **No** — contagion risk map ≠ provenance/DQP | **NOT_COMPLETE** |
-| **107** | 64 | Metric Methodology Registry | **No** — batch02: `whale_retail_ratio`; canonical 64: `signal_registry` stats | **No** — whale/retail ratio ≠ methodology registry | **NOT_COMPLETE** |
-| **110** | 69 | Cross-Domain Decision Intelligence Layer | **No** — batch02: `cross_domain_decision` + whale extensions; canonical 69: generic `onchain_intelligence` | **Partial** — batch02 payload closer to goal than canonical | **REUSED-LINK** (catalog `DUPLICATE/ALREADY_COVERED`; not independent) |
-| **125** | 85 | Futures Open Interest Intelligence | **No** — batch02: `custody_tracking_status_125` (deferred); canonical 85: `derivatives_overview` OI fields | **No** — custody status ≠ open interest | **NOT_COMPLETE** |
+Institutional rule: classification by **actual goal achievement** for the requested ID, not spine routing alone. Catalog duplicates (`REPEAT_CANONICAL` + gap matrix `DUPLICATE/ALREADY_COVERED`) are **REUSED-LINK**, not independent new completions.
 
-Gap matrix: all four are `DUPLICATE/ALREADY_COVERED` pointing at 63/64/69/85.
+### #106 → canonical #63
 
-**Institutional rule applied:** None of the four returns the canonical-only result. Three fail goal appropriateness (#106, #107, #125). #110 is catalog-duplicate (REUSED-LINK) despite a distinct batch02 payload.
+| Field | Value |
+|-------|-------|
+| **(a) Original ID goal** | **Data Quality & Provenance Layer** — score/lineage/provenance for data inputs |
+| **(b) Canonical #63 goal** | Same: **Data Quality & Provenance Layer** |
+| **(c) Post batch02 spine** | **Matches original ID goal** — `compute_data_provenance_score` + `hot_storage`; surface `data_quality_provenance_layer` |
+| **(d) Classification** | **REUSED-LINK** — catalog explicitly marks duplicate of #63; not an independent new completion |
+
+### #107 → canonical #64
+
+| Field | Value |
+|-------|-------|
+| **(a) Original ID goal** | **Metric Methodology Registry** — registry stats for signal/metric methodology |
+| **(b) Canonical #64 goal** | Same: **Metric Methodology Registry** |
+| **(c) Post batch02 spine** | **Matches original ID goal** — `signal_registry.registry_stats()`; surface `metric_methodology_registry` |
+| **(d) Classification** | **REUSED-LINK** — catalog duplicate of #64 |
+
+### #110 → canonical #69
+
+| Field | Value |
+|-------|-------|
+| **(a) Original ID goal** | **Cross-Domain Decision Intelligence Layer** — multi-dimensional + cross-market decision synthesis |
+| **(b) Canonical #69 goal** | Same catalog name; canonical handler returns generic `onchain_intelligence` (weaker) |
+| **(c) Post batch02 spine** | **Matches original ID goal** — `build_multi_dim_analysis_73` + `cross_market_decision_intelligence_567`; surface `cross_domain_decision_intelligence_layer` |
+| **(d) Classification** | **REUSED-LINK** — catalog duplicate of #69; batch02 spine is alias entry point, not independent capability |
+
+### #125 → canonical #85
+
+| Field | Value |
+|-------|-------|
+| **(a) Original ID goal** | **Futures Open Interest Intelligence** — OI contracts/USD from derivatives feed |
+| **(b) Canonical #85 goal** | Same: **Futures Open Interest Intelligence** |
+| **(c) Post batch02 spine** | **Matches original ID goal** — `derivatives_overview` with `open_interest_usd` / `open_interest_contracts`; surface `futures_open_interest_intelligence` |
+| **(d) Classification** | **REUSED-LINK** — catalog duplicate of #85 |
+
+**Note:** Passing through batch02 spine does **not** make these PRODUCTION-ALIGNED as new independent completions.
 
 ---
 
-## 2) Batch 01 overlap (#103, #129)
+## 2) Overlap with Batch 01 — #103, #129
 
-| ID | Goal | Batch 01? | Runtime spine on live call | Batch02 dedicated exists? |
-|----|------|-----------|----------------------------|---------------------------|
-| **103** | API Data Platform | Yes (`BATCH01_IDS`) | `batch01` → `cap646.batch01_production` | Yes (`_cap103`) but **never reached** — batch01 wins first |
-| **129** | Sentiment Intelligence | Yes (`BATCH01_IDS`) | `batch01` → market sentiment handler | Yes (`_cap129`) but **never reached** |
+| ID | Catalog goal | Completed in Batch 01? | Batch 02 backend | Classification |
+|----|--------------|------------------------|------------------|----------------|
+| **103** | API Data Platform | **Yes** (`BATCH01_IDS`) | **No new backend** — runtime uses `batch01` spine (`cap646.batch01_production`) | **OVERLAP_BATCH01** — not counted in 44 new |
+| **129** | Sentiment Intelligence | **Yes** (`BATCH01_IDS`) | **No new backend** — runtime uses `batch01` spine | **OVERLAP_BATCH01** — not counted in 44 new |
 
-**Conclusion:** Both were completed in Batch 01. Batch 02 only **re-lists** them in manifest; live path is **batch01 re-invocation**, not new batch02 backend work.
+`batch02_dedicated._cap103` / `_cap129` exist in code but are **dead code** at runtime (batch01 wins first in `runtime.py`).
 
 ---
 
@@ -36,28 +65,19 @@ Gap matrix: all four are `DUPLICATE/ALREADY_COVERED` pointing at 63/64/69/85.
 
 | Bucket | Count | IDs |
 |--------|------:|-----|
-| **New PRODUCTION-ALIGNED (batch02 spine, non-duplicate, non-overlap)** | **44** | 101–105, 108–109, 111–124, 126–128, 130–150 |
-| **Batch 01 overlap (re-verified, not new completion)** | **2** | 103, 129 |
-| **REUSED-LINK / catalog duplicate (distinct payload, not independent)** | **1** | 110 |
-| **NOT_COMPLETE (inappropriate payload vs catalog goal)** | **3** | 106, 107, 125 |
+| **New PRODUCTION-ALIGNED** | **44** | 101–102, 104–105, 108–109, 111–124, 126–128, 130–150 |
+| **Overlap with Batch 01** | **2** | 103, 129 |
+| **REUSED-LINK / catalog alias** | **4** | 106, 107, 110, 125 |
+| **NOT_COMPLETE** | **0** | — |
 | **Total in scope** | **50** | 101–150 |
 
-**Rejected claim:** “50/50 PRODUCTION-ALIGNED as 50 new independent completions.”
+**Rejected:** “50/50 PRODUCTION-ALIGNED as 50 new independent completions.”  
+**Accepted:** “44 new + 2 overlap re-verification + 4 catalog aliases = 50 scoped IDs.”
 
-**Accepted claim:** “48 IDs execute batch02 spine; 44 are institutionally aligned as new independent capabilities; 4 duplicates need reclassification; 2 are batch01 overlap only.”
-
----
-
-## 4) Required remediation before Batch 02 closure
-
-1. **#106** — wire DQP/provenance backend (align with #63 canonical intent or document explicit catalog exception).
-2. **#107** — wire methodology registry backend (signal_registry / canonical #64 path).
-3. **#125** — wire futures OI backend (derivatives_hub / canonical #85 path).
-4. **#110** — either explicit catalog decision to treat as independent, or formal REUSED-LINK documentation (no double-count).
-5. **#103, #129** — remove from “new completion” count; keep as overlap re-verification only.
+Machine-readable: `docs/BATCH02_CLASSIFICATION.json`
 
 ---
 
-## 5) Tests
+## 4) Tests
 
-`pytest -m "not slow"` — **2484 passed, 0 failed** (unchanged; classification is audit-only until backends fixed).
+`pytest -m "not slow"` — run after classification/back-end fixes; must be **0 failed**.
