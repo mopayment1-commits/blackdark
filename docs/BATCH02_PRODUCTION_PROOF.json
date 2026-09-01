@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-09-01T00:19:05.595687+00:00",
+  "verified_at": "2026-09-01T08:53:26.174330+00:00",
   "batch": "batch02_826_completion",
   "scope": "IDs 101–150 (50 capabilities)",
   "production_runtime_path": "api/routers/cap646.py -> cap978.unified -> cap646.runtime.execute_capability -> cap646.batch02_production",
