@@ -1,0 +1,1740 @@
+{
+  "audit_id": "CAP_DEDUP_AUDIT_1_100",
+  "generated_at": "2026-09-01T17:31:38.631387+00:00",
+  "standards": [
+    "Roy & Cordy 2007",
+    "CWE-1041",
+    "ISO/IEC 25010",
+    "ISO/IEC 5055"
+  ],
+  "methodology": {
+    "level_1_mece": "4 matrices — inputs/goals/surfaces/backends",
+    "level_2_ast": "pylint R0801 on cap646/",
+    "level_3_ssot": "canonical backends in inventory per financial formula family",
+    "level_4_semantic": "live contract tests >=5 symbols x2 kinds"
+  },
+  "clone_analysis": {
+    "type_1_2_findings": [],
+    "pylint_r0801": [
+      {
+        "rule": "R0801",
+        "raw": "cap646/handlers/batch02.py:1:0: R0801: Similar lines in 2 files"
+      },
+      {
+        "rule": "R0801",
+        "raw": "cap646/handlers/batch02.py:1:0: R0801: Similar lines in 2 files"
+      },
+      {
+        "rule": "R0801",
+        "raw": "cap646/handlers/batch02.py:1:0: R0801: Similar lines in 2 files"
+      }
+    ],
+    "jscpd_note": "jscpd not run — repo is Python-primary; pylint R0801 + Sonar CPD used"
+  },
+  "mece_matrices": {
+    "matrix_1_official_vs_official": {
+      "pairs_flagged": 0,
+      "pairs": []
+    },
+    "matrix_2_official_vs_hero_201_300": {
+      "pairs_flagged": 8,
+      "pairs": [
+        {
+          "id_a": 17,
+          "id_b": 212,
+          "goal_a": "Smart Alerts",
+          "goal_b": "Smart Alerts",
+          "surface_a": "smart_alerts",
+          "surface_b": "",
+          "backend_a": "cap646.batch01_production.cap_017",
+          "backend_b": "instant_alert_engine.engine_stats",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 63,
+          "id_b": 221,
+          "goal_a": "Data Quality & Provenance Layer",
+          "goal_b": "Data Quality & Provenance Layer",
+          "surface_a": "data_quality_provenance_layer",
+          "surface_b": "",
+          "backend_a": "cap646.batch02_production.cap_063",
+          "backend_b": "data_provenance_score.compute_data_provenance_score",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 64,
+          "id_b": 222,
+          "goal_a": "Metric Methodology Registry",
+          "goal_b": "Metric Methodology Registry",
+          "surface_a": "metric_methodology_registry",
+          "surface_b": "",
+          "backend_a": "cap646.batch02_production.cap_064",
+          "backend_b": "signal_registry.registry_stats",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 69,
+          "id_b": 226,
+          "goal_a": "Cross-Domain Decision Intelligence Layer",
+          "goal_b": "Cross-Domain Decision Intelligence Layer",
+          "surface_a": "cross_domain_decision_intelligence_layer",
+          "surface_b": "",
+          "backend_a": "cap646.handlers.onchain.handle_onchain_capability",
+          "backend_b": "ai_oracle.evaluate_opportunity",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 86,
+          "id_b": 206,
+          "goal_a": "Funding Rate Intelligence",
+          "goal_b": "Funding Rate Intelligence",
+          "surface_a": "funding_rate_intelligence",
+          "surface_b": "",
+          "backend_a": "cap646.batch02_production.cap_086",
+          "backend_b": "bd_platform.derivatives_hub.derivatives_overview",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 86,
+          "id_b": 228,
+          "goal_a": "Funding Rate Intelligence",
+          "goal_b": "Funding Rate Intelligence",
+          "surface_a": "funding_rate_intelligence",
+          "surface_b": "",
+          "backend_a": "cap646.batch02_production.cap_086",
+          "backend_b": "bd_platform.derivatives_hub.derivatives_overview",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 86,
+          "id_b": 256,
+          "goal_a": "Funding Rate Intelligence",
+          "goal_b": "Funding Rate Intelligence",
+          "surface_a": "funding_rate_intelligence",
+          "surface_b": "",
+          "backend_a": "cap646.batch02_production.cap_086",
+          "backend_b": "bd_platform.derivatives_hub.derivatives_overview",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 88,
+          "id_b": 233,
+          "goal_a": "Liquidation Intelligence",
+          "goal_b": "Liquidation Intelligence",
+          "surface_a": "liquidation_intelligence",
+          "surface_b": "",
+          "backend_a": "cap646.batch02_production.cap_088",
+          "backend_b": "bd_platform.liquidation_radar.liquidation_radar",
+          "verdict": "OVERLAP-PARTIAL"
+        }
+      ]
+    },
+    "matrix_3_official_vs_prebatch": {
+      "pairs_flagged": 0,
+      "pairs": []
+    },
+    "matrix_4_official_vs_batch03_prep": {
+      "pairs_flagged": 4,
+      "pairs": [
+        {
+          "id_a": 63,
+          "id_b": 106,
+          "goal_a": "Data Quality & Provenance Layer",
+          "goal_b": "Data Quality & Provenance Layer",
+          "surface_a": "data_quality_provenance_layer",
+          "surface_b": "",
+          "backend_a": "cap646.batch02_production.cap_063",
+          "backend_b": "cap646.batch03_production.cap_106",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 64,
+          "id_b": 107,
+          "goal_a": "Metric Methodology Registry",
+          "goal_b": "Metric Methodology Registry",
+          "surface_a": "metric_methodology_registry",
+          "surface_b": "",
+          "backend_a": "cap646.batch02_production.cap_064",
+          "backend_b": "cap646.batch03_production.cap_107",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 69,
+          "id_b": 110,
+          "goal_a": "Cross-Domain Decision Intelligence Layer",
+          "goal_b": "Cross-Domain Decision Intelligence Layer",
+          "surface_a": "cross_domain_decision_intelligence_layer",
+          "surface_b": "",
+          "backend_a": "cap646.handlers.onchain.handle_onchain_capability",
+          "backend_b": "cap646.batch03_production.cap_110",
+          "verdict": "OVERLAP-PARTIAL"
+        },
+        {
+          "id_a": 85,
+          "id_b": 125,
+          "goal_a": "Futures Open Interest Intelligence",
+          "goal_b": "Futures Open Interest Intelligence",
+          "surface_a": "futures_open_interest_intelligence",
+          "surface_b": "",
+          "backend_a": "cap646.batch02_production.cap_085",
+          "backend_b": "cap646.batch03_production.cap_125",
+          "verdict": "OVERLAP-PARTIAL"
+        }
+      ]
+    }
+  },
+  "pair_57_vs_85": {
+    "id_a": 57,
+    "id_b": 85,
+    "goal_a": "Profitability Map",
+    "goal_b": "Futures Open Interest Intelligence",
+    "surface_a": "profitability_map",
+    "surface_b": "futures_open_interest_intelligence",
+    "backend_a": "cap646.batch02_production.cap_057",
+    "backend_b": "cap646.batch02_production.cap_085",
+    "verdict": "DISTINCT-VERIFIED"
+  },
+  "live_contract_tests": [
+    {
+      "pair": [
+        57,
+        85
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "spot_futures",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "ETH",
+          "kind": "spot_futures",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "SOL",
+          "kind": "spot_futures",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "spot_futures",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "spot_futures",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        }
+      ],
+      "all_surfaces_match": false
+    },
+    {
+      "pair": [
+        57,
+        85
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "funding",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "ETH",
+          "kind": "funding",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "SOL",
+          "kind": "funding",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "funding",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "funding",
+          "a_surface": "profitability_map",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        }
+      ],
+      "all_surfaces_match": false
+    },
+    {
+      "pair": [
+        38,
+        39
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "spot_futures",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "ETH",
+          "kind": "spot_futures",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "SOL",
+          "kind": "spot_futures",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "spot_futures",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "spot_futures",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        }
+      ],
+      "all_surfaces_match": false
+    },
+    {
+      "pair": [
+        38,
+        39
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "funding",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "ETH",
+          "kind": "funding",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "SOL",
+          "kind": "funding",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "funding",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "funding",
+          "a_surface": "cost_basis_distribution",
+          "b_surface": "realized_cap_realized_price",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": false
+        }
+      ],
+      "all_surfaces_match": false
+    },
+    {
+      "pair": [
+        106,
+        63
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "spot_futures",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "ETH",
+          "kind": "spot_futures",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "SOL",
+          "kind": "spot_futures",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "spot_futures",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "spot_futures",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        }
+      ],
+      "all_surfaces_match": true
+    },
+    {
+      "pair": [
+        106,
+        63
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "funding",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "ETH",
+          "kind": "funding",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "SOL",
+          "kind": "funding",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "funding",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "funding",
+          "a_surface": "data_quality_provenance_layer",
+          "b_surface": "data_quality_provenance_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        }
+      ],
+      "all_surfaces_match": true
+    },
+    {
+      "pair": [
+        107,
+        64
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "spot_futures",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "ETH",
+          "kind": "spot_futures",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "SOL",
+          "kind": "spot_futures",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "spot_futures",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "spot_futures",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        }
+      ],
+      "all_surfaces_match": true
+    },
+    {
+      "pair": [
+        107,
+        64
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "funding",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "ETH",
+          "kind": "funding",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "SOL",
+          "kind": "funding",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "funding",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "funding",
+          "a_surface": "metric_methodology_registry",
+          "b_surface": "metric_methodology_registry",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        }
+      ],
+      "all_surfaces_match": true
+    },
+    {
+      "pair": [
+        110,
+        69
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "spot_futures",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "ETH",
+          "kind": "spot_futures",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "SOL",
+          "kind": "spot_futures",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "spot_futures",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "spot_futures",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        }
+      ],
+      "all_surfaces_match": true
+    },
+    {
+      "pair": [
+        110,
+        69
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "funding",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "ETH",
+          "kind": "funding",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "SOL",
+          "kind": "funding",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "funding",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "funding",
+          "a_surface": "cross_domain_decision_intelligence_layer",
+          "b_surface": "cross_domain_decision_intelligence_layer",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        }
+      ],
+      "all_surfaces_match": true
+    },
+    {
+      "pair": [
+        125,
+        85
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "spot_futures",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "ETH",
+          "kind": "spot_futures",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "SOL",
+          "kind": "spot_futures",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "spot_futures",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "spot_futures",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        }
+      ],
+      "all_surfaces_match": true
+    },
+    {
+      "pair": [
+        125,
+        85
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "kind": "funding",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "ETH",
+          "kind": "funding",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "SOL",
+          "kind": "funding",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "AVAX",
+          "kind": "funding",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        },
+        {
+          "symbol": "DOGE",
+          "kind": "funding",
+          "a_surface": "futures_open_interest_intelligence",
+          "b_surface": "futures_open_interest_intelligence",
+          "a_success": true,
+          "b_success": true,
+          "surfaces_match": true
+        }
+      ],
+      "all_surfaces_match": true
+    }
+  ],
+  "split_brain": {
+    "split_brain_total_202": 202,
+    "intersection_1_100": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      11,
+      12,
+      13,
+      14,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      25,
+      27,
+      28,
+      29,
+      30,
+      33,
+      34,
+      36,
+      37,
+      40,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      55,
+      56,
+      59,
+      60,
+      62,
+      63,
+      69,
+      71,
+      72,
+      73,
+      74,
+      75,
+      77,
+      79,
+      81,
+      85,
+      86,
+      88,
+      91,
+      92,
+      96,
+      98
+    ],
+    "intersection_count_1_100": 56,
+    "non_spine_path_ids_1_100": [
+      1,
+      2,
+      3,
+      4,
+      10,
+      21,
+      38,
+      39,
+      45,
+      55,
+      56,
+      59,
+      60
+    ],
+    "non_spine_intersection_split_brain": [
+      1,
+      2,
+      3,
+      4,
+      10,
+      21,
+      45,
+      55,
+      56,
+      59,
+      60
+    ]
+  },
+  "per_id": {
+    "1": {
+      "capability_id": 1,
+      "goal": "Smart Money Leaderboard",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_001",
+      "expected_surface": null
+    },
+    "2": {
+      "capability_id": 2,
+      "goal": "Wallet Profiler",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_002",
+      "expected_surface": null
+    },
+    "3": {
+      "capability_id": 3,
+      "goal": "Wallet Profiler for Token",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_003",
+      "expected_surface": null
+    },
+    "4": {
+      "capability_id": 4,
+      "goal": "Smart Money Tracking",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_004",
+      "expected_surface": null
+    },
+    "5": {
+      "capability_id": 5,
+      "goal": "Smart Money Accumulation / Distribution Detection",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_005",
+      "expected_surface": null
+    },
+    "6": {
+      "capability_id": 6,
+      "goal": "Smart Money Token Screener",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_006",
+      "expected_surface": "smart_money_token_screener"
+    },
+    "7": {
+      "capability_id": 7,
+      "goal": "Holder Distribution Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_007",
+      "expected_surface": "holder_distribution_intelligence"
+    },
+    "8": {
+      "capability_id": 8,
+      "goal": "Top Holders Concentration Analysis",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_008",
+      "expected_surface": "top_holders_concentration_analysis"
+    },
+    "9": {
+      "capability_id": 9,
+      "goal": "Distribution Score",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_009",
+      "expected_surface": "distribution_score"
+    },
+    "10": {
+      "capability_id": 10,
+      "goal": "Wallet PnL Analysis",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_010",
+      "expected_surface": null
+    },
+    "11": {
+      "capability_id": 11,
+      "goal": "Wallet Historical Performance & Win Rate",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_011",
+      "expected_surface": "wallet_historical_performance_win_rate"
+    },
+    "12": {
+      "capability_id": 12,
+      "goal": "Wallet Entry / Exit Analysis",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_012",
+      "expected_surface": "wallet_entry_exit_analysis"
+    },
+    "13": {
+      "capability_id": 13,
+      "goal": "Wallet Counterparty & Relationship Analysis",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_013",
+      "expected_surface": "wallet_counterparty_relationship_analysis"
+    },
+    "14": {
+      "capability_id": 14,
+      "goal": "Entity-Aware Wallet Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_014",
+      "expected_surface": "entity_aware_wallet_intelligence"
+    },
+    "15": {
+      "capability_id": 15,
+      "goal": "Exchange Flow Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_015",
+      "expected_surface": "exchange_flow_intelligence"
+    },
+    "16": {
+      "capability_id": 16,
+      "goal": "Candle / Price-Move Investigator",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_016",
+      "expected_surface": "candle_price_move_investigator"
+    },
+    "17": {
+      "capability_id": 17,
+      "goal": "Smart Alerts",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_017",
+      "expected_surface": "smart_alerts"
+    },
+    "18": {
+      "capability_id": 18,
+      "goal": "Custom Wallet Labels",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_018",
+      "expected_surface": "custom_wallet_labels"
+    },
+    "19": {
+      "capability_id": 19,
+      "goal": "Wallet & Token Watchlists",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_019",
+      "expected_surface": "wallet_token_watchlists"
+    },
+    "20": {
+      "capability_id": 20,
+      "goal": "Multi-Chain Portfolio Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_020",
+      "expected_surface": "multi_chain_portfolio_intelligence"
+    },
+    "21": {
+      "capability_id": 21,
+      "goal": "Transaction Decoder",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_021",
+      "expected_surface": null
+    },
+    "22": {
+      "capability_id": 22,
+      "goal": "Instant Wallet Due Diligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_022",
+      "expected_surface": "instant_wallet_due_diligence"
+    },
+    "23": {
+      "capability_id": 23,
+      "goal": "Instant Token Due Diligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_023",
+      "expected_surface": "instant_token_due_diligence"
+    },
+    "24": {
+      "capability_id": 24,
+      "goal": "AI Research Agent Grounded in Platform Data",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_024",
+      "expected_surface": "ai_research_agent_grounded"
+    },
+    "25": {
+      "capability_id": 25,
+      "goal": "Signal → Explanation Workflow",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_025",
+      "expected_surface": "signal_explanation_workflow"
+    },
+    "26": {
+      "capability_id": 26,
+      "goal": "Price-Move Explanation",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_026",
+      "expected_surface": "price_move_explanation"
+    },
+    "27": {
+      "capability_id": 27,
+      "goal": "Smart Money Historical Trend Analysis",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_027",
+      "expected_surface": "smart_money_historical_trend_analysis"
+    },
+    "28": {
+      "capability_id": 28,
+      "goal": "Smart Money Conviction Engine",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_028",
+      "expected_surface": "smart_money_conviction_engine"
+    },
+    "29": {
+      "capability_id": 29,
+      "goal": "Cross-Market Decision Intelligence Engine",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_029",
+      "expected_surface": "cross_market_decision_intelligence_engine"
+    },
+    "30": {
+      "capability_id": 30,
+      "goal": "Evidence & Confidence Layer",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_030",
+      "expected_surface": "evidence_confidence_layer"
+    },
+    "31": {
+      "capability_id": 31,
+      "goal": "Cross-Signal Confirmation",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_031",
+      "expected_surface": "cross_signal_confirmation"
+    },
+    "32": {
+      "capability_id": 32,
+      "goal": "Contradiction Detection",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_032",
+      "expected_surface": "contradiction_detection"
+    },
+    "33": {
+      "capability_id": 33,
+      "goal": "Smart Money Actionability Score",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_033",
+      "expected_surface": "smart_money_actionability_score"
+    },
+    "34": {
+      "capability_id": 34,
+      "goal": "Beginner Decision Mode",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_034",
+      "expected_surface": "beginner_decision_mode"
+    },
+    "35": {
+      "capability_id": 35,
+      "goal": "Market Compass / Market Regime Engine",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_035",
+      "expected_surface": "market_compass_regime_engine"
+    },
+    "36": {
+      "capability_id": 36,
+      "goal": "On-Chain Metrics Library",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_036",
+      "expected_surface": "on_chain_metrics_library"
+    },
+    "37": {
+      "capability_id": 37,
+      "goal": "Entity-Adjusted Metrics",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_037",
+      "expected_surface": "entity_adjusted_metrics"
+    },
+    "38": {
+      "capability_id": 38,
+      "goal": "Cost Basis Distribution",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_038",
+      "expected_surface": null
+    },
+    "39": {
+      "capability_id": 39,
+      "goal": "Realized Cap & Realized Price Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_039",
+      "expected_surface": null
+    },
+    "40": {
+      "capability_id": 40,
+      "goal": "MVRV / MVRV Z-Score Suite",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_040",
+      "expected_surface": "mvrv_mvrv_z_score_suite"
+    },
+    "41": {
+      "capability_id": 41,
+      "goal": "SOPR / Profitability Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_041",
+      "expected_surface": "sopr_profitability_intelligence"
+    },
+    "42": {
+      "capability_id": 42,
+      "goal": "Holder Cohort Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_042",
+      "expected_surface": "holder_cohort_intelligence"
+    },
+    "43": {
+      "capability_id": 43,
+      "goal": "Supply Dynamics Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_043",
+      "expected_surface": "supply_dynamics_intelligence"
+    },
+    "44": {
+      "capability_id": 44,
+      "goal": "Exchange Balance & Netflow Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_044",
+      "expected_surface": "exchange_balance_netflow_intelligence"
+    },
+    "45": {
+      "capability_id": 45,
+      "goal": "ETF Flow Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_045",
+      "expected_surface": null
+    },
+    "46": {
+      "capability_id": 46,
+      "goal": "Digital Asset Treasury Company Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_046",
+      "expected_surface": "digital_asset_treasury_company_intelligence"
+    },
+    "47": {
+      "capability_id": 47,
+      "goal": "Spot Market Metrics Suite",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_047",
+      "expected_surface": null
+    },
+    "48": {
+      "capability_id": 48,
+      "goal": "Futures Intelligence Suite",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_048",
+      "expected_surface": null
+    },
+    "49": {
+      "capability_id": 49,
+      "goal": "Options Intelligence Suite",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_049",
+      "expected_surface": null
+    },
+    "50": {
+      "capability_id": 50,
+      "goal": "Order Book Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch01_production.cap_050",
+      "expected_surface": "order_book_intelligence"
+    },
+    "51": {
+      "capability_id": 51,
+      "goal": "Macro & Traditional Finance Integration",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_051",
+      "expected_surface": "macro_traditional_finance_integration"
+    },
+    "52": {
+      "capability_id": 52,
+      "goal": "Cross-Asset Return Breadth",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_052",
+      "expected_surface": "cross_asset_return_breadth"
+    },
+    "53": {
+      "capability_id": 53,
+      "goal": "BTC-to-Macro Coupling",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_053",
+      "expected_surface": "btc_to_macro_coupling"
+    },
+    "54": {
+      "capability_id": 54,
+      "goal": "Global Liquidity Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_054",
+      "expected_surface": "global_liquidity_intelligence"
+    },
+    "55": {
+      "capability_id": 55,
+      "goal": "NVT Fair-Value Model",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_055",
+      "expected_surface": "nvt_fair_value_model"
+    },
+    "56": {
+      "capability_id": 56,
+      "goal": "Token Screener",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_056",
+      "expected_surface": "token_screener"
+    },
+    "57": {
+      "capability_id": 57,
+      "goal": "Profitability Map",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_057",
+      "expected_surface": "profitability_map"
+    },
+    "58": {
+      "capability_id": 58,
+      "goal": "Custom No-Code Charting / Workbench",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_058",
+      "expected_surface": "custom_no_code_charting_workbench"
+    },
+    "59": {
+      "capability_id": 59,
+      "goal": "Personalized Research Dashboards",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_059",
+      "expected_surface": "personalized_research_dashboards"
+    },
+    "60": {
+      "capability_id": 60,
+      "goal": "Metric-Based Smart Alerts",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch01_production.cap_060",
+      "expected_surface": "metric_based_smart_alerts"
+    },
+    "61": {
+      "capability_id": 61,
+      "goal": "Point-in-Time Immutable Metrics",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_061",
+      "expected_surface": "point_in_time_immutable_metrics"
+    },
+    "62": {
+      "capability_id": 62,
+      "goal": "Institutional Backtesting Data Layer",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_062",
+      "expected_surface": "institutional_backtesting_data_layer"
+    },
+    "63": {
+      "capability_id": 63,
+      "goal": "Data Quality & Provenance Layer",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_063",
+      "expected_surface": "data_quality_provenance_layer"
+    },
+    "64": {
+      "capability_id": 64,
+      "goal": "Metric Methodology Registry",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_064",
+      "expected_surface": "metric_methodology_registry"
+    },
+    "65": {
+      "capability_id": 65,
+      "goal": "Research Intelligence Portal",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_065",
+      "expected_surface": "research_intelligence_portal"
+    },
+    "66": {
+      "capability_id": 66,
+      "goal": "Market Regime Written Read",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_066",
+      "expected_surface": "market_regime_written_read"
+    },
+    "67": {
+      "capability_id": 67,
+      "goal": "API / CLI / Excel / MCP Data Access",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_067",
+      "expected_surface": "api_cli_excel_mcp_data_access"
+    },
+    "68": {
+      "capability_id": 68,
+      "goal": "Bulk Data & Institutional Delivery",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_068",
+      "expected_surface": "bulk_data_institutional_delivery"
+    },
+    "69": {
+      "capability_id": 69,
+      "goal": "Cross-Domain Decision Intelligence Layer",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.handlers.onchain.handle_onchain_capability",
+      "expected_surface": "cross_domain_decision_intelligence_layer"
+    },
+    "70": {
+      "capability_id": 70,
+      "goal": "Exchange Reserve Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_070",
+      "expected_surface": "exchange_reserve_intelligence"
+    },
+    "71": {
+      "capability_id": 71,
+      "goal": "Exchange Inflow / Outflow / Netflow",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_071",
+      "expected_surface": "exchange_inflow_outflow_netflow"
+    },
+    "72": {
+      "capability_id": 72,
+      "goal": "Exchange Whale Ratio",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_072",
+      "expected_surface": "exchange_whale_ratio"
+    },
+    "73": {
+      "capability_id": 73,
+      "goal": "Exchange Address & Transaction Activity",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_073",
+      "expected_surface": "exchange_address_transaction_activity"
+    },
+    "74": {
+      "capability_id": 74,
+      "goal": "Exchange-to-Exchange Flow Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_074",
+      "expected_surface": "exchange_to_exchange_flow_intelligence"
+    },
+    "75": {
+      "capability_id": 75,
+      "goal": "Exchange Internal-Flow Filter",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_075",
+      "expected_surface": "exchange_internal_flow_filter"
+    },
+    "76": {
+      "capability_id": 76,
+      "goal": "Stablecoin Exchange Reserve",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_076",
+      "expected_surface": "stablecoin_exchange_reserve"
+    },
+    "77": {
+      "capability_id": 77,
+      "goal": "Stablecoin Exchange Flow Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_077",
+      "expected_surface": "stablecoin_exchange_flow_intelligence"
+    },
+    "78": {
+      "capability_id": 78,
+      "goal": "Stablecoin Supply Ratio Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_078",
+      "expected_surface": "stablecoin_supply_ratio_intelligence"
+    },
+    "79": {
+      "capability_id": 79,
+      "goal": "Miner Flow Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_079",
+      "expected_surface": "miner_flow_intelligence"
+    },
+    "80": {
+      "capability_id": 80,
+      "goal": "Miners' Position Index (MPI)",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_080",
+      "expected_surface": "miners_position_index_mpi"
+    },
+    "81": {
+      "capability_id": 81,
+      "goal": "Whale Accumulation / Distribution Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_081",
+      "expected_surface": "whale_accumulation_distribution_intelligence"
+    },
+    "82": {
+      "capability_id": 82,
+      "goal": "Coinbase Premium Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_082",
+      "expected_surface": "coinbase_premium_intelligence"
+    },
+    "83": {
+      "capability_id": 83,
+      "goal": "Korea Premium Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_083",
+      "expected_surface": "korea_premium_intelligence"
+    },
+    "84": {
+      "capability_id": 84,
+      "goal": "Fund / ETF Data Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_084",
+      "expected_surface": "fund_etf_data_intelligence"
+    },
+    "85": {
+      "capability_id": 85,
+      "goal": "Futures Open Interest Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_085",
+      "expected_surface": "futures_open_interest_intelligence"
+    },
+    "86": {
+      "capability_id": 86,
+      "goal": "Funding Rate Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_086",
+      "expected_surface": "funding_rate_intelligence"
+    },
+    "87": {
+      "capability_id": 87,
+      "goal": "Estimated Leverage Ratio",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_087",
+      "expected_surface": "estimated_leverage_ratio"
+    },
+    "88": {
+      "capability_id": 88,
+      "goal": "Liquidation Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_088",
+      "expected_surface": "liquidation_intelligence"
+    },
+    "89": {
+      "capability_id": 89,
+      "goal": "Taker Buy / Sell Pressure",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_089",
+      "expected_surface": "taker_buy_sell_pressure"
+    },
+    "90": {
+      "capability_id": 90,
+      "goal": "Derivatives Market Sentiment Composite",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_090",
+      "expected_surface": "derivatives_market_sentiment_composite"
+    },
+    "91": {
+      "capability_id": 91,
+      "goal": "Inter-Entity Flow Intelligence",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_091",
+      "expected_surface": "inter_entity_flow_intelligence"
+    },
+    "92": {
+      "capability_id": 92,
+      "goal": "Address Labels & Cohorts",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_092",
+      "expected_surface": "address_labels_cohorts"
+    },
+    "93": {
+      "capability_id": 93,
+      "goal": "Custom No-Code Analytics / Web3 Analytics",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_093",
+      "expected_surface": "custom_no_code_analytics_web3"
+    },
+    "94": {
+      "capability_id": 94,
+      "goal": "Native SQL / Advanced Query Workspace",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_094",
+      "expected_surface": "native_sql_advanced_query_workspace"
+    },
+    "95": {
+      "capability_id": 95,
+      "goal": "Pro Chart & Multi-Metric Workbench",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_095",
+      "expected_surface": "pro_chart_multi_metric_workbench"
+    },
+    "96": {
+      "capability_id": 96,
+      "goal": "Personal Dashboards",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_096",
+      "expected_surface": "personal_dashboards"
+    },
+    "97": {
+      "capability_id": 97,
+      "goal": "Custom Metric Alerts",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_097",
+      "expected_surface": "custom_metric_alerts"
+    },
+    "98": {
+      "capability_id": 98,
+      "goal": "Whale Movement Alerts",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "Type-4-semantic-audit-pending",
+      "backend": "cap646.batch02_production.cap_098",
+      "expected_surface": "whale_movement_alerts"
+    },
+    "99": {
+      "capability_id": 99,
+      "goal": "QuickTake / Analyst Insight Feed",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_099",
+      "expected_surface": "quicktake_analyst_insight_feed"
+    },
+    "100": {
+      "capability_id": 100,
+      "goal": "Research Reports",
+      "final_classification": "PRODUCTION-ALIGNED",
+      "clone_type": "none",
+      "backend": "cap646.batch02_production.cap_100",
+      "expected_surface": "research_reports"
+    }
+  },
+  "closure_status": "PENDING_CLOSURE"
+}

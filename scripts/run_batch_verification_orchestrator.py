@@ -8,7 +8,10 @@ It does NOT replace independent CI gates (critical, gate-full, SonarCloud).
 from __future__ import annotations
 
 import asyncio
+import hashlib
+import hmac
 import json
+import os
 import subprocess
 import sys
 from datetime import UTC, datetime
@@ -54,6 +57,20 @@ ORCHESTRATED_SCRIPTS: list[dict[str, str]] = [
 ]
 
 
+def _owner_approval_ok() -> tuple[bool, str]:
+    """FFIEC separation-of-duties: require signed owner token when approval flag set."""
+    token = os.environ.get("INSTITUTIONAL_OWNER_APPROVAL_TOKEN", "")
+    secret = os.environ.get("INSTITUTIONAL_OWNER_APPROVAL_SECRET", "")
+    if not secret:
+        return False, "INSTITUTIONAL_OWNER_APPROVAL_SECRET not set"
+    if not token:
+        return False, "INSTITUTIONAL_OWNER_APPROVAL_TOKEN not set"
+    expected = hmac.new(secret.encode(), b"INSTITUTIONAL_CLOSED", hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(token, expected):
+        return False, "owner approval token mismatch"
+    return True, "owner approval token valid"
+
+
 def _run(script: str) -> dict:
     proc = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], capture_output=True, text=True)
     return {
@@ -65,6 +82,16 @@ def _run(script: str) -> dict:
 
 
 async def main() -> None:
+    closure_request = "--closure-request" in sys.argv
+    if closure_request:
+        approval_ok, approval_reason = _owner_approval_ok()
+        if not approval_ok:
+            print(json.dumps({"owner_approval_required": True, "reason": approval_reason}, indent=2))
+            raise SystemExit(
+                "Governance gate: owner approval token required for closure declaration "
+                "(INSTITUTIONAL_OWNER_APPROVAL_SECRET + INSTITUTIONAL_OWNER_APPROVAL_TOKEN)"
+            )
+
     results = [_run(entry["script"]) for entry in ORCHESTRATED_SCRIPTS]
     failed = [r for r in results if r["exit_code"] != 0]
 

@@ -328,11 +328,18 @@ async def build_macro_context() -> dict[str, Any]:
 
 async def build_macro_context_safe() -> dict[str, Any]:
     try:
-        return await build_macro_context()
+        ctx = await build_macro_context()
+        ctx["degraded"] = False
+        ctx["fallback"] = False
+        return ctx
     except Exception:
         logger.exception("Macro context build failed safely; returning neutral defaults.")
         snapshot = compute_macro_regime(_mock_macro_indicators())
-        return macro_context_from_snapshot(snapshot)
+        ctx = macro_context_from_snapshot(snapshot)
+        ctx["degraded"] = True
+        ctx["fallback"] = True
+        ctx["fallback_reason"] = "macro_fetch_failed_using_mock_indicators"
+        return ctx
 
 
 def merge_macro_context(
