@@ -48,6 +48,39 @@ async def handle_ai_capability(capability_id: int, *, params: dict[str, Any]) ->
             {"capability_id": capability_id, "surface": "sentiment_ai", "context": ctx, "gate": gate, "success": True}
         )
 
+    if capability_id == 53:
+        from macro_correlations import build_macro_context_safe
+        from market_context import fetch_binance_ticker
+
+        macro = await build_macro_context_safe()
+        ticker = await fetch_binance_ticker(f"{symbol}USDT")
+        change_24h = float((ticker or {}).get("change_24h") or 0)
+        coupling = {
+            "btc_symbol": symbol,
+            "btc_change_24h_pct": change_24h,
+            "macro_regime": macro.get("macro_regime"),
+            "dxy_score": macro.get("dxy_score"),
+            "spx_score": macro.get("spx_score"),
+            "btc_gold_ratio": macro.get("btc_gold_ratio"),
+            "btc_gold_score": macro.get("btc_gold_score"),
+            "coupling_read": (
+                "risk_on_aligned"
+                if macro.get("macro_regime") == "Risk-On" and change_24h > 0
+                else "risk_off_divergence"
+                if macro.get("macro_regime") == "Risk-Off" and change_24h > 0
+                else "neutral_coupling"
+            ),
+        }
+        return ai_compliance_footer(
+            {
+                "capability_id": 53,
+                "surface": "btc_to_macro_coupling",
+                "btc_to_macro_coupling": coupling,
+                "macro_context": macro,
+                "success": bool(macro),
+            }
+        )
+
     try:
         from ai_oracle import OpportunityKind, evaluate_opportunity
 

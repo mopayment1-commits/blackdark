@@ -1,6 +1,6 @@
 # CAPABILITIES 826 — Requirements Traceability Matrix (RTM)
 
-Generated: 2026-09-01T10:08:34.151376+00:00
+Generated: 2026-09-01T11:54:29.596054+00:00
 
 ## Scope baseline (owner-approved)
 

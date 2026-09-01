@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-09-01T10:06:01.594327+00:00",
+  "verified_at": "2026-09-01T11:59:58.651522+00:00",
   "batch": "official_batch01",
   "scope": "Official Batch 01 — IDs 1–50 (owner-approved baseline)",
   "production_runtime_path": "api/routers/cap646.py -> cap978.unified -> cap646.runtime.execute_capability -> cap646.batch01_production",

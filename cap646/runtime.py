@@ -30,6 +30,11 @@ OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS
 WAVE_D_SET = set(WAVE_D)
 
 
+def _runtime_classification(result: dict[str, Any]) -> str:
+    """826 RTM classification — VERIFIED_COMPLETE is banned for inventory reporting."""
+    return "PRODUCTION-ALIGNED" if result.get("success") else "NOT_COMPLETE"
+
+
 def _route_handler(track: str, name: str, capability_id: int):
     nl = name.lower()
     if capability_id in OPTION_A_IDS:
@@ -107,7 +112,7 @@ async def execute_capability(
         result.setdefault("capability_id", capability_id)
         result.setdefault("capability", row["capability"])
         result.setdefault("track", row["track"])
-        result.setdefault("classification", "PRODUCTION-ALIGNED" if result.get("success") else "NOT_READY")
+        result.setdefault("classification", _runtime_classification(result))
         from cap646.domain_enrichment import enrich_capability_result
 
         return await enrich_capability_result(capability_id, ai_compliance_footer(result), params=params)
@@ -117,7 +122,7 @@ async def execute_capability(
         result.setdefault("capability_id", capability_id)
         result.setdefault("capability", row["capability"])
         result.setdefault("track", row["track"])
-        result.setdefault("classification", "PRODUCTION-ALIGNED" if result.get("success") else "NOT_READY")
+        result.setdefault("classification", _runtime_classification(result))
         from cap646.domain_enrichment import enrich_capability_result
 
         return await enrich_capability_result(capability_id, ai_compliance_footer(result), params=params)
@@ -147,7 +152,7 @@ async def execute_capability(
         result.setdefault("capability_id", target_id)
         result.setdefault("capability", row["capability"])
         result.setdefault("track", row["track"])
-        result.setdefault("classification", "PRODUCTION-ALIGNED" if result.get("success") else "NOT_READY")
+        result.setdefault("classification", _runtime_classification(result))
         from cap646.domain_enrichment import enrich_capability_result
 
         return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)
@@ -157,7 +162,7 @@ async def execute_capability(
         result.setdefault("capability_id", target_id)
         result.setdefault("capability", row["capability"])
         result.setdefault("track", row["track"])
-        result.setdefault("classification", "PRODUCTION-ALIGNED" if result.get("success") else "NOT_READY")
+        result.setdefault("classification", _runtime_classification(result))
         from cap646.domain_enrichment import enrich_capability_result
 
         return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)
@@ -166,7 +171,7 @@ async def execute_capability(
         free_result = await execute_free_tier_capability(capability_id, params=params)
         free_result.setdefault("capability", row["capability"])
         free_result.setdefault("track", row["track"])
-        free_result.setdefault("classification", "VERIFIED_COMPLETE" if free_result.get("success") else "NOT_READY")
+        free_result.setdefault("classification", _runtime_classification(free_result))
         from cap646.domain_enrichment import enrich_capability_result
 
         return await enrich_capability_result(capability_id, ai_compliance_footer(free_result), params=params)
@@ -187,7 +192,7 @@ async def execute_capability(
     result.setdefault("capability_id", target_id)
     result.setdefault("capability", row["capability"])
     result.setdefault("track", row["track"])
-    result.setdefault("classification", "VERIFIED_COMPLETE" if result.get("success") else "NOT_READY")
+    result.setdefault("classification", _runtime_classification(result))
     if "backend_module" not in result:
         result["backend_module"] = getattr(handler, "__module__", "cap646.handlers")
         result["backend_entrypoint"] = getattr(handler, "__name__", "unknown")

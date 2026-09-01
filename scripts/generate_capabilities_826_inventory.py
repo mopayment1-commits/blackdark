@@ -161,8 +161,10 @@ def main() -> None:
             "definition": "Not yet audited under official batch sequential closure.",
         },
         "VERIFIED_COMPLETE": {
-            "definition": "BANNED — not registered for use in reports until formally defined in this inventory.",
+            "definition": "BANNED for 826 RTM `status`/`classification` fields. Legacy cap978 CI closure may still emit `verdict: VERIFIED_COMPLETE` as a separate internal namespace — do not map to RTM without formal registration here.",
             "status": "DEPRECATED_UNREGISTERED",
+            "rtm_usage": "forbidden",
+            "cap978_ci_verdict": "legacy_internal_only",
         },
     }
 
