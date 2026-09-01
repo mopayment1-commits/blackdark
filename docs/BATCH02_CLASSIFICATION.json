@@ -41,7 +41,13 @@
       "canonical_goal": "Cross-Domain Decision Intelligence Layer",
       "post_spine_result": "matches_original_goal",
       "classification": "REUSED-LINK",
-      "catalog_basis": "REPEAT_CANONICAL + gap matrix DUPLICATE/ALREADY_COVERED"
+      "catalog_basis": "REPEAT_CANONICAL + gap matrix DUPLICATE/ALREADY_COVERED",
+      "canonical_merge": {
+        "decision": "option_a_merge_into_canonical",
+        "shared_module": "cap646/cross_domain_decision.py",
+        "canonical_handler": "cap646/handlers/onchain.py capability_id==69",
+        "live_test": "tests/cap646/test_batch02_dedicated.py::test_canonical_69_cross_domain_not_generic_onchain"
+      }
     },
     "125": {
       "canonical_id": 85,
@@ -56,13 +62,13 @@
     "103": {
       "catalog_goal": "API Data Platform",
       "completed_in_batch01": true,
-      "batch02_backend": "none — batch01 spine re-invocation only",
+      "batch02_backend": "removed — BATCH02_OVERLAP_BATCH01_IDS reserved; execute() raises",
       "classification": "OVERLAP_BATCH01"
     },
     "129": {
       "catalog_goal": "Sentiment Intelligence",
       "completed_in_batch01": true,
-      "batch02_backend": "none — batch01 spine re-invocation only",
+      "batch02_backend": "removed — BATCH02_OVERLAP_BATCH01_IDS reserved; execute() raises",
       "classification": "OVERLAP_BATCH01"
     }
   }

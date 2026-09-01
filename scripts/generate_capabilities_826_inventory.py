@@ -93,9 +93,50 @@ def main() -> None:
             "backend": f"{binding.get('backend_module')}.{binding.get('backend_entrypoint')}",
         }
 
+    classification_taxonomy = {
+        "PRODUCTION-ALIGNED": {
+            "definition": "Capability achieves its catalog goal via the production spine with goal-specific payload.",
+            "acceptance_criteria": [
+                "Live execution returns surface and payload matching catalog goal",
+                "Not a catalog duplicate alias of another ID",
+                "Not batch overlap re-verification only",
+            ],
+        },
+        "REUSED-LINK": {
+            "definition": "Catalog-registered duplicate/alias of a canonical capability ID; entry point may differ but goal is the same documented capability.",
+            "acceptance_criteria": [
+                "docs/cap646/CAP646_GAP_MATRIX.json marks final_classification DUPLICATE/ALREADY_COVERED with canonical ID",
+                "AND/OR cap646/catalog.py REPEAT_CANONICAL maps identical capability name to canonical ID",
+                "Live payload achieves the shared catalog goal (not merely spine routing)",
+                "Does not count as an independent new completion in batch closure totals",
+            ],
+            "catalog_sources": [
+                "docs/cap646/CAP646_GAP_MATRIX.json",
+                "docs/cap646/CAP646_CATALOG.json",
+                "cap646/catalog.py REPEAT_CANONICAL",
+            ],
+        },
+        "OVERLAP_BATCH01": {
+            "definition": "ID re-listed in a later batch but completed in Batch 01; runtime uses batch01 spine only.",
+            "acceptance_criteria": [
+                "ID in BATCH01_IDS and later batch manifest",
+                "Live production_spine=batch01 on execute_capability",
+                "No dedicated backend in later batch spine",
+            ],
+        },
+        "NOT_COMPLETE": {
+            "definition": "Handler or payload does not achieve the catalog goal for the requested ID.",
+            "acceptance_criteria": [
+                "Surface or payload materially mismatches catalog capability name/purpose",
+                "Not documented as REUSED-LINK in official catalog sources",
+            ],
+        },
+    }
+
     out = {
         "generated_at": datetime.now(UTC).isoformat(),
         "scope": f"IDs 1-{PROJECT_SCOPE_TOTAL} institutional completion inventory",
+        "classification_taxonomy": classification_taxonomy,
         "summary": {
             "total_ids": PROJECT_SCOPE_TOTAL,
             "classification_counts": counts,
@@ -127,6 +168,18 @@ def main() -> None:
     ]
     for k, v in sorted(counts.items(), key=lambda kv: -kv[1]):
         lines.append(f"| {k} | {v} |")
+    lines.extend(
+        [
+            "",
+            "## REUSED-LINK (official category)",
+            "",
+            classification_taxonomy["REUSED-LINK"]["definition"],
+            "",
+            "**Acceptance criteria:**",
+        ]
+    )
+    for criterion in classification_taxonomy["REUSED-LINK"]["acceptance_criteria"]:
+        lines.append(f"- {criterion}")
     md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps(out["summary"], indent=2))
     print(f"Wrote {json_path} and {md_path}")

@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import pytest
 
-from cap646.batch02_dedicated import BATCH02_DEDICATED_IDS, EXPECTED_SURFACE, GENERIC_SURFACES
+from cap646.batch02_dedicated import BATCH02_DEDICATED_IDS, BATCH02_OVERLAP_BATCH01_IDS, EXPECTED_SURFACE, GENERIC_SURFACES
 from cap646.batch02_production import BATCH02_IDS
 
-BATCH02_OVERLAP_BATCH01 = frozenset({103, 129})
+BATCH02_OVERLAP_BATCH01 = BATCH02_OVERLAP_BATCH01_IDS
 FORMERLY_GENERIC_SAMPLE = frozenset({101, 102, 109, 110, 111, 116, 144})
 
 
@@ -84,3 +84,22 @@ async def test_batch02_formerly_generic_have_domain_payload(capability_id: int):
 
 def test_batch02_manifest_count():
     assert len(BATCH02_IDS) == 50
+
+
+@pytest.mark.parametrize("capability_id", sorted(BATCH02_OVERLAP_BATCH01))
+@pytest.mark.asyncio
+async def test_batch02_overlap_reserved_in_dedicated_spine(capability_id: int):
+    from cap646.batch02_dedicated import execute
+
+    with pytest.raises(ValueError, match="batch01 overlap"):
+        await execute(capability_id, params={"symbol": "BTC"})
+
+
+@pytest.mark.asyncio
+async def test_canonical_69_cross_domain_not_generic_onchain():
+    from cap646.runtime import execute_capability
+
+    result = await execute_capability(69, skip_entitlement=True, params={"symbol": "BTC"})
+    assert result["surface"] == "cross_domain_decision_intelligence_layer"
+    assert result["surface"] != "onchain_intelligence"
+    assert result.get("cross_domain_decision")

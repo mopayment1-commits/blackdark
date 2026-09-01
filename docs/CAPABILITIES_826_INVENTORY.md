@@ -1,6 +1,6 @@
 # CAPABILITIES 826 — Institutional Inventory
 
-Generated: 2026-09-01T06:41:29.573826+00:00
+Generated: 2026-09-01T08:22:33.276298+00:00
 
 ## Summary
 
@@ -21,3 +21,13 @@ Generated: 2026-09-01T06:41:29.573826+00:00
 | EXTENSION-PENDING-CAP646 | 6 |
 | REUSED-LINK | 4 |
 | OVERLAP_BATCH01 | 2 |
+
+## REUSED-LINK (official category)
+
+Catalog-registered duplicate/alias of a canonical capability ID; entry point may differ but goal is the same documented capability.
+
+**Acceptance criteria:**
+- docs/cap646/CAP646_GAP_MATRIX.json marks final_classification DUPLICATE/ALREADY_COVERED with canonical ID
+- AND/OR cap646/catalog.py REPEAT_CANONICAL maps identical capability name to canonical ID
+- Live payload achieves the shared catalog goal (not merely spine routing)
+- Does not count as an independent new completion in batch closure totals

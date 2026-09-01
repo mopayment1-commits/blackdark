@@ -1,4 +1,8 @@
-"""Batch 02 dedicated backends — goal-specific payloads for IDs 101–150."""
+"""Batch 02 dedicated backends — goal-specific payloads for IDs 101–150.
+
+IDs 103 and 129 are batch01 overlap: no dedicated backend here; runtime routes them to
+``cap646.batch01_production`` (see ``BATCH02_OVERLAP_BATCH01_IDS``).
+"""
 
 from __future__ import annotations
 
@@ -9,7 +13,8 @@ from typing import Any, Awaitable, Callable
 
 from cap646.evidence_class import ai_compliance_footer
 
-BATCH02_DEDICATED_IDS: frozenset[int] = frozenset(range(101, 151))
+BATCH02_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset({103, 129})
+BATCH02_DEDICATED_IDS: frozenset[int] = frozenset(range(101, 151)) - BATCH02_OVERLAP_BATCH01_IDS
 
 GENERIC_SURFACES = frozenset(
     {"onchain_intelligence", "ai_decision_intelligence", "market_data", "smart_alerts"}
@@ -127,18 +132,6 @@ async def _cap102(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     return _wrap(102, symbol=symbol, payload_key="il_vulnerability", payload=payload)
 
 
-async def _cap103(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from hot_storage import get_hot_storage_stats
-    hot = get_hot_storage_stats()
-    payload = hot.__dict__ if hasattr(hot, "__dict__") else hot
-    return _wrap(
-        103,
-        symbol=symbol,
-        payload_key="api_data_platform",
-        payload={"hot_storage": payload, "graphql": "/graphql", "institutional_api": "/api/institutional"},
-    )
-
-
 async def _cap104(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from bd_platform.infra_intelligence_layer import run_infra_intelligence_e2e_95_104
     payload = run_infra_intelligence_e2e_95_104(seed=_seed())
@@ -197,17 +190,10 @@ async def _cap109(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
 
 async def _cap110(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.institutional_delivery_intelligence_layer import cross_market_decision_intelligence_567
-    from bd_platform.pro_trader_layer import build_multi_dim_analysis_73
+    from cap646.cross_domain_decision import build_cross_domain_decision_payload
 
-    multi_dim = build_multi_dim_analysis_73(asset=symbol, seed=_seed())
-    cross = cross_market_decision_intelligence_567(symbol=symbol)
-    payload = {
-        "multi_dimensional": multi_dim,
-        "cross_market": cross,
-        "composite_score": multi_dim.get("composite_score"),
-        "catalog_link": {"duplicate_of": 69, "classification": "REUSED-LINK"},
-    }
+    payload = await build_cross_domain_decision_payload(symbol=symbol, seed=_seed())
+    payload["catalog_link"] = {"duplicate_of": 69, "classification": "REUSED-LINK"}
     return _wrap(110, symbol=symbol, payload_key="cross_domain_decision", payload=payload)
 
 
@@ -335,14 +321,6 @@ async def _cap128(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     from bd_platform.advanced_ta_risk_layer import run_advanced_ta_risk_e2e_117_128
     payload = run_advanced_ta_risk_e2e_117_128(seed=_seed())
     return _wrap(128, symbol=symbol, payload_key="momentum_intelligence", payload=payload)
-
-async def _cap129(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from sentiment_engine import build_sentiment_context_safe
-    from sentiment_gate import fetch_asset_sentiment
-    ctx = await build_sentiment_context_safe(symbol)
-    gate = await fetch_asset_sentiment(symbol)
-    payload = {"context": ctx, "gate": gate}
-    return _wrap(129, symbol=symbol, payload_key="sentiment_intelligence", payload=payload)
 
 
 async def _cap130(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
@@ -483,7 +461,6 @@ async def _cap150(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     101: _cap101,
     102: _cap102,
-    103: _cap103,
     104: _cap104,
     105: _cap105,
     106: _cap106,
@@ -509,7 +486,6 @@ _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     126: _cap126,
     127: _cap127,
     128: _cap128,
-    129: _cap129,
     130: _cap130,
     131: _cap131,
     132: _cap132,
@@ -535,6 +511,11 @@ _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
 
 
 async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    if capability_id in BATCH02_OVERLAP_BATCH01_IDS:
+        raise ValueError(
+            f"capability {capability_id} is batch01 overlap — reserved; "
+            "use cap646.batch01_production / runtime batch01 spine"
+        )
     if capability_id not in BATCH02_DEDICATED_IDS:
         raise ValueError(f"capability {capability_id} is not in batch02 dedicated spine")
     params = dict(params or {})

@@ -1,6 +1,45 @@
 {
-  "generated_at": "2026-09-01T06:41:29.573826+00:00",
+  "generated_at": "2026-09-01T08:22:33.276298+00:00",
   "scope": "IDs 1-826 institutional completion inventory",
+  "classification_taxonomy": {
+    "PRODUCTION-ALIGNED": {
+      "definition": "Capability achieves its catalog goal via the production spine with goal-specific payload.",
+      "acceptance_criteria": [
+        "Live execution returns surface and payload matching catalog goal",
+        "Not a catalog duplicate alias of another ID",
+        "Not batch overlap re-verification only"
+      ]
+    },
+    "REUSED-LINK": {
+      "definition": "Catalog-registered duplicate/alias of a canonical capability ID; entry point may differ but goal is the same documented capability.",
+      "acceptance_criteria": [
+        "docs/cap646/CAP646_GAP_MATRIX.json marks final_classification DUPLICATE/ALREADY_COVERED with canonical ID",
+        "AND/OR cap646/catalog.py REPEAT_CANONICAL maps identical capability name to canonical ID",
+        "Live payload achieves the shared catalog goal (not merely spine routing)",
+        "Does not count as an independent new completion in batch closure totals"
+      ],
+      "catalog_sources": [
+        "docs/cap646/CAP646_GAP_MATRIX.json",
+        "docs/cap646/CAP646_CATALOG.json",
+        "cap646/catalog.py REPEAT_CANONICAL"
+      ]
+    },
+    "OVERLAP_BATCH01": {
+      "definition": "ID re-listed in a later batch but completed in Batch 01; runtime uses batch01 spine only.",
+      "acceptance_criteria": [
+        "ID in BATCH01_IDS and later batch manifest",
+        "Live production_spine=batch01 on execute_capability",
+        "No dedicated backend in later batch spine"
+      ]
+    },
+    "NOT_COMPLETE": {
+      "definition": "Handler or payload does not achieve the catalog goal for the requested ID.",
+      "acceptance_criteria": [
+        "Surface or payload materially mismatches catalog capability name/purpose",
+        "Not documented as REUSED-LINK in official catalog sources"
+      ]
+    }
+  },
   "summary": {
     "total_ids": 826,
     "classification_counts": {

@@ -1,83 +1,127 @@
-# Batch 02 — Honest Closure Audit (post-decomposition)
+# Batch 02 — Honest Closure Audit (mandatory review #2)
 
 **Date:** 2026-09-01  
 **Scope:** IDs 101–150  
-**Verdict:** **NOT CLOSED** — honest count: **44 new PRODUCTION-ALIGNED + 2 overlap + 4 REUSED-LINK + 0 NOT_COMPLETE**
+**Status:** **NOT CLOSED**  
+**Batch 03:** **BLOCKED**
 
 ---
 
-## 1) Catalog duplicates — per-ID decomposition
+## 0) Critical contradiction resolved — #106, #107, #125
 
-Institutional rule: classification by **actual goal achievement** for the requested ID, not spine routing alone. Catalog duplicates (`REPEAT_CANONICAL` + gap matrix `DUPLICATE/ALREADY_COVERED`) are **REUSED-LINK**, not independent new completions.
+### Was code modified between Report #1 and Report #2?
 
-### #106 → canonical #63
+**Yes.** Report #1 (`e091f5f`, docs-only) described live behavior **before** backend fixes. Report #2 (`ad813af`) applied code changes **after** that audit.
 
-| Field | Value |
-|-------|-------|
-| **(a) Original ID goal** | **Data Quality & Provenance Layer** — score/lineage/provenance for data inputs |
-| **(b) Canonical #63 goal** | Same: **Data Quality & Provenance Layer** |
-| **(c) Post batch02 spine** | **Matches original ID goal** — `compute_data_provenance_score` + `hot_storage`; surface `data_quality_provenance_layer` |
-| **(d) Classification** | **REUSED-LINK** — catalog explicitly marks duplicate of #63; not an independent new completion |
+| ID | Report #1 (pre-fix, accurate at `e091f5f`) | Report #2 (post-fix, accurate at `ad813af`) |
+|----|---------------------------------------------|-----------------------------------------------|
+| **106** | `compute_contagion_vector_106` — wrong goal | `compute_data_provenance_score` + `hot_storage` |
+| **107** | `compute_whale_retail_ratio_107` — wrong goal | `signal_registry.registry_stats()` |
+| **125** | `custody_tracking_status_125` — wrong goal | `derivatives_overview` OI fields |
 
-### #107 → canonical #64
+**Commit:** `ad813afcdae0270409193f64d316dbc9a779653b`  
+**File:** `cap646/batch02_dedicated.py`
 
-| Field | Value |
-|-------|-------|
-| **(a) Original ID goal** | **Metric Methodology Registry** — registry stats for signal/metric methodology |
-| **(b) Canonical #64 goal** | Same: **Metric Methodology Registry** |
-| **(c) Post batch02 spine** | **Matches original ID goal** — `signal_registry.registry_stats()`; surface `metric_methodology_registry` |
-| **(d) Classification** | **REUSED-LINK** — catalog duplicate of #64 |
+```diff
+#106: compute_contagion_vector_106 → compute_data_provenance_score + hot_storage
+#107: compute_whale_retail_ratio_107 → signal_registry.registry_stats()
+#125: custody_tracking_status_125 → derivatives_overview (OI fields)
+```
 
-### #110 → canonical #69
+**Which report was inaccurate?** Report #1 was accurate **for code at that moment** but stated remediation was pending. Report #2 described **post-fix** behavior without always repeating that a code commit (`ad813af`) intervened — that sequencing gap caused the apparent contradiction.
 
-| Field | Value |
-|-------|-------|
-| **(a) Original ID goal** | **Cross-Domain Decision Intelligence Layer** — multi-dimensional + cross-market decision synthesis |
-| **(b) Canonical #69 goal** | Same catalog name; canonical handler returns generic `onchain_intelligence` (weaker) |
-| **(c) Post batch02 spine** | **Matches original ID goal** — `build_multi_dim_analysis_73` + `cross_market_decision_intelligence_567`; surface `cross_domain_decision_intelligence_layer` |
-| **(d) Classification** | **REUSED-LINK** — catalog duplicate of #69; batch02 spine is alias entry point, not independent capability |
-
-### #125 → canonical #85
-
-| Field | Value |
-|-------|-------|
-| **(a) Original ID goal** | **Futures Open Interest Intelligence** — OI contracts/USD from derivatives feed |
-| **(b) Canonical #85 goal** | Same: **Futures Open Interest Intelligence** |
-| **(c) Post batch02 spine** | **Matches original ID goal** — `derivatives_overview` with `open_interest_usd` / `open_interest_contracts`; surface `futures_open_interest_intelligence` |
-| **(d) Classification** | **REUSED-LINK** — catalog duplicate of #85 |
-
-**Note:** Passing through batch02 spine does **not** make these PRODUCTION-ALIGNED as new independent completions.
+**Current live state (verified 2026-09-01):** all three return goal-aligned payloads via batch02 spine.
 
 ---
 
-## 2) Overlap with Batch 01 — #103, #129
+## 1) REUSED-LINK — catalog evidence per pair
 
-| ID | Catalog goal | Completed in Batch 01? | Batch 02 backend | Classification |
-|----|--------------|------------------------|------------------|----------------|
-| **103** | API Data Platform | **Yes** (`BATCH01_IDS`) | **No new backend** — runtime uses `batch01` spine (`cap646.batch01_production`) | **OVERLAP_BATCH01** — not counted in 44 new |
-| **129** | Sentiment Intelligence | **Yes** (`BATCH01_IDS`) | **No new backend** — runtime uses `batch01` spine | **OVERLAP_BATCH01** — not counted in 44 new |
+Institutional basis requires **both** gap-matrix duplicate marking **and** identical capability name in catalog / `REPEAT_CANONICAL`.
 
-`batch02_dedicated._cap103` / `_cap129` exist in code but are **dead code** at runtime (batch01 wins first in `runtime.py`).
+### #106 → #63
+
+| Source | Evidence |
+|--------|----------|
+| `cap646/catalog.py` L14–L15 | `"Data Quality & Provenance Layer": 63` |
+| `docs/cap646/CAP646_CATALOG.json` L437–441 / L738–742 | #63 and #106 share capability name **"Data Quality & Provenance Layer"** |
+| `docs/cap646/CAP646_GAP_MATRIX.json` L1720–1736 | `"final_classification": "DUPLICATE/ALREADY_COVERED"`, `"reason": "Duplicate of ID63 \`Data Quality & Provenance Layer\`"` |
+
+**Post-spine:** matches original goal → **REUSED-LINK** (not independent PRODUCTION-ALIGNED)
+
+### #107 → #64
+
+| Source | Evidence |
+|--------|----------|
+| `cap646/catalog.py` L16 | `"Metric Methodology Registry": 64` |
+| `docs/cap646/CAP646_CATALOG.json` L444–448 / L745–749 | identical capability name |
+| `docs/cap646/CAP646_GAP_MATRIX.json` L1739–1754 | `"DUPLICATE/ALREADY_COVERED"`, `"reason": "Duplicate of ID64: ID64 signal_registry canonical registry"` |
+
+**Post-spine:** matches original goal → **REUSED-LINK**
+
+### #110 → #69
+
+| Source | Evidence |
+|--------|----------|
+| `cap646/catalog.py` L17 | `"Cross-Domain Decision Intelligence Layer": 69` |
+| `docs/cap646/CAP646_CATALOG.json` L479–483 / L766–770 | identical capability name |
+| `docs/cap646/CAP646_GAP_MATRIX.json` L1785–1802 | `"DUPLICATE/ALREADY_COVERED"`, `"reason": "Duplicate of ID69: ID69/251 ai_oracle + trust_pulse + decision_certificate"` |
+
+**Decision (mandatory #110):** **Option (a) — merge into canonical #69**
+
+- Shared module: `cap646/cross_domain_decision.py`
+- Canonical handler updated: `cap646/handlers/onchain.py` — #69 now returns `surface=cross_domain_decision_intelligence_layer` (not `onchain_intelligence`)
+- #110 batch02 entry remains REUSED-LINK alias using same shared builder
+- Live proof: `test_canonical_69_cross_domain_not_generic_onchain` in `tests/cap646/test_batch02_dedicated.py`
+
+### #125 → #85
+
+| Source | Evidence |
+|--------|----------|
+| `cap646/catalog.py` L24 | `"Futures Open Interest Intelligence": 85` |
+| `docs/cap646/CAP646_CATALOG.json` L591–595 / L871–875 | identical capability name |
+| `docs/cap646/CAP646_GAP_MATRIX.json` L2006–2019 | `"DUPLICATE/ALREADY_COVERED"`, `"reason": "Duplicate of ID85 \`Futures Open Interest Intelligence\`"` |
+
+**Post-spine:** matches original goal → **REUSED-LINK**
 
 ---
 
-## 3) Honest closure numbers
+## 2) Overlap — #103, #129
+
+| ID | Batch 01 complete? | Batch 02 backend | Live `production_spine` |
+|----|-------------------|------------------|-------------------------|
+| **103** | Yes | **Removed** — reserved overlap | `batch01` |
+| **129** | Yes | **Removed** — reserved overlap | `batch01` |
+
+**Decision:** dead `_cap103` / `_cap129` **deleted**. `BATCH02_OVERLAP_BATCH01_IDS` documents reservation; `batch02_dedicated.execute(103|129)` raises `ValueError` directing to batch01 spine.
+
+**Not counted** in 44 new PRODUCTION-ALIGNED.
+
+---
+
+## 3) Honest closure numbers (live-verified)
 
 | Bucket | Count | IDs |
 |--------|------:|-----|
 | **New PRODUCTION-ALIGNED** | **44** | 101–102, 104–105, 108–109, 111–124, 126–128, 130–150 |
-| **Overlap with Batch 01** | **2** | 103, 129 |
-| **REUSED-LINK / catalog alias** | **4** | 106, 107, 110, 125 |
+| **Overlap Batch 01** | **2** | 103, 129 |
+| **REUSED-LINK** | **4** | 106, 107, 110, 125 |
 | **NOT_COMPLETE** | **0** | — |
 | **Total in scope** | **50** | 101–150 |
 
-**Rejected:** “50/50 PRODUCTION-ALIGNED as 50 new independent completions.”  
-**Accepted:** “44 new + 2 overlap re-verification + 4 catalog aliases = 50 scoped IDs.”
+---
 
-Machine-readable: `docs/BATCH02_CLASSIFICATION.json`
+## 4) REUSED-LINK official category
+
+Defined in `docs/CAPABILITIES_826_INVENTORY.json` → `classification_taxonomy.REUSED-LINK` (generated by `scripts/generate_capabilities_826_inventory.py`).
 
 ---
 
-## 4) Tests
+## 5) Tests
 
-`pytest -m "not slow"` — run after classification/back-end fixes; must be **0 failed**.
+`pytest -m "not slow"` — **0 failed** (run after this commit).
+
+---
+
+## 6) STOP
+
+Batch 02 **NOT CLOSED**. Batch 03 **BLOCKED** until explicit approval.
