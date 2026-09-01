@@ -1,6 +1,6 @@
 # CAPABILITIES 826 — Requirements Traceability Matrix (RTM)
 
-Generated: 2026-09-01T11:54:29.596054+00:00
+Generated: 2026-09-01T12:38:25.257537+00:00
 
 ## Scope baseline (owner-approved)
 
@@ -16,16 +16,18 @@ Generated: 2026-09-01T11:54:29.596054+00:00
 |--------|------:|
 | Total scope | 826 |
 | Official batch01 PRODUCTION-ALIGNED | 50/50 |
+| Official batch02 PRODUCTION-ALIGNED | 50/50 |
+| Official batch02 independent build | 46/46 |
+| Official batch02 OVERLAP batch01 | 4/4 |
 
 ## Status breakdown
 
 | Status | Count |
 |--------|------:|
-| PENDING | 581 |
-| NOT_COMPLETE | 127 |
-| PRODUCTION-ALIGNED | 68 |
-| PENDING_SCOPE_REALIGNMENT | 44 |
-| PENDING_CANONICAL_AUDIT | 4 |
-| OVERLAP_BATCH01 | 2 |
+| PENDING | 553 |
+| PRODUCTION-ALIGNED | 114 |
+| NOT_COMPLETE | 109 |
+| PENDING_SCOPE_REALIGNMENT | 46 |
+| REUSED-LINK | 4 |
 
 > `VERIFIED_COMPLETE` is banned until formally registered in this inventory.

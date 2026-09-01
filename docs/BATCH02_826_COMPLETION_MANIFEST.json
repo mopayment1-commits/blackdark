@@ -1,39 +1,42 @@
 {
-  "batch": "batch02_826_completion",
-  "scope": "IDs 101–150 (50 capabilities)",
-  "status": "NOT_CLOSED",
-  "priority": "infra + market analysis + TA risk + onchain platform + data sources",
-  "capability_ids": [
-    101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
-    111, 112, 113, 114, 115, 116, 117, 118, 119, 120,
-    121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
-    131, 132, 133, 134, 135, 136, 137, 138, 139, 140,
-    141, 142, 143, 144, 145, 146, 147, 148, 149, 150
-  ],
-  "production_spine": "cap646.batch02_production",
-  "binding_source": "explicit_option_a",
-  "closure_summary": {
-    "total_in_scope": 50,
-    "new_production_aligned": 44,
-    "overlap_batch01": 2,
-    "reused_link": 4,
+  "manifest_id": "BATCH02_OFFICIAL_51_100",
+  "generated_at": "2026-09-01T12:40:00+00:00",
+  "official_batch": "batch02",
+  "scope": "IDs 51–100",
+  "closure_status": "CLOSED_PENDING_CRITICAL_GATE",
+  "counts": {
+    "total": 50,
+    "production_aligned": 50,
+    "independent_production_aligned": 46,
+    "overlap_batch01": 4,
+    "reused_link_in_scope": 0,
     "not_complete": 0
   },
-  "new_production_aligned_ids": [
-    101, 102, 104, 105, 108, 109, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120,
-    121, 122, 123, 124, 126, 127, 128, 130, 131, 132, 133, 134, 135, 136, 137, 138,
-    139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150
-  ],
-  "overlap_batch01_ids": [103, 129],
-  "reused_link_ids": [106, 107, 110, 125],
-  "not_complete_ids": [],
-  "completion_criteria": [
-    "functional_completeness",
-    "functional_correctness",
-    "functional_appropriateness",
-    "production_path_alignment",
-    "reliability",
-    "user_facing_surface_where_applicable"
-  ],
-  "classification_artifact": "docs/BATCH02_CLASSIFICATION.json"
+  "evidence_artifacts": {
+    "rtm_audit": "docs/BATCH02_OFFICIAL_RTM_51_100.json",
+    "http_proof": "docs/BATCH02_HTTP_PROOF_51_100.json",
+    "classification": "docs/BATCH02_CLASSIFICATION.json",
+    "reused_link_taxonomy": "docs/REUSED_LINK_TAXONOMY.json",
+    "inventory": "docs/CAPABILITIES_826_INVENTORY.json",
+    "hero_evidence": "data/hero_batch_02_official_51_100_evidence.jsonl",
+    "checklist": "capabilities_checklist.xlsx",
+    "honest_audit": "docs/BATCH02_HONEST_CLOSURE_AUDIT.md",
+    "completion_report": "docs/BATCH02_826_COMPLETION_REPORT.md"
+  },
+  "production_spine": {
+    "module": "cap646.batch02_production",
+    "dedicated": "cap646.batch02_dedicated",
+    "runtime_path": "cap646.runtime.execute_capability -> cap646.batch02_production"
+  },
+  "batch03_reused_link_resolution": {
+    "106": {"canonical": 63, "status": "REUSED-LINK_RESOLVED"},
+    "107": {"canonical": 64, "status": "REUSED-LINK_RESOLVED"},
+    "110": {"canonical": 69, "status": "REUSED-LINK_RESOLVED"},
+    "125": {"canonical": 85, "status": "REUSED-LINK_RESOLVED"}
+  },
+  "critical_gate": {
+    "workflow": ".github/workflows/ci.yml",
+    "job": "critical",
+    "note": "Attach passing GitHub Actions run URL on PR merge"
+  }
 }

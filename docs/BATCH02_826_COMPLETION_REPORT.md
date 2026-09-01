@@ -1,56 +1,66 @@
-# Batch 02 — 826 Completion Report (NOT CLOSED)
+# Official Batch 02 Completion Report (IDs 51–100)
 
-**Date:** 2026-09-01  
-**Branch:** `cursor/complete-826-batch02-e85e`  
-**Scope:** IDs 101–150 (50 capabilities)  
-**Status:** **NOT CLOSED** — awaiting explicit approval after honest decomposition
+Generated: 2026-09-01T12:40:00+00:00
 
----
+## Executive verdict
 
-## 1) Honest closure numbers
+**Official Batch 02 (51–100): 50/50 PRODUCTION-ALIGNED** — 46 independent `batch02` spine builds + 4 `OVERLAP_BATCH01` (#55, #56, #59, #60 via legacy batch01 extension). **Zero NOT_COMPLETE.** REUSED-LINK taxonomy registered; batch03 contradictions on #106/#107/#110/#125 **resolved** (canonical #63/#64/#69/#85 now PRODUCTION-ALIGNED). **Batch 03 (101–150) not started** — prior mis-scoped work preserved as `batch03_prep` only.
 
-| Bucket | Count | IDs |
-|--------|------:|-----|
-| **New PRODUCTION-ALIGNED** | **44** | 101–102, 104–105, 108–109, 111–124, 126–128, 130–150 |
-| **Overlap with Batch 01** | **2** | 103, 129 |
-| **REUSED-LINK / catalog alias** | **4** | 106, 107, 110, 125 |
-| **NOT_COMPLETE** | **0** | — |
-| **Total in scope** | **50** | 101–150 |
+## Closure counts (no double-counting)
 
-**Not claimed:** 50/50 independent PRODUCTION-ALIGNED.
+| Category | Count | IDs |
+|----------|------:|-----|
+| Independent PRODUCTION-ALIGNED (`production_spine=batch02`) | **46** | 51–54, 57–58, 61–100 except overlap |
+| OVERLAP_BATCH01 (`production_spine=batch01`) | **4** | 55, 56, 59, 60 |
+| REUSED-LINK in batch02 scope | **0** | — |
+| NOT_COMPLETE | **0** | — |
 
----
+## ISO/IEC 25010 alignment
 
-## 2) Duplicate decomposition (spine before redirect)
+| Attribute | Evidence |
+|-----------|----------|
+| Completeness | 50/50 IDs audited live (`docs/BATCH02_OFFICIAL_RTM_51_100.json`) |
+| Correctness | Goal-specific `surface` per ID; no `GENERIC_SURFACES` fallback |
+| Appropriateness | Real backend modules (derivatives_hub, onchain_tracker, macro_correlations, etc.) |
+| Live operability | HTTP proof 50/50 via `GET /api/cap646/{id}` (`docs/BATCH02_HTTP_PROOF_51_100.json`) |
 
-See `docs/BATCH02_HONEST_CLOSURE_AUDIT.md` and `docs/BATCH02_CLASSIFICATION.json`.
+## REUSED-LINK taxonomy (registered)
 
-| ID | Canonical | Post-spine goal match | Classification |
-|----|-----------|----------------------|----------------|
-| 106 | 63 | Original goal (DQP/provenance) | REUSED-LINK |
-| 107 | 64 | Original goal (methodology registry) | REUSED-LINK |
-| 110 | 69 | Original goal (cross-domain decision) | REUSED-LINK |
-| 125 | 85 | Original goal (futures OI) | REUSED-LINK |
+Formal definition: `docs/REUSED_LINK_TAXONOMY.json`
 
-Backends fixed in `cap646/batch02_dedicated.py` (#106, #107, #125 were NOT_COMPLETE before fix).
+Batch03 REUSED-LINK pairs resolved after canonical audit:
 
----
+| Duplicate ID | Canonical | Catalog basis | Status |
+|-------------|-----------|---------------|--------|
+| #106 | #63 | DUPLICATE/ALREADY_COVERED | REUSED-LINK_RESOLVED |
+| #107 | #64 | DUPLICATE/ALREADY_COVERED | REUSED-LINK_RESOLVED |
+| #110 | #69 | REPEAT_CANONICAL | REUSED-LINK_RESOLVED |
+| #125 | #85 | DUPLICATE/ALREADY_COVERED | REUSED-LINK_RESOLVED |
 
-## 3) Overlap (#103, #129)
+## Batch 01 regression
 
-- Completed in **Batch 01** (`BATCH01_IDS`).
-- Batch 02: **batch01 spine re-invocation only** (`production_spine=batch01`).
-- **Not** counted among 44 new completions.
+Batch 01 (1–50) unchanged — re-verify with `scripts/verify_batch01_production.py` and `scripts/verify_batch01_http_11_fixed.py` before merge.
 
----
+## 826 progress (no inflation)
 
-## 4) Production spine
+| Metric | Value |
+|--------|------:|
+| Official batch01 PRODUCTION-ALIGNED | 50/50 |
+| Official batch02 PRODUCTION-ALIGNED | 50/50 |
+| Cumulative official batches 01+02 | 100/100 |
+| Total 826 scope PRODUCTION-ALIGNED | see `docs/CAPABILITIES_826_INVENTORY.json` summary |
 
-- `cap646/batch02_production.py` + `cap646/batch02_dedicated.py`
-- Routing: batch01/batch02 spines execute on **requested** ID before duplicate canonical redirect
+## Critical Gate
 
----
+Workflow: `.github/workflows/ci.yml` job `critical`  
+Attach passing GitHub Actions run URL to PR before institutional sign-off.
 
-## 5) STOP — Batch 03 blocked
+## Artifacts
 
-Per institutional directive: **Batch 03 is NOT started.** Await explicit user approval.
+- `docs/BATCH02_OFFICIAL_RTM_51_100.json`
+- `docs/BATCH02_HTTP_PROOF_51_100.json`
+- `docs/BATCH02_CLASSIFICATION.json`
+- `docs/BATCH02_826_COMPLETION_MANIFEST.json`
+- `docs/BATCH02_HONEST_CLOSURE_AUDIT.md`
+- `data/hero_batch_02_official_51_100_evidence.jsonl`
+- `capabilities_checklist.xlsx` (rows 51–100 updated)

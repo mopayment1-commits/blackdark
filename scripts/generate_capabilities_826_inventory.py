@@ -18,7 +18,11 @@ from cap978.catalog import PROJECT_SCOPE_TOTAL
 EVIDENCE_GLOBS = sorted((ROOT / "data").glob("hero_batch_*_evidence.jsonl"))
 BATCH02_CLASSIFICATION = ROOT / "docs/BATCH02_CLASSIFICATION.json"
 BATCH01_RTM = ROOT / "docs/BATCH01_OFFICIAL_RTM_1_50.json"
-PENDING_CANONICAL_AUDIT_IDS = frozenset({106, 107, 110, 125})
+BATCH02_RTM = ROOT / "docs/BATCH02_OFFICIAL_RTM_51_100.json"
+REUSED_LINK_TAXONOMY = ROOT / "docs/REUSED_LINK_TAXONOMY.json"
+REUSED_LINK_IDS = frozenset({106, 107, 110, 125})
+CANONICAL_BLOCKERS = frozenset({63, 64, 69, 85})
+BATCH03_PREP_IDS = frozenset(range(101, 151))
 
 
 def official_batch(capability_id: int) -> str:
@@ -45,22 +49,42 @@ def _load_batch01_rtm() -> dict[int, dict[str, Any]]:
     return {int(k): v for k, v in (data.get("per_id") or {}).items()}
 
 
+def _load_batch02_rtm() -> dict[int, dict[str, Any]]:
+    if not BATCH02_RTM.is_file():
+        return {}
+    data = json.loads(BATCH02_RTM.read_text(encoding="utf-8"))
+    return {int(k): v for k, v in (data.get("per_id") or {}).items()}
+
+
+def _load_reused_link_taxonomy() -> dict[str, Any]:
+    if not REUSED_LINK_TAXONOMY.is_file():
+        return {}
+    return json.loads(REUSED_LINK_TAXONOMY.read_text(encoding="utf-8"))
+
+
 def main() -> None:
-    from cap646.batch01_dedicated import BATCH01_DEDICATED_IDS, EXPECTED_SURFACE
+    from cap646.batch01_dedicated import BATCH01_DEDICATED_IDS, EXPECTED_SURFACE as BATCH01_SURFACES
+    from cap646.batch02_dedicated import EXPECTED_SURFACE as BATCH02_SURFACES
     from cap646.batch01_production import LEGACY_BATCH01_EXTENSION_IDS, OFFICIAL_BATCH01_IDS
-    from cap646.batch02_production import BATCH02_IDS
+    from cap646.batch02_production import OFFICIAL_BATCH02_IDS
+    from cap646.batch03_production import BATCH03_IDS
     from cap646.catalog import catalog_by_id
     from cap646.backend_registry import binding_for
     from cap646.waves import USER_FACING
 
     evidence = _load_evidence()
     batch01_rtm = _load_batch01_rtm()
+    batch02_rtm = _load_batch02_rtm()
+    reused_link_taxonomy = _load_reused_link_taxonomy()
     batch02_overlap: set[int] = set()
     batch02_not_complete: set[int] = set()
     if BATCH02_CLASSIFICATION.is_file():
         b02c = json.loads(BATCH02_CLASSIFICATION.read_text())
         batch02_overlap = set(b02c.get("overlap_batch01_ids", []))
         batch02_not_complete = set(b02c.get("not_complete_ids", []))
+
+    def expected_surface(cid: int) -> str | None:
+        return BATCH02_SURFACES.get(cid) or BATCH01_SURFACES.get(cid)
 
     per_id: dict[str, Any] = {}
     counts: dict[str, int] = {}
@@ -73,17 +97,32 @@ def main() -> None:
             status = batch01_rtm[cid]["status"]
             notes = batch01_rtm[cid].get("notes")
             production_spine = batch01_rtm[cid].get("production_spine")
-        elif cid in PENDING_CANONICAL_AUDIT_IDS:
-            status = "PENDING_CANONICAL_AUDIT"
-            notes = "REUSED-LINK suspended until canonical #63/#64/#69/#85 pass full sequential audit"
+        elif cid in batch02_rtm:
+            row_rtm = batch02_rtm[cid]
+            status = row_rtm["status"]
+            notes = row_rtm.get("notes")
+            production_spine = row_rtm.get("production_spine")
+        elif cid in REUSED_LINK_IDS:
+            canonical = int((reused_link_taxonomy.get("registered_pairs") or {}).get(str(cid), {}).get("canonical_id") or 0)
+            if canonical in CANONICAL_BLOCKERS and batch02_rtm.get(canonical, {}).get("status") == "PRODUCTION-ALIGNED":
+                status = "REUSED-LINK"
+                notes = f"canonical #{canonical} PRODUCTION-ALIGNED; see docs/REUSED_LINK_TAXONOMY.json"
+                production_spine = "batch03_prep"
+            else:
+                status = "PENDING_CANONICAL_AUDIT"
+                notes = f"REUSED-LINK suspended until canonical #{canonical} passes audit"
+                production_spine = "batch03_prep"
+        elif cid in BATCH03_PREP_IDS and cid not in REUSED_LINK_IDS:
+            status = "PENDING_SCOPE_REALIGNMENT"
+            notes = "batch03_prep spine (101–150); official batch03 closure pending"
             production_spine = "batch03_prep"
-        elif cid in batch02_overlap:
+        elif cid in batch02_overlap and ob == "batch03":
             status = "OVERLAP_BATCH01"
-            notes = "Runtime uses batch01 spine; listed in mis-scoped batch02 manifest"
+            notes = "Runtime uses batch01 spine; mis-scoped batch03 prep manifest overlap"
             production_spine = "batch01"
         elif cid in batch02_not_complete:
             status = "NOT_COMPLETE"
-            notes = "Batch02 handler audit — not official batch closure"
+            notes = "Batch03 prep handler audit — not official batch closure"
             production_spine = None
         elif cid in OFFICIAL_BATCH01_IDS and cid in BATCH01_DEDICATED_IDS:
             status = "PRODUCTION-ALIGNED"
@@ -93,14 +132,14 @@ def main() -> None:
             status = "PRODUCTION-ALIGNED"
             notes = "batch01 spine via handler/free-tier route"
             production_spine = "batch01"
-        elif cid in LEGACY_BATCH01_EXTENSION_IDS:
+        elif cid in LEGACY_BATCH01_EXTENSION_IDS and cid not in OFFICIAL_BATCH02_IDS:
             status = "PRODUCTION-ALIGNED"
             notes = f"legacy_batch01_extension; official_batch={ob}"
             production_spine = "batch01"
-        elif cid in BATCH02_IDS and ob == "batch03":
+        elif cid in BATCH03_IDS and ob == "batch03" and cid not in REUSED_LINK_IDS:
             status = "PENDING_SCOPE_REALIGNMENT"
-            notes = "Implemented under wrong batch02 scope (101–150); official batch03 = 101–150"
-            production_spine = "batch02_misscoped"
+            notes = "Implemented under batch03_prep spine; official batch03 = 101–150"
+            production_spine = "batch03_prep"
         elif hero_cls == "SPLIT-BRAIN-UNVERIFIED":
             status = "NOT_COMPLETE"
             notes = "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
@@ -126,7 +165,7 @@ def main() -> None:
             "capability": catalog_by_id().get(cid, {}).get("capability"),
             "status": status,
             "production_spine": production_spine,
-            "expected_surface": EXPECTED_SURFACE.get(cid),
+            "expected_surface": expected_surface(cid),
             "in_hero_evidence": cid in evidence,
             "hero_classification": hero_cls,
             "user_facing": cid in USER_FACING,
@@ -147,9 +186,13 @@ def main() -> None:
         "NOT_COMPLETE": {
             "definition": "Handler or payload does not achieve the catalog goal for the requested ID.",
         },
+        "REUSED-LINK": {
+            "definition": reused_link_taxonomy.get("definition", "Duplicate ID covered by canonical capability with live goal-equivalent payload."),
+            "taxonomy_file": "docs/REUSED_LINK_TAXONOMY.json",
+            "registered_pairs": list(REUSED_LINK_IDS),
+        },
         "PENDING_CANONICAL_AUDIT": {
             "definition": "REUSED-LINK claim suspended until canonical IDs pass full sequential batch audit.",
-            "ids": sorted(PENDING_CANONICAL_AUDIT_IDS),
         },
         "PENDING_SCOPE_REALIGNMENT": {
             "definition": "Technical work exists but under wrong official_batch numbering; RTM records true batch.",
@@ -171,6 +214,20 @@ def main() -> None:
     batch01_aligned = sum(
         1 for cid in OFFICIAL_BATCH01_IDS if per_id[str(cid)]["status"] == "PRODUCTION-ALIGNED"
     )
+    batch02_aligned = sum(
+        1 for cid in OFFICIAL_BATCH02_IDS if per_id[str(cid)]["status"] == "PRODUCTION-ALIGNED"
+    )
+    batch02_independent = sum(
+        1
+        for cid in OFFICIAL_BATCH02_IDS
+        if per_id[str(cid)]["status"] == "PRODUCTION-ALIGNED"
+        and cid not in batch02_overlap
+    )
+    batch02_overlap_count = sum(
+        1
+        for cid in OFFICIAL_BATCH02_IDS
+        if cid in batch02_overlap or "legacy_batch01" in str(per_id[str(cid)].get("notes") or "")
+    )
 
     out = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -187,6 +244,11 @@ def main() -> None:
             "status_counts": counts,
             "official_batch01_total": len(OFFICIAL_BATCH01_IDS),
             "official_batch01_production_aligned": batch01_aligned,
+            "official_batch02_total": len(OFFICIAL_BATCH02_IDS),
+            "official_batch02_production_aligned": batch02_aligned,
+            "official_batch02_independent_production_aligned": batch02_independent,
+            "official_batch02_overlap_batch01": batch02_overlap_count,
+            "reused_link_resolved": len(REUSED_LINK_IDS),
             "user_facing_count": len([cid for cid in USER_FACING if cid <= PROJECT_SCOPE_TOTAL]),
         },
         "per_id": per_id,
@@ -214,6 +276,9 @@ def main() -> None:
         f"|--------|------:|",
         f"| Total scope | {PROJECT_SCOPE_TOTAL} |",
         f"| Official batch01 PRODUCTION-ALIGNED | {batch01_aligned}/50 |",
+        f"| Official batch02 PRODUCTION-ALIGNED | {batch02_aligned}/50 |",
+        f"| Official batch02 independent build | {batch02_independent}/46 |",
+        f"| Official batch02 OVERLAP batch01 | {batch02_overlap_count}/4 |",
         "",
         "## Status breakdown",
         "",

@@ -55,7 +55,7 @@ async def test_batch02_duplicate_executes_production_spine():
 
     result = await execute_capability(106, skip_entitlement=True)
     assert result.get("capability_id") == 106
-    assert result.get("production_spine") == "batch02"
+    assert result.get("production_spine") == "batch03_prep"
     assert "duplicate_of" not in result
 
 
