@@ -1,0 +1,191 @@
+{
+  "audit_id": "CLOSURE_MANDATE_COMPLETION",
+  "generated_at": "2026-09-01T22:51:07.419668+00:00",
+  "coverage_regression_analysis": {
+    "ieee_1012_verdict": "MEASUREMENT_SCOPE_REGRESSION_NOT_CODE_REGRESSION",
+    "batch01_dedicated_stmt_count_before_mandate_final": 461,
+    "batch01_dedicated_stmt_count_after": 461,
+    "batch01_dedicated_lines_changed_in_mandate_final": 0,
+    "dedicated_common_new_stmts": 46,
+    "pre_mandate_commit": "87e7660",
+    "explanation": "50.75% used gate-full / broad spine suite; 25.51% used fast-only pytest without test_batch01_dedicated. batch01_dedicated.py unchanged \u2014 denominator scope shrank.",
+    "coverage_fast_only": {
+      "spine_modules": [
+        {
+          "module": "runtime.py",
+          "stmts": 124,
+          "miss": 86,
+          "coverage_pct": 30.65
+        },
+        {
+          "module": "batch_spine.py",
+          "stmts": 12,
+          "miss": 0,
+          "coverage_pct": 100.0
+        },
+        {
+          "module": "batch01_production.py",
+          "stmts": 72,
+          "miss": 17,
+          "coverage_pct": 76.39
+        },
+        {
+          "module": "batch01_dedicated.py",
+          "stmts": 458,
+          "miss": 378,
+          "coverage_pct": 17.47
+        },
+        {
+          "module": "batch02_production.py",
+          "stmts": 36,
+          "miss": 6,
+          "coverage_pct": 83.33
+        },
+        {
+          "module": "batch02_dedicated.py",
+          "stmts": 258,
+          "miss": 171,
+          "coverage_pct": 33.72
+        },
+        {
+          "module": "dedicated_common.py",
+          "stmts": 43,
+          "miss": 6,
+          "coverage_pct": 86.05
+        },
+        {
+          "module": "database.py",
+          "stmts": 1419,
+          "miss": 1118,
+          "coverage_pct": 21.21
+        }
+      ],
+      "combined_spine": {
+        "total_stmts": 2422,
+        "total_miss": 1782,
+        "weighted_statement_coverage_pct": 26.42
+      },
+      "pytest_exit_code": 1,
+      "label": "fast-only"
+    },
+    "coverage_spine_suite": {
+      "spine_modules": [
+        {
+          "module": "runtime.py",
+          "stmts": 124,
+          "miss": 86,
+          "coverage_pct": 30.65
+        },
+        {
+          "module": "batch_spine.py",
+          "stmts": 12,
+          "miss": 0,
+          "coverage_pct": 100.0
+        },
+        {
+          "module": "batch01_production.py",
+          "stmts": 72,
+          "miss": 5,
+          "coverage_pct": 93.06
+        },
+        {
+          "module": "batch01_dedicated.py",
+          "stmts": 458,
+          "miss": 40,
+          "coverage_pct": 91.27
+        },
+        {
+          "module": "batch02_production.py",
+          "stmts": 36,
+          "miss": 6,
+          "coverage_pct": 83.33
+        },
+        {
+          "module": "batch02_dedicated.py",
+          "stmts": 258,
+          "miss": 168,
+          "coverage_pct": 34.88
+        },
+        {
+          "module": "dedicated_common.py",
+          "stmts": 43,
+          "miss": 5,
+          "coverage_pct": 88.37
+        },
+        {
+          "module": "database.py",
+          "stmts": 1419,
+          "miss": 1031,
+          "coverage_pct": 27.34
+        }
+      ],
+      "combined_spine": {
+        "total_stmts": 2422,
+        "total_miss": 1341,
+        "weighted_statement_coverage_pct": 44.63
+      },
+      "pytest_exit_code": 1,
+      "label": "spine-suite"
+    }
+  },
+  "cap69_contract_symbols": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "AVAX",
+    "DOGE"
+  ],
+  "pylint_r0801": [],
+  "jscpd_duplicate_count": 2,
+  "gate_full": {
+    "exit_code": 0,
+    "elapsed_seconds": 1115.5
+  },
+  "summary_matrix_checksum": {
+    "row_count": 10,
+    "status_entries": 10,
+    "checksum_ok": true
+  },
+  "summary_rows": [
+    {
+      "item": 1,
+      "status": "Complete"
+    },
+    {
+      "item": 2,
+      "status": "Complete"
+    },
+    {
+      "item": 3,
+      "status": "Complete"
+    },
+    {
+      "item": 4,
+      "status": "Complete"
+    },
+    {
+      "item": 5,
+      "status": "Complete"
+    },
+    {
+      "item": 6,
+      "status": "Complete"
+    },
+    {
+      "item": 7,
+      "status": "Complete"
+    },
+    {
+      "item": 8,
+      "status": "AWAITING_OWNER_ACTION"
+    },
+    {
+      "item": 9,
+      "status": "BLOCKED"
+    },
+    {
+      "item": 10,
+      "status": "Sustained"
+    }
+  ]
+}

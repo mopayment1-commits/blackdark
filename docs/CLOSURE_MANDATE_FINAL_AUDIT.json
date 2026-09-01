@@ -1,6 +1,6 @@
 {
   "audit_id": "CLOSURE_MANDATE_FINAL",
-  "generated_at": "2026-09-01T20:59:15.793346+00:00",
+  "generated_at": "2026-09-01T22:04:26.394487+00:00",
   "ssot_row_count": 100,
   "bandit": {
     "high": 0,
@@ -72,105 +72,46 @@
       }
     ]
   },
+  "bandit_scripts": {
+    "high": 0,
+    "medium": 3,
+    "low": 78
+  },
+  "radon_cc_histogram": {
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 0,
+    "E": 0,
+    "F": 0
+  },
+  "pylint_r0801_count": 3,
   "pylint_r0801_lines": [
     "cap646/handlers/batch02.py:1:0: R0801: Similar lines in 2 files",
     "    from bd_platform.infra_intelligence_layer import validate_oracle_freshness_101 (duplicate-code)",
     "cap646/handlers/batch02.py:1:0: R0801: Similar lines in 2 files",
-    "    ) (duplicate-code)",
+    "        ) (duplicate-code)",
     "cap646/handlers/batch02.py:1:0: R0801: Similar lines in 2 files",
     "    return await fn(symbol=symbol, address=address, params=params) (duplicate-code)"
   ],
-  "jscpd_duplicate_count": 2,
+  "jscpd_duplicate_count": 0,
   "jscpd": {
     "exit_code": 0,
-    "duplicates": [
-      {
-        "format": "python",
-        "lines": 8,
-        "fragment": "(\n    capability_id: int,\n    *,\n    params: dict[str, Any],\n) -> dict[str, Any]:\n    symbol = str(params.get(\"symbol\") or params.get(\"asset\") or \"BTC\").upper().replace(\"/USDT\", \"\")\n\n    if capability_id == 47",
-        "tokens": 0,
-        "firstFile": {
-          "name": "cap646/handlers/market.py",
-          "start": 12,
-          "end": 19,
-          "startLoc": {
-            "line": 12,
-            "column": 25,
-            "position": 65
-          },
-          "endLoc": {
-            "line": 19,
-            "column": 3,
-            "position": 153
-          }
-        },
-        "secondFile": {
-          "name": "cap646/handlers/verified.py",
-          "start": 12,
-          "end": 19,
-          "startLoc": {
-            "line": 12,
-            "column": 27,
-            "position": 54
-          },
-          "endLoc": {
-            "line": 19,
-            "column": 3,
-            "position": 142
-          }
-        }
-      },
-      {
-        "format": "python",
-        "lines": 9,
-        "fragment": "from cap646.handlers.ai import handle_ai_capability\nfrom cap646.handlers.alerts import handle_alerts_capability\nfrom cap646.handlers.data import handle_data_capability\nfrom cap646.handlers.derivatives import handle_derivatives_capability\nfrom cap646.handlers.execution import handle_execution_capability\nfrom cap646.handlers.institutional import handle_institutional_capability\nfrom cap646.handlers.market import handle_market_capability\nfrom cap646.handlers.onchain import handle_onchain_capability\nfrom cap646.handlers.platform",
-        "tokens": 0,
-        "firstFile": {
-          "name": "cap646/runtime.py",
-          "start": 12,
-          "end": 20,
-          "startLoc": {
-            "line": 12,
-            "column": 1,
-            "position": 63
-          },
-          "endLoc": {
-            "line": 20,
-            "column": 9,
-            "position": 165
-          }
-        },
-        "secondFile": {
-          "name": "cap646/handlers/__init__.py",
-          "start": 3,
-          "end": 11,
-          "startLoc": {
-            "line": 3,
-            "column": 1,
-            "position": 3
-          },
-          "endLoc": {
-            "line": 11,
-            "column": 9,
-            "position": 105
-          }
-        }
-      }
-    ],
+    "duplicates": [],
     "statistics": {
-      "detectionDate": "2026-09-01T20:58:56.713Z",
+      "detectionDate": "2026-09-01T22:03:57.516Z",
       "formats": {
         "python": {
           "sources": {
             "cap646/handlers/verified.py": {
-              "lines": 109,
-              "tokens": 1007,
+              "lines": 110,
+              "tokens": 989,
               "sources": 1,
-              "clones": 1,
-              "duplicatedLines": 7,
-              "duplicatedTokens": 88,
-              "percentage": 6.42,
-              "percentageTokens": 8.74,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
               "newDuplicatedLines": 0,
               "newClones": 0
             },
@@ -199,14 +140,14 @@
               "newClones": 0
             },
             "cap646/handlers/market.py": {
-              "lines": 159,
-              "tokens": 1389,
+              "lines": 160,
+              "tokens": 1371,
               "sources": 1,
-              "clones": 1,
-              "duplicatedLines": 7,
-              "duplicatedTokens": 88,
-              "percentage": 4.4,
-              "percentageTokens": 6.34,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
               "newDuplicatedLines": 0,
               "newClones": 0
             },
@@ -318,6 +259,18 @@
               "newDuplicatedLines": 0,
               "newClones": 0
             },
+            "cap646/handlers/_params.py": {
+              "lines": 8,
+              "tokens": 80,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
             "cap646/handlers/_batch_route.py": {
               "lines": 14,
               "tokens": 117,
@@ -331,14 +284,14 @@
               "newClones": 0
             },
             "cap646/handlers/__init__.py": {
-              "lines": 22,
-              "tokens": 154,
+              "lines": 35,
+              "tokens": 197,
               "sources": 1,
-              "clones": 1,
-              "duplicatedLines": 8,
-              "duplicatedTokens": 102,
-              "percentage": 36.36,
-              "percentageTokens": 66.23,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
               "newDuplicatedLines": 0,
               "newClones": 0
             },
@@ -358,17 +311,17 @@
               "lines": 192,
               "tokens": 2131,
               "sources": 1,
-              "clones": 1,
-              "duplicatedLines": 8,
-              "duplicatedTokens": 102,
-              "percentage": 4.17,
-              "percentageTokens": 4.79,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
               "newDuplicatedLines": 0,
               "newClones": 0
             },
             "cap646/batch02_dedicated.py": {
-              "lines": 477,
-              "tokens": 7437,
+              "lines": 449,
+              "tokens": 7138,
               "sources": 1,
               "clones": 0,
               "duplicatedLines": 0,
@@ -404,28 +357,28 @@
             }
           },
           "total": {
-            "lines": 1776,
-            "tokens": 19158,
-            "sources": 20,
-            "clones": 2,
-            "duplicatedLines": 15,
-            "duplicatedTokens": 190,
-            "percentage": 0.84,
-            "percentageTokens": 0.99,
+            "lines": 1771,
+            "tokens": 18946,
+            "sources": 21,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           }
         }
       },
       "total": {
-        "lines": 1776,
-        "tokens": 19158,
-        "sources": 20,
-        "clones": 2,
-        "duplicatedLines": 15,
-        "duplicatedTokens": 190,
-        "percentage": 0.84,
-        "percentageTokens": 0.99,
+        "lines": 1771,
+        "tokens": 18946,
+        "sources": 21,
+        "clones": 0,
+        "duplicatedLines": 0,
+        "duplicatedTokens": 0,
+        "percentage": 0,
+        "percentageTokens": 0,
         "newDuplicatedLines": 0,
         "newClones": 0
       }
@@ -438,6 +391,7 @@
       "official_surface": "smart_money_leaderboard",
       "official_success": true,
       "parallel_surface": "smart_money_leaderboard",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -446,6 +400,7 @@
       "official_surface": "wallet_profiler",
       "official_success": true,
       "parallel_surface": "wallet_profiler",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -454,6 +409,7 @@
       "official_surface": "wallet_profiler_for_token",
       "official_success": true,
       "parallel_surface": "wallet_profiler_for_token",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -462,6 +418,7 @@
       "official_surface": "smart_money_tracking",
       "official_success": true,
       "parallel_surface": "smart_money_tracking",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -470,6 +427,7 @@
       "official_surface": "smart_money_accumulation_detection",
       "official_success": true,
       "parallel_surface": "smart_money_accumulation_detection",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -478,6 +436,7 @@
       "official_surface": "smart_money_token_screener",
       "official_success": true,
       "parallel_surface": "smart_money_token_screener",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -486,6 +445,7 @@
       "official_surface": "holder_distribution_intelligence",
       "official_success": true,
       "parallel_surface": "holder_distribution_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -494,6 +454,7 @@
       "official_surface": "wallet_pnl_analysis",
       "official_success": true,
       "parallel_surface": "wallet_pnl_analysis",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -502,6 +463,7 @@
       "official_surface": "wallet_historical_performance_win_rate",
       "official_success": true,
       "parallel_surface": "wallet_historical_performance_win_rate",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -510,6 +472,7 @@
       "official_surface": "wallet_entry_exit_analysis",
       "official_success": true,
       "parallel_surface": "wallet_entry_exit_analysis",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -518,6 +481,7 @@
       "official_surface": "wallet_counterparty_relationship_analysis",
       "official_success": true,
       "parallel_surface": "wallet_counterparty_relationship_analysis",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -526,6 +490,7 @@
       "official_surface": "entity_aware_wallet_intelligence",
       "official_success": true,
       "parallel_surface": "entity_aware_wallet_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -534,6 +499,7 @@
       "official_surface": "smart_alerts",
       "official_success": true,
       "parallel_surface": "smart_alerts",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -542,6 +508,7 @@
       "official_surface": "custom_wallet_labels",
       "official_success": true,
       "parallel_surface": "custom_wallet_labels",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -550,6 +517,7 @@
       "official_surface": "wallet_token_watchlists",
       "official_success": true,
       "parallel_surface": "wallet_token_watchlists",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -558,6 +526,7 @@
       "official_surface": "multi_chain_portfolio_intelligence",
       "official_success": true,
       "parallel_surface": "multi_chain_portfolio_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -566,6 +535,7 @@
       "official_surface": "transaction_decoder",
       "official_success": true,
       "parallel_surface": "transaction_decoder",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -574,6 +544,7 @@
       "official_surface": "instant_wallet_due_diligence",
       "official_success": true,
       "parallel_surface": "instant_wallet_due_diligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -582,6 +553,7 @@
       "official_surface": "signal_explanation_workflow",
       "official_success": true,
       "parallel_surface": "signal_explanation_workflow",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -590,6 +562,7 @@
       "official_surface": "smart_money_historical_trend_analysis",
       "official_success": true,
       "parallel_surface": "smart_money_historical_trend_analysis",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -598,6 +571,7 @@
       "official_surface": "smart_money_conviction_engine",
       "official_success": true,
       "parallel_surface": "smart_money_conviction_engine",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -606,6 +580,7 @@
       "official_surface": "cross_market_decision_intelligence_engine",
       "official_success": true,
       "parallel_surface": "cross_market_decision_intelligence_engine",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -614,6 +589,7 @@
       "official_surface": "evidence_confidence_layer",
       "official_success": true,
       "parallel_surface": "evidence_confidence_layer",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -622,6 +598,7 @@
       "official_surface": "smart_money_actionability_score",
       "official_success": true,
       "parallel_surface": "smart_money_actionability_score",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -630,6 +607,7 @@
       "official_surface": "beginner_decision_mode",
       "official_success": true,
       "parallel_surface": "beginner_decision_mode",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -638,6 +616,7 @@
       "official_surface": "on_chain_metrics_library",
       "official_success": true,
       "parallel_surface": "on_chain_metrics_library",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -646,6 +625,7 @@
       "official_surface": "entity_adjusted_metrics",
       "official_success": true,
       "parallel_surface": "entity_adjusted_metrics",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -654,6 +634,7 @@
       "official_surface": "mvrv_mvrv_z_score_suite",
       "official_success": true,
       "parallel_surface": "mvrv_mvrv_z_score_suite",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -662,6 +643,7 @@
       "official_surface": "exchange_balance_netflow_intelligence",
       "official_success": true,
       "parallel_surface": "exchange_balance_netflow_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -670,6 +652,7 @@
       "official_surface": "etf_flow_intelligence",
       "official_success": true,
       "parallel_surface": "etf_flow_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -678,6 +661,7 @@
       "official_surface": "digital_asset_treasury_company_intelligence",
       "official_success": true,
       "parallel_surface": "digital_asset_treasury_company_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -686,6 +670,7 @@
       "official_surface": "spot_market_metrics_suite",
       "official_success": true,
       "parallel_surface": "spot_market_metrics_suite",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -694,6 +679,7 @@
       "official_surface": "futures_intelligence_suite",
       "official_success": true,
       "parallel_surface": "futures_intelligence_suite",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -702,6 +688,7 @@
       "official_surface": "derivatives_intelligence",
       "official_success": true,
       "parallel_surface": "derivatives_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -710,6 +697,7 @@
       "official_surface": "nvt_fair_value_model",
       "official_success": true,
       "parallel_surface": "nvt_fair_value_model",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -718,6 +706,7 @@
       "official_surface": "token_screener",
       "official_success": true,
       "parallel_surface": "token_screener",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -726,6 +715,7 @@
       "official_surface": "personalized_research_dashboards",
       "official_success": true,
       "parallel_surface": "personalized_research_dashboards",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -734,6 +724,7 @@
       "official_surface": "metric_based_smart_alerts",
       "official_success": true,
       "parallel_surface": "metric_based_smart_alerts",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -742,6 +733,7 @@
       "official_surface": "institutional_backtesting_data_layer",
       "official_success": true,
       "parallel_surface": "institutional_backtesting_data_layer",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -750,6 +742,7 @@
       "official_surface": "data_quality_provenance_layer",
       "official_success": true,
       "parallel_surface": "data_quality_provenance_layer",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -758,7 +751,8 @@
       "official_surface": "cross_domain_decision_intelligence_layer",
       "official_success": true,
       "parallel_surface": null,
-      "outputs_match": true
+      "parallel_success": false,
+      "outputs_match": false
     },
     {
       "capability_id": 71,
@@ -766,6 +760,7 @@
       "official_surface": "exchange_inflow_outflow_netflow",
       "official_success": true,
       "parallel_surface": "exchange_inflow_outflow_netflow",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -774,6 +769,7 @@
       "official_surface": "exchange_whale_ratio",
       "official_success": true,
       "parallel_surface": "exchange_whale_ratio",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -782,6 +778,7 @@
       "official_surface": "exchange_address_transaction_activity",
       "official_success": true,
       "parallel_surface": "exchange_address_transaction_activity",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -790,6 +787,7 @@
       "official_surface": "exchange_to_exchange_flow_intelligence",
       "official_success": true,
       "parallel_surface": "exchange_to_exchange_flow_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -798,6 +796,7 @@
       "official_surface": "exchange_internal_flow_filter",
       "official_success": true,
       "parallel_surface": "exchange_internal_flow_filter",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -806,6 +805,7 @@
       "official_surface": "stablecoin_exchange_flow_intelligence",
       "official_success": true,
       "parallel_surface": "stablecoin_exchange_flow_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -814,6 +814,7 @@
       "official_surface": "miner_flow_intelligence",
       "official_success": true,
       "parallel_surface": "miner_flow_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -822,6 +823,7 @@
       "official_surface": "whale_accumulation_distribution_intelligence",
       "official_success": true,
       "parallel_surface": "whale_accumulation_distribution_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -830,6 +832,7 @@
       "official_surface": "futures_open_interest_intelligence",
       "official_success": true,
       "parallel_surface": "futures_open_interest_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -838,6 +841,7 @@
       "official_surface": "funding_rate_intelligence",
       "official_success": true,
       "parallel_surface": "funding_rate_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -846,6 +850,7 @@
       "official_surface": "liquidation_intelligence",
       "official_success": true,
       "parallel_surface": "liquidation_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -854,6 +859,7 @@
       "official_surface": "inter_entity_flow_intelligence",
       "official_success": true,
       "parallel_surface": "inter_entity_flow_intelligence",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -862,6 +868,7 @@
       "official_surface": "address_labels_cohorts",
       "official_success": true,
       "parallel_surface": "address_labels_cohorts",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -870,6 +877,7 @@
       "official_surface": "personal_dashboards",
       "official_success": true,
       "parallel_surface": "personal_dashboards",
+      "parallel_success": true,
       "outputs_match": true
     },
     {
@@ -878,9 +886,31 @@
       "official_surface": "whale_movement_alerts",
       "official_success": true,
       "parallel_surface": "whale_movement_alerts",
+      "parallel_success": true,
       "outputs_match": true
     }
   ],
+  "split_brain_outputs_match_count": 55,
+  "split_brain_outputs_mismatch_count": 1,
+  "mece_rerun_with_excluded": {
+    "excluded_probe_ids": [
+      175,
+      214,
+      245,
+      584,
+      629,
+      630,
+      631,
+      642,
+      644,
+      646
+    ],
+    "matrix_2_base_pairs_flagged": 8,
+    "matrix_4_base_pairs_flagged": 4,
+    "matrix_2_excluded_probe_partial": [],
+    "matrix_4_excluded_probe_partial": [],
+    "open_risks_recorded": true
+  },
   "batch_numbering_map": {
     "description": "official_batch is hero-wave closure numbering (batch01..batch13); capability IDs are global 1-826",
     "official_batch_to_id_ranges": {

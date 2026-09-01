@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-09-01T22:20:00+00:00",
+  "scope": "cap646 closure path + closure audit scripts only",
+  "cap646": [
+    {
+      "rule": "B110",
+      "cwe_id": 703,
+      "severity": "LOW",
+      "file": "cap646/entitlements.py",
+      "line": 74,
+      "reason": "Try/except/pass on optional tier lookup — degrades to deny, no secret exposure",
+      "action": "ACCEPTED_RISK",
+      "justification": "Entitlement fallback must not crash request path; logged upstream"
+    },
+    {
+      "rule": "B110",
+      "cwe_id": 703,
+      "severity": "LOW",
+      "file": "cap646/entitlements.py",
+      "line": 129,
+      "reason": "Try/except/pass on wallet balance probe",
+      "action": "ACCEPTED_RISK",
+      "justification": "Cold-env safe degradation for free-tier gate"
+    },
+    {
+      "rule": "B110",
+      "cwe_id": 703,
+      "severity": "LOW",
+      "file": "cap646/entitlements.py",
+      "line": 143,
+      "reason": "Try/except/pass on org entitlement cache",
+      "action": "ACCEPTED_RISK",
+      "justification": "Fail-closed to paid tier requirement"
+    }
+  ],
+  "closure_scripts_medium": [
+    {
+      "rule": "B310",
+      "cwe_id": 22,
+      "severity": "MEDIUM",
+      "file": "scripts/complete_pdf_capabilities_826.py",
+      "line": 124,
+      "reason": "urllib urlopen on catalog URL",
+      "action": "ACCEPTED_RISK",
+      "justification": "Operator-only offline audit script; not in runtime request path"
+    },
+    {
+      "rule": "B314",
+      "cwe_id": 20,
+      "severity": "MEDIUM",
+      "file": "scripts/run_spine_coverage_snapshot.py",
+      "line": 47,
+      "reason": "ElementTree.parse on locally generated coverage.xml",
+      "action": "FIX_PLANNED",
+      "justification": "Trusted CI artifact only; replaced by defusedxml in follow-up if owner requires"
+    },
+    {
+      "rule": "B310",
+      "cwe_id": 22,
+      "severity": "MEDIUM",
+      "file": "scripts/wave_00_passive_security_scan.py",
+      "line": 17,
+      "reason": "Passive URL fetch in security scan harness",
+      "action": "ACCEPTED_RISK",
+      "justification": "DevSecOps operator script excluded from sonar.sources runtime"
+    }
+  ],
+  "high_count": 0,
+  "medium_count_closure_path": 3,
+  "low_count_cap646": 3
+}

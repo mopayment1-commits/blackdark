@@ -1,18 +1,18 @@
 {
   "statistics": {
-    "detectionDate": "2026-09-01T20:58:56.713Z",
+    "detectionDate": "2026-09-01T22:03:57.516Z",
     "formats": {
       "python": {
         "sources": {
           "cap646/handlers/verified.py": {
-            "lines": 109,
-            "tokens": 1007,
+            "lines": 110,
+            "tokens": 989,
             "sources": 1,
-            "clones": 1,
-            "duplicatedLines": 7,
-            "duplicatedTokens": 88,
-            "percentage": 6.42,
-            "percentageTokens": 8.74,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -41,14 +41,14 @@
             "newClones": 0
           },
           "cap646/handlers/market.py": {
-            "lines": 159,
-            "tokens": 1389,
+            "lines": 160,
+            "tokens": 1371,
             "sources": 1,
-            "clones": 1,
-            "duplicatedLines": 7,
-            "duplicatedTokens": 88,
-            "percentage": 4.4,
-            "percentageTokens": 6.34,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -160,6 +160,18 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "cap646/handlers/_params.py": {
+            "lines": 8,
+            "tokens": 80,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "cap646/handlers/_batch_route.py": {
             "lines": 14,
             "tokens": 117,
@@ -173,14 +185,14 @@
             "newClones": 0
           },
           "cap646/handlers/__init__.py": {
-            "lines": 22,
-            "tokens": 154,
+            "lines": 35,
+            "tokens": 197,
             "sources": 1,
-            "clones": 1,
-            "duplicatedLines": 8,
-            "duplicatedTokens": 102,
-            "percentage": 36.36,
-            "percentageTokens": 66.23,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -200,17 +212,17 @@
             "lines": 192,
             "tokens": 2131,
             "sources": 1,
-            "clones": 1,
-            "duplicatedLines": 8,
-            "duplicatedTokens": 102,
-            "percentage": 4.17,
-            "percentageTokens": 4.79,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "cap646/batch02_dedicated.py": {
-            "lines": 477,
-            "tokens": 7437,
+            "lines": 449,
+            "tokens": 7138,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -246,104 +258,31 @@
           }
         },
         "total": {
-          "lines": 1776,
-          "tokens": 19158,
-          "sources": 20,
-          "clones": 2,
-          "duplicatedLines": 15,
-          "duplicatedTokens": 190,
-          "percentage": 0.84,
-          "percentageTokens": 0.99,
+          "lines": 1771,
+          "tokens": 18946,
+          "sources": 21,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
           "newDuplicatedLines": 0,
           "newClones": 0
         }
       }
     },
     "total": {
-      "lines": 1776,
-      "tokens": 19158,
-      "sources": 20,
-      "clones": 2,
-      "duplicatedLines": 15,
-      "duplicatedTokens": 190,
-      "percentage": 0.84,
-      "percentageTokens": 0.99,
+      "lines": 1771,
+      "tokens": 18946,
+      "sources": 21,
+      "clones": 0,
+      "duplicatedLines": 0,
+      "duplicatedTokens": 0,
+      "percentage": 0,
+      "percentageTokens": 0,
       "newDuplicatedLines": 0,
       "newClones": 0
     }
   },
-  "duplicates": [
-    {
-      "format": "python",
-      "lines": 8,
-      "fragment": "(\n    capability_id: int,\n    *,\n    params: dict[str, Any],\n) -> dict[str, Any]:\n    symbol = str(params.get(\"symbol\") or params.get(\"asset\") or \"BTC\").upper().replace(\"/USDT\", \"\")\n\n    if capability_id == 47",
-      "tokens": 0,
-      "firstFile": {
-        "name": "cap646/handlers/market.py",
-        "start": 12,
-        "end": 19,
-        "startLoc": {
-          "line": 12,
-          "column": 25,
-          "position": 65
-        },
-        "endLoc": {
-          "line": 19,
-          "column": 3,
-          "position": 153
-        }
-      },
-      "secondFile": {
-        "name": "cap646/handlers/verified.py",
-        "start": 12,
-        "end": 19,
-        "startLoc": {
-          "line": 12,
-          "column": 27,
-          "position": 54
-        },
-        "endLoc": {
-          "line": 19,
-          "column": 3,
-          "position": 142
-        }
-      }
-    },
-    {
-      "format": "python",
-      "lines": 9,
-      "fragment": "from cap646.handlers.ai import handle_ai_capability\nfrom cap646.handlers.alerts import handle_alerts_capability\nfrom cap646.handlers.data import handle_data_capability\nfrom cap646.handlers.derivatives import handle_derivatives_capability\nfrom cap646.handlers.execution import handle_execution_capability\nfrom cap646.handlers.institutional import handle_institutional_capability\nfrom cap646.handlers.market import handle_market_capability\nfrom cap646.handlers.onchain import handle_onchain_capability\nfrom cap646.handlers.platform",
-      "tokens": 0,
-      "firstFile": {
-        "name": "cap646/runtime.py",
-        "start": 12,
-        "end": 20,
-        "startLoc": {
-          "line": 12,
-          "column": 1,
-          "position": 63
-        },
-        "endLoc": {
-          "line": 20,
-          "column": 9,
-          "position": 165
-        }
-      },
-      "secondFile": {
-        "name": "cap646/handlers/__init__.py",
-        "start": 3,
-        "end": 11,
-        "startLoc": {
-          "line": 3,
-          "column": 1,
-          "position": 3
-        },
-        "endLoc": {
-          "line": 11,
-          "column": 9,
-          "position": 105
-        }
-      }
-    }
-  ]
+  "duplicates": []
 }

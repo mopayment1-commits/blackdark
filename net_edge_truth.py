@@ -23,6 +23,18 @@ _STATS = {
     "reject_reasons": {},
 }
 
+# Shared demo opportunity — FIN-004 control + cap639 verified handler (Extract Function).
+FIN_004_DEMO_OPPORTUNITY: dict[str, Any] = {
+    "net_profit_usdt": 2.5,
+    "quote_amount": 1000.0,
+    "total_slippage_bps": 3,
+    "withdrawal_fee_usdt": 0.05,
+    "trading_fees_usdt": 0.2,
+    "quote_age_ms": 120,
+    "estimated_recipients": 2,
+    "flywheel_net_after_crowd_usd": 2.1,
+}
+
 
 def _enabled() -> bool:
     return getattr(config, "NET_EDGE_TRUTH_ENABLED", True)

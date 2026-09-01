@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from cap646.evidence_class import ai_compliance_footer, reject_if_stale
+from cap646.handlers._params import normalize_symbol
 from cap646.data_spine import bucketed_cvd_report, freshness_assurance_report, normalization_report
 from data_freshness import attach_oracle_freshness
 
@@ -14,7 +15,7 @@ async def handle_market_capability(
     *,
     params: dict[str, Any],
 ) -> dict[str, Any]:
-    symbol = str(params.get("symbol") or params.get("asset") or "BTC").upper().replace("/USDT", "")
+    symbol = normalize_symbol(params)
 
     if capability_id == 47:
         from market_context import fetch_binance_market_overview_pack, probe_price_sources

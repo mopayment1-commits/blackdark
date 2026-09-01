@@ -35,7 +35,9 @@
       "catalog_basis": "REPEAT_CANONICAL",
       "canonical_goal": "Cross-Domain Decision Intelligence Layer",
       "duplicate_goal": "Cross-Domain Decision Intelligence Layer",
-      "shared_module": "cap646/cross_domain_decision.py"
+      "shared_module": "cap646/cross_domain_decision.py",
+      "canonical_ssot_path": "cap646.batch02_production.cap_069",
+      "link_eligible_review": "CONFIRMED — canonical #69 batch02 spine is SSOT after MANDATE-COMPLETION facade fix; #110 remains LINK-ELIGIBLE (batch03 prep, not in 104 numerator)"
     },
     "125": {
       "canonical_id": 85,

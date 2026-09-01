@@ -10,9 +10,10 @@ import time
 from typing import Any, Awaitable, Callable
 
 from cap646.dedicated_common import addr as _addr
+from cap646.dedicated_common import execute_dedicated_caps
+from cap646.dedicated_common import make_wrap_binding
 from cap646.dedicated_common import seed as _seed
 from cap646.dedicated_common import sym as _sym
-from cap646.dedicated_common import wrap as dedicated_wrap
 from cap646.evidence_class import ai_compliance_footer
 
 BATCH03_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset({103, 129})
@@ -76,15 +77,7 @@ EXPECTED_SURFACE: dict[int, str] = {
 }
 
 
-def _wrap(capability_id: int, *, symbol: str, payload_key: str, payload: Any, extra: dict[str, Any] | None = None) -> dict[str, Any]:
-    return dedicated_wrap(
-        capability_id,
-        expected_surface=EXPECTED_SURFACE,
-        symbol=symbol,
-        payload_key=payload_key,
-        payload=payload,
-        extra=extra,
-    )
+_wrap = make_wrap_binding(EXPECTED_SURFACE)
 
 
 async def _cap101(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
@@ -483,15 +476,15 @@ _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
 
 
 async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    if capability_id in BATCH03_OVERLAP_BATCH01_IDS:
-        raise ValueError(
+    return await execute_dedicated_caps(
+        capability_id,
+        params=params,
+        dedicated_ids=BATCH03_DEDICATED_IDS,
+        overlap_batch01_ids=BATCH03_OVERLAP_BATCH01_IDS,
+        dispatch=_DISPATCH,
+        overlap_error=(
             f"capability {capability_id} is batch01 overlap — reserved; "
             "use cap646.batch01_production / runtime batch01 spine"
-        )
-    if capability_id not in BATCH03_DEDICATED_IDS:
-        raise ValueError(f"capability {capability_id} is not in batch03 dedicated spine")
-    params = dict(params or {})
-    symbol = _sym(params)
-    address = _addr(params)
-    fn = _DISPATCH[capability_id]
-    return await fn(symbol=symbol, address=address, params=params)
+        ),
+        not_dedicated_error=f"capability {capability_id} is not in batch03 dedicated spine",
+    )

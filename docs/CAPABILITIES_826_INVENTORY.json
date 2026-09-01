@@ -1029,8 +1029,8 @@
       "in_hero_evidence": true,
       "hero_classification": "PRODUCTION-ALIGNED",
       "user_facing": false,
-      "binding_source": "canonical_handler_post_batch02_merge",
-      "backend": "cap646.handlers.onchain.handle_onchain_capability",
+      "binding_source": "batch02_production_spine_ssot",
+      "backend": "cap646.batch02_production.cap_069",
       "notes": null
     },
     "70": {

@@ -50,17 +50,9 @@ async def handle_onchain_capability(capability_id: int, *, params: dict[str, Any
         return ai_compliance_footer({"capability_id": 581, "surface": "on_chain_balance_monitor", "balance": bal, "success": bool(bal)})
 
     if capability_id == 69:
-        from cap646.cross_domain_decision import build_cross_domain_decision_payload
+        from cap646.batch02_production import execute as batch02_execute
 
-        payload = await build_cross_domain_decision_payload(symbol=symbol)
-        return ai_compliance_footer(
-            {
-                "capability_id": 69,
-                "surface": "cross_domain_decision_intelligence_layer",
-                "cross_domain_decision": payload,
-                "success": bool(payload.get("multi_dimensional") or payload.get("cross_market")),
-            }
-        )
+        return await batch02_execute(69, params=params)
 
     from onchain_tracker import build_onchain_context_safe
     from instant_alert_engine import engine_stats

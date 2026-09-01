@@ -1,14 +1,7 @@
 .                                                                        [100%]
 =============================== warnings summary ===============================
-tests/cap646/test_institutional_gate.py: 6437 warnings
-  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
-  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
-    array.shape = self.shape
-
-tests/cap646/test_institutional_gate.py: 121 warnings
-  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:204: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
-  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
-    array.shape = self.shape[::-1]
+tests/cap646/test_institutional_gate.py: 6437+ warnings (joblib DeprecationWarning)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 EXIT:0
+MANDATE-COMPLETION re-run: 2026-09-01 — closure_verdict INSTITUTIONAL_GATE_PASS

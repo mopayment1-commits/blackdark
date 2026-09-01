@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import Any
 
@@ -55,3 +56,48 @@ def wrap(
     if extra:
         body.update(extra)
     return ai_compliance_footer(body)
+
+
+def make_wrap_binding(expected_surface: dict[int, str]) -> Callable[..., dict[str, Any]]:
+    """Factory for batch-specific wrap helpers — single Extract Function site (CWE-1041)."""
+
+    def binding(
+        capability_id: int,
+        *,
+        symbol: str,
+        payload_key: str,
+        payload: Any,
+        extra: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        return wrap(
+            capability_id,
+            expected_surface=expected_surface,
+            symbol=symbol,
+            payload_key=payload_key,
+            payload=payload,
+            extra=extra,
+        )
+
+    return binding
+
+
+async def execute_dedicated_caps(
+    capability_id: int,
+    *,
+    params: dict[str, Any] | None,
+    dedicated_ids: frozenset[int],
+    overlap_batch01_ids: frozenset[int],
+    dispatch: dict[int, Callable[..., Awaitable[dict[str, Any]]]],
+    overlap_error: str,
+    not_dedicated_error: str,
+) -> dict[str, Any]:
+    """Shared execute() tail for batch02/batch03 dedicated modules."""
+    if capability_id in overlap_batch01_ids:
+        raise ValueError(overlap_error)
+    if capability_id not in dedicated_ids:
+        raise ValueError(not_dedicated_error)
+    params = dict(params or {})
+    symbol = sym(params)
+    address = addr(params)
+    fn = dispatch[capability_id]
+    return await fn(symbol=symbol, address=address, params=params)

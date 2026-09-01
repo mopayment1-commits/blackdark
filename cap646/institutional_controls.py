@@ -413,18 +413,12 @@ def _fin_003() -> dict[str, Any]:
 
 @_sync
 def _fin_004() -> dict[str, Any]:
-    from net_edge_truth import compute_net_edge_truth
+    from net_edge_truth import FIN_004_DEMO_OPPORTUNITY, compute_net_edge_truth
 
     sample = compute_net_edge_truth(
         {
-            "net_profit_usdt": 2.5,
+            **FIN_004_DEMO_OPPORTUNITY,
             "quote_amount": 500,
-            "total_slippage_bps": 3,
-            "withdrawal_fee_usdt": 0.05,
-            "trading_fees_usdt": 0.2,
-            "quote_age_ms": 120,
-            "estimated_recipients": 2,
-            "flywheel_net_after_crowd_usd": 2.1,
         }
     )
     econ = sample.get("economics") or {}

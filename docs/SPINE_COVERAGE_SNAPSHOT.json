@@ -15,14 +15,14 @@
     {
       "module": "batch01_production.py",
       "stmts": 72,
-      "miss": 17,
-      "coverage_pct": 76.39
+      "miss": 5,
+      "coverage_pct": 93.06
     },
     {
       "module": "batch01_dedicated.py",
       "stmts": 458,
-      "miss": 378,
-      "coverage_pct": 17.47
+      "miss": 40,
+      "coverage_pct": 91.27
     },
     {
       "module": "batch02_production.py",
@@ -32,21 +32,28 @@
     },
     {
       "module": "batch02_dedicated.py",
-      "stmts": 266,
-      "miss": 173,
-      "coverage_pct": 34.96
+      "stmts": 258,
+      "miss": 168,
+      "coverage_pct": 34.88
+    },
+    {
+      "module": "dedicated_common.py",
+      "stmts": 43,
+      "miss": 5,
+      "coverage_pct": 88.37
     },
     {
       "module": "database.py",
       "stmts": 1419,
-      "miss": 1118,
-      "coverage_pct": 21.21
+      "miss": 1031,
+      "coverage_pct": 27.34
     }
   ],
   "combined_spine": {
-    "total_stmts": 2387,
-    "total_miss": 1778,
-    "weighted_statement_coverage_pct": 25.51,
-    "metric": "statement_coverage_not_branch"
-  }
+    "total_stmts": 2422,
+    "total_miss": 1341,
+    "weighted_statement_coverage_pct": 44.63
+  },
+  "pytest_exit_code": 1,
+  "label": "spine-suite"
 }

@@ -58,11 +58,11 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
     ),
     69: BackendBinding(
         69,
-        "cap646.handlers.onchain",
-        "handle_onchain_capability",
+        "cap646.batch02_production",
+        "cap_069",
         "cross_domain_decision_intelligence_layer",
         "symbol",
-        "canonical_handler_post_batch02_merge",
+        "batch02_production_spine_ssot",
     ),
 }
 
