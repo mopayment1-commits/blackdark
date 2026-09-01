@@ -214,7 +214,80 @@ Per-ID proofs for #106/#107/#125: `option_a_verified: true`, surfaces match expe
 
 ---
 
-## 9) STOP
+## 9) STOP — closure gate status
 
-Batch 02 **NOT CLOSED**. Batch 03 **BLOCKED**. #69 merge **PENDING independent sign-off**.
+| Gate | Status |
+|------|--------|
+| Honest decomposition (44 + 2 overlap + 4 REUSED-LINK) | **Documented** — not 50 independent |
+| Live payload proof (#106/#107/#125) | **Attached** — section 6 |
+| `verify_batch02_production.py` | **all_verified: true** — section 8 |
+| `pytest -m "not slow"` | **2481 passed, 0 failed, 2 skipped** |
+| #69 merge | **PENDING independent sign-off** — out of batch scope |
+| #125 OI numerics | **REUSED-LINK + OI_FEED_DEFERRED** — see section 13 |
+| Batch02 entitlement enforcement | **GAP** — batch02 spine bypasses `entitlement_engine.check` (section 4) |
+| Batch 02 closure | **NOT CLOSED** |
+| Batch 03 | **BLOCKED** |
+
+**Next required before closure:** (1) explicit approval on #69 side-effect, (2) entitlement path for batch02 OR documented exception, (3) OI feed remediation plan for #125/#85.
+
+---
+
+## 10) Mandatory review #5 — sections A–E
+
+### القسم أ — #69
+
+**1) أي backend يعمل فعليًا؟**
+
+| المصدر | #69 backend |
+|--------|-------------|
+| **Runtime حي** (`execute_capability(69)`) | `cap646.handlers.onchain.handle_onchain_capability` |
+| **Inventory/static registry** (قبل التحديث) | `ai_oracle.evaluate_opportunity` (من gap-matrix component mapping) |
+
+**السبب في التناقض:** `binding_for(69)` كان يستنتج من `CAP646_GAP_MATRIX.json` → `ai_oracle.py` component. التنفيذ الحي يمر عبر `_route_handler` → `handle_onchain_capability` بعد دمج batch02. **الحقيقة الواحدة الصحيحة = runtime.** تم تحديث `backend_registry.py` بربط صريح لـ#69 ليطابق runtime، ثم إعادة توليد inventory.
+
+**2) `composite_score=5.0`:** من `build_multi_dim_analysis_73` — متوسط مرجّح لأبعاد أربعة (technical/on_chain/sentiment/macro)، كل بُعد افتراضي **5.0** على مقياس **0–10**:
+`composite = 5.0×0.30 + 5.0×0.25 + 5.0×0.20 + 5.0×0.25 = 5.0` (`bd_platform/pro_trader_layer.py`).
+
+**3) هل دمج #110 في #69 كان إلزاميًا تقنيًا؟** **لا.** #110 يمكن أن يبقى مستقلًا عبر batch02 spine (spine-before-redirect). الدمج في #69 كان **قرارًا مؤسسيًا** لأن المستخدم طلب خيار (أ): ألا تبقى #69 تُرجع `onchain_intelligence` عامًا بينما #110 يُصنَّف REUSED-LINK لنفس الهدف الكتالوجي.
+
+### القسم ب — اختبار حي بدون `skip_entitlement`
+
+**4) نتائج (user pro, `skip_entitlement=False`):**
+
+| IDs | BTC | ETH | entitlement object |
+|-----|-----|-----|-------------------|
+| 106, 107, 125 | success | success | `null` |
+| 101, 104, 111, 116, 130, 144 | success | success | `null` |
+| 69 | success | success | `null` (allowed — min tier `free`) |
+
+**فجوة معمارية صادقة:** `cap646/runtime.py` L115–123 — IDs في `BATCH02_IDS` **لا تمر** على `entitlement_engine.check` أصلًا. إزالة `skip_entitlement` لا تُثبت enforcement للاشتراك على batch02؛ تُثبت فقط أن المسار لا يحتاج التجاوز. **مطلوب إصلاح أو استثناء موثّق قبل الإغلاق.**
+
+**5) ETH:** جميع العيّنات أعلاه `success=true` على ETH بنفس surfaces.
+
+### القسم ج — #106/#107 محتوى
+
+**6) `hot_storage` أصفار:** **سلوك متوقع** عندما لا يوجد pipeline نشط — `get_hot_storage_stats()` يُرجع `HotStorageStats()` الافتراضية (كل القيم 0) إذا `get_hot_pipeline()` is `None` (`hot_storage.py` L931–934).
+
+**7) `live_venues=100` مع `score=35.0`:** الصيغة `depth = min(35.0, 8.0 + venue_count × 3.0)` (`data_provenance_score.py` L83). عند 100 venues → `8+300` capped at **35.0** (سقف المكوّن). **Bands:** `≥80` → `decision_grade`; `≥55` → `caution`; `<55` → `insufficient` (L52–57). ليس safe/caution/danger — الأسماء الفعلية: `decision_grade` / `caution` / `insufficient`.
+
+**8) `total_in_memory=2000`:** **سقف ذاكرة** `_MAX_MEMORY = SIGNAL_REGISTRY_MAX_MEMORY` افتراضي **2000** (`signal_registry.py` L28). `registry_stats()` يُرجع `len(rows)` — عند الامتلاء يصل للسقف.
+
+### القسم د — القسم 9
+
+انظر **القسم 9 أعلاه** (STOP gate table).
+
+### القسم هـ
+
+**10) Commits:**
+- [e091f5f](https://github.com/mopayment1-commits/blackdark/commit/e091f5f4a5252b670aaf3c2d1a241244e554ce06) — audit docs only (pre-fix state)
+- [ad813af](https://github.com/mopayment1-commits/blackdark/commit/ad813afcdae0270409193f64d316dbc9a779653b) — backend fixes #106/#107/#125/#110
+- [9746f81](https://github.com/mopayment1-commits/blackdark/commit/9746f8156c06f761e70aa979fe5cc508c5a49dc3) — #69 merge, overlap cleanup, REUSED-LINK taxonomy
+- [53dcf5e](https://github.com/mopayment1-commits/blackdark/commit/53dcf5e257d0c9464ba9ba4cef9bccc95a21b98c) — sections 6–8 live payloads + refreshed `BATCH02_PRODUCTION_PROOF.json` (docs only, no code logic)
+
+**11) CI Critical Gate:** [run #33489461069](https://github.com/mopayment1-commits/blackdark/actions/runs/33489461069) — **success** on `53dcf5e`.
+
+**12) pytest:** `2481 passed, 0 failed, 2 skipped, 4 deselected` (`pytest -m "not slow" -r fEs`).
+
+**13) قرار #125:** تبقى **REUSED-LINK** (alias لـ#85). القيم الرقمية للـOI: **`OI_FEED_DEFERRED`** — `binance_futures_public.available=false` و`COINGLASS_API_KEY` غير مضبوط؛ BTC/ETH OI=0. **لا تُعاد PRODUCTION-ALIGNED مستقلة** حتى يعمل مصدر OI حي. **مراجعة مجدولة:** عند توفر `COINGLASS_API_KEY` أو إصلاح Binance futures snapshot.
+
 

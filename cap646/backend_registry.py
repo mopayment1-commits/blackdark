@@ -56,6 +56,14 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "symbol",
         "explicit_option_a",
     ),
+    69: BackendBinding(
+        69,
+        "cap646.handlers.onchain",
+        "handle_onchain_capability",
+        "cross_domain_decision_intelligence_layer",
+        "symbol",
+        "canonical_handler_post_batch02_merge",
+    ),
 }
 
 

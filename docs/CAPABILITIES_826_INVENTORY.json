@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T08:22:33.276298+00:00",
+  "generated_at": "2026-09-01T09:28:24.531867+00:00",
   "scope": "IDs 1-826 institutional completion inventory",
   "classification_taxonomy": {
     "PRODUCTION-ALIGNED": {
@@ -605,8 +605,8 @@
       "classification": "SPLIT-BRAIN-UNVERIFIED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "gap_matrix_component",
-      "backend": "ai_oracle.evaluate_opportunity"
+      "binding_source": "canonical_handler_post_batch02_merge",
+      "backend": "cap646.handlers.onchain.handle_onchain_capability"
     },
     "70": {
       "capability": "Exchange Reserve Intelligence",

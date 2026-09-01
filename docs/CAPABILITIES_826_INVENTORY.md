@@ -1,6 +1,6 @@
 # CAPABILITIES 826 — Institutional Inventory
 
-Generated: 2026-09-01T08:22:33.276298+00:00
+Generated: 2026-09-01T09:28:24.531867+00:00
 
 ## Summary
 
