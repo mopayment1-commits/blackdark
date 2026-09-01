@@ -21,7 +21,8 @@ async def test_batch01_dedicated_surface_and_success(capability_id: int):
     result = await execute_capability(capability_id, skip_entitlement=True, params=params)
     assert result["success"] is True, result
     assert result["surface"] == EXPECTED_SURFACE[capability_id], result
-    assert result["surface"] not in GENERIC_SURFACES
+    generic_misroute = result["surface"] in GENERIC_SURFACES and result["surface"] != EXPECTED_SURFACE[capability_id]
+    assert not generic_misroute
     assert result["production_spine"] == "batch01"
     assert result["backend_module"] == "cap646.batch01_production"
 

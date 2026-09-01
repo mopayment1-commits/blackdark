@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from cap646.batch01_production import BATCH01_IDS, batch01_entrypoint
+from cap646.batch01_production import OFFICIAL_BATCH01_IDS, batch01_entrypoint
 
 try:
     from cap646.batch01_dedicated import EXPECTED_SURFACE, GENERIC_SURFACES
@@ -79,13 +79,13 @@ async def _prove_one(capability_id: int) -> dict:
 
 
 async def main() -> None:
-    proofs = [await _prove_one(cid) for cid in sorted(BATCH01_IDS)]
+    proofs = [await _prove_one(cid) for cid in sorted(OFFICIAL_BATCH01_IDS)]
     out = {
         "verified_at": datetime.now(UTC).isoformat(),
-        "batch": "batch01_826_completion",
-        "scope": "IDs 1-59 (50 capabilities)",
+        "batch": "official_batch01",
+        "scope": "Official Batch 01 — IDs 1–50 (owner-approved baseline)",
         "production_runtime_path": "api/routers/cap646.py -> cap978.unified -> cap646.runtime.execute_capability -> cap646.batch01_production",
-        "capability_ids": sorted(BATCH01_IDS),
+        "capability_ids": sorted(OFFICIAL_BATCH01_IDS),
         "all_verified": all(p["option_a_verified"] for p in proofs),
         "proofs": proofs,
     }

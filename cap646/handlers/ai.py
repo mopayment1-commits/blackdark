@@ -49,10 +49,11 @@ async def handle_ai_capability(capability_id: int, *, params: dict[str, Any]) ->
         )
 
     try:
-        from ai_oracle import evaluate_opportunity
+        from ai_oracle import OpportunityKind, evaluate_opportunity
 
         opp = params.get("opportunity") or {"asset": symbol, "symbol": f"{symbol}/USDT"}
-        result = await evaluate_opportunity(opp)
+        kind: OpportunityKind = str(params.get("kind") or "spot_futures")  # type: ignore[assignment]
+        result = await evaluate_opportunity(opp, kind)
         return ai_compliance_footer(
             {"capability_id": capability_id, "surface": "ai_decision_intelligence", "result": result, "success": bool(result)}
         )

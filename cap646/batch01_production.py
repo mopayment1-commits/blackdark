@@ -1,49 +1,18 @@
-"""Batch 01 — canonical production spine for 826-completion (IDs 1–59, 50 capabilities).
+"""Batch 01 — canonical production spine for official 826 batch 01 (IDs 1–50).
 
-Single source of truth for institutional Option A wiring. Handlers delegate here;
-``backend_registry`` explicit bindings point to ``cap_XXX`` entrypoints in this module.
+Owner-approved scope: official Batch 01 = IDs 1–50 only.
+``LEGACY_BATCH01_EXTENSION_IDS`` retains earlier cherry-picked spine routes for IDs >50;
+those IDs are recorded in RTM under their true ``official_batch``.
 """
 
 from __future__ import annotations
 
 from typing import Any, Awaitable, Callable
 
-BATCH01_IDS: frozenset[int] = frozenset(
+OFFICIAL_BATCH01_IDS: frozenset[int] = frozenset(range(1, 51))
+
+LEGACY_BATCH01_EXTENSION_IDS: frozenset[int] = frozenset(
     {
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        10,
-        11,
-        12,
-        13,
-        14,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        25,
-        27,
-        28,
-        29,
-        30,
-        33,
-        34,
-        36,
-        37,
-        40,
-        44,
-        45,
-        46,
-        47,
-        48,
-        49,
         55,
         56,
         59,
@@ -63,14 +32,17 @@ BATCH01_IDS: frozenset[int] = frozenset(
     }
 )
 
-_BATCH01_FREE_TIER = frozenset({1, 2, 3, 4, 10, 21, 45})
-_BATCH01_ALERTS = frozenset({17, 60, 629, 245})
-_BATCH01_MARKET = frozenset({47, 129, 214, 29, 46})
+BATCH01_IDS: frozenset[int] = OFFICIAL_BATCH01_IDS | LEGACY_BATCH01_EXTENSION_IDS
+
+_BATCH01_FREE_TIER = frozenset({1, 2, 3, 4, 10, 21, 38, 39, 45})
+_BATCH01_ALERTS = frozenset({60, 629, 245})
+_BATCH01_MARKET = frozenset({47, 129, 214})
 _BATCH01_DERIVATIVES = frozenset({48, 49})
 _BATCH01_DATA = frozenset({630, 631})
-_BATCH01_AI = frozenset({175, 25, 30, 34, 59, 642})
-_BATCH01_ONCHAIN = frozenset({5, 6, 7, 11, 12, 13, 14, 18, 19, 20, 22, 27, 28, 36, 37, 44, 55})
+_BATCH01_AI = frozenset({175, 34, 59, 642})
+_BATCH01_ONCHAIN = frozenset({5})
 _BATCH01_INSTITUTIONAL = frozenset({103, 644, 646})
+_BATCH01_VERIFIED = frozenset({49})
 
 
 from cap646.batch01_dedicated import BATCH01_DEDICATED_IDS
@@ -124,6 +96,10 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
         from cap646.handlers.data import handle_data_capability
 
         handler_fn = handle_data_capability
+    elif capability_id in _BATCH01_VERIFIED:
+        from cap646.handlers.verified import handle_verified_capability
+
+        handler_fn = handle_verified_capability
     elif capability_id in _BATCH01_AI:
         from cap646.handlers.ai import handle_ai_capability
 

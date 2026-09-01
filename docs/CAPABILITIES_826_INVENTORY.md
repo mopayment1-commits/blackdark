@@ -1,33 +1,31 @@
-# CAPABILITIES 826 — Institutional Inventory
+# CAPABILITIES 826 — Requirements Traceability Matrix (RTM)
 
-Generated: 2026-09-01T09:28:24.531867+00:00
+Generated: 2026-09-01T10:08:34.151376+00:00
+
+## Scope baseline (owner-approved)
+
+| Official batch | ID range |
+|----------------|----------|
+| batch01 | 1–50 |
+| batch02 | 51–100 |
+| batch03 | 101–150 |
 
 ## Summary
 
 | Metric | Count |
 |--------|------:|
 | Total scope | 826 |
-| PRODUCTION-ALIGNED | 96 |
+| Official batch01 PRODUCTION-ALIGNED | 50/50 |
 
-## Classification breakdown
+## Status breakdown
 
-| Classification | Count |
-|----------------|------:|
-| DEFERRED/TEMPLATE-STUB | 307 |
-| NOT_IN_HERO_AUDIT | 248 |
-| SPLIT-BRAIN-UNVERIFIED | 127 |
-| PRODUCTION-ALIGNED | 96 |
-| DEFERRED-EARLY-BATCH | 36 |
-| EXTENSION-PENDING-CAP646 | 6 |
-| REUSED-LINK | 4 |
+| Status | Count |
+|--------|------:|
+| PENDING | 581 |
+| NOT_COMPLETE | 127 |
+| PRODUCTION-ALIGNED | 68 |
+| PENDING_SCOPE_REALIGNMENT | 44 |
+| PENDING_CANONICAL_AUDIT | 4 |
 | OVERLAP_BATCH01 | 2 |
 
-## REUSED-LINK (official category)
-
-Catalog-registered duplicate/alias of a canonical capability ID; entry point may differ but goal is the same documented capability.
-
-**Acceptance criteria:**
-- docs/cap646/CAP646_GAP_MATRIX.json marks final_classification DUPLICATE/ALREADY_COVERED with canonical ID
-- AND/OR cap646/catalog.py REPEAT_CANONICAL maps identical capability name to canonical ID
-- Live payload achieves the shared catalog goal (not merely spine routing)
-- Does not count as an independent new completion in batch closure totals
+> `VERIFIED_COMPLETE` is banned until formally registered in this inventory.
