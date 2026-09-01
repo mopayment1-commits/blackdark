@@ -1,0 +1,77 @@
+{
+  "verified_at": "2026-09-01T13:06:40.495261+00:00",
+  "scope": "Entitlement gateway path (no skip_entitlement)",
+  "proofs": [
+    {
+      "capability_id": 1,
+      "user_label": "anonymous_free",
+      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "smart_money_leaderboard",
+      "production_spine": "batch01",
+      "classification": "PRODUCTION-ALIGNED"
+    },
+    {
+      "capability_id": 8,
+      "user_label": "free_tier_user",
+      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "top_holders_concentration_analysis",
+      "production_spine": "batch01",
+      "classification": "PRODUCTION-ALIGNED"
+    },
+    {
+      "capability_id": 24,
+      "user_label": "pro_tier_no_ssot_override",
+      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "ai_research_agent_grounded",
+      "production_spine": "batch01",
+      "classification": "PRODUCTION-ALIGNED"
+    },
+    {
+      "capability_id": 47,
+      "user_label": "free_user_pro_gated",
+      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "entitlement_allowed": false,
+      "entitlement_reason": "teaser",
+      "success": false,
+      "surface": null,
+      "production_spine": null,
+      "classification": null
+    },
+    {
+      "capability_id": 47,
+      "user_label": "pro_tier_spot_metrics",
+      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "spot_market_metrics_suite",
+      "production_spine": "batch01",
+      "classification": "PRODUCTION-ALIGNED"
+    }
+  ],
+  "expectations": {
+    "1_free": "allowed + batch01 spine",
+    "8_free": "allowed + batch01 spine",
+    "24_pro": "allowed + batch01 spine",
+    "47_free": "denied tier_insufficient",
+    "47_pro": "allowed",
+    "103_elite": "allowed (if subscription active) or tier path exercised"
+  },
+  "checks": {
+    "1_allowed": true,
+    "8_allowed": true,
+    "24_pro_allowed": true,
+    "47_free_denied": true,
+    "47_pro_allowed": true
+  },
+  "all_verified": true
+}

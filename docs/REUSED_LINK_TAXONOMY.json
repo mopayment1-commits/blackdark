@@ -1,0 +1,52 @@
+{
+  "taxonomy_id": "REUSED-LINK",
+  "registered_at": "2026-09-01T12:35:00+00:00",
+  "status": "ACTIVE",
+  "definition": "Catalog declares DUPLICATE / ALREADY_COVERED / REPEAT_CANONICAL for an ID that re-exposes the same goal as a canonical capability. Live execution under the duplicate ID must return a goal-equivalent, user-ready payload — not a generic handler and not a different capability's goal.",
+  "acceptance_criteria": [
+    "Catalog proof: CAP646_GAP_MATRIX or CAP646_CATALOG entry with DUPLICATE/ALREADY_COVERED/REPEAT_CANONICAL or explicit duplicate_of canonical ID",
+    "Live execution under the duplicate ID returns success=true with goal-specific surface (not GENERIC_SURFACES)",
+    "Payload includes catalog_link.duplicate_of and classification REUSED-LINK when served via dedicated spine",
+    "Canonical target ID is itself PRODUCTION-ALIGNED before REUSED-LINK closure is accepted"
+  ],
+  "catalog_proof_locations": {
+    "gap_matrix": "docs/cap646/CAP646_GAP_MATRIX.json",
+    "runtime_duplicate_redirect": "cap646/runtime.py — classification DUPLICATE/ALREADY_COVERED",
+    "batch03_prep_reused_link": "cap646/batch03_dedicated.py — catalog_link on #106, #107, #110, #125"
+  },
+  "registered_pairs": {
+    "106": {
+      "canonical_id": 63,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "DUPLICATE/ALREADY_COVERED",
+      "canonical_goal": "Data Quality & Provenance Layer",
+      "duplicate_goal": "Data Quality & Provenance Layer"
+    },
+    "107": {
+      "canonical_id": 64,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "DUPLICATE/ALREADY_COVERED",
+      "canonical_goal": "Metric Methodology Registry",
+      "duplicate_goal": "Metric Methodology Registry"
+    },
+    "110": {
+      "canonical_id": 69,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "REPEAT_CANONICAL",
+      "canonical_goal": "Cross-Domain Decision Intelligence Layer",
+      "duplicate_goal": "Cross-Domain Decision Intelligence Layer",
+      "shared_module": "cap646/cross_domain_decision.py"
+    },
+    "125": {
+      "canonical_id": 85,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "DUPLICATE/ALREADY_COVERED",
+      "canonical_goal": "Futures Open Interest Intelligence",
+      "duplicate_goal": "Futures Open Interest Intelligence"
+    }
+  },
+  "counting_rules": {
+    "reused_link_accepted": "Counts as covered/ready for the duplicate ID goal — not independent new build",
+    "no_826_reduction": "826 total is not reduced; report separates independent PRODUCTION-ALIGNED vs REUSED-LINK covered"
+  }
+}

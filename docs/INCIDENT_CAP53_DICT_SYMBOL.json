@@ -1,0 +1,40 @@
+{
+  "incident_id": "CAP53_DICT_SYMBOL_20260901",
+  "capability_id": 53,
+  "catalog_name": "BTC-to-Macro Coupling",
+  "official_batch": "batch02",
+  "discovered_at": "2026-09-01T09:54:09Z",
+  "resolved_at": "2026-09-01T11:52:00Z",
+  "symptom": {
+    "surface": "ai_decision_intelligence",
+    "oracle_fallback_error": "'dict' object has no attribute 'symbol'",
+    "production_spine": null,
+    "success": true
+  },
+  "root_cause": {
+    "summary": "Generic AI handler passed a plain dict opportunity to evaluate_opportunity(); extract_metrics() for kind=spot_futures accessed opportunity.symbol as attribute.",
+    "call_chain": [
+      "cap646.runtime.execute_capability",
+      "cap646.handlers.ai.handle_ai_capability",
+      "ai_oracle.evaluate_opportunity(opp_dict, 'spot_futures')",
+      "ai_oracle.extract_metrics -> opportunity.symbol on dict"
+    ],
+    "files": [
+      "cap646/handlers/ai.py",
+      "ai_oracle.py"
+    ]
+  },
+  "fix": {
+    "primary": "Dedicated #53 handler in cap646/handlers/ai.py using macro_correlations.build_macro_context_safe() with surface btc_to_macro_coupling",
+    "defensive": "ai_oracle._opportunity_symbol/_opportunity_field helpers for dict opportunities in extract_metrics spot_futures/funding paths",
+    "commit_pending": "see current branch commit"
+  },
+  "post_fix_proof": {
+    "http_path": "GET /api/cap646/53?symbol=BTC",
+    "http_status": 200,
+    "surface": "btc_to_macro_coupling",
+    "oracle_fallback_error": null,
+    "success": true,
+    "note": "#53 is official batch02 — no batch01 spine expected until batch02 spine is implemented"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "manifest_id": "BATCH02_OFFICIAL_51_100",
+  "generated_at": "2026-09-01T12:40:00+00:00",
+  "official_batch": "batch02",
+  "scope": "IDs 51–100",
+  "closure_status": "INSTITUTIONAL_CLOSED",
+  "counts": {
+    "total": 50,
+    "production_aligned": 50,
+    "independent_production_aligned": 46,
+    "overlap_batch01": 4,
+    "reused_link_in_scope": 0,
+    "not_complete": 0
+  },
+  "evidence_artifacts": {
+    "rtm_audit": "docs/BATCH02_OFFICIAL_RTM_51_100.json",
+    "http_proof": "docs/BATCH02_HTTP_PROOF_51_100.json",
+    "classification": "docs/BATCH02_CLASSIFICATION.json",
+    "reused_link_taxonomy": "docs/REUSED_LINK_TAXONOMY.json",
+    "inventory": "docs/CAPABILITIES_826_INVENTORY.json",
+    "hero_evidence": "data/hero_batch_02_official_51_100_evidence.jsonl",
+    "checklist": "capabilities_checklist.xlsx",
+    "entitlement_gateway": "docs/BATCH02_ENTITLEMENT_GATEWAY_PROOF.json",
+    "institutional_gate": "docs/INSTITUTIONAL_CLOSURE_FINAL.json",
+  },
+  "production_spine": {
+    "module": "cap646.batch02_production",
+    "dedicated": "cap646.batch02_dedicated",
+    "runtime_path": "cap646.runtime.execute_capability -> cap646.batch02_production"
+  },
+  "batch03_reused_link_resolution": {
+    "106": {"canonical": 63, "status": "REUSED-LINK_RESOLVED"},
+    "107": {"canonical": 64, "status": "REUSED-LINK_RESOLVED"},
+    "110": {"canonical": 69, "status": "REUSED-LINK_RESOLVED"},
+    "125": {"canonical": 85, "status": "REUSED-LINK_RESOLVED"}
+  },
+  "critical_gate": {
+    "workflow": ".github/workflows/ci.yml",
+    "job": "critical",
+    "note": "Attach passing GitHub Actions run URL on PR merge"
+  }
+}

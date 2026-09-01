@@ -56,12 +56,83 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "symbol",
         "explicit_option_a",
     ),
+    69: BackendBinding(
+        69,
+        "cap646.handlers.onchain",
+        "handle_onchain_capability",
+        "cross_domain_decision_intelligence_layer",
+        "symbol",
+        "canonical_handler_post_batch02_merge",
+    ),
 }
 
 
 def _slug(name: str) -> str:
     s = re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_")
     return s[:80] or "capability"
+
+
+def _register_batch01_bindings() -> None:
+    from cap646.batch01_production import BATCH01_IDS, batch01_entrypoint
+
+    for cid in BATCH01_IDS:
+        if cid in _EXPLICIT_BINDINGS:
+            continue
+        row = catalog_by_id().get(cid, {})
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch01_production",
+            batch01_entrypoint(cid),
+            surface,
+            "symbol",
+            "explicit_option_a",
+        )
+
+
+_register_batch01_bindings()
+
+
+def _register_batch02_bindings() -> None:
+    from cap646.batch02_production import BATCH02_IDS, batch02_entrypoint
+
+    for cid in BATCH02_IDS:
+        if cid in _EXPLICIT_BINDINGS:
+            continue
+        row = catalog_by_id().get(cid, {})
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch02_production",
+            batch02_entrypoint(cid),
+            surface,
+            "symbol",
+            "explicit_option_a",
+        )
+
+
+_register_batch02_bindings()
+
+
+def _register_batch03_bindings() -> None:
+    from cap646.batch03_production import BATCH03_IDS, batch03_entrypoint
+
+    for cid in BATCH03_IDS:
+        if cid in _EXPLICIT_BINDINGS:
+            continue
+        row = catalog_by_id().get(cid, {})
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch03_production",
+            batch03_entrypoint(cid),
+            surface,
+            "symbol",
+            "explicit_option_a",
+        )
+
+
+_register_batch03_bindings()
 
 
 # Map gap-matrix component stems → canonical import path + entrypoint

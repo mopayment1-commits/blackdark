@@ -1,0 +1,32 @@
+{
+  "manifest_id": "BATCH01_OFFICIAL_1_50",
+  "generated_at": "2026-09-01T13:05:00+00:00",
+  "official_batch": "batch01",
+  "scope": "IDs 1–50",
+  "closure_status": "INSTITUTIONAL_CLOSED",
+  "counts": {
+    "total": 50,
+    "production_aligned": 50,
+    "not_complete": 0
+  },
+  "iso_25010": {
+    "completeness": "50/50 live RTM + HTTP",
+    "correctness": "goal-specific surfaces, no generic fallback",
+    "appropriateness": "cap646.batch01_production dedicated backends"
+  },
+  "evidence_artifacts": {
+    "rtm_audit": "docs/BATCH01_OFFICIAL_RTM_1_50.json",
+    "http_proof_all50": "docs/BATCH01_HTTP_PROOF_1_50.json",
+    "http_proof_11_fixed": "docs/BATCH01_HTTP_PROOF_11_FIXED.json",
+    "entitlement_gateway": "docs/BATCH01_ENTITLEMENT_GATEWAY_PROOF.json",
+    "production_proof": "docs/BATCH01_PRODUCTION_PROOF.json",
+    "inventory": "docs/CAPABILITIES_826_INVENTORY.json",
+    "institutional_gate": "docs/INSTITUTIONAL_CLOSURE_FINAL.json"
+  },
+  "production_spine": "cap646.batch01_production",
+  "critical_gate": {
+    "workflow": ".github/workflows/ci.yml",
+    "job": "critical",
+    "pr": "https://github.com/mopayment1-commits/blackdark/pull/349"
+  }
+}

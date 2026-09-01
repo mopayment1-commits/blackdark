@@ -1,0 +1,35 @@
+{
+  "verified_at": "2026-09-01T11:54:00Z",
+  "scope": "Explicit gap verification for official batch01 IDs #38 and #39",
+  "proofs": [
+    {
+      "capability_id": 38,
+      "catalog_name": "Cost Basis Distribution",
+      "http_method": "GET",
+      "http_path": "/api/cap646/38",
+      "http_status": 200,
+      "success": true,
+      "surface": "cost_basis_distribution",
+      "production_spine": "batch01",
+      "classification": "PRODUCTION-ALIGNED",
+      "oracle_fallback_error": null,
+      "routing": "_BATCH01_FREE_TIER -> execute_free_tier_capability",
+      "verdict": "PRODUCTION-ALIGNED — no gap"
+    },
+    {
+      "capability_id": 39,
+      "catalog_name": "Realized Cap / Realized Price",
+      "http_method": "GET",
+      "http_path": "/api/cap646/39",
+      "http_status": 200,
+      "success": true,
+      "surface": "realized_cap_realized_price",
+      "production_spine": "batch01",
+      "classification": "PRODUCTION-ALIGNED",
+      "oracle_fallback_error": null,
+      "routing": "_BATCH01_FREE_TIER -> execute_free_tier_capability",
+      "verdict": "PRODUCTION-ALIGNED — no gap"
+    }
+  ],
+  "all_verified": true
+}

@@ -88,6 +88,18 @@ def _asset_from_symbol(symbol: str) -> str:
     return symbol.split("/")[0]
 
 
+def _opportunity_symbol(opportunity: Any) -> str:
+    if isinstance(opportunity, dict):
+        return str(opportunity.get("symbol") or opportunity.get("asset") or "BTC/USDT")
+    return str(getattr(opportunity, "symbol", None) or getattr(opportunity, "asset", "BTC/USDT"))
+
+
+def _opportunity_field(opportunity: Any, key: str, default: Any = 0) -> Any:
+    if isinstance(opportunity, dict):
+        return opportunity.get(key, default)
+    return getattr(opportunity, key, default)
+
+
 def extract_metrics(opportunity: Any, kind: OpportunityKind) -> OpportunityMetrics:
     """Normalize heterogeneous opportunity models into scoring metrics."""
     if kind == "cross_exchange":
@@ -117,24 +129,24 @@ def extract_metrics(opportunity: Any, kind: OpportunityKind) -> OpportunityMetri
 
     if kind == "spot_futures":
         return OpportunityMetrics(
-            asset=_asset_from_symbol(opportunity.symbol),
+            asset=_asset_from_symbol(_opportunity_symbol(opportunity)),
             kind=kind,
-            net_profit_usdt=float(opportunity.net_profit_usdt),
-            net_profit_percent=float(opportunity.net_profit_percent),
-            total_slippage_bps=float(opportunity.total_slippage_bps),
-            gross_spread_bps=float(opportunity.basis_bps),
-            basis_bps=float(opportunity.basis_bps),
-            quote_amount=float(opportunity.quote_amount),
+            net_profit_usdt=float(_opportunity_field(opportunity, "net_profit_usdt", 0)),
+            net_profit_percent=float(_opportunity_field(opportunity, "net_profit_percent", 0)),
+            total_slippage_bps=float(_opportunity_field(opportunity, "total_slippage_bps", 0)),
+            gross_spread_bps=float(_opportunity_field(opportunity, "basis_bps", 0)),
+            basis_bps=float(_opportunity_field(opportunity, "basis_bps", 0)),
+            quote_amount=float(_opportunity_field(opportunity, "quote_amount", 1000) or 1000),
         )
 
     return OpportunityMetrics(
-        asset=_asset_from_symbol(opportunity.symbol),
+        asset=_asset_from_symbol(_opportunity_symbol(opportunity)),
         kind=kind,
-        net_profit_usdt=float(opportunity.net_yield_usdt),
-        net_profit_percent=float(opportunity.net_yield_percent),
-        total_slippage_bps=float(getattr(opportunity, "total_slippage_bps", 0.0) or 0.0),
-        gross_spread_bps=float(opportunity.funding_spread_bps),
-        funding_spread_bps=float(opportunity.funding_spread_bps),
+        net_profit_usdt=float(_opportunity_field(opportunity, "net_yield_usdt", 0)),
+        net_profit_percent=float(_opportunity_field(opportunity, "net_yield_percent", 0)),
+        total_slippage_bps=float(_opportunity_field(opportunity, "total_slippage_bps", 0) or 0.0),
+        gross_spread_bps=float(_opportunity_field(opportunity, "funding_spread_bps", 0)),
+        funding_spread_bps=float(_opportunity_field(opportunity, "funding_spread_bps", 0)),
         quote_amount=float(opportunity.quote_amount),
     )
 

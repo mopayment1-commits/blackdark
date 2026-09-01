@@ -41,7 +41,7 @@ async def execute_extension(capability_id: int, *, user: dict[str, Any] | None =
         free_result.setdefault("capability", row["capability"])
         free_result.setdefault("track", row.get("track"))
         free_result.setdefault("scope", row.get("scope"))
-        free_result.setdefault("classification", "VERIFIED_COMPLETE" if free_result.get("success") else "NOT_READY")
+        free_result.setdefault("classification", "PRODUCTION-ALIGNED" if free_result.get("success") else "NOT_COMPLETE")
         from cap646.domain_enrichment import enrich_capability_result
 
         return await enrich_capability_result(capability_id, ai_compliance_footer(free_result), params=params)
