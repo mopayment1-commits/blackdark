@@ -3,7 +3,7 @@
 **Date:** 2026-09-01  
 **Branch:** `cursor/complete-826-batch02-e85e`  
 **Scope:** **IDs 101–150 (50 capabilities)**  
-**Status:** **50/50 PRODUCTION-ALIGNED** (ISO/IEC 25010 + production path + live content)
+**Status:** **NOT CLOSED** — honest audit: **44 new PRODUCTION-ALIGNED + 2 batch01 overlap + 1 REUSED-LINK + 3 NOT_COMPLETE** (see `docs/BATCH02_HONEST_CLOSURE_AUDIT.md`)
 
 ---
 
@@ -13,11 +13,13 @@
 |--------|------:|
 | Capabilities in batch | **50** |
 | ID range | **101–150** |
-| PRODUCTION-ALIGNED | **50/50** |
-| Overlap with Batch 01 (re-verified) | **103, 129** |
-| Dedicated backends | **50** (`cap646.batch02_dedicated`) |
-| `pytest -m "not slow"` | **0 failed** |
-| Live production proof | `docs/BATCH02_PRODUCTION_PROOF.json` (`all_verified: true`) |
+| New PRODUCTION-ALIGNED (independent) | **44** |
+| Batch 01 overlap (re-verified, not new) | **2** (#103, #129) |
+| REUSED-LINK (catalog duplicate) | **1** (#110) |
+| NOT_COMPLETE | **3** (#106, #107, #125) |
+| Dedicated backends (code exists) | **50** (`cap646.batch02_dedicated`) |
+| `pytest -m "not slow"` | **0 failed** (2484 passed) |
+| Surface/path proof (technical) | `docs/BATCH02_PRODUCTION_PROOF.json` — **does not imply 50 independent completions** |
 
 ### Production spine
 
