@@ -3,7 +3,7 @@
   "generated_at": "2026-09-01T12:40:00+00:00",
   "official_batch": "batch02",
   "scope": "IDs 51–100",
-  "closure_status": "CLOSED_PENDING_CRITICAL_GATE",
+  "closure_status": "INSTITUTIONAL_CLOSED",
   "counts": {
     "total": 50,
     "production_aligned": 50,
@@ -20,8 +20,8 @@
     "inventory": "docs/CAPABILITIES_826_INVENTORY.json",
     "hero_evidence": "data/hero_batch_02_official_51_100_evidence.jsonl",
     "checklist": "capabilities_checklist.xlsx",
-    "honest_audit": "docs/BATCH02_HONEST_CLOSURE_AUDIT.md",
-    "completion_report": "docs/BATCH02_826_COMPLETION_REPORT.md"
+    "entitlement_gateway": "docs/BATCH02_ENTITLEMENT_GATEWAY_PROOF.json",
+    "institutional_gate": "docs/INSTITUTIONAL_CLOSURE_FINAL.json",
   },
   "production_spine": {
     "module": "cap646.batch02_production",

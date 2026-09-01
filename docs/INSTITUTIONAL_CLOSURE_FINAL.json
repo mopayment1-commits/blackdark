@@ -1,0 +1,67 @@
+{
+  "verified_at": "2026-09-01T13:06:57.942960+00:00",
+  "closure_status": "INSTITUTIONAL_CLOSED",
+  "batches": {
+    "batch01": {
+      "scope": "1–50",
+      "status": "INSTITUTIONAL_CLOSED"
+    },
+    "batch02": {
+      "scope": "51–100",
+      "status": "INSTITUTIONAL_CLOSED"
+    }
+  },
+  "critical_gate_workflow": ".github/workflows/ci.yml",
+  "critical_gate_job": "critical",
+  "scripts": [
+    {
+      "script": "audit_official_batch01_rtm.py",
+      "exit_code": 0,
+      "stdout": "{\n  \"total\": 50,\n  \"production_aligned\": 50,\n  \"not_complete\": 0\n}\nWrote /workspace/docs/BATCH01_OFFICIAL_RTM_1_50.json",
+      "stderr": ""
+    },
+    {
+      "script": "audit_official_batch02_rtm.py",
+      "exit_code": 0,
+      "stdout": "{\n  \"all_verified\": true,\n  \"production_aligned\": 50\n}\nWrote /workspace/docs/BATCH02_OFFICIAL_RTM_51_100.json",
+      "stderr": "kdark.db\n2026-09-01 13:05:50,008 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://www.coindesk.com/arc/outboundfeeds/rss/\n2026-09-01 13:05:50,008 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://cointelegraph.com/rss\n2026-09-01 13:05:50,008 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://decrypt.co/feed\n2026-09-01 13:05:50,008 | WARNING | BLACKDARK.SentimentEngine | CryptoCompare news fetch failed safely.\n"
+    },
+    {
+      "script": "verify_batch01_production.py",
+      "exit_code": 0,
+      "stdout": "{\n  \"all_verified\": true,\n  \"count\": 50\n}\nWrote /workspace/docs/BATCH01_PRODUCTION_PROOF.json",
+      "stderr": ""
+    },
+    {
+      "script": "verify_batch01_http_all50.py",
+      "exit_code": 0,
+      "stdout": "{\n  \"all_verified\": true,\n  \"count\": 50\n}\nWrote /workspace/docs/BATCH01_HTTP_PROOF_1_50.json",
+      "stderr": "r/api/cap646/47?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 13:06:28,422 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/48?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 13:06:28,616 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/49?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 13:06:29,232 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/50 614.6ms\n2026-09-01 13:06:29,241 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/50?symbol=BTC \"HTTP/1.1 200 OK\"\n"
+    },
+    {
+      "script": "verify_batch01_http_11_fixed.py",
+      "exit_code": 0,
+      "stdout": "{\n  \"all_verified\": true,\n  \"count\": 11\n}\nWrote /workspace/docs/BATCH01_HTTP_PROOF_11_FIXED.json",
+      "stderr": "00 | slow request GET /api/cap646/32 615.6ms\n2026-09-01 13:06:34,702 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/32?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 13:06:35,315 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/35 612.2ms\n2026-09-01 13:06:35,327 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/35?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 13:06:35,447 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/42?symbol=BTC \"HTTP/1.1 200 OK\"\n"
+    },
+    {
+      "script": "verify_entitlement_gateway_proof.py",
+      "exit_code": 0,
+      "stdout": "{\n  \"all_verified\": true,\n  \"checks\": {\n    \"1_allowed\": true,\n    \"8_allowed\": true,\n    \"24_pro_allowed\": true,\n    \"47_free_denied\": true,\n    \"47_pro_allowed\": true\n  }\n}\nWrote /workspace/docs/BATCH01_ENTITLEMENT_GATEWAY_PROOF.json",
+      "stderr": ""
+    },
+    {
+      "script": "verify_official_batch02_production.py",
+      "exit_code": 0,
+      "stdout": "{\n  \"all_verified\": true,\n  \"count\": 50\n}\nWrote /workspace/docs/BATCH02_HTTP_PROOF_51_100.json",
+      "stderr": " feed=https://cointelegraph.com/rss\n2026-09-01 13:06:55,018 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://decrypt.co/feed\n2026-09-01 13:06:55,018 | WARNING | BLACKDARK.SentimentEngine | CryptoCompare news fetch failed safely.\n2026-09-01 13:06:55,028 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/99?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 13:06:55,242 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/100?symbol=BTC \"HTTP/1.1 200 OK\"\n"
+    },
+    {
+      "script": "verify_entitlement_batch02_gateway_proof.py",
+      "exit_code": 0,
+      "stdout": "{\n  \"all_verified\": true,\n  \"checks\": {\n    \"51_free_allowed\": true,\n    \"53_free_allowed\": true,\n    \"69_pro_allowed\": true,\n    \"85_pro_allowed\": true,\n    \"100_free_allowed\": true,\n    \"103_free_denied\": true\n  }\n}\nWrote /workspace/docs/BATCH02_ENTITLEMENT_GATEWAY_PROOF.json",
+      "stderr": "Yahoo macro fetch failed safely | symbol=^GSPC\nYahoo price fetch failed safely | symbol=GC=F\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo price fetch failed safely | symbol=GC=F\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo macro fetch failed safely | symbol=^GSPC\nYahoo price fetch failed safely | symbol=BTC-USD\n"
+    }
+  ],
+  "all_verified": true
+}
