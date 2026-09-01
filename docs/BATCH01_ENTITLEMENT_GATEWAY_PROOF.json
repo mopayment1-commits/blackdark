@@ -1,6 +1,18 @@
 {
-  "verified_at": "2026-09-01T14:26:01.532708+00:00",
-  "scope": "Batch01 entitlement gateway — 10 IDs",
+  "verified_at": "2026-09-01T19:59:46.526809+00:00",
+  "scope": "Batch01 entitlement gateway — 10 test cases (9 unique IDs, range 1-50 only)",
+  "unique_capability_ids": [
+    1,
+    8,
+    21,
+    24,
+    38,
+    39,
+    46,
+    47,
+    50
+  ],
+  "test_case_count": 10,
   "script": "scripts/verify_entitlement_gateway_proof.py",
   "proofs": [
     {
@@ -130,17 +142,17 @@
       "production_spine": "batch01"
     },
     {
-      "capability_id": 103,
-      "user_label": "institutional_elite",
+      "capability_id": 46,
+      "user_label": "pro_dedicated_46",
       "user": {
-        "tier": "elite"
+        "tier": "pro"
       },
       "path": "cap646.institutional_gateway.gateway_execute",
       "skip_entitlement_used": false,
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
-      "surface": "api_data_platform",
+      "surface": "digital_asset_treasury_company_intelligence",
       "production_spine": "batch01"
     }
   ],

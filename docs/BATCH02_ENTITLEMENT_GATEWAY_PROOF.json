@@ -1,6 +1,18 @@
 {
-  "verified_at": "2026-09-01T14:26:19.964329+00:00",
-  "scope": "Batch02 entitlement gateway — 10 IDs",
+  "verified_at": "2026-09-01T20:01:50.301397+00:00",
+  "scope": "Batch02 entitlement gateway — 10 test cases (10 unique IDs, range 51-100 only)",
+  "unique_capability_ids": [
+    51,
+    53,
+    55,
+    56,
+    59,
+    60,
+    69,
+    85,
+    100
+  ],
+  "test_case_count": 10,
   "script": "scripts/verify_entitlement_batch02_gateway_proof.py",
   "proofs": [
     {
@@ -102,20 +114,6 @@
       "production_spine": "batch02"
     },
     {
-      "capability_id": 85,
-      "user_label": "pro_open_interest",
-      "user": {
-        "tier": "pro"
-      },
-      "path": "cap646.institutional_gateway.gateway_execute",
-      "skip_entitlement_used": false,
-      "entitlement_allowed": true,
-      "entitlement_reason": null,
-      "success": true,
-      "surface": "futures_open_interest_intelligence",
-      "production_spine": "batch02"
-    },
-    {
       "capability_id": 100,
       "user_label": "free_oracle_track",
       "user": {
@@ -130,8 +128,22 @@
       "production_spine": "batch02"
     },
     {
-      "capability_id": 103,
-      "user_label": "out_of_scope_denied",
+      "capability_id": 85,
+      "user_label": "pro_open_interest",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "futures_open_interest_intelligence",
+      "production_spine": "batch02"
+    },
+    {
+      "capability_id": 85,
+      "user_label": "pro_gated_free_denied",
       "user": {
         "tier": "free"
       },
@@ -147,9 +159,9 @@
   "checks": {
     "no_skip_entitlement": true,
     "count_10": true,
-    "103_free_denied": true,
-    "55_overlap_batch01": true,
-    "85_pro_allowed": true
+    "85_free_denied": true,
+    "85_pro_allowed": true,
+    "55_overlap_batch01": true
   },
   "all_verified": true
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Expanded entitlement gateway proof — batch01, 10 IDs across tiers."""
+"""Expanded entitlement gateway proof — batch01, 10 test cases across tiers (9 unique IDs)."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-# 10 IDs: free-allowed, free-allowed, free-allowed, pro-gated deny+allow, dedicated, dedicated, pro, pro, elite path, overlap
+# 10 test cases / 9 unique IDs in official range 1-50 (Batch 03 IDs prohibited).
 CASES = [
     (1, {"tier": "free"}, "free_allowed"),
     (8, {"tier": "free"}, "free_allowed"),
@@ -24,7 +24,7 @@ CASES = [
     (47, {"tier": "free"}, "pro_gated_free_denied"),
     (47, {"tier": "pro"}, "pro_gated_pro_allowed"),
     (50, {"tier": "pro"}, "pro_dedicated"),
-    (103, {"tier": "elite"}, "institutional_elite"),
+    (46, {"tier": "pro"}, "pro_dedicated_46"),
 ]
 
 
@@ -61,7 +61,9 @@ async def main() -> None:
     }
     out = {
         "verified_at": datetime.now(UTC).isoformat(),
-        "scope": "Batch01 entitlement gateway — 10 IDs",
+        "scope": "Batch01 entitlement gateway — 10 test cases (9 unique IDs, range 1-50 only)",
+        "unique_capability_ids": sorted({p["capability_id"] for p in proofs}),
+        "test_case_count": len(proofs),
         "script": "scripts/verify_entitlement_gateway_proof.py",
         "proofs": proofs,
         "checks": checks,

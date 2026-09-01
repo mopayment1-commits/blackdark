@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-09-01T20:03:21.688566+00:00",
+  "scope": "IDs 1-100 financial formula SSOT",
+  "standard": "ISO/IEC 25010 \u2014 single source of truth per formula family",
+  "families": {
+    "price": {
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependents_1_100": [
+        {
+          "id": 5,
+          "backend": "cap646.batch01_production.cap_005",
+          "surface": ""
+        },
+        {
+          "id": 7,
+          "backend": "cap646.batch01_production.cap_007",
+          "surface": "holder_distribution_intelligence"
+        },
+        {
+          "id": 16,
+          "backend": "cap646.batch01_production.cap_016",
+          "surface": "candle_price_move_investigator"
+        },
+        {
+          "id": 26,
+          "backend": "cap646.batch01_production.cap_026",
+          "surface": "price_move_explanation"
+        },
+        {
+          "id": 47,
+          "backend": "cap646.batch01_production.cap_047",
+          "surface": ""
+        }
+      ]
+    },
+    "volume": {
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer.volume_intelligence",
+      "canonical_file": "bd_platform/institutional_delivery_intelligence_layer.py",
+      "dependents_1_100": [
+        {
+          "id": 74,
+          "backend": "cap646.batch02_production.cap_074",
+          "surface": "exchange_to_exchange_flow_intelligence"
+        },
+        {
+          "id": 75,
+          "backend": "cap646.batch02_production.cap_075",
+          "surface": "exchange_internal_flow_filter"
+        }
+      ]
+    },
+    "holder_concentration": {
+      "canonical_module": "bd_platform.onchain_hub.holder_concentration",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependents_1_100": [
+        {
+          "id": 7,
+          "backend": "cap646.batch01_production.cap_007",
+          "surface": "holder_distribution_intelligence"
+        },
+        {
+          "id": 8,
+          "backend": "cap646.batch01_production.cap_008",
+          "surface": "top_holders_concentration_analysis"
+        },
+        {
+          "id": 11,
+          "backend": "cap646.batch01_production.cap_011",
+          "surface": "wallet_historical_performance_win_rate"
+        },
+        {
+          "id": 12,
+          "backend": "cap646.batch01_production.cap_012",
+          "surface": "wallet_entry_exit_analysis"
+        },
+        {
+          "id": 42,
+          "backend": "cap646.batch01_production.cap_042",
+          "surface": "holder_cohort_intelligence"
+        }
+      ]
+    },
+    "exchange_flows": {
+      "canonical_module": "bd_platform.onchain_hub.exchange_flow_intelligence",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependents_1_100": [
+        {
+          "id": 13,
+          "backend": "cap646.batch01_production.cap_013",
+          "surface": "wallet_counterparty_relationship_analysis"
+        },
+        {
+          "id": 14,
+          "backend": "cap646.batch01_production.cap_014",
+          "surface": "entity_aware_wallet_intelligence"
+        },
+        {
+          "id": 15,
+          "backend": "cap646.batch01_production.cap_015",
+          "surface": "exchange_flow_intelligence"
+        },
+        {
+          "id": 74,
+          "backend": "cap646.batch02_production.cap_074",
+          "surface": "exchange_to_exchange_flow_intelligence"
+        },
+        {
+          "id": 77,
+          "backend": "cap646.batch02_production.cap_077",
+          "surface": "stablecoin_exchange_flow_intelligence"
+        }
+      ]
+    },
+    "open_interest": {
+      "canonical_module": "bd_platform.derivatives_hub.derivatives_overview",
+      "canonical_file": "bd_platform/derivatives_hub.py",
+      "dependents_1_100": [
+        85
+      ]
+    },
+    "realized_cap": {
+      "canonical_module": "bd_platform.onchain_hub.realized_cap_metrics",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependents_1_100": [
+        39
+      ]
+    }
+  }
+}

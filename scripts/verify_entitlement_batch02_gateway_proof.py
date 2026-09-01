@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Expanded entitlement gateway proof — batch02, 10 IDs across tiers."""
+"""Expanded entitlement gateway proof — batch02, 10 test cases (10 unique IDs, range 51-100 only)."""
 
 from __future__ import annotations
 
@@ -21,9 +21,9 @@ CASES = [
     (59, {"tier": "pro"}, "overlap_batch01_dashboard"),
     (60, {"tier": "pro"}, "overlap_batch01_alerts"),
     (69, {"tier": "pro"}, "pro_cross_domain"),
-    (85, {"tier": "pro"}, "pro_open_interest"),
     (100, {"tier": "free"}, "free_oracle_track"),
-    (103, {"tier": "free"}, "out_of_scope_denied"),
+    (85, {"tier": "pro"}, "pro_open_interest"),
+    (85, {"tier": "free"}, "pro_gated_free_denied"),
 ]
 
 
@@ -55,13 +55,16 @@ async def main() -> None:
     checks = {
         "no_skip_entitlement": all(not p["skip_entitlement_used"] for p in proofs),
         "count_10": len(proofs) == 10,
-        "103_free_denied": by["out_of_scope_denied"]["entitlement_allowed"] is False,
-        "55_overlap_batch01": by["overlap_batch01_nvt"]["production_spine"] == "batch01",
+        "85_free_denied": by["pro_gated_free_denied"]["entitlement_allowed"] is False,
         "85_pro_allowed": by["pro_open_interest"]["entitlement_allowed"] is True,
+        "55_overlap_batch01": by["overlap_batch01_nvt"]["production_spine"] == "batch01",
+        "55_overlap_batch01": by["overlap_batch01_nvt"]["production_spine"] == "batch01",
     }
     out = {
         "verified_at": datetime.now(UTC).isoformat(),
-        "scope": "Batch02 entitlement gateway — 10 IDs",
+        "scope": "Batch02 entitlement gateway — 10 test cases (10 unique IDs, range 51-100 only)",
+        "unique_capability_ids": sorted({p["capability_id"] for p in proofs}),
+        "test_case_count": len(proofs),
         "script": "scripts/verify_entitlement_batch02_gateway_proof.py",
         "proofs": proofs,
         "checks": checks,

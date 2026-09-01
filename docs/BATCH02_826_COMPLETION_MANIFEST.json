@@ -6,7 +6,9 @@
   "closure_status": "PENDING_CLOSURE",
   "owner_approval_required": true,
   "merge_does_not_imply_closure": true,
-  "rejection": "CLOSURE-REJECT-02",
+  "rejection": "CLOSURE-REJECT-04",
+  "status_on_branch": "PENDING_CLOSURE",
+  "status_on_main": "PENDING_CLOSURE",
   "counts": {
     "total": 50,
     "production_aligned": 50,

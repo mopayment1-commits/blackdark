@@ -55,7 +55,6 @@ async def test_institutional_gate_sample(tmp_path, monkeypatch):
     assert report["checks_failed"] == 0
 
 
-@pytest.mark.slow
 @pytest.mark.asyncio
 async def test_institutional_gate_full(tmp_path, monkeypatch):
     import config

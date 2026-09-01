@@ -1,7 +1,7 @@
 {
-  "computed_at": "2026-09-01T14:13:20.833033+00:00",
-  "canonical_progress": "114/826",
-  "numerator": 114,
+  "computed_at": "2026-09-01T20:03:40.237635+00:00",
+  "canonical_progress": "104/826",
+  "numerator": 104,
   "denominator": 826,
   "formula": {
     "a_pre_batch_338_500_507_534": {
@@ -43,7 +43,7 @@
         125
       ],
       "excluded_from_numerator": [],
-      "status": "LINK-ELIGIBLE — not counted"
+      "status": "LINK-ELIGIBLE \u2014 not counted"
     }
   },
   "breakdown": {
@@ -56,9 +56,13 @@
   "hero_batch_03_open_risk": {
     "scope": "201-300",
     "status": "OPEN_RISK_REQUIRES_REEVALUATION",
-    "production_aligned_ids_in_inventory": [214, 245],
+    "production_aligned_ids_in_inventory": [
+      214,
+      245
+    ],
     "counted_in_114": false,
-    "verdict_namespace_isolated": "cap978 VERIFIED_COMPLETE does not gate 826 RTM — cap646/runtime._runtime_classification bans it"
+    "verdict_namespace_isolated": "cap978 VERIFIED_COMPLETE does not gate 826 RTM \u2014 cap646/runtime._runtime_classification bans it"
   },
-  "id_mapping_artifact": "docs/PROGRESS_114_ID_MAPPING.json"
+  "id_mapping_artifact": "docs/PROGRESS_114_ID_MAPPING.json",
+  "correction": "CLOSURE-REJECT-04: 114\u2192104 \u2014 removed extension/hero IDs without batch01/02 proof"
 }

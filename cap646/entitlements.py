@@ -21,6 +21,8 @@ _TIER_REQUIREMENTS: dict[int, str] = {
     161: "elite",
     47: "pro",
     48: "pro",
+    69: "pro",
+    85: "pro",
 }
 
 # capability_id -> org permission key
