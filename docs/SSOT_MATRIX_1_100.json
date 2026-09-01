@@ -1,130 +1,933 @@
 {
-  "generated_at": "2026-09-01T20:03:21.688566+00:00",
-  "scope": "IDs 1-100 financial formula SSOT",
-  "standard": "ISO/IEC 25010 \u2014 single source of truth per formula family",
+  "generated_at": "2026-09-01T20:58:53.876476+00:00",
+  "scope": "IDs 1-100 \u2014 one row per ID (no sampling)",
+  "row_count": 100,
   "families": {
     "price": {
       "canonical_module": "market_context.fetch_binance_ticker",
-      "canonical_file": "market_context.py",
-      "dependents_1_100": [
-        {
-          "id": 5,
-          "backend": "cap646.batch01_production.cap_005",
-          "surface": ""
-        },
-        {
-          "id": 7,
-          "backend": "cap646.batch01_production.cap_007",
-          "surface": "holder_distribution_intelligence"
-        },
-        {
-          "id": 16,
-          "backend": "cap646.batch01_production.cap_016",
-          "surface": "candle_price_move_investigator"
-        },
-        {
-          "id": 26,
-          "backend": "cap646.batch01_production.cap_026",
-          "surface": "price_move_explanation"
-        },
-        {
-          "id": 47,
-          "backend": "cap646.batch01_production.cap_047",
-          "surface": ""
-        }
-      ]
+      "canonical_file": "market_context.py"
     },
     "volume": {
       "canonical_module": "bd_platform.institutional_delivery_intelligence_layer.volume_intelligence",
-      "canonical_file": "bd_platform/institutional_delivery_intelligence_layer.py",
-      "dependents_1_100": [
-        {
-          "id": 74,
-          "backend": "cap646.batch02_production.cap_074",
-          "surface": "exchange_to_exchange_flow_intelligence"
-        },
-        {
-          "id": 75,
-          "backend": "cap646.batch02_production.cap_075",
-          "surface": "exchange_internal_flow_filter"
-        }
-      ]
+      "canonical_file": "bd_platform/institutional_delivery_intelligence_layer.py"
     },
     "holder_concentration": {
       "canonical_module": "bd_platform.onchain_hub.holder_concentration",
-      "canonical_file": "bd_platform/onchain_hub.py",
-      "dependents_1_100": [
-        {
-          "id": 7,
-          "backend": "cap646.batch01_production.cap_007",
-          "surface": "holder_distribution_intelligence"
-        },
-        {
-          "id": 8,
-          "backend": "cap646.batch01_production.cap_008",
-          "surface": "top_holders_concentration_analysis"
-        },
-        {
-          "id": 11,
-          "backend": "cap646.batch01_production.cap_011",
-          "surface": "wallet_historical_performance_win_rate"
-        },
-        {
-          "id": 12,
-          "backend": "cap646.batch01_production.cap_012",
-          "surface": "wallet_entry_exit_analysis"
-        },
-        {
-          "id": 42,
-          "backend": "cap646.batch01_production.cap_042",
-          "surface": "holder_cohort_intelligence"
-        }
-      ]
+      "canonical_file": "bd_platform/onchain_hub.py"
     },
     "exchange_flows": {
       "canonical_module": "bd_platform.onchain_hub.exchange_flow_intelligence",
-      "canonical_file": "bd_platform/onchain_hub.py",
-      "dependents_1_100": [
-        {
-          "id": 13,
-          "backend": "cap646.batch01_production.cap_013",
-          "surface": "wallet_counterparty_relationship_analysis"
-        },
-        {
-          "id": 14,
-          "backend": "cap646.batch01_production.cap_014",
-          "surface": "entity_aware_wallet_intelligence"
-        },
-        {
-          "id": 15,
-          "backend": "cap646.batch01_production.cap_015",
-          "surface": "exchange_flow_intelligence"
-        },
-        {
-          "id": 74,
-          "backend": "cap646.batch02_production.cap_074",
-          "surface": "exchange_to_exchange_flow_intelligence"
-        },
-        {
-          "id": 77,
-          "backend": "cap646.batch02_production.cap_077",
-          "surface": "stablecoin_exchange_flow_intelligence"
-        }
-      ]
+      "canonical_file": "bd_platform/onchain_hub.py"
     },
     "open_interest": {
       "canonical_module": "bd_platform.derivatives_hub.derivatives_overview",
-      "canonical_file": "bd_platform/derivatives_hub.py",
-      "dependents_1_100": [
-        85
-      ]
+      "canonical_file": "bd_platform/derivatives_hub.py"
     },
     "realized_cap": {
       "canonical_module": "bd_platform.onchain_hub.realized_cap_metrics",
-      "canonical_file": "bd_platform/onchain_hub.py",
-      "dependents_1_100": [
-        39
-      ]
+      "canonical_file": "bd_platform/onchain_hub.py"
     }
-  }
+  },
+  "per_id": [
+    {
+      "capability_id": 1,
+      "goal": "Smart Money Leaderboard",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_001",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 2,
+      "goal": "Wallet Profiler",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_002",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 3,
+      "goal": "Wallet Profiler for Token",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_003",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 4,
+      "goal": "Smart Money Tracking",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_004",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 5,
+      "goal": "Smart Money Accumulation / Distribution Detection",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_005",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 6,
+      "goal": "Smart Money Token Screener",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_006",
+      "dependent_surface": "smart_money_token_screener"
+    },
+    {
+      "capability_id": 7,
+      "goal": "Holder Distribution Intelligence",
+      "formula_family": "holder_concentration",
+      "canonical_module": "bd_platform.onchain_hub.holder_concentration",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependent_backend": "cap646.batch01_production.cap_007",
+      "dependent_surface": "holder_distribution_intelligence"
+    },
+    {
+      "capability_id": 8,
+      "goal": "Top Holders Concentration Analysis",
+      "formula_family": "holder_concentration",
+      "canonical_module": "bd_platform.onchain_hub.holder_concentration",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependent_backend": "cap646.batch01_production.cap_008",
+      "dependent_surface": "top_holders_concentration_analysis"
+    },
+    {
+      "capability_id": 9,
+      "goal": "Distribution Score",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_009",
+      "dependent_surface": "distribution_score"
+    },
+    {
+      "capability_id": 10,
+      "goal": "Wallet PnL Analysis",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_010",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 11,
+      "goal": "Wallet Historical Performance & Win Rate",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_011",
+      "dependent_surface": "wallet_historical_performance_win_rate"
+    },
+    {
+      "capability_id": 12,
+      "goal": "Wallet Entry / Exit Analysis",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_012",
+      "dependent_surface": "wallet_entry_exit_analysis"
+    },
+    {
+      "capability_id": 13,
+      "goal": "Wallet Counterparty & Relationship Analysis",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_013",
+      "dependent_surface": "wallet_counterparty_relationship_analysis"
+    },
+    {
+      "capability_id": 14,
+      "goal": "Entity-Aware Wallet Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_014",
+      "dependent_surface": "entity_aware_wallet_intelligence"
+    },
+    {
+      "capability_id": 15,
+      "goal": "Exchange Flow Intelligence",
+      "formula_family": "exchange_flows",
+      "canonical_module": "bd_platform.onchain_hub.exchange_flow_intelligence",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependent_backend": "cap646.batch01_production.cap_015",
+      "dependent_surface": "exchange_flow_intelligence"
+    },
+    {
+      "capability_id": 16,
+      "goal": "Candle / Price-Move Investigator",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_016",
+      "dependent_surface": "candle_price_move_investigator"
+    },
+    {
+      "capability_id": 17,
+      "goal": "Smart Alerts",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_017",
+      "dependent_surface": "smart_alerts"
+    },
+    {
+      "capability_id": 18,
+      "goal": "Custom Wallet Labels",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_018",
+      "dependent_surface": "custom_wallet_labels"
+    },
+    {
+      "capability_id": 19,
+      "goal": "Wallet & Token Watchlists",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_019",
+      "dependent_surface": "wallet_token_watchlists"
+    },
+    {
+      "capability_id": 20,
+      "goal": "Multi-Chain Portfolio Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_020",
+      "dependent_surface": "multi_chain_portfolio_intelligence"
+    },
+    {
+      "capability_id": 21,
+      "goal": "Transaction Decoder",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_021",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 22,
+      "goal": "Instant Wallet Due Diligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_022",
+      "dependent_surface": "instant_wallet_due_diligence"
+    },
+    {
+      "capability_id": 23,
+      "goal": "Instant Token Due Diligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_023",
+      "dependent_surface": "instant_token_due_diligence"
+    },
+    {
+      "capability_id": 24,
+      "goal": "AI Research Agent Grounded in Platform Data",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_024",
+      "dependent_surface": "ai_research_agent_grounded"
+    },
+    {
+      "capability_id": 25,
+      "goal": "Signal \u2192 Explanation Workflow",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_025",
+      "dependent_surface": "signal_explanation_workflow"
+    },
+    {
+      "capability_id": 26,
+      "goal": "Price-Move Explanation",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_026",
+      "dependent_surface": "price_move_explanation"
+    },
+    {
+      "capability_id": 27,
+      "goal": "Smart Money Historical Trend Analysis",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_027",
+      "dependent_surface": "smart_money_historical_trend_analysis"
+    },
+    {
+      "capability_id": 28,
+      "goal": "Smart Money Conviction Engine",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_028",
+      "dependent_surface": "smart_money_conviction_engine"
+    },
+    {
+      "capability_id": 29,
+      "goal": "Cross-Market Decision Intelligence Engine",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_029",
+      "dependent_surface": "cross_market_decision_intelligence_engine"
+    },
+    {
+      "capability_id": 30,
+      "goal": "Evidence & Confidence Layer",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_030",
+      "dependent_surface": "evidence_confidence_layer"
+    },
+    {
+      "capability_id": 31,
+      "goal": "Cross-Signal Confirmation",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_031",
+      "dependent_surface": "cross_signal_confirmation"
+    },
+    {
+      "capability_id": 32,
+      "goal": "Contradiction Detection",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_032",
+      "dependent_surface": "contradiction_detection"
+    },
+    {
+      "capability_id": 33,
+      "goal": "Smart Money Actionability Score",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_033",
+      "dependent_surface": "smart_money_actionability_score"
+    },
+    {
+      "capability_id": 34,
+      "goal": "Beginner Decision Mode",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_034",
+      "dependent_surface": "beginner_decision_mode"
+    },
+    {
+      "capability_id": 35,
+      "goal": "Market Compass / Market Regime Engine",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_035",
+      "dependent_surface": "market_compass_regime_engine"
+    },
+    {
+      "capability_id": 36,
+      "goal": "On-Chain Metrics Library",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_036",
+      "dependent_surface": "on_chain_metrics_library"
+    },
+    {
+      "capability_id": 37,
+      "goal": "Entity-Adjusted Metrics",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_037",
+      "dependent_surface": "entity_adjusted_metrics"
+    },
+    {
+      "capability_id": 38,
+      "goal": "Cost Basis Distribution",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_038",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 39,
+      "goal": "Realized Cap & Realized Price Intelligence",
+      "formula_family": "realized_cap",
+      "canonical_module": "bd_platform.onchain_hub.realized_cap_metrics",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependent_backend": "cap646.batch01_production.cap_039",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 40,
+      "goal": "MVRV / MVRV Z-Score Suite",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_040",
+      "dependent_surface": "mvrv_mvrv_z_score_suite"
+    },
+    {
+      "capability_id": 41,
+      "goal": "SOPR / Profitability Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_041",
+      "dependent_surface": "sopr_profitability_intelligence"
+    },
+    {
+      "capability_id": 42,
+      "goal": "Holder Cohort Intelligence",
+      "formula_family": "holder_concentration",
+      "canonical_module": "bd_platform.onchain_hub.holder_concentration",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependent_backend": "cap646.batch01_production.cap_042",
+      "dependent_surface": "holder_cohort_intelligence"
+    },
+    {
+      "capability_id": 43,
+      "goal": "Supply Dynamics Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_043",
+      "dependent_surface": "supply_dynamics_intelligence"
+    },
+    {
+      "capability_id": 44,
+      "goal": "Exchange Balance & Netflow Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_044",
+      "dependent_surface": "exchange_balance_netflow_intelligence"
+    },
+    {
+      "capability_id": 45,
+      "goal": "ETF Flow Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_045",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 46,
+      "goal": "Digital Asset Treasury Company Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_046",
+      "dependent_surface": "digital_asset_treasury_company_intelligence"
+    },
+    {
+      "capability_id": 47,
+      "goal": "Spot Market Metrics Suite",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_047",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 48,
+      "goal": "Futures Intelligence Suite",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_048",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 49,
+      "goal": "Options Intelligence Suite",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_049",
+      "dependent_surface": ""
+    },
+    {
+      "capability_id": 50,
+      "goal": "Order Book Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_050",
+      "dependent_surface": "order_book_intelligence"
+    },
+    {
+      "capability_id": 51,
+      "goal": "Macro & Traditional Finance Integration",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_051",
+      "dependent_surface": "macro_traditional_finance_integration"
+    },
+    {
+      "capability_id": 52,
+      "goal": "Cross-Asset Return Breadth",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_052",
+      "dependent_surface": "cross_asset_return_breadth"
+    },
+    {
+      "capability_id": 53,
+      "goal": "BTC-to-Macro Coupling",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_053",
+      "dependent_surface": "btc_to_macro_coupling"
+    },
+    {
+      "capability_id": 54,
+      "goal": "Global Liquidity Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_054",
+      "dependent_surface": "global_liquidity_intelligence"
+    },
+    {
+      "capability_id": 55,
+      "goal": "NVT Fair-Value Model",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_055",
+      "dependent_surface": "nvt_fair_value_model"
+    },
+    {
+      "capability_id": 56,
+      "goal": "Token Screener",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_056",
+      "dependent_surface": "token_screener"
+    },
+    {
+      "capability_id": 57,
+      "goal": "Profitability Map",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_057",
+      "dependent_surface": "profitability_map"
+    },
+    {
+      "capability_id": 58,
+      "goal": "Custom No-Code Charting / Workbench",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_058",
+      "dependent_surface": "custom_no_code_charting_workbench"
+    },
+    {
+      "capability_id": 59,
+      "goal": "Personalized Research Dashboards",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_059",
+      "dependent_surface": "personalized_research_dashboards"
+    },
+    {
+      "capability_id": 60,
+      "goal": "Metric-Based Smart Alerts",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch01_production.cap_060",
+      "dependent_surface": "metric_based_smart_alerts"
+    },
+    {
+      "capability_id": 61,
+      "goal": "Point-in-Time Immutable Metrics",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_061",
+      "dependent_surface": "point_in_time_immutable_metrics"
+    },
+    {
+      "capability_id": 62,
+      "goal": "Institutional Backtesting Data Layer",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_062",
+      "dependent_surface": "institutional_backtesting_data_layer"
+    },
+    {
+      "capability_id": 63,
+      "goal": "Data Quality & Provenance Layer",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_063",
+      "dependent_surface": "data_quality_provenance_layer"
+    },
+    {
+      "capability_id": 64,
+      "goal": "Metric Methodology Registry",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_064",
+      "dependent_surface": "metric_methodology_registry"
+    },
+    {
+      "capability_id": 65,
+      "goal": "Research Intelligence Portal",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_065",
+      "dependent_surface": "research_intelligence_portal"
+    },
+    {
+      "capability_id": 66,
+      "goal": "Market Regime Written Read",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_066",
+      "dependent_surface": "market_regime_written_read"
+    },
+    {
+      "capability_id": 67,
+      "goal": "API / CLI / Excel / MCP Data Access",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_067",
+      "dependent_surface": "api_cli_excel_mcp_data_access"
+    },
+    {
+      "capability_id": 68,
+      "goal": "Bulk Data & Institutional Delivery",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_068",
+      "dependent_surface": "bulk_data_institutional_delivery"
+    },
+    {
+      "capability_id": 69,
+      "goal": "Cross-Domain Decision Intelligence Layer",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.handlers.onchain.handle_onchain_capability",
+      "dependent_surface": "cross_domain_decision_intelligence_layer"
+    },
+    {
+      "capability_id": 70,
+      "goal": "Exchange Reserve Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_070",
+      "dependent_surface": "exchange_reserve_intelligence"
+    },
+    {
+      "capability_id": 71,
+      "goal": "Exchange Inflow / Outflow / Netflow",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_071",
+      "dependent_surface": "exchange_inflow_outflow_netflow"
+    },
+    {
+      "capability_id": 72,
+      "goal": "Exchange Whale Ratio",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_072",
+      "dependent_surface": "exchange_whale_ratio"
+    },
+    {
+      "capability_id": 73,
+      "goal": "Exchange Address & Transaction Activity",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_073",
+      "dependent_surface": "exchange_address_transaction_activity"
+    },
+    {
+      "capability_id": 74,
+      "goal": "Exchange-to-Exchange Flow Intelligence",
+      "formula_family": "exchange_flows",
+      "canonical_module": "bd_platform.onchain_hub.exchange_flow_intelligence",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependent_backend": "cap646.batch02_production.cap_074",
+      "dependent_surface": "exchange_to_exchange_flow_intelligence"
+    },
+    {
+      "capability_id": 75,
+      "goal": "Exchange Internal-Flow Filter",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_075",
+      "dependent_surface": "exchange_internal_flow_filter"
+    },
+    {
+      "capability_id": 76,
+      "goal": "Stablecoin Exchange Reserve",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_076",
+      "dependent_surface": "stablecoin_exchange_reserve"
+    },
+    {
+      "capability_id": 77,
+      "goal": "Stablecoin Exchange Flow Intelligence",
+      "formula_family": "exchange_flows",
+      "canonical_module": "bd_platform.onchain_hub.exchange_flow_intelligence",
+      "canonical_file": "bd_platform/onchain_hub.py",
+      "dependent_backend": "cap646.batch02_production.cap_077",
+      "dependent_surface": "stablecoin_exchange_flow_intelligence"
+    },
+    {
+      "capability_id": 78,
+      "goal": "Stablecoin Supply Ratio Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_078",
+      "dependent_surface": "stablecoin_supply_ratio_intelligence"
+    },
+    {
+      "capability_id": 79,
+      "goal": "Miner Flow Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_079",
+      "dependent_surface": "miner_flow_intelligence"
+    },
+    {
+      "capability_id": 80,
+      "goal": "Miners' Position Index (MPI)",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_080",
+      "dependent_surface": "miners_position_index_mpi"
+    },
+    {
+      "capability_id": 81,
+      "goal": "Whale Accumulation / Distribution Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_081",
+      "dependent_surface": "whale_accumulation_distribution_intelligence"
+    },
+    {
+      "capability_id": 82,
+      "goal": "Coinbase Premium Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_082",
+      "dependent_surface": "coinbase_premium_intelligence"
+    },
+    {
+      "capability_id": 83,
+      "goal": "Korea Premium Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_083",
+      "dependent_surface": "korea_premium_intelligence"
+    },
+    {
+      "capability_id": 84,
+      "goal": "Fund / ETF Data Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_084",
+      "dependent_surface": "fund_etf_data_intelligence"
+    },
+    {
+      "capability_id": 85,
+      "goal": "Futures Open Interest Intelligence",
+      "formula_family": "open_interest",
+      "canonical_module": "bd_platform.derivatives_hub.derivatives_overview",
+      "canonical_file": "bd_platform/derivatives_hub.py",
+      "dependent_backend": "cap646.batch02_production.cap_085",
+      "dependent_surface": "futures_open_interest_intelligence"
+    },
+    {
+      "capability_id": 86,
+      "goal": "Funding Rate Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_086",
+      "dependent_surface": "funding_rate_intelligence"
+    },
+    {
+      "capability_id": 87,
+      "goal": "Estimated Leverage Ratio",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_087",
+      "dependent_surface": "estimated_leverage_ratio"
+    },
+    {
+      "capability_id": 88,
+      "goal": "Liquidation Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_088",
+      "dependent_surface": "liquidation_intelligence"
+    },
+    {
+      "capability_id": 89,
+      "goal": "Taker Buy / Sell Pressure",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_089",
+      "dependent_surface": "taker_buy_sell_pressure"
+    },
+    {
+      "capability_id": 90,
+      "goal": "Derivatives Market Sentiment Composite",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_090",
+      "dependent_surface": "derivatives_market_sentiment_composite"
+    },
+    {
+      "capability_id": 91,
+      "goal": "Inter-Entity Flow Intelligence",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_091",
+      "dependent_surface": "inter_entity_flow_intelligence"
+    },
+    {
+      "capability_id": 92,
+      "goal": "Address Labels & Cohorts",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_092",
+      "dependent_surface": "address_labels_cohorts"
+    },
+    {
+      "capability_id": 93,
+      "goal": "Custom No-Code Analytics / Web3 Analytics",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_093",
+      "dependent_surface": "custom_no_code_analytics_web3"
+    },
+    {
+      "capability_id": 94,
+      "goal": "Native SQL / Advanced Query Workspace",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_094",
+      "dependent_surface": "native_sql_advanced_query_workspace"
+    },
+    {
+      "capability_id": 95,
+      "goal": "Pro Chart & Multi-Metric Workbench",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_095",
+      "dependent_surface": "pro_chart_multi_metric_workbench"
+    },
+    {
+      "capability_id": 96,
+      "goal": "Personal Dashboards",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_096",
+      "dependent_surface": "personal_dashboards"
+    },
+    {
+      "capability_id": 97,
+      "goal": "Custom Metric Alerts",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_097",
+      "dependent_surface": "custom_metric_alerts"
+    },
+    {
+      "capability_id": 98,
+      "goal": "Whale Movement Alerts",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_098",
+      "dependent_surface": "whale_movement_alerts"
+    },
+    {
+      "capability_id": 99,
+      "goal": "QuickTake / Analyst Insight Feed",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_099",
+      "dependent_surface": "quicktake_analyst_insight_feed"
+    },
+    {
+      "capability_id": 100,
+      "goal": "Research Reports",
+      "formula_family": "price",
+      "canonical_module": "market_context.fetch_binance_ticker",
+      "canonical_file": "market_context.py",
+      "dependent_backend": "cap646.batch02_production.cap_100",
+      "dependent_surface": "research_reports"
+    }
+  ]
 }

@@ -166,7 +166,7 @@
 **الحكم: DISTINCT** — `docs/MECE_DUPLICATE_AUDIT_1_100.json`  
 - #57 = Profitability Map / `profitability_map` / `profitability_analyzer_582`  
 - #85 = Futures Open Interest / `futures_open_interest_intelligence` / `derivatives_overview`  
-- **تصحيح R2:** المستخدم ذكر «Open Interest» لـ#57 — الكتالوج يسجّل «Profitability Map».
+- **تصحيح REJECT-04:** ادّعاء "#57 = Open Interest" ورد في **تقرير الوكيل الأول (CLOSURE-REJECT-01)** ضمن جدول موانع Batch 02 — **لم يذكره المستخدم**. الكتالوج يسجّل دائمًا «Profitability Map».
 
 ### 14. OVERLAP_BATCH01
 

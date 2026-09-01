@@ -1,0 +1,349 @@
+{
+  "statistics": {
+    "detectionDate": "2026-09-01T20:58:56.713Z",
+    "formats": {
+      "python": {
+        "sources": {
+          "cap646/handlers/verified.py": {
+            "lines": 109,
+            "tokens": 1007,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 7,
+            "duplicatedTokens": 88,
+            "percentage": 6.42,
+            "percentageTokens": 8.74,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/platform.py": {
+            "lines": 12,
+            "tokens": 97,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/onchain.py": {
+            "lines": 79,
+            "tokens": 789,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/market.py": {
+            "lines": 159,
+            "tokens": 1389,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 7,
+            "duplicatedTokens": 88,
+            "percentage": 4.4,
+            "percentageTokens": 6.34,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/institutional.py": {
+            "lines": 153,
+            "tokens": 1168,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/execution.py": {
+            "lines": 55,
+            "tokens": 431,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/derivatives.py": {
+            "lines": 45,
+            "tokens": 415,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/data.py": {
+            "lines": 67,
+            "tokens": 532,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/batch03.py": {
+            "lines": 11,
+            "tokens": 100,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/batch02.py": {
+            "lines": 11,
+            "tokens": 100,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/batch01.py": {
+            "lines": 11,
+            "tokens": 100,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/alerts.py": {
+            "lines": 30,
+            "tokens": 312,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/ai.py": {
+            "lines": 104,
+            "tokens": 928,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/_batch_route.py": {
+            "lines": 14,
+            "tokens": 117,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/__init__.py": {
+            "lines": 22,
+            "tokens": 154,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 8,
+            "duplicatedTokens": 102,
+            "percentage": 36.36,
+            "percentageTokens": 66.23,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/batch_spine.py": {
+            "lines": 25,
+            "tokens": 235,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/runtime.py": {
+            "lines": 192,
+            "tokens": 2131,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 8,
+            "duplicatedTokens": 102,
+            "percentage": 4.17,
+            "percentageTokens": 4.79,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/batch02_dedicated.py": {
+            "lines": 477,
+            "tokens": 7437,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/batch02_production.py": {
+            "lines": 68,
+            "tokens": 594,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/batch01_production.py": {
+            "lines": 132,
+            "tokens": 1122,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 1776,
+          "tokens": 19158,
+          "sources": 20,
+          "clones": 2,
+          "duplicatedLines": 15,
+          "duplicatedTokens": 190,
+          "percentage": 0.84,
+          "percentageTokens": 0.99,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 1776,
+      "tokens": 19158,
+      "sources": 20,
+      "clones": 2,
+      "duplicatedLines": 15,
+      "duplicatedTokens": 190,
+      "percentage": 0.84,
+      "percentageTokens": 0.99,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "python",
+      "lines": 8,
+      "fragment": "(\n    capability_id: int,\n    *,\n    params: dict[str, Any],\n) -> dict[str, Any]:\n    symbol = str(params.get(\"symbol\") or params.get(\"asset\") or \"BTC\").upper().replace(\"/USDT\", \"\")\n\n    if capability_id == 47",
+      "tokens": 0,
+      "firstFile": {
+        "name": "cap646/handlers/market.py",
+        "start": 12,
+        "end": 19,
+        "startLoc": {
+          "line": 12,
+          "column": 25,
+          "position": 65
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 3,
+          "position": 153
+        }
+      },
+      "secondFile": {
+        "name": "cap646/handlers/verified.py",
+        "start": 12,
+        "end": 19,
+        "startLoc": {
+          "line": 12,
+          "column": 27,
+          "position": 54
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 3,
+          "position": 142
+        }
+      }
+    },
+    {
+      "format": "python",
+      "lines": 9,
+      "fragment": "from cap646.handlers.ai import handle_ai_capability\nfrom cap646.handlers.alerts import handle_alerts_capability\nfrom cap646.handlers.data import handle_data_capability\nfrom cap646.handlers.derivatives import handle_derivatives_capability\nfrom cap646.handlers.execution import handle_execution_capability\nfrom cap646.handlers.institutional import handle_institutional_capability\nfrom cap646.handlers.market import handle_market_capability\nfrom cap646.handlers.onchain import handle_onchain_capability\nfrom cap646.handlers.platform",
+      "tokens": 0,
+      "firstFile": {
+        "name": "cap646/runtime.py",
+        "start": 12,
+        "end": 20,
+        "startLoc": {
+          "line": 12,
+          "column": 1,
+          "position": 63
+        },
+        "endLoc": {
+          "line": 20,
+          "column": 9,
+          "position": 165
+        }
+      },
+      "secondFile": {
+        "name": "cap646/handlers/__init__.py",
+        "start": 3,
+        "end": 11,
+        "startLoc": {
+          "line": 3,
+          "column": 1,
+          "position": 3
+        },
+        "endLoc": {
+          "line": 11,
+          "column": 9,
+          "position": 105
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "spine_modules": [
+    {
+      "module": "runtime.py",
+      "stmts": 124,
+      "miss": 86,
+      "coverage_pct": 30.65
+    },
+    {
+      "module": "batch_spine.py",
+      "stmts": 12,
+      "miss": 0,
+      "coverage_pct": 100.0
+    },
+    {
+      "module": "batch01_production.py",
+      "stmts": 72,
+      "miss": 17,
+      "coverage_pct": 76.39
+    },
+    {
+      "module": "batch01_dedicated.py",
+      "stmts": 458,
+      "miss": 378,
+      "coverage_pct": 17.47
+    },
+    {
+      "module": "batch02_production.py",
+      "stmts": 36,
+      "miss": 6,
+      "coverage_pct": 83.33
+    },
+    {
+      "module": "batch02_dedicated.py",
+      "stmts": 266,
+      "miss": 173,
+      "coverage_pct": 34.96
+    },
+    {
+      "module": "database.py",
+      "stmts": 1419,
+      "miss": 1118,
+      "coverage_pct": 21.21
+    }
+  ],
+  "combined_spine": {
+    "total_stmts": 2387,
+    "total_miss": 1778,
+    "weighted_statement_coverage_pct": 25.51,
+    "metric": "statement_coverage_not_branch"
+  }
+}

@@ -73,4 +73,4 @@ async def test_institutional_gate_full(tmp_path, monkeypatch):
 
     report = await run_institutional_gate(sample=False, check_artifacts=True, include_commercial=False)
     assert report["verdict"] == "PASS"
-    assert report["closure_verdict"] == "VERIFIED COMPLETE"
+    assert report["closure_verdict"] == "INSTITUTIONAL_GATE_PASS"

@@ -1,7 +1,10 @@
 {
   "verified_at": "2026-09-01T08:53:26.174330+00:00",
-  "batch": "batch02_826_completion",
-  "scope": "IDs 101–150 (50 capabilities)",
+  "batch": "batch03_prep",
+  "renamed_from": "docs/BATCH02_PRODUCTION_PROOF.json",
+  "rename_reason": "CLOSURE-MANDATE-FINAL item 9 — file covered IDs 101-150 not official batch02 (51-100)",
+  "generated_on_commit": "pre-REJECT-04 branch work",
+  "scope": "IDs 101–150 (batch03 prep — PROHIBITED for institutional closure execution)",
   "production_runtime_path": "api/routers/cap646.py -> cap978.unified -> cap646.runtime.execute_capability -> cap646.batch02_production",
   "capability_ids": [
     101,

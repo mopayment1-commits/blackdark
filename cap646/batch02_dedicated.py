@@ -5,12 +5,13 @@ IDs 55, 56, 59, 60 are batch01 overlap; runtime routes them via ``LEGACY_BATCH01
 
 from __future__ import annotations
 
-import json
 import time
-from pathlib import Path as _Path
 from typing import Any, Awaitable, Callable
 
-from cap646.evidence_class import ai_compliance_footer
+from cap646.dedicated_common import addr as _addr
+from cap646.dedicated_common import seed as _seed
+from cap646.dedicated_common import sym as _sym
+from cap646.dedicated_common import wrap as dedicated_wrap
 
 BATCH02_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset({55, 56, 59, 60})
 OFFICIAL_BATCH02_IDS: frozenset[int] = frozenset(range(51, 101))
@@ -69,45 +70,16 @@ EXPECTED_SURFACE: dict[int, str] = {
     100: "research_reports",
 }
 
-_ROOT = _Path(__file__).resolve().parents[1]
-_SEED_PATH = _ROOT / "data/legal_retail_commercial_seed.json"
-
-
-def _seed() -> dict[str, Any]:
-    if _SEED_PATH.is_file():
-        return json.loads(_SEED_PATH.read_text(encoding="utf-8"))
-    return {}
-
-
-def _sym(params: dict[str, Any]) -> str:
-    return str(params.get("symbol") or params.get("asset") or "BTC").upper().replace("/USDT", "")
-
-
-def _addr(params: dict[str, Any]) -> str:
-    return str(params.get("address") or params.get("wallet") or "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb").strip()
-
-
-def _success_from(payload: Any) -> bool:
-    if isinstance(payload, dict):
-        if "success" in payload:
-            return bool(payload.get("success"))
-        if "ok" in payload:
-            return bool(payload.get("ok"))
-        return bool(payload)
-    return bool(payload)
-
 
 def _wrap(capability_id: int, *, symbol: str, payload_key: str, payload: Any, extra: dict[str, Any] | None = None) -> dict[str, Any]:
-    body: dict[str, Any] = {
-        "capability_id": capability_id,
-        "surface": EXPECTED_SURFACE[capability_id],
-        "symbol": symbol,
-        payload_key: payload,
-        "success": _success_from(payload),
-    }
-    if extra:
-        body.update(extra)
-    return ai_compliance_footer(body)
+    return dedicated_wrap(
+        capability_id,
+        expected_surface=EXPECTED_SURFACE,
+        symbol=symbol,
+        payload_key=payload_key,
+        payload=payload,
+        extra=extra,
+    )
 
 async def _cap051(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from bd_platform.onchain_hub import lookintobitcoin_macro

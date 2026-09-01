@@ -22,6 +22,7 @@ from cap646.handlers.verified import handle_verified_capability
 from cap646.batch01_production import BATCH01_IDS
 from cap646.batch02_production import BATCH02_IDS
 from cap646.batch03_production import BATCH03_IDS
+from cap646.batch_spine import execute_and_enrich_batch
 from cap646.handlers.batch01 import handle_batch01_capability
 from cap646.handlers.batch02 import handle_batch02_capability
 from cap646.handlers.batch03 import handle_batch03_capability
@@ -32,10 +33,7 @@ OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BAT
 WAVE_D_SET = set(WAVE_D)
 
 
-def _runtime_classification(result: dict[str, Any]) -> str:
-    """826 RTM classification — VERIFIED_COMPLETE is banned for inventory reporting."""
-    return "PRODUCTION-ALIGNED" if result.get("success") else "NOT_COMPLETE"
-
+from cap646.rtm_classification import runtime_classification as _runtime_classification
 
 def _route_handler(track: str, name: str, capability_id: int):
     nl = name.lower()
@@ -112,34 +110,19 @@ async def execute_capability(
     from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
 
     if capability_id in BATCH01_IDS:
-        result = await handle_batch01_capability(capability_id, params=params)
-        result.setdefault("capability_id", capability_id)
-        result.setdefault("capability", row["capability"])
-        result.setdefault("track", row["track"])
-        result.setdefault("classification", _runtime_classification(result))
-        from cap646.domain_enrichment import enrich_capability_result
-
-        return await enrich_capability_result(capability_id, ai_compliance_footer(result), params=params)
+        return await execute_and_enrich_batch(
+            handle_batch01_capability, capability_id, row=row, params=params
+        )
 
     if capability_id in BATCH02_IDS:
-        result = await handle_batch02_capability(capability_id, params=params)
-        result.setdefault("capability_id", capability_id)
-        result.setdefault("capability", row["capability"])
-        result.setdefault("track", row["track"])
-        result.setdefault("classification", _runtime_classification(result))
-        from cap646.domain_enrichment import enrich_capability_result
-
-        return await enrich_capability_result(capability_id, ai_compliance_footer(result), params=params)
+        return await execute_and_enrich_batch(
+            handle_batch02_capability, capability_id, row=row, params=params
+        )
 
     if capability_id in BATCH03_IDS:
-        result = await handle_batch03_capability(capability_id, params=params)
-        result.setdefault("capability_id", capability_id)
-        result.setdefault("capability", row["capability"])
-        result.setdefault("track", row["track"])
-        result.setdefault("classification", _runtime_classification(result))
-        from cap646.domain_enrichment import enrich_capability_result
-
-        return await enrich_capability_result(capability_id, ai_compliance_footer(result), params=params)
+        return await execute_and_enrich_batch(
+            handle_batch03_capability, capability_id, row=row, params=params
+        )
 
     target_id = canonical_id(capability_id)
     if is_duplicate(capability_id) and target_id != capability_id:
@@ -162,34 +145,19 @@ async def execute_capability(
             )
 
     if target_id in BATCH01_IDS:
-        result = await handle_batch01_capability(target_id, params=params)
-        result.setdefault("capability_id", target_id)
-        result.setdefault("capability", row["capability"])
-        result.setdefault("track", row["track"])
-        result.setdefault("classification", _runtime_classification(result))
-        from cap646.domain_enrichment import enrich_capability_result
-
-        return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)
+        return await execute_and_enrich_batch(
+            handle_batch01_capability, target_id, row=row, params=params
+        )
 
     if target_id in BATCH02_IDS:
-        result = await handle_batch02_capability(target_id, params=params)
-        result.setdefault("capability_id", target_id)
-        result.setdefault("capability", row["capability"])
-        result.setdefault("track", row["track"])
-        result.setdefault("classification", _runtime_classification(result))
-        from cap646.domain_enrichment import enrich_capability_result
-
-        return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)
+        return await execute_and_enrich_batch(
+            handle_batch02_capability, target_id, row=row, params=params
+        )
 
     if target_id in BATCH03_IDS:
-        result = await handle_batch03_capability(target_id, params=params)
-        result.setdefault("capability_id", target_id)
-        result.setdefault("capability", row["capability"])
-        result.setdefault("track", row["track"])
-        result.setdefault("classification", _runtime_classification(result))
-        from cap646.domain_enrichment import enrich_capability_result
-
-        return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)
+        return await execute_and_enrich_batch(
+            handle_batch03_capability, target_id, row=row, params=params
+        )
 
     if capability_id in FREE_TIER_BASE_IDS:
         free_result = await execute_free_tier_capability(capability_id, params=params)

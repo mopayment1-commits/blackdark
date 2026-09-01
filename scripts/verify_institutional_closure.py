@@ -32,6 +32,7 @@ async def main() -> int:
 
     await database.init_db()
 
+    from cap978.gate_verdict import INSTITUTIONAL_GATE_PASS
     from cap978.institutional_gate import commercial_launch_checklist, run_institutional_gate
 
     if args.ci:
@@ -69,7 +70,7 @@ async def main() -> int:
 
     if report["verdict"] != "PASS":
         return 1
-    if args.full and report.get("closure_verdict") != "VERIFIED COMPLETE":
+    if args.full and report.get("closure_verdict") != INSTITUTIONAL_GATE_PASS:
         return 1
     return 0
 

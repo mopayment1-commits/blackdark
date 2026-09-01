@@ -1,6 +1,6 @@
 {
-  "verified_at": "2026-09-01T20:01:50.301397+00:00",
-  "scope": "Batch02 entitlement gateway — 10 test cases (10 unique IDs, range 51-100 only)",
+  "verified_at": "2026-09-01T21:00:11.398748+00:00",
+  "scope": "Batch02 entitlement gateway — 10 test cases (9 unique IDs in range 51-100)",
   "unique_capability_ids": [
     51,
     53,

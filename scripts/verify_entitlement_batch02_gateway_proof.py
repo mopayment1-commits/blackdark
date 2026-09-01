@@ -62,7 +62,7 @@ async def main() -> None:
     }
     out = {
         "verified_at": datetime.now(UTC).isoformat(),
-        "scope": "Batch02 entitlement gateway — 10 test cases (10 unique IDs, range 51-100 only)",
+        "scope": "Batch02 entitlement gateway — 10 test cases (9 unique IDs in range 51-100)",
         "unique_capability_ids": sorted({p["capability_id"] for p in proofs}),
         "test_case_count": len(proofs),
         "script": "scripts/verify_entitlement_batch02_gateway_proof.py",

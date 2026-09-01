@@ -1,6 +1,8 @@
 {
   "verified_at": "2026-09-01T14:26:20.009882+00:00",
   "closure_status": "PENDING_CLOSURE",
+  "status_on_branch": "PENDING_CLOSURE",
+  "status_on_main": "PENDING_CLOSURE",
   "rejection": "CLOSURE-REJECT-02",
   "owner_approval_required": true,
   "merge_does_not_imply_closure": true,

@@ -45,11 +45,11 @@ async def test_runtime_execute_batch02_spine(tmp_path, monkeypatch):
 
 @pytest.mark.asyncio
 async def test_runtime_classification_bans_verified_complete():
-    from cap646.runtime import _runtime_classification
+    from cap646.rtm_classification import runtime_classification
 
-    assert _runtime_classification({"success": True}) == "PRODUCTION-ALIGNED"
-    assert _runtime_classification({"success": False}) == "NOT_COMPLETE"
-    assert "VERIFIED_COMPLETE" not in _runtime_classification({"success": True})
+    assert runtime_classification({"success": True}) == "PRODUCTION-ALIGNED"
+    assert runtime_classification({"success": False}) == "NOT_COMPLETE"
+    assert "VERIFIED_COMPLETE" not in runtime_classification({"success": True})
 
 
 @pytest.mark.asyncio
@@ -68,7 +68,9 @@ async def test_cap978_verify_emits_legacy_namespace_only(tmp_path, monkeypatch):
     report = await verify_functional_978(53)
     assert "verdict" in report
     unified = await execute_unified(53, user={"email": "t@x.com", "tier": "pro"}, params={"symbol": "BTC"})
-    assert _runtime_classification(unified) in {"PRODUCTION-ALIGNED", "NOT_COMPLETE"}
+    from cap646.rtm_classification import runtime_classification
+
+    assert runtime_classification(unified) in {"PRODUCTION-ALIGNED", "NOT_COMPLETE"}
     assert unified.get("classification") != "VERIFIED_COMPLETE"
 
 

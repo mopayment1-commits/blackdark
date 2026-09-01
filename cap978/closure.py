@@ -7,6 +7,7 @@ from typing import Any
 from cap646.institutional_controls import verify_all_controls
 from cap646.platform_chain import verify_data_platform_chain
 from cap646.triple_closure import _INTERNAL_INCOMPLETE
+from cap978.gate_verdict import INSTITUTIONAL_GATE_FAIL, INSTITUTIONAL_GATE_PASS
 from cap978.ci_deterministic_closure import ci_deterministic_closure_enabled, verify_functional_ci_deterministic
 from cap978.verify import verify_functional_978
 
@@ -37,7 +38,7 @@ async def institutional_closure_978(*, sample: bool = False, ci_deterministic: b
     cap_ok = all(cap_counts.get(k, 0) == 0 for k in _INTERNAL_INCOMPLETE)
     controls_ok = internal_incomplete == 0
     chain_ok = chain.get("internal_closure", False)
-    verdict = "VERIFIED COMPLETE" if cap_ok and controls_ok and chain_ok else "NOT READY"
+    verdict = INSTITUTIONAL_GATE_PASS if cap_ok and controls_ok and chain_ok else INSTITUTIONAL_GATE_FAIL
 
     base_counts = {k: v for k, v in cap_counts.items()}
     return {
