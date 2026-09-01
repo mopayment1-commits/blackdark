@@ -1,59 +1,76 @@
 {
   "verified_at": "2026-09-01T14:26:20.009882+00:00",
+  "orchestrator": "scripts/run_batch_verification_orchestrator.py",
+  "note": "Local proof orchestrator only — not an institutional CI gate",
   "closure_status": "PENDING_CLOSURE",
-  "rejection": "CLOSURE-REJECT-02",
-  "owner_approval_required": true,
-  "merge_does_not_imply_closure": true,
-  "orchestrator_result": "docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json",
-  "scripts": [
+  "batches": {
+    "batch01": {
+      "scope": "1–50",
+      "status": "PENDING_CLOSURE"
+    },
+    "batch02": {
+      "scope": "51–100",
+      "status": "PENDING_CLOSURE"
+    }
+  },
+  "orchestrated_scripts": [
     {
       "script": "audit_official_batch01_rtm.py",
+      "verifies": "RTM audit: 50/50 official batch01 IDs classified PRODUCTION-ALIGNED vs NOT_COMPLETE",
       "exit_code": 0,
       "stdout": "{\n  \"total\": 50,\n  \"production_aligned\": 50,\n  \"not_complete\": 0\n}\nWrote /workspace/docs/BATCH01_OFFICIAL_RTM_1_50.json",
       "stderr": ""
     },
     {
       "script": "audit_official_batch02_rtm.py",
+      "verifies": "RTM audit: 50/50 official batch02 IDs including OVERLAP_BATCH01 routing",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"production_aligned\": 50\n}\nWrote /workspace/docs/BATCH02_OFFICIAL_RTM_51_100.json",
       "stderr": "kdark.db\n2026-09-01 14:25:11,715 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://www.coindesk.com/arc/outboundfeeds/rss/\n2026-09-01 14:25:11,715 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://cointelegraph.com/rss\n2026-09-01 14:25:11,715 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://decrypt.co/feed\n2026-09-01 14:25:11,715 | WARNING | BLACKDARK.SentimentEngine | CryptoCompare news fetch failed safely.\n"
     },
     {
       "script": "verify_batch01_production.py",
+      "verifies": "Production spine execution for all batch01 IDs (module import + execute)",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"count\": 50\n}\nWrote /workspace/docs/BATCH01_PRODUCTION_PROOF.json",
       "stderr": ""
     },
     {
       "script": "verify_batch01_http_all50.py",
+      "verifies": "HTTP GET /api/cap646/{id} for IDs 1–50 with status 200",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"count\": 50\n}\nWrote /workspace/docs/BATCH01_HTTP_PROOF_1_50.json",
       "stderr": "r/api/cap646/47?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 14:25:48,440 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/48?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 14:25:48,625 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/49?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 14:25:49,255 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/50 629.2ms\n2026-09-01 14:25:49,264 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/50?symbol=BTC \"HTTP/1.1 200 OK\"\n"
     },
     {
       "script": "verify_batch01_http_11_fixed.py",
+      "verifies": "HTTP regression subset: 11 formerly NOT_COMPLETE batch01 IDs",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"count\": 11\n}\nWrote /workspace/docs/BATCH01_HTTP_PROOF_11_FIXED.json",
       "stderr": "00 | slow request GET /api/cap646/32 622.8ms\n2026-09-01 14:25:54,752 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/32?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 14:25:55,375 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/35 621.6ms\n2026-09-01 14:25:55,383 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/35?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 14:25:55,492 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/42?symbol=BTC \"HTTP/1.1 200 OK\"\n"
     },
     {
       "script": "verify_entitlement_gateway_proof.py",
+      "verifies": "Entitlement gateway path for batch01 sample IDs (no skip_entitlement)",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"checks\": {\n    \"no_skip_entitlement\": true,\n    \"47_free_denied\": true,\n    \"47_pro_allowed\": true,\n    \"count_10\": true\n  }\n}\nWrote /workspace/docs/BATCH01_ENTITLEMENT_GATEWAY_PROOF.json",
       "stderr": ""
     },
     {
       "script": "verify_official_batch02_production.py",
+      "verifies": "HTTP GET /api/cap646/{id} for IDs 51–100 with status 200",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"count\": 50\n}\nWrote /workspace/docs/BATCH02_HTTP_PROOF_51_100.json",
       "stderr": " feed=https://cointelegraph.com/rss\n2026-09-01 14:26:15,969 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://decrypt.co/feed\n2026-09-01 14:26:15,969 | WARNING | BLACKDARK.SentimentEngine | CryptoCompare news fetch failed safely.\n2026-09-01 14:26:15,978 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/99?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-01 14:26:16,168 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/100?symbol=BTC \"HTTP/1.1 200 OK\"\n"
     },
     {
       "script": "verify_entitlement_batch02_gateway_proof.py",
+      "verifies": "Entitlement gateway path for batch02 sample IDs (no skip_entitlement)",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"checks\": {\n    \"no_skip_entitlement\": true,\n    \"count_10\": true,\n    \"103_free_denied\": true,\n    \"55_overlap_batch01\": true,\n    \"85_pro_allowed\": true\n  }\n}\nWrote /workspace/docs/BATCH02_ENTITLEMENT_GATEWAY_PROOF.json",
       "stderr": "Yahoo price fetch failed safely | symbol=BTC-USD\nYahoo macro fetch failed safely | symbol=^GSPC\nYahoo price fetch failed safely | symbol=GC=F\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo price fetch failed safely | symbol=GC=F\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo macro fetch failed safely | symbol=^GSPC\n"
     }
   ],
-  "all_verified": true
+  "all_verified": true,
+  "explicit_owner_approval_required": true
 }

@@ -137,6 +137,9 @@ async def verify_functional_978(capability_id: int, *, user: dict[str, Any] | No
         "fail_closed": result.get("error") not in {"demo_only", "mock_only"},
     }
     verdict = (
+        # VERIFIED_COMPLETE: legacy cap978 CI namespace only — banned for 826 RTM fields.
+        # Removal target: 2026-09-30 — migrate to PRODUCTION-ALIGNED / FUNCTIONALLY_INCOMPLETE.
+        # See docs/CAPABILITIES_826_INVENTORY.json classification_taxonomy.VERIFIED_COMPLETE
         "VERIFIED_COMPLETE"
         if all(v for k, v in checks.items() if v is not False)
         else "FUNCTIONALLY_INCOMPLETE"

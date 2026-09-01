@@ -1966,8 +1966,11 @@ async def fetch_system_telemetry() -> dict[str, Any]:
         market_sentiment_count = 0
         latest_eval = latest_pricing = None
 
-    db_exists = config.DB_PATH.exists()
-    db_size_bytes = config.DB_PATH.stat().st_size if db_exists else 0
+    from pathlib import Path
+
+    db_path = Path(config.DB_PATH) if not isinstance(config.DB_PATH, Path) else config.DB_PATH
+    db_exists = db_path.exists()
+    db_size_bytes = db_path.stat().st_size if db_exists else 0
 
     return {
         "evaluated_count": int(evaluated_count or 0),
@@ -1979,7 +1982,7 @@ async def fetch_system_telemetry() -> dict[str, Any]:
         "market_sentiment_log_count": int(market_sentiment_count or 0),
         "latest_evaluated_at": latest_eval,
         "latest_pricing_at": latest_pricing,
-        "database_path": str(config.DB_PATH),
+        "database_path": str(db_path),
         "database_size_bytes": db_size_bytes,
         "database_online": db_exists,
         "poll_interval_seconds": config.POLL_INTERVAL_SECONDS,

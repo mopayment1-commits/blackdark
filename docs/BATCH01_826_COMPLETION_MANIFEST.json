@@ -1,17 +1,23 @@
 {
   "manifest_id": "BATCH01_OFFICIAL_1_50",
   "generated_at": "2026-09-01T13:05:00+00:00",
+  "created_at_commit": "26ea9632043a99c66ba9e505cfdd9326dccaa226",
+  "created_at_date": "2026-08-31T22:08:17+00:00",
   "official_batch": "batch01",
   "scope": "IDs 1–50",
-  "closure_status": "INSTITUTIONAL_CLOSED",
+  "closure_status": "PENDING_CLOSURE",
+  "owner_approval_required": true,
+  "merge_does_not_imply_closure": true,
+  "rejection": "CLOSURE-REJECT-02",
   "counts": {
     "total": 50,
     "production_aligned": 50,
     "not_complete": 0
   },
+  "functional_readiness": "مكتمل وظيفيًا — جاهزية التشغيل الحي غير مُقيَّمة بعد",
   "iso_25010": {
-    "completeness": "50/50 live RTM + HTTP",
-    "correctness": "goal-specific surfaces, no generic fallback",
+    "completeness": "50/50 live RTM + HTTP (pending gate-full + SonarCloud)",
+    "correctness": "goal-specific surfaces under audit",
     "appropriateness": "cap646.batch01_production dedicated backends"
   },
   "evidence_artifacts": {
@@ -20,13 +26,16 @@
     "http_proof_11_fixed": "docs/BATCH01_HTTP_PROOF_11_FIXED.json",
     "entitlement_gateway": "docs/BATCH01_ENTITLEMENT_GATEWAY_PROOF.json",
     "production_proof": "docs/BATCH01_PRODUCTION_PROOF.json",
+    "production_proof_created_commit": "26ea9632043a99c66ba9e505cfdd9326dccaa226",
     "inventory": "docs/CAPABILITIES_826_INVENTORY.json",
-    "institutional_gate": "docs/INSTITUTIONAL_CLOSURE_FINAL.json"
+    "honest_audit": "docs/BATCH02_HONEST_CLOSURE_AUDIT.md",
+    "checklist": "capabilities_checklist.xlsx",
+    "orchestrator": "docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json"
   },
   "production_spine": "cap646.batch01_production",
   "critical_gate": {
     "workflow": ".github/workflows/ci.yml",
     "job": "critical",
-    "pr": "https://github.com/mopayment1-commits/blackdark/pull/349"
+    "note": "critical PASS does not imply INSTITUTIONAL_CLOSED"
   }
 }

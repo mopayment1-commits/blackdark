@@ -3,7 +3,10 @@
   "generated_at": "2026-09-01T12:40:00+00:00",
   "official_batch": "batch02",
   "scope": "IDs 51–100",
-  "closure_status": "INSTITUTIONAL_CLOSED",
+  "closure_status": "PENDING_CLOSURE",
+  "owner_approval_required": true,
+  "merge_does_not_imply_closure": true,
+  "rejection": "CLOSURE-REJECT-02",
   "counts": {
     "total": 50,
     "production_aligned": 50,
@@ -12,6 +15,8 @@
     "reused_link_in_scope": 0,
     "not_complete": 0
   },
+  "independent_build_note": "IDs 61–100 are batch02 dedicated (40 IDs). IDs 51–60 include 4 OVERLAP_BATCH01 (#55,#56,#59,#60) without batch02 handlers.",
+  "functional_readiness": "مكتمل وظيفيًا — جاهزية التشغيل الحي غير مُقيَّمة بعد",
   "evidence_artifacts": {
     "rtm_audit": "docs/BATCH02_OFFICIAL_RTM_51_100.json",
     "http_proof": "docs/BATCH02_HTTP_PROOF_51_100.json",
@@ -21,22 +26,23 @@
     "hero_evidence": "data/hero_batch_02_official_51_100_evidence.jsonl",
     "checklist": "capabilities_checklist.xlsx",
     "entitlement_gateway": "docs/BATCH02_ENTITLEMENT_GATEWAY_PROOF.json",
-    "institutional_gate": "docs/INSTITUTIONAL_CLOSURE_FINAL.json",
+    "honest_audit": "docs/BATCH02_HONEST_CLOSURE_AUDIT.md",
+    "orchestrator": "docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json"
   },
   "production_spine": {
     "module": "cap646.batch02_production",
     "dedicated": "cap646.batch02_dedicated",
     "runtime_path": "cap646.runtime.execute_capability -> cap646.batch02_production"
   },
-  "batch03_reused_link_resolution": {
-    "106": {"canonical": 63, "status": "REUSED-LINK_RESOLVED"},
-    "107": {"canonical": 64, "status": "REUSED-LINK_RESOLVED"},
-    "110": {"canonical": 69, "status": "REUSED-LINK_RESOLVED"},
-    "125": {"canonical": 85, "status": "REUSED-LINK_RESOLVED"}
+  "batch03_link_eligible": {
+    "106": {"canonical": 63, "status": "LINK-ELIGIBLE", "scope": "101-150", "counted_in_progress": false},
+    "107": {"canonical": 64, "status": "LINK-ELIGIBLE", "scope": "101-150", "counted_in_progress": false},
+    "110": {"canonical": 69, "status": "LINK-ELIGIBLE", "scope": "101-150", "counted_in_progress": false},
+    "125": {"canonical": 85, "status": "LINK-ELIGIBLE", "scope": "101-150", "counted_in_progress": false}
   },
   "critical_gate": {
     "workflow": ".github/workflows/ci.yml",
     "job": "critical",
-    "note": "Attach passing GitHub Actions run URL on PR merge"
+    "note": "critical PASS does not imply INSTITUTIONAL_CLOSED; gate-full and SonarCloud required"
   }
 }

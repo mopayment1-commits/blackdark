@@ -1,0 +1,68 @@
+{
+  "audited_at": "2026-09-01T13:43:20.944406+00:00",
+  "methodology": "TOGAF G189 MECE — compare catalog goal, surface, backend module",
+  "requested_pairs": [
+    {
+      "id_a": 57,
+      "id_b": 85,
+      "goal_a": "Profitability Map",
+      "goal_b": "Futures Open Interest Intelligence",
+      "surface_a": "profitability_map",
+      "surface_b": "futures_open_interest_intelligence",
+      "backend_a": "cap646.batch02_production.cap_057",
+      "backend_b": "cap646.batch02_production.cap_085",
+      "verdict": "DISTINCT",
+      "rationale": "DISTINCT: #57=Profitability Map (profitability_analyzer_582, surface profitability_map) vs #85=Futures Open Interest Intelligence (derivatives_overview OI fields). User R2 cited 'Open Interest' for #57 — catalog registers Profitability Map; no MECE duplicate."
+    },
+    {
+      "id_a": 55,
+      "id_b": 56,
+      "goal_a": "NVT Fair-Value Model",
+      "goal_b": "Token Screener",
+      "surface_a": "nvt_fair_value_model",
+      "surface_b": "token_screener",
+      "backend_a": "cap646.batch01_production.cap_055",
+      "backend_b": "cap646.batch01_production.cap_056",
+      "verdict": "DISTINCT",
+      "rationale": "DISTINCT: NVT Fair-Value vs Token Screener — different catalog goals, batch01 overlap spine"
+    },
+    {
+      "id_a": 85,
+      "id_b": 125,
+      "goal_a": "Futures Open Interest Intelligence",
+      "goal_b": "Futures Open Interest Intelligence",
+      "surface_a": "futures_open_interest_intelligence",
+      "surface_b": null,
+      "backend_a": "cap646.batch02_production.cap_085",
+      "backend_b": "cap646.batch03_production.cap_125",
+      "verdict": "OVERLAP (LINK-ELIGIBLE)",
+      "rationale": "OVERLAP (LINK-ELIGIBLE): #125 duplicate_of #85 per REUSED_LINK_TAXONOMY; #125 in scope 101-150, not counted"
+    },
+    {
+      "id_a": 63,
+      "id_b": 106,
+      "goal_a": "Data Quality & Provenance Layer",
+      "goal_b": "Data Quality & Provenance Layer",
+      "surface_a": "data_quality_provenance_layer",
+      "surface_b": null,
+      "backend_a": "cap646.batch02_production.cap_063",
+      "backend_b": "cap646.batch03_production.cap_106",
+      "verdict": "OVERLAP (LINK-ELIGIBLE)",
+      "rationale": "OVERLAP (LINK-ELIGIBLE): #106 duplicate_of #63; batch03 scope"
+    },
+    {
+      "id_a": 53,
+      "id_b": 51,
+      "goal_a": "BTC-to-Macro Coupling",
+      "goal_b": "Macro & Traditional Finance Integration",
+      "surface_a": "btc_to_macro_coupling",
+      "surface_b": "macro_traditional_finance_integration",
+      "backend_a": "cap646.batch02_production.cap_053",
+      "backend_b": "cap646.batch02_production.cap_051",
+      "verdict": "DISTINCT",
+      "rationale": "DISTINCT: #53 BTC-to-Macro Coupling vs #51 Macro & Traditional Finance Integration"
+    }
+  ],
+  "duplicate_surfaces_in_1_100": {},
+  "note": "Only #57 vs #85 was flagged in CLOSURE-REJECT-02; #57 is NOT Open Interest per catalog"
+}

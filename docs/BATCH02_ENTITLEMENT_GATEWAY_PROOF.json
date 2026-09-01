@@ -1,83 +1,155 @@
 {
-  "verified_at": "2026-09-01T13:06:57.896258+00:00",
-  "scope": "Official batch02 entitlement gateway (no skip_entitlement)",
-  "official_batch": "batch02",
+  "verified_at": "2026-09-01T14:26:19.964329+00:00",
+  "scope": "Batch02 entitlement gateway — 10 IDs",
+  "script": "scripts/verify_entitlement_batch02_gateway_proof.py",
   "proofs": [
     {
       "capability_id": 51,
-      "user_label": "free_macro_tradfi",
-      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "user_label": "free_macro",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
       "surface": "macro_traditional_finance_integration",
-      "production_spine": "batch02",
-      "classification": "PRODUCTION-ALIGNED"
+      "production_spine": "batch02"
     },
     {
       "capability_id": 53,
-      "user_label": "free_btc_macro_coupling",
-      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "user_label": "free_btc_macro",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
       "surface": "btc_to_macro_coupling",
-      "production_spine": "batch02",
-      "classification": "PRODUCTION-ALIGNED"
+      "production_spine": "batch02"
+    },
+    {
+      "capability_id": 55,
+      "user_label": "overlap_batch01_nvt",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "nvt_fair_value_model",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 56,
+      "user_label": "overlap_batch01_screener",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "token_screener",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 59,
+      "user_label": "overlap_batch01_dashboard",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "personalized_research_dashboards",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 60,
+      "user_label": "overlap_batch01_alerts",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "metric_based_smart_alerts",
+      "production_spine": "batch01"
     },
     {
       "capability_id": 69,
-      "user_label": "pro_cross_domain_decision",
-      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "user_label": "pro_cross_domain",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
       "surface": "cross_domain_decision_intelligence_layer",
-      "production_spine": "batch02",
-      "classification": "PRODUCTION-ALIGNED"
+      "production_spine": "batch02"
     },
     {
       "capability_id": 85,
-      "user_label": "pro_futures_open_interest",
-      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "user_label": "pro_open_interest",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
       "surface": "futures_open_interest_intelligence",
-      "production_spine": "batch02",
-      "classification": "PRODUCTION-ALIGNED"
+      "production_spine": "batch02"
     },
     {
       "capability_id": 100,
-      "user_label": "free_research_reports",
-      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "user_label": "free_oracle_track",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
       "surface": "research_reports",
-      "production_spine": "batch02",
-      "classification": "PRODUCTION-ALIGNED"
+      "production_spine": "batch02"
     },
     {
       "capability_id": 103,
-      "user_label": "free_denied_elite_gated_reference",
-      "path": "cap646.institutional_gateway.gateway_execute -> cap646.runtime.execute_capability (entitlement enforced)",
+      "user_label": "out_of_scope_denied",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
       "entitlement_allowed": false,
       "entitlement_reason": "teaser",
       "success": false,
       "surface": null,
-      "production_spine": null,
-      "classification": null
+      "production_spine": null
     }
   ],
   "checks": {
-    "51_free_allowed": true,
-    "53_free_allowed": true,
-    "69_pro_allowed": true,
-    "85_pro_allowed": true,
-    "100_free_allowed": true,
-    "103_free_denied": true
+    "no_skip_entitlement": true,
+    "count_10": true,
+    "103_free_denied": true,
+    "55_overlap_batch01": true,
+    "85_pro_allowed": true
   },
-  "all_verified": true,
-  "note": "Deny case #103 exercises elite gate from same gateway path used by batch02 traffic"
+  "all_verified": true
 }

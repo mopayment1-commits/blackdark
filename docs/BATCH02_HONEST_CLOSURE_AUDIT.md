@@ -2,8 +2,8 @@
 
 **Date:** 2026-09-01  
 **Scope:** Official batch02 IDs 51–100  
-**Status:** **CLOSED** (pending Critical Gate CI on PR)  
-**Batch 03:** **BLOCKED** until institutional review of this report
+**Status:** **PENDING_CLOSURE** (CLOSURE-REJECT-02 — prior CLOSED claim void)  
+**Batch 03:** **BLOCKED** until institutional review and owner approval
 
 ---
 
@@ -29,18 +29,16 @@
 
 Prior reports described REUSED-LINK as `PENDING_CANONICAL_AUDIT` because canonical targets #63, #64, #69, #85 were NOT_COMPLETE.
 
-**Resolution (2026-09-01):** Canonical targets now PRODUCTION-ALIGNED under official batch02 spine:
+**Resolution (2026-09-01):** Canonical targets now PRODUCTION-ALIGNED under official batch02 spine. **LINK-ELIGIBLE only** — not closed, not counted in progress until batch03 approved:
 
-| Canonical ID | Surface | Spine | Enables REUSED-LINK |
-|-------------|---------|-------|-------------------|
-| #63 | `data_quality_provenance_layer` | batch02 | #106 |
-| #64 | `metric_methodology_registry` | batch02 | #107 |
-| #69 | `cross_domain_decision_intelligence_layer` | batch02 | #110 |
-| #85 | `futures_open_interest_intelligence` | batch02 | #125 |
+| Pair | Canonical | Status | Counted |
+|------|-----------|--------|---------|
+| #106→#63 | batch02 | LINK-ELIGIBLE | No |
+| #107→#64 | batch02 | LINK-ELIGIBLE | No |
+| #110→#69 | batch02 | LINK-ELIGIBLE | No |
+| #125→#85 | batch02 | LINK-ELIGIBLE | No |
 
-Catalog proof per pair: `docs/REUSED_LINK_TAXONOMY.json` → `registered_pairs` with `docs/cap646/CAP646_GAP_MATRIX.json` DUPLICATE/ALREADY_COVERED references.
-
-**Verdict:** Contradiction was **sequencing** (canonical audit pending), not incorrect REUSED-LINK mapping. Now **closed**.
+**Verdict:** Mapping documented; **closure claim deleted** per CLOSURE-REJECT-02 item 15.
 
 ---
 

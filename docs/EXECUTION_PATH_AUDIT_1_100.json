@@ -1,0 +1,740 @@
+{
+  "audited_at": "2026-09-01T13:43:13.908018+00:00",
+  "scope": "IDs 1–100",
+  "total": 100,
+  "non_standard_count": 13,
+  "non_standard_ids": [
+    1,
+    2,
+    3,
+    4,
+    10,
+    21,
+    38,
+    39,
+    45,
+    55,
+    56,
+    59,
+    60
+  ],
+  "paths": [
+    {
+      "capability_id": 1,
+      "path": "batch01_free_tier",
+      "module": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "justification": "Declared in batch01_production._BATCH01_FREE_TIER; stamped batch01 spine"
+    },
+    {
+      "capability_id": 2,
+      "path": "batch01_free_tier",
+      "module": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "justification": "Declared in batch01_production._BATCH01_FREE_TIER; stamped batch01 spine"
+    },
+    {
+      "capability_id": 3,
+      "path": "batch01_free_tier",
+      "module": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "justification": "Declared in batch01_production._BATCH01_FREE_TIER; stamped batch01 spine"
+    },
+    {
+      "capability_id": 4,
+      "path": "batch01_free_tier",
+      "module": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "justification": "Declared in batch01_production._BATCH01_FREE_TIER; stamped batch01 spine"
+    },
+    {
+      "capability_id": 5,
+      "path": "batch01_handler_group",
+      "module": "cap646.batch01_production.execute -> handler groups",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 6,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 7,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 8,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 9,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 10,
+      "path": "batch01_free_tier",
+      "module": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "justification": "Declared in batch01_production._BATCH01_FREE_TIER; stamped batch01 spine"
+    },
+    {
+      "capability_id": 11,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 12,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 13,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 14,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 15,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 16,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 17,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 18,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 19,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 20,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 21,
+      "path": "batch01_free_tier",
+      "module": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "justification": "Declared in batch01_production._BATCH01_FREE_TIER; stamped batch01 spine"
+    },
+    {
+      "capability_id": 22,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 23,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 24,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 25,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 26,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 27,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 28,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 29,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 30,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 31,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 32,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 33,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 34,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 35,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 36,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 37,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 38,
+      "path": "batch01_free_tier",
+      "module": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "justification": "Declared in batch01_production._BATCH01_FREE_TIER; stamped batch01 spine"
+    },
+    {
+      "capability_id": 39,
+      "path": "batch01_free_tier",
+      "module": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "justification": "Declared in batch01_production._BATCH01_FREE_TIER; stamped batch01 spine"
+    },
+    {
+      "capability_id": 40,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 41,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 42,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 43,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 44,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 45,
+      "path": "batch01_free_tier",
+      "module": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "justification": "Declared in batch01_production._BATCH01_FREE_TIER; stamped batch01 spine"
+    },
+    {
+      "capability_id": 46,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 47,
+      "path": "batch01_handler_group",
+      "module": "cap646.batch01_production.execute -> handler groups",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 48,
+      "path": "batch01_handler_group",
+      "module": "cap646.batch01_production.execute -> handler groups",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 49,
+      "path": "batch01_handler_group",
+      "module": "cap646.batch01_production.execute -> handler groups",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 50,
+      "path": "batch01_dedicated",
+      "module": "cap646.batch01_dedicated.execute",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 51,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 52,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 53,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 54,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 55,
+      "path": "overlap_batch01_legacy",
+      "module": "cap646.batch01_production (LEGACY_BATCH01_EXTENSION_IDS)",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "classification": "OVERLAP_BATCH01",
+      "justification": "Listed in batch02 scope but no batch02 handler; routed via batch01 legacy extension"
+    },
+    {
+      "capability_id": 56,
+      "path": "overlap_batch01_legacy",
+      "module": "cap646.batch01_production (LEGACY_BATCH01_EXTENSION_IDS)",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "classification": "OVERLAP_BATCH01",
+      "justification": "Listed in batch02 scope but no batch02 handler; routed via batch01 legacy extension"
+    },
+    {
+      "capability_id": 57,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 58,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 59,
+      "path": "overlap_batch01_legacy",
+      "module": "cap646.batch01_production (LEGACY_BATCH01_EXTENSION_IDS)",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "classification": "OVERLAP_BATCH01",
+      "justification": "Listed in batch02 scope but no batch02 handler; routed via batch01 legacy extension"
+    },
+    {
+      "capability_id": 60,
+      "path": "overlap_batch01_legacy",
+      "module": "cap646.batch01_production (LEGACY_BATCH01_EXTENSION_IDS)",
+      "official_spine": "cap646.batch01_production",
+      "non_standard": true,
+      "classification": "OVERLAP_BATCH01",
+      "justification": "Listed in batch02 scope but no batch02 handler; routed via batch01 legacy extension"
+    },
+    {
+      "capability_id": 61,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 62,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 63,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 64,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 65,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 66,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 67,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 68,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 69,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 70,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 71,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 72,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 73,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 74,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 75,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 76,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 77,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 78,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 79,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 80,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 81,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 82,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 83,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 84,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 85,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 86,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 87,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 88,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 89,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 90,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 91,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 92,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 93,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 94,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 95,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 96,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 97,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 98,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 99,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    },
+    {
+      "capability_id": 100,
+      "path": "batch02_dedicated",
+      "module": "cap646.batch02_dedicated.execute",
+      "official_spine": "cap646.batch02_production",
+      "non_standard": false
+    }
+  ]
+}
