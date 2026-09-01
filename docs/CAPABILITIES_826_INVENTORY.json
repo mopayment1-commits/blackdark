@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-08-31T22:40:12.413232+00:00",
+  "generated_at": "2026-09-01T00:19:18.030597+00:00",
   "scope": "IDs 1-826 institutional completion inventory",
   "summary": {
     "total_ids": 826,
     "classification_counts": {
-      "PRODUCTION-ALIGNED": 54,
+      "PRODUCTION-ALIGNED": 102,
       "NOT_IN_HERO_AUDIT": 248,
-      "DEFERRED-EARLY-BATCH": 54,
-      "SPLIT-BRAIN-UNVERIFIED": 157,
+      "DEFERRED-EARLY-BATCH": 36,
+      "SPLIT-BRAIN-UNVERIFIED": 127,
       "DEFERRED/TEMPLATE-STUB": 307,
       "EXTENSION-PENDING-CAP646": 6
     },
-    "production_aligned_count": 54,
+    "production_aligned_count": 102,
     "user_facing_count": 20
   },
   "per_id": {
@@ -817,19 +817,19 @@
     },
     "101": {
       "capability": "AI Data Analyst / Ask AI",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "oracle_track_record.public_track_record"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_101"
     },
     "102": {
       "capability": "AI-Generated Reporting",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "trust_pulse.build_trust_pulse"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_102"
     },
     "103": {
       "capability": "API Data Platform",
@@ -841,203 +841,203 @@
     },
     "104": {
       "capability": "High-Resolution / Block-Level Data Delivery",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "security_posture.security_posture_report"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_104"
     },
     "105": {
       "capability": "Historical Full-Data Layer",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "data_provenance_score.compute_data_provenance_score"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_105"
     },
     "106": {
       "capability": "Data Quality & Provenance Layer",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "gap_matrix_component",
-      "backend": "data_provenance_score.compute_data_provenance_score"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_106"
     },
     "107": {
       "capability": "Metric Methodology Registry",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "gap_matrix_component",
-      "backend": "signal_registry.registry_stats"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_107"
     },
     "108": {
       "capability": "Institutional Data & API Delivery",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_108"
     },
     "109": {
       "capability": "White-Label Research & Reporting",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "product_honesty_api.build_public_readiness"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_109"
     },
     "110": {
       "capability": "Cross-Domain Decision Intelligence Layer",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "gap_matrix_component",
-      "backend": "ai_oracle.evaluate_opportunity"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_110"
     },
     "111": {
       "capability": "Exchange Flow Actionability Score",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "onchain_tracker.build_onchain_context_safe"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_111"
     },
     "112": {
       "capability": "Flow-to-Price Explanation Engine",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "onchain_tracker.build_onchain_context_safe"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_112"
     },
     "113": {
       "capability": "Asset Intelligence Profiles",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "onchain_tracker.build_onchain_context_safe"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_113"
     },
     "114": {
       "capability": "Asset Classification & Taxonomy",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "due_diligence_bundle.build_full_due_diligence_bundle"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_114"
     },
     "115": {
       "capability": "Asset Screener",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "oracle_track_record.public_track_record"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_115"
     },
     "116": {
       "capability": "Market Pair Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.dexscreener_pairs"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_116"
     },
     "117": {
       "capability": "Real Volume / Quality-Adjusted Volume",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "data_provenance_score.compute_data_provenance_score"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_117"
     },
     "118": {
       "capability": "VWAP Price Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "oracle_track_record.public_track_record"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_118"
     },
     "119": {
       "capability": "Market Cap & FDV Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "arbitrage_service.scan_arbitrage_opportunities"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_119"
     },
     "120": {
       "capability": "Supply Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "market_context.probe_price_sources"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_120"
     },
     "121": {
       "capability": "ROI & ATH Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_121"
     },
     "122": {
       "capability": "Volatility Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_122"
     },
     "123": {
       "capability": "Sharpe Ratio Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_123"
     },
     "124": {
       "capability": "Futures Funding Rate Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "gap_matrix_component",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_124"
     },
     "125": {
       "capability": "Futures Open Interest Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "gap_matrix_component",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_125"
     },
     "126": {
       "capability": "Futures Volume Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "gap_matrix_component",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_126"
     },
     "127": {
       "capability": "Multi-Factor Market Overview",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.alpha_factor_ranking.rank_assets_by_alpha_factors"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_127"
     },
     "128": {
       "capability": "Momentum Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_128"
     },
     "129": {
       "capability": "Sentiment Intelligence",
@@ -1049,171 +1049,171 @@
     },
     "130": {
       "capability": "Mindshare Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "market_context.probe_price_sources"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_130"
     },
     "131": {
       "capability": "Narrative & Sector Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.whale_story.whale_narrative"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_131"
     },
     "132": {
       "capability": "Mindshare Gainers / Losers",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "oracle_track_record.public_track_record"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_132"
     },
     "133": {
       "capability": "Curated Crypto News Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.news_classifier.coindesk_feed"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_133"
     },
     "134": {
       "capability": "AI News Summaries",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.news_classifier.coindesk_feed"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_134"
     },
     "135": {
       "capability": "Real-Time Industry Event Monitoring",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "trust_pulse.build_trust_pulse"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_135"
     },
     "136": {
       "capability": "Agentic Monitoring Views",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.telegram_agent.handle_agent_message"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_136"
     },
     "137": {
       "capability": "Custom Watchlists",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "product_honesty_api.build_public_readiness"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_137"
     },
     "138": {
       "capability": "Token Unlock Calendar",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.token_unlocks.unlock_calendar"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_138"
     },
     "139": {
       "capability": "Vesting Schedule Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.token_unlocks.unlock_calendar"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_139"
     },
     "140": {
       "capability": "Token Allocation Intelligence",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.portfolio_rebalancer.portfolio_snapshot"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_140"
     },
     "141": {
       "capability": "Unlock Impact Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.token_unlocks.unlock_calendar"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_141"
     },
     "142": {
       "capability": "Fundraising Rounds Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_142"
     },
     "143": {
       "capability": "Investor Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_143"
     },
     "144": {
       "capability": "Fund & Fund-Manager Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "onchain_tracker.build_onchain_context_safe"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_144"
     },
     "145": {
       "capability": "M&A Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "oracle_track_record.public_track_record"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_145"
     },
     "146": {
       "capability": "Capital Flow & Funding Trend Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_146"
     },
     "147": {
       "capability": "Comparable Funding & Valuation Analysis",
-      "classification": "DEFERRED-EARLY-BATCH",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_147"
     },
     "148": {
       "capability": "Due Diligence Report Engine",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "due_diligence_bundle.build_full_due_diligence_bundle"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_148"
     },
     "149": {
       "capability": "Automated Risk Scoring from Diligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "risk_manager.risk_status"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_149"
     },
     "150": {
       "capability": "Protocol KPI Intelligence",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "PRODUCTION-ALIGNED",
       "in_hero_evidence": true,
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview"
+      "binding_source": "explicit_option_a",
+      "backend": "cap646.batch02_production.cap_150"
     },
     "151": {
       "capability": "Quarterly Protocol Performance Reports",

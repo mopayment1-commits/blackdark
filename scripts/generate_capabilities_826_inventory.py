@@ -37,19 +37,23 @@ def main() -> None:
     from cap646.catalog import catalog_by_id
     from cap646.backend_registry import binding_for
     from cap646.batch01_production import BATCH01_IDS
+    from cap646.batch02_production import BATCH02_IDS
     from cap646.waves import USER_FACING
 
     evidence = _load_evidence()
     production_aligned = set(json.loads(OPTION_A_MANIFEST.read_text()).get("ids", [])) if OPTION_A_MANIFEST.is_file() else set()
     if BATCH01_MANIFEST.is_file():
         production_aligned |= set(json.loads(BATCH01_MANIFEST.read_text()).get("capability_ids", []))
+    batch02_manifest = ROOT / "docs/BATCH02_826_COMPLETION_MANIFEST.json"
+    if batch02_manifest.is_file():
+        production_aligned |= set(json.loads(batch02_manifest.read_text()).get("capability_ids", []))
 
     per_id: dict[str, Any] = {}
     counts: dict[str, int] = {}
     for cid in range(1, PROJECT_SCOPE_TOTAL + 1):
         ev = evidence.get(cid)
         cls = ev.get("deep_audit_classification") if ev else "NOT_IN_HERO_AUDIT"
-        if cid in BATCH01_IDS:
+        if cid in BATCH01_IDS or cid in BATCH02_IDS:
             cls = "PRODUCTION-ALIGNED"
         elif cid in production_aligned:
             cls = "PRODUCTION-ALIGNED"

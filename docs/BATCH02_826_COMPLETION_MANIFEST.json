@@ -1,0 +1,24 @@
+{
+  "batch": "batch02_826_completion",
+  "scope": "IDs 101–150 (50 capabilities)",
+  "priority": "infra + market analysis + TA risk + onchain platform + data sources",
+  "capability_ids": [
+    101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+    111, 112, 113, 114, 115, 116, 117, 118, 119, 120,
+    121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
+    131, 132, 133, 134, 135, 136, 137, 138, 139, 140,
+    141, 142, 143, 144, 145, 146, 147, 148, 149, 150
+  ],
+  "production_spine": "cap646.batch02_production",
+  "binding_source": "explicit_option_a",
+  "overlap_batch01_ids": [103, 129],
+  "completion_criteria": [
+    "functional_completeness",
+    "functional_correctness",
+    "functional_appropriateness",
+    "production_path_alignment",
+    "reliability",
+    "user_facing_surface_where_applicable"
+  ],
+  "production_aligned_count": 50
+}

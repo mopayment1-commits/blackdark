@@ -85,6 +85,27 @@ def _register_batch01_bindings() -> None:
 _register_batch01_bindings()
 
 
+def _register_batch02_bindings() -> None:
+    from cap646.batch02_production import BATCH02_IDS, batch02_entrypoint
+
+    for cid in BATCH02_IDS:
+        if cid in _EXPLICIT_BINDINGS:
+            continue
+        row = catalog_by_id().get(cid, {})
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch02_production",
+            batch02_entrypoint(cid),
+            surface,
+            "symbol",
+            "explicit_option_a",
+        )
+
+
+_register_batch02_bindings()
+
+
 # Map gap-matrix component stems → canonical import path + entrypoint
 _COMPONENT_BINDINGS: dict[str, tuple[str, str, str]] = {
     "market_context.py": ("market_context", "probe_price_sources", "symbol"),
