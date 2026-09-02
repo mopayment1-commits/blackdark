@@ -26,7 +26,7 @@ def test_safe_url_segment_allowlist():
 
 
 def test_assert_safe_http_url_localhost_only():
-    assert assert_safe_http_url("[REDACTED]/health").startswith("http")
+    assert assert_safe_http_url("http://127.0.0.1/health").startswith("http")
     with pytest.raises(ValueError):
         assert_safe_http_url("http://evil.example/steal")
 
