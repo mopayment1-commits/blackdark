@@ -26,10 +26,10 @@ def test_write_closure_status_persists_without_hmac_for_pending(tmp_path, monkey
     docs.mkdir()
     manifest = docs / "INSTITUTIONAL_CLOSURE_FINAL.json"
     manifest.write_text("{}\n", encoding="utf-8")
-    monkeypatch.setattr(cg, "_ROOT", tmp_path)
+    monkeypatch.setattr(cg, "closure_manifest_path", lambda: manifest)
     monkeypatch.delenv("INSTITUTIONAL_OWNER_APPROVAL_SECRET", raising=False)
 
-    cg.write_closure_status("docs/INSTITUTIONAL_CLOSURE_FINAL.json", "PENDING_CLOSURE")
+    cg.write_closure_status("PENDING_CLOSURE")
 
     saved = json.loads(manifest.read_text(encoding="utf-8"))
     assert saved["closure_status"] == "PENDING_CLOSURE"
@@ -42,24 +42,24 @@ def test_write_closure_status_persists_allowlisted_manifest(tmp_path, monkeypatc
     docs.mkdir()
     manifest = docs / "INSTITUTIONAL_CLOSURE_FINAL.json"
     manifest.write_text('{"closure_status":"PENDING_CLOSURE"}\n', encoding="utf-8")
-    monkeypatch.setattr(cg, "_ROOT", tmp_path)
+    monkeypatch.setattr(cg, "closure_manifest_path", lambda: manifest)
     secret = "unit-test-secret"
     token = hmac.new(secret.encode(), b"INSTITUTIONAL_CLOSED", hashlib.sha256).hexdigest()
     monkeypatch.setenv("INSTITUTIONAL_OWNER_APPROVAL_SECRET", secret)
     monkeypatch.setenv("INSTITUTIONAL_OWNER_APPROVAL_TOKEN", token)
 
-    cg.write_closure_status("docs/INSTITUTIONAL_CLOSURE_FINAL.json", "INSTITUTIONAL_CLOSED")
+    cg.write_closure_status("INSTITUTIONAL_CLOSED")
 
     saved = json.loads(manifest.read_text(encoding="utf-8"))
     assert saved["closure_status"] == "INSTITUTIONAL_CLOSED"
 
 
-def test_safe_closure_manifest_rejects_traversal(tmp_path, monkeypatch):
+def test_closure_manifest_path_resolves_under_docs():
     import cap646.closure_guard as cg
 
-    monkeypatch.setattr(cg, "_ROOT", tmp_path)
-    with pytest.raises(cg.ClosureGuardError, match="not allowlisted"):
-        cg._safe_closure_manifest("../etc/passwd")
+    path = cg.closure_manifest_path()
+    assert path.name == "INSTITUTIONAL_CLOSURE_FINAL.json"
+    assert path.parent.name == "docs"
 
 
 # ---------------------------------------------------------------------------
