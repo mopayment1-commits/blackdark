@@ -34,5 +34,10 @@
       "data_leak_fields_absent": ["hot_storage", "graphql", "institutional_api"]
     }
   },
-  "verdict": "PRODUCTION_PROTECTED"
+  "verdict": "PRODUCTION_PROTECTED",
+  "authoritative_reference": {
+    "pentagonal_hero_closure": "docs/PENTAGONAL_HERO_CLOSURE_REPORT.json",
+    "supplemental_closure": "docs/SUPPLEMENTAL_CLOSURE_REPORT_1_18.json",
+    "note": "This file documents GET entitlement fix only. Wording corrections (capability 56 split-brain, capability 15 clone, B2B paths) are authoritative in PENTAGONAL_HERO_CLOSURE_REPORT.json and SUPPLEMENTAL_CLOSURE_REPORT_1_18.json — not retroactively edited here."
+  }
 }

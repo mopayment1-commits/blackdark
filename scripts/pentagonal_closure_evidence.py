@@ -216,14 +216,17 @@ CODE_SNIPPETS = {
         "explains": "negative net always rejected regardless of gross spread direction",
     },
     "Single-Sentence Oracle": {
-        "file": "oracle_unified.py",
-        "lines": "62-70",
+        "file": "dimension_conflict_guard.py",
+        "lines": "57-78",
         "code": (
-            'if asset.upper() in stablecoins: return to_public_verdict("WAIT")\n'
-            'if score >= 75: return to_public_verdict("BUY")\n'
-            'if score >= 50: return to_public_verdict("WAIT")'
+            'if severity == "severe":\n'
+            '    adjusted = min(adjusted, severe_score_cap())\n'
+            '    meta["veto"] = True; meta["abstain"] = True; meta["action"] = "WAIT"\n'
+            'elif severity == "mild":\n'
+            '    adjusted = min(adjusted, mild_score_cap())\n'
+            '    meta["abstain"] = True; meta["action"] = "CAUTION"'
         ),
-        "explains": "asymmetric thresholds: stablecoins forced WAIT; BUY requires score>=75",
+        "explains": "severe conflicts force veto+WAIT; mild conflicts only abstain+CAUTION — asymmetric severity handling",
     },
     "Public Accuracy Ledger": {
         "file": "oracle_audit_chain.py",
@@ -232,13 +235,15 @@ CODE_SNIPPETS = {
         "explains": "misses and hits both chained — no asymmetric hiding",
     },
     "B2B Feed": {
-        "file": "whale_tracker.py",
-        "lines": "1103-1108",
+        "file": "exchange_internal_flow_filter.py",
+        "lines": "101-104",
         "code": (
-            'manipulation = [r for r in records if r.get("flow_type") == "manipulation_alert"]\n'
-            'sii_rows = [r for r in records if r.get("flow_type") == "sector_inflow_index"]'
+            'if src_ex and not dst_ex and is_withdrawal:\n'
+            '    return _result(FlowClassification.ECONOMIC_FLOW, "exchange withdrawal", 0.8)\n'
+            'if dst_ex and not src_ex and is_deposit:\n'
+            '    return _result(FlowClassification.ECONOMIC_FLOW, "exchange deposit", 0.8)'
         ),
-        "explains": "inflow manipulation vs sector index rows carry different flow_type semantics",
+        "explains": "withdrawal requires source exchange label; deposit requires destination exchange label — asymmetric path rules",
     },
 }
 

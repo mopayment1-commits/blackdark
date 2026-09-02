@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T22:36:18.599190+00:00",
+  "generated_at": "2026-09-02T23:05:42.806923+00:00",
   "scope": "institutional closure items 1-21",
   "item_01_ai_capabilities_psi": [
     {
@@ -907,7 +907,7 @@
       "enabled": true,
       "data_source": "live_fallback",
       "asset": "BTC",
-      "timestamp": "2026-09-02T22:36:11.160609+00:00",
+      "timestamp": "2026-09-02T23:05:35.980145+00:00",
       "geo_news": {
         "headlines": [
           {
@@ -1041,10 +1041,10 @@
         "coingecko_trending": [
           "PONS",
           "AKE",
-          "ARB",
-          "UNI",
           "CASHCAT",
-          "USELESS",
+          "ARB",
+          "PUMP",
+          "UNI",
           "PENGU"
         ],
         "reddit_hot_titles": [],
@@ -1080,10 +1080,10 @@
       },
       "aggregators": {
         "coingecko_global": {
-          "total_market_cap_usd": 2611931407579.222,
-          "total_volume_usd": 73643136253.60641,
-          "btc_dominance_pct": 59.06891136365458,
-          "market_cap_change_24h_pct": -2.7430904796286595
+          "total_market_cap_usd": 2612496921418.5093,
+          "total_volume_usd": 72649966248.95386,
+          "btc_dominance_pct": 59.05624858553571,
+          "market_cap_change_24h_pct": -2.7278916783399687
         },
         "coincap_top10": [],
         "sources": [
@@ -1120,12 +1120,12 @@
     },
     "Arbitrage Scanner": {
       "enabled": true,
-      "evaluated": 28,
+      "evaluated": 50,
       "passed": 0,
-      "rejected": 28,
+      "rejected": 50,
       "reject_rate": 1.0,
       "reject_reasons": {
-        "missing_net_profit": 28
+        "missing_net_profit": 50
       },
       "thresholds": {
         "min_truth_score": 55.0,
@@ -1134,7 +1134,7 @@
       }
     },
     "Whale Signal vs Noise": {
-      "timestamp": "2026-09-02T22:36:11.803562+00:00",
+      "timestamp": "2026-09-02T23:05:36.769998+00:00",
       "headline": "No major whale narratives in the current window — market in equilibrium.",
       "one_sentence": "No major whale narratives in the current window — market in equilibrium.",
       "stories": [
@@ -1156,7 +1156,7 @@
       "average_daily_volume_usd": 25000000000.0,
       "adv_source": "prior_table",
       "top_depth_usd": null,
-      "depth_source": "book_unavailable",
+      "depth_source": "book_no_mid",
       "participation_of_adv": 0.0,
       "participation_of_top_depth": null,
       "recommended_slices": 1,
@@ -1194,14 +1194,14 @@
     "B2B Feed": {
       "product": "BLACKDARK Institutional Manipulation Feed",
       "feed_version": "1.0.0",
-      "generated_at": "2026-09-02T22:36:12.138304+00:00",
+      "generated_at": "2026-09-02T23:05:37.074598+00:00",
       "record_count": 0,
       "methodology": {
         "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
         "sii": "Sector Inflow Index (capital acceleration)"
       },
       "records": [],
-      "signature": "4f4c38699533a26565bb2d8cf508996583844909a37c1084698752f54c002b53"
+      "signature": "84d559772a7cfa4d02427da869bfa63d23240983e83155d99d338918c0625699"
     }
   },
   "item_10_lookahead_60_vs_81": {
@@ -1216,8 +1216,8 @@
     "total_caps_checked": 81,
     "samples_with_delta": 248,
     "min_seconds": 1.1e-05,
-    "max_seconds": 117504.018505,
-    "median_seconds": 0.00019099999999999998,
+    "max_seconds": 119393.07535,
+    "median_seconds": 0.000172,
     "methodology": "Deep recursive extraction of timestamp fields from nested payload structures",
     "note": "Positive delta = decision_ts after data_ts (no lookahead)"
   },
@@ -1295,12 +1295,12 @@
     },
     "generator_embedded": {
       "lookahead_checks": 60,
-      "leave_one_out_tests": 30,
-      "leave_one_out_methodology": "true LOO — 6 heroes × 5 scenarios × 1 exclusion = 30 tests",
+      "leave_one_out_tests": 405,
+      "leave_one_out_methodology": "expanded LOO — 5 scenarios × every input cap excluded per hero",
       "live_probes": 6,
       "pentagonal_e2e_samples": 100
     },
-    "total_automated_subcases": 206
+    "total_automated_subcases": 581
   },
   "item_05_get_entitlement_doc_status": {
     "exists": true,
@@ -1321,14 +1321,14 @@
       "body": {
         "product": "BLACKDARK Institutional Manipulation Feed",
         "feed_version": "1.0.0",
-        "generated_at": "2026-09-02T22:36:18.410094+00:00",
+        "generated_at": "2026-09-02T23:05:42.619782+00:00",
         "record_count": 0,
         "methodology": {
           "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
           "sii": "Sector Inflow Index (capital acceleration)"
         },
         "records": [],
-        "signature": "1d2e90c0cbcfd8582dd2cb909786477f72379adfa539a09902bf71f896aa2e16",
+        "signature": "0cea1785c2d8f848d5a0e9668511dd08aee7e3328ffb2480898014622112dc3d",
         "demo": true,
         "upgrade_url": "/b2b"
       }
@@ -1348,7 +1348,7 @@
     },
     "pytest": {
       "exit_code": 0,
-      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: /workspace\nconfigfile: pytest.ini\nplugins: anyio-4.14.2, asyncio-1.4.0, cov-7.1.0, xdist-3.8.0, timeout-2.4.0\nasyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 21 items\n\ntests/test_pentagonal_hero_binding.py .....................              [100%]\n\n=============================== warnings summary ===============================\ntests/test_pentagonal_hero_binding.py::test_local_hero_endpoints\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\ntests/test_pentagonal_hero_binding.py: 972 warnings\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================= 21 passed, 973 warnings in 4.31s =======================\n"
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: /workspace\nconfigfile: pytest.ini\nplugins: anyio-4.14.2, asyncio-1.4.0, cov-7.1.0, xdist-3.8.0, timeout-2.4.0\nasyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 21 items\n\ntests/test_pentagonal_hero_binding.py .....................              [100%]\n\n=============================== warnings summary ===============================\ntests/test_pentagonal_hero_binding.py::test_local_hero_endpoints\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\ntests/test_pentagonal_hero_binding.py: 972 warnings\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================= 21 passed, 973 warnings in 3.78s =======================\n"
     }
   },
   "item_15_self_resolve_checksum": {
@@ -1528,10 +1528,10 @@
       "explains": "negative net always rejected regardless of gross spread direction"
     },
     "Single-Sentence Oracle": {
-      "file": "oracle_unified.py",
-      "lines": "62-70",
-      "code": "if asset.upper() in stablecoins: return to_public_verdict(\"WAIT\")\nif score >= 75: return to_public_verdict(\"BUY\")\nif score >= 50: return to_public_verdict(\"WAIT\")",
-      "explains": "asymmetric thresholds: stablecoins forced WAIT; BUY requires score>=75"
+      "file": "dimension_conflict_guard.py",
+      "lines": "57-78",
+      "code": "if severity == \"severe\":\n    adjusted = min(adjusted, severe_score_cap())\n    meta[\"veto\"] = True; meta[\"abstain\"] = True; meta[\"action\"] = \"WAIT\"\nelif severity == \"mild\":\n    adjusted = min(adjusted, mild_score_cap())\n    meta[\"abstain\"] = True; meta[\"action\"] = \"CAUTION\"",
+      "explains": "severe conflicts force veto+WAIT; mild conflicts only abstain+CAUTION — asymmetric severity handling"
     },
     "Public Accuracy Ledger": {
       "file": "oracle_audit_chain.py",
@@ -1540,10 +1540,10 @@
       "explains": "misses and hits both chained — no asymmetric hiding"
     },
     "B2B Feed": {
-      "file": "whale_tracker.py",
-      "lines": "1103-1108",
-      "code": "manipulation = [r for r in records if r.get(\"flow_type\") == \"manipulation_alert\"]\nsii_rows = [r for r in records if r.get(\"flow_type\") == \"sector_inflow_index\"]",
-      "explains": "inflow manipulation vs sector index rows carry different flow_type semantics"
+      "file": "exchange_internal_flow_filter.py",
+      "lines": "101-104",
+      "code": "if src_ex and not dst_ex and is_withdrawal:\n    return _result(FlowClassification.ECONOMIC_FLOW, \"exchange withdrawal\", 0.8)\nif dst_ex and not src_ex and is_deposit:\n    return _result(FlowClassification.ECONOMIC_FLOW, \"exchange deposit\", 0.8)",
+      "explains": "withdrawal requires source exchange label; deposit requires destination exchange label — asymmetric path rules"
     }
   },
   "item_21_transparency_code_per_hero": {
@@ -1563,9 +1563,9 @@
       "code": "if net_profit <= 0: reject_reason = \"non_positive_net_profit\""
     },
     "Single-Sentence Oracle": {
-      "file": "oracle_unified.py",
-      "lines": "62-70",
-      "code": "if asset.upper() in stablecoins: return to_public_verdict(\"WAIT\")\nif score >= 75: return to_public_verdict(\"BUY\")\nif score >= 50: return to_public_verdict(\"WAIT\")"
+      "file": "dimension_conflict_guard.py",
+      "lines": "57-78",
+      "code": "if severity == \"severe\":\n    adjusted = min(adjusted, severe_score_cap())\n    meta[\"veto\"] = True; meta[\"abstain\"] = True; meta[\"action\"] = \"WAIT\"\nelif severity == \"mild\":\n    adjusted = min(adjusted, mild_score_cap())\n    meta[\"abstain\"] = True; meta[\"action\"] = \"CAUTION\""
     },
     "Public Accuracy Ledger": {
       "file": "oracle_audit_chain.py",
@@ -1573,10 +1573,10 @@
       "code": "each record tip_hash must equal sha256(prev_hash + payload)"
     },
     "B2B Feed": {
-      "file": "whale_tracker.py",
-      "lines": "1103-1108",
-      "code": "manipulation = [r for r in records if r.get(\"flow_type\") == \"manipulation_alert\"]\nsii_rows = [r for r in records if r.get(\"flow_type\") == \"sector_inflow_index\"]"
+      "file": "exchange_internal_flow_filter.py",
+      "lines": "101-104",
+      "code": "if src_ex and not dst_ex and is_withdrawal:\n    return _result(FlowClassification.ECONOMIC_FLOW, \"exchange withdrawal\", 0.8)\nif dst_ex and not src_ex and is_deposit:\n    return _result(FlowClassification.ECONOMIC_FLOW, \"exchange deposit\", 0.8)"
     }
   },
-  "closure_checksum_sha256": "51bae4d06d60b2fc8a78e607ceefaa14d19240711b1511d3ac016c3b32c5ca83"
+  "closure_checksum_sha256": "d4ee0f5d758f2b6c6eaf46d98235b6691f87dc8426c2b3aa11eabf866d729a61"
 }

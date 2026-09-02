@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T22:36:12.219866+00:00",
+  "generated_at": "2026-09-02T23:05:37.137440+00:00",
   "scope": "six heroes × capabilities 1-100",
   "heroes": [
     "Single-Sentence Oracle",
@@ -271,7 +271,7 @@
       "7_lookahead_bias": [
         {
           "capability_id": 24,
-          "decision_timestamp": "2026-09-02T22:31:36.640358+00:00",
+          "decision_timestamp": "2026-09-02T23:03:06.049551+00:00",
           "timestamp_fields_found": 12,
           "timestamp_sample_paths": [
             "research_agent.research_lab.generated_at",
@@ -282,25 +282,25 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.119946,
-            0.254744,
-            10.854633,
-            13.765763,
-            16.476584,
-            19.369009,
-            22.098665,
-            14.701166,
-            0.171983,
-            0.145949,
-            0.119956,
-            0.119898
+            0.103294,
+            0.231894,
+            30.83266,
+            33.552365,
+            36.265436,
+            38.990101,
+            41.921859,
+            14.721364,
+            0.149962,
+            0.126518,
+            0.103304,
+            0.103251
           ],
-          "time_delta_seconds": 0.119898,
+          "time_delta_seconds": 0.103251,
           "pass": true
         },
         {
           "capability_id": 25,
-          "decision_timestamp": "2026-09-02T22:31:36.642310+00:00",
+          "decision_timestamp": "2026-09-02T23:03:06.051400+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "signal.timestamp",
@@ -308,43 +308,43 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            8.1e-05,
-            2.6e-05
-          ],
-          "time_delta_seconds": 2.6e-05,
-          "pass": true
-        },
-        {
-          "capability_id": 26,
-          "decision_timestamp": "2026-09-02T22:31:37.260953+00:00",
-          "timestamp_fields_found": 1,
-          "timestamp_sample_paths": [
-            "evidence_metadata.attached_at"
-          ],
-          "lookahead_violations": [],
-          "time_deltas_seconds": [
+            7.8e-05,
             2.5e-05
           ],
           "time_delta_seconds": 2.5e-05,
           "pass": true
         },
         {
-          "capability_id": 27,
-          "decision_timestamp": "2026-09-02T22:31:37.262933+00:00",
+          "capability_id": 26,
+          "decision_timestamp": "2026-09-02T23:03:06.678503+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            2.2e-05
+            2.8e-05
           ],
-          "time_delta_seconds": 2.2e-05,
+          "time_delta_seconds": 2.8e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 27,
+          "decision_timestamp": "2026-09-02T23:03:06.680722+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            2.3e-05
+          ],
+          "time_delta_seconds": 2.3e-05,
           "pass": true
         },
         {
           "capability_id": 28,
-          "decision_timestamp": "2026-09-02T22:31:38.918790+00:00",
+          "decision_timestamp": "2026-09-02T23:03:08.667510+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "alert.alert.fired_at",
@@ -353,16 +353,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000136,
-            0.000945,
-            3.9e-05
+            0.000118,
+            0.000852,
+            3.3e-05
           ],
-          "time_delta_seconds": 3.9e-05,
+          "time_delta_seconds": 3.3e-05,
           "pass": true
         },
         {
           "capability_id": 29,
-          "decision_timestamp": "2026-09-02T22:31:38.920249+00:00",
+          "decision_timestamp": "2026-09-02T23:03:08.668963+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "decision_engine.cross_market.timestamp",
@@ -370,15 +370,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            8.1e-05,
-            1.9e-05
+            8.7e-05,
+            2.2e-05
           ],
-          "time_delta_seconds": 1.9e-05,
+          "time_delta_seconds": 2.2e-05,
           "pass": true
         },
         {
           "capability_id": 30,
-          "decision_timestamp": "2026-09-02T22:31:38.920479+00:00",
+          "decision_timestamp": "2026-09-02T23:03:08.669273+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "provenance_score.generated_at",
@@ -386,15 +386,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            5e-05,
-            1.3e-05
+            7.1e-05,
+            1.6e-05
           ],
-          "time_delta_seconds": 1.3e-05,
+          "time_delta_seconds": 1.6e-05,
           "pass": true
         },
         {
           "capability_id": 31,
-          "decision_timestamp": "2026-09-02T22:31:39.516106+00:00",
+          "decision_timestamp": "2026-09-02T23:03:09.263043+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "cross_signal_confirmation.registry_stats.generated_at",
@@ -402,7 +402,7 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.593444,
+            0.591735,
             3.1e-05
           ],
           "time_delta_seconds": 3.1e-05,
@@ -410,35 +410,35 @@
         },
         {
           "capability_id": 32,
-          "decision_timestamp": "2026-09-02T22:31:40.136796+00:00",
+          "decision_timestamp": "2026-09-02T23:03:09.881012+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            3.9e-05
+            3.1e-05
           ],
-          "time_delta_seconds": 3.9e-05,
+          "time_delta_seconds": 3.1e-05,
           "pass": true
         },
         {
           "capability_id": 33,
-          "decision_timestamp": "2026-09-02T22:31:40.140418+00:00",
+          "decision_timestamp": "2026-09-02T23:03:09.883487+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            2.7e-05
+            2.8e-05
           ],
-          "time_delta_seconds": 2.7e-05,
+          "time_delta_seconds": 2.8e-05,
           "pass": true
         },
         {
           "capability_id": 34,
-          "decision_timestamp": "2026-09-02T22:31:40.141280+00:00",
+          "decision_timestamp": "2026-09-02T23:03:09.884351+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
@@ -452,21 +452,21 @@
         },
         {
           "capability_id": 35,
-          "decision_timestamp": "2026-09-02T22:31:40.762868+00:00",
+          "decision_timestamp": "2026-09-02T23:03:10.474868+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            3.4e-05
+            2e-05
           ],
-          "time_delta_seconds": 3.4e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 40,
-          "decision_timestamp": "2026-09-02T22:31:41.354184+00:00",
+          "decision_timestamp": "2026-09-02T23:03:11.071109+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "macro.timestamp",
@@ -474,15 +474,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000184,
-            0.00012
+            8.1e-05,
+            2.2e-05
           ],
-          "time_delta_seconds": 0.00012,
+          "time_delta_seconds": 2.2e-05,
           "pass": true
         },
         {
           "capability_id": 47,
-          "decision_timestamp": "2026-09-02T22:31:44.690317+00:00",
+          "decision_timestamp": "2026-09-02T23:03:14.370168+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "probe.timestamp",
@@ -491,16 +491,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000198,
-            0.000101,
-            4.2e-05
+            0.000211,
+            9.7e-05,
+            3.5e-05
           ],
-          "time_delta_seconds": 4.2e-05,
+          "time_delta_seconds": 3.5e-05,
           "pass": true
         },
         {
           "capability_id": 48,
-          "decision_timestamp": "2026-09-02T22:31:44.947213+00:00",
+          "decision_timestamp": "2026-09-02T23:03:14.564488+00:00",
           "timestamp_fields_found": 4,
           "timestamp_sample_paths": [
             "overview.timestamp",
@@ -510,17 +510,17 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000164,
-            0.181695,
-            8.7e-05,
-            3.3e-05
+            0.000135,
+            0.12519,
+            7.1e-05,
+            2.6e-05
           ],
-          "time_delta_seconds": 3.3e-05,
+          "time_delta_seconds": 2.6e-05,
           "pass": true
         },
         {
           "capability_id": 50,
-          "decision_timestamp": "2026-09-02T22:31:44.947507+00:00",
+          "decision_timestamp": "2026-09-02T23:03:14.564766+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "book.timestamp",
@@ -528,7 +528,7 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            23.677101,
+            23.864725,
             1.4e-05
           ],
           "time_delta_seconds": 1.4e-05,
@@ -536,21 +536,21 @@
         },
         {
           "capability_id": 55,
-          "decision_timestamp": "2026-09-02T22:31:45.573205+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.194665+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            2.9e-05
+            2.2e-05
           ],
-          "time_delta_seconds": 2.9e-05,
+          "time_delta_seconds": 2.2e-05,
           "pass": true
         },
         {
           "capability_id": 56,
-          "decision_timestamp": "2026-09-02T22:31:45.609933+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.238511+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "screener.timestamp",
@@ -558,15 +558,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000133,
-            2.2e-05
+            0.000111,
+            2e-05
           ],
-          "time_delta_seconds": 2.2e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 59,
-          "decision_timestamp": "2026-09-02T22:31:45.916456+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.532961+00:00",
           "timestamp_fields_found": 6,
           "timestamp_sample_paths": [
             "personalized_dashboard.economic_moat.timestamp",
@@ -577,33 +577,33 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.247398,
-            0.164949,
-            0.139845,
-            0.11339,
-            0.11338,
-            0.113319
+            0.23489,
+            0.15401,
+            0.127832,
+            0.101356,
+            0.101346,
+            0.101301
           ],
-          "time_delta_seconds": 0.113319,
+          "time_delta_seconds": 0.101301,
           "pass": true
         },
         {
           "capability_id": 66,
-          "decision_timestamp": "2026-09-02T22:31:46.198463+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.885695+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            2.3e-05
+            1.9e-05
           ],
-          "time_delta_seconds": 2.3e-05,
+          "time_delta_seconds": 1.9e-05,
           "pass": true
         },
         {
           "capability_id": 69,
-          "decision_timestamp": "2026-09-02T22:31:46.200296+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.887574+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "cross_domain_decision.cross_market.timestamp",
@@ -611,15 +611,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000122,
-            2.1e-05
+            0.000128,
+            1.8e-05
           ],
-          "time_delta_seconds": 2.1e-05,
+          "time_delta_seconds": 1.8e-05,
           "pass": true
         },
         {
           "capability_id": 86,
-          "decision_timestamp": "2026-09-02T22:31:51.157059+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.518328+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "funding_rate.derivatives_overview.timestamp",
@@ -628,16 +628,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            7.9e-05,
-            0.115255,
-            2.8e-05
+            6.5e-05,
+            0.109678,
+            2e-05
           ],
-          "time_delta_seconds": 2.8e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 89,
-          "decision_timestamp": "2026-09-02T22:31:51.599101+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.970836+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "taker_pressure.derivatives.timestamp",
@@ -645,15 +645,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.11676,
-            2.4e-05
+            0.114331,
+            2e-05
           ],
-          "time_delta_seconds": 2.4e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 90,
-          "decision_timestamp": "2026-09-02T22:31:51.814457+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.147237+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "derivatives_sentiment.derivatives.timestamp",
@@ -662,17 +662,17 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            9.5e-05,
-            0.140929,
-            3.4e-05
+            6.3e-05,
+            0.107068,
+            2.1e-05
           ],
-          "time_delta_seconds": 3.4e-05,
+          "time_delta_seconds": 2.1e-05,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Single-Sentence Oracle",
-        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -688,8 +688,284 @@
             "decision_flipped": false
           },
           {
+            "scenario": "bullish_clear",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 90,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "bearish_clear",
             "excluded_cap": 24,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 90,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -700,8 +976,284 @@
             "decision_flipped": false
           },
           {
+            "scenario": "conflicting",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 90,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "missing_data",
             "excluded_cap": 24,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 90,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -710,9 +1262,147 @@
             "excluded_cap": 24,
             "exclusions_count": 1,
             "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 90,
+            "exclusions_count": 1,
+            "decision_flipped": false
           }
         ],
-        "loo_test_count": 5,
+        "loo_test_count": 120,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -727,7 +1417,7 @@
           "enabled": true,
           "data_source": "live_fallback",
           "asset": "BTC",
-          "timestamp": "2026-09-02T22:36:11.160609+00:00",
+          "timestamp": "2026-09-02T23:05:35.980145+00:00",
           "geo_news": {
             "headlines": [
               {
@@ -861,10 +1551,10 @@
             "coingecko_trending": [
               "PONS",
               "AKE",
-              "ARB",
-              "UNI",
               "CASHCAT",
-              "USELESS",
+              "ARB",
+              "PUMP",
+              "UNI",
               "PENGU"
             ],
             "reddit_hot_titles": [],
@@ -900,10 +1590,10 @@
           },
           "aggregators": {
             "coingecko_global": {
-              "total_market_cap_usd": 2611931407579.222,
-              "total_volume_usd": 73643136253.60641,
-              "btc_dominance_pct": 59.06891136365458,
-              "market_cap_change_24h_pct": -2.7430904796286595
+              "total_market_cap_usd": 2612496921418.5093,
+              "total_volume_usd": 72649966248.95386,
+              "btc_dominance_pct": 59.05624858553571,
+              "market_cap_change_24h_pct": -2.7278916783399687
             },
             "coincap_top10": [],
             "sources": [
@@ -994,7 +1684,7 @@
       "7_lookahead_bias": [
         {
           "capability_id": 61,
-          "decision_timestamp": "2026-09-02T22:31:45.994739+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.609859+00:00",
           "timestamp_fields_found": 11,
           "timestamp_sample_paths": [
             "immutable_metrics.immutable_metrics.recent[0].timestamp",
@@ -1005,24 +1695,24 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            117497.622392,
-            117497.583664,
-            117497.541743,
-            117497.50262,
-            117497.463525,
-            117497.424084,
-            117497.385685,
-            117497.346213,
-            117497.307118,
-            117497.3067,
-            3.5e-05
+            119387.237512,
+            119387.198784,
+            119387.156863,
+            119387.11774,
+            119387.078645,
+            119387.039204,
+            119387.000805,
+            119386.961333,
+            119386.922238,
+            119386.92182,
+            2.4e-05
           ],
-          "time_delta_seconds": 3.5e-05,
+          "time_delta_seconds": 2.4e-05,
           "pass": true
         },
         {
           "capability_id": 63,
-          "decision_timestamp": "2026-09-02T22:31:45.995174+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.610255+00:00",
           "timestamp_fields_found": 4,
           "timestamp_sample_paths": [
             "data_quality_provenance.provenance.generated_at",
@@ -1032,8 +1722,8 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            7.7e-05,
-            3.5e-05,
+            7.2e-05,
+            3.4e-05,
             1.3e-05,
             1.3e-05
           ],
@@ -1042,7 +1732,7 @@
         },
         {
           "capability_id": 64,
-          "decision_timestamp": "2026-09-02T22:31:45.997613+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.612377+00:00",
           "timestamp_fields_found": 4,
           "timestamp_sample_paths": [
             "metric_methodology.methodology_registry.generated_at",
@@ -1052,17 +1742,17 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000133,
-            8.3e-05,
-            2.4e-05,
-            2.4e-05
+            0.000105,
+            6.1e-05,
+            1.8e-05,
+            1.8e-05
           ],
-          "time_delta_seconds": 2.4e-05,
+          "time_delta_seconds": 1.8e-05,
           "pass": true
         },
         {
           "capability_id": 65,
-          "decision_timestamp": "2026-09-02T22:31:46.197166+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.884387+00:00",
           "timestamp_fields_found": 11,
           "timestamp_sample_paths": [
             "research_portal.research_portal.recent[0].timestamp",
@@ -1073,24 +1763,24 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            117497.824819,
-            117497.786091,
-            117497.74417,
-            117497.705047,
-            117497.665952,
-            117497.626511,
-            117497.588112,
-            117497.54864,
-            117497.509545,
-            117497.509127,
-            0.123142
+            119387.51204,
+            119387.473312,
+            119387.431391,
+            119387.392268,
+            119387.353173,
+            119387.313732,
+            119387.275333,
+            119387.235861,
+            119387.196766,
+            119387.196348,
+            0.197838
           ],
-          "time_delta_seconds": 0.123142,
+          "time_delta_seconds": 0.197838,
           "pass": true
         },
         {
           "capability_id": 100,
-          "decision_timestamp": "2026-09-02T22:31:52.390852+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.447697+00:00",
           "timestamp_fields_found": 11,
           "timestamp_sample_paths": [
             "research_reports.research_reports.recent[0].timestamp",
@@ -1101,25 +1791,25 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            117504.018505,
-            117503.979777,
-            117503.937856,
-            117503.898733,
-            117503.859638,
-            117503.820197,
-            117503.781798,
-            117503.742326,
-            117503.703231,
-            117503.702813,
-            0.209645
+            119393.07535,
+            119393.036622,
+            119392.994701,
+            119392.955578,
+            119392.916483,
+            119392.877042,
+            119392.838643,
+            119392.799171,
+            119392.760076,
+            119392.759658,
+            0.108359
           ],
-          "time_delta_seconds": 0.209645,
+          "time_delta_seconds": 0.108359,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Public Accuracy Ledger",
-        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -1135,8 +1825,56 @@
             "decision_flipped": false
           },
           {
+            "scenario": "bullish_clear",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "bearish_clear",
             "excluded_cap": 61,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 100,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -1147,8 +1885,56 @@
             "decision_flipped": false
           },
           {
+            "scenario": "conflicting",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "missing_data",
             "excluded_cap": 61,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 100,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -1157,9 +1943,33 @@
             "excluded_cap": 61,
             "exclusions_count": 1,
             "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
           }
         ],
-        "loo_test_count": 5,
+        "loo_test_count": 25,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -1313,7 +2123,7 @@
       "7_lookahead_bias": [
         {
           "capability_id": 11,
-          "decision_timestamp": "2026-09-02T22:31:35.994521+00:00",
+          "decision_timestamp": "2026-09-02T23:03:05.470533+00:00",
           "timestamp_fields_found": 21,
           "timestamp_sample_paths": [
             "historical_series[0].timestamp",
@@ -1324,34 +2134,34 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            86381.539555,
-            86369.338585,
-            86368.592247,
-            86366.836725,
-            86330.751706,
-            86329.858743,
-            86328.168522,
-            85779.412887,
-            85778.081558,
-            85776.36058,
-            85476.992767,
-            85475.630961,
-            85473.583958,
-            84925.269101,
-            84923.634264,
-            84921.451185,
-            83122.573097,
-            83121.248031,
-            83119.098904,
-            83108.867776,
-            3.1e-05
+            84922.604993,
+            84921.336661,
+            84909.083207,
+            84908.326413,
+            84906.500764,
+            84845.14544,
+            84844.316909,
+            84843.04713,
+            84832.894345,
+            84832.162691,
+            84830.879783,
+            84818.65419,
+            84817.890959,
+            84816.174686,
+            84666.941498,
+            84666.044593,
+            84664.512849,
+            84641.918442,
+            84640.866791,
+            84639.571762,
+            2.1e-05
           ],
-          "time_delta_seconds": 3.1e-05,
+          "time_delta_seconds": 2.1e-05,
           "pass": true
         },
         {
           "capability_id": 40,
-          "decision_timestamp": "2026-09-02T22:31:41.354184+00:00",
+          "decision_timestamp": "2026-09-02T23:03:11.071109+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "macro.timestamp",
@@ -1359,15 +2169,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000184,
-            0.00012
+            8.1e-05,
+            2.2e-05
           ],
-          "time_delta_seconds": 0.00012,
+          "time_delta_seconds": 2.2e-05,
           "pass": true
         },
         {
           "capability_id": 47,
-          "decision_timestamp": "2026-09-02T22:31:44.690317+00:00",
+          "decision_timestamp": "2026-09-02T23:03:14.370168+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "probe.timestamp",
@@ -1376,16 +2186,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000198,
-            0.000101,
-            4.2e-05
+            0.000211,
+            9.7e-05,
+            3.5e-05
           ],
-          "time_delta_seconds": 4.2e-05,
+          "time_delta_seconds": 3.5e-05,
           "pass": true
         },
         {
           "capability_id": 48,
-          "decision_timestamp": "2026-09-02T22:31:44.947213+00:00",
+          "decision_timestamp": "2026-09-02T23:03:14.564488+00:00",
           "timestamp_fields_found": 4,
           "timestamp_sample_paths": [
             "overview.timestamp",
@@ -1395,17 +2205,17 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000164,
-            0.181695,
-            8.7e-05,
-            3.3e-05
+            0.000135,
+            0.12519,
+            7.1e-05,
+            2.6e-05
           ],
-          "time_delta_seconds": 3.3e-05,
+          "time_delta_seconds": 2.6e-05,
           "pass": true
         },
         {
           "capability_id": 50,
-          "decision_timestamp": "2026-09-02T22:31:44.947507+00:00",
+          "decision_timestamp": "2026-09-02T23:03:14.564766+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "book.timestamp",
@@ -1413,7 +2223,7 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            23.677101,
+            23.864725,
             1.4e-05
           ],
           "time_delta_seconds": 1.4e-05,
@@ -1421,7 +2231,7 @@
         },
         {
           "capability_id": 52,
-          "decision_timestamp": "2026-09-02T22:31:44.948703+00:00",
+          "decision_timestamp": "2026-09-02T23:03:14.565536+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "cross_asset_breadth.timestamp",
@@ -1429,15 +2239,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000102,
-            2.1e-05
+            8.4e-05,
+            1.6e-05
           ],
-          "time_delta_seconds": 2.1e-05,
+          "time_delta_seconds": 1.6e-05,
           "pass": true
         },
         {
           "capability_id": 57,
-          "decision_timestamp": "2026-09-02T22:31:45.610946+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.239435+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "profitability_map.timestamp",
@@ -1445,15 +2255,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            8.9e-05,
-            1.9e-05
+            8.6e-05,
+            1.8e-05
           ],
-          "time_delta_seconds": 1.9e-05,
+          "time_delta_seconds": 1.8e-05,
           "pass": true
         },
         {
           "capability_id": 69,
-          "decision_timestamp": "2026-09-02T22:31:46.200296+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.887574+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "cross_domain_decision.cross_market.timestamp",
@@ -1461,15 +2271,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000122,
-            2.1e-05
+            0.000128,
+            1.8e-05
           ],
-          "time_delta_seconds": 2.1e-05,
+          "time_delta_seconds": 1.8e-05,
           "pass": true
         },
         {
           "capability_id": 82,
-          "decision_timestamp": "2026-09-02T22:31:48.194073+00:00",
+          "decision_timestamp": "2026-09-02T23:03:17.553811+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "coinbase_premium.all_sources.timestamp",
@@ -1477,15 +2287,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000116,
-            3.6e-05
+            6.7e-05,
+            2e-05
           ],
-          "time_delta_seconds": 3.6e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 83,
-          "decision_timestamp": "2026-09-02T22:31:50.194931+00:00",
+          "decision_timestamp": "2026-09-02T23:03:19.499055+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "korea_premium.all_sources.timestamp",
@@ -1493,15 +2303,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000128,
-            3.7e-05
+            6.6e-05,
+            2e-05
           ],
-          "time_delta_seconds": 3.7e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 85,
-          "decision_timestamp": "2026-09-02T22:31:50.976238+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.340014+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "futures_open_interest.derivatives_overview.timestamp",
@@ -1510,16 +2320,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000118,
-            0.114425,
-            5.7e-05
+            6.5e-05,
+            0.176681,
+            2e-05
           ],
-          "time_delta_seconds": 5.7e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 86,
-          "decision_timestamp": "2026-09-02T22:31:51.157059+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.518328+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "funding_rate.derivatives_overview.timestamp",
@@ -1528,16 +2338,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            7.9e-05,
-            0.115255,
-            2.8e-05
+            6.5e-05,
+            0.109678,
+            2e-05
           ],
-          "time_delta_seconds": 2.8e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 87,
-          "decision_timestamp": "2026-09-02T22:31:51.157935+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.519039+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "estimated_leverage.verified_at",
@@ -1545,15 +2355,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            4.9e-05,
-            2e-05
+            4e-05,
+            1.5e-05
           ],
-          "time_delta_seconds": 2e-05,
+          "time_delta_seconds": 1.5e-05,
           "pass": true
         },
         {
           "capability_id": 88,
-          "decision_timestamp": "2026-09-02T22:31:51.410948+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.791660+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "liquidation.timestamp",
@@ -1561,15 +2371,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            6.6e-05,
-            2.3e-05
+            5.8e-05,
+            2e-05
           ],
-          "time_delta_seconds": 2.3e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 89,
-          "decision_timestamp": "2026-09-02T22:31:51.599101+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.970836+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "taker_pressure.derivatives.timestamp",
@@ -1577,16 +2387,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.11676,
-            2.4e-05
+            0.114331,
+            2e-05
           ],
-          "time_delta_seconds": 2.4e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Arbitrage Scanner",
-        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -1602,8 +2412,176 @@
             "decision_flipped": false
           },
           {
+            "scenario": "bullish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "bearish_clear",
             "excluded_cap": 11,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 89,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -1614,8 +2592,176 @@
             "decision_flipped": false
           },
           {
+            "scenario": "conflicting",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "missing_data",
             "excluded_cap": 11,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 89,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -1624,9 +2770,93 @@
             "excluded_cap": 11,
             "exclusions_count": 1,
             "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
           }
         ],
-        "loo_test_count": 5,
+        "loo_test_count": 75,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -1639,12 +2869,12 @@
         "user_facing_path": "/dashboard#arbitrage",
         "response_body": {
           "enabled": true,
-          "evaluated": 28,
+          "evaluated": 50,
           "passed": 0,
-          "rejected": 28,
+          "rejected": 50,
           "reject_rate": 1.0,
           "reject_reasons": {
-            "missing_net_profit": 28
+            "missing_net_profit": 50
           },
           "thresholds": {
             "min_truth_score": 55.0,
@@ -1820,7 +3050,7 @@
       "7_lookahead_bias": [
         {
           "capability_id": 1,
-          "decision_timestamp": "2026-09-02T22:31:33.300874+00:00",
+          "decision_timestamp": "2026-09-02T23:03:02.610329+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "data.timestamp",
@@ -1828,51 +3058,51 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.006557,
-            4.2e-05
-          ],
-          "time_delta_seconds": 4.2e-05,
-          "pass": true
-        },
-        {
-          "capability_id": 2,
-          "decision_timestamp": "2026-09-02T22:31:34.158374+00:00",
-          "timestamp_fields_found": 3,
-          "timestamp_sample_paths": [
-            "data.timestamp",
-            "data.labels.timestamp",
-            "evidence_metadata.attached_at"
-          ],
-          "lookahead_violations": [],
-          "time_deltas_seconds": [
-            0.004365,
-            0.129692,
-            4.1e-05
-          ],
-          "time_delta_seconds": 4.1e-05,
-          "pass": true
-        },
-        {
-          "capability_id": 3,
-          "decision_timestamp": "2026-09-02T22:31:35.115917+00:00",
-          "timestamp_fields_found": 3,
-          "timestamp_sample_paths": [
-            "data.timestamp",
-            "data.labels.timestamp",
-            "evidence_metadata.attached_at"
-          ],
-          "lookahead_violations": [],
-          "time_deltas_seconds": [
-            0.057709,
-            0.218976,
+            0.006309,
             3.9e-05
           ],
           "time_delta_seconds": 3.9e-05,
           "pass": true
         },
         {
+          "capability_id": 2,
+          "decision_timestamp": "2026-09-02T23:03:03.467845+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "data.labels.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.004594,
+            0.121509,
+            5e-05
+          ],
+          "time_delta_seconds": 5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 3,
+          "decision_timestamp": "2026-09-02T23:03:04.418065+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "data.labels.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.028029,
+            0.166735,
+            2.6e-05
+          ],
+          "time_delta_seconds": 2.6e-05,
+          "pass": true
+        },
+        {
           "capability_id": 4,
-          "decision_timestamp": "2026-09-02T22:31:35.120072+00:00",
+          "decision_timestamp": "2026-09-02T23:03:04.420216+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "data.timestamp",
@@ -1880,15 +3110,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            6.1e-05,
-            2.7e-05
+            4.6e-05,
+            2e-05
           ],
-          "time_delta_seconds": 2.7e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 5,
-          "decision_timestamp": "2026-09-02T22:31:35.125379+00:00",
+          "decision_timestamp": "2026-09-02T23:03:04.425888+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "data.timestamp",
@@ -1896,57 +3126,57 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            7.1e-05,
-            2.7e-05
+            5.7e-05,
+            2e-05
           ],
-          "time_delta_seconds": 2.7e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 6,
-          "decision_timestamp": "2026-09-02T22:31:35.459768+00:00",
+          "decision_timestamp": "2026-09-02T23:03:04.613599+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            4.7e-05
+            2.4e-05
           ],
-          "time_delta_seconds": 4.7e-05,
+          "time_delta_seconds": 2.4e-05,
           "pass": true
         },
         {
           "capability_id": 7,
-          "decision_timestamp": "2026-09-02T22:31:35.560019+00:00",
+          "decision_timestamp": "2026-09-02T23:03:04.708411+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            3e-05
+            2e-05
           ],
-          "time_delta_seconds": 3e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 8,
-          "decision_timestamp": "2026-09-02T22:31:35.670440+00:00",
+          "decision_timestamp": "2026-09-02T23:03:04.808744+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            2.9e-05
+            1.9e-05
           ],
-          "time_delta_seconds": 2.9e-05,
+          "time_delta_seconds": 1.9e-05,
           "pass": true
         },
         {
           "capability_id": 14,
-          "decision_timestamp": "2026-09-02T22:31:36.323939+00:00",
+          "decision_timestamp": "2026-09-02T23:03:05.757371+00:00",
           "timestamp_fields_found": 4,
           "timestamp_sample_paths": [
             "labels.timestamp",
@@ -1956,17 +3186,17 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.134053,
-            0.00035,
-            27.57445,
-            3e-05
+            0.06747,
+            0.000283,
+            27.413768,
+            2.1e-05
           ],
-          "time_delta_seconds": 3e-05,
+          "time_delta_seconds": 2.1e-05,
           "pass": true
         },
         {
           "capability_id": 15,
-          "decision_timestamp": "2026-09-02T22:31:36.324850+00:00",
+          "decision_timestamp": "2026-09-02T23:03:05.758232+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "exchange_flow.verified_at",
@@ -1974,29 +3204,29 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            4.8e-05,
-            1.9e-05
+            4.6e-05,
+            1.8e-05
           ],
-          "time_delta_seconds": 1.9e-05,
+          "time_delta_seconds": 1.8e-05,
           "pass": true
         },
         {
           "capability_id": 72,
-          "decision_timestamp": "2026-09-02T22:31:46.201481+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.888659+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            1.4e-05
+            1.3e-05
           ],
-          "time_delta_seconds": 1.4e-05,
+          "time_delta_seconds": 1.3e-05,
           "pass": true
         },
         {
           "capability_id": 75,
-          "decision_timestamp": "2026-09-02T22:31:46.201703+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.888865+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
@@ -2010,21 +3240,21 @@
         },
         {
           "capability_id": 81,
-          "decision_timestamp": "2026-09-02T22:31:46.203830+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.890664+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            1.7e-05
+            1.6e-05
           ],
-          "time_delta_seconds": 1.7e-05,
+          "time_delta_seconds": 1.6e-05,
           "pass": true
         },
         {
           "capability_id": 85,
-          "decision_timestamp": "2026-09-02T22:31:50.976238+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.340014+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "futures_open_interest.derivatives_overview.timestamp",
@@ -2033,16 +3263,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000118,
-            0.114425,
-            5.7e-05
+            6.5e-05,
+            0.176681,
+            2e-05
           ],
-          "time_delta_seconds": 5.7e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 86,
-          "decision_timestamp": "2026-09-02T22:31:51.157059+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.518328+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "funding_rate.derivatives_overview.timestamp",
@@ -2051,16 +3281,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            7.9e-05,
-            0.115255,
-            2.8e-05
+            6.5e-05,
+            0.109678,
+            2e-05
           ],
-          "time_delta_seconds": 2.8e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 88,
-          "decision_timestamp": "2026-09-02T22:31:51.410948+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.791660+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "liquidation.timestamp",
@@ -2068,15 +3298,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            6.6e-05,
-            2.3e-05
+            5.8e-05,
+            2e-05
           ],
-          "time_delta_seconds": 2.3e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 91,
-          "decision_timestamp": "2026-09-02T22:31:51.815215+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.147657+00:00",
           "timestamp_fields_found": 6,
           "timestamp_sample_paths": [
             "inter_entity_flow.inter_entity_flow.onchain_flows[0].timestamp",
@@ -2087,33 +3317,33 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000473,
-            0.000434,
-            0.000422,
-            0.000411,
-            0.000401,
-            2.7e-05
+            0.000256,
+            0.000234,
+            0.000227,
+            0.000221,
+            0.000215,
+            1.4e-05
           ],
-          "time_delta_seconds": 2.7e-05,
+          "time_delta_seconds": 1.4e-05,
           "pass": true
         },
         {
           "capability_id": 92,
-          "decision_timestamp": "2026-09-02T22:31:51.816419+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.148356+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            2.8e-05
+            1.5e-05
           ],
-          "time_delta_seconds": 2.8e-05,
+          "time_delta_seconds": 1.5e-05,
           "pass": true
         },
         {
           "capability_id": 98,
-          "decision_timestamp": "2026-09-02T22:31:51.819647+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.150465+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at",
@@ -2121,16 +3351,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            7.9e-05,
-            1.8e-05
+            8e-05,
+            1.5e-05
           ],
-          "time_delta_seconds": 1.8e-05,
+          "time_delta_seconds": 1.5e-05,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Whale Signal vs Noise",
-        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -2146,8 +3376,224 @@
             "decision_flipped": false
           },
           {
+            "scenario": "bullish_clear",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "bearish_clear",
             "excluded_cap": 1,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 98,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -2158,8 +3604,224 @@
             "decision_flipped": false
           },
           {
+            "scenario": "conflicting",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "missing_data",
             "excluded_cap": 1,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 98,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -2168,9 +3830,117 @@
             "excluded_cap": 1,
             "exclusions_count": 1,
             "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
           }
         ],
-        "loo_test_count": 5,
+        "loo_test_count": 95,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -2182,7 +3952,7 @@
         "path_type": "production_real",
         "user_facing_path": "/dashboard#whales",
         "response_body": {
-          "timestamp": "2026-09-02T22:36:11.803562+00:00",
+          "timestamp": "2026-09-02T23:05:36.769998+00:00",
           "headline": "No major whale narratives in the current window — market in equilibrium.",
           "one_sentence": "No major whale narratives in the current window — market in equilibrium.",
           "stories": [
@@ -2268,7 +4038,7 @@
       "7_lookahead_bias": [
         {
           "capability_id": 40,
-          "decision_timestamp": "2026-09-02T22:31:41.354184+00:00",
+          "decision_timestamp": "2026-09-02T23:03:11.071109+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "macro.timestamp",
@@ -2276,15 +4046,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000184,
-            0.00012
+            8.1e-05,
+            2.2e-05
           ],
-          "time_delta_seconds": 0.00012,
+          "time_delta_seconds": 2.2e-05,
           "pass": true
         },
         {
           "capability_id": 50,
-          "decision_timestamp": "2026-09-02T22:31:44.947507+00:00",
+          "decision_timestamp": "2026-09-02T23:03:14.564766+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "book.timestamp",
@@ -2292,7 +4062,7 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            23.677101,
+            23.864725,
             1.4e-05
           ],
           "time_delta_seconds": 1.4e-05,
@@ -2300,7 +4070,7 @@
         },
         {
           "capability_id": 85,
-          "decision_timestamp": "2026-09-02T22:31:50.976238+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.340014+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "futures_open_interest.derivatives_overview.timestamp",
@@ -2309,16 +4079,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000118,
-            0.114425,
-            5.7e-05
+            6.5e-05,
+            0.176681,
+            2e-05
           ],
-          "time_delta_seconds": 5.7e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 86,
-          "decision_timestamp": "2026-09-02T22:31:51.157059+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.518328+00:00",
           "timestamp_fields_found": 3,
           "timestamp_sample_paths": [
             "funding_rate.derivatives_overview.timestamp",
@@ -2327,16 +4097,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            7.9e-05,
-            0.115255,
-            2.8e-05
+            6.5e-05,
+            0.109678,
+            2e-05
           ],
-          "time_delta_seconds": 2.8e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 87,
-          "decision_timestamp": "2026-09-02T22:31:51.157935+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.519039+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "estimated_leverage.verified_at",
@@ -2344,15 +4114,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            4.9e-05,
-            2e-05
+            4e-05,
+            1.5e-05
           ],
-          "time_delta_seconds": 2e-05,
+          "time_delta_seconds": 1.5e-05,
           "pass": true
         },
         {
           "capability_id": 88,
-          "decision_timestamp": "2026-09-02T22:31:51.410948+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.791660+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "liquidation.timestamp",
@@ -2360,16 +4130,16 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            6.6e-05,
-            2.3e-05
+            5.8e-05,
+            2e-05
           ],
-          "time_delta_seconds": 2.3e-05,
+          "time_delta_seconds": 2e-05,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Stealth Advisor",
-        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -2385,8 +4155,68 @@
             "decision_flipped": false
           },
           {
+            "scenario": "bullish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "bearish_clear",
             "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 88,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -2397,8 +4227,68 @@
             "decision_flipped": false
           },
           {
+            "scenario": "conflicting",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "missing_data",
             "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 88,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -2407,9 +4297,39 @@
             "excluded_cap": 40,
             "exclusions_count": 1,
             "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
           }
         ],
-        "loo_test_count": 5,
+        "loo_test_count": 30,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -2427,7 +4347,7 @@
           "average_daily_volume_usd": 25000000000.0,
           "adv_source": "prior_table",
           "top_depth_usd": null,
-          "depth_source": "book_unavailable",
+          "depth_source": "book_no_mid",
           "participation_of_adv": 0.0,
           "participation_of_top_depth": null,
           "recommended_slices": 1,
@@ -2575,21 +4495,21 @@
       "7_lookahead_bias": [
         {
           "capability_id": 67,
-          "decision_timestamp": "2026-09-02T22:31:46.198715+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.885978+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            1.4e-05
+            1.3e-05
           ],
-          "time_delta_seconds": 1.4e-05,
+          "time_delta_seconds": 1.3e-05,
           "pass": true
         },
         {
           "capability_id": 68,
-          "decision_timestamp": "2026-09-02T22:31:46.198992+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.886243+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "bulk_delivery.generated_at",
@@ -2597,7 +4517,7 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            2.9e-05,
+            3e-05,
             1.2e-05
           ],
           "time_delta_seconds": 1.2e-05,
@@ -2605,7 +4525,7 @@
         },
         {
           "capability_id": 71,
-          "decision_timestamp": "2026-09-02T22:31:46.200967+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.888166+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "exchange_netflow.netflow.verified_at",
@@ -2613,15 +4533,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            4.5e-05,
-            1.8e-05
+            3.6e-05,
+            1.5e-05
           ],
-          "time_delta_seconds": 1.8e-05,
+          "time_delta_seconds": 1.5e-05,
           "pass": true
         },
         {
           "capability_id": 74,
-          "decision_timestamp": "2026-09-02T22:31:46.201591+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.888760+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "exchange_to_exchange_flow.exchange_to_exchange_flow.timestamp",
@@ -2629,15 +4549,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            2.8e-05,
-            1.2e-05
+            2.9e-05,
+            1.1e-05
           ],
-          "time_delta_seconds": 1.2e-05,
+          "time_delta_seconds": 1.1e-05,
           "pass": true
         },
         {
           "capability_id": 77,
-          "decision_timestamp": "2026-09-02T22:31:46.202036+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.889174+00:00",
           "timestamp_fields_found": 6,
           "timestamp_sample_paths": [
             "stablecoin_flow.stablecoin_flow.onchain_flows[0].timestamp",
@@ -2648,33 +4568,33 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.00027,
-            0.000247,
-            0.00024,
-            0.000234,
-            0.000228,
-            1.3e-05
+            0.000249,
+            0.000229,
+            0.000221,
+            0.000215,
+            0.000209,
+            1.4e-05
           ],
-          "time_delta_seconds": 1.3e-05,
+          "time_delta_seconds": 1.4e-05,
           "pass": true
         },
         {
           "capability_id": 81,
-          "decision_timestamp": "2026-09-02T22:31:46.203830+00:00",
+          "decision_timestamp": "2026-09-02T23:03:15.890664+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            1.7e-05
+            1.6e-05
           ],
-          "time_delta_seconds": 1.7e-05,
+          "time_delta_seconds": 1.6e-05,
           "pass": true
         },
         {
           "capability_id": 84,
-          "decision_timestamp": "2026-09-02T22:31:50.788221+00:00",
+          "decision_timestamp": "2026-09-02T23:03:20.097176+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "fund_etf_data.fund_intelligence.timestamp",
@@ -2682,15 +4602,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000108,
-            3.5e-05
+            6.6e-05,
+            2.1e-05
           ],
-          "time_delta_seconds": 3.5e-05,
+          "time_delta_seconds": 2.1e-05,
           "pass": true
         },
         {
           "capability_id": 91,
-          "decision_timestamp": "2026-09-02T22:31:51.815215+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.147657+00:00",
           "timestamp_fields_found": 6,
           "timestamp_sample_paths": [
             "inter_entity_flow.inter_entity_flow.onchain_flows[0].timestamp",
@@ -2701,33 +4621,33 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000473,
-            0.000434,
-            0.000422,
-            0.000411,
-            0.000401,
-            2.7e-05
+            0.000256,
+            0.000234,
+            0.000227,
+            0.000221,
+            0.000215,
+            1.4e-05
           ],
-          "time_delta_seconds": 2.7e-05,
+          "time_delta_seconds": 1.4e-05,
           "pass": true
         },
         {
           "capability_id": 92,
-          "decision_timestamp": "2026-09-02T22:31:51.816419+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.148356+00:00",
           "timestamp_fields_found": 1,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at"
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            2.8e-05
+            1.5e-05
           ],
-          "time_delta_seconds": 2.8e-05,
+          "time_delta_seconds": 1.5e-05,
           "pass": true
         },
         {
           "capability_id": 98,
-          "decision_timestamp": "2026-09-02T22:31:51.819647+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.150465+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "evidence_metadata.attached_at",
@@ -2735,15 +4655,15 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            7.9e-05,
-            1.8e-05
+            8e-05,
+            1.5e-05
           ],
-          "time_delta_seconds": 1.8e-05,
+          "time_delta_seconds": 1.5e-05,
           "pass": true
         },
         {
           "capability_id": 99,
-          "decision_timestamp": "2026-09-02T22:31:52.009897+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.262629+00:00",
           "timestamp_fields_found": 2,
           "timestamp_sample_paths": [
             "quicktake_feed.feed.timestamp",
@@ -2751,7 +4671,7 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            0.000532,
+            0.000578,
             2.1e-05
           ],
           "time_delta_seconds": 2.1e-05,
@@ -2759,7 +4679,7 @@
         },
         {
           "capability_id": 100,
-          "decision_timestamp": "2026-09-02T22:31:52.390852+00:00",
+          "decision_timestamp": "2026-09-02T23:03:21.447697+00:00",
           "timestamp_fields_found": 11,
           "timestamp_sample_paths": [
             "research_reports.research_reports.recent[0].timestamp",
@@ -2770,25 +4690,25 @@
           ],
           "lookahead_violations": [],
           "time_deltas_seconds": [
-            117504.018505,
-            117503.979777,
-            117503.937856,
-            117503.898733,
-            117503.859638,
-            117503.820197,
-            117503.781798,
-            117503.742326,
-            117503.703231,
-            117503.702813,
-            0.209645
+            119393.07535,
+            119393.036622,
+            119392.994701,
+            119392.955578,
+            119392.916483,
+            119392.877042,
+            119392.838643,
+            119392.799171,
+            119392.760076,
+            119392.759658,
+            0.108359
           ],
-          "time_delta_seconds": 0.209645,
+          "time_delta_seconds": 0.108359,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "B2B Feed",
-        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -2804,8 +4724,140 @@
             "decision_flipped": false
           },
           {
+            "scenario": "bullish_clear",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "bearish_clear",
             "excluded_cap": 67,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 100,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -2816,8 +4868,140 @@
             "decision_flipped": false
           },
           {
+            "scenario": "conflicting",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
             "scenario": "missing_data",
             "excluded_cap": 67,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 100,
             "exclusions_count": 1,
             "decision_flipped": false
           },
@@ -2826,9 +5010,75 @@
             "excluded_cap": 67,
             "exclusions_count": 1,
             "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
           }
         ],
-        "loo_test_count": 5,
+        "loo_test_count": 60,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -2842,14 +5092,14 @@
         "response_body": {
           "product": "BLACKDARK Institutional Manipulation Feed",
           "feed_version": "1.0.0",
-          "generated_at": "2026-09-02T22:36:12.138304+00:00",
+          "generated_at": "2026-09-02T23:05:37.074598+00:00",
           "record_count": 0,
           "methodology": {
             "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
             "sii": "Sector Inflow Index (capital acceleration)"
           },
           "records": [],
-          "signature": "4f4c38699533a26565bb2d8cf508996583844909a37c1084698752f54c002b53"
+          "signature": "84d559772a7cfa4d02427da869bfa63d23240983e83155d99d338918c0625699"
         },
         "live": true
       },

@@ -65,7 +65,8 @@ async def telegram_free_status():
         "daily_limit": FREE_DAILY_ALERT_LIMIT,
         "active_subscribers": await count_telegram_free_subscribers(),
         "bot_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
-        "bot_username": os.getenv("TELEGRAM_BOT_USERNAME", "").strip().lstrip("@"),
+        "bot_username": os.getenv("TELEGRAM_BOT_USERNAME", "").strip().lstrip("@") or __import__("config").TELEGRAM_BOT_USERNAME,
+        "bot_link": f"https://t.me/{__import__('config').TELEGRAM_BOT_USERNAME}" if __import__("config").TELEGRAM_BOT_USERNAME else None,
         "commands": ["/start", "/stop", "/status", "/accuracy"],
     }
 

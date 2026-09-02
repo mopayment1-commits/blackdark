@@ -1530,6 +1530,9 @@ async def landing_page(request: Request):
         return response
 
     ctx = template_context(request, _footer_ctx())
+    import config as _cfg
+    ctx["telegram_bot_username"] = _cfg.TELEGRAM_BOT_USERNAME
+    ctx["telegram_bot_url"] = f"https://t.me/{_cfg.TELEGRAM_BOT_USERNAME}" if _cfg.TELEGRAM_BOT_USERNAME else None
     html = templates.get_template("landing.html").render({"request": request, **ctx})
     _landing_html_cache[lang] = (now, html)
     # Bound memory if many locales are probed.

@@ -837,7 +837,9 @@
                     Subscribe in Telegram — get top arbitrage + Oracle signals. No credit card.
                 </p>
                 <div class="hero-cta" style="margin-bottom:0">
-                    <a id="telegramBotLink" href="https://t.me/" class="btn-primary" target="_blank" rel="noopener">Open Telegram Bot</a>
+                    <a id="telegramBotLink" href="{{ telegram_bot_url or 'https://t.me/BLACKDARKAI_oncall_bot' }}" class="btn-primary" target="_blank" rel="noopener">
+                        {% if telegram_bot_username %}@{{ telegram_bot_username }} — Start Free{% else %}Open Telegram Bot{% endif %}
+                    </a>
                     <a href="/oracle-accuracy" class="btn-secondary">See AI Accuracy</a>
                 </div>
                 <p style="color:var(--text-muted);margin-top:1rem;font-size:0.82rem">

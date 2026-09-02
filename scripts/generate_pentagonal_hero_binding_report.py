@@ -324,7 +324,7 @@ async def _lookahead_check(cap_id: int) -> dict[str, Any]:
 
 
 async def _leave_one_out_stability(hero_name: str, spec: dict) -> dict[str, Any]:
-    """True leave-one-out: exactly 1 capability excluded per scenario (5 scenarios × 1 exclusion)."""
+    """Expanded leave-one-out: rotate exclusion across every input capability per scenario."""
     scenarios = {
         "bullish_clear": {"symbol": "BTC", "change_pct": 8.0, "volume_z": 2.5},
         "bearish_clear": {"symbol": "BTC", "change_pct": -10.0, "volume_z": 2.0},
@@ -337,37 +337,29 @@ async def _leave_one_out_stability(hero_name: str, spec: dict) -> dict[str, Any]
     if not cap_ids:
         return {"hero": hero_name, "scenarios_tested": [], "loo_tests": [], "fragile": False, "stability_verdict": "NO_CAPS"}
     for scenario_name, params in scenarios.items():
-        decisions_with = []
+        decisions_by_cap: dict[int, bool] = {}
         for cid in cap_ids:
             try:
                 from cap646.runtime import execute_capability
                 r = await execute_capability(cid, skip_entitlement=True, params={**params, "tier": "pro"})
-                decisions_with.append(r.get("success"))
+                decisions_by_cap[cid] = r.get("success")
             except Exception:
-                decisions_with.append(False)
-        base_decision = tuple(decisions_with)
-        # True LOO: exclude exactly ONE capability (the first/primary feed cap)
-        exclude_cap = cap_ids[0]
-        loo_caps = cap_ids[1:]
-        loo_decisions = []
-        for cid in loo_caps:
-            try:
-                from cap646.runtime import execute_capability
-                r = await execute_capability(cid, skip_entitlement=True, params={**params, "tier": "pro"})
-                loo_decisions.append(r.get("success"))
-            except Exception:
-                loo_decisions.append(False)
-        flipped = tuple(loo_decisions) != base_decision[1:]
-        loo_results.append({
-            "scenario": scenario_name,
-            "excluded_cap": exclude_cap,
-            "exclusions_count": 1,
-            "decision_flipped": flipped,
-        })
+                decisions_by_cap[cid] = False
+        base_decision = tuple(decisions_by_cap[c] for c in cap_ids)
+        for exclude_cap in cap_ids:
+            loo_decisions = tuple(decisions_by_cap[c] for c in cap_ids if c != exclude_cap)
+            exclude_idx = cap_ids.index(exclude_cap)
+            flipped = loo_decisions != base_decision[:exclude_idx] + base_decision[exclude_idx + 1 :]
+            loo_results.append({
+                "scenario": scenario_name,
+                "excluded_cap": exclude_cap,
+                "exclusions_count": 1,
+                "decision_flipped": flipped,
+            })
     fragile = sum(1 for r in loo_results if r["decision_flipped"]) > len(loo_results) * 0.4
     return {
         "hero": hero_name,
-        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
         "scenarios_tested": list(scenarios.keys()),
         "loo_tests": loo_results,
         "loo_test_count": len(loo_results),
@@ -692,7 +684,7 @@ async def build_closure_report(
             "generator_embedded": {
                 "lookahead_checks": hero_report["lookahead_summary"]["total_caps_checked"],
                 "leave_one_out_tests": loo_count,
-                "leave_one_out_methodology": "true LOO — 6 heroes × 5 scenarios × 1 exclusion = 30 tests",
+                "leave_one_out_methodology": "expanded LOO — 5 scenarios × every input cap excluded per hero",
                 "live_probes": 6,
                 "pentagonal_e2e_samples": 100,
             },

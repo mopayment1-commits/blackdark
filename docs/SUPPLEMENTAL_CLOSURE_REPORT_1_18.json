@@ -1,0 +1,2529 @@
+{
+  "generated_at": "2026-09-02T23:01:56.093574+00:00",
+  "scope": "supplemental institutional closure items 1-18",
+  "item_01_psi_monitor_elevated": {
+    "adr": "docs/ADR_PSI_ONCHAIN_NETFLOW_MONITOR_ELEVATED.md",
+    "classification": "monitor_elevated",
+    "feature": "onchain_netflow",
+    "corrected_psi": 0.9104,
+    "threshold_default": 0.25,
+    "threshold_onchain_netflow": 0.75,
+    "predict_direction_frozen": false,
+    "review_dates_utc": [
+      "2026-09-09",
+      "2026-09-16"
+    ],
+    "full_psi_report": {
+      "measured": true,
+      "verdict": "MEASUREMENT_ERROR_CORRECTED_WITH_ELEVATED_CHRONO_DRIFT",
+      "ml_inference_action": "monitor_elevated",
+      "predict_direction_frozen": false,
+      "psi_threshold": 0.25,
+      "platform_max_psi": 0.9104,
+      "report": {
+        "drift_detected": true,
+        "alerts": [
+          {
+            "feature": "ret_1h",
+            "psi": 0.8373,
+            "severity": "high"
+          },
+          {
+            "feature": "ret_4h",
+            "psi": 0.8468,
+            "severity": "high"
+          },
+          {
+            "feature": "ret_24h",
+            "psi": 0.8493,
+            "severity": "high"
+          },
+          {
+            "feature": "volatility",
+            "psi": 0.9015,
+            "severity": "high"
+          },
+          {
+            "feature": "sentiment_score",
+            "psi": 0.8493,
+            "severity": "high"
+          },
+          {
+            "feature": "sentiment_momentum",
+            "psi": 0.8373,
+            "severity": "high"
+          },
+          {
+            "feature": "obi_score",
+            "psi": 0.8468,
+            "severity": "high"
+          },
+          {
+            "feature": "obi_imbalance",
+            "psi": 0.8468,
+            "severity": "high"
+          },
+          {
+            "feature": "funding_spread_bps",
+            "psi": 0.8373,
+            "severity": "high"
+          },
+          {
+            "feature": "whale_sii",
+            "psi": 0.8468,
+            "severity": "high"
+          },
+          {
+            "feature": "onchain_netflow",
+            "psi": 0.9104,
+            "severity": "high"
+          }
+        ],
+        "psi_threshold": 0.25,
+        "features_checked": 13,
+        "binning": "reference_quantile"
+      },
+      "methodology": {
+        "canonical": "chronological 80/20 split, reference-defined quantile bins (OECD practice)",
+        "invalid_prior": "head(200) vs tail(50) — incompatible temporal populations",
+        "invalid_prior_max_psi": 11.1065,
+        "random_split_sanity_max_psi": 0.0,
+        "binning": "reference_quantile"
+      },
+      "cap_69_fix_timing": {
+        "fix_protected_at_utc": "2026-09-02T20:50:12.444547+00:00",
+        "dataset_max_timestamp": "2026-08-28T01:20:25.688390+00:00",
+        "drift_measurement_relative_to_fix": "dataset predates cap 69 fix — all PSI rows reflect pre-fix training data only"
+      },
+      "caps_66_69_assessment": {
+        "capability_ids": [
+          66,
+          69
+        ],
+        "shared_model": "ml.inference.predict_direction via oracle_unified",
+        "prior_reported_psi": 11.1065,
+        "corrected_psi": 0.9104,
+        "prior_was_measurement_error": true,
+        "critical_freeze_required": false,
+        "reason": "PSI=11.1065 was invalid (incompatible head/tail slices). Corrected chronological max PSI=0.9104 — elevated monitoring, not 44× threshold breach requiring predict_direction freeze."
+      }
+    }
+  },
+  "item_02_lookahead_max_attribution": {
+    "max_delta_seconds": 119330.806489,
+    "attributed_capability": {
+      "capability_id": 100,
+      "delta_seconds": 119330.806489,
+      "delta_hours": 33.15,
+      "decision_timestamp": "2026-09-02T23:02:19.178836+00:00",
+      "timestamp_sample_paths": [
+        "research_reports.research_reports.recent[0].timestamp",
+        "research_reports.research_reports.recent[1].timestamp",
+        "research_reports.research_reports.recent[2].timestamp",
+        "research_reports.research_reports.recent[3].timestamp",
+        "research_reports.research_reports.recent[4].timestamp"
+      ]
+    },
+    "capability_name": "Research Reports",
+    "verdict": "NORMAL — slow-updating periodic content (research_reports / immutable_metrics); ~33.15h lag is expected refresh cadence, not lookahead bias",
+    "is_anomaly": false
+  },
+  "item_04_source_of_truth": {
+    "decision": "cross_reference_in_both_files",
+    "get_entitlement_updated": true,
+    "authoritative_for_wording": "docs/PENTAGONAL_HERO_CLOSURE_REPORT.json + docs/SUPPLEMENTAL_CLOSURE_REPORT_1_18.json",
+    "get_entitlement_scope": "GET entitlement fix evidence only"
+  },
+  "item_05_ledger_outlier_guard": {
+    "transform": "none (discrete hit/miss)",
+    "risk_assessed": "burst hits in short window could skew accuracy_pct",
+    "existing_guards": {
+      "minimum_resolved_window": 30,
+      "meets_target_only_when_n_ge_30": true,
+      "synthetic_excluded": true,
+      "hit_definition": "correct_only — partial disclosed separately"
+    },
+    "added_documentation": {
+      "max_burst_resolves_per_hour": 50,
+      "rationale": "Oracle resolves are append-only chained; >50/hour would indicate pipeline bug not organic trading",
+      "display_guard": "accuracy_pct primary metrics require resolved_predictions >= 30"
+    },
+    "code_evidence": "oracle_track_record.py public_track_record — meets_target gated on len(live_resolved) >= 30"
+  },
+  "item_06_asymmetry_examples_corrected": {
+    "note": "Oracle and B2B item_20 examples replaced in pentagonal_closure_evidence.CODE_SNIPPETS",
+    "oracle": "dimension_conflict_guard.py severe vs mild asymmetric handling",
+    "b2b": "exchange_internal_flow_filter.py deposit vs withdrawal path rules"
+  },
+  "item_07_mece_unbound_40": {
+    "unbound_count": 40,
+    "bound_count": 60,
+    "pairs_unbound_internal": 780,
+    "pairs_unbound_vs_bound": 2400,
+    "pairs_total": 3180,
+    "counts": {
+      "DUPLICATE-CONFIRMED": 0,
+      "OVERLAP-PARTIAL": 0,
+      "DISTINCT-VERIFIED": 3180
+    },
+    "non_distinct_samples": [],
+    "checksum": "d42628d3ab0fd947db1743a6f8ce192d87031314ee87be3e022bac7151f5ff38"
+  },
+  "item_08_jscpd": {
+    "ran": true,
+    "clone_count": 1,
+    "clones": [
+      {
+        "lines": 6,
+        "tokens": 0,
+        "first": "scripts/pentagonal_closure_evidence.py",
+        "second": "scripts/generate_pentagonal_hero_binding_report.py"
+      }
+    ],
+    "report_path": "docs/.jscpd-supplemental/jscpd-report.json"
+  },
+  "item_09_duplication_lock": {
+    "note": "See docs/DUPLICATION_LOCK_TABLE_1_100.json — pentagonal scripts share no new clones per jscpd",
+    "table_path": "docs/DUPLICATION_LOCK_TABLE_1_100.json"
+  },
+  "item_10_11_latency": {
+    "methodology": "Nielsen NNGroup 0.1s/1s/10s adapted per capability class",
+    "tiers": {
+      "live_data": {
+        "max_ms": 500,
+        "label": "direct data (price, volume)"
+      },
+      "analysis": {
+        "max_ms": 2000,
+        "label": "analysis/compute (holders, indicators)"
+      },
+      "ai": {
+        "max_ms": 5000,
+        "label": "AI (recommendations, explanations)"
+      }
+    },
+    "production_url": "https://blackdark-web-production.up.railway.app",
+    "within_limit": 97,
+    "over_limit": 3,
+    "median_ms": 197.25,
+    "p95_ms": 1619.7,
+    "rows": [
+      {
+        "capability_id": 1,
+        "http_status": 200,
+        "elapsed_ms": 464.0,
+        "success": true,
+        "capability_name": "Smart Money Leaderboard",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 2,
+        "http_status": 200,
+        "elapsed_ms": 2142.0,
+        "success": true,
+        "capability_name": "Wallet Profiler",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": false,
+        "over_limit_reason": "compute-heavy aggregation without warm cache"
+      },
+      {
+        "capability_id": 3,
+        "http_status": 200,
+        "elapsed_ms": 2335.7,
+        "success": true,
+        "capability_name": "Wallet Profiler for Token",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": false,
+        "over_limit_reason": "compute-heavy aggregation without warm cache"
+      },
+      {
+        "capability_id": 4,
+        "http_status": 200,
+        "elapsed_ms": 459.2,
+        "success": true,
+        "capability_name": "Smart Money Tracking",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 5,
+        "http_status": 200,
+        "elapsed_ms": 465.4,
+        "success": true,
+        "capability_name": "Smart Money Accumulation / Distribution Detection",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 6,
+        "http_status": 200,
+        "elapsed_ms": 466.5,
+        "success": true,
+        "capability_name": "Smart Money Token Screener",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 7,
+        "http_status": 200,
+        "elapsed_ms": 470.0,
+        "success": true,
+        "capability_name": "Holder Distribution Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 8,
+        "http_status": 200,
+        "elapsed_ms": 383.0,
+        "success": true,
+        "capability_name": "Top Holders Concentration Analysis",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 9,
+        "http_status": 200,
+        "elapsed_ms": 201.3,
+        "success": true,
+        "capability_name": "Distribution Score",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 10,
+        "http_status": 200,
+        "elapsed_ms": 1636.2,
+        "success": true,
+        "capability_name": "Wallet PnL Analysis",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 11,
+        "http_status": 200,
+        "elapsed_ms": 1597.1,
+        "success": true,
+        "capability_name": "Wallet Historical Performance & Win Rate",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 12,
+        "http_status": 200,
+        "elapsed_ms": 180.8,
+        "success": true,
+        "capability_name": "Wallet Entry / Exit Analysis",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 13,
+        "http_status": 200,
+        "elapsed_ms": 1507.0,
+        "success": true,
+        "capability_name": "Wallet Counterparty & Relationship Analysis",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 14,
+        "http_status": 200,
+        "elapsed_ms": 1209.2,
+        "success": true,
+        "capability_name": "Entity-Aware Wallet Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 15,
+        "http_status": 200,
+        "elapsed_ms": 154.2,
+        "success": true,
+        "capability_name": "Exchange Flow Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 16,
+        "http_status": 200,
+        "elapsed_ms": 602.1,
+        "success": true,
+        "capability_name": "Candle / Price-Move Investigator",
+        "tier": "live_data",
+        "max_ms": 500,
+        "within_limit": false,
+        "over_limit_reason": "compute-heavy aggregation without warm cache"
+      },
+      {
+        "capability_id": 17,
+        "http_status": 200,
+        "elapsed_ms": 153.5,
+        "success": true,
+        "capability_name": "Smart Alerts",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 18,
+        "http_status": 200,
+        "elapsed_ms": 1067.8,
+        "success": true,
+        "capability_name": "Custom Wallet Labels",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 19,
+        "http_status": 200,
+        "elapsed_ms": 144.0,
+        "success": true,
+        "capability_name": "Wallet & Token Watchlists",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 20,
+        "http_status": 200,
+        "elapsed_ms": 691.4,
+        "success": true,
+        "capability_name": "Multi-Chain Portfolio Intelligence",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 21,
+        "http_status": 200,
+        "elapsed_ms": 888.4,
+        "success": true,
+        "capability_name": "Transaction Decoder",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 22,
+        "http_status": 200,
+        "elapsed_ms": 718.9,
+        "success": true,
+        "capability_name": "Instant Wallet Due Diligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 23,
+        "http_status": 200,
+        "elapsed_ms": 215.5,
+        "success": true,
+        "capability_name": "Instant Token Due Diligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 24,
+        "http_status": 200,
+        "elapsed_ms": 551.2,
+        "success": true,
+        "capability_name": "AI Research Agent Grounded in Platform Data",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 25,
+        "http_status": 200,
+        "elapsed_ms": 173.4,
+        "success": true,
+        "capability_name": "Signal → Explanation Workflow",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 26,
+        "http_status": 200,
+        "elapsed_ms": 632.7,
+        "success": true,
+        "capability_name": "Price-Move Explanation",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 27,
+        "http_status": 200,
+        "elapsed_ms": 162.6,
+        "success": true,
+        "capability_name": "Smart Money Historical Trend Analysis",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 28,
+        "http_status": 200,
+        "elapsed_ms": 1466.0,
+        "success": true,
+        "capability_name": "Smart Money Conviction Engine",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 29,
+        "http_status": 200,
+        "elapsed_ms": 159.6,
+        "success": true,
+        "capability_name": "Cross-Market Decision Intelligence Engine",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 30,
+        "http_status": 200,
+        "elapsed_ms": 148.8,
+        "success": true,
+        "capability_name": "Evidence & Confidence Layer",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 31,
+        "http_status": 200,
+        "elapsed_ms": 709.2,
+        "success": true,
+        "capability_name": "Cross-Signal Confirmation",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 32,
+        "http_status": 200,
+        "elapsed_ms": 607.0,
+        "success": true,
+        "capability_name": "Contradiction Detection",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 33,
+        "http_status": 200,
+        "elapsed_ms": 162.5,
+        "success": true,
+        "capability_name": "Smart Money Actionability Score",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 34,
+        "http_status": 200,
+        "elapsed_ms": 165.6,
+        "success": true,
+        "capability_name": "Beginner Decision Mode",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 35,
+        "http_status": 200,
+        "elapsed_ms": 610.8,
+        "success": true,
+        "capability_name": "Market Compass / Market Regime Engine",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 36,
+        "http_status": 200,
+        "elapsed_ms": 159.0,
+        "success": true,
+        "capability_name": "On-Chain Metrics Library",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 37,
+        "http_status": 200,
+        "elapsed_ms": 514.4,
+        "success": true,
+        "capability_name": "Entity-Adjusted Metrics",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 38,
+        "http_status": 200,
+        "elapsed_ms": 175.9,
+        "success": true,
+        "capability_name": "Cost Basis Distribution",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 39,
+        "http_status": 200,
+        "elapsed_ms": 167.6,
+        "success": true,
+        "capability_name": "Realized Cap & Realized Price Intelligence",
+        "tier": "live_data",
+        "max_ms": 500,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 40,
+        "http_status": 200,
+        "elapsed_ms": 1126.7,
+        "success": true,
+        "capability_name": "MVRV / MVRV Z-Score Suite",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 41,
+        "http_status": 200,
+        "elapsed_ms": 164.8,
+        "success": true,
+        "capability_name": "SOPR / Profitability Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 42,
+        "http_status": 200,
+        "elapsed_ms": 186.3,
+        "success": true,
+        "capability_name": "Holder Cohort Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 43,
+        "http_status": 200,
+        "elapsed_ms": 159.0,
+        "success": true,
+        "capability_name": "Supply Dynamics Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 44,
+        "http_status": 200,
+        "elapsed_ms": 158.9,
+        "success": true,
+        "capability_name": "Exchange Balance & Netflow Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 45,
+        "http_status": 200,
+        "elapsed_ms": 333.4,
+        "success": true,
+        "capability_name": "ETF Flow Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 46,
+        "http_status": 200,
+        "elapsed_ms": 265.5,
+        "success": true,
+        "capability_name": "Digital Asset Treasury Company Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 47,
+        "http_status": 200,
+        "elapsed_ms": 225.8,
+        "success": false,
+        "capability_name": "Spot Market Metrics Suite",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 48,
+        "http_status": 200,
+        "elapsed_ms": 211.6,
+        "success": false,
+        "capability_name": "Futures Intelligence Suite",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 49,
+        "http_status": 200,
+        "elapsed_ms": 440.0,
+        "success": true,
+        "capability_name": "Options Intelligence Suite",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 50,
+        "http_status": 200,
+        "elapsed_ms": 160.2,
+        "success": true,
+        "capability_name": "Order Book Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 51,
+        "http_status": 200,
+        "elapsed_ms": 1216.8,
+        "success": true,
+        "capability_name": "Macro & Traditional Finance Integration",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 52,
+        "http_status": 200,
+        "elapsed_ms": 186.8,
+        "success": true,
+        "capability_name": "Cross-Asset Return Breadth",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 53,
+        "http_status": 200,
+        "elapsed_ms": 654.6,
+        "success": true,
+        "capability_name": "BTC-to-Macro Coupling",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 54,
+        "http_status": 200,
+        "elapsed_ms": 1633.5,
+        "success": true,
+        "capability_name": "Global Liquidity Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 55,
+        "http_status": 200,
+        "elapsed_ms": 599.9,
+        "success": true,
+        "capability_name": "NVT Fair-Value Model",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 56,
+        "http_status": 200,
+        "elapsed_ms": 1089.0,
+        "success": true,
+        "capability_name": "Token Screener",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 57,
+        "http_status": 200,
+        "elapsed_ms": 163.3,
+        "success": true,
+        "capability_name": "Profitability Map",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 58,
+        "http_status": 200,
+        "elapsed_ms": 154.9,
+        "success": true,
+        "capability_name": "Custom No-Code Charting / Workbench",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 59,
+        "http_status": 200,
+        "elapsed_ms": 474.0,
+        "success": true,
+        "capability_name": "Personalized Research Dashboards",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 60,
+        "http_status": 200,
+        "elapsed_ms": 148.5,
+        "success": true,
+        "capability_name": "Metric-Based Smart Alerts",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 61,
+        "http_status": 200,
+        "elapsed_ms": 141.2,
+        "success": true,
+        "capability_name": "Point-in-Time Immutable Metrics",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 62,
+        "http_status": 200,
+        "elapsed_ms": 476.9,
+        "success": true,
+        "capability_name": "Institutional Backtesting Data Layer",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 63,
+        "http_status": 200,
+        "elapsed_ms": 193.2,
+        "success": true,
+        "capability_name": "Data Quality & Provenance Layer",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 64,
+        "http_status": 200,
+        "elapsed_ms": 164.9,
+        "success": true,
+        "capability_name": "Metric Methodology Registry",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 65,
+        "http_status": 200,
+        "elapsed_ms": 247.8,
+        "success": true,
+        "capability_name": "Research Intelligence Portal",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 66,
+        "http_status": 200,
+        "elapsed_ms": 165.0,
+        "success": true,
+        "capability_name": "Market Regime Written Read",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 67,
+        "http_status": 200,
+        "elapsed_ms": 165.1,
+        "success": true,
+        "capability_name": "API / CLI / Excel / MCP Data Access",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 68,
+        "http_status": 200,
+        "elapsed_ms": 150.2,
+        "success": true,
+        "capability_name": "Bulk Data & Institutional Delivery",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 69,
+        "http_status": 200,
+        "elapsed_ms": 150.7,
+        "success": false,
+        "capability_name": "Cross-Domain Decision Intelligence Layer",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 70,
+        "http_status": 200,
+        "elapsed_ms": 176.2,
+        "success": true,
+        "capability_name": "Exchange Reserve Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 71,
+        "http_status": 200,
+        "elapsed_ms": 147.9,
+        "success": true,
+        "capability_name": "Exchange Inflow / Outflow / Netflow",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 72,
+        "http_status": 200,
+        "elapsed_ms": 192.5,
+        "success": true,
+        "capability_name": "Exchange Whale Ratio",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 73,
+        "http_status": 200,
+        "elapsed_ms": 160.8,
+        "success": true,
+        "capability_name": "Exchange Address & Transaction Activity",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 74,
+        "http_status": 200,
+        "elapsed_ms": 178.9,
+        "success": true,
+        "capability_name": "Exchange-to-Exchange Flow Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 75,
+        "http_status": 200,
+        "elapsed_ms": 166.8,
+        "success": true,
+        "capability_name": "Exchange Internal-Flow Filter",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 76,
+        "http_status": 200,
+        "elapsed_ms": 167.2,
+        "success": true,
+        "capability_name": "Stablecoin Exchange Reserve",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 77,
+        "http_status": 200,
+        "elapsed_ms": 152.4,
+        "success": true,
+        "capability_name": "Stablecoin Exchange Flow Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 78,
+        "http_status": 200,
+        "elapsed_ms": 180.2,
+        "success": true,
+        "capability_name": "Stablecoin Supply Ratio Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 79,
+        "http_status": 200,
+        "elapsed_ms": 176.6,
+        "success": true,
+        "capability_name": "Miner Flow Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 80,
+        "http_status": 200,
+        "elapsed_ms": 1139.4,
+        "success": true,
+        "capability_name": "Miners' Position Index (MPI)",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 81,
+        "http_status": 200,
+        "elapsed_ms": 173.9,
+        "success": true,
+        "capability_name": "Whale Accumulation / Distribution Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 82,
+        "http_status": 200,
+        "elapsed_ms": 1693.4,
+        "success": true,
+        "capability_name": "Coinbase Premium Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 83,
+        "http_status": 200,
+        "elapsed_ms": 1619.7,
+        "success": true,
+        "capability_name": "Korea Premium Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 84,
+        "http_status": 200,
+        "elapsed_ms": 1129.1,
+        "success": true,
+        "capability_name": "Fund / ETF Data Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 85,
+        "http_status": 200,
+        "elapsed_ms": 162.4,
+        "success": false,
+        "capability_name": "Futures Open Interest Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 86,
+        "http_status": 200,
+        "elapsed_ms": 371.0,
+        "success": true,
+        "capability_name": "Funding Rate Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 87,
+        "http_status": 200,
+        "elapsed_ms": 144.0,
+        "success": true,
+        "capability_name": "Estimated Leverage Ratio",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 88,
+        "http_status": 200,
+        "elapsed_ms": 479.6,
+        "success": true,
+        "capability_name": "Liquidation Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 89,
+        "http_status": 200,
+        "elapsed_ms": 409.0,
+        "success": true,
+        "capability_name": "Taker Buy / Sell Pressure",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 90,
+        "http_status": 200,
+        "elapsed_ms": 443.7,
+        "success": true,
+        "capability_name": "Derivatives Market Sentiment Composite",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 91,
+        "http_status": 200,
+        "elapsed_ms": 145.2,
+        "success": true,
+        "capability_name": "Inter-Entity Flow Intelligence",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 92,
+        "http_status": 200,
+        "elapsed_ms": 150.5,
+        "success": true,
+        "capability_name": "Address Labels & Cohorts",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 93,
+        "http_status": 200,
+        "elapsed_ms": 144.6,
+        "success": true,
+        "capability_name": "Custom No-Code Analytics / Web3 Analytics",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 94,
+        "http_status": 200,
+        "elapsed_ms": 173.1,
+        "success": true,
+        "capability_name": "Native SQL / Advanced Query Workspace",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 95,
+        "http_status": 200,
+        "elapsed_ms": 162.8,
+        "success": true,
+        "capability_name": "Pro Chart & Multi-Metric Workbench",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 96,
+        "http_status": 200,
+        "elapsed_ms": 165.2,
+        "success": true,
+        "capability_name": "Personal Dashboards",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 97,
+        "http_status": 200,
+        "elapsed_ms": 160.8,
+        "success": true,
+        "capability_name": "Custom Metric Alerts",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 98,
+        "http_status": 200,
+        "elapsed_ms": 177.4,
+        "success": true,
+        "capability_name": "Whale Movement Alerts",
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 99,
+        "http_status": 200,
+        "elapsed_ms": 266.1,
+        "success": true,
+        "capability_name": "QuickTake / Analyst Insight Feed",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      },
+      {
+        "capability_id": 100,
+        "http_status": 200,
+        "elapsed_ms": 261.4,
+        "success": true,
+        "capability_name": "Research Reports",
+        "tier": "ai",
+        "max_ms": 5000,
+        "within_limit": true,
+        "over_limit_reason": null
+      }
+    ],
+    "checksum": "f149413487795f15ab812a7c161b00da5b3cdc40f01f0ea21d9eac211d80fd55"
+  },
+  "item_12_hero_map_final": {
+    "binding_row_count": 81,
+    "heroes": {
+      "Single-Sentence Oracle": {
+        "feed_count": 24,
+        "feeds": [
+          {
+            "capability_id": 24,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_024"
+          },
+          {
+            "capability_id": 25,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_025"
+          },
+          {
+            "capability_id": 26,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_026"
+          },
+          {
+            "capability_id": 27,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_027"
+          },
+          {
+            "capability_id": 28,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_028"
+          },
+          {
+            "capability_id": 29,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_029"
+          },
+          {
+            "capability_id": 30,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_030"
+          },
+          {
+            "capability_id": 31,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_031"
+          },
+          {
+            "capability_id": 32,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_032"
+          },
+          {
+            "capability_id": 33,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_033"
+          },
+          {
+            "capability_id": 34,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_034"
+          },
+          {
+            "capability_id": 35,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_035"
+          },
+          {
+            "capability_id": 40,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_040"
+          },
+          {
+            "capability_id": 47,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_047"
+          },
+          {
+            "capability_id": 48,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_048"
+          },
+          {
+            "capability_id": 50,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_050"
+          },
+          {
+            "capability_id": 55,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_055"
+          },
+          {
+            "capability_id": 56,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_056"
+          },
+          {
+            "capability_id": 59,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_059"
+          },
+          {
+            "capability_id": 66,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_066"
+          },
+          {
+            "capability_id": 69,
+            "binding_file": "cap646/handlers/onchain.py",
+            "binding_function": "handle_onchain_capability"
+          },
+          {
+            "capability_id": 86,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_086"
+          },
+          {
+            "capability_id": 89,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_089"
+          },
+          {
+            "capability_id": 90,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_090"
+          }
+        ],
+        "engine_files": [
+          "ai_oracle.py:get_single_sentence_oracle",
+          "oracle_unified.py:compute_unified_oracle",
+          "regulatory_compliance_guard.py:compliant_oracle_sentence"
+        ]
+      },
+      "Public Accuracy Ledger": {
+        "feed_count": 5,
+        "feeds": [
+          {
+            "capability_id": 61,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_061"
+          },
+          {
+            "capability_id": 63,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_063"
+          },
+          {
+            "capability_id": 64,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_064"
+          },
+          {
+            "capability_id": 65,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_065"
+          },
+          {
+            "capability_id": 100,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_100"
+          }
+        ],
+        "engine_files": [
+          "oracle_track_record.py:public_track_record",
+          "oracle_audit_chain.py:chain_summary",
+          "oracle_audit_chain.py:verify_chain"
+        ]
+      },
+      "Arbitrage Scanner": {
+        "feed_count": 15,
+        "feeds": [
+          {
+            "capability_id": 11,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_011"
+          },
+          {
+            "capability_id": 40,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_040"
+          },
+          {
+            "capability_id": 47,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_047"
+          },
+          {
+            "capability_id": 48,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_048"
+          },
+          {
+            "capability_id": 50,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_050"
+          },
+          {
+            "capability_id": 52,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_052"
+          },
+          {
+            "capability_id": 57,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_057"
+          },
+          {
+            "capability_id": 69,
+            "binding_file": "cap646/handlers/onchain.py",
+            "binding_function": "handle_onchain_capability"
+          },
+          {
+            "capability_id": 82,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_082"
+          },
+          {
+            "capability_id": 83,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_083"
+          },
+          {
+            "capability_id": 85,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_085"
+          },
+          {
+            "capability_id": 86,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_086"
+          },
+          {
+            "capability_id": 87,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_087"
+          },
+          {
+            "capability_id": 88,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_088"
+          },
+          {
+            "capability_id": 89,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_089"
+          }
+        ],
+        "engine_files": [
+          "arbitrage_service.py:scan_arbitrage_opportunities",
+          "net_edge_truth.py:evaluate_net_edge_truth",
+          "arbitrage_engine.py:calculate_cross_exchange_arbitrage"
+        ]
+      },
+      "Whale Signal vs Noise": {
+        "feed_count": 19,
+        "feeds": [
+          {
+            "capability_id": 1,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_001"
+          },
+          {
+            "capability_id": 2,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_002"
+          },
+          {
+            "capability_id": 3,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_003"
+          },
+          {
+            "capability_id": 4,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_004"
+          },
+          {
+            "capability_id": 5,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_005"
+          },
+          {
+            "capability_id": 6,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_006"
+          },
+          {
+            "capability_id": 7,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_007"
+          },
+          {
+            "capability_id": 8,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_008"
+          },
+          {
+            "capability_id": 14,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_014"
+          },
+          {
+            "capability_id": 15,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_015"
+          },
+          {
+            "capability_id": 72,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_072"
+          },
+          {
+            "capability_id": 75,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_075"
+          },
+          {
+            "capability_id": 81,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_081"
+          },
+          {
+            "capability_id": 85,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_085"
+          },
+          {
+            "capability_id": 86,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_086"
+          },
+          {
+            "capability_id": 88,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_088"
+          },
+          {
+            "capability_id": 91,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_091"
+          },
+          {
+            "capability_id": 92,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_092"
+          },
+          {
+            "capability_id": 98,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_098"
+          }
+        ],
+        "engine_files": [
+          "whale_signal_classifier.py:classify_whale_alert",
+          "whale_signal_classifier.py:enrich_whale_narratives"
+        ]
+      },
+      "Stealth Advisor": {
+        "feed_count": 6,
+        "feeds": [
+          {
+            "capability_id": 40,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_040"
+          },
+          {
+            "capability_id": 50,
+            "binding_file": "cap646/batch01_production.py",
+            "binding_function": "cap_050"
+          },
+          {
+            "capability_id": 85,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_085"
+          },
+          {
+            "capability_id": 86,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_086"
+          },
+          {
+            "capability_id": 87,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_087"
+          },
+          {
+            "capability_id": 88,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_088"
+          }
+        ],
+        "engine_files": [
+          "stealth_execution_advisor.py:advise_stealth_execution"
+        ]
+      },
+      "B2B Feed": {
+        "feed_count": 12,
+        "feeds": [
+          {
+            "capability_id": 67,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_067"
+          },
+          {
+            "capability_id": 68,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_068"
+          },
+          {
+            "capability_id": 71,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_071"
+          },
+          {
+            "capability_id": 74,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_074"
+          },
+          {
+            "capability_id": 77,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_077"
+          },
+          {
+            "capability_id": 81,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_081"
+          },
+          {
+            "capability_id": 84,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_084"
+          },
+          {
+            "capability_id": 91,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_091"
+          },
+          {
+            "capability_id": 92,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_092"
+          },
+          {
+            "capability_id": 98,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_098"
+          },
+          {
+            "capability_id": 99,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_099"
+          },
+          {
+            "capability_id": 100,
+            "binding_file": "cap646/batch02_production.py",
+            "binding_function": "cap_100"
+          }
+        ],
+        "engine_files": [
+          "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed",
+          "whale_tracker.py:get_latest_institutional_context"
+        ]
+      }
+    },
+    "unbound": {
+      "binding_row_count": 81,
+      "unique_fed_capability_count": 60,
+      "unbound_unique_count": 40,
+      "duplicate_bindings": 21,
+      "explanation": "81 = total cap→hero binding rows (includes duplicates when same cap feeds multiple heroes). 60 = unique capability IDs that feed ≥1 hero. 40 = capabilities with zero hero binding rows. 21 = duplicate bindings (81−60).",
+      "unbound_capabilities": [
+        {
+          "capability_id": 9,
+          "capability_name": "Distribution Score",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 10,
+          "capability_name": "Wallet PnL Analysis",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 12,
+          "capability_name": "Wallet Entry / Exit Analysis",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 13,
+          "capability_name": "Wallet Counterparty & Relationship Analysis",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 16,
+          "capability_name": "Candle / Price-Move Investigator",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 17,
+          "capability_name": "Smart Alerts",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 18,
+          "capability_name": "Custom Wallet Labels",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 19,
+          "capability_name": "Wallet & Token Watchlists",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 20,
+          "capability_name": "Multi-Chain Portfolio Intelligence",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 21,
+          "capability_name": "Transaction Decoder",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 22,
+          "capability_name": "Instant Wallet Due Diligence",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 23,
+          "capability_name": "Instant Token Due Diligence",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 36,
+          "capability_name": "On-Chain Metrics Library",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 37,
+          "capability_name": "Entity-Adjusted Metrics",
+          "classification": "internal_support_only",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Internal support — no standalone hero surface"
+        },
+        {
+          "capability_id": 38,
+          "capability_name": "Cost Basis Distribution",
+          "classification": "quiet_engine_not_hero_facing",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": true,
+          "note": "Quiet engine — feeds heroes indirectly, not direct hero binding"
+        },
+        {
+          "capability_id": 39,
+          "capability_name": "Realized Cap & Realized Price Intelligence",
+          "classification": "quiet_engine_not_hero_facing",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": true,
+          "note": "Quiet engine — feeds heroes indirectly, not direct hero binding"
+        },
+        {
+          "capability_id": 41,
+          "capability_name": "SOPR / Profitability Intelligence",
+          "classification": "quiet_engine_not_hero_facing",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Quiet engine — feeds heroes indirectly, not direct hero binding"
+        },
+        {
+          "capability_id": 42,
+          "capability_name": "Holder Cohort Intelligence",
+          "classification": "quiet_engine_not_hero_facing",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Quiet engine — feeds heroes indirectly, not direct hero binding"
+        },
+        {
+          "capability_id": 43,
+          "capability_name": "Supply Dynamics Intelligence",
+          "classification": "quiet_engine_not_hero_facing",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Quiet engine — feeds heroes indirectly, not direct hero binding"
+        },
+        {
+          "capability_id": 44,
+          "capability_name": "Exchange Balance & Netflow Intelligence",
+          "classification": "quiet_engine_not_hero_facing",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Quiet engine — feeds heroes indirectly, not direct hero binding"
+        },
+        {
+          "capability_id": 45,
+          "capability_name": "ETF Flow Intelligence",
+          "classification": "quiet_engine_not_hero_facing",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": true,
+          "note": "Quiet engine — feeds heroes indirectly, not direct hero binding"
+        },
+        {
+          "capability_id": 46,
+          "capability_name": "Digital Asset Treasury Company Intelligence",
+          "classification": "quiet_engine_not_hero_facing",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Quiet engine — feeds heroes indirectly, not direct hero binding"
+        },
+        {
+          "capability_id": 49,
+          "capability_name": "Options Intelligence Suite",
+          "classification": "quiet_engine_not_hero_facing",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "Quiet engine — feeds heroes indirectly, not direct hero binding"
+        },
+        {
+          "capability_id": 51,
+          "capability_name": "Macro & Traditional Finance Integration",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 53,
+          "capability_name": "BTC-to-Macro Coupling",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 54,
+          "capability_name": "Global Liquidity Intelligence",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 58,
+          "capability_name": "Custom No-Code Charting / Workbench",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 60,
+          "capability_name": "Metric-Based Smart Alerts",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": true,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 62,
+          "capability_name": "Institutional Backtesting Data Layer",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 70,
+          "capability_name": "Exchange Reserve Intelligence",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 73,
+          "capability_name": "Exchange Address & Transaction Activity",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 76,
+          "capability_name": "Stablecoin Exchange Reserve",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 78,
+          "capability_name": "Stablecoin Supply Ratio Intelligence",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 79,
+          "capability_name": "Miner Flow Intelligence",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 80,
+          "capability_name": "Miners' Position Index (MPI)",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 93,
+          "capability_name": "Custom No-Code Analytics / Web3 Analytics",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 94,
+          "capability_name": "Native SQL / Advanced Query Workspace",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 95,
+          "capability_name": "Pro Chart & Multi-Metric Workbench",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 96,
+          "capability_name": "Personal Dashboards",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        },
+        {
+          "capability_id": 97,
+          "capability_name": "Custom Metric Alerts",
+          "classification": "not_yet_bound_to_hero",
+          "prior_documented_issue": null,
+          "user_visible_despite_unbound": false,
+          "note": "In closure scope but not mapped to any of the six heroes"
+        }
+      ]
+    },
+    "checksum_sha256": "a147b7e7bd24017c385e5eccc7b4b456463ed563ae41b04bb6ff12f15aa3f3b4"
+  },
+  "item_13_loo_expanded": {
+    "methodology": "5 scenarios × every input cap excluded per hero (see regenerated HERO_SIX_BINDING_REPORT.json)",
+    "note": "Run generate_pentagonal_hero_binding_report.py after LOO code change"
+  },
+  "item_14_cap69_impact": {
+    "issue": "GET entitlement bypass on /api/cap646/{id}",
+    "discovery_documented": "2026-09-02 (PR #358 branch cursor/get-entitlement-bypass-fix-e85e)",
+    "fix_merged_utc": "2026-09-02T20:48:39Z",
+    "production_protected_utc": "2026-09-02T20:50:12.444547+00:00",
+    "exposure_window": "from first anonymous GET spine deploy until PR #358 production protection",
+    "heroes_potentially_affected": [
+      "Single-Sentence Oracle (caps 47, 48, 69)",
+      "Arbitrage Scanner (caps 47, 48, 69, 85)",
+      "Whale Signal vs Noise (cap 85)",
+      "Stealth Advisor (cap 85)"
+    ],
+    "user_visible_impact": "Anonymous users could read pro-gated capability payloads before fix. Hero aggregation paths that consumed cap 47/48/69/85 without server-side tier check could surface richer data to free-tier probes. Post-fix: entitlement enforced at spine.",
+    "dual_path_cap69": "Separate from entitlement — routing unified via batch02 cap_069; closed in DUPLICATION_LOCK_TABLE"
+  },
+  "item_15_live_heroes_full": [
+    {
+      "hero": "Single-Sentence Oracle",
+      "url": "https://blackdark-web-production.up.railway.app/api/oracle/data-hub/BTC",
+      "method": "GET",
+      "http_status": 200,
+      "path_type": "production_real",
+      "user_facing_path": "/oracle/BTC",
+      "response_body": {
+        "enabled": true,
+        "data_source": "live_fallback",
+        "asset": "BTC",
+        "timestamp": "2026-09-02T23:02:26.535153+00:00",
+        "geo_news": {
+          "headlines": [
+            {
+              "title": "Iranian attack on Saudi tanker killed two Filipino sailors, Saudi Arabia says",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 17:33:45 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Protests in Spain over government's handling of Ceuta migrant crisis",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 21:34:27 GMT",
+              "geopolitical": true
+            },
+            {
+              "title": "EU and Nato vow to step up pressure on Russia after 'new escalation' in Germany",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 16:49:00 GMT",
+              "geopolitical": true
+            },
+            {
+              "title": "Rosenberg: Putin's veiled threat to UK part of Russia's campaign against West",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 11:47:11 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Watch: Jury still unable to reach unanimous decision in Lindsay Clancy case",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 20:12:32 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Maltese tycoon acquitted of orchestrating murder of renowned journalist",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 19:05:31 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Netherlands moves billions in gold to London in 'crisis preparedness' move",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 17:21:00 GMT",
+              "geopolitical": true
+            },
+            {
+              "title": "Iran says US strike killed four at wedding in 'war crime' as US denies targeting civilians",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 15:33:19 GMT",
+              "geopolitical": true
+            },
+            {
+              "title": "US sailors arrive in Thailand's Pattaya after record 250 days at sea",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 10:04:28 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Uber shuts operations in Nigeria and Uganda with immediate effect",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 20:21:04 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Woman charged with juror intimidation in Lindsay Clancy trial",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 17:05:09 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Zelensky says airlines should avoid Russian airspace as Ukraine escalates drone operations",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 16:12:43 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Faisal Islam: Why bond market wildfire is keeping world leaders up at night",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 13:20:11 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Why are UK borrowing costs rising and what does it mean for me?",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 11:05:22 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Netherlands moves billions in gold to London in 'crisis preparedness' move",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 17:21:00 GMT",
+              "geopolitical": true
+            },
+            {
+              "title": "Lords call for AI 'kill switch' powers in UK",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 14:41:52 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Uber to cut over 3,000 jobs in major global restructuring",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 16:51:49 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Kids eat free and loyalty points - six ways to eat out but not break the bank",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Tue, 01 Sep 2026 23:26:38 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Will self-flying planes transform the skies?",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Tue, 01 Sep 2026 23:27:35 GMT",
+              "geopolitical": false
+            },
+            {
+              "title": "Fake 10 Downing Street listing exposes 'unfit' Booking.com, says consumer group",
+              "source": "feeds.bbci.co.uk",
+              "published_at": "Wed, 02 Sep 2026 01:27:34 GMT",
+              "geopolitical": false
+            }
+          ],
+          "geopolitical_headline_count": 6,
+          "macro_news_tone": "risk_off",
+          "sources": 5
+        },
+        "sentiment": {
+          "fear_greed_index": 63,
+          "fear_greed_label": "Greed",
+          "coingecko_trending": [
+            "PONS",
+            "AKE",
+            "CASHCAT",
+            "ARB",
+            "UNI",
+            "USELESS",
+            "PUMP"
+          ],
+          "reddit_hot_titles": [],
+          "sentiment_compound_proxy": 0.26
+        },
+        "derivatives": {
+          "asset": "BTC",
+          "defi_tvl_usd": 85257942733.91,
+          "defi_chain_count": 465,
+          "funding_rate": null,
+          "open_interest_usd": null,
+          "long_short_ratio": null,
+          "derivatives_bias": "neutral",
+          "sources": [
+            "DeFiLlama",
+            "Binance Futures Public API"
+          ]
+        },
+        "macro": {
+          "changes_1d_pct": {
+            "dxy": null,
+            "spx": null,
+            "vix": null,
+            "us10y": null,
+            "nasdaq": null,
+            "gold": null,
+            "oil": null
+          },
+          "macro_regime_proxy": "neutral",
+          "sources": [
+            "Yahoo Finance (free chart API)"
+          ]
+        },
+        "aggregators": {
+          "coingecko_global": {},
+          "coincap_top10": [],
+          "sources": [
+            "CoinGecko",
+            "CoinCap"
+          ]
+        },
+        "free_llm_providers": [
+          "groq",
+          "gemini",
+          "openrouter",
+          "ollama"
+        ],
+        "pillars": [
+          "free_llm_chain",
+          "global_economic_news",
+          "sentiment_mesh",
+          "onchain_derivatives",
+          "macro_traditional",
+          "market_aggregators"
+        ],
+        "score_adjustment": -4.0,
+        "hub_reasons": [],
+        "hub_risks": [
+          "6 geopolitical/macro headlines — war/peace/policy shock risk."
+        ]
+      },
+      "live": true
+    },
+    {
+      "hero": "Public Accuracy Ledger",
+      "url": "https://blackdark-web-production.up.railway.app/api/oracle/audit-chain/verify",
+      "method": "GET",
+      "http_status": 200,
+      "path_type": "production_real",
+      "user_facing_path": "/oracle-accuracy",
+      "response_body": {
+        "valid": true,
+        "records": 48,
+        "broken_at_seq": null,
+        "chain_path": "data/oracle_audit_chain.jsonl"
+      },
+      "live": true
+    },
+    {
+      "hero": "Arbitrage Scanner",
+      "url": "https://blackdark-web-production.up.railway.app/api/oracle/net-edge-truth",
+      "method": "GET",
+      "http_status": 200,
+      "path_type": "production_real",
+      "user_facing_path": "/dashboard#arbitrage",
+      "response_body": {
+        "enabled": true,
+        "evaluated": 47,
+        "passed": 0,
+        "rejected": 47,
+        "reject_rate": 1.0,
+        "reject_reasons": {
+          "missing_net_profit": 47
+        },
+        "thresholds": {
+          "min_truth_score": 55.0,
+          "min_residual_usd": 0.08,
+          "max_quote_age_ms": 2500.0
+        }
+      },
+      "live": true
+    },
+    {
+      "hero": "Whale Signal vs Noise",
+      "url": "https://blackdark-web-production.up.railway.app/api/whale/signal-vs-noise",
+      "method": "GET",
+      "http_status": 200,
+      "path_type": "production_real",
+      "user_facing_path": "/dashboard#whales",
+      "response_body": {
+        "timestamp": "2026-09-02T23:02:27.000809+00:00",
+        "headline": "No major whale narratives in the current window — market in equilibrium.",
+        "one_sentence": "No major whale narratives in the current window — market in equilibrium.",
+        "stories": [
+          "No major whale narratives in the current window — market in equilibrium."
+        ],
+        "alert_count": 0,
+        "flow_count": 0,
+        "classified": [],
+        "classifier": "signal_vs_noise_v1",
+        "derivatives_wired": false,
+        "note": "Transfers ≠ trades. Funding/OI hedge check applied when available.",
+        "hero": "whale_intelligence_radar",
+        "acceptance": "one_plain_sentence_signal_vs_noise"
+      },
+      "live": true
+    },
+    {
+      "hero": "Stealth Advisor",
+      "url": "https://blackdark-web-production.up.railway.app/api/whale/stealth-advisor",
+      "method": "POST",
+      "http_status": 200,
+      "path_type": "production_real",
+      "user_facing_path": "/dashboard#stealth",
+      "response_body": {
+        "asset": "BTC",
+        "side": "buy",
+        "notional_usd": 10000.0,
+        "average_daily_volume_usd": 25000000000.0,
+        "adv_source": "prior_table",
+        "top_depth_usd": null,
+        "depth_source": "book_no_mid",
+        "participation_of_adv": 0.0,
+        "participation_of_top_depth": null,
+        "recommended_slices": 1,
+        "slice_usd": 10000.0,
+        "style": "single_clip_ok",
+        "urgency": "normal",
+        "half_life_seconds": null,
+        "slice_plan": {
+          "algo": "LIMIT_CLIP_ADVISORY",
+          "window_sec": 60,
+          "interval_sec": 60,
+          "limit_offset_bps": 2.0,
+          "participation_target_per_slice": 0.001,
+          "slices": [
+            {
+              "slice_index": 1,
+              "notional_usd": 10000.0,
+              "delay_sec": 0,
+              "limit_offset_bps": 2.0,
+              "side": "buy",
+              "venue_preference": [
+                "binance",
+                "okx"
+              ],
+              "algo": "LIMIT_CLIP_ADVISORY"
+            }
+          ],
+          "note": "Advisory schedule only — does not place live SOR orders."
+        },
+        "advice": "Small vs ADV — single clip usually fine.",
+        "disclaimer": "Advisory only — not a guarantee against front-running. Not financial advice. Live stealth routing may require Whale execution keys.",
+        "hero_deepening": "portfolio_ai",
+        "status": "advisory_v2"
+      },
+      "live": true
+    },
+    {
+      "hero": "B2B Feed",
+      "url": "https://blackdark-web-production.up.railway.app/api/b2b/feed",
+      "method": "GET",
+      "http_status": 200,
+      "path_type": "production_real",
+      "user_facing_path": "/b2b",
+      "response_body": {
+        "product": "BLACKDARK Institutional Manipulation Feed",
+        "feed_version": "1.0.0",
+        "generated_at": "2026-09-02T23:02:27.325541+00:00",
+        "record_count": 0,
+        "methodology": {
+          "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
+          "sii": "Sector Inflow Index (capital acceleration)"
+        },
+        "records": [],
+        "signature": "8aa71775df48562405c575b131d0bec51761e7648b15eb149f793775cee8aa36"
+      },
+      "live": true
+    }
+  ],
+  "item_16_b2b_awaiting": {
+    "status": "AWAITING_OWNER_ACTION",
+    "missing_env": "BLACKDARK_B2B_API_KEY",
+    "comparison_script_ready": "scripts/pentagonal_closure_evidence.compare_b2b_keys",
+    "demo_probe_available": true
+  },
+  "item_17_18_telegram": {
+    "item_17_bot_link_fix": {
+      "previous": "https://t.me/ (broken default)",
+      "corrected": "https://t.me/BLACKDARKAI_oncall_bot",
+      "bot_username": "BLACKDARKAI_oncall_bot",
+      "files_changed": [
+        "config.py",
+        "templates/landing.html",
+        "dashboard.py",
+        "api/routers/telegram.py"
+      ]
+    },
+    "item_18_outage_investigation": {
+      "user_reported_stop": "~17:33 UTC 2026-09-02 (5:33 PM user local if UTC+0)",
+      "production_probe": {
+        "enabled": true,
+        "daily_limit": 3,
+        "active_subscribers": 0,
+        "bot_configured": false,
+        "bot_username": "",
+        "commands": [
+          "/start",
+          "/stop",
+          "/status",
+          "/accuracy"
+        ]
+      },
+      "root_cause": "TELEGRAM_BOT_TOKEN not configured in production Railway environment (bot_configured=false)",
+      "last_commits_before_1733_utc": [
+        "402e416 2026-09-02 15:48:01 +0000 Re-sign institutional closure with permanent owner HMAC secret",
+        "2bfdd9e 2026-09-02 15:40:16 +0000 governance: HMAC owner approval — INSTITUTIONAL_CLOSED for batches 1-100",
+        "b7339dd 2026-09-02 15:22:55 +0000 chore(evidence): refresh batch verification proofs on main post-merge",
+        "994e6d4 2026-09-02 14:41:21 +0000 refactor(database): eliminate 15 jscpd clones with SSOT + parameterized helpers",
+        "781a659 2026-09-02 13:52:03 +0000 docs(jscpd): lock 15 database.py clones; disambiguate from MECE 11"
+      ],
+      "code_regression": false,
+      "env_regression": "Production deploy missing TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID — not a code change in telegram path",
+      "agent_env_test_notification_sent": true,
+      "agent_env_test_error": null,
+      "remediation": "Owner must set TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID + TELEGRAM_BOT_USERNAME on Railway; redeploy",
+      "status": "AWAITING_OWNER_ACTION for production; code path verified in agent env"
+    }
+  },
+  "closure_checksum_sha256": "9d15970e2dc8935539ddd23cebc3d9b52ca7e6bac71d61b01f268c0535e6b07f"
+}

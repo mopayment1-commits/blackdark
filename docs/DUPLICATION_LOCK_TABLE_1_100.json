@@ -684,15 +684,33 @@
       "roy_cordy_type": 3,
       "locations": "database.py",
       "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd pentagonal sha256_obj helper",
+      "time_decision": "Eliminate",
+      "action_applied": "supplemental script imports sha256_obj from pentagonal_closure_evidence \u2014 no duplicate logic",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "scripts/generate_supplemental_closure_report.py",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd pentagonal HERO_ENGINES import",
+      "time_decision": "Invest",
+      "action_applied": "Bounded Context \u2014 supplemental imports HERO_ENGINES from generator SSOT; shared dict intentional",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 4,
+      "locations": "scripts/generate_supplemental_closure_report.py",
+      "final_decision": "Invest"
     }
   ],
-  "generated_at": "2026-09-02T14:07:25.439983+00:00",
-  "row_count": 95,
+  "generated_at": "2026-09-02T22:55:00.000000+00:00",
+  "row_count": 97,
   "checksum": {
-    "section_zero_rows": 95,
+    "section_zero_rows": 97,
     "numbered_items": 11,
-    "total_report_sections": 106,
-    "checksum_sha256_prefix": "676f784fd24d3e14",
+    "total_report_sections": 108,
+    "checksum_sha256_prefix": "0525e47dab7fb5c5",
     "checksum_ok": true
   },
   "jscpd_official_hero_clones": 0

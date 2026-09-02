@@ -51,6 +51,8 @@ INSTANT_ALERT_INTERVAL_SEC = float(os.getenv("INSTANT_ALERT_INTERVAL_SEC", "1"))
 INSTANT_ALERT_COOLDOWN_SEC = float(os.getenv("INSTANT_ALERT_COOLDOWN_SEC", "45"))
 INSTANT_ALERT_MIN_PROFIT_USDT = float(os.getenv("INSTANT_ALERT_MIN_PROFIT_USDT", "0.15"))
 TELEGRAM_ALERT_INTERVAL_SECONDS = float(os.getenv("TELEGRAM_ALERT_INTERVAL_SECONDS", "5"))
+# Public bot handle — used for landing page deep links (not a secret).
+TELEGRAM_BOT_USERNAME = os.getenv("TELEGRAM_BOT_USERNAME", "BLACKDARKAI_oncall_bot").strip().lstrip("@")
 
 # ── Aggregator ─────────────────────────────────────────────────────────────
 POLL_INTERVAL_SECONDS = int(os.getenv("POLL_INTERVAL_SECONDS", "3"))

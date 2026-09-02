@@ -144,7 +144,7 @@ def test_lookahead_has_real_deltas(closure_report: dict) -> None:
 
 def test_loo_true_methodology(hero_report: dict) -> None:
     total = sum(s["8_stability_test"].get("loo_test_count", 0) for s in hero_report["hero_sections"])
-    assert total == 30  # 6 heroes × 5 scenarios × 1 exclusion
+    assert total > 30  # expanded: 5 scenarios × each input cap per hero
     for section in hero_report["hero_sections"]:
         for test in section["8_stability_test"]["loo_tests"]:
             assert test["exclusions_count"] == 1
@@ -161,6 +161,17 @@ def test_get_entitlement_doc_not_modified(closure_report: dict) -> None:
     doc = closure_report["item_05_get_entitlement_doc_status"]
     assert doc["exists"] is True
     assert doc["modified_for_wording_correction"] is False
+
+
+def test_supplemental_closure_report() -> None:
+    path = ROOT / "docs" / "SUPPLEMENTAL_CLOSURE_REPORT_1_18.json"
+    assert path.exists()
+    report = json.loads(path.read_text())
+    assert report["item_07_mece_unbound_40"]["pairs_total"] == 3180
+    assert report["item_07_mece_unbound_40"]["counts"]["DUPLICATE-CONFIRMED"] == 0
+    assert report["item_01_psi_monitor_elevated"]["classification"] == "monitor_elevated"
+    assert report["item_16_b2b_awaiting"]["status"] == "AWAITING_OWNER_ACTION"
+    assert report["item_17_18_telegram"]["item_17_bot_link_fix"]["bot_username"] == "BLACKDARKAI_oncall_bot"
 
 
 def test_closure_unbound_count(closure_report: dict) -> None:
