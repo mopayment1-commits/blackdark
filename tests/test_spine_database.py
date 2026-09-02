@@ -21,6 +21,36 @@ async def spine_db(tmp_path, monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_init_db_idempotent(spine_db):
+    import database
+
+    await database.init_db()
+    await database.init_db()
+    telemetry = await database.fetch_system_telemetry()
+    assert telemetry.get("database_online") is True
+
+
+@pytest.mark.asyncio
+async def test_database_ddl_ssot_semantics(spine_db):
+    from database_ddl import table_schema
+
+    ddl = table_schema("platform_analytics")
+    assert ddl.startswith("CREATE TABLE IF NOT EXISTS platform_analytics")
+    assert ddl.rstrip().endswith(";")
+    assert table_schema("journal_entries") in spine_db.SCHEMA
+
+
+@pytest.mark.asyncio
+async def test_deserialize_payload_json_rows(spine_db):
+    import database
+
+    rows = [{"payload_json": "{\"a\": 1}"}, {"payload_json": "not-json"}]
+    out = database._deserialize_payload_json_rows(rows)
+    assert out[0]["payload"] == {"a": 1}
+    assert out[1]["payload"] == {}
+
+
+@pytest.mark.asyncio
 async def test_insert_and_fetch_pricing_log(spine_db):
     row_id = await spine_db.insert_pricing_log("binance", "BTC/USDT", 50000.0, volume=1.5, opportunity_score=0.8)
     assert row_id > 0

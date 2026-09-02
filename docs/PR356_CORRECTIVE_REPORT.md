@@ -211,22 +211,27 @@ Full machine-readable inventory: `docs/JSCPD_OFFICIAL_HERO_15_CLONES.json`
 
 **Note:** `cap646/*` and hero batch04–17 modules report **0 jscpd clones** at `--min-lines 5` after prior Eliminate refactors (batch01_dedicated, provenance #63/#106).
 
-### 5.3 Lock table addendum (سؤال 3)
+### 5.3 Lock table addendum (سؤال 3) — **implemented 2026-09-02**
 
-Added **15 rows** to `docs/DUPLICATION_LOCK_TABLE_1_100.json` (all `CLOSED_PERMANENT`):
+All 15 jscpd clones **eliminated in code** (official+hero jscpd: **0 clones**).
 
-| Clone group | TIME | Count |
-|-------------|------|------:|
-| DDL `_SCHEMA_SQL` ↔ `_apply_schema_migrations` | **Invest** | 9 |
-| Compaction fetch/delete templates | **Invest** | 4 |
-| `institutional_flows` INSERT single↔batch | **Invest** | 1 |
-| `payload_json` deserialize fetch loops | **Invest** | 1 |
+| Clone group | Final decision | Implementation |
+|-------------|----------------|----------------|
+| DDL 1–9 (Type-1) | **Eliminate** | `database_ddl.table_schema()` SSOT |
+| Compaction fetch/delete 10–13 | **Eliminate** | `_fetch_archivable_table_rows` / `_delete_table_rows_by_ids` |
+| INSERT 14 | **Justified-Retain** | `_INSTITUTIONAL_FLOWS_INSERT_SQL` + ADR-004 (7–15× executemany at N=10–200) |
+| Deserialize 15 | **Eliminate** | `_deserialize_payload_json_rows()` |
 
-| Metric | Before | After |
-|--------|--------|-------|
-| Lock table rows | 82 | **97** |
-| Checksum prefix | (prior) | **`d41600aa739be032`** |
-| Total report sections (rows + items 1–11) | 93 | **108** |
+| Metric | Before dedup | After dedup |
+|--------|--------------|-------------|
+| jscpd `database.py` clones | 15 | **0** |
+| jscpd official+hero clones | 15 | **0** |
+| Lock table rows | 97 | **95** |
+| Checksum prefix | `d41600aa739be032` | **`676f784fd24d3e14`** |
+| `database.py` statement coverage | 70.54% | **71.25%** |
+| Spine weighted coverage | 80.00% | **80.72%** |
+
+Evidence: `docs/JSCPD_DATABASE_DEDUP_EVIDENCE.json`, `docs/adr/ADR-004-institutional-flows-dual-insert-api.md`
 
 ---
 

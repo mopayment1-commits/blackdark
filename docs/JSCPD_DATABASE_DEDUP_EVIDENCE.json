@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-09-02T14:35:00+00:00",
+  "commit_scope": "database.py jscpd clone elimination (cases 1-15)",
+  "jscpd_database_py": {
+    "command": "npx jscpd database.py --min-lines 5 --reporters json",
+    "clones": 0,
+    "duplicated_lines": 0,
+    "report_dir": "docs/.jscpd-db-dedup"
+  },
+  "jscpd_official_hero": {
+    "command": "run_closure_mandate_last.run_jscpd()",
+    "clones": 0,
+    "duplicated_lines": 0,
+    "report_dir": "docs/.jscpd-last"
+  },
+  "implementations": {
+    "cases_1_9_ddl": "database_ddl.table_schema() SSOT used by SCHEMA + _apply_migrations + _ensure_compounding_tables",
+    "cases_10_13_compaction": "_fetch_archivable_table_rows() + _delete_table_rows_by_ids()",
+    "case_14_institutional_flows": "_INSTITUTIONAL_FLOWS_INSERT_SQL; dual API Justified-Retain per ADR-004",
+    "case_15_payload_deserialize": "_deserialize_payload_json_rows()"
+  },
+  "adr_004_benchmark_ms": {
+    "1": {"loop_execute": 0.066, "executemany": 0.032, "speedup_x": 2.06},
+    "10": {"loop_execute": 0.307, "executemany": 0.043, "speedup_x": 7.2},
+    "50": {"loop_execute": 1.461, "executemany": 0.117, "speedup_x": 12.47},
+    "200": {"loop_execute": 5.796, "executemany": 0.391, "speedup_x": 14.83}
+  },
+  "coverage": {
+    "database_py_statement_pct": 71.25,
+    "spine_weighted_statement_pct": 80.72,
+    "cov_xml": "coverage-db-dedup.xml"
+  },
+  "lock_table": {
+    "row_count": 95,
+    "checksum_sha256_prefix": "676f784fd24d3e14"
+  },
+  "tests": {
+    "spine_database": "28 passed",
+    "init_db_idempotent": "test_init_db_idempotent"
+  }
+}

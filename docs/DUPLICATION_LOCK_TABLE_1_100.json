@@ -570,134 +570,130 @@
     },
     {
       "case": "jscpd database platform_analytics DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
-      "time_decision": "Invest",
-      "action_applied": "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('platform_analytics') SSOT; bootstrap + migration both call it",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 1,
-      "locations": "database.py:346-355 \u2194 902-911"
+      "locations": "database_ddl.py; database.py SCHEMA + _apply_migrations",
+      "final_decision": "Eliminate"
     },
     {
       "case": "jscpd database journal_entries DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
-      "time_decision": "Invest",
-      "action_applied": "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('journal_entries') SSOT",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 1,
-      "locations": "database.py:386-398 \u2194 959-971"
+      "locations": "database_ddl.py; database.py SCHEMA + _apply_migrations",
+      "final_decision": "Eliminate"
     },
     {
       "case": "jscpd database audit_logs DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
-      "time_decision": "Invest",
-      "action_applied": "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('audit_logs') SSOT",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 1,
-      "locations": "database.py:420-431 \u2194 1286-1297"
+      "locations": "database_ddl.py; database.py SCHEMA + _apply_migrations",
+      "final_decision": "Eliminate"
     },
     {
       "case": "jscpd database decisions DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
-      "time_decision": "Invest",
-      "action_applied": "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('decisions') SSOT",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 1,
-      "locations": "database.py:442-453 \u2194 1321-1332"
+      "locations": "database_ddl.py; database.py SCHEMA + _apply_migrations",
+      "final_decision": "Eliminate"
     },
     {
       "case": "jscpd database kg_nodes DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
-      "time_decision": "Invest",
-      "action_applied": "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('kg_nodes') SSOT",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 1,
-      "locations": "database.py:464-473 \u2194 1365-1374"
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
     },
     {
       "case": "jscpd database kg_edges DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
-      "time_decision": "Invest",
-      "action_applied": "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('kg_edges') SSOT",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 1,
-      "locations": "database.py:478-487 \u2194 1378-1387"
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
     },
     {
       "case": "jscpd database market_signals DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
-      "time_decision": "Invest",
-      "action_applied": "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('market_signals') SSOT",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 1,
-      "locations": "database.py:495-508 \u2194 1392-1405"
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
     },
     {
       "case": "jscpd database learning_predictions DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
-      "time_decision": "Invest",
-      "action_applied": "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('learning_predictions') SSOT",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 1,
-      "locations": "database.py:513-523 \u2194 1409-1419"
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
     },
     {
       "case": "jscpd database ip_registry DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
-      "time_decision": "Invest",
-      "action_applied": "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('ip_registry') SSOT",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 1,
-      "locations": "database.py:582-592 \u2194 1480-1490"
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
     },
     {
-      "case": "jscpd database fetch_archivable pricing\u2194order_books compaction template",
-      "time_decision": "Invest",
-      "action_applied": "Bounded compaction template; distinct tables (pricing_logs vs order_books); spine DB tests cover each archiver",
+      "case": "jscpd database fetch_archivable compaction template",
+      "time_decision": "Eliminate",
+      "action_applied": "_fetch_archivable_table_rows(table, ...) parameterized; wrappers retained for API stability",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 3,
-      "locations": "database.py:1521-1532 \u2194 1546-1557"
+      "locations": "database.py _COMPACTABLE_TABLES",
+      "final_decision": "Eliminate"
     },
     {
-      "case": "jscpd database fetch_archivable pricing\u2194sentiment_logs compaction template",
-      "time_decision": "Invest",
-      "action_applied": "Bounded compaction template; distinct tables (pricing_logs vs market_sentiment_logs); spine DB tests cover each archiver",
+      "case": "jscpd database delete compaction purge template",
+      "time_decision": "Eliminate",
+      "action_applied": "_delete_table_rows_by_ids(table, ...) parameterized; wrappers retained for API stability",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 3,
-      "locations": "database.py:1521-1532 \u2194 1571-1582"
-    },
-    {
-      "case": "jscpd database delete_pricing\u2194order_books compaction purge template",
-      "time_decision": "Invest",
-      "action_applied": "Bounded compaction purge template; distinct tables; batch DELETE IN (?) pattern shared by design",
-      "lock_state": "CLOSED_PERMANENT",
-      "roy_cordy_type": 3,
-      "locations": "database.py:1596-1606 \u2194 1616-1626"
-    },
-    {
-      "case": "jscpd database delete_pricing\u2194sentiment_logs compaction purge template",
-      "time_decision": "Invest",
-      "action_applied": "Bounded compaction purge template; distinct tables; batch DELETE IN (?) pattern shared by design",
-      "lock_state": "CLOSED_PERMANENT",
-      "roy_cordy_type": 3,
-      "locations": "database.py:1596-1606 \u2194 1636-1646"
+      "locations": "database.py _COMPACTABLE_DELETE_LOG",
+      "final_decision": "Eliminate"
     },
     {
       "case": "jscpd database institutional_flows INSERT single\u2194executemany",
-      "time_decision": "Invest",
-      "action_applied": "Shared INSERT column list; insert_institutional_flow vs insert_institutional_flows are distinct entry points (row vs batch)",
+      "time_decision": "Eliminate",
+      "action_applied": "_INSTITUTIONAL_FLOWS_INSERT_SQL SSOT; dual API Justified-Retain per ADR-004 (7\u201315\u00d7 executemany speedup at N=10\u2013200)",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 3,
-      "locations": "database.py:2008-2014 \u2194 2039-2045"
+      "locations": "database.py; docs/adr/ADR-004-institutional-flows-dual-insert-api.md",
+      "final_decision": "Justified-Retain"
     },
     {
       "case": "jscpd database payload_json deserialize weekly\u2194maintenance fetch",
-      "time_decision": "Invest",
-      "action_applied": "Shared payload_json\u2192dict loop; weekly_reports vs maintenance_runs bounded read paths",
+      "time_decision": "Eliminate",
+      "action_applied": "_deserialize_payload_json_rows() shared by fetch_weekly_reports + fetch_maintenance_runs",
       "lock_state": "CLOSED_PERMANENT",
       "roy_cordy_type": 3,
-      "locations": "database.py:4862-4879 \u2194 4906-4923"
+      "locations": "database.py",
+      "final_decision": "Eliminate"
     }
   ],
-  "generated_at": "2026-09-02T13:51:35.602952+00:00",
-  "row_count": 97,
+  "generated_at": "2026-09-02T14:07:25.439983+00:00",
+  "row_count": 95,
   "checksum": {
-    "section_zero_rows": 97,
+    "section_zero_rows": 95,
     "numbered_items": 11,
-    "total_report_sections": 108,
-    "checksum_sha256_prefix": "d41600aa739be032",
+    "total_report_sections": 106,
+    "checksum_sha256_prefix": "676f784fd24d3e14",
     "checksum_ok": true
   },
-  "jscpd_official_hero_clones": 15,
-  "mece_overlap_partial_batch04_17": 11
+  "jscpd_official_hero_clones": 0
 }
