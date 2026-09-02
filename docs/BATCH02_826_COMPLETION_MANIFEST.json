@@ -5,9 +5,12 @@
   "scope": "IDs 51–100",
   "closure_status": "INSTITUTIONAL_CLOSED",
   "owner_approval_required": false,
-  "merge_does_not_imply_closure": true,
-  "status_on_branch": "PENDING_CLOSURE",
-  "status_on_main": "PENDING_CLOSURE",
+  "merge_does_not_imply_closure": false,
+  "status_on_branch": "INSTITUTIONAL_CLOSED",
+  "status_on_main": "INSTITUTIONAL_CLOSED",
+  "owner_final_decision_at": "2026-09-02T21:08:07.383235+00:00",
+  "owner_final_decision": "docs/INSTITUTIONAL_OWNER_FINAL_CLOSURE_DECISION.json",
+  "batch03_status": "PROHIBITED",
   "counts": {
     "total": 50,
     "production_aligned": 50,
@@ -66,7 +69,7 @@
     "job": "critical",
     "note": "critical PASS does not imply INSTITUTIONAL_CLOSED; gate-full and SonarCloud required"
   },
-  "owner_approved_at": "2026-09-02T21:02:16.744944+00:00",
+  "owner_approved_at": "2026-09-02T21:08:07.383235+00:00",
   "owner_hmac_token_sha256_prefix": "427cbd89d4173d06",
   "rejection_resolved": "CLOSURE-REJECT-04"
 }

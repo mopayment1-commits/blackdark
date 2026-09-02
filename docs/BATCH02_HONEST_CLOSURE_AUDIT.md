@@ -2,8 +2,8 @@
 
 **Date:** 2026-09-01  
 **Scope:** Official batch02 IDs 51–100  
-**Status:** **PENDING_CLOSURE** (CLOSURE-REJECT-02 — prior CLOSED claim void)  
-**Batch 03:** **BLOCKED** until institutional review and owner approval
+**Status:** **INSTITUTIONAL_CLOSED** (owner final decision 2026-09-02)  
+**Batch 03:** **PROHIBITED** until official owner reopening
 
 ---
 
