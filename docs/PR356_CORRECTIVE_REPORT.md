@@ -85,22 +85,29 @@ SERVICE_BUS_LOCAL=true PYTHONPATH=/workspace python scripts/run_batch_verificati
 
 → **Flaky / environment subprocess issue on CI**, not a deterministic logic failure on current tree.
 
-### Root cause (most likely)
+### Root cause (confirmed via CI job `100259516882`, run `33633460040`)
 
-`run_batch_verification_orchestrator._run()` invoked subprocess **without** `cwd=ROOT`, explicit `PYTHONPATH`, or `SERVICE_BUS_LOCAL`, and truncated stderr to 500 chars — hiding crash details in CI logs.
+```
+NOT_COMPLETE: [{'id': 25, 'capability': 'Signal → Explanation Workflow', ...
+  'notes': 'audit_exception:OperationalError:no such table: order_books'}]
+sqlite3.OperationalError: no such table: institutional_flows
+```
 
-### Fix applied
+**Fresh GitHub runner** has no `blackdark.db` schema. Capability **#25** (`footprint_snapshot` → order book tables) throws on empty sqlite. Locally passes because dev DB exists.
 
-1. Subprocess `cwd=ROOT`, `env` with `PYTHONPATH` + `SERVICE_BUS_LOCAL`
-2. stderr capture expanded to 2000 chars; failure dumps stdout/stderr to CI log
-3. `audit_official_batch01_rtm.py` now **exit 1** when any ID is `NOT_COMPLETE` (proper gate semantics)
+**Fix:** `run_batch_verification_orchestrator.main()` now calls `await database.init_db()` before subprocess audits.
 
-### Post-fix re-run (full orchestrator)
+### Post-fix re-run (full orchestrator, commit `462f61d`)
 
 ```
 EXIT=0
 {"all_verified": true, "failed": []}
-Wrote docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json
+```
+
+### CI bandit (commit `e19921d`, run `33632302846`)
+
+```
+bandit -r . -c .bandit -ll -q → job conclusion: pass (22s)
 ```
 
 ---
