@@ -136,3 +136,21 @@ Three simultaneous differences:
 2. **Tests:** `tests/test_sonar_pr356_new_code_coverage.py` — behavioral assertions on every uncovered New Code cluster.
 3. **CI:** add `SPINE_PYTEST` + new test file to `.github/workflows/sonarcloud.yml` coverage generation.
 4. **Verify:** re-run Sonar → `new_coverage ≥ 80%`, `new_security_rating = A`, QG PASSED.
+
+---
+
+## 7) Post-remediation evidence (commit `6379ac8`, CI run `33587910472`)
+
+| Metric | Before | After |
+|---|---:|---:|
+| Sonar New Code coverage | 26.09% (66/253) | **93.9%** (275/293) |
+| Sonar New Security Rating | E (5.0) | **A (1.0)** |
+| Open vulnerabilities (PR) | 1 (S2083 BLOCKER) | **0** |
+| Quality Gate | FAILED | **PASSED** |
+| Spine coverage (local) | 80.00% | 80.00% (unchanged scope) |
+
+**Security fix detail:** `write_closure_status` uses SSOT manifest path only, validates `closure_status` against `{PENDING_CLOSURE, INSTITUTIONAL_CLOSED}`, and routes JSON persistence through `path_safety.coerce_json_mapping` / `read_json_mapping` / `write_json_mapping` to break `read_text→write_text` taint (S2083).
+
+**Per-file New Code coverage:** see `docs/SONAR_PR356_COVERAGE_EVIDENCE.json` (27 files; lowest: `cap646/runtime.py` 62.5%, `cap646/batch03_dedicated.py` 70.0%).
+
+**No bypasses used:** no QG changes, no New Code definition changes, no sonar exclusions, no NOSONAR.
