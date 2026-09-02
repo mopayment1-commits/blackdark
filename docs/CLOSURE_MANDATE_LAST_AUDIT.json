@@ -1,6 +1,6 @@
 {
   "audit_id": "CLOSURE_MANDATE_LAST",
-  "generated_at": "2026-09-01T23:50:09.415591+00:00",
+  "generated_at": "2026-09-02T00:35:12.673143+00:00",
   "duplication_lock_table_1_100": [
     {
       "case": "#69 dual-path",
@@ -840,9 +840,9 @@
     "output_dir": "/workspace/docs/.jscpd-last"
   },
   "gate_full": {
-    "exit_code": null,
-    "elapsed_seconds": 0.0,
-    "skipped": true
+    "exit_code": 0,
+    "elapsed_seconds": 1103.3,
+    "skipped": false
   },
   "summary_checksum": {
     "section_zero_rows": 79,

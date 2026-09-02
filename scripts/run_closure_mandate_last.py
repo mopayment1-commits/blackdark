@@ -71,8 +71,12 @@ def build_mece_hero() -> dict:
     confirmed = [p for p in pairs if p["verdict"] == "DUPLICATE-CONFIRMED"]
     partial = [p for p in pairs if p["verdict"] == "OVERLAP-PARTIAL"]
     distinct = len(OFFICIAL) * sum(len(hero_ids.get(ob, [])) for ob in HERO_BATCHES) - len(pairs)
+    total_hero = sum(len(hero_ids.get(ob, [])) for ob in HERO_BATCHES)
     return {
-        "pairs_checked": len(OFFICIAL) * sum(len(hero_ids.get(ob, [])) for ob in HERO_BATCHES),
+        "total_hero_capabilities": total_hero,
+        "hero_batch_count": len(HERO_BATCHES),
+        "count_derivation": "13 batches × 50 + batch17 × 26 = 676 (not 14×50)",
+        "pairs_checked": len(OFFICIAL) * total_hero,
         "duplicate_confirmed": len(confirmed),
         "overlap_partial": len(partial),
         "distinct_verified": distinct,
@@ -158,6 +162,31 @@ def build_lock_table() -> list[dict]:
                 "CLOSED_PERMANENT",
                 verdict=p["verdict"],
             )
+
+    for case, td, act, loc, rctype in [
+        (
+            "jscpd batch01_dedicated #7↔#9 holder_analytics (L354-362↔L403-408)",
+            "Invest",
+            "Roy & Cordy Type 3 (gapped); shared holder_analytics integration per capability surface",
+            "batch01_dedicated.py:354-362 vs 403-408",
+            3,
+        ),
+        (
+            "jscpd batch01_dedicated #8↔#9 metrics extraction (L374-380↔L403-409)",
+            "Invest",
+            "Roy & Cordy Type 3 (gapped); distinct capability payloads from shared metrics fetch",
+            "batch01_dedicated.py:374-380 vs 403-409",
+            3,
+        ),
+        (
+            "jscpd batch01_dedicated #15↔#44 exchange_netflow (L431-438↔L1104-1111)",
+            "Invest",
+            "Roy & Cordy Type 3 (gapped); heroes_capability_layer shared backend, distinct EXPECTED_SURFACE",
+            "batch01_dedicated.py:431-438 vs 1104-1111",
+            3,
+        ),
+    ]:
+        add(case, td, act, "CLOSED_PERMANENT", roy_cordy_type=rctype, locations=loc)
 
     return rows
 
@@ -247,47 +276,54 @@ def run_jscpd() -> dict[str, Any]:
     return {"exit_code": proc.returncode, "clones": clones, "output_dir": str(out_dir)}
 
 
+def _git_commit() -> str:
+    proc = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True)
+    return proc.stdout.strip()
+
+
+def run_gate_full_provenance() -> dict[str, Any]:
+    from scripts.run_gate_full_provenance import run_gate_full_provenance as _run
+
+    return _run()
+
+
 def main() -> int:
-    skip_gate = "--skip-gate-full" in sys.argv
+    if "--skip-gate-full" in sys.argv:
+        print(
+            "ERROR: --skip-gate-full is prohibited (CLOSURE-MANDATE-VERIFY). "
+            "Gate-full must run in the same session without skip flags.",
+            file=sys.stderr,
+        )
+        return 2
     lock_table = build_lock_table()
     mece_hero = build_mece_hero()
     coverage = coverage_spine_suite()
     pylint_proc = subprocess.run(["pylint", "cap646/", "--disable=all", "--enable=duplicate-code"], capture_output=True, text=True, cwd=ROOT)
     r0801_count = pylint_proc.stdout.count("R0801")
 
-    gate_proc = None
-    gate_elapsed = 0.0
-    if not skip_gate:
-        gate_t0 = time.perf_counter()
-        gate_proc = subprocess.run(
-            [sys.executable, "-m", "pytest", "tests/cap646/test_institutional_gate.py::test_institutional_gate_full", "-q", "--tb=no"],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-        )
-        gate_elapsed = round(time.perf_counter() - gate_t0, 1)
+    gate_payload = run_gate_full_provenance()
+    gate_elapsed = gate_payload["elapsed_seconds"]
 
     jscpd = run_jscpd()
     summary_checksum = checksum_report(len(lock_table))
     out = {
         "audit_id": "CLOSURE_MANDATE_LAST",
         "generated_at": datetime.now(UTC).isoformat(),
+        "commit_hash": _git_commit(),
         "duplication_lock_table_1_100": lock_table,
         "lock_table_row_count": len(lock_table),
         "mece_hero_batch04_17": mece_hero,
         "coverage_spine_suite": coverage,
         "pylint_r0801_count": r0801_count,
         "jscpd_official_hero": jscpd,
-        "gate_full": {"exit_code": gate_proc.returncode if gate_proc else None, "elapsed_seconds": gate_elapsed, "skipped": skip_gate},
+        "gate_full": gate_payload,
         "summary_checksum": summary_checksum,
     }
     (ROOT / "docs/DUPLICATION_LOCK_TABLE_1_100.json").write_text(json.dumps({"rows": lock_table, "generated_at": out["generated_at"]}, indent=2) + "\n", encoding="utf-8")
     (ROOT / "docs/CLOSURE_MANDATE_LAST_AUDIT.json").write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
     (ROOT / "docs/SPINE_COVERAGE_SNAPSHOT.json").write_text(json.dumps(coverage, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"lock_rows": len(lock_table), "weighted_cov": coverage["weighted_statement_coverage_pct"], "gate": out["gate_full"], "jscpd_clones": jscpd["clones"], "checksum": summary_checksum}, indent=2))
-    if gate_proc and gate_proc.returncode != 0:
-        return 1
-    return 0
+    print(json.dumps({"lock_rows": len(lock_table), "weighted_cov": coverage["weighted_statement_coverage_pct"], "gate": gate_payload, "jscpd_clones": jscpd["clones"], "checksum": summary_checksum}, indent=2))
+    return 1 if gate_payload["exit_code"] != 0 else 0
 
 
 if __name__ == "__main__":

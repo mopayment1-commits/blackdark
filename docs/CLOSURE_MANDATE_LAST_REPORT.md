@@ -105,7 +105,7 @@ def provenance_hot_storage_payload(symbol: str) -> dict[str, Any]:
 | batch05 | 50 | 201–250 |
 | batch06 | 50 | 251–300 |
 | batch07–batch17 | 50 each | 301–826 |
-| **المجموع** | **700** | **151–826** |
+| **المجموع** | **676** | **151–826** (batch17 = 26 IDs فقط) |
 
 **تداخل مع 1–826 المعلن:** نعم — hero batches هي **امتدادات رقمية داخل نفس سجل 826** (`official_batch` في inventory)، **ليست namespace منفصلًا**.  
 **batch03 prep (101–150)** منفصل عن hero batches لكن ضمن 826.
