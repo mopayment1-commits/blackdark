@@ -1,0 +1,38 @@
+{
+  "merged_at": "2026-09-02T20:48:39Z",
+  "merge_commit": "42044a4867a56df92d2c3978ef9cab8595feaaa5",
+  "fix_commit": "9393a08",
+  "pr": 358,
+  "production_url": "https://blackdark-web-production.up.railway.app",
+  "protected_at_utc": "2026-09-02T20:50:12.444547+00:00",
+  "deploy_lag_seconds": 93,
+  "post_deploy_tests": {
+    "cap_47": {
+      "url": "https://blackdark-web-production.up.railway.app/api/cap646/47?symbol=BTC",
+      "auth": "none",
+      "http_status": 200,
+      "success": false,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "pro",
+        "actual_tier": "free"
+      },
+      "data_leak_fields_absent": ["overview", "probe"]
+    },
+    "cap_103": {
+      "url": "https://blackdark-web-production.up.railway.app/api/cap646/103?symbol=BTC",
+      "auth": "none",
+      "http_status": 200,
+      "success": false,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "elite",
+        "actual_tier": "free"
+      },
+      "data_leak_fields_absent": ["hot_storage", "graphql", "institutional_api"]
+    }
+  },
+  "verdict": "PRODUCTION_PROTECTED"
+}
