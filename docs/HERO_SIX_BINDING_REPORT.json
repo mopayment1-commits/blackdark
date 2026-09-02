@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T21:58:10.872615+00:00",
+  "generated_at": "2026-09-02T22:36:12.219866+00:00",
   "scope": "six heroes × capabilities 1-100",
   "heroes": [
     "Single-Sentence Oracle",
@@ -271,175 +271,408 @@
       "7_lookahead_bias": [
         {
           "capability_id": 24,
-          "decision_timestamp": "2026-09-02T21:55:45.185752+00:00",
+          "decision_timestamp": "2026-09-02T22:31:36.640358+00:00",
+          "timestamp_fields_found": 12,
+          "timestamp_sample_paths": [
+            "research_agent.research_lab.generated_at",
+            "research_agent.research_lab.economic_moat.timestamp",
+            "research_agent.research_lab.oracle_audit.recent[0].timestamp",
+            "research_agent.research_lab.oracle_audit.recent[1].timestamp",
+            "research_agent.research_lab.oracle_audit.recent[2].timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.119946,
+            0.254744,
+            10.854633,
+            13.765763,
+            16.476584,
+            19.369009,
+            22.098665,
+            14.701166,
+            0.171983,
+            0.145949,
+            0.119956,
+            0.119898
+          ],
+          "time_delta_seconds": 0.119898,
           "pass": true
         },
         {
           "capability_id": 25,
-          "decision_timestamp": "2026-09-02T21:55:45.187238+00:00",
+          "decision_timestamp": "2026-09-02T22:31:36.642310+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "signal.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            8.1e-05,
+            2.6e-05
+          ],
+          "time_delta_seconds": 2.6e-05,
           "pass": true
         },
         {
           "capability_id": 26,
-          "decision_timestamp": "2026-09-02T21:55:45.803838+00:00",
+          "decision_timestamp": "2026-09-02T22:31:37.260953+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.5e-05
+          ],
+          "time_delta_seconds": 2.5e-05,
           "pass": true
         },
         {
           "capability_id": 27,
-          "decision_timestamp": "2026-09-02T21:55:45.805941+00:00",
+          "decision_timestamp": "2026-09-02T22:31:37.262933+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.2e-05
+          ],
+          "time_delta_seconds": 2.2e-05,
           "pass": true
         },
         {
           "capability_id": 28,
-          "decision_timestamp": "2026-09-02T21:55:47.732199+00:00",
+          "decision_timestamp": "2026-09-02T22:31:38.918790+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "alert.alert.fired_at",
+            "probe.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000136,
+            0.000945,
+            3.9e-05
+          ],
+          "time_delta_seconds": 3.9e-05,
           "pass": true
         },
         {
           "capability_id": 29,
-          "decision_timestamp": "2026-09-02T21:55:47.733527+00:00",
+          "decision_timestamp": "2026-09-02T22:31:38.920249+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "decision_engine.cross_market.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            8.1e-05,
+            1.9e-05
+          ],
+          "time_delta_seconds": 1.9e-05,
           "pass": true
         },
         {
           "capability_id": 30,
-          "decision_timestamp": "2026-09-02T21:55:47.733636+00:00",
+          "decision_timestamp": "2026-09-02T22:31:38.920479+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "provenance_score.generated_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            5e-05,
+            1.3e-05
+          ],
+          "time_delta_seconds": 1.3e-05,
           "pass": true
         },
         {
           "capability_id": 31,
-          "decision_timestamp": "2026-09-02T21:55:48.316033+00:00",
+          "decision_timestamp": "2026-09-02T22:31:39.516106+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "cross_signal_confirmation.registry_stats.generated_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.593444,
+            3.1e-05
+          ],
+          "time_delta_seconds": 3.1e-05,
           "pass": true
         },
         {
           "capability_id": 32,
-          "decision_timestamp": "2026-09-02T21:55:48.913005+00:00",
+          "decision_timestamp": "2026-09-02T22:31:40.136796+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            3.9e-05
+          ],
+          "time_delta_seconds": 3.9e-05,
           "pass": true
         },
         {
           "capability_id": 33,
-          "decision_timestamp": "2026-09-02T21:55:48.916211+00:00",
+          "decision_timestamp": "2026-09-02T22:31:40.140418+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.7e-05
+          ],
+          "time_delta_seconds": 2.7e-05,
           "pass": true
         },
         {
           "capability_id": 34,
-          "decision_timestamp": "2026-09-02T21:55:48.916835+00:00",
+          "decision_timestamp": "2026-09-02T22:31:40.141280+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
           "pass": true
         },
         {
           "capability_id": 35,
-          "decision_timestamp": "2026-09-02T21:55:49.509819+00:00",
+          "decision_timestamp": "2026-09-02T22:31:40.762868+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            3.4e-05
+          ],
+          "time_delta_seconds": 3.4e-05,
           "pass": true
         },
         {
           "capability_id": 40,
-          "decision_timestamp": "2026-09-02T21:55:50.121893+00:00",
+          "decision_timestamp": "2026-09-02T22:31:41.354184+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "macro.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000184,
+            0.00012
+          ],
+          "time_delta_seconds": 0.00012,
           "pass": true
         },
         {
           "capability_id": 47,
-          "decision_timestamp": "2026-09-02T21:55:54.647622+00:00",
+          "decision_timestamp": "2026-09-02T22:31:44.690317+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "probe.timestamp",
+            "data_provenance.generated_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000198,
+            0.000101,
+            4.2e-05
+          ],
+          "time_delta_seconds": 4.2e-05,
           "pass": true
         },
         {
           "capability_id": 48,
-          "decision_timestamp": "2026-09-02T21:55:54.841844+00:00",
+          "decision_timestamp": "2026-09-02T22:31:44.947213+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "overview.timestamp",
+            "overview.free_tier.timestamp",
+            "data_provenance.generated_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000164,
+            0.181695,
+            8.7e-05,
+            3.3e-05
+          ],
+          "time_delta_seconds": 3.3e-05,
           "pass": true
         },
         {
           "capability_id": 50,
-          "decision_timestamp": "2026-09-02T21:55:54.841931+00:00",
+          "decision_timestamp": "2026-09-02T22:31:44.947507+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "book.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            23.677101,
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
           "pass": true
         },
         {
           "capability_id": 55,
-          "decision_timestamp": "2026-09-02T21:55:55.457588+00:00",
+          "decision_timestamp": "2026-09-02T22:31:45.573205+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.9e-05
+          ],
+          "time_delta_seconds": 2.9e-05,
           "pass": true
         },
         {
           "capability_id": 56,
-          "decision_timestamp": "2026-09-02T21:55:55.488774+00:00",
+          "decision_timestamp": "2026-09-02T22:31:45.609933+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "screener.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000133,
+            2.2e-05
+          ],
+          "time_delta_seconds": 2.2e-05,
           "pass": true
         },
         {
           "capability_id": 59,
-          "decision_timestamp": "2026-09-02T21:55:55.808176+00:00",
+          "decision_timestamp": "2026-09-02T22:31:45.916456+00:00",
+          "timestamp_fields_found": 6,
+          "timestamp_sample_paths": [
+            "personalized_dashboard.economic_moat.timestamp",
+            "personalized_dashboard.financial_models[0].timestamp",
+            "personalized_dashboard.financial_models[1].timestamp",
+            "personalized_dashboard.financial_models[2].timestamp",
+            "report_meta.generated_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.247398,
+            0.164949,
+            0.139845,
+            0.11339,
+            0.11338,
+            0.113319
+          ],
+          "time_delta_seconds": 0.113319,
           "pass": true
         },
         {
           "capability_id": 66,
-          "decision_timestamp": "2026-09-02T21:55:56.072801+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.198463+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.3e-05
+          ],
+          "time_delta_seconds": 2.3e-05,
           "pass": true
         },
         {
           "capability_id": 69,
-          "decision_timestamp": "2026-09-02T21:55:56.074376+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.200296+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "cross_domain_decision.cross_market.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000122,
+            2.1e-05
+          ],
+          "time_delta_seconds": 2.1e-05,
           "pass": true
         },
         {
           "capability_id": 86,
-          "decision_timestamp": "2026-09-02T21:56:00.947346+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.157059+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "funding_rate.derivatives_overview.timestamp",
+            "funding_rate.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            7.9e-05,
+            0.115255,
+            2.8e-05
+          ],
+          "time_delta_seconds": 2.8e-05,
           "pass": true
         },
         {
           "capability_id": 89,
-          "decision_timestamp": "2026-09-02T21:56:01.386291+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.599101+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "taker_pressure.derivatives.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.11676,
+            2.4e-05
+          ],
+          "time_delta_seconds": 2.4e-05,
           "pass": true
         },
         {
           "capability_id": 90,
-          "decision_timestamp": "2026-09-02T21:56:01.575331+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.814457+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "derivatives_sentiment.derivatives.timestamp",
+            "derivatives_sentiment.derivatives.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            9.5e-05,
+            0.140929,
+            3.4e-05
+          ],
+          "time_delta_seconds": 3.4e-05,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Single-Sentence Oracle",
+        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -451,79 +684,35 @@
           {
             "scenario": "bullish_clear",
             "excluded_cap": 24,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 25,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 26,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "bearish_clear",
             "excluded_cap": 24,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 25,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 26,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "conflicting",
             "excluded_cap": 24,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 25,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 26,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "missing_data",
             "excluded_cap": 24,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 25,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 26,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "stale_data",
             "excluded_cap": 24,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 25,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 26,
+            "exclusions_count": 1,
             "decision_flipped": false
           }
         ],
+        "loo_test_count": 5,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -538,20 +727,20 @@
           "enabled": true,
           "data_source": "live_fallback",
           "asset": "BTC",
-          "timestamp": "2026-09-02T21:58:09.822370+00:00",
+          "timestamp": "2026-09-02T22:36:11.160609+00:00",
           "geo_news": {
             "headlines": [
-              {
-                "title": "Iran says US strike killed four at wedding in 'war crime' as US denies targeting civilians",
-                "source": "feeds.bbci.co.uk",
-                "published_at": "Wed, 02 Sep 2026 15:33:19 GMT",
-                "geopolitical": true
-              },
               {
                 "title": "Iranian attack on Saudi tanker killed two Filipino sailors, Saudi Arabia says",
                 "source": "feeds.bbci.co.uk",
                 "published_at": "Wed, 02 Sep 2026 17:33:45 GMT",
                 "geopolitical": false
+              },
+              {
+                "title": "Protests in Spain over government's handling of Ceuta migrant crisis",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 21:34:27 GMT",
+                "geopolitical": true
               },
               {
                 "title": "EU and Nato vow to step up pressure on Russia after 'new escalation' in Germany",
@@ -584,6 +773,12 @@
                 "geopolitical": true
               },
               {
+                "title": "Iran says US strike killed four at wedding in 'war crime' as US denies targeting civilians",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 15:33:19 GMT",
+                "geopolitical": true
+              },
+              {
                 "title": "US sailors arrive in Thailand's Pattaya after record 250 days at sea",
                 "source": "feeds.bbci.co.uk",
                 "published_at": "Wed, 02 Sep 2026 10:04:28 GMT",
@@ -606,12 +801,6 @@
                 "source": "feeds.bbci.co.uk",
                 "published_at": "Wed, 02 Sep 2026 16:12:43 GMT",
                 "geopolitical": false
-              },
-              {
-                "title": "More than 900 killed in Gaza this year despite ceasefire, Hamas-run health ministry says",
-                "source": "feeds.bbci.co.uk",
-                "published_at": "Wed, 02 Sep 2026 11:51:46 GMT",
-                "geopolitical": true
               },
               {
                 "title": "Faisal Islam: Why bond market wildfire is keeping world leaders up at night",
@@ -673,9 +862,9 @@
               "PONS",
               "AKE",
               "ARB",
-              "CASHCAT",
               "UNI",
-              "PUMP",
+              "CASHCAT",
+              "USELESS",
               "PENGU"
             ],
             "reddit_hot_titles": [],
@@ -683,7 +872,7 @@
           },
           "derivatives": {
             "asset": "BTC",
-            "defi_tvl_usd": 85273556416.93,
+            "defi_tvl_usd": 85257942733.91,
             "defi_chain_count": 465,
             "funding_rate": null,
             "open_interest_usd": null,
@@ -711,10 +900,10 @@
           },
           "aggregators": {
             "coingecko_global": {
-              "total_market_cap_usd": 2622093685229.306,
-              "total_volume_usd": 74062082168.93535,
-              "btc_dominance_pct": 59.07026305036182,
-              "market_cap_change_24h_pct": -2.5792372966891377
+              "total_market_cap_usd": 2611931407579.222,
+              "total_volume_usd": 73643136253.60641,
+              "btc_dominance_pct": 59.06891136365458,
+              "market_cap_change_24h_pct": -2.7430904796286595
             },
             "coincap_top10": [],
             "sources": [
@@ -740,7 +929,7 @@
           "hub_reasons": [],
           "hub_risks": [
             "6 geopolitical/macro headlines — war/peace/policy shock risk.",
-            "Total crypto market cap -2.6% 24h — broad risk-off."
+            "Total crypto market cap -2.7% 24h — broad risk-off."
           ]
         },
         "live": true
@@ -805,42 +994,132 @@
       "7_lookahead_bias": [
         {
           "capability_id": 61,
-          "decision_timestamp": "2026-09-02T21:55:55.884045+00:00",
+          "decision_timestamp": "2026-09-02T22:31:45.994739+00:00",
+          "timestamp_fields_found": 11,
+          "timestamp_sample_paths": [
+            "immutable_metrics.immutable_metrics.recent[0].timestamp",
+            "immutable_metrics.immutable_metrics.recent[1].timestamp",
+            "immutable_metrics.immutable_metrics.recent[2].timestamp",
+            "immutable_metrics.immutable_metrics.recent[3].timestamp",
+            "immutable_metrics.immutable_metrics.recent[4].timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            117497.622392,
+            117497.583664,
+            117497.541743,
+            117497.50262,
+            117497.463525,
+            117497.424084,
+            117497.385685,
+            117497.346213,
+            117497.307118,
+            117497.3067,
+            3.5e-05
+          ],
+          "time_delta_seconds": 3.5e-05,
           "pass": true
         },
         {
           "capability_id": 63,
-          "decision_timestamp": "2026-09-02T21:55:55.884172+00:00",
+          "decision_timestamp": "2026-09-02T22:31:45.995174+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "data_quality_provenance.provenance.generated_at",
+            "evidence_metadata.attached_at",
+            "provenance.generated_at",
+            "data_provenance.generated_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            7.7e-05,
+            3.5e-05,
+            1.3e-05,
+            1.3e-05
+          ],
+          "time_delta_seconds": 1.3e-05,
           "pass": true
         },
         {
           "capability_id": 64,
-          "decision_timestamp": "2026-09-02T21:55:55.885880+00:00",
+          "decision_timestamp": "2026-09-02T22:31:45.997613+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "metric_methodology.methodology_registry.generated_at",
+            "evidence_metadata.attached_at",
+            "provenance.generated_at",
+            "data_provenance.generated_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000133,
+            8.3e-05,
+            2.4e-05,
+            2.4e-05
+          ],
+          "time_delta_seconds": 2.4e-05,
           "pass": true
         },
         {
           "capability_id": 65,
-          "decision_timestamp": "2026-09-02T21:55:56.071916+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.197166+00:00",
+          "timestamp_fields_found": 11,
+          "timestamp_sample_paths": [
+            "research_portal.research_portal.recent[0].timestamp",
+            "research_portal.research_portal.recent[1].timestamp",
+            "research_portal.research_portal.recent[2].timestamp",
+            "research_portal.research_portal.recent[3].timestamp",
+            "research_portal.research_portal.recent[4].timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            117497.824819,
+            117497.786091,
+            117497.74417,
+            117497.705047,
+            117497.665952,
+            117497.626511,
+            117497.588112,
+            117497.54864,
+            117497.509545,
+            117497.509127,
+            0.123142
+          ],
+          "time_delta_seconds": 0.123142,
           "pass": true
         },
         {
           "capability_id": 100,
-          "decision_timestamp": "2026-09-02T21:56:01.894529+00:00",
+          "decision_timestamp": "2026-09-02T22:31:52.390852+00:00",
+          "timestamp_fields_found": 11,
+          "timestamp_sample_paths": [
+            "research_reports.research_reports.recent[0].timestamp",
+            "research_reports.research_reports.recent[1].timestamp",
+            "research_reports.research_reports.recent[2].timestamp",
+            "research_reports.research_reports.recent[3].timestamp",
+            "research_reports.research_reports.recent[4].timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            117504.018505,
+            117503.979777,
+            117503.937856,
+            117503.898733,
+            117503.859638,
+            117503.820197,
+            117503.781798,
+            117503.742326,
+            117503.703231,
+            117503.702813,
+            0.209645
+          ],
+          "time_delta_seconds": 0.209645,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Public Accuracy Ledger",
+        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -852,79 +1131,35 @@
           {
             "scenario": "bullish_clear",
             "excluded_cap": 61,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 63,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 64,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "bearish_clear",
             "excluded_cap": 61,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 63,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 64,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "conflicting",
             "excluded_cap": 61,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 63,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 64,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "missing_data",
             "excluded_cap": 61,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 63,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 64,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "stale_data",
             "excluded_cap": 61,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 63,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 64,
+            "exclusions_count": 1,
             "decision_flipped": false
           }
         ],
+        "loo_test_count": 5,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -937,7 +1172,7 @@
         "user_facing_path": "/oracle-accuracy",
         "response_body": {
           "valid": true,
-          "records": 24,
+          "records": 48,
           "broken_at_seq": null,
           "chain_path": "data/oracle_audit_chain.jsonl"
         },
@@ -1078,112 +1313,280 @@
       "7_lookahead_bias": [
         {
           "capability_id": 11,
-          "decision_timestamp": "2026-09-02T21:55:44.446631+00:00",
+          "decision_timestamp": "2026-09-02T22:31:35.994521+00:00",
+          "timestamp_fields_found": 21,
+          "timestamp_sample_paths": [
+            "historical_series[0].timestamp",
+            "historical_series[1].timestamp",
+            "historical_series[2].timestamp",
+            "historical_series[3].timestamp",
+            "historical_series[4].timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            86381.539555,
+            86369.338585,
+            86368.592247,
+            86366.836725,
+            86330.751706,
+            86329.858743,
+            86328.168522,
+            85779.412887,
+            85778.081558,
+            85776.36058,
+            85476.992767,
+            85475.630961,
+            85473.583958,
+            84925.269101,
+            84923.634264,
+            84921.451185,
+            83122.573097,
+            83121.248031,
+            83119.098904,
+            83108.867776,
+            3.1e-05
+          ],
+          "time_delta_seconds": 3.1e-05,
           "pass": true
         },
         {
           "capability_id": 40,
-          "decision_timestamp": "2026-09-02T21:55:50.121893+00:00",
+          "decision_timestamp": "2026-09-02T22:31:41.354184+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "macro.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000184,
+            0.00012
+          ],
+          "time_delta_seconds": 0.00012,
           "pass": true
         },
         {
           "capability_id": 47,
-          "decision_timestamp": "2026-09-02T21:55:54.647622+00:00",
+          "decision_timestamp": "2026-09-02T22:31:44.690317+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "probe.timestamp",
+            "data_provenance.generated_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000198,
+            0.000101,
+            4.2e-05
+          ],
+          "time_delta_seconds": 4.2e-05,
           "pass": true
         },
         {
           "capability_id": 48,
-          "decision_timestamp": "2026-09-02T21:55:54.841844+00:00",
+          "decision_timestamp": "2026-09-02T22:31:44.947213+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "overview.timestamp",
+            "overview.free_tier.timestamp",
+            "data_provenance.generated_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000164,
+            0.181695,
+            8.7e-05,
+            3.3e-05
+          ],
+          "time_delta_seconds": 3.3e-05,
           "pass": true
         },
         {
           "capability_id": 50,
-          "decision_timestamp": "2026-09-02T21:55:54.841931+00:00",
+          "decision_timestamp": "2026-09-02T22:31:44.947507+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "book.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            23.677101,
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
           "pass": true
         },
         {
           "capability_id": 52,
-          "decision_timestamp": "2026-09-02T21:55:54.842470+00:00",
+          "decision_timestamp": "2026-09-02T22:31:44.948703+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "cross_asset_breadth.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000102,
+            2.1e-05
+          ],
+          "time_delta_seconds": 2.1e-05,
           "pass": true
         },
         {
           "capability_id": 57,
-          "decision_timestamp": "2026-09-02T21:55:55.489513+00:00",
+          "decision_timestamp": "2026-09-02T22:31:45.610946+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "profitability_map.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            8.9e-05,
+            1.9e-05
+          ],
+          "time_delta_seconds": 1.9e-05,
           "pass": true
         },
         {
           "capability_id": 69,
-          "decision_timestamp": "2026-09-02T21:55:56.074376+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.200296+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "cross_domain_decision.cross_market.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000122,
+            2.1e-05
+          ],
+          "time_delta_seconds": 2.1e-05,
           "pass": true
         },
         {
           "capability_id": 82,
-          "decision_timestamp": "2026-09-02T21:55:58.054975+00:00",
+          "decision_timestamp": "2026-09-02T22:31:48.194073+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "coinbase_premium.all_sources.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000116,
+            3.6e-05
+          ],
+          "time_delta_seconds": 3.6e-05,
           "pass": true
         },
         {
           "capability_id": 83,
-          "decision_timestamp": "2026-09-02T21:55:59.981726+00:00",
+          "decision_timestamp": "2026-09-02T22:31:50.194931+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "korea_premium.all_sources.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000128,
+            3.7e-05
+          ],
+          "time_delta_seconds": 3.7e-05,
           "pass": true
         },
         {
           "capability_id": 85,
-          "decision_timestamp": "2026-09-02T21:56:00.760787+00:00",
+          "decision_timestamp": "2026-09-02T22:31:50.976238+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "futures_open_interest.derivatives_overview.timestamp",
+            "futures_open_interest.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000118,
+            0.114425,
+            5.7e-05
+          ],
+          "time_delta_seconds": 5.7e-05,
           "pass": true
         },
         {
           "capability_id": 86,
-          "decision_timestamp": "2026-09-02T21:56:00.947346+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.157059+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "funding_rate.derivatives_overview.timestamp",
+            "funding_rate.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            7.9e-05,
+            0.115255,
+            2.8e-05
+          ],
+          "time_delta_seconds": 2.8e-05,
           "pass": true
         },
         {
           "capability_id": 87,
-          "decision_timestamp": "2026-09-02T21:56:00.947986+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.157935+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "estimated_leverage.verified_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            4.9e-05,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 88,
-          "decision_timestamp": "2026-09-02T21:56:01.206665+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.410948+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "liquidation.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            6.6e-05,
+            2.3e-05
+          ],
+          "time_delta_seconds": 2.3e-05,
           "pass": true
         },
         {
           "capability_id": 89,
-          "decision_timestamp": "2026-09-02T21:56:01.386291+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.599101+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "taker_pressure.derivatives.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.11676,
+            2.4e-05
+          ],
+          "time_delta_seconds": 2.4e-05,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Arbitrage Scanner",
+        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -1195,79 +1598,35 @@
           {
             "scenario": "bullish_clear",
             "excluded_cap": 11,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 47,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "bearish_clear",
             "excluded_cap": 11,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 47,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "conflicting",
             "excluded_cap": 11,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 47,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "missing_data",
             "excluded_cap": 11,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 47,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "stale_data",
             "excluded_cap": 11,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 47,
+            "exclusions_count": 1,
             "decision_flipped": false
           }
         ],
+        "loo_test_count": 5,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -1280,12 +1639,12 @@
         "user_facing_path": "/dashboard#arbitrage",
         "response_body": {
           "enabled": true,
-          "evaluated": 43,
+          "evaluated": 28,
           "passed": 0,
-          "rejected": 43,
+          "rejected": 28,
           "reject_rate": 1.0,
           "reject_reasons": {
-            "missing_net_profit": 43
+            "missing_net_profit": 28
           },
           "thresholds": {
             "min_truth_score": 55.0,
@@ -1461,140 +1820,317 @@
       "7_lookahead_bias": [
         {
           "capability_id": 1,
-          "decision_timestamp": "2026-09-02T21:55:41.452138+00:00",
+          "decision_timestamp": "2026-09-02T22:31:33.300874+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.006557,
+            4.2e-05
+          ],
+          "time_delta_seconds": 4.2e-05,
           "pass": true
         },
         {
           "capability_id": 2,
-          "decision_timestamp": "2026-09-02T21:55:42.488120+00:00",
+          "decision_timestamp": "2026-09-02T22:31:34.158374+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "data.labels.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.004365,
+            0.129692,
+            4.1e-05
+          ],
+          "time_delta_seconds": 4.1e-05,
           "pass": true
         },
         {
           "capability_id": 3,
-          "decision_timestamp": "2026-09-02T21:55:43.750700+00:00",
+          "decision_timestamp": "2026-09-02T22:31:35.115917+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "data.labels.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.057709,
+            0.218976,
+            3.9e-05
+          ],
+          "time_delta_seconds": 3.9e-05,
           "pass": true
         },
         {
           "capability_id": 4,
-          "decision_timestamp": "2026-09-02T21:55:43.752950+00:00",
+          "decision_timestamp": "2026-09-02T22:31:35.120072+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            6.1e-05,
+            2.7e-05
+          ],
+          "time_delta_seconds": 2.7e-05,
           "pass": true
         },
         {
           "capability_id": 5,
-          "decision_timestamp": "2026-09-02T21:55:43.757794+00:00",
+          "decision_timestamp": "2026-09-02T22:31:35.125379+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            7.1e-05,
+            2.7e-05
+          ],
+          "time_delta_seconds": 2.7e-05,
           "pass": true
         },
         {
           "capability_id": 6,
-          "decision_timestamp": "2026-09-02T21:55:43.886579+00:00",
+          "decision_timestamp": "2026-09-02T22:31:35.459768+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            4.7e-05
+          ],
+          "time_delta_seconds": 4.7e-05,
           "pass": true
         },
         {
           "capability_id": 7,
-          "decision_timestamp": "2026-09-02T21:55:44.013008+00:00",
+          "decision_timestamp": "2026-09-02T22:31:35.560019+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            3e-05
+          ],
+          "time_delta_seconds": 3e-05,
           "pass": true
         },
         {
           "capability_id": 8,
-          "decision_timestamp": "2026-09-02T21:55:44.112150+00:00",
+          "decision_timestamp": "2026-09-02T22:31:35.670440+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.9e-05
+          ],
+          "time_delta_seconds": 2.9e-05,
           "pass": true
         },
         {
           "capability_id": 14,
-          "decision_timestamp": "2026-09-02T21:55:44.775754+00:00",
+          "decision_timestamp": "2026-09-02T22:31:36.323939+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "labels.timestamp",
+            "clusters.timestamp",
+            "arkham_entity.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.134053,
+            0.00035,
+            27.57445,
+            3e-05
+          ],
+          "time_delta_seconds": 3e-05,
           "pass": true
         },
         {
           "capability_id": 15,
-          "decision_timestamp": "2026-09-02T21:55:44.776391+00:00",
+          "decision_timestamp": "2026-09-02T22:31:36.324850+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "exchange_flow.verified_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            4.8e-05,
+            1.9e-05
+          ],
+          "time_delta_seconds": 1.9e-05,
           "pass": true
         },
         {
           "capability_id": 72,
-          "decision_timestamp": "2026-09-02T21:55:56.075269+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.201481+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
           "pass": true
         },
         {
           "capability_id": 75,
-          "decision_timestamp": "2026-09-02T21:55:56.075366+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.201703+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            1.1e-05
+          ],
+          "time_delta_seconds": 1.1e-05,
           "pass": true
         },
         {
           "capability_id": 81,
-          "decision_timestamp": "2026-09-02T21:55:56.077002+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.203830+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            1.7e-05
+          ],
+          "time_delta_seconds": 1.7e-05,
           "pass": true
         },
         {
           "capability_id": 85,
-          "decision_timestamp": "2026-09-02T21:56:00.760787+00:00",
+          "decision_timestamp": "2026-09-02T22:31:50.976238+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "futures_open_interest.derivatives_overview.timestamp",
+            "futures_open_interest.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000118,
+            0.114425,
+            5.7e-05
+          ],
+          "time_delta_seconds": 5.7e-05,
           "pass": true
         },
         {
           "capability_id": 86,
-          "decision_timestamp": "2026-09-02T21:56:00.947346+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.157059+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "funding_rate.derivatives_overview.timestamp",
+            "funding_rate.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            7.9e-05,
+            0.115255,
+            2.8e-05
+          ],
+          "time_delta_seconds": 2.8e-05,
           "pass": true
         },
         {
           "capability_id": 88,
-          "decision_timestamp": "2026-09-02T21:56:01.206665+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.410948+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "liquidation.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            6.6e-05,
+            2.3e-05
+          ],
+          "time_delta_seconds": 2.3e-05,
           "pass": true
         },
         {
           "capability_id": 91,
-          "decision_timestamp": "2026-09-02T21:56:01.575636+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.815215+00:00",
+          "timestamp_fields_found": 6,
+          "timestamp_sample_paths": [
+            "inter_entity_flow.inter_entity_flow.onchain_flows[0].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[1].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[2].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[3].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[4].timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000473,
+            0.000434,
+            0.000422,
+            0.000411,
+            0.000401,
+            2.7e-05
+          ],
+          "time_delta_seconds": 2.7e-05,
           "pass": true
         },
         {
           "capability_id": 92,
-          "decision_timestamp": "2026-09-02T21:56:01.576172+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.816419+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.8e-05
+          ],
+          "time_delta_seconds": 2.8e-05,
           "pass": true
         },
         {
           "capability_id": 98,
-          "decision_timestamp": "2026-09-02T21:56:01.577574+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.819647+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at",
+            "inbox.timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            7.9e-05,
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Whale Signal vs Noise",
+        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -1606,79 +2142,35 @@
           {
             "scenario": "bullish_clear",
             "excluded_cap": 1,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 2,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 3,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "bearish_clear",
             "excluded_cap": 1,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 2,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 3,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "conflicting",
             "excluded_cap": 1,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 2,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 3,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "missing_data",
             "excluded_cap": 1,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 2,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 3,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "stale_data",
             "excluded_cap": 1,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 2,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 3,
+            "exclusions_count": 1,
             "decision_flipped": false
           }
         ],
+        "loo_test_count": 5,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -1690,7 +2182,7 @@
         "path_type": "production_real",
         "user_facing_path": "/dashboard#whales",
         "response_body": {
-          "timestamp": "2026-09-02T21:58:10.350212+00:00",
+          "timestamp": "2026-09-02T22:36:11.803562+00:00",
           "headline": "No major whale narratives in the current window — market in equilibrium.",
           "one_sentence": "No major whale narratives in the current window — market in equilibrium.",
           "stories": [
@@ -1776,49 +2268,108 @@
       "7_lookahead_bias": [
         {
           "capability_id": 40,
-          "decision_timestamp": "2026-09-02T21:55:50.121893+00:00",
+          "decision_timestamp": "2026-09-02T22:31:41.354184+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "macro.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000184,
+            0.00012
+          ],
+          "time_delta_seconds": 0.00012,
           "pass": true
         },
         {
           "capability_id": 50,
-          "decision_timestamp": "2026-09-02T21:55:54.841931+00:00",
+          "decision_timestamp": "2026-09-02T22:31:44.947507+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "book.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            23.677101,
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
           "pass": true
         },
         {
           "capability_id": 85,
-          "decision_timestamp": "2026-09-02T21:56:00.760787+00:00",
+          "decision_timestamp": "2026-09-02T22:31:50.976238+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "futures_open_interest.derivatives_overview.timestamp",
+            "futures_open_interest.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000118,
+            0.114425,
+            5.7e-05
+          ],
+          "time_delta_seconds": 5.7e-05,
           "pass": true
         },
         {
           "capability_id": 86,
-          "decision_timestamp": "2026-09-02T21:56:00.947346+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.157059+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "funding_rate.derivatives_overview.timestamp",
+            "funding_rate.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            7.9e-05,
+            0.115255,
+            2.8e-05
+          ],
+          "time_delta_seconds": 2.8e-05,
           "pass": true
         },
         {
           "capability_id": 87,
-          "decision_timestamp": "2026-09-02T21:56:00.947986+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.157935+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "estimated_leverage.verified_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            4.9e-05,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
           "pass": true
         },
         {
           "capability_id": 88,
-          "decision_timestamp": "2026-09-02T21:56:01.206665+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.410948+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "liquidation.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            6.6e-05,
+            2.3e-05
+          ],
+          "time_delta_seconds": 2.3e-05,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "Stealth Advisor",
+        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -1830,79 +2381,35 @@
           {
             "scenario": "bullish_clear",
             "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 50,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 85,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "bearish_clear",
             "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 50,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 85,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "conflicting",
             "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 50,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 85,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "missing_data",
             "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 50,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 85,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "stale_data",
             "excluded_cap": 40,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 50,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 85,
+            "exclusions_count": 1,
             "decision_flipped": false
           }
         ],
+        "loo_test_count": 5,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -2068,91 +2575,220 @@
       "7_lookahead_bias": [
         {
           "capability_id": 67,
-          "decision_timestamp": "2026-09-02T21:55:56.072937+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.198715+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
           "pass": true
         },
         {
           "capability_id": 68,
-          "decision_timestamp": "2026-09-02T21:55:56.073108+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.198992+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "bulk_delivery.generated_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.9e-05,
+            1.2e-05
+          ],
+          "time_delta_seconds": 1.2e-05,
           "pass": true
         },
         {
           "capability_id": 71,
-          "decision_timestamp": "2026-09-02T21:55:56.074833+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.200967+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "exchange_netflow.netflow.verified_at",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            4.5e-05,
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
           "pass": true
         },
         {
           "capability_id": 74,
-          "decision_timestamp": "2026-09-02T21:55:56.075320+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.201591+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "exchange_to_exchange_flow.exchange_to_exchange_flow.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.8e-05,
+            1.2e-05
+          ],
+          "time_delta_seconds": 1.2e-05,
           "pass": true
         },
         {
           "capability_id": 77,
-          "decision_timestamp": "2026-09-02T21:55:56.075628+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.202036+00:00",
+          "timestamp_fields_found": 6,
+          "timestamp_sample_paths": [
+            "stablecoin_flow.stablecoin_flow.onchain_flows[0].timestamp",
+            "stablecoin_flow.stablecoin_flow.onchain_flows[1].timestamp",
+            "stablecoin_flow.stablecoin_flow.onchain_flows[2].timestamp",
+            "stablecoin_flow.stablecoin_flow.onchain_flows[3].timestamp",
+            "stablecoin_flow.stablecoin_flow.onchain_flows[4].timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.00027,
+            0.000247,
+            0.00024,
+            0.000234,
+            0.000228,
+            1.3e-05
+          ],
+          "time_delta_seconds": 1.3e-05,
           "pass": true
         },
         {
           "capability_id": 81,
-          "decision_timestamp": "2026-09-02T21:55:56.077002+00:00",
+          "decision_timestamp": "2026-09-02T22:31:46.203830+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            1.7e-05
+          ],
+          "time_delta_seconds": 1.7e-05,
           "pass": true
         },
         {
           "capability_id": 84,
-          "decision_timestamp": "2026-09-02T21:56:00.587209+00:00",
+          "decision_timestamp": "2026-09-02T22:31:50.788221+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "fund_etf_data.fund_intelligence.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000108,
+            3.5e-05
+          ],
+          "time_delta_seconds": 3.5e-05,
           "pass": true
         },
         {
           "capability_id": 91,
-          "decision_timestamp": "2026-09-02T21:56:01.575636+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.815215+00:00",
+          "timestamp_fields_found": 6,
+          "timestamp_sample_paths": [
+            "inter_entity_flow.inter_entity_flow.onchain_flows[0].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[1].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[2].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[3].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[4].timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000473,
+            0.000434,
+            0.000422,
+            0.000411,
+            0.000401,
+            2.7e-05
+          ],
+          "time_delta_seconds": 2.7e-05,
           "pass": true
         },
         {
           "capability_id": 92,
-          "decision_timestamp": "2026-09-02T21:56:01.576172+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.816419+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            2.8e-05
+          ],
+          "time_delta_seconds": 2.8e-05,
           "pass": true
         },
         {
           "capability_id": 98,
-          "decision_timestamp": "2026-09-02T21:56:01.577574+00:00",
+          "decision_timestamp": "2026-09-02T22:31:51.819647+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at",
+            "inbox.timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            7.9e-05,
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
           "pass": true
         },
         {
           "capability_id": 99,
-          "decision_timestamp": "2026-09-02T21:56:01.721830+00:00",
+          "decision_timestamp": "2026-09-02T22:31:52.009897+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "quicktake_feed.feed.timestamp",
+            "evidence_metadata.attached_at"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            0.000532,
+            2.1e-05
+          ],
+          "time_delta_seconds": 2.1e-05,
           "pass": true
         },
         {
           "capability_id": 100,
-          "decision_timestamp": "2026-09-02T21:56:01.894529+00:00",
+          "decision_timestamp": "2026-09-02T22:31:52.390852+00:00",
+          "timestamp_fields_found": 11,
+          "timestamp_sample_paths": [
+            "research_reports.research_reports.recent[0].timestamp",
+            "research_reports.research_reports.recent[1].timestamp",
+            "research_reports.research_reports.recent[2].timestamp",
+            "research_reports.research_reports.recent[3].timestamp",
+            "research_reports.research_reports.recent[4].timestamp"
+          ],
           "lookahead_violations": [],
-          "time_delta_seconds": null,
+          "time_deltas_seconds": [
+            117504.018505,
+            117503.979777,
+            117503.937856,
+            117503.898733,
+            117503.859638,
+            117503.820197,
+            117503.781798,
+            117503.742326,
+            117503.703231,
+            117503.702813,
+            0.209645
+          ],
+          "time_delta_seconds": 0.209645,
           "pass": true
         }
       ],
       "8_stability_test": {
         "hero": "B2B Feed",
+        "methodology": "true_leave_one_out — exactly 1 capability excluded per scenario",
         "scenarios_tested": [
           "bullish_clear",
           "bearish_clear",
@@ -2164,79 +2800,35 @@
           {
             "scenario": "bullish_clear",
             "excluded_cap": 67,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 68,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bullish_clear",
-            "excluded_cap": 71,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "bearish_clear",
             "excluded_cap": 67,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 68,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "bearish_clear",
-            "excluded_cap": 71,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "conflicting",
             "excluded_cap": 67,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 68,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "conflicting",
-            "excluded_cap": 71,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "missing_data",
             "excluded_cap": 67,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 68,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "missing_data",
-            "excluded_cap": 71,
+            "exclusions_count": 1,
             "decision_flipped": false
           },
           {
             "scenario": "stale_data",
             "excluded_cap": 67,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 68,
-            "decision_flipped": false
-          },
-          {
-            "scenario": "stale_data",
-            "excluded_cap": 71,
+            "exclusions_count": 1,
             "decision_flipped": false
           }
         ],
+        "loo_test_count": 5,
         "fragile": false,
         "stability_verdict": "STABLE"
       },
@@ -2250,14 +2842,14 @@
         "response_body": {
           "product": "BLACKDARK Institutional Manipulation Feed",
           "feed_version": "1.0.0",
-          "generated_at": "2026-09-02T21:58:10.725004+00:00",
+          "generated_at": "2026-09-02T22:36:12.138304+00:00",
           "record_count": 0,
           "methodology": {
             "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
             "sii": "Sector Inflow Index (capital acceleration)"
           },
           "records": [],
-          "signature": "3eaa6eba8bc25e2b70c238fee3209b30a7e2f2c8af97611e2587c43709170108"
+          "signature": "4f4c38699533a26565bb2d8cf508996583844909a37c1084698752f54c002b53"
         },
         "live": true
       },

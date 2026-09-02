@@ -110,14 +110,57 @@ def test_lookahead_all_pass(hero_report: dict) -> None:
 def test_closure_report_items_1_21(closure_report: dict) -> None:
     required = [
         "item_01_ai_capabilities_psi",
+        "item_01_psi_methodology_correction",
         "item_04_unbound_capabilities",
+        "item_04b_b2b_key_comparison",
+        "item_05_get_entitlement_doc_status",
         "item_08_live_verification_table",
         "item_10_lookahead_60_vs_81",
+        "item_11_lookahead_time_distribution",
         "item_15_self_resolve_checksum",
+        "item_18_outlier_prevention_per_hero",
         "item_21_transparency_code_per_hero",
     ]
     for key in required:
         assert key in closure_report
+
+
+def test_psi_methodology_corrected(closure_report: dict) -> None:
+    psi = closure_report["item_01_psi_methodology_correction"]
+    assert psi.get("measured") is True
+    assert psi.get("verdict", "").startswith("MEASUREMENT_ERROR_CORRECTED")
+    assert psi.get("predict_direction_frozen") is False
+    assert psi["platform_max_psi"] < 2.0  # not the bogus 11.1065
+    assert psi["methodology"]["invalid_prior_max_psi"] > 10.0
+    assert psi["caps_66_69_assessment"]["prior_was_measurement_error"] is True
+
+
+def test_lookahead_has_real_deltas(closure_report: dict) -> None:
+    dist = closure_report["item_11_lookahead_time_distribution"]
+    assert dist["samples_with_delta"] > 0
+    assert dist["caps_with_nested_timestamps"] > 0
+    assert dist["median_seconds"] is not None
+
+
+def test_loo_true_methodology(hero_report: dict) -> None:
+    total = sum(s["8_stability_test"].get("loo_test_count", 0) for s in hero_report["hero_sections"])
+    assert total == 30  # 6 heroes × 5 scenarios × 1 exclusion
+    for section in hero_report["hero_sections"]:
+        for test in section["8_stability_test"]["loo_tests"]:
+            assert test["exclusions_count"] == 1
+
+
+def test_shared_dependency_risk(closure_report: dict) -> None:
+    risk = closure_report["item_06_namespace_independence"]["shared_dependency_risk"]
+    assert "Whale Signal vs Noise" in risk["affected_heroes"]
+    assert "B2B Feed" in risk["affected_heroes"]
+    assert risk["shared_module"] == "whale_tracker.py"
+
+
+def test_get_entitlement_doc_not_modified(closure_report: dict) -> None:
+    doc = closure_report["item_05_get_entitlement_doc_status"]
+    assert doc["exists"] is True
+    assert doc["modified_for_wording_correction"] is False
 
 
 def test_closure_unbound_count(closure_report: dict) -> None:

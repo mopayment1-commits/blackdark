@@ -1,148 +1,160 @@
 {
-  "generated_at": "2026-09-02T21:55:41.294615+00:00",
+  "generated_at": "2026-09-02T22:31:33.125270+00:00",
   "scope": "capabilities 1-100",
   "row_count": 100,
-  "checksum_sha256": "a937134569bba310cb265b5290f86215aca5028183eaa37799c6cbae0c5946da",
+  "checksum_sha256": "0de6a70e890959c4e209e37c8c0c42ef2d9d9734e573b93df73144db0b8c4eff",
   "ai_psi_table": [
     {
       "capability_id": 24,
       "capability_name": "AI Research Agent Grounded in Platform Data",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 25,
       "capability_name": "Signal → Explanation Workflow",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 26,
       "capability_name": "Price-Move Explanation",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 27,
       "capability_name": "Smart Money Historical Trend Analysis",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 28,
       "capability_name": "Smart Money Conviction Engine",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 29,
       "capability_name": "Cross-Market Decision Intelligence Engine",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 30,
       "capability_name": "Evidence & Confidence Layer",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 31,
       "capability_name": "Cross-Signal Confirmation",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 32,
       "capability_name": "Contradiction Detection",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 33,
       "capability_name": "Smart Money Actionability Score",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 34,
       "capability_name": "Beginner Decision Mode",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 35,
       "capability_name": "Market Compass / Market Regime Engine",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 66,
       "capability_name": "Market Regime Written Read",
-      "psi_measured": 11.1065,
-      "psi_status": "platform_shared_model PSI max=11.1065 (threshold 0.25)",
+      "psi_measured": 0.9104,
+      "psi_status": "platform_shared_model PSI max=0.9104 (threshold 0.25, methodology=chronological 80/20 split, reference-defined quantile bins (OECD practice))",
       "feature_psi_breakdown": {
-        "price": 5.1785,
-        "ret_1h": 2.8445,
-        "ret_4h": 3.9446,
-        "ret_24h": 4.7962,
-        "volatility": 7.3709,
-        "sentiment_score": 4.8141,
-        "sentiment_momentum": 3.2255,
-        "obi_score": 11.1065,
-        "obi_imbalance": 11.1065,
-        "macro_weight": 6.3123,
-        "funding_spread_bps": 2.8445,
-        "whale_sii": 6.0061,
-        "onchain_netflow": 4.8074
-      }
+        "ret_1h": 0.8373,
+        "ret_4h": 0.8468,
+        "ret_24h": 0.8493,
+        "volatility": 0.9015,
+        "sentiment_score": 0.8493,
+        "sentiment_momentum": 0.8373,
+        "obi_score": 0.8468,
+        "obi_imbalance": 0.8468,
+        "funding_spread_bps": 0.8373,
+        "whale_sii": 0.8468,
+        "onchain_netflow": 0.9104
+      },
+      "ml_inference_frozen": false
     },
     {
       "capability_id": 69,
       "capability_name": "Cross-Domain Decision Intelligence Layer",
-      "psi_measured": 11.1065,
-      "psi_status": "platform_shared_model PSI max=11.1065 (threshold 0.25)",
+      "psi_measured": 0.9104,
+      "psi_status": "platform_shared_model PSI max=0.9104 (threshold 0.25, methodology=chronological 80/20 split, reference-defined quantile bins (OECD practice))",
       "feature_psi_breakdown": {
-        "price": 5.1785,
-        "ret_1h": 2.8445,
-        "ret_4h": 3.9446,
-        "ret_24h": 4.7962,
-        "volatility": 7.3709,
-        "sentiment_score": 4.8141,
-        "sentiment_momentum": 3.2255,
-        "obi_score": 11.1065,
-        "obi_imbalance": 11.1065,
-        "macro_weight": 6.3123,
-        "funding_spread_bps": 2.8445,
-        "whale_sii": 6.0061,
-        "onchain_netflow": 4.8074
-      }
+        "ret_1h": 0.8373,
+        "ret_4h": 0.8468,
+        "ret_24h": 0.8493,
+        "volatility": 0.9015,
+        "sentiment_score": 0.8493,
+        "sentiment_momentum": 0.8373,
+        "obi_score": 0.8468,
+        "obi_imbalance": 0.8468,
+        "funding_spread_bps": 0.8373,
+        "whale_sii": 0.8468,
+        "onchain_netflow": 0.9104
+      },
+      "ml_inference_frozen": false
     },
     {
       "capability_id": 99,
       "capability_name": "QuickTake / Analyst Insight Feed",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — مخرجات feed/report غير حتمية؛ مراقبة يدوية + provenance",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 100,
       "capability_name": "Research Reports",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — مخرجات feed/report غير حتمية؛ مراقبة يدوية + provenance",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     }
   ],
   "rows": [
@@ -3072,8 +3084,8 @@
       "alert_threshold": "PSI>0.1 moderate, PSI>0.25 critical (config.ML_DRIFT_PSI_THRESHOLD)",
       "freeze_on_critical": true,
       "source": "ml/drift_monitor.py:compute_psi_drift + ISO/IEC 25010 AI amendment 2024",
-      "psi_measured": 11.1065,
-      "psi_status": "platform_shared_model PSI max=11.1065 (threshold 0.25)"
+      "psi_measured": 0.9104,
+      "psi_status": "platform_shared_model PSI max=0.9104 (threshold 0.25, methodology=chronological 80/20 split, reference-defined quantile bins (OECD practice))"
     },
     {
       "capability_id": 67,
@@ -3208,8 +3220,8 @@
       "alert_threshold": "PSI>0.1 moderate, PSI>0.25 critical (config.ML_DRIFT_PSI_THRESHOLD)",
       "freeze_on_critical": true,
       "source": "ml/drift_monitor.py:compute_psi_drift + ISO/IEC 25010 AI amendment 2024",
-      "psi_measured": 11.1065,
-      "psi_status": "platform_shared_model PSI max=11.1065 (threshold 0.25)"
+      "psi_measured": 0.9104,
+      "psi_status": "platform_shared_model PSI max=0.9104 (threshold 0.25, methodology=chronological 80/20 split, reference-defined quantile bins (OECD practice))"
     },
     {
       "capability_id": 70,

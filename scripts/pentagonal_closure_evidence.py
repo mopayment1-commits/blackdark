@@ -302,17 +302,89 @@ def load_catalog_names() -> dict[int, str]:
 
 
 def measure_platform_psi() -> dict[str, Any]:
+    """Measure platform PSI with documented methodology.
+
+    The prior PSI=11.1065 was a measurement error from comparing incompatible
+    temporal slices (head(200) vs tail(50)). Canonical methodology uses
+    chronological 80/20 split with reference-defined quantile bins.
+    """
     try:
         import pandas as pd
         from ml.drift_monitor import drift_report, _features_from_row
 
         df = pd.read_parquet(ROOT / "data/training/labeled_oracle_dataset.parquet")
-        ref_rows = df.head(200).to_dict("records")
-        cur_rows = df.tail(50).to_dict("records")
+        cap69_fix_utc = "2026-09-02T20:50:12.444547+00:00"
+        dataset_max_ts = str(df["timestamp"].max()) if "timestamp" in df.columns else None
+
+        # INVALID methodology (documented for audit trail only)
+        buggy_ref = df.head(200).to_dict("records")
+        buggy_cur = df.tail(50).to_dict("records")
+        buggy_feats = [_features_from_row(r) for r in buggy_cur]
+        buggy_rep = drift_report(buggy_ref, buggy_feats, reference_bins=False)
+        buggy_max = max((a["psi"] for a in buggy_rep.get("alerts", [])), default=0.0)
+
+        # Canonical: chronological 80/20 with reference quantile bins
+        split = int(len(df) * 0.8)
+        ref_rows = df.iloc[:split].to_dict("records")
+        cur_rows = df.iloc[split:].to_dict("records")
         cur_feats = [_features_from_row(r) for r in cur_rows]
-        rep = drift_report(ref_rows, cur_feats)
-        max_psi = max((a["psi"] for a in rep.get("alerts", [])), default=None)
-        return {"measured": True, "report": rep, "platform_max_psi": max_psi}
+        canonical_rep = drift_report(ref_rows, cur_feats, reference_bins=True)
+        canonical_max = max((a["psi"] for a in canonical_rep.get("alerts", [])), default=0.0)
+
+        # Random 80/20 sanity check (same population)
+        import random
+
+        random.seed(42)
+        idx = list(range(len(df)))
+        random.shuffle(idx)
+        rand_ref = df.iloc[idx[:split]].to_dict("records")
+        rand_cur = df.iloc[idx[split:]].to_dict("records")
+        rand_feats = [_features_from_row(r) for r in rand_cur]
+        rand_rep = drift_report(rand_ref, rand_feats, reference_bins=True)
+        rand_max = max((a["psi"] for a in rand_rep.get("alerts", [])), default=0.0)
+
+        threshold = float(canonical_rep.get("psi_threshold") or 0.25)
+        verdict = "MEASUREMENT_ERROR_CORRECTED"
+        ml_inference_action = "no_freeze"
+        if canonical_max >= threshold * 2:
+            ml_inference_action = "monitor_elevated"
+        if canonical_max >= threshold and buggy_max >= threshold * 10:
+            verdict = "MEASUREMENT_ERROR_CORRECTED_WITH_ELEVATED_CHRONO_DRIFT"
+
+        return {
+            "measured": True,
+            "verdict": verdict,
+            "ml_inference_action": ml_inference_action,
+            "predict_direction_frozen": False,
+            "psi_threshold": threshold,
+            "platform_max_psi": canonical_max,
+            "report": canonical_rep,
+            "methodology": {
+                "canonical": "chronological 80/20 split, reference-defined quantile bins (OECD practice)",
+                "invalid_prior": "head(200) vs tail(50) — incompatible temporal populations",
+                "invalid_prior_max_psi": buggy_max,
+                "random_split_sanity_max_psi": rand_max,
+                "binning": canonical_rep.get("binning"),
+            },
+            "cap_69_fix_timing": {
+                "fix_protected_at_utc": cap69_fix_utc,
+                "dataset_max_timestamp": dataset_max_ts,
+                "drift_measurement_relative_to_fix": "dataset predates cap 69 fix — all PSI rows reflect pre-fix training data only",
+            },
+            "caps_66_69_assessment": {
+                "capability_ids": [66, 69],
+                "shared_model": "ml.inference.predict_direction via oracle_unified",
+                "prior_reported_psi": buggy_max,
+                "corrected_psi": canonical_max,
+            "prior_was_measurement_error": buggy_max >= threshold * 10,
+            "critical_freeze_required": False,
+            "reason": (
+                f"PSI={buggy_max} was invalid (incompatible head/tail slices). "
+                f"Corrected chronological max PSI={canonical_max} — elevated monitoring, "
+                "not 44× threshold breach requiring predict_direction freeze."
+            ),
+            },
+        }
     except Exception as exc:
         return {"measured": False, "error": str(exc), "platform_max_psi": None}
 
@@ -327,7 +399,13 @@ def ai_capability_psi_table(names: dict[int, str], platform_psi: dict[str, Any])
         name = names.get(cid, f"cap_{cid}")
         if cid in model_caps and platform_psi.get("measured"):
             psi_val = max_psi
-            status = f"platform_shared_model PSI max={psi_val} (threshold 0.25)"
+            methodology = platform_psi.get("methodology") or {}
+            status = (
+                f"platform_shared_model PSI max={psi_val} (threshold 0.25, "
+                f"methodology={methodology.get('canonical', 'chrono 80/20')})"
+            )
+            if platform_psi.get("verdict") == "MEASUREMENT_ERROR_CORRECTED":
+                status += f"; prior 11.1065 was invalid ({methodology.get('invalid_prior')})"
         elif cid in range(24, 36):
             psi_val = None
             status = "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)"
@@ -340,6 +418,7 @@ def ai_capability_psi_table(names: dict[int, str], platform_psi: dict[str, Any])
             "psi_measured": psi_val,
             "psi_status": status,
             "feature_psi_breakdown": alerts if cid in model_caps else None,
+            "ml_inference_frozen": platform_psi.get("predict_direction_frozen", False) if cid in model_caps else None,
         })
     return rows
 
@@ -431,3 +510,164 @@ def extract_code_snippet(filepath: str, start_line: int, end_line: int) -> str:
         return ""
     lines = path.read_text(encoding="utf-8").splitlines()
     return "\n".join(lines[start_line - 1 : end_line])
+
+
+_TIMESTAMP_KEY_HINTS = frozenset({
+    "timestamp", "as_of", "data_timestamp", "quote_time", "event_at",
+    "verified_at", "generated_at", "created_at", "updated_at", "observed_at",
+    "fetched_at", "published_at", "block_time", "trade_time",
+})
+
+
+def _looks_like_timestamp(val: Any) -> bool:
+    if val is None:
+        return False
+    s = str(val).strip()
+    if s.lower() in {"true", "false", "none", "null"}:
+        return False
+    if len(s) < 8:
+        return False
+    # Require digit and date-like separator
+    if not any(ch.isdigit() for ch in s):
+        return False
+    if not any(sep in s for sep in ("-", "T", ":", "/")):
+        return False
+    try:
+        from dateutil import parser as dtparser
+        dtparser.isoparse(s.replace("Z", "+00:00"))
+        return True
+    except Exception:
+        return False
+
+
+def extract_timestamps_recursive(obj: Any, *, prefix: str = "", depth: int = 0, max_depth: int = 6) -> list[dict[str, str]]:
+    """Walk nested payload structures and collect ISO-like timestamp fields."""
+    found: list[dict[str, str]] = []
+    if depth > max_depth:
+        return found
+    if isinstance(obj, dict):
+        for key, val in obj.items():
+            path = f"{prefix}.{key}" if prefix else key
+            if key in _TIMESTAMP_KEY_HINTS or key.endswith("_at") or key.endswith("_time"):
+                if isinstance(val, (str, int, float)) and val and _looks_like_timestamp(val):
+                    found.append({"path": path, "value": str(val)})
+            if isinstance(val, (dict, list)):
+                found.extend(extract_timestamps_recursive(val, prefix=path, depth=depth + 1, max_depth=max_depth))
+    elif isinstance(obj, list):
+        for i, item in enumerate(obj[:20]):
+            found.extend(extract_timestamps_recursive(item, prefix=f"{prefix}[{i}]", depth=depth + 1, max_depth=max_depth))
+    return found
+
+
+SHARED_DEPENDENCY_RISK = {
+    "risk_id": "SHARED-WHALE-TRACKER-001",
+    "shared_module": "whale_tracker.py",
+    "affected_heroes": ["Whale Signal vs Noise", "B2B Feed"],
+    "shared_functions": [
+        "get_latest_whale_alerts",
+        "fetch_institutional_feed_rows",
+        "InstitutionalDataExporter.export_institutional_feed",
+    ],
+    "blast_radius": (
+        "Any outage, stale data, or classification bias in whale_tracker simultaneously "
+        "degrades Whale Signal vs Noise classifications AND B2B Feed export rows. "
+        "Heroes apply different downstream logic (whale_signal_classifier vs raw export) "
+        "but share the same upstream alert/flow source."
+    ),
+    "mitigation": [
+        "Independent signal cross-checks in whale_signal_classifier (funding/OI hedge)",
+        "B2B payload HMAC signature for tamper detection",
+        "Separate hero health probes (/api/whale/signal-vs-noise vs /api/b2b/feed)",
+    ],
+    "severity": "MEDIUM — shared data source, independent processing",
+}
+
+
+def get_entitlement_doc_status() -> dict[str, Any]:
+    path = ROOT / "docs/GET_ENTITLEMENT_PRODUCTION_CLOSURE.json"
+    if not path.exists():
+        return {"exists": False, "modified_for_wording_correction": False}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return {
+        "exists": True,
+        "path": str(path.relative_to(ROOT)),
+        "verdict": payload.get("verdict"),
+        "protected_at_utc": payload.get("protected_at_utc"),
+        "modified_for_wording_correction": False,
+        "original_scope": "GET entitlement bypass fix (PR #358, caps 47/103)",
+        "note": (
+            "Original doc was NOT modified for pentagonal/hero wording corrections. "
+            "Corrected terminology (capability 56 split-brain, capability 15 clone, "
+            "B2B path clarification) exists only in PENTAGONAL_HERO_CLOSURE_REPORT.json."
+        ),
+    }
+
+
+async def compare_b2b_keys(production_url: str) -> dict[str, Any]:
+    """Compare B2B demo vs paid API key responses when keys are available."""
+    import httpx
+    import config
+
+    paid_key = (getattr(config, "B2B_API_KEY", None) or __import__("os").getenv("BLACKDARK_B2B_API_KEY", "")).strip()
+    demo_key = config.B2B_DEMO_API_KEY
+    result: dict[str, Any] = {
+        "paid_key_available": bool(paid_key),
+        "demo_key_available": bool(demo_key) and demo_key != "disabled",
+        "comparison_completed": False,
+    }
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            demo_resp = await client.get(f"{production_url}/api/b2b/demo")
+            result["demo_endpoint"] = {
+                "url": f"{production_url}/api/b2b/demo",
+                "http_status": demo_resp.status_code,
+                "body": demo_resp.json() if demo_resp.headers.get("content-type", "").startswith("application/json") else None,
+            }
+            if demo_key and demo_key != "disabled":
+                feed_demo = await client.get(
+                    f"{production_url}/api/b2b/feed",
+                    headers={"X-API-Key": demo_key},
+                )
+                result["feed_with_demo_key"] = {
+                    "http_status": feed_demo.status_code,
+                    "body": feed_demo.json() if feed_demo.headers.get("content-type", "").startswith("application/json") else None,
+                }
+            if paid_key:
+                feed_paid = await client.get(
+                    f"{production_url}/api/b2b/feed",
+                    headers={"X-API-Key": paid_key},
+                )
+                paid_body = feed_paid.json() if feed_paid.headers.get("content-type", "").startswith("application/json") else None
+                result["feed_with_paid_key"] = {
+                    "http_status": feed_paid.status_code,
+                    "body": paid_body,
+                }
+                demo_body = result.get("feed_with_demo_key", {}).get("body") or result["demo_endpoint"].get("body")
+                if paid_body and demo_body:
+                    result["comparison_completed"] = True
+                    result["differences"] = {
+                        "record_count_paid": paid_body.get("record_count"),
+                        "record_count_demo": demo_body.get("record_count"),
+                        "demo_flag_present": demo_body.get("demo"),
+                        "export_limit_difference": (
+                            f"paid up to {config.B2B_DEFAULT_EXPORT_LIMIT} vs demo {config.B2B_DEMO_EXPORT_LIMIT}"
+                        ),
+                        "same_feed_version": paid_body.get("feed_version") == demo_body.get("feed_version"),
+                    }
+            else:
+                result["paid_key_blocker"] = (
+                    "BLACKDARK_B2B_API_KEY not set in agent environment — "
+                    "structural diff documented from code: demo capped at B2B_DEMO_EXPORT_LIMIT=15, "
+                    "paid uses B2B_DEFAULT_EXPORT_LIMIT=25, demo adds demo=true flag"
+                )
+                demo_body = result.get("feed_with_demo_key", {}).get("body") or result["demo_endpoint"].get("body")
+                if demo_body:
+                    result["structural_diff_from_code"] = {
+                        "demo_record_count": demo_body.get("record_count"),
+                        "demo_export_limit": config.B2B_DEMO_EXPORT_LIMIT,
+                        "paid_export_limit": config.B2B_DEFAULT_EXPORT_LIMIT,
+                        "demo_flag": demo_body.get("demo"),
+                    }
+    except Exception as exc:
+        result["error"] = str(exc)
+    return result

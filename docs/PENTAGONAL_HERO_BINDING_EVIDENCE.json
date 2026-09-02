@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-02T21:58:16.056321+00:00",
-  "pentagonal_checksum": "a937134569bba310cb265b5290f86215aca5028183eaa37799c6cbae0c5946da",
+  "generated_at": "2026-09-02T22:36:18.602883+00:00",
+  "pentagonal_checksum": "0de6a70e890959c4e209e37c8c0c42ef2d9d9734e573b93df73144db0b8c4eff",
   "pentagonal_row_count": 100,
   "hero_binding_checksum": "3f5a75005d045aa6d6e99322c58c4985456cc7c7a1b496ce5dfa1f1ea29ebc3b",
   "hero_binding_row_count": 81,
-  "closure_checksum": "8fa7b488be5750f55cd3fd1b9a326e7ef7d0de5f3ed5d30b36f3c567de85273f",
+  "closure_checksum": "51bae4d06d60b2fc8a78e607ceefaa14d19240711b1511d3ac016c3b32c5ca83",
   "lookahead_summary": {
     "total_caps_checked": 60,
     "passed": 60,

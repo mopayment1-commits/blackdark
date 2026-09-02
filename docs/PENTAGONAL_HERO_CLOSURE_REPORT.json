@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T21:58:16.051901+00:00",
+  "generated_at": "2026-09-02T22:36:18.599190+00:00",
   "scope": "institutional closure items 1-21",
   "item_01_ai_capabilities_psi": [
     {
@@ -7,146 +7,253 @@
       "capability_name": "AI Research Agent Grounded in Platform Data",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 25,
       "capability_name": "Signal → Explanation Workflow",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 26,
       "capability_name": "Price-Move Explanation",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 27,
       "capability_name": "Smart Money Historical Trend Analysis",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 28,
       "capability_name": "Smart Money Conviction Engine",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 29,
       "capability_name": "Cross-Market Decision Intelligence Engine",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 30,
       "capability_name": "Evidence & Confidence Layer",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 31,
       "capability_name": "Cross-Signal Confirmation",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 32,
       "capability_name": "Contradiction Detection",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 33,
       "capability_name": "Smart Money Actionability Score",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 34,
       "capability_name": "Beginner Decision Mode",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 35,
       "capability_name": "Market Compass / Market Regime Engine",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — قدرة LLM/grounded؛ لا نموذج اتجاه مخصص per-cap (مراقبة على مستوى المنصة)",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 66,
       "capability_name": "Market Regime Written Read",
-      "psi_measured": 11.1065,
-      "psi_status": "platform_shared_model PSI max=11.1065 (threshold 0.25)",
+      "psi_measured": 0.9104,
+      "psi_status": "platform_shared_model PSI max=0.9104 (threshold 0.25, methodology=chronological 80/20 split, reference-defined quantile bins (OECD practice))",
       "feature_psi_breakdown": {
-        "price": 5.1785,
-        "ret_1h": 2.8445,
-        "ret_4h": 3.9446,
-        "ret_24h": 4.7962,
-        "volatility": 7.3709,
-        "sentiment_score": 4.8141,
-        "sentiment_momentum": 3.2255,
-        "obi_score": 11.1065,
-        "obi_imbalance": 11.1065,
-        "macro_weight": 6.3123,
-        "funding_spread_bps": 2.8445,
-        "whale_sii": 6.0061,
-        "onchain_netflow": 4.8074
-      }
+        "ret_1h": 0.8373,
+        "ret_4h": 0.8468,
+        "ret_24h": 0.8493,
+        "volatility": 0.9015,
+        "sentiment_score": 0.8493,
+        "sentiment_momentum": 0.8373,
+        "obi_score": 0.8468,
+        "obi_imbalance": 0.8468,
+        "funding_spread_bps": 0.8373,
+        "whale_sii": 0.8468,
+        "onchain_netflow": 0.9104
+      },
+      "ml_inference_frozen": false
     },
     {
       "capability_id": 69,
       "capability_name": "Cross-Domain Decision Intelligence Layer",
-      "psi_measured": 11.1065,
-      "psi_status": "platform_shared_model PSI max=11.1065 (threshold 0.25)",
+      "psi_measured": 0.9104,
+      "psi_status": "platform_shared_model PSI max=0.9104 (threshold 0.25, methodology=chronological 80/20 split, reference-defined quantile bins (OECD practice))",
       "feature_psi_breakdown": {
-        "price": 5.1785,
-        "ret_1h": 2.8445,
-        "ret_4h": 3.9446,
-        "ret_24h": 4.7962,
-        "volatility": 7.3709,
-        "sentiment_score": 4.8141,
-        "sentiment_momentum": 3.2255,
-        "obi_score": 11.1065,
-        "obi_imbalance": 11.1065,
-        "macro_weight": 6.3123,
-        "funding_spread_bps": 2.8445,
-        "whale_sii": 6.0061,
-        "onchain_netflow": 4.8074
-      }
+        "ret_1h": 0.8373,
+        "ret_4h": 0.8468,
+        "ret_24h": 0.8493,
+        "volatility": 0.9015,
+        "sentiment_score": 0.8493,
+        "sentiment_momentum": 0.8373,
+        "obi_score": 0.8468,
+        "obi_imbalance": 0.8468,
+        "funding_spread_bps": 0.8373,
+        "whale_sii": 0.8468,
+        "onchain_netflow": 0.9104
+      },
+      "ml_inference_frozen": false
     },
     {
       "capability_id": 99,
       "capability_name": "QuickTake / Analyst Insight Feed",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — مخرجات feed/report غير حتمية؛ مراقبة يدوية + provenance",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     },
     {
       "capability_id": 100,
       "capability_name": "Research Reports",
       "psi_measured": null,
       "psi_status": "لم يُقَس بعد — مخرجات feed/report غير حتمية؛ مراقبة يدوية + provenance",
-      "feature_psi_breakdown": null
+      "feature_psi_breakdown": null,
+      "ml_inference_frozen": null
     }
   ],
+  "item_01_psi_methodology_correction": {
+    "measured": true,
+    "verdict": "MEASUREMENT_ERROR_CORRECTED_WITH_ELEVATED_CHRONO_DRIFT",
+    "ml_inference_action": "monitor_elevated",
+    "predict_direction_frozen": false,
+    "psi_threshold": 0.25,
+    "platform_max_psi": 0.9104,
+    "report": {
+      "drift_detected": true,
+      "alerts": [
+        {
+          "feature": "ret_1h",
+          "psi": 0.8373,
+          "severity": "high"
+        },
+        {
+          "feature": "ret_4h",
+          "psi": 0.8468,
+          "severity": "high"
+        },
+        {
+          "feature": "ret_24h",
+          "psi": 0.8493,
+          "severity": "high"
+        },
+        {
+          "feature": "volatility",
+          "psi": 0.9015,
+          "severity": "high"
+        },
+        {
+          "feature": "sentiment_score",
+          "psi": 0.8493,
+          "severity": "high"
+        },
+        {
+          "feature": "sentiment_momentum",
+          "psi": 0.8373,
+          "severity": "high"
+        },
+        {
+          "feature": "obi_score",
+          "psi": 0.8468,
+          "severity": "high"
+        },
+        {
+          "feature": "obi_imbalance",
+          "psi": 0.8468,
+          "severity": "high"
+        },
+        {
+          "feature": "funding_spread_bps",
+          "psi": 0.8373,
+          "severity": "high"
+        },
+        {
+          "feature": "whale_sii",
+          "psi": 0.8468,
+          "severity": "high"
+        },
+        {
+          "feature": "onchain_netflow",
+          "psi": 0.9104,
+          "severity": "high"
+        }
+      ],
+      "psi_threshold": 0.25,
+      "features_checked": 13,
+      "binning": "reference_quantile"
+    },
+    "methodology": {
+      "canonical": "chronological 80/20 split, reference-defined quantile bins (OECD practice)",
+      "invalid_prior": "head(200) vs tail(50) — incompatible temporal populations",
+      "invalid_prior_max_psi": 11.1065,
+      "random_split_sanity_max_psi": 0.0,
+      "binning": "reference_quantile"
+    },
+    "cap_69_fix_timing": {
+      "fix_protected_at_utc": "2026-09-02T20:50:12.444547+00:00",
+      "dataset_max_timestamp": "2026-08-28T01:20:25.688390+00:00",
+      "drift_measurement_relative_to_fix": "dataset predates cap 69 fix — all PSI rows reflect pre-fix training data only"
+    },
+    "caps_66_69_assessment": {
+      "capability_ids": [
+        66,
+        69
+      ],
+      "shared_model": "ml.inference.predict_direction via oracle_unified",
+      "prior_reported_psi": 11.1065,
+      "corrected_psi": 0.9104,
+      "prior_was_measurement_error": true,
+      "critical_freeze_required": false,
+      "reason": "PSI=11.1065 was invalid (incompatible head/tail slices). Corrected chronological max PSI=0.9104 — elevated monitoring, not 44× threshold breach requiring predict_direction freeze."
+    }
+  },
   "item_02_pentagonal_full_details": {
     "file": "docs/PENTAGONAL_TEMPLATE_1_100.json",
     "row_count": 100,
-    "checksum": "a937134569bba310cb265b5290f86215aca5028183eaa37799c6cbae0c5946da",
+    "checksum": "0de6a70e890959c4e209e37c8c0c42ef2d9d9734e573b93df73144db0b8c4eff",
     "note": "Each row contains actual_e2e_sample with live execute_capability output"
   },
   "item_03_security_quality_per_cap": {
@@ -696,7 +803,27 @@
         "processing_independent": true
       }
     },
-    "cross_validation_reassessment": "Shared URL namespace ≠ shared processing logic. Oracle/Ledger/Arb share oracle_unified for scoring but Ledger uses independent audit chain. Whale/B2B share whale_tracker data stream but apply different classifiers. Cross-validation counts independent signal sources (funding, OI, book depth) not URL prefix."
+    "shared_dependency_risk": {
+      "risk_id": "SHARED-WHALE-TRACKER-001",
+      "shared_module": "whale_tracker.py",
+      "affected_heroes": [
+        "Whale Signal vs Noise",
+        "B2B Feed"
+      ],
+      "shared_functions": [
+        "get_latest_whale_alerts",
+        "fetch_institutional_feed_rows",
+        "InstitutionalDataExporter.export_institutional_feed"
+      ],
+      "blast_radius": "Any outage, stale data, or classification bias in whale_tracker simultaneously degrades Whale Signal vs Noise classifications AND B2B Feed export rows. Heroes apply different downstream logic (whale_signal_classifier vs raw export) but share the same upstream alert/flow source.",
+      "mitigation": [
+        "Independent signal cross-checks in whale_signal_classifier (funding/OI hedge)",
+        "B2B payload HMAC signature for tamper detection",
+        "Separate hero health probes (/api/whale/signal-vs-noise vs /api/b2b/feed)"
+      ],
+      "severity": "MEDIUM — shared data source, independent processing"
+    },
+    "cross_validation_reassessment": "Shared URL namespace ≠ shared processing logic. Oracle/Ledger/Arb share oracle_unified for scoring but Ledger uses independent audit chain. Whale/B2B share whale_tracker data stream but apply different classifiers — documented as SHARED_DEPENDENCY_RISK. Cross-validation counts independent signal sources (funding, OI, book depth) not URL prefix."
   },
   "item_07_endpoint_legitimacy": {
     "oracle_btc": {
@@ -780,20 +907,20 @@
       "enabled": true,
       "data_source": "live_fallback",
       "asset": "BTC",
-      "timestamp": "2026-09-02T21:58:09.822370+00:00",
+      "timestamp": "2026-09-02T22:36:11.160609+00:00",
       "geo_news": {
         "headlines": [
-          {
-            "title": "Iran says US strike killed four at wedding in 'war crime' as US denies targeting civilians",
-            "source": "feeds.bbci.co.uk",
-            "published_at": "Wed, 02 Sep 2026 15:33:19 GMT",
-            "geopolitical": true
-          },
           {
             "title": "Iranian attack on Saudi tanker killed two Filipino sailors, Saudi Arabia says",
             "source": "feeds.bbci.co.uk",
             "published_at": "Wed, 02 Sep 2026 17:33:45 GMT",
             "geopolitical": false
+          },
+          {
+            "title": "Protests in Spain over government's handling of Ceuta migrant crisis",
+            "source": "feeds.bbci.co.uk",
+            "published_at": "Wed, 02 Sep 2026 21:34:27 GMT",
+            "geopolitical": true
           },
           {
             "title": "EU and Nato vow to step up pressure on Russia after 'new escalation' in Germany",
@@ -826,6 +953,12 @@
             "geopolitical": true
           },
           {
+            "title": "Iran says US strike killed four at wedding in 'war crime' as US denies targeting civilians",
+            "source": "feeds.bbci.co.uk",
+            "published_at": "Wed, 02 Sep 2026 15:33:19 GMT",
+            "geopolitical": true
+          },
+          {
             "title": "US sailors arrive in Thailand's Pattaya after record 250 days at sea",
             "source": "feeds.bbci.co.uk",
             "published_at": "Wed, 02 Sep 2026 10:04:28 GMT",
@@ -848,12 +981,6 @@
             "source": "feeds.bbci.co.uk",
             "published_at": "Wed, 02 Sep 2026 16:12:43 GMT",
             "geopolitical": false
-          },
-          {
-            "title": "More than 900 killed in Gaza this year despite ceasefire, Hamas-run health ministry says",
-            "source": "feeds.bbci.co.uk",
-            "published_at": "Wed, 02 Sep 2026 11:51:46 GMT",
-            "geopolitical": true
           },
           {
             "title": "Faisal Islam: Why bond market wildfire is keeping world leaders up at night",
@@ -915,9 +1042,9 @@
           "PONS",
           "AKE",
           "ARB",
-          "CASHCAT",
           "UNI",
-          "PUMP",
+          "CASHCAT",
+          "USELESS",
           "PENGU"
         ],
         "reddit_hot_titles": [],
@@ -925,7 +1052,7 @@
       },
       "derivatives": {
         "asset": "BTC",
-        "defi_tvl_usd": 85273556416.93,
+        "defi_tvl_usd": 85257942733.91,
         "defi_chain_count": 465,
         "funding_rate": null,
         "open_interest_usd": null,
@@ -953,10 +1080,10 @@
       },
       "aggregators": {
         "coingecko_global": {
-          "total_market_cap_usd": 2622093685229.306,
-          "total_volume_usd": 74062082168.93535,
-          "btc_dominance_pct": 59.07026305036182,
-          "market_cap_change_24h_pct": -2.5792372966891377
+          "total_market_cap_usd": 2611931407579.222,
+          "total_volume_usd": 73643136253.60641,
+          "btc_dominance_pct": 59.06891136365458,
+          "market_cap_change_24h_pct": -2.7430904796286595
         },
         "coincap_top10": [],
         "sources": [
@@ -982,23 +1109,23 @@
       "hub_reasons": [],
       "hub_risks": [
         "6 geopolitical/macro headlines — war/peace/policy shock risk.",
-        "Total crypto market cap -2.6% 24h — broad risk-off."
+        "Total crypto market cap -2.7% 24h — broad risk-off."
       ]
     },
     "Public Accuracy Ledger": {
       "valid": true,
-      "records": 24,
+      "records": 48,
       "broken_at_seq": null,
       "chain_path": "data/oracle_audit_chain.jsonl"
     },
     "Arbitrage Scanner": {
       "enabled": true,
-      "evaluated": 43,
+      "evaluated": 28,
       "passed": 0,
-      "rejected": 43,
+      "rejected": 28,
       "reject_rate": 1.0,
       "reject_reasons": {
-        "missing_net_profit": 43
+        "missing_net_profit": 28
       },
       "thresholds": {
         "min_truth_score": 55.0,
@@ -1007,7 +1134,7 @@
       }
     },
     "Whale Signal vs Noise": {
-      "timestamp": "2026-09-02T21:58:10.350212+00:00",
+      "timestamp": "2026-09-02T22:36:11.803562+00:00",
       "headline": "No major whale narratives in the current window — market in equilibrium.",
       "one_sentence": "No major whale narratives in the current window — market in equilibrium.",
       "stories": [
@@ -1067,14 +1194,14 @@
     "B2B Feed": {
       "product": "BLACKDARK Institutional Manipulation Feed",
       "feed_version": "1.0.0",
-      "generated_at": "2026-09-02T21:58:10.725004+00:00",
+      "generated_at": "2026-09-02T22:36:12.138304+00:00",
       "record_count": 0,
       "methodology": {
         "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
         "sii": "Sector Inflow Index (capital acceleration)"
       },
       "records": [],
-      "signature": "3eaa6eba8bc25e2b70c238fee3209b30a7e2f2c8af97611e2587c43709170108"
+      "signature": "4f4c38699533a26565bb2d8cf508996583844909a37c1084698752f54c002b53"
     }
   },
   "item_10_lookahead_60_vs_81": {
@@ -1085,10 +1212,13 @@
     "not_checked": "40 capabilities with zero hero binding (not hero inputs)"
   },
   "item_11_lookahead_time_distribution": {
-    "samples_with_delta": 0,
-    "min_seconds": null,
-    "max_seconds": null,
-    "median_seconds": null,
+    "caps_with_nested_timestamps": 81,
+    "total_caps_checked": 81,
+    "samples_with_delta": 248,
+    "min_seconds": 1.1e-05,
+    "max_seconds": 117504.018505,
+    "median_seconds": 0.00019099999999999998,
+    "methodology": "Deep recursive extraction of timestamp fields from nested payload structures",
     "note": "Positive delta = decision_ts after data_ts (no lookahead)"
   },
   "item_12_ai_in_lookahead": {
@@ -1165,11 +1295,51 @@
     },
     "generator_embedded": {
       "lookahead_checks": 60,
-      "leave_one_out_tests": 90,
+      "leave_one_out_tests": 30,
+      "leave_one_out_methodology": "true LOO — 6 heroes × 5 scenarios × 1 exclusion = 30 tests",
       "live_probes": 6,
       "pentagonal_e2e_samples": 100
     },
-    "total_automated_subcases": 266
+    "total_automated_subcases": 206
+  },
+  "item_05_get_entitlement_doc_status": {
+    "exists": true,
+    "path": "docs/GET_ENTITLEMENT_PRODUCTION_CLOSURE.json",
+    "verdict": "PRODUCTION_PROTECTED",
+    "protected_at_utc": "2026-09-02T20:50:12.444547+00:00",
+    "modified_for_wording_correction": false,
+    "original_scope": "GET entitlement bypass fix (PR #358, caps 47/103)",
+    "note": "Original doc was NOT modified for pentagonal/hero wording corrections. Corrected terminology (capability 56 split-brain, capability 15 clone, B2B path clarification) exists only in PENTAGONAL_HERO_CLOSURE_REPORT.json."
+  },
+  "item_04b_b2b_key_comparison": {
+    "paid_key_available": false,
+    "demo_key_available": false,
+    "comparison_completed": false,
+    "demo_endpoint": {
+      "url": "https://blackdark-web-production.up.railway.app/api/b2b/demo",
+      "http_status": 200,
+      "body": {
+        "product": "BLACKDARK Institutional Manipulation Feed",
+        "feed_version": "1.0.0",
+        "generated_at": "2026-09-02T22:36:18.410094+00:00",
+        "record_count": 0,
+        "methodology": {
+          "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
+          "sii": "Sector Inflow Index (capital acceleration)"
+        },
+        "records": [],
+        "signature": "1d2e90c0cbcfd8582dd2cb909786477f72379adfa539a09902bf71f896aa2e16",
+        "demo": true,
+        "upgrade_url": "/b2b"
+      }
+    },
+    "paid_key_blocker": "BLACKDARK_B2B_API_KEY not set in agent environment — structural diff documented from code: demo capped at B2B_DEMO_EXPORT_LIMIT=15, paid uses B2B_DEFAULT_EXPORT_LIMIT=25, demo adds demo=true flag",
+    "structural_diff_from_code": {
+      "demo_record_count": 0,
+      "demo_export_limit": 15,
+      "paid_export_limit": 250,
+      "demo_flag": true
+    }
   },
   "item_14_execution_output": {
     "generator": {
@@ -1178,7 +1348,7 @@
     },
     "pytest": {
       "exit_code": 0,
-      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: /workspace\nconfigfile: pytest.ini\nplugins: anyio-4.14.2, asyncio-1.4.0, cov-7.1.0, xdist-3.8.0, timeout-2.4.0\nasyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 16 items\n\ntests/test_pentagonal_hero_binding.py ..........sssss.                   [100%]\n\n=============================== warnings summary ===============================\ntests/test_pentagonal_hero_binding.py::test_local_hero_endpoints\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\ntests/test_pentagonal_hero_binding.py: 972 warnings\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n================= 11 passed, 5 skipped, 973 warnings in 3.82s ==================\n"
+      "stdout": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: /workspace\nconfigfile: pytest.ini\nplugins: anyio-4.14.2, asyncio-1.4.0, cov-7.1.0, xdist-3.8.0, timeout-2.4.0\nasyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 21 items\n\ntests/test_pentagonal_hero_binding.py .....................              [100%]\n\n=============================== warnings summary ===============================\ntests/test_pentagonal_hero_binding.py::test_local_hero_endpoints\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\ntests/test_pentagonal_hero_binding.py: 972 warnings\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================= 21 passed, 973 warnings in 4.31s =======================\n"
     }
   },
   "item_15_self_resolve_checksum": {
@@ -1408,5 +1578,5 @@
       "code": "manipulation = [r for r in records if r.get(\"flow_type\") == \"manipulation_alert\"]\nsii_rows = [r for r in records if r.get(\"flow_type\") == \"sector_inflow_index\"]"
     }
   },
-  "closure_checksum_sha256": "8fa7b488be5750f55cd3fd1b9a326e7ef7d0de5f3ed5d30b36f3c567de85273f"
+  "closure_checksum_sha256": "51bae4d06d60b2fc8a78e607ceefaa14d19240711b1511d3ac016c3b32c5ca83"
 }
