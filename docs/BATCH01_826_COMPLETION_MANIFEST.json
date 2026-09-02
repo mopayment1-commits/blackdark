@@ -39,7 +39,7 @@
     "job": "critical",
     "note": "critical PASS does not imply INSTITUTIONAL_CLOSED"
   },
-  "owner_approved_at": "2026-09-02T15:45:55.615041+00:00",
+  "owner_approved_at": "2026-09-02T21:02:16.744944+00:00",
   "owner_hmac_token_sha256_prefix": "427cbd89d4173d06",
   "rejection_resolved": "CLOSURE-REJECT-04"
 }

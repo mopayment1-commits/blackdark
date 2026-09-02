@@ -1,0 +1,29 @@
+{
+  "countersigned_at": "2026-09-02T21:02:16.744944+00:00",
+  "registry": "docs/ACCEPTED_RISK_REGISTRY.json",
+  "status": "FINAL_COUNTERSIGNED",
+  "prerequisites_completed": [
+    "B110×3 full technical review (fail-open secondary vs fail-secure tier gate)",
+    "ACCEPTED_RISK_REGISTRY rationale corrected for L74/L129/L143",
+    "BANDIT_CLOSURE_PATH_REPORT L129 description corrected (org_rbac.has_permission)",
+    "GET entitlement bypass fixed and deployed (PR #358, production protected 2026-09-02T20:50:12Z)"
+  ],
+  "hmac": {
+    "algorithm": "HMAC-SHA256",
+    "message": "INSTITUTIONAL_CLOSED",
+    "token_sha256_prefix": "427cbd89d4173d06",
+    "secret_sha256_prefix": "52c67c0a1ca9cec5",
+    "ephemeral_secret_generated": false
+  },
+  "accepted_risk_entries_countersigned": [
+    {"rule": "B110", "lines": [74, 129, 143], "owner_countersigned_at": "2026-09-02T21:02:16.744944+00:00"},
+    {"rule": "B310", "file": "scripts/complete_pdf_capabilities_826.py", "line": 124, "owner_countersigned_at": "2026-09-02T21:02:16.744944+00:00"},
+    {"rule": "B310", "file": "scripts/wave_00_passive_security_scan.py", "line": 17, "owner_countersigned_at": "2026-09-02T21:02:16.744944+00:00"}
+  ],
+  "orchestrator": {
+    "all_verified": true,
+    "exit_code": 0
+  },
+  "evidence_source": "docs/INSTITUTIONAL_OWNER_APPROVAL_EVIDENCE.json",
+  "signing_script": "scripts/sign_institutional_owner_closure.py"
+}
