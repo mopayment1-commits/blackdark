@@ -1736,7 +1736,8 @@
       "expected_surface": "research_reports"
     }
   },
-  "closure_status": "PENDING_CLOSURE",
-  "status_on_branch": "PENDING_CLOSURE",
-  "status_on_main": "PENDING_CLOSURE"
+  "closure_status": "INSTITUTIONAL_CLOSED",
+  "status_on_branch": "INSTITUTIONAL_CLOSED",
+  "status_on_main": "INSTITUTIONAL_CLOSED",
+  "owner_final_decision_at": "2026-09-02T21:08:07.383235+00:00"
 }
