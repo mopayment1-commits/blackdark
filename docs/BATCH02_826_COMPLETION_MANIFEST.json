@@ -66,7 +66,7 @@
     "job": "critical",
     "note": "critical PASS does not imply INSTITUTIONAL_CLOSED; gate-full and SonarCloud required"
   },
-  "owner_approved_at": "2026-09-02T15:38:08.803561+00:00",
-  "owner_hmac_token_sha256_prefix": "52d38ad5a9d58dea",
+  "owner_approved_at": "2026-09-02T15:45:55.615041+00:00",
+  "owner_hmac_token_sha256_prefix": "427cbd89d4173d06",
   "rejection_resolved": "CLOSURE-REJECT-04"
 }

@@ -18,7 +18,7 @@
       "decision_author": "Cursor Agent",
       "decision_date": "2026-09-01",
       "rationale": "Entitlement tier probes must fail-closed without crashing request path; no secret exposure (OWASP ASVS V7.4 degradation).",
-      "owner_countersigned_at": "2026-09-02T15:38:08.803561+00:00"
+      "owner_countersigned_at": "2026-09-02T15:45:55.615041+00:00"
     },
     {
       "rule": "B310",
@@ -30,7 +30,7 @@
       "decision_author": "Cursor Agent",
       "decision_date": "2026-09-01",
       "rationale": "Operator-only offline audit; URL from CAPABILITIES_AUDIT_BASE env; not in runtime request path. Alternative: httpx with allowlist — deferred to post-closure hygiene.",
-      "owner_countersigned_at": "2026-09-02T15:38:08.803561+00:00"
+      "owner_countersigned_at": "2026-09-02T15:45:55.615041+00:00"
     },
     {
       "rule": "B314",
@@ -53,14 +53,14 @@
       "decision_author": "Cursor Agent",
       "decision_date": "2026-09-01",
       "rationale": "DevSecOps passive scan harness; excluded from sonar.sources runtime; operator-triggered only.",
-      "owner_countersigned_at": "2026-09-02T15:38:08.803561+00:00"
+      "owner_countersigned_at": "2026-09-02T15:45:55.615041+00:00"
     }
   ],
   "owner_countersignature": {
-    "signed_at": "2026-09-02T15:38:08.803561+00:00",
+    "signed_at": "2026-09-02T15:45:55.615041+00:00",
     "scope": "Official Batch 01+02 institutional closure (IDs 1–100)",
     "hmac_message": "INSTITUTIONAL_CLOSED",
-    "hmac_token_sha256_prefix": "52d38ad5a9d58dea",
+    "hmac_token_sha256_prefix": "427cbd89d4173d06",
     "decision_authority": "Institutional Owner (written approval via agent session)"
   }
 }
