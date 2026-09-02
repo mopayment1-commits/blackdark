@@ -71,23 +71,31 @@ def _owner_approval_ok() -> tuple[bool, str]:
     return True, "owner approval token valid"
 
 
-def _run(script: str) -> dict:
+def _run(script: str, *, attempts: int = 2) -> dict:
     env = os.environ.copy()
     env.setdefault("PYTHONPATH", str(ROOT))
     env.setdefault("SERVICE_BUS_LOCAL", "true")
-    proc = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / script)],
-        capture_output=True,
-        text=True,
-        cwd=ROOT,
-        env=env,
-    )
-    return {
-        "script": script,
-        "exit_code": proc.returncode,
-        "stdout": proc.stdout.strip(),
-        "stderr": proc.stderr[-2000:] if proc.stderr else "",
-    }
+    last: dict | None = None
+    for attempt in range(1, attempts + 1):
+        proc = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / script)],
+            capture_output=True,
+            text=True,
+            cwd=ROOT,
+            env=env,
+            timeout=600,
+        )
+        last = {
+            "script": script,
+            "exit_code": proc.returncode,
+            "stdout": proc.stdout.strip(),
+            "stderr": proc.stderr[-2000:] if proc.stderr else "",
+            "attempt": attempt,
+        }
+        if proc.returncode == 0:
+            return last
+    assert last is not None
+    return last
 
 
 async def main() -> None:

@@ -24,16 +24,31 @@ async def _audit_one(capability_id: int) -> dict:
     from cap646.runtime import execute_capability
 
     row = catalog_by_id().get(capability_id, {})
-    result = await execute_capability(
-        capability_id,
-        skip_entitlement=True,
-        params={
-            "symbol": "BTC",
-            "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
-            "email": "rtm-audit@blackdark.local",
-            "tier": "pro",
-        },
-    )
+    try:
+        result = await execute_capability(
+            capability_id,
+            skip_entitlement=True,
+            params={
+                "symbol": "BTC",
+                "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+                "email": "rtm-audit@blackdark.local",
+                "tier": "pro",
+            },
+        )
+    except Exception as exc:
+        return {
+            "id": capability_id,
+            "capability": row.get("capability"),
+            "official_batch": "batch01",
+            "status": "NOT_COMPLETE",
+            "production_spine": None,
+            "backend": None,
+            "surface": None,
+            "expected_surface": EXPECTED_SURFACE.get(capability_id),
+            "generic": False,
+            "exception": True,
+            "notes": f"audit_exception:{type(exc).__name__}:{exc}",
+        }
     surface = str(result.get("surface") or "")
     exc = result.get("oracle_fallback_error") or result.get("error")
     expected = EXPECTED_SURFACE.get(capability_id)
