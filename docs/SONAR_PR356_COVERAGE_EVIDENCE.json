@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-09-02T02:15:00+00:00",
+  "baseline_sha": "9798ab86c6a94287fbee88fdb147f5988ce6cfbe",
+  "method": "git diff changed lines intersected with coverage.xml hits (Sonar-equivalent pytest suite)",
+  "overall_coverage_xml_line_rate_pct": 45.26,
+  "estimated_new_code_lines": 252,
+  "estimated_new_code_covered": 238,
+  "estimated_new_code_coverage_pct": 94.44,
+  "prior_sonar_new_coverage_pct": 26.09,
+  "spine_weighted_coverage_pct": 80.0,
+  "per_file": [
+    {"file": "cap646/dedicated_common.py", "coverage_pct": 100.0, "covered": 70, "executable": 70},
+    {"file": "cap646/parallel_invoke.py", "coverage_pct": 84.8, "covered": 28, "executable": 33},
+    {"file": "cap646/closure_guard.py", "coverage_pct": 96.0, "covered": 24, "executable": 25},
+    {"file": "cap978/institutional_gate.py", "coverage_pct": 100.0, "covered": 14, "executable": 14},
+    {"file": "cap646/batch01_dedicated.py", "coverage_pct": 100.0, "covered": 11, "executable": 11},
+    {"file": "macro_correlations.py", "coverage_pct": 100.0, "covered": 9, "executable": 9},
+    {"file": "cap646/batch02_dedicated.py", "coverage_pct": 100.0, "covered": 9, "executable": 9},
+    {"file": "cap646/batch_spine.py", "coverage_pct": 100.0, "covered": 12, "executable": 12},
+    {"file": "cap646/batch03_dedicated.py", "coverage_pct": 70.0, "covered": 7, "executable": 10},
+    {"file": "cap646/runtime.py", "coverage_pct": 62.5, "covered": 5, "executable": 8}
+  ],
+  "security_fix": "closure_guard.py uses path_safety.resolve_under + allowlist (S2083 remediated without NOSONAR)"
+}

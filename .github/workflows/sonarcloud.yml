@@ -84,6 +84,19 @@ jobs:
             tests/test_i18n_language_actually_switches.py \
             tests/test_sonar_template_js_parse_hygiene.py \
             tests/test_sonar_project_version_baseline.py \
+            tests/cap646/test_batch01_dedicated.py \
+            tests/cap646/test_batch01_production.py \
+            tests/cap646/test_batch02_dedicated.py \
+            tests/cap646/test_dedicated_common.py \
+            tests/cap646/test_batch_spine.py \
+            tests/cap646/test_cap69_dual_path.py \
+            tests/cap646/test_runtime_spine_coverage.py \
+            tests/cap646/test_closure_reject_04.py \
+            tests/test_spine_database.py \
+            tests/test_spine_database_auth.py \
+            tests/test_bigquery_export_mock.py \
+            tests/cap646/test_institutional_gate.py \
+            tests/test_sonar_pr356_new_code_coverage.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
