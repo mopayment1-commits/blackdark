@@ -8,9 +8,9 @@
       "severity": "LOW",
       "file": "cap646/entitlements.py",
       "line": 74,
-      "reason": "Try/except/pass on optional tier lookup — degrades to deny, no secret exposure",
+      "reason": "Try/except/pass on cap978 external import (L74)",
       "action": "ACCEPTED_RISK",
-      "justification": "Entitlement fallback must not crash request path; logged upstream"
+      "justification": "Optional cap978 external probe; primary tier gate L86-114 fail-secure"
     },
     {
       "rule": "B110",
@@ -18,9 +18,9 @@
       "severity": "LOW",
       "file": "cap646/entitlements.py",
       "line": 129,
-      "reason": "Try/except/pass on wallet balance probe",
+      "reason": "Try/except/pass on org_rbac.has_permission",
       "action": "ACCEPTED_RISK",
-      "justification": "Cold-env safe degradation for free-tier gate"
+      "justification": "Org RBAC secondary gate; primary tier gate L86-114 fail-secure"
     },
     {
       "rule": "B110",
@@ -28,7 +28,7 @@
       "severity": "LOW",
       "file": "cap646/entitlements.py",
       "line": 143,
-      "reason": "Try/except/pass on org entitlement cache",
+      "reason": "Try/except/pass on auth_service.feature_allowed",
       "action": "ACCEPTED_RISK",
       "justification": "Fail-closed to paid tier requirement"
     }

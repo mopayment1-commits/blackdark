@@ -1,0 +1,39 @@
+{
+  "verified_at": "2026-09-02T20:41:49+00:00",
+  "fix": "cap646/runtime.py — entitlement_engine.check moved before BATCH01/BATCH02 early returns",
+  "live_tests_post_fix_local": [
+    {
+      "path": "GET /api/cap646/47",
+      "auth": "none",
+      "http_status": 200,
+      "success": false,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "pro",
+        "actual_tier": "free"
+      }
+    },
+    {
+      "path": "GET /api/cap646/103",
+      "auth": "none",
+      "http_status": 200,
+      "success": false,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "elite",
+        "actual_tier": "free"
+      }
+    },
+    {
+      "path": "GET /api/cap646/1",
+      "auth": "none",
+      "http_status": 200,
+      "success": true,
+      "note": "free-tier capability still allowed"
+    }
+  ],
+  "get_entitlement_proof": "docs/BATCH_ENTITLEMENT_GET_PROOF.json",
+  "production_retest_pending_deploy": true
+}

@@ -1,0 +1,139 @@
+{
+  "verified_at": "2026-09-02T20:41:49.711734+00:00",
+  "scope": "GET /api/cap646/{id} entitlement — 10 cases (anonymous + tier override)",
+  "path": "GET /api/cap646/{capability_id}",
+  "script": "scripts/verify_entitlement_get_proof.py",
+  "proofs": [
+    {
+      "capability_id": 1,
+      "user_label": "free_allowed_anonymous",
+      "http_method": "GET",
+      "http_path": "/api/cap646/1",
+      "http_status": 200,
+      "entitlement_allowed": null,
+      "entitlement_reason": null,
+      "success": true,
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 21,
+      "user_label": "free_allowed_anonymous",
+      "http_method": "GET",
+      "http_path": "/api/cap646/21",
+      "http_status": 200,
+      "entitlement_allowed": null,
+      "entitlement_reason": null,
+      "success": true,
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 47,
+      "user_label": "pro_gated_free_denied",
+      "http_method": "GET",
+      "http_path": "/api/cap646/47",
+      "http_status": 200,
+      "entitlement_allowed": false,
+      "entitlement_reason": "teaser",
+      "success": false,
+      "production_spine": null
+    },
+    {
+      "capability_id": 47,
+      "user_label": "pro_gated_pro_allowed",
+      "user": {
+        "tier": "pro"
+      },
+      "http_method": "GET",
+      "http_path": "/api/cap646/47",
+      "http_status": 200,
+      "entitlement_allowed": null,
+      "entitlement_reason": null,
+      "success": true,
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 50,
+      "user_label": "pro_gated_free_denied",
+      "http_method": "GET",
+      "http_path": "/api/cap646/50",
+      "http_status": 200,
+      "entitlement_allowed": null,
+      "entitlement_reason": null,
+      "success": true,
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 50,
+      "user_label": "pro_gated_pro_allowed",
+      "user": {
+        "tier": "pro"
+      },
+      "http_method": "GET",
+      "http_path": "/api/cap646/50",
+      "http_status": 200,
+      "entitlement_allowed": null,
+      "entitlement_reason": null,
+      "success": true,
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 69,
+      "user_label": "pro_gated_free_denied",
+      "http_method": "GET",
+      "http_path": "/api/cap646/69",
+      "http_status": 200,
+      "entitlement_allowed": false,
+      "entitlement_reason": "teaser",
+      "success": false,
+      "production_spine": null
+    },
+    {
+      "capability_id": 69,
+      "user_label": "pro_gated_pro_allowed",
+      "user": {
+        "tier": "pro"
+      },
+      "http_method": "GET",
+      "http_path": "/api/cap646/69",
+      "http_status": 200,
+      "entitlement_allowed": null,
+      "entitlement_reason": null,
+      "success": true,
+      "production_spine": "batch02"
+    },
+    {
+      "capability_id": 85,
+      "user_label": "pro_gated_free_denied",
+      "http_method": "GET",
+      "http_path": "/api/cap646/85",
+      "http_status": 200,
+      "entitlement_allowed": false,
+      "entitlement_reason": "teaser",
+      "success": false,
+      "production_spine": null
+    },
+    {
+      "capability_id": 85,
+      "user_label": "pro_gated_pro_allowed",
+      "user": {
+        "tier": "pro"
+      },
+      "http_method": "GET",
+      "http_path": "/api/cap646/85",
+      "http_status": 200,
+      "entitlement_allowed": null,
+      "entitlement_reason": null,
+      "success": true,
+      "production_spine": "batch02"
+    }
+  ],
+  "checks": {
+    "count_10": true,
+    "47_free_denied": true,
+    "47_pro_allowed": true,
+    "85_free_denied": true,
+    "85_pro_allowed": true,
+    "free_1_allowed": true
+  },
+  "all_verified": true
+}

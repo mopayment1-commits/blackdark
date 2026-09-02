@@ -107,6 +107,20 @@ async def execute_capability(
             }
         )
 
+    target_id = canonical_id(capability_id)
+
+    if not skip_entitlement:
+        ent = await entitlement_engine.check(target_id, user=user, org_id=org_id)
+        if not ent.get("allowed"):
+            return ai_compliance_footer(
+                {
+                    "success": False,
+                    "capability_id": target_id,
+                    "capability": row["capability"],
+                    "entitlement": ent,
+                }
+            )
+
     from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
 
     if capability_id in BATCH01_IDS:
@@ -124,25 +138,12 @@ async def execute_capability(
             handle_batch03_capability, capability_id, row=row, params=params
         )
 
-    target_id = canonical_id(capability_id)
     if is_duplicate(capability_id) and target_id != capability_id:
         canonical = await execute_capability(target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement)
         canonical["duplicate_of"] = target_id
         canonical["requested_capability_id"] = capability_id
         canonical["classification"] = "DUPLICATE/ALREADY_COVERED"
         return canonical
-
-    if not skip_entitlement:
-        ent = await entitlement_engine.check(target_id, user=user, org_id=org_id)
-        if not ent.get("allowed"):
-            return ai_compliance_footer(
-                {
-                    "success": False,
-                    "capability_id": target_id,
-                    "capability": row["capability"],
-                    "entitlement": ent,
-                }
-            )
 
     # Batch spine is reached only via direct BATCH0x_IDS (L112-125) or duplicate
     # recursion (L128-133). No further target_id batch delegation exists in catalog.
