@@ -108,6 +108,7 @@ async def _bootstrap_db() -> None:
 async def main() -> None:
     await _bootstrap_db()
     closure_request = "--closure-request" in sys.argv
+    owner_approved = False
     if closure_request:
         approval_ok, approval_reason = _owner_approval_ok()
         if not approval_ok:
@@ -116,25 +117,29 @@ async def main() -> None:
                 "Governance gate: owner approval token required for closure declaration "
                 "(INSTITUTIONAL_OWNER_APPROVAL_SECRET + INSTITUTIONAL_OWNER_APPROVAL_TOKEN)"
             )
+        owner_approved = True
 
     results = [_run(entry["script"]) for entry in ORCHESTRATED_SCRIPTS]
     failed = [r for r in results if r["exit_code"] != 0]
+
+    closure_status = "INSTITUTIONAL_CLOSED" if owner_approved and not failed else "PENDING_CLOSURE"
+    batch_status = "INSTITUTIONAL_CLOSED" if closure_status == "INSTITUTIONAL_CLOSED" else "PENDING_CLOSURE"
 
     out = {
         "verified_at": datetime.now(UTC).isoformat(),
         "orchestrator": "scripts/run_batch_verification_orchestrator.py",
         "note": "Local proof orchestrator only — not an institutional CI gate",
-        "closure_status": "PENDING_CLOSURE",
+        "closure_status": closure_status,
         "batches": {
-            "batch01": {"scope": "1–50", "status": "PENDING_CLOSURE"},
-            "batch02": {"scope": "51–100", "status": "PENDING_CLOSURE"},
+            "batch01": {"scope": "1–50", "status": batch_status},
+            "batch02": {"scope": "51–100", "status": batch_status},
         },
         "orchestrated_scripts": [
             {**entry, **next(r for r in results if r["script"] == entry["script"])}
             for entry in ORCHESTRATED_SCRIPTS
         ],
         "all_verified": len(failed) == 0,
-        "explicit_owner_approval_required": True,
+        "explicit_owner_approval_required": not owner_approved,
     }
     path = ROOT / "docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json"
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -145,10 +150,10 @@ async def main() -> None:
         json.dumps(
             {
                 "verified_at": out["verified_at"],
-                "closure_status": "PENDING_CLOSURE",
-                "rejection": "CLOSURE-REJECT-02",
-                "owner_approval_required": True,
-                "merge_does_not_imply_closure": True,
+                "closure_status": closure_status,
+                "rejection": None if closure_status == "INSTITUTIONAL_CLOSED" else "CLOSURE-REJECT-02",
+                "owner_approval_required": not owner_approved,
+                "merge_does_not_imply_closure": closure_status != "INSTITUTIONAL_CLOSED",
                 "orchestrator_result": "docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json",
                 "scripts": results,
                 "all_verified": out["all_verified"],

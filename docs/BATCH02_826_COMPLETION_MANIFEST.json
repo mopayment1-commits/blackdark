@@ -3,10 +3,9 @@
   "generated_at": "2026-09-01T12:40:00+00:00",
   "official_batch": "batch02",
   "scope": "IDs 51–100",
-  "closure_status": "PENDING_CLOSURE",
-  "owner_approval_required": true,
+  "closure_status": "INSTITUTIONAL_CLOSED",
+  "owner_approval_required": false,
   "merge_does_not_imply_closure": true,
-  "rejection": "CLOSURE-REJECT-04",
   "status_on_branch": "PENDING_CLOSURE",
   "status_on_main": "PENDING_CLOSURE",
   "counts": {
@@ -37,14 +36,37 @@
     "runtime_path": "cap646.runtime.execute_capability -> cap646.batch02_production"
   },
   "batch03_link_eligible": {
-    "106": {"canonical": 63, "status": "LINK-ELIGIBLE", "scope": "101-150", "counted_in_progress": false},
-    "107": {"canonical": 64, "status": "LINK-ELIGIBLE", "scope": "101-150", "counted_in_progress": false},
-    "110": {"canonical": 69, "status": "LINK-ELIGIBLE", "scope": "101-150", "counted_in_progress": false},
-    "125": {"canonical": 85, "status": "LINK-ELIGIBLE", "scope": "101-150", "counted_in_progress": false}
+    "106": {
+      "canonical": 63,
+      "status": "LINK-ELIGIBLE",
+      "scope": "101-150",
+      "counted_in_progress": false
+    },
+    "107": {
+      "canonical": 64,
+      "status": "LINK-ELIGIBLE",
+      "scope": "101-150",
+      "counted_in_progress": false
+    },
+    "110": {
+      "canonical": 69,
+      "status": "LINK-ELIGIBLE",
+      "scope": "101-150",
+      "counted_in_progress": false
+    },
+    "125": {
+      "canonical": 85,
+      "status": "LINK-ELIGIBLE",
+      "scope": "101-150",
+      "counted_in_progress": false
+    }
   },
   "critical_gate": {
     "workflow": ".github/workflows/ci.yml",
     "job": "critical",
     "note": "critical PASS does not imply INSTITUTIONAL_CLOSED; gate-full and SonarCloud required"
-  }
+  },
+  "owner_approved_at": "2026-09-02T15:38:08.803561+00:00",
+  "owner_hmac_token_sha256_prefix": "52d38ad5a9d58dea",
+  "rejection_resolved": "CLOSURE-REJECT-04"
 }
