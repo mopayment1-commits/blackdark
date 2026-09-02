@@ -397,6 +397,18 @@ def compute_net_edge_truth(
       residual edge 45% | latency freshness 25% | slippage quality 15% | fee drag clarity 15%
     """
     opp = dict(opportunity or {})
+    if opp.get("truth_indicative_only"):
+        return {
+            "enabled": True,
+            "mode": "directional_advisory",
+            "reject": False,
+            "pass": True,
+            "executable": False,
+            "truth_score": None,
+            "reasons": [],
+            "label": "ADVISORY_NOT_EXECUTABLE",
+            "disclaimer": "Indicative only — economics not evaluated for Truth stats.",
+        }
     net, notional, slippage_bps, withdrawal, trading_fees = _truth_inputs(
         opp,
         net_profit_usdt,
@@ -470,6 +482,11 @@ def net_edge_truth_status() -> dict[str, Any]:
     rejected = int(_STATS["rejected"])
     return {
         "enabled": _enabled(),
+        "scope": "process_cumulative",
+        "scope_note": (
+            "Cumulative stats across all compute_net_edge_truth() calls in this process. "
+            "For Arbitrage Scanner hero health use GET /api/arbitrage/scanner/status."
+        ),
         "evaluated": evaluated,
         "passed": int(_STATS["passed"]),
         "rejected": rejected,

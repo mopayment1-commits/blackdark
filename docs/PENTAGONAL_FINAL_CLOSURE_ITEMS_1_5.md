@@ -26,17 +26,46 @@ ADR: `docs/ADR_PSI_ONCHAIN_NETFLOW_MONITOR_ELEVATED.md`
 
 ## Item 1 — Latency Remediation ADR
 
-Over-limit caps (latest probe 2026-09-02T23:15 UTC): **2, 3** (analysis tier). Cap **54** within limit (1606 ms) but borderline — preventive cache plan scheduled.
+Over-limit caps (latest probe): **2, 3** (analysis tier), **16** (live_data tier). Cap **54** within limit but borderline.
 
-ADR: `docs/ADR_LATENCY_CAPS_2_3_54.md`
+| Cap | ADR | Fix | Target |
+|-----|-----|-----|--------|
+| 2, 3 | `docs/ADR_LATENCY_CAPS_2_3_54.md` | Redis wallet profiler cache | 2026-09-09 |
+| 16 | `docs/ADR_LATENCY_CAP_16.md` | Redis candle cache + parallel fetch | 2026-09-09 |
+| 54 | `docs/ADR_LATENCY_CAPS_2_3_54.md` | Warm global_liquidity cache | 2026-09-16 |
 
-| Cap | Fix | Target |
-|-----|-----|--------|
-| 2 | Redis `wallet_profiler:v1` TTL 120s + pre-warm | 2026-09-09 |
-| 3 | Token-scoped cache TTL 90s | 2026-09-09 |
-| 54 | Warm `global_liquidity:v1` TTL 300s | 2026-09-16 |
+---
 
-Note: Cap 16 (live_data, 596 ms > 500 ms) also over limit — outside original 2/3/54 scope.
+## Cap #56 — Authoritative Binding
+
+**Bound to Single-Sentence Oracle: YES. Bound to Arbitrage Scanner: NO.**
+
+Wrong source corrected: `PENTAGONAL_TEMPLATE_1_100.json` row #56 had `e2e_test: verify_official_batch02_production.py` — corrected to `batch01`. See `docs/CAP_56_HERO_BINDING_CORRECTION.md`.
+
+---
+
+## Arbitrage Scanner — Truth Path Fix
+
+Root cause of 100% `missing_net_profit`: Oracle directional paths polluted cumulative `/api/oracle/net-edge-truth` stats — **not** missing net_profit in arb scan rows.
+
+Fix: `GET /api/arbitrage/scanner/status` (current scan summary). Arb rows include `net_profit_usdt`; reject reasons are economics gates (e.g. `missing_withdrawal_fee`, `residual_edge_below_threshold`).
+
+---
+
+## B2B Feed Empty State
+
+`record_count: 0` is **normal** when no manipulation/SII rows exceed thresholds. `empty_state` block added to feed payload (Whale analogy documented).
+
+---
+
+## Test Count
+
+| Commit | Count | Added |
+|--------|-------|-------|
+| `b012e3b` | 21 | PSI/lookahead/LOO closure tests + `test_local_hero_endpoints` |
+| `f6346f2` | 22 | `test_supplemental_closure_report` (intentional) |
+| current | 25 | `test_cap56_oracle_binding_only`, `test_directional_oracle_does_not_pollute_truth_stats`, `test_b2b_feed_empty_state_block` |
+
 
 ---
 

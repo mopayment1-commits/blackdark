@@ -264,10 +264,12 @@ PRODUCTION_ENDPOINTS = {
     },
     "Arbitrage Scanner": {
         "user_facing": "/dashboard#arbitrage",
-        "api_equivalent": "/api/oracle/net-edge-truth",
+        "api_equivalent": "/api/arbitrage/scanner/status",
         "requires_terms_ack": False,
-        "tested_path": "/api/oracle/net-edge-truth",
+        "tested_path": "/api/arbitrage/scanner/status",
         "path_type": "production_real",
+        "legacy_cumulative_path": "/api/oracle/net-edge-truth",
+        "legacy_note": "net-edge-truth is process-wide cumulative stats; not arb-hero-specific",
     },
     "Whale Signal vs Noise": {
         "user_facing": "/dashboard#whales",

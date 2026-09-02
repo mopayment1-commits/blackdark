@@ -174,6 +174,40 @@ def test_supplemental_closure_report() -> None:
     assert report["item_17_18_telegram"]["item_17_bot_link_fix"]["bot_username"] == "BLACKDARKAI_oncall_bot"
 
 
+def test_cap56_oracle_binding_only() -> None:
+    from scripts.generate_pentagonal_hero_binding_report import HERO_ENGINES
+
+    oracle_caps = set(HERO_ENGINES["Single-Sentence Oracle"]["capability_ids"])
+    arb_caps = set(HERO_ENGINES["Arbitrage Scanner"]["capability_ids"])
+    assert 56 in oracle_caps
+    assert 56 not in arb_caps
+
+
+def test_directional_oracle_does_not_pollute_truth_stats() -> None:
+    from decision_enrichment import _attach_net_edge_truth
+    from net_edge_truth import _STATS, net_edge_truth_status
+
+    before = int(_STATS["evaluated"])
+    out: dict = {"kind": "oracle_direction", "asset": "BTC"}
+    _attach_net_edge_truth(out, "BTC", 60.0, "WAIT", 0.0)
+    after = int(_STATS["evaluated"])
+    assert after == before
+    assert out["net_edge_truth"]["mode"] == "directional_advisory"
+
+
+@pytest.mark.asyncio
+async def test_b2b_feed_empty_state_block() -> None:
+    from whale_tracker import InstitutionalDataExporter
+    import config
+
+    exporter = InstitutionalDataExporter()
+    feed = await exporter.export_institutional_feed(provided_key=config.B2B_DEMO_API_KEY, limit=5)
+    if feed.get("record_count") == 0:
+        assert "empty_state" in feed
+        assert feed["empty_state"]["reason"]
+        assert "equilibrium" in feed["empty_state"]["hero_comparison"].lower()
+
+
 def test_closure_unbound_count(closure_report: dict) -> None:
     unbound = closure_report["item_04_unbound_capabilities"]
     assert unbound["unique_fed_capability_count"] == 60
@@ -212,7 +246,7 @@ async def test_local_hero_endpoints() -> None:
     endpoints = [
         "/api/whale/signal-vs-noise",
         "/api/oracle/audit-chain/verify",
-        "/api/oracle/net-edge-truth",
+        "/api/arbitrage/scanner/status",
         "/api/oracle/data-hub/BTC",
         "/api/ledger/share-kit",
     ]

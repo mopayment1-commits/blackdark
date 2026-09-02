@@ -389,9 +389,54 @@ def item_01b_latency_remediation(latency_rows: list[dict[str, Any]] | None = Non
                 "measured_ms": _ms(16, 0),
                 "tier": "live_data",
                 "max_ms": 500,
-                "note": "Exceeded live_data tier; not in original 2/3/54 scope",
+                "fix": "Redis candle_investigator:v1 TTL 60s + parallel klines/ticker fetch",
+                "target_date": "2026-09-09",
+                "adr": "docs/ADR_LATENCY_CAP_16.md",
             },
         ],
+    }
+
+
+def item_19_cap56_hero_binding_correction() -> dict[str, Any]:
+    return {
+        "adr": "docs/CAP_56_HERO_BINDING_CORRECTION.md",
+        "bound_to_oracle": True,
+        "bound_to_arbitrage_scanner": False,
+        "production_spine": "batch01",
+        "overlap_taxonomy": "OVERLAP_BATCH01",
+        "wrong_source_corrected": {
+            "file": "docs/PENTAGONAL_TEMPLATE_1_100.json",
+            "field": "interface.e2e_test",
+            "was": "scripts/verify_official_batch02_production.py",
+            "now": "scripts/verify_official_batch01_production.py",
+        },
+        "split_brain_meaning": "batch02 RTM listing vs batch01 execution — NOT unbound from Oracle",
+    }
+
+
+def item_20_arbitrage_scanner_truth_path() -> dict[str, Any]:
+    return {
+        "issue": "100% reject_rate with missing_net_profit on /api/oracle/net-edge-truth",
+        "root_cause": (
+            "Hero probe used cumulative net_edge_truth_status() polluted by Oracle directional "
+            "paths calling compute_net_edge_truth without net_profit_usdt. Not an arb data bug."
+        ),
+        "fix": [
+            "decision_enrichment: directional oracle no longer calls compute_net_edge_truth",
+            "net_edge_truth: truth_indicative_only short-circuit without stats",
+            "New hero endpoint GET /api/arbitrage/scanner/status — current scan truth summary",
+        ],
+        "arb_net_profit_computed": True,
+        "arb_rows_include_net_profit_usdt": "arbitrage_service._format_cross/_format_basis set net_profit_usdt from engine",
+    }
+
+
+def item_21_b2b_empty_state() -> dict[str, Any]:
+    return {
+        "record_count_zero_interpretation": "normal_when_no_manipulation_threshold_breach",
+        "not_a_data_source_outage": True,
+        "empty_state_block_added": "whale_tracker.InstitutionalDataExporter.export_institutional_feed",
+        "whale_analogy": "Whale returns equilibrium headline; B2B returns signed empty payload + empty_state.interpretation",
     }
 
 
@@ -522,6 +567,9 @@ async def main() -> None:
         "item_14_cap69_impact": item_14_cap69_impact(),
         "item_15_live_heroes_full": await item_15_live_heroes_full(),
         "item_16_b2b_awaiting": item_16_b2b_awaiting(),
+        "item_21_b2b_empty_state": item_21_b2b_empty_state(),
+        "item_20_arbitrage_scanner_truth_path": item_20_arbitrage_scanner_truth_path(),
+        "item_19_cap56_hero_binding_correction": item_19_cap56_hero_binding_correction(),
         "item_17_18_telegram": await item_17_18_telegram(),
     }
     report["closure_checksum_sha256"] = sha256_obj({k: v for k, v in report.items() if k != "closure_checksum_sha256"})

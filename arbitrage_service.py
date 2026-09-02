@@ -911,3 +911,59 @@ async def process_arbitrage_alerts(scan_result: dict[str, Any]) -> list[dict[str
             await _dispatch_primary_arbitrage_alert(title, opp, scan_result)
 
     return triggered
+
+
+async def arbitrage_scanner_hero_status() -> dict[str, Any]:
+    """Hero-facing arb scan summary — evaluates current scan rows, not global Truth stats."""
+    from scan_coordinator import get_shared_scan
+
+    scan = await get_shared_scan(profitable_only=False, prefer_live=False)
+    opps = list(scan.get("opportunities") or [])
+    reject_reasons: dict[str, int] = {}
+    passed = 0
+    for row in opps:
+        truth = row.get("net_edge_truth") or {}
+        if truth.get("reject"):
+            for reason in truth.get("reasons") or ["rejected"]:
+                reject_reasons[reason] = reject_reasons.get(reason, 0) + 1
+        else:
+            passed += 1
+    evaluated = len(opps)
+    rejected = evaluated - passed
+    top = scan.get("top_opportunity")
+    top_truth = (top or {}).get("net_edge_truth") or {}
+    interpretation = "normal_market_no_executable_edge"
+    if evaluated == 0:
+        interpretation = "no_opportunities_in_current_scan"
+    elif passed > 0:
+        interpretation = "executable_candidates_present"
+    elif reject_reasons and all(
+        r in reject_reasons for r in ("residual_edge_below_threshold", "truth_score_below_minimum")
+    ):
+        interpretation = "opportunities_found_but_below_truth_threshold"
+    from net_edge_truth import net_edge_truth_status
+
+    thresholds = net_edge_truth_status().get("thresholds") or {}
+    return {
+        "hero": "Arbitrage Scanner",
+        "scope": "current_arbitrage_scan",
+        "note": (
+            "Distinct from /api/oracle/net-edge-truth which tracks cumulative "
+            "process-wide Truth evaluations (includes Oracle directional paths)."
+        ),
+        "enabled": True,
+        "evaluated": evaluated,
+        "passed": passed,
+        "rejected": rejected,
+        "reject_rate": round(rejected / evaluated, 4) if evaluated else 0.0,
+        "reject_reasons": reject_reasons,
+        "executable_count": scan.get("executable_count", 0),
+        "profitable_count": scan.get("profitable_count", 0),
+        "top_opportunity_net_profit_usdt": (top or {}).get("net_profit_usdt"),
+        "top_opportunity_truth_rejected": bool(top_truth.get("reject")),
+        "interpretation": interpretation,
+        "data_source": scan.get("data_source"),
+        "scan_ms": scan.get("scan_ms"),
+        "timestamp": scan.get("timestamp"),
+        "thresholds": thresholds,
+    }

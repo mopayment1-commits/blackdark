@@ -1087,6 +1087,28 @@ class InstitutionalDataExporter:
         payload["signature"] = self.sign_payload(
             {key: value for key, value in payload.items() if key != "signature"}
         )
+        if not rows:
+            payload["empty_state"] = {
+                "reason": "no_institutional_flow_rows_in_lookback",
+                "interpretation": (
+                    "No CVVD manipulation alerts or SII sector-inflow rows exceeded "
+                    "detection thresholds in the current institutional_flows window. "
+                    "This is normal when cross-venue discrepancy and sector acceleration "
+                    "signals are below alert criteria — analogous to Whale hero's "
+                    "'market in equilibrium' headline when alert_count=0."
+                ),
+                "data_source": "institutional_flows table (PostgreSQL/SQLite)",
+                "flow_types_queried": [
+                    "manipulation_alert",
+                    "sector_inflow_index",
+                    "whale_alert",
+                    "sector_rotation",
+                ],
+                "hero_comparison": (
+                    "Whale Signal vs Noise returns explicit equilibrium copy; "
+                    "B2B Feed returns signed empty payload with this interpretation block."
+                ),
+            }
         return payload
 
     async def generate_sales_proposal_payload(

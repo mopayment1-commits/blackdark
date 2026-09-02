@@ -13,6 +13,14 @@ from api.deps import record_behavior, require_feature
 router = APIRouter(prefix="/api/arbitrage", tags=["arbitrage"])
 
 
+@router.get("/scanner/status")
+async def arbitrage_scanner_status():
+    """Public hero health — current arb scan truth summary (not cumulative Oracle stats)."""
+    from arbitrage_service import arbitrage_scanner_hero_status
+
+    return await arbitrage_scanner_hero_status()
+
+
 @router.get("/defi/scan")
 async def arbitrage_defi_scan(
     quote_usd: float = 1000,

@@ -56,7 +56,7 @@ HERO_ENGINES: dict[str, dict[str, Any]] = {
             "net_edge_truth.py:evaluate_net_edge_truth",
             "arbitrage_engine.py:calculate_cross_exchange_arbitrage",
         ],
-        "live_endpoint": {"method": "GET", "path": "/api/oracle/net-edge-truth"},
+        "live_endpoint": {"method": "GET", "path": "/api/arbitrage/scanner/status"},
         "outlier_transform": "log1p on gross_spread_bps; min-max on net_profit_usdt across opportunities",
         "raw_vs_index": "raw_aggregate=net_profit_usdt; normalized_index=truth_score (0-100)",
         "cross_validation": "requires quote_age_ms + slippage_bps + crowd_decay independently",

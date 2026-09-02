@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-02T23:03:02.458685+00:00",
+  "generated_at": "2026-09-02T22:49:47.983012+00:00",
   "scope": "capabilities 1-100",
   "row_count": 100,
-  "checksum_sha256": "0de6a70e890959c4e209e37c8c0c42ef2d9d9734e573b93df73144db0b8c4eff",
+  "checksum_sha256": "6a8f1d2a82262b33b21d6e147c561eabda1aedd8b8b3994f11fb97f1d1bd7977",
   "ai_psi_table": [
     {
       "capability_id": 24,
@@ -2632,7 +2632,7 @@
       "interface": {
         "path": "/api/cap646/56",
         "method": "GET",
-        "e2e_test": "scripts/verify_official_batch02_production.py",
+        "e2e_test": "scripts/verify_official_batch01_production.py",
         "binding_file": "cap646/batch01_production.py",
         "binding_function": "cap_056",
         "production_spine": "batch01"
