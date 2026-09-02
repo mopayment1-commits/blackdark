@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T23:01:56.093574+00:00",
+  "generated_at": "2026-09-02T23:16:59.840659+00:00",
   "scope": "supplemental institutional closure items 1-18",
   "item_01_psi_monitor_elevated": {
     "adr": "docs/ADR_PSI_ONCHAIN_NETFLOW_MONITOR_ELEVATED.md",
@@ -8,6 +8,10 @@
     "corrected_psi": 0.9104,
     "threshold_default": 0.25,
     "threshold_onchain_netflow": 0.75,
+    "exceeds_default_threshold": true,
+    "exceeds_custom_threshold": true,
+    "custom_threshold_closure_status": "NOT_CLOSED",
+    "closure_note": "PSI 0.9104 exceeds custom threshold 0.75 — monitor_elevated is NOT full institutional closure; scheduled review required",
     "predict_direction_frozen": false,
     "review_dates_utc": [
       "2026-09-09",
@@ -110,12 +114,12 @@
     }
   },
   "item_02_lookahead_max_attribution": {
-    "max_delta_seconds": 119330.806489,
+    "max_delta_seconds": 120234.351831,
     "attributed_capability": {
       "capability_id": 100,
-      "delta_seconds": 119330.806489,
-      "delta_hours": 33.15,
-      "decision_timestamp": "2026-09-02T23:02:19.178836+00:00",
+      "delta_seconds": 120234.351831,
+      "delta_hours": 33.4,
+      "decision_timestamp": "2026-09-02T23:17:22.724178+00:00",
       "timestamp_sample_paths": [
         "research_reports.research_reports.recent[0].timestamp",
         "research_reports.research_reports.recent[1].timestamp",
@@ -125,7 +129,7 @@
       ]
     },
     "capability_name": "Research Reports",
-    "verdict": "NORMAL — slow-updating periodic content (research_reports / immutable_metrics); ~33.15h lag is expected refresh cadence, not lookahead bias",
+    "verdict": "NORMAL — slow-updating periodic content (research_reports / immutable_metrics); ~33.4h lag is expected refresh cadence, not lookahead bias",
     "is_anomaly": false
   },
   "item_04_source_of_truth": {
@@ -203,15 +207,15 @@
       }
     },
     "production_url": "https://blackdark-web-production.up.railway.app",
-    "within_limit": 97,
-    "over_limit": 3,
-    "median_ms": 197.25,
-    "p95_ms": 1619.7,
+    "within_limit": 99,
+    "over_limit": 1,
+    "median_ms": 277.1,
+    "p95_ms": 1605.1,
     "rows": [
       {
         "capability_id": 1,
         "http_status": 200,
-        "elapsed_ms": 464.0,
+        "elapsed_ms": 691.0,
         "success": true,
         "capability_name": "Smart Money Leaderboard",
         "tier": "analysis",
@@ -222,29 +226,29 @@
       {
         "capability_id": 2,
         "http_status": 200,
-        "elapsed_ms": 2142.0,
+        "elapsed_ms": 1713.6,
         "success": true,
         "capability_name": "Wallet Profiler",
         "tier": "analysis",
         "max_ms": 2000,
-        "within_limit": false,
-        "over_limit_reason": "compute-heavy aggregation without warm cache"
+        "within_limit": true,
+        "over_limit_reason": null
       },
       {
         "capability_id": 3,
         "http_status": 200,
-        "elapsed_ms": 2335.7,
+        "elapsed_ms": 1940.6,
         "success": true,
         "capability_name": "Wallet Profiler for Token",
         "tier": "analysis",
         "max_ms": 2000,
-        "within_limit": false,
-        "over_limit_reason": "compute-heavy aggregation without warm cache"
+        "within_limit": true,
+        "over_limit_reason": null
       },
       {
         "capability_id": 4,
         "http_status": 200,
-        "elapsed_ms": 459.2,
+        "elapsed_ms": 257.7,
         "success": true,
         "capability_name": "Smart Money Tracking",
         "tier": "analysis",
@@ -255,7 +259,7 @@
       {
         "capability_id": 5,
         "http_status": 200,
-        "elapsed_ms": 465.4,
+        "elapsed_ms": 269.9,
         "success": true,
         "capability_name": "Smart Money Accumulation / Distribution Detection",
         "tier": "analysis",
@@ -266,7 +270,7 @@
       {
         "capability_id": 6,
         "http_status": 200,
-        "elapsed_ms": 466.5,
+        "elapsed_ms": 398.0,
         "success": true,
         "capability_name": "Smart Money Token Screener",
         "tier": "analysis",
@@ -277,7 +281,7 @@
       {
         "capability_id": 7,
         "http_status": 200,
-        "elapsed_ms": 470.0,
+        "elapsed_ms": 414.5,
         "success": true,
         "capability_name": "Holder Distribution Intelligence",
         "tier": "analysis",
@@ -288,7 +292,7 @@
       {
         "capability_id": 8,
         "http_status": 200,
-        "elapsed_ms": 383.0,
+        "elapsed_ms": 418.1,
         "success": true,
         "capability_name": "Top Holders Concentration Analysis",
         "tier": "analysis",
@@ -299,7 +303,7 @@
       {
         "capability_id": 9,
         "http_status": 200,
-        "elapsed_ms": 201.3,
+        "elapsed_ms": 232.4,
         "success": true,
         "capability_name": "Distribution Score",
         "tier": "analysis",
@@ -310,7 +314,7 @@
       {
         "capability_id": 10,
         "http_status": 200,
-        "elapsed_ms": 1636.2,
+        "elapsed_ms": 1134.0,
         "success": true,
         "capability_name": "Wallet PnL Analysis",
         "tier": "analysis",
@@ -321,7 +325,7 @@
       {
         "capability_id": 11,
         "http_status": 200,
-        "elapsed_ms": 1597.1,
+        "elapsed_ms": 1192.9,
         "success": true,
         "capability_name": "Wallet Historical Performance & Win Rate",
         "tier": "analysis",
@@ -332,7 +336,7 @@
       {
         "capability_id": 12,
         "http_status": 200,
-        "elapsed_ms": 180.8,
+        "elapsed_ms": 177.3,
         "success": true,
         "capability_name": "Wallet Entry / Exit Analysis",
         "tier": "analysis",
@@ -343,7 +347,7 @@
       {
         "capability_id": 13,
         "http_status": 200,
-        "elapsed_ms": 1507.0,
+        "elapsed_ms": 868.0,
         "success": true,
         "capability_name": "Wallet Counterparty & Relationship Analysis",
         "tier": "analysis",
@@ -354,7 +358,7 @@
       {
         "capability_id": 14,
         "http_status": 200,
-        "elapsed_ms": 1209.2,
+        "elapsed_ms": 1182.2,
         "success": true,
         "capability_name": "Entity-Aware Wallet Intelligence",
         "tier": "analysis",
@@ -365,7 +369,7 @@
       {
         "capability_id": 15,
         "http_status": 200,
-        "elapsed_ms": 154.2,
+        "elapsed_ms": 167.2,
         "success": true,
         "capability_name": "Exchange Flow Intelligence",
         "tier": "analysis",
@@ -376,7 +380,7 @@
       {
         "capability_id": 16,
         "http_status": 200,
-        "elapsed_ms": 602.1,
+        "elapsed_ms": 596.8,
         "success": true,
         "capability_name": "Candle / Price-Move Investigator",
         "tier": "live_data",
@@ -387,7 +391,7 @@
       {
         "capability_id": 17,
         "http_status": 200,
-        "elapsed_ms": 153.5,
+        "elapsed_ms": 169.0,
         "success": true,
         "capability_name": "Smart Alerts",
         "tier": "analysis",
@@ -398,7 +402,7 @@
       {
         "capability_id": 18,
         "http_status": 200,
-        "elapsed_ms": 1067.8,
+        "elapsed_ms": 446.6,
         "success": true,
         "capability_name": "Custom Wallet Labels",
         "tier": "analysis",
@@ -409,7 +413,7 @@
       {
         "capability_id": 19,
         "http_status": 200,
-        "elapsed_ms": 144.0,
+        "elapsed_ms": 172.2,
         "success": true,
         "capability_name": "Wallet & Token Watchlists",
         "tier": "analysis",
@@ -420,7 +424,7 @@
       {
         "capability_id": 20,
         "http_status": 200,
-        "elapsed_ms": 691.4,
+        "elapsed_ms": 448.3,
         "success": true,
         "capability_name": "Multi-Chain Portfolio Intelligence",
         "tier": "ai",
@@ -431,7 +435,7 @@
       {
         "capability_id": 21,
         "http_status": 200,
-        "elapsed_ms": 888.4,
+        "elapsed_ms": 928.2,
         "success": true,
         "capability_name": "Transaction Decoder",
         "tier": "analysis",
@@ -442,7 +446,7 @@
       {
         "capability_id": 22,
         "http_status": 200,
-        "elapsed_ms": 718.9,
+        "elapsed_ms": 849.2,
         "success": true,
         "capability_name": "Instant Wallet Due Diligence",
         "tier": "analysis",
@@ -453,7 +457,7 @@
       {
         "capability_id": 23,
         "http_status": 200,
-        "elapsed_ms": 215.5,
+        "elapsed_ms": 442.7,
         "success": true,
         "capability_name": "Instant Token Due Diligence",
         "tier": "analysis",
@@ -464,7 +468,7 @@
       {
         "capability_id": 24,
         "http_status": 200,
-        "elapsed_ms": 551.2,
+        "elapsed_ms": 485.4,
         "success": true,
         "capability_name": "AI Research Agent Grounded in Platform Data",
         "tier": "ai",
@@ -475,7 +479,7 @@
       {
         "capability_id": 25,
         "http_status": 200,
-        "elapsed_ms": 173.4,
+        "elapsed_ms": 178.6,
         "success": true,
         "capability_name": "Signal → Explanation Workflow",
         "tier": "ai",
@@ -486,7 +490,7 @@
       {
         "capability_id": 26,
         "http_status": 200,
-        "elapsed_ms": 632.7,
+        "elapsed_ms": 649.2,
         "success": true,
         "capability_name": "Price-Move Explanation",
         "tier": "ai",
@@ -497,7 +501,7 @@
       {
         "capability_id": 27,
         "http_status": 200,
-        "elapsed_ms": 162.6,
+        "elapsed_ms": 166.6,
         "success": true,
         "capability_name": "Smart Money Historical Trend Analysis",
         "tier": "ai",
@@ -508,7 +512,7 @@
       {
         "capability_id": 28,
         "http_status": 200,
-        "elapsed_ms": 1466.0,
+        "elapsed_ms": 1716.5,
         "success": true,
         "capability_name": "Smart Money Conviction Engine",
         "tier": "ai",
@@ -519,7 +523,7 @@
       {
         "capability_id": 29,
         "http_status": 200,
-        "elapsed_ms": 159.6,
+        "elapsed_ms": 145.5,
         "success": true,
         "capability_name": "Cross-Market Decision Intelligence Engine",
         "tier": "ai",
@@ -530,7 +534,7 @@
       {
         "capability_id": 30,
         "http_status": 200,
-        "elapsed_ms": 148.8,
+        "elapsed_ms": 178.8,
         "success": true,
         "capability_name": "Evidence & Confidence Layer",
         "tier": "ai",
@@ -541,7 +545,7 @@
       {
         "capability_id": 31,
         "http_status": 200,
-        "elapsed_ms": 709.2,
+        "elapsed_ms": 602.4,
         "success": true,
         "capability_name": "Cross-Signal Confirmation",
         "tier": "ai",
@@ -552,7 +556,7 @@
       {
         "capability_id": 32,
         "http_status": 200,
-        "elapsed_ms": 607.0,
+        "elapsed_ms": 603.5,
         "success": true,
         "capability_name": "Contradiction Detection",
         "tier": "ai",
@@ -563,7 +567,7 @@
       {
         "capability_id": 33,
         "http_status": 200,
-        "elapsed_ms": 162.5,
+        "elapsed_ms": 226.1,
         "success": true,
         "capability_name": "Smart Money Actionability Score",
         "tier": "ai",
@@ -574,7 +578,7 @@
       {
         "capability_id": 34,
         "http_status": 200,
-        "elapsed_ms": 165.6,
+        "elapsed_ms": 146.8,
         "success": true,
         "capability_name": "Beginner Decision Mode",
         "tier": "ai",
@@ -585,7 +589,7 @@
       {
         "capability_id": 35,
         "http_status": 200,
-        "elapsed_ms": 610.8,
+        "elapsed_ms": 737.4,
         "success": true,
         "capability_name": "Market Compass / Market Regime Engine",
         "tier": "ai",
@@ -596,7 +600,7 @@
       {
         "capability_id": 36,
         "http_status": 200,
-        "elapsed_ms": 159.0,
+        "elapsed_ms": 186.8,
         "success": true,
         "capability_name": "On-Chain Metrics Library",
         "tier": "ai",
@@ -607,7 +611,7 @@
       {
         "capability_id": 37,
         "http_status": 200,
-        "elapsed_ms": 514.4,
+        "elapsed_ms": 585.5,
         "success": true,
         "capability_name": "Entity-Adjusted Metrics",
         "tier": "analysis",
@@ -618,7 +622,7 @@
       {
         "capability_id": 38,
         "http_status": 200,
-        "elapsed_ms": 175.9,
+        "elapsed_ms": 188.7,
         "success": true,
         "capability_name": "Cost Basis Distribution",
         "tier": "analysis",
@@ -629,7 +633,7 @@
       {
         "capability_id": 39,
         "http_status": 200,
-        "elapsed_ms": 167.6,
+        "elapsed_ms": 161.0,
         "success": true,
         "capability_name": "Realized Cap & Realized Price Intelligence",
         "tier": "live_data",
@@ -640,7 +644,7 @@
       {
         "capability_id": 40,
         "http_status": 200,
-        "elapsed_ms": 1126.7,
+        "elapsed_ms": 1138.5,
         "success": true,
         "capability_name": "MVRV / MVRV Z-Score Suite",
         "tier": "analysis",
@@ -651,7 +655,7 @@
       {
         "capability_id": 41,
         "http_status": 200,
-        "elapsed_ms": 164.8,
+        "elapsed_ms": 181.5,
         "success": true,
         "capability_name": "SOPR / Profitability Intelligence",
         "tier": "analysis",
@@ -662,7 +666,7 @@
       {
         "capability_id": 42,
         "http_status": 200,
-        "elapsed_ms": 186.3,
+        "elapsed_ms": 346.4,
         "success": true,
         "capability_name": "Holder Cohort Intelligence",
         "tier": "analysis",
@@ -673,7 +677,7 @@
       {
         "capability_id": 43,
         "http_status": 200,
-        "elapsed_ms": 159.0,
+        "elapsed_ms": 146.5,
         "success": true,
         "capability_name": "Supply Dynamics Intelligence",
         "tier": "analysis",
@@ -684,7 +688,7 @@
       {
         "capability_id": 44,
         "http_status": 200,
-        "elapsed_ms": 158.9,
+        "elapsed_ms": 156.7,
         "success": true,
         "capability_name": "Exchange Balance & Netflow Intelligence",
         "tier": "analysis",
@@ -695,7 +699,7 @@
       {
         "capability_id": 45,
         "http_status": 200,
-        "elapsed_ms": 333.4,
+        "elapsed_ms": 366.4,
         "success": true,
         "capability_name": "ETF Flow Intelligence",
         "tier": "analysis",
@@ -706,7 +710,7 @@
       {
         "capability_id": 46,
         "http_status": 200,
-        "elapsed_ms": 265.5,
+        "elapsed_ms": 182.8,
         "success": true,
         "capability_name": "Digital Asset Treasury Company Intelligence",
         "tier": "analysis",
@@ -717,7 +721,7 @@
       {
         "capability_id": 47,
         "http_status": 200,
-        "elapsed_ms": 225.8,
+        "elapsed_ms": 264.7,
         "success": false,
         "capability_name": "Spot Market Metrics Suite",
         "tier": "analysis",
@@ -728,7 +732,7 @@
       {
         "capability_id": 48,
         "http_status": 200,
-        "elapsed_ms": 211.6,
+        "elapsed_ms": 203.0,
         "success": false,
         "capability_name": "Futures Intelligence Suite",
         "tier": "analysis",
@@ -739,7 +743,7 @@
       {
         "capability_id": 49,
         "http_status": 200,
-        "elapsed_ms": 440.0,
+        "elapsed_ms": 434.6,
         "success": true,
         "capability_name": "Options Intelligence Suite",
         "tier": "analysis",
@@ -750,7 +754,7 @@
       {
         "capability_id": 50,
         "http_status": 200,
-        "elapsed_ms": 160.2,
+        "elapsed_ms": 166.7,
         "success": true,
         "capability_name": "Order Book Intelligence",
         "tier": "analysis",
@@ -761,7 +765,7 @@
       {
         "capability_id": 51,
         "http_status": 200,
-        "elapsed_ms": 1216.8,
+        "elapsed_ms": 1171.4,
         "success": true,
         "capability_name": "Macro & Traditional Finance Integration",
         "tier": "analysis",
@@ -772,7 +776,7 @@
       {
         "capability_id": 52,
         "http_status": 200,
-        "elapsed_ms": 186.8,
+        "elapsed_ms": 186.2,
         "success": true,
         "capability_name": "Cross-Asset Return Breadth",
         "tier": "analysis",
@@ -783,7 +787,7 @@
       {
         "capability_id": 53,
         "http_status": 200,
-        "elapsed_ms": 654.6,
+        "elapsed_ms": 645.7,
         "success": true,
         "capability_name": "BTC-to-Macro Coupling",
         "tier": "analysis",
@@ -794,7 +798,7 @@
       {
         "capability_id": 54,
         "http_status": 200,
-        "elapsed_ms": 1633.5,
+        "elapsed_ms": 1831.4,
         "success": true,
         "capability_name": "Global Liquidity Intelligence",
         "tier": "analysis",
@@ -805,7 +809,7 @@
       {
         "capability_id": 55,
         "http_status": 200,
-        "elapsed_ms": 599.9,
+        "elapsed_ms": 631.7,
         "success": true,
         "capability_name": "NVT Fair-Value Model",
         "tier": "ai",
@@ -816,7 +820,7 @@
       {
         "capability_id": 56,
         "http_status": 200,
-        "elapsed_ms": 1089.0,
+        "elapsed_ms": 1200.8,
         "success": true,
         "capability_name": "Token Screener",
         "tier": "analysis",
@@ -827,7 +831,7 @@
       {
         "capability_id": 57,
         "http_status": 200,
-        "elapsed_ms": 163.3,
+        "elapsed_ms": 153.2,
         "success": true,
         "capability_name": "Profitability Map",
         "tier": "analysis",
@@ -838,7 +842,7 @@
       {
         "capability_id": 58,
         "http_status": 200,
-        "elapsed_ms": 154.9,
+        "elapsed_ms": 155.7,
         "success": true,
         "capability_name": "Custom No-Code Charting / Workbench",
         "tier": "analysis",
@@ -849,7 +853,7 @@
       {
         "capability_id": 59,
         "http_status": 200,
-        "elapsed_ms": 474.0,
+        "elapsed_ms": 531.7,
         "success": true,
         "capability_name": "Personalized Research Dashboards",
         "tier": "analysis",
@@ -860,7 +864,7 @@
       {
         "capability_id": 60,
         "http_status": 200,
-        "elapsed_ms": 148.5,
+        "elapsed_ms": 160.3,
         "success": true,
         "capability_name": "Metric-Based Smart Alerts",
         "tier": "analysis",
@@ -871,7 +875,7 @@
       {
         "capability_id": 61,
         "http_status": 200,
-        "elapsed_ms": 141.2,
+        "elapsed_ms": 155.3,
         "success": true,
         "capability_name": "Point-in-Time Immutable Metrics",
         "tier": "analysis",
@@ -882,7 +886,7 @@
       {
         "capability_id": 62,
         "http_status": 200,
-        "elapsed_ms": 476.9,
+        "elapsed_ms": 751.9,
         "success": true,
         "capability_name": "Institutional Backtesting Data Layer",
         "tier": "analysis",
@@ -893,7 +897,7 @@
       {
         "capability_id": 63,
         "http_status": 200,
-        "elapsed_ms": 193.2,
+        "elapsed_ms": 162.1,
         "success": true,
         "capability_name": "Data Quality & Provenance Layer",
         "tier": "analysis",
@@ -904,7 +908,7 @@
       {
         "capability_id": 64,
         "http_status": 200,
-        "elapsed_ms": 164.9,
+        "elapsed_ms": 174.0,
         "success": true,
         "capability_name": "Metric Methodology Registry",
         "tier": "analysis",
@@ -915,7 +919,7 @@
       {
         "capability_id": 65,
         "http_status": 200,
-        "elapsed_ms": 247.8,
+        "elapsed_ms": 401.3,
         "success": true,
         "capability_name": "Research Intelligence Portal",
         "tier": "analysis",
@@ -926,7 +930,7 @@
       {
         "capability_id": 66,
         "http_status": 200,
-        "elapsed_ms": 165.0,
+        "elapsed_ms": 192.4,
         "success": true,
         "capability_name": "Market Regime Written Read",
         "tier": "ai",
@@ -937,7 +941,7 @@
       {
         "capability_id": 67,
         "http_status": 200,
-        "elapsed_ms": 165.1,
+        "elapsed_ms": 175.1,
         "success": true,
         "capability_name": "API / CLI / Excel / MCP Data Access",
         "tier": "analysis",
@@ -948,7 +952,7 @@
       {
         "capability_id": 68,
         "http_status": 200,
-        "elapsed_ms": 150.2,
+        "elapsed_ms": 301.0,
         "success": true,
         "capability_name": "Bulk Data & Institutional Delivery",
         "tier": "analysis",
@@ -959,7 +963,7 @@
       {
         "capability_id": 69,
         "http_status": 200,
-        "elapsed_ms": 150.7,
+        "elapsed_ms": 297.0,
         "success": false,
         "capability_name": "Cross-Domain Decision Intelligence Layer",
         "tier": "ai",
@@ -970,7 +974,7 @@
       {
         "capability_id": 70,
         "http_status": 200,
-        "elapsed_ms": 176.2,
+        "elapsed_ms": 267.5,
         "success": true,
         "capability_name": "Exchange Reserve Intelligence",
         "tier": "analysis",
@@ -981,7 +985,7 @@
       {
         "capability_id": 71,
         "http_status": 200,
-        "elapsed_ms": 147.9,
+        "elapsed_ms": 210.4,
         "success": true,
         "capability_name": "Exchange Inflow / Outflow / Netflow",
         "tier": "analysis",
@@ -992,7 +996,7 @@
       {
         "capability_id": 72,
         "http_status": 200,
-        "elapsed_ms": 192.5,
+        "elapsed_ms": 277.9,
         "success": true,
         "capability_name": "Exchange Whale Ratio",
         "tier": "analysis",
@@ -1003,7 +1007,7 @@
       {
         "capability_id": 73,
         "http_status": 200,
-        "elapsed_ms": 160.8,
+        "elapsed_ms": 485.8,
         "success": true,
         "capability_name": "Exchange Address & Transaction Activity",
         "tier": "analysis",
@@ -1014,7 +1018,7 @@
       {
         "capability_id": 74,
         "http_status": 200,
-        "elapsed_ms": 178.9,
+        "elapsed_ms": 251.1,
         "success": true,
         "capability_name": "Exchange-to-Exchange Flow Intelligence",
         "tier": "analysis",
@@ -1025,7 +1029,7 @@
       {
         "capability_id": 75,
         "http_status": 200,
-        "elapsed_ms": 166.8,
+        "elapsed_ms": 458.3,
         "success": true,
         "capability_name": "Exchange Internal-Flow Filter",
         "tier": "analysis",
@@ -1036,7 +1040,7 @@
       {
         "capability_id": 76,
         "http_status": 200,
-        "elapsed_ms": 167.2,
+        "elapsed_ms": 428.5,
         "success": true,
         "capability_name": "Stablecoin Exchange Reserve",
         "tier": "analysis",
@@ -1047,7 +1051,7 @@
       {
         "capability_id": 77,
         "http_status": 200,
-        "elapsed_ms": 152.4,
+        "elapsed_ms": 241.6,
         "success": true,
         "capability_name": "Stablecoin Exchange Flow Intelligence",
         "tier": "analysis",
@@ -1058,7 +1062,7 @@
       {
         "capability_id": 78,
         "http_status": 200,
-        "elapsed_ms": 180.2,
+        "elapsed_ms": 449.0,
         "success": true,
         "capability_name": "Stablecoin Supply Ratio Intelligence",
         "tier": "analysis",
@@ -1069,7 +1073,7 @@
       {
         "capability_id": 79,
         "http_status": 200,
-        "elapsed_ms": 176.6,
+        "elapsed_ms": 183.6,
         "success": true,
         "capability_name": "Miner Flow Intelligence",
         "tier": "analysis",
@@ -1080,7 +1084,7 @@
       {
         "capability_id": 80,
         "http_status": 200,
-        "elapsed_ms": 1139.4,
+        "elapsed_ms": 1157.4,
         "success": true,
         "capability_name": "Miners' Position Index (MPI)",
         "tier": "analysis",
@@ -1091,7 +1095,7 @@
       {
         "capability_id": 81,
         "http_status": 200,
-        "elapsed_ms": 173.9,
+        "elapsed_ms": 207.1,
         "success": true,
         "capability_name": "Whale Accumulation / Distribution Intelligence",
         "tier": "analysis",
@@ -1102,7 +1106,7 @@
       {
         "capability_id": 82,
         "http_status": 200,
-        "elapsed_ms": 1693.4,
+        "elapsed_ms": 1605.1,
         "success": true,
         "capability_name": "Coinbase Premium Intelligence",
         "tier": "analysis",
@@ -1113,7 +1117,7 @@
       {
         "capability_id": 83,
         "http_status": 200,
-        "elapsed_ms": 1619.7,
+        "elapsed_ms": 1690.5,
         "success": true,
         "capability_name": "Korea Premium Intelligence",
         "tier": "analysis",
@@ -1124,7 +1128,7 @@
       {
         "capability_id": 84,
         "http_status": 200,
-        "elapsed_ms": 1129.1,
+        "elapsed_ms": 1227.3,
         "success": true,
         "capability_name": "Fund / ETF Data Intelligence",
         "tier": "analysis",
@@ -1135,7 +1139,7 @@
       {
         "capability_id": 85,
         "http_status": 200,
-        "elapsed_ms": 162.4,
+        "elapsed_ms": 224.6,
         "success": false,
         "capability_name": "Futures Open Interest Intelligence",
         "tier": "analysis",
@@ -1146,7 +1150,7 @@
       {
         "capability_id": 86,
         "http_status": 200,
-        "elapsed_ms": 371.0,
+        "elapsed_ms": 499.7,
         "success": true,
         "capability_name": "Funding Rate Intelligence",
         "tier": "analysis",
@@ -1157,7 +1161,7 @@
       {
         "capability_id": 87,
         "http_status": 200,
-        "elapsed_ms": 144.0,
+        "elapsed_ms": 210.1,
         "success": true,
         "capability_name": "Estimated Leverage Ratio",
         "tier": "analysis",
@@ -1168,7 +1172,7 @@
       {
         "capability_id": 88,
         "http_status": 200,
-        "elapsed_ms": 479.6,
+        "elapsed_ms": 495.1,
         "success": true,
         "capability_name": "Liquidation Intelligence",
         "tier": "analysis",
@@ -1179,7 +1183,7 @@
       {
         "capability_id": 89,
         "http_status": 200,
-        "elapsed_ms": 409.0,
+        "elapsed_ms": 400.5,
         "success": true,
         "capability_name": "Taker Buy / Sell Pressure",
         "tier": "analysis",
@@ -1190,7 +1194,7 @@
       {
         "capability_id": 90,
         "http_status": 200,
-        "elapsed_ms": 443.7,
+        "elapsed_ms": 441.4,
         "success": true,
         "capability_name": "Derivatives Market Sentiment Composite",
         "tier": "analysis",
@@ -1201,7 +1205,7 @@
       {
         "capability_id": 91,
         "http_status": 200,
-        "elapsed_ms": 145.2,
+        "elapsed_ms": 153.0,
         "success": true,
         "capability_name": "Inter-Entity Flow Intelligence",
         "tier": "analysis",
@@ -1212,7 +1216,7 @@
       {
         "capability_id": 92,
         "http_status": 200,
-        "elapsed_ms": 150.5,
+        "elapsed_ms": 157.5,
         "success": true,
         "capability_name": "Address Labels & Cohorts",
         "tier": "analysis",
@@ -1223,7 +1227,7 @@
       {
         "capability_id": 93,
         "http_status": 200,
-        "elapsed_ms": 144.6,
+        "elapsed_ms": 153.9,
         "success": true,
         "capability_name": "Custom No-Code Analytics / Web3 Analytics",
         "tier": "analysis",
@@ -1234,7 +1238,7 @@
       {
         "capability_id": 94,
         "http_status": 200,
-        "elapsed_ms": 173.1,
+        "elapsed_ms": 220.8,
         "success": true,
         "capability_name": "Native SQL / Advanced Query Workspace",
         "tier": "analysis",
@@ -1245,7 +1249,7 @@
       {
         "capability_id": 95,
         "http_status": 200,
-        "elapsed_ms": 162.8,
+        "elapsed_ms": 192.0,
         "success": true,
         "capability_name": "Pro Chart & Multi-Metric Workbench",
         "tier": "analysis",
@@ -1256,7 +1260,7 @@
       {
         "capability_id": 96,
         "http_status": 200,
-        "elapsed_ms": 165.2,
+        "elapsed_ms": 163.2,
         "success": true,
         "capability_name": "Personal Dashboards",
         "tier": "analysis",
@@ -1267,7 +1271,7 @@
       {
         "capability_id": 97,
         "http_status": 200,
-        "elapsed_ms": 160.8,
+        "elapsed_ms": 147.7,
         "success": true,
         "capability_name": "Custom Metric Alerts",
         "tier": "analysis",
@@ -1278,7 +1282,7 @@
       {
         "capability_id": 98,
         "http_status": 200,
-        "elapsed_ms": 177.4,
+        "elapsed_ms": 189.2,
         "success": true,
         "capability_name": "Whale Movement Alerts",
         "tier": "analysis",
@@ -1289,7 +1293,7 @@
       {
         "capability_id": 99,
         "http_status": 200,
-        "elapsed_ms": 266.1,
+        "elapsed_ms": 237.7,
         "success": true,
         "capability_name": "QuickTake / Analyst Insight Feed",
         "tier": "ai",
@@ -1300,7 +1304,7 @@
       {
         "capability_id": 100,
         "http_status": 200,
-        "elapsed_ms": 261.4,
+        "elapsed_ms": 276.3,
         "success": true,
         "capability_name": "Research Reports",
         "tier": "ai",
@@ -1309,7 +1313,7 @@
         "over_limit_reason": null
       }
     ],
-    "checksum": "f149413487795f15ab812a7c161b00da5b3cdc40f01f0ea21d9eac211d80fd55"
+    "checksum": "c5f10ff36b86b592e818571abed5a88ee8ff676825556fdffe91b9005deb0f82"
   },
   "item_12_hero_map_final": {
     "binding_row_count": 81,
@@ -2111,20 +2115,78 @@
     "methodology": "5 scenarios × every input cap excluded per hero (see regenerated HERO_SIX_BINDING_REPORT.json)",
     "note": "Run generate_pentagonal_hero_binding_report.py after LOO code change"
   },
-  "item_14_cap69_impact": {
-    "issue": "GET entitlement bypass on /api/cap646/{id}",
-    "discovery_documented": "2026-09-02 (PR #358 branch cursor/get-entitlement-bypass-fix-e85e)",
-    "fix_merged_utc": "2026-09-02T20:48:39Z",
-    "production_protected_utc": "2026-09-02T20:50:12.444547+00:00",
-    "exposure_window": "from first anonymous GET spine deploy until PR #358 production protection",
-    "heroes_potentially_affected": [
-      "Single-Sentence Oracle (caps 47, 48, 69)",
-      "Arbitrage Scanner (caps 47, 48, 69, 85)",
-      "Whale Signal vs Noise (cap 85)",
-      "Stealth Advisor (cap 85)"
+  "item_01b_latency_remediation": {
+    "adr": "docs/ADR_LATENCY_CAPS_2_3_54.md",
+    "over_limit_caps": [
+      {
+        "capability_id": 2,
+        "name": "Wallet Profiler",
+        "measured_ms": 1713.6,
+        "tier": "analysis",
+        "max_ms": 2000,
+        "fix": "Redis cache wallet_profiler:v1 TTL 120s + top-50 pre-warm",
+        "target_date": "2026-09-09"
+      },
+      {
+        "capability_id": 3,
+        "name": "Wallet Profiler for Token",
+        "measured_ms": 1940.6,
+        "tier": "analysis",
+        "max_ms": 2000,
+        "fix": "Shared cache + token-scoped key wallet_token_profiler:v1 TTL 90s",
+        "target_date": "2026-09-09"
+      }
     ],
-    "user_visible_impact": "Anonymous users could read pro-gated capability payloads before fix. Hero aggregation paths that consumed cap 47/48/69/85 without server-side tier check could surface richer data to free-tier probes. Post-fix: entitlement enforced at spine.",
-    "dual_path_cap69": "Separate from entitlement — routing unified via batch02 cap_069; closed in DUPLICATION_LOCK_TABLE"
+    "borderline_caps": [
+      {
+        "capability_id": 54,
+        "name": "Global Liquidity Intelligence",
+        "measured_ms": 1831.4,
+        "tier": "analysis",
+        "max_ms": 2000,
+        "within_limit": true,
+        "fix": "Warm global_liquidity:v1 cache TTL 300s; ADR exception at 2500ms if p95 > 1800ms persists",
+        "target_date": "2026-09-16"
+      }
+    ],
+    "additional_over_limit": [
+      {
+        "capability_id": 16,
+        "name": "Candle / Price-Move Investigator",
+        "measured_ms": 596.8,
+        "tier": "live_data",
+        "max_ms": 500,
+        "note": "Exceeded live_data tier; not in original 2/3/54 scope"
+      }
+    ]
+  },
+  "item_14_cap69_impact": {
+    "issue": "cap #69 dual-path routing (NOT GET entitlement bypass)",
+    "dual_path_description": "Two execution paths for cap 69 coexisted: (A) runtime spine execute_capability(69) → batch02 cap_069, (B) onchain facade handle_onchain_capability(69) → build_cross_domain_decision_payload. Same surface name but different payload assembly until Facade delegation.",
+    "dual_path_introduced_commit": "9746f8156c06f761e70aa979fe5cc508c5a49dc3",
+    "dual_path_introduced_utc": "2026-09-01T08:27:21Z",
+    "dual_path_introduced_message": "fix(batch02): mandatory review #2 — catalog evidence, #69 merge, overlap cleanup",
+    "facade_fix_commit": "b6d11a92ec500b8506cb01dfbdda17b2380fe33a",
+    "facade_fix_utc": "2026-09-01T23:05:44Z",
+    "facade_fix_message": "fix(closure): CLOSURE-MANDATE-COMPLETION — coverage regression proof, #69 SSOT, R0801 zero",
+    "facade_fix_evidence": "cap646/handlers/onchain.py:52-55 delegates to batch02_production.execute(69)",
+    "exposure_window_utc": "2026-09-01T08:27:21Z → 2026-09-01T23:05:44Z (~14h 38m)",
+    "test_contract": "tests/cap646/test_cap69_dual_path.py",
+    "heroes_with_cap69_binding": [
+      "Single-Sentence Oracle (binding: cap646/handlers/onchain.py:handle_onchain_capability)",
+      "Arbitrage Scanner (binding: cap646/handlers/onchain.py:handle_onchain_capability)"
+    ],
+    "hero_inconsistency_during_window": {
+      "oracle": "Oracle hero consumed cap 69 via onchain facade (path B) while direct spine probes used path A — cross_domain_decision vs batch02 cap_069 could diverge on multi_dimensional vs cross_market field population. Post-facade-fix: paths unified; test_cap69_onchain_facade_delegates_to_batch02 passes.",
+      "arbitrage_scanner": "Same dual-path exposure for cap 69 feed. Arb scanner reject_rate unaffected (uses caps 11/40/47/48/50 primarily); cap 69 cross-domain signal could differ between facade and spine during window.",
+      "other_heroes": "No cap 69 binding — Ledger, Whale, Stealth, B2B not affected by dual-path."
+    },
+    "production_deploy_note": "Facade fix merged 2026-09-01; production may have lagged until next Railway deploy.",
+    "duplication_lock": "docs/DUPLICATION_LOCK_TABLE_1_100.json row #69 dual-path → CLOSED_PERMANENT",
+    "get_entitlement_separate_issue": {
+      "note": "GET entitlement bypass is a DIFFERENT issue (PR #358, 2026-09-02). Not conflated here.",
+      "reference": "docs/GET_ENTITLEMENT_PRODUCTION_CLOSURE.json"
+    }
   },
   "item_15_live_heroes_full": [
     {
@@ -2138,7 +2200,7 @@
         "enabled": true,
         "data_source": "live_fallback",
         "asset": "BTC",
-        "timestamp": "2026-09-02T23:02:26.535153+00:00",
+        "timestamp": "2026-09-02T23:17:23.743442+00:00",
         "geo_news": {
           "headlines": [
             {
@@ -2274,9 +2336,9 @@
             "AKE",
             "CASHCAT",
             "ARB",
-            "UNI",
-            "USELESS",
-            "PUMP"
+            "PUMP",
+            "PENGU",
+            "UNI"
           ],
           "reddit_hot_titles": [],
           "sentiment_compound_proxy": 0.26
@@ -2363,12 +2425,12 @@
       "user_facing_path": "/dashboard#arbitrage",
       "response_body": {
         "enabled": true,
-        "evaluated": 47,
+        "evaluated": 64,
         "passed": 0,
-        "rejected": 47,
+        "rejected": 64,
         "reject_rate": 1.0,
         "reject_reasons": {
-          "missing_net_profit": 47
+          "missing_net_profit": 64
         },
         "thresholds": {
           "min_truth_score": 55.0,
@@ -2386,7 +2448,7 @@
       "path_type": "production_real",
       "user_facing_path": "/dashboard#whales",
       "response_body": {
-        "timestamp": "2026-09-02T23:02:27.000809+00:00",
+        "timestamp": "2026-09-02T23:17:24.262730+00:00",
         "headline": "No major whale narratives in the current window — market in equilibrium.",
         "one_sentence": "No major whale narratives in the current window — market in equilibrium.",
         "stories": [
@@ -2464,14 +2526,14 @@
       "response_body": {
         "product": "BLACKDARK Institutional Manipulation Feed",
         "feed_version": "1.0.0",
-        "generated_at": "2026-09-02T23:02:27.325541+00:00",
+        "generated_at": "2026-09-02T23:17:24.582289+00:00",
         "record_count": 0,
         "methodology": {
           "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
           "sii": "Sector Inflow Index (capital acceleration)"
         },
         "records": [],
-        "signature": "8aa71775df48562405c575b131d0bec51761e7648b15eb149f793775cee8aa36"
+        "signature": "2d91c511ba91bbb489e68d672433aa674e6d3ce148843b7a413e8a2226c0c700"
       },
       "live": true
     }
@@ -2525,5 +2587,5 @@
       "status": "AWAITING_OWNER_ACTION for production; code path verified in agent env"
     }
   },
-  "closure_checksum_sha256": "9d15970e2dc8935539ddd23cebc3d9b52ca7e6bac71d61b01f268c0535e6b07f"
+  "closure_checksum_sha256": "540976e133c31279535718ff30d2f2f199200f86072215ee2ff45decb3d9c5cd"
 }

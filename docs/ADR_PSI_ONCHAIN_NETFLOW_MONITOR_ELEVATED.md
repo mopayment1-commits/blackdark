@@ -12,11 +12,21 @@ Corrected platform PSI (chrono 80/20, reference quantile bins) reports `onchain_
 
 Classify `onchain_netflow` as **monitor_elevated** — do **not** freeze `predict_direction` platform-wide.
 
+**This is NOT full institutional closure of the PSI finding.** The corrected PSI **0.9104** exceeds **both** thresholds:
+
+| Threshold | Value | Status |
+|-----------|-------|--------|
+| Default (platform) | 0.25 | **EXCEEDED** (3.64×) |
+| Custom (`onchain_netflow`) | 0.75 | **EXCEEDED** (1.21×) |
+
+`monitor_elevated` means continued measurement, scheduled review, and escalation triggers — not acceptance as green.
+
 | Action | Rationale |
 |--------|-----------|
 | No global ML freeze | OOD gate + rules fallback already reject out-of-envelope features; freeze would block all heroes using cap 66/69 |
-| Elevated monitoring | Chronological drift is real but moderate (0.91, not 11.1); on-chain netflow is inherently regime-sensitive |
-| Feature-specific threshold | `onchain_netflow` uses elevated PSI alert at **0.75** (3× base) per OECD/JRC guidance on volatile macro/on-chain inputs |
+| Elevated monitoring | Chronological drift is real (0.9104 > 0.75 custom threshold); on-chain netflow is inherently regime-sensitive |
+| Feature-specific threshold | `onchain_netflow` uses elevated PSI alert at **0.75** (3× base) per OECD/JRC guidance on volatile macro/on-chain inputs — **still breached** |
+| Escalation if unresolved | PSI > 1.0 on 2026-09-16 → owner review for partial cap 66/69 ML weight reduction |
 
 ## Review Plan
 

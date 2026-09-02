@@ -45,13 +45,22 @@ def item_01_psi_monitor_elevated() -> dict[str, Any]:
     from scripts.pentagonal_closure_evidence import measure_platform_psi
 
     psi = measure_platform_psi()
+    corrected = psi.get("platform_max_psi")
+    custom_threshold = 0.75
     return {
         "adr": "docs/ADR_PSI_ONCHAIN_NETFLOW_MONITOR_ELEVATED.md",
         "classification": "monitor_elevated",
         "feature": "onchain_netflow",
-        "corrected_psi": psi.get("platform_max_psi"),
+        "corrected_psi": corrected,
         "threshold_default": 0.25,
-        "threshold_onchain_netflow": 0.75,
+        "threshold_onchain_netflow": custom_threshold,
+        "exceeds_default_threshold": corrected is not None and corrected > 0.25,
+        "exceeds_custom_threshold": corrected is not None and corrected > custom_threshold,
+        "custom_threshold_closure_status": "NOT_CLOSED",
+        "closure_note": (
+            f"PSI {corrected} exceeds custom threshold {custom_threshold} — "
+            "monitor_elevated is NOT full institutional closure; scheduled review required"
+        ),
         "predict_direction_frozen": False,
         "review_dates_utc": ["2026-09-09", "2026-09-16"],
         "full_psi_report": psi,
@@ -292,23 +301,97 @@ async def item_15_live_heroes_full() -> list[dict[str, Any]]:
 
 def item_14_cap69_impact() -> dict[str, Any]:
     return {
-        "issue": "GET entitlement bypass on /api/cap646/{id}",
-        "discovery_documented": "2026-09-02 (PR #358 branch cursor/get-entitlement-bypass-fix-e85e)",
-        "fix_merged_utc": "2026-09-02T20:48:39Z",
-        "production_protected_utc": "2026-09-02T20:50:12.444547+00:00",
-        "exposure_window": "from first anonymous GET spine deploy until PR #358 production protection",
-        "heroes_potentially_affected": [
-            "Single-Sentence Oracle (caps 47, 48, 69)",
-            "Arbitrage Scanner (caps 47, 48, 69, 85)",
-            "Whale Signal vs Noise (cap 85)",
-            "Stealth Advisor (cap 85)",
-        ],
-        "user_visible_impact": (
-            "Anonymous users could read pro-gated capability payloads before fix. "
-            "Hero aggregation paths that consumed cap 47/48/69/85 without server-side tier check "
-            "could surface richer data to free-tier probes. Post-fix: entitlement enforced at spine."
+        "issue": "cap #69 dual-path routing (NOT GET entitlement bypass)",
+        "dual_path_description": (
+            "Two execution paths for cap 69 coexisted: "
+            "(A) runtime spine execute_capability(69) → batch02 cap_069, "
+            "(B) onchain facade handle_onchain_capability(69) → build_cross_domain_decision_payload. "
+            "Same surface name but different payload assembly until Facade delegation."
         ),
-        "dual_path_cap69": "Separate from entitlement — routing unified via batch02 cap_069; closed in DUPLICATION_LOCK_TABLE",
+        "dual_path_introduced_commit": "9746f8156c06f761e70aa979fe5cc508c5a49dc3",
+        "dual_path_introduced_utc": "2026-09-01T08:27:21Z",
+        "dual_path_introduced_message": "fix(batch02): mandatory review #2 — catalog evidence, #69 merge, overlap cleanup",
+        "facade_fix_commit": "b6d11a92ec500b8506cb01dfbdda17b2380fe33a",
+        "facade_fix_utc": "2026-09-01T23:05:44Z",
+        "facade_fix_message": "fix(closure): CLOSURE-MANDATE-COMPLETION — coverage regression proof, #69 SSOT, R0801 zero",
+        "facade_fix_evidence": "cap646/handlers/onchain.py:52-55 delegates to batch02_production.execute(69)",
+        "exposure_window_utc": "2026-09-01T08:27:21Z → 2026-09-01T23:05:44Z (~14h 38m)",
+        "test_contract": "tests/cap646/test_cap69_dual_path.py",
+        "heroes_with_cap69_binding": [
+            "Single-Sentence Oracle (binding: cap646/handlers/onchain.py:handle_onchain_capability)",
+            "Arbitrage Scanner (binding: cap646/handlers/onchain.py:handle_onchain_capability)",
+        ],
+        "hero_inconsistency_during_window": {
+            "oracle": (
+                "Oracle hero consumed cap 69 via onchain facade (path B) while direct spine probes "
+                "used path A — cross_domain_decision vs batch02 cap_069 could diverge on multi_dimensional "
+                "vs cross_market field population. Post-facade-fix: paths unified; test_cap69_onchain_facade_delegates_to_batch02 passes."
+            ),
+            "arbitrage_scanner": (
+                "Same dual-path exposure for cap 69 feed. Arb scanner reject_rate unaffected (uses caps 11/40/47/48/50 primarily); "
+                "cap 69 cross-domain signal could differ between facade and spine during window."
+            ),
+            "other_heroes": "No cap 69 binding — Ledger, Whale, Stealth, B2B not affected by dual-path.",
+        },
+        "production_deploy_note": "Facade fix merged 2026-09-01; production may have lagged until next Railway deploy.",
+        "duplication_lock": "docs/DUPLICATION_LOCK_TABLE_1_100.json row #69 dual-path → CLOSED_PERMANENT",
+        "get_entitlement_separate_issue": {
+            "note": "GET entitlement bypass is a DIFFERENT issue (PR #358, 2026-09-02). Not conflated here.",
+            "reference": "docs/GET_ENTITLEMENT_PRODUCTION_CLOSURE.json",
+        },
+    }
+
+
+def item_01b_latency_remediation(latency_rows: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+    rows_by_id = {r["capability_id"]: r for r in (latency_rows or [])}
+
+    def _ms(cid: int, fallback: float) -> float:
+        return float(rows_by_id[cid]["elapsed_ms"]) if cid in rows_by_id else fallback
+
+    return {
+        "adr": "docs/ADR_LATENCY_CAPS_2_3_54.md",
+        "over_limit_caps": [
+            {
+                "capability_id": 2,
+                "name": "Wallet Profiler",
+                "measured_ms": _ms(2, 0),
+                "tier": "analysis",
+                "max_ms": 2000,
+                "fix": "Redis cache wallet_profiler:v1 TTL 120s + top-50 pre-warm",
+                "target_date": "2026-09-09",
+            },
+            {
+                "capability_id": 3,
+                "name": "Wallet Profiler for Token",
+                "measured_ms": _ms(3, 0),
+                "tier": "analysis",
+                "max_ms": 2000,
+                "fix": "Shared cache + token-scoped key wallet_token_profiler:v1 TTL 90s",
+                "target_date": "2026-09-09",
+            },
+        ],
+        "borderline_caps": [
+            {
+                "capability_id": 54,
+                "name": "Global Liquidity Intelligence",
+                "measured_ms": _ms(54, 0),
+                "tier": "analysis",
+                "max_ms": 2000,
+                "within_limit": rows_by_id.get(54, {}).get("within_limit", True),
+                "fix": "Warm global_liquidity:v1 cache TTL 300s; ADR exception at 2500ms if p95 > 1800ms persists",
+                "target_date": "2026-09-16",
+            },
+        ],
+        "additional_over_limit": [
+            {
+                "capability_id": 16,
+                "name": "Candle / Price-Move Investigator",
+                "measured_ms": _ms(16, 0),
+                "tier": "live_data",
+                "max_ms": 500,
+                "note": "Exceeded live_data tier; not in original 2/3/54 scope",
+            },
+        ],
     }
 
 
@@ -405,6 +488,7 @@ def item_12_hero_map() -> dict[str, Any]:
 
 async def main() -> None:
     print("Generating supplemental closure report items 1-18...")
+    lat = await item_10_11_latency_100()
     report: dict[str, Any] = {
         "generated_at": datetime.now(UTC).isoformat(),
         "scope": "supplemental institutional closure items 1-18",
@@ -428,12 +512,13 @@ async def main() -> None:
             "note": "See docs/DUPLICATION_LOCK_TABLE_1_100.json — pentagonal scripts share no new clones per jscpd",
             "table_path": "docs/DUPLICATION_LOCK_TABLE_1_100.json",
         },
-        "item_10_11_latency": await item_10_11_latency_100(),
+        "item_10_11_latency": lat,
         "item_12_hero_map_final": item_12_hero_map(),
         "item_13_loo_expanded": {
             "methodology": "5 scenarios × every input cap excluded per hero (see regenerated HERO_SIX_BINDING_REPORT.json)",
             "note": "Run generate_pentagonal_hero_binding_report.py after LOO code change",
         },
+        "item_01b_latency_remediation": item_01b_latency_remediation(lat.get("rows")),
         "item_14_cap69_impact": item_14_cap69_impact(),
         "item_15_live_heroes_full": await item_15_live_heroes_full(),
         "item_16_b2b_awaiting": item_16_b2b_awaiting(),
