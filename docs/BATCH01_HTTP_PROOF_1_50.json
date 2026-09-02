@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-09-02T15:47:13.620158+00:00",
+  "verified_at": "2026-09-02T21:03:47.878002+00:00",
   "scope": "official batch01 IDs 1–50",
   "capability_ids": [
     1,
@@ -66,6 +66,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -79,6 +80,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -92,6 +94,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -105,6 +108,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -118,6 +122,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -131,6 +136,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -144,6 +150,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -157,6 +164,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -170,6 +178,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -183,6 +192,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -196,6 +206,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -209,6 +220,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -222,6 +234,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -235,6 +248,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -248,6 +262,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -261,6 +276,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -274,6 +290,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -287,6 +304,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -300,6 +318,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -313,6 +332,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -326,6 +346,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -339,6 +360,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -352,6 +374,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -365,6 +388,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -378,6 +402,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -391,6 +416,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -404,6 +430,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -417,6 +444,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -430,6 +458,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -443,6 +472,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -456,6 +486,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -469,6 +500,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -482,6 +514,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -495,6 +528,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -508,6 +542,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -521,6 +556,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -534,6 +570,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -547,6 +584,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -560,6 +598,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -573,6 +612,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -586,6 +626,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -599,6 +640,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -612,6 +654,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -625,6 +668,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -638,6 +682,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -651,6 +696,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -658,12 +704,20 @@
       "http_method": "GET",
       "http_path": "/api/cap646/47",
       "http_status": 200,
-      "success": true,
-      "surface": "spot_market_metrics_suite",
+      "success": false,
+      "surface": null,
       "expected_surface": null,
-      "production_spine": "batch01",
-      "classification": "PRODUCTION-ALIGNED",
+      "production_spine": null,
+      "classification": null,
       "oracle_fallback_error": null,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "pro",
+        "actual_tier": "free",
+        "capability_id": 47,
+        "capability": "Spot Market Metrics Suite"
+      },
       "verified": true
     },
     {
@@ -671,12 +725,20 @@
       "http_method": "GET",
       "http_path": "/api/cap646/48",
       "http_status": 200,
-      "success": true,
-      "surface": "futures_intelligence_suite",
+      "success": false,
+      "surface": null,
       "expected_surface": null,
-      "production_spine": "batch01",
-      "classification": "PRODUCTION-ALIGNED",
+      "production_spine": null,
+      "classification": null,
       "oracle_fallback_error": null,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "pro",
+        "actual_tier": "free",
+        "capability_id": 48,
+        "capability": "Futures Intelligence Suite"
+      },
       "verified": true
     },
     {
@@ -690,6 +752,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -703,6 +766,7 @@
       "production_spine": "batch01",
       "classification": "PRODUCTION-ALIGNED",
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     }
   ]

@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-09-02T15:47:41.463624+00:00",
+  "verified_at": "2026-09-02T21:04:14.728004+00:00",
   "scope": "official batch02 IDs 51–100",
   "capability_ids": [
     51,
@@ -75,6 +75,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -91,6 +92,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -107,6 +109,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -123,6 +126,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -139,6 +143,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": true,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -155,6 +160,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": true,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -171,6 +177,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -187,6 +194,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -203,6 +211,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": true,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -219,6 +228,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": true,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -235,6 +245,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -251,6 +262,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -267,6 +279,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -283,6 +296,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -299,6 +313,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -315,6 +330,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -331,6 +347,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -347,6 +364,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -355,14 +373,22 @@
       "http_path": "/api/cap646/69",
       "production_path": "dashboard.app -> api/routers/cap646.py::cap646_get -> cap978.unified.execute_unified -> cap646.runtime.execute_capability",
       "http_status": 200,
-      "success": true,
-      "surface": "cross_domain_decision_intelligence_layer",
+      "success": false,
+      "surface": null,
       "expected_surface": "cross_domain_decision_intelligence_layer",
-      "production_spine": "batch02",
+      "production_spine": null,
       "expected_spine": "batch02",
-      "classification": "PRODUCTION-ALIGNED",
+      "classification": null,
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "pro",
+        "actual_tier": "free",
+        "capability_id": 69,
+        "capability": "Cross-Domain Decision Intelligence Layer"
+      },
       "verified": true
     },
     {
@@ -379,6 +405,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -395,6 +422,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -411,6 +439,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -427,6 +456,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -443,6 +473,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -459,6 +490,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -475,6 +507,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -491,6 +524,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -507,6 +541,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -523,6 +558,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -539,6 +575,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -555,6 +592,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -571,6 +609,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -587,6 +626,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -603,6 +643,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -611,14 +652,22 @@
       "http_path": "/api/cap646/85",
       "production_path": "dashboard.app -> api/routers/cap646.py::cap646_get -> cap978.unified.execute_unified -> cap646.runtime.execute_capability",
       "http_status": 200,
-      "success": true,
-      "surface": "futures_open_interest_intelligence",
+      "success": false,
+      "surface": null,
       "expected_surface": "futures_open_interest_intelligence",
-      "production_spine": "batch02",
+      "production_spine": null,
       "expected_spine": "batch02",
-      "classification": "PRODUCTION-ALIGNED",
+      "classification": null,
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "pro",
+        "actual_tier": "free",
+        "capability_id": 85,
+        "capability": "Futures Open Interest Intelligence"
+      },
       "verified": true
     },
     {
@@ -635,6 +684,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -651,6 +701,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -667,6 +718,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -683,6 +735,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -699,6 +752,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -715,6 +769,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -731,6 +786,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -747,6 +803,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -763,6 +820,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -779,6 +837,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -795,6 +854,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -811,6 +871,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -827,6 +888,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -843,6 +905,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     },
     {
@@ -859,6 +922,7 @@
       "classification": "PRODUCTION-ALIGNED",
       "overlap_batch01": false,
       "oracle_fallback_error": null,
+      "entitlement": null,
       "verified": true
     }
   ]

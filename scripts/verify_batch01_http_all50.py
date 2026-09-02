@@ -12,6 +12,26 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+PRO_GATED_IDS = frozenset({47, 48, 69, 85})
+
+
+def _verified_anonymous_get(cid: int, response, body: dict, *, expected_spine: str, surface_ok: bool) -> bool:
+    if response.status_code != 200:
+        return False
+    if cid in PRO_GATED_IDS:
+        ent = body.get("entitlement") or {}
+        return (
+            body.get("success") is False
+            and ent.get("allowed") is False
+            and ent.get("reason") in {"tier_insufficient", "teaser"}
+        )
+    return (
+        bool(body.get("success"))
+        and body.get("production_spine") == expected_spine
+        and surface_ok
+        and not body.get("oracle_fallback_error")
+    )
+
 
 def main() -> None:
     from fastapi.testclient import TestClient
@@ -39,12 +59,9 @@ def main() -> None:
                 "production_spine": body.get("production_spine"),
                 "classification": body.get("classification"),
                 "oracle_fallback_error": body.get("oracle_fallback_error"),
-                "verified": (
-                    response.status_code == 200
-                    and bool(body.get("success"))
-                    and body.get("production_spine") == "batch01"
-                    and surface_ok
-                    and not body.get("oracle_fallback_error")
+                "entitlement": body.get("entitlement"),
+                "verified": _verified_anonymous_get(
+                    cid, response, body, expected_spine="batch01", surface_ok=surface_ok
                 ),
             }
         )
