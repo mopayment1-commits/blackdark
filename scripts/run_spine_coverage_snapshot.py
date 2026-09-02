@@ -6,8 +6,13 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
-import xml.etree.ElementTree as ET
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.cobertura_spine import parse_spine_coverage
 
 ROOT = Path(__file__).resolve().parents[1]
 SPINE_MODULES = [
@@ -44,38 +49,8 @@ def main() -> int:
     if not cov_path.exists():
         print(json.dumps({"error": "coverage.xml missing", "pytest_rc": proc.returncode}))
         return 1
-    root = ET.parse(cov_path)
-    rows = []
-    total_stmts = total_miss = 0
-    for rel in SPINE_MODULES:
-        cls = root.find(f".//class[@filename='{rel.split('/')[-1]}']")
-        if cls is None:
-            rows.append({"module": rel, "stmts": 0, "miss": 0, "coverage_pct": None})
-            continue
-        rate = float(cls.get("line-rate", 0))
-        line_nodes = cls.findall("lines/line")
-        if line_nodes:
-            stmts = len(line_nodes)
-            miss = sum(1 for ln in line_nodes if int(ln.get("hits", 0)) == 0)
-        else:
-            stmts = int(float(cls.get("line-rate", 0)) and 0)  # fallback unused
-            stmts = len(line_nodes) or max(1, int(1 / rate)) if rate else 0
-            miss = int(round(stmts * (1 - rate)))
-        total_stmts += stmts
-        total_miss += miss
-        pct = round(100 * (stmts - miss) / stmts, 2) if stmts else 0
-        rows.append({"module": rel, "stmts": stmts, "miss": miss, "coverage_pct": pct})
-    weighted = round(100 * (total_stmts - total_miss) / total_stmts, 2) if total_stmts else 0
-    out = {
-        "spine_modules": rows,
-        "combined_spine": {
-            "total_stmts": total_stmts,
-            "total_miss": total_miss,
-            "weighted_statement_coverage_pct": weighted,
-            "metric": "statement_coverage_not_branch",
-        },
-        "pytest_exit_code": proc.returncode,
-    }
+    parsed = parse_spine_coverage(cov_path, SPINE_MODULES)
+    out = {**parsed, "pytest_exit_code": proc.returncode}
     (ROOT / "docs/SPINE_COVERAGE_SNAPSHOT.json").write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(out, indent=2))
     return 0

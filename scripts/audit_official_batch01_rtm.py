@@ -98,6 +98,7 @@ async def main() -> None:
     print(f"Wrote {json_path}")
     if not_complete:
         print("NOT_COMPLETE:", not_complete)
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

@@ -8,13 +8,18 @@ import json
 import subprocess
 import sys
 import time
-import xml.etree.ElementTree as ET
 from datetime import UTC, datetime
 from itertools import product
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.cobertura_spine import spine_module_rows
+import defusedxml.ElementTree as ET
+
 SPINE_FILES = [
     "runtime.py",
     "batch_spine.py",
@@ -199,20 +204,8 @@ def coverage_spine_suite() -> dict:
         capture_output=True,
         text=True,
     )
-    root = ET.parse(cov_path)
-    rows = []
-    total_stmts = total_miss = 0
-    for rel in SPINE_FILES:
-        cls = root.find(f".//class[@filename='{rel}']")
-        if cls is None:
-            rows.append({"module": rel, "stmts": 0, "miss": 0, "coverage_pct": None})
-            continue
-        lines = cls.findall("lines/line")
-        stmts = len(lines)
-        miss = sum(1 for ln in lines if int(ln.get("hits", 0)) == 0)
-        total_stmts += stmts
-        total_miss += miss
-        rows.append({"module": rel, "stmts": stmts, "miss": miss, "coverage_pct": round(100 * (stmts - miss) / stmts, 2) if stmts else None})
+    root = ET.parse(cov_path).getroot()
+    rows, total_stmts, total_miss = spine_module_rows(root, SPINE_FILES)
     weighted = round(100 * (total_stmts - total_miss) / total_stmts, 2) if total_stmts else 0
     return {
         "modules": rows,

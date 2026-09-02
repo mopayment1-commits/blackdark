@@ -72,12 +72,21 @@ def _owner_approval_ok() -> tuple[bool, str]:
 
 
 def _run(script: str) -> dict:
-    proc = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], capture_output=True, text=True)
+    env = os.environ.copy()
+    env.setdefault("PYTHONPATH", str(ROOT))
+    env.setdefault("SERVICE_BUS_LOCAL", "true")
+    proc = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / script)],
+        capture_output=True,
+        text=True,
+        cwd=ROOT,
+        env=env,
+    )
     return {
         "script": script,
         "exit_code": proc.returncode,
         "stdout": proc.stdout.strip(),
-        "stderr": proc.stderr[-500:] if proc.stderr else "",
+        "stderr": proc.stderr[-2000:] if proc.stderr else "",
     }
 
 
@@ -138,6 +147,12 @@ async def main() -> None:
     print(json.dumps({"all_verified": out["all_verified"], "failed": [f["script"] for f in failed]}, indent=2))
     print(f"Wrote {path}")
     if failed:
+        for item in failed:
+            print(f"--- FAILURE: {item['script']} (exit {item['exit_code']}) ---", file=sys.stderr)
+            if item.get("stdout"):
+                print(item["stdout"], file=sys.stderr)
+            if item.get("stderr"):
+                print(item["stderr"], file=sys.stderr)
         raise SystemExit(f"Orchestrator failed: {[f['script'] for f in failed]}")
 
 

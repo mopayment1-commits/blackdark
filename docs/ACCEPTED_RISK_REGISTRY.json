@@ -34,8 +34,8 @@
       "line": 47,
       "decision": "FIXED",
       "decision_author": "Cursor Agent",
-      "decision_date": "2026-09-01",
-      "rationale": "Replaced ElementTree.parse with line-rate from cobertura class attributes only (trusted local pytest output)."
+      "decision_date": "2026-09-02",
+      "rationale": "Shared scripts/cobertura_spine.py uses defusedxml.ElementTree.parse on trusted local pytest Cobertura output (also fixes run_closure_mandate_completion.py L35 and run_closure_mandate_last.py L202)."
     },
     {
       "rule": "B310",
