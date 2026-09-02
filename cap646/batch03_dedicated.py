@@ -111,16 +111,10 @@ async def _cap105(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
 
 async def _cap106(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from data_provenance_score import compute_data_provenance_score
-    from hot_storage import get_hot_storage_stats
+    from cap646.dedicated_common import provenance_hot_storage_payload
 
-    provenance = compute_data_provenance_score(symbol=symbol)
-    hot = get_hot_storage_stats()
-    payload = {
-        "provenance": provenance,
-        "hot_storage": hot.__dict__ if hasattr(hot, "__dict__") else hot,
-        "catalog_link": {"duplicate_of": 63, "classification": "REUSED-LINK"},
-    }
+    payload = provenance_hot_storage_payload(symbol)
+    payload["catalog_link"] = {"duplicate_of": 63, "classification": "REUSED-LINK"}
     return _wrap(106, symbol=symbol, payload_key="data_quality_provenance", payload=payload)
 
 

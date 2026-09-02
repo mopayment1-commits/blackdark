@@ -39,7 +39,9 @@ def _inventory() -> dict[int, dict]:
     return {int(k): v for k, v in _load_json("docs/CAPABILITIES_826_INVENTORY.json")["per_id"].items()}
 
 
-def _norm_text(s: str) -> str:
+def _norm_text(s: str | None) -> str:
+    if not s:
+        return ""
     s = re.sub(r"\s+", " ", s.strip().lower())
     s = re.sub(r"[_\-\s]+", "", s)
     return s

@@ -1738,5 +1738,5 @@
   },
   "closure_status": "PENDING_CLOSURE",
   "status_on_branch": "PENDING_CLOSURE",
-  "status_on_main": "PENDING_CLOSURE",
+  "status_on_main": "PENDING_CLOSURE"
 }

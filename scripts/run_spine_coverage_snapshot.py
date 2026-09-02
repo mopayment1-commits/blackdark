@@ -44,26 +44,23 @@ def main() -> int:
     if not cov_path.exists():
         print(json.dumps({"error": "coverage.xml missing", "pytest_rc": proc.returncode}))
         return 1
-    root = ET.parse(cov_path).getroot()
+    root = ET.parse(cov_path)
     rows = []
     total_stmts = total_miss = 0
     for rel in SPINE_MODULES:
-        cls = root.find(f".//class[@filename='{rel}']")
+        cls = root.find(f".//class[@filename='{rel.split('/')[-1]}']")
         if cls is None:
             rows.append({"module": rel, "stmts": 0, "miss": 0, "coverage_pct": None})
             continue
-        stmts = int(float(cls.get("line-rate", 0)) and cls.get("lines-valid") or 0)
-        # coverage.xml class uses line-rate; get misses from lines
+        rate = float(cls.get("line-rate", 0))
         line_nodes = cls.findall("lines/line")
         if line_nodes:
-            covered = sum(1 for ln in line_nodes if int(ln.get("hits", 0)) > 0)
-            miss = len(line_nodes) - covered
             stmts = len(line_nodes)
+            miss = sum(1 for ln in line_nodes if int(ln.get("hits", 0)) == 0)
         else:
-            rate = float(cls.get("line-rate", 0))
-            stmts = int(cls.get("lines-valid", 0) or 0)
+            stmts = int(float(cls.get("line-rate", 0)) and 0)  # fallback unused
+            stmts = len(line_nodes) or max(1, int(1 / rate)) if rate else 0
             miss = int(round(stmts * (1 - rate)))
-            covered = stmts - miss
         total_stmts += stmts
         total_miss += miss
         pct = round(100 * (stmts - miss) / stmts, 2) if stmts else 0

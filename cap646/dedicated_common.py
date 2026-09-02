@@ -58,6 +58,19 @@ def wrap(
     return ai_compliance_footer(body)
 
 
+def provenance_hot_storage_payload(symbol: str) -> dict[str, Any]:
+    """Shared #63 / #106 data-quality provenance payload — Eliminate jscpd clone."""
+    from data_provenance_score import compute_data_provenance_score
+    from hot_storage import get_hot_storage_stats
+
+    provenance = compute_data_provenance_score(symbol=symbol)
+    hot = get_hot_storage_stats()
+    return {
+        "provenance": provenance,
+        "hot_storage": hot.__dict__ if hasattr(hot, "__dict__") else hot,
+    }
+
+
 def make_wrap_binding(expected_surface: dict[int, str]) -> Callable[..., dict[str, Any]]:
     """Factory for batch-specific wrap helpers — single Extract Function site (CWE-1041)."""
 

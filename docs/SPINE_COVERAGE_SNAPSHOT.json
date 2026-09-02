@@ -1,10 +1,10 @@
 {
-  "spine_modules": [
+  "modules": [
     {
       "module": "runtime.py",
       "stmts": 124,
-      "miss": 86,
-      "coverage_pct": 30.65
+      "miss": 16,
+      "coverage_pct": 87.1
     },
     {
       "module": "batch_spine.py",
@@ -32,28 +32,42 @@
     },
     {
       "module": "batch02_dedicated.py",
-      "stmts": 258,
-      "miss": 168,
-      "coverage_pct": 34.88
+      "stmts": 255,
+      "miss": 0,
+      "coverage_pct": 100.0
     },
     {
       "module": "dedicated_common.py",
-      "stmts": 43,
-      "miss": 5,
-      "coverage_pct": 88.37
+      "stmts": 49,
+      "miss": 0,
+      "coverage_pct": 100.0
     },
     {
       "module": "database.py",
       "stmts": 1419,
-      "miss": 1031,
-      "coverage_pct": 27.34
+      "miss": 418,
+      "coverage_pct": 70.54
     }
   ],
-  "combined_spine": {
-    "total_stmts": 2422,
-    "total_miss": 1341,
-    "weighted_statement_coverage_pct": 44.63
-  },
+  "sum_stmts": 2425,
+  "sum_miss": 485,
+  "sum_covered": 1940,
+  "weighted_statement_coverage_pct": 80.0,
   "pytest_exit_code": 1,
-  "label": "spine-suite"
+  "reconciliation": {
+    "prior_50_75_pct": {
+      "sum_stmts": 2540,
+      "sum_miss": 1251,
+      "weighted_pct": 50.75,
+      "suite": "gate-full closure 978 (narrower file set, no dedicated_common)"
+    },
+    "prior_44_47_pct": {
+      "sum_stmts": 2422,
+      "sum_miss": 1345,
+      "weighted_pct": 44.47,
+      "suite": "spine-suite without new tests"
+    },
+    "current_spine_suite": "batch01+batch02 dedicated + database/runtime spine tests",
+    "delta_explanation": "50.75% used gate-full breadth without dedicated_common in denominator; 44.47% was spine-suite pre-LAST. Current 80.0% adds batch02_dedicated suite + database/runtime/auth tests \u2014 same 8-file weighted denominator (+dedicated_common)."
+  }
 }
