@@ -193,6 +193,117 @@ def build_lock_table() -> list[dict]:
     ]:
         add(case, td, act, "CLOSED_PERMANENT", roy_cordy_type=rctype, locations=loc)
 
+    # jscpd official+hero scope (run_closure_mandate_last.run_jscpd): 15 clones, all intra-database.py.
+    # Orthogonal to MECE OVERLAP-PARTIAL (capability-ID semantic pairs); see docs/JSCPD_OFFICIAL_HERO_15_CLONES.json.
+    for case, td, act, loc, rctype in [
+        (
+            "jscpd database platform_analytics DDL (_SCHEMA_SQL↔_apply_schema_migrations)",
+            "Invest",
+            "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+            "database.py:346-355 ↔ 902-911",
+            1,
+        ),
+        (
+            "jscpd database journal_entries DDL (_SCHEMA_SQL↔_apply_schema_migrations)",
+            "Invest",
+            "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+            "database.py:386-398 ↔ 959-971",
+            1,
+        ),
+        (
+            "jscpd database audit_logs DDL (_SCHEMA_SQL↔_apply_schema_migrations)",
+            "Invest",
+            "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+            "database.py:420-431 ↔ 1286-1297",
+            1,
+        ),
+        (
+            "jscpd database decisions DDL (_SCHEMA_SQL↔_apply_schema_migrations)",
+            "Invest",
+            "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+            "database.py:442-453 ↔ 1321-1332",
+            1,
+        ),
+        (
+            "jscpd database kg_nodes DDL (_SCHEMA_SQL↔_apply_schema_migrations)",
+            "Invest",
+            "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+            "database.py:464-473 ↔ 1365-1374",
+            1,
+        ),
+        (
+            "jscpd database kg_edges DDL (_SCHEMA_SQL↔_apply_schema_migrations)",
+            "Invest",
+            "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+            "database.py:478-487 ↔ 1378-1387",
+            1,
+        ),
+        (
+            "jscpd database market_signals DDL (_SCHEMA_SQL↔_apply_schema_migrations)",
+            "Invest",
+            "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+            "database.py:495-508 ↔ 1392-1405",
+            1,
+        ),
+        (
+            "jscpd database learning_predictions DDL (_SCHEMA_SQL↔_apply_schema_migrations)",
+            "Invest",
+            "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+            "database.py:513-523 ↔ 1409-1419",
+            1,
+        ),
+        (
+            "jscpd database ip_registry DDL (_SCHEMA_SQL↔_apply_schema_migrations)",
+            "Invest",
+            "Idempotent schema bootstrap + incremental migration dual-path; CREATE IF NOT EXISTS intentional for SQLite/Postgres parity",
+            "database.py:582-592 ↔ 1480-1490",
+            1,
+        ),
+        (
+            "jscpd database fetch_archivable pricing↔order_books compaction template",
+            "Invest",
+            "Bounded compaction template; distinct tables (pricing_logs vs order_books); spine DB tests cover each archiver",
+            "database.py:1521-1532 ↔ 1546-1557",
+            3,
+        ),
+        (
+            "jscpd database fetch_archivable pricing↔sentiment_logs compaction template",
+            "Invest",
+            "Bounded compaction template; distinct tables (pricing_logs vs market_sentiment_logs); spine DB tests cover each archiver",
+            "database.py:1521-1532 ↔ 1571-1582",
+            3,
+        ),
+        (
+            "jscpd database delete_pricing↔order_books compaction purge template",
+            "Invest",
+            "Bounded compaction purge template; distinct tables; batch DELETE IN (?) pattern shared by design",
+            "database.py:1596-1606 ↔ 1616-1626",
+            3,
+        ),
+        (
+            "jscpd database delete_pricing↔sentiment_logs compaction purge template",
+            "Invest",
+            "Bounded compaction purge template; distinct tables; batch DELETE IN (?) pattern shared by design",
+            "database.py:1596-1606 ↔ 1636-1646",
+            3,
+        ),
+        (
+            "jscpd database institutional_flows INSERT single↔executemany",
+            "Invest",
+            "Shared INSERT column list; insert_institutional_flow vs insert_institutional_flows are distinct entry points (row vs batch)",
+            "database.py:2008-2014 ↔ 2039-2045",
+            3,
+        ),
+        (
+            "jscpd database payload_json deserialize weekly↔maintenance fetch",
+            "Invest",
+            "Shared payload_json→dict loop; weekly_reports vs maintenance_runs bounded read paths",
+            "database.py:4862-4879 ↔ 4906-4923",
+            3,
+        ),
+    ]:
+        add(case, td, act, "CLOSED_PERMANENT", roy_cordy_type=rctype, locations=loc)
+
     return rows
 
 

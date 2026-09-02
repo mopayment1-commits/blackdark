@@ -1,0 +1,174 @@
+{
+  "generated_at": "2026-09-02T13:51:35.602952+00:00",
+  "scope": "official_paths + hero_paths from run_closure_mandate_last.run_jscpd()",
+  "tool": "jscpd --min-lines 5",
+  "statistics": {
+    "clones": 15,
+    "duplicatedLines": 159,
+    "duplicatedTokens": 920,
+    "lines": 8367,
+    "newClones": 0,
+    "newDuplicatedLines": 0,
+    "percentage": 1.90032269630692,
+    "percentageTokens": 1.963253024903438,
+    "sources": 24,
+    "tokens": 46861
+  },
+  "mece_overlap_partial_batch04_17": 11,
+  "relationship_to_mece": {
+    "is_subset_of_mece_overlap_partial": false,
+    "is_superset": false,
+    "intersection_count": 0,
+    "explanation": "MECE OVERLAP-PARTIAL (11 pairs) are capability-ID semantic overlap verdicts (official 1-100 vs hero batch04-17). jscpd clones are intra-file code duplication detections. All 15 jscpd clones are in database.py only; zero in cap646/hero modules at current min-lines=5 after batch01_dedicated Eliminate refactor."
+  },
+  "why_15_not_11": "Different dimensions: 11 = MECE product/capability pair verdicts; 15 = jscpd code clone pairs (9 DDL bootstrap\u2194migration + 4 compaction template pairs + 1 INSERT pair + 1 payload deserialize pair). No numeric mapping between the two counts.",
+  "clones": [
+    {
+      "clone_id": 1,
+      "first": "database.py:346-355",
+      "second": "database.py:902-911",
+      "lines": 10,
+      "tokens": 65,
+      "roy_cordy_type": 1,
+      "fragment_preview": "CREATE TABLE IF NOT EXISTS platform_analytics ( |     id                 INTEGER PRIMARY KEY CHECK (id = 1), |     page_view"
+    },
+    {
+      "clone_id": 2,
+      "first": "database.py:386-398",
+      "second": "database.py:959-971",
+      "lines": 13,
+      "tokens": 55,
+      "roy_cordy_type": 1,
+      "fragment_preview": "CREATE TABLE IF NOT EXISTS journal_entries ( |     id             INTEGER PRIMARY KEY AUTOINCREMENT, |     user_email     TE"
+    },
+    {
+      "clone_id": 3,
+      "first": "database.py:420-431",
+      "second": "database.py:1286-1297",
+      "lines": 12,
+      "tokens": 52,
+      "roy_cordy_type": 1,
+      "fragment_preview": "CREATE TABLE IF NOT EXISTS audit_logs ( |     id              INTEGER PRIMARY KEY AUTOINCREMENT, |     timestamp       TEXT "
+    },
+    {
+      "clone_id": 4,
+      "first": "database.py:442-453",
+      "second": "database.py:1321-1332",
+      "lines": 12,
+      "tokens": 64,
+      "roy_cordy_type": 1,
+      "fragment_preview": "CREATE TABLE IF NOT EXISTS decisions ( |     id              INTEGER PRIMARY KEY AUTOINCREMENT, |     decision_id     TEXT  "
+    },
+    {
+      "clone_id": 5,
+      "first": "database.py:464-473",
+      "second": "database.py:1365-1374",
+      "lines": 10,
+      "tokens": 51,
+      "roy_cordy_type": 1,
+      "fragment_preview": "CREATE TABLE IF NOT EXISTS kg_nodes ( |     id              INTEGER PRIMARY KEY AUTOINCREMENT, |     node_id         TEXT   "
+    },
+    {
+      "clone_id": 6,
+      "first": "database.py:478-487",
+      "second": "database.py:1378-1387",
+      "lines": 10,
+      "tokens": 51,
+      "roy_cordy_type": 1,
+      "fragment_preview": "CREATE TABLE IF NOT EXISTS kg_edges ( |     id              INTEGER PRIMARY KEY AUTOINCREMENT, |     edge_id         TEXT   "
+    },
+    {
+      "clone_id": 7,
+      "first": "database.py:495-508",
+      "second": "database.py:1392-1405",
+      "lines": 14,
+      "tokens": 72,
+      "roy_cordy_type": 1,
+      "fragment_preview": "CREATE TABLE IF NOT EXISTS market_signals ( |     id              INTEGER PRIMARY KEY AUTOINCREMENT, |     signal_id       T"
+    },
+    {
+      "clone_id": 8,
+      "first": "database.py:513-523",
+      "second": "database.py:1409-1419",
+      "lines": 11,
+      "tokens": 50,
+      "roy_cordy_type": 1,
+      "fragment_preview": "CREATE TABLE IF NOT EXISTS learning_predictions ( |     prediction_id       TEXT PRIMARY KEY, |     symbol                TE"
+    },
+    {
+      "clone_id": 9,
+      "first": "database.py:582-592",
+      "second": "database.py:1480-1490",
+      "lines": 11,
+      "tokens": 52,
+      "roy_cordy_type": 1,
+      "fragment_preview": "CREATE TABLE IF NOT EXISTS ip_registry ( |     id                INTEGER PRIMARY KEY AUTOINCREMENT, |     asset_id          "
+    },
+    {
+      "clone_id": 10,
+      "first": "database.py:1521-1532",
+      "second": "database.py:1546-1557",
+      "lines": 12,
+      "tokens": 57,
+      "roy_cordy_type": 3,
+      "fragment_preview": "async def fetch_archivable_pricing_logs( |     cutoff_iso: str, |     *, |     limit: int | None = None, | ) -> list[dict[str, A"
+    },
+    {
+      "clone_id": 11,
+      "first": "database.py:1521-1532",
+      "second": "database.py:1571-1582",
+      "lines": 12,
+      "tokens": 57,
+      "roy_cordy_type": 3,
+      "fragment_preview": "async def fetch_archivable_pricing_logs( |     cutoff_iso: str, |     *, |     limit: int | None = None, | ) -> list[dict[str, A"
+    },
+    {
+      "clone_id": 12,
+      "first": "database.py:1596-1606",
+      "second": "database.py:1616-1626",
+      "lines": 11,
+      "tokens": 76,
+      "roy_cordy_type": 3,
+      "fragment_preview": "async def delete_pricing_logs_by_ids(row_ids: Sequence[int]) -> int: |     if not row_ids: |         return 0 |     total = 0 | "
+    },
+    {
+      "clone_id": 13,
+      "first": "database.py:1596-1606",
+      "second": "database.py:1636-1646",
+      "lines": 11,
+      "tokens": 76,
+      "roy_cordy_type": 3,
+      "fragment_preview": "async def delete_pricing_logs_by_ids(row_ids: Sequence[int]) -> int: |     if not row_ids: |         return 0 |     total = 0 | "
+    },
+    {
+      "clone_id": 14,
+      "first": "database.py:2008-2014",
+      "second": "database.py:2039-2045",
+      "lines": 7,
+      "tokens": 59,
+      "roy_cordy_type": 3,
+      "fragment_preview": "        cursor = await db.execute( |             \"\"\" |             INSERT INTO institutional_flows ( |                 timesta"
+    },
+    {
+      "clone_id": 15,
+      "first": "database.py:4862-4879",
+      "second": "database.py:4906-4923",
+      "lines": 18,
+      "tokens": 83,
+      "roy_cordy_type": 3,
+      "fragment_preview": "                ORDER BY generated_at DESC |                 LIMIT ? |                 \"\"\", |                 (limit,), |       "
+    }
+  ],
+  "lock_table_addendum": {
+    "prior_row_count": 82,
+    "new_row_count": 97,
+    "rows_added": 15,
+    "checksum": {
+      "section_zero_rows": 97,
+      "numbered_items": 11,
+      "total_report_sections": 108,
+      "checksum_sha256_prefix": "d41600aa739be032",
+      "checksum_ok": true
+    }
+  }
+}

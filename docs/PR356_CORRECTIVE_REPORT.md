@@ -167,13 +167,70 @@ Replacement comment in `cap646/runtime.py`:
 | Full spine suite | `pytest` (11 spine modules in `SPINE_PYTEST`) | **passed** |
 | `runtime.py` coverage (spine suite) | `--cov=cap646 --cov-report=xml:coverage-runtime-fix.xml` | **88.98%** line-rate (`105/118` stmts); missed: `55,58,61,63,66,76-82,99` only |
 | Former L147–160 | cobertura line scan | **0 missed** (lines removed) |
-| jscpd (official + hero scope) | `npx jscpd` paths from `run_closure_mandate_last.py` | **15 clones**, 159 duplicated lines (unchanged vs pre-fix baseline) |
+| jscpd (official + hero scope) | `npx jscpd` paths from `run_closure_mandate_last.py` | **15 clones**, 159 duplicated lines — **see §5** (orthogonal to MECE 11) |
 
 **Sonar impact:** Removing 3 unreachable new lines eliminates the 3 uncovered Sonar new-code lines on `runtime.py`; aggregate PR new coverage remains **≥ 80%** (was 93.9% before this deletion).
 
 ---
 
-## 5) `batch03_dedicated.py` in PR New Code scope
+## 5) jscpd 15 clones vs MECE 11 OVERLAP-PARTIAL — **RESOLVED**
+
+### 5.1 Relationship (سؤال 1 و 4)
+
+| Dimension | MECE 11 OVERLAP-PARTIAL | jscpd 15 clones |
+|-----------|-------------------------|-----------------|
+| **What it measures** | Capability-ID semantic overlap (official 1–100 ↔ hero batch04–17) | Intra-file code duplication (token/line similarity) |
+| **Already in lock table?** | Yes — 11 rows as `MECE matrix_2_official_vs_hero_201_300 #a↔#b (OVERLAP-PARTIAL)` | **No** (until this addendum) |
+| **Intersection** | **0** — no clone maps to any MECE pair |
+| **Files involved** | `cap646/*` capability backends (semantic) | **`database.py` only** (all 15) |
+| **Why 15 ≠ 11** | Different counting units: 11 product pairs vs 15 code clone pairs | Not aggregation of the same set |
+
+**Conclusion:** الـ15 **اكتشاف كود منفصل تمامًا** — ليس مطابقًا ولا متضمّنًا في الـ11 MECE. السبب الوحيد لتشابه العدد تقريبًا هو صدفة؛ لا يوجد mapping رقمي بينهما.
+
+Full machine-readable inventory: `docs/JSCPD_OFFICIAL_HERO_15_CLONES.json`
+
+### 5.2 Full clone list (سؤال 2)
+
+| # | الموقع A | الموقع B | Roy & Cordy | أسطر |
+|---|--------|--------|-------------|------|
+| 1 | `database.py:346-355` | `database.py:902-911` | **Type 1** (exact DDL) | 10 |
+| 2 | `database.py:386-398` | `database.py:959-971` | **Type 1** | 13 |
+| 3 | `database.py:420-431` | `database.py:1286-1297` | **Type 1** | 12 |
+| 4 | `database.py:442-453` | `database.py:1321-1332` | **Type 1** | 12 |
+| 5 | `database.py:464-473` | `database.py:1365-1374` | **Type 1** | 10 |
+| 6 | `database.py:478-487` | `database.py:1378-1387` | **Type 1** | 10 |
+| 7 | `database.py:495-508` | `database.py:1392-1405` | **Type 1** | 14 |
+| 8 | `database.py:513-523` | `database.py:1409-1419` | **Type 1** | 11 |
+| 9 | `database.py:582-592` | `database.py:1480-1490` | **Type 1** | 11 |
+| 10 | `database.py:1521-1532` | `database.py:1546-1557` | **Type 3** (gapped: pricing↔order_books) | 12 |
+| 11 | `database.py:1521-1532` | `database.py:1571-1582` | **Type 3** (gapped: pricing↔sentiment) | 12 |
+| 12 | `database.py:1596-1606` | `database.py:1616-1626` | **Type 3** (gapped: delete pricing↔order_books) | 11 |
+| 13 | `database.py:1596-1606` | `database.py:1636-1646` | **Type 3** (gapped: delete pricing↔sentiment) | 11 |
+| 14 | `database.py:2008-2014` | `database.py:2039-2045` | **Type 3** (gapped: single INSERT↔executemany) | 7 |
+| 15 | `database.py:4862-4879` | `database.py:4906-4923` | **Type 3** (gapped: payload_json deserialize) | 18 |
+
+**Note:** `cap646/*` and hero batch04–17 modules report **0 jscpd clones** at `--min-lines 5` after prior Eliminate refactors (batch01_dedicated, provenance #63/#106).
+
+### 5.3 Lock table addendum (سؤال 3)
+
+Added **15 rows** to `docs/DUPLICATION_LOCK_TABLE_1_100.json` (all `CLOSED_PERMANENT`):
+
+| Clone group | TIME | Count |
+|-------------|------|------:|
+| DDL `_SCHEMA_SQL` ↔ `_apply_schema_migrations` | **Invest** | 9 |
+| Compaction fetch/delete templates | **Invest** | 4 |
+| `institutional_flows` INSERT single↔batch | **Invest** | 1 |
+| `payload_json` deserialize fetch loops | **Invest** | 1 |
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Lock table rows | 82 | **97** |
+| Checksum prefix | (prior) | **`d41600aa739be032`** |
+| Total report sections (rows + items 1–11) | 93 | **108** |
+
+---
+
+## 6) `batch03_dedicated.py` in PR New Code scope
 
 ### Confirmation
 
@@ -189,7 +246,7 @@ Replacement comment in `cap646/runtime.py`:
 
 ---
 
-## 6) Command transcript summary
+## 7) Command transcript summary
 
 ```bash
 # eecef6b bandit (pre-fix)
