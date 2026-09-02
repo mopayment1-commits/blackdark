@@ -98,7 +98,15 @@ def _run(script: str, *, attempts: int = 2) -> dict:
     return last
 
 
+async def _bootstrap_db() -> None:
+    """Fresh CI runners need sqlite schema before RTM/HTTP audits touch database-backed caps."""
+    import database
+
+    await database.init_db()
+
+
 async def main() -> None:
+    await _bootstrap_db()
     closure_request = "--closure-request" in sys.argv
     if closure_request:
         approval_ok, approval_reason = _owner_approval_ok()
