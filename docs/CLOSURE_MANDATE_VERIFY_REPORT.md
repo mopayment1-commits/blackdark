@@ -54,20 +54,40 @@
 | 4 | هل `dedicated_common.py` أدخلها؟ → **لا** — الاستخراج طال batch02/03 فقط |
 | 5 | **السبب الجذري** | **عيب نطاق/ترتيب عملية**: القسم صفر أُغلق على R0801 + clones عابرة للملفات؛ jscpd intra-module batch01 أُبلغ لاحقًا في التحقق الختامي دون إعادة فتح القفل |
 
-### 2.2 تصنيف الثلاثة
+### 2.2 تصنيف الثلاثة — **تم الإزالة بالكود (Eliminate)**
 
-| # | المواقع | Roy & Cordy | TIME | الحالة |
+| # | المواقع الأصلية | Roy & Cordy | TIME | الحالة |
 |---|---|---|---|---|
-| 1 | `#7↔#9` L354-362↔L403-408 | **Type 3** (gapped) | **Invest** | CLOSED_PERMANENT |
-| 2 | `#8↔#9` L374-380↔L403-409 | **Type 3** (gapped) | **Invest** | CLOSED_PERMANENT |
-| 3 | `#15↔#44` L431-438↔L1104-1111 | **Type 3** (gapped) | **Invest** | CLOSED_PERMANENT |
+| 1 | `#7↔#9` holder_analytics | **Type 3** (gapped) | **Eliminate** | `holder_analytics_bundle()` + `holder_analytics_footer()` |
+| 2 | `#8↔#9` metrics extraction | **Type 3** (gapped) | **Eliminate** | `holder_analytics_locked()` + `holder_analytics_footer(extra=...)` |
+| 3 | `#15↔#44` exchange_netflow | **Type 3** (gapped) | **Eliminate** | `exchange_netflow_probe()` + `exchange_netflow_footer(flow_payload_key=...)` |
 
-**المبرر:** تكامل مشترك (`holder_analytics` / `exchange_netflow_intelligence_48`) مع `EXPECTED_SURFACE` وpayloads مختلفة لكل capability — Bounded Context داخل batch01 (ليس تكرارًا عابرًا للحدود يستدعي Eliminate فوري).
+**إجابة السؤال التصحيحي (1):** نعم — تم تعديل الكود فعليًا (Extract Function + Parameterize Function)، وليس توثيق Invest فقط.
 
-### 2.3 جدول القفل المحدَّث
+| الدالة المشتركة | المسار | السطور |
+|---|---|---|
+| `holder_analytics_bundle` | `cap646/dedicated_common.py` | **74–80** |
+| `holder_analytics_footer` | `cap646/dedicated_common.py` | **83–103** |
+| `holder_analytics_locked` | `cap646/dedicated_common.py` | **106–110** |
+| `exchange_netflow_probe` | `cap646/dedicated_common.py` | **113–119** |
+| `exchange_netflow_footer` | `cap646/dedicated_common.py` | **122–142** |
+
+Handlers المُحدَّثة في `cap646/batch01_dedicated.py`: `_cap007_holder_distribution`, `_cap008_top_holders_concentration`, `_cap009_distribution_score`, `_cap015_exchange_flow_intelligence`, `_cap044_exchange_balance_netflow`.
+
+### 2.3 jscpd بعد الإصلاح (السؤال 2)
+
+```text
+npx jscpd cap646/batch01_dedicated.py --min-lines 5 --min-tokens 50
+→ Found 0 clones. (1413 lines, 8539 tokens, 0 duplicated)
+```
+
+الأثر الكامل: `/opt/cursor/artifacts/jscpd_batch01_dedicated_after_refactor.txt`
+
+### 2.4 جدول القفل المحدَّث
 
 - **قبل:** 79 صفًا — checksum `993af4355bd3e6c6`
-- **بعد:** **82 صفًا** — checksum **`d3702d7f17518687`**
+- **بعد Invest (مرفوض):** 82 صفًا — checksum `d3702d7f17518687`
+- **بعد Eliminate (نهائي):** **82 صفًا** — TIME=Eliminate للثلاثة — checksum مُحدَّث في `docs/DUPLICATION_LOCK_TABLE_1_100.json`
 - **SSOT:** `docs/DUPLICATION_LOCK_TABLE_1_100.json`
 
 ---

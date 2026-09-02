@@ -8,6 +8,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from cap646.dedicated_common import (
+    exchange_netflow_footer,
+    exchange_netflow_probe,
+    holder_analytics_bundle,
+    holder_analytics_footer,
+    holder_analytics_locked,
+)
 from cap646.evidence_class import ai_compliance_footer, attach_evidence_metadata, infer_evidence_class
 
 # Official batch 01 dedicated backends (IDs 1–50) + legacy extension IDs with dedicated spines.
@@ -352,97 +359,78 @@ async def _cap006_smart_money_token_screener(*, symbol: str, address: str, param
 
 
 async def _cap007_holder_distribution(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.free_integrations import holder_analytics
-
-    dist = await holder_analytics(symbol)
-    metrics = dist.get("metrics") or {}
-    return ai_compliance_footer(
-        {
-            "capability_id": 7,
-            "surface": EXPECTED_SURFACE[7],
-            "symbol": symbol,
+    dist, metrics = await holder_analytics_bundle(symbol)
+    return holder_analytics_footer(
+        7,
+        EXPECTED_SURFACE[7],
+        symbol,
+        dist,
+        metrics,
+        extra={
             "holder_distribution": metrics,
             "circulating_supply": metrics.get("circulating_supply"),
             "locked_supply_pct": metrics.get("locked_supply_pct"),
             "long_short_ratio": metrics.get("long_short_ratio"),
-            "source": dist.get("source"),
-            "success": bool(dist.get("available")),
-        }
+        },
     )
 
 
 async def _cap008_top_holders_concentration(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.free_integrations import holder_analytics
-
-    dist = await holder_analytics(symbol)
-    metrics = dist.get("metrics") or {}
-    locked_pct = float(metrics.get("locked_supply_pct") or 0)
+    dist, metrics, locked_pct = await holder_analytics_locked(symbol)
     circ = float(metrics.get("circulating_supply") or 0)
     total = float(metrics.get("total_supply") or circ or 1)
     top10_proxy_pct = round(min(95.0, max(locked_pct, (total - circ) / total * 100 if total else 0)), 2)
     concentration_risk = "high" if top10_proxy_pct > 60 else "moderate" if top10_proxy_pct > 35 else "low"
 
-    return ai_compliance_footer(
-        {
-            "capability_id": 8,
-            "surface": EXPECTED_SURFACE[8],
-            "symbol": symbol,
+    return holder_analytics_footer(
+        8,
+        EXPECTED_SURFACE[8],
+        symbol,
+        dist,
+        metrics,
+        extra={
             "top_holders_concentration": {
                 "top10_proxy_pct": top10_proxy_pct,
                 "locked_supply_pct": locked_pct,
                 "concentration_risk": concentration_risk,
                 "method": "supply_concentration_proxy",
             },
-            "holder_metrics": metrics,
-            "source": dist.get("source"),
-            "success": bool(dist.get("available")),
-        }
+        },
     )
 
 
 async def _cap009_distribution_score(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.free_integrations import holder_analytics
-
-    dist = await holder_analytics(symbol)
-    metrics = dist.get("metrics") or {}
-    locked_pct = float(metrics.get("locked_supply_pct") or 0)
+    dist, metrics, locked_pct = await holder_analytics_locked(symbol)
     ls_ratio = float(metrics.get("long_short_ratio") or 1.0)
     distribution_score = round(max(0.0, min(100.0, 100 - locked_pct * 0.6 + (ls_ratio - 1) * 10)), 2)
     verdict = "well_distributed" if distribution_score >= 65 else "moderate" if distribution_score >= 40 else "concentrated"
 
-    return ai_compliance_footer(
-        {
-            "capability_id": 9,
-            "surface": EXPECTED_SURFACE[9],
-            "symbol": symbol,
+    return holder_analytics_footer(
+        9,
+        EXPECTED_SURFACE[9],
+        symbol,
+        dist,
+        metrics,
+        extra={
             "distribution_score": distribution_score,
             "distribution_verdict": verdict,
             "inputs": {
                 "locked_supply_pct": locked_pct,
                 "long_short_ratio": ls_ratio,
             },
-            "holder_metrics": metrics,
-            "source": dist.get("source"),
-            "success": bool(dist.get("available")),
-        }
+        },
     )
 
 
 async def _cap015_exchange_flow_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.heroes_capability_layer import exchange_netflow_intelligence_48
-
-    exchange = str(params.get("exchange") or "binance")
-    netflow = exchange_netflow_intelligence_48(exchange=exchange, asset=symbol)
-    return ai_compliance_footer(
-        {
-            "capability_id": 15,
-            "surface": EXPECTED_SURFACE[15],
-            "symbol": symbol,
-            "exchange": exchange,
-            "exchange_flow": netflow,
-            "netflow_proxy": netflow.get("netflow_proxy"),
-            "success": netflow.get("ok", True),
-        }
+    exchange, netflow = exchange_netflow_probe(params, symbol)
+    return exchange_netflow_footer(
+        15,
+        EXPECTED_SURFACE[15],
+        symbol,
+        exchange,
+        netflow,
+        flow_payload_key="exchange_flow",
     )
 
 
@@ -1102,20 +1090,14 @@ async def _cap037_entity_adjusted_metrics(*, symbol: str, address: str, params: 
 
 
 async def _cap044_exchange_balance_netflow(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.heroes_capability_layer import exchange_netflow_intelligence_48
-
-    exchange = str(params.get("exchange") or "binance")
-    netflow = exchange_netflow_intelligence_48(exchange=exchange, asset=symbol)
-    return ai_compliance_footer(
-        {
-            "capability_id": 44,
-            "surface": EXPECTED_SURFACE[44],
-            "symbol": symbol,
-            "exchange": exchange,
-            "netflow": netflow,
-            "netflow_proxy": netflow.get("netflow_proxy"),
-            "success": netflow.get("ok", True),
-        }
+    exchange, netflow = exchange_netflow_probe(params, symbol)
+    return exchange_netflow_footer(
+        44,
+        EXPECTED_SURFACE[44],
+        symbol,
+        exchange,
+        netflow,
+        flow_payload_key="netflow",
     )
 
 

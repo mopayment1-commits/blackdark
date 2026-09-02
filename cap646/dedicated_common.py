@@ -71,6 +71,77 @@ def provenance_hot_storage_payload(symbol: str) -> dict[str, Any]:
     }
 
 
+async def holder_analytics_bundle(symbol: str) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Fetch holder analytics once — shared by batch01 #7/#8/#9 (CLOSURE-MANDATE-VERIFY)."""
+    from bd_platform.free_integrations import holder_analytics
+
+    dist = await holder_analytics(symbol)
+    metrics = dist.get("metrics") or {}
+    return dist, metrics
+
+
+def holder_analytics_footer(
+    capability_id: int,
+    surface: str,
+    symbol: str,
+    dist: dict[str, Any],
+    metrics: dict[str, Any],
+    *,
+    extra: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Common ai_compliance_footer for holder-analytics capabilities."""
+    body: dict[str, Any] = {
+        "capability_id": capability_id,
+        "surface": surface,
+        "symbol": symbol,
+        "holder_metrics": metrics,
+        "source": dist.get("source"),
+        "success": bool(dist.get("available")),
+    }
+    if extra:
+        body.update(extra)
+    return ai_compliance_footer(body)
+
+
+async def holder_analytics_locked(symbol: str) -> tuple[dict[str, Any], dict[str, Any], float]:
+    """Bundle + locked_supply_pct — shared by batch01 #8/#9 (Parameterize Function)."""
+    dist, metrics = await holder_analytics_bundle(symbol)
+    locked_pct = float(metrics.get("locked_supply_pct") or 0)
+    return dist, metrics, locked_pct
+
+
+def exchange_netflow_probe(params: dict[str, Any], symbol: str) -> tuple[str, dict[str, Any]]:
+    """Shared exchange netflow probe — batch01 #15/#44 (CLOSURE-MANDATE-VERIFY)."""
+    from bd_platform.heroes_capability_layer import exchange_netflow_intelligence_48
+
+    exchange = str(params.get("exchange") or "binance")
+    netflow = exchange_netflow_intelligence_48(exchange=exchange, asset=symbol)
+    return exchange, netflow
+
+
+def exchange_netflow_footer(
+    capability_id: int,
+    surface: str,
+    symbol: str,
+    exchange: str,
+    netflow: dict[str, Any],
+    *,
+    flow_payload_key: str,
+) -> dict[str, Any]:
+    """Parameterize netflow payload key (#15 exchange_flow vs #44 netflow)."""
+    return ai_compliance_footer(
+        {
+            "capability_id": capability_id,
+            "surface": surface,
+            "symbol": symbol,
+            "exchange": exchange,
+            flow_payload_key: netflow,
+            "netflow_proxy": netflow.get("netflow_proxy"),
+            "success": netflow.get("ok", True),
+        }
+    )
+
+
 def make_wrap_binding(expected_surface: dict[int, str]) -> Callable[..., dict[str, Any]]:
     """Factory for batch-specific wrap helpers — single Extract Function site (CWE-1041)."""
 

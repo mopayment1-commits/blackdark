@@ -543,7 +543,31 @@
       "action_applied": "Official 1-100 spine retained; hero/prep ID 125 bounded context until batch opened",
       "lock_state": "CLOSED_PERMANENT",
       "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "jscpd batch01_dedicated #7\u2194#9 holder_analytics (L354-362\u2194L403-408)",
+      "time_decision": "Eliminate",
+      "action_applied": "holder_analytics_bundle() + holder_analytics_footer() \u2014 Extract Function",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "dedicated_common.py:74-103; batch01 #7/#8/#9 delegate"
+    },
+    {
+      "case": "jscpd batch01_dedicated #8\u2194#9 metrics extraction (L374-380\u2194L403-409)",
+      "time_decision": "Eliminate",
+      "action_applied": "holder_analytics_locked() + holder_analytics_footer(extra=...) \u2014 Parameterize Function",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "dedicated_common.py:106-110"
+    },
+    {
+      "case": "jscpd batch01_dedicated #15\u2194#44 exchange_netflow (L431-438\u2194L1104-1111)",
+      "time_decision": "Eliminate",
+      "action_applied": "exchange_netflow_probe() + exchange_netflow_footer(flow_payload_key=...) \u2014 Parameterize Function",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "dedicated_common.py:113-142"
     }
   ],
-  "generated_at": "2026-09-02T00:35:12.673143+00:00"
+  "generated_at": "2026-09-02T01:13:54.367323+00:00"
 }

@@ -166,23 +166,23 @@ def build_lock_table() -> list[dict]:
     for case, td, act, loc, rctype in [
         (
             "jscpd batch01_dedicated #7↔#9 holder_analytics (L354-362↔L403-408)",
-            "Invest",
-            "Roy & Cordy Type 3 (gapped); shared holder_analytics integration per capability surface",
-            "batch01_dedicated.py:354-362 vs 403-408",
+            "Eliminate",
+            "holder_analytics_bundle() + holder_analytics_footer() — Extract Function",
+            "dedicated_common.py:74-103; batch01 #7/#8/#9 delegate",
             3,
         ),
         (
             "jscpd batch01_dedicated #8↔#9 metrics extraction (L374-380↔L403-409)",
-            "Invest",
-            "Roy & Cordy Type 3 (gapped); distinct capability payloads from shared metrics fetch",
-            "batch01_dedicated.py:374-380 vs 403-409",
+            "Eliminate",
+            "holder_analytics_locked() + holder_analytics_footer(extra=...) — Parameterize Function",
+            "dedicated_common.py:106-110",
             3,
         ),
         (
             "jscpd batch01_dedicated #15↔#44 exchange_netflow (L431-438↔L1104-1111)",
-            "Invest",
-            "Roy & Cordy Type 3 (gapped); heroes_capability_layer shared backend, distinct EXPECTED_SURFACE",
-            "batch01_dedicated.py:431-438 vs 1104-1111",
+            "Eliminate",
+            "exchange_netflow_probe() + exchange_netflow_footer(flow_payload_key=...) — Parameterize Function",
+            "dedicated_common.py:113-142",
             3,
         ),
     ]:
