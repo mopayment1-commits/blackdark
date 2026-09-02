@@ -54,6 +54,35 @@ def test_write_closure_status_persists_allowlisted_manifest(tmp_path, monkeypatc
     assert saved["closure_status"] == "INSTITUTIONAL_CLOSED"
 
 
+def test_write_closure_status_preserves_existing_manifest_fields(tmp_path, monkeypatch):
+    import cap646.closure_guard as cg
+
+    docs = tmp_path / "docs"
+    docs.mkdir()
+    manifest = docs / "INSTITUTIONAL_CLOSURE_FINAL.json"
+    manifest.write_text('{"closure_status":"PENDING_CLOSURE","all_verified":true}\n', encoding="utf-8")
+    monkeypatch.setattr(cg, "closure_manifest_path", lambda: manifest)
+
+    cg.write_closure_status("PENDING_CLOSURE")
+
+    saved = json.loads(manifest.read_text(encoding="utf-8"))
+    assert saved["closure_status"] == "PENDING_CLOSURE"
+    assert saved["all_verified"] is True
+
+
+def test_write_closure_status_rejects_unknown_status(tmp_path, monkeypatch):
+    import cap646.closure_guard as cg
+
+    docs = tmp_path / "docs"
+    docs.mkdir()
+    manifest = docs / "INSTITUTIONAL_CLOSURE_FINAL.json"
+    manifest.write_text("{}\n", encoding="utf-8")
+    monkeypatch.setattr(cg, "closure_manifest_path", lambda: manifest)
+
+    with pytest.raises(cg.ClosureGuardError, match="unsupported closure_status"):
+        cg.write_closure_status("../../../etc/passwd")
+
+
 def test_closure_manifest_path_resolves_under_docs():
     import cap646.closure_guard as cg
 

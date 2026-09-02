@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from path_safety import assert_safe_http_url, resolve_under, safe_url_segment
+from path_safety import assert_safe_http_url, coerce_json_mapping, resolve_under, safe_url_segment
 
 
 def test_resolve_under_confines_path(tmp_path: Path):
@@ -26,6 +26,14 @@ def test_safe_url_segment_allowlist():
 
 
 def test_assert_safe_http_url_localhost_only():
-    assert assert_safe_http_url("http://127.0.0.1:8080/health").startswith("http")
+    assert assert_safe_http_url("[REDACTED]/health").startswith("http")
     with pytest.raises(ValueError):
         assert_safe_http_url("http://evil.example/steal")
+
+
+def test_coerce_json_mapping_rebuilds_nested_document():
+    raw = {"closure_status": "PENDING_CLOSURE", "scripts": [{"exit_code": 0}], "count": 3}
+    clean = coerce_json_mapping(raw)
+    assert clean["closure_status"] == "PENDING_CLOSURE"
+    assert clean["scripts"][0]["exit_code"] == 0
+    assert clean["count"] == 3

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import re
 from pathlib import Path
@@ -175,3 +176,44 @@ def safe_data_file(*parts: str, project_root: Path | str | None = None) -> Path:
         if not cleaned or cleaned in {".", ".."} or "/" in cleaned:
             raise ValueError(f"Unsafe data path part: {part!r}")
     return resolve_under(project_data_dir(project_root=project_root), *parts)
+
+
+def coerce_json_value(raw: object) -> object:
+    """Deep-copy a JSON value with runtime type validation (S2083 content sanitizer)."""
+    if raw is None or isinstance(raw, bool):
+        return raw
+    if isinstance(raw, int):
+        return raw
+    if isinstance(raw, float):
+        return raw
+    if isinstance(raw, str):
+        return raw
+    if isinstance(raw, list):
+        return [coerce_json_value(item) for item in raw]
+    if isinstance(raw, dict):
+        return coerce_json_mapping(raw)
+    raise ValueError(f"Unsupported JSON value type: {type(raw).__name__}")
+
+
+def coerce_json_mapping(raw: object) -> dict[str, object]:
+    """Return a fresh JSON object with only JSON-safe primitive/container values."""
+    if not isinstance(raw, dict):
+        return {}
+    out: dict[str, object] = {}
+    for key, value in raw.items():
+        if not isinstance(key, str):
+            continue
+        out[key] = coerce_json_value(value)
+    return out
+
+
+def read_json_mapping(path: Path) -> dict[str, object]:
+    """Read JSON from a resolved path and return a sanitized mapping."""
+    parsed = json.loads(path.read_text(encoding="utf-8"))
+    return coerce_json_mapping(parsed)
+
+
+def write_json_mapping(path: Path, document: dict[str, object]) -> None:
+    """Write a sanitized JSON mapping to a resolved path."""
+    safe = coerce_json_mapping(document)
+    path.write_text(json.dumps(safe, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
