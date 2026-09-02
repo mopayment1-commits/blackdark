@@ -144,20 +144,8 @@ async def execute_capability(
                 }
             )
 
-    if target_id in BATCH01_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch01_capability, target_id, row=row, params=params
-        )
-
-    if target_id in BATCH02_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch02_capability, target_id, row=row, params=params
-        )
-
-    if target_id in BATCH03_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch03_capability, target_id, row=row, params=params
-        )
+    # Batch spine is reached only via direct BATCH0x_IDS (L112-125) or duplicate
+    # recursion (L128-133). No further target_id batch delegation exists in catalog.
 
     if capability_id in FREE_TIER_BASE_IDS:
         free_result = await execute_free_tier_capability(capability_id, params=params)

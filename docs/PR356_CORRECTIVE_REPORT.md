@@ -104,10 +104,16 @@ EXIT=0
 {"all_verified": true, "failed": []}
 ```
 
-### CI bandit (commit `e19921d`, run `33632302846`)
+### CI bandit (commit `ecf2e15`, run `33635124256`)
 
 ```
 bandit -r . -c .bandit -ll -q → job conclusion: pass (22s)
+```
+
+### CI batch-verification-orchestrator (commit `462f61d`, run `33635124389`)
+
+```
+batch-verification-orchestrator → job conclusion: pass (3m6s)
 ```
 
 ---
@@ -125,48 +131,45 @@ Regenerated via orchestrator post-fix. **Substantive proof fields unchanged** �
 
 ---
 
-## 4) `runtime.py` — Sonar 62.5% (3/8 new lines uncovered)
+## 4) `runtime.py` — Sonar 62.5% (3/8 new lines uncovered) — **RESOLVED**
 
-### Sonar metrics (PR #356)
+### Sonar metrics before fix (PR #356, pre-deletion)
 
 - `new_lines_to_cover`: 8  
 - `new_uncovered_lines`: 3  
 - `new_coverage`: 62.5%
 
-### The three uncovered new-code blocks (lines 147–160)
-
-These are the **`target_id` delegation** paths after entitlement, **not** the top-level `capability_id in BATCH0x_IDS` paths (those are covered by `test_runtime_spine_coverage.py`):
-
-```147:160:cap646/runtime.py
-    if target_id in BATCH01_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch01_capability, target_id, row=row, params=params
-        )
-
-    if target_id in BATCH02_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch02_capability, target_id, row=row, params=params
-        )
-
-    if target_id in BATCH03_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch03_capability, target_id, row=row, params=params
-        )
-```
-
-### Reachability analysis
+### Reachability analysis (why the blocks were dead)
 
 Catalog scan: every ID where `canonical_id(cid) != cid` and target ∈ batch01/02/03 has `is_duplicate(cid)==True`, handled earlier at lines 128–133 via recursive `execute_capability(target_id, ...)`.
 
-**No production ID reaches lines 147–160** with current catalog invariants.
+**No production ID reached the former `target_id` batch delegation blocks** with current catalog invariants.
 
-| Line block | Type | Production-reachable? |
-|------------|------|----------------------|
-| 147–150 (`target_id` → batch01) | Defensive delegate | **No** (duplicate pre-empts) |
-| 153–155 (`target_id` → batch02) | Defensive delegate | **No** |
-| 158–160 (`target_id` → batch03) | Defensive delegate | **No** |
+### Applied solution: **(ب) حذف الكتل الثلاث**
 
-**Action:** Document only — no new test (would require artificial catalog mutation). Aggregate Sonar new coverage remains **93.9% ≥ 80%**.
+Removed the three post-entitlement `target_id in BATCH0x_IDS` delegates (former L147–160). Batch spine routing is already covered by:
+
+1. Direct `capability_id in BATCH0x_IDS` (L112–125)
+2. Duplicate recursion `execute_capability(target_id, …)` (L128–133)
+
+Replacement comment in `cap646/runtime.py`:
+
+```147:148:cap646/runtime.py
+    # Batch spine is reached only via direct BATCH0x_IDS (L112-125) or duplicate
+    # recursion (L128-133). No further target_id batch delegation exists in catalog.
+```
+
+### Post-fix verification
+
+| Check | Command | Result |
+|-------|---------|--------|
+| Runtime spine tests | `pytest tests/cap646/test_runtime_spine_coverage.py -q` | **39 passed** |
+| Full spine suite | `pytest` (11 spine modules in `SPINE_PYTEST`) | **passed** |
+| `runtime.py` coverage (spine suite) | `--cov=cap646 --cov-report=xml:coverage-runtime-fix.xml` | **88.98%** line-rate (`105/118` stmts); missed: `55,58,61,63,66,76-82,99` only |
+| Former L147–160 | cobertura line scan | **0 missed** (lines removed) |
+| jscpd (official + hero scope) | `npx jscpd` paths from `run_closure_mandate_last.py` | **15 clones**, 159 duplicated lines (unchanged vs pre-fix baseline) |
+
+**Sonar impact:** Removing 3 unreachable new lines eliminates the 3 uncovered Sonar new-code lines on `runtime.py`; aggregate PR new coverage remains **≥ 80%** (was 93.9% before this deletion).
 
 ---
 
