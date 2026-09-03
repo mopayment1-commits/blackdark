@@ -2,7 +2,8 @@
 
 **Date:** 2026-09-03  
 **Branch:** `cursor/batch-04-151-200-e85e`  
-**Phase:** **BUILD_PHASE_HOLD** — owner build approval **not granted**  
+**Baseline:** `44f2ca2`, `0b72d81`  
+**Phase:** **BUILD_PHASE_HOLD** — owner build approval **NOT granted**  
 **Live:** `AWAITING_DEPLOY` — **NOT** `LIVE_READY`  
 **Batch05 (201+):** **BLOCKED**
 
@@ -10,44 +11,68 @@
 
 ---
 
-## Owner gaps 4–7 closure (2026-09-03)
+## HOLD lock (absolute)
 
-| Gap | Item | Status |
-|-----|------|--------|
-| 4 | #200 regression — batch04 spine SLSA fix | ✅ 507/507 pytest exit 0 |
-| 5 | Type-4 SPLIT-BRAIN (10 IDs × 5 symbols) | ✅ 50/50 DIFFERENCE — see `docs/BATCH04_SPLIT_BRAIN_TYPE4_CONTRACT.json` |
-| 6 | ADR corrections + owner decisions on disk | ✅ `docs/ADR_BATCH04_CANONICAL_BLOCKERS_103_130.md` |
-| 7 | RTM #159/#183 owner decisions | ✅ `docs/BATCH04_RTM_151_200.json` |
+| Forbidden under HOLD | Status |
+|----------------------|--------|
+| New implementation / feature code | ❌ blocked |
+| LOCAL_GOVERNANCE_COMPLETE claim | ❌ blocked |
+| PRODUCTION-ALIGNED for batch04 | ❌ 0 IDs |
+| Batch05 | ❌ blocked |
+| Gate Zero execution | ❌ not run |
+| Final REUSED-LINK for #159 | ❌ blocked |
+| Runtime spine behavior change | ❌ blocked |
 
 ---
 
-## Status Table (151–200)
+## Documentation deliverables (this session)
 
-| Bucket | Count |
-|--------|------:|
+| Step | Artifact |
+|------|----------|
+| 1 — Pre-build classification | `docs/BATCH04_PREBUILD_CLASSIFICATION_151_200.json` |
+| 2 — TIME ADR (Type-4 SPLIT-BRAIN) | `docs/ADR_BATCH04_SPLIT_BRAIN_TYPE4_TIME_DECISION.md` |
+| 3 — Pentagonal 5-column alignment | `docs/BATCH04_PENTAGONAL_TEMPLATE_151_200.json` |
+| 4 — RTM HOLD freeze | `docs/BATCH04_RTM_151_200.json` |
+| 5 — Progress report | `docs/BATCH04_INSTITUTIONAL_PROGRESS_REPORT.md` |
+
+---
+
+## Classification matrix summary
+
+| Classification | Count |
+|----------------|------:|
+| Brownfield | 10 |
+| Stub-Template | 40 |
+| Greenfield | 0 |
+
+| Closure status | Count |
+|----------------|------:|
 | NOT_COMPLETE | 49 |
 | OVERLAP-PARTIAL (#175) | 1 |
-| Blocker NOT_COMPLETE (#159, #183) | 2 |
-| PRODUCTION-ALIGNED | 0 |
+| PRODUCTION-ALIGNED | **0** |
 
 ```
 batch04_independent = 0
 progress_826        = 148
-build_phase         = BUILD_PHASE_HOLD
+domain_rules 50/50  = local probe ONLY (not PA)
 ```
 
 ---
 
-## Pytest proof
+## TIME decision (default)
 
-```
-Batch01+02+03 non-regression: 507 collected, 507 passed, exit_code=0
-test_batch04_split_brain_type4_contract.py: 51 passed
-test_batch04_prep_dedicated.py: 110 passed
-```
+**Tolerate** for all 50 IDs during Strangler Fig — ceiling **2026-12-03** (90 days).  
+See `docs/ADR_BATCH04_SPLIT_BRAIN_TYPE4_TIME_DECISION.md`.
 
 ---
 
-## SPLIT-BRAIN recommendation (initial)
+## Proven evidence (unchanged)
 
-50/50 Type-4 comparisons show **DIFFERENCE** between catalog-aligned batch04 spine and bd_platform hero semantics. This is architectural SPLIT-BRAIN (hero ID suffix ≠ catalog goal), not accidental duplication. Recommend **batch-level TIME ADR** (Tolerate during Strangler Fig migration) — not collective REUSED-LINK promotion without behavioral Type-4 match.
+- #200 regression closed (T11 batch04 spine)
+- 507/507 non-regression (exit_code=0)
+- Type-4 SPLIT-BRAIN: 50/50 DIFFERENCE
+- ADR blockers + RTM owner decisions on disk
+
+---
+
+هذه المرحلة = بناء spine + قبول مسبق + اختبارات محلية فقط. لا إعلان اكتمال حوكمة · لا Batch05 · لا جاهزية حية 100%.

@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-03T17:19:27.040632+00:00",
+  "generated_at": "2026-09-03T18:03:49.834760+00:00",
   "git_commit": "d83bbb16f32720aa770852c7893f5af2bef74c42",
   "acceptance_source": "docs/BATCH04_ACCEPTANCE_151_200.json",
   "acceptance_pre_probe": true,
-  "build_phase": "OPEN",
+  "build_phase": "BUILD_PHASE_HOLD",
   "batch04_independent": 0,
   "progress_826": 148,
   "production_aligned_count": 0,
@@ -26,7 +26,7 @@
         "binding_function": "_cap151",
         "expected_surface": "quarterly_protocol_performance_reports",
         "hero_underlying": "bd_platform.data_sources_layer.explain_opportunity_151",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "quarterly_protocol_performance_reports",
@@ -212,22 +212,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_catalog_aligned_have_domain_payload"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 152,
@@ -246,7 +247,7 @@
         "binding_function": "_cap152",
         "expected_surface": "governance_proposal_intelligence",
         "hero_underlying": "bd_platform.data_sources_layer.run_data_sources_e2e_140_152",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "governance_proposal_intelligence",
@@ -455,22 +456,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_catalog_aligned_have_domain_payload"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 153,
@@ -489,7 +491,7 @@
         "binding_function": "_cap153",
         "expected_surface": "project_monitoring_coverage_registry",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.analyze_arbitrage_opportunity_153",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "project_monitoring_coverage_registry",
@@ -661,22 +663,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_catalog_aligned_have_domain_payload"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 154,
@@ -695,7 +698,7 @@
         "binding_function": "_cap154",
         "expected_surface": "ai_crypto_copilot",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.financial_brain_status_154",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "ai_crypto_copilot",
@@ -842,22 +845,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 155,
@@ -876,7 +880,7 @@
         "binding_function": "_cap155",
         "expected_surface": "ai_deep_research",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.stat_arb_insight_155",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "ai_deep_research",
@@ -966,12 +970,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -1010,12 +1014,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -1056,12 +1060,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -1100,12 +1104,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -1123,10 +1127,10 @@
           }
         ],
         "stories": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ],
         "narratives": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ]
       },
       "latency": {
@@ -1209,22 +1213,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 156,
@@ -1243,7 +1248,7 @@
         "binding_function": "_cap156",
         "expected_surface": "crypto_knowledge_graph",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.asset_registry_105_coins_156",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "crypto_knowledge_graph",
@@ -2346,22 +2351,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_catalog_aligned_have_domain_payload"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 157,
@@ -2380,7 +2386,7 @@
         "binding_function": "_cap157",
         "expected_surface": "research_library",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.onchain_advanced_status_157",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "research_library",
@@ -2470,12 +2476,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -2514,12 +2520,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -2560,12 +2566,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -2604,12 +2610,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -2627,10 +2633,10 @@
           }
         ],
         "stories": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ],
         "narratives": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ]
       },
       "latency": {
@@ -2713,22 +2719,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 158,
@@ -2747,7 +2754,7 @@
         "binding_function": "_cap158",
         "expected_surface": "institutional_research_feed",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.multi_venue_websocket_status_158",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "institutional_research_feed",
@@ -2837,12 +2844,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -2881,12 +2888,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -2927,12 +2934,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -2971,12 +2978,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -2994,10 +3001,10 @@
           }
         ],
         "stories": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ],
         "narratives": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ]
       },
       "latency": {
@@ -3080,22 +3087,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 159,
@@ -3106,7 +3114,7 @@
       "pending_canonical_audit": "BLOCKER-159-103",
       "structural_blocker": {
         "id": "BLOCKER-159-103",
-        "message": "Canonical #103 not PRODUCTION-ALIGNED \u2014 cannot finalize REUSED-LINK closure for #159",
+        "message": "Canonical #103 not PRODUCTION-ALIGNED — cannot finalize REUSED-LINK closure for #159",
         "owner_action": "Complete batch03 canonical audit for #103 or implement DISTINCT #159"
       },
       "rtm": {
@@ -3118,7 +3126,7 @@
         "binding_function": "_cap159",
         "expected_surface": "api_data_platform",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.compute_gas_volatility_profile_159",
-        "build_decision": "Canonical+Alias \u2014 entitlement/runtime on canonical #103"
+        "build_decision": "Canonical+Alias — entitlement/runtime on canonical #103"
       },
       "acceptance": {
         "expected_surface": "api_data_platform",
@@ -3242,7 +3250,7 @@
           },
           "completeness": "Domain payload under 'api_data_platform' with 6 observable fields",
           "correctness": "success=True; surface=api_data_platform",
-          "appropriateness": "PENDING_CANONICAL_AUDIT \u2014 canonical #103 not PRODUCTION-ALIGNED; REUSED-LINK not final",
+          "appropriateness": "PENDING_CANONICAL_AUDIT — canonical #103 not PRODUCTION-ALIGNED; REUSED-LINK not final",
           "catalog_goal_id": 159,
           "catalog_surface": "api_data_platform"
         },
@@ -3303,22 +3311,23 @@
             "tests/cap646/test_batch04_reused_link_pending_audit.py::test_pending_canonical_audit_contract"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 160,
@@ -3337,7 +3346,7 @@
         "binding_function": "_cap160",
         "expected_surface": "pay_per_request_data_access",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.detect_volatility_squeeze_160",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "pay_per_request_data_access",
@@ -3484,22 +3493,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 161,
@@ -3518,7 +3528,7 @@
         "binding_function": "_cap161",
         "expected_surface": "institutional_data_delivery_entitlements",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.alert_delivery_status_161",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "institutional_data_delivery_entitlements",
@@ -3766,22 +3776,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_catalog_aligned_have_domain_payload"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 162,
@@ -3800,7 +3811,7 @@
         "binding_function": "_cap162",
         "expected_surface": "evidence_provenance_layer",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.data_grid_ui_status_162",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "evidence_provenance_layer",
@@ -3845,7 +3856,7 @@
             "symbol": "BTC",
             "score": 66.0,
             "band": "caution",
-            "posture": "Decide with caution \u2014 some inputs soft or thin",
+            "posture": "Decide with caution — some inputs soft or thin",
             "components": {
               "freshness": {
                 "score": 18.0,
@@ -3891,9 +3902,9 @@
               "bitstamp",
               "whitebit"
             ],
-            "honesty": "Score uses LIVE ingestion-ready venues only \u2014 never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
+            "honesty": "Score uses LIVE ingestion-ready venues only — never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
             "api": "/api/oracle/provenance-score",
-            "disclaimer": "Provenance \u2260 profit guarantee. Low score forces WAIT posture."
+            "disclaimer": "Provenance ≠ profit guarantee. Low score forces WAIT posture."
           },
           "hot_storage": {
             "enqueued": 0,
@@ -3937,7 +3948,7 @@
           "symbol": "BTC",
           "score": 66.0,
           "band": "caution",
-          "posture": "Decide with caution \u2014 some inputs soft or thin",
+          "posture": "Decide with caution — some inputs soft or thin",
           "components": {
             "freshness": {
               "score": 18.0,
@@ -3983,9 +3994,9 @@
             "bitstamp",
             "whitebit"
           ],
-          "honesty": "Score uses LIVE ingestion-ready venues only \u2014 never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
+          "honesty": "Score uses LIVE ingestion-ready venues only — never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
           "api": "/api/oracle/provenance-score",
-          "disclaimer": "Provenance \u2260 profit guarantee. Low score forces WAIT posture."
+          "disclaimer": "Provenance ≠ profit guarantee. Low score forces WAIT posture."
         },
         "data_provenance": {
           "surface": "data_provenance_score",
@@ -3993,7 +4004,7 @@
           "symbol": "BTC",
           "score": 66.0,
           "band": "caution",
-          "posture": "Decide with caution \u2014 some inputs soft or thin",
+          "posture": "Decide with caution — some inputs soft or thin",
           "components": {
             "freshness": {
               "score": 18.0,
@@ -4039,12 +4050,12 @@
             "bitstamp",
             "whitebit"
           ],
-          "honesty": "Score uses LIVE ingestion-ready venues only \u2014 never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
+          "honesty": "Score uses LIVE ingestion-ready venues only — never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
           "api": "/api/oracle/provenance-score",
-          "disclaimer": "Provenance \u2260 profit guarantee. Low score forces WAIT posture."
+          "disclaimer": "Provenance ≠ profit guarantee. Low score forces WAIT posture."
         },
         "provenance_score": 66.0,
-        "lineage": "Raw \u2192 Normalize \u2192 Lake \u2192 Provenance \u2192 Feature"
+        "lineage": "Raw → Normalize → Lake → Provenance → Feature"
       },
       "latency": {
         "ms": 0.6,
@@ -4131,22 +4142,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_catalog_aligned_have_domain_payload"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 163,
@@ -4165,7 +4177,7 @@
         "binding_function": "_cap163",
         "expected_surface": "cross_domain_research_to_decision_intelligence",
         "hero_underlying": "bd_platform.intelligence_analysis_layer.run_intelligence_analysis_e2e_153_163",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "cross_domain_research_to_decision_intelligence",
@@ -4255,12 +4267,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -4299,12 +4311,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -4345,12 +4357,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -4389,12 +4401,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -4412,10 +4424,10 @@
           }
         ],
         "stories": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ],
         "narratives": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ]
       },
       "latency": {
@@ -4498,22 +4510,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 164,
@@ -4532,7 +4545,7 @@
         "binding_function": "_cap164",
         "expected_surface": "token_unlock_actionability_score",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "token_unlock_actionability_score",
@@ -4679,22 +4692,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 165,
@@ -4713,7 +4727,7 @@
         "binding_function": "_cap165",
         "expected_surface": "fundraising_momentum_score",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.hashrate_capitulation_forecast_165",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "fundraising_momentum_score",
@@ -4860,22 +4874,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 166,
@@ -4894,7 +4909,7 @@
         "binding_function": "_cap166",
         "expected_surface": "research_confidence_score",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.brokerage_rejected_status_166",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "research_confidence_score",
@@ -4984,12 +4999,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -5028,12 +5043,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -5074,12 +5089,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -5118,12 +5133,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -5141,10 +5156,10 @@
           }
         ],
         "stories": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ],
         "narratives": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ]
       },
       "latency": {
@@ -5227,22 +5242,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 167,
@@ -5261,7 +5277,7 @@
         "binding_function": "_cap167",
         "expected_surface": "social_volume_intelligence",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.validate_time_sync_167",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "social_volume_intelligence",
@@ -5408,22 +5424,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 168,
@@ -5442,7 +5459,7 @@
         "binding_function": "_cap168",
         "expected_surface": "social_dominance_intelligence",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.attach_cluster_index_168",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "social_dominance_intelligence",
@@ -5589,22 +5606,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 169,
@@ -5623,7 +5641,7 @@
         "binding_function": "_cap169",
         "expected_surface": "unique_social_volume",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.attach_correlation_decay_169",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "unique_social_volume",
@@ -5770,22 +5788,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 170,
@@ -5804,7 +5823,7 @@
         "binding_function": "_cap170",
         "expected_surface": "trending_words",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.compute_oi_momentum_delta_170",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "trending_words",
@@ -5951,22 +5970,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 171,
@@ -5985,7 +6005,7 @@
         "binding_function": "_cap171",
         "expected_surface": "trending_coins",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.attach_m2_macro_flow_171",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "trending_coins",
@@ -6132,22 +6152,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 172,
@@ -6166,7 +6187,7 @@
         "binding_function": "_cap172",
         "expected_surface": "historical_crypto_trends",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.institutional_memory_status_172",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "historical_crypto_trends",
@@ -6313,22 +6334,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 173,
@@ -6347,7 +6369,7 @@
         "binding_function": "_cap173",
         "expected_surface": "key_narratives_intelligence",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.institutional_rbac_status_173",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "key_narratives_intelligence",
@@ -6437,12 +6459,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -6481,12 +6503,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -6527,12 +6549,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -6571,12 +6593,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -6594,10 +6616,10 @@
           }
         ],
         "stories": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ],
         "narratives": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ]
       },
       "latency": {
@@ -6680,22 +6702,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 174,
@@ -6714,7 +6737,7 @@
         "binding_function": "_cap174",
         "expected_surface": "alpha_narratives_intelligence",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.full_white_label_status_174",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "alpha_narratives_intelligence",
@@ -6804,12 +6827,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -6848,12 +6871,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -6894,12 +6917,12 @@
             "topic": "general"
           },
           {
-            "title": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "title": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "link": "https://www.coindesk.com/tech/2026/09/03/a-memecoin-making-app-becomes-crypto-s-top-fee-generators-as-robinhood-chain-activity-explodes",
             "published": "Thu, 03 Sep 2026 14:51:39 +0000",
             "summary": "Users paid nearly $6 million in a day to create and trade tokens through Pons, more than they paid to use Pump or Hyperliquid, and even more than they paid to use Robinhood Chain itself.",
             "source": "coindesk",
-            "text": "A memecoin making app becomes crypto\u2019s top fee generators as Robinhood Chain activity explodes",
+            "text": "A memecoin making app becomes crypto’s top fee generators as Robinhood Chain activity explodes",
             "compound_score": 0.2023,
             "sentiment_score": 0.2023,
             "topic": "general"
@@ -6938,12 +6961,12 @@
             "topic": "general"
           },
           {
-            "title": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "title": "The yen is surging and it’s helping bitcoin, for now",
             "link": "https://www.coindesk.com/markets/2026/09/03/the-yen-is-surging-and-it-s-helping-bitcoin-for-now",
             "published": "Thu, 03 Sep 2026 11:19:56 +0000",
             "summary": "Yen's rise has led to a broad-based USD weakness, driving the Dollar Index lower. BTC and gold are loving it, for now. ",
             "source": "coindesk",
-            "text": "The yen is surging and it\u2019s helping bitcoin, for now",
+            "text": "The yen is surging and it’s helping bitcoin, for now",
             "compound_score": 0.296,
             "sentiment_score": 0.296,
             "topic": "general"
@@ -6961,10 +6984,10 @@
           }
         ],
         "stories": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ],
         "narratives": [
-          "No major whale narratives in the current window \u2014 market in equilibrium."
+          "No major whale narratives in the current window — market in equilibrium."
         ]
       },
       "latency": {
@@ -7047,22 +7070,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 175,
@@ -7081,7 +7105,7 @@
         "binding_function": "_cap175",
         "expected_surface": "social_sentiment_intelligence",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.risk_intelligence_status_175",
-        "build_decision": "Strangler \u2014 batch01 route until dedicated batch04 replaces; excluded from batch04_independent"
+        "build_decision": "Strangler — batch01 route until dedicated batch04 replaces; excluded from batch04_independent"
       },
       "acceptance": {
         "expected_surface": "sentiment_ai",
@@ -7115,7 +7139,7 @@
         "functional_gap": {
           "catalog_name": "Social Sentiment Intelligence",
           "implemented_scope": "batch01 sentiment_ai gate (LEGACY_BATCH01_EXTENSION_IDS)",
-          "decision": "OVERLAP-PARTIAL \u2014 catalog surface social_sentiment_intelligence vs runtime sentiment_ai"
+          "decision": "OVERLAP-PARTIAL — catalog surface social_sentiment_intelligence vs runtime sentiment_ai"
         },
         "status": "OVERLAP-PARTIAL"
       },
@@ -7201,7 +7225,7 @@
           "functional_gap": {
             "catalog_name": "Social Sentiment Intelligence",
             "implemented_scope": "batch01 sentiment_ai gate (LEGACY_BATCH01_EXTENSION_IDS)",
-            "decision": "OVERLAP-PARTIAL \u2014 catalog surface social_sentiment_intelligence vs runtime sentiment_ai"
+            "decision": "OVERLAP-PARTIAL — catalog surface social_sentiment_intelligence vs runtime sentiment_ai"
           },
           "catalog_goal_id": 175,
           "catalog_surface": "sentiment_ai"
@@ -7265,22 +7289,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_overlap_routes_batch01"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 176,
@@ -7299,7 +7324,7 @@
         "binding_function": "_cap176",
         "expected_surface": "weighted_social_sentiment",
         "hero_underlying": "bd_platform.risk_infrastructure_layer.run_risk_infrastructure_e2e_164_176",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "weighted_social_sentiment",
@@ -7446,22 +7471,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 177,
@@ -7480,7 +7506,7 @@
         "binding_function": "_cap177",
         "expected_surface": "social_sentiment_balance",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.analyze_arbitrage_cost_177",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "social_sentiment_balance",
@@ -7627,22 +7653,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 178,
@@ -7661,7 +7688,7 @@
         "binding_function": "_cap178",
         "expected_surface": "social_source_breakdown",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_scenarios_178",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "social_source_breakdown",
@@ -7808,22 +7835,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 179,
@@ -7842,7 +7870,7 @@
         "binding_function": "_cap179",
         "expected_surface": "development_activity_intelligence",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.build_command_center_dashboard_179",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "development_activity_intelligence",
@@ -7989,22 +8017,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 180,
@@ -8023,7 +8052,7 @@
         "binding_function": "_cap180",
         "expected_surface": "development_activity_contributors",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_whale_visualization_180",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "development_activity_contributors",
@@ -8170,22 +8199,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 181,
@@ -8204,7 +8234,7 @@
         "binding_function": "_cap181",
         "expected_surface": "ecosystem_development_dashboard",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.committee_packets_status_181",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "ecosystem_development_dashboard",
@@ -8351,22 +8381,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 182,
@@ -8385,7 +8416,7 @@
         "binding_function": "_cap182",
         "expected_surface": "developer_activity_change_detection",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.white_label_infrastructure_status_182",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "developer_activity_change_detection",
@@ -8532,22 +8563,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 183,
@@ -8558,7 +8590,7 @@
       "pending_canonical_audit": "BLOCKER-183-130",
       "structural_blocker": {
         "id": "BLOCKER-183-130",
-        "message": "Canonical #130 not PRODUCTION-ALIGNED + semantic mismatch \u2014 cannot finalize REUSED-LINK for #183",
+        "message": "Canonical #130 not PRODUCTION-ALIGNED + semantic mismatch — cannot finalize REUSED-LINK for #183",
         "owner_action": "Audit #130 or keep #183 as DISTINCT whale_transaction implementation"
       },
       "rtm": {
@@ -8570,7 +8602,7 @@
         "binding_function": "_cap183",
         "expected_surface": "whale_transaction_intelligence",
         "hero_underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "whale_transaction_intelligence",
@@ -8621,7 +8653,7 @@
             "duplicate_of": 130,
             "classification": "REUSED-LINK",
             "canonical_status": "PENDING_SCOPE_REALIGNMENT",
-            "semantic_note": "DISTINCT whale payload \u2014 not mindshare canonical"
+            "semantic_note": "DISTINCT whale payload — not mindshare canonical"
           }
         },
         "success": true,
@@ -8629,7 +8661,7 @@
           "duplicate_of": 130,
           "classification": "REUSED-LINK",
           "canonical_status": "PENDING_SCOPE_REALIGNMENT",
-          "semantic_note": "DISTINCT whale payload \u2014 not mindshare canonical"
+          "semantic_note": "DISTINCT whale payload — not mindshare canonical"
         },
         "classification": "REUSED-LINK",
         "evidence_class": "SHADOW_LIVE_FORWARD",
@@ -8694,7 +8726,7 @@
           },
           "completeness": "Domain payload under 'whale_transaction' with 8 observable fields",
           "correctness": "success=True; surface=whale_transaction_intelligence",
-          "appropriateness": "PENDING_CANONICAL_AUDIT \u2014 DISTINCT whale payload; canonical #130 not PRODUCTION-ALIGNED",
+          "appropriateness": "PENDING_CANONICAL_AUDIT — DISTINCT whale payload; canonical #130 not PRODUCTION-ALIGNED",
           "catalog_goal_id": 183,
           "catalog_surface": "whale_transaction_intelligence"
         },
@@ -8755,22 +8787,23 @@
             "tests/cap646/test_batch04_reused_link_pending_audit.py::test_pending_canonical_audit_contract"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 184,
@@ -8789,7 +8822,7 @@
         "binding_function": "_cap184",
         "expected_surface": "whale_shark_holder_cohorts",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.fund_reporting_status_184",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "whale_shark_holder_cohorts",
@@ -8936,22 +8969,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 185,
@@ -8970,7 +9004,7 @@
         "binding_function": "_cap185",
         "expected_surface": "top_holders_intelligence",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.acquisition_evidence_package_185",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "top_holders_intelligence",
@@ -9117,22 +9151,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 186,
@@ -9151,7 +9186,7 @@
         "binding_function": "_cap186",
         "expected_surface": "historical_wallet_balance_tool",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.continuous_learning_status_186",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "historical_wallet_balance_tool",
@@ -9298,22 +9333,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 187,
@@ -9332,7 +9368,7 @@
         "binding_function": "_cap187",
         "expected_surface": "exchange_inflow_intelligence",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.latency_monitoring_status_187",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "exchange_inflow_intelligence",
@@ -9479,22 +9515,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 188,
@@ -9513,7 +9550,7 @@
         "binding_function": "_cap188",
         "expected_surface": "exchange_outflow_intelligence",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.risk_alert_user_confirmation_188",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "exchange_outflow_intelligence",
@@ -9660,22 +9697,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 189,
@@ -9694,7 +9732,7 @@
         "binding_function": "_cap189",
         "expected_surface": "exchange_netflow_intelligence",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.analyze_liquidity_capacity_189",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "exchange_netflow_intelligence",
@@ -9874,22 +9912,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_catalog_aligned_have_domain_payload"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 190,
@@ -9908,7 +9947,7 @@
         "binding_function": "_cap190",
         "expected_surface": "exchange_supply_balance_intelligence",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_arbitrage_extensions_177_189_190",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "exchange_supply_balance_intelligence",
@@ -10055,22 +10094,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 191,
@@ -10089,7 +10129,7 @@
         "binding_function": "_cap191",
         "expected_surface": "exchange_user_activity",
         "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.run_arbitrage_portfolio_ux_e2e_177_191",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "exchange_user_activity",
@@ -10236,22 +10276,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 192,
@@ -10270,7 +10311,7 @@
         "binding_function": "_cap192",
         "expected_surface": "network_activity_intelligence",
         "hero_underlying": "bd_platform.derivatives_ta_research_layer.analyze_funding_rate_192",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "network_activity_intelligence",
@@ -10417,22 +10458,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 193,
@@ -10451,7 +10493,7 @@
         "binding_function": "_cap193",
         "expected_surface": "transaction_volume_intelligence",
         "hero_underlying": "bd_platform.derivatives_ta_research_layer.auto_arbitrage_rejected_status_193",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "transaction_volume_intelligence",
@@ -10598,22 +10640,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 194,
@@ -10632,7 +10675,7 @@
         "binding_function": "_cap194",
         "expected_surface": "nvt_intelligence",
         "hero_underlying": "bd_platform.derivatives_ta_research_layer.compute_cvd_194",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "nvt_intelligence",
@@ -10779,22 +10822,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 195,
@@ -10813,7 +10857,7 @@
         "binding_function": "_cap195",
         "expected_surface": "mvrv_intelligence",
         "hero_underlying": "bd_platform.derivatives_ta_research_layer.strategy_simulator_195",
-        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+        "build_decision": "Strangler — complete delegated path or rebuild dedicated handler"
       },
       "acceptance": {
         "expected_surface": "mvrv_intelligence",
@@ -10960,22 +11004,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 196,
@@ -10994,7 +11039,7 @@
         "binding_function": "_cap196",
         "expected_surface": "realized_cap_realized_value_intelligence",
         "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_yahoo_finance_macro_196",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "realized_cap_realized_value_intelligence",
@@ -11141,22 +11186,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 197,
@@ -11175,7 +11221,7 @@
         "binding_function": "_cap197",
         "expected_surface": "daily_active_addresses",
         "hero_underlying": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "daily_active_addresses",
@@ -11322,22 +11368,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 198,
@@ -11356,7 +11403,7 @@
         "binding_function": "_cap198",
         "expected_surface": "age_consumed_dormancy_intelligence",
         "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_binance_research_198",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "age_consumed_dormancy_intelligence",
@@ -11503,22 +11550,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 199,
@@ -11537,7 +11585,7 @@
         "binding_function": "_cap199",
         "expected_surface": "mean_dollar_invested_age",
         "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_messari_research_199",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "mean_dollar_invested_age",
@@ -11684,22 +11732,23 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     },
     {
       "capability_id": 200,
@@ -11718,7 +11767,7 @@
         "binding_function": "_cap200",
         "expected_surface": "token_circulation_intelligence",
         "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_coingecko_reports_200",
-        "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated"
+        "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated"
       },
       "acceptance": {
         "expected_surface": "token_circulation_intelligence",
@@ -11865,22 +11914,64 @@
             "tests/cap646/test_batch04_prep_dedicated.py::test_batch04_dedicated_surface_and_success"
           ],
           "local_COMPLETE": true,
-          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY \u2014 Railway not validated for batch04 spine"
+          "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway not validated for batch04 spine"
         },
         "security_owasp_asvs": {
-          "entitlement_before_execution": "cap646.runtime.execute_capability \u2192 entitlement_engine.check(canonical_id)",
+          "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
           "skip_entitlement_probe": true,
           "note": "Entitlement gate verified via batch03 gateway contract tests (non-regression)"
         },
         "collective_review_local": {
           "review_type": "LOCAL_REVIEW",
           "checklist": "docs/BATCH04_BUILD_PHASE_STATUS.md + PR #363",
-          "note": "Build phase only \u2014 NOT LOCAL_GOVERNANCE_COMPLETE; NOT full SRE PRR",
+          "note": "BUILD_PHASE_HOLD — LOCAL_REVIEW only; NOT LOCAL_GOVERNANCE_COMPLETE; NOT SRE PRR sign-off",
           "second_review": "Batch04 build continuation agent run 2026-09-03"
         }
       },
       "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated"
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch04_dedicated",
+      "production_aligned": false
     }
-  ]
+  ],
+  "baseline_commits": [
+    "44f2ca2",
+    "0b72d81"
+  ],
+  "domain_rules_probe_disclaimer": "domain_rules 50/50 pass = LOCAL PROBE ONLY under BUILD_PHASE_HOLD. Does NOT constitute PRODUCTION-ALIGNED, LOCAL_GOVERNANCE_COMPLETE, or Gate Zero execution.",
+  "institutional_closure_schema": {
+    "standard": "ISO 25010 + ISO/IEC/IEEE 29148 + ISO/IEC/IEEE 29119 + OWASP ASVS + Google SRE PRR",
+    "columns": [
+      {
+        "index": 1,
+        "ar": "الهدف الداخلي",
+        "en": "Internal Goal (ISO 25010 Completeness/Correctness/Appropriateness)",
+        "json_key": "pentagonal.internal_goal_iso25010"
+      },
+      {
+        "index": 2,
+        "ar": "النتيجة الخارجية",
+        "en": "External Result vs Expected Output (ISO/IEC/IEEE 29148)",
+        "json_key": "pentagonal.external_result_iso29148"
+      },
+      {
+        "index": 3,
+        "ar": "الواجهة / مسار الوصول",
+        "en": "Interface / E2E Access Path (ISO/IEC/IEEE 29119)",
+        "json_key": "pentagonal.interface_iso29119"
+      },
+      {
+        "index": 4,
+        "ar": "الأمان والجودة",
+        "en": "Security & Quality (OWASP ASVS + DoD)",
+        "json_key": "pentagonal.security_owasp_asvs"
+      },
+      {
+        "index": 5,
+        "ar": "المراجعة الجماعية / الجاهزية",
+        "en": "Collective Review / Readiness (SRE PRR)",
+        "json_key": "pentagonal.collective_review_local"
+      }
+    ],
+    "hold_policy": "All IDs remain NOT_COMPLETE or OVERLAP-PARTIAL. pentagonal_domain_status=COMPLETE means domain_rules probe pass only."
+  }
 }
