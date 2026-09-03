@@ -50,8 +50,10 @@
       "production_spine": "batch04",
       "catalog_link": {
         "duplicate_of": 103,
-        "classification": "REUSED-LINK",
-        "canonical_status": "PENDING_SCOPE_REALIGNMENT"
+        "classification": "NOT_COMPLETE",
+        "canonical_status": "OVERLAP-PARTIAL",
+        "blocker": "BLOCKER-159-103",
+        "owner_decision": "NOT_COMPLETE suspended until 2026-10-03"
       },
       "canonical_capability_id": 103
     },
@@ -107,9 +109,10 @@
       "surface": "whale_transaction_intelligence",
       "production_spine": "batch04",
       "catalog_link": {
-        "duplicate_of": 130,
-        "classification": "REUSED-LINK",
-        "canonical_status": "PENDING_SCOPE_REALIGNMENT",
+        "distinct_from": 130,
+        "classification": "NOT_COMPLETE",
+        "canonical_status": "NOT_COMPLETE",
+        "owner_decision": "BLOCKER-183-130 DISTINCT-only (Option B approved)",
         "semantic_note": "DISTINCT whale payload — not mindshare canonical"
       },
       "canonical_capability_id": 183
