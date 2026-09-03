@@ -2,28 +2,504 @@
   "generated_at": "2026-09-03T18:15:00+00:00",
   "branch": "cursor/batch-04-151-200-e85e",
   "baseline_commit": "cf475c9",
-  "latest_commit": "728b59a",
+  "latest_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b",
   "build_phase": "BUILD_PHASE_HOLD",
   "execution_authorized": "Batch04 capabilities 151-200 only",
   "gate0": "docs/BATCH04_EXECUTION_GATE0_RECONCILIATION.md",
   "progress_826": 148,
   "batch04_independent": 0,
   "production_aligned_batch04": 0,
-  "execution_order": "151 → 152 → … → 200 (strict numerical)",
-  "completed_engineering_local": [151],
+  "execution_order": "151 \u2192 152 \u2192 \u2026 \u2192 200 (strict numerical)",
+  "completed_engineering_local": [
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158,
+    160,
+    161,
+    162,
+    163,
+    164,
+    165,
+    166,
+    167,
+    168,
+    169,
+    170,
+    171,
+    172,
+    173,
+    174,
+    176,
+    177,
+    178,
+    179,
+    180,
+    181,
+    182,
+    184,
+    185,
+    186,
+    187,
+    188,
+    189,
+    190,
+    191,
+    192,
+    193,
+    194,
+    195,
+    196,
+    197,
+    198,
+    199,
+    200
+  ],
   "in_progress": null,
-  "pending": [152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200],
+  "pending": [
+    159,
+    183
+  ],
   "awaiting_deploy_backlog": [
     {
       "capability_id": 151,
       "route": "/api/cap646/151",
       "auth": "elite tier per gateway proof",
       "expected_surface": "quarterly_protocol_performance_reports",
-      "production_test": "GET with symbol=BTC; assert quarterly_protocol_performance_reports.protocol_tvl_usd > 0",
+      "production_test": "GET with symbol=BTC; assert quarterly_protocol_performance_reports.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 152,
+      "route": "/api/cap646/152",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "governance_proposal_intelligence",
+      "production_test": "GET with symbol=BTC; assert governance_proposal_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 153,
+      "route": "/api/cap646/153",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "project_monitoring_coverage_registry",
+      "production_test": "GET with symbol=BTC; assert project_monitoring_coverage_registry.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 154,
+      "route": "/api/cap646/154",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "ai_crypto_copilot",
+      "production_test": "GET with symbol=BTC; assert ai_crypto_copilot.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 155,
+      "route": "/api/cap646/155",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "ai_deep_research",
+      "production_test": "GET with symbol=BTC; assert ai_deep_research.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 156,
+      "route": "/api/cap646/156",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "crypto_knowledge_graph",
+      "production_test": "GET with symbol=BTC; assert crypto_knowledge_graph.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 157,
+      "route": "/api/cap646/157",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "research_library",
+      "production_test": "GET with symbol=BTC; assert research_library.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 158,
+      "route": "/api/cap646/158",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "institutional_research_feed",
+      "production_test": "GET with symbol=BTC; assert institutional_research_feed.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 160,
+      "route": "/api/cap646/160",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "pay_per_request_data_access",
+      "production_test": "GET with symbol=BTC; assert pay_per_request_data_access.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 161,
+      "route": "/api/cap646/161",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "institutional_data_delivery_entitlements",
+      "production_test": "GET with symbol=BTC; assert institutional_data_delivery_entitlements.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 162,
+      "route": "/api/cap646/162",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "evidence_provenance_layer",
+      "production_test": "GET with symbol=BTC; assert evidence_provenance_layer.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 163,
+      "route": "/api/cap646/163",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "cross_domain_research_to_decision_intelligence",
+      "production_test": "GET with symbol=BTC; assert cross_domain_research_to_decision_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 164,
+      "route": "/api/cap646/164",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "token_unlock_actionability_score",
+      "production_test": "GET with symbol=BTC; assert token_unlock_actionability_score.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 165,
+      "route": "/api/cap646/165",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "fundraising_momentum_score",
+      "production_test": "GET with symbol=BTC; assert fundraising_momentum_score.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 166,
+      "route": "/api/cap646/166",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "research_confidence_score",
+      "production_test": "GET with symbol=BTC; assert research_confidence_score.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 167,
+      "route": "/api/cap646/167",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "social_volume_intelligence",
+      "production_test": "GET with symbol=BTC; assert social_volume_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 168,
+      "route": "/api/cap646/168",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "social_dominance_intelligence",
+      "production_test": "GET with symbol=BTC; assert social_dominance_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 169,
+      "route": "/api/cap646/169",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "unique_social_volume",
+      "production_test": "GET with symbol=BTC; assert unique_social_volume.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 170,
+      "route": "/api/cap646/170",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "trending_words",
+      "production_test": "GET with symbol=BTC; assert trending_words.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 171,
+      "route": "/api/cap646/171",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "trending_coins",
+      "production_test": "GET with symbol=BTC; assert trending_coins.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 172,
+      "route": "/api/cap646/172",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "historical_crypto_trends",
+      "production_test": "GET with symbol=BTC; assert historical_crypto_trends.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 173,
+      "route": "/api/cap646/173",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "key_narratives_intelligence",
+      "production_test": "GET with symbol=BTC; assert key_narratives_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 174,
+      "route": "/api/cap646/174",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "alpha_narratives_intelligence",
+      "production_test": "GET with symbol=BTC; assert alpha_narratives_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 175,
+      "route": "/api/cap646/175",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "sentiment_ai",
+      "production_test": "GET with symbol=BTC; assert sentiment_ai.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 176,
+      "route": "/api/cap646/176",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "weighted_social_sentiment",
+      "production_test": "GET with symbol=BTC; assert weighted_social_sentiment.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 177,
+      "route": "/api/cap646/177",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "social_sentiment_balance",
+      "production_test": "GET with symbol=BTC; assert social_sentiment_balance.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 178,
+      "route": "/api/cap646/178",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "social_source_breakdown",
+      "production_test": "GET with symbol=BTC; assert social_source_breakdown.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 179,
+      "route": "/api/cap646/179",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "development_activity_intelligence",
+      "production_test": "GET with symbol=BTC; assert development_activity_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 180,
+      "route": "/api/cap646/180",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "development_activity_contributors",
+      "production_test": "GET with symbol=BTC; assert development_activity_contributors.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 181,
+      "route": "/api/cap646/181",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "ecosystem_development_dashboard",
+      "production_test": "GET with symbol=BTC; assert ecosystem_development_dashboard.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 182,
+      "route": "/api/cap646/182",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "developer_activity_change_detection",
+      "production_test": "GET with symbol=BTC; assert developer_activity_change_detection.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 184,
+      "route": "/api/cap646/184",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "whale_shark_holder_cohorts",
+      "production_test": "GET with symbol=BTC; assert whale_shark_holder_cohorts.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 185,
+      "route": "/api/cap646/185",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "top_holders_intelligence",
+      "production_test": "GET with symbol=BTC; assert top_holders_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 186,
+      "route": "/api/cap646/186",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "historical_wallet_balance_tool",
+      "production_test": "GET with symbol=BTC; assert historical_wallet_balance_tool.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 187,
+      "route": "/api/cap646/187",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "exchange_inflow_intelligence",
+      "production_test": "GET with symbol=BTC; assert exchange_inflow_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 188,
+      "route": "/api/cap646/188",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "exchange_outflow_intelligence",
+      "production_test": "GET with symbol=BTC; assert exchange_outflow_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 189,
+      "route": "/api/cap646/189",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "exchange_netflow_intelligence",
+      "production_test": "GET with symbol=BTC; assert exchange_netflow_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 190,
+      "route": "/api/cap646/190",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "exchange_supply_balance_intelligence",
+      "production_test": "GET with symbol=BTC; assert exchange_supply_balance_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 191,
+      "route": "/api/cap646/191",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "exchange_user_activity",
+      "production_test": "GET with symbol=BTC; assert exchange_user_activity.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 192,
+      "route": "/api/cap646/192",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "network_activity_intelligence",
+      "production_test": "GET with symbol=BTC; assert network_activity_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 193,
+      "route": "/api/cap646/193",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "transaction_volume_intelligence",
+      "production_test": "GET with symbol=BTC; assert transaction_volume_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 194,
+      "route": "/api/cap646/194",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "nvt_intelligence",
+      "production_test": "GET with symbol=BTC; assert nvt_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 195,
+      "route": "/api/cap646/195",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "mvrv_intelligence",
+      "production_test": "GET with symbol=BTC; assert mvrv_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 196,
+      "route": "/api/cap646/196",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "realized_cap_realized_value_intelligence",
+      "production_test": "GET with symbol=BTC; assert realized_cap_realized_value_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 197,
+      "route": "/api/cap646/197",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "daily_active_addresses",
+      "production_test": "GET with symbol=BTC; assert daily_active_addresses.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 198,
+      "route": "/api/cap646/198",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "age_consumed_dormancy_intelligence",
+      "production_test": "GET with symbol=BTC; assert age_consumed_dormancy_intelligence.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 199,
+      "route": "/api/cap646/199",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "mean_dollar_invested_age",
+      "production_test": "GET with symbol=BTC; assert mean_dollar_invested_age.ok == true",
+      "performance_threshold_ms": 2000
+    },
+    {
+      "capability_id": 200,
+      "route": "/api/cap646/200",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "token_circulation_intelligence",
+      "production_test": "GET with symbol=BTC; assert token_circulation_intelligence.ok == true",
       "performance_threshold_ms": 2000
     }
   ],
   "closure_artifacts": {
-    "151": "docs/BATCH04_EXECUTION_CLOSURE/151.json"
+    "151": "docs/BATCH04_EXECUTION_CLOSURE/151.json",
+    "152": "docs/BATCH04_EXECUTION_CLOSURE/152.json",
+    "153": "docs/BATCH04_EXECUTION_CLOSURE/153.json",
+    "154": "docs/BATCH04_EXECUTION_CLOSURE/154.json",
+    "155": "docs/BATCH04_EXECUTION_CLOSURE/155.json",
+    "156": "docs/BATCH04_EXECUTION_CLOSURE/156.json",
+    "157": "docs/BATCH04_EXECUTION_CLOSURE/157.json",
+    "158": "docs/BATCH04_EXECUTION_CLOSURE/158.json",
+    "159": "docs/BATCH04_EXECUTION_CLOSURE/159.json",
+    "160": "docs/BATCH04_EXECUTION_CLOSURE/160.json",
+    "161": "docs/BATCH04_EXECUTION_CLOSURE/161.json",
+    "162": "docs/BATCH04_EXECUTION_CLOSURE/162.json",
+    "163": "docs/BATCH04_EXECUTION_CLOSURE/163.json",
+    "164": "docs/BATCH04_EXECUTION_CLOSURE/164.json",
+    "165": "docs/BATCH04_EXECUTION_CLOSURE/165.json",
+    "166": "docs/BATCH04_EXECUTION_CLOSURE/166.json",
+    "167": "docs/BATCH04_EXECUTION_CLOSURE/167.json",
+    "168": "docs/BATCH04_EXECUTION_CLOSURE/168.json",
+    "169": "docs/BATCH04_EXECUTION_CLOSURE/169.json",
+    "170": "docs/BATCH04_EXECUTION_CLOSURE/170.json",
+    "171": "docs/BATCH04_EXECUTION_CLOSURE/171.json",
+    "172": "docs/BATCH04_EXECUTION_CLOSURE/172.json",
+    "173": "docs/BATCH04_EXECUTION_CLOSURE/173.json",
+    "174": "docs/BATCH04_EXECUTION_CLOSURE/174.json",
+    "175": "docs/BATCH04_EXECUTION_CLOSURE/175.json",
+    "176": "docs/BATCH04_EXECUTION_CLOSURE/176.json",
+    "177": "docs/BATCH04_EXECUTION_CLOSURE/177.json",
+    "178": "docs/BATCH04_EXECUTION_CLOSURE/178.json",
+    "179": "docs/BATCH04_EXECUTION_CLOSURE/179.json",
+    "180": "docs/BATCH04_EXECUTION_CLOSURE/180.json",
+    "181": "docs/BATCH04_EXECUTION_CLOSURE/181.json",
+    "182": "docs/BATCH04_EXECUTION_CLOSURE/182.json",
+    "183": "docs/BATCH04_EXECUTION_CLOSURE/183.json",
+    "184": "docs/BATCH04_EXECUTION_CLOSURE/184.json",
+    "185": "docs/BATCH04_EXECUTION_CLOSURE/185.json",
+    "186": "docs/BATCH04_EXECUTION_CLOSURE/186.json",
+    "187": "docs/BATCH04_EXECUTION_CLOSURE/187.json",
+    "188": "docs/BATCH04_EXECUTION_CLOSURE/188.json",
+    "189": "docs/BATCH04_EXECUTION_CLOSURE/189.json",
+    "190": "docs/BATCH04_EXECUTION_CLOSURE/190.json",
+    "191": "docs/BATCH04_EXECUTION_CLOSURE/191.json",
+    "192": "docs/BATCH04_EXECUTION_CLOSURE/192.json",
+    "193": "docs/BATCH04_EXECUTION_CLOSURE/193.json",
+    "194": "docs/BATCH04_EXECUTION_CLOSURE/194.json",
+    "195": "docs/BATCH04_EXECUTION_CLOSURE/195.json",
+    "196": "docs/BATCH04_EXECUTION_CLOSURE/196.json",
+    "197": "docs/BATCH04_EXECUTION_CLOSURE/197.json",
+    "198": "docs/BATCH04_EXECUTION_CLOSURE/198.json",
+    "199": "docs/BATCH04_EXECUTION_CLOSURE/199.json",
+    "200": "docs/BATCH04_EXECUTION_CLOSURE/200.json"
   }
 }

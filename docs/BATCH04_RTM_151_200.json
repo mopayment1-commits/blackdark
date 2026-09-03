@@ -27,7 +27,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.data_sources_layer.explain_opportunity_151",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -39,7 +39,17 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 2.3
-      }
+      },
+      "classification_reaudit": "BROWNFIELD",
+      "time_decision": "MIGRATE",
+      "duplication_status": "OVERLAP-PARTIAL",
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "closure_artifact": "docs/BATCH04_EXECUTION_CLOSURE/151.json",
+      "test_reference": "tests/cap646/test_batch04_cap151_quarterly_protocol.py",
+      "implementation_reference": "cap646/batch04_dedicated.py::_cap151; cap646/batch04_quarterly_protocol.py",
+      "notes": "Gate0-14 complete for #151; NOT PRODUCTION-ALIGNED; batch04_independent unchanged",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 152,
@@ -62,7 +72,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.data_sources_layer.run_data_sources_e2e_140_152",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -74,7 +84,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 1.8
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 153,
@@ -97,7 +110,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.intelligence_analysis_layer.analyze_arbitrage_opportunity_153",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -109,7 +122,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 6.4
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 154,
@@ -132,7 +148,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.intelligence_analysis_layer.financial_brain_status_154",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -144,7 +160,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 155,
@@ -167,7 +186,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.intelligence_analysis_layer.stat_arb_insight_155",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -179,7 +198,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 134.7
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 156,
@@ -202,7 +224,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.intelligence_analysis_layer.asset_registry_105_coins_156",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -214,7 +236,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.9
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 157,
@@ -237,7 +262,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.intelligence_analysis_layer.onchain_advanced_status_157",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -249,7 +274,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 120.5
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 158,
@@ -272,7 +300,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.intelligence_analysis_layer.multi_venue_websocket_status_158",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -284,7 +312,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 107.4
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 159,
@@ -307,14 +338,14 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "NOT_COMPLETE suspended — await #103 maturity (Tolerate 2026-10-03) or future DISTINCT ADR",
+      "build_decision": "NOT_COMPLETE suspended \u2014 await #103 maturity (Tolerate 2026-10-03) or future DISTINCT ADR",
       "build_rationale": "BLOCKER-159-103 owner decision: no REUSED-LINK until canonical #103 matures; canonical #103 is OVERLAP-PARTIAL on batch01",
       "duplicate_candidates": [
         {
-          "pair": "159↔103",
+          "pair": "159\u2194103",
           "scope": "151-200 vs 1-150",
           "classification": "NOT_COMPLETE",
-          "evidence": "REPEAT_CANONICAL[API Data Platform]=103; canonical #103 OVERLAP-PARTIAL — REUSED-LINK blocked per owner"
+          "evidence": "REPEAT_CANONICAL[API Data Platform]=103; canonical #103 OVERLAP-PARTIAL \u2014 REUSED-LINK blocked per owner"
         }
       ],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -328,8 +359,11 @@
         "elapsed_ms": 0.1
       },
       "pending_canonical_audit": "BLOCKER-159-103",
-      "owner_decision": "NOT_COMPLETE suspended — no Option A/B; await #103 maturity or DISTINCT ADR",
-      "notes": "Canonical #103 = OVERLAP-PARTIAL (batch01). No REUSED-LINK before canonical readiness."
+      "owner_decision": "NOT_COMPLETE suspended \u2014 no Option A/B; await #103 maturity or DISTINCT ADR",
+      "notes": "Canonical #103 = OVERLAP-PARTIAL (batch01). No REUSED-LINK before canonical readiness.",
+      "engineering_status": "NOT_COMPLETE",
+      "production_status": "NOT_COMPLETE",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 160,
@@ -352,7 +386,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.intelligence_analysis_layer.detect_volatility_squeeze_160",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -364,7 +398,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 161,
@@ -387,7 +424,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.intelligence_analysis_layer.alert_delivery_status_161",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -399,7 +436,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 1.8
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 162,
@@ -422,7 +462,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.intelligence_analysis_layer.data_grid_ui_status_162",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -434,7 +474,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.6
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 163,
@@ -457,7 +500,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.intelligence_analysis_layer.run_intelligence_analysis_e2e_153_163",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -469,7 +512,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 125.2
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 164,
@@ -492,7 +538,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -504,7 +550,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.1
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 165,
@@ -527,7 +576,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.risk_infrastructure_layer.hashrate_capitulation_forecast_165",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -539,7 +588,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.1
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 166,
@@ -562,7 +614,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.risk_infrastructure_layer.brokerage_rejected_status_166",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -574,7 +626,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 114.6
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 167,
@@ -597,7 +652,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.risk_infrastructure_layer.validate_time_sync_167",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -609,7 +664,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.1
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 168,
@@ -632,7 +690,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.risk_infrastructure_layer.attach_cluster_index_168",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -644,7 +702,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 169,
@@ -667,7 +728,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.risk_infrastructure_layer.attach_correlation_decay_169",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -679,7 +740,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 170,
@@ -702,7 +766,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.risk_infrastructure_layer.compute_oi_momentum_delta_170",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -714,7 +778,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 171,
@@ -737,7 +804,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.risk_infrastructure_layer.attach_m2_macro_flow_171",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -749,7 +816,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 172,
@@ -772,7 +842,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.risk_infrastructure_layer.institutional_memory_status_172",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -784,7 +854,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 173,
@@ -807,7 +880,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.risk_infrastructure_layer.institutional_rbac_status_173",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -819,7 +892,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 197.1
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 174,
@@ -842,7 +918,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.risk_infrastructure_layer.full_white_label_status_174",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -854,7 +930,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 206.2
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 175,
@@ -877,11 +956,11 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — batch01 route until dedicated batch04 replaces; excluded from batch04_independent",
-      "build_rationale": "OVERLAP-PARTIAL — LEGACY_BATCH01_EXTENSION_IDS → batch01 spine",
+      "build_decision": "Strangler \u2014 batch01 route until dedicated batch04 replaces; excluded from batch04_independent",
+      "build_rationale": "OVERLAP-PARTIAL \u2014 LEGACY_BATCH01_EXTENSION_IDS \u2192 batch01 spine",
       "duplicate_candidates": [
         {
-          "pair": "175↔batch01",
+          "pair": "175\u2194batch01",
           "scope": "batch01 overlap",
           "classification": "OVERLAP-PARTIAL",
           "evidence": "LEGACY_BATCH01_EXTENSION_IDS; n14_excluded_legacy_extension"
@@ -896,7 +975,10 @@
         "acceptance_status": "OVERLAP-PARTIAL",
         "closure_status": "OVERLAP-PARTIAL",
         "elapsed_ms": 4.5
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 176,
@@ -919,7 +1001,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.risk_infrastructure_layer.run_risk_infrastructure_e2e_164_176",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -931,7 +1013,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 177,
@@ -954,7 +1039,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.arbitrage_portfolio_ux_layer.analyze_arbitrage_cost_177",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -966,7 +1051,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 178,
@@ -989,7 +1077,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.arbitrage_portfolio_ux_layer.attach_scenarios_178",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1001,7 +1089,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 179,
@@ -1024,7 +1115,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.arbitrage_portfolio_ux_layer.build_command_center_dashboard_179",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1036,7 +1127,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 180,
@@ -1059,7 +1153,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.arbitrage_portfolio_ux_layer.attach_whale_visualization_180",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1071,7 +1165,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 181,
@@ -1094,7 +1191,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.arbitrage_portfolio_ux_layer.committee_packets_status_181",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1106,7 +1203,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 182,
@@ -1129,7 +1229,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.arbitrage_portfolio_ux_layer.white_label_infrastructure_status_182",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1141,7 +1241,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 183,
@@ -1164,14 +1267,14 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "DISTINCT-only Option B approved — dedicated whale_transaction payload; no REUSED-LINK to #130",
+      "build_decision": "DISTINCT-only Option B approved \u2014 dedicated whale_transaction payload; no REUSED-LINK to #130",
       "build_rationale": "Owner final: #183 DISTINCT-only; #130 stays PRODUCTION-ALIGNED in Batch03 untouched",
       "duplicate_candidates": [
         {
-          "pair": "183↔130",
+          "pair": "183\u2194130",
           "scope": "151-200 vs 1-150",
           "classification": "NOT_COMPLETE",
-          "evidence": "Semantic mismatch: catalog #183 whale transactions ≠ catalog #130 mindshare; REUSED-LINK rejected"
+          "evidence": "Semantic mismatch: catalog #183 whale transactions \u2260 catalog #130 mindshare; REUSED-LINK rejected"
         }
       ],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1185,8 +1288,11 @@
         "elapsed_ms": 0.0
       },
       "pending_canonical_audit": "BLOCKER-183-130",
-      "owner_decision": "DISTINCT-only Option B approved — no REUSED-LINK to #130",
-      "notes": "Canonical #130 = PRODUCTION-ALIGNED (batch03 mindshare_intelligence). Batch03 binding must not change."
+      "owner_decision": "DISTINCT-only Option B approved \u2014 no REUSED-LINK to #130",
+      "notes": "Canonical #130 = PRODUCTION-ALIGNED (batch03 mindshare_intelligence). Batch03 binding must not change.",
+      "engineering_status": "NOT_COMPLETE",
+      "production_status": "NOT_COMPLETE",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 184,
@@ -1209,7 +1315,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.arbitrage_portfolio_ux_layer.fund_reporting_status_184",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1221,7 +1327,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 185,
@@ -1244,7 +1353,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.arbitrage_portfolio_ux_layer.acquisition_evidence_package_185",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1256,7 +1365,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 186,
@@ -1279,7 +1391,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.arbitrage_portfolio_ux_layer.continuous_learning_status_186",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1291,7 +1403,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 187,
@@ -1314,7 +1429,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.arbitrage_portfolio_ux_layer.latency_monitoring_status_187",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1326,7 +1441,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 188,
@@ -1349,7 +1467,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.arbitrage_portfolio_ux_layer.risk_alert_user_confirmation_188",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1361,7 +1479,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 189,
@@ -1384,7 +1505,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.arbitrage_portfolio_ux_layer.analyze_liquidity_capacity_189",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1396,7 +1517,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.9
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 190,
@@ -1419,7 +1543,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.arbitrage_portfolio_ux_layer.attach_arbitrage_extensions_177_189_190",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1431,7 +1555,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 191,
@@ -1454,7 +1581,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.arbitrage_portfolio_ux_layer.run_arbitrage_portfolio_ux_e2e_177_191",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1466,7 +1593,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 192,
@@ -1489,7 +1619,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.derivatives_ta_research_layer.analyze_funding_rate_192",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1501,7 +1631,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 193,
@@ -1524,7 +1657,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.derivatives_ta_research_layer.auto_arbitrage_rejected_status_193",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1536,7 +1669,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 194,
@@ -1559,7 +1695,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.derivatives_ta_research_layer.compute_cvd_194",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1571,7 +1707,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 195,
@@ -1594,7 +1733,7 @@
       "hero_gap_classification": "DEFERRED/DELEGATED",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — complete delegated path or rebuild dedicated handler",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "build_rationale": "hero deferred bd_platform.derivatives_ta_research_layer.strategy_simulator_195",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1606,7 +1745,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 196,
@@ -1629,7 +1771,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.derivatives_ta_research_layer.ingest_yahoo_finance_macro_196",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1641,7 +1783,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 197,
@@ -1664,7 +1809,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1676,7 +1821,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 198,
@@ -1699,7 +1847,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.derivatives_ta_research_layer.ingest_binance_research_198",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1711,7 +1859,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 199,
@@ -1734,7 +1885,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.derivatives_ta_research_layer.ingest_messari_research_199",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1746,7 +1897,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     },
     {
       "id": 200,
@@ -1769,7 +1923,7 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler — realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
       "build_rationale": "hero VERIFIED-DEEP bd_platform.derivatives_ta_research_layer.ingest_coingecko_reports_200",
       "duplicate_candidates": [],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1781,7 +1935,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
-      }
+      },
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b"
     }
   ],
   "build_phase": "BUILD_PHASE_HOLD",
@@ -1797,5 +1954,8 @@
   "production_aligned_batch04_count": 0,
   "domain_rules_probe_disclaimer": "domain_rules 50/50 pass = LOCAL PROBE ONLY under BUILD_PHASE_HOLD. Does NOT constitute PRODUCTION-ALIGNED, LOCAL_GOVERNANCE_COMPLETE, or Gate Zero execution.",
   "prebuild_classification_ref": "docs/BATCH04_PREBUILD_CLASSIFICATION_151_200.json",
-  "split_brain_time_adr_ref": "docs/ADR_BATCH04_SPLIT_BRAIN_TYPE4_TIME_DECISION.md"
+  "split_brain_time_adr_ref": "docs/ADR_BATCH04_SPLIT_BRAIN_TYPE4_TIME_DECISION.md",
+  "execution_manifest": "docs/BATCH04_EXECUTION_MANIFEST.json",
+  "gate0_reconciliation": "docs/BATCH04_EXECUTION_GATE0_RECONCILIATION.md",
+  "last_execution_update": "2026-09-03T18:14:26.758581+00:00"
 }

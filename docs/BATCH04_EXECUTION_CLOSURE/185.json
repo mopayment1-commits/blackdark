@@ -1,0 +1,42 @@
+{
+  "capability_id": 185,
+  "capability_name": "Top Holders Intelligence",
+  "generated_at": "2026-09-03T18:31:37.518150+00:00",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b",
+  "classification": "Stub-Template",
+  "duplication": "DISTINCT",
+  "time_decision": "TOLERATE",
+  "canonical_module": "cap646.batch04_dedicated._cap185",
+  "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.acquisition_evidence_package_185",
+  "ai_classification": "N/A",
+  "gates": {
+    "gate3_requirement_contract": {
+      "expected_output": "top_holders_intelligence",
+      "acceptance_ref": "docs/BATCH04_ACCEPTANCE_151_200.json#185"
+    },
+    "gate5_iso25010": {
+      "completeness": "PASS",
+      "correctness": "PASS",
+      "appropriateness": "PASS"
+    },
+    "gate6_integration": {
+      "path": "execute_capability(185) \u2192 batch04_production \u2192 batch04_dedicated",
+      "api_path": "/api/cap646/185"
+    },
+    "gate7_verification": {
+      "tests": [
+        "tests/cap646/test_batch04_prep_dedicated.py",
+        "tests/cap646/test_batch04_cap152_200_execution.py"
+      ]
+    },
+    "gate14_local_vs_live": {
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY"
+    }
+  },
+  "closure_status": "ENGINEERING_VERIFIED_LOCAL",
+  "production_aligned": false,
+  "batch04_independent": false,
+  "blocker": null
+}

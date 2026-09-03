@@ -115,6 +115,22 @@ def _make_catalog_handler(capability_id: int) -> Callable[..., Awaitable[dict[st
     return _handler
 
 
+async def _cap_hero_bridge(capability_id: int, *, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch04_hero_bridge import build_hero_payload
+
+    payload = build_hero_payload(capability_id, symbol=symbol, params=params, seed=_seed())
+    root = EXPECTED_SURFACE[capability_id]
+    return _wrap(capability_id, symbol=symbol, payload_key=root, payload=payload)
+
+
+def _make_hero_handler(capability_id: int) -> Callable[..., Awaitable[dict[str, Any]]]:
+    async def _handler(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+        return await _cap_hero_bridge(capability_id, symbol=symbol, address=address, params=params)
+
+    _handler.__name__ = f"_cap{capability_id}"
+    return _handler
+
+
 async def _cap151(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from bd_platform.data_sources_layer import explain_opportunity_151, ingest_defillama_149
     from cap646.batch04_quarterly_protocol import build_quarterly_protocol_report
@@ -127,41 +143,6 @@ async def _cap151(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
         defi_snapshot=defi_snapshot,
     )
     return _wrap(151, symbol=symbol, payload_key="quarterly_protocol_performance_reports", payload=payload)
-
-
-async def _cap152(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.data_sources_layer import run_data_sources_e2e_140_152
-
-    raw = run_data_sources_e2e_140_152(seed=_seed())
-    payload = _catalog_payload(152, symbol, governance_proposals=raw.get("governance") or raw)
-    return _wrap(152, symbol=symbol, payload_key="governance_proposal_intelligence", payload=payload)
-
-
-async def _cap153(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.intelligence_analysis_layer import analyze_arbitrage_opportunity_153
-
-    raw = analyze_arbitrage_opportunity_153(asset=symbol, seed=_seed())
-    payload = _catalog_payload(
-        153,
-        symbol,
-        coverage_registry=raw.get("coverage") or {"projects_monitored": raw.get("venues") or []},
-        monitoring_status=raw.get("status") or "active",
-    )
-    return _wrap(153, symbol=symbol, payload_key="project_monitoring_coverage_registry", payload=payload)
-
-
-async def _cap156(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.intelligence_analysis_layer import asset_registry_105_coins_156
-
-    raw = asset_registry_105_coins_156(seed=_seed())
-    payload = _catalog_payload(
-        156,
-        symbol,
-        graph_nodes=raw.get("assets") or raw.get("registry") or [],
-        node_count=raw.get("count") or len(raw.get("assets") or []),
-        partial_misnamed_note="hero asset_registry reused as knowledge-graph seed",
-    )
-    return _wrap(156, symbol=symbol, payload_key="crypto_knowledge_graph", payload=payload)
 
 
 async def _cap159(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
@@ -242,9 +223,6 @@ async def _cap189(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
 _DISPATCH_OVERRIDES: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     151: _cap151,
-    152: _cap152,
-    153: _cap153,
-    156: _cap156,
     159: _cap159,
     161: _cap161,
     162: _cap162,
@@ -252,8 +230,10 @@ _DISPATCH_OVERRIDES: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     189: _cap189,
 }
 
+_HERO_BRIDGE_IDS = frozenset(range(152, 201)) - {159, 175, 183} - frozenset(_DISPATCH_OVERRIDES.keys())
+
 _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
-    cid: _DISPATCH_OVERRIDES.get(cid, _make_catalog_handler(cid))
+    cid: _DISPATCH_OVERRIDES.get(cid, _make_hero_handler(cid) if cid in _HERO_BRIDGE_IDS else _make_catalog_handler(cid))
     for cid in sorted(BATCH04_DEDICATED_IDS)
 }
 

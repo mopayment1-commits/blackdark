@@ -1,0 +1,42 @@
+{
+  "capability_id": 159,
+  "capability_name": "API Data Platform",
+  "generated_at": "2026-09-03T18:31:37.516204+00:00",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b",
+  "classification": "Brownfield",
+  "duplication": "DISTINCT",
+  "time_decision": "MIGRATE",
+  "canonical_module": "cap646.batch04_dedicated._cap159",
+  "hero_underlying": "bd_platform.intelligence_analysis_layer.compute_gas_volatility_profile_159",
+  "ai_classification": "N/A",
+  "gates": {
+    "gate3_requirement_contract": {
+      "expected_output": "api_data_platform",
+      "acceptance_ref": "docs/BATCH04_ACCEPTANCE_151_200.json#159"
+    },
+    "gate5_iso25010": {
+      "completeness": "NOT_COMPLETE",
+      "correctness": "NOT_COMPLETE",
+      "appropriateness": "NOT_COMPLETE"
+    },
+    "gate6_integration": {
+      "path": "execute_capability(159) \u2192 batch04_production \u2192 batch04_dedicated",
+      "api_path": "/api/cap646/159"
+    },
+    "gate7_verification": {
+      "tests": [
+        "tests/cap646/test_batch04_prep_dedicated.py",
+        "tests/cap646/test_batch04_cap152_200_execution.py"
+      ]
+    },
+    "gate14_local_vs_live": {
+      "engineering_status": "NOT_COMPLETE",
+      "production_status": "NOT_COMPLETE"
+    }
+  },
+  "closure_status": "NOT_COMPLETE",
+  "production_aligned": false,
+  "batch04_independent": false,
+  "blocker": "BLOCKER-159-103 owner decision: NOT_COMPLETE \u2014 no REUSED-LINK until #103 matures (Tolerate 2026-10-03)"
+}
