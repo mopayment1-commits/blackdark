@@ -38,6 +38,7 @@ _SPECS: dict[int, dict[str, Any]] = {
         "status": "NOT_COMPLETE",
         "spine": "batch04",
         "payload_root": "api_data_platform",
+        "pending_canonical_audit": "BLOCKER-159-103",
         "domain_rules": [
             {"field": "catalog_link.duplicate_of", "type": "numeric", "condition": "== 103"},
             {"field": "catalog_link.classification", "type": "enum", "condition": "== REUSED-LINK"},
@@ -48,16 +49,26 @@ _SPECS: dict[int, dict[str, Any]] = {
     175: {
         "status": "OVERLAP-PARTIAL",
         "spine": "batch01",
-        "payload_root": "social_sentiment",
+        "expected_surface": "sentiment_ai",
+        "payload_root": "gate",
+        "binding_file": "cap646/batch01_production.py",
+        "binding_function": "cap_175",
         "domain_rules": [
             {"field": "production_spine", "type": "enum", "condition": "== batch01"},
-            {"field": "social_sentiment.feature_ref", "type": "numeric", "condition": "== 175"},
+            {"field": "gate.asset", "type": "present", "condition": "present"},
+            {"field": "context.sentiment_compound_index", "type": "present", "condition": "present"},
         ],
+        "functional_gap": {
+            "catalog_name": "Social Sentiment Intelligence",
+            "implemented_scope": "batch01 sentiment_ai gate (LEGACY_BATCH01_EXTENSION_IDS)",
+            "decision": "OVERLAP-PARTIAL — catalog surface social_sentiment_intelligence vs runtime sentiment_ai",
+        },
         "notes": "OVERLAP-PARTIAL — legacy batch01 extension; excluded from batch04_independent",
     },
     183: {
         "status": "NOT_COMPLETE",
         "payload_root": "whale_transaction",
+        "pending_canonical_audit": "BLOCKER-183-130",
         "domain_rules": [
             {"field": "catalog_link.duplicate_of", "type": "numeric", "condition": "== 130"},
             {"field": "catalog_link.classification", "type": "enum", "condition": "== REUSED-LINK"},
@@ -67,30 +78,35 @@ _SPECS: dict[int, dict[str, Any]] = {
     },
 }
 
+_STATUS_NORMALIZE = {
+    "PENDING": "NOT_COMPLETE",
+    "PENDING_SCOPE_REALIGNMENT": "NOT_COMPLETE",
+}
+
 
 def build_acceptance() -> dict[str, Any]:
     rtm = json.loads(RTM.read_text(encoding="utf-8"))
     rows: list[dict[str, Any]] = []
     for rtm_row in sorted(rtm["rows"], key=lambda r: r["id"]):
         cid = rtm_row["id"]
-        surface = rtm_row["expected_surface_planned"]
-        spec = _SPECS.get(
-            cid,
-            {
+        surface = spec.get("expected_surface", rtm_row["expected_surface_planned"]) if (spec := _SPECS.get(cid)) else rtm_row["expected_surface_planned"]
+        if cid not in _SPECS:
+            spec = {
                 "payload_root": surface,
                 "domain_rules": _default_rules(surface, cid),
-            },
-        )
+            }
+        raw_status = spec.get("status", rtm_row["status"])
+        normalized_status = _STATUS_NORMALIZE.get(raw_status, raw_status)
         rules = [dict(SUCCESS_TOP), dict(SURFACE_MATCH)] + [dict(r) for r in spec["domain_rules"]]
         entry: dict[str, Any] = {
             "capability_id": cid,
             "capability_name": rtm_row["capability"],
             "expected_surface": surface,
-            "status": spec.get("status", rtm_row["status"]),
+            "status": normalized_status,
             "production_spine": spec.get("spine", "batch04"),
             "payload_root": spec.get("payload_root"),
-            "binding_file": rtm_row["binding_file_planned"],
-            "binding_function": rtm_row["binding_function_planned"],
+            "binding_file": spec.get("binding_file", rtm_row["binding_file_planned"]),
+            "binding_function": spec.get("binding_function", rtm_row["binding_function_planned"]),
             "domain_rules": rules,
             "prebuild_classification": rtm_row["prebuild_classification"],
             "build_decision": rtm_row["build_decision"],
@@ -99,6 +115,10 @@ def build_acceptance() -> dict[str, Any]:
         }
         if spec.get("notes"):
             entry["notes"] = spec["notes"]
+        if spec.get("functional_gap"):
+            entry["functional_gap"] = spec["functional_gap"]
+        if spec.get("pending_canonical_audit"):
+            entry["pending_canonical_audit"] = spec["pending_canonical_audit"]
         if rtm_row.get("duplicate_candidates"):
             entry["duplicate_candidates"] = rtm_row["duplicate_candidates"]
         rows.append(entry)
