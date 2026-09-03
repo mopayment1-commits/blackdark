@@ -1,31 +1,27 @@
 {
-  "generated_at": "2026-09-03T10:46:30Z",
-  "git_commit": "6e1954ffea6c7d360d2008052a67c34b759520b7",
+  "generated_at": "2026-09-03T10:55:00Z",
+  "git_commit": "pending",
   "ssot": "docs/CAPABILITIES_826_INVENTORY.json",
   "literal_breakdown": {
     "Batch01_1_50": 50,
     "Batch02_independent_51_100_excl_REUSED_OVERLAP": 50,
     "Batch03_independent_101_150_excl_REUSED_OVERLAP": 44,
-    "other_source_name": "hero_evidence_and_legacy_batch01_extension (>150, outside official batch01-03 sequential closure)",
-    "other_source_n4": 14,
-    "sum": 158
+    "k_option_a_prebatch": 4,
+    "k_counted_ids": [338, 500, 507, 534],
+    "n14_excluded_legacy": 10,
+    "n14_excluded_ids": [175, 214, 245, 584, 629, 630, 631, 642, 644, 646],
+    "sum": 148
   },
-  "equation": "50 + 50 + 44 + 14 = 158",
+  "equation": "50 + 50 + 44 + 4 = 148",
+  "separate_metrics": {
+    "batch03_independent": 44,
+    "progress_826": 148
+  },
+  "supersedes": "docs/BATCH03_158_BREAKDOWN.json (k=14 superseded by N14 individual audit k=4)",
   "batch03_exclusion_proof": {
     "reused_link_ids": [106, 107, 110, 125],
     "overlap_partial_ids": [103, 129],
-    "per_id_status": {
-      "106": "REUSED-LINK",
-      "107": "REUSED-LINK",
-      "110": "REUSED-LINK",
-      "125": "REUSED-LINK",
-      "103": "OVERLAP-PARTIAL",
-      "129": "OVERLAP-PARTIAL"
-    },
-    "any_in_production_aligned_count": 0,
-    "evidence_file": "docs/CAPABILITIES_826_INVENTORY.json",
-    "evidence_query": "per_id[{id}].status for id in [106,107,110,125,103,129] — none equals PRODUCTION-ALIGNED"
+    "not_in_progress_826_independent_column": true
   },
-  "n3_id_list": [101, 102, 104, 105, 108, 109, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 126, 127, 128, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150],
-  "n4_id_list": [175, 214, 245, 338, 500, 507, 534, 584, 629, 630, 631, 642, 644, 646]
+  "audit_file": "docs/BATCH03_N14_INDIVIDUAL_AUDIT.json"
 }

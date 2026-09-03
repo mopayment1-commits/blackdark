@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T10:39:02.901538+00:00",
+  "generated_at": "2026-09-03T10:57:58.781550+00:00",
   "scope": "IDs 1-826 institutional RTM",
   "scope_baseline": {
     "batch01": "IDs 1–50",
@@ -50,7 +50,7 @@
   },
   "three_separate_counts": {
     "note": "Three mutually exclusive RTM columns — never aggregate into a single progress equation",
-    "production_aligned_independent": 158,
+    "production_aligned_independent": 148,
     "reused_link": 4,
     "overlap_partial": 2,
     "dedup_verification": {
@@ -68,11 +68,11 @@
   "summary": {
     "total_ids": 826,
     "status_counts": {
-      "PRODUCTION-ALIGNED": 158,
+      "PRODUCTION-ALIGNED": 148,
       "OVERLAP-PARTIAL": 2,
       "REUSED-LINK": 4,
       "PENDING": 553,
-      "NOT_COMPLETE": 109
+      "NOT_COMPLETE": 119
     },
     "official_batch01_total": 50,
     "official_batch01_production_aligned": 50,
@@ -2524,15 +2524,15 @@
       "id": 175,
       "official_batch": "batch04",
       "capability": "Social Sentiment Intelligence",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
       "hero_classification": "PRODUCTION-ALIGNED",
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_175",
-      "notes": "legacy_batch01_extension; official_batch=batch04"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "176": {
       "id": 176,
@@ -3070,15 +3070,15 @@
       "id": 214,
       "official_batch": "batch05",
       "capability": "Watchlists",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": "watchlists",
       "in_hero_evidence": true,
       "hero_classification": "SPLIT-BRAIN-UNVERIFIED",
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_214",
-      "notes": "legacy_batch01_extension; official_batch=batch05"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "215": {
       "id": 215,
@@ -3504,15 +3504,15 @@
       "id": 245,
       "official_batch": "batch05",
       "capability": "Market Health & Freshness",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
       "hero_classification": "DEFERRED-EARLY-BATCH",
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_245",
-      "notes": "legacy_batch01_extension; official_batch=batch05"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "246": {
       "id": 246,
@@ -4814,7 +4814,7 @@
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.data_spine.data_quality_pipeline_report",
-      "notes": "from_hero_evidence"
+      "notes": "Option A pre-batch capability; proof=docs/OPTION_A_PRODUCTION_PROOF.json; not hero-batch OPEN_RISK"
     },
     "339": {
       "id": 339,
@@ -7082,7 +7082,7 @@
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.data_spine.normalization_report",
-      "notes": "from_hero_evidence"
+      "notes": "Option A pre-batch capability; proof=docs/OPTION_A_PRODUCTION_PROOF.json; not hero-batch OPEN_RISK"
     },
     "501": {
       "id": 501,
@@ -7180,7 +7180,7 @@
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.fallbacks.resolve_ohlcv_closes",
-      "notes": "from_hero_evidence"
+      "notes": "Option A pre-batch capability; proof=docs/OPTION_A_PRODUCTION_PROOF.json; not hero-batch OPEN_RISK"
     },
     "508": {
       "id": 508,
@@ -7558,7 +7558,7 @@
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.data_spine.bucketed_cvd_report",
-      "notes": "from_hero_evidence"
+      "notes": "Option A pre-batch capability; proof=docs/OPTION_A_PRODUCTION_PROOF.json; not hero-batch OPEN_RISK"
     },
     "535": {
       "id": 535,
@@ -8250,15 +8250,15 @@
       "id": 584,
       "official_batch": "batch12",
       "capability": "Risk_Management_Shield",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": "risk_management_shield",
       "in_hero_evidence": true,
       "hero_classification": "SPLIT-BRAIN-UNVERIFIED",
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_584",
-      "notes": "legacy_batch01_extension; official_batch=batch12"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "585": {
       "id": 585,
@@ -8880,43 +8880,43 @@
       "id": 629,
       "official_batch": "batch13",
       "capability": "Real-Time Wallet Alerts",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": "real_time_wallet_alerts",
       "in_hero_evidence": true,
       "hero_classification": "PRODUCTION-ALIGNED",
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_629",
-      "notes": "legacy_batch01_extension; official_batch=batch13"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "630": {
       "id": 630,
       "official_batch": "batch13",
       "capability": "Real_Time_Data_Freshness_Update_Assurance",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
       "hero_classification": "PRODUCTION-ALIGNED",
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_630",
-      "notes": "legacy_batch01_extension; official_batch=batch13"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "631": {
       "id": 631,
       "official_batch": "batch13",
       "capability": "Data_Source_Ingestion_Normalization_Provenance_Reliability_Architecture",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
       "hero_classification": "PRODUCTION-ALIGNED",
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_631",
-      "notes": "legacy_batch01_extension; official_batch=batch13"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "632": {
       "id": 632,
@@ -9062,15 +9062,15 @@
       "id": 642,
       "official_batch": "batch13",
       "capability": "AI Output Provenance / Compliance Footer",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
       "hero_classification": "PRODUCTION-ALIGNED",
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_642",
-      "notes": "legacy_batch01_extension; official_batch=batch13"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "643": {
       "id": 643,
@@ -9090,15 +9090,15 @@
       "id": 644,
       "official_batch": "batch13",
       "capability": "Capacity / Load Evidence",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
       "hero_classification": "PRODUCTION-ALIGNED",
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_644",
-      "notes": "legacy_batch01_extension; official_batch=batch13"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "645": {
       "id": 645,
@@ -9118,15 +9118,15 @@
       "id": 646,
       "official_batch": "batch13",
       "capability": "Chaos / Failure-Injection Resilience Testing",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": false,
       "hero_classification": null,
       "user_facing": true,
       "binding_source": "explicit_option_a",
       "backend": "cap646.batch01_production.cap_646",
-      "notes": "legacy_batch01_extension; official_batch=batch13"
+      "notes": "legacy_batch01_extension excluded from progress_826: missing official RTM row (binding_file/binding_function) at batch01/02 precision per N14 individual audit"
     },
     "647": {
       "id": 647,

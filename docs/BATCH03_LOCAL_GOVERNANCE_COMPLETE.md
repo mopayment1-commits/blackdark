@@ -30,35 +30,36 @@
 
 ---
 
-## ب. حسم عدّ 826 — ثلاثة أرقام منفصلة + تفكيك 158
+## ب. حسم عدّ 826 — ثلاثة أرقام منفصلة + تفكيك progress_826
 
-مصدر الحقيقة الوحيد: `docs/CAPABILITIES_826_INVENTORY.json` → `three_separate_counts`  
-تفكيك 158: `docs/BATCH03_158_BREAKDOWN.json`
+مصدر الحقيقة: `docs/CAPABILITIES_826_INVENTORY.json` → `three_separate_counts`  
+تفكيك فردي N14: `docs/BATCH03_N14_INDIVIDUAL_AUDIT.json`  
+معادلة progress: `docs/BATCH03_158_BREAKDOWN.json`
 
-| العمود | العدد | التعريف |
-|--------|------:|---------|
-| **(أ) PRODUCTION-ALIGNED مستقلة** | **158** | كل ID بحالة `PRODUCTION-ALIGNED` — مرة واحدة فقط في `per_id` (1…826) |
-| **(ب) REUSED-LINK** | **4** | IDs: 106, 107, 110, 125 — عمود منفصل، لا يُجمع مع (أ) |
-| **(ج) OVERLAP-PARTIAL** | **2** | IDs: 103, 129 — عمود منفصل |
+| العمود | العدد |
+|--------|------:|
+| **(أ) PRODUCTION-ALIGNED مستقلة** | **148** |
+| **(ب) REUSED-LINK** | **4** |
+| **(ج) OVERLAP-PARTIAL** | **2** |
 
-### تفكيك 158 (شكل سطري إلزامي)
+### مقياسان منفصلان (لا يُدمَجان)
+
+```
+batch03_independent = 44
+progress_826 = 148
+```
+
+### معادلة progress_826 (بعد تفكيك N14 فردي)
 
 ```
 Batch01 (1-50) = 50
 Batch02 مستقل (51-100، عدا REUSED/OVERLAP) = 50
 Batch03 مستقل (101-150، عدا REUSED/OVERLAP) = 44
-hero_evidence_and_legacy_batch01_extension (>150) = 14
-50 + 50 + 44 + 14 = 158
+k (Option A pre-batch فقط: 338, 500, 507, 534) = 4
+50 + 50 + 44 + 4 = 148
 ```
 
-**برهان استبعاد Batch03 من 158:**
-
-| ID | `per_id` status | ضمن 158؟ |
-|----|-----------------|----------|
-| 106, 107, 110, 125 | `REUSED-LINK` | **لا** |
-| 103, 129 | `OVERLAP-PARTIAL` | **لا** |
-
-دليل: `docs/CAPABILITIES_826_INVENTORY.json` — `any_in_production_aligned_count: 0` للستة IDs في `docs/BATCH03_158_BREAKDOWN.json`.
+**العشرة المستبعدة من k:** 175, 214, 245, 584, 629, 630, 631, 642, 644, 646 — سبب: نقص صف RTM رسمي (معيار أ) رغم وجود spine/runtime.
 
 ### تحقق تكرار 51–59
 
@@ -268,7 +269,7 @@ rg -n "heroes|hero_batch|heroes_capability" cap646/batch03_dedicated.py cap646/b
 | 4 | تناغم gateway↔canonical مُثبَت | **نعم** | `tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py` |
 | 5 | أرقام أداء حية على الإنتاج | **لا** | `docs/BATCH03_LATENCY_AUDIT.json` — محلي فقط؛ إنتاج = AWAITING_DEPLOY |
 | 6 | صفر ثغرة أمنية غير مبرَّرة في نطاق batch03 | **نعم** | تغطية 97.66% محلية + gateway contract tests |
-| 7 | صفر تكرار بلا قرار TIME (jscpd) | **معلَّق** | ينتظر إغلاق رقم jscpd المقارن (البند 2) — `docs/BATCH03_JSCPD_AUDIT.json` |
+| 7 | صفر تكرار بلا قرار TIME (jscpd) | **معلَّق** | 555=555 و0 clones — `docs/BATCH03_JSCPD_AUDIT.json` |
 | 8 | لا ميزة بلا جدوى معلّقة بلا قرار | **نعم** | INVEST 44/44 ready + `docs/BATCH03_AI_CAPABILITY_REVIEW.json` (0 ML backends) |
 
 ---
