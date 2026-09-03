@@ -105,10 +105,13 @@ k (Option A pre-batch فقط: 338, 500, 507, 534) = 4
 
 | الحقل | القيمة |
 |-------|--------|
-| **Dashboard** | **غير محسوم** — تشغيل SonarCloud على PR #362 كان قيد التنفيذ عند كتابة هذا التقرير |
-| **رابط المشروع (مرجعي)** | https://sonarcloud.io/project/overview?id=mopayment1-commits_blackdark |
-| **رابط workflow** | https://github.com/mopayment1-commits/blackdark/actions/runs/33744270651 |
-| **مقياس ثانوي محلي فقط** | 97.66% تغطية batch03 spine — `docs/BATCH03_SONAR_COVERAGE_GATE.json` (**لا يُعرض كـ Quality Gate PASSED بديل**) |
+| **التصنيف** | **AWAITING_OWNER_ACTION** |
+| **السبب** | لا يوجد تحليل SonarCloud لـ PR #362 أو الفرع `cursor/batch-03-101-150-e85e` (API: Component not found). workflow `SonarCloud Analysis` يفشل قبل الماسح عند خطوة Coverage XML (`test_closure_reject_04.py` entitlement). لا `SONAR_TOKEN` في بيئة الوكيل. |
+| **Dashboard (مشروع — حقيقي)** | https://sonarcloud.io/project/overview?id=mopayment1-commits_blackdark |
+| **PR #362 (لا تحليل بعد)** | https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark&pullRequest=362 |
+| **CI Sonar run (54779f6)** | https://github.com/mopayment1-commits/blackdark/actions/runs/33756488034 |
+| **دليل API + أرقام** | `docs/BATCH03_SONAR_QUALITY_GATE_PROOF.json` |
+| **مقياس ثانوي محلي فقط** | 97.66% تغطية batch03 spine — `docs/BATCH03_SONAR_COVERAGE_GATE.json` (**ليس Sonar QG**) |
 
 ### 10. INVEST الكامل — 44 صفًا
 

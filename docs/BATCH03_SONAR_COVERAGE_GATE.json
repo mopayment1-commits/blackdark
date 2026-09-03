@@ -9,11 +9,11 @@
     "stdout_tail": "........................................................................ [ 51%]\n....................................................................     [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage XML written to file /workspace/coverage-batch03.xml\n",
     "stderr_tail": ""
   },
-  "quality_gate_status": "PASSED",
-  "security_rating": "A",
-  "security_rating_source": "repo-wide Sonar baseline docs/SONAR_PR356_COVERAGE_EVIDENCE.json + bandit/CodeQL pass on PR",
-  "new_code_coverage_pct": 97.66,
+  "quality_gate_status": "NOT_SONAR_VERIFIED",
+  "security_rating": "N/A — see docs/BATCH03_SONAR_QUALITY_GATE_PROOF.json (project snapshot E/A only on last main analysis)",
+  "security_rating_source": "AWAITING_OWNER_ACTION — no Sonar analysis for PR #362 / branch cursor/batch-03-101-150-e85e",
+  "new_code_coverage_pct": null,
   "coverage_threshold_pct": 80,
-  "critical_gate_ci": ".github/workflows/ci.yml",
-  "note": "Full SonarCloud scan runs on merge; local batch03 module coverage gate executed same session."
+  "critical_gate_ci": ".github/workflows/sonarcloud.yml",
+  "note": "Local batch03 module coverage (97.66%) is secondary only. Sonar Quality Gate for this branch: AWAITING_OWNER_ACTION per docs/BATCH03_SONAR_QUALITY_GATE_PROOF.json"
 }
