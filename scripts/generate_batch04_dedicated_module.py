@@ -136,18 +136,17 @@ async def _cap159(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
         "institutional_api": canonical.get("institutional_api") or "/api/institutional",
         "graphql": canonical.get("graphql") or "/graphql",
         "hot_storage": canonical.get("hot_storage"),
-        "catalog_link": {
-            "duplicate_of": 103,
-            "classification": "REUSED-LINK",
-            "canonical_status": "PENDING_SCOPE_REALIGNMENT",
-        },
+        "blocker": "BLOCKER-159-103",
+        "canonical_overlap": 103,
+        "canonical_status": "OVERLAP-PARTIAL",
+        "owner_decision": "NOT_COMPLETE — no REUSED-LINK until #103 matures (Tolerate 2026-10-03) or DISTINCT ADR",
     }
     return _wrap(
         159,
         symbol=symbol,
         payload_key="api_data_platform",
         payload=platform,
-        extra={"catalog_link": platform["catalog_link"], "classification": "REUSED-LINK"},
+        extra={"classification": "NOT_COMPLETE", "blocker": "BLOCKER-159-103"},
     )
 
 
@@ -184,19 +183,14 @@ async def _cap183(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
         "amount_usd": amount,
         "risk_score": min(100.0, max(0.0, amount / 100_000)),
         "classification": "whale_transaction",
-        "catalog_link": {
-            "duplicate_of": 130,
-            "classification": "REUSED-LINK",
-            "canonical_status": "PENDING_SCOPE_REALIGNMENT",
-            "semantic_note": "DISTINCT whale payload — not mindshare canonical",
-        },
+        "owner_decision": "DISTINCT-only Option B — no REUSED-LINK to #130; #130 stays PRODUCTION-ALIGNED in Batch03",
     }
     return _wrap(
         183,
         symbol=symbol,
         payload_key="whale_transaction",
         payload=whale,
-        extra={"catalog_link": whale["catalog_link"], "classification": "REUSED-LINK"},
+        extra={"classification": "NOT_COMPLETE", "blocker": "BLOCKER-183-130"},
     )
 
 
