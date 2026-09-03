@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-03T16:58:20.005415+00:00",
+  "generated_at": "2026-09-03T17:07:38.205149+00:00",
   "standard": "ISO/IEC/IEEE 29148",
   "scope": "Batch04 IDs 151-200 (50 rows)",
   "pre_probe": true,
   "official_batch": "batch04",
-  "note": "Planned bindings in cap646/batch04_dedicated.py \u2014 handlers not yet implemented",
+  "note": "Bindings in cap646/batch04_dedicated.py \u2014 catalog-aligned handlers (build phase)",
   "rows": [
     {
       "capability_id": 151,
@@ -298,7 +298,7 @@
       "capability_id": 159,
       "capability_name": "API Data Platform",
       "expected_surface": "api_data_platform",
-      "status": "REUSED-LINK",
+      "status": "NOT_COMPLETE",
       "production_spine": "batch04",
       "payload_root": "api_data_platform",
       "binding_file": "cap646/batch04_dedicated.py",
@@ -334,7 +334,7 @@
       "build_decision": "Canonical+Alias \u2014 entitlement/runtime on canonical #103",
       "hero_underlying": "bd_platform.intelligence_analysis_layer.compute_gas_volatility_profile_159",
       "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
-      "notes": "REUSED-LINK \u2014 canonical #103 must be PRODUCTION-ALIGNED before promotion",
+      "notes": "PENDING_CANONICAL_AUDIT \u2014 canonical #103 not PRODUCTION-ALIGNED; REUSED-LINK not final",
       "duplicate_candidates": [
         {
           "pair": "159\u2194103",
@@ -1185,7 +1185,7 @@
       "capability_id": 183,
       "capability_name": "Whale Transaction Intelligence",
       "expected_surface": "whale_transaction_intelligence",
-      "status": "REUSED-LINK",
+      "status": "NOT_COMPLETE",
       "production_spine": "batch04",
       "payload_root": "whale_transaction",
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1221,7 +1221,7 @@
       "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "hero_underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
       "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
-      "notes": "REUSED-LINK candidate \u2014 hero exact_fn_reuse transaction_risk_insight_130; pending canonical audit of #130",
+      "notes": "PENDING_CANONICAL_AUDIT \u2014 DISTINCT whale payload; canonical #130 not PRODUCTION-ALIGNED",
       "duplicate_candidates": [
         {
           "pair": "183\u2194underlying",

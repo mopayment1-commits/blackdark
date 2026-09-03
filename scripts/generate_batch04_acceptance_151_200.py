@@ -35,7 +35,7 @@ def _default_rules(root: str, capability_id: int) -> list[dict[str, Any]]:
 # Per-ID overrides (ISO 29148 pre-probe — not from runtime probe)
 _SPECS: dict[int, dict[str, Any]] = {
     159: {
-        "status": "REUSED-LINK",
+        "status": "NOT_COMPLETE",
         "spine": "batch04",
         "payload_root": "api_data_platform",
         "domain_rules": [
@@ -43,7 +43,7 @@ _SPECS: dict[int, dict[str, Any]] = {
             {"field": "catalog_link.classification", "type": "enum", "condition": "== REUSED-LINK"},
             {"field": "api_data_platform.institutional_api", "type": "enum", "condition": "== /api/institutional"},
         ],
-        "notes": "REUSED-LINK — canonical #103 must be PRODUCTION-ALIGNED before promotion",
+        "notes": "PENDING_CANONICAL_AUDIT — canonical #103 not PRODUCTION-ALIGNED; REUSED-LINK not final",
     },
     175: {
         "status": "OVERLAP-PARTIAL",
@@ -56,14 +56,14 @@ _SPECS: dict[int, dict[str, Any]] = {
         "notes": "OVERLAP-PARTIAL — legacy batch01 extension; excluded from batch04_independent",
     },
     183: {
-        "status": "REUSED-LINK",
+        "status": "NOT_COMPLETE",
         "payload_root": "whale_transaction",
         "domain_rules": [
             {"field": "catalog_link.duplicate_of", "type": "numeric", "condition": "== 130"},
             {"field": "catalog_link.classification", "type": "enum", "condition": "== REUSED-LINK"},
             {"field": "whale_transaction.risk_score", "type": "numeric", "condition": ">= 0"},
         ],
-        "notes": "REUSED-LINK candidate — hero exact_fn_reuse transaction_risk_insight_130; pending canonical audit of #130",
+        "notes": "PENDING_CANONICAL_AUDIT — DISTINCT whale payload; canonical #130 not PRODUCTION-ALIGNED",
     },
 }
 
@@ -108,7 +108,7 @@ def build_acceptance() -> dict[str, Any]:
         "scope": "Batch04 IDs 151-200 (50 rows)",
         "pre_probe": True,
         "official_batch": "batch04",
-        "note": "Planned bindings in cap646/batch04_dedicated.py — handlers not yet implemented",
+        "note": "Bindings in cap646/batch04_dedicated.py — catalog-aligned handlers (build phase)",
         "rows": rows,
     }
 
