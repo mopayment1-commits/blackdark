@@ -4,6 +4,7 @@
   "generated_at": "2026-09-03T18:15:00+00:00",
   "branch": "cursor/batch-04-151-200-e85e",
   "baseline_commit": "cf475c9",
+  "implementation_commit": "728b59a",
   "gates": {
     "gate0_continuity": {
       "status": "PASS",
