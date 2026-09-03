@@ -18,7 +18,20 @@ async def arbitrage_scanner_status():
     """Public hero health — current arb scan truth summary (not cumulative Oracle stats)."""
     from arbitrage_service import arbitrage_scanner_hero_status
 
-    return await arbitrage_scanner_hero_status()
+    try:
+        return await arbitrage_scanner_hero_status()
+    except Exception as exc:
+        from net_edge_truth import net_edge_truth_status
+
+        return {
+            "hero": "Arbitrage Scanner",
+            "scope": "current_arbitrage_scan",
+            "enabled": True,
+            "degraded": True,
+            "error": type(exc).__name__,
+            "note": "Scan summary unavailable; endpoint remains distinct from /api/oracle/net-edge-truth.",
+            "thresholds": (net_edge_truth_status().get("thresholds") or {}),
+        }
 
 
 @router.get("/defi/scan")
