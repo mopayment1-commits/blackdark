@@ -145,7 +145,7 @@
       "domain_rules_passed": 5,
       "domain_rules_total": 5,
       "domain_all_pass": true,
-      "functional_gap": "BLOCKER-159-103 \u2014 canonical #103 PENDING_SCOPE_REALIGNMENT",
+      "functional_gap": "BLOCKER-159-103 — canonical #103 OVERLAP-PARTIAL; owner NOT_COMPLETE suspended until 2026-10-03",
       "blocker": "BLOCKER-159-103",
       "production_spine": "batch04",
       "next_action": "Owner: resolve BLOCKER or DISTINCT ADR"
