@@ -17,7 +17,7 @@ Batch04 cannot advance `batch04_independent` or finalize REUSED-LINK for IDs **1
 |-------|-------|
 | Batch04 ID | 159 — API Data Platform |
 | Canonical | #103 — API Data Platform |
-| Canonical status | `PENDING_SCOPE_REALIGNMENT` (batch03_prep spine) |
+| Canonical status | `OVERLAP-PARTIAL` (batch03 #103); owner decision `NOT_COMPLETE` suspended until 2026-10-03 |
 | Current implementation | `catalog_link` delegate to #103 institutional payload |
 | Batch04 closure | `NOT_COMPLETE` + `PENDING_CANONICAL_AUDIT` |
 | Gateway | `canonical_id(159)=103` — elite tier enforced at gateway ✅ |
@@ -37,9 +37,10 @@ Batch04 cannot advance `batch04_independent` or finalize REUSED-LINK for IDs **1
 |-------|-------|
 | Batch04 ID | 183 — Whale Transaction Intelligence |
 | Candidate canonical | #130 — Mindshare Intelligence |
-| Canonical status | `PENDING_SCOPE_REALIGNMENT` |
-| Semantic gap | Catalog whale transactions ≠ catalog mindshare |
-| Current implementation | DISTINCT `whale_transaction` payload + manual `catalog_link` stamp |
+| Canonical status | `PRODUCTION-ALIGNED` in Batch03 (unchanged) |
+| Owner decision | **Option B approved** — DISTINCT-only for #183; no REUSED-LINK to #130 |
+| Semantic gap | Catalog whale transactions ≠ catalog mindshare (resolved via DISTINCT ADR) |
+| Current implementation | DISTINCT `whale_transaction` payload — no `catalog_link` to #130 |
 | Batch04 closure | `NOT_COMPLETE` + `PENDING_CANONICAL_AUDIT` |
 | Gateway | `canonical_id(183)=183` (not #130) ✅ |
 

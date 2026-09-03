@@ -12,8 +12,8 @@
 
 | Blocker | Pair | Status |
 |---------|------|--------|
-| BLOCKER-159-103 | 159 ↔ 103 | canonical #103 PENDING_SCOPE_REALIGNMENT |
-| BLOCKER-183-130 | 183 ↔ 130 | canonical #130 PENDING + semantic gap |
+| BLOCKER-159-103 | 159 ↔ 103 | canonical #103 `OVERLAP-PARTIAL`; owner `NOT_COMPLETE` suspended until 2026-10-03 |
+| BLOCKER-183-130 | 183 ↔ 130 | `DISTINCT-only` (Option B approved); canonical #130 `PRODUCTION-ALIGNED` in Batch03 unchanged |
 
 ADR: `docs/ADR_BATCH04_CANONICAL_BLOCKERS_103_130.md`
 

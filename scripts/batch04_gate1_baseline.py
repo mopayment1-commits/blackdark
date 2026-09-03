@@ -112,7 +112,6 @@ async def _probe(cap_id: int, acc_row: dict) -> dict[str, Any]:
         "production_spine": result.get("production_spine"),
         "payload_keys": sorted(keys),
         "payload_key_count": len(keys),
-        "classification_runtime": result.get("classification"),
         "blocker": result.get("blocker"),
         "catalog_link": result.get("catalog_link"),
     }
