@@ -330,7 +330,8 @@ def assert_rule_count_triple_match(
     acceptance_by_id: dict[int, dict[str, Any]],
 ) -> None:
     """ISO 29148 accounting: acceptance domain_rules count == results == X/X denominator."""
-    for row in rows:
+    print("assert_rule_count_triple_match: begin", flush=True)
+    for row in sorted(rows, key=lambda r: r["capability_id"]):
         cid = row["capability_id"]
         acceptance_count = len(acceptance_by_id[cid]["domain_rules"])
         er = row["pentagonal"]["external_result_iso29148"]
@@ -350,6 +351,12 @@ def assert_rule_count_triple_match(
             )
         if passed > total:
             raise SystemExit(f"Rule-count triple-match failed for ID {cid}: rules_passed={passed} > rules_total={total}")
+        print(
+            f"assert_rule_count_triple_match: ID {cid} acceptance={acceptance_count} "
+            f"results={results_count} rules_total={total} rules_passed={passed} OK",
+            flush=True,
+        )
+    print(f"assert_rule_count_triple_match: end — all {len(rows)} independent IDs matched", flush=True)
 
 
 def assert_no_template_duplication(rows: list[dict[str, Any]]) -> None:
