@@ -8223,7 +8223,7 @@
     },
     {
       "capability_id": 181,
-      "capability_name": "Ecosystem Development Dashboard",
+      "capability_name": "IC Committee Packets Status",
       "acceptance_ref": "docs/BATCH04_ACCEPTANCE_151_200.json",
       "closure_status": "NOT_COMPLETE",
       "batch04_independent": false,
@@ -8231,7 +8231,7 @@
       "structural_blocker": null,
       "rtm": {
         "id": 181,
-        "capability": "Ecosystem Development Dashboard",
+        "capability": "IC Committee Packets Status",
         "status": "PENDING",
         "production_spine": null,
         "binding_file": "cap646/batch04_dedicated.py",
@@ -8301,7 +8301,7 @@
         "backend_entrypoint": "cap_181",
         "binding_source": "explicit_option_a",
         "production_spine": "batch04",
-        "capability": "Ecosystem Development Dashboard",
+        "capability": "IC Committee Packets Status",
         "track": "T15",
         "classification": "PRODUCTION-ALIGNED"
       },
@@ -8314,7 +8314,7 @@
       "ai_class": "rule_based_N/A_PSI",
       "pentagonal": {
         "internal_goal_iso25010": {
-          "goal": "Ecosystem Development Dashboard",
+          "goal": "IC Committee Packets Status",
           "binding": "cap646/batch04_dedicated.py:_cap181",
           "payload": {
             "payload_root": "ecosystem_development_dashboard",
@@ -8405,7 +8405,7 @@
     },
     {
       "capability_id": 182,
-      "capability_name": "Developer Activity Change Detection",
+      "capability_name": "White-Label Infrastructure Status",
       "acceptance_ref": "docs/BATCH04_ACCEPTANCE_151_200.json",
       "closure_status": "NOT_COMPLETE",
       "batch04_independent": false,
@@ -8413,7 +8413,7 @@
       "structural_blocker": null,
       "rtm": {
         "id": 182,
-        "capability": "Developer Activity Change Detection",
+        "capability": "White-Label Infrastructure Status",
         "status": "NOT_COMPLETE",
         "production_spine": null,
         "binding_file": "cap646/batch04_dedicated.py",
@@ -8483,7 +8483,7 @@
         "backend_entrypoint": "cap_182",
         "binding_source": "explicit_option_a",
         "production_spine": "batch04",
-        "capability": "Developer Activity Change Detection",
+        "capability": "White-Label Infrastructure Status",
         "track": "T17",
         "classification": "PRODUCTION-ALIGNED"
       },
@@ -8496,7 +8496,7 @@
       "ai_class": "rule_based_N/A_PSI",
       "pentagonal": {
         "internal_goal_iso25010": {
-          "goal": "Developer Activity Change Detection",
+          "goal": "White-Label Infrastructure Status",
           "binding": "cap646/batch04_dedicated.py:_cap182",
           "payload": {
             "payload_root": "developer_activity_change_detection",

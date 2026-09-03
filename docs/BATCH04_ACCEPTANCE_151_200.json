@@ -1147,7 +1147,7 @@
     },
     {
       "capability_id": 181,
-      "capability_name": "Ecosystem Development Dashboard",
+      "capability_name": "IC Committee Packets Status",
       "expected_surface": "ecosystem_development_dashboard",
       "status": "NOT_COMPLETE",
       "production_spine": "batch04",
@@ -1183,7 +1183,7 @@
     },
     {
       "capability_id": 182,
-      "capability_name": "Developer Activity Change Detection",
+      "capability_name": "White-Label Infrastructure Status",
       "expected_surface": "developer_activity_change_detection",
       "status": "NOT_COMPLETE",
       "production_spine": "batch04",

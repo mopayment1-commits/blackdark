@@ -2607,7 +2607,7 @@
     "181": {
       "id": 181,
       "official_batch": "batch04",
-      "capability": "Ecosystem Development Dashboard",
+      "capability": "IC Committee Packets Status",
       "status": "PENDING",
       "production_spine": null,
       "expected_surface": null,
@@ -2621,7 +2621,7 @@
     "182": {
       "id": 182,
       "official_batch": "batch04",
-      "capability": "Developer Activity Change Detection",
+      "capability": "White-Label Infrastructure Status",
       "status": "NOT_COMPLETE",
       "production_spine": null,
       "expected_surface": null,

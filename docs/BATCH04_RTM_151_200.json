@@ -36,7 +36,9 @@
     "miswire_remediation": {
       "STRANGLER_FIXABLE": 38,
       "PARTIAL_MISNAMED": 5
-    }
+    },
+    "implemented_free": 3,
+    "partial_build_phase_hold_lift": "168,171,186 catalog+impl only"
   },
   "rows": [
     {
@@ -945,7 +947,11 @@
       "semantic_reason": "attach_cluster_index_168 is on-chain clustering, not social dominance intelligence.",
       "semantic_comparison": "Expected: Social Dominance Intelligence. Hero implements: sybil cluster index attachment. Runtime: dominance_pct=cluster_index integer, not social dominance percentage",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "strangler_reclass": "IMPLEMENTED_FREE",
+      "binding_function": "_cap168",
+      "free_tier_source": "ingest_santiment_metrics_142",
+      "accuracy_disclaimer": "Santiment free tier \u2014 limited accuracy"
     },
     {
       "id": 169,
@@ -1092,7 +1098,10 @@
       "semantic_reason": "compute_m2_macro_flow_171 is macro M2 flow, not trending coins.",
       "semantic_comparison": "Expected: Trending Coins. Hero implements: Federal Reserve M2 macro liquidity flow. Runtime: trending_coins=[symbol], m2_flow=macro liquidity data",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "strangler_reclass": "IMPLEMENTED_FREE",
+      "binding_function": "_cap171",
+      "free_tier_source": "coingecko_search_trending"
     },
     {
       "id": 172,
@@ -1536,9 +1545,9 @@
     },
     {
       "id": 181,
-      "capability": "Ecosystem Development Dashboard",
+      "capability": "IC Committee Packets Status",
       "gate1_state": "BROWNFIELD",
-      "business_purpose": "Ecosystem Development Dashboard",
+      "business_purpose": "IC Committee Packets Status",
       "canonical_module_function": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.committee_packets_status_181",
       "canonical_route": "/api/cap646/181",
       "data_source_owner": "bd_platform.arbitrage_portfolio_ux_layer.committee_packets_status_181",
@@ -1579,15 +1588,16 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ecosystem_development_dashboard",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "committee_packets_status_181 is IC reporting infra, not ecosystem development dashboard.",
-      "semantic_comparison": "Expected: Ecosystem Development Dashboard. Hero implements: IC committee packets / duplicate_of #87 status. Runtime: ecosystem_score=packet_count, committee_packets status metadata",
+      "semantic_comparison": "Expected: IC Committee Packets Status. Hero implements: IC committee packets / duplicate_of #87 status. Runtime: ecosystem_score=packet_count, committee_packets status metadata",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "PARTIAL_MISNAMED"
+      "miswire_remediation": "PARTIAL_MISNAMED_RESOLVED",
+      "catalog_rename": "IC Committee Packets Status"
     },
     {
       "id": 182,
-      "capability": "Developer Activity Change Detection",
+      "capability": "White-Label Infrastructure Status",
       "gate1_state": "BROWNFIELD",
-      "business_purpose": "Developer Activity Change Detection",
+      "business_purpose": "White-Label Infrastructure Status",
       "canonical_module_function": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.white_label_infrastructure_status_182",
       "canonical_route": "/api/cap646/182",
       "data_source_owner": "bd_platform.arbitrage_portfolio_ux_layer.white_label_infrastructure_status_182",
@@ -1628,9 +1638,10 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=developer_activity_change_detection",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "white_label_infrastructure_status_182 is branding infra, not developer activity change detection.",
-      "semantic_comparison": "Expected: Developer Activity Change Detection. Hero implements: white-label infrastructure duplicate_of #90 status. Runtime: activity_change_pct from white_label status, not dev activity delta",
+      "semantic_comparison": "Expected: White-Label Infrastructure Status. Hero implements: white-label infrastructure duplicate_of #90 status. Runtime: activity_change_pct from white_label status, not dev activity delta",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "PARTIAL_MISNAMED"
+      "miswire_remediation": "PARTIAL_MISNAMED_RESOLVED",
+      "catalog_rename": "White-Label Infrastructure Status"
     },
     {
       "id": 183,
@@ -1837,7 +1848,10 @@
       "semantic_reason": "continuous_learning_status_186 is ML flywheel, not historical wallet balance tool.",
       "semantic_comparison": "Expected: Historical Wallet Balance Tool. Hero implements: continuous learning / data flywheel status (duplicate #97). Runtime: balance_history=learning_status, wallet_tool_status \u2014 flywheel not wallet balances",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "strangler_reclass": "IMPLEMENTED_FREE",
+      "binding_function": "_cap186",
+      "free_tier_source": "etherscan_bscscan_free_api"
     },
     {
       "id": 187,
