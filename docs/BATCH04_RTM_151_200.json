@@ -28,7 +28,15 @@
     ],
     "reused_alias": [
       175
-    ]
+    ],
+    "closure_status": {
+      "NOT_COMPLETE": 49,
+      "OVERLAP-PARTIAL": 1
+    },
+    "miswire_remediation": {
+      "STRANGLER_FIXABLE": 38,
+      "PARTIAL_MISNAMED": 5
+    }
   },
   "rows": [
     {
@@ -73,7 +81,6 @@
           "symbol"
         ],
         "payload_key_count": 14,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -85,7 +92,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=quarterly_protocol_performance_reports",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "Dedicated batch04_quarterly_protocol module computes genuine quarterly protocol performance semantics.",
-      "semantic_comparison": "Expected: Quarterly Protocol Performance Reports. Hero implements: quarterly_protocol_report via explain_opportunity_151 + defillama TVL. Runtime: quarter_label, reporting_period=quarterly, protocol_tvl_usd, performance_score, dimension_breakdown"
+      "semantic_comparison": "Expected: Quarterly Protocol Performance Reports. Hero implements: quarterly_protocol_report via explain_opportunity_151 + defillama TVL. Runtime: quarter_label, reporting_period=quarterly, protocol_tvl_usd, performance_score, dimension_breakdown",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": null
     },
     {
       "id": 152,
@@ -121,7 +130,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -133,7 +141,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=governance_proposal_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "Runtime executes run_data_sources_e2e_140_152; repackages test checks as governance_proposal_intelligence.",
-      "semantic_comparison": "Expected: Governance & Proposal Intelligence. Hero implements: data_sources E2E integration test runner (checks 140-152). Runtime: governance_proposals contains e2e checks/all_passed, not governance proposals"
+      "semantic_comparison": "Expected: Governance & Proposal Intelligence. Hero implements: data_sources E2E integration test runner (checks 140-152). Runtime: governance_proposals contains e2e checks/all_passed, not governance proposals",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 153,
@@ -170,7 +180,6 @@
           "symbol"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -182,7 +191,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=project_monitoring_coverage_registry",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "analyze_arbitrage_opportunity_153 performs arbitrage analysis, not project monitoring coverage.",
-      "semantic_comparison": "Expected: Project Monitoring Coverage Registry. Hero implements: multi-venue theoretical arbitrage with cost breakdown. Runtime: coverage_registry maps venue prices; arbitrage_insight with net_spread_pct"
+      "semantic_comparison": "Expected: Project Monitoring Coverage Registry. Hero implements: multi-venue theoretical arbitrage with cost breakdown. Runtime: coverage_registry maps venue prices; arbitrage_insight with net_spread_pct",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 154,
@@ -221,7 +232,6 @@
           "symbol"
         ],
         "payload_key_count": 9,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -233,7 +243,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ai_crypto_copilot",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "financial_brain_status_154 reports merge status, not an interactive AI crypto copilot.",
-      "semantic_comparison": "Expected: AI Crypto Copilot. Hero implements: financial_brain merged infrastructure status (activation_not_build). Runtime: copilot_status=merged_not_standalone; dimensions/outputs are infra metadata"
+      "semantic_comparison": "Expected: AI Crypto Copilot. Hero implements: financial_brain merged infrastructure status (activation_not_build). Runtime: copilot_status=merged_not_standalone; dimensions/outputs are infra metadata",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "PARTIAL_MISNAMED"
     },
     {
       "id": 155,
@@ -273,7 +285,6 @@
           "z_score"
         ],
         "payload_key_count": 10,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -285,7 +296,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ai_deep_research",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "stat_arb_insight_155 is pair correlation deviation, not AI deep research capability.",
-      "semantic_comparison": "Expected: AI Deep Research. Hero implements: statistical arbitrage z-score mean-reversion insight. Runtime: research_depth=deep, z_score, historical reversion \u2014 stat arb not deep research"
+      "semantic_comparison": "Expected: AI Deep Research. Hero implements: statistical arbitrage z-score mean-reversion insight. Runtime: research_depth=deep, z_score, historical reversion \u2014 stat arb not deep research",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 156,
@@ -321,7 +334,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -333,7 +345,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=crypto_knowledge_graph",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "asset_registry_105_coins_156 is a coin list, not a crypto knowledge graph.",
-      "semantic_comparison": "Expected: Crypto Knowledge Graph. Hero implements: asset registry 105-coin list with selection criteria. Runtime: graph_nodes=asset list; no edges, relationships, or graph traversal"
+      "semantic_comparison": "Expected: Crypto Knowledge Graph. Hero implements: asset registry 105-coin list with selection criteria. Runtime: graph_nodes=asset list; no edges, relationships, or graph traversal",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 157,
@@ -369,7 +383,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -381,7 +394,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=research_library",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "onchain_advanced_status_157 reports merge/activation status, not a research library.",
-      "semantic_comparison": "Expected: Research Library. Hero implements: onchain advanced merged infrastructure status. Runtime: research_items=capabilities list, routes=oracle paths \u2014 infra status not library"
+      "semantic_comparison": "Expected: Research Library. Hero implements: onchain advanced merged infrastructure status. Runtime: research_items=capabilities list, routes=oracle paths \u2014 infra status not library",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "PARTIAL_MISNAMED"
     },
     {
       "id": 158,
@@ -417,7 +432,6 @@
           "venue_count"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -429,7 +443,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=institutional_research_feed",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "multi_venue_websocket_status_158 is streaming infra, not institutional research feed.",
-      "semantic_comparison": "Expected: Institutional Research Feed. Hero implements: multi-venue websocket connection aggregation status. Runtime: feed_items=venue connections with latency_ms, not research content"
+      "semantic_comparison": "Expected: Institutional Research Feed. Hero implements: multi-venue websocket connection aggregation status. Runtime: feed_items=venue connections with latency_ms, not research content",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "PARTIAL_MISNAMED"
     },
     {
       "id": 159,
@@ -468,7 +484,6 @@
           "owner_decision"
         ],
         "payload_key_count": 9,
-        "classification_runtime": "NOT_COMPLETE",
         "blocker": "BLOCKER-159-103",
         "catalog_link": null
       },
@@ -480,7 +495,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=api_data_platform",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "Aligned portion: API platform endpoints. Missing: full platform maturity blocked on #103.",
-      "semantic_comparison": "Expected: API Data Platform. Hero implements: institutional API platform via batch03 #103 wrap + gas profile owner. Runtime: institutional_api, graphql, hot_storage present; blocker BLOCKER-159-103"
+      "semantic_comparison": "Expected: API Data Platform. Hero implements: institutional API platform via batch03 #103 wrap + gas profile owner. Runtime: institutional_api, graphql, hot_storage present; blocker BLOCKER-159-103",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": null
     },
     {
       "id": 160,
@@ -517,7 +534,6 @@
           "symbol"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -529,7 +545,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=pay_per_request_data_access",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "detect_volatility_squeeze_160 is TA squeeze indicator, not pay-per-request data access.",
-      "semantic_comparison": "Expected: Pay-Per-Request Data Access. Hero implements: Bollinger/Keltner volatility squeeze detection. Runtime: pricing_model=pay_per_request but in_squeeze from vol squeeze; metering is static stub"
+      "semantic_comparison": "Expected: Pay-Per-Request Data Access. Hero implements: Bollinger/Keltner volatility squeeze detection. Runtime: pricing_model=pay_per_request but in_squeeze from vol squeeze; metering is static stub",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 161,
@@ -566,7 +584,6 @@
           "symbol"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -578,7 +595,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=institutional_data_delivery_entitlements",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "Aligned portion: entitlements/RBAC. Missing: full institutional data delivery pipeline; hero binding alert_delivery unused.",
-      "semantic_comparison": "Expected: Institutional Data Delivery & Entitlements. Hero implements: institutional capability handler (RBAC/isolation matrix). Runtime: role_matrix, entitlements, isolation from handle_institutional_capability(161)"
+      "semantic_comparison": "Expected: Institutional Data Delivery & Entitlements. Hero implements: institutional capability handler (RBAC/isolation matrix). Runtime: role_matrix, entitlements, isolation from handle_institutional_capability(161)",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": null
     },
     {
       "id": 162,
@@ -614,7 +633,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -626,7 +644,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=evidence_provenance_layer",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "Aligned portion: evidence/provenance data. Missing: full evidence layer; underlying is #106 reuse.",
-      "semantic_comparison": "Expected: Evidence & Provenance Layer. Hero implements: provenance hot storage payload (REUSED_LINK #106). Runtime: provenance + hot_storage fields present; catalog_link in code not at top-level runtime"
+      "semantic_comparison": "Expected: Evidence & Provenance Layer. Hero implements: provenance hot storage payload (REUSED_LINK #106). Runtime: provenance + hot_storage fields present; catalog_link in code not at top-level runtime",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": null
     },
     {
       "id": 163,
@@ -663,7 +683,6 @@
           "symbol"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -675,7 +694,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=cross_domain_research_to_decision_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "run_intelligence_analysis_e2e_153_163 is integration test, not research-to-decision intelligence.",
-      "semantic_comparison": "Expected: Cross-Domain Research-to-Decision Intelligence. Hero implements: intelligence analysis E2E test runner (checks 153-163). Runtime: cross_domain_report with checks_passed/all_passed e2e results"
+      "semantic_comparison": "Expected: Cross-Domain Research-to-Decision Intelligence. Hero implements: intelligence analysis E2E test runner (checks 153-163). Runtime: cross_domain_report with checks_passed/all_passed e2e results",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 164,
@@ -712,7 +733,6 @@
           "unlock_risk"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -724,7 +744,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=token_unlock_actionability_score",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "liquidity_impact_warning_164 is portfolio slippage, not token unlock actionability.",
-      "semantic_comparison": "Expected: Token Unlock Actionability Score. Hero implements: liquidity impact / position slippage warning (panic button rejected). Runtime: actionability_score derived from estimated_slippage_pct, unlock_risk=slippage"
+      "semantic_comparison": "Expected: Token Unlock Actionability Score. Hero implements: liquidity impact / position slippage warning (panic button rejected). Runtime: actionability_score derived from estimated_slippage_pct, unlock_risk=slippage",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 165,
@@ -761,7 +783,6 @@
           "symbol"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -773,7 +794,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=fundraising_momentum_score",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "hashrate_capitulation_forecast_165 is mining hashrate, not fundraising momentum.",
-      "semantic_comparison": "Expected: Fundraising Momentum Score. Hero implements: BTC hashrate capitulation / miner revenue forecast. Runtime: momentum_score=hashrate_drop_pct, capitulation_signal from mining economics"
+      "semantic_comparison": "Expected: Fundraising Momentum Score. Hero implements: BTC hashrate capitulation / miner revenue forecast. Runtime: momentum_score=hashrate_drop_pct, capitulation_signal from mining economics",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 166,
@@ -810,7 +833,6 @@
           "symbol"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -822,7 +844,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=research_confidence_score",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "brokerage_rejected_status_166 reports rejection, not research confidence scoring.",
-      "semantic_comparison": "Expected: Research Confidence Score. Hero implements: brokerage integration rejected status. Runtime: confidence_score=0.0 hardcoded, research_status=rejected_brokerage"
+      "semantic_comparison": "Expected: Research Confidence Score. Hero implements: brokerage integration rejected status. Runtime: confidence_score=0.0 hardcoded, research_status=rejected_brokerage",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 167,
@@ -859,7 +883,6 @@
           "volume_status"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -871,7 +894,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_volume_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "validate_time_sync_167 is clock sync, not social volume intelligence.",
-      "semantic_comparison": "Expected: Social Volume Intelligence. Hero implements: NTP/time synchronization validation. Runtime: social_volume=deviation_sec (time sync deviation), not social metrics"
+      "semantic_comparison": "Expected: Social Volume Intelligence. Hero implements: NTP/time synchronization validation. Runtime: social_volume=deviation_sec (time sync deviation), not social metrics",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 168,
@@ -907,7 +932,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -919,7 +943,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_dominance_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "attach_cluster_index_168 is on-chain clustering, not social dominance intelligence.",
-      "semantic_comparison": "Expected: Social Dominance Intelligence. Hero implements: sybil cluster index attachment. Runtime: dominance_pct=cluster_index integer, not social dominance percentage"
+      "semantic_comparison": "Expected: Social Dominance Intelligence. Hero implements: sybil cluster index attachment. Runtime: dominance_pct=cluster_index integer, not social dominance percentage",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 169,
@@ -955,7 +981,6 @@
           "unique_volume"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -967,7 +992,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=unique_social_volume",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "compute_correlation_decay_matrix_169 is portfolio correlation, not unique social volume.",
-      "semantic_comparison": "Expected: Unique Social Volume. Hero implements: asset correlation decay matrix vs BTC benchmark. Runtime: unique_volume=oi_momentum_delta, correlation_matrix from decay matrix"
+      "semantic_comparison": "Expected: Unique Social Volume. Hero implements: asset correlation decay matrix vs BTC benchmark. Runtime: unique_volume=oi_momentum_delta, correlation_matrix from decay matrix",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 170,
@@ -1003,7 +1030,6 @@
           "trending_words"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1015,7 +1041,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=trending_words",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "compute_oi_momentum_delta_170 is OI derivatives flow, not trending words.",
-      "semantic_comparison": "Expected: Trending Words. Hero implements: open interest momentum delta on derivatives. Runtime: trending_words=[], oi_momentum from derivatives OI delta"
+      "semantic_comparison": "Expected: Trending Words. Hero implements: open interest momentum delta on derivatives. Runtime: trending_words=[], oi_momentum from derivatives OI delta",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 171,
@@ -1051,7 +1079,6 @@
           "trending_coins"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1063,7 +1090,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=trending_coins",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "compute_m2_macro_flow_171 is macro M2 flow, not trending coins.",
-      "semantic_comparison": "Expected: Trending Coins. Hero implements: Federal Reserve M2 macro liquidity flow. Runtime: trending_coins=[symbol], m2_flow=macro liquidity data"
+      "semantic_comparison": "Expected: Trending Coins. Hero implements: Federal Reserve M2 macro liquidity flow. Runtime: trending_coins=[symbol], m2_flow=macro liquidity data",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 172,
@@ -1099,7 +1128,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1111,7 +1139,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=historical_crypto_trends",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "institutional_memory_status_172 is internal memory store, not historical crypto trends.",
-      "semantic_comparison": "Expected: Historical Crypto Trends. Hero implements: institutional memory / decision replay status. Runtime: historical_trends=memory_entries, institutional_memory status"
+      "semantic_comparison": "Expected: Historical Crypto Trends. Hero implements: institutional memory / decision replay status. Runtime: historical_trends=memory_entries, institutional_memory status",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 173,
@@ -1147,7 +1177,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1159,7 +1188,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=key_narratives_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "institutional_rbac_status_173 is access control, not key narratives intelligence.",
-      "semantic_comparison": "Expected: Key Narratives Intelligence. Hero implements: institutional RBAC role matrix status. Runtime: key_narratives=rbac_roles list, not market narratives"
+      "semantic_comparison": "Expected: Key Narratives Intelligence. Hero implements: institutional RBAC role matrix status. Runtime: key_narratives=rbac_roles list, not market narratives",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 174,
@@ -1195,7 +1226,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1207,7 +1237,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=alpha_narratives_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "full_white_label_status_174 is branding infra, not alpha narratives intelligence.",
-      "semantic_comparison": "Expected: Alpha Narratives Intelligence. Hero implements: white-label branding infrastructure status. Runtime: alpha_narratives=white_label_features, branding_status"
+      "semantic_comparison": "Expected: Alpha Narratives Intelligence. Hero implements: white-label branding infrastructure status. Runtime: alpha_narratives=white_label_features, branding_status",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 175,
@@ -1241,7 +1273,6 @@
           "source"
         ],
         "payload_key_count": 4,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1253,7 +1284,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=sentiment_ai",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "Aligned portion: sentiment compound index. Missing: catalog surface; batch01 spine not batch04 independent.",
-      "semantic_comparison": "Expected: Social Sentiment Intelligence. Hero implements: batch01 sentiment_ai via compound_score from database. Runtime: surface=sentiment_ai (not social_sentiment_intelligence); compound_score=0.0 SHADOW_LIVE_FORWARD"
+      "semantic_comparison": "Expected: Social Sentiment Intelligence. Hero implements: batch01 sentiment_ai via compound_score from database. Runtime: surface=sentiment_ai (not social_sentiment_intelligence); compound_score=0.0 SHADOW_LIVE_FORWARD",
+      "closure_status": "OVERLAP-PARTIAL",
+      "miswire_remediation": null
     },
     {
       "id": 176,
@@ -1290,7 +1323,6 @@
           "weighted_sentiment"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1302,7 +1334,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=weighted_social_sentiment",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "run_risk_infrastructure_e2e_164_176 is integration test, not weighted social sentiment.",
-      "semantic_comparison": "Expected: Weighted Social Sentiment. Hero implements: risk infrastructure E2E test runner (checks 164-176). Runtime: weighted_sentiment=None, checks=e2e pass/fail list"
+      "semantic_comparison": "Expected: Weighted Social Sentiment. Hero implements: risk infrastructure E2E test runner (checks 164-176). Runtime: weighted_sentiment=None, checks=e2e pass/fail list",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 177,
@@ -1338,7 +1372,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1350,7 +1383,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_sentiment_balance",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "analyze_arbitrage_cost_177 is trading cost analysis, not social sentiment balance.",
-      "semantic_comparison": "Expected: Social Sentiment Balance. Hero implements: arbitrage cost breakdown / net spread analysis. Runtime: sentiment_balance=net_spread_pct from arbitrage costs"
+      "semantic_comparison": "Expected: Social Sentiment Balance. Hero implements: arbitrage cost breakdown / net spread analysis. Runtime: sentiment_balance=net_spread_pct from arbitrage costs",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 178,
@@ -1386,7 +1421,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1398,7 +1432,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_source_breakdown",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "run_scenario_drawdown_analysis_178 is risk scenario, not social source breakdown.",
-      "semantic_comparison": "Expected: Social Source Breakdown. Hero implements: scenario drawdown stress analysis. Runtime: source_breakdown=scenarios list from drawdown analysis"
+      "semantic_comparison": "Expected: Social Source Breakdown. Hero implements: scenario drawdown stress analysis. Runtime: source_breakdown=scenarios list from drawdown analysis",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 179,
@@ -1434,7 +1470,6 @@
           "widgets"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1446,7 +1481,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=development_activity_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "build_command_center_dashboard_179 is general dashboard, not development activity intelligence.",
-      "semantic_comparison": "Expected: Development Activity Intelligence. Hero implements: command center dashboard widget assembly. Runtime: dev_activity_score=widget_count, widgets=top3/health/alerts/heatmap"
+      "semantic_comparison": "Expected: Development Activity Intelligence. Hero implements: command center dashboard widget assembly. Runtime: dev_activity_score=widget_count, widgets=top3/health/alerts/heatmap",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 180,
@@ -1482,7 +1519,6 @@
           "whale_flows"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1494,7 +1530,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=development_activity_contributors",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "build_whale_flow_visualization_180 is whale flow viz, not dev activity contributors.",
-      "semantic_comparison": "Expected: Development Activity Contributors. Hero implements: whale flow SVG visualization (nodes/edges). Runtime: contributor_count=flow_count, whale_flows=visualization graph"
+      "semantic_comparison": "Expected: Development Activity Contributors. Hero implements: whale flow SVG visualization (nodes/edges). Runtime: contributor_count=flow_count, whale_flows=visualization graph",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 181,
@@ -1530,7 +1568,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1542,7 +1579,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ecosystem_development_dashboard",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "committee_packets_status_181 is IC reporting infra, not ecosystem development dashboard.",
-      "semantic_comparison": "Expected: Ecosystem Development Dashboard. Hero implements: IC committee packets / duplicate_of #87 status. Runtime: ecosystem_score=packet_count, committee_packets status metadata"
+      "semantic_comparison": "Expected: Ecosystem Development Dashboard. Hero implements: IC committee packets / duplicate_of #87 status. Runtime: ecosystem_score=packet_count, committee_packets status metadata",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "PARTIAL_MISNAMED"
     },
     {
       "id": 182,
@@ -1578,7 +1617,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1590,7 +1628,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=developer_activity_change_detection",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "white_label_infrastructure_status_182 is branding infra, not developer activity change detection.",
-      "semantic_comparison": "Expected: Developer Activity Change Detection. Hero implements: white-label infrastructure duplicate_of #90 status. Runtime: activity_change_pct from white_label status, not dev activity delta"
+      "semantic_comparison": "Expected: Developer Activity Change Detection. Hero implements: white-label infrastructure duplicate_of #90 status. Runtime: activity_change_pct from white_label status, not dev activity delta",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "PARTIAL_MISNAMED"
     },
     {
       "id": 183,
@@ -1636,7 +1676,6 @@
           "whale_tier"
         ],
         "payload_key_count": 16,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1648,7 +1687,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=whale_transaction_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "batch04_whale_transaction performs genuine whale transaction intelligence, not swap slippage (#130).",
-      "semantic_comparison": "Expected: Whale Transaction Intelligence. Hero implements: whale tier classification, flow direction, concentration risk (distinct from #130 swap). Runtime: whale_tier=mega_whale, amount_usd, flow_direction, is_whale_event, risk_score; distinct_from_130 behavioral"
+      "semantic_comparison": "Expected: Whale Transaction Intelligence. Hero implements: whale tier classification, flow direction, concentration risk (distinct from #130 swap). Runtime: whale_tier=mega_whale, amount_usd, flow_direction, is_whale_event, risk_score; distinct_from_130 behavioral",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": null
     },
     {
       "id": 184,
@@ -1685,7 +1726,6 @@
           "symbol"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1697,7 +1737,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=whale_shark_holder_cohorts",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "fund_reporting_status_184 is fund IC reporting, not whale/shark holder cohorts.",
-      "semantic_comparison": "Expected: Whale & Shark Holder Cohorts. Hero implements: fund reporting IC scheduled reports status (duplicate #87). Runtime: cohort_type=whale_shark, holders=[], reporting_status from IC reports"
+      "semantic_comparison": "Expected: Whale & Shark Holder Cohorts. Hero implements: fund reporting IC scheduled reports status (duplicate #87). Runtime: cohort_type=whale_shark, holders=[], reporting_status from IC reports",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 185,
@@ -1733,7 +1775,6 @@
           "top_holders"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1745,7 +1786,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=top_holders_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "acquisition_evidence_package_185 is M&A evidence docs, not top holders intelligence.",
-      "semantic_comparison": "Expected: Top Holders Intelligence. Hero implements: acquisition evidence package deferred assembly template. Runtime: top_holders=evidence_items from deferred doc assembly, not on-chain holders"
+      "semantic_comparison": "Expected: Top Holders Intelligence. Hero implements: acquisition evidence package deferred assembly template. Runtime: top_holders=evidence_items from deferred doc assembly, not on-chain holders",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 186,
@@ -1781,7 +1824,6 @@
           "wallet_tool_status"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1793,7 +1835,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=historical_wallet_balance_tool",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "continuous_learning_status_186 is ML flywheel, not historical wallet balance tool.",
-      "semantic_comparison": "Expected: Historical Wallet Balance Tool. Hero implements: continuous learning / data flywheel status (duplicate #97). Runtime: balance_history=learning_status, wallet_tool_status \u2014 flywheel not wallet balances"
+      "semantic_comparison": "Expected: Historical Wallet Balance Tool. Hero implements: continuous learning / data flywheel status (duplicate #97). Runtime: balance_history=learning_status, wallet_tool_status \u2014 flywheel not wallet balances",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 187,
@@ -1829,7 +1873,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1841,7 +1884,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_inflow_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "latency_monitoring_status_187 is API latency, not exchange inflow intelligence.",
-      "semantic_comparison": "Expected: Exchange Inflow Intelligence. Hero implements: latency monitoring p50/p99 metrics. Runtime: inflow_usd=latency_p50_ms (milliseconds labeled as USD inflow)"
+      "semantic_comparison": "Expected: Exchange Inflow Intelligence. Hero implements: latency monitoring p50/p99 metrics. Runtime: inflow_usd=latency_p50_ms (milliseconds labeled as USD inflow)",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 188,
@@ -1877,7 +1922,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1889,7 +1933,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_outflow_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "risk_alert_user_confirmation_188 is alert UX, not exchange outflow intelligence.",
-      "semantic_comparison": "Expected: Exchange Outflow Intelligence. Hero implements: risk alert user confirmation workflow. Runtime: outflow_usd=confirmed_alerts count, alert_confirmation boolean"
+      "semantic_comparison": "Expected: Exchange Outflow Intelligence. Hero implements: risk alert user confirmation workflow. Runtime: outflow_usd=confirmed_alerts count, alert_confirmation boolean",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 189,
@@ -1926,7 +1972,6 @@
           "symbol"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1938,7 +1983,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_netflow_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "exchange_netflow_probe uses price oracle fallback as netflow proxy, not exchange netflow.",
-      "semantic_comparison": "Expected: Exchange Netflow Intelligence. Hero implements: Bybit price ingest with netflow_proxy=true (not actual netflow). Runtime: netflow contains price_usd, role=secondary_fallback, netflow_proxy=true"
+      "semantic_comparison": "Expected: Exchange Netflow Intelligence. Hero implements: Bybit price ingest with netflow_proxy=true (not actual netflow). Runtime: netflow contains price_usd, role=secondary_fallback, netflow_proxy=true",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 190,
@@ -1974,7 +2021,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -1986,7 +2032,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_supply_balance_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "analyze_geographic_arbitrage_190 is geo arbitrage, not exchange supply/balance.",
-      "semantic_comparison": "Expected: Exchange Supply / Balance Intelligence. Hero implements: geographic arbitrage venue spread analysis. Runtime: supply_on_exchanges_pct=geographic_spread_pct, exchange_supply=venues"
+      "semantic_comparison": "Expected: Exchange Supply / Balance Intelligence. Hero implements: geographic arbitrage venue spread analysis. Runtime: supply_on_exchanges_pct=geographic_spread_pct, exchange_supply=venues",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 191,
@@ -2022,7 +2070,6 @@
           "withdrawal_alerts"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2034,7 +2081,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_user_activity",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "run_arbitrage_portfolio_ux_e2e_177_191 is UX test runner, not exchange user activity.",
-      "semantic_comparison": "Expected: Exchange User Activity. Hero implements: arbitrage portfolio UX E2E integration test. Runtime: user_activity_score=activity_score from UX e2e, withdrawal_alerts"
+      "semantic_comparison": "Expected: Exchange User Activity. Hero implements: arbitrage portfolio UX E2E integration test. Runtime: user_activity_score=activity_score from UX e2e, withdrawal_alerts",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 192,
@@ -2070,7 +2119,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2082,7 +2130,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=network_activity_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "analyze_funding_rate_192 is funding rate, not network activity intelligence.",
-      "semantic_comparison": "Expected: Network Activity Intelligence. Hero implements: perpetual funding rate analysis across venues. Runtime: network_activity=venues dict, avg_funding_pct from derivatives funding"
+      "semantic_comparison": "Expected: Network Activity Intelligence. Hero implements: perpetual funding rate analysis across venues. Runtime: network_activity=venues dict, avg_funding_pct from derivatives funding",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 193,
@@ -2118,7 +2168,6 @@
           "volume_status"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2130,7 +2179,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=transaction_volume_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "auto_arbitrage_rejected_status_193 is rejection notice, not transaction volume intelligence.",
-      "semantic_comparison": "Expected: Transaction Volume Intelligence. Hero implements: auto-arbitrage execution rejected status. Runtime: transaction_volume=cvd_usd from rejected status (no volume data)"
+      "semantic_comparison": "Expected: Transaction Volume Intelligence. Hero implements: auto-arbitrage execution rejected status. Runtime: transaction_volume=cvd_usd from rejected status (no volume data)",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 194,
@@ -2167,7 +2218,6 @@
           "symbol"
         ],
         "payload_key_count": 7,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2179,7 +2229,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=nvt_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "compute_cvd_194 outputs CVD mislabeled as NVT ratio \u2014 confirmed metric defect.",
-      "semantic_comparison": "Expected: NVT Intelligence. Hero implements: Cumulative Volume Delta (CVD = \u03a3 Buy-Sell Volume). Runtime: nvt_ratio=cvd_usd=4900000, formula explicitly CVD not NVT"
+      "semantic_comparison": "Expected: NVT Intelligence. Hero implements: Cumulative Volume Delta (CVD = \u03a3 Buy-Sell Volume). Runtime: nvt_ratio=cvd_usd=4900000, formula explicitly CVD not NVT",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 195,
@@ -2215,7 +2267,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2227,7 +2278,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=mvrv_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "strategy_simulator_195 is trading strategy sim, not MVRV on-chain valuation ratio.",
-      "semantic_comparison": "Expected: MVRV Intelligence. Hero implements: DCA/grid strategy simulator (execution rejected). Runtime: mvrv_ratio=average_buy_price from DCA simulation, strategy=dca/grid"
+      "semantic_comparison": "Expected: MVRV Intelligence. Hero implements: DCA/grid strategy simulator (execution rejected). Runtime: mvrv_ratio=average_buy_price from DCA simulation, strategy=dca/grid",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 196,
@@ -2263,7 +2316,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2275,7 +2327,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=realized_cap_realized_value_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "ingest_yahoo_finance_macro_196 is macro benchmarks, not crypto realized cap.",
-      "semantic_comparison": "Expected: Realized Cap / Realized Value Intelligence. Hero implements: Yahoo Finance macro benchmarks (SPX, VIX, DXY, GOLD, OIL). Runtime: realized_cap_usd=SPX value 5200, benchmarks=equity/commodity indices"
+      "semantic_comparison": "Expected: Realized Cap / Realized Value Intelligence. Hero implements: Yahoo Finance macro benchmarks (SPX, VIX, DXY, GOLD, OIL). Runtime: realized_cap_usd=SPX value 5200, benchmarks=equity/commodity indices",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 197,
@@ -2311,7 +2365,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2323,7 +2376,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=daily_active_addresses",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "ingest_alpha_vantage_macro_197 is macro data, not daily active addresses.",
-      "semantic_comparison": "Expected: Daily Active Addresses. Hero implements: Alpha Vantage macro economic data ingestion. Runtime: active_addresses=role field from macro source config, not on-chain DAA count"
+      "semantic_comparison": "Expected: Daily Active Addresses. Hero implements: Alpha Vantage macro economic data ingestion. Runtime: active_addresses=role field from macro source config, not on-chain DAA count",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 198,
@@ -2359,7 +2414,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2371,7 +2425,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=age_consumed_dormancy_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "ingest_binance_research_198 is research PDF ingestion, not age consumed/dormancy metrics.",
-      "semantic_comparison": "Expected: Age Consumed / Dormancy Intelligence. Hero implements: Binance research report ingestion. Runtime: age_consumed=reports list count, dormancy_signals=len(reports)"
+      "semantic_comparison": "Expected: Age Consumed / Dormancy Intelligence. Hero implements: Binance research report ingestion. Runtime: age_consumed=reports list count, dormancy_signals=len(reports)",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 199,
@@ -2407,7 +2463,6 @@
           "symbol"
         ],
         "payload_key_count": 6,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2419,7 +2474,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=mean_dollar_invested_age",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "ingest_messari_research_199 is research reports, not mean dollar invested age.",
-      "semantic_comparison": "Expected: Mean Dollar Invested Age. Hero implements: Messari research report ingestion. Runtime: mean_dollar_invested_age=report date string, not MDIA on-chain metric"
+      "semantic_comparison": "Expected: Mean Dollar Invested Age. Hero implements: Messari research report ingestion. Runtime: mean_dollar_invested_age=report date string, not MDIA on-chain metric",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "STRANGLER_FIXABLE"
     },
     {
       "id": 200,
@@ -2457,7 +2514,6 @@
           "token_reports"
         ],
         "payload_key_count": 8,
-        "classification_runtime": "PRODUCTION-ALIGNED",
         "blocker": null,
         "catalog_link": null
       },
@@ -2469,7 +2525,9 @@
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=token_circulation_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "Aligned portion: report ingestion. Missing: token circulation rate/supply intelligence semantics.",
-      "semantic_comparison": "Expected: Token Circulation Intelligence. Hero implements: CoinGecko quarterly/sector report ingestion. Runtime: token_reports with titles/dates; circulation_rate=null, no supply/circulation metrics"
+      "semantic_comparison": "Expected: Token Circulation Intelligence. Hero implements: CoinGecko quarterly/sector report ingestion. Runtime: token_reports with titles/dates; circulation_rate=null, no supply/circulation metrics",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": null
     }
   ],
   "semantic_audit_generated_at": "2026-09-03T20:57:23.297877+00:00",
@@ -2539,5 +2597,20 @@
     "unproven_ids": [],
     "gate1_semantic_miswire_count_prior": 16,
     "semantic_miswire_count_this_gate": 43
+  },
+  "reconciled_at": "2026-09-03T22:42:51.407641+00:00",
+  "reconcile_commit": "fcf4af575cf64d4a4e1d7447f0246814ea14bdca",
+  "closure_status_authoritative": true,
+  "classification_runtime_removed": true,
+  "hold_acknowledgment": {
+    "build_phase": "BUILD_PHASE_HOLD",
+    "partial_hold_violation_commits": [
+      "728b59a",
+      "e78c3e2",
+      "c74abb0"
+    ],
+    "hold_document_commit": "cf475c9",
+    "statement": "Implementation commits 728b59a, e78c3e2, c74abb0 landed on branch after HOLD doc cf475c9 \u2014 acknowledged partial second gate breach; no further non-documentation commits until explicit owner approval.",
+    "non_doc_commits_frozen": true
   }
 }
