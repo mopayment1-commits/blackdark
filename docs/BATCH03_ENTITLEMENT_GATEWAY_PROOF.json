@@ -1,93 +1,23 @@
 {
-  "verified_at": "2026-09-03T09:56:03.730260+00:00",
-  "scope": "Batch01 entitlement gateway — 10 test cases (9 unique IDs in range 1-50)",
+  "verified_at": "2026-09-03T09:56:32.402826+00:00",
+  "scope": "Batch03 entitlement gateway — 10 test cases (range 101-150)",
   "unique_capability_ids": [
-    1,
-    8,
-    21,
-    24,
-    38,
-    39,
-    46,
-    47,
-    50
+    101,
+    103,
+    106,
+    110,
+    115,
+    125,
+    129,
+    138,
+    150
   ],
   "test_case_count": 10,
-  "script": "scripts/verify_entitlement_gateway_proof.py",
+  "script": "scripts/verify_entitlement_batch03_gateway_proof.py",
   "proofs": [
     {
-      "capability_id": 1,
-      "user_label": "free_allowed",
-      "user": {
-        "tier": "free"
-      },
-      "path": "cap646.institutional_gateway.gateway_execute",
-      "skip_entitlement_used": false,
-      "entitlement_allowed": true,
-      "entitlement_reason": null,
-      "success": true,
-      "surface": "smart_money_leaderboard",
-      "production_spine": "batch01"
-    },
-    {
-      "capability_id": 8,
-      "user_label": "free_allowed",
-      "user": {
-        "tier": "free"
-      },
-      "path": "cap646.institutional_gateway.gateway_execute",
-      "skip_entitlement_used": false,
-      "entitlement_allowed": true,
-      "entitlement_reason": null,
-      "success": true,
-      "surface": "top_holders_concentration_analysis",
-      "production_spine": "batch01"
-    },
-    {
-      "capability_id": 21,
-      "user_label": "free_allowed",
-      "user": {
-        "tier": "free"
-      },
-      "path": "cap646.institutional_gateway.gateway_execute",
-      "skip_entitlement_used": false,
-      "entitlement_allowed": true,
-      "entitlement_reason": null,
-      "success": true,
-      "surface": "transaction_decoder",
-      "production_spine": "batch01"
-    },
-    {
-      "capability_id": 38,
-      "user_label": "free_tier_path",
-      "user": {
-        "tier": "free"
-      },
-      "path": "cap646.institutional_gateway.gateway_execute",
-      "skip_entitlement_used": false,
-      "entitlement_allowed": true,
-      "entitlement_reason": null,
-      "success": true,
-      "surface": "cost_basis_distribution",
-      "production_spine": "batch01"
-    },
-    {
-      "capability_id": 39,
-      "user_label": "free_tier_path",
-      "user": {
-        "tier": "free"
-      },
-      "path": "cap646.institutional_gateway.gateway_execute",
-      "skip_entitlement_used": false,
-      "entitlement_allowed": true,
-      "entitlement_reason": null,
-      "success": true,
-      "surface": "realized_cap_realized_price",
-      "production_spine": "batch01"
-    },
-    {
-      "capability_id": 24,
-      "user_label": "pro_allowed",
+      "capability_id": 101,
+      "user_label": "pro_ai_analyst",
       "user": {
         "tier": "pro"
       },
@@ -96,11 +26,96 @@
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
-      "surface": "ai_research_agent_grounded",
-      "production_spine": "batch01"
+      "surface": "ai_data_analyst_ask_ai",
+      "production_spine": "batch03",
+      "catalog_link": null
     },
     {
-      "capability_id": 47,
+      "capability_id": 103,
+      "user_label": "overlap_batch01_api_platform",
+      "user": {
+        "tier": "elite"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "api_data_platform",
+      "production_spine": "batch01",
+      "catalog_link": null
+    },
+    {
+      "capability_id": 106,
+      "user_label": "reused_link_provenance",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "data_quality_provenance_layer",
+      "production_spine": "batch03",
+      "catalog_link": {
+        "duplicate_of": 63,
+        "classification": "REUSED-LINK"
+      }
+    },
+    {
+      "capability_id": 110,
+      "user_label": "reused_link_cross_domain",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "cross_domain_decision_intelligence_layer",
+      "production_spine": "batch03",
+      "catalog_link": {
+        "duplicate_of": 69,
+        "classification": "REUSED-LINK"
+      }
+    },
+    {
+      "capability_id": 115,
+      "user_label": "free_screener",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "asset_screener",
+      "production_spine": "batch03",
+      "catalog_link": null
+    },
+    {
+      "capability_id": 125,
+      "user_label": "reused_link_open_interest",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "futures_open_interest_intelligence",
+      "production_spine": "batch03",
+      "catalog_link": {
+        "duplicate_of": 85,
+        "classification": "REUSED-LINK"
+      }
+    },
+    {
+      "capability_id": 125,
       "user_label": "pro_gated_free_denied",
       "user": {
         "tier": "free"
@@ -111,11 +126,12 @@
       "entitlement_reason": "teaser",
       "success": false,
       "surface": null,
-      "production_spine": null
+      "production_spine": null,
+      "catalog_link": null
     },
     {
-      "capability_id": 47,
-      "user_label": "pro_gated_pro_allowed",
+      "capability_id": 129,
+      "user_label": "overlap_batch01_sentiment",
       "user": {
         "tier": "pro"
       },
@@ -124,12 +140,13 @@
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
-      "surface": "spot_market_metrics_suite",
-      "production_spine": "batch01"
+      "surface": "sentiment_intelligence",
+      "production_spine": "batch01",
+      "catalog_link": null
     },
     {
-      "capability_id": 50,
-      "user_label": "pro_dedicated",
+      "capability_id": 138,
+      "user_label": "pro_unlock_calendar",
       "user": {
         "tier": "pro"
       },
@@ -138,12 +155,13 @@
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
-      "surface": "order_book_intelligence",
-      "production_spine": "batch01"
+      "surface": "token_unlock_calendar",
+      "production_spine": "batch03",
+      "catalog_link": null
     },
     {
-      "capability_id": 46,
-      "user_label": "pro_dedicated_46",
+      "capability_id": 150,
+      "user_label": "pro_protocol_kpi",
       "user": {
         "tier": "pro"
       },
@@ -152,15 +170,18 @@
       "entitlement_allowed": true,
       "entitlement_reason": null,
       "success": true,
-      "surface": "digital_asset_treasury_company_intelligence",
-      "production_spine": "batch01"
+      "surface": "protocol_kpi_intelligence",
+      "production_spine": "batch03",
+      "catalog_link": null
     }
   ],
   "checks": {
     "no_skip_entitlement": true,
-    "47_free_denied": true,
-    "47_pro_allowed": true,
-    "count_10": true
+    "count_10": true,
+    "125_free_denied": true,
+    "125_pro_allowed": true,
+    "103_overlap_batch01": true,
+    "106_reused_link": true
   },
   "all_verified": true
 }

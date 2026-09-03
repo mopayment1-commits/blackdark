@@ -1,0 +1,91 @@
+{
+  "verified_at": "2026-09-03T10:00:00+00:00",
+  "fix": "cap646/institutional_gateway.gateway_execute uses canonical_id() before entitlement_engine.check",
+  "contract_test": "tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py",
+  "ci_gate": ".github/workflows/ci.yml — CAP978 institutional gate step",
+  "reused_link_pairs": {
+    "106": 63,
+    "107": 64,
+    "110": 69,
+    "125": 85
+  },
+  "before_fix_behavior": {
+    "description": "gateway checked duplicate_id; runtime checked canonical_id — split-brain on pro-gated canonicals",
+    "125_free": {
+      "gateway_check_id": 125,
+      "gateway_allowed": true,
+      "runtime_canonical_id": 85,
+      "runtime_allowed": false,
+      "split_brain": true
+    },
+    "110_free": {
+      "gateway_check_id": 110,
+      "gateway_allowed": true,
+      "runtime_canonical_id": 69,
+      "runtime_allowed": false,
+      "split_brain": true
+    },
+    "106_free": {
+      "gateway_check_id": 106,
+      "gateway_allowed": true,
+      "runtime_canonical_id": 63,
+      "runtime_allowed": true,
+      "split_brain": false
+    },
+    "107_free": {
+      "gateway_check_id": 107,
+      "gateway_allowed": true,
+      "runtime_canonical_id": 64,
+      "runtime_allowed": true,
+      "split_brain": false
+    }
+  },
+  "after_fix_behavior": {
+    "description": "gateway and runtime both resolve canonical_id(); pro-gated pairs denied at gateway",
+    "pairs": [
+      {
+        "duplicate_id": 106,
+        "canonical_id": 63,
+        "free_tier": {
+          "gateway_allowed": true,
+          "runtime_canonical_allowed": true,
+          "aligned": true,
+          "gateway_error": null
+        }
+      },
+      {
+        "duplicate_id": 107,
+        "canonical_id": 64,
+        "free_tier": {
+          "gateway_allowed": true,
+          "runtime_canonical_allowed": true,
+          "aligned": true,
+          "gateway_error": null
+        }
+      },
+      {
+        "duplicate_id": 110,
+        "canonical_id": 69,
+        "free_tier": {
+          "gateway_allowed": false,
+          "runtime_canonical_allowed": false,
+          "aligned": true,
+          "gateway_error": "entitlement_denied",
+          "production_spine_reached": false
+        }
+      },
+      {
+        "duplicate_id": 125,
+        "canonical_id": 85,
+        "free_tier": {
+          "gateway_allowed": false,
+          "runtime_canonical_allowed": false,
+          "aligned": true,
+          "gateway_error": "entitlement_denied",
+          "production_spine_reached": false
+        }
+      }
+    ],
+    "pytest_contract": "14/14 PASS — test_batch03_gateway_canonical_entitlement_contract.py"
+  }
+}
