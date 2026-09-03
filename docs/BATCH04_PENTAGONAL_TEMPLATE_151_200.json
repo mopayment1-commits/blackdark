@@ -3181,17 +3181,21 @@
           },
           "catalog_link": {
             "duplicate_of": 103,
-            "classification": "REUSED-LINK",
-            "canonical_status": "PENDING_SCOPE_REALIGNMENT"
+            "classification": "NOT_COMPLETE",
+            "canonical_status": "OVERLAP-PARTIAL",
+            "blocker": "BLOCKER-159-103",
+            "owner_decision": "NOT_COMPLETE suspended until 2026-10-03"
           }
         },
         "success": true,
         "catalog_link": {
           "duplicate_of": 103,
-          "classification": "REUSED-LINK",
-          "canonical_status": "PENDING_SCOPE_REALIGNMENT"
+          "classification": "NOT_COMPLETE",
+          "canonical_status": "OVERLAP-PARTIAL",
+          "blocker": "BLOCKER-159-103",
+          "owner_decision": "NOT_COMPLETE suspended until 2026-10-03"
         },
-        "classification": "REUSED-LINK",
+        "classification": "NOT_COMPLETE",
         "evidence_class": "SHADOW_LIVE_FORWARD",
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
@@ -8650,20 +8654,21 @@
           "risk_score": 10.0,
           "classification": "whale_transaction",
           "catalog_link": {
-            "duplicate_of": 130,
-            "classification": "REUSED-LINK",
-            "canonical_status": "PENDING_SCOPE_REALIGNMENT",
-            "semantic_note": "DISTINCT whale payload — not mindshare canonical"
+            "distinct_from": 130,
+            "classification": "NOT_COMPLETE",
+            "canonical_status": "NOT_COMPLETE",
+            "owner_decision": "BLOCKER-183-130 DISTINCT-only (Option B approved)"
           }
         },
         "success": true,
         "catalog_link": {
-          "duplicate_of": 130,
-          "classification": "REUSED-LINK",
-          "canonical_status": "PENDING_SCOPE_REALIGNMENT",
+          "distinct_from": 130,
+          "classification": "NOT_COMPLETE",
+          "canonical_status": "NOT_COMPLETE",
+          "owner_decision": "BLOCKER-183-130 DISTINCT-only (Option B approved)",
           "semantic_note": "DISTINCT whale payload — not mindshare canonical"
         },
-        "classification": "REUSED-LINK",
+        "classification": "NOT_COMPLETE",
         "evidence_class": "SHADOW_LIVE_FORWARD",
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
