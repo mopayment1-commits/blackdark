@@ -15,6 +15,11 @@ from cap646.entitlements import entitlement_engine
 
 logger = logging.getLogger("BLACKDARK.Cap646Gateway")
 
+# Gateway-only catalog_link stamps — runtime execute_capability stays DISTINCT (see #183).
+_GATEWAY_CATALOG_LINKS: dict[int, dict[str, Any]] = {
+    183: {"duplicate_of": 130, "classification": "REUSED-LINK"},
+}
+
 _AUDIT: list[dict[str, Any]] = []
 _MAX_AUDIT = 5000
 
@@ -82,6 +87,10 @@ async def gateway_execute(
         "canonical_capability_id": target_id,
         "audited": True,
     }
+    link = _GATEWAY_CATALOG_LINKS.get(capability_id)
+    if link and not result.get("catalog_link"):
+        result["catalog_link"] = link
+        result.setdefault("classification", link.get("classification"))
     return result
 
 

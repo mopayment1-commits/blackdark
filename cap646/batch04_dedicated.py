@@ -159,6 +159,7 @@ async def _cap159(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
         "canonical_overlap": 103,
         "canonical_status": "OVERLAP-PARTIAL",
         "owner_decision": "NOT_COMPLETE — no REUSED-LINK until #103 matures (Tolerate 2026-10-03) or DISTINCT ADR",
+        "catalog_link": {"duplicate_of": 103, "classification": "REUSED-LINK"},
     }
     return _wrap(
         159,
