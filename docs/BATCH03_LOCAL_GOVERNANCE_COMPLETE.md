@@ -5,7 +5,7 @@
 | الحقل | القيمة |
 |-------|--------|
 | **التاريخ (UTC)** | 2026-09-03T10:40:00Z |
-| **Commit** | `f41c394` (فرع `cursor/batch-03-101-150-e85e`) |
+| **Commit** | `6e1954f` (فرع `cursor/batch-03-101-150-e85e`) |
 | **النطاق** | Batch03 IDs 101–150 — حوكمة محلية كاملة |
 | **البوابة صفر (إنتاج)** | **FAILED** — انظر القسم هـ |
 
@@ -15,7 +15,7 @@
 
 1. هذا التقرير = **LOCAL_GOVERNANCE_COMPLETE** فقط. ممنوع استخدام «إغلاق Batch03» أو «جاهز للتشغيل الحي».
 2. كل بند يتطلب إنتاجًا حيًا مُصنَّف إما **بديل محلي مؤقت** (TestClient/orchestrator) أو **AWAITING_OWNER_ACTION** (القسم هـ).
-3. pytest موسَّع: Batch01 + Batch02 + Batch03 مع عقود gateway — تم تشغيله على `f41c394`.
+3. pytest موسَّع: Batch01 + Batch02 + Batch03 مع عقود gateway — تم تشغيله على `6e1954f` (2026-09-03T10:46:14Z).
 
 ---
 
@@ -30,15 +30,35 @@
 
 ---
 
-## ب. حسم عدّ 826 — ثلاثة أرقام منفصلة
+## ب. حسم عدّ 826 — ثلاثة أرقام منفصلة + تفكيك 158
 
-مصدر الحقيقة الوحيد: `docs/CAPABILITIES_826_INVENTORY.json` → `three_separate_counts`
+مصدر الحقيقة الوحيد: `docs/CAPABILITIES_826_INVENTORY.json` → `three_separate_counts`  
+تفكيك 158: `docs/BATCH03_158_BREAKDOWN.json`
 
 | العمود | العدد | التعريف |
 |--------|------:|---------|
 | **(أ) PRODUCTION-ALIGNED مستقلة** | **158** | كل ID بحالة `PRODUCTION-ALIGNED` — مرة واحدة فقط في `per_id` (1…826) |
 | **(ب) REUSED-LINK** | **4** | IDs: 106, 107, 110, 125 — عمود منفصل، لا يُجمع مع (أ) |
 | **(ج) OVERLAP-PARTIAL** | **2** | IDs: 103, 129 — عمود منفصل |
+
+### تفكيك 158 (شكل سطري إلزامي)
+
+```
+Batch01 (1-50) = 50
+Batch02 مستقل (51-100، عدا REUSED/OVERLAP) = 50
+Batch03 مستقل (101-150، عدا REUSED/OVERLAP) = 44
+hero_evidence_and_legacy_batch01_extension (>150) = 14
+50 + 50 + 44 + 14 = 158
+```
+
+**برهان استبعاد Batch03 من 158:**
+
+| ID | `per_id` status | ضمن 158؟ |
+|----|-----------------|----------|
+| 106, 107, 110, 125 | `REUSED-LINK` | **لا** |
+| 103, 129 | `OVERLAP-PARTIAL` | **لا** |
+
+دليل: `docs/CAPABILITIES_826_INVENTORY.json` — `any_in_production_aligned_count: 0` للستة IDs في `docs/BATCH03_158_BREAKDOWN.json`.
 
 ### تحقق تكرار 51–59
 
@@ -61,10 +81,10 @@
 | الحقل | القيمة |
 |-------|--------|
 | **التصنيف** | بديل محلي مؤقت — لا يعادل الإنتاج |
-| **Timestamp** | 2026-09-03T10:35:00Z |
-| **Commit** | f41c394 |
+| **Timestamp** | 2026-09-03T10:46:14Z (بعد commit بـ 5m42s) |
+| **Commit** | 6e1954f (authored 2026-09-03T10:40:32Z) |
 | **Exit code** | 0 |
-| **Tests passed** | ~507 |
+| **Tests collected/passed** | 507 |
 | **الدليل** | `docs/BATCH03_LOCAL_PYTEST_PROOF.json` |
 
 تشمل عقود gateway: `test_batch03_gateway_canonical_entitlement_contract.py`, `test_batch03_reused_link_contract.py`.
@@ -75,7 +95,8 @@
 |-------|--------|
 | **رابط CI (PR #362)** | https://github.com/mopayment1-commits/blackdark/actions/runs/33744270576 |
 | **الحالة** | **FAILED** — خطوة Postgres migration integrity |
-| **سبب الفشل** | `RuntimeError: PostgreSQL configured but no DATABASE_URL candidate found` — **فشل CI بسبب اعتماد بيئة خارجية/تهيئة Postgres في runner**، ليس بسبب كود batch03 أو عقود gateway |
+| **سطر الخطأ الحرفي (run 33744270576)** | `E   RuntimeError: PostgreSQL configured but no DATABASE_URL candidate found` |
+| **سبب الفشل** | **فشل CI بسبب Postgres env في runner** — ليس كود batch03 أو عقود gateway |
 | **دليل gateway في pipeline** | `.github/workflows/ci.yml` سطر 119 — يشمل `test_batch03_gateway_canonical_entitlement_contract.py` و `test_batch03_reused_link_contract.py` |
 | **أقرب نجاح محلي** | pytest Batch01+02+03 exit 0 على f41c394 (أعلاه) |
 
@@ -188,8 +209,8 @@ _TIER_REQUIREMENTS: dict[int, str] = {
 |--------|-------------:|--------:|-----------|
 | (أ) 101–150 داخليًا | 1,225 | 0 | — |
 | (ب) 101–150 ↔ 1–100 | 5,000 | 4 | **Migrate** — ADR موجود: `docs/ADR_BATCH03_REUSED_LINK_TIME.md` |
-| (ج) 101–150 ↔ batch04–17 hero | 0 | 0 | **NOT_APPLICABLE** — النطاق الرسمي hero = 151–850؛ لا تداخل رقمي |
-| (د) 101–150 ↔ 338/500/507/534 | 200 | 0 | — |
+| (ج) 101–150 ↔ batch04–17 hero | NOT_APPLICABLE | NOT_APPLICABLE | `ls cap646/batch04_*`→فارغ؛ hero scope=151-850 |
+| (د) 101–150 ↔ 338/500/507/534 | 200 | 0 | IDs موجودة في SSOT ومُقارَنة فعليًا |
 
 التداخلات الأربعة الوحيدة: أزواج REUSED-LINK المعروفة (106↔63, 107↔64, 110↔69, 125↔85) — مغطاة بـ ADR Migrate.
 
@@ -217,7 +238,11 @@ _TIER_REQUIREMENTS: dict[int, str] = {
 
 **نفي صريح:** لا يوجد أي من الـ44 قدرة المستقلة مربوط بـ `heroes_capability_layer` أو مسارات Hero الخارجية (batch04–17).
 
-- `cap646/batch03_*` — صفر مراجع لـ `heroes` أو `hero_`
+**دليل الفحص الفعلي:**
+```bash
+rg -n "heroes|hero_batch|heroes_capability" cap646/batch03_dedicated.py cap646/batch03_production.py cap646/handlers/batch03.py
+# exit 1 — no matches
+```
 - spine الإنتاج = `cap646/batch03_dedicated.py` + `batch03_production.py`
 - ملفات `data/hero_batch_*_evidence.jsonl` تحتوي إدخالات legacy لـ 101–150 من عصر pre-realignment — **SPLIT-BRAIN**، ليست ربط Hero spine حالي
 
@@ -243,7 +268,7 @@ _TIER_REQUIREMENTS: dict[int, str] = {
 | 4 | تناغم gateway↔canonical مُثبَت | **نعم** | `tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py` |
 | 5 | أرقام أداء حية على الإنتاج | **لا** | `docs/BATCH03_LATENCY_AUDIT.json` — محلي فقط؛ إنتاج = AWAITING_DEPLOY |
 | 6 | صفر ثغرة أمنية غير مبرَّرة في نطاق batch03 | **نعم** | تغطية 97.66% محلية + gateway contract tests |
-| 7 | صفر تكرار بلا قرار TIME | **نعم** | `docs/BATCH03_MECE_AUDIT.json` + ADRs |
+| 7 | صفر تكرار بلا قرار TIME (jscpd) | **معلَّق** | ينتظر إغلاق رقم jscpd المقارن (البند 2) — `docs/BATCH03_JSCPD_AUDIT.json` |
 | 8 | لا ميزة بلا جدوى معلّقة بلا قرار | **نعم** | INVEST 44/44 ready + `docs/BATCH03_AI_CAPABILITY_REVIEW.json` (0 ML backends) |
 
 ---

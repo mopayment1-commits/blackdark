@@ -1,101 +1,49 @@
 {
+  "generated_at": "2026-09-03T10:46:30Z",
+  "git_commit": "6e1954f",
   "internal_101_150": {
     "pairs_checked": 1225,
-    "overlaps": []
+    "overlaps": [],
+    "search_method": "Python goal_key comparison across all C(50,2) pairs using cap646.catalog catalog_by_id()",
+    "result": "0 semantic overlaps within 101-150"
   },
   "vs_1_100": {
     "pairs_checked": 5000,
     "overlaps": [
-      {
-        "a": 106,
-        "b": 63,
-        "type": "same_goal",
-        "goal": "data quality & provenance layer"
-      },
-      {
-        "a": 107,
-        "b": 64,
-        "type": "same_goal",
-        "goal": "metric methodology registry"
-      },
-      {
-        "a": 110,
-        "b": 69,
-        "type": "same_goal",
-        "goal": "cross-domain decision intelligence layer"
-      },
-      {
-        "a": 125,
-        "b": 85,
-        "type": "same_goal",
-        "goal": "futures open interest intelligence"
-      }
-    ]
+      {"a": 106, "b": 63, "type": "same_goal", "goal": "data quality & provenance layer", "time_decision": "Migrate", "adr": "docs/ADR_BATCH03_REUSED_LINK_TIME.md"},
+      {"a": 107, "b": 64, "type": "same_goal", "goal": "metric methodology registry", "time_decision": "Migrate", "adr": "docs/ADR_BATCH03_REUSED_LINK_TIME.md"},
+      {"a": 110, "b": 69, "type": "same_goal", "goal": "cross-domain decision intelligence layer", "time_decision": "Migrate", "adr": "docs/ADR_BATCH03_REUSED_LINK_TIME.md"},
+      {"a": 125, "b": 85, "type": "same_goal", "goal": "futures open interest intelligence", "time_decision": "Migrate", "adr": "docs/ADR_BATCH03_REUSED_LINK_TIME.md"}
+    ],
+    "search_method": "Python goal_key comparison: 50 batch03 IDs × 100 batch01+02 IDs"
   },
   "vs_hero_batch04_17": {
-    "status": "SEARCHED",
-    "hero_evidence_files_found": 7,
-    "official_hero_scope": "151-850 (batch04-batch17 per docs/BATCH_INTERNAL_ID_MAPPING.md)",
-    "batch03_scope": "101-150",
-    "numeric_overlap_between_scopes": false,
-    "legacy_hero_evidence_ids_in_101_150": [
-      101,
-      102,
-      103,
-      104,
-      105,
-      106,
-      107,
-      108,
-      109,
-      110,
-      111,
-      112,
-      113,
-      114,
-      115,
-      116,
-      117,
-      118,
-      119,
-      120,
-      121,
-      122,
-      123,
-      124,
-      125,
-      126,
-      127,
-      128,
-      129,
-      130,
-      131,
-      132,
-      133,
-      134,
-      135,
-      136,
-      137,
-      138,
-      139,
-      140,
-      141,
-      142,
-      143,
-      144,
-      145,
-      146,
-      147,
-      148,
-      149,
-      150
+    "status": "NOT_APPLICABLE",
+    "search_commands": [
+      "ls cap646/batch04_* cap646/batch05_* ... cap646/batch17_* → No such file or directory (no official batch04-17 production spine in repo)",
+      "ls data/hero_batch_*_evidence.jsonl → 7 files found (legacy hero evidence only)",
+      "rg batch04 docs/BATCH_INTERNAL_ID_MAPPING.md → official hero scope IDs 151-850"
     ],
-    "pairs_checked": 0,
-    "note": "Official batch03 (101-150) and hero batch04-17 (151-850) have zero numeric ID overlap. Legacy hero_batch_01 evidence references some 101-150 IDs from pre-realignment era \u2014 documented as SPLIT-BRAIN, not hero spine binding.",
-    "overlaps": []
+    "search_results": {
+      "cap646_batch04_17_spine_files": "none — glob cap646/batch04_* through cap646/batch17_* returned empty",
+      "numeric_id_overlap_batch03_vs_hero_scope": false,
+      "batch03_scope": "101-150",
+      "hero_official_scope": "151-850 per docs/BATCH_INTERNAL_ID_MAPPING.md"
+    },
+    "verdict": "NOT_APPLICABLE — no numeric ID overlap between batch03 (101-150) and hero batch04-17 official scope (151-850); no batch04-17 production spine modules exist in repository",
+    "pairs_checked": "NOT_APPLICABLE — zero comparable ID pairs by design"
   },
-  "vs_special": {
-    "pairs_checked": 200,
-    "overlaps": []
+  "vs_special_338_500_507_534": {
+    "status": "SEARCHED",
+    "search_commands": [
+      "rg '\"id\": 338|\"id\": 500|\"id\": 507|\"id\": 534' docs/CAPABILITIES_826_INVENTORY.json → all four IDs present in SSOT",
+      "Python goal_key comparison: 50 batch03 IDs × 4 special IDs = 200 pairs"
+    ],
+    "search_results": {
+      "ids_found_in_inventory": [338, 500, 507, 534],
+      "pairs_checked": 200,
+      "semantic_overlaps": 0
+    },
+    "verdict": "200 pairs checked — 0 semantic overlaps (not NOT_APPLICABLE; IDs exist and were compared)"
   }
 }
