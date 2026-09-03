@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
-"""Generate Batch03 institutional pentagonal deliverable (items 1-27)."""
+"""Generate Batch03 institutional pentagonal deliverable (items 1-27).
+
+Reads pre-test acceptance criteria from docs/BATCH03_ACCEPTANCE_101_150.json
+(ISO/IEC/IEEE 29148) — never infers expected values from probe output.
+"""
 
 from __future__ import annotations
 
 import asyncio
 import json
+import re
 import subprocess
 import sys
 import time
+from collections import Counter
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -19,6 +25,7 @@ if str(ROOT) not in sys.path:
 OUT_MD = ROOT / "docs/BATCH03_INSTITUTIONAL_PENTAGONAL_COMPLETE.md"
 OUT_JSON = ROOT / "docs/BATCH03_PENTAGONAL_TEMPLATE_101_150.json"
 OUT_HERO = ROOT / "docs/BATCH03_HERO_SIX_BINDING_101_150.json"
+ACCEPTANCE = ROOT / "docs/BATCH03_ACCEPTANCE_101_150.json"
 
 HERO_ENGINES = {
     "Single-Sentence Oracle": {"capability_ids": [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 40, 47, 48, 50, 55, 56, 59, 66, 69, 86, 89, 90]},
@@ -43,6 +50,17 @@ LATENCY_BUCKET = {
     "ai_interpretation_le_5000ms": ("ai_interpretation", 5000),
 }
 
+BASE_TEST = "tests/cap646/test_batch03_prep_dedicated.py::test_batch03_prep_dedicated_surface_and_success"
+FORMERLY_GENERIC_TEST = "tests/cap646/test_batch03_prep_dedicated.py::test_batch03_prep_formerly_generic_have_domain_payload"
+REUSED_LINK_TEST = "tests/cap646/test_batch03_reused_link_contract.py::test_reused_link_catalog_contract"
+GATEWAY_TEST = "tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py"
+
+FORMERLY_GENERIC = frozenset({101, 102, 109, 110, 111, 116, 144})
+REUSED_LINK_IDS = frozenset(REUSED_CANONICAL)
+PRO_GATED_REUSED = frozenset({110, 125})
+
+DUPLICATION_THRESHOLD = 0.20
+
 
 def git_commit() -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -50,6 +68,218 @@ def git_commit() -> str:
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_acceptance() -> dict[int, dict[str, Any]]:
+    doc = load_json(ACCEPTANCE)
+    if not doc.get("pre_probe"):
+        raise SystemExit(f"{ACCEPTANCE} must be pre_probe=true (written before regeneration)")
+    by_id: dict[int, dict[str, Any]] = {}
+    for row in doc["rows"]:
+        rules = row.get("domain_rules") or []
+        if not rules:
+            raise SystemExit(f"acceptance ID {row['capability_id']}: domain_rules must not be empty")
+        by_id[row["capability_id"]] = row
+    if len(by_id) != 50:
+        raise SystemExit(f"expected 50 acceptance rows, got {len(by_id)}")
+    return by_id
+
+
+def get_by_path(obj: dict[str, Any], path: str) -> Any:
+    cur: Any = obj
+    for part in path.split("."):
+        if not isinstance(cur, dict):
+            return None
+        cur = cur.get(part)
+    return cur
+
+
+def _parse_bool_token(token: str) -> bool:
+    return token.strip().lower() == "true"
+
+
+def evaluate_rule(probe: dict[str, Any], rule: dict[str, Any], expected_surface: str) -> dict[str, Any]:
+    field = rule["field"]
+    rtype = rule["type"]
+    condition = rule["condition"]
+
+    if field == "surface":
+        actual = probe.get("surface")
+        expected_val = expected_surface
+    elif field == "success":
+        actual = probe.get("success")
+        expected_val = True
+    else:
+        actual = get_by_path(probe, field)
+        expected_val = None
+
+    passed = False
+    detail = ""
+
+    if rtype == "present":
+        passed = actual is not None
+        detail = "not_null" if passed else "missing"
+    elif rtype == "list_min_length":
+        min_len = int(condition.replace(">=", "").strip())
+        passed = isinstance(actual, list) and len(actual) >= min_len
+        detail = f"len={len(actual) if isinstance(actual, list) else 'n/a'} need>={min_len}"
+    elif rtype == "string_nonempty":
+        passed = isinstance(actual, str) and len(actual) >= 1
+        detail = f"length={len(actual) if isinstance(actual, str) else 'n/a'}"
+    elif rtype == "enum":
+        if condition.startswith("== expected_surface"):
+            passed = actual == expected_surface
+            detail = f"actual={actual!r} expected={expected_surface!r}"
+        elif condition.startswith("== "):
+            expected = condition[3:].strip()
+            passed = str(actual) == expected
+            detail = f"actual={actual!r} expected={expected!r}"
+        elif condition.startswith("in "):
+            allowed = [v.strip() for v in condition[3:].split(",")]
+            passed = str(actual) in allowed
+            detail = f"actual={actual!r} allowed={allowed}"
+    elif rtype == "boolean":
+        if condition.startswith("== "):
+            expected = _parse_bool_token(condition[3:])
+            passed = actual is expected
+            detail = f"actual={actual!r} expected={expected!r}"
+        elif condition.startswith("in "):
+            allowed = {_parse_bool_token(v) for v in condition[3:].split(",")}
+            passed = actual in allowed
+            detail = f"actual={actual!r} allowed={sorted(allowed)}"
+    elif rtype == "numeric":
+        if condition == "present":
+            passed = actual is not None and isinstance(actual, (int, float))
+            detail = f"actual={actual!r}"
+        else:
+            op = None
+            for candidate in (">=", "<=", "==", ">", "<"):
+                if condition.startswith(candidate):
+                    op = candidate
+                    rhs_raw = condition[len(candidate) :].strip()
+                    break
+            if op is None:
+                raise ValueError(f"unsupported numeric condition: {condition}")
+            rhs = float(rhs_raw)
+            if actual is None or not isinstance(actual, (int, float)):
+                passed = False
+                detail = f"actual={actual!r} need {op} {rhs}"
+            else:
+                av = float(actual)
+                if op == ">=":
+                    passed = av >= rhs
+                elif op == "<=":
+                    passed = av <= rhs
+                elif op == ">":
+                    passed = av > rhs
+                elif op == "<":
+                    passed = av < rhs
+                elif op == "==":
+                    passed = av == rhs
+                detail = f"actual={av} need {op} {rhs}"
+
+    return {
+        "field": field,
+        "type": rtype,
+        "condition": condition,
+        "actual": actual,
+        "pass": passed,
+        "detail": detail,
+        **{k: v for k, v in rule.items() if k in ("decision", "rationale")},
+    }
+
+
+def evaluate_domain_rules(probe: dict[str, Any], acceptance: dict[str, Any]) -> list[dict[str, Any]]:
+    expected_surface = acceptance["expected_surface"]
+    return [evaluate_rule(probe, rule, expected_surface) for rule in acceptance["domain_rules"]]
+
+
+def summarize_payload(probe: dict[str, Any], payload_root: str | None) -> dict[str, Any]:
+    if not payload_root:
+        top_keys = [k for k in probe.keys() if k not in {"success", "surface", "capability_id", "backend_module", "backend_entrypoint", "production_spine", "elapsed_ms"}]
+        return {"payload_root": None, "top_level_fields": top_keys[:25]}
+    payload = probe.get(payload_root)
+    if not isinstance(payload, dict):
+        return {"payload_root": payload_root, "type": type(payload).__name__, "value_preview": str(payload)[:200]}
+    preview: dict[str, Any] = {}
+    for key, val in list(payload.items())[:12]:
+        if isinstance(val, (dict, list)):
+            preview[key] = f"{type(val).__name__}(len={len(val)})"
+        else:
+            preview[key] = val
+    return {
+        "payload_root": payload_root,
+        "field_count": len(payload),
+        "fields": list(payload.keys()),
+        "preview": preview,
+    }
+
+
+def build_column_6(rtm_row: dict[str, Any], acceptance: dict[str, Any], probe: dict[str, Any]) -> dict[str, Any]:
+    payload_summary = summarize_payload(probe, acceptance.get("payload_root"))
+    col6: dict[str, Any] = {
+        "goal": rtm_row["capability"],
+        "binding": f"{rtm_row.get('binding_file', '')}:{rtm_row.get('binding_function', '')}",
+        "payload": payload_summary,
+        "completeness": f"Domain payload under '{acceptance.get('payload_root')}' with {payload_summary.get('field_count', len(payload_summary.get('top_level_fields', [])))} observable fields",
+        "correctness": f"success={probe.get('success')}; surface={probe.get('surface')}",
+    }
+    if acceptance.get("functional_gap"):
+        gap = acceptance["functional_gap"]
+        col6["appropriateness"] = (
+            f"PARTIAL_MISNAMED: catalog '{gap['catalog_name']}' vs implemented '{gap['implemented_scope']}'"
+        )
+        col6["functional_gap"] = gap
+    elif acceptance.get("notes"):
+        col6["appropriateness"] = acceptance["notes"]
+    else:
+        col6["appropriateness"] = (
+            f"Binding {rtm_row.get('binding_function')} returns goal-specific keys: {payload_summary.get('fields', payload_summary.get('top_level_fields', []))[:8]}"
+        )
+    return col6
+
+
+def build_column_7(rule_results: list[dict[str, Any]]) -> dict[str, Any]:
+    all_pass = all(r["pass"] for r in rule_results)
+    return {
+        "domain_rule_results": rule_results,
+        "rules_passed": sum(1 for r in rule_results if r["pass"]),
+        "rules_total": len(rule_results),
+        "all_pass": all_pass,
+        "status": "COMPLETE" if all_pass else "NOT_COMPLETE",
+        "summary": "; ".join(
+            f"{r['field']}:{('pass' if r['pass'] else 'FAIL')}" for r in rule_results
+        ),
+    }
+
+
+def local_tests_for(cid: int) -> list[str]:
+    tests = [BASE_TEST]
+    if cid in FORMERLY_GENERIC:
+        tests.append(FORMERLY_GENERIC_TEST)
+    if cid in REUSED_LINK_IDS:
+        tests.append(REUSED_LINK_TEST)
+    if cid in PRO_GATED_REUSED:
+        tests.append(GATEWAY_TEST)
+    return tests
+
+
+def build_column_8(cid: int) -> dict[str, Any]:
+    return {
+        "api_path": f"/api/cap646/{cid}",
+        "local_tests": local_tests_for(cid),
+        "local_COMPLETE": True,
+        "live_AWAITING_DEPLOY": "AWAITING_DEPLOY — Railway 404 per docs/BATCH03_GATE_ZERO_PRODUCTION.json",
+    }
+
+
+def build_column_10() -> dict[str, Any]:
+    return {
+        "review_type": "LOCAL_REVIEW",
+        "checklist": "docs/BATCH03_LOCAL_GOVERNANCE_COMPLETE.md + PR #362 CI gateway contracts",
+        "note": "Not full Google SRE PRR — live Gate Zero failed; local engineering review only",
+        "second_review": "LOCAL_GOVERNANCE_COMPLETE agent run 2026-09-03",
+    }
 
 
 async def probe_capability(cid: int) -> dict[str, Any]:
@@ -85,7 +315,38 @@ def ai_class_for(cid: int, ai_review: dict) -> str:
     return "rule_based_N/A_PSI"
 
 
-async def build_rows(independent_ids: list[int]) -> list[dict[str, Any]]:
+def normalize_for_duplication_check(text: str) -> str:
+    text = re.sub(r"capability_id=\d+", "capability_id=ID", text)
+    text = re.sub(r"/api/cap646/\d+", "/api/cap646/ID", text)
+    text = re.sub(r"ID \d+", "ID N", text)
+    text = re.sub(r"\b\d{2,}\b", "N", text)
+    text = re.sub(r"'[^']+'", "'SURFACE'", text)
+    text = re.sub(r'"[^"]+"', '"SURFACE"', text)
+    return text.strip()
+
+
+def assert_no_template_duplication(rows: list[dict[str, Any]]) -> None:
+    n = len(rows)
+    threshold_count = int(n * DUPLICATION_THRESHOLD) + 1
+
+    col6_norm = [normalize_for_duplication_check(json.dumps(r["pentagonal"]["internal_goal_iso25010"], sort_keys=True)) for r in rows]
+    col7_norm = [normalize_for_duplication_check(r["pentagonal"]["external_result_iso29148"]["summary"]) for r in rows]
+
+    for label, normed in (("column_6", col6_norm), ("column_7", col7_norm)):
+        counts = Counter(normed)
+        worst, freq = counts.most_common(1)[0]
+        if freq >= threshold_count:
+            raise SystemExit(
+                f"Anti-duplication guard failed: {label} has {freq}/{n} identical normalized rows "
+                f"(threshold {DUPLICATION_THRESHOLD:.0%} => max {threshold_count - 1}). "
+                f"Sample: {worst[:240]}..."
+            )
+
+
+async def build_rows(
+    independent_ids: list[int],
+    acceptance_by_id: dict[int, dict[str, Any]],
+) -> list[dict[str, Any]]:
     rtm = load_json(ROOT / "docs/BATCH03_RTM.json")
     ai_review = load_json(ROOT / "docs/BATCH03_AI_CAPABILITY_REVIEW.json")
     latency = load_json(ROOT / "docs/BATCH03_LATENCY_AUDIT.json")
@@ -95,45 +356,43 @@ async def build_rows(independent_ids: list[int]) -> list[dict[str, Any]]:
     rows = []
     for cid in independent_ids:
         rtm_row = rtm_by_id[cid]
+        acceptance = acceptance_by_id[cid]
         probe = await probe_capability(cid)
+        rule_results = evaluate_domain_rules(probe, acceptance)
+        col6 = build_column_6(rtm_row, acceptance, probe)
+        col7 = build_column_7(rule_results)
+        col8 = build_column_8(cid)
+        col10 = build_column_10()
         lat = latency_for(cid, latency)
         ent = entitlement.get(cid, {})
-        surface = probe.get("surface") or rtm_row.get("surface")
+
         rows.append(
             {
                 "capability_id": cid,
                 "capability_name": rtm_row["capability"],
+                "acceptance_ref": "docs/BATCH03_ACCEPTANCE_101_150.json",
                 "rtm": rtm_row,
+                "acceptance": {
+                    "expected_surface": acceptance["expected_surface"],
+                    "domain_rules": acceptance["domain_rules"],
+                    "functional_gap": acceptance.get("functional_gap"),
+                },
                 "probe": probe,
                 "latency": lat,
                 "entitlement": ent,
                 "ai_class": ai_class_for(cid, ai_review),
                 "pentagonal": {
-                    "internal_goal_iso25010": {
-                        "completeness": f"Catalog goal '{rtm_row['capability']}' served via surface '{surface}'",
-                        "correctness": f"success={probe.get('success')} surface matches expected_surface={rtm_row.get('expected_surface')}",
-                        "appropriateness": f"Goal-specific payload via {rtm_row['binding_file']}:{rtm_row['binding_function']}",
-                    },
-                    "external_result_iso29148": {
-                        "expected_output": f"success=true; capability_id={cid}; surface={rtm_row.get('expected_surface')}; binding_source=explicit_option_a",
-                        "actual_output": f"success={probe.get('success')}; surface={surface}; backend={probe.get('backend_module')}.{probe.get('backend_entrypoint')}",
-                        "match": probe.get("success") and surface == rtm_row.get("expected_surface"),
-                    },
-                    "interface_iso29119": {
-                        "api_path": f"/api/cap646/{cid}",
-                        "local_proof": "tests/cap646/test_batch03_prep_dedicated.py::test_batch03_runtime_production_path",
-                        "live_status": "AWAITING_DEPLOY — Railway 404 per docs/BATCH03_GATE_ZERO_PRODUCTION.json",
-                    },
+                    "internal_goal_iso25010": col6,
+                    "external_result_iso29148": col7,
+                    "interface_iso29119": col8,
                     "security_owasp_asvs": {
                         "entitlement_before_execution": ent.get("entitlement_check_path"),
                         "anonymous_allowed": ent.get("entitlement_before_execution", {}).get("allowed"),
                         "paid_tier": ent.get("paid_tier_capability", False),
                     },
-                    "collective_review_sre_prr": {
-                        "prr_checklist": "docs/BATCH03_LOCAL_GOVERNANCE_COMPLETE.md + PR #362 CI gateway contracts",
-                        "second_review": "LOCAL_GOVERNANCE_COMPLETE agent run 2026-09-03",
-                    },
+                    "collective_review_local": col10,
                 },
+                "pentagonal_status": col7["status"],
                 "lookahead": "Deterministic seed/sym params; no future timestamps in signal construction (batch03_dedicated)",
             }
         )
@@ -141,8 +400,6 @@ async def build_rows(independent_ids: list[int]) -> list[dict[str, Any]]:
 
 
 def hero_map_batch03() -> dict[str, Any]:
-    """Hero aggregation for batch03 scope."""
-    independent = [cid for cid in range(101, 151) if cid not in {103, 129, 106, 107, 110, 125}]
     bindings = []
     for hero, meta in HERO_ENGINES.items():
         batch03_in_hero = [cid for cid in meta["capability_ids"] if 101 <= cid <= 150]
@@ -189,6 +446,7 @@ def render_markdown(commit: str, rows: list[dict], rtm_all: list[dict], hero: di
     w("")
     w(f"**Generated:** {ts} | **Commit:** `{commit[:12]}` | **Scope:** Batch03 IDs 101–150")
     w("**Classification:** LOCAL_GOVERNANCE_COMPLETE — items 1–27 engineering evidence")
+    w(f"**Acceptance source:** `{ACCEPTANCE.name}` (pre_probe, ISO 29148)")
     w("")
     w("---")
     w("")
@@ -198,9 +456,9 @@ def render_markdown(commit: str, rows: list[dict], rtm_all: list[dict], hero: di
     w("|---|--------|---------------------|--------|")
     w("| 1 | ISO/IEC 25010 | لا قبول «الكود شغّال» فقط — كل قدرة بخماسي + expected output | `docs/BATCH03_PENTAGONAL_TEMPLATE_101_150.json` |")
     w("| 2 | ISO/IEC 25059 + OECD AI | تصنيف rule-based vs ML لكل قدرة | `docs/BATCH03_AI_CAPABILITY_REVIEW.json` — 0 true ML |")
-    w("| 3 | ISO/IEC/IEEE 29148 | Expected Output مسبق لكل قدرة | قسم ج أدناه + JSON |")
-    w("| 4 | Google SRE PRR | عمود مراجعة جماعية لكل صف | PRR reference per row |")
-    w("| 5 | ITIL Service Validation | العمود 8 = AWAITING_DEPLOY حتى Railway | `docs/BATCH03_GATE_ZERO_PRODUCTION.json` |")
+    w("| 3 | ISO/IEC/IEEE 29148 | Expected Output مسبق لكل قدرة | `docs/BATCH03_ACCEPTANCE_101_150.json` |")
+    w("| 4 | LOCAL_REVIEW | عمود مراجعة محلية (ليس PRR كامل — Gate Zero فاشل) | عمود 10 لكل صف |")
+    w("| 5 | ITIL Service Validation | العمود 8 live = AWAITING_DEPLOY حتى Railway | `docs/BATCH03_GATE_ZERO_PRODUCTION.json` |")
     w("")
     w("---")
     w("")
@@ -208,8 +466,9 @@ def render_markdown(commit: str, rows: list[dict], rtm_all: list[dict], hero: di
     w("")
     w("| خطوة | الحالة | الدليل |")
     w("|------|--------|--------|")
+    w("| (0) قبول مسبق 101–150 | ✅ | `docs/BATCH03_ACCEPTANCE_101_150.json` |")
     w("| (1) قاموس حالة + RTM 101–150 | ✅ | `docs/BATCH03_RTM.json` |")
-    w("| (2) قالب خماسي + Expected Output | ✅ | هذا الملف + JSON |")
+    w("| (2) قالب خماسي + domain_rules | ✅ | هذا الملف + JSON |")
     w("| (3) MECE + عقود 01/02 | ✅ | `docs/BATCH03_MECE_AUDIT.json` + ADRs |")
     w("| (4) خريطة أبطال + أوزان + سيناريوهات | ✅ | `docs/BATCH03_HERO_SIX_BINDING_101_150.json` |")
     w("| (5) أمان entitlement | ✅ | gateway contract tests + GET proof |")
@@ -237,15 +496,17 @@ def render_markdown(commit: str, rows: list[dict], rtm_all: list[dict], hero: di
         w("| العمود | المصدر | الدليل |")
         w("|--------|--------|--------|")
         ig = p["internal_goal_iso25010"]
-        w(f"| 6 الهدف الداخلي (25010) | Completeness/Correctness/Appropriateness | C:{ig['completeness']}; Cor:{ig['correctness']}; App:{ig['appropriateness']} |")
+        w(f"| 6 الهدف الداخلي (25010) | goal+payload | {ig['goal']} | binding:{ig['binding']} | fields:{ig['payload'].get('fields', ig['payload'].get('top_level_fields', []))[:6]} |")
+        w(f"| | Completeness | {ig['completeness']} |")
+        w(f"| | Appropriateness | {ig['appropriateness']} |")
         er = p["external_result_iso29148"]
-        w(f"| 7 النتيجة الخارجية (29148) | Expected vs Actual | EXP:{er['expected_output']} | ACT:{er['actual_output']} | MATCH:{er['match']} |")
+        w(f"| 7 النتيجة الخارجية (29148) | domain_rules | {er['summary']} | status:{er['status']} |")
         itf = p["interface_iso29119"]
-        w(f"| 8 الواجهة (29119) | {itf['api_path']} | LOCAL:{itf['local_proof']} | LIVE:{itf['live_status']} |")
+        w(f"| 8 الواجهة (29119) | {itf['api_path']} | LOCAL:{';'.join(itf['local_tests'])} | local_COMPLETE:{itf['local_COMPLETE']} | live_AWAITING_DEPLOY:{itf['live_AWAITING_DEPLOY']} |")
         sec = p["security_owasp_asvs"]
         w(f"| 9 الأمان (ASVS) | entitlement | {sec['entitlement_before_execution']} | paid:{sec['paid_tier']} |")
-        prr = p["collective_review_sre_prr"]
-        w(f"| 10 المراجعة (SRE PRR) | {prr['prr_checklist']} | {prr['second_review']} |")
+        rev = p["collective_review_local"]
+        w(f"| 10 المراجعة (LOCAL_REVIEW) | {rev['review_type']} | {rev['checklist']} | {rev['note']} |")
         w(f"| 13 Lookahead | {row['lookahead']} |")
         w(f"| 14 AI (25059) | {row['ai_class']} |")
         w(f"| 17 PSI | N/A — rule-based |")
@@ -256,11 +517,11 @@ def render_markdown(commit: str, rows: list[dict], rtm_all: list[dict], hero: di
     w("")
     w("## ج) Expected Output — ملخص 44 صف (البنود 11–13)")
     w("")
-    w("| ID | Expected Output (29148) | Actual (probe session) | Match |")
-    w("|----|-------------------------|------------------------|-------|")
+    w("| ID | domain_rules pass | status |")
+    w("|----|-------------------|--------|")
     for row in rows:
         er = row["pentagonal"]["external_result_iso29148"]
-        w(f"| {row['capability_id']} | {er['expected_output'][:80]}... | surface={row['probe'].get('surface')} | {er['match']} |")
+        w(f"| {row['capability_id']} | {er['rules_passed']}/{er['rules_total']} | {er['status']} |")
     w("")
     w("---")
     w("")
@@ -320,6 +581,7 @@ def render_markdown(commit: str, rows: list[dict], rtm_all: list[dict], hero: di
     w("| gateway↔canonical entitlement | ✅ aligned | `tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py` |")
     w("| REUSED-LINK Type-4 | ✅ | `tests/cap646/test_batch03_reused_link_contract.py` |")
     w("| SLSA same commit | ✅ local session | commit `" + commit[:12] + "` + probe timestamps in JSON |")
+    w("| anti-duplication guard | ✅ | generator exits non-zero if col6/7 >20% identical |")
     w("")
     w("---")
     w("")
@@ -345,10 +607,11 @@ def render_markdown(commit: str, rows: list[dict], rtm_all: list[dict], hero: di
 
 
 async def main() -> None:
+    if not ACCEPTANCE.is_file():
+        raise SystemExit(f"Missing pre-test acceptance file: {ACCEPTANCE} — run scripts/generate_batch03_acceptance_101_150.py first")
+
+    acceptance_by_id = load_acceptance()
     rtm = load_json(ROOT / "docs/BATCH03_RTM.json")
-    independent = [r["id"] for r in rtm["rows"] if r["status"] == "PRODUCTION-ALIGNED" and r.get("production_spine") == "batch03"]
-    independent = [cid for cid in independent if cid not in REUSED_CANONICAL]  # reused have spine batch03 but not independent 44
-    # The 44 independent are PA batch03 excluding overlap - from RTM counts
     independent = sorted(
         r["id"]
         for r in rtm["rows"]
@@ -357,13 +620,25 @@ async def main() -> None:
     assert len(independent) == 44, f"expected 44 independent, got {len(independent)}"
 
     commit = git_commit()
-    rows = await build_rows(independent)
-    hero = hero_map_batch03()
+    rows = await build_rows(independent, acceptance_by_id)
+    assert_no_template_duplication(rows)
 
-    OUT_JSON.write_text(json.dumps({"generated_at": datetime.now(UTC).isoformat(), "git_commit": commit, "rows": rows}, indent=2), encoding="utf-8")
+    incomplete = [r["capability_id"] for r in rows if r["pentagonal_status"] != "COMPLETE"]
+    if incomplete:
+        print(f"WARNING: {len(incomplete)} capabilities NOT_COMPLETE on domain_rules: {incomplete[:10]}{'...' if len(incomplete)>10 else ''}")
+
+    hero = hero_map_batch03()
+    payload = {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "git_commit": commit,
+        "acceptance_source": str(ACCEPTANCE.relative_to(ROOT)),
+        "acceptance_pre_probe": True,
+        "rows": rows,
+    }
+    OUT_JSON.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     OUT_HERO.write_text(json.dumps(hero, indent=2), encoding="utf-8")
     OUT_MD.write_text(render_markdown(commit, rows, rtm["rows"], hero), encoding="utf-8")
-    print(f"Wrote {OUT_MD} ({len(independent)} capabilities)")
+    print(f"Wrote {OUT_MD} ({len(independent)} capabilities, incomplete={len(incomplete)})")
 
 
 if __name__ == "__main__":
