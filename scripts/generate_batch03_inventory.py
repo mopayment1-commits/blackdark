@@ -54,11 +54,14 @@ def main() -> None:
         rtm_rows.append(
             {
                 "id": cid,
+                "capability": catalog.get(cid, {}).get("capability"),
                 "official_batch": row["official_batch"],
                 "status": row["status"],
                 "production_spine": row.get("production_spine"),
                 "binding_file": row.get("binding_file"),
                 "binding_function": row.get("binding_function"),
+                "surface": row.get("surface"),
+                "expected_surface": row.get("expected_surface"),
                 "notes": row.get("notes"),
             }
         )

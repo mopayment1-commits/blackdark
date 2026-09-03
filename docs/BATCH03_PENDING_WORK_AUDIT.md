@@ -76,6 +76,8 @@
 
 ---
 
-## 6. ملاحظة أمنية (GET entitlement)
+## 6. ملاحظة أمنية (GET entitlement) — **مُغلَقة**
 
-#125 على مسار gateway: `entitlement_engine.check(125)` يسمح free بينما `runtime` يفحص canonical #85 (pro). **النتيجة:** free يحصل `success=false` + `teaser` — لا تسريب بيانات. يُوصى بمواءمة gateway مع `canonical_id()` في دفعة لاحقة (خارج نطاق 101–150).
+**قبل:** `gateway_execute` كان يفحص `entitlement_engine.check(duplicate_id)` بينما `runtime` يفحص `canonical_id()` — انقسام على #125 (free allow ثم runtime deny عبر #85).
+
+**بعد:** `cap646/institutional_gateway.py` يستخدم `canonical_id(capability_id)` قبل أي allow/deny — متطابق مع runtime. اختبار عقد CI: `tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py`.

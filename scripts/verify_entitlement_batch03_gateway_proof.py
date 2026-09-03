@@ -35,9 +35,6 @@ async def _prove(capability_id: int, *, user: dict | None, label: str) -> dict:
     ent = result.get("entitlement") or {}
     if isinstance(gateway, dict):
         ent = gateway.get("entitlement") or ent
-    runtime_ent = result.get("entitlement")
-    if result.get("success") is False and isinstance(runtime_ent, dict) and "allowed" in runtime_ent:
-        ent = runtime_ent
     return {
         "capability_id": capability_id,
         "user_label": label,
@@ -59,10 +56,7 @@ async def main() -> None:
     checks = {
         "no_skip_entitlement": all(not p["skip_entitlement_used"] for p in proofs),
         "count_10": len(proofs) == 10,
-        "125_free_denied": (
-            by["pro_gated_free_denied"]["entitlement_allowed"] is False
-            or by["pro_gated_free_denied"]["success"] is False
-        ),
+        "125_free_denied": by["pro_gated_free_denied"]["entitlement_allowed"] is False,
         "125_pro_allowed": by["reused_link_open_interest"]["entitlement_allowed"] is True,
         "103_overlap_batch01": by["overlap_batch01_api_platform"]["production_spine"] == "batch01",
         "106_reused_link": (by["reused_link_provenance"].get("catalog_link") or {}).get("duplicate_of") == 63,
