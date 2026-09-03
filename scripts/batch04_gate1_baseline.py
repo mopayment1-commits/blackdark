@@ -75,6 +75,8 @@ def _semantic_miswire(cap_id: int, name: str, hero_fn: str | None) -> str | None
         166: ("research_confidence", "brokerage_rejected"),
         167: ("social_volume", "validate_time_sync"),
     }
+    if cap_id == 175:
+        return "MISWIRE: catalog surface=social_sentiment_intelligence; runtime surface=sentiment_ai (batch01)"
     if cap_id not in checks:
         return None
     expected_token, hero_token = checks[cap_id]
@@ -87,7 +89,7 @@ def _semantic_miswire(cap_id: int, name: str, hero_fn: str | None) -> str | None
     return f"MISWIRE: catalog expects {expected_token}; hero binding may not match purpose"
 
 
-async def _probe(cap_id: int) -> dict[str, Any]:
+async def _probe(cap_id: int, acc_row: dict) -> dict[str, Any]:
     from cap646.batch04_dedicated import EXPECTED_SURFACE
     from cap646.runtime import execute_capability
 
@@ -98,8 +100,8 @@ async def _probe(cap_id: int) -> dict[str, Any]:
         return {"success": False, "error": str(exc), "surface": None, "payload_keys": []}
 
     surface = result.get("surface")
-    root = EXPECTED_SURFACE.get(cap_id, surface)
-    payload = result.get(root) or result.get(surface) or {}
+    root = acc_row.get("payload_root") or EXPECTED_SURFACE.get(cap_id, surface)
+    payload = result.get(root) or result.get(surface) or result.get(EXPECTED_SURFACE.get(cap_id, "")) or {}
     if isinstance(payload, dict):
         keys = set(payload.keys())
     else:
@@ -152,7 +154,7 @@ async def main() -> None:
     rows: list[dict[str, Any]] = []
     for cap_id in range(151, 201):
         a = acc[cap_id]
-        probe = await _probe(cap_id)
+        probe = await _probe(cap_id, a)
         hero = HERO_BINDINGS.get(cap_id)
         hero_fn = hero[1] if hero else None
         hero_mod = hero[0] if hero else None
@@ -167,8 +169,12 @@ async def main() -> None:
         # Functional evidence — honest, not PASS from ok alone
         has_domain_fields = len(payload_keys - {"ok", "feature_ref", "symbol", "catalog_goal"}) >= 1
         completeness = "NOT_VERIFIED" if not probe.get("success") else ("PARTIAL" if cap_id == 159 else ("VERIFIED_LOCAL" if has_domain_fields else "STUB_ONLY"))
-        correctness = "NOT_VERIFIED" if miswire else ("VERIFIED_LOCAL" if probe.get("success") and probe.get("surface") == a["expected_surface"] else "NOT_VERIFIED")
-        appropriateness = "NOT_VERIFIED" if miswire or cap_id == 159 else ("VERIFIED_LOCAL" if has_domain_fields else "STUB_ONLY")
+        correctness = "NOT_VERIFIED"
+        if probe.get("success") and probe.get("surface") == a["expected_surface"]:
+            correctness = "NOT_VERIFIED" if miswire else "VERIFIED_LOCAL"
+        elif cap_id == 175:
+            correctness = "NOT_VERIFIED"
+        appropriateness = "NOT_VERIFIED" if miswire or cap_id in (159, 175) else ("VERIFIED_LOCAL" if has_domain_fields else "STUB_ONLY")
 
         route = f"/api/cap646/{cap_id}"
         if cap_id == 175:
