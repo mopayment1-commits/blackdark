@@ -252,6 +252,18 @@ def main() -> None:
             "formula": "official_batch = batch((id-1)//50 + 1)",
         },
         "classification_taxonomy": classification_taxonomy,
+        "three_separate_counts": {
+            "note": "Three mutually exclusive RTM columns — never aggregate into a single progress equation",
+            "production_aligned_independent": counts.get("PRODUCTION-ALIGNED", 0),
+            "reused_link": counts.get("REUSED-LINK", 0),
+            "overlap_partial": counts.get("OVERLAP-PARTIAL", 0),
+            "dedup_verification": {
+                "each_id_counted_once": True,
+                "ids_51_59_double_counted": False,
+                "old_54_826_explanation": "Legacy 54/826 = batch01(50) + 4 early batch02 overlap IDs before official batch02 closure; superseded by per_id SSOT with no duplicate IDs",
+                "overlap_batch01_ids_in_batch02": sorted(batch02_overlap),
+            },
+        },
         "summary": {
             "total_ids": PROJECT_SCOPE_TOTAL,
             "status_counts": counts,

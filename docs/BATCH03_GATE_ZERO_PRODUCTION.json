@@ -1,13 +1,64 @@
 {
   "gate": "ZERO",
   "status": "FAILED",
-  "verdict": "STOP — لا انتقال للمرحلة 1 أو أي دليل «حي» نهائي قبل نجاح البوابة صفر",
+  "governance_classification": "LOCAL_GOVERNANCE_COMPLETE — not operational Batch03 closure",
   "production_url": "https://blackdark-production.up.railway.app",
   "session_started_at": "2026-09-03T10:25:04.396717+00:00",
   "session_completed_at": "2026-09-03T10:25:43.003510+00:00",
   "git_commit": "c4d6c5392a9db0792b5e276699bb01fac2187a57",
   "git_commit_short": "c4d6c53",
+  "local_governance_commit": "f41c394fb71ab7fbb93c2537133b0e8881b4d4ef",
+  "local_governance_commit_short": "f41c394",
   "branch": "cursor/batch-03-101-150-e85e",
+  "LOCAL_DONE": {
+    "status": "COMPLETE",
+    "completed_at_utc": "2026-09-03T10:40:00Z",
+    "report": "docs/BATCH03_LOCAL_GOVERNANCE_COMPLETE.md",
+    "items_completed": [
+      "826 three_separate_counts in CAPABILITIES_826_INVENTORY.json",
+      "pytest Batch01+02+03 non-regression (exit 0)",
+      "44-row INVEST table",
+      "50-row official status dictionary",
+      "canonical #63/#64/#69/#85 Batch02 proof",
+      "0 paid tier among 44 independent — deliberate design",
+      "MECE audit four ranges",
+      "Tolerate ADR #103/#129 with 30-day sunset",
+      "jscpd 0 clones on 555 lines",
+      "hero binding negative confirmation",
+      "Type-4 + entitlement local TestClient proofs",
+      "8-criteria local scorecard"
+    ],
+    "local_proofs": {
+      "pytest": "docs/BATCH03_LOCAL_PYTEST_PROOF.json",
+      "invest": "docs/BATCH03_CLASSIFICATION_INVEST_44.json",
+      "rtm": "docs/BATCH03_RTM.json",
+      "entitlement": "docs/BATCH03_GET_ENTITLEMENT_44_PROOF.json",
+      "type4": "docs/BATCH03_TYPE4_CONTRACT_TABLE.json",
+      "gateway": "docs/BATCH03_GATEWAY_CANONICAL_ENTITLEMENT_PROOF.json",
+      "mece": "docs/BATCH03_MECE_AUDIT.json",
+      "jscpd": "docs/BATCH03_JSCPD_AUDIT.json",
+      "latency_local_only": "docs/BATCH03_LATENCY_AUDIT.json"
+    },
+    "classification_note": "All local proofs labeled: بديل محلي مؤقت — لا يعادل الإنتاج"
+  },
+  "AWAITING_DEPLOY": {
+    "status": "BLOCKED",
+    "owner_action_required": true,
+    "blocked_items": [
+      "Gate Zero: GET /health and GET /health/ready → HTTP 200",
+      "Live HTTP proof on blackdark-production",
+      "Production latency measurements (#109, #119, #145, #146)",
+      "Type-4 via live authenticated production endpoint",
+      "Entitlement via live GET /api/cap646/{id}",
+      "SonarCloud dashboard confirmation on PR/merge"
+    ],
+    "gate_zero_reopen_criterion": "GET /health AND GET /health/ready return HTTP 200 on https://blackdark-production.up.railway.app after Railway Redeploy — no other criterion",
+    "remediation": [
+      "Redeploy web service on Railway project blackdark-production",
+      "Confirm public domain blackdark-production.up.railway.app attached to running service",
+      "Verify DATABASE_URL and required env vars after Postgres deploy"
+    ]
+  },
   "retry_policy": "5 rounds, 8s between rounds, 12 probes per round",
   "required_outcome": "HTTP 200 on /health and/or /health/ready + 10 cap646 sample IDs (not Railway 404 Application not found)",
   "actual_outcome": "60/60 probes returned HTTP 404 Application not found (Railway edge, not FastAPI)",
@@ -16,55 +67,22 @@
       "path": "/health",
       "attempts": 5,
       "all_http_status": [404, 404, 404, 404, 404],
-      "sample_body": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}",
-      "last_elapsed_ms": 108.9
+      "sample_body": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}"
     },
     {
       "path": "/health/ready",
       "attempts": 5,
       "all_http_status": [404, 404, 404, 404, 404],
-      "sample_body": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}",
-      "last_elapsed_ms": 126.1
+      "sample_body": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}"
     }
   ],
   "cap646_sample_ids": [101, 106, 110, 125, 129, 150, 104, 115, 138, 142],
   "cap646_probes": {
     "total": 50,
     "success_http_200": 0,
-    "failed_http_404": 50,
-    "per_id_attempts": {
-      "101": [404, 404, 404, 404, 404],
-      "106": [404, 404, 404, 404, 404],
-      "110": [404, 404, 404, 404, 404],
-      "125": [404, 404, 404, 404, 404],
-      "129": [404, 404, 404, 404, 404],
-      "150": [404, 404, 404, 404, 404],
-      "104": [404, 404, 404, 404, 404],
-      "115": [404, 404, 404, 404, 404],
-      "138": [404, 404, 404, 404, 404],
-      "142": [404, 404, 404, 404, 404]
-    }
+    "failed_http_404": 50
   },
-  "attempt_log": [
-    {"round": 1, "timestamp_utc": "2026-09-03T10:25:04Z", "health": 404, "health_ready": 404, "cap646_all": 404},
-    {"round": 2, "timestamp_utc": "2026-09-03T10:25:12Z", "health": 404, "health_ready": 404, "cap646_all": 404},
-    {"round": 3, "timestamp_utc": "2026-09-03T10:25:20Z", "health": 404, "health_ready": 404, "cap646_all": 404},
-    {"round": 4, "timestamp_utc": "2026-09-03T10:25:28Z", "health": 404, "health_ready": 404, "cap646_all": 404},
-    {"round": 5, "timestamp_utc": "2026-09-03T10:25:36Z", "health": 404, "health_ready": 404, "cap646_all": 404}
-  ],
-  "diagnosis": "Railway edge returns 404 Application not found — no running web service bound to public domain blackdark-production.up.railway.app",
-  "owner_remediation": [
-    "Redeploy web service on Railway project blackdark-production",
-    "Confirm public domain blackdark-production.up.railway.app attached to running service",
-    "Verify DATABASE_URL and required env vars after Postgres deploy",
-    "Re-run Gate Zero: curl https://blackdark-production.up.railway.app/health/ready → expect HTTP 200"
-  ],
-  "phases_blocked": ["1", "2", "3", "4", "5"],
-  "batch03_closure_blocked": true,
-  "batch04_open_blocked": true,
-  "previous_failed_session": {
-    "started_at": "2026-09-03T10:23:36Z",
-    "commit": "efcf823",
-    "same_outcome": true
-  }
+  "diagnosis": "Railway edge returns 404 Application not found — no running web service bound to public domain",
+  "operational_batch03_closure_blocked": true,
+  "batch04_open_blocked": true
 }

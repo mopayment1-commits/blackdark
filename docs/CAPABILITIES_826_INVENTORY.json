@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T09:45:46.067453+00:00",
+  "generated_at": "2026-09-03T10:39:02.901538+00:00",
   "scope": "IDs 1-826 institutional RTM",
   "scope_baseline": {
     "batch01": "IDs 1–50",
@@ -46,6 +46,23 @@
       "status": "DEPRECATED_UNREGISTERED",
       "rtm_usage": "forbidden",
       "cap978_ci_verdict": "legacy_internal_only"
+    }
+  },
+  "three_separate_counts": {
+    "note": "Three mutually exclusive RTM columns — never aggregate into a single progress equation",
+    "production_aligned_independent": 158,
+    "reused_link": 4,
+    "overlap_partial": 2,
+    "dedup_verification": {
+      "each_id_counted_once": true,
+      "ids_51_59_double_counted": false,
+      "old_54_826_explanation": "Legacy 54/826 = batch01(50) + 4 early batch02 overlap IDs before official batch02 closure; superseded by per_id SSOT with no duplicate IDs",
+      "overlap_batch01_ids_in_batch02": [
+        55,
+        56,
+        59,
+        60
+      ]
     }
   },
   "summary": {

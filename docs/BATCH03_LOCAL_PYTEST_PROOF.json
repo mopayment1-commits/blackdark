@@ -1,0 +1,31 @@
+{
+  "proof_type": "LOCAL_GOVERNANCE_COMPLETE — non-regression Batch01+02+03",
+  "classification": "بديل محلي مؤقت — لا يعادل الإنتاج",
+  "executed_at_utc": "2026-09-03T10:35:00Z",
+  "git_commit": "f41c394fb71ab7fbb93c2537133b0e8881b4d4ef",
+  "git_commit_short": "f41c394",
+  "branch": "cursor/batch-03-101-150-e85e",
+  "pytest_command": "python3 -m pytest tests/cap646/test_batch01_production.py tests/cap646/test_batch01_dedicated.py tests/cap646/test_batch02_dedicated.py tests/cap646/test_batch03_prep_dedicated.py tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py tests/cap646/test_batch03_reused_link_contract.py tests/cap646/test_batch_spine.py tests/cap646/test_get_entitlement.py tests/cap646/test_cap69_dual_path.py tests/cap646/test_dedicated_common.py tests/cap646/test_runtime_spine_coverage.py -q -m 'not slow' --tb=line",
+  "pytest_exit_code": 0,
+  "tests_passed_estimate": 507,
+  "tests_failed": 0,
+  "marker_filter": "not slow",
+  "scope": {
+    "batch01": ["test_batch01_production.py", "test_batch01_dedicated.py"],
+    "batch02": ["test_batch02_dedicated.py"],
+    "batch03": [
+      "test_batch03_prep_dedicated.py",
+      "test_batch03_gateway_canonical_entitlement_contract.py",
+      "test_batch03_reused_link_contract.py"
+    ],
+    "shared": [
+      "test_batch_spine.py",
+      "test_get_entitlement.py",
+      "test_cap69_dual_path.py",
+      "test_dedicated_common.py",
+      "test_runtime_spine_coverage.py"
+    ]
+  },
+  "gateway_contract_tests_included": true,
+  "note": "Fresh run on commit f41c394 after Gate Zero doc refresh; supersedes prior Batch01+02-only non-regression runs."
+}
