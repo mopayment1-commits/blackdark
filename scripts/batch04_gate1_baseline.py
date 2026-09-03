@@ -217,7 +217,8 @@ async def main() -> None:
         "semantic_miswire_count": sum(1 for r in rows if r["semantic_miswire"]),
         "blocker_count": sum(1 for r in rows if r["blocker"]),
         "independent_canonical": sum(1 for r in rows if r["duplication_state"] == "DISTINCT" and not r["blocker"]),
-        "reused_alias": [r["id"] for r in rows if r["duplication_state"] in ("REUSED_ALIAS", "REUSED_LINK")],
+        "reused_link": [r["id"] for r in rows if r["duplication_state"] == "REUSED_LINK"],
+        "reused_alias": [r["id"] for r in rows if r["duplication_state"] == "REUSED_ALIAS"],
     }
 
     rtm = {
