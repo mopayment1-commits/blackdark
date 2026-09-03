@@ -1,43 +1,61 @@
 {
-  "generated_at": "2026-09-03T17:10:00+00:00",
+  "generated_at": "2026-09-03T17:45:00+00:00",
   "scope": "Batch04 IDs 151-200 — duplication decisions (ISO 42010 / Gartner TIME / MECE)",
+  "build_phase": "BUILD_PHASE_HOLD",
   "evidence_sources": [
     "docs/CAPABILITIES_826_INVENTORY.json per_id",
     "cap646/catalog.py REPEAT_CANONICAL",
     "docs/HERO_BATCH_02_101_200_GAP_REPORT.json",
+    "docs/BATCH03_ACCEPTANCE_101_150.json",
+    "docs/ADR_BATCH04_CANONICAL_BLOCKERS_103_130.md",
     "runtime execute_capability probes"
   ],
+  "owner_final_decisions": {
+    "BLOCKER-159-103": {
+      "status": "NOT_COMPLETE",
+      "decision": "Suspended — no Option A (REUSED-LINK) nor Option B (DISTINCT ADR) now",
+      "gate": "Await #103 maturity (Tolerate ceiling 2026-10-03) or future DISTINCT ADR",
+      "canonical_103_true_status": "OVERLAP-PARTIAL"
+    },
+    "BLOCKER-183-130": {
+      "status": "NOT_COMPLETE",
+      "decision": "Option B DISTINCT-only approved",
+      "constraint": "#130 remains PRODUCTION-ALIGNED in Batch03 — no Batch03 changes",
+      "canonical_130_true_status": "PRODUCTION-ALIGNED"
+    },
+    "revert_policy": "No revert of post-f9bfafb build — reclassified BUILD_PHASE_HOLD"
+  },
   "decisions": [
     {
       "pair": "159 ↔ 103",
-      "classification": "PENDING_CANONICAL_AUDIT",
-      "time_decision": "Tolerate with Migrate plan — NOT final REUSED-LINK",
+      "classification": "NOT_COMPLETE",
+      "time_decision": "Tolerate — await #103 maturity (2026-10-03 ceiling)",
       "evidence": {
         "catalog_159": "API Data Platform",
-        "canonical_103_status": "PENDING_SCOPE_REALIGNMENT",
-        "canonical_103_production_spine": "batch03_prep",
+        "canonical_103_status": "OVERLAP-PARTIAL",
+        "canonical_103_production_spine": "batch01",
         "repeat_canonical": "API Data Platform → 103",
         "gap_matrix": "DUPLICATE/ALREADY_COVERED"
       },
-      "rule": "No final REUSED-LINK / PRODUCTION-ALIGNED on #159 until canonical #103 passes ISO 25010 + behavioral Type-4 match (same inputs → goal-equivalent outputs).",
+      "rule": "No REUSED-LINK on #159 until canonical #103 passes ISO 25010 + behavioral Type-4 match.",
       "batch04_independent": false,
-      "implementation": "batch04 handler delegates to canonical #103 with catalog_link stamp; status remains NOT_COMPLETE until canonical audit passes."
+      "implementation": "Batch04 handler delegates institutional payload from #103 with NOT_COMPLETE stamp; no catalog_link REUSED-LINK."
     },
     {
       "pair": "183 ↔ 130",
-      "classification": "PENDING_CANONICAL_AUDIT",
-      "time_decision": "Tolerate with Migrate plan — NOT final REUSED-LINK",
+      "classification": "NOT_COMPLETE",
+      "time_decision": "Migrate — DISTINCT-only Option B (owner approved)",
       "evidence": {
         "catalog_183": "Whale Transaction Intelligence",
-        "canonical_130_status": "PENDING_SCOPE_REALIGNMENT",
+        "canonical_130_status": "PRODUCTION-ALIGNED",
         "canonical_130_name": "Mindshare Intelligence",
+        "canonical_130_production_spine": "batch03",
         "hero_underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
-        "hero_reuse_link": true,
-        "semantic_gap": "Catalog #183 (whale transactions) ≠ catalog #130 (mindshare) — hero fn reuse is technical only"
+        "semantic_gap": "Catalog #183 (whale transactions) ≠ catalog #130 (mindshare)"
       },
-      "rule": "REUSED-LINK rejected until #130 PRODUCTION-ALIGNED AND semantic alignment proven or DISTINCT documented in ADR.",
+      "rule": "REUSED-LINK permanently rejected for #183. DISTINCT whale_transaction payload only.",
       "batch04_independent": false,
-      "implementation": "Dedicated catalog-aligned whale_transaction payload — NOT hero transaction_risk_insight_130 wrapper."
+      "implementation": "Dedicated catalog-aligned whale_transaction payload — no catalog_link to #130."
     },
     {
       "pair": "175 ↔ batch01",
@@ -79,13 +97,15 @@
   "structural_blockers": [
     {
       "id": "BLOCKER-159-103",
-      "message": "Canonical #103 not PRODUCTION-ALIGNED — cannot finalize REUSED-LINK closure for #159",
-      "owner_action": "Complete batch03 canonical audit for #103 or implement DISTINCT #159"
+      "status": "NOT_COMPLETE",
+      "message": "Canonical #103 is OVERLAP-PARTIAL — REUSED-LINK for #159 suspended until maturity or DISTINCT ADR",
+      "owner_action": "Await #103 maturity (2026-10-03) or author DISTINCT ADR for #159"
     },
     {
       "id": "BLOCKER-183-130",
-      "message": "Canonical #130 not PRODUCTION-ALIGNED + semantic mismatch — cannot finalize REUSED-LINK for #183",
-      "owner_action": "Audit #130 or keep #183 as DISTINCT whale_transaction implementation"
+      "status": "NOT_COMPLETE",
+      "message": "DISTINCT-only Option B approved — no REUSED-LINK to PRODUCTION-ALIGNED #130",
+      "owner_action": "Keep #183 as DISTINCT whale_transaction; do not modify Batch03 #130"
     }
   ]
 }

@@ -307,14 +307,14 @@
       "hero_gap_classification": "VERIFIED-DEEP",
       "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Canonical+Alias \u2014 entitlement/runtime on canonical #103",
-      "build_rationale": "REUSED-LINK \u2192 canonical #103 (API Data Platform)",
+      "build_decision": "NOT_COMPLETE suspended — await #103 maturity (Tolerate 2026-10-03) or future DISTINCT ADR",
+      "build_rationale": "BLOCKER-159-103 owner decision: no REUSED-LINK until canonical #103 matures; canonical #103 is OVERLAP-PARTIAL on batch01",
       "duplicate_candidates": [
         {
           "pair": "159\u2194103",
           "scope": "151-200 vs 1-150",
-          "classification": "DUPLICATE-CONFIRMED\u2192REUSED-LINK",
-          "evidence": "REPEAT_CANONICAL[API Data Platform]=103; gap DUPLICATE/ALREADY_COVERED"
+          "classification": "NOT_COMPLETE",
+          "evidence": "REPEAT_CANONICAL[API Data Platform]=103; canonical #103 OVERLAP-PARTIAL — REUSED-LINK blocked per owner"
         }
       ],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -327,7 +327,9 @@
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.1
       },
-      "pending_canonical_audit": "BLOCKER-159-103"
+      "pending_canonical_audit": "BLOCKER-159-103",
+      "owner_decision": "NOT_COMPLETE suspended — no Option A/B; await #103 maturity or DISTINCT ADR",
+      "notes": "Canonical #103 = OVERLAP-PARTIAL (batch01). No REUSED-LINK before canonical readiness."
     },
     {
       "id": 160,
@@ -1160,16 +1162,16 @@
       "binding_function_planned": "_cap183",
       "hero_underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
       "hero_gap_classification": "DEFERRED/DELEGATED",
-      "hero_reuse_link": true,
+      "hero_reuse_link": false,
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
-      "build_rationale": "hero deferred bd_platform.onchain_platform_layer.transaction_risk_insight_130",
+      "build_decision": "DISTINCT-only Option B approved — dedicated whale_transaction payload; no REUSED-LINK to #130",
+      "build_rationale": "Owner final: #183 DISTINCT-only; #130 stays PRODUCTION-ALIGNED in Batch03 untouched",
       "duplicate_candidates": [
         {
-          "pair": "183\u2194underlying",
-          "scope": "hero layer",
-          "classification": "REUSED-LINK candidate",
-          "evidence": "bd_platform.onchain_platform_layer.transaction_risk_insight_130"
+          "pair": "183\u2194130",
+          "scope": "151-200 vs 1-150",
+          "classification": "NOT_COMPLETE",
+          "evidence": "Semantic mismatch: catalog #183 whale transactions \u2260 catalog #130 mindshare; REUSED-LINK rejected"
         }
       ],
       "binding_file": "cap646/batch04_dedicated.py",
@@ -1182,7 +1184,9 @@
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 0.0
       },
-      "pending_canonical_audit": "BLOCKER-183-130"
+      "pending_canonical_audit": "BLOCKER-183-130",
+      "owner_decision": "DISTINCT-only Option B approved — no REUSED-LINK to #130",
+      "notes": "Canonical #130 = PRODUCTION-ALIGNED (batch03 mindshare_intelligence). Batch03 binding must not change."
     },
     {
       "id": 184,
@@ -1780,7 +1784,7 @@
       }
     }
   ],
-  "build_phase": "OPEN",
+  "build_phase": "BUILD_PHASE_HOLD",
   "gateway_proof": "docs/BATCH04_ENTITLEMENT_GATEWAY_PROOF.json",
   "pa_closure_registry": "docs/BATCH04_PA_CLOSURE_REGISTRY.json",
   "gate_zero_checklist": "docs/BATCH04_GATE_ZERO_CHECKLIST.md",

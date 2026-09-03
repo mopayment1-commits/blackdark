@@ -2,11 +2,22 @@
 
 **Date:** 2026-09-03  
 **Branch:** `cursor/batch-04-151-200-e85e`  
-**Phase:** BUILD PHASE OPEN — **NOT** `LOCAL_GOVERNANCE_COMPLETE`  
+**Phase:** **BUILD_PHASE_HOLD** — owner build approval **not granted**  
 **Live:** `AWAITING_DEPLOY` — **NOT** `LIVE_READY`  
 **Batch05 (201+):** **BLOCKED**
 
 هذه المرحلة = بناء spine + قبول مسبق + اختبارات محلية فقط. لا إعلان اكتمال حوكمة · لا Batch05 · لا جاهزية حية 100%.
+
+---
+
+## Owner gaps 4–7 closure (2026-09-03)
+
+| Gap | Item | Status |
+|-----|------|--------|
+| 4 | #200 regression — batch04 spine SLSA fix | ✅ 507/507 pytest exit 0 |
+| 5 | Type-4 SPLIT-BRAIN (10 IDs × 5 symbols) | ✅ 50/50 DIFFERENCE — see `docs/BATCH04_SPLIT_BRAIN_TYPE4_CONTRACT.json` |
+| 6 | ADR corrections + owner decisions on disk | ✅ `docs/ADR_BATCH04_CANONICAL_BLOCKERS_103_130.md` |
+| 7 | RTM #159/#183 owner decisions | ✅ `docs/BATCH04_RTM_151_200.json` |
 
 ---
 
@@ -16,38 +27,27 @@
 |--------|------:|
 | NOT_COMPLETE | 49 |
 | OVERLAP-PARTIAL (#175) | 1 |
-| PENDING_CANONICAL_AUDIT | 2 (159, 183) |
-| PA CANDIDATE_REVIEW | 7 |
-| PA CANDIDATE_DEFERRED (template) | 40 |
+| Blocker NOT_COMPLETE (#159, #183) | 2 |
 | PRODUCTION-ALIGNED | 0 |
 
 ```
 batch04_independent = 0
 progress_826        = 148
+build_phase         = BUILD_PHASE_HOLD
 ```
 
 ---
 
-## Latest Deliverables
+## Pytest proof
 
-| Artifact | Purpose |
-|----------|---------|
-| `scripts/verify_entitlement_batch04_gateway_proof.py` | Gateway proof (10 cases) |
-| `tests/cap646/test_batch04_gateway_canonical_entitlement_contract.py` | CI contract |
-| `docs/BATCH04_ENTITLEMENT_GATEWAY_PROOF.json` | Proof output |
-| `docs/BATCH04_GATEWAY_CANONICAL_ENTITLEMENT_PROOF.json` | Behavior doc |
-| `scripts/generate_batch04_pa_closure_registry.py` | PA registry generator |
-| `docs/BATCH04_PA_CLOSURE_REGISTRY.json` | Per-ID PA phases (0 PA) |
-| `docs/BATCH04_BLOCKER_ESCALATION_OWNER.md` | Owner escalation |
-| `docs/BATCH04_GATE_ZERO_CHECKLIST.md` | Prepared — NOT executed |
-| `docs/BATCH04_INSTITUTIONAL_PROGRESS_REPORT.md` | Full institutional report |
+```
+Batch01+02+03 non-regression: 507 collected, 507 passed, exit_code=0
+test_batch04_split_brain_type4_contract.py: 51 passed
+test_batch04_prep_dedicated.py: 110 passed
+```
 
 ---
 
-## Pytest
+## SPLIT-BRAIN recommendation (initial)
 
-```
-test_batch04_gateway_canonical_entitlement_contract.py — PASS
-test_batch04_prep_dedicated.py — 110 PASS
-test_batch04_* + batch03 non-regression — PASS
-```
+50/50 Type-4 comparisons show **DIFFERENCE** between catalog-aligned batch04 spine and bd_platform hero semantics. This is architectural SPLIT-BRAIN (hero ID suffix ≠ catalog goal), not accidental duplication. Recommend **batch-level TIME ADR** (Tolerate during Strangler Fig migration) — not collective REUSED-LINK promotion without behavioral Type-4 match.

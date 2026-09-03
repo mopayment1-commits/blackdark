@@ -319,14 +319,14 @@
           "condition": "== expected_surface"
         },
         {
-          "field": "catalog_link.duplicate_of",
+          "field": "api_data_platform.canonical_overlap",
           "type": "numeric",
           "condition": "== 103"
         },
         {
-          "field": "catalog_link.classification",
+          "field": "api_data_platform.canonical_status",
           "type": "enum",
-          "condition": "== REUSED-LINK"
+          "condition": "== OVERLAP-PARTIAL"
         },
         {
           "field": "api_data_platform.institutional_api",
@@ -335,17 +335,17 @@
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "Canonical+Alias \u2014 entitlement/runtime on canonical #103",
+      "build_decision": "NOT_COMPLETE suspended — await #103 maturity or DISTINCT ADR",
       "hero_underlying": "bd_platform.intelligence_analysis_layer.compute_gas_volatility_profile_159",
       "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
-      "notes": "PENDING_CANONICAL_AUDIT \u2014 canonical #103 not PRODUCTION-ALIGNED; REUSED-LINK not final",
+      "notes": "BLOCKER-159-103 owner decision: NOT_COMPLETE — no REUSED-LINK until #103 matures (Tolerate 2026-10-03)",
       "pending_canonical_audit": "BLOCKER-159-103",
       "duplicate_candidates": [
         {
           "pair": "159\u2194103",
           "scope": "151-200 vs 1-150",
-          "classification": "DUPLICATE-CONFIRMED\u2192REUSED-LINK",
-          "evidence": "REPEAT_CANONICAL[API Data Platform]=103; gap DUPLICATE/ALREADY_COVERED"
+          "classification": "NOT_COMPLETE",
+          "evidence": "Canonical #103 OVERLAP-PARTIAL on batch01 — REUSED-LINK blocked"
         }
       ]
     },
@@ -1217,33 +1217,28 @@
           "condition": "== expected_surface"
         },
         {
-          "field": "catalog_link.duplicate_of",
-          "type": "numeric",
-          "condition": "== 130"
-        },
-        {
-          "field": "catalog_link.classification",
-          "type": "enum",
-          "condition": "== REUSED-LINK"
-        },
-        {
           "field": "whale_transaction.risk_score",
           "type": "numeric",
           "condition": ">= 0"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== NOT_COMPLETE"
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "build_decision": "DISTINCT-only Option B approved — no REUSED-LINK to #130",
       "hero_underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
       "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
-      "notes": "PENDING_CANONICAL_AUDIT \u2014 DISTINCT whale payload; canonical #130 not PRODUCTION-ALIGNED",
+      "notes": "BLOCKER-183-130 owner decision: DISTINCT whale payload; #130 PRODUCTION-ALIGNED in Batch03 untouched",
       "pending_canonical_audit": "BLOCKER-183-130",
       "duplicate_candidates": [
         {
-          "pair": "183\u2194underlying",
-          "scope": "hero layer",
-          "classification": "REUSED-LINK candidate",
-          "evidence": "bd_platform.onchain_platform_layer.transaction_risk_insight_130"
+          "pair": "183\u2194130",
+          "scope": "151-200 vs 1-150",
+          "classification": "NOT_COMPLETE",
+          "evidence": "Semantic mismatch whale vs mindshare — REUSED-LINK rejected"
         }
       ]
     },
