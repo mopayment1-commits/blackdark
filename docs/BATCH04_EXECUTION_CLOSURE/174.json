@@ -1,42 +1,69 @@
 {
   "capability_id": 174,
-  "capability_name": "Alpha Narratives Intelligence",
-  "generated_at": "2026-09-03T18:31:37.517301+00:00",
-  "branch": "cursor/batch-04-151-200-e85e",
-  "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b",
-  "classification": "Stub-Template",
-  "duplication": "DISTINCT",
-  "time_decision": "TOLERATE",
-  "canonical_module": "cap646.batch04_dedicated._cap174",
-  "hero_underlying": "bd_platform.risk_infrastructure_layer.full_white_label_status_174",
-  "ai_classification": "N/A",
-  "gates": {
-    "gate3_requirement_contract": {
-      "expected_output": "alpha_narratives_intelligence",
-      "acceptance_ref": "docs/BATCH04_ACCEPTANCE_151_200.json#174"
+  "name": "Alpha Narratives Intelligence",
+  "expected_surface": "alpha_narratives_intelligence",
+  "verification": {
+    "input": {
+      "symbol": "BTC",
+      "tier": "pro"
     },
-    "gate5_iso25010": {
+    "expected_output": "alpha_narratives_intelligence",
+    "actual_output": "alpha_narratives_intelligence",
+    "comparison": "PASS",
+    "evidence": "runtime execute_capability(174) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+  },
+  "functional_completeness": "PASS",
+  "functional_correctness": "PASS",
+  "functional_appropriateness": "PASS",
+  "duplication": {
+    "classification": "DISTINCT",
+    "compared_id": null,
+    "canonical": "cap646.batch04_dedicated._cap174",
+    "accounting": "Independent batch04"
+  },
+  "time_decision": "TOLERATE",
+  "time_expiry": "2026-12-03",
+  "architecture": {
+    "path": "execute_capability(174) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap174",
+    "route": "/api/cap646/174",
+    "spine": "batch04"
+  },
+  "hero": {
+    "applicable": true,
+    "hero_id": "H6"
+  },
+  "ai_classification": "N/A",
+  "local_state": "ENGINEERING_VERIFIED_LOCAL",
+  "production_state": "AWAITING_DEPLOY",
+  "performance_ms": 102.63,
+  "five_column_closure": {
+    "column_1_internal_goal": {
       "completeness": "PASS",
       "correctness": "PASS",
       "appropriateness": "PASS"
     },
-    "gate6_integration": {
-      "path": "execute_capability(174) \u2192 batch04_production \u2192 batch04_dedicated",
-      "api_path": "/api/cap646/174"
+    "column_2_external_result": {
+      "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#174",
+      "expected_output": "alpha_narratives_intelligence",
+      "actual_output": "alpha_narratives_intelligence",
+      "comparison": "PASS"
     },
-    "gate7_verification": {
-      "tests": [
-        "tests/cap646/test_batch04_prep_dedicated.py",
-        "tests/cap646/test_batch04_cap152_200_execution.py"
-      ]
+    "column_3_interface": {
+      "path": "execute_capability(174) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap174",
+      "route": "/api/cap646/174",
+      "spine": "batch04"
     },
-    "gate14_local_vs_live": {
-      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
-      "production_status": "AWAITING_DEPLOY"
+    "column_4_security_quality": {
+      "entitlement": "fail-closed verified",
+      "tests": "test_batch04_prep_dedicated + corrective"
+    },
+    "column_5_review": {
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "blockers": "Independent batch04"
     }
   },
-  "closure_status": "ENGINEERING_VERIFIED_LOCAL",
-  "production_aligned": false,
-  "batch04_independent": false,
-  "blocker": null
+  "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "generated_at": "2026-09-03T20:23:14.602286+00:00"
 }

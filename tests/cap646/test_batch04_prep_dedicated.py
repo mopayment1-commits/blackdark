@@ -62,7 +62,7 @@ async def test_batch04_catalog_aligned_have_domain_payload(capability_id: int):
     if capability_id == 183:
         assert "whale_transaction" in result
         assert result["whale_transaction"]["risk_score"] >= 0
-        assert result.get("classification") == "NOT_COMPLETE"
+        assert result["whale_transaction"]["distinct_from_130"]["reused_link"] is False
     elif capability_id == 159:
         assert result.get("blocker") == "BLOCKER-159-103"
         assert result["api_data_platform"]["canonical_status"] == "OVERLAP-PARTIAL"

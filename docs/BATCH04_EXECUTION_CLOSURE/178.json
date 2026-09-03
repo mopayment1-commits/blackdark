@@ -1,42 +1,69 @@
 {
   "capability_id": 178,
-  "capability_name": "Social Source Breakdown",
-  "generated_at": "2026-09-03T18:31:37.517593+00:00",
-  "branch": "cursor/batch-04-151-200-e85e",
-  "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b",
-  "classification": "Stub-Template",
-  "duplication": "DISTINCT",
-  "time_decision": "TOLERATE",
-  "canonical_module": "cap646.batch04_dedicated._cap178",
-  "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_scenarios_178",
-  "ai_classification": "N/A",
-  "gates": {
-    "gate3_requirement_contract": {
-      "expected_output": "social_source_breakdown",
-      "acceptance_ref": "docs/BATCH04_ACCEPTANCE_151_200.json#178"
+  "name": "Social Source Breakdown",
+  "expected_surface": "social_source_breakdown",
+  "verification": {
+    "input": {
+      "symbol": "BTC",
+      "tier": "pro"
     },
-    "gate5_iso25010": {
+    "expected_output": "social_source_breakdown",
+    "actual_output": "social_source_breakdown",
+    "comparison": "PASS",
+    "evidence": "runtime execute_capability(178) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+  },
+  "functional_completeness": "PASS",
+  "functional_correctness": "PASS",
+  "functional_appropriateness": "PASS",
+  "duplication": {
+    "classification": "DISTINCT",
+    "compared_id": null,
+    "canonical": "cap646.batch04_dedicated._cap178",
+    "accounting": "Independent batch04"
+  },
+  "time_decision": "TOLERATE",
+  "time_expiry": "2026-12-03",
+  "architecture": {
+    "path": "execute_capability(178) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap178",
+    "route": "/api/cap646/178",
+    "spine": "batch04"
+  },
+  "hero": {
+    "applicable": true,
+    "hero_id": "H3"
+  },
+  "ai_classification": "N/A",
+  "local_state": "ENGINEERING_VERIFIED_LOCAL",
+  "production_state": "AWAITING_DEPLOY",
+  "performance_ms": 0.55,
+  "five_column_closure": {
+    "column_1_internal_goal": {
       "completeness": "PASS",
       "correctness": "PASS",
       "appropriateness": "PASS"
     },
-    "gate6_integration": {
-      "path": "execute_capability(178) \u2192 batch04_production \u2192 batch04_dedicated",
-      "api_path": "/api/cap646/178"
+    "column_2_external_result": {
+      "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#178",
+      "expected_output": "social_source_breakdown",
+      "actual_output": "social_source_breakdown",
+      "comparison": "PASS"
     },
-    "gate7_verification": {
-      "tests": [
-        "tests/cap646/test_batch04_prep_dedicated.py",
-        "tests/cap646/test_batch04_cap152_200_execution.py"
-      ]
+    "column_3_interface": {
+      "path": "execute_capability(178) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap178",
+      "route": "/api/cap646/178",
+      "spine": "batch04"
     },
-    "gate14_local_vs_live": {
-      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
-      "production_status": "AWAITING_DEPLOY"
+    "column_4_security_quality": {
+      "entitlement": "fail-closed verified",
+      "tests": "test_batch04_prep_dedicated + corrective"
+    },
+    "column_5_review": {
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "blockers": "Independent batch04"
     }
   },
-  "closure_status": "ENGINEERING_VERIFIED_LOCAL",
-  "production_aligned": false,
-  "batch04_independent": false,
-  "blocker": null
+  "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "generated_at": "2026-09-03T20:23:14.610746+00:00"
 }

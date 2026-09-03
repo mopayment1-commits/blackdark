@@ -1,42 +1,69 @@
 {
   "capability_id": 159,
-  "capability_name": "API Data Platform",
-  "generated_at": "2026-09-03T18:31:37.516204+00:00",
-  "branch": "cursor/batch-04-151-200-e85e",
-  "implementation_commit": "537cb5e2b3a5fbfa1fde394bf635b8e19af94c8b",
-  "classification": "Brownfield",
-  "duplication": "DISTINCT",
-  "time_decision": "MIGRATE",
-  "canonical_module": "cap646.batch04_dedicated._cap159",
-  "hero_underlying": "bd_platform.intelligence_analysis_layer.compute_gas_volatility_profile_159",
+  "name": "API Data Platform",
+  "expected_surface": "api_data_platform",
+  "verification": {
+    "input": {
+      "symbol": "BTC",
+      "tier": "pro"
+    },
+    "expected_output": "api_data_platform",
+    "actual_output": "api_data_platform",
+    "comparison": "PASS",
+    "evidence": "runtime execute_capability(159) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+  },
+  "functional_completeness": "FAIL",
+  "functional_correctness": "FAIL",
+  "functional_appropriateness": "FAIL",
+  "duplication": {
+    "classification": "OVERLAP-PARTIAL",
+    "compared_id": 103,
+    "canonical": "batch03 #103",
+    "accounting": "NOT_COMPLETE until #103 matures or DISTINCT ADR"
+  },
+  "time_decision": "TOLERATE",
+  "time_expiry": "2026-10-03",
+  "architecture": {
+    "path": "execute_capability(159) \u2192 batch04_production \u2192 batch04_dedicated._cap159",
+    "route": "/api/cap646/159",
+    "spine": "batch04"
+  },
+  "hero": {
+    "applicable": true,
+    "hero_id": "H6"
+  },
   "ai_classification": "N/A",
-  "gates": {
-    "gate3_requirement_contract": {
+  "local_state": "NOT_COMPLETE",
+  "production_state": "NOT_COMPLETE",
+  "performance_ms": 0.1,
+  "five_column_closure": {
+    "column_1_internal_goal": {
+      "completeness": "FAIL",
+      "correctness": "FAIL",
+      "appropriateness": "FAIL"
+    },
+    "column_2_external_result": {
+      "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#159",
       "expected_output": "api_data_platform",
-      "acceptance_ref": "docs/BATCH04_ACCEPTANCE_151_200.json#159"
+      "actual_output": "api_data_platform",
+      "comparison": "PASS"
     },
-    "gate5_iso25010": {
-      "completeness": "NOT_COMPLETE",
-      "correctness": "NOT_COMPLETE",
-      "appropriateness": "NOT_COMPLETE"
+    "column_3_interface": {
+      "path": "execute_capability(159) \u2192 batch04_production \u2192 batch04_dedicated._cap159",
+      "route": "/api/cap646/159",
+      "spine": "batch04"
     },
-    "gate6_integration": {
-      "path": "execute_capability(159) \u2192 batch04_production \u2192 batch04_dedicated",
-      "api_path": "/api/cap646/159"
+    "column_4_security_quality": {
+      "entitlement": "fail-closed verified",
+      "tests": "test_batch04_prep_dedicated + corrective"
     },
-    "gate7_verification": {
-      "tests": [
-        "tests/cap646/test_batch04_prep_dedicated.py",
-        "tests/cap646/test_batch04_cap152_200_execution.py"
-      ]
-    },
-    "gate14_local_vs_live": {
-      "engineering_status": "NOT_COMPLETE",
-      "production_status": "NOT_COMPLETE"
+    "column_5_review": {
+      "local_state": "NOT_COMPLETE",
+      "production_state": "NOT_COMPLETE",
+      "blockers": "NOT_COMPLETE until #103 matures or DISTINCT ADR"
     }
   },
-  "closure_status": "NOT_COMPLETE",
-  "production_aligned": false,
-  "batch04_independent": false,
-  "blocker": "BLOCKER-159-103 owner decision: NOT_COMPLETE \u2014 no REUSED-LINK until #103 matures (Tolerate 2026-10-03)"
+  "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "generated_at": "2026-09-03T20:23:14.137779+00:00"
 }

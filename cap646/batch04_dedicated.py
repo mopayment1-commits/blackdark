@@ -193,23 +193,22 @@ async def _cap162(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
 
 async def _cap183(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch04_whale_transaction import build_whale_transaction_intelligence
+
     amount = float(params.get("amount_usd") or params.get("value_usd") or 1_000_000)
-    whale = {
-        "ok": True,
-        "feature_ref": 183,
-        "symbol": symbol,
-        "address": address,
-        "amount_usd": amount,
-        "risk_score": min(100.0, max(0.0, amount / 100_000)),
-        "classification": "whale_transaction",
-        "owner_decision": "DISTINCT-only Option B — no REUSED-LINK to #130; #130 stays PRODUCTION-ALIGNED in Batch03",
-    }
+    flow = str(params.get("flow_direction") or params.get("direction") or "unknown")
+    whale = build_whale_transaction_intelligence(
+        symbol=symbol,
+        address=address,
+        amount_usd=amount,
+        flow_direction=flow,
+        block_timestamp=params.get("block_timestamp"),
+    )
     return _wrap(
         183,
         symbol=symbol,
         payload_key="whale_transaction",
         payload=whale,
-        extra={"classification": "NOT_COMPLETE", "blocker": "BLOCKER-183-130"},
     )
 
 

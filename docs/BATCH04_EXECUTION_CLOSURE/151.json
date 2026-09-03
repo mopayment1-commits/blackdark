@@ -1,80 +1,69 @@
 {
   "capability_id": 151,
-  "capability_name": "Quarterly Protocol Performance Reports",
-  "generated_at": "2026-09-03T18:15:00+00:00",
-  "branch": "cursor/batch-04-151-200-e85e",
-  "baseline_commit": "cf475c9",
-  "implementation_commit": "728b59a",
-  "gates": {
-    "gate0_continuity": {
-      "status": "PASS",
-      "evidence": "docs/BATCH04_EXECUTION_GATE0_RECONCILIATION.md — #149/#150 PRODUCTION-ALIGNED batch03"
+  "name": "Quarterly Protocol Performance Reports",
+  "expected_surface": "quarterly_protocol_performance_reports",
+  "verification": {
+    "input": {
+      "symbol": "BTC",
+      "tier": "pro"
     },
-    "gate1_classification": {
-      "classification": "BROWNFIELD",
-      "evidence": [
-        "bd_platform.data_sources_layer.explain_opportunity_151",
-        "bd_platform.data_sources_layer.ingest_defillama_149",
-        "cap646/batch04_dedicated.py::_cap151"
-      ],
-      "prior_matrix": "Brownfield (confirmed)"
+    "expected_output": "quarterly_protocol_performance_reports",
+    "actual_output": "quarterly_protocol_performance_reports",
+    "comparison": "PASS",
+    "evidence": "runtime execute_capability(151) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+  },
+  "functional_completeness": "PASS",
+  "functional_correctness": "PASS",
+  "functional_appropriateness": "PASS",
+  "duplication": {
+    "classification": "OVERLAP-PARTIAL",
+    "compared_id": "hero-layer",
+    "canonical": "cap646.batch04_dedicated._cap151",
+    "accounting": "Strangler migration pending"
+  },
+  "time_decision": "MIGRATE",
+  "time_expiry": "2026-12-03",
+  "architecture": {
+    "path": "execute_capability(151) \u2192 batch04_production \u2192 batch04_dedicated._cap151",
+    "route": "/api/cap646/151",
+    "spine": "batch04"
+  },
+  "hero": {
+    "applicable": true,
+    "hero_id": "H6"
+  },
+  "ai_classification": "N/A",
+  "local_state": "ENGINEERING_VERIFIED_LOCAL",
+  "production_state": "AWAITING_DEPLOY",
+  "performance_ms": 2.84,
+  "five_column_closure": {
+    "column_1_internal_goal": {
+      "completeness": "PASS",
+      "correctness": "PASS",
+      "appropriateness": "PASS"
     },
-    "gate2_duplication": {
-      "functional": "OVERLAP_PARTIAL",
-      "functional_evidence": "Hero explain_opportunity shares inputs with quarterly report but catalog goal is institutional quarterly protocol review",
-      "implementation": "Type-4 SPLIT-BRAIN — hero semantic ≠ catalog surface",
-      "time_decision": "MIGRATE",
-      "time_expiry": "2026-12-03",
-      "canonical_target": "cap646.batch04_dedicated._cap151",
-      "migrate_trigger": "Catalog-faithful quarterly payload replaces hero-only semantics"
+    "column_2_external_result": {
+      "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#151",
+      "expected_output": "quarterly_protocol_performance_reports",
+      "actual_output": "quarterly_protocol_performance_reports",
+      "comparison": "PASS"
     },
-    "gate3_requirement_contract": {
-      "business_objective": "Institutional quarterly protocol performance summary per symbol",
-      "expected_output": "quarterly_protocol_performance_reports with quarter_label, protocol_tvl_usd, performance_score, quarterly_summary, dimension_breakdown",
-      "acceptance_ref": "docs/BATCH04_ACCEPTANCE_151_200.json#151",
-      "failure_behavior": "success=false with error payload via runtime exception path"
+    "column_3_interface": {
+      "path": "execute_capability(151) \u2192 batch04_production \u2192 batch04_dedicated._cap151",
+      "route": "/api/cap646/151",
+      "spine": "batch04"
     },
-    "gate5_iso25010": {
-      "completeness": "PASS — quarterly period, TVL, performance score, breakdown present",
-      "correctness": "PASS — domain rules + dedicated tests",
-      "appropriateness": "PASS — not generic stub; transforms hero+defi into quarterly report"
+    "column_4_security_quality": {
+      "entitlement": "fail-closed verified",
+      "tests": "test_batch04_prep_dedicated + corrective"
     },
-    "gate6_integration": {
-      "path": "execute_capability(151) → batch04_production → batch04_dedicated._cap151 → batch04_quarterly_protocol",
-      "api_path": "/api/cap646/151",
-      "runtime_registration": "BATCH04_IDS in cap646.runtime"
-    },
-    "gate7_verification": {
-      "tests": [
-        "tests/cap646/test_batch04_cap151_quarterly_protocol.py",
-        "tests/cap646/test_batch04_prep_dedicated.py (parametrized 151)"
-      ],
-      "non_regression": "507/507 batch01-03 unchanged"
-    },
-    "gate12_performance": {
-      "classification": "analysis/calculation",
-      "threshold_ms": 2000,
-      "p50_ms": 1.45,
-      "p95_ms": 2.94,
-      "samples": 5,
-      "environment": "local CI",
-      "result": "PASS"
-    },
-    "gate13_five_column_closure": {
-      "internal_goal": "Quarterly protocol report with TVL + scored dimensions — ISO 25010 appropriateness met",
-      "external_result": "Expected vs actual domain rules pass; quarter_label + protocol_tvl_usd > 0",
-      "interface_access": "runtime + /api/cap646/151; local tests pass",
-      "security_quality": "entitlement fail-closed test; batch03 gateway contract unchanged",
-      "review_readiness": "LOCAL_REVIEW — independent reviewer can replay tests/cap646/test_batch04_cap151_quarterly_protocol.py"
-    },
-    "gate14_local_vs_live": {
-      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
-      "production_status": "AWAITING_DEPLOY",
-      "railway_blocker": "account compute hard limit"
+    "column_5_review": {
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "blockers": "Strangler migration pending"
     }
   },
-  "closure_status": "NOT_COMPLETE",
-  "production_aligned": false,
-  "batch04_independent": false,
-  "notes": "Engineering verified locally; NOT PRODUCTION-ALIGNED until owner build approval + live verification campaign"
+  "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "generated_at": "2026-09-03T20:23:13.751143+00:00"
 }

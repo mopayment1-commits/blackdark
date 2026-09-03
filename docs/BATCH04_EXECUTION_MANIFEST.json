@@ -2,7 +2,7 @@
   "generated_at": "2026-09-03T18:15:00+00:00",
   "branch": "cursor/batch-04-151-200-e85e",
   "baseline_commit": "cf475c9",
-  "latest_commit": "e78c3e2",
+  "latest_commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e",
   "build_phase": "BUILD_PHASE_HOLD",
   "execution_authorized": "Batch04 capabilities 151-200 only",
   "gate0": "docs/BATCH04_EXECUTION_GATE0_RECONCILIATION.md",
@@ -41,6 +41,7 @@
     180,
     181,
     182,
+    183,
     184,
     185,
     186,
@@ -61,8 +62,7 @@
   ],
   "in_progress": null,
   "pending": [
-    159,
-    183
+    159
   ],
   "awaiting_deploy_backlog": [
     {
@@ -501,5 +501,6 @@
     "198": "docs/BATCH04_EXECUTION_CLOSURE/198.json",
     "199": "docs/BATCH04_EXECUTION_CLOSURE/199.json",
     "200": "docs/BATCH04_EXECUTION_CLOSURE/200.json"
-  }
+  },
+  "build_phase_semantics": "BUILD_PHASE_HOLD: local engineering implementation+verification permitted; production PA, LIVE_READY, INSTITUTIONAL_CLOSED frozen until owner approval + Railway"
 }

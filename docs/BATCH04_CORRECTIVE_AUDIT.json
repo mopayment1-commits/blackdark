@@ -1,0 +1,3521 @@
+{
+  "generated_at": "2026-09-03T20:23:14.641238+00:00",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e",
+  "baseline": "cf475c9",
+  "claim_audit": {
+    "branch_contradiction": {
+      "claim": "evidence on cursor/reused-link-batch05-e85e",
+      "verdict": "STALE_UI_REFERENCE",
+      "evidence": "All artifacts at cursor/batch-04-151-200-e85e @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e; batch05 branch exists but Batch04 work not performed there"
+    },
+    "hero_bridge_count": {
+      "claimed": 43,
+      "verified_runtime": 43,
+      "verified_defined": 45,
+      "verdict": "PARTIAL \u2014 previous report omitted 161/162 binding definitions"
+    },
+    "overlap_count": {
+      "claimed": 5,
+      "verified": 5,
+      "verdict": "INCORRECT \u2014 #175 is DUPLICATE_CONFIRMED not OVERLAP_PARTIAL"
+    },
+    "type4_split_brain": {
+      "verdict": "50 comparisons DIFFERENCE \u2014 Type-4 equality NOT confirmed; not 50 split-brain conditions"
+    },
+    "build_phase_hold": "Local engineering allowed; production PA and institutional closure frozen"
+  },
+  "counts": {
+    "total_processed": 50,
+    "ENGINEERING_VERIFIED_LOCAL": 48,
+    "ENGINEERING_VERIFIED_LOCAL_ids": [
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199,
+      200
+    ],
+    "NOT_COMPLETE": 1,
+    "NOT_COMPLETE_ids": [
+      159
+    ],
+    "REUSED_ALIAS": 2,
+    "REUSED_ALIAS_ids": [
+      162,
+      175
+    ],
+    "OVERLAP_PARTIAL": 5,
+    "OVERLAP_PARTIAL_ids": [
+      151,
+      152,
+      153,
+      156,
+      159
+    ],
+    "DUPLICATE_CONFIRMED": 1,
+    "DUPLICATE_CONFIRMED_ids": [
+      175
+    ],
+    "DISTINCT": 43,
+    "AWAITING_DEPLOY": 48,
+    "independent_canonical_count": 0,
+    "batch04_independent": 0,
+    "progress_826": 148
+  },
+  "hero_reconciliation": {
+    "total_ids": 50,
+    "dispatch_override": [
+      151,
+      159,
+      161,
+      162,
+      183,
+      189
+    ],
+    "hero_bridge_runtime": [
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      160,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      184,
+      185,
+      186,
+      187,
+      188,
+      190,
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199,
+      200
+    ],
+    "batch01_overlap": [
+      175
+    ],
+    "hero_bindings_defined": 45,
+    "note": "45 bindings in batch04_hero_bridge.py; 43 used at runtime (161,162 in bindings but overridden); 6 dispatch overrides; 1 batch01 overlap"
+  },
+  "per_id": [
+    {
+      "capability_id": 151,
+      "name": "Quarterly Protocol Performance Reports",
+      "expected_surface": "quarterly_protocol_performance_reports",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "quarterly_protocol_performance_reports",
+        "actual_output": "quarterly_protocol_performance_reports",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(151) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "OVERLAP-PARTIAL",
+        "compared_id": "hero-layer",
+        "canonical": "cap646.batch04_dedicated._cap151",
+        "accounting": "Strangler migration pending"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(151) \u2192 batch04_production \u2192 batch04_dedicated._cap151",
+        "route": "/api/cap646/151",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 2.84,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#151",
+          "expected_output": "quarterly_protocol_performance_reports",
+          "actual_output": "quarterly_protocol_performance_reports",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(151) \u2192 batch04_production \u2192 batch04_dedicated._cap151",
+          "route": "/api/cap646/151",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Strangler migration pending"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 152,
+      "name": "Governance & Proposal Intelligence",
+      "expected_surface": "governance_proposal_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "governance_proposal_intelligence",
+        "actual_output": "governance_proposal_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(152) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "OVERLAP-PARTIAL",
+        "compared_id": "hero-layer",
+        "canonical": "cap646.batch04_dedicated._cap152",
+        "accounting": "Strangler migration pending"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(152) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap152",
+        "route": "/api/cap646/152",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 2.1,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#152",
+          "expected_output": "governance_proposal_intelligence",
+          "actual_output": "governance_proposal_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(152) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap152",
+          "route": "/api/cap646/152",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Strangler migration pending"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 153,
+      "name": "Project Monitoring Coverage Registry",
+      "expected_surface": "project_monitoring_coverage_registry",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "project_monitoring_coverage_registry",
+        "actual_output": "project_monitoring_coverage_registry",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(153) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "OVERLAP-PARTIAL",
+        "compared_id": "hero-layer",
+        "canonical": "cap646.batch04_dedicated._cap153",
+        "accounting": "Strangler migration pending"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(153) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap153",
+        "route": "/api/cap646/153",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 6.44,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#153",
+          "expected_output": "project_monitoring_coverage_registry",
+          "actual_output": "project_monitoring_coverage_registry",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(153) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap153",
+          "route": "/api/cap646/153",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Strangler migration pending"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 154,
+      "name": "AI Crypto Copilot",
+      "expected_surface": "ai_crypto_copilot",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "ai_crypto_copilot",
+        "actual_output": "ai_crypto_copilot",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(154) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap154",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(154) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap154",
+        "route": "/api/cap646/154",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "rule-based",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.62,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#154",
+          "expected_output": "ai_crypto_copilot",
+          "actual_output": "ai_crypto_copilot",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(154) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap154",
+          "route": "/api/cap646/154",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 155,
+      "name": "AI Deep Research",
+      "expected_surface": "ai_deep_research",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "ai_deep_research",
+        "actual_output": "ai_deep_research",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(155) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap155",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(155) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap155",
+        "route": "/api/cap646/155",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H3"
+      },
+      "ai_classification": "rule-based",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 149.22,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#155",
+          "expected_output": "ai_deep_research",
+          "actual_output": "ai_deep_research",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(155) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap155",
+          "route": "/api/cap646/155",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 156,
+      "name": "Crypto Knowledge Graph",
+      "expected_surface": "crypto_knowledge_graph",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "crypto_knowledge_graph",
+        "actual_output": "crypto_knowledge_graph",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(156) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "OVERLAP-PARTIAL",
+        "compared_id": "hero-layer",
+        "canonical": "cap646.batch04_dedicated._cap156",
+        "accounting": "Strangler migration pending"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(156) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap156",
+        "route": "/api/cap646/156",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.91,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#156",
+          "expected_output": "crypto_knowledge_graph",
+          "actual_output": "crypto_knowledge_graph",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(156) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap156",
+          "route": "/api/cap646/156",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Strangler migration pending"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 157,
+      "name": "Research Library",
+      "expected_surface": "research_library",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "research_library",
+        "actual_output": "research_library",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(157) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap157",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(157) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap157",
+        "route": "/api/cap646/157",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 102.13,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#157",
+          "expected_output": "research_library",
+          "actual_output": "research_library",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(157) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap157",
+          "route": "/api/cap646/157",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 158,
+      "name": "Institutional Research Feed",
+      "expected_surface": "institutional_research_feed",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "institutional_research_feed",
+        "actual_output": "institutional_research_feed",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(158) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap158",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(158) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap158",
+        "route": "/api/cap646/158",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 123.21,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#158",
+          "expected_output": "institutional_research_feed",
+          "actual_output": "institutional_research_feed",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(158) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap158",
+          "route": "/api/cap646/158",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 159,
+      "name": "API Data Platform",
+      "expected_surface": "api_data_platform",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "api_data_platform",
+        "actual_output": "api_data_platform",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(159) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "FAIL",
+      "functional_correctness": "FAIL",
+      "functional_appropriateness": "FAIL",
+      "duplication": {
+        "classification": "OVERLAP-PARTIAL",
+        "compared_id": 103,
+        "canonical": "batch03 #103",
+        "accounting": "NOT_COMPLETE until #103 matures or DISTINCT ADR"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-10-03",
+      "architecture": {
+        "path": "execute_capability(159) \u2192 batch04_production \u2192 batch04_dedicated._cap159",
+        "route": "/api/cap646/159",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "NOT_COMPLETE",
+      "production_state": "NOT_COMPLETE",
+      "performance_ms": 0.1,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "FAIL",
+          "correctness": "FAIL",
+          "appropriateness": "FAIL"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#159",
+          "expected_output": "api_data_platform",
+          "actual_output": "api_data_platform",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(159) \u2192 batch04_production \u2192 batch04_dedicated._cap159",
+          "route": "/api/cap646/159",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "NOT_COMPLETE",
+          "production_state": "NOT_COMPLETE",
+          "blockers": "NOT_COMPLETE until #103 matures or DISTINCT ADR"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 160,
+      "name": "Pay-Per-Request Data Access",
+      "expected_surface": "pay_per_request_data_access",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "pay_per_request_data_access",
+        "actual_output": "pay_per_request_data_access",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(160) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap160",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(160) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap160",
+        "route": "/api/cap646/160",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H3"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.82,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#160",
+          "expected_output": "pay_per_request_data_access",
+          "actual_output": "pay_per_request_data_access",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(160) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap160",
+          "route": "/api/cap646/160",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 161,
+      "name": "Institutional Data Delivery & Entitlements",
+      "expected_surface": "institutional_data_delivery_entitlements",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "institutional_data_delivery_entitlements",
+        "actual_output": "institutional_data_delivery_entitlements",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(161) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap161",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(161) \u2192 batch04_production \u2192 batch04_dedicated._cap161",
+        "route": "/api/cap646/161",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 1.95,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#161",
+          "expected_output": "institutional_data_delivery_entitlements",
+          "actual_output": "institutional_data_delivery_entitlements",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(161) \u2192 batch04_production \u2192 batch04_dedicated._cap161",
+          "route": "/api/cap646/161",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 162,
+      "name": "Evidence & Provenance Layer",
+      "expected_surface": "evidence_provenance_layer",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "evidence_provenance_layer",
+        "actual_output": "evidence_provenance_layer",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(162) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "REUSED-LINK",
+        "compared_id": 106,
+        "canonical": "cap646.batch03 #106",
+        "accounting": "REUSED_ALIAS \u2014 not independent batch04"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(162) \u2192 batch04_production \u2192 batch04_dedicated._cap162",
+        "route": "/api/cap646/162",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": false,
+        "hero_id": null
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.72,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#162",
+          "expected_output": "evidence_provenance_layer",
+          "actual_output": "evidence_provenance_layer",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(162) \u2192 batch04_production \u2192 batch04_dedicated._cap162",
+          "route": "/api/cap646/162",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "REUSED_ALIAS \u2014 not independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 163,
+      "name": "Cross-Domain Research-to-Decision Intelligence",
+      "expected_surface": "cross_domain_research_to_decision_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "cross_domain_research_to_decision_intelligence",
+        "actual_output": "cross_domain_research_to_decision_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(163) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap163",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(163) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap163",
+        "route": "/api/cap646/163",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "rule-based",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 120.47,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#163",
+          "expected_output": "cross_domain_research_to_decision_intelligence",
+          "actual_output": "cross_domain_research_to_decision_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(163) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap163",
+          "route": "/api/cap646/163",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 164,
+      "name": "Token Unlock Actionability Score",
+      "expected_surface": "token_unlock_actionability_score",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "token_unlock_actionability_score",
+        "actual_output": "token_unlock_actionability_score",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(164) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap164",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(164) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap164",
+        "route": "/api/cap646/164",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H3"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.7,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#164",
+          "expected_output": "token_unlock_actionability_score",
+          "actual_output": "token_unlock_actionability_score",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(164) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap164",
+          "route": "/api/cap646/164",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 165,
+      "name": "Fundraising Momentum Score",
+      "expected_surface": "fundraising_momentum_score",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "fundraising_momentum_score",
+        "actual_output": "fundraising_momentum_score",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(165) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap165",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(165) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap165",
+        "route": "/api/cap646/165",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.56,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#165",
+          "expected_output": "fundraising_momentum_score",
+          "actual_output": "fundraising_momentum_score",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(165) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap165",
+          "route": "/api/cap646/165",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 166,
+      "name": "Research Confidence Score",
+      "expected_surface": "research_confidence_score",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "research_confidence_score",
+        "actual_output": "research_confidence_score",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(166) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap166",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(166) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap166",
+        "route": "/api/cap646/166",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 112.49,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#166",
+          "expected_output": "research_confidence_score",
+          "actual_output": "research_confidence_score",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(166) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap166",
+          "route": "/api/cap646/166",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 167,
+      "name": "Social Volume Intelligence",
+      "expected_surface": "social_volume_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "social_volume_intelligence",
+        "actual_output": "social_volume_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(167) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap167",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(167) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap167",
+        "route": "/api/cap646/167",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.61,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#167",
+          "expected_output": "social_volume_intelligence",
+          "actual_output": "social_volume_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(167) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap167",
+          "route": "/api/cap646/167",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 168,
+      "name": "Social Dominance Intelligence",
+      "expected_surface": "social_dominance_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "social_dominance_intelligence",
+        "actual_output": "social_dominance_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(168) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap168",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(168) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap168",
+        "route": "/api/cap646/168",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.55,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#168",
+          "expected_output": "social_dominance_intelligence",
+          "actual_output": "social_dominance_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(168) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap168",
+          "route": "/api/cap646/168",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 169,
+      "name": "Unique Social Volume",
+      "expected_surface": "unique_social_volume",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "unique_social_volume",
+        "actual_output": "unique_social_volume",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(169) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap169",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(169) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap169",
+        "route": "/api/cap646/169",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H3"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.55,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#169",
+          "expected_output": "unique_social_volume",
+          "actual_output": "unique_social_volume",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(169) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap169",
+          "route": "/api/cap646/169",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 170,
+      "name": "Trending Words",
+      "expected_surface": "trending_words",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "trending_words",
+        "actual_output": "trending_words",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(170) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap170",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(170) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap170",
+        "route": "/api/cap646/170",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.52,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#170",
+          "expected_output": "trending_words",
+          "actual_output": "trending_words",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(170) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap170",
+          "route": "/api/cap646/170",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 171,
+      "name": "Trending Coins",
+      "expected_surface": "trending_coins",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "trending_coins",
+        "actual_output": "trending_coins",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(171) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap171",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(171) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap171",
+        "route": "/api/cap646/171",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H1"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.69,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#171",
+          "expected_output": "trending_coins",
+          "actual_output": "trending_coins",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(171) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap171",
+          "route": "/api/cap646/171",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 172,
+      "name": "Historical Crypto Trends",
+      "expected_surface": "historical_crypto_trends",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "historical_crypto_trends",
+        "actual_output": "historical_crypto_trends",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(172) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap172",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(172) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap172",
+        "route": "/api/cap646/172",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.54,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#172",
+          "expected_output": "historical_crypto_trends",
+          "actual_output": "historical_crypto_trends",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(172) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap172",
+          "route": "/api/cap646/172",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 173,
+      "name": "Key Narratives Intelligence",
+      "expected_surface": "key_narratives_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "key_narratives_intelligence",
+        "actual_output": "key_narratives_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(173) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap173",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(173) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap173",
+        "route": "/api/cap646/173",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 117.71,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#173",
+          "expected_output": "key_narratives_intelligence",
+          "actual_output": "key_narratives_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(173) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap173",
+          "route": "/api/cap646/173",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 174,
+      "name": "Alpha Narratives Intelligence",
+      "expected_surface": "alpha_narratives_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "alpha_narratives_intelligence",
+        "actual_output": "alpha_narratives_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(174) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap174",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(174) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap174",
+        "route": "/api/cap646/174",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 102.63,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#174",
+          "expected_output": "alpha_narratives_intelligence",
+          "actual_output": "alpha_narratives_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(174) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap174",
+          "route": "/api/cap646/174",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 175,
+      "name": "Social Sentiment Intelligence",
+      "expected_surface": "sentiment_ai",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "sentiment_ai",
+        "actual_output": "sentiment_ai",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(175) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DUPLICATE_CONFIRMED",
+        "compared_id": "batch01/175",
+        "canonical": "batch01_production",
+        "accounting": "REUSED_ALIAS \u2014 not independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(175) \u2192 batch01_production \u2192 handlers.ai",
+        "route": "/api/cap646/175",
+        "spine": "batch01"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "REUSED_ALIAS",
+      "production_state": "REUSED_ALIAS",
+      "performance_ms": 4.91,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#175",
+          "expected_output": "sentiment_ai",
+          "actual_output": "sentiment_ai",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(175) \u2192 batch01_production \u2192 handlers.ai",
+          "route": "/api/cap646/175",
+          "spine": "batch01"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "REUSED_ALIAS",
+          "production_state": "REUSED_ALIAS",
+          "blockers": "REUSED_ALIAS \u2014 not independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 176,
+      "name": "Weighted Social Sentiment",
+      "expected_surface": "weighted_social_sentiment",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "weighted_social_sentiment",
+        "actual_output": "weighted_social_sentiment",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(176) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap176",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(176) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap176",
+        "route": "/api/cap646/176",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 1.55,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#176",
+          "expected_output": "weighted_social_sentiment",
+          "actual_output": "weighted_social_sentiment",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(176) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap176",
+          "route": "/api/cap646/176",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 177,
+      "name": "Social Sentiment Balance",
+      "expected_surface": "social_sentiment_balance",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "social_sentiment_balance",
+        "actual_output": "social_sentiment_balance",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(177) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap177",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(177) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap177",
+        "route": "/api/cap646/177",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.61,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#177",
+          "expected_output": "social_sentiment_balance",
+          "actual_output": "social_sentiment_balance",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(177) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap177",
+          "route": "/api/cap646/177",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 178,
+      "name": "Social Source Breakdown",
+      "expected_surface": "social_source_breakdown",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "social_source_breakdown",
+        "actual_output": "social_source_breakdown",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(178) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap178",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(178) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap178",
+        "route": "/api/cap646/178",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H3"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.55,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#178",
+          "expected_output": "social_source_breakdown",
+          "actual_output": "social_source_breakdown",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(178) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap178",
+          "route": "/api/cap646/178",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 179,
+      "name": "Development Activity Intelligence",
+      "expected_surface": "development_activity_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "development_activity_intelligence",
+        "actual_output": "development_activity_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(179) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap179",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(179) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap179",
+        "route": "/api/cap646/179",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.63,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#179",
+          "expected_output": "development_activity_intelligence",
+          "actual_output": "development_activity_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(179) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap179",
+          "route": "/api/cap646/179",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 180,
+      "name": "Development Activity Contributors",
+      "expected_surface": "development_activity_contributors",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "development_activity_contributors",
+        "actual_output": "development_activity_contributors",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(180) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap180",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(180) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap180",
+        "route": "/api/cap646/180",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.59,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#180",
+          "expected_output": "development_activity_contributors",
+          "actual_output": "development_activity_contributors",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(180) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap180",
+          "route": "/api/cap646/180",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 181,
+      "name": "Ecosystem Development Dashboard",
+      "expected_surface": "ecosystem_development_dashboard",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "ecosystem_development_dashboard",
+        "actual_output": "ecosystem_development_dashboard",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(181) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap181",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(181) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap181",
+        "route": "/api/cap646/181",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.54,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#181",
+          "expected_output": "ecosystem_development_dashboard",
+          "actual_output": "ecosystem_development_dashboard",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(181) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap181",
+          "route": "/api/cap646/181",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 182,
+      "name": "Developer Activity Change Detection",
+      "expected_surface": "developer_activity_change_detection",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "developer_activity_change_detection",
+        "actual_output": "developer_activity_change_detection",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(182) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap182",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(182) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap182",
+        "route": "/api/cap646/182",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.52,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#182",
+          "expected_output": "developer_activity_change_detection",
+          "actual_output": "developer_activity_change_detection",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(182) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap182",
+          "route": "/api/cap646/182",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 183,
+      "name": "Whale Transaction Intelligence",
+      "expected_surface": "whale_transaction_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "whale_transaction_intelligence",
+        "actual_output": "whale_transaction_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(183) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": 130,
+        "canonical": "cap646.batch04_whale_transaction",
+        "accounting": "Independent \u2014 distinct from #130 swap risk"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(183) \u2192 batch04_production \u2192 batch04_dedicated._cap183",
+        "route": "/api/cap646/183",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.21,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#183",
+          "expected_output": "whale_transaction_intelligence",
+          "actual_output": "whale_transaction_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(183) \u2192 batch04_production \u2192 batch04_dedicated._cap183",
+          "route": "/api/cap646/183",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent \u2014 distinct from #130 swap risk"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 184,
+      "name": "Whale & Shark Holder Cohorts",
+      "expected_surface": "whale_shark_holder_cohorts",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "whale_shark_holder_cohorts",
+        "actual_output": "whale_shark_holder_cohorts",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(184) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap184",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(184) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap184",
+        "route": "/api/cap646/184",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.55,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#184",
+          "expected_output": "whale_shark_holder_cohorts",
+          "actual_output": "whale_shark_holder_cohorts",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(184) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap184",
+          "route": "/api/cap646/184",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 185,
+      "name": "Top Holders Intelligence",
+      "expected_surface": "top_holders_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "top_holders_intelligence",
+        "actual_output": "top_holders_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(185) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap185",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(185) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap185",
+        "route": "/api/cap646/185",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.58,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#185",
+          "expected_output": "top_holders_intelligence",
+          "actual_output": "top_holders_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(185) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap185",
+          "route": "/api/cap646/185",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 186,
+      "name": "Historical Wallet Balance Tool",
+      "expected_surface": "historical_wallet_balance_tool",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "historical_wallet_balance_tool",
+        "actual_output": "historical_wallet_balance_tool",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(186) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap186",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(186) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap186",
+        "route": "/api/cap646/186",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 13.89,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#186",
+          "expected_output": "historical_wallet_balance_tool",
+          "actual_output": "historical_wallet_balance_tool",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(186) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap186",
+          "route": "/api/cap646/186",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 187,
+      "name": "Exchange Inflow Intelligence",
+      "expected_surface": "exchange_inflow_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "exchange_inflow_intelligence",
+        "actual_output": "exchange_inflow_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(187) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap187",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(187) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap187",
+        "route": "/api/cap646/187",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.58,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#187",
+          "expected_output": "exchange_inflow_intelligence",
+          "actual_output": "exchange_inflow_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(187) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap187",
+          "route": "/api/cap646/187",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 188,
+      "name": "Exchange Outflow Intelligence",
+      "expected_surface": "exchange_outflow_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "exchange_outflow_intelligence",
+        "actual_output": "exchange_outflow_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(188) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap188",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(188) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap188",
+        "route": "/api/cap646/188",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.53,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#188",
+          "expected_output": "exchange_outflow_intelligence",
+          "actual_output": "exchange_outflow_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(188) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap188",
+          "route": "/api/cap646/188",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 189,
+      "name": "Exchange Netflow Intelligence",
+      "expected_surface": "exchange_netflow_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "exchange_netflow_intelligence",
+        "actual_output": "exchange_netflow_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(189) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap189",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(189) \u2192 batch04_production \u2192 batch04_dedicated._cap189",
+        "route": "/api/cap646/189",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.91,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#189",
+          "expected_output": "exchange_netflow_intelligence",
+          "actual_output": "exchange_netflow_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(189) \u2192 batch04_production \u2192 batch04_dedicated._cap189",
+          "route": "/api/cap646/189",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 190,
+      "name": "Exchange Supply / Balance Intelligence",
+      "expected_surface": "exchange_supply_balance_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "exchange_supply_balance_intelligence",
+        "actual_output": "exchange_supply_balance_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(190) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap190",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(190) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap190",
+        "route": "/api/cap646/190",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.58,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#190",
+          "expected_output": "exchange_supply_balance_intelligence",
+          "actual_output": "exchange_supply_balance_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(190) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap190",
+          "route": "/api/cap646/190",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 191,
+      "name": "Exchange User Activity",
+      "expected_surface": "exchange_user_activity",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "exchange_user_activity",
+        "actual_output": "exchange_user_activity",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(191) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap191",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(191) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap191",
+        "route": "/api/cap646/191",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H2"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 1.18,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#191",
+          "expected_output": "exchange_user_activity",
+          "actual_output": "exchange_user_activity",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(191) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap191",
+          "route": "/api/cap646/191",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 192,
+      "name": "Network Activity Intelligence",
+      "expected_surface": "network_activity_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "network_activity_intelligence",
+        "actual_output": "network_activity_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(192) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap192",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(192) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap192",
+        "route": "/api/cap646/192",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.6,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#192",
+          "expected_output": "network_activity_intelligence",
+          "actual_output": "network_activity_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(192) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap192",
+          "route": "/api/cap646/192",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 193,
+      "name": "Transaction Volume Intelligence",
+      "expected_surface": "transaction_volume_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "transaction_volume_intelligence",
+        "actual_output": "transaction_volume_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(193) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap193",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(193) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap193",
+        "route": "/api/cap646/193",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.55,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#193",
+          "expected_output": "transaction_volume_intelligence",
+          "actual_output": "transaction_volume_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(193) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap193",
+          "route": "/api/cap646/193",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 194,
+      "name": "NVT Intelligence",
+      "expected_surface": "nvt_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "nvt_intelligence",
+        "actual_output": "nvt_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(194) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap194",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(194) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap194",
+        "route": "/api/cap646/194",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H5"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.55,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#194",
+          "expected_output": "nvt_intelligence",
+          "actual_output": "nvt_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(194) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap194",
+          "route": "/api/cap646/194",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 195,
+      "name": "MVRV Intelligence",
+      "expected_surface": "mvrv_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "mvrv_intelligence",
+        "actual_output": "mvrv_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(195) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap195",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(195) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap195",
+        "route": "/api/cap646/195",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H5"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.57,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#195",
+          "expected_output": "mvrv_intelligence",
+          "actual_output": "mvrv_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(195) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap195",
+          "route": "/api/cap646/195",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 196,
+      "name": "Realized Cap / Realized Value Intelligence",
+      "expected_surface": "realized_cap_realized_value_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "realized_cap_realized_value_intelligence",
+        "actual_output": "realized_cap_realized_value_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(196) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap196",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(196) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap196",
+        "route": "/api/cap646/196",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H1"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.53,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#196",
+          "expected_output": "realized_cap_realized_value_intelligence",
+          "actual_output": "realized_cap_realized_value_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(196) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap196",
+          "route": "/api/cap646/196",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 197,
+      "name": "Daily Active Addresses",
+      "expected_surface": "daily_active_addresses",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "daily_active_addresses",
+        "actual_output": "daily_active_addresses",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(197) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap197",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(197) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap197",
+        "route": "/api/cap646/197",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H1"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.54,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#197",
+          "expected_output": "daily_active_addresses",
+          "actual_output": "daily_active_addresses",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(197) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap197",
+          "route": "/api/cap646/197",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 198,
+      "name": "Age Consumed / Dormancy Intelligence",
+      "expected_surface": "age_consumed_dormancy_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "age_consumed_dormancy_intelligence",
+        "actual_output": "age_consumed_dormancy_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(198) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap198",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(198) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap198",
+        "route": "/api/cap646/198",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.56,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#198",
+          "expected_output": "age_consumed_dormancy_intelligence",
+          "actual_output": "age_consumed_dormancy_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(198) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap198",
+          "route": "/api/cap646/198",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 199,
+      "name": "Mean Dollar Invested Age",
+      "expected_surface": "mean_dollar_invested_age",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "mean_dollar_invested_age",
+        "actual_output": "mean_dollar_invested_age",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(199) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap199",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(199) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap199",
+        "route": "/api/cap646/199",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H6"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.55,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#199",
+          "expected_output": "mean_dollar_invested_age",
+          "actual_output": "mean_dollar_invested_age",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(199) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap199",
+          "route": "/api/cap646/199",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    },
+    {
+      "capability_id": 200,
+      "name": "Token Circulation Intelligence",
+      "expected_surface": "token_circulation_intelligence",
+      "verification": {
+        "input": {
+          "symbol": "BTC",
+          "tier": "pro"
+        },
+        "expected_output": "token_circulation_intelligence",
+        "actual_output": "token_circulation_intelligence",
+        "comparison": "PASS",
+        "evidence": "runtime execute_capability(200) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+      },
+      "functional_completeness": "PASS",
+      "functional_correctness": "PASS",
+      "functional_appropriateness": "PASS",
+      "duplication": {
+        "classification": "DISTINCT",
+        "compared_id": null,
+        "canonical": "cap646.batch04_dedicated._cap200",
+        "accounting": "Independent batch04"
+      },
+      "time_decision": "TOLERATE",
+      "time_expiry": "2026-12-03",
+      "architecture": {
+        "path": "execute_capability(200) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap200",
+        "route": "/api/cap646/200",
+        "spine": "batch04"
+      },
+      "hero": {
+        "applicable": true,
+        "hero_id": "H4"
+      },
+      "ai_classification": "N/A",
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "performance_ms": 0.55,
+      "five_column_closure": {
+        "column_1_internal_goal": {
+          "completeness": "PASS",
+          "correctness": "PASS",
+          "appropriateness": "PASS"
+        },
+        "column_2_external_result": {
+          "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#200",
+          "expected_output": "token_circulation_intelligence",
+          "actual_output": "token_circulation_intelligence",
+          "comparison": "PASS"
+        },
+        "column_3_interface": {
+          "path": "execute_capability(200) \u2192 batch04_production \u2192 batch04_hero_bridge \u2192 _cap200",
+          "route": "/api/cap646/200",
+          "spine": "batch04"
+        },
+        "column_4_security_quality": {
+          "entitlement": "fail-closed verified",
+          "tests": "test_batch04_prep_dedicated + corrective"
+        },
+        "column_5_review": {
+          "local_state": "ENGINEERING_VERIFIED_LOCAL",
+          "production_state": "AWAITING_DEPLOY",
+          "blockers": "Independent batch04"
+        }
+      },
+      "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+    }
+  ]
+}
