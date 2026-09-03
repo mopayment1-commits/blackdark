@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-03T12:34:58.954702+00:00",
-  "git_commit": "60779f4b4483ee2888388f33f4cb137948f00fdf",
+  "generated_at": "2026-09-03T12:39:34.457144+00:00",
+  "git_commit": "af6fc36916b6d999d6d34b5dbfd22364cf817a97",
   "acceptance_source": "docs/BATCH03_ACCEPTANCE_101_150.json",
   "acceptance_pre_probe": true,
   "rows": [
@@ -67,7 +67,7 @@
         }
       },
       "probe": {
-        "elapsed_ms": 5.9,
+        "elapsed_ms": 7.2,
         "capability_id": 101,
         "surface": "ai_data_analyst_ask_ai",
         "symbol": "BTC",
@@ -81,7 +81,7 @@
           "status": "fresh",
           "accepted": true,
           "action": "pass",
-          "data_freshness_ms": 1788438895708.09,
+          "data_freshness_ms": 1788439171429.02,
           "thresholds": {
             "stale_sec": 5.0,
             "critical_sec": 15.0
@@ -102,7 +102,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:55.713608+00:00",
+          "attached_at": "2026-09-03T12:39:31.435860+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -180,7 +180,7 @@
               "status": "fresh",
               "accepted": true,
               "action": "pass",
-              "data_freshness_ms": 1788438895708.09,
+              "data_freshness_ms": 1788439171429.02,
               "thresholds": "dict(len=2)",
               "latency_check_ms": 8
             }
@@ -364,7 +364,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:55.714191+00:00",
+          "attached_at": "2026-09-03T12:39:31.436469+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -570,7 +570,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 6.4,
+        "elapsed_ms": 6.3,
         "capability_id": 104,
         "surface": "high_resolution_block_level_data_delivery",
         "symbol": "BTC",
@@ -635,14 +635,14 @@
               "passed": true
             }
           ],
-          "timestamp": "2026-09-03T12:34:55.720573+00:00"
+          "timestamp": "2026-09-03T12:39:31.442746+00:00"
         },
         "success": true,
         "evidence_class": "SHADOW_LIVE_FORWARD",
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:55.720662+00:00",
+          "attached_at": "2026-09-03T12:39:31.442833+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -704,7 +704,7 @@
               "ok": true,
               "all_passed": true,
               "checks": "list(len=14)",
-              "timestamp": "2026-09-03T12:34:55.720573+00:00"
+              "timestamp": "2026-09-03T12:39:31.442746+00:00"
             }
           },
           "completeness": "Domain payload under 'block_level_delivery' with 4 observable fields",
@@ -1297,7 +1297,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:55.723875+00:00",
+          "attached_at": "2026-09-03T12:39:31.446096+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -1505,7 +1505,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 0.5,
+        "elapsed_ms": 0.4,
         "capability_id": 108,
         "surface": "institutional_data_api_delivery",
         "symbol": "BTC",
@@ -1535,7 +1535,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:55.724381+00:00",
+          "attached_at": "2026-09-03T12:39:31.446596+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -1742,7 +1742,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 761.7,
+        "elapsed_ms": 740.0,
         "capability_id": 109,
         "surface": "white_label_research_reporting",
         "symbol": "BTC",
@@ -1757,10 +1757,10 @@
           "alert_type": "liquidation_cascade",
           "route": "/radar/alerts/liquidation",
           "asset": "BTC",
-          "current_price": 78314.45,
+          "current_price": 78330.01,
           "liquidation_level": 62000,
-          "distance_pct": 20.83,
-          "proximity_pct": 20.83,
+          "distance_pct": 20.85,
+          "proximity_pct": 20.85,
           "proximity_color": "green",
           "proximity_formula": "(Current Price \u2212 Nearest Liquidation Wall) / Current Price \u00d7 100",
           "cascade_risk": "low",
@@ -1783,7 +1783,7 @@
               100,
               109
             ],
-            "current_price": 78314.45,
+            "current_price": 78330.01,
             "sensitivity_pct": 3.0,
             "anchors_total": 2,
             "sensitive_zones": [],
@@ -1799,7 +1799,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:56.341083+00:00",
+          "attached_at": "2026-09-03T12:39:32.058431+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -2065,10 +2065,10 @@
               "alert_type": "liquidation_cascade",
               "route": "/radar/alerts/liquidation",
               "asset": "BTC",
-              "current_price": 78314.45,
+              "current_price": 78330.01,
               "liquidation_level": 62000,
-              "distance_pct": 20.83,
-              "proximity_pct": 20.83,
+              "distance_pct": 20.85,
+              "proximity_pct": 20.85,
               "proximity_color": "green",
               "proximity_formula": "(Current Price \u2212 Nearest Liquidation Wall) / Current Price \u00d7 100"
             }
@@ -2116,7 +2116,7 @@
                   100,
                   109
                 ],
-                "current_price": 78314.45,
+                "current_price": 78330.01,
                 "sensitivity_pct": 3.0,
                 "anchors_total": 2,
                 "sensitive_zones": [],
@@ -2240,7 +2240,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:56.487008+00:00",
+          "attached_at": "2026-09-03T12:39:32.187554+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -2468,7 +2468,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:56.487525+00:00",
+          "attached_at": "2026-09-03T12:39:32.188077+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -2674,7 +2674,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:56.488015+00:00",
+          "attached_at": "2026-09-03T12:39:32.188593+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -2864,7 +2864,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 0.5,
+        "elapsed_ms": 0.4,
         "capability_id": 114,
         "surface": "asset_classification_taxonomy",
         "symbol": "BTC",
@@ -2888,7 +2888,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:56.488502+00:00",
+          "attached_at": "2026-09-03T12:39:32.189052+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -3078,7 +3078,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 0.5,
+        "elapsed_ms": 0.6,
         "capability_id": 115,
         "surface": "asset_screener",
         "symbol": "BTC",
@@ -3106,7 +3106,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:56.488985+00:00",
+          "attached_at": "2026-09-03T12:39:32.189698+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -3380,14 +3380,14 @@
               "passed": true
             }
           ],
-          "timestamp": "2026-09-03T12:34:56.492101+00:00"
+          "timestamp": "2026-09-03T12:39:32.192814+00:00"
         },
         "success": true,
         "evidence_class": "SHADOW_LIVE_FORWARD",
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:56.492192+00:00",
+          "attached_at": "2026-09-03T12:39:32.192909+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -3449,7 +3449,7 @@
               "ok": true,
               "all_passed": true,
               "checks": "list(len=17)",
-              "timestamp": "2026-09-03T12:34:56.492101+00:00"
+              "timestamp": "2026-09-03T12:39:32.192814+00:00"
             }
           },
           "completeness": "Domain payload under 'market_pair_intelligence' with 4 observable fields",
@@ -3666,7 +3666,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:56.492739+00:00",
+          "attached_at": "2026-09-03T12:39:32.193435+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -3937,7 +3937,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:56.493698+00:00",
+          "attached_at": "2026-09-03T12:39:32.194413+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -4167,7 +4167,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 612.7,
+        "elapsed_ms": 604.1,
         "capability_id": 119,
         "surface": "market_cap_fdv_intelligence",
         "symbol": "BTC",
@@ -4191,14 +4191,14 @@
           "fee_db": {
             "compute_usd": 0.0004
           },
-          "reference_price": 78298.31
+          "reference_price": 78331.21
         },
         "success": true,
         "evidence_class": "SHADOW_LIVE_FORWARD",
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.106384+00:00",
+          "attached_at": "2026-09-03T12:39:32.798496+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -4316,9 +4316,9 @@
               "field": "market_cap_fdv.reference_price",
               "type": "numeric",
               "condition": "> 0",
-              "actual": 78298.31,
+              "actual": 78331.21,
               "pass": true,
-              "detail": "actual=78298.31 need > 0.0"
+              "detail": "actual=78331.21 need > 0.0"
             },
             {
               "field": "market_cap_fdv.feature_ref",
@@ -4611,7 +4611,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.107750+00:00",
+          "attached_at": "2026-09-03T12:39:32.799862+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -4888,7 +4888,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.108653+00:00",
+          "attached_at": "2026-09-03T12:39:32.800851+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -5136,7 +5136,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.110685+00:00",
+          "attached_at": "2026-09-03T12:39:32.802883+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -5364,7 +5364,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.111158+00:00",
+          "attached_at": "2026-09-03T12:39:32.803360+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -5543,7 +5543,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 0.4,
+        "elapsed_ms": 0.5,
         "capability_id": 124,
         "surface": "futures_funding_rate_intelligence",
         "symbol": "BTC",
@@ -5579,7 +5579,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.111633+00:00",
+          "attached_at": "2026-09-03T12:39:32.803904+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -5760,7 +5760,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 0.5,
+        "elapsed_ms": 0.4,
         "capability_id": 126,
         "surface": "futures_volume_intelligence",
         "symbol": "BTC",
@@ -5789,7 +5789,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.112113+00:00",
+          "attached_at": "2026-09-03T12:39:32.804383+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -5999,7 +5999,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.112602+00:00",
+          "attached_at": "2026-09-03T12:39:32.804863+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -6259,14 +6259,14 @@
               "passed": true
             }
           ],
-          "timestamp": "2026-09-03T12:34:57.115560+00:00"
+          "timestamp": "2026-09-03T12:39:32.807784+00:00"
         },
         "success": true,
         "evidence_class": "SHADOW_LIVE_FORWARD",
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.115644+00:00",
+          "attached_at": "2026-09-03T12:39:32.807873+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -6328,7 +6328,7 @@
               "ok": true,
               "all_passed": true,
               "checks": "list(len=15)",
-              "timestamp": "2026-09-03T12:34:57.115560+00:00"
+              "timestamp": "2026-09-03T12:39:32.807784+00:00"
             }
           },
           "completeness": "Domain payload under 'momentum_intelligence' with 4 observable fields",
@@ -6557,7 +6557,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.116165+00:00",
+          "attached_at": "2026-09-03T12:39:32.808415+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -6765,7 +6765,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 107.3,
+        "elapsed_ms": 137.5,
         "capability_id": 131,
         "surface": "narrative_sector_intelligence",
         "symbol": "BTC",
@@ -6795,7 +6795,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.116711+00:00",
+          "attached_at": "2026-09-03T12:39:32.808961+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -7214,7 +7214,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.224174+00:00",
+          "attached_at": "2026-09-03T12:39:32.946592+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -7408,7 +7408,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 95.1,
+        "elapsed_ms": 96.7,
         "capability_id": 133,
         "surface": "curated_crypto_news_intelligence",
         "symbol": "BTC",
@@ -7656,7 +7656,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.225439+00:00",
+          "attached_at": "2026-09-03T12:39:32.947840+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -8036,7 +8036,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 157.9,
+        "elapsed_ms": 140.6,
         "capability_id": 134,
         "surface": "ai_news_summaries",
         "symbol": "BTC",
@@ -8068,7 +8068,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.319882+00:00",
+          "attached_at": "2026-09-03T12:39:33.043906+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -8450,7 +8450,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 0.7,
+        "elapsed_ms": 0.6,
         "capability_id": 135,
         "surface": "real_time_industry_event_monitoring",
         "symbol": "BTC",
@@ -8483,7 +8483,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.478021+00:00",
+          "attached_at": "2026-09-03T12:39:33.184644+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -8706,7 +8706,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.478583+00:00",
+          "attached_at": "2026-09-03T12:39:33.185156+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -8932,7 +8932,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.479071+00:00",
+          "attached_at": "2026-09-03T12:39:33.185654+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -9144,7 +9144,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.479511+00:00",
+          "attached_at": "2026-09-03T12:39:33.186105+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -9402,14 +9402,14 @@
               "passed": true
             }
           ],
-          "timestamp": "2026-09-03T12:34:57.480958+00:00"
+          "timestamp": "2026-09-03T12:39:33.187504+00:00"
         },
         "success": true,
         "evidence_class": "SHADOW_LIVE_FORWARD",
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.481037+00:00",
+          "attached_at": "2026-09-03T12:39:33.187584+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -9471,7 +9471,7 @@
               "ok": true,
               "all_passed": true,
               "checks": "list(len=13)",
-              "timestamp": "2026-09-03T12:34:57.480958+00:00"
+              "timestamp": "2026-09-03T12:39:33.187504+00:00"
             }
           },
           "completeness": "Domain payload under 'vesting_schedule_intelligence' with 4 observable fields",
@@ -9651,7 +9651,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 1.0,
+        "elapsed_ms": 0.9,
         "capability_id": 140,
         "surface": "token_allocation_intelligence",
         "symbol": "BTC",
@@ -9673,7 +9673,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.481937+00:00",
+          "attached_at": "2026-09-03T12:39:33.188432+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -9694,7 +9694,7 @@
         "capability": "Token Allocation Intelligence",
         "track": "T17",
         "classification": "PRODUCTION-ALIGNED",
-        "timestamp": "2026-09-03T12:34:57.482113+00:00",
+        "timestamp": "2026-09-03T12:39:33.188571+00:00",
         "portfolio_total_usd": 17000.0,
         "target_weights": {
           "BTC": 0.3333333333333333,
@@ -9740,7 +9740,7 @@
           {
             "asset": "BTC",
             "usd": 10000.0,
-            "ts": "2026-09-03T12:34:57.482113+00:00"
+            "ts": "2026-09-03T12:39:33.188571+00:00"
           }
         ]
       },
@@ -9933,7 +9933,7 @@
             {
               "headline": "Bitcoin holds above $65K as ETF inflows continue",
               "category": "markets",
-              "published": "2026-09-03T12:34:57.482585+00:00",
+              "published": "2026-09-03T12:39:33.189036+00:00",
               "source": "CoinDesk",
               "attribution": "Source: CoinDesk",
               "dedup_key": "accfe4a040d64e6b"
@@ -9941,7 +9941,7 @@
             {
               "headline": "Ethereum upgrade timeline confirmed",
               "category": "technology",
-              "published": "2026-09-03T12:34:57.482588+00:00",
+              "published": "2026-09-03T12:39:33.189039+00:00",
               "source": "CoinDesk",
               "attribution": "Source: CoinDesk",
               "dedup_key": "87c5d64f82966938"
@@ -9958,7 +9958,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.482659+00:00",
+          "attached_at": "2026-09-03T12:39:33.189116+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -10061,7 +10061,7 @@
                 {
                   "headline": "Bitcoin holds above $65K as ETF inflows continue",
                   "category": "markets",
-                  "published": "2026-09-03T12:34:57.482585+00:00",
+                  "published": "2026-09-03T12:39:33.189036+00:00",
                   "source": "CoinDesk",
                   "attribution": "Source: CoinDesk",
                   "dedup_key": "accfe4a040d64e6b"
@@ -10069,7 +10069,7 @@
                 {
                   "headline": "Ethereum upgrade timeline confirmed",
                   "category": "technology",
-                  "published": "2026-09-03T12:34:57.482588+00:00",
+                  "published": "2026-09-03T12:39:33.189039+00:00",
                   "source": "CoinDesk",
                   "attribution": "Source: CoinDesk",
                   "dedup_key": "87c5d64f82966938"
@@ -10201,7 +10201,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.483127+00:00",
+          "attached_at": "2026-09-03T12:39:33.189597+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -10445,7 +10445,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.483636+00:00",
+          "attached_at": "2026-09-03T12:39:33.190088+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -10672,14 +10672,14 @@
               "asset": "BTC",
               "from": "unknown",
               "to": "binance",
-              "tx_hash": "0x46faade66d6b4482"
+              "tx_hash": "0x86174c5808e24c27"
             },
             {
               "amount_usd": 8000000,
               "asset": "ETH",
               "from": "coinbase",
               "to": "unknown",
-              "tx_hash": "0xaee9d4fc9a164a6e"
+              "tx_hash": "0x053547c4346245c9"
             }
           ],
           "registry_ref": 98,
@@ -10695,7 +10695,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:57.484094+00:00",
+          "attached_at": "2026-09-03T12:39:33.190547+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -10812,14 +10812,14 @@
                   "asset": "BTC",
                   "from": "unknown",
                   "to": "binance",
-                  "tx_hash": "0x46faade66d6b4482"
+                  "tx_hash": "0x86174c5808e24c27"
                 },
                 {
                   "amount_usd": 8000000,
                   "asset": "ETH",
                   "from": "coinbase",
                   "to": "unknown",
-                  "tx_hash": "0xaee9d4fc9a164a6e"
+                  "tx_hash": "0x053547c4346245c9"
                 }
               ],
               "pass": true,
@@ -10915,7 +10915,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 604.9,
+        "elapsed_ms": 606.7,
         "capability_id": 145,
         "surface": "m_a_intelligence",
         "symbol": "BTC",
@@ -10926,12 +10926,12 @@
           "merged_into": "oracle_api",
           "role": "secondary_redundancy",
           "symbol": "BTC",
-          "price": 78298.31,
+          "price": 78320.01,
           "market_cap": 1280000000000,
-          "volume_24h": 900842965.7383482,
+          "volume_24h": 903399735.7032603,
           "latency_buffer_ref": 101,
           "attribution": "Data: CoinMarketCap",
-          "timestamp": "2026-09-03T12:34:58.088903+00:00",
+          "timestamp": "2026-09-03T12:39:33.797212+00:00",
           "fee_db": {
             "ingest_usd": 0.0003
           }
@@ -10941,7 +10941,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:58.088981+00:00",
+          "attached_at": "2026-09-03T12:39:33.797285+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -11015,12 +11015,12 @@
               "merged_into": "oracle_api",
               "role": "secondary_redundancy",
               "symbol": "BTC",
-              "price": 78298.31,
+              "price": 78320.01,
               "market_cap": 1280000000000,
-              "volume_24h": 900842965.7383482,
+              "volume_24h": 903399735.7032603,
               "latency_buffer_ref": 101,
               "attribution": "Data: CoinMarketCap",
-              "timestamp": "2026-09-03T12:34:58.088903+00:00"
+              "timestamp": "2026-09-03T12:39:33.797212+00:00"
             }
           },
           "completeness": "Domain payload under 'ma_intelligence' with 13 observable fields",
@@ -11049,17 +11049,17 @@
               "field": "ma_intelligence.price",
               "type": "numeric",
               "condition": "> 0",
-              "actual": 78298.31,
+              "actual": 78320.01,
               "pass": true,
-              "detail": "actual=78298.31 need > 0.0"
+              "detail": "actual=78320.01 need > 0.0"
             },
             {
               "field": "ma_intelligence.volume_24h",
               "type": "numeric",
               "condition": "> 0",
-              "actual": 900842965.7383482,
+              "actual": 903399735.7032603,
               "pass": true,
-              "detail": "actual=900842965.7383482 need > 0.0"
+              "detail": "actual=903399735.7032603 need > 0.0"
             }
           ],
           "rules_passed": 4,
@@ -11139,7 +11139,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 619.0,
+        "elapsed_ms": 611.8,
         "capability_id": 146,
         "surface": "capital_flow_funding_trend_intelligence",
         "symbol": "BTC",
@@ -11150,10 +11150,10 @@
             146,
             101
           ],
-          "primary_price": 78296.01,
+          "primary_price": 78318.0,
           "sources": {
-            "cmc": 78296.01,
-            "coinbase": 78288.18039899999
+            "cmc": 78318.0,
+            "coinbase": 78310.1682
           },
           "divergences_pct": {
             "cmc_pct": 0.0,
@@ -11167,7 +11167,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:58.708029+00:00",
+          "attached_at": "2026-09-03T12:39:34.409136+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -11231,7 +11231,7 @@
             "preview": {
               "ok": true,
               "feature_refs": "list(len=3)",
-              "primary_price": 78296.01,
+              "primary_price": 78318.0,
               "sources": "dict(len=2)",
               "divergences_pct": "dict(len=2)",
               "consensus_accepted": true,
@@ -11272,9 +11272,9 @@
               "field": "capital_flow_funding_trends.primary_price",
               "type": "numeric",
               "condition": "> 0",
-              "actual": 78296.01,
+              "actual": 78318.0,
               "pass": true,
-              "detail": "actual=78296.01 need > 0.0"
+              "detail": "actual=78318.0 need > 0.0"
             },
             {
               "field": "capital_flow_funding_trends.divergences_pct",
@@ -11365,7 +11365,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 241.9,
+        "elapsed_ms": 43.2,
         "capability_id": 147,
         "surface": "comparable_funding_valuation_analysis",
         "symbol": "BTC",
@@ -11390,7 +11390,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:58.708652+00:00",
+          "attached_at": "2026-09-03T12:39:34.409688+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -11417,10 +11417,10 @@
             "id": "bitcoin",
             "symbol": "BTC",
             "name": "Bitcoin",
-            "price_usd": 78225,
-            "market_cap_usd": 1570935566884,
-            "volume_24h_usd": 25283498279,
-            "change_24h_pct": 1.7938,
+            "price_usd": 78255,
+            "market_cap_usd": 1571294536114,
+            "volume_24h_usd": 25253892405,
+            "change_24h_pct": 1.91303,
             "sparkline_7d": [
               79479.42013840542,
               79292.77437944377,
@@ -11597,10 +11597,10 @@
             "id": "ethereum",
             "symbol": "ETH",
             "name": "Ethereum",
-            "price_usd": 2416.17,
-            "market_cap_usd": 294824611933,
-            "volume_24h_usd": 11581501363,
-            "change_24h_pct": 1.31751,
+            "price_usd": 2414.79,
+            "market_cap_usd": 294641339448,
+            "volume_24h_usd": 11628558143,
+            "change_24h_pct": 1.44202,
             "sparkline_7d": [
               2501.6261139820235,
               2496.824324127165,
@@ -11777,10 +11777,10 @@
             "id": "tether",
             "symbol": "USDT",
             "name": "Tether",
-            "price_usd": 0.99964,
-            "market_cap_usd": 183319253137,
-            "volume_24h_usd": 47137113236,
-            "change_24h_pct": 0.00728,
+            "price_usd": 0.999627,
+            "market_cap_usd": 183315925358,
+            "volume_24h_usd": 47343542425,
+            "change_24h_pct": 0.00837,
             "sparkline_7d": [
               0.9999371433127671,
               0.9999245856434948,
@@ -11957,10 +11957,10 @@
             "id": "binancecoin",
             "symbol": "BNB",
             "name": "BNB",
-            "price_usd": 712.69,
-            "market_cap_usd": 94854323124,
-            "volume_24h_usd": 880320852,
-            "change_24h_pct": 4.19687,
+            "price_usd": 713.48,
+            "market_cap_usd": 95008185454,
+            "volume_24h_usd": 875529548,
+            "change_24h_pct": 4.37177,
             "sparkline_7d": [
               706.6853431645594,
               705.8263113280188,
@@ -12138,9 +12138,9 @@
             "symbol": "XRP",
             "name": "XRP",
             "price_usd": 1.38,
-            "market_cap_usd": 86537209644,
-            "volume_24h_usd": 2421012862,
-            "change_24h_pct": 3.88208,
+            "market_cap_usd": 86357780296,
+            "volume_24h_usd": 2429197100,
+            "change_24h_pct": 3.91966,
             "sparkline_7d": [
               1.426625542936727,
               1.423549967083614,
@@ -12317,10 +12317,10 @@
             "id": "usd-coin",
             "symbol": "USDC",
             "name": "USDC",
-            "price_usd": 0.999848,
-            "market_cap_usd": 73585010350,
-            "volume_24h_usd": 13226886387,
-            "change_24h_pct": 0.00897,
+            "price_usd": 0.999837,
+            "market_cap_usd": 73583607575,
+            "volume_24h_usd": 13301500062,
+            "change_24h_pct": 0.01313,
             "sparkline_7d": [
               0.9999505623818996,
               0.9999460546100569,
@@ -12497,10 +12497,10 @@
             "id": "solana",
             "symbol": "SOL",
             "name": "Solana",
-            "price_usd": 101.18,
-            "market_cap_usd": 59242723075,
-            "volume_24h_usd": 3068961901,
-            "change_24h_pct": 3.13448,
+            "price_usd": 101.12,
+            "market_cap_usd": 59183939203,
+            "volume_24h_usd": 3078516262,
+            "change_24h_pct": 3.32764,
             "sparkline_7d": [
               103.99150226358267,
               104.4990584877927,
@@ -12677,10 +12677,10 @@
             "id": "tron",
             "symbol": "TRX",
             "name": "TRON",
-            "price_usd": 0.327843,
-            "market_cap_usd": 31120812314,
-            "volume_24h_usd": 327182365,
-            "change_24h_pct": 1.13118,
+            "price_usd": 0.327849,
+            "market_cap_usd": 31123477981,
+            "volume_24h_usd": 338769125,
+            "change_24h_pct": 1.10878,
             "sparkline_7d": [
               0.3367787603931788,
               0.33844074352907005,
@@ -12860,7 +12860,7 @@
             "price_usd": 1.013,
             "market_cap_usd": 22411163291,
             "volume_24h_usd": 65144940,
-            "change_24h_pct": -2.02101,
+            "change_24h_pct": -2.02322,
             "sparkline_7d": [
               1.0027793021367108,
               1.0027841983816133,
@@ -12989,10 +12989,10 @@
             "id": "hyperliquid",
             "symbol": "HYPE",
             "name": "Hyperliquid",
-            "price_usd": 82.25,
-            "market_cap_usd": 18294727347,
-            "volume_24h_usd": 1122782739,
-            "change_24h_pct": 0.91433,
+            "price_usd": 82.3,
+            "market_cap_usd": 18306406125,
+            "volume_24h_usd": 1130559140,
+            "change_24h_pct": 1.13896,
             "sparkline_7d": [
               82.0747422128393,
               82.30382140174595,
@@ -13169,10 +13169,10 @@
             "id": "zcash",
             "symbol": "ZEC",
             "name": "Zcash",
-            "price_usd": 847.0,
-            "market_cap_usd": 14327988180,
-            "volume_24h_usd": 440738127,
-            "change_24h_pct": 5.74713,
+            "price_usd": 844.8,
+            "market_cap_usd": 14287166978,
+            "volume_24h_usd": 437777576,
+            "change_24h_pct": 5.79779,
             "sparkline_7d": [
               784.0332949961248,
               781.7185358876877,
@@ -13349,10 +13349,10 @@
             "id": "dogecoin",
             "symbol": "DOGE",
             "name": "Dogecoin",
-            "price_usd": 0.083429,
-            "market_cap_usd": 13001687247,
-            "volume_24h_usd": 601722496,
-            "change_24h_pct": 2.66278,
+            "price_usd": 0.083345,
+            "market_cap_usd": 12981925132,
+            "volume_24h_usd": 597973150,
+            "change_24h_pct": 2.69872,
             "sparkline_7d": [
               0.08831857789746249,
               0.08772064825269665,
@@ -13529,10 +13529,10 @@
             "id": "rain",
             "symbol": "RAIN",
             "name": "Rain",
-            "price_usd": 0.01660513,
-            "market_cap_usd": 11770076817,
-            "volume_24h_usd": 36675932,
-            "change_24h_pct": -1.46538,
+            "price_usd": 0.01660175,
+            "market_cap_usd": 11773879116,
+            "volume_24h_usd": 36655963,
+            "change_24h_pct": -1.3719,
             "sparkline_7d": [
               0.017515042668609218,
               0.017440208996561707,
@@ -13709,10 +13709,10 @@
             "id": "usds",
             "symbol": "USDS",
             "name": "USDS",
-            "price_usd": 0.999762,
-            "market_cap_usd": 9815737652,
-            "volume_24h_usd": 192961621,
-            "change_24h_pct": 0.00429,
+            "price_usd": 0.999733,
+            "market_cap_usd": 9815360694,
+            "volume_24h_usd": 191167142,
+            "change_24h_pct": 0.00389,
             "sparkline_7d": [
               0.9998112106105475,
               0.999707239392505,
@@ -13889,10 +13889,10 @@
             "id": "monero",
             "symbol": "XMR",
             "name": "Monero",
-            "price_usd": 515.52,
-            "market_cap_usd": 9690842063,
-            "volume_24h_usd": 152550282,
-            "change_24h_pct": 0.94279,
+            "price_usd": 514.6,
+            "market_cap_usd": 9674386196,
+            "volume_24h_usd": 151540547,
+            "change_24h_pct": 1.05923,
             "sparkline_7d": [
               467.56767422039366,
               460.2290204617744,
@@ -14069,10 +14069,10 @@
             "id": "leo-token",
             "symbol": "LEO",
             "name": "LEO Token",
-            "price_usd": 9.36,
-            "market_cap_usd": 8607682733,
-            "volume_24h_usd": 293183,
-            "change_24h_pct": 1.17646,
+            "price_usd": 9.38,
+            "market_cap_usd": 8628224397,
+            "volume_24h_usd": 294078,
+            "change_24h_pct": 1.41678,
             "sparkline_7d": [
               9.32284189475144,
               9.323356090104616,
@@ -14249,10 +14249,10 @@
             "id": "chainlink",
             "symbol": "LINK",
             "name": "Chainlink",
-            "price_usd": 11.34,
-            "market_cap_usd": 8475904418,
-            "volume_24h_usd": 329421650,
-            "change_24h_pct": 2.58297,
+            "price_usd": 11.37,
+            "market_cap_usd": 8508583148,
+            "volume_24h_usd": 335827270,
+            "change_24h_pct": 3.1378,
             "sparkline_7d": [
               11.74898517536551,
               11.747619129219162,
@@ -14429,10 +14429,10 @@
             "id": "whitebit",
             "symbol": "WBT",
             "name": "WhiteBIT Coin",
-            "price_usd": 71.59,
-            "market_cap_usd": 8443597226,
-            "volume_24h_usd": 88619991,
-            "change_24h_pct": 1.51617,
+            "price_usd": 71.55,
+            "market_cap_usd": 8440247127,
+            "volume_24h_usd": 89202596,
+            "change_24h_pct": 1.65224,
             "sparkline_7d": [
               73.40196698697555,
               73.28810197704753,
@@ -14609,10 +14609,10 @@
             "id": "cardano",
             "symbol": "ADA",
             "name": "Cardano",
-            "price_usd": 0.208348,
-            "market_cap_usd": 7811660343,
-            "volume_24h_usd": 434432002,
-            "change_24h_pct": 6.82522,
+            "price_usd": 0.208214,
+            "market_cap_usd": 7808921047,
+            "volume_24h_usd": 432009733,
+            "change_24h_pct": 6.96507,
             "sparkline_7d": [
               0.2115554068058153,
               0.21184882278272704,
@@ -14789,10 +14789,10 @@
             "id": "stellar",
             "symbol": "XLM",
             "name": "Stellar",
-            "price_usd": 0.178787,
-            "market_cap_usd": 6208792942,
-            "volume_24h_usd": 108369839,
-            "change_24h_pct": 3.47857,
+            "price_usd": 0.178583,
+            "market_cap_usd": 6197663833,
+            "volume_24h_usd": 108576265,
+            "change_24h_pct": 3.49007,
             "sparkline_7d": [
               0.18563259301576251,
               0.18492583732446694,
@@ -14967,7 +14967,7 @@
         ],
         "sector": {
           "style": "coinmarketcap",
-          "timestamp": "2026-09-03T12:34:58.950002+00:00",
+          "timestamp": "2026-09-03T12:39:34.452345+00:00",
           "count": 20,
           "coins": [
             {
@@ -14975,10 +14975,10 @@
               "id": "bitcoin",
               "symbol": "BTC",
               "name": "Bitcoin",
-              "price_usd": 78225,
-              "market_cap_usd": 1570935566884,
-              "volume_24h_usd": 25283498279,
-              "change_24h_pct": 1.7938,
+              "price_usd": 78255,
+              "market_cap_usd": 1571294536114,
+              "volume_24h_usd": 25253892405,
+              "change_24h_pct": 1.91303,
               "sparkline_7d": [
                 79479.42013840542,
                 79292.77437944377,
@@ -15155,10 +15155,10 @@
               "id": "ethereum",
               "symbol": "ETH",
               "name": "Ethereum",
-              "price_usd": 2416.17,
-              "market_cap_usd": 294824611933,
-              "volume_24h_usd": 11581501363,
-              "change_24h_pct": 1.31751,
+              "price_usd": 2414.79,
+              "market_cap_usd": 294641339448,
+              "volume_24h_usd": 11628558143,
+              "change_24h_pct": 1.44202,
               "sparkline_7d": [
                 2501.6261139820235,
                 2496.824324127165,
@@ -15335,10 +15335,10 @@
               "id": "tether",
               "symbol": "USDT",
               "name": "Tether",
-              "price_usd": 0.99964,
-              "market_cap_usd": 183319253137,
-              "volume_24h_usd": 47137113236,
-              "change_24h_pct": 0.00728,
+              "price_usd": 0.999627,
+              "market_cap_usd": 183315925358,
+              "volume_24h_usd": 47343542425,
+              "change_24h_pct": 0.00837,
               "sparkline_7d": [
                 0.9999371433127671,
                 0.9999245856434948,
@@ -15515,10 +15515,10 @@
               "id": "binancecoin",
               "symbol": "BNB",
               "name": "BNB",
-              "price_usd": 712.69,
-              "market_cap_usd": 94854323124,
-              "volume_24h_usd": 880320852,
-              "change_24h_pct": 4.19687,
+              "price_usd": 713.48,
+              "market_cap_usd": 95008185454,
+              "volume_24h_usd": 875529548,
+              "change_24h_pct": 4.37177,
               "sparkline_7d": [
                 706.6853431645594,
                 705.8263113280188,
@@ -15696,9 +15696,9 @@
               "symbol": "XRP",
               "name": "XRP",
               "price_usd": 1.38,
-              "market_cap_usd": 86537209644,
-              "volume_24h_usd": 2421012862,
-              "change_24h_pct": 3.88208,
+              "market_cap_usd": 86357780296,
+              "volume_24h_usd": 2429197100,
+              "change_24h_pct": 3.91966,
               "sparkline_7d": [
                 1.426625542936727,
                 1.423549967083614,
@@ -15875,10 +15875,10 @@
               "id": "usd-coin",
               "symbol": "USDC",
               "name": "USDC",
-              "price_usd": 0.999848,
-              "market_cap_usd": 73585010350,
-              "volume_24h_usd": 13226886387,
-              "change_24h_pct": 0.00897,
+              "price_usd": 0.999837,
+              "market_cap_usd": 73583607575,
+              "volume_24h_usd": 13301500062,
+              "change_24h_pct": 0.01313,
               "sparkline_7d": [
                 0.9999505623818996,
                 0.9999460546100569,
@@ -16055,10 +16055,10 @@
               "id": "solana",
               "symbol": "SOL",
               "name": "Solana",
-              "price_usd": 101.18,
-              "market_cap_usd": 59242723075,
-              "volume_24h_usd": 3068961901,
-              "change_24h_pct": 3.13448,
+              "price_usd": 101.12,
+              "market_cap_usd": 59183939203,
+              "volume_24h_usd": 3078516262,
+              "change_24h_pct": 3.32764,
               "sparkline_7d": [
                 103.99150226358267,
                 104.4990584877927,
@@ -16235,10 +16235,10 @@
               "id": "tron",
               "symbol": "TRX",
               "name": "TRON",
-              "price_usd": 0.327843,
-              "market_cap_usd": 31120812314,
-              "volume_24h_usd": 327182365,
-              "change_24h_pct": 1.13118,
+              "price_usd": 0.327849,
+              "market_cap_usd": 31123477981,
+              "volume_24h_usd": 338769125,
+              "change_24h_pct": 1.10878,
               "sparkline_7d": [
                 0.3367787603931788,
                 0.33844074352907005,
@@ -16418,7 +16418,7 @@
               "price_usd": 1.013,
               "market_cap_usd": 22411163291,
               "volume_24h_usd": 65144940,
-              "change_24h_pct": -2.02101,
+              "change_24h_pct": -2.02322,
               "sparkline_7d": [
                 1.0027793021367108,
                 1.0027841983816133,
@@ -16547,10 +16547,10 @@
               "id": "hyperliquid",
               "symbol": "HYPE",
               "name": "Hyperliquid",
-              "price_usd": 82.25,
-              "market_cap_usd": 18294727347,
-              "volume_24h_usd": 1122782739,
-              "change_24h_pct": 0.91433,
+              "price_usd": 82.3,
+              "market_cap_usd": 18306406125,
+              "volume_24h_usd": 1130559140,
+              "change_24h_pct": 1.13896,
               "sparkline_7d": [
                 82.0747422128393,
                 82.30382140174595,
@@ -16727,10 +16727,10 @@
               "id": "zcash",
               "symbol": "ZEC",
               "name": "Zcash",
-              "price_usd": 847.0,
-              "market_cap_usd": 14327988180,
-              "volume_24h_usd": 440738127,
-              "change_24h_pct": 5.74713,
+              "price_usd": 844.8,
+              "market_cap_usd": 14287166978,
+              "volume_24h_usd": 437777576,
+              "change_24h_pct": 5.79779,
               "sparkline_7d": [
                 784.0332949961248,
                 781.7185358876877,
@@ -16907,10 +16907,10 @@
               "id": "dogecoin",
               "symbol": "DOGE",
               "name": "Dogecoin",
-              "price_usd": 0.083429,
-              "market_cap_usd": 13001687247,
-              "volume_24h_usd": 601722496,
-              "change_24h_pct": 2.66278,
+              "price_usd": 0.083345,
+              "market_cap_usd": 12981925132,
+              "volume_24h_usd": 597973150,
+              "change_24h_pct": 2.69872,
               "sparkline_7d": [
                 0.08831857789746249,
                 0.08772064825269665,
@@ -17087,10 +17087,10 @@
               "id": "rain",
               "symbol": "RAIN",
               "name": "Rain",
-              "price_usd": 0.01660513,
-              "market_cap_usd": 11770076817,
-              "volume_24h_usd": 36675932,
-              "change_24h_pct": -1.46538,
+              "price_usd": 0.01660175,
+              "market_cap_usd": 11773879116,
+              "volume_24h_usd": 36655963,
+              "change_24h_pct": -1.3719,
               "sparkline_7d": [
                 0.017515042668609218,
                 0.017440208996561707,
@@ -17267,10 +17267,10 @@
               "id": "usds",
               "symbol": "USDS",
               "name": "USDS",
-              "price_usd": 0.999762,
-              "market_cap_usd": 9815737652,
-              "volume_24h_usd": 192961621,
-              "change_24h_pct": 0.00429,
+              "price_usd": 0.999733,
+              "market_cap_usd": 9815360694,
+              "volume_24h_usd": 191167142,
+              "change_24h_pct": 0.00389,
               "sparkline_7d": [
                 0.9998112106105475,
                 0.999707239392505,
@@ -17447,10 +17447,10 @@
               "id": "monero",
               "symbol": "XMR",
               "name": "Monero",
-              "price_usd": 515.52,
-              "market_cap_usd": 9690842063,
-              "volume_24h_usd": 152550282,
-              "change_24h_pct": 0.94279,
+              "price_usd": 514.6,
+              "market_cap_usd": 9674386196,
+              "volume_24h_usd": 151540547,
+              "change_24h_pct": 1.05923,
               "sparkline_7d": [
                 467.56767422039366,
                 460.2290204617744,
@@ -17627,10 +17627,10 @@
               "id": "leo-token",
               "symbol": "LEO",
               "name": "LEO Token",
-              "price_usd": 9.36,
-              "market_cap_usd": 8607682733,
-              "volume_24h_usd": 293183,
-              "change_24h_pct": 1.17646,
+              "price_usd": 9.38,
+              "market_cap_usd": 8628224397,
+              "volume_24h_usd": 294078,
+              "change_24h_pct": 1.41678,
               "sparkline_7d": [
                 9.32284189475144,
                 9.323356090104616,
@@ -17807,10 +17807,10 @@
               "id": "chainlink",
               "symbol": "LINK",
               "name": "Chainlink",
-              "price_usd": 11.34,
-              "market_cap_usd": 8475904418,
-              "volume_24h_usd": 329421650,
-              "change_24h_pct": 2.58297,
+              "price_usd": 11.37,
+              "market_cap_usd": 8508583148,
+              "volume_24h_usd": 335827270,
+              "change_24h_pct": 3.1378,
               "sparkline_7d": [
                 11.74898517536551,
                 11.747619129219162,
@@ -17987,10 +17987,10 @@
               "id": "whitebit",
               "symbol": "WBT",
               "name": "WhiteBIT Coin",
-              "price_usd": 71.59,
-              "market_cap_usd": 8443597226,
-              "volume_24h_usd": 88619991,
-              "change_24h_pct": 1.51617,
+              "price_usd": 71.55,
+              "market_cap_usd": 8440247127,
+              "volume_24h_usd": 89202596,
+              "change_24h_pct": 1.65224,
               "sparkline_7d": [
                 73.40196698697555,
                 73.28810197704753,
@@ -18167,10 +18167,10 @@
               "id": "cardano",
               "symbol": "ADA",
               "name": "Cardano",
-              "price_usd": 0.208348,
-              "market_cap_usd": 7811660343,
-              "volume_24h_usd": 434432002,
-              "change_24h_pct": 6.82522,
+              "price_usd": 0.208214,
+              "market_cap_usd": 7808921047,
+              "volume_24h_usd": 432009733,
+              "change_24h_pct": 6.96507,
               "sparkline_7d": [
                 0.2115554068058153,
                 0.21184882278272704,
@@ -18347,10 +18347,10 @@
               "id": "stellar",
               "symbol": "XLM",
               "name": "Stellar",
-              "price_usd": 0.178787,
-              "market_cap_usd": 6208792942,
-              "volume_24h_usd": 108369839,
-              "change_24h_pct": 3.47857,
+              "price_usd": 0.178583,
+              "market_cap_usd": 6197663833,
+              "volume_24h_usd": 108576265,
+              "change_24h_pct": 3.49007,
               "sparkline_7d": [
                 0.18563259301576251,
                 0.18492583732446694,
@@ -18704,7 +18704,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 0.6,
+        "elapsed_ms": 0.7,
         "capability_id": 148,
         "surface": "due_diligence_report_engine",
         "symbol": "BTC",
@@ -18719,7 +18719,7 @@
           "cross_validation_primary_rpc": true,
           "latency_buffer_ref": 101,
           "attribution": "Data: Blockchain.com",
-          "timestamp": "2026-09-03T12:34:58.950643+00:00",
+          "timestamp": "2026-09-03T12:39:34.453017+00:00",
           "fee_db": {
             "ingest_usd": 0.0005
           }
@@ -18729,7 +18729,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:58.950711+00:00",
+          "attached_at": "2026-09-03T12:39:34.453094+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -18806,7 +18806,7 @@
               "cross_validation_primary_rpc": true,
               "latency_buffer_ref": 101,
               "attribution": "Data: Blockchain.com",
-              "timestamp": "2026-09-03T12:34:58.950643+00:00",
+              "timestamp": "2026-09-03T12:39:34.453017+00:00",
               "fee_db": "dict(len=1)"
             }
           },
@@ -18954,7 +18954,7 @@
             "il_score_102"
           ],
           "attribution": "Data: DefiLlama",
-          "timestamp": "2026-09-03T12:34:58.951191+00:00",
+          "timestamp": "2026-09-03T12:39:34.453624+00:00",
           "fee_db": {
             "ingest_usd": 0.0005
           }
@@ -18964,7 +18964,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:58.951244+00:00",
+          "attached_at": "2026-09-03T12:39:34.453687+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -19041,7 +19041,7 @@
               "registry_ref": 98,
               "feeds": "list(len=3)",
               "attribution": "Data: DefiLlama",
-              "timestamp": "2026-09-03T12:34:58.951191+00:00",
+              "timestamp": "2026-09-03T12:39:34.453624+00:00",
               "fee_db": "dict(len=1)"
             }
           },
@@ -19161,7 +19161,7 @@
         "functional_gap": null
       },
       "probe": {
-        "elapsed_ms": 1.4,
+        "elapsed_ms": 1.3,
         "capability_id": 150,
         "surface": "protocol_kpi_intelligence",
         "symbol": "BTC",
@@ -19321,7 +19321,7 @@
               "compute_usd": 0.002,
               "tier": "free"
             },
-            "generated_at": "2026-09-03T12:34:58.951761+00:00",
+            "generated_at": "2026-09-03T12:39:34.454207+00:00",
             "composite_score": {
               "ok": true,
               "feature_ref": 150,
@@ -19435,7 +19435,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-09-03T12:34:58.952640+00:00",
+          "attached_at": "2026-09-03T12:39:34.455073+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -19677,7 +19677,7 @@
                   "compute_usd": 0.002,
                   "tier": "free"
                 },
-                "generated_at": "2026-09-03T12:34:58.951761+00:00",
+                "generated_at": "2026-09-03T12:39:34.454207+00:00",
                 "composite_score": {
                   "ok": true,
                   "feature_ref": 150,

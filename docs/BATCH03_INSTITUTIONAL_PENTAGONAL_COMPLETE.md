@@ -1,6 +1,6 @@
 # BATCH03_INSTITUTIONAL_PENTAGONAL_COMPLETE
 
-**Generated:** 2026-09-03T12:34:58.972372+00:00 | **Commit:** `60779f4b4483` | **Scope:** Batch03 IDs 101–150
+**Generated:** 2026-09-03T12:39:34.471317+00:00 | **Commit:** `af6fc36916b6` | **Scope:** Batch03 IDs 101–150
 **Classification:** LOCAL_GOVERNANCE_COMPLETE — items 1–27 engineering evidence
 **Acceptance source:** `BATCH03_ACCEPTANCE_101_150.json` (pre_probe, ISO 29148)
 
@@ -907,7 +907,7 @@
 |------|---------|--------|
 | gateway↔canonical entitlement | ✅ aligned | `tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py` |
 | REUSED-LINK Type-4 | ✅ | `tests/cap646/test_batch03_reused_link_contract.py` |
-| SLSA same commit | ✅ local session | commit `60779f4b4483` + probe timestamps in JSON |
+| SLSA same commit | ✅ local session | commit `af6fc36916b6` + probe timestamps in JSON |
 | anti-duplication guard | ✅ | generator exits non-zero if col6/7 >20% identical |
 
 ---
