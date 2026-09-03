@@ -1,0 +1,152 @@
+{
+  "generated_at": "2026-09-03T10:55:00Z",
+  "git_commit": "pending",
+  "scope": "Individual N14 audit for progress_826 k component",
+  "audit_criteria": {
+    "a_rtm_row": "Official RTM row: status/production_spine/binding_file/binding_function/notes",
+    "b_spine": "Non-generic production spine binding",
+    "c_execution_proof": "HTTP or documented TestClient/execute_capability without internal exception",
+    "d_entitlement": "Required only if paid tier in _TIER_REQUIREMENTS"
+  },
+  "rows": [
+    {
+      "id": 175,
+      "historical_classification": "PRODUCTION-ALIGNED (hero_evidence); PROGRESS_114: batch04 hero — no batch01/02 RTM/HTTP/entitlement proof",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "runtime execute_capability OK; no row in BATCH01/02/03 official RTM JSON",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    },
+    {
+      "id": 214,
+      "historical_classification": "PRODUCTION-ALIGNED (legacy_batch01_extension); PROGRESS_114: OPEN_RISK_REQUIRES_REEVALUATION; hero SPLIT-BRAIN-UNVERIFIED",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "parametrized test_batch01_runtime_production_path covers BATCH01_IDS; no official RTM row",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    },
+    {
+      "id": 245,
+      "historical_classification": "PRODUCTION-ALIGNED (legacy_batch01_extension); PROGRESS_114: OPEN_RISK_REQUIRES_REEVALUATION; DEFERRED-EARLY-BATCH",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "test_batch01_245_freshness_not_lake + parametrized batch01 test; no official RTM row",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    },
+    {
+      "id": 338,
+      "historical_classification": "PRODUCTION-ALIGNED (Option A pre-batch); from_hero_evidence",
+      "re_evaluated": false,
+      "option_a_carve_out": true,
+      "criteria": {"a_rtm": "Option A manifest", "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "docs/OPTION_A_PRODUCTION_PROOF.json + docs/OPTION_A_PRODUCTION_ALIGNED_MANIFEST.json",
+      "decision": "يُحتسَب",
+      "note": "Pre-batch Option A — not hero-batch OPEN_RISK; completed before batch system"
+    },
+    {
+      "id": 500,
+      "historical_classification": "PRODUCTION-ALIGNED (Option A pre-batch)",
+      "re_evaluated": false,
+      "option_a_carve_out": true,
+      "criteria": {"a_rtm": "Option A manifest", "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "docs/OPTION_A_PRODUCTION_PROOF.json",
+      "decision": "يُحتسَب",
+      "note": "Pre-batch Option A — data_spine.normalization_report"
+    },
+    {
+      "id": 507,
+      "historical_classification": "PRODUCTION-ALIGNED (Option A pre-batch)",
+      "re_evaluated": false,
+      "option_a_carve_out": true,
+      "criteria": {"a_rtm": "Option A manifest", "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "docs/OPTION_A_PRODUCTION_PROOF.json",
+      "decision": "يُحتسَب",
+      "note": "Pre-batch Option A — fallbacks.resolve_ohlcv_closes"
+    },
+    {
+      "id": 534,
+      "historical_classification": "PRODUCTION-ALIGNED (Option A pre-batch)",
+      "re_evaluated": false,
+      "option_a_carve_out": true,
+      "criteria": {"a_rtm": "Option A manifest", "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "docs/OPTION_A_PRODUCTION_PROOF.json",
+      "decision": "يُحتسَب",
+      "note": "Pre-batch Option A — data_spine.bucketed_cvd_report"
+    },
+    {
+      "id": 584,
+      "historical_classification": "PRODUCTION-ALIGNED (legacy); SPLIT-BRAIN-UNVERIFIED per SPLIT_BRAIN manifest",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "runtime OK via cap_584; no official RTM row",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    },
+    {
+      "id": 629,
+      "historical_classification": "PRODUCTION-ALIGNED (legacy batch13 extension); PROGRESS_114: no batch01/02 closure proof",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "BATCH01 completion report sample + parametrized test; no official RTM row",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    },
+    {
+      "id": 630,
+      "historical_classification": "PRODUCTION-ALIGNED (legacy batch13 extension)",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "runtime OK; BATCH01 report mentions freshness sample; no official RTM row",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    },
+    {
+      "id": 631,
+      "historical_classification": "PRODUCTION-ALIGNED (legacy batch13 extension)",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "runtime OK; no official RTM row",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    },
+    {
+      "id": 642,
+      "historical_classification": "PRODUCTION-ALIGNED (legacy); SPLIT-BRAIN-UNVERIFIED",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "test_batch01_642_ai_provenance + runtime OK; no official RTM row",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    },
+    {
+      "id": 644,
+      "historical_classification": "PRODUCTION-ALIGNED (legacy batch13 extension)",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "runtime OK; no official RTM row",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    },
+    {
+      "id": 646,
+      "historical_classification": "PRODUCTION-ALIGNED (legacy batch13 extension); not in hero_evidence",
+      "re_evaluated": true,
+      "criteria": {"a_rtm": false, "b_spine": true, "c_execution": true, "d_entitlement": "N/A-free"},
+      "new_evidence": "runtime OK; no official RTM row",
+      "decision": "يُستبعَد",
+      "exclusion_reason": "Missing criterion (a): no official RTM row at batch01/02 precision"
+    }
+  ],
+  "summary": {
+    "counted_k": 4,
+    "counted_ids": [338, 500, 507, 534],
+    "excluded_count": 10,
+    "excluded_ids": [175, 214, 245, 584, 629, 630, 631, 642, 644, 646],
+    "progress_826": 148,
+    "equation": "50 + 50 + 44 + 4 = 148"
+  },
+  "option_a_vs_legacy_difference": "Option A four (338/500/507/534) are pre-batch capabilities with docs/OPTION_A_PRODUCTION_PROOF.json — not hero-batch OPEN_RISK. Legacy ten have runtime spine but lack official RTM rows at batch01/02 precision."
+}

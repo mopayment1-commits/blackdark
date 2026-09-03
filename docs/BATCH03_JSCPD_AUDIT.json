@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-09-03T10:36:47.618Z",
+  "scope": "batch03 dedicated production modules",
+  "files_scanned": [
+    "cap646/batch03_dedicated.py",
+    "cap646/batch03_production.py",
+    "cap646/handlers/batch03.py"
+  ],
+  "line_counts": {
+    "cap646/batch03_dedicated.py": 484,
+    "cap646/batch03_production.py": 59,
+    "cap646/handlers/batch03.py": 12,
+    "total": 555
+  },
+  "jscpd_min_lines": 5,
+  "jscpd_min_tokens": 50,
+  "clones_found": 0,
+  "duplicated_lines": 0,
+  "duplication_percentage": 0.0,
+  "comparison_baseline_lines": 555,
+  "verdict": "0 clones on 555 lines — full batch03 scope confirmed"
+}
