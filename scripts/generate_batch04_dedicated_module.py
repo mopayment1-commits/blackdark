@@ -78,15 +78,15 @@ def _make_catalog_handler(capability_id: int) -> Callable[..., Awaitable[dict[st
 
 
 async def _cap151(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from bd_platform.data_sources_layer import explain_opportunity_151
+    from bd_platform.data_sources_layer import explain_opportunity_151, ingest_defillama_149
+    from cap646.batch04_quarterly_protocol import build_quarterly_protocol_report
 
-    raw = explain_opportunity_151(asset=symbol, seed=_seed())
-    payload = _catalog_payload(
-        151,
-        symbol,
-        reporting_period="quarterly",
-        protocol_performance=raw.get("breakdown") or {},
-        opportunity_score=raw.get("opportunity_score"),
+    explanation = explain_opportunity_151(asset=symbol, seed=_seed())
+    defi_snapshot = ingest_defillama_149(seed=_seed())
+    payload = build_quarterly_protocol_report(
+        symbol=symbol,
+        explanation=explanation,
+        defi_snapshot=defi_snapshot,
     )
     return _wrap(151, symbol=symbol, payload_key="quarterly_protocol_performance_reports", payload=payload)
 

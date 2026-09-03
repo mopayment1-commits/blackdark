@@ -39,8 +39,29 @@
           "field": "quarterly_protocol_performance_reports.feature_ref",
           "type": "numeric",
           "condition": "== 151"
+        },
+        {
+          "field": "quarterly_protocol_performance_reports.reporting_period",
+          "type": "enum",
+          "condition": "== quarterly"
+        },
+        {
+          "field": "quarterly_protocol_performance_reports.protocol_tvl_usd",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "quarterly_protocol_performance_reports.protocol_performance.quarterly_summary",
+          "type": "present",
+          "condition": "not_null"
         }
       ],
+      "requirement_contract": {
+        "business_objective": "Deliver institutional quarterly protocol performance summary for a symbol",
+        "expected_output": "quarterly_protocol_performance_reports with quarter_label, TVL, performance_score, dimension breakdown",
+        "canonical_binding": "cap646/batch04_dedicated.py::_cap151",
+        "canonical_module": "cap646.batch04_quarterly_protocol.build_quarterly_protocol_report"
+      },
       "prebuild_classification": "Brownfield",
       "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
       "hero_underlying": "bd_platform.data_sources_layer.explain_opportunity_151",

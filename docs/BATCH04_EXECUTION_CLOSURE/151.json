@@ -1,0 +1,79 @@
+{
+  "capability_id": 151,
+  "capability_name": "Quarterly Protocol Performance Reports",
+  "generated_at": "2026-09-03T18:15:00+00:00",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "baseline_commit": "cf475c9",
+  "gates": {
+    "gate0_continuity": {
+      "status": "PASS",
+      "evidence": "docs/BATCH04_EXECUTION_GATE0_RECONCILIATION.md — #149/#150 PRODUCTION-ALIGNED batch03"
+    },
+    "gate1_classification": {
+      "classification": "BROWNFIELD",
+      "evidence": [
+        "bd_platform.data_sources_layer.explain_opportunity_151",
+        "bd_platform.data_sources_layer.ingest_defillama_149",
+        "cap646/batch04_dedicated.py::_cap151"
+      ],
+      "prior_matrix": "Brownfield (confirmed)"
+    },
+    "gate2_duplication": {
+      "functional": "OVERLAP_PARTIAL",
+      "functional_evidence": "Hero explain_opportunity shares inputs with quarterly report but catalog goal is institutional quarterly protocol review",
+      "implementation": "Type-4 SPLIT-BRAIN — hero semantic ≠ catalog surface",
+      "time_decision": "MIGRATE",
+      "time_expiry": "2026-12-03",
+      "canonical_target": "cap646.batch04_dedicated._cap151",
+      "migrate_trigger": "Catalog-faithful quarterly payload replaces hero-only semantics"
+    },
+    "gate3_requirement_contract": {
+      "business_objective": "Institutional quarterly protocol performance summary per symbol",
+      "expected_output": "quarterly_protocol_performance_reports with quarter_label, protocol_tvl_usd, performance_score, quarterly_summary, dimension_breakdown",
+      "acceptance_ref": "docs/BATCH04_ACCEPTANCE_151_200.json#151",
+      "failure_behavior": "success=false with error payload via runtime exception path"
+    },
+    "gate5_iso25010": {
+      "completeness": "PASS — quarterly period, TVL, performance score, breakdown present",
+      "correctness": "PASS — domain rules + dedicated tests",
+      "appropriateness": "PASS — not generic stub; transforms hero+defi into quarterly report"
+    },
+    "gate6_integration": {
+      "path": "execute_capability(151) → batch04_production → batch04_dedicated._cap151 → batch04_quarterly_protocol",
+      "api_path": "/api/cap646/151",
+      "runtime_registration": "BATCH04_IDS in cap646.runtime"
+    },
+    "gate7_verification": {
+      "tests": [
+        "tests/cap646/test_batch04_cap151_quarterly_protocol.py",
+        "tests/cap646/test_batch04_prep_dedicated.py (parametrized 151)"
+      ],
+      "non_regression": "507/507 batch01-03 unchanged"
+    },
+    "gate12_performance": {
+      "classification": "analysis/calculation",
+      "threshold_ms": 2000,
+      "p50_ms": 1.45,
+      "p95_ms": 2.94,
+      "samples": 5,
+      "environment": "local CI",
+      "result": "PASS"
+    },
+    "gate13_five_column_closure": {
+      "internal_goal": "Quarterly protocol report with TVL + scored dimensions — ISO 25010 appropriateness met",
+      "external_result": "Expected vs actual domain rules pass; quarter_label + protocol_tvl_usd > 0",
+      "interface_access": "runtime + /api/cap646/151; local tests pass",
+      "security_quality": "entitlement fail-closed test; batch03 gateway contract unchanged",
+      "review_readiness": "LOCAL_REVIEW — independent reviewer can replay tests/cap646/test_batch04_cap151_quarterly_protocol.py"
+    },
+    "gate14_local_vs_live": {
+      "engineering_status": "ENGINEERING_VERIFIED_LOCAL",
+      "production_status": "AWAITING_DEPLOY",
+      "railway_blocker": "account compute hard limit"
+    }
+  },
+  "closure_status": "NOT_COMPLETE",
+  "production_aligned": false,
+  "batch04_independent": false,
+  "notes": "Engineering verified locally; NOT PRODUCTION-ALIGNED until owner build approval + live verification campaign"
+}

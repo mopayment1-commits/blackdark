@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-09-03T18:15:00+00:00",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "baseline_commit": "cf475c9",
+  "build_phase": "BUILD_PHASE_HOLD",
+  "execution_authorized": "Batch04 capabilities 151-200 only",
+  "gate0": "docs/BATCH04_EXECUTION_GATE0_RECONCILIATION.md",
+  "progress_826": 148,
+  "batch04_independent": 0,
+  "production_aligned_batch04": 0,
+  "execution_order": "151 → 152 → … → 200 (strict numerical)",
+  "completed_engineering_local": [151],
+  "in_progress": null,
+  "pending": [152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200],
+  "awaiting_deploy_backlog": [
+    {
+      "capability_id": 151,
+      "route": "/api/cap646/151",
+      "auth": "elite tier per gateway proof",
+      "expected_surface": "quarterly_protocol_performance_reports",
+      "production_test": "GET with symbol=BTC; assert quarterly_protocol_performance_reports.protocol_tvl_usd > 0",
+      "performance_threshold_ms": 2000
+    }
+  ],
+  "closure_artifacts": {
+    "151": "docs/BATCH04_EXECUTION_CLOSURE/151.json"
+  }
+}
