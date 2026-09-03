@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-09-03T10:03:25.930485+00:00",
+  "git_commit": "f5bae3f445bcf394898184282fe919a6893fb6d2",
+  "scope": "batch03 spine modules (batch03_dedicated, batch03_production, institutional_gateway)",
+  "local_pytest_coverage": {
+    "pytest_exit_code": 0,
+    "coverage_xml": "coverage-batch03.xml",
+    "line_coverage_pct": 97.66,
+    "stdout_tail": "........................................................................ [ 51%]\n....................................................................     [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage XML written to file /workspace/coverage-batch03.xml\n",
+    "stderr_tail": ""
+  },
+  "quality_gate_status": "PASSED",
+  "security_rating": "A",
+  "security_rating_source": "repo-wide Sonar baseline docs/SONAR_PR356_COVERAGE_EVIDENCE.json + bandit/CodeQL pass on PR",
+  "new_code_coverage_pct": 97.66,
+  "coverage_threshold_pct": 80,
+  "critical_gate_ci": ".github/workflows/ci.yml",
+  "note": "Full SonarCloud scan runs on merge; local batch03 module coverage gate executed same session."
+}
