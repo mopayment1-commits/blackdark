@@ -1780,5 +1780,9 @@
       }
     }
   ],
-  "build_phase": "OPEN"
+  "build_phase": "OPEN",
+  "gateway_proof": "docs/BATCH04_ENTITLEMENT_GATEWAY_PROOF.json",
+  "pa_closure_registry": "docs/BATCH04_PA_CLOSURE_REGISTRY.json",
+  "gate_zero_checklist": "docs/BATCH04_GATE_ZERO_CHECKLIST.md",
+  "blocker_escalation": "docs/BATCH04_BLOCKER_ESCALATION_OWNER.md"
 }

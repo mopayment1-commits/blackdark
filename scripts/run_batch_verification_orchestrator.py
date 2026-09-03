@@ -66,6 +66,10 @@ ORCHESTRATED_SCRIPTS: list[dict[str, str]] = [
         "script": "verify_entitlement_batch03_gateway_proof.py",
         "verifies": "Entitlement gateway path for batch03 sample IDs (no skip_entitlement)",
     },
+    {
+        "script": "verify_entitlement_batch04_gateway_proof.py",
+        "verifies": "Entitlement gateway path for batch04 sample IDs 151-200 (no skip_entitlement)",
+    },
 ]
 
 

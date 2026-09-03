@@ -1,10 +1,14 @@
 {
-  "generated_at": "2026-09-03T17:19:25.454945+00:00",
+  "generated_at": "2026-09-03T17:25:09.622502+00:00",
   "standard": "ISO/IEC/IEEE 29148",
   "scope": "Batch04 IDs 151-200 (50 rows)",
   "pre_probe": true,
   "official_batch": "batch04",
   "note": "Bindings in cap646/batch04_dedicated.py \u2014 catalog-aligned handlers (build phase)",
+  "gateway_proof": "docs/BATCH04_ENTITLEMENT_GATEWAY_PROOF.json",
+  "pa_closure_registry": "docs/BATCH04_PA_CLOSURE_REGISTRY.json",
+  "gate_zero_checklist": "docs/BATCH04_GATE_ZERO_CHECKLIST.md",
+  "blocker_escalation": "docs/BATCH04_BLOCKER_ESCALATION_OWNER.md",
   "rows": [
     {
       "capability_id": 151,

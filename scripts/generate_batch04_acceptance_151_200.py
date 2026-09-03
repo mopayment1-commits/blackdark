@@ -129,6 +129,10 @@ def build_acceptance() -> dict[str, Any]:
         "pre_probe": True,
         "official_batch": "batch04",
         "note": "Bindings in cap646/batch04_dedicated.py — catalog-aligned handlers (build phase)",
+        "gateway_proof": "docs/BATCH04_ENTITLEMENT_GATEWAY_PROOF.json",
+        "pa_closure_registry": "docs/BATCH04_PA_CLOSURE_REGISTRY.json",
+        "gate_zero_checklist": "docs/BATCH04_GATE_ZERO_CHECKLIST.md",
+        "blocker_escalation": "docs/BATCH04_BLOCKER_ESCALATION_OWNER.md",
         "rows": rows,
     }
 
