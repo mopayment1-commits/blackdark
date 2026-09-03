@@ -1,0 +1,3799 @@
+{
+  "generated_at": "2026-09-03T20:57:14.242374+00:00",
+  "branch": "cursor/batch04-semantic-alignment-e85e",
+  "commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+  "scope": "Batch04 IDs 151-200",
+  "summary": {
+    "semantic_alignment": {
+      "ALIGNED": 2,
+      "MISWIRED": 43,
+      "PARTIAL_ALIGNMENT": 5
+    },
+    "miswired_ids": [
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      160,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199
+    ],
+    "partial_alignment_ids": [
+      159,
+      161,
+      162,
+      175,
+      200
+    ],
+    "aligned_ids": [
+      151,
+      183
+    ],
+    "unproven_ids": [],
+    "gate1_semantic_miswire_count_prior": 16,
+    "semantic_miswire_count_this_gate": 43
+  },
+  "rows": [
+    {
+      "id": 151,
+      "capability_name": "Quarterly Protocol Performance Reports",
+      "designed_purpose": "Deliver institutional quarterly protocol performance summary for a symbol",
+      "expected_domain_output": "quarterly_protocol_performance_reports with quarter_label, TVL, performance_score, dimension breakdown",
+      "runtime_module_function": "cap646.batch04_dedicated._cap151 \u2192 cap646.batch04_quarterly_protocol.build_quarterly_protocol_report",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=151; symbol='BTC'; catalog_goal='quarterly_protocol_performance_reports'; reporting_period='quarterly'; quarter_label='2026-Q3'; protocol_symbol='BTC'; protocol_tvl_usd=12500000000.0; performance_score=100.0; opportunity_score=71.5",
+      "semantic_comparison": "Expected: Quarterly Protocol Performance Reports. Hero implements: quarterly_protocol_report via explain_opportunity_151 + defillama TVL. Runtime: quarter_label, reporting_period=quarterly, protocol_tvl_usd, performance_score, dimension_breakdown",
+      "semantic_alignment_status": "ALIGNED",
+      "reason": "Dedicated batch04_quarterly_protocol module computes genuine quarterly protocol performance semantics.",
+      "semantic_expected": "quarterly_protocol_report via explain_opportunity_151 + defillama TVL",
+      "semantic_actual": "quarter_label, reporting_period=quarterly, protocol_tvl_usd, performance_score, dimension_breakdown",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=quarterly_protocol_performance_reports",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + quarterly_protocol_report via explain_opportunity_151 + defi",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "quarterly_protocol_performance_reports",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 151,
+        "symbol": "BTC",
+        "catalog_goal": "quarterly_protocol_performance_reports",
+        "reporting_period": "quarterly",
+        "quarter_label": "2026-Q3",
+        "protocol_symbol": "BTC",
+        "protocol_tvl_usd": 12500000000.0,
+        "performance_score": 100.0,
+        "opportunity_score": 71.5,
+        "risk_score": 2.8,
+        "confidence_level": "medium"
+      }
+    },
+    {
+      "id": 152,
+      "capability_name": "Governance & Proposal Intelligence",
+      "designed_purpose": "Governance & Proposal Intelligence",
+      "expected_domain_output": "governance_proposal_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap152",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=152; symbol='BTC'; catalog_goal='governance_proposal_intelligence'; governance_proposals=dict; proposal_count=4",
+      "semantic_comparison": "Expected: Governance & Proposal Intelligence. Hero implements: data_sources E2E integration test runner (checks 140-152). Runtime: governance_proposals contains e2e checks/all_passed, not governance proposals",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "Runtime executes run_data_sources_e2e_140_152; repackages test checks as governance_proposal_intelligence.",
+      "semantic_expected": "data_sources E2E integration test runner (checks 140-152)",
+      "semantic_actual": "governance_proposals contains e2e checks/all_passed, not governance proposals",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=governance_proposal_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + data_sources E2E integration test runner (checks 140-152)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "governance_proposal_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 152,
+        "symbol": "BTC",
+        "catalog_goal": "governance_proposal_intelligence",
+        "governance_proposals": {
+          "ok": true,
+          "all_passed": true,
+          "checks": [
+            {
+              "id": "140_deferred",
+              "passed": true
+            },
+            {
+              "id": "141_coindesk",
+              "passed": true
+            },
+            {
+              "id": "142_santiment",
+              "passed": true
+            },
+            {
+              "id": "143_calendar",
+              "passed": true
+            },
+            {
+              "id": "144_whale",
+              "passed": true
+            },
+            {
+              "id": "145_146_consensus",
+              "passed": true
+            },
+            {
+              "id": "147_rejected",
+              "passed": true
+            },
+            {
+              "id": "148_blockchain",
+              "passed": true
+            },
+            {
+              "id": "149_defillama",
+              "passed": true
+            },
+            {
+              "id": "150_score",
+              "passed": true
+            },
+            {
+              "id": "151_explain",
+              "passed": true
+            },
+            {
+              "id": "152_rejected",
+              "passed": true
+            },
+            {
+              "id": "150_top3_embed",
+              "passed": true
+            }
+          ],
+          "timestamp": "2026-09-03T20:57:13.246782+00:00"
+        },
+        "proposal_count": 4
+      }
+    },
+    {
+      "id": 153,
+      "capability_name": "Project Monitoring Coverage Registry",
+      "designed_purpose": "Project Monitoring Coverage Registry",
+      "expected_domain_output": "project_monitoring_coverage_registry",
+      "runtime_module_function": "cap646.batch04_dedicated._cap153",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=153; symbol='BTC'; catalog_goal='project_monitoring_coverage_registry'; coverage_registry=dict; monitoring_status='active'; arbitrage_insight=dict",
+      "semantic_comparison": "Expected: Project Monitoring Coverage Registry. Hero implements: multi-venue theoretical arbitrage with cost breakdown. Runtime: coverage_registry maps venue prices; arbitrage_insight with net_spread_pct",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "analyze_arbitrage_opportunity_153 performs arbitrage analysis, not project monitoring coverage.",
+      "semantic_expected": "multi-venue theoretical arbitrage with cost breakdown",
+      "semantic_actual": "coverage_registry maps venue prices; arbitrage_insight with net_spread_pct",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=project_monitoring_coverage_registry",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + multi-venue theoretical arbitrage with cost breakdown",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "project_monitoring_coverage_registry",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 153,
+        "symbol": "BTC",
+        "catalog_goal": "project_monitoring_coverage_registry",
+        "coverage_registry": {
+          "projects_monitored": {
+            "binance": {
+              "price": 65050.0,
+              "liquidity_tier": "large",
+              "registry_ref": 98
+            },
+            "okx": {
+              "price": 65120.0,
+              "liquidity_tier": "large",
+              "registry_ref": 98
+            },
+            "uniswap": {
+              "price": 65280.0,
+              "liquidity_tier": "small",
+              "registry_ref": 98
+            }
+          }
+        },
+        "monitoring_status": "active",
+        "arbitrage_insight": {
+          "gross_spread_pct": 0.3536,
+          "fees_pct": 0.4,
+          "gas_withdrawal_pct": 0.0231,
+          "slippage_estimate_pct": 0.15,
+          "net_spread_pct": -0.2195
+        }
+      }
+    },
+    {
+      "id": 154,
+      "capability_name": "AI Crypto Copilot",
+      "designed_purpose": "AI Crypto Copilot",
+      "expected_domain_output": "ai_crypto_copilot",
+      "runtime_module_function": "cap646.batch04_dedicated._cap154",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=154; symbol='BTC'; catalog_goal='ai_crypto_copilot'; copilot_status='merged_not_standalone'; dimensions=list; outputs=list; rule_based=True; ai_classification='rule-based'",
+      "semantic_comparison": "Expected: AI Crypto Copilot. Hero implements: financial_brain merged infrastructure status (activation_not_build). Runtime: copilot_status=merged_not_standalone; dimensions/outputs are infra metadata",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "financial_brain_status_154 reports merge status, not an interactive AI crypto copilot.",
+      "semantic_expected": "financial_brain merged infrastructure status (activation_not_build)",
+      "semantic_actual": "copilot_status=merged_not_standalone; dimensions/outputs are infra metadata",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ai_crypto_copilot",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + financial_brain merged infrastructure status (activation_not",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "ai_crypto_copilot",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 154,
+        "symbol": "BTC",
+        "catalog_goal": "ai_crypto_copilot",
+        "copilot_status": "merged_not_standalone",
+        "dimensions": [
+          "technical",
+          "on_chain",
+          "sentiment",
+          "macro"
+        ],
+        "outputs": [
+          "one_clear_answer_63",
+          "opportunity_score_150"
+        ],
+        "rule_based": true,
+        "ai_classification": "rule-based"
+      }
+    },
+    {
+      "id": 155,
+      "capability_name": "AI Deep Research",
+      "designed_purpose": "AI Deep Research",
+      "expected_domain_output": "ai_deep_research",
+      "runtime_module_function": "cap646.batch04_dedicated._cap155",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=155; symbol='BTC'; catalog_goal='ai_deep_research'; research_depth='deep'; z_score=2.3; insight=dict; no_auto_trading=True; rule_based=True; ai_classification='rule-based'",
+      "semantic_comparison": "Expected: AI Deep Research. Hero implements: statistical arbitrage z-score mean-reversion insight. Runtime: research_depth=deep, z_score, historical reversion \u2014 stat arb not deep research",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "stat_arb_insight_155 is pair correlation deviation, not AI deep research capability.",
+      "semantic_expected": "statistical arbitrage z-score mean-reversion insight",
+      "semantic_actual": "research_depth=deep, z_score, historical reversion \u2014 stat arb not deep research",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ai_deep_research",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + statistical arbitrage z-score mean-reversion insight",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "ai_deep_research",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 155,
+        "symbol": "BTC",
+        "catalog_goal": "ai_deep_research",
+        "research_depth": "deep",
+        "z_score": 2.3,
+        "insight": {
+          "en": "Correlation deviation 2.3\u03c3 \u2014 historically reverts in 3\u20137 days 78.0% of cases",
+          "ar": "\u0627\u0646\u062d\u0631\u0627\u0641 \u0627\u0631\u062a\u0628\u0627\u0637 2.3\u03c3 \u2014 \u0639\u0648\u062f\u0629 \u062a\u0627\u0631\u064a\u062e\u064a\u0629 \u062e\u0644\u0627\u0644 3\u20137 \u0623\u064a\u0627\u0645 \u0641\u064a 78.0% \u0645\u0646 \u0627\u0644\u062d\u0627\u0644\u0627\u062a"
+        },
+        "no_auto_trading": true,
+        "rule_based": true,
+        "ai_classification": "rule-based"
+      }
+    },
+    {
+      "id": 156,
+      "capability_name": "Crypto Knowledge Graph",
+      "designed_purpose": "Crypto Knowledge Graph",
+      "expected_domain_output": "crypto_knowledge_graph",
+      "runtime_module_function": "cap646.batch04_dedicated._cap156",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=156; symbol='BTC'; catalog_goal='crypto_knowledge_graph'; graph_nodes=list; node_count=105",
+      "semantic_comparison": "Expected: Crypto Knowledge Graph. Hero implements: asset registry 105-coin list with selection criteria. Runtime: graph_nodes=asset list; no edges, relationships, or graph traversal",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "asset_registry_105_coins_156 is a coin list, not a crypto knowledge graph.",
+      "semantic_expected": "asset registry 105-coin list with selection criteria",
+      "semantic_actual": "graph_nodes=asset list; no edges, relationships, or graph traversal",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=crypto_knowledge_graph",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + asset registry 105-coin list with selection criteria",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "crypto_knowledge_graph",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 156,
+        "symbol": "BTC",
+        "catalog_goal": "crypto_knowledge_graph",
+        "graph_nodes": [
+          {
+            "symbol": "BTC",
+            "registry_id": "43e66dfc-22ef-5fc0-bfe2-4f2216b82f29",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ETH",
+            "registry_id": "db950f73-a2d7-5421-b7b6-ddee43dbed14",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "BNB",
+            "registry_id": "c9d7f89e-3410-5883-8450-659438313b28",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "SOL",
+            "registry_id": "2f6f2d4d-2c9b-55ed-b61c-19c3704aa3cc",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "XRP",
+            "registry_id": "6d072604-051d-5f10-b378-afb5f85741c0",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ADA",
+            "registry_id": "23de0073-6362-58ce-967b-b386204f939c",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "AVAX",
+            "registry_id": "309ee1df-7fd2-5f1a-a4ce-57b25534a7fd",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "DOGE",
+            "registry_id": "c89fba47-5676-5a65-b0f2-cc59f921fe91",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "DOT",
+            "registry_id": "6dfed2be-f1e0-5eb8-897d-c75cd1c3e7ea",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "TRX",
+            "registry_id": "83376396-d12b-53c9-957c-d826aee02d64",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "LINK",
+            "registry_id": "a273b50d-17f9-5faf-8980-d8c6781de620",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "MATIC",
+            "registry_id": "6239dd19-a04c-5578-bc2e-9aea66027722",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "TON",
+            "registry_id": "376be4a5-2ea7-5158-8194-32f114adb608",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "SHIB",
+            "registry_id": "d663b7b0-4d42-5b96-b22b-ba9176cf8c65",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "LTC",
+            "registry_id": "de56d855-3b2b-5b8b-b4a1-d9dbd0287f5f",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "BCH",
+            "registry_id": "551f2ce1-0a5b-51b3-8c21-0283f6115d71",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "UNI",
+            "registry_id": "65752474-3e4c-5c58-a097-b19751c194f4",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ATOM",
+            "registry_id": "8bd2d37f-793e-51d4-85d1-8d7d9093e431",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "XLM",
+            "registry_id": "7765e650-c70f-59e4-bdc2-14a5476bbe03",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ETC",
+            "registry_id": "46d05703-c16a-5dda-a9ee-6cf002cc7ee4",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "FIL",
+            "registry_id": "b1e10763-76cb-5544-a21e-7d1bfc5a8fa9",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "APT",
+            "registry_id": "ec3f9b61-d548-5227-8ee7-d2f73a27b8ad",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ARB",
+            "registry_id": "5ee4382d-3042-525a-9016-605e09bb32df",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "OP",
+            "registry_id": "be076602-5243-5908-b1c1-3e9e2bfe7104",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "NEAR",
+            "registry_id": "f4de87ba-c034-5a65-bd37-e571eb643887",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ICP",
+            "registry_id": "f2f9fce8-d75a-5a04-8f27-9b70d3eb24e2",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "HBAR",
+            "registry_id": "127e3d41-1830-5910-82eb-2dfdf84c8e2d",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "VET",
+            "registry_id": "0bcfcb2d-6ad7-55f9-bf81-927a27039a45",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "MKR",
+            "registry_id": "d6742743-d7aa-5b8f-a170-0ef6988b5f46",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "AAVE",
+            "registry_id": "d0ee7491-1617-5ab6-b1f9-5376a4309954",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "GRT",
+            "registry_id": "380848ea-72ca-5421-8a8b-112b717c8307",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ALGO",
+            "registry_id": "4e504d11-7b7c-53d7-9248-b2dde78bbf9c",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "QNT",
+            "registry_id": "4b4b61ac-409d-5539-8753-fe8164641e0f",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "EGLD",
+            "registry_id": "c7ef4138-46e6-5666-9c12-edc466963d04",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "XTZ",
+            "registry_id": "9ea2547d-8d4e-53a6-aa3e-bf71da33f4ba",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "THETA",
+            "registry_id": "8ac88a45-8bae-5d07-b2ec-c0b36297c0c9",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "AXS",
+            "registry_id": "3a6d99cf-bf4e-520f-95a9-bdc0374d2c7b",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "SAND",
+            "registry_id": "64183753-05c0-5257-8826-1bb3eb92f6cd",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "MANA",
+            "registry_id": "c31f64f4-e586-5e42-abb1-aea591825af0",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "FLOW",
+            "registry_id": "8f62cbcf-f5c7-5677-ae8f-1e69b5d2d40f",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "SNX",
+            "registry_id": "33874c2e-69e3-5db9-8ad9-b7059e37b0b2",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "CRV",
+            "registry_id": "a65e5b63-386d-5293-9c00-dab72ecd5a38",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "COMP",
+            "registry_id": "fa38a9b3-0452-59a7-bf5f-de72f39d9896",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "LDO",
+            "registry_id": "e16bff31-67a0-572d-9bad-635c95050fc1",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "RUNE",
+            "registry_id": "868840f7-4c1a-5b91-8429-dbdd65b6cd56",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "INJ",
+            "registry_id": "9336b8aa-7b61-5a60-9f91-3b49be57d526",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "FTM",
+            "registry_id": "85d1ceb6-d2f0-57bd-9ebf-61ad42d75ede",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "KAVA",
+            "registry_id": "3bef4ced-f95e-5708-b66c-1cc24df3829c",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ZEC",
+            "registry_id": "0e212272-d591-5cab-98f7-8a5c2a2d68d7",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "DASH",
+            "registry_id": "138f7d77-5a01-5e85-95a0-ded73a3387bb",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ENJ",
+            "registry_id": "9e2ebb89-5822-5b2d-9591-33b64c1b625d",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "CHZ",
+            "registry_id": "02efba3f-d893-5c8b-b2aa-869c22b98c6a",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "BAT",
+            "registry_id": "4eb20639-1feb-58bc-b29d-fb1f22da34d4",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "1INCH",
+            "registry_id": "003283e8-60db-57e3-9e02-807ef00cf52f",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "SUSHI",
+            "registry_id": "f74d648d-061f-54cf-9ef5-2c7c19059fa1",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "YFI",
+            "registry_id": "c718bd38-b673-52dd-87be-c60829e67e57",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ZRX",
+            "registry_id": "ead4d78d-a094-5119-8ff5-36bfadb1df48",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ANKR",
+            "registry_id": "f744ff15-73f3-59b6-900b-4a04429da9f2",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "STORJ",
+            "registry_id": "f298ef80-48dd-5199-beec-2e4051b98856",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "OCEAN",
+            "registry_id": "323bc813-454b-54c7-b2d0-2d58fc2d8da5",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "IMX",
+            "registry_id": "8dd8a938-667a-5cd3-878e-e00f969c7d58",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "APE",
+            "registry_id": "ba558f48-47ce-57c7-a924-28dd9230aeab",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "GMX",
+            "registry_id": "cb0b2328-a534-5e27-9c94-6aa2162918fb",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "DYDX",
+            "registry_id": "34f846a3-3687-5e64-b9be-bc8b7649d15b",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "BLUR",
+            "registry_id": "fe1ced00-e040-5ccc-b5fb-a7ee75745de7",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "RPL",
+            "registry_id": "a7002d6c-bc07-5c2b-9cae-89a6c8ad77f5",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "SSV",
+            "registry_id": "4b7f48f6-2bd0-591a-ba3b-304562b828cb",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "STX",
+            "registry_id": "fa1daa18-fa2a-52b2-a134-8874d8eb0cba",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "SEI",
+            "registry_id": "cc41626e-73c5-5921-afc9-c435aab38aee",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "SUI",
+            "registry_id": "62b48fe3-72df-574b-a96a-5353410577ff",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "TIA",
+            "registry_id": "98739d74-64a7-5677-b5ef-b093cb0cc4f4",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "JUP",
+            "registry_id": "4af3de16-20f9-5a5d-bcc9-e679101a9fbb",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "PYTH",
+            "registry_id": "8830d8fc-cb7c-5f31-a47c-3cd5d8c99f54",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "WIF",
+            "registry_id": "5196c28a-1399-58d6-9214-f4c745a2559a",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "BONK",
+            "registry_id": "9582d43e-6d9a-55a9-964b-26e20d6738fe",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "PEPE",
+            "registry_id": "0dd45c95-ddd9-5c21-9d64-4b67a0b12b4e",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "FLOKI",
+            "registry_id": "a3718736-1c52-5fb4-b8fb-f96a399dd32f",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ORDI",
+            "registry_id": "810c5402-8d06-5e84-8a75-ad1348206a49",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "RNDR",
+            "registry_id": "11c48cbe-a599-5286-a2e9-5acd0c23b38e",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "FET",
+            "registry_id": "be05eb42-2847-5cd7-8c87-cb57869ad10a",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "AGIX",
+            "registry_id": "5a298ce5-2a3c-55f4-9826-5b54bd912d7e",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ROSE",
+            "registry_id": "621714c6-cc90-5262-9906-a6f6b0d734ec",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "CELO",
+            "registry_id": "684041e9-6710-569d-8719-3079954455e7",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "MINA",
+            "registry_id": "afb6477d-c907-5382-999d-41c7f1ea6f51",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "KSM",
+            "registry_id": "2fd63296-10a7-5a02-a4dd-abc196d0372e",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "WAVES",
+            "registry_id": "64b0abe7-df83-5f1e-a127-7720ebbb8a71",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ZIL",
+            "registry_id": "06344dee-f0cd-5301-9949-a5388f7c7f4e",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ICX",
+            "registry_id": "d79ce9c9-35d3-5c0f-9725-a4837d21c58b",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ONT",
+            "registry_id": "8959adf7-23d3-5f39-898c-9968905877f7",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "QTUM",
+            "registry_id": "38ac139e-577f-557f-b489-2896b15ba2e0",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "NEO",
+            "registry_id": "998361df-6051-5ee8-bcb1-40e8ec465605",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "IOTA",
+            "registry_id": "861974f6-fdd6-5b95-90d6-579f72c3f2cd",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "EOS",
+            "registry_id": "c00bf646-9f79-5bf9-82e8-ecca08dc31dc",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "KLAY",
+            "registry_id": "75b69628-d457-5770-a230-963c41346e9d",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "CAKE",
+            "registry_id": "54361fa4-1268-5287-85a4-06d737ecee18",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "XMR",
+            "registry_id": "6f47c184-ae3b-5fc8-9a7b-6e54cdfed2b7",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "BSV",
+            "registry_id": "db33cdb9-3c55-5919-ad84-8857b9a47814",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "HNT",
+            "registry_id": "bb01f18b-d6e0-57de-a75f-c9b2b314b4e0",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "CFX",
+            "registry_id": "e1e73efa-2c50-549b-9542-36d1fedd9c88",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "MASK",
+            "registry_id": "11c1a154-7851-5643-a14c-4cb510aa6fe9",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "LRC",
+            "registry_id": "73243297-d2ba-5ba3-b6a1-62416b49d8a4",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "ENS",
+            "registry_id": "f1805de7-fd13-524f-bde6-2f7233b00eae",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "GALA",
+            "registry_id": "7af97927-d34e-58ac-8d87-d4c456d38bbe",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "AUDIO",
+            "registry_id": "ac841e09-e7f2-5068-967b-121167cdc15c",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          },
+          {
+            "symbol": "SKL",
+            "registry_id": "3ea9bb3e-aaad-5922-9c28-05951f65b49c",
+            "market_cap_usd": 200000000,
+            "volume_24h_usd": 3000000,
+            "venue_count": 3,
+            "validation_sources": 3,
+            "latency_buffer_ref": 101
+          }
+        ],
+        "node_count": 105
+      }
+    },
+    {
+      "id": 157,
+      "capability_name": "Research Library",
+      "designed_purpose": "Research Library",
+      "expected_domain_output": "research_library",
+      "runtime_module_function": "cap646.batch04_dedicated._cap157",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=157; symbol='BTC'; catalog_goal='research_library'; research_items=list; routes=list",
+      "semantic_comparison": "Expected: Research Library. Hero implements: onchain advanced merged infrastructure status. Runtime: research_items=capabilities list, routes=oracle paths \u2014 infra status not library",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "onchain_advanced_status_157 reports merge/activation status, not a research library.",
+      "semantic_expected": "onchain advanced merged infrastructure status",
+      "semantic_actual": "research_items=capabilities list, routes=oracle paths \u2014 infra status not library",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=research_library",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + onchain advanced merged infrastructure status",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "research_library",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 157,
+        "symbol": "BTC",
+        "catalog_goal": "research_library",
+        "research_items": [
+          "wallet_flows",
+          "whale_to_retail_ratio_107",
+          "wallet_age_acceleration_110",
+          "support_resistance_from_whale_flow"
+        ],
+        "routes": [
+          "/oracle/on-chain",
+          "/oracle/on-chain/whale",
+          "/portfolio/advanced-risk"
+        ]
+      }
+    },
+    {
+      "id": 158,
+      "capability_name": "Institutional Research Feed",
+      "designed_purpose": "Institutional Research Feed",
+      "expected_domain_output": "institutional_research_feed",
+      "runtime_module_function": "cap646.batch04_dedicated._cap158",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=158; symbol='BTC'; catalog_goal='institutional_research_feed'; feed_items=list; venue_count=4",
+      "semantic_comparison": "Expected: Institutional Research Feed. Hero implements: multi-venue websocket connection aggregation status. Runtime: feed_items=venue connections with latency_ms, not research content",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "multi_venue_websocket_status_158 is streaming infra, not institutional research feed.",
+      "semantic_expected": "multi-venue websocket connection aggregation status",
+      "semantic_actual": "feed_items=venue connections with latency_ms, not research content",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=institutional_research_feed",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + multi-venue websocket connection aggregation status",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "institutional_research_feed",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 158,
+        "symbol": "BTC",
+        "catalog_goal": "institutional_research_feed",
+        "feed_items": [
+          {
+            "venue": "binance",
+            "status": "connected",
+            "latency_ms": 35,
+            "failover_backup": true,
+            "liquidity_tier": "large"
+          },
+          {
+            "venue": "okx",
+            "status": "connected",
+            "latency_ms": 40,
+            "failover_backup": true,
+            "liquidity_tier": "large"
+          },
+          {
+            "venue": "coinbase",
+            "status": "connected",
+            "latency_ms": 45,
+            "failover_backup": true,
+            "liquidity_tier": "large"
+          },
+          {
+            "venue": "bybit",
+            "status": "connected",
+            "latency_ms": 50,
+            "failover_backup": true,
+            "liquidity_tier": "medium"
+          }
+        ],
+        "venue_count": 4
+      }
+    },
+    {
+      "id": 159,
+      "capability_name": "API Data Platform",
+      "designed_purpose": "API Data Platform",
+      "expected_domain_output": "api_data_platform",
+      "runtime_module_function": "cap646.batch04_dedicated._cap159",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=159; institutional_api='/api/institutional'; graphql='/graphql'; hot_storage=dict; blocker='BLOCKER-159-103'; canonical_overlap=103; canonical_status='OVERLAP-PARTIAL'; owner_decision='NOT_COMPLETE \u2014 no REUSED-LINK until #103 matures (Tolerate 2026-10-03) or DISTINCT ADR'",
+      "semantic_comparison": "Expected: API Data Platform. Hero implements: institutional API platform via batch03 #103 wrap + gas profile owner. Runtime: institutional_api, graphql, hot_storage present; blocker BLOCKER-159-103",
+      "semantic_alignment_status": "PARTIAL_ALIGNMENT",
+      "reason": "Aligned portion: API platform endpoints. Missing: full platform maturity blocked on #103.",
+      "semantic_expected": "institutional API platform via batch03 #103 wrap + gas profile owner",
+      "semantic_actual": "institutional_api, graphql, hot_storage present; blocker BLOCKER-159-103",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=api_data_platform",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + institutional API platform via batch03 #103 wrap + gas profi",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "api_data_platform",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 159,
+        "institutional_api": "/api/institutional",
+        "graphql": "/graphql",
+        "hot_storage": {
+          "enqueued": 0,
+          "dropped": 0,
+          "flushed": 0,
+          "flush_errors": 0,
+          "buffer_depth": 0,
+          "last_flush_at": null,
+          "active_backends": []
+        },
+        "blocker": "BLOCKER-159-103",
+        "canonical_overlap": 103,
+        "canonical_status": "OVERLAP-PARTIAL",
+        "owner_decision": "NOT_COMPLETE \u2014 no REUSED-LINK until #103 matures (Tolerate 2026-10-03) or DISTINCT ADR"
+      }
+    },
+    {
+      "id": 160,
+      "capability_name": "Pay-Per-Request Data Access",
+      "designed_purpose": "Pay-Per-Request Data Access",
+      "expected_domain_output": "pay_per_request_data_access",
+      "runtime_module_function": "cap646.batch04_dedicated._cap160",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=160; symbol='BTC'; catalog_goal='pay_per_request_data_access'; pricing_model='pay_per_request'; in_squeeze=False; request_metering=dict",
+      "semantic_comparison": "Expected: Pay-Per-Request Data Access. Hero implements: Bollinger/Keltner volatility squeeze detection. Runtime: pricing_model=pay_per_request but in_squeeze from vol squeeze; metering is static stub",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "detect_volatility_squeeze_160 is TA squeeze indicator, not pay-per-request data access.",
+      "semantic_expected": "Bollinger/Keltner volatility squeeze detection",
+      "semantic_actual": "pricing_model=pay_per_request but in_squeeze from vol squeeze; metering is static stub",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=pay_per_request_data_access",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + Bollinger/Keltner volatility squeeze detection",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "pay_per_request_data_access",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 160,
+        "symbol": "BTC",
+        "catalog_goal": "pay_per_request_data_access",
+        "pricing_model": "pay_per_request",
+        "in_squeeze": false,
+        "request_metering": {
+          "unit": "api_call",
+          "estimated_cost_usd": 0.001
+        }
+      }
+    },
+    {
+      "id": 161,
+      "capability_name": "Institutional Data Delivery & Entitlements",
+      "designed_purpose": "Institutional Data Delivery & Entitlements",
+      "expected_domain_output": "institutional_data_delivery_entitlements",
+      "runtime_module_function": "cap646.batch04_dedicated._cap161",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=161; symbol='BTC'; catalog_goal='institutional_data_delivery_entitlements'; isolation=dict; role_matrix=dict; entitlements=dict",
+      "semantic_comparison": "Expected: Institutional Data Delivery & Entitlements. Hero implements: institutional capability handler (RBAC/isolation matrix). Runtime: role_matrix, entitlements, isolation from handle_institutional_capability(161)",
+      "semantic_alignment_status": "PARTIAL_ALIGNMENT",
+      "reason": "Aligned portion: entitlements/RBAC. Missing: full institutional data delivery pipeline; hero binding alert_delivery unused.",
+      "semantic_expected": "institutional capability handler (RBAC/isolation matrix)",
+      "semantic_actual": "role_matrix, entitlements, isolation from handle_institutional_capability(161)",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=institutional_data_delivery_entitlements",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + institutional capability handler (RBAC/isolation matrix)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "institutional_data_delivery_entitlements",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 161,
+        "symbol": "BTC",
+        "catalog_goal": "institutional_data_delivery_entitlements",
+        "isolation": {
+          "surface": "multi_tenant_org_isolation",
+          "product_complete": true,
+          "org_count": 205,
+          "membership_count": 328,
+          "roles": [
+            "admin",
+            "compliance",
+            "pm",
+            "analyst",
+            "viewer"
+          ],
+          "isolation_contract": "org_id_scoped_v1",
+          "cross_tenant_denied_by_default": true,
+          "storage": "/workspace/data/orgs"
+        },
+        "role_matrix": {
+          "admin": [
+            "audit.view",
+            "billing.manage",
+            "compliance.export",
+            "compliance.view",
+            "contracts.sign",
+            "decisions.execute",
+            "decisions.view",
+            "org.manage",
+            "org.members",
+            "org.mfa_policy",
+            "org.sso",
+            "support.manage"
+          ],
+          "compliance": [
+            "audit.view",
+            "compliance.export",
+            "compliance.view",
+            "contracts.view",
+            "decisions.view"
+          ],
+          "pm": [
+            "audit.view",
+            "billing.view",
+            "decisions.execute",
+            "decisions.view",
+            "support.open"
+          ],
+          "analyst": [
+            "audit.view",
+            "decisions.execute",
+            "decisions.view"
+          ],
+          "viewer": [
+            "audit.view",
+            "decisions.view"
+          ]
+        },
+        "entitlements": {
+          "admin": [
+            "audit.view",
+            "billing.manage",
+            "compliance.export",
+            "compliance.view",
+            "contracts.sign",
+            "decisions.execute",
+            "decisions.view",
+            "org.manage",
+            "org.members",
+            "org.mfa_policy",
+            "org.sso",
+            "support.manage"
+          ],
+          "compliance": [
+            "audit.view",
+            "compliance.export",
+            "compliance.view",
+            "contracts.view",
+            "decisions.view"
+          ],
+          "pm": [
+            "audit.view",
+            "billing.view",
+            "decisions.execute",
+            "decisions.view",
+            "support.open"
+          ],
+          "analyst": [
+            "audit.view",
+            "decisions.execute",
+            "decisions.view"
+          ],
+          "viewer": [
+            "audit.view",
+            "decisions.view"
+          ]
+        }
+      }
+    },
+    {
+      "id": 162,
+      "capability_name": "Evidence & Provenance Layer",
+      "designed_purpose": "Evidence & Provenance Layer",
+      "expected_domain_output": "evidence_provenance_layer",
+      "runtime_module_function": "cap646.batch04_dedicated._cap162",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=162; symbol='BTC'; catalog_goal='evidence_provenance_layer'; provenance=dict; hot_storage=dict",
+      "semantic_comparison": "Expected: Evidence & Provenance Layer. Hero implements: provenance hot storage payload (REUSED_LINK #106). Runtime: provenance + hot_storage fields present; catalog_link in code not at top-level runtime",
+      "semantic_alignment_status": "PARTIAL_ALIGNMENT",
+      "reason": "Aligned portion: evidence/provenance data. Missing: full evidence layer; underlying is #106 reuse.",
+      "semantic_expected": "provenance hot storage payload (REUSED_LINK #106)",
+      "semantic_actual": "provenance + hot_storage fields present; catalog_link in code not at top-level runtime",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=evidence_provenance_layer",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + provenance hot storage payload (REUSED_LINK #106)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "evidence_provenance_layer",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 162,
+        "symbol": "BTC",
+        "catalog_goal": "evidence_provenance_layer",
+        "provenance": {
+          "surface": "data_provenance_score",
+          "generated_at": "2026-09-03T20:57:13.788060+00:00",
+          "symbol": "BTC",
+          "score": 66.0,
+          "band": "caution",
+          "posture": "Decide with caution \u2014 some inputs soft or thin",
+          "components": {
+            "freshness": {
+              "score": 18.0,
+              "state": "unknown",
+              "freshness_ms": null
+            },
+            "venue_depth": {
+              "score": 35.0,
+              "live_venues": 100,
+              "max_component": 35
+            },
+            "source_diversity": {
+              "score": 11.0,
+              "categories": [
+                "derivatives",
+                "prices"
+              ]
+            },
+            "executable_gate": {
+              "score": 2.0,
+              "executable": false
+            }
+          },
+          "live_ingestion_ready_ids": [
+            "binance",
+            "okx",
+            "bybit",
+            "coinbase",
+            "kucoin",
+            "bitget",
+            "gateio",
+            "mexc",
+            "kraken",
+            "htx",
+            "cryptocom",
+            "bingx",
+            "lbank",
+            "xt",
+            "coinw",
+            "upbit",
+            "bithumb",
+            "bitfinex",
+            "bitstamp",
+            "whitebit"
+          ],
+          "honesty": "Score uses LIVE ingestion-ready venues only \u2014 never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
+          "api": "/api/oracle/provenance-score",
+          "disclaimer": "Provenance \u2260 profit guarantee. Low score forces WAIT posture."
+        },
+        "hot_storage": {
+          "enqueued": 0,
+          "dropped": 0,
+          "flushed": 0,
+          "flush_errors": 0,
+          "buffer_depth": 0,
+          "last_flush_at": null,
+          "active_backends": []
+        }
+      }
+    },
+    {
+      "id": 163,
+      "capability_name": "Cross-Domain Research-to-Decision Intelligence",
+      "designed_purpose": "Cross-Domain Research-to-Decision Intelligence",
+      "expected_domain_output": "cross_domain_research_to_decision_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap163",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=163; symbol='BTC'; catalog_goal='cross_domain_research_to_decision_intelligence'; cross_domain_report=dict; checks_passed=True; rule_based_only=True",
+      "semantic_comparison": "Expected: Cross-Domain Research-to-Decision Intelligence. Hero implements: intelligence analysis E2E test runner (checks 153-163). Runtime: cross_domain_report with checks_passed/all_passed e2e results",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "run_intelligence_analysis_e2e_153_163 is integration test, not research-to-decision intelligence.",
+      "semantic_expected": "intelligence analysis E2E test runner (checks 153-163)",
+      "semantic_actual": "cross_domain_report with checks_passed/all_passed e2e results",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=cross_domain_research_to_decision_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + intelligence analysis E2E test runner (checks 153-163)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "cross_domain_research_to_decision_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 163,
+        "symbol": "BTC",
+        "catalog_goal": "cross_domain_research_to_decision_intelligence",
+        "cross_domain_report": {
+          "ok": true,
+          "all_passed": true,
+          "checks": [
+            {
+              "id": "153_arbitrage",
+              "passed": true
+            },
+            {
+              "id": "154_merged",
+              "passed": true
+            },
+            {
+              "id": "155_stat_arb",
+              "passed": true
+            },
+            {
+              "id": "156_assets",
+              "passed": true
+            },
+            {
+              "id": "157_onchain",
+              "passed": true
+            },
+            {
+              "id": "158_websocket",
+              "passed": true
+            },
+            {
+              "id": "159_gas",
+              "passed": true
+            },
+            {
+              "id": "160_squeeze",
+              "passed": true
+            },
+            {
+              "id": "161_delivery",
+              "passed": true
+            },
+            {
+              "id": "162_grid",
+              "passed": true
+            },
+            {
+              "id": "163_report",
+              "passed": true
+            }
+          ],
+          "timestamp": "2026-09-03T20:57:13.793725+00:00"
+        },
+        "checks_passed": true,
+        "rule_based_only": true
+      }
+    },
+    {
+      "id": 164,
+      "capability_name": "Token Unlock Actionability Score",
+      "designed_purpose": "Token Unlock Actionability Score",
+      "expected_domain_output": "token_unlock_actionability_score",
+      "runtime_module_function": "cap646.batch04_dedicated._cap164",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=164; symbol='BTC'; catalog_goal='token_unlock_actionability_score'; actionability_score=25.0; unlock_risk=15.0; position_usd=250000",
+      "semantic_comparison": "Expected: Token Unlock Actionability Score. Hero implements: liquidity impact / position slippage warning (panic button rejected). Runtime: actionability_score derived from estimated_slippage_pct, unlock_risk=slippage",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "liquidity_impact_warning_164 is portfolio slippage, not token unlock actionability.",
+      "semantic_expected": "liquidity impact / position slippage warning (panic button rejected)",
+      "semantic_actual": "actionability_score derived from estimated_slippage_pct, unlock_risk=slippage",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=token_unlock_actionability_score",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + liquidity impact / position slippage warning (panic button r",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "token_unlock_actionability_score",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 164,
+        "symbol": "BTC",
+        "catalog_goal": "token_unlock_actionability_score",
+        "actionability_score": 25.0,
+        "unlock_risk": 15.0,
+        "position_usd": 250000
+      }
+    },
+    {
+      "id": 165,
+      "capability_name": "Fundraising Momentum Score",
+      "designed_purpose": "Fundraising Momentum Score",
+      "expected_domain_output": "fundraising_momentum_score",
+      "runtime_module_function": "cap646.batch04_dedicated._cap165",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=165; symbol='BTC'; catalog_goal='fundraising_momentum_score'; momentum_score=13.46; capitulation_signal=True; fundraising_outlook=dict",
+      "semantic_comparison": "Expected: Fundraising Momentum Score. Hero implements: BTC hashrate capitulation / miner revenue forecast. Runtime: momentum_score=hashrate_drop_pct, capitulation_signal from mining economics",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "hashrate_capitulation_forecast_165 is mining hashrate, not fundraising momentum.",
+      "semantic_expected": "BTC hashrate capitulation / miner revenue forecast",
+      "semantic_actual": "momentum_score=hashrate_drop_pct, capitulation_signal from mining economics",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=fundraising_momentum_score",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + BTC hashrate capitulation / miner revenue forecast",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "fundraising_momentum_score",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 165,
+        "symbol": "BTC",
+        "catalog_goal": "fundraising_momentum_score",
+        "momentum_score": 13.46,
+        "capitulation_signal": true,
+        "fundraising_outlook": {
+          "en": "In 3 of 4 prior cases, BTC bottomed within 90 days",
+          "ar": "\u0641\u064a 3 \u0645\u0646 4 \u062d\u0627\u0644\u0627\u062a \u0633\u0627\u0628\u0642\u0629\u060c \u0648\u0635\u0644 BTC \u0644\u0644\u0642\u0627\u0639 \u062e\u0644\u0627\u0644 90 \u064a\u0648\u0645\u0627\u064b"
+        }
+      }
+    },
+    {
+      "id": 166,
+      "capability_name": "Research Confidence Score",
+      "designed_purpose": "Research Confidence Score",
+      "expected_domain_output": "research_confidence_score",
+      "runtime_module_function": "cap646.batch04_dedicated._cap166",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=166; symbol='BTC'; catalog_goal='research_confidence_score'; confidence_score=0.0; research_status='rejected_brokerage'; insights_only=True",
+      "semantic_comparison": "Expected: Research Confidence Score. Hero implements: brokerage integration rejected status. Runtime: confidence_score=0.0 hardcoded, research_status=rejected_brokerage",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "brokerage_rejected_status_166 reports rejection, not research confidence scoring.",
+      "semantic_expected": "brokerage integration rejected status",
+      "semantic_actual": "confidence_score=0.0 hardcoded, research_status=rejected_brokerage",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=research_confidence_score",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + brokerage integration rejected status",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "research_confidence_score",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 166,
+        "symbol": "BTC",
+        "catalog_goal": "research_confidence_score",
+        "confidence_score": 0.0,
+        "research_status": "rejected_brokerage",
+        "insights_only": true
+      }
+    },
+    {
+      "id": 167,
+      "capability_name": "Social Volume Intelligence",
+      "designed_purpose": "Social Volume Intelligence",
+      "expected_domain_output": "social_volume_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap167",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=167; symbol='BTC'; catalog_goal='social_volume_intelligence'; social_volume=6.0; volume_status='stale'; time_sync_valid=False",
+      "semantic_comparison": "Expected: Social Volume Intelligence. Hero implements: NTP/time synchronization validation. Runtime: social_volume=deviation_sec (time sync deviation), not social metrics",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "validate_time_sync_167 is clock sync, not social volume intelligence.",
+      "semantic_expected": "NTP/time synchronization validation",
+      "semantic_actual": "social_volume=deviation_sec (time sync deviation), not social metrics",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_volume_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + NTP/time synchronization validation",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "social_volume_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 167,
+        "symbol": "BTC",
+        "catalog_goal": "social_volume_intelligence",
+        "social_volume": 6.0,
+        "volume_status": "stale",
+        "time_sync_valid": false
+      }
+    },
+    {
+      "id": 168,
+      "capability_name": "Social Dominance Intelligence",
+      "designed_purpose": "Social Dominance Intelligence",
+      "expected_domain_output": "social_dominance_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap168",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=168; symbol='BTC'; catalog_goal='social_dominance_intelligence'; dominance_pct=None; cluster_attached=False",
+      "semantic_comparison": "Expected: Social Dominance Intelligence. Hero implements: sybil cluster index attachment. Runtime: dominance_pct=cluster_index integer, not social dominance percentage",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "attach_cluster_index_168 is on-chain clustering, not social dominance intelligence.",
+      "semantic_expected": "sybil cluster index attachment",
+      "semantic_actual": "dominance_pct=cluster_index integer, not social dominance percentage",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_dominance_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + sybil cluster index attachment",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "social_dominance_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 168,
+        "symbol": "BTC",
+        "catalog_goal": "social_dominance_intelligence",
+        "dominance_pct": null,
+        "cluster_attached": false
+      }
+    },
+    {
+      "id": 169,
+      "capability_name": "Unique Social Volume",
+      "designed_purpose": "Unique Social Volume",
+      "expected_domain_output": "unique_social_volume",
+      "runtime_module_function": "cap646.batch04_dedicated._cap169",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=169; symbol='BTC'; catalog_goal='unique_social_volume'; unique_volume=None; correlation_matrix=list",
+      "semantic_comparison": "Expected: Unique Social Volume. Hero implements: asset correlation decay matrix vs BTC benchmark. Runtime: unique_volume=oi_momentum_delta, correlation_matrix from decay matrix",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "compute_correlation_decay_matrix_169 is portfolio correlation, not unique social volume.",
+      "semantic_expected": "asset correlation decay matrix vs BTC benchmark",
+      "semantic_actual": "unique_volume=oi_momentum_delta, correlation_matrix from decay matrix",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=unique_social_volume",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + asset correlation decay matrix vs BTC benchmark",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "unique_social_volume",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 169,
+        "symbol": "BTC",
+        "catalog_goal": "unique_social_volume",
+        "unique_volume": null,
+        "correlation_matrix": [
+          {
+            "asset": "BTC",
+            "benchmark": "BTC",
+            "rolling_correlation": {
+              "30d": 0.799,
+              "90d": 0.697,
+              "180d": 0.544,
+              "365d": 0.23
+            },
+            "decay_rate_pct": 247.39,
+            "unreliable_if_decay_above_pct": 50.0,
+            "correlation_unreliable": true,
+            "formula": "decay_rate = (corr_30d - corr_365d) / corr_365d \u00d7 100"
+          }
+        ]
+      }
+    },
+    {
+      "id": 170,
+      "capability_name": "Trending Words",
+      "designed_purpose": "Trending Words",
+      "expected_domain_output": "trending_words",
+      "runtime_module_function": "cap646.batch04_dedicated._cap170",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=170; symbol='BTC'; catalog_goal='trending_words'; trending_words=list; oi_momentum=None",
+      "semantic_comparison": "Expected: Trending Words. Hero implements: open interest momentum delta on derivatives. Runtime: trending_words=[], oi_momentum from derivatives OI delta",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "compute_oi_momentum_delta_170 is OI derivatives flow, not trending words.",
+      "semantic_expected": "open interest momentum delta on derivatives",
+      "semantic_actual": "trending_words=[], oi_momentum from derivatives OI delta",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=trending_words",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + open interest momentum delta on derivatives",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "trending_words",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 170,
+        "symbol": "BTC",
+        "catalog_goal": "trending_words",
+        "trending_words": [],
+        "oi_momentum": null
+      }
+    },
+    {
+      "id": 171,
+      "capability_name": "Trending Coins",
+      "designed_purpose": "Trending Coins",
+      "expected_domain_output": "trending_coins",
+      "runtime_module_function": "cap646.batch04_dedicated._cap171",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=171; symbol='BTC'; catalog_goal='trending_coins'; trending_coins=list; m2_flow=dict",
+      "semantic_comparison": "Expected: Trending Coins. Hero implements: Federal Reserve M2 macro liquidity flow. Runtime: trending_coins=[symbol], m2_flow=macro liquidity data",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "compute_m2_macro_flow_171 is macro M2 flow, not trending coins.",
+      "semantic_expected": "Federal Reserve M2 macro liquidity flow",
+      "semantic_actual": "trending_coins=[symbol], m2_flow=macro liquidity data",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=trending_coins",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + Federal Reserve M2 macro liquidity flow",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "trending_coins",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 171,
+        "symbol": "BTC",
+        "catalog_goal": "trending_coins",
+        "trending_coins": [
+          "BTC"
+        ],
+        "m2_flow": {
+          "ok": true,
+          "feature_ref": 171,
+          "route": "/intelligence/multi-dim/macro/m2",
+          "extends_ref": 133,
+          "merged_into": [
+            "macro_dimension_133",
+            "daily_top3_62",
+            "market_radar"
+          ],
+          "source": "FRED",
+          "attribution": "Data: Federal Reserve (FRED)",
+          "m2_supply_change_yoy_pct": 2.1,
+          "btc_correlation_90d_pearson": 0.42,
+          "historical_impact": {
+            "window_days": 30,
+            "avg_btc_return_pct": 12.0,
+            "rule_based": true
+          },
+          "insight": {
+            "en": "M2 grew 2.1% \u2014 historically BTC \u00b112.0% within 30 days",
+            "ar": "M2 \u0646\u0645\u0627 2.1% \u2014 \u062a\u0627\u0631\u064a\u062e\u064a\u0627\u064b BTC \u00b112.0% \u062e\u0644\u0627\u0644 30 \u064a\u0648\u0645\u0627\u064b"
+          },
+          "historical_not_prediction": true,
+          "disclaimer": "Analysis only \u2014 not financial advice, guarantee, or protection.",
+          "fee_db": {
+            "compute_usd": 0.0015,
+            "api_usd": 0.0003
+          }
+        }
+      }
+    },
+    {
+      "id": 172,
+      "capability_name": "Historical Crypto Trends",
+      "designed_purpose": "Historical Crypto Trends",
+      "expected_domain_output": "historical_crypto_trends",
+      "runtime_module_function": "cap646.batch04_dedicated._cap172",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=172; symbol='BTC'; catalog_goal='historical_crypto_trends'; historical_trends=list; institutional_memory='merged_not_standalone'",
+      "semantic_comparison": "Expected: Historical Crypto Trends. Hero implements: institutional memory / decision replay status. Runtime: historical_trends=memory_entries, institutional_memory status",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "institutional_memory_status_172 is internal memory store, not historical crypto trends.",
+      "semantic_expected": "institutional memory / decision replay status",
+      "semantic_actual": "historical_trends=memory_entries, institutional_memory status",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=historical_crypto_trends",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + institutional memory / decision replay status",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "historical_crypto_trends",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 172,
+        "symbol": "BTC",
+        "catalog_goal": "historical_crypto_trends",
+        "historical_trends": [],
+        "institutional_memory": "merged_not_standalone"
+      }
+    },
+    {
+      "id": 173,
+      "capability_name": "Key Narratives Intelligence",
+      "designed_purpose": "Key Narratives Intelligence",
+      "expected_domain_output": "key_narratives_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap173",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=173; symbol='BTC'; catalog_goal='key_narratives_intelligence'; key_narratives=list; narrative_count=0",
+      "semantic_comparison": "Expected: Key Narratives Intelligence. Hero implements: institutional RBAC role matrix status. Runtime: key_narratives=rbac_roles list, not market narratives",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "institutional_rbac_status_173 is access control, not key narratives intelligence.",
+      "semantic_expected": "institutional RBAC role matrix status",
+      "semantic_actual": "key_narratives=rbac_roles list, not market narratives",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=key_narratives_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + institutional RBAC role matrix status",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "key_narratives_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 173,
+        "symbol": "BTC",
+        "catalog_goal": "key_narratives_intelligence",
+        "key_narratives": [],
+        "narrative_count": 0
+      }
+    },
+    {
+      "id": 174,
+      "capability_name": "Alpha Narratives Intelligence",
+      "designed_purpose": "Alpha Narratives Intelligence",
+      "expected_domain_output": "alpha_narratives_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap174",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=174; symbol='BTC'; catalog_goal='alpha_narratives_intelligence'; alpha_narratives=list; branding_status='deferred'",
+      "semantic_comparison": "Expected: Alpha Narratives Intelligence. Hero implements: white-label branding infrastructure status. Runtime: alpha_narratives=white_label_features, branding_status",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "full_white_label_status_174 is branding infra, not alpha narratives intelligence.",
+      "semantic_expected": "white-label branding infrastructure status",
+      "semantic_actual": "alpha_narratives=white_label_features, branding_status",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=alpha_narratives_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + white-label branding infrastructure status",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "alpha_narratives_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 174,
+        "symbol": "BTC",
+        "catalog_goal": "alpha_narratives_intelligence",
+        "alpha_narratives": [],
+        "branding_status": "deferred"
+      }
+    },
+    {
+      "id": 175,
+      "capability_name": "Social Sentiment Intelligence",
+      "designed_purpose": "Social Sentiment Intelligence",
+      "expected_domain_output": "sentiment_ai",
+      "runtime_module_function": "cap646.batch01_production.execute \u2192 cap646.handlers.ai.handle_ai_capability",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "surface='sentiment_ai'; context=dict; gate=dict; production_spine='batch01'",
+      "semantic_comparison": "Expected: Social Sentiment Intelligence. Hero implements: batch01 sentiment_ai via compound_score from database. Runtime: surface=sentiment_ai (not social_sentiment_intelligence); compound_score=0.0 SHADOW_LIVE_FORWARD",
+      "semantic_alignment_status": "PARTIAL_ALIGNMENT",
+      "reason": "Aligned portion: sentiment compound index. Missing: catalog surface; batch01 spine not batch04 independent.",
+      "semantic_expected": "batch01 sentiment_ai via compound_score from database",
+      "semantic_actual": "surface=sentiment_ai (not social_sentiment_intelligence); compound_score=0.0 SHADOW_LIVE_FORWARD",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=sentiment_ai",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + batch01 sentiment_ai via compound_score from database",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "sentiment_ai",
+      "runtime_payload_sample": {
+        "surface": "sentiment_ai",
+        "context": {
+          "sentiment_compound_index": {
+            "B": 0.0,
+            "T": 0.0,
+            "C": 0.0
+          },
+          "sentiment_score_adjustments": {
+            "B": 0.0,
+            "T": 0.0,
+            "C": 0.0
+          }
+        },
+        "gate": {
+          "asset": "BTC",
+          "compound_score": 0.0,
+          "source": "database",
+          "fear_threshold": -0.65
+        },
+        "production_spine": "batch01"
+      }
+    },
+    {
+      "id": 176,
+      "capability_name": "Weighted Social Sentiment",
+      "designed_purpose": "Weighted Social Sentiment",
+      "expected_domain_output": "weighted_social_sentiment",
+      "runtime_module_function": "cap646.batch04_dedicated._cap176",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=176; symbol='BTC'; catalog_goal='weighted_social_sentiment'; weighted_sentiment=None; sentiment_weights=None; checks=list",
+      "semantic_comparison": "Expected: Weighted Social Sentiment. Hero implements: risk infrastructure E2E test runner (checks 164-176). Runtime: weighted_sentiment=None, checks=e2e pass/fail list",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "run_risk_infrastructure_e2e_164_176 is integration test, not weighted social sentiment.",
+      "semantic_expected": "risk infrastructure E2E test runner (checks 164-176)",
+      "semantic_actual": "weighted_sentiment=None, checks=e2e pass/fail list",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=weighted_social_sentiment",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + risk infrastructure E2E test runner (checks 164-176)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "weighted_social_sentiment",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 176,
+        "symbol": "BTC",
+        "catalog_goal": "weighted_social_sentiment",
+        "weighted_sentiment": null,
+        "sentiment_weights": null,
+        "checks": [
+          {
+            "id": "164_rejected",
+            "passed": true
+          },
+          {
+            "id": "165_mining",
+            "passed": true
+          },
+          {
+            "id": "166_brokerage",
+            "passed": true
+          },
+          {
+            "id": "167_time_sync",
+            "passed": true
+          },
+          {
+            "id": "168_cluster_index",
+            "passed": true
+          },
+          {
+            "id": "169_decay",
+            "passed": true
+          },
+          {
+            "id": "170_oi",
+            "passed": true
+          },
+          {
+            "id": "171_m2",
+            "passed": true
+          },
+          {
+            "id": "172_memory",
+            "passed": true
+          },
+          {
+            "id": "173_rbac",
+            "passed": true
+          },
+          {
+            "id": "174_wl",
+            "passed": true
+          },
+          {
+            "id": "175_risk",
+            "passed": true
+          },
+          {
+            "id": "176_resilience",
+            "passed": true
+          },
+          {
+            "id": "169_risk_embed",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 177,
+      "capability_name": "Social Sentiment Balance",
+      "designed_purpose": "Social Sentiment Balance",
+      "expected_domain_output": "social_sentiment_balance",
+      "runtime_module_function": "cap646.batch04_dedicated._cap177",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=177; symbol='BTC'; catalog_goal='social_sentiment_balance'; sentiment_balance=-0.0271; cost_breakdown=dict",
+      "semantic_comparison": "Expected: Social Sentiment Balance. Hero implements: arbitrage cost breakdown / net spread analysis. Runtime: sentiment_balance=net_spread_pct from arbitrage costs",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "analyze_arbitrage_cost_177 is trading cost analysis, not social sentiment balance.",
+      "semantic_expected": "arbitrage cost breakdown / net spread analysis",
+      "semantic_actual": "sentiment_balance=net_spread_pct from arbitrage costs",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_sentiment_balance",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + arbitrage cost breakdown / net spread analysis",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "social_sentiment_balance",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 177,
+        "symbol": "BTC",
+        "catalog_goal": "social_sentiment_balance",
+        "sentiment_balance": -0.0271,
+        "cost_breakdown": {
+          "gross_spread_pct": 0.3536,
+          "fee_a_maker_taker_pct": 0.1,
+          "fee_b_maker_taker_pct": 0.1,
+          "gas_usd": 15.0,
+          "withdrawal_fee_usd": 5.0,
+          "slippage_estimate_pct": 0.15,
+          "net_spread_pct": -0.0271
+        }
+      }
+    },
+    {
+      "id": 178,
+      "capability_name": "Social Source Breakdown",
+      "designed_purpose": "Social Source Breakdown",
+      "expected_domain_output": "social_source_breakdown",
+      "runtime_module_function": "cap646.batch04_dedicated._cap178",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=178; symbol='BTC'; catalog_goal='social_source_breakdown'; source_breakdown=list; scenario_count=3",
+      "semantic_comparison": "Expected: Social Source Breakdown. Hero implements: scenario drawdown stress analysis. Runtime: source_breakdown=scenarios list from drawdown analysis",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "run_scenario_drawdown_analysis_178 is risk scenario, not social source breakdown.",
+      "semantic_expected": "scenario drawdown stress analysis",
+      "semantic_actual": "source_breakdown=scenarios list from drawdown analysis",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_source_breakdown",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + scenario drawdown stress analysis",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "social_source_breakdown",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 178,
+        "symbol": "BTC",
+        "catalog_goal": "social_source_breakdown",
+        "source_breakdown": [
+          {
+            "name": "optimistic",
+            "assumptions": {
+              "btc_pct": 20,
+              "eth_pct": 25,
+              "correlation_change": 0
+            },
+            "portfolio_change_pct": 18.5,
+            "max_drawdown_pct": -4.2,
+            "recovery_days_estimate": 12,
+            "estimated_loss_usd": 18500.0
+          },
+          {
+            "name": "neutral",
+            "assumptions": {
+              "btc_pct": 0,
+              "eth_pct": 0,
+              "correlation_change": 0
+            },
+            "portfolio_change_pct": 0.5,
+            "max_drawdown_pct": -8.0,
+            "recovery_days_estimate": 25,
+            "estimated_loss_usd": 500.0
+          },
+          {
+            "name": "pessimistic",
+            "assumptions": {
+              "btc_pct": -30,
+              "eth_pct": -35,
+              "correlation_spike_pct": 50
+            },
+            "portfolio_change_pct": -18.0,
+            "max_drawdown_pct": -18.0,
+            "recovery_days_estimate": 45,
+            "estimated_loss_usd": -18000.0
+          }
+        ],
+        "scenario_count": 3
+      }
+    },
+    {
+      "id": 179,
+      "capability_name": "Development Activity Intelligence",
+      "designed_purpose": "Development Activity Intelligence",
+      "expected_domain_output": "development_activity_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap179",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=179; symbol='BTC'; catalog_goal='development_activity_intelligence'; dev_activity_score=5; widgets=list",
+      "semantic_comparison": "Expected: Development Activity Intelligence. Hero implements: command center dashboard widget assembly. Runtime: dev_activity_score=widget_count, widgets=top3/health/alerts/heatmap",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "build_command_center_dashboard_179 is general dashboard, not development activity intelligence.",
+      "semantic_expected": "command center dashboard widget assembly",
+      "semantic_actual": "dev_activity_score=widget_count, widgets=top3/health/alerts/heatmap",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=development_activity_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + command center dashboard widget assembly",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "development_activity_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 179,
+        "symbol": "BTC",
+        "catalog_goal": "development_activity_intelligence",
+        "dev_activity_score": 5,
+        "widgets": [
+          {
+            "id": "top3",
+            "feature_ref": 62,
+            "source": "intelligence_ledger",
+            "data": {
+              "ok": true,
+              "feature_ref": 62,
+              "route": "/intelligence/daily-top3",
+              "opportunities": [
+                {
+                  "asset": "BTC",
+                  "composite_score": 7.625,
+                  "risk_score": 6.0,
+                  "timeframe": "24h",
+                  "confidence_level": 7.6,
+                  "methodology": "rule_based_risk_liquidity_volume_momentum",
+                  "disclaimer": "Analysis only \u2014 not financial advice or guaranteed return.",
+                  "why_selected": [
+                    "Risk 6.0/10",
+                    "Liquidity 9.0/10",
+                    "Momentum 7.0/10"
+                  ],
+                  "no_execution": true,
+                  "clear_answer": {
+                    "feature_ref": 63,
+                    "verdict": "Opportunity",
+                    "reasons": [
+                      {
+                        "point": "Risk 6.0/10",
+                        "rule_based": true
+                      },
+                      {
+                        "point": "Liquidity 9.0/10",
+                        "rule_based": true
+                      },
+                      {
+                        "point": "Momentum 7.0/10",
+                        "rule_based": true
+                      }
+                    ],
+                    "risk_score": 6.0,
+                    "one_line": {
+                      "en": "Verdict: Opportunity \u2014 Risk 6.0/10; Liquidity 9.0/10; Momentum 7.0/10",
+                      "ar": "\u0642\u0631\u0627\u0631: \u0641\u0631\u0635\u0629 \u2014 Risk 6.0/10; Liquidity 9.0/10; Momentum 7.0/10"
+                    },
+                    "raw_indicators_expandable": {},
+                    "insight_not_recommendation": true,
+                    "disclaimer": "Analysis only \u2014 not financial advice or guaranteed return.",
+                    "fee_db": {
+                      "synthesis_usd": 0.0005,
+                      "logged": true
+                    }
+                  },
+                  "opportunity_score_composite": 71.5,
+                  "score_breakdown_ref": 150
+                },
+                {
+                  "asset": "SOL",
+                  "composite_score": 7.625,
+                  "risk_score": 7.0,
+                  "timeframe": "24h",
+                  "confidence_level": 7.6,
+                  "methodology": "rule_based_risk_liquidity_volume_momentum",
+                  "disclaimer": "Analysis only \u2014 not financial advice or guaranteed return.",
+                  "why_selected": [
+                    "Risk 7.0/10",
+                    "Liquidity 7.0/10",
+                    "Momentum 8.5/10"
+                  ],
+                  "no_execution": true,
+                  "clear_answer": {
+                    "feature_ref": 63,
+                    "verdict": "Opportunity",
+                    "reasons": [
+                      {
+                        "point": "Risk 7.0/10",
+                        "rule_based": true
+                      },
+                      {
+                        "point": "Liquidity 7.0/10",
+                        "rule_based": true
+                      },
+                      {
+                        "point": "Momentum 8.5/10",
+                        "rule_based": true
+                      }
+                    ],
+                    "risk_score": 7.0,
+                    "one_line": {
+                      "en": "Verdict: Opportunity \u2014 Risk 7.0/10; Liquidity 7.0/10; Momentum 8.5/10",
+                      "ar": "\u0642\u0631\u0627\u0631: \u0641\u0631\u0635\u0629 \u2014 Risk 7.0/10; Liquidity 7.0/10; Momentum 8.5/10"
+                    },
+                    "raw_indicators_expandable": {},
+                    "insight_not_recommendation": true,
+                    "disclaimer": "Analysis only \u2014 not financial advice or guaranteed return.",
+                    "fee_db": {
+                      "synthesis_usd": 0.0005,
+                      "logged": true
+                    }
+                  },
+                  "opportunity_score_composite": 71.5,
+                  "score_breakdown_ref": 150
+                },
+                {
+                  "asset": "ETH",
+                  "composite_score": 7.0,
+                  "risk_score": 5.5,
+                  "timeframe": "24h",
+                  "confidence_level": 7.0,
+                  "methodology": "rule_based_risk_liquidity_volume_momentum",
+                  "disclaimer": "Analysis only \u2014 not financial advice or guaranteed return.",
+                  "why_selected": [
+                    "Risk 5.5/10",
+                    "Liquidity 8.5/10",
+                    "Momentum 6.5/10"
+                  ],
+                  "no_execution": true,
+                  "clear_answer": {
+                    "feature_ref": 63,
+                    "verdict": "Opportunity",
+                    "reasons": [
+                      {
+                        "point": "Risk 5.5/10",
+                        "rule_based": true
+                      },
+                      {
+                        "point": "Liquidity 8.5/10",
+                        "rule_based": true
+                      },
+                      {
+                        "point": "Momentum 6.5/10",
+                        "rule_based": true
+                      }
+                    ],
+                    "risk_score": 5.5,
+                    "one_line": {
+                      "en": "Verdict: Opportunity \u2014 Risk 5.5/10; Liquidity 8.5/10; Momentum 6.5/10",
+                      "ar": "\u0642\u0631\u0627\u0631: \u0641\u0631\u0635\u0629 \u2014 Risk 5.5/10; Liquidity 8.5/10; Momentum 6.5/10"
+                    },
+                    "raw_indicators_expandable": {},
+                    "insight_not_recommendation": true,
+                    "disclaimer": "Analysis only \u2014 not financial advice or guaranteed return.",
+                    "fee_db": {
+                      "synthesis_usd": 0.0005,
+                      "logged": true
+                    }
+                  },
+                  "opportunity_score_composite": 71.5,
+                  "score_breakdown_ref": 150
+                }
+              ],
+              "count": 3,
+              "methodology_visible": true,
+              "backtest_days_required": 90,
+              "user_tier": "free",
+              "fee_db": {
+                "compute_usd": 0.002,
+                "tier": "free"
+              },
+              "generated_at": "2026-09-03T20:57:14.229579+00:00",
+              "composite_score": {
+                "ok": true,
+                "feature_ref": 150,
+                "route": "/intelligence/score",
+                "merged_into": [
+                  "intelligence_ledger",
+                  "signal_engine_11",
+                  "daily_top3_62"
+                ],
+                "opportunity_score": 71.5,
+                "scale": "0-100",
+                "dimensions": {
+                  "liquidity": {
+                    "score": 75,
+                    "weight": 0.2
+                  },
+                  "news_sentiment": {
+                    "score": 68,
+                    "weight": 0.15
+                  },
+                  "whale_flow": {
+                    "score": 72,
+                    "weight": 0.15
+                  },
+                  "trend": {
+                    "score": 70,
+                    "weight": 0.15
+                  },
+                  "support_resistance": {
+                    "score": 65,
+                    "weight": 0.1
+                  },
+                  "funding": {
+                    "score": 60,
+                    "weight": 0.1
+                  },
+                  "spread": {
+                    "score": 80,
+                    "weight": 0.1
+                  },
+                  "manipulation_absence": {
+                    "score": 90,
+                    "weight": 0.05
+                  }
+                },
+                "formula_visible": true,
+                "registry_ref": 98,
+                "composite_not_guarantee": true,
+                "disclaimer": "Analysis only \u2014 not financial advice. Data source attributed on every point.",
+                "fee_db": {
+                  "compute_usd": 0.002
+                }
+              }
+            }
+          },
+          {
+            "id": "health_score",
+            "feature_ref": 67,
+            "source": "portfolio_ai",
+            "data": {
+              "ok": true,
+              "feature_ref": 67,
+              "widget": {
+                "score": 50.0,
+                "color": "yellow",
+                "label": {
+                  "en": "Moderate concentration",
+                  "ar": "\u062a\u0631\u0643\u064a\u0632 \u0645\u0639\u062a\u062f\u0644"
+                },
+                "compact_only": true,
+                "no_tables_default": true
+              },
+              "expandable": {
+                "formula_visible": true,
+                "components": {
+                  "concentration": {
+                    "value": 50.0,
+                    "weight": 0.3
+                  },
+                  "volatility": {
+                    "value": 5.0,
+                    "weight": 0.25
+                  },
+                  "correlation": {
+                    "value": 5.0,
+                    "weight": 0.25
+                  },
+                  "diversification": {
+                    "value": 5.0,
+                    "weight": 0.2
+                  }
+                },
+                "why_score": {
+                  "en": "Score 50.0 because concentration 50% with volatility 5.0/10",
+                  "ar": "\u0627\u0644\u0646\u062a\u064a\u062c\u0629 50.0 \u0644\u0623\u0646 \u0627\u0644\u062a\u0631\u0643\u064a\u0632 50% \u0648\u0627\u0644\u062a\u0642\u0644\u0628 5.0/10"
+                }
+              },
+              "legal_note": {
+                "en": "Distribution analysis \u2014 not a financial diagnosis",
+                "ar": "\u062a\u062d\u0644\u064a\u0644 \u062a\u0648\u0632\u064a\u0639 \u2014 \u0644\u064a\u0633 \u062a\u0634\u062e\u064a\u0635\u0627\u064b \u0645\u0627\u0644\u064a\u0627\u064b"
+              },
+              "customizable_weights": true,
+              "fee_db": {
+                "compute_usd": 0.0008
+              }
+            }
+          },
+          {
+            "id": "alerts",
+            "feature_ref": 65,
+            "source": "alerting_system",
+            "data": {
+              "ok": true,
+              "feature_ref": 75,
+              "tier": "free",
+              "daily_limit": 3,
+              "unlimited": false,
+              "priority_queue": false,
+              "cost_based_not_artificial": true,
+              "rule_based_triggers_only": true,
+              "no_auto_action": true,
+              "delivery_sla_seconds": 5,
+              "fee_db": {
+                "per_alert_usd": 0.0003,
+                "pro_covers_cost": false
+              }
+            }
+          },
+          {
+            "id": "heatmap",
+            "feature_ref": 233,
+            "source": "ui_component_library",
+            "data": {
+              "ok": true,
+              "feature_ref": 233,
+              "component": "heatmap",
+              "merged_into": [
+                "ui_component_library",
+                "market_radar",
+                "command_center_179"
+              ],
+              "cells": [
+                {
+                  "symbol": "BTC",
+                  "change_24h_pct": 2.5,
+                  "color": "green",
+                  "intensity": 0.43,
+                  "click_target": "asset_card"
+                },
+                {
+                  "symbol": "ETH",
+                  "change_24h_pct": -1.2,
+                  "color": "red",
+                  "intensity": 0.21,
+                  "click_target": "asset_card"
+                },
+                {
+                  "symbol": "SOL",
+                  "change_24h_pct": 5.8,
+                  "color": "green",
+                  "intensity": 1.0,
+                  "click_target": "asset_card"
+                },
+                {
+                  "symbol": "AVAX",
+                  "change_24h_pct": -3.1,
+                  "color": "red",
+                  "intensity": 0.53,
+                  "click_target": "asset_card"
+                }
+              ],
+              "rendering": "svg_canvas",
+              "high_density_grid_ref": 162,
+              "rule_based_coloring": true,
+              "thresholds": {
+                "green": ">1%",
+                "red": "<-1%",
+                "yellow": "neutral"
+              },
+              "client_side_render": true
+            }
+          },
+          {
+            "id": "summary",
+            "feature_ref": 237,
+            "source": "intelligence_ledger",
+            "data": {
+              "ok": true,
+              "feature_ref": 237,
+              "route": "/intelligence/summary",
+              "merged_into": [
+                "intelligence_ledger",
+                "command_center_179",
+                "daily_top3_62",
+                "share_card_68"
+              ],
+              "summary_sentence": {
+                "en": "Market: cautiously bullish \u2014 Volatility: moderate \u2014 Liquidity: adequate \u2014 Risk: 6/10 \u2014 Direction: neutral-opportunity \u2014 Whales: accumulating \u2014 Decision: Opportunity \u2014 Confidence: 72%",
+                "ar": "\u0627\u0644\u0633\u0648\u0642: \u0635\u0639\u0648\u062f \u062d\u0630\u0631 \u2014 \u0627\u0644\u062a\u0642\u0644\u0628: \u0645\u062a\u0648\u0633\u0637 \u2014 \u0627\u0644\u0633\u064a\u0648\u0644\u0629: \u0643\u0627\u0641\u064a\u0629 \u2014 \u0627\u0644\u0645\u062e\u0627\u0637\u0631\u0629: 6/10 \u2014 \u0627\u0644\u0627\u062a\u062c\u0627\u0647: \u0645\u062d\u0627\u064a\u062f-\u0641\u0631\u0635\u0629 \u2014 \u0627\u0644\u062d\u064a\u062a\u0627\u0646: \u062a\u0631\u0627\u0643\u0645 \u2014 \u0627\u0644\u0642\u0631\u0627\u0631: \u0641\u0631\u0635\u0629 \u2014 \u0627\u0644\u062b\u0642\u0629: 72%"
+              },
+              "fields": {
+                "market_state": {
+                  "value": "cautiously bullish",
+                  "rule_ref": 98,
+                  "source": "composite"
+                },
+                "volatility": {
+                  "value": "moderate",
+                  "rule_ref": 98,
+                  "source": "vix_proxy"
+                },
+                "liquidity": {
+                  "value": "adequate",
+                  "rule_ref": 98,
+                  "source": "order_book"
+                },
+                "risk_score": {
+                  "value": 6,
+                  "rule_ref": 77,
+                  "source": "advanced_risk"
+                },
+                "direction": {
+                  "value": "neutral-opportunity",
+                  "rule_ref": 11,
+                  "source": "signal_engine"
+                },
+                "whale_activity": {
+                  "value": "accumulating",
+                  "rule_ref": 71,
+                  "source": "whale_narrative"
+                },
+                "decision": {
+                  "value": "Opportunity",
+                  "rule_ref": 150,
+                  "source": "opportunity_score"
+                },
+                "confidence_pct": {
+                  "value": 72,
+                  "rule_ref": 150,
+                  "source": "opportunity_score"
+                }
+              },
+              "expandable": true,
+              "rule_based_synthesis": true,
+              "simple_language_ref": 64,
+              "summary_not_prediction": true,
+              "disclaimer": "Analysis only \u2014 not financial advice, guarantee, protection, or insurance.",
+              "fee_db": {
+                "compute_usd": 0.003
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 180,
+      "capability_name": "Development Activity Contributors",
+      "designed_purpose": "Development Activity Contributors",
+      "expected_domain_output": "development_activity_contributors",
+      "runtime_module_function": "cap646.batch04_dedicated._cap180",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=180; symbol='BTC'; catalog_goal='development_activity_contributors'; contributor_count=0; whale_flows=dict",
+      "semantic_comparison": "Expected: Development Activity Contributors. Hero implements: whale flow SVG visualization (nodes/edges). Runtime: contributor_count=flow_count, whale_flows=visualization graph",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "build_whale_flow_visualization_180 is whale flow viz, not dev activity contributors.",
+      "semantic_expected": "whale flow SVG visualization (nodes/edges)",
+      "semantic_actual": "contributor_count=flow_count, whale_flows=visualization graph",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=development_activity_contributors",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + whale flow SVG visualization (nodes/edges)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "development_activity_contributors",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 180,
+        "symbol": "BTC",
+        "catalog_goal": "development_activity_contributors",
+        "contributor_count": 0,
+        "whale_flows": {
+          "ok": true,
+          "feature_ref": 180,
+          "route": "/oracle/on-chain/whale/visualization",
+          "extends_ref": 71,
+          "merged_into": [
+            "whale_narrative_71",
+            "sybil_clustering_129"
+          ],
+          "render_type": "svg_canvas",
+          "nodes": [
+            {
+              "id": "0x12ab...cd34",
+              "label": "0x12ab...c",
+              "type": "wallet"
+            },
+            {
+              "id": "binance",
+              "label": "binance",
+              "type": "exchange"
+            },
+            {
+              "id": "coinbase",
+              "label": "coinbase",
+              "type": "exchange"
+            },
+            {
+              "id": "0x98fe...dc21",
+              "label": "0x98fe...d",
+              "type": "wallet"
+            }
+          ],
+          "edges": [
+            {
+              "from": "0x12ab...cd34",
+              "to": "binance",
+              "amount_usd": 25000000,
+              "stroke_width": 5.0,
+              "direction": "inflow",
+              "tx_hash": "0x7bc087aa68e54649",
+              "timestamp": "2026-09-03T20:57:14.230149+00:00"
+            },
+            {
+              "from": "coinbase",
+              "to": "0x98fe...dc21",
+              "amount_usd": 8000000,
+              "stroke_width": 1.6,
+              "direction": "inflow",
+              "tx_hash": "0xa9fa9647687344b4",
+              "timestamp": "2026-09-03T20:57:14.230155+00:00"
+            }
+          ],
+          "clustering_ref": 129,
+          "privacy_first": true,
+          "no_deanonymization": true,
+          "fee_db": {
+            "render_usd": 0.001
+          }
+        }
+      }
+    },
+    {
+      "id": 181,
+      "capability_name": "Ecosystem Development Dashboard",
+      "designed_purpose": "Ecosystem Development Dashboard",
+      "expected_domain_output": "ecosystem_development_dashboard",
+      "runtime_module_function": "cap646.batch04_dedicated._cap181",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=181; symbol='BTC'; catalog_goal='ecosystem_development_dashboard'; ecosystem_score=0; committee_packets=list",
+      "semantic_comparison": "Expected: Ecosystem Development Dashboard. Hero implements: IC committee packets / duplicate_of #87 status. Runtime: ecosystem_score=packet_count, committee_packets status metadata",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "committee_packets_status_181 is IC reporting infra, not ecosystem development dashboard.",
+      "semantic_expected": "IC committee packets / duplicate_of #87 status",
+      "semantic_actual": "ecosystem_score=packet_count, committee_packets status metadata",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ecosystem_development_dashboard",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + IC committee packets / duplicate_of #87 status",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "ecosystem_development_dashboard",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 181,
+        "symbol": "BTC",
+        "catalog_goal": "ecosystem_development_dashboard",
+        "ecosystem_score": 0,
+        "committee_packets": []
+      }
+    },
+    {
+      "id": 182,
+      "capability_name": "Developer Activity Change Detection",
+      "designed_purpose": "Developer Activity Change Detection",
+      "expected_domain_output": "developer_activity_change_detection",
+      "runtime_module_function": "cap646.batch04_dedicated._cap182",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=182; symbol='BTC'; catalog_goal='developer_activity_change_detection'; activity_change_pct=None; dev_activity_delta=None",
+      "semantic_comparison": "Expected: Developer Activity Change Detection. Hero implements: white-label infrastructure duplicate_of #90 status. Runtime: activity_change_pct from white_label status, not dev activity delta",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "white_label_infrastructure_status_182 is branding infra, not developer activity change detection.",
+      "semantic_expected": "white-label infrastructure duplicate_of #90 status",
+      "semantic_actual": "activity_change_pct from white_label status, not dev activity delta",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=developer_activity_change_detection",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + white-label infrastructure duplicate_of #90 status",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "developer_activity_change_detection",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 182,
+        "symbol": "BTC",
+        "catalog_goal": "developer_activity_change_detection",
+        "activity_change_pct": null,
+        "dev_activity_delta": null
+      }
+    },
+    {
+      "id": 183,
+      "capability_name": "Whale Transaction Intelligence",
+      "designed_purpose": "Whale Transaction Intelligence",
+      "expected_domain_output": "whale_transaction_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap183 \u2192 cap646.batch04_whale_transaction.build_whale_transaction_intelligence",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=183; symbol='BTC'; address='0xabc123'; catalog_goal='whale_transaction_intelligence'; amount_usd=1000000.0; whale_tier='mega_whale'; flow_direction='unknown'; risk_score=100.0; is_whale_event=True",
+      "semantic_comparison": "Expected: Whale Transaction Intelligence. Hero implements: whale tier classification, flow direction, concentration risk (distinct from #130 swap). Runtime: whale_tier=mega_whale, amount_usd, flow_direction, is_whale_event, risk_score; distinct_from_130 behavioral",
+      "semantic_alignment_status": "ALIGNED",
+      "reason": "batch04_whale_transaction performs genuine whale transaction intelligence, not swap slippage (#130).",
+      "semantic_expected": "whale tier classification, flow direction, concentration risk (distinct from #130 swap)",
+      "semantic_actual": "whale_tier=mega_whale, amount_usd, flow_direction, is_whale_event, risk_score; distinct_from_130 behavioral",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=whale_transaction_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + whale tier classification, flow direction, concentration ris",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "whale_transaction_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 183,
+        "symbol": "BTC",
+        "address": "0xabc123",
+        "catalog_goal": "whale_transaction_intelligence",
+        "amount_usd": 1000000.0,
+        "whale_tier": "mega_whale",
+        "flow_direction": "unknown",
+        "risk_score": 100.0,
+        "is_whale_event": true,
+        "concentration_signal": false,
+        "distinct_from_130": {
+          "canonical_130_scope": "swap_slippage_gas_contract_risk",
+          "scope_183": "large_transfer_whale_classification",
+          "reused_link": false
+        }
+      }
+    },
+    {
+      "id": 184,
+      "capability_name": "Whale & Shark Holder Cohorts",
+      "designed_purpose": "Whale & Shark Holder Cohorts",
+      "expected_domain_output": "whale_shark_holder_cohorts",
+      "runtime_module_function": "cap646.batch04_dedicated._cap184",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=184; symbol='BTC'; catalog_goal='whale_shark_holder_cohorts'; cohort_type='whale_shark'; holders=list; reporting_status=None",
+      "semantic_comparison": "Expected: Whale & Shark Holder Cohorts. Hero implements: fund reporting IC scheduled reports status (duplicate #87). Runtime: cohort_type=whale_shark, holders=[], reporting_status from IC reports",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "fund_reporting_status_184 is fund IC reporting, not whale/shark holder cohorts.",
+      "semantic_expected": "fund reporting IC scheduled reports status (duplicate #87)",
+      "semantic_actual": "cohort_type=whale_shark, holders=[], reporting_status from IC reports",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=whale_shark_holder_cohorts",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + fund reporting IC scheduled reports status (duplicate #87)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "whale_shark_holder_cohorts",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 184,
+        "symbol": "BTC",
+        "catalog_goal": "whale_shark_holder_cohorts",
+        "cohort_type": "whale_shark",
+        "holders": [],
+        "reporting_status": null
+      }
+    },
+    {
+      "id": 185,
+      "capability_name": "Top Holders Intelligence",
+      "designed_purpose": "Top Holders Intelligence",
+      "expected_domain_output": "top_holders_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap185",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=185; symbol='BTC'; catalog_goal='top_holders_intelligence'; top_holders=list; holder_count=0",
+      "semantic_comparison": "Expected: Top Holders Intelligence. Hero implements: acquisition evidence package deferred assembly template. Runtime: top_holders=evidence_items from deferred doc assembly, not on-chain holders",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "acquisition_evidence_package_185 is M&A evidence docs, not top holders intelligence.",
+      "semantic_expected": "acquisition evidence package deferred assembly template",
+      "semantic_actual": "top_holders=evidence_items from deferred doc assembly, not on-chain holders",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=top_holders_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + acquisition evidence package deferred assembly template",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "top_holders_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 185,
+        "symbol": "BTC",
+        "catalog_goal": "top_holders_intelligence",
+        "top_holders": [],
+        "holder_count": 0
+      }
+    },
+    {
+      "id": 186,
+      "capability_name": "Historical Wallet Balance Tool",
+      "designed_purpose": "Historical Wallet Balance Tool",
+      "expected_domain_output": "historical_wallet_balance_tool",
+      "runtime_module_function": "cap646.batch04_dedicated._cap186",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=186; symbol='BTC'; catalog_goal='historical_wallet_balance_tool'; balance_history=None; wallet_tool_status=None",
+      "semantic_comparison": "Expected: Historical Wallet Balance Tool. Hero implements: continuous learning / data flywheel status (duplicate #97). Runtime: balance_history=learning_status, wallet_tool_status \u2014 flywheel not wallet balances",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "continuous_learning_status_186 is ML flywheel, not historical wallet balance tool.",
+      "semantic_expected": "continuous learning / data flywheel status (duplicate #97)",
+      "semantic_actual": "balance_history=learning_status, wallet_tool_status \u2014 flywheel not wallet balances",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=historical_wallet_balance_tool",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + continuous learning / data flywheel status (duplicate #97)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "historical_wallet_balance_tool",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 186,
+        "symbol": "BTC",
+        "catalog_goal": "historical_wallet_balance_tool",
+        "balance_history": null,
+        "wallet_tool_status": null
+      }
+    },
+    {
+      "id": 187,
+      "capability_name": "Exchange Inflow Intelligence",
+      "designed_purpose": "Exchange Inflow Intelligence",
+      "expected_domain_output": "exchange_inflow_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap187",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=187; symbol='BTC'; catalog_goal='exchange_inflow_intelligence'; inflow_usd=None; exchange_inflow_status=None",
+      "semantic_comparison": "Expected: Exchange Inflow Intelligence. Hero implements: latency monitoring p50/p99 metrics. Runtime: inflow_usd=latency_p50_ms (milliseconds labeled as USD inflow)",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "latency_monitoring_status_187 is API latency, not exchange inflow intelligence.",
+      "semantic_expected": "latency monitoring p50/p99 metrics",
+      "semantic_actual": "inflow_usd=latency_p50_ms (milliseconds labeled as USD inflow)",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_inflow_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + latency monitoring p50/p99 metrics",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "exchange_inflow_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 187,
+        "symbol": "BTC",
+        "catalog_goal": "exchange_inflow_intelligence",
+        "inflow_usd": null,
+        "exchange_inflow_status": null
+      }
+    },
+    {
+      "id": 188,
+      "capability_name": "Exchange Outflow Intelligence",
+      "designed_purpose": "Exchange Outflow Intelligence",
+      "expected_domain_output": "exchange_outflow_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap188",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=188; symbol='BTC'; catalog_goal='exchange_outflow_intelligence'; outflow_usd=0; alert_confirmation=None",
+      "semantic_comparison": "Expected: Exchange Outflow Intelligence. Hero implements: risk alert user confirmation workflow. Runtime: outflow_usd=confirmed_alerts count, alert_confirmation boolean",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "risk_alert_user_confirmation_188 is alert UX, not exchange outflow intelligence.",
+      "semantic_expected": "risk alert user confirmation workflow",
+      "semantic_actual": "outflow_usd=confirmed_alerts count, alert_confirmation boolean",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_outflow_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + risk alert user confirmation workflow",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "exchange_outflow_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 188,
+        "symbol": "BTC",
+        "catalog_goal": "exchange_outflow_intelligence",
+        "outflow_usd": 0,
+        "alert_confirmation": null
+      }
+    },
+    {
+      "id": 189,
+      "capability_name": "Exchange Netflow Intelligence",
+      "designed_purpose": "Exchange Netflow Intelligence",
+      "expected_domain_output": "exchange_netflow_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap189",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=189; symbol='BTC'; catalog_goal='exchange_netflow_intelligence'; exchange='binance'; netflow=dict; netflow_proxy=True",
+      "semantic_comparison": "Expected: Exchange Netflow Intelligence. Hero implements: Bybit price ingest with netflow_proxy=true (not actual netflow). Runtime: netflow contains price_usd, role=secondary_fallback, netflow_proxy=true",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "exchange_netflow_probe uses price oracle fallback as netflow proxy, not exchange netflow.",
+      "semantic_expected": "Bybit price ingest with netflow_proxy=true (not actual netflow)",
+      "semantic_actual": "netflow contains price_usd, role=secondary_fallback, netflow_proxy=true",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_netflow_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + Bybit price ingest with netflow_proxy=true (not actual netfl",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "exchange_netflow_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 189,
+        "symbol": "BTC",
+        "catalog_goal": "exchange_netflow_intelligence",
+        "exchange": "binance",
+        "netflow": {
+          "ok": true,
+          "feature_ref": 243,
+          "source": "bybit",
+          "merged_into": "oracle_api",
+          "route": "/oracle/prices",
+          "symbol": "BTC",
+          "price_usd": 65095.0,
+          "role": "secondary_fallback",
+          "fallback_after": [
+            "binance",
+            "coingecko"
+          ],
+          "normalized_oracle_format": true,
+          "latency_ms": 145,
+          "fee_db": {
+            "ingest_usd": 0.0003
+          },
+          "netflow_proxy": true,
+          "exchange": "binance",
+          "capability_id": 48,
+          "binding": "bd_platform.security_trust_data_layer.ingest_bybit_price_243",
+          "verified_at": "2026-09-03T20:57:14.234396+00:00"
+        },
+        "netflow_proxy": true
+      }
+    },
+    {
+      "id": 190,
+      "capability_name": "Exchange Supply / Balance Intelligence",
+      "designed_purpose": "Exchange Supply / Balance Intelligence",
+      "expected_domain_output": "exchange_supply_balance_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap190",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=190; symbol='BTC'; catalog_goal='exchange_supply_balance_intelligence'; supply_on_exchanges_pct=None; exchange_supply=dict",
+      "semantic_comparison": "Expected: Exchange Supply / Balance Intelligence. Hero implements: geographic arbitrage venue spread analysis. Runtime: supply_on_exchanges_pct=geographic_spread_pct, exchange_supply=venues",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "analyze_geographic_arbitrage_190 is geo arbitrage, not exchange supply/balance.",
+      "semantic_expected": "geographic arbitrage venue spread analysis",
+      "semantic_actual": "supply_on_exchanges_pct=geographic_spread_pct, exchange_supply=venues",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_supply_balance_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + geographic arbitrage venue spread analysis",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "exchange_supply_balance_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 190,
+        "symbol": "BTC",
+        "catalog_goal": "exchange_supply_balance_intelligence",
+        "supply_on_exchanges_pct": null,
+        "exchange_supply": {
+          "binance": {
+            "price": 65050,
+            "region": "global"
+          },
+          "upbit": {
+            "price": 67130,
+            "region": "korea"
+          },
+          "bitso": {
+            "price": 64800,
+            "region": "latam"
+          }
+        }
+      }
+    },
+    {
+      "id": 191,
+      "capability_name": "Exchange User Activity",
+      "designed_purpose": "Exchange User Activity",
+      "expected_domain_output": "exchange_user_activity",
+      "runtime_module_function": "cap646.batch04_dedicated._cap191",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=191; symbol='BTC'; catalog_goal='exchange_user_activity'; user_activity_score=0; withdrawal_alerts=list",
+      "semantic_comparison": "Expected: Exchange User Activity. Hero implements: arbitrage portfolio UX E2E integration test. Runtime: user_activity_score=activity_score from UX e2e, withdrawal_alerts",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "run_arbitrage_portfolio_ux_e2e_177_191 is UX test runner, not exchange user activity.",
+      "semantic_expected": "arbitrage portfolio UX E2E integration test",
+      "semantic_actual": "user_activity_score=activity_score from UX e2e, withdrawal_alerts",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_user_activity",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + arbitrage portfolio UX E2E integration test",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "exchange_user_activity",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 191,
+        "symbol": "BTC",
+        "catalog_goal": "exchange_user_activity",
+        "user_activity_score": 0,
+        "withdrawal_alerts": []
+      }
+    },
+    {
+      "id": 192,
+      "capability_name": "Network Activity Intelligence",
+      "designed_purpose": "Network Activity Intelligence",
+      "expected_domain_output": "network_activity_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap192",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=192; symbol='BTC'; catalog_goal='network_activity_intelligence'; network_activity=dict; avg_funding_pct=0.011",
+      "semantic_comparison": "Expected: Network Activity Intelligence. Hero implements: perpetual funding rate analysis across venues. Runtime: network_activity=venues dict, avg_funding_pct from derivatives funding",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "analyze_funding_rate_192 is funding rate, not network activity intelligence.",
+      "semantic_expected": "perpetual funding rate analysis across venues",
+      "semantic_actual": "network_activity=venues dict, avg_funding_pct from derivatives funding",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=network_activity_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + perpetual funding rate analysis across venues",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "network_activity_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 192,
+        "symbol": "BTC",
+        "catalog_goal": "network_activity_intelligence",
+        "network_activity": {
+          "binance": {
+            "funding_8h_pct": 0.012,
+            "perp_price": 65120.0,
+            "annualized_pct": 13.14,
+            "premium_vs_spot_pct": 0.1076
+          },
+          "okx": {
+            "funding_8h_pct": 0.01,
+            "perp_price": 65100.0,
+            "annualized_pct": 10.95,
+            "premium_vs_spot_pct": 0.0769
+          },
+          "bybit": {
+            "funding_8h_pct": 0.011,
+            "perp_price": 65115.0,
+            "annualized_pct": 12.04,
+            "premium_vs_spot_pct": 0.0999
+          }
+        },
+        "avg_funding_pct": 0.011
+      }
+    },
+    {
+      "id": 193,
+      "capability_name": "Transaction Volume Intelligence",
+      "designed_purpose": "Transaction Volume Intelligence",
+      "expected_domain_output": "transaction_volume_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap193",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=193; symbol='BTC'; catalog_goal='transaction_volume_intelligence'; transaction_volume=None; volume_status='rejected_execution'",
+      "semantic_comparison": "Expected: Transaction Volume Intelligence. Hero implements: auto-arbitrage execution rejected status. Runtime: transaction_volume=cvd_usd from rejected status (no volume data)",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "auto_arbitrage_rejected_status_193 is rejection notice, not transaction volume intelligence.",
+      "semantic_expected": "auto-arbitrage execution rejected status",
+      "semantic_actual": "transaction_volume=cvd_usd from rejected status (no volume data)",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=transaction_volume_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + auto-arbitrage execution rejected status",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "transaction_volume_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 193,
+        "symbol": "BTC",
+        "catalog_goal": "transaction_volume_intelligence",
+        "transaction_volume": null,
+        "volume_status": "rejected_execution"
+      }
+    },
+    {
+      "id": 194,
+      "capability_name": "NVT Intelligence",
+      "designed_purpose": "NVT Intelligence",
+      "expected_domain_output": "nvt_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap194",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=194; symbol='BTC'; catalog_goal='nvt_intelligence'; nvt_ratio=4900000; cvd_usd=4900000; formula='CVD = \u03a3(Buy Volume \u2212 Sell Volume)'",
+      "semantic_comparison": "Expected: NVT Intelligence. Hero implements: Cumulative Volume Delta (CVD = \u03a3 Buy-Sell Volume). Runtime: nvt_ratio=cvd_usd=4900000, formula explicitly CVD not NVT",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "compute_cvd_194 outputs CVD mislabeled as NVT ratio \u2014 confirmed metric defect.",
+      "semantic_expected": "Cumulative Volume Delta (CVD = \u03a3 Buy-Sell Volume)",
+      "semantic_actual": "nvt_ratio=cvd_usd=4900000, formula explicitly CVD not NVT",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=nvt_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + Cumulative Volume Delta (CVD = \u03a3 Buy-Sell Volume)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "nvt_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 194,
+        "symbol": "BTC",
+        "catalog_goal": "nvt_intelligence",
+        "nvt_ratio": 4900000,
+        "cvd_usd": 4900000,
+        "formula": "CVD = \u03a3(Buy Volume \u2212 Sell Volume)"
+      }
+    },
+    {
+      "id": 195,
+      "capability_name": "MVRV Intelligence",
+      "designed_purpose": "MVRV Intelligence",
+      "expected_domain_output": "mvrv_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap195",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=195; symbol='BTC'; catalog_goal='mvrv_intelligence'; mvrv_ratio=63050.0; strategy='dca'",
+      "semantic_comparison": "Expected: MVRV Intelligence. Hero implements: DCA/grid strategy simulator (execution rejected). Runtime: mvrv_ratio=average_buy_price from DCA simulation, strategy=dca/grid",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "strategy_simulator_195 is trading strategy sim, not MVRV on-chain valuation ratio.",
+      "semantic_expected": "DCA/grid strategy simulator (execution rejected)",
+      "semantic_actual": "mvrv_ratio=average_buy_price from DCA simulation, strategy=dca/grid",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=mvrv_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + DCA/grid strategy simulator (execution rejected)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "mvrv_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 195,
+        "symbol": "BTC",
+        "catalog_goal": "mvrv_intelligence",
+        "mvrv_ratio": 63050.0,
+        "strategy": "dca"
+      }
+    },
+    {
+      "id": 196,
+      "capability_name": "Realized Cap / Realized Value Intelligence",
+      "designed_purpose": "Realized Cap / Realized Value Intelligence",
+      "expected_domain_output": "realized_cap_realized_value_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap196",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=196; symbol='BTC'; catalog_goal='realized_cap_realized_value_intelligence'; realized_cap_usd=dict; benchmarks=dict",
+      "semantic_comparison": "Expected: Realized Cap / Realized Value Intelligence. Hero implements: Yahoo Finance macro benchmarks (SPX, VIX, DXY, GOLD, OIL). Runtime: realized_cap_usd=SPX value 5200, benchmarks=equity/commodity indices",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "ingest_yahoo_finance_macro_196 is macro benchmarks, not crypto realized cap.",
+      "semantic_expected": "Yahoo Finance macro benchmarks (SPX, VIX, DXY, GOLD, OIL)",
+      "semantic_actual": "realized_cap_usd=SPX value 5200, benchmarks=equity/commodity indices",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=realized_cap_realized_value_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + Yahoo Finance macro benchmarks (SPX, VIX, DXY, GOLD, OIL)",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "realized_cap_realized_value_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 196,
+        "symbol": "BTC",
+        "catalog_goal": "realized_cap_realized_value_intelligence",
+        "realized_cap_usd": {
+          "value": 5200,
+          "change_30d_pct": 2.1
+        },
+        "benchmarks": {
+          "SPX": {
+            "value": 5200,
+            "change_30d_pct": 2.1
+          },
+          "NDX": {
+            "value": 18500,
+            "change_30d_pct": 3.0
+          },
+          "VIX": {
+            "value": 14.5,
+            "change_30d_pct": -8.0
+          },
+          "DXY": {
+            "value": 104.2,
+            "change_30d_pct": 0.5
+          },
+          "GOLD": {
+            "value": 2350,
+            "change_30d_pct": 1.8
+          },
+          "OIL": {
+            "value": 78.5,
+            "change_30d_pct": -2.0
+          }
+        }
+      }
+    },
+    {
+      "id": 197,
+      "capability_name": "Daily Active Addresses",
+      "designed_purpose": "Daily Active Addresses",
+      "expected_domain_output": "daily_active_addresses",
+      "runtime_module_function": "cap646.batch04_dedicated._cap197",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=197; symbol='BTC'; catalog_goal='daily_active_addresses'; active_addresses='macro_backup_redundancy'; macro_sources=None",
+      "semantic_comparison": "Expected: Daily Active Addresses. Hero implements: Alpha Vantage macro economic data ingestion. Runtime: active_addresses=role field from macro source config, not on-chain DAA count",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "ingest_alpha_vantage_macro_197 is macro data, not daily active addresses.",
+      "semantic_expected": "Alpha Vantage macro economic data ingestion",
+      "semantic_actual": "active_addresses=role field from macro source config, not on-chain DAA count",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=daily_active_addresses",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + Alpha Vantage macro economic data ingestion",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "daily_active_addresses",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 197,
+        "symbol": "BTC",
+        "catalog_goal": "daily_active_addresses",
+        "active_addresses": "macro_backup_redundancy",
+        "macro_sources": null
+      }
+    },
+    {
+      "id": 198,
+      "capability_name": "Age Consumed / Dormancy Intelligence",
+      "designed_purpose": "Age Consumed / Dormancy Intelligence",
+      "expected_domain_output": "age_consumed_dormancy_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap198",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=198; symbol='BTC'; catalog_goal='age_consumed_dormancy_intelligence'; age_consumed=list; dormancy_signals=2",
+      "semantic_comparison": "Expected: Age Consumed / Dormancy Intelligence. Hero implements: Binance research report ingestion. Runtime: age_consumed=reports list count, dormancy_signals=len(reports)",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "ingest_binance_research_198 is research PDF ingestion, not age consumed/dormancy metrics.",
+      "semantic_expected": "Binance research report ingestion",
+      "semantic_actual": "age_consumed=reports list count, dormancy_signals=len(reports)",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=age_consumed_dormancy_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + Binance research report ingestion",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "age_consumed_dormancy_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 198,
+        "symbol": "BTC",
+        "catalog_goal": "age_consumed_dormancy_intelligence",
+        "age_consumed": [
+          {
+            "title": "Bitcoin Halving Impact Analysis",
+            "date": "2026-03-01",
+            "assets": [
+              "BTC"
+            ],
+            "sentiment": "bullish",
+            "tags": [
+              "macro",
+              "technical"
+            ],
+            "source": "Binance Research",
+            "attribution": "Source: Binance Research",
+            "dedup_key": "aca0aa57009ce4a4"
+          },
+          {
+            "title": "Ethereum L2 Scaling Update",
+            "date": "2026-02-28",
+            "assets": [
+              "ETH"
+            ],
+            "sentiment": "neutral",
+            "tags": [
+              "protocol",
+              "technical"
+            ],
+            "source": "Binance Research",
+            "attribution": "Source: Binance Research",
+            "dedup_key": "e501f9fab080853c"
+          }
+        ],
+        "dormancy_signals": 2
+      }
+    },
+    {
+      "id": 199,
+      "capability_name": "Mean Dollar Invested Age",
+      "designed_purpose": "Mean Dollar Invested Age",
+      "expected_domain_output": "mean_dollar_invested_age",
+      "runtime_module_function": "cap646.batch04_dedicated._cap199",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=199; symbol='BTC'; catalog_goal='mean_dollar_invested_age'; mean_dollar_invested_age='2026-03-05'; research_reports=list",
+      "semantic_comparison": "Expected: Mean Dollar Invested Age. Hero implements: Messari research report ingestion. Runtime: mean_dollar_invested_age=report date string, not MDIA on-chain metric",
+      "semantic_alignment_status": "MISWIRED",
+      "reason": "ingest_messari_research_199 is research reports, not mean dollar invested age.",
+      "semantic_expected": "Messari research report ingestion",
+      "semantic_actual": "mean_dollar_invested_age=report date string, not MDIA on-chain metric",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=mean_dollar_invested_age",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + Messari research report ingestion",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "mean_dollar_invested_age",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 199,
+        "symbol": "BTC",
+        "catalog_goal": "mean_dollar_invested_age",
+        "mean_dollar_invested_age": "2026-03-05",
+        "research_reports": [
+          {
+            "title": "State of DeFi Q1 2026",
+            "date": "2026-03-05",
+            "assets": [
+              "ETH",
+              "SOL"
+            ],
+            "sentiment": "bullish",
+            "tier": "free",
+            "source": "Messari",
+            "attribution": "Source: Messari",
+            "dedup_key": "e80e913284f55555"
+          }
+        ]
+      }
+    },
+    {
+      "id": 200,
+      "capability_name": "Token Circulation Intelligence",
+      "designed_purpose": "Token Circulation Intelligence",
+      "expected_domain_output": "token_circulation_intelligence",
+      "runtime_module_function": "cap646.batch04_dedicated._cap200",
+      "controlled_input": {
+        "symbol": "BTC",
+        "tier": "pro",
+        "amount_usd": 1000000,
+        "address": "0xabc123"
+      },
+      "actual_domain_output": "ok=True; feature_ref=200; symbol='BTC'; catalog_goal='token_circulation_intelligence'; circulation_rate=None; token_reports=list; report_count=2; circulation_intelligence=dict",
+      "semantic_comparison": "Expected: Token Circulation Intelligence. Hero implements: CoinGecko quarterly/sector report ingestion. Runtime: token_reports with titles/dates; circulation_rate=null, no supply/circulation metrics",
+      "semantic_alignment_status": "PARTIAL_ALIGNMENT",
+      "reason": "Aligned portion: report ingestion. Missing: token circulation rate/supply intelligence semantics.",
+      "semantic_expected": "CoinGecko quarterly/sector report ingestion",
+      "semantic_actual": "token_reports with titles/dates; circulation_rate=null, no supply/circulation metrics",
+      "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=token_circulation_intelligence",
+      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_path": "cap646/batch04_dedicated.py + CoinGecko quarterly/sector report ingestion",
+      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "runtime_surface": "token_circulation_intelligence",
+      "runtime_payload_sample": {
+        "ok": true,
+        "feature_ref": 200,
+        "symbol": "BTC",
+        "catalog_goal": "token_circulation_intelligence",
+        "circulation_rate": null,
+        "token_reports": [
+          {
+            "title": "Q1 2026 Market Report",
+            "date": "2026-03-01",
+            "type": "quarterly",
+            "source": "CoinGecko"
+          },
+          {
+            "title": "DeFi Sector Analysis",
+            "date": "2026-02-15",
+            "type": "sector",
+            "source": "CoinGecko"
+          }
+        ],
+        "report_count": 2,
+        "circulation_intelligence": {
+          "reports": [
+            {
+              "title": "Q1 2026 Market Report",
+              "date": "2026-03-01",
+              "type": "quarterly",
+              "source": "CoinGecko"
+            },
+            {
+              "title": "DeFi Sector Analysis",
+              "date": "2026-02-15",
+              "type": "sector",
+              "source": "CoinGecko"
+            }
+          ],
+          "attribution": "Source: CoinGecko"
+        }
+      }
+    }
+  ]
+}
