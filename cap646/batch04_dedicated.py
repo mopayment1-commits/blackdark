@@ -212,6 +212,27 @@ async def _cap183(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     )
 
 
+async def _cap168(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch04_free_tier_spine import build_social_dominance_168
+
+    payload = await build_social_dominance_168(symbol=symbol, seed=_seed())
+    return _wrap(168, symbol=symbol, payload_key="social_dominance_intelligence", payload=payload)
+
+
+async def _cap171(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch04_free_tier_spine import build_trending_coins_171
+
+    payload = await build_trending_coins_171(symbol=symbol)
+    return _wrap(171, symbol=symbol, payload_key="trending_coins", payload=payload)
+
+
+async def _cap186(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch04_free_tier_spine import build_wallet_balance_history_186
+
+    payload = await build_wallet_balance_history_186(symbol=symbol, address=address, params=params)
+    return _wrap(186, symbol=symbol, payload_key="historical_wallet_balance_tool", payload=payload)
+
+
 async def _cap189(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from cap646.dedicated_common import exchange_netflow_probe
 
@@ -225,7 +246,10 @@ _DISPATCH_OVERRIDES: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     159: _cap159,
     161: _cap161,
     162: _cap162,
+    168: _cap168,
+    171: _cap171,
     183: _cap183,
+    186: _cap186,
     189: _cap189,
 }
 
