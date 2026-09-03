@@ -35,6 +35,8 @@
     "gateway_canonical_proof": "docs/BATCH03_GATEWAY_CANONICAL_ENTITLEMENT_PROOF.json",
     "adr_reused_link_time": "docs/ADR_BATCH03_REUSED_LINK_TIME.md",
     "adr_overlap_tolerate": "docs/ADR_BATCH03_OVERLAP_TOLERATE.md",
+    "reused_link_taxonomy": "docs/REUSED_LINK_TAXONOMY.json",
+    "critical_gate": ".github/workflows/ci.yml"
   },
   "production_spine": {
     "module": "cap646.batch03_production",
