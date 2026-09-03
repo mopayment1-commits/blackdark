@@ -3,25 +3,28 @@
   "status": "FAILED",
   "verdict": "STOP — لا انتقال للمرحلة 1 أو أي دليل «حي» نهائي قبل نجاح البوابة صفر",
   "production_url": "https://blackdark-production.up.railway.app",
-  "session_started_at": "2026-09-03T10:23:36Z",
-  "session_completed_at": "2026-09-03T10:24:16Z",
-  "git_commit": "efcf823825f3367179df9c1f71a7daf8dd7c354b",
-  "git_commit_short": "efcf823",
-  "retry_policy": "5 attempts, 8s between attempts",
-  "required_outcome": "HTTP 200 on health + sample cap646 (not Railway 404 Application not found)",
-  "actual_outcome": "60/60 probes returned HTTP 404 Application not found",
+  "session_started_at": "2026-09-03T10:25:04.396717+00:00",
+  "session_completed_at": "2026-09-03T10:25:43.003510+00:00",
+  "git_commit": "c4d6c5392a9db0792b5e276699bb01fac2187a57",
+  "git_commit_short": "c4d6c53",
+  "branch": "cursor/batch-03-101-150-e85e",
+  "retry_policy": "5 rounds, 8s between rounds, 12 probes per round",
+  "required_outcome": "HTTP 200 on /health and/or /health/ready + 10 cap646 sample IDs (not Railway 404 Application not found)",
+  "actual_outcome": "60/60 probes returned HTTP 404 Application not found (Railway edge, not FastAPI)",
   "health_probes": [
     {
       "path": "/health",
       "attempts": 5,
       "all_http_status": [404, 404, 404, 404, 404],
-      "sample_body": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}"
+      "sample_body": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}",
+      "last_elapsed_ms": 108.9
     },
     {
       "path": "/health/ready",
       "attempts": 5,
       "all_http_status": [404, 404, 404, 404, 404],
-      "sample_body": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}"
+      "sample_body": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}",
+      "last_elapsed_ms": 126.1
     }
   ],
   "cap646_sample_ids": [101, 106, 110, 125, 129, 150, 104, 115, 138, 142],
@@ -43,25 +46,25 @@
     }
   },
   "attempt_log": [
-    {"attempt": 1, "started_at": "2026-09-03T10:23:36Z", "health": 404, "health_ready": 404, "cap646_all": 404},
-    {"attempt": 2, "started_at": "2026-09-03T10:23:46Z", "health": 404, "health_ready": 404, "cap646_all": 404},
-    {"attempt": 3, "started_at": "2026-09-03T10:23:55Z", "health": 404, "health_ready": 404, "cap646_all": 404},
-    {"attempt": 4, "started_at": "2026-09-03T10:24:05Z", "health": 404, "health_ready": 404, "cap646_all": 404},
-    {"attempt": 5, "started_at": "2026-09-03T10:24:14Z", "health": 404, "health_ready": 404, "cap646_all": 404}
+    {"round": 1, "timestamp_utc": "2026-09-03T10:25:04Z", "health": 404, "health_ready": 404, "cap646_all": 404},
+    {"round": 2, "timestamp_utc": "2026-09-03T10:25:12Z", "health": 404, "health_ready": 404, "cap646_all": 404},
+    {"round": 3, "timestamp_utc": "2026-09-03T10:25:20Z", "health": 404, "health_ready": 404, "cap646_all": 404},
+    {"round": 4, "timestamp_utc": "2026-09-03T10:25:28Z", "health": 404, "health_ready": 404, "cap646_all": 404},
+    {"round": 5, "timestamp_utc": "2026-09-03T10:25:36Z", "health": 404, "health_ready": 404, "cap646_all": 404}
   ],
-  "root_cause_hypothesis": "Railway application/service not deployed or public domain detached (Application not found at edge — not app-level 4xx from FastAPI)",
-  "owner_action_required": [
+  "diagnosis": "Railway edge returns 404 Application not found — no running web service bound to public domain blackdark-production.up.railway.app",
+  "owner_remediation": [
     "Redeploy web service on Railway project blackdark-production",
     "Confirm public domain blackdark-production.up.railway.app attached to running service",
-    "Verify Postgres attach + DATABASE_URL if health/ready depends on DB",
-    "Re-run: curl https://blackdark-production.up.railway.app/health/ready → expect 200"
+    "Verify DATABASE_URL and required env vars after Postgres deploy",
+    "Re-run Gate Zero: curl https://blackdark-production.up.railway.app/health/ready → expect HTTP 200"
   ],
-  "phases_blocked": ["1", "2", "3", "4", "5", "final_closure"],
-  "batch04_blocked": true,
-  "local_fallback_not_accepted_for_gate_zero": true,
-  "references": [
-    "docs/PRODUCTION_URL_CORRECTION.md",
-    "docs/RAILWAY_POSTGRES_DNS_FIX.md",
-    "docs/BATCH03_PRODUCTION_SLSA_SESSION.json"
-  ]
+  "phases_blocked": ["1", "2", "3", "4", "5"],
+  "batch03_closure_blocked": true,
+  "batch04_open_blocked": true,
+  "previous_failed_session": {
+    "started_at": "2026-09-03T10:23:36Z",
+    "commit": "efcf823",
+    "same_outcome": true
+  }
 }
