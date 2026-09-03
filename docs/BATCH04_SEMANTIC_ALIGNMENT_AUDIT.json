@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-03T20:57:14.242374+00:00",
+  "generated_at": "2026-09-03T20:57:23.299857+00:00",
   "branch": "cursor/batch04-semantic-alignment-e85e",
-  "commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+  "commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
   "scope": "Batch04 IDs 151-200",
   "summary": {
     "semantic_alignment": {
@@ -89,9 +89,9 @@
       "semantic_expected": "quarterly_protocol_report via explain_opportunity_151 + defillama TVL",
       "semantic_actual": "quarter_label, reporting_period=quarterly, protocol_tvl_usd, performance_score, dimension_breakdown",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=quarterly_protocol_performance_reports",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + quarterly_protocol_report via explain_opportunity_151 + defi",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "quarterly_protocol_performance_reports",
       "runtime_payload_sample": {
         "ok": true,
@@ -127,9 +127,9 @@
       "semantic_expected": "data_sources E2E integration test runner (checks 140-152)",
       "semantic_actual": "governance_proposals contains e2e checks/all_passed, not governance proposals",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=governance_proposal_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + data_sources E2E integration test runner (checks 140-152)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "governance_proposal_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -193,7 +193,7 @@
               "passed": true
             }
           ],
-          "timestamp": "2026-09-03T20:57:13.246782+00:00"
+          "timestamp": "2026-09-03T20:57:22.460678+00:00"
         },
         "proposal_count": 4
       }
@@ -217,9 +217,9 @@
       "semantic_expected": "multi-venue theoretical arbitrage with cost breakdown",
       "semantic_actual": "coverage_registry maps venue prices; arbitrage_insight with net_spread_pct",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=project_monitoring_coverage_registry",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + multi-venue theoretical arbitrage with cost breakdown",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "project_monitoring_coverage_registry",
       "runtime_payload_sample": {
         "ok": true,
@@ -274,9 +274,9 @@
       "semantic_expected": "financial_brain merged infrastructure status (activation_not_build)",
       "semantic_actual": "copilot_status=merged_not_standalone; dimensions/outputs are infra metadata",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ai_crypto_copilot",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + financial_brain merged infrastructure status (activation_not",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "ai_crypto_copilot",
       "runtime_payload_sample": {
         "ok": true,
@@ -317,9 +317,9 @@
       "semantic_expected": "statistical arbitrage z-score mean-reversion insight",
       "semantic_actual": "research_depth=deep, z_score, historical reversion \u2014 stat arb not deep research",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ai_deep_research",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + statistical arbitrage z-score mean-reversion insight",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "ai_deep_research",
       "runtime_payload_sample": {
         "ok": true,
@@ -356,9 +356,9 @@
       "semantic_expected": "asset registry 105-coin list with selection criteria",
       "semantic_actual": "graph_nodes=asset list; no edges, relationships, or graph traversal",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=crypto_knowledge_graph",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + asset registry 105-coin list with selection criteria",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "crypto_knowledge_graph",
       "runtime_payload_sample": {
         "ok": true,
@@ -1334,9 +1334,9 @@
       "semantic_expected": "onchain advanced merged infrastructure status",
       "semantic_actual": "research_items=capabilities list, routes=oracle paths \u2014 infra status not library",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=research_library",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + onchain advanced merged infrastructure status",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "research_library",
       "runtime_payload_sample": {
         "ok": true,
@@ -1375,9 +1375,9 @@
       "semantic_expected": "multi-venue websocket connection aggregation status",
       "semantic_actual": "feed_items=venue connections with latency_ms, not research content",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=institutional_research_feed",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + multi-venue websocket connection aggregation status",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "institutional_research_feed",
       "runtime_payload_sample": {
         "ok": true,
@@ -1436,9 +1436,9 @@
       "semantic_expected": "institutional API platform via batch03 #103 wrap + gas profile owner",
       "semantic_actual": "institutional_api, graphql, hot_storage present; blocker BLOCKER-159-103",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=api_data_platform",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + institutional API platform via batch03 #103 wrap + gas profi",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "api_data_platform",
       "runtime_payload_sample": {
         "ok": true,
@@ -1479,9 +1479,9 @@
       "semantic_expected": "Bollinger/Keltner volatility squeeze detection",
       "semantic_actual": "pricing_model=pay_per_request but in_squeeze from vol squeeze; metering is static stub",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=pay_per_request_data_access",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + Bollinger/Keltner volatility squeeze detection",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "pay_per_request_data_access",
       "runtime_payload_sample": {
         "ok": true,
@@ -1515,9 +1515,9 @@
       "semantic_expected": "institutional capability handler (RBAC/isolation matrix)",
       "semantic_actual": "role_matrix, entitlements, isolation from handle_institutional_capability(161)",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=institutional_data_delivery_entitlements",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + institutional capability handler (RBAC/isolation matrix)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "institutional_data_delivery_entitlements",
       "runtime_payload_sample": {
         "ok": true,
@@ -1639,9 +1639,9 @@
       "semantic_expected": "provenance hot storage payload (REUSED_LINK #106)",
       "semantic_actual": "provenance + hot_storage fields present; catalog_link in code not at top-level runtime",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=evidence_provenance_layer",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + provenance hot storage payload (REUSED_LINK #106)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "evidence_provenance_layer",
       "runtime_payload_sample": {
         "ok": true,
@@ -1650,7 +1650,7 @@
         "catalog_goal": "evidence_provenance_layer",
         "provenance": {
           "surface": "data_provenance_score",
-          "generated_at": "2026-09-03T20:57:13.788060+00:00",
+          "generated_at": "2026-09-03T20:57:22.851117+00:00",
           "symbol": "BTC",
           "score": 66.0,
           "band": "caution",
@@ -1734,9 +1734,9 @@
       "semantic_expected": "intelligence analysis E2E test runner (checks 153-163)",
       "semantic_actual": "cross_domain_report with checks_passed/all_passed e2e results",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=cross_domain_research_to_decision_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + intelligence analysis E2E test runner (checks 153-163)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "cross_domain_research_to_decision_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -1792,7 +1792,7 @@
               "passed": true
             }
           ],
-          "timestamp": "2026-09-03T20:57:13.793725+00:00"
+          "timestamp": "2026-09-03T20:57:22.859048+00:00"
         },
         "checks_passed": true,
         "rule_based_only": true
@@ -1817,9 +1817,9 @@
       "semantic_expected": "liquidity impact / position slippage warning (panic button rejected)",
       "semantic_actual": "actionability_score derived from estimated_slippage_pct, unlock_risk=slippage",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=token_unlock_actionability_score",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + liquidity impact / position slippage warning (panic button r",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "token_unlock_actionability_score",
       "runtime_payload_sample": {
         "ok": true,
@@ -1850,9 +1850,9 @@
       "semantic_expected": "BTC hashrate capitulation / miner revenue forecast",
       "semantic_actual": "momentum_score=hashrate_drop_pct, capitulation_signal from mining economics",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=fundraising_momentum_score",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + BTC hashrate capitulation / miner revenue forecast",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "fundraising_momentum_score",
       "runtime_payload_sample": {
         "ok": true,
@@ -1886,9 +1886,9 @@
       "semantic_expected": "brokerage integration rejected status",
       "semantic_actual": "confidence_score=0.0 hardcoded, research_status=rejected_brokerage",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=research_confidence_score",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + brokerage integration rejected status",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "research_confidence_score",
       "runtime_payload_sample": {
         "ok": true,
@@ -1919,9 +1919,9 @@
       "semantic_expected": "NTP/time synchronization validation",
       "semantic_actual": "social_volume=deviation_sec (time sync deviation), not social metrics",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_volume_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + NTP/time synchronization validation",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "social_volume_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -1952,9 +1952,9 @@
       "semantic_expected": "sybil cluster index attachment",
       "semantic_actual": "dominance_pct=cluster_index integer, not social dominance percentage",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_dominance_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + sybil cluster index attachment",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "social_dominance_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -1984,9 +1984,9 @@
       "semantic_expected": "asset correlation decay matrix vs BTC benchmark",
       "semantic_actual": "unique_volume=oi_momentum_delta, correlation_matrix from decay matrix",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=unique_social_volume",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + asset correlation decay matrix vs BTC benchmark",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "unique_social_volume",
       "runtime_payload_sample": {
         "ok": true,
@@ -2031,9 +2031,9 @@
       "semantic_expected": "open interest momentum delta on derivatives",
       "semantic_actual": "trending_words=[], oi_momentum from derivatives OI delta",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=trending_words",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + open interest momentum delta on derivatives",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "trending_words",
       "runtime_payload_sample": {
         "ok": true,
@@ -2063,9 +2063,9 @@
       "semantic_expected": "Federal Reserve M2 macro liquidity flow",
       "semantic_actual": "trending_coins=[symbol], m2_flow=macro liquidity data",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=trending_coins",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + Federal Reserve M2 macro liquidity flow",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "trending_coins",
       "runtime_payload_sample": {
         "ok": true,
@@ -2126,9 +2126,9 @@
       "semantic_expected": "institutional memory / decision replay status",
       "semantic_actual": "historical_trends=memory_entries, institutional_memory status",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=historical_crypto_trends",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + institutional memory / decision replay status",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "historical_crypto_trends",
       "runtime_payload_sample": {
         "ok": true,
@@ -2158,9 +2158,9 @@
       "semantic_expected": "institutional RBAC role matrix status",
       "semantic_actual": "key_narratives=rbac_roles list, not market narratives",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=key_narratives_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + institutional RBAC role matrix status",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "key_narratives_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -2190,9 +2190,9 @@
       "semantic_expected": "white-label branding infrastructure status",
       "semantic_actual": "alpha_narratives=white_label_features, branding_status",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=alpha_narratives_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + white-label branding infrastructure status",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "alpha_narratives_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -2222,9 +2222,9 @@
       "semantic_expected": "batch01 sentiment_ai via compound_score from database",
       "semantic_actual": "surface=sentiment_ai (not social_sentiment_intelligence); compound_score=0.0 SHADOW_LIVE_FORWARD",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=sentiment_ai",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + batch01 sentiment_ai via compound_score from database",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "sentiment_ai",
       "runtime_payload_sample": {
         "surface": "sentiment_ai",
@@ -2268,9 +2268,9 @@
       "semantic_expected": "risk infrastructure E2E test runner (checks 164-176)",
       "semantic_actual": "weighted_sentiment=None, checks=e2e pass/fail list",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=weighted_social_sentiment",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + risk infrastructure E2E test runner (checks 164-176)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "weighted_social_sentiment",
       "runtime_payload_sample": {
         "ok": true,
@@ -2358,9 +2358,9 @@
       "semantic_expected": "arbitrage cost breakdown / net spread analysis",
       "semantic_actual": "sentiment_balance=net_spread_pct from arbitrage costs",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_sentiment_balance",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + arbitrage cost breakdown / net spread analysis",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "social_sentiment_balance",
       "runtime_payload_sample": {
         "ok": true,
@@ -2398,9 +2398,9 @@
       "semantic_expected": "scenario drawdown stress analysis",
       "semantic_actual": "source_breakdown=scenarios list from drawdown analysis",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=social_source_breakdown",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + scenario drawdown stress analysis",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "social_source_breakdown",
       "runtime_payload_sample": {
         "ok": true,
@@ -2467,9 +2467,9 @@
       "semantic_expected": "command center dashboard widget assembly",
       "semantic_actual": "dev_activity_score=widget_count, widgets=top3/health/alerts/heatmap",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=development_activity_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + command center dashboard widget assembly",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "development_activity_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -2637,7 +2637,7 @@
                 "compute_usd": 0.002,
                 "tier": "free"
               },
-              "generated_at": "2026-09-03T20:57:14.229579+00:00",
+              "generated_at": "2026-09-03T20:57:23.286284+00:00",
               "composite_score": {
                 "ok": true,
                 "feature_ref": 150,
@@ -2912,9 +2912,9 @@
       "semantic_expected": "whale flow SVG visualization (nodes/edges)",
       "semantic_actual": "contributor_count=flow_count, whale_flows=visualization graph",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=development_activity_contributors",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + whale flow SVG visualization (nodes/edges)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "development_activity_contributors",
       "runtime_payload_sample": {
         "ok": true,
@@ -2961,8 +2961,8 @@
               "amount_usd": 25000000,
               "stroke_width": 5.0,
               "direction": "inflow",
-              "tx_hash": "0x7bc087aa68e54649",
-              "timestamp": "2026-09-03T20:57:14.230149+00:00"
+              "tx_hash": "0x5e2a1e1c852e49c5",
+              "timestamp": "2026-09-03T20:57:23.286862+00:00"
             },
             {
               "from": "coinbase",
@@ -2970,8 +2970,8 @@
               "amount_usd": 8000000,
               "stroke_width": 1.6,
               "direction": "inflow",
-              "tx_hash": "0xa9fa9647687344b4",
-              "timestamp": "2026-09-03T20:57:14.230155+00:00"
+              "tx_hash": "0x1baae11741504907",
+              "timestamp": "2026-09-03T20:57:23.286868+00:00"
             }
           ],
           "clustering_ref": 129,
@@ -3002,9 +3002,9 @@
       "semantic_expected": "IC committee packets / duplicate_of #87 status",
       "semantic_actual": "ecosystem_score=packet_count, committee_packets status metadata",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=ecosystem_development_dashboard",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + IC committee packets / duplicate_of #87 status",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "ecosystem_development_dashboard",
       "runtime_payload_sample": {
         "ok": true,
@@ -3034,9 +3034,9 @@
       "semantic_expected": "white-label infrastructure duplicate_of #90 status",
       "semantic_actual": "activity_change_pct from white_label status, not dev activity delta",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=developer_activity_change_detection",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + white-label infrastructure duplicate_of #90 status",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "developer_activity_change_detection",
       "runtime_payload_sample": {
         "ok": true,
@@ -3066,9 +3066,9 @@
       "semantic_expected": "whale tier classification, flow direction, concentration risk (distinct from #130 swap)",
       "semantic_actual": "whale_tier=mega_whale, amount_usd, flow_direction, is_whale_event, risk_score; distinct_from_130 behavioral",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=whale_transaction_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + whale tier classification, flow direction, concentration ris",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "whale_transaction_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3108,9 +3108,9 @@
       "semantic_expected": "fund reporting IC scheduled reports status (duplicate #87)",
       "semantic_actual": "cohort_type=whale_shark, holders=[], reporting_status from IC reports",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=whale_shark_holder_cohorts",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + fund reporting IC scheduled reports status (duplicate #87)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "whale_shark_holder_cohorts",
       "runtime_payload_sample": {
         "ok": true,
@@ -3141,9 +3141,9 @@
       "semantic_expected": "acquisition evidence package deferred assembly template",
       "semantic_actual": "top_holders=evidence_items from deferred doc assembly, not on-chain holders",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=top_holders_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + acquisition evidence package deferred assembly template",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "top_holders_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3173,9 +3173,9 @@
       "semantic_expected": "continuous learning / data flywheel status (duplicate #97)",
       "semantic_actual": "balance_history=learning_status, wallet_tool_status \u2014 flywheel not wallet balances",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=historical_wallet_balance_tool",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + continuous learning / data flywheel status (duplicate #97)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "historical_wallet_balance_tool",
       "runtime_payload_sample": {
         "ok": true,
@@ -3205,9 +3205,9 @@
       "semantic_expected": "latency monitoring p50/p99 metrics",
       "semantic_actual": "inflow_usd=latency_p50_ms (milliseconds labeled as USD inflow)",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_inflow_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + latency monitoring p50/p99 metrics",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "exchange_inflow_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3237,9 +3237,9 @@
       "semantic_expected": "risk alert user confirmation workflow",
       "semantic_actual": "outflow_usd=confirmed_alerts count, alert_confirmation boolean",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_outflow_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + risk alert user confirmation workflow",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "exchange_outflow_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3269,9 +3269,9 @@
       "semantic_expected": "Bybit price ingest with netflow_proxy=true (not actual netflow)",
       "semantic_actual": "netflow contains price_usd, role=secondary_fallback, netflow_proxy=true",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_netflow_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + Bybit price ingest with netflow_proxy=true (not actual netfl",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "exchange_netflow_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3301,7 +3301,7 @@
           "exchange": "binance",
           "capability_id": 48,
           "binding": "bd_platform.security_trust_data_layer.ingest_bybit_price_243",
-          "verified_at": "2026-09-03T20:57:14.234396+00:00"
+          "verified_at": "2026-09-03T20:57:23.291406+00:00"
         },
         "netflow_proxy": true
       }
@@ -3325,9 +3325,9 @@
       "semantic_expected": "geographic arbitrage venue spread analysis",
       "semantic_actual": "supply_on_exchanges_pct=geographic_spread_pct, exchange_supply=venues",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_supply_balance_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + geographic arbitrage venue spread analysis",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "exchange_supply_balance_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3370,9 +3370,9 @@
       "semantic_expected": "arbitrage portfolio UX E2E integration test",
       "semantic_actual": "user_activity_score=activity_score from UX e2e, withdrawal_alerts",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_user_activity",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + arbitrage portfolio UX E2E integration test",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "exchange_user_activity",
       "runtime_payload_sample": {
         "ok": true,
@@ -3402,9 +3402,9 @@
       "semantic_expected": "perpetual funding rate analysis across venues",
       "semantic_actual": "network_activity=venues dict, avg_funding_pct from derivatives funding",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=network_activity_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + perpetual funding rate analysis across venues",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "network_activity_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3453,9 +3453,9 @@
       "semantic_expected": "auto-arbitrage execution rejected status",
       "semantic_actual": "transaction_volume=cvd_usd from rejected status (no volume data)",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=transaction_volume_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + auto-arbitrage execution rejected status",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "transaction_volume_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3485,9 +3485,9 @@
       "semantic_expected": "Cumulative Volume Delta (CVD = \u03a3 Buy-Sell Volume)",
       "semantic_actual": "nvt_ratio=cvd_usd=4900000, formula explicitly CVD not NVT",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=nvt_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + Cumulative Volume Delta (CVD = \u03a3 Buy-Sell Volume)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "nvt_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3518,9 +3518,9 @@
       "semantic_expected": "DCA/grid strategy simulator (execution rejected)",
       "semantic_actual": "mvrv_ratio=average_buy_price from DCA simulation, strategy=dca/grid",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=mvrv_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + DCA/grid strategy simulator (execution rejected)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "mvrv_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3550,9 +3550,9 @@
       "semantic_expected": "Yahoo Finance macro benchmarks (SPX, VIX, DXY, GOLD, OIL)",
       "semantic_actual": "realized_cap_usd=SPX value 5200, benchmarks=equity/commodity indices",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=realized_cap_realized_value_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + Yahoo Finance macro benchmarks (SPX, VIX, DXY, GOLD, OIL)",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "realized_cap_realized_value_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3610,9 +3610,9 @@
       "semantic_expected": "Alpha Vantage macro economic data ingestion",
       "semantic_actual": "active_addresses=role field from macro source config, not on-chain DAA count",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=daily_active_addresses",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + Alpha Vantage macro economic data ingestion",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "daily_active_addresses",
       "runtime_payload_sample": {
         "ok": true,
@@ -3642,9 +3642,9 @@
       "semantic_expected": "Binance research report ingestion",
       "semantic_actual": "age_consumed=reports list count, dormancy_signals=len(reports)",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=age_consumed_dormancy_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + Binance research report ingestion",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "age_consumed_dormancy_intelligence",
       "runtime_payload_sample": {
         "ok": true,
@@ -3705,9 +3705,9 @@
       "semantic_expected": "Messari research report ingestion",
       "semantic_actual": "mean_dollar_invested_age=report date string, not MDIA on-chain metric",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=mean_dollar_invested_age",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + Messari research report ingestion",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "mean_dollar_invested_age",
       "runtime_payload_sample": {
         "ok": true,
@@ -3751,9 +3751,9 @@
       "semantic_expected": "CoinGecko quarterly/sector report ingestion",
       "semantic_actual": "token_reports with titles/dates; circulation_rate=null, no supply/circulation metrics",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=token_circulation_intelligence",
-      "semantic_evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "evidence_path": "cap646/batch04_dedicated.py + CoinGecko quarterly/sector report ingestion",
-      "evidence_commit": "df9811b38073462bbae9f15f61382da55d2abed2",
+      "evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "runtime_surface": "token_circulation_intelligence",
       "runtime_payload_sample": {
         "ok": true,
