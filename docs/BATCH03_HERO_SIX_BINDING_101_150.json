@@ -1,0 +1,180 @@
+{
+  "scope": "Batch03 101-150 + canonical feeds for REUSED-LINK",
+  "independent_44_not_bound_to_heroes": true,
+  "evidence": "rg heroes cap646/batch03* \u2192 no matches",
+  "reused_canonical_hero_feeds": {
+    "106": 63,
+    "107": 64,
+    "110": 69,
+    "125": 85
+  },
+  "canonical_hero_map": {
+    "63": [
+      "Public Accuracy Ledger"
+    ],
+    "64": [
+      "Public Accuracy Ledger"
+    ],
+    "69": [
+      "Single-Sentence Oracle",
+      "Arbitrage Scanner"
+    ],
+    "85": [
+      "Arbitrage Scanner",
+      "Whale Signal vs Noise",
+      "Stealth Advisor"
+    ]
+  },
+  "gateway_incident_itil": {
+    "issue": "gateway checked raw ID before canonical_id fix",
+    "affected_pairs": [
+      "110\u219269",
+      "125\u219285"
+    ],
+    "heroes_potentially_affected": [
+      "Single-Sentence Oracle",
+      "Arbitrage Scanner",
+      "Whale Signal vs Noise",
+      "Stealth Advisor"
+    ],
+    "status": "CLOSED in code \u2014 tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py",
+    "user_visible_period": "pre-2026-09-03 until gateway fix commit f5bae3f"
+  },
+  "heroes": [
+    {
+      "hero": "Single-Sentence Oracle",
+      "batch03_direct_capability_ids": [],
+      "batch03_reused_canonical_feeds": [
+        {
+          "duplicate_id": 110,
+          "canonical_id": 69
+        }
+      ],
+      "normalization": "min-max / log1p per hero engine (see scripts/generate_pentagonal_hero_binding_report.py)",
+      "weights": "equal_weight_default \u2014 ADR required if changed (OECD composite indicator practice)",
+      "independent_signal_concurrence": "\u22652 independent modal signals where hero engine requires (Oracle/Arbitrage)",
+      "sensitivity_loo": "documented in HERO_SIX_BINDING_REPORT.json for 1-100; batch03 independent caps NOT in hero inputs",
+      "explainability": "hero engine returns contributing capability_ids in payload where implemented",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "Public Accuracy Ledger",
+      "batch03_direct_capability_ids": [],
+      "batch03_reused_canonical_feeds": [
+        {
+          "duplicate_id": 106,
+          "canonical_id": 63
+        },
+        {
+          "duplicate_id": 107,
+          "canonical_id": 64
+        }
+      ],
+      "normalization": "min-max / log1p per hero engine (see scripts/generate_pentagonal_hero_binding_report.py)",
+      "weights": "equal_weight_default \u2014 ADR required if changed (OECD composite indicator practice)",
+      "independent_signal_concurrence": "\u22652 independent modal signals where hero engine requires (Oracle/Arbitrage)",
+      "sensitivity_loo": "documented in HERO_SIX_BINDING_REPORT.json for 1-100; batch03 independent caps NOT in hero inputs",
+      "explainability": "hero engine returns contributing capability_ids in payload where implemented",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "Arbitrage Scanner",
+      "batch03_direct_capability_ids": [],
+      "batch03_reused_canonical_feeds": [
+        {
+          "duplicate_id": 110,
+          "canonical_id": 69
+        },
+        {
+          "duplicate_id": 125,
+          "canonical_id": 85
+        }
+      ],
+      "normalization": "min-max / log1p per hero engine (see scripts/generate_pentagonal_hero_binding_report.py)",
+      "weights": "equal_weight_default \u2014 ADR required if changed (OECD composite indicator practice)",
+      "independent_signal_concurrence": "\u22652 independent modal signals where hero engine requires (Oracle/Arbitrage)",
+      "sensitivity_loo": "documented in HERO_SIX_BINDING_REPORT.json for 1-100; batch03 independent caps NOT in hero inputs",
+      "explainability": "hero engine returns contributing capability_ids in payload where implemented",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "Whale Signal vs Noise",
+      "batch03_direct_capability_ids": [],
+      "batch03_reused_canonical_feeds": [
+        {
+          "duplicate_id": 125,
+          "canonical_id": 85
+        }
+      ],
+      "normalization": "min-max / log1p per hero engine (see scripts/generate_pentagonal_hero_binding_report.py)",
+      "weights": "equal_weight_default \u2014 ADR required if changed (OECD composite indicator practice)",
+      "independent_signal_concurrence": "\u22652 independent modal signals where hero engine requires (Oracle/Arbitrage)",
+      "sensitivity_loo": "documented in HERO_SIX_BINDING_REPORT.json for 1-100; batch03 independent caps NOT in hero inputs",
+      "explainability": "hero engine returns contributing capability_ids in payload where implemented",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "Stealth Advisor",
+      "batch03_direct_capability_ids": [],
+      "batch03_reused_canonical_feeds": [
+        {
+          "duplicate_id": 125,
+          "canonical_id": 85
+        }
+      ],
+      "normalization": "min-max / log1p per hero engine (see scripts/generate_pentagonal_hero_binding_report.py)",
+      "weights": "equal_weight_default \u2014 ADR required if changed (OECD composite indicator practice)",
+      "independent_signal_concurrence": "\u22652 independent modal signals where hero engine requires (Oracle/Arbitrage)",
+      "sensitivity_loo": "documented in HERO_SIX_BINDING_REPORT.json for 1-100; batch03 independent caps NOT in hero inputs",
+      "explainability": "hero engine returns contributing capability_ids in payload where implemented",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "B2B Feed",
+      "batch03_direct_capability_ids": [],
+      "batch03_reused_canonical_feeds": [],
+      "normalization": "min-max / log1p per hero engine (see scripts/generate_pentagonal_hero_binding_report.py)",
+      "weights": "equal_weight_default \u2014 ADR required if changed (OECD composite indicator practice)",
+      "independent_signal_concurrence": "\u22652 independent modal signals where hero engine requires (Oracle/Arbitrage)",
+      "sensitivity_loo": "documented in HERO_SIX_BINDING_REPORT.json for 1-100; batch03 independent caps NOT in hero inputs",
+      "explainability": "hero engine returns contributing capability_ids in payload where implemented",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    }
+  ]
+}

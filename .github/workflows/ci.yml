@@ -116,7 +116,7 @@ jobs:
           python scripts/verify_institutional_closure.py --ci
           python scripts/run_soft_launch_closure.py
           set -a && source .env.softlaunch.local && set +a
-          python -m pytest tests/cap646/test_institutional_gate.py tests/cap646/test_soft_launch_closure.py -q --tb=short -m "" -k "not test_institutional_gate_full"
+          python -m pytest tests/cap646/test_institutional_gate.py tests/cap646/test_soft_launch_closure.py tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py tests/cap646/test_batch03_reused_link_contract.py tests/cap646/test_batch04_gateway_canonical_entitlement_contract.py -q --tb=short -m "" -k "not test_institutional_gate_full"
 
       - name: Docker build smoke
         run: docker build -t blackdark-ci:test .

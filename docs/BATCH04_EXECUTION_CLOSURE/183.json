@@ -1,0 +1,69 @@
+{
+  "capability_id": 183,
+  "name": "Whale Transaction Intelligence",
+  "expected_surface": "whale_transaction_intelligence",
+  "verification": {
+    "input": {
+      "symbol": "BTC",
+      "tier": "pro"
+    },
+    "expected_output": "whale_transaction_intelligence",
+    "actual_output": "whale_transaction_intelligence",
+    "comparison": "PASS",
+    "evidence": "runtime execute_capability(183) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+  },
+  "functional_completeness": "PASS",
+  "functional_correctness": "PASS",
+  "functional_appropriateness": "PASS",
+  "duplication": {
+    "classification": "DISTINCT",
+    "compared_id": 130,
+    "canonical": "cap646.batch04_whale_transaction",
+    "accounting": "Independent \u2014 distinct from #130 swap risk"
+  },
+  "time_decision": "TOLERATE",
+  "time_expiry": "2026-12-03",
+  "architecture": {
+    "path": "execute_capability(183) \u2192 batch04_production \u2192 batch04_dedicated._cap183",
+    "route": "/api/cap646/183",
+    "spine": "batch04"
+  },
+  "hero": {
+    "applicable": true,
+    "hero_id": "H4"
+  },
+  "ai_classification": "N/A",
+  "local_state": "ENGINEERING_VERIFIED_LOCAL",
+  "production_state": "AWAITING_DEPLOY",
+  "performance_ms": 0.21,
+  "five_column_closure": {
+    "column_1_internal_goal": {
+      "completeness": "PASS",
+      "correctness": "PASS",
+      "appropriateness": "PASS"
+    },
+    "column_2_external_result": {
+      "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#183",
+      "expected_output": "whale_transaction_intelligence",
+      "actual_output": "whale_transaction_intelligence",
+      "comparison": "PASS"
+    },
+    "column_3_interface": {
+      "path": "execute_capability(183) \u2192 batch04_production \u2192 batch04_dedicated._cap183",
+      "route": "/api/cap646/183",
+      "spine": "batch04"
+    },
+    "column_4_security_quality": {
+      "entitlement": "fail-closed verified",
+      "tests": "test_batch04_prep_dedicated + corrective"
+    },
+    "column_5_review": {
+      "local_state": "ENGINEERING_VERIFIED_LOCAL",
+      "production_state": "AWAITING_DEPLOY",
+      "blockers": "Independent \u2014 distinct from #130 swap risk"
+    }
+  },
+  "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "generated_at": "2026-09-03T20:23:14.614108+00:00"
+}
