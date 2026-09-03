@@ -19,6 +19,7 @@ EVIDENCE_GLOBS = sorted((ROOT / "data").glob("hero_batch_*_evidence.jsonl"))
 BATCH02_CLASSIFICATION = ROOT / "docs/BATCH02_CLASSIFICATION.json"
 BATCH01_RTM = ROOT / "docs/BATCH01_OFFICIAL_RTM_1_50.json"
 BATCH02_RTM = ROOT / "docs/BATCH02_OFFICIAL_RTM_51_100.json"
+BATCH03_RTM = ROOT / "docs/BATCH03_OFFICIAL_RTM_101_150.json"
 REUSED_LINK_TAXONOMY = ROOT / "docs/REUSED_LINK_TAXONOMY.json"
 REUSED_LINK_IDS = frozenset({106, 107, 110, 125})
 CANONICAL_BLOCKERS = frozenset({63, 64, 69, 85})
@@ -56,6 +57,12 @@ def _load_batch02_rtm() -> dict[int, dict[str, Any]]:
     return {int(k): v for k, v in (data.get("per_id") or {}).items()}
 
 
+def _load_batch03_rtm() -> dict[int, dict[str, Any]]:
+    if not BATCH03_RTM.is_file():
+        return {}
+    data = json.loads(BATCH03_RTM.read_text(encoding="utf-8"))
+    return {int(k): v for k, v in (data.get("per_id") or {}).items()}
+
 def _load_reused_link_taxonomy() -> dict[str, Any]:
     if not REUSED_LINK_TAXONOMY.is_file():
         return {}
@@ -75,6 +82,7 @@ def main() -> None:
     evidence = _load_evidence()
     batch01_rtm = _load_batch01_rtm()
     batch02_rtm = _load_batch02_rtm()
+    batch03_rtm = _load_batch03_rtm()
     reused_link_taxonomy = _load_reused_link_taxonomy()
     batch02_overlap: set[int] = set()
     batch02_not_complete: set[int] = set()
@@ -99,6 +107,11 @@ def main() -> None:
             production_spine = batch01_rtm[cid].get("production_spine")
         elif cid in batch02_rtm:
             row_rtm = batch02_rtm[cid]
+            status = row_rtm["status"]
+            notes = row_rtm.get("notes")
+            production_spine = row_rtm.get("production_spine")
+        elif cid in batch03_rtm:
+            row_rtm = batch03_rtm[cid]
             status = row_rtm["status"]
             notes = row_rtm.get("notes")
             production_spine = row_rtm.get("production_spine")

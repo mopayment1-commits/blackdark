@@ -1,0 +1,322 @@
+{
+  "audited_at": "2026-09-03T09:43:12.630680+00:00",
+  "scope": "official batch03 IDs 101–150",
+  "layers": {
+    "layer_1_mece": {
+      "method": "TOGAF G189 inputs/outputs/commercial outcome",
+      "findings": [
+        {
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "decision": "REUSED-LINK",
+          "mece_basis": "identical catalog goal — canonical SSOT in batch02",
+          "duplicate_goal": "Data Quality & Provenance Layer",
+          "canonical_goal": "Data Quality & Provenance Layer"
+        },
+        {
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "decision": "REUSED-LINK",
+          "mece_basis": "identical catalog goal — canonical SSOT in batch02",
+          "duplicate_goal": "Metric Methodology Registry",
+          "canonical_goal": "Metric Methodology Registry"
+        },
+        {
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "decision": "REUSED-LINK",
+          "mece_basis": "identical catalog goal — canonical SSOT in batch02",
+          "duplicate_goal": "Cross-Domain Decision Intelligence Layer",
+          "canonical_goal": "Cross-Domain Decision Intelligence Layer"
+        },
+        {
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "decision": "REUSED-LINK",
+          "mece_basis": "identical catalog goal — canonical SSOT in batch02",
+          "duplicate_goal": "Futures Open Interest Intelligence",
+          "canonical_goal": "Futures Open Interest Intelligence"
+        },
+        {
+          "duplicate_id": 103,
+          "canonical_id": 3,
+          "decision": "OVERLAP-PARTIAL",
+          "mece_basis": "batch03 ID served exclusively via batch01 spine",
+          "duplicate_goal": "API Data Platform",
+          "canonical_goal": "Wallet Profiler for Token"
+        },
+        {
+          "duplicate_id": 129,
+          "canonical_id": 29,
+          "decision": "OVERLAP-PARTIAL",
+          "mece_basis": "batch03 ID served exclusively via batch01 spine",
+          "duplicate_goal": "Sentiment Intelligence",
+          "canonical_goal": "Cross-Market Decision Intelligence Engine"
+        },
+        {
+          "pair": "103_vs_129",
+          "decision": "DISTINCT",
+          "mece_basis": "API Data Platform (#103) vs Sentiment Intelligence (#129) — different goals/surfaces"
+        }
+      ]
+    },
+    "layer_2_structural": {
+      "method": "jscpd on batch03 spine modules",
+      "jscpd": {
+        "exit_code": 0,
+        "stderr": "",
+        "duplicates": {
+          "duplicates": [],
+          "statistics": {
+            "detectionDate": "2026-09-03T09:43:12.621Z",
+            "formats": {
+              "python": {
+                "clones": 0,
+                "duplicatedLines": 0,
+                "duplicatedTokens": 0,
+                "lines": 555,
+                "newClones": 0,
+                "newDuplicatedLines": 0,
+                "percentage": 0.0,
+                "percentageTokens": 0.0,
+                "sources": 3,
+                "tokens": 4643
+              }
+            },
+            "total": {
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "lines": 555,
+              "newClones": 0,
+              "newDuplicatedLines": 0,
+              "percentage": 0.0,
+              "percentageTokens": 0.0,
+              "sources": 3,
+              "tokens": 4643
+            }
+          }
+        }
+      }
+    },
+    "layer_3_modularity": {
+      "method": "SSOT via canonical batch02 for REUSED-LINK",
+      "ssot_pairs": {
+        "106": 63,
+        "107": 64,
+        "110": 69,
+        "125": 85
+      }
+    },
+    "layer_4_semantic": {
+      "method": "live contract tests >=5 symbols per REUSED-LINK pair",
+      "contract_tests": [
+        {
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "symbol": "BTC",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "symbol": "ETH",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "symbol": "SOL",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "symbol": "AVAX",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "symbol": "DOGE",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "symbol": "BTC",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "symbol": "ETH",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "symbol": "SOL",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "symbol": "AVAX",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "symbol": "DOGE",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "symbol": "BTC",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "symbol": "ETH",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "symbol": "SOL",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "symbol": "AVAX",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "symbol": "DOGE",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "symbol": "BTC",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "symbol": "ETH",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "symbol": "SOL",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "symbol": "AVAX",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        },
+        {
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "symbol": "DOGE",
+          "surface_match": true,
+          "success": true,
+          "catalog_link_ok": true,
+          "contract_pass": true
+        }
+      ],
+      "all_pass": true
+    }
+  },
+  "time_decisions": [
+    {
+      "ids": [
+        106,
+        107,
+        110,
+        125
+      ],
+      "decision": "Migrate",
+      "rationale": "Canonical + Facade with catalog_link; Type-4 contract in CI",
+      "adr": "docs/REUSED_LINK_TAXONOMY.json",
+      "sunset_date": null
+    },
+    {
+      "ids": [
+        103,
+        129
+      ],
+      "decision": "Tolerate",
+      "rationale": "Runtime routes batch01 before batch03 — distinct batch numbering",
+      "sunset_date": "2026-10-03"
+    }
+  ],
+  "all_layers_pass": true
+}

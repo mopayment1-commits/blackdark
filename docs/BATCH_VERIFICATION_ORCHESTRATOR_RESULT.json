@@ -1,23 +1,20 @@
 {
-  "verified_at": "2026-09-02T21:10:06.057959+00:00",
+  "verified_at": "2026-09-03T09:45:27.058328+00:00",
   "orchestrator": "scripts/run_batch_verification_orchestrator.py",
   "note": "Local proof orchestrator only — not an institutional CI gate",
-  "closure_status": "INSTITUTIONAL_CLOSED",
+  "closure_status": "PENDING_CLOSURE",
   "batches": {
     "batch01": {
       "scope": "1–50",
-      "status": "INSTITUTIONAL_CLOSED",
-      "final": true
+      "status": "PENDING_CLOSURE"
     },
     "batch02": {
       "scope": "51–100",
-      "status": "INSTITUTIONAL_CLOSED",
-      "final": true
+      "status": "PENDING_CLOSURE"
     },
     "batch03": {
       "scope": "101–150",
-      "status": "PROHIBITED",
-      "note": "Blocked until official owner reopening"
+      "status": "PENDING_OWNER_APPROVAL"
     }
   },
   "orchestrated_scripts": [
@@ -34,7 +31,7 @@
       "verifies": "RTM audit: 50/50 official batch02 IDs including OVERLAP_BATCH01 routing",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"production_aligned\": 50\n}\nWrote /workspace/docs/BATCH02_OFFICIAL_RTM_51_100.json",
-      "stderr": "Yahoo price fetch failed safely | symbol=GC=F\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo macro fetch failed safely | symbol=^GSPC\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo price fetch failed safely | symbol=GC=F\nYahoo macro fetch failed safely | symbol=^GSPC\n2026-09-02 21:08:36,509 | INFO | database | Database initialised at /workspace/data/blackdark.db\n2026-09-02 21:08:43,736 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://www.coindesk.com/arc/outboundfeeds/rss/\n2026-09-02 21:08:43,736 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://cointelegraph.com/rss\n2026-09-02 21:08:43,737 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://decrypt.co/feed\n2026-09-02 21:08:43,737 | WARNING | BLACKDARK.SentimentEngine | CryptoCompare news fetch failed safely.\n",
+      "stderr": "Yahoo macro fetch failed safely | symbol=^GSPC\nYahoo price fetch failed safely | symbol=GC=F\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo macro fetch failed safely | symbol=^GSPC\nYahoo price fetch failed safely | symbol=GC=F\nYahoo price fetch failed safely | symbol=BTC-USD\n2026-09-03 09:44:03,945 | INFO | database | Database initialised at /workspace/data/blackdark.db\n2026-09-03 09:44:11,147 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://www.coindesk.com/arc/outboundfeeds/rss/\n2026-09-03 09:44:11,147 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://cointelegraph.com/rss\n2026-09-03 09:44:11,147 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://decrypt.co/feed\n2026-09-03 09:44:11,147 | WARNING | BLACKDARK.SentimentEngine | CryptoCompare news fetch failed safely.\n",
       "attempt": 1
     },
     {
@@ -50,7 +47,7 @@
       "verifies": "HTTP GET /api/cap646/{id} for IDs 1–50 with status 200",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"count\": 50\n}\nWrote /workspace/docs/BATCH01_HTTP_PROOF_1_50.json",
-      "stderr": "equest GET /api/cap646/37 675.0ms\n2026-09-02 21:09:27,703 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/37?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:27,729 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/38?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:27,754 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/39?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:28,346 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/40 590.9ms\n2026-09-02 21:09:28,355 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/40?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:28,406 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/41?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:28,520 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/42?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:28,533 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/43?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:28,545 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/44?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:30,061 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/45 1515.0ms\n2026-09-02 21:09:30,071 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/45?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:30,084 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/46?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:30,094 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/47?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:30,104 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/48?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:30,292 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/49?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:30,913 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/50 619.4ms\n2026-09-02 21:09:30,924 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/50?symbol=BTC \"HTTP/1.1 200 OK\"\n",
+      "stderr": "1 200 OK\"\n2026-09-03 09:44:41,848 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/36?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:42,138 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/37?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:42,160 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/38?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:42,181 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/39?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:42,778 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/40 596.0ms\n2026-09-03 09:44:42,787 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/40?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:42,833 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/41?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:42,930 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/42?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:42,940 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/43?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:42,949 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/44?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:43,287 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/45?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:43,297 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/46?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:43,307 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/47?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:43,315 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/48?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:43,503 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/49?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:44,117 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/50 613.0ms\n2026-09-03 09:44:44,129 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/50?symbol=BTC \"HTTP/1.1 200 OK\"\n",
       "attempt": 1
     },
     {
@@ -58,7 +55,7 @@
       "verifies": "HTTP regression subset: 11 formerly NOT_COMPLETE batch01 IDs",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"count\": 11\n}\nWrote /workspace/docs/BATCH01_HTTP_PROOF_11_FIXED.json",
-      "stderr": "/workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n  from starlette.testclient import TestClient as TestClient  # noqa\nslow request GET /api/cap646/16 609.7ms\n2026-09-02 21:09:34,535 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/24?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:35,150 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/26 613.3ms\n2026-09-02 21:09:35,157 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/26?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:35,776 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/31 618.1ms\n2026-09-02 21:09:35,787 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/31?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:36,389 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/32 601.0ms\n2026-09-02 21:09:36,400 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/32?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:37,021 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/35 620.1ms\n2026-09-02 21:09:37,032 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/35?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:37,160 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/42?symbol=BTC \"HTTP/1.1 200 OK\"\n",
+      "stderr": "/workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n  from starlette.testclient import TestClient as TestClient  # noqa\nslow request GET /api/cap646/16 648.9ms\n2026-09-03 09:44:47,706 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/24?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:48,325 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/26 616.8ms\n2026-09-03 09:44:48,333 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/26?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:48,959 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/31 624.8ms\n2026-09-03 09:44:48,968 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/31?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:49,600 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/32 630.8ms\n2026-09-03 09:44:49,609 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/32?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:50,223 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/35 613.0ms\n2026-09-03 09:44:50,232 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/35?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:44:50,347 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/42?symbol=BTC \"HTTP/1.1 200 OK\"\n",
       "attempt": 1
     },
     {
@@ -74,7 +71,7 @@
       "verifies": "HTTP GET /api/cap646/{id} for IDs 51–100 with status 200",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"count\": 50\n}\nWrote /workspace/docs/BATCH02_HTTP_PROOF_51_100.json",
-      "stderr": "t: GET http://testserver/api/cap646/88?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:57,816 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/89?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,008 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/90?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,018 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/91?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,029 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/92?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,038 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/93?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,050 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/94?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,061 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/95?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,076 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/96?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,088 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/97?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,100 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/98?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,211 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://www.coindesk.com/arc/outboundfeeds/rss/\n2026-09-02 21:09:58,211 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://cointelegraph.com/rss\n2026-09-02 21:09:58,211 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://decrypt.co/feed\n2026-09-02 21:09:58,211 | WARNING | BLACKDARK.SentimentEngine | CryptoCompare news fetch failed safely.\n2026-09-02 21:09:58,221 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/99?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-02 21:09:58,431 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/100?symbol=BTC \"HTTP/1.1 200 OK\"\n",
+      "stderr": "t: GET http://testserver/api/cap646/88?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:11,723 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/89?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:11,942 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/90?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:11,952 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/91?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:11,961 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/92?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:11,971 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/93?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:11,981 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/94?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:11,992 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/95?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:12,002 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/96?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:12,012 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/97?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:12,022 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/98?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:12,323 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://www.coindesk.com/arc/outboundfeeds/rss/\n2026-09-03 09:45:12,323 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://cointelegraph.com/rss\n2026-09-03 09:45:12,323 | WARNING | BLACKDARK.SentimentEngine | RSS fetch failed safely | feed=https://decrypt.co/feed\n2026-09-03 09:45:12,323 | WARNING | BLACKDARK.SentimentEngine | CryptoCompare news fetch failed safely.\n2026-09-03 09:45:12,333 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/99?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:12,501 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/100?symbol=BTC \"HTTP/1.1 200 OK\"\n",
       "attempt": 1
     },
     {
@@ -82,15 +79,34 @@
       "verifies": "Entitlement gateway path for batch02 sample IDs (no skip_entitlement)",
       "exit_code": 0,
       "stdout": "{\n  \"all_verified\": true,\n  \"checks\": {\n    \"no_skip_entitlement\": true,\n    \"count_10\": true,\n    \"85_free_denied\": true,\n    \"85_pro_allowed\": true,\n    \"55_overlap_batch01\": true\n  }\n}\nWrote /workspace/docs/BATCH02_ENTITLEMENT_GATEWAY_PROOF.json",
-      "stderr": "Yahoo price fetch failed safely | symbol=GC=F\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo macro fetch failed safely | symbol=^GSPC\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=GC=F\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo macro fetch failed safely | symbol=^GSPC\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\n",
+      "stderr": "Yahoo price fetch failed safely | symbol=GC=F\nYahoo macro fetch failed safely | symbol=^GSPC\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo macro fetch failed safely | symbol=^GSPC\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo price fetch failed safely | symbol=GC=F\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\n",
+      "attempt": 1
+    },
+    {
+      "script": "audit_official_batch03_rtm.py",
+      "verifies": "RTM audit: 50/50 official batch03 IDs including REUSED-LINK and OVERLAP-PARTIAL",
+      "exit_code": 0,
+      "stdout": "{\n  \"official_batch\": \"batch03\",\n  \"total\": 50,\n  \"production_aligned\": 44,\n  \"reused_link\": 4,\n  \"overlap_partial\": 2,\n  \"not_complete\": 0,\n  \"all_verified\": true\n}\nWrote /workspace/docs/BATCH03_OFFICIAL_RTM_101_150.json",
+      "stderr": "",
+      "attempt": 1
+    },
+    {
+      "script": "verify_official_batch03_production.py",
+      "verifies": "HTTP GET /api/cap646/{id} for IDs 101–150 with status 200",
+      "exit_code": 0,
+      "stdout": "{\n  \"all_verified\": true,\n  \"count\": 50\n}\nWrote /workspace/docs/BATCH03_PRODUCTION_PROOF.json",
+      "stderr": "-03 09:45:24,425 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/136?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:24,493 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/137?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:24,502 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/138?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:24,513 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/139?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:24,523 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/140?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:24,532 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/141?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:24,542 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/142?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:24,552 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/143?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:24,561 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/144?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:25,168 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/145 605.6ms\n2026-09-03 09:45:25,177 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/145?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:25,798 | WARNING | BLACKDARK.Wave00 | slow request GET /api/cap646/146 620.8ms\n2026-09-03 09:45:25,808 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/146?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:25,843 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/147?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:25,855 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/148?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:25,867 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/149?symbol=BTC \"HTTP/1.1 200 OK\"\n2026-09-03 09:45:25,878 | INFO | httpx | HTTP Request: GET http://testserver/api/cap646/150?symbol=BTC \"HTTP/1.1 200 OK\"\n",
+      "attempt": 1
+    },
+    {
+      "script": "verify_entitlement_batch03_gateway_proof.py",
+      "verifies": "Entitlement gateway path for batch03 sample IDs (no skip_entitlement)",
+      "exit_code": 0,
+      "stdout": "{\n  \"all_verified\": true,\n  \"checks\": {\n    \"no_skip_entitlement\": true,\n    \"count_10\": true,\n    \"125_free_denied\": true,\n    \"125_pro_allowed\": true,\n    \"103_overlap_batch01\": true,\n    \"106_reused_link\": true\n  }\n}\nWrote /workspace/docs/BATCH03_ENTITLEMENT_GATEWAY_PROOF.json",
+      "stderr": "",
       "attempt": 1
     }
   ],
   "all_verified": true,
-  "explicit_owner_approval_required": false,
-  "owner_approval_required": false,
-  "owner_approved_at": "2026-09-02T21:08:07.383235+00:00",
-  "owner_final_decision_at": "2026-09-02T21:08:07.383235+00:00",
-  "owner_final_decision": "docs/INSTITUTIONAL_OWNER_FINAL_CLOSURE_DECISION.json",
-  "owner_hmac_token_sha256_prefix": "427cbd89d4173d06"
+  "explicit_owner_approval_required": true
 }

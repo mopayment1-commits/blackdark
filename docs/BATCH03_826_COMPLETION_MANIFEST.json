@@ -1,0 +1,41 @@
+{
+  "manifest_id": "BATCH03_OFFICIAL_101_150",
+  "generated_at": "2026-09-03T09:45:00+00:00",
+  "official_batch": "batch03",
+  "scope": "IDs 101–150",
+  "closure_status": "PENDING_OWNER_APPROVAL",
+  "owner_approval_required": true,
+  "batch01_batch02_baseline": "INSTITUTIONAL_CLOSED",
+  "baseline_reference": "docs/INSTITUTIONAL_CLOSURE_BATCH01_BATCH02.md",
+  "counts": {
+    "total": 50,
+    "production_aligned": 44,
+    "independent_production_aligned": 44,
+    "reused_link": 4,
+    "overlap_partial": 2,
+    "not_complete": 0
+  },
+  "independent_build_note": "44 batch03 dedicated handlers; 2 OVERLAP-PARTIAL route batch01; 4 REUSED-LINK facade to batch02 canonicals.",
+  "evidence_artifacts": {
+    "inventory": "docs/BATCH03_INVENTORY.json",
+    "rtm": "docs/BATCH03_RTM.json",
+    "rtm_audit": "docs/BATCH03_OFFICIAL_RTM_101_150.json",
+    "http_proof": "docs/BATCH03_PRODUCTION_PROOF.json",
+    "entitlement_gateway": "docs/BATCH03_ENTITLEMENT_GATEWAY_PROOF.json",
+    "dedup_audit": "docs/BATCH03_DEDUP_AUDIT.json",
+    "pending_work_audit": "docs/BATCH03_PENDING_WORK_AUDIT.md",
+    "reused_link_taxonomy": "docs/REUSED_LINK_TAXONOMY.json",
+    "critical_gate": ".github/workflows/ci.yml"
+  },
+  "production_spine": {
+    "module": "cap646.batch03_production",
+    "dedicated": "cap646.batch03_dedicated",
+    "runtime_path": "cap646.runtime.execute_capability -> cap646.batch03_production"
+  },
+  "826_cumulative": {
+    "batch01": 50,
+    "batch02": 50,
+    "batch03_verified": 50,
+    "cumulative_official_batches": 150
+  }
+}
