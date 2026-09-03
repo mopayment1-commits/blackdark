@@ -325,6 +325,33 @@ def normalize_for_duplication_check(text: str) -> str:
     return text.strip()
 
 
+def assert_rule_count_triple_match(
+    rows: list[dict[str, Any]],
+    acceptance_by_id: dict[int, dict[str, Any]],
+) -> None:
+    """ISO 29148 accounting: acceptance domain_rules count == results == X/X denominator."""
+    for row in rows:
+        cid = row["capability_id"]
+        acceptance_count = len(acceptance_by_id[cid]["domain_rules"])
+        er = row["pentagonal"]["external_result_iso29148"]
+        results = er["domain_rule_results"]
+        results_count = len(results)
+        total = er["rules_total"]
+        passed = er["rules_passed"]
+        if acceptance_count != results_count or results_count != total:
+            raise SystemExit(
+                f"Rule-count triple-match failed for ID {cid}: "
+                f"acceptance_file={acceptance_count} domain_rule_results={results_count} rules_total={total}"
+            )
+        if passed != sum(1 for r in results if r["pass"]):
+            raise SystemExit(
+                f"Rule-count triple-match failed for ID {cid}: "
+                f"rules_passed={passed} != pass count in domain_rule_results"
+            )
+        if passed > total:
+            raise SystemExit(f"Rule-count triple-match failed for ID {cid}: rules_passed={passed} > rules_total={total}")
+
+
 def assert_no_template_duplication(rows: list[dict[str, Any]]) -> None:
     n = len(rows)
     threshold_count = int(n * DUPLICATION_THRESHOLD) + 1
@@ -621,6 +648,7 @@ async def main() -> None:
 
     commit = git_commit()
     rows = await build_rows(independent, acceptance_by_id)
+    assert_rule_count_triple_match(rows, acceptance_by_id)
     assert_no_template_duplication(rows)
 
     incomplete = [r["capability_id"] for r in rows if r["pentagonal_status"] != "COMPLETE"]
