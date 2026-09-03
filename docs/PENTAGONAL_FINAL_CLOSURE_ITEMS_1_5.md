@@ -2,7 +2,7 @@
 
 **Generated:** 2026-09-02T23:16 UTC  
 **Branch:** `cursor/pentagonal-hero-binding-e85e`  
-**Production:** https://blackdark-web-production.up.railway.app
+**Production:** https://blackdark-production.up.railway.app
 
 ---
 

@@ -115,7 +115,7 @@ SECURITY_QUALITY_CONFIRM = (
 )
 COLLECTIVE_REVIEW = "Production Readiness Review — BATCH01/02 owner HMAC closure signed 2026-09-02"
 
-PRODUCTION_URL = "https://blackdark-web-production.up.railway.app"
+PRODUCTION_URL = "https://blackdark-production.up.railway.app"
 
 
 def _sha256_rows(rows: list[dict]) -> str:

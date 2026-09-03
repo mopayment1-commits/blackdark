@@ -1,0 +1,84 @@
+{
+  "verified_at": "2026-09-03T08:24:48.932247+00:00",
+  "authoritative_production_url": "https://blackdark-production.up.railway.app",
+  "wrong_url_note": "blackdark-web-production.up.railway.app returns 404 \u2014 never canonical",
+  "entitlement_verdict": "PROTECTED",
+  "heroes_live_ok": 4,
+  "heroes_total": 6,
+  "results": [
+    {
+      "test": "GET_entitlement_cap47",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/47?symbol=BTC",
+      "http_status": 200,
+      "success": false,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "pro",
+        "actual_tier": "free",
+        "capability_id": 47,
+        "capability": "Spot Market Metrics Suite"
+      },
+      "protected": true
+    },
+    {
+      "test": "GET_entitlement_cap103",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/103?symbol=BTC",
+      "http_status": 200,
+      "success": false,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "elite",
+        "actual_tier": "free",
+        "capability_id": 103,
+        "capability": "API Data Platform"
+      },
+      "protected": true
+    },
+    {
+      "hero": "Single-Sentence Oracle",
+      "tested_path": "/api/oracle/data-hub/BTC",
+      "url": "https://blackdark-production.up.railway.app/api/oracle/data-hub/BTC",
+      "http_status": 200,
+      "live_ok": true
+    },
+    {
+      "hero": "Public Accuracy Ledger",
+      "tested_path": "/api/oracle/audit-chain/verify",
+      "url": "https://blackdark-production.up.railway.app/api/oracle/audit-chain/verify",
+      "http_status": 200,
+      "live_ok": true
+    },
+    {
+      "hero": "Arbitrage Scanner",
+      "tested_path": "/api/arbitrage/scanner/status",
+      "url": "https://blackdark-production.up.railway.app/api/arbitrage/scanner/status",
+      "http_status": 404,
+      "live_ok": false,
+      "legacy_path": "/api/oracle/net-edge-truth",
+      "legacy_http_status": 200
+    },
+    {
+      "hero": "Whale Signal vs Noise",
+      "tested_path": "/api/whale/signal-vs-noise",
+      "url": "https://blackdark-production.up.railway.app/api/whale/signal-vs-noise",
+      "http_status": 200,
+      "live_ok": true
+    },
+    {
+      "hero": "Stealth Advisor",
+      "tested_path": "POST /api/whale/stealth-advisor",
+      "url": "https://blackdark-production.up.railway.app/api/whale/stealth-advisor",
+      "http_status": 200,
+      "live_ok": true
+    },
+    {
+      "hero": "B2B Feed",
+      "tested_path": "/api/b2b/feed",
+      "url": "https://blackdark-production.up.railway.app/api/b2b/feed",
+      "http_status": 403,
+      "live_ok": false
+    }
+  ]
+}

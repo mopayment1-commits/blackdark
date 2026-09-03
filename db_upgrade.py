@@ -66,12 +66,21 @@ async def database_health_report() -> dict[str, Any]:
     external = external_database_status()
     if _is_postgres_url():
         pool: dict[str, Any] = {}
+        resolver_meta: dict[str, Any] | None = None
         try:
             from postgres_backend import pool_stats
 
             pool = pool_stats()
+            resolver_meta = pool.get("resolver")
         except Exception:
             pool = {"active": False}
+        if not pool.get("active"):
+            try:
+                from database_url_resolver import resolve_database_url
+
+                _, resolver_meta = resolve_database_url()
+            except Exception:
+                pass
         return {
             "timestamp": _utcnow_iso(),
             "engine": "postgresql",
@@ -79,6 +88,7 @@ async def database_health_report() -> dict[str, Any]:
             "telemetry": telemetry,
             "users": users,
             "postgres_pool": pool,
+            "resolver": resolver_meta,
             "external": external,
             "recommendations": (
                 ["PostgreSQL pool connected."]

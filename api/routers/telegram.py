@@ -57,18 +57,29 @@ async def telegram_webhook(request: Request):
 
 @router.get("/free/status")
 async def telegram_free_status():
-    from database import count_telegram_free_subscribers
     from telegram_free_alerts import FREE_DAILY_ALERT_LIMIT
 
-    return {
+    active_subscribers = 0
+    subscribers_error: str | None = None
+    try:
+        from database import count_telegram_free_subscribers
+
+        active_subscribers = await count_telegram_free_subscribers()
+    except Exception as exc:
+        subscribers_error = type(exc).__name__
+
+    payload: dict[str, Any] = {
         "enabled": os.getenv("TELEGRAM_FREE_ALERTS_ENABLED", "true").lower() in {"1", "true", "yes"},
         "daily_limit": FREE_DAILY_ALERT_LIMIT,
-        "active_subscribers": await count_telegram_free_subscribers(),
+        "active_subscribers": active_subscribers,
         "bot_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
         "bot_username": os.getenv("TELEGRAM_BOT_USERNAME", "").strip().lstrip("@") or __import__("config").TELEGRAM_BOT_USERNAME,
         "bot_link": f"https://t.me/{__import__('config').TELEGRAM_BOT_USERNAME}" if __import__("config").TELEGRAM_BOT_USERNAME else None,
         "commands": ["/start", "/stop", "/status", "/accuracy"],
     }
+    if subscribers_error:
+        payload["subscribers_error"] = subscribers_error
+    return payload
 
 
 @router.post("/free/broadcast")

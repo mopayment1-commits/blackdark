@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-PRODUCTION_URL = "https://blackdark-web-production.up.railway.app"
+PRODUCTION_URL = "https://blackdark-production.up.railway.app"
 
 AI_CAPABILITY_IDS = frozenset({24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 66, 69, 99, 100})
 

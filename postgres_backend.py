@@ -233,28 +233,77 @@ class PgConnectionAdapter:
         self._last_txn_op = "finalize_rollback"
 
 
+_LAST_POOL_ERROR: str | None = None
+_LAST_POOL_META: dict[str, Any] = {}
+
+
+def last_pool_error() -> str | None:
+    return _LAST_POOL_ERROR
+
+
+def last_pool_meta() -> dict[str, Any]:
+    return dict(_LAST_POOL_META)
+
+
 async def init_pool() -> None:
-    global _pool
+    global _pool, _LAST_POOL_ERROR, _LAST_POOL_META
     if _pool is not None or not use_postgres():
         return
     import os
 
     import asyncpg
 
-    url = config.DATABASE_URL.strip()
+    from database_url_resolver import resolve_database_url
+
+    url, meta = resolve_database_url()
+    _LAST_POOL_META = meta
+    if not url:
+        _LAST_POOL_ERROR = "no_postgres_dsn"
+        raise RuntimeError("PostgreSQL configured but no DATABASE_URL candidate found")
+
     viral = os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
     default_max = 40 if viral else 20
     max_size = int(os.getenv("PG_POOL_MAX", str(getattr(config, "PG_POOL_MAX", default_max))))
     min_size = int(os.getenv("PG_POOL_MIN", "4" if viral else "2"))
     min_size = max(1, min(min_size, max_size))
-    _pool = await asyncpg.create_pool(
-        url,
-        min_size=min_size,
-        max_size=max_size,
-        command_timeout=float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
-        max_inactive_connection_lifetime=float(os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")),
-    )
-    logger.info("PostgreSQL pool ready (min=%s max=%s viral=%s).", min_size, max_size, viral)
+    retries = int(os.getenv("PG_POOL_INIT_RETRIES", "3"))
+    delay = float(os.getenv("PG_POOL_INIT_RETRY_DELAY_SEC", "1.5"))
+    last_exc: Exception | None = None
+    for attempt in range(1, retries + 1):
+        try:
+            _pool = await asyncpg.create_pool(
+                url,
+                min_size=min_size,
+                max_size=max_size,
+                command_timeout=float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
+                max_inactive_connection_lifetime=float(os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")),
+            )
+            _LAST_POOL_ERROR = None
+            logger.info(
+                "PostgreSQL pool ready (min=%s max=%s viral=%s env=%s host=%s attempt=%s).",
+                min_size,
+                max_size,
+                viral,
+                meta.get("selected_env"),
+                meta.get("selected_host"),
+                attempt,
+            )
+            return
+        except Exception as exc:
+            last_exc = exc
+            _LAST_POOL_ERROR = type(exc).__name__
+            logger.warning(
+                "PostgreSQL pool init failed (attempt %s/%s env=%s host=%s): %s",
+                attempt,
+                retries,
+                meta.get("selected_env"),
+                meta.get("selected_host"),
+                type(exc).__name__,
+            )
+            if attempt < retries:
+                await asyncio.sleep(delay * attempt)
+    assert last_exc is not None
+    raise last_exc
 
 
 async def close_pool() -> None:
@@ -328,10 +377,15 @@ async def pg_connection() -> AsyncIterator[PgConnectionAdapter]:
 
 def pool_stats() -> dict[str, Any]:
     if _pool is None:
-        return {"active": False}
+        return {
+            "active": False,
+            "last_error": _LAST_POOL_ERROR,
+            "resolver": _LAST_POOL_META or None,
+        }
     return {
         "active": True,
         "min_size": _pool.get_min_size(),
         "max_size": _pool.get_max_size(),
         "size": _pool.get_size(),
+        "resolver": _LAST_POOL_META or None,
     }
