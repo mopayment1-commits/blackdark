@@ -100,6 +100,7 @@ jobs:
             tests/test_bigquery_export_mock.py \
             tests/cap646/test_institutional_gate.py \
             tests/test_sonar_pr356_new_code_coverage.py \
+            tests/cap646/test_batch04_strangler_spine.py \
             tests/cap646/test_batch05_strangler_spine.py \
             tests/cap646/test_batch05_ids_contract.py \
             tests/cap646/test_batch05_prep_dedicated.py \
