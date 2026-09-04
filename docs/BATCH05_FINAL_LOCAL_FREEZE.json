@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-04T23:41:24.854008+00:00",
-  "git_commit": "2c2b807e1dd8baf6e42382e9ca641f24778237d1",
+  "generated_at": "2026-09-04T23:47:57.689198+00:00",
+  "git_commit": "ac112d144245c65b8a2067284ad9b928fd674a63",
   "freeze_type": "FINAL_LOCAL_PRE_PRODUCTION",
   "batch05_independent": 0,
   "progress_826": 179,
@@ -28,7 +28,7 @@
     "wrong_domain_routing": false
   },
   "reliability": {
-    "status": "PROVEN_LOCAL_WITH_LIVE_ONLY_GAPS",
+    "status": "PROVEN_LOCAL",
     "modes": [
       {
         "mode": "unknown_capability",
@@ -71,30 +71,46 @@
         "test": "test_reliability_stale_freshness_fields_present"
       },
       {
-        "mode": "http_429_upstream",
-        "status": "REQUIRES_LIVE",
-        "test": "needs production network throttle sim"
+        "mode": "http_429_stale_fallback",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_http_429_stale_fallback_local"
       },
       {
-        "mode": "http_5xx_upstream",
-        "status": "REQUIRES_LIVE",
-        "test": "needs production upstream failure"
+        "mode": "http_429_fail_closed",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_http_429_fail_closed_local"
       },
       {
-        "mode": "retry_exhaustion_live",
-        "status": "REQUIRES_LIVE",
-        "test": "retry policy validated in design only"
+        "mode": "http_5xx_stale_fallback",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_http_5xx_stale_fallback_local"
+      },
+      {
+        "mode": "http_5xx_fail_closed",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_http_5xx_fail_closed_local"
+      },
+      {
+        "mode": "retry_exhaustion",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_retry_exhaustion_local"
       },
       {
         "mode": "recovery_after_outage",
-        "status": "REQUIRES_LIVE",
-        "test": "needs live chaos"
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_recovery_after_dependency_restored_local"
+      },
+      {
+        "mode": "batch05_holder_upstream_degraded",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_batch05_holder_path_429_degraded_local"
       }
     ],
-    "proven_local": 8,
-    "requires_live": 4,
+    "proven_local": 15,
+    "requires_live": 0,
     "not_applicable": 0,
-    "design_and_local_stub": 0
+    "design_and_local_stub": 0,
+    "live_only_reliability_items": []
   },
   "security": {
     "status": "PROVEN_LOCAL_MATERIAL_PATHS",
@@ -751,12 +767,12 @@
   "freeze_tests": {
     "exit_code": 0,
     "passed": true,
-    "stdout_tail": "..................................................... [ 57%]\n........................................................................ [ 71%]\n........................................................................ [ 86%]\n......................................................................   [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+    "stdout_tail": "..................................................... [ 70%]\n........................................................................ [ 84%]\n........................................................................ [ 98%]\n......                                                                   [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
   },
   "full_regression": {
     "exit_code": 0,
     "passed": true,
-    "stdout_tail": "..................................................... [ 57%]\n........................................................................ [ 71%]\n........................................................................ [ 86%]\n......................................................................   [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+    "stdout_tail": "..................................................... [ 70%]\n........................................................................ [ 84%]\n........................................................................ [ 98%]\n......                                                                   [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
   },
   "artifact_index": [
     "docs/BATCH05_FINAL_LOCAL_FREEZE.json",

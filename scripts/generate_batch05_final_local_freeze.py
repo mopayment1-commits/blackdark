@@ -48,10 +48,13 @@ RELIABILITY_MODES = [
     ("idempotent_replay_structure", "PROVEN_LOCAL", "test_reliability_idempotent_double_execute_structure"),
     ("malformed_empty_symbol", "PROVEN_LOCAL", "test_reliability_malformed_empty_symbol_structured"),
     ("stale_freshness_fields", "PROVEN_LOCAL", "test_reliability_stale_freshness_fields_present"),
-    ("http_429_upstream", "REQUIRES_LIVE", "needs production network throttle sim"),
-    ("http_5xx_upstream", "REQUIRES_LIVE", "needs production upstream failure"),
-    ("retry_exhaustion_live", "REQUIRES_LIVE", "retry policy validated in design only"),
-    ("recovery_after_outage", "REQUIRES_LIVE", "needs live chaos"),
+    ("http_429_stale_fallback", "PROVEN_LOCAL", "test_reliability_http_429_stale_fallback_local"),
+    ("http_429_fail_closed", "PROVEN_LOCAL", "test_reliability_http_429_fail_closed_local"),
+    ("http_5xx_stale_fallback", "PROVEN_LOCAL", "test_reliability_http_5xx_stale_fallback_local"),
+    ("http_5xx_fail_closed", "PROVEN_LOCAL", "test_reliability_http_5xx_fail_closed_local"),
+    ("retry_exhaustion", "PROVEN_LOCAL", "test_reliability_retry_exhaustion_local"),
+    ("recovery_after_outage", "PROVEN_LOCAL", "test_reliability_recovery_after_dependency_restored_local"),
+    ("batch05_holder_upstream_degraded", "PROVEN_LOCAL", "test_reliability_batch05_holder_path_429_degraded_local"),
 ]
 
 SECURITY_DIMENSIONS = [
@@ -160,6 +163,7 @@ def run_pipeline() -> None:
 def run_full_regression() -> dict[str, Any]:
     patterns = [
         "tests/cap646/test_batch05_local_assurance_freeze.py",
+        "tests/cap646/test_batch05_reliability_upstream_modes.py",
         "tests/cap646/test_batch05_v2_assurance.py",
         "tests/cap646/test_batch05_operational_completeness.py",
         "tests/cap646/test_batch05_residual_7_disposition.py",
@@ -228,12 +232,53 @@ def build_data_integrity_per_id(semantic_doc: dict) -> list[dict[str, Any]]:
     return rows
 
 
+def write_freeze_artifacts(
+    doc: dict[str, Any],
+    reliability_summary: dict[str, Any],
+    observability: dict[str, Any],
+    security_rows: list[dict[str, Any]],
+    data_rows: list[dict[str, Any]],
+) -> None:
+    OUT.write_text(json.dumps(doc, indent=2), encoding="utf-8")
+    (ROOT / "docs/BATCH05_LIVE_ONLY_QUEUE.json").write_text(
+        json.dumps({"items": LIVE_ONLY, "count": len(LIVE_ONLY), "purity_verified": True}, indent=2),
+        encoding="utf-8",
+    )
+    (ROOT / "docs/BATCH05_RELIABILITY_FAILURE_MODES.json").write_text(
+        json.dumps(reliability_summary, indent=2), encoding="utf-8"
+    )
+    (ROOT / "docs/BATCH05_OBSERVABILITY_READINESS.json").write_text(
+        json.dumps(observability, indent=2), encoding="utf-8"
+    )
+    sec_doc = {
+        "scope": "Batch05 material-path security matrix",
+        "status": "PROVEN_LOCAL_MATERIAL_PATHS",
+        "matrix": security_rows,
+        "live_only": ["api_abuse_rate production throttle"],
+    }
+    (ROOT / "docs/BATCH05_LOCAL_SECURITY_NEGATIVE_ASSURANCE.json").write_text(
+        json.dumps(sec_doc, indent=2), encoding="utf-8"
+    )
+    (ROOT / "docs/BATCH05_DATA_QUALITY_INTEGRITY.json").write_text(
+        json.dumps({"per_id": data_rows, "proven_local": doc["data_integrity"]["per_id_proven_local"]}, indent=2),
+        encoding="utf-8",
+    )
+    md = [
+        "# Batch05 Final Local Freeze",
+        "",
+        f"**Commit:** `{doc['git_commit'][:8]}` · **Status:** `{doc['final_local_status']}`",
+        "",
+        f"- G0–G4: 50/50 each",
+        f"- Semantic oracle: {doc['semantic_oracle']}/50",
+        f"- Reliability: {reliability_summary['proven_local']} PROVEN_LOCAL / {reliability_summary['requires_live']} REQUIRES_LIVE",
+        f"- Live-only queue: {len(LIVE_ONLY)} items (purity verified)",
+        f"- Known local deficiencies: **0**",
+    ]
+    OUT_MD.write_text("\n".join(md), encoding="utf-8")
+
+
 def main() -> None:
     run_pipeline()
-    freeze_tests = run_freeze_tests()
-    if not freeze_tests["passed"]:
-        print(freeze_tests["stdout_tail"])
-        sys.exit(1)
 
     v2 = load_json(ROOT / "docs/BATCH05_V2_ASSURANCE_PACKAGE.json")
     semantic = load_json(ROOT / "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json")
@@ -242,12 +287,13 @@ def main() -> None:
     g5_local = sum(1 for _, _, s in G5_REQUIREMENTS if s == "LOCAL_COMPONENT_COMPLETE")
 
     reliability_summary = {
-        "status": "PROVEN_LOCAL_WITH_LIVE_ONLY_GAPS",
+        "status": "PROVEN_LOCAL",
         "modes": [{"mode": m, "status": s, "test": t} for m, s, t in RELIABILITY_MODES],
         "proven_local": sum(1 for _, s, _ in RELIABILITY_MODES if s == "PROVEN_LOCAL"),
         "requires_live": sum(1 for _, s, _ in RELIABILITY_MODES if s == "REQUIRES_LIVE"),
         "not_applicable": sum(1 for _, s, _ in RELIABILITY_MODES if s == "NOT_APPLICABLE"),
         "design_and_local_stub": 0,
+        "live_only_reliability_items": [],
     }
 
     observability = {
@@ -299,8 +345,8 @@ def main() -> None:
         },
         "live_only_queue": {"items": LIVE_ONLY, "count": len(LIVE_ONLY), "purity_verified": True},
         "known_local_deficiencies": [],
-        "freeze_tests": freeze_tests,
-        "full_regression": freeze_tests,
+        "freeze_tests": {"pending": True},
+        "full_regression": {"pending": True},
         "artifact_index": [
             "docs/BATCH05_FINAL_LOCAL_FREEZE.json",
             "docs/BATCH05_V2_ASSURANCE_PACKAGE.json",
@@ -309,43 +355,16 @@ def main() -> None:
             "tests/cap646/test_batch05_local_assurance_freeze.py",
         ],
     }
-    OUT.write_text(json.dumps(doc, indent=2), encoding="utf-8")
-    (ROOT / "docs/BATCH05_LIVE_ONLY_QUEUE.json").write_text(
-        json.dumps({"items": LIVE_ONLY, "count": len(LIVE_ONLY), "purity_verified": True}, indent=2),
-        encoding="utf-8",
-    )
-    (ROOT / "docs/BATCH05_RELIABILITY_FAILURE_MODES.json").write_text(
-        json.dumps(reliability_summary, indent=2), encoding="utf-8"
-    )
-    (ROOT / "docs/BATCH05_OBSERVABILITY_READINESS.json").write_text(
-        json.dumps(observability, indent=2), encoding="utf-8"
-    )
-    sec_doc = {
-        "scope": "Batch05 material-path security matrix",
-        "status": "PROVEN_LOCAL_MATERIAL_PATHS",
-        "matrix": security_rows,
-        "live_only": ["api_abuse_rate production throttle"],
-    }
-    (ROOT / "docs/BATCH05_LOCAL_SECURITY_NEGATIVE_ASSURANCE.json").write_text(
-        json.dumps(sec_doc, indent=2), encoding="utf-8"
-    )
-    (ROOT / "docs/BATCH05_DATA_QUALITY_INTEGRITY.json").write_text(
-        json.dumps({"per_id": data_rows, "proven_local": doc["data_integrity"]["per_id_proven_local"]}, indent=2),
-        encoding="utf-8",
-    )
+    write_freeze_artifacts(doc, reliability_summary, observability, security_rows, data_rows)
 
-    md = [
-        "# Batch05 Final Local Freeze",
-        "",
-        f"**Commit:** `{doc['git_commit'][:8]}` · **Status:** `{doc['final_local_status']}`",
-        "",
-        f"- G0–G4: 50/50 each",
-        f"- Semantic oracle: {doc['semantic_oracle']}/50",
-        f"- Reliability: {reliability_summary['proven_local']} PROVEN_LOCAL / {reliability_summary['requires_live']} REQUIRES_LIVE",
-        f"- Live-only queue: {len(LIVE_ONLY)} items (purity verified)",
-        f"- Known local deficiencies: **0**",
-    ]
-    OUT_MD.write_text("\n".join(md), encoding="utf-8")
+    freeze_tests = run_freeze_tests()
+    if not freeze_tests["passed"]:
+        print(freeze_tests["stdout_tail"])
+        sys.exit(1)
+
+    doc["freeze_tests"] = freeze_tests
+    doc["full_regression"] = freeze_tests
+    write_freeze_artifacts(doc, reliability_summary, observability, security_rows, data_rows)
     print(f"Wrote FINAL_LOCAL_FREEZE — G4={doc['g0_g4']['G4']}/50 semantic={doc['semantic_oracle']}/50 deficiencies=0")
 
 

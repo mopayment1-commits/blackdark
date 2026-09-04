@@ -90,5 +90,7 @@ def test_final_local_freeze_complete():
     assert doc["semantic_oracle"] == 50
     assert doc["known_local_deficiencies"] == []
     assert doc["reliability"]["design_and_local_stub"] == 0
+    assert doc["reliability"]["requires_live"] == 0
+    assert doc["reliability"]["status"] == "PROVEN_LOCAL"
     assert doc["observability"]["status"] == "IMPLEMENTED_AND_TESTED_LOCAL"
     assert doc["live_only_queue"]["purity_verified"] is True

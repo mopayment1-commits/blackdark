@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-04T23:26:16.057629+00:00",
-  "git_commit": "ee8ab543bf471eac02e2bd4f554e1a3e90d054e6",
+  "generated_at": "2026-09-04T23:48:08.210108+00:00",
+  "git_commit": "ac112d144245c65b8a2067284ad9b928fd674a63",
   "scope": "Batch05 canonical/duplicate re-assurance \u2014 residual 7 preserved",
   "policy": "Tolerated dual-path (#214/#245) NOT silently eliminated",
   "batch05_independent": 0,

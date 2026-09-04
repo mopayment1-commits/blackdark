@@ -1,5 +1,5 @@
 {
-  "status": "PROVEN_LOCAL_WITH_LIVE_ONLY_GAPS",
+  "status": "PROVEN_LOCAL",
   "modes": [
     {
       "mode": "unknown_capability",
@@ -42,28 +42,44 @@
       "test": "test_reliability_stale_freshness_fields_present"
     },
     {
-      "mode": "http_429_upstream",
-      "status": "REQUIRES_LIVE",
-      "test": "needs production network throttle sim"
+      "mode": "http_429_stale_fallback",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_http_429_stale_fallback_local"
     },
     {
-      "mode": "http_5xx_upstream",
-      "status": "REQUIRES_LIVE",
-      "test": "needs production upstream failure"
+      "mode": "http_429_fail_closed",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_http_429_fail_closed_local"
     },
     {
-      "mode": "retry_exhaustion_live",
-      "status": "REQUIRES_LIVE",
-      "test": "retry policy validated in design only"
+      "mode": "http_5xx_stale_fallback",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_http_5xx_stale_fallback_local"
+    },
+    {
+      "mode": "http_5xx_fail_closed",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_http_5xx_fail_closed_local"
+    },
+    {
+      "mode": "retry_exhaustion",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_retry_exhaustion_local"
     },
     {
       "mode": "recovery_after_outage",
-      "status": "REQUIRES_LIVE",
-      "test": "needs live chaos"
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_recovery_after_dependency_restored_local"
+    },
+    {
+      "mode": "batch05_holder_upstream_degraded",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_batch05_holder_path_429_degraded_local"
     }
   ],
-  "proven_local": 8,
-  "requires_live": 4,
+  "proven_local": 15,
+  "requires_live": 0,
   "not_applicable": 0,
-  "design_and_local_stub": 0
+  "design_and_local_stub": 0,
+  "live_only_reliability_items": []
 }

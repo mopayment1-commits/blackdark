@@ -1,6 +1,6 @@
 {
-  "verified_at": "2026-09-04T23:40:46.877442+00:00",
-  "git_commit": "2c2b807e1dd8baf6e42382e9ca641f24778237d1",
+  "verified_at": "2026-09-04T23:47:42.312516+00:00",
+  "git_commit": "ac112d144245c65b8a2067284ad9b928fd674a63",
   "scope": "Batch05 entitlement gateway — 43 strangler IDs + 5 REUSED-LINK spot checks",
   "strangler_capability_ids": [
     201,
