@@ -86,11 +86,29 @@ Per-ID before any elevation: **PA** + entitlement gateway + Gate Zero (`AWAITING
 
 ---
 
-## 7) Frozen artifacts
+## 7) Item 1 — PA closure sweep (43 stranglers)
+
+**Artifact:** `docs/BATCH05_PA_CLOSURE_SWEEP_43.json` · `docs/BATCH05_PA_CLOSURE_SWEEP_43.md`  
+**Generator:** `scripts/generate_batch05_pa_closure_sweep.py`
+
+| Metric | Value |
+|--------|-------|
+| Strangler IDs swept | **43/43** |
+| Domain rules all pass (live probe) | **43/43** |
+| `pa_elevated_count` | **0** |
+| `production_aligned_count` | **0** |
+| Elevation log | **empty** |
+
+Universal PA blockers (all 43): live E2E · per-ID entitlement gateway · pentagonal col10 · 12207 Validation/Transition · Gate Zero deploy.
+
+---
+
+## 8) Frozen artifacts
 
 - `BATCH05_ACCEPTANCE_201_250.json`
 - `BATCH05_RTM_201_250.json` + probe
 - `BATCH05_PENTAGONAL_TEMPLATE_201_250.json`
+- `BATCH05_PA_CLOSURE_SWEEP_43.json` (Item 1 sweep)
 - `BATCH05_HERO_SIX_BINDING_201_250.json` (post-Wave 5 confirmation stamp)
 - `BATCH05_POST_STRANGLER_INSTITUTIONAL_FREEZE_REPORT.md`
 
