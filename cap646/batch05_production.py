@@ -8,6 +8,8 @@ BATCH05_IDS: frozenset[int] = frozenset(range(201, 201 + 50))
 OFFICIAL_BATCH05_IDS = BATCH05_IDS
 
 from cap646.batch05_dedicated import BATCH05_DEDICATED_IDS, BATCH05_REUSED_LINK_BATCH01_IDS
+from cap646.catalog import canonical_id as resolve_canonical
+from cap646.entitlements import entitlement_engine
 from cap646.evidence_class import ai_compliance_footer
 
 
@@ -27,11 +29,31 @@ def _stamp_batch05(result: dict[str, Any], capability_id: int) -> dict[str, Any]
     return result
 
 
-async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
+async def execute(
+    capability_id: int,
+    *,
+    params: dict[str, Any] | None = None,
+    user: dict[str, Any] | None = None,
+    org_id: str | None = None,
+    skip_entitlement: bool = False,
+) -> dict[str, Any]:
     if capability_id not in BATCH05_IDS:
         raise ValueError(f"capability {capability_id} is not in batch05 production spine")
 
     params = dict(params or {})
+    target_id = resolve_canonical(capability_id)
+
+    if not skip_entitlement:
+        ent = await entitlement_engine.check(target_id, user=user, org_id=org_id)
+        if not ent.get("allowed"):
+            return ai_compliance_footer(
+                {
+                    "success": False,
+                    "capability_id": target_id,
+                    "requested_capability_id": capability_id,
+                    "entitlement": ent,
+                }
+            )
 
     if capability_id in BATCH05_DEDICATED_IDS:
         from cap646.batch05_dedicated import execute as execute_dedicated

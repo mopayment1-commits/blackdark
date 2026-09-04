@@ -22,8 +22,20 @@
 ## Consequences
 
 - Batch05 acceptance rows #214/#245 use `REUSED-LINK` with `catalog_link` rules.
-- `cap646/batch05_dedicated.py` (when built) must dispatch to batch01 — no parallel implementation.
+- `cap646/batch05_dedicated.py` must dispatch to batch01 — no parallel implementation.
 - #245 documents `functional_gap`: catalog name vs runtime surface `real_time_data_freshness_update_assurance` and internal `capability_id` 630 stamp.
+
+## Public routing truth (end-user GET)
+
+| Layer | Path | Spine for #214/#245 |
+|-------|------|---------------------|
+| **GET** `/api/cap646/{id}` | `execute_unified` → `execute_capability` | **batch01** (`LEGACY_BATCH01_EXTENSION_IDS` wins before `BATCH05_IDS` in runtime) |
+| **POST** `/api/cap646/{id}/execute` | `gateway_execute` → `execute_capability` | **batch01** |
+| **Programmatic** `batch05_production.execute` | `batch05_dedicated` facade → batch01 backend | **batch05** stamp + `REUSED-LINK` catalog_link (RTM/contract only; not public GET) |
+
+`runtime.py` checks `BATCH01_IDS` before `BATCH05_IDS` — same precedence pattern as batch04 overlap **#175**.
+
+`batch05_production.execute` is **not** on the public GET path. It exists for batch05 spine binding, CI contract tests, and future strangler migration. When `user` is supplied it applies `entitlement_engine.check(canonical_id)` — matching gateway/runtime (see `test_batch05_gateway_canonical_entitlement_contract.py`).
 
 ## Evidence
 
