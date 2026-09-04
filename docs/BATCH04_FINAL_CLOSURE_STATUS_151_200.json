@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T07:49:41.857002+00:00",
+  "generated_at": "2026-09-04T07:49:50.373339+00:00",
   "build_phase": "BUILD_PHASE_LIFTED_EXCEPT_PAID_VENDOR",
   "production_aligned_count": 32,
   "progress_826_batch04_pa": 32,
@@ -371,7 +371,7 @@
       "final_state": "NOT_COMPLETE",
       "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.run_arbitrage_portfolio_ux_e2e_177_191",
       "owner_note": "No known free technical solution for exchange user activity metrics",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "NOT_COMPLETE_TECHNICAL"
     },
     {
       "id": 192,

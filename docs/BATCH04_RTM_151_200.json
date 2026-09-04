@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T07:49:41.857002+00:00",
+  "generated_at": "2026-09-04T07:49:50.373339+00:00",
   "gate": "G1_BASELINE + SEMANTIC_ALIGNMENT_AUDIT",
   "branch": "cursor/batch-04-151-200-e85e",
   "commit": "b0002d6a10107d6724adf1cdac3f7af7a9ed9235",
@@ -2719,7 +2719,7 @@
       "semantic_reason": "run_arbitrage_portfolio_ux_e2e_177_191 is UX test runner, not exchange user activity.",
       "semantic_comparison": "Expected: Exchange User Activity. Hero implements: arbitrage portfolio UX E2E integration test. Runtime: user_activity_score=activity_score from UX e2e, withdrawal_alerts",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE",
+      "miswire_remediation": "NOT_COMPLETE_TECHNICAL",
       "status": "NOT_COMPLETE",
       "production_spine": "batch04",
       "binding_file": null,

@@ -84,6 +84,8 @@ NOT_COMPLETE = {
     191: "No known free technical solution for exchange user activity metrics",
 }
 
+NOT_COMPLETE_TECHNICAL = frozenset({191})
+
 CATALOG_RENAMES = {
     198: "On-Chain Dormancy Proxy",
     199: "Invested-Age Proxy",
@@ -131,6 +133,8 @@ def _patch_row(row: dict) -> None:
         row["closure_status"] = "NOT_COMPLETE"
         row["status"] = "NOT_COMPLETE"
         row["owner_note"] = NOT_COMPLETE[cid]
+        if cid in NOT_COMPLETE_TECHNICAL:
+            row["miswire_remediation"] = "NOT_COMPLETE_TECHNICAL"
 
 
 def main() -> None:
