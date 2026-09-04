@@ -2421,5 +2421,30 @@
       "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
       "miswire_remediation": "STRANGLER_IMPLEMENTED"
     }
-  ]
+  ],
+  "item7_final_freeze": {
+    "frozen_at": "2026-09-04T22:33:20.080316+00:00",
+    "git_commit": "a429968640735e1a95259ed45c5d3da1d1e382f9",
+    "git_branch": "cursor/batch05-201-250-e85e",
+    "pr": 366,
+    "sequence_item": 7,
+    "build_phase": "OPEN",
+    "batch05_independent": 0,
+    "progress_826": 179,
+    "production_aligned_count": 0,
+    "pa_elevated_count": 0,
+    "not_claimed": [
+      "LOCAL_GOVERNANCE_COMPLETE",
+      "LIVE_READY",
+      "batch05_complete",
+      "OPERATION"
+    ],
+    "items_1_6_complete": true,
+    "artifact_kind": "acceptance",
+    "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%."
+  },
+  "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%.",
+  "production_aligned": false,
+  "batch05_independent": 0,
+  "progress_826": 179
 }
