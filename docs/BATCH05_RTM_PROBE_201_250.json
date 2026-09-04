@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T22:01:33.356799+00:00",
+  "generated_at": "2026-09-04T22:07:50.449980+00:00",
   "gate": "G1_BASELINE + MECE_OVERLAP_214_245 + MECE_OVERLAP_205_232_206_228 + MECE_OVERLAP_226_69",
   "branch": "cursor/batch05-201-250-e85e",
   "commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
@@ -90,7 +90,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 7.0
+        "elapsed_ms": 6.1
       }
     },
     {
@@ -142,7 +142,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 109.6
+        "elapsed_ms": 107.2
       }
     },
     {
@@ -194,7 +194,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 28.8
+        "elapsed_ms": 20.7
       }
     },
     {
@@ -298,7 +298,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 79.4
+        "elapsed_ms": 72.6
       }
     },
     {
@@ -349,7 +349,7 @@
         "domain_all_pass": true,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 183.4
+        "elapsed_ms": 185.0
       }
     },
     {
@@ -401,7 +401,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 762.3
+        "elapsed_ms": 759.3
       }
     },
     {
@@ -453,7 +453,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 78.4
+        "elapsed_ms": 76.6
       }
     },
     {
@@ -505,7 +505,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 623.4
+        "elapsed_ms": 614.9
       }
     },
     {
@@ -557,7 +557,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 31.3
+        "elapsed_ms": 38.3
       }
     },
     {
@@ -609,7 +609,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 47.2
+        "elapsed_ms": 30.9
       }
     },
     {
@@ -660,7 +660,7 @@
         "domain_all_pass": true,
         "acceptance_status": "DUPLICATE_DELEGATION",
         "closure_status": "DUPLICATE_DELEGATION",
-        "elapsed_ms": 15.4
+        "elapsed_ms": 14.5
       }
     },
     {
@@ -867,7 +867,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 125.3
+        "elapsed_ms": 126.9
       }
     },
     {
@@ -1283,7 +1283,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 110.5
+        "elapsed_ms": 109.3
       }
     },
     {
@@ -1386,7 +1386,7 @@
         "domain_all_pass": true,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 3.2
+        "elapsed_ms": 3.0
       }
     },
     {
@@ -1489,7 +1489,7 @@
         "domain_all_pass": true,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 197.6
+        "elapsed_ms": 216.3
       }
     },
     {
@@ -1541,7 +1541,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 1049.5
+        "elapsed_ms": 1340.0
       }
     },
     {
@@ -1593,7 +1593,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 59.2
+        "elapsed_ms": 14.5
       }
     },
     {
@@ -1696,7 +1696,7 @@
         "domain_all_pass": false,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 89.0
+        "elapsed_ms": 84.6
       }
     },
     {
@@ -1748,7 +1748,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.7
+        "elapsed_ms": 0.8
       }
     },
     {
@@ -1852,7 +1852,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.6
+        "elapsed_ms": 0.5
       }
     },
     {
@@ -1904,7 +1904,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.6
+        "elapsed_ms": 0.5
       }
     },
     {
@@ -2008,7 +2008,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.5
+        "elapsed_ms": 0.6
       }
     },
     {
@@ -2060,7 +2060,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 121.1
+        "elapsed_ms": 104.3
       }
     },
     {
@@ -2164,7 +2164,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.6
+        "elapsed_ms": 0.5
       }
     },
     {
@@ -2216,7 +2216,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 1.0
+        "elapsed_ms": 1.1
       }
     },
     {
@@ -2320,7 +2320,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.6
+        "elapsed_ms": 0.5
       }
     },
     {
@@ -2371,7 +2371,7 @@
         "domain_all_pass": false,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 605.4
+        "elapsed_ms": 635.2
       }
     },
     {
@@ -2527,7 +2527,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.6
+        "elapsed_ms": 0.5
       }
     },
     {
@@ -2631,7 +2631,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.0
+        "elapsed_ms": 0.1
       }
     }
   ],

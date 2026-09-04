@@ -19,7 +19,15 @@
     "245": "batch01 freshness — no hero feed",
     "206": "batch02 cap_086 funding — no direct hero binding in 1-100 report",
     "228": "batch02 cap_086 funding — no direct hero binding in 1-100 report",
-    "232": "batch05 canonical #205 OI — no hero feed until #205 strangler complete"
+    "232": "batch05 canonical #205 OI strangler complete — still no hero feed"
+  },
+  "post_wave5_confirmation": {
+    "confirmed_at": "2026-09-04T22:10:00+00:00",
+    "commit": "acbea4c",
+    "wave5_capability_ids": [242, 243, 244, 246, 247, 248, 249, 250],
+    "heroes_fed_by_wave5": [],
+    "matrix_changed": false,
+    "note": "Wave 5 strangler IDs route via batch05_strangler_spine; not in hero aggregation inputs"
   },
   "past_defect_impact": [
     {

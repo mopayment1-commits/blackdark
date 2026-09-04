@@ -1,6 +1,6 @@
 BATCH05_RULE_COUNT_ASSERT_PROOF
-generated_at=2026-09-04T22:01:33.355105+00:00
-git_commit=b7358265bb2ed47d5b54228d6bee830859a32ed4
+generated_at=2026-09-04T22:07:50.448188+00:00
+git_commit=acbea4cf2bb5dd9042808f92ee247df10822248b
 scope=probe_ids_201_250 triple_match_guard
 
 ID 201: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
