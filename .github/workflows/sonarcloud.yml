@@ -104,6 +104,7 @@ jobs:
             tests/cap646/test_batch05_strangler_spine.py \
             tests/cap646/test_batch05_ids_contract.py \
             tests/cap646/test_batch05_prep_dedicated.py \
+            tests/test_security_trust_data_batch242_250_strangler.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \

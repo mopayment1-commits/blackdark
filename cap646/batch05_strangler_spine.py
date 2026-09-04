@@ -6,6 +6,7 @@ Wave 2a: #205 (canonical OI for #232 REUSED-LINK).
 Wave 2b: #207–211, #213, #215–216 (onchain_defi cluster continuation).
 Wave 3: #217–225, #227 (intelligence_market_extensions_layer; #226 frozen REUSED-LINK).
 Wave 4: #229–231, #233–241 (intelligence_ux_extensions_layer; #228/#232 frozen REUSED-LINK).
+Wave 5: #242–244, #246–250 (security_trust_data_layer; #245 frozen REUSED-LINK).
 """
 
 from __future__ import annotations
@@ -856,6 +857,192 @@ async def build_sentiment_intelligence_241(
     return _timed(payload, t0)
 
 
+async def build_price_prediction_multi_signal_forecast_242(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.security_trust_data_layer import attach_audit_log_id_242
+
+    insight = {
+        "feature_ref": 242,
+        "symbol": symbol.upper(),
+        "forecast_type": "multi_signal_audit_trail",
+        "signals": params.get("signals") or ["momentum", "volume", "sentiment"],
+    }
+    attached = attach_audit_log_id_242(
+        insight,
+        actor=str(params.get("actor") or "batch05_strangler"),
+        action=str(params.get("action") or "forecast_attached"),
+    )
+    payload = _base(
+        242,
+        symbol,
+        "price_prediction_multi_signal_forecast",
+        audit_attached=attached,
+        audit_log_id=attached.get("audit_log_id"),
+        merged_features=attached.get("merged_features"),
+        source="security_trust_data_layer.attach_audit_log_id_242",
+        attribution="Immutable audit trail on multi-signal insight — logged, not price guarantee",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_correlation_matrix_243(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.security_trust_data_layer import ingest_bybit_price_243
+
+    bybit = ingest_bybit_price_243(symbol=symbol, seed=seed or _default_seed())
+    payload = _base(
+        243,
+        symbol,
+        "correlation_matrix",
+        bybit_oracle=bybit,
+        price_usd=bybit.get("price_usd"),
+        normalized_oracle_format=bybit.get("normalized_oracle_format"),
+        role=bybit.get("role"),
+        source="security_trust_data_layer.ingest_bybit_price_243",
+        attribution="Bybit secondary oracle feed — correlation matrix input, not standalone forecast",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_new_listings_intelligence_244(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.security_trust_data_layer import ingest_cointelegraph_rss_244
+
+    news = ingest_cointelegraph_rss_244(seed=seed or _default_seed())
+    articles = _as_list(news.get("articles"))
+    payload = _base(
+        244,
+        symbol,
+        "new_listings_intelligence",
+        cointelegraph_rss=news,
+        articles=articles,
+        article_count=len(articles),
+        rule_based_filtering=news.get("rule_based_filtering"),
+        source="security_trust_data_layer.ingest_cointelegraph_rss_244",
+        attribution="CoinTelegraph RSS ingest — listings/news context, rule-based filter",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_coverage_metadata_registry_246(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.security_trust_data_layer import list_etherscan_watchlist_246
+
+    watchlist = list_etherscan_watchlist_246(seed=seed or _default_seed())
+    watches = _as_list(watchlist.get("watches"))
+    payload = _base(
+        246,
+        symbol,
+        "coverage_metadata_registry",
+        etherscan_watchlist=watchlist,
+        watches=watches,
+        watch_count=len(watches),
+        manual_address_entry_only=watchlist.get("manual_address_entry_only"),
+        source="security_trust_data_layer.list_etherscan_watchlist_246",
+        attribution="Etherscan watchlist coverage registry — privacy-first manual entry",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_public_rest_api_247(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.security_trust_data_layer import generate_weekly_digest_247
+
+    digest = generate_weekly_digest_247(seed=seed or _default_seed())
+    payload = _base(
+        247,
+        symbol,
+        "public_rest_api",
+        weekly_digest=digest,
+        report_type=digest.get("report_type"),
+        ai_reports_rejected=digest.get("ai_reports_rejected"),
+        summary_not_recommendation=digest.get("summary_not_recommendation"),
+        source="security_trust_data_layer.generate_weekly_digest_247",
+        attribution="Weekly digest REST payload — rule-based summary, not recommendation",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_mcp_server_for_ai_agents_248(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.security_trust_data_layer import manual_performance_tracker_248
+
+    trades = params.get("trades")
+    perf = manual_performance_tracker_248(
+        trades=trades if isinstance(trades, list) else None,
+        seed=seed or _default_seed(),
+    )
+    payload = _base(
+        248,
+        symbol,
+        "mcp_server_for_ai_agents",
+        manual_performance=perf,
+        manual_entry_only=perf.get("manual_entry_only"),
+        no_exchange_connection=perf.get("no_exchange_connection"),
+        source="security_trust_data_layer.manual_performance_tracker_248",
+        attribution="Manual performance tracker — rejected standalone profit analytics alternative",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_cli_access_249(*, symbol: str, params: dict[str, Any]) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.security_trust_data_layer import trad_simulator_rejected_status_249
+
+    rejected = trad_simulator_rejected_status_249()
+    payload = _base(
+        249,
+        symbol,
+        "cli_access",
+        trad_simulator_status=rejected,
+        status=rejected.get("status"),
+        trad_simulator_rejected=rejected.get("trad_simulator_rejected"),
+        alternative=rejected.get("alternative"),
+        source="security_trust_data_layer.trad_simulator_rejected_status_249",
+        attribution="TRAD simulator rejected — CLI routes to backtest_74 alternative",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_openapi_sdk_generation_250(*, symbol: str, params: dict[str, Any]) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.security_trust_data_layer import execution_speed_rejected_status_250
+
+    rejected = execution_speed_rejected_status_250()
+    payload = _base(
+        250,
+        symbol,
+        "openapi_sdk_generation",
+        execution_speed_status=rejected,
+        status=rejected.get("status"),
+        execution_speed_rejected=rejected.get("execution_speed_rejected"),
+        insight_only_platform=rejected.get("insight_only_platform"),
+        source="security_trust_data_layer.execution_speed_rejected_status_250",
+        attribution="Execution-speed module rejected — insight-only platform boundary",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
 STRANGLER_BUILDERS: dict[int, Any] = {
     201: build_network_growth_201,
     202: build_supply_distribution_202,
@@ -892,6 +1079,14 @@ STRANGLER_BUILDERS: dict[int, Any] = {
     239: build_narrative_tracking_239,
     240: build_sector_rotation_intelligence_240,
     241: build_sentiment_intelligence_241,
+    242: build_price_prediction_multi_signal_forecast_242,
+    243: build_correlation_matrix_243,
+    244: build_new_listings_intelligence_244,
+    246: build_coverage_metadata_registry_246,
+    247: build_public_rest_api_247,
+    248: build_mcp_server_for_ai_agents_248,
+    249: build_cli_access_249,
+    250: build_openapi_sdk_generation_250,
 }
 
 STRANGLER_IMPLEMENTED_IDS: frozenset[int] = frozenset(STRANGLER_BUILDERS)

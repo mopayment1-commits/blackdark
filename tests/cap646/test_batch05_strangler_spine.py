@@ -14,6 +14,7 @@ WAVE2A_IDS = [205]
 WAVE2B_IDS = [207, 208, 209, 210, 211, 213, 215, 216]
 WAVE3_IDS = [217, 218, 219, 220, 221, 222, 223, 224, 225, 227]
 WAVE4_IDS = [229, 230, 231, 233, 234, 235, 236, 237, 238, 239, 240, 241]
+WAVE5_IDS = [242, 243, 244, 246, 247, 248, 249, 250]
 ALL_STRANGLER_IDS = sorted(STRANGLER_IMPLEMENTED_IDS)
 
 
@@ -164,3 +165,43 @@ async def test_wave4_cap241_fixes_hero_miswire():
     payload = result["sentiment_intelligence"]
     assert payload["source"] == "intelligence_ux_extensions_layer.ingest_fred_macro_241"
     assert "FRED" in payload["fred_macro"]["attribution"]
+
+
+@pytest.mark.parametrize("capability_id,source", [
+    (242, "security_trust_data_layer.attach_audit_log_id_242"),
+    (243, "security_trust_data_layer.ingest_bybit_price_243"),
+    (244, "security_trust_data_layer.ingest_cointelegraph_rss_244"),
+    (246, "security_trust_data_layer.list_etherscan_watchlist_246"),
+    (247, "security_trust_data_layer.generate_weekly_digest_247"),
+    (248, "security_trust_data_layer.manual_performance_tracker_248"),
+    (249, "security_trust_data_layer.trad_simulator_rejected_status_249"),
+    (250, "security_trust_data_layer.execution_speed_rejected_status_250"),
+])
+@pytest.mark.asyncio
+async def test_wave5_catalog_sources(capability_id: int, source: str):
+    result = await execute(capability_id, params={"symbol": "BTC"})
+    root = EXPECTED_SURFACE[capability_id]
+    assert result[root]["source"] == source
+    assert result[root]["miswire_remediation"] == "STRANGLER_IMPLEMENTED"
+
+
+@pytest.mark.asyncio
+async def test_wave5_cap242_audit_log_attached():
+    result = await execute(242, params={"symbol": "BTC"})
+    payload = result["price_prediction_multi_signal_forecast"]
+    assert payload["audit_log_id"]
+    assert 242 in (payload.get("merged_features") or [])
+
+
+@pytest.mark.asyncio
+async def test_wave5_cap249_250_rejected_boundaries():
+    r249 = await execute(249, params={"symbol": "BTC"})
+    assert r249["cli_access"]["trad_simulator_rejected"] is True
+    r250 = await execute(250, params={"symbol": "BTC"})
+    assert r250["openapi_sdk_generation"]["execution_speed_rejected"] is True
+
+
+def test_wave5_strangler_count_complete():
+    assert len(STRANGLER_IMPLEMENTED_IDS) == 43
+    assert set(WAVE5_IDS).issubset(STRANGLER_IMPLEMENTED_IDS)
+    assert 245 not in STRANGLER_IMPLEMENTED_IDS

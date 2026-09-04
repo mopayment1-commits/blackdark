@@ -28,6 +28,7 @@ STRANGLER_IMPLEMENTED_IDS = frozenset({
     201, 202, 203, 204, 205, 207, 208, 209, 210, 211, 213, 215, 216,
     217, 218, 219, 220, 221, 222, 223, 224, 225, 227,
     229, 230, 231, 233, 234, 235, 236, 237, 238, 239, 240, 241,
+    242, 243, 244, 246, 247, 248, 249, 250,
 })
 
 # Official semantic overlay — IDs needing explicit RTM classification beyond hero_audit.
