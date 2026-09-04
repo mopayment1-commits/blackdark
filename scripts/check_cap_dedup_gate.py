@@ -17,6 +17,8 @@ PROOF_GLOBS = [
     "docs/BATCH01_HTTP_PROOF_1_50.json",
     "docs/BATCH02_HTTP_PROOF_51_100.json",
 ]
+# Batch03 proof script intentionally references IDs 101–150.
+_ENTITLEMENT_SCRIPT_EXCLUDE = frozenset({"verify_entitlement_batch03_gateway_proof.py"})
 
 
 def main() -> int:
@@ -41,8 +43,10 @@ def main() -> int:
         for leak in r04.get("batch03_leaks_scan", []):
             if leak.get("capability_id") and 101 <= int(leak["capability_id"]) <= 150:
                 errors.append(f"Documented leak still present: {leak}")
-    # Scan entitlement proof scripts for hardcoded 101-150
+    # Scan entitlement proof scripts for hardcoded 101-150 (batch03 must not leak into 1-100 proofs)
     for script in (ROOT / "scripts").glob("verify_entitlement*.py"):
+        if script.name in _ENTITLEMENT_SCRIPT_EXCLUDE:
+            continue
         text = script.read_text(encoding="utf-8")
         for m in re.finditer(r"\(\s*(10[1-9]|1[1-4][0-9]|150)\s*,", text):
             errors.append(f"Batch03 ID {m.group(1)} in {script.name}")
