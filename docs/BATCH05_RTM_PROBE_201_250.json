@@ -2592,5 +2592,7 @@
       }
     }
   ],
-  "sonarcloud_status": "PENDING"
+  "sonarcloud_status": "FAILED",
+  "coverage_xml_ci_status": "PASS",
+  "institutional_lock_ref": "docs/BATCH05_PREBUILD_CLASSIFICATION_212_226.json"
 }
