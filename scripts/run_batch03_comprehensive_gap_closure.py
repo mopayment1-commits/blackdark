@@ -263,7 +263,7 @@ def _run_coverage() -> dict[str, Any]:
     )
     coverage_pct = None
     if cov_xml.is_file():
-        import xml.etree.ElementTree as ET
+        from defusedxml import ElementTree as ET
 
         root = ET.parse(cov_xml).getroot()
         line_rate = float(root.attrib.get("line-rate", 0))

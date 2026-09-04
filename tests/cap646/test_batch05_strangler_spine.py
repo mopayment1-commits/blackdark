@@ -116,6 +116,17 @@ async def test_wave3_catalog_sources(capability_id: int, source: str):
 
 
 @pytest.mark.asyncio
+async def test_wave3_cap218_record_order_path():
+    result = await execute(
+        218,
+        params={"symbol": "BTC", "record_order": True, "target_price": 65000, "state": "Filled", "filled_price": 65100},
+    )
+    payload = result["google_sheets_integration"]
+    assert payload["ok"] is True
+    assert len(payload.get("journal_entries") or []) >= 1
+
+
+@pytest.mark.asyncio
 async def test_wave3_cap224_fixes_hero_miswire():
     """#224 hero bridge pointed at coinmarketcal_status_245 — strangler uses token DCF."""
     result = await execute(224, params={"symbol": "BTC", "protocol": "aave"})
