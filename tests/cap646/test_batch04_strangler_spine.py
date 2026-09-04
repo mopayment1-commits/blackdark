@@ -72,3 +72,38 @@ async def test_cap165_defillama_free_tier():
     payload = await build_fundraising_momentum_165(symbol="BTC", params={})
     assert payload["source"] == "defillama_raises_free_tier"
     assert "free_tier" in payload.get("accuracy_disclaimer", "").lower() or payload.get("free_tier_only")
+
+
+@pytest.mark.asyncio
+async def test_cap165_defillama_raises_mock_documents_api_wiring(monkeypatch):
+    """Documented mock for DeFiLlama /raises — live endpoint returns HTTP 402 (paid plan) in this env."""
+
+    sample_raises = [
+        {"name": "Bitcoin Infrastructure Co", "symbol": "BTC", "amount": 12_000_000},
+        {"name": "Ethereum L2 Labs", "symbol": "ETH", "amount": 8_000_000},
+        {"name": "Unrelated Protocol", "symbol": "UNI", "amount": 3_000_000},
+    ]
+
+    async def _mock_raises_funding_rounds(*, limit: int = 50):
+        rows = sample_raises[:limit]
+        return {
+            "source": "defillama",
+            "raises": rows,
+            "count": len(rows),
+            "free_tier": True,
+        }
+
+    monkeypatch.setattr(
+        "bd_platform.free_tier_capabilities.raises_funding_rounds",
+        _mock_raises_funding_rounds,
+    )
+
+    from cap646.batch04_strangler_spine import build_fundraising_momentum_165
+
+    payload = await build_fundraising_momentum_165(symbol="BTC", params={"limit": 5})
+    assert payload["ok"] is True
+    assert payload["source"] == "defillama_raises_free_tier"
+    assert payload["total_raises_tracked"] == 3
+    assert len(payload["fundraising_rounds"]) == 1
+    assert payload["fundraising_rounds"][0]["symbol"] == "BTC"
+    assert payload["momentum_score"] > 0
