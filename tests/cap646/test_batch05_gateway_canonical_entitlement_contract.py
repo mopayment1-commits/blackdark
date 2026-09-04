@@ -1,8 +1,13 @@
-"""CI contract: batch05 REUSED-LINK #214/#245 — public GET, gateway, runtime, batch05 facade.
+"""CI contract: batch05 REUSED-LINK — public GET, gateway, runtime, batch05 facade.
 
 Locks the GET Entitlement Bypass pattern fixed for batch03/04:
 gateway entitlement must match entitlement_engine.check(canonical_id),
-and public GET must route via execute_capability (batch01 spine), not batch05 facade.
+and batch05_production facade must gate on canonical_id when user is supplied.
+
+Covers:
+- #214/#245 → batch01 spine (legacy BATCH01_IDS precedence)
+- #206/#228 → batch02 canonical #86 (batch05 facade)
+- #232 → batch05 canonical #205 (internal REUSED-LINK)
 """
 
 from __future__ import annotations
@@ -10,6 +15,9 @@ from __future__ import annotations
 import pytest
 
 OVERLAP_BATCH01_REUSED_LINK = frozenset({214, 245})
+OVERLAP_BATCH02_REUSED_LINK = frozenset({206, 228})
+OVERLAP_INTERNAL_REUSED_LINK = frozenset({232})
+ALL_REUSED_LINK = OVERLAP_BATCH01_REUSED_LINK | OVERLAP_BATCH02_REUSED_LINK | OVERLAP_INTERNAL_REUSED_LINK
 SYMBOLS = ["BTC", "ETH"]
 
 
@@ -20,14 +28,28 @@ def _gateway_entitlement(gateway_result: dict) -> dict:
     return ent
 
 
+@pytest.mark.parametrize("capability_id", sorted(ALL_REUSED_LINK))
+def test_canonical_id_resolves(capability_id: int) -> None:
+    from cap646.catalog import canonical_id as resolve_canonical
+
+    expected = {
+        214: 214,
+        245: 245,
+        206: 86,
+        228: 86,
+        232: 205,
+    }
+    assert resolve_canonical(capability_id) == expected[capability_id]
+
+
 @pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH01_REUSED_LINK))
-def test_canonical_id_is_identity(capability_id: int) -> None:
+def test_canonical_id_is_identity_batch01(capability_id: int) -> None:
     from cap646.catalog import canonical_id as resolve_canonical
 
     assert resolve_canonical(capability_id) == capability_id
 
 
-@pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH01_REUSED_LINK))
+@pytest.mark.parametrize("capability_id", sorted(ALL_REUSED_LINK))
 @pytest.mark.parametrize("tier", ["free", "pro", "elite"])
 @pytest.mark.asyncio
 async def test_gateway_entitlement_matches_runtime_canonical(capability_id: int, tier: str) -> None:
@@ -60,7 +82,7 @@ async def test_gateway_entitlement_matches_runtime_canonical(capability_id: int,
         assert gateway_result.get("requested_capability_id") == capability_id
 
 
-@pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH01_REUSED_LINK))
+@pytest.mark.parametrize("capability_id", sorted(ALL_REUSED_LINK))
 @pytest.mark.parametrize("tier", ["free", "pro"])
 @pytest.mark.asyncio
 async def test_batch05_facade_entitlement_matches_runtime_canonical(
@@ -88,7 +110,8 @@ async def test_batch05_facade_entitlement_matches_runtime_canonical(
 
     assert facade_result.get("success") is True
     assert facade_result.get("production_spine") == "batch05"
-    assert facade_result.get("classification") == "REUSED-LINK"
+    if capability_id in ALL_REUSED_LINK:
+        assert facade_result.get("classification") == "REUSED-LINK"
 
 
 @pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH01_REUSED_LINK))
@@ -159,3 +182,60 @@ async def test_batch05_facade_payload_parity_with_runtime(capability_id: int) ->
     if capability_id == 245:
         assert "freshness_chip" in runtime or "executable_fresh" in runtime
         assert "freshness_chip" in facade or "executable_fresh" in facade
+
+
+@pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH02_REUSED_LINK | OVERLAP_INTERNAL_REUSED_LINK))
+@pytest.mark.asyncio
+async def test_public_get_uses_batch05_spine_for_facade_ids(capability_id: int) -> None:
+    """#206/#228/#232 are batch05 official IDs — public GET uses batch05 spine (facade backend)."""
+    from cap646.runtime import execute_capability
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+
+    client = TestClient(app)
+    http = client.get(f"/api/cap646/{capability_id}", params={"symbol": "BTC"})
+    assert http.status_code == 200
+    body = http.json()
+
+    runtime = await execute_capability(
+        capability_id, skip_entitlement=True, params={"symbol": "BTC", "tier": "pro"}
+    )
+
+    assert body.get("success") is True
+    assert body.get("production_spine") == "batch05"
+    assert runtime.get("production_spine") == "batch05"
+    assert body.get("classification") == "REUSED-LINK"
+    assert body.get("surface") == runtime.get("surface")
+
+
+@pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH02_REUSED_LINK))
+@pytest.mark.asyncio
+async def test_batch02_facade_payload_parity(capability_id: int) -> None:
+    from cap646.batch05_production import execute as batch05_execute
+    from cap646.runtime import execute_capability
+
+    runtime = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "BTC"})
+    facade = await batch05_execute(capability_id, skip_entitlement=True, params={"symbol": "BTC"})
+
+    assert runtime.get("success") is True
+    assert facade.get("success") is True
+    assert runtime.get("surface") == facade.get("surface") == "funding_rate_intelligence"
+    assert facade.get("catalog_link", {}).get("canonical_spine") == "batch02"
+    assert facade.get("catalog_link", {}).get("canonical_capability_id") == 86
+    assert runtime.get("funding_rate") is not None
+
+
+@pytest.mark.asyncio
+async def test_internal_232_facade_payload_parity() -> None:
+    from cap646.batch05_production import execute as batch05_execute
+    from cap646.runtime import execute_capability
+
+    runtime = await execute_capability(232, skip_entitlement=True, params={"symbol": "BTC"})
+    facade = await batch05_execute(232, skip_entitlement=True, params={"symbol": "BTC"})
+
+    assert runtime.get("success") is True
+    assert facade.get("success") is True
+    assert runtime.get("surface") == facade.get("surface") == "open_interest_intelligence"
+    assert facade.get("catalog_link", {}).get("canonical_capability_id") == 205
+    assert facade.get("open_interest_intelligence", {}).get("feature_ref") == 205

@@ -1,9 +1,9 @@
 """Batch 05 dedicated backends — catalog-aligned payloads for IDs 201–250.
 
-IDs 214 and 245 are batch01 overlap: facade dispatch to batch01 canonical spine
-with REUSED-LINK catalog_link (see ``BATCH05_REUSED_LINK_BATCH01_IDS``).
-No new watchlists/freshness implementation here — MECE gate
-``docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json``.
+Overlap facades (REUSED-LINK, no parallel implementation):
+- #214/#245 → batch01 (``BATCH05_MECE_OVERLAP_214_245_DECISION.json``)
+- #206/#228 → batch02 #86 (``BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json``)
+- #232 → batch05 canonical #205 (same decision doc)
 """
 
 from __future__ import annotations
@@ -15,6 +15,11 @@ from cap646.dedicated_common import make_wrap_binding
 from cap646.dedicated_common import seed as _seed
 
 BATCH05_REUSED_LINK_BATCH01_IDS: frozenset[int] = frozenset({214, 245})
+BATCH05_REUSED_LINK_BATCH02_IDS: frozenset[int] = frozenset({206, 228})
+BATCH05_REUSED_LINK_INTERNAL_IDS: frozenset[int] = frozenset({232})
+BATCH05_REUSED_LINK_IDS: frozenset[int] = (
+    BATCH05_REUSED_LINK_BATCH01_IDS | BATCH05_REUSED_LINK_BATCH02_IDS | BATCH05_REUSED_LINK_INTERNAL_IDS
+)
 BATCH05_DEDICATED_IDS: frozenset[int] = frozenset(range(201, 251))
 
 GENERIC_SURFACES = frozenset(
@@ -87,6 +92,24 @@ _REUSED_LINK_CATALOG: dict[int, dict[str, Any]] = {
         "canonical_spine": "batch01",
         "binding": "cap646/batch01_production.py::cap_245",
     },
+    206: {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 86,
+        "canonical_spine": "batch02",
+        "binding": "cap646/batch02_production.py::cap_086",
+    },
+    228: {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 86,
+        "canonical_spine": "batch02",
+        "binding": "cap646/batch02_production.py::cap_086",
+    },
+    232: {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 205,
+        "canonical_spine": "batch05",
+        "binding": "cap646/batch05_dedicated.py::_cap205",
+    },
 }
 
 _wrap = make_wrap_binding(EXPECTED_SURFACE)
@@ -113,6 +136,29 @@ async def _cap245(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
     result = await execute_batch01(245, params={**params, "symbol": symbol, "address": address})
     return _stamp_reused_link(result, 245)
+
+
+async def _cap205(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _cap_hero_bridge(205, symbol=symbol, address=address, params=params)
+
+
+async def _cap206(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch02_production import execute as execute_batch02
+
+    result = await execute_batch02(86, params={**params, "symbol": symbol, "address": address})
+    return _stamp_reused_link(result, 206)
+
+
+async def _cap228(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch02_production import execute as execute_batch02
+
+    result = await execute_batch02(86, params={**params, "symbol": symbol, "address": address})
+    return _stamp_reused_link(result, 228)
+
+
+async def _cap232(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    result = await _cap205(symbol=symbol, address=address, params=params)
+    return _stamp_reused_link(result, 232)
 
 
 async def _cap_hero_bridge(capability_id: int, *, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
@@ -142,9 +188,13 @@ from cap646.batch05_hero_bridge import hero_binding_ids
 _HERO_IDS = hero_binding_ids()
 
 _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
+    205: _cap205,
+    206: _cap206,
     214: _cap214,
+    228: _cap228,
+    232: _cap232,
     245: _cap245,
-    **{cid: _make_hero_handler(cid) for cid in sorted(_HERO_IDS)},
+    **{cid: _make_hero_handler(cid) for cid in sorted(_HERO_IDS - BATCH05_REUSED_LINK_IDS - {205})},
 }
 
 

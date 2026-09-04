@@ -7,7 +7,10 @@ from typing import Any, Awaitable, Callable
 BATCH05_IDS: frozenset[int] = frozenset(range(201, 201 + 50))
 OFFICIAL_BATCH05_IDS = BATCH05_IDS
 
-from cap646.batch05_dedicated import BATCH05_DEDICATED_IDS, BATCH05_REUSED_LINK_BATCH01_IDS
+from cap646.batch05_dedicated import (
+    BATCH05_DEDICATED_IDS,
+    BATCH05_REUSED_LINK_IDS,
+)
 from cap646.catalog import canonical_id as resolve_canonical
 from cap646.entitlements import entitlement_engine
 from cap646.evidence_class import ai_compliance_footer
@@ -22,7 +25,7 @@ def _stamp_batch05(result: dict[str, Any], capability_id: int) -> dict[str, Any]
     result["backend_entrypoint"] = batch05_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
     result["production_spine"] = "batch05"
-    if capability_id in BATCH05_REUSED_LINK_BATCH01_IDS:
+    if capability_id in BATCH05_REUSED_LINK_IDS:
         result.setdefault("closure_status", "REUSED-LINK")
     else:
         result.setdefault("closure_status", "NOT_COMPLETE")
@@ -43,7 +46,7 @@ async def execute(
     params = dict(params or {})
     target_id = resolve_canonical(capability_id)
 
-    if not skip_entitlement:
+    if user is not None and not skip_entitlement:
         ent = await entitlement_engine.check(target_id, user=user, org_id=org_id)
         if not ent.get("allowed"):
             return ai_compliance_footer(

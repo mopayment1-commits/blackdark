@@ -14,7 +14,7 @@ import pytest
 from cap646.batch05_dedicated import EXPECTED_SURFACE
 from cap646.catalog import catalog_by_id
 
-TYPE4_SAMPLE_IDS = [201, 205, 211, 217, 224, 228, 233, 237, 243, 250]
+TYPE4_SAMPLE_IDS = [201, 205, 211, 217, 224, 233, 237, 243, 250]
 SYMBOLS = ["BTC", "ETH", "SOL", "AVAX", "DOGE"]
 
 _NOISE_WORDS = frozenset(
@@ -39,7 +39,7 @@ def _load_hero_map() -> dict[int, str]:
     out: dict[int, str] = {}
     for row in doc["rows"]:
         cid = int(row["capability_id"])
-        if cid in (214, 245):
+        if cid in (214, 245, 206, 228, 232):
             continue
         mod = row.get("hero_module")
         fn = row.get("hero_underlying")

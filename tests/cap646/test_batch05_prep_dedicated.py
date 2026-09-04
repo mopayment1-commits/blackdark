@@ -7,15 +7,17 @@ import pytest
 from cap646.batch05_dedicated import (
     BATCH05_DEDICATED_IDS,
     BATCH05_REUSED_LINK_BATCH01_IDS,
+    BATCH05_REUSED_LINK_BATCH02_IDS,
+    BATCH05_REUSED_LINK_IDS,
     EXPECTED_SURFACE,
     GENERIC_SURFACES,
 )
 from cap646.batch05_production import BATCH05_IDS
 
-CATALOG_ALIGNED_SAMPLE = frozenset({201, 204, 211, 217, 228, 233, 237, 243, 246, 250})
+CATALOG_ALIGNED_SAMPLE = frozenset({201, 204, 211, 217, 229, 233, 237, 243, 246, 250})
 
 
-@pytest.mark.parametrize("capability_id", sorted(BATCH05_DEDICATED_IDS - BATCH05_REUSED_LINK_BATCH01_IDS))
+@pytest.mark.parametrize("capability_id", sorted(BATCH05_DEDICATED_IDS - BATCH05_REUSED_LINK_IDS))
 @pytest.mark.asyncio
 async def test_batch05_dedicated_surface_and_success(capability_id: int):
     from cap646.runtime import execute_capability
@@ -116,7 +118,46 @@ async def test_cap214_245_batch05_facade_stamps_reused_link():
         assert result["catalog_link"]["canonical_spine"] == "batch01"
 
 
-@pytest.mark.parametrize("capability_id", sorted(BATCH05_REUSED_LINK_BATCH01_IDS))
+@pytest.mark.asyncio
+async def test_cap206_228_reused_link_facade():
+    from cap646.batch05_dedicated import execute
+
+    for capability_id in sorted(BATCH05_REUSED_LINK_BATCH02_IDS):
+        result = await execute(capability_id, params={"symbol": "BTC"})
+        assert result["classification"] == "REUSED-LINK"
+        assert result["catalog_link"]["canonical_spine"] == "batch02"
+        assert result["catalog_link"]["canonical_capability_id"] == 86
+        assert result["catalog_link"]["binding"] == "cap646/batch02_production.py::cap_086"
+        assert result.get("funding_rate") is not None
+        assert result["surface"] == "funding_rate_intelligence"
+
+
+@pytest.mark.asyncio
+async def test_cap232_reused_link_facade():
+    from cap646.batch05_dedicated import execute
+
+    result = await execute(232, params={"symbol": "BTC"})
+    assert result["classification"] == "REUSED-LINK"
+    assert result["catalog_link"]["canonical_spine"] == "batch05"
+    assert result["catalog_link"]["canonical_capability_id"] == 205
+    assert result["catalog_link"]["binding"] == "cap646/batch05_dedicated.py::_cap205"
+    assert result["open_interest_intelligence"]["feature_ref"] == 205
+    assert result["open_interest_intelligence"]["ok"] is True
+
+
+@pytest.mark.asyncio
+async def test_cap206_228_runtime_via_batch05_facade_spine():
+    from cap646.runtime import execute_capability
+
+    for capability_id in sorted(BATCH05_REUSED_LINK_BATCH02_IDS):
+        result = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "BTC"})
+        assert result["success"] is True
+        assert result["production_spine"] == "batch05"
+        assert result["classification"] == "REUSED-LINK"
+        assert result["surface"] == EXPECTED_SURFACE[capability_id]
+
+
+@pytest.mark.parametrize("capability_id", sorted(BATCH05_REUSED_LINK_IDS))
 def test_reused_link_ids_documented_in_acceptance(capability_id: int):
     import json
     from pathlib import Path
@@ -124,4 +165,9 @@ def test_reused_link_ids_documented_in_acceptance(capability_id: int):
     doc = json.loads(Path("docs/BATCH05_ACCEPTANCE_201_250.json").read_text(encoding="utf-8"))
     row = next(r for r in doc["rows"] if r["capability_id"] == capability_id)
     assert row["status"] == "REUSED-LINK"
-    assert row["production_spine"] == "batch01"
+    if capability_id in BATCH05_REUSED_LINK_BATCH01_IDS:
+        assert row["production_spine"] == "batch01"
+    elif capability_id in BATCH05_REUSED_LINK_BATCH02_IDS:
+        assert row["production_spine"] == "batch02"
+    else:
+        assert row["production_spine"] == "batch05"
