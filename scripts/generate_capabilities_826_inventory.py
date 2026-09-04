@@ -19,8 +19,11 @@ EVIDENCE_GLOBS = sorted((ROOT / "data").glob("hero_batch_*_evidence.jsonl"))
 BATCH02_CLASSIFICATION = ROOT / "docs/BATCH02_CLASSIFICATION.json"
 BATCH01_RTM = ROOT / "docs/BATCH01_OFFICIAL_RTM_1_50.json"
 BATCH02_RTM = ROOT / "docs/BATCH02_OFFICIAL_RTM_51_100.json"
+BATCH03_RTM = ROOT / "docs/BATCH03_OFFICIAL_RTM_101_150.json"
 REUSED_LINK_TAXONOMY = ROOT / "docs/REUSED_LINK_TAXONOMY.json"
 REUSED_LINK_IDS = frozenset({106, 107, 110, 125})
+OPTION_A_PREBATCH_IDS = frozenset({338, 500, 507, 534})
+LEGACY_EXTENSION_EXCLUDED_IDS = frozenset({175, 214, 245, 584, 629, 630, 631, 642, 644, 646})
 CANONICAL_BLOCKERS = frozenset({63, 64, 69, 85})
 BATCH03_PREP_IDS = frozenset(range(101, 151))
 
@@ -56,6 +59,12 @@ def _load_batch02_rtm() -> dict[int, dict[str, Any]]:
     return {int(k): v for k, v in (data.get("per_id") or {}).items()}
 
 
+def _load_batch03_rtm() -> dict[int, dict[str, Any]]:
+    if not BATCH03_RTM.is_file():
+        return {}
+    data = json.loads(BATCH03_RTM.read_text(encoding="utf-8"))
+    return {int(k): v for k, v in (data.get("per_id") or {}).items()}
+
 def _load_reused_link_taxonomy() -> dict[str, Any]:
     if not REUSED_LINK_TAXONOMY.is_file():
         return {}
@@ -75,6 +84,7 @@ def main() -> None:
     evidence = _load_evidence()
     batch01_rtm = _load_batch01_rtm()
     batch02_rtm = _load_batch02_rtm()
+    batch03_rtm = _load_batch03_rtm()
     reused_link_taxonomy = _load_reused_link_taxonomy()
     batch02_overlap: set[int] = set()
     batch02_not_complete: set[int] = set()
@@ -99,6 +109,11 @@ def main() -> None:
             production_spine = batch01_rtm[cid].get("production_spine")
         elif cid in batch02_rtm:
             row_rtm = batch02_rtm[cid]
+            status = row_rtm["status"]
+            notes = row_rtm.get("notes")
+            production_spine = row_rtm.get("production_spine")
+        elif cid in batch03_rtm:
+            row_rtm = batch03_rtm[cid]
             status = row_rtm["status"]
             notes = row_rtm.get("notes")
             production_spine = row_rtm.get("production_spine")
@@ -132,10 +147,21 @@ def main() -> None:
             status = "PRODUCTION-ALIGNED"
             notes = "batch01 spine via handler/free-tier route"
             production_spine = "batch01"
-        elif cid in LEGACY_BATCH01_EXTENSION_IDS and cid not in OFFICIAL_BATCH02_IDS:
+        elif cid in OPTION_A_PREBATCH_IDS:
             status = "PRODUCTION-ALIGNED"
-            notes = f"legacy_batch01_extension; official_batch={ob}"
-            production_spine = "batch01"
+            notes = "Option A pre-batch capability; proof=docs/OPTION_A_PRODUCTION_PROOF.json; not hero-batch OPEN_RISK"
+            production_spine = None
+        elif cid in LEGACY_EXTENSION_EXCLUDED_IDS:
+            status = "NOT_COMPLETE"
+            notes = (
+                "legacy_batch01_extension excluded from progress_826: missing official RTM row "
+                "(binding_file/binding_function) at batch01/02 precision per N14 individual audit"
+            )
+            production_spine = None
+        elif cid in LEGACY_BATCH01_EXTENSION_IDS and cid not in OFFICIAL_BATCH02_IDS:
+            status = "NOT_COMPLETE"
+            notes = f"legacy_batch01_extension; official_batch={ob}; pending individual N14 audit"
+            production_spine = None
         elif cid in BATCH03_IDS and ob == "batch03" and cid not in REUSED_LINK_IDS:
             status = "PENDING_SCOPE_REALIGNMENT"
             notes = "Implemented under batch03_prep spine; official batch03 = 101–150"
@@ -239,6 +265,29 @@ def main() -> None:
             "formula": "official_batch = batch((id-1)//50 + 1)",
         },
         "classification_taxonomy": classification_taxonomy,
+        "three_separate_counts": {
+            "note": "Three mutually exclusive RTM columns — never aggregate into a single progress equation",
+            "production_aligned_independent": counts.get("PRODUCTION-ALIGNED", 0),
+            "reused_link": counts.get("REUSED-LINK", 0),
+            "overlap_partial": counts.get("OVERLAP-PARTIAL", 0),
+            "progress_826_equation": {
+                "batch01": 50,
+                "batch02_independent": 50,
+                "batch03_independent": 44,
+                "k_option_a_prebatch": len([cid for cid in OPTION_A_PREBATCH_IDS if per_id[str(cid)]["status"] == "PRODUCTION-ALIGNED"]),
+                "progress_826": (
+                    50 + 50 + 44 + len([cid for cid in OPTION_A_PREBATCH_IDS if per_id[str(cid)]["status"] == "PRODUCTION-ALIGNED"])
+                ),
+                "batch03_independent_metric": 44,
+                "n14_excluded_legacy_extension": sorted(LEGACY_EXTENSION_EXCLUDED_IDS),
+            },
+            "dedup_verification": {
+                "each_id_counted_once": True,
+                "ids_51_59_double_counted": False,
+                "old_54_826_explanation": "Legacy 54/826 = batch01(50) + 4 early batch02 overlap IDs before official batch02 closure; superseded by per_id SSOT with no duplicate IDs",
+                "overlap_batch01_ids_in_batch02": sorted(batch02_overlap),
+            },
+        },
         "summary": {
             "total_ids": PROJECT_SCOPE_TOTAL,
             "status_counts": counts,

@@ -10,9 +10,15 @@ import logging
 from datetime import UTC, datetime
 from typing import Any
 
+from cap646.catalog import canonical_id
 from cap646.entitlements import entitlement_engine
 
 logger = logging.getLogger("BLACKDARK.Cap646Gateway")
+
+# Gateway-only catalog_link stamps — runtime execute_capability stays DISTINCT (see #183).
+_GATEWAY_CATALOG_LINKS: dict[int, dict[str, Any]] = {
+    183: {"duplicate_of": 130, "classification": "REUSED-LINK"},
+}
 
 _AUDIT: list[dict[str, Any]] = []
 _MAX_AUDIT = 5000
@@ -35,12 +41,14 @@ async def gateway_execute(
     org_id: str | None = None,
     params: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    ent = await entitlement_engine.check(capability_id, user=user, org_id=org_id)
+    target_id = canonical_id(capability_id)
+    ent = await entitlement_engine.check(target_id, user=user, org_id=org_id)
     if not ent.get("allowed"):
         _audit(
             {
                 "ts": _utcnow(),
                 "capability_id": capability_id,
+                "canonical_id": target_id,
                 "allowed": False,
                 "reason": ent.get("reason"),
                 "user": (user or {}).get("email"),
@@ -51,6 +59,8 @@ async def gateway_execute(
             "success": False,
             "gateway": "institutional_api_gateway",
             "capability_id": 574,
+            "requested_capability_id": capability_id,
+            "canonical_capability_id": target_id,
             "error": "entitlement_denied",
             "entitlement": ent,
         }
@@ -62,6 +72,7 @@ async def gateway_execute(
         {
             "ts": _utcnow(),
             "capability_id": capability_id,
+            "canonical_id": target_id,
             "allowed": True,
             "success": result.get("success", True),
             "user": (user or {}).get("email"),
@@ -72,8 +83,14 @@ async def gateway_execute(
         "id": 574,
         "surface": "institutional_api_gateway",
         "entitlement": ent,
+        "requested_capability_id": capability_id,
+        "canonical_capability_id": target_id,
         "audited": True,
     }
+    link = _GATEWAY_CATALOG_LINKS.get(capability_id)
+    if link and not result.get("catalog_link"):
+        result["catalog_link"] = link
+        result.setdefault("classification", link.get("classification"))
     return result
 
 

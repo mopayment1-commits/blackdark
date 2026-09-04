@@ -1,0 +1,57 @@
+BATCH04_RULE_COUNT_ASSERT_PROOF
+generated_at=2026-09-04T07:45:50.509621+00:00
+git_commit=41d15a900ea74fbeb58c1fb7e92d9fada8ace124
+scope=probe_ids_151_200 triple_match_guard
+
+ID 151: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=NOT_COMPLETE OK
+ID 152: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 153: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 154: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 155: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 156: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 157: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 158: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 159: acceptance=5 results=5 rules_total=5 rules_passed=5 closure=NOT_COMPLETE OK
+ID 160: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 161: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 162: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 163: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 164: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 165: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 166: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 167: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 168: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 169: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 170: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 171: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 172: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 173: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 174: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 175: acceptance=5 results=5 rules_total=5 rules_passed=5 closure=OVERLAP-PARTIAL OK
+ID 176: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 177: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 178: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 179: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 180: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 181: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 182: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 183: acceptance=4 results=4 rules_total=4 rules_passed=3 closure=NOT_COMPLETE OK
+ID 184: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 185: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 186: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 187: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 188: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 189: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 190: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 191: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 192: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 193: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 194: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 195: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 196: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 197: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 198: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 199: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 200: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+
+assert_rule_count_triple_match: end — all 50 probe IDs matched

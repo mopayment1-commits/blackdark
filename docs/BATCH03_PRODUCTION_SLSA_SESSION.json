@@ -1,0 +1,23 @@
+{
+  "session_started_at": "2026-09-03T10:03:04.319776+00:00",
+  "session_completed_at": "2026-09-03T10:03:25.926708+00:00",
+  "git_commit": "f5bae3f445bcf394898184282fe919a6893fb6d2",
+  "git_commit_short": "f5bae3f",
+  "production_url": "https://blackdark-production.up.railway.app",
+  "production_reachable": false,
+  "health_probe": {
+    "url": "https://blackdark-production.up.railway.app/health/ready",
+    "http_status": 404,
+    "latency_ms": 147.2,
+    "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"k9h9h5agSSKKxerH9fVATg\"}",
+    "reachable": true
+  },
+  "production_http_probes_count": 50,
+  "production_http_success_count": 0,
+  "note": "All probes executed in single session bound to git commit. Production returned 404 Application not found \u2014 live HTTP/RTM on production BLOCKED pending owner redeploy.",
+  "local_runtime_fallback": {
+    "orchestrator": "scripts/run_batch_verification_orchestrator.py",
+    "evidence": "docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json",
+    "same_commit": "f5bae3f445bcf394898184282fe919a6893fb6d2"
+  }
+}

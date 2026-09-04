@@ -1,0 +1,287 @@
+{
+  "generated_at": "2026-09-03T10:03:25.930276+00:00",
+  "git_commit": "f5bae3f445bcf394898184282fe919a6893fb6d2",
+  "format": "CAP_DEDUP_AUDIT live_contract_tests (cap69-style side-by-side)",
+  "pairs": [
+    {
+      "pair": [
+        106,
+        63
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "duplicate_surface": "data_quality_provenance_layer",
+          "canonical_surface": "data_quality_provenance_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 63
+        },
+        {
+          "symbol": "ETH",
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "duplicate_surface": "data_quality_provenance_layer",
+          "canonical_surface": "data_quality_provenance_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 63
+        },
+        {
+          "symbol": "SOL",
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "duplicate_surface": "data_quality_provenance_layer",
+          "canonical_surface": "data_quality_provenance_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 63
+        },
+        {
+          "symbol": "AVAX",
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "duplicate_surface": "data_quality_provenance_layer",
+          "canonical_surface": "data_quality_provenance_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 63
+        },
+        {
+          "symbol": "DOGE",
+          "duplicate_id": 106,
+          "canonical_id": 63,
+          "duplicate_surface": "data_quality_provenance_layer",
+          "canonical_surface": "data_quality_provenance_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 63
+        }
+      ],
+      "all_surfaces_match": true,
+      "all_success_match": true
+    },
+    {
+      "pair": [
+        107,
+        64
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "duplicate_surface": "metric_methodology_registry",
+          "canonical_surface": "metric_methodology_registry",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 64
+        },
+        {
+          "symbol": "ETH",
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "duplicate_surface": "metric_methodology_registry",
+          "canonical_surface": "metric_methodology_registry",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 64
+        },
+        {
+          "symbol": "SOL",
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "duplicate_surface": "metric_methodology_registry",
+          "canonical_surface": "metric_methodology_registry",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 64
+        },
+        {
+          "symbol": "AVAX",
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "duplicate_surface": "metric_methodology_registry",
+          "canonical_surface": "metric_methodology_registry",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 64
+        },
+        {
+          "symbol": "DOGE",
+          "duplicate_id": 107,
+          "canonical_id": 64,
+          "duplicate_surface": "metric_methodology_registry",
+          "canonical_surface": "metric_methodology_registry",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 64
+        }
+      ],
+      "all_surfaces_match": true,
+      "all_success_match": true
+    },
+    {
+      "pair": [
+        110,
+        69
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "duplicate_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 69
+        },
+        {
+          "symbol": "ETH",
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "duplicate_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 69
+        },
+        {
+          "symbol": "SOL",
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "duplicate_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 69
+        },
+        {
+          "symbol": "AVAX",
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "duplicate_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 69
+        },
+        {
+          "symbol": "DOGE",
+          "duplicate_id": 110,
+          "canonical_id": 69,
+          "duplicate_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 69
+        }
+      ],
+      "all_surfaces_match": true,
+      "all_success_match": true
+    },
+    {
+      "pair": [
+        125,
+        85
+      ],
+      "contract_tests": [
+        {
+          "symbol": "BTC",
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "duplicate_surface": "futures_open_interest_intelligence",
+          "canonical_surface": "futures_open_interest_intelligence",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 85
+        },
+        {
+          "symbol": "ETH",
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "duplicate_surface": "futures_open_interest_intelligence",
+          "canonical_surface": "futures_open_interest_intelligence",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 85
+        },
+        {
+          "symbol": "SOL",
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "duplicate_surface": "futures_open_interest_intelligence",
+          "canonical_surface": "futures_open_interest_intelligence",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 85
+        },
+        {
+          "symbol": "AVAX",
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "duplicate_surface": "futures_open_interest_intelligence",
+          "canonical_surface": "futures_open_interest_intelligence",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 85
+        },
+        {
+          "symbol": "DOGE",
+          "duplicate_id": 125,
+          "canonical_id": 85,
+          "duplicate_surface": "futures_open_interest_intelligence",
+          "canonical_surface": "futures_open_interest_intelligence",
+          "duplicate_success": true,
+          "canonical_success": true,
+          "surfaces_match": true,
+          "success_match": true,
+          "catalog_link_duplicate_of": 85
+        }
+      ],
+      "all_surfaces_match": true,
+      "all_success_match": true
+    }
+  ]
+}

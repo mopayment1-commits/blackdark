@@ -55,6 +55,11 @@ def wrap(
     }
     if extra:
         body.update(extra)
+    if isinstance(payload, dict):
+        link = payload.get("catalog_link")
+        if isinstance(link, dict) and link.get("classification") == "REUSED-LINK":
+            body["catalog_link"] = link
+            body["classification"] = "REUSED-LINK"
     return ai_compliance_footer(body)
 
 

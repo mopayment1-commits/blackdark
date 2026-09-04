@@ -1,7 +1,7 @@
 {
-  "computed_at": "2026-09-01T20:03:40.237635+00:00",
-  "canonical_progress": "104/826",
-  "numerator": 104,
+  "computed_at": "2026-09-04T09:55:00+00:00",
+  "canonical_progress": "179/826",
+  "numerator": 179,
   "denominator": 826,
   "formula": {
     "a_pre_batch_338_500_507_534": {
@@ -43,26 +43,20 @@
         125
       ],
       "excluded_from_numerator": [],
-      "status": "LINK-ELIGIBLE \u2014 not counted"
+      "status": "LINK-ELIGIBLE — not counted"
+    },
+    "e_official_batch04_151_200": {
+      "production_aligned_count": 31,
+      "ids": "docs/BATCH04_FINAL_CLOSURE_STATUS_151_200.json",
+      "note": "Batch04 BUILD_PHASE_LIFTED except paid vendor #187/#188/#190 and #165 DeFiLlama API subscription"
     }
   },
   "breakdown": {
-    "inventory_production_aligned_total": 114,
+    "inventory_production_aligned_total": 179,
     "official_batch01_1_50": 50,
     "official_batch02_independent_51_100_excl_overlap": 46,
-    "overlap_batch01_in_1_100": 4
+    "overlap_batch01_in_1_100": 4,
+    "official_batch04_151_200": 31
   },
-  "single_source_of_truth": "docs/CAPABILITIES_826_INVENTORY.json summary must match this numerator",
-  "hero_batch_03_open_risk": {
-    "scope": "201-300",
-    "status": "OPEN_RISK_REQUIRES_REEVALUATION",
-    "production_aligned_ids_in_inventory": [
-      214,
-      245
-    ],
-    "counted_in_114": false,
-    "verdict_namespace_isolated": "cap978 VERIFIED_COMPLETE does not gate 826 RTM \u2014 cap646/runtime._runtime_classification bans it"
-  },
-  "id_mapping_artifact": "docs/PROGRESS_114_ID_MAPPING.json",
-  "correction": "CLOSURE-REJECT-04: 114\u2192104 \u2014 removed extension/hero IDs without batch01/02 proof"
+  "single_source_of_truth": "docs/CAPABILITIES_826_INVENTORY.json summary must match this numerator"
 }
