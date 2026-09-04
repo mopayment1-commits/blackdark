@@ -3,57 +3,67 @@
     {
       "id": "LZ1",
       "gate": "G6",
-      "item": "Gate Zero live health + cap646 probes",
-      "script": "scripts/execute_batch05_gate_zero_live.py"
+      "item": "Gate Zero live health + cap646 probes against production host",
+      "reason": "Requires Railway app bound to blackdark-production.up.railway.app",
+      "local_component": "scripts/execute_batch05_gate_zero_live.py prepared; last run FAILED"
     },
     {
       "id": "LZ2",
       "gate": "G6",
-      "item": "Live E2E per-ID semantic verification (50)",
-      "blocked_by": "Railway compute limit exceeded"
+      "item": "Production-network E2E semantic verification (50 IDs)",
+      "reason": "TLS/host/routing differ from local TestClient",
+      "local_component": "Semantic oracle 50/50 PROVEN_LOCAL"
     },
     {
       "id": "LZ3",
       "gate": "G6",
-      "item": "Live entitlement gateway proof",
-      "blocked_by": "No production app bound"
+      "item": "Production-network entitlement under real deploy",
+      "reason": "Live gateway host + quota headers",
+      "local_component": "BATCH05_ENTITLEMENT_GATEWAY_PROOF.json all_verified=true"
     },
     {
       "id": "LZ4",
       "gate": "G6",
       "item": "Production performance/load (k6)",
-      "blocked_by": "AWAITING_DEPLOY"
+      "reason": "Cannot measure p95/throughput without deployed service",
+      "local_component": "BATCH05_PERFORMANCE_TEST_PLAN.json ready"
     },
     {
       "id": "LZ5",
       "gate": "G7",
       "item": "12207 Validation workshop with live artifacts",
-      "blocked_by": "G6 prerequisite"
+      "reason": "Independent human sign-off with live evidence",
+      "local_component": "Evidence pack prepared in BATCH05_V2_ASSURANCE_PACKAGE.json"
     },
     {
       "id": "LZ6",
       "gate": "G7",
       "item": "12207 Transition/Operation sign-off",
-      "blocked_by": "G6 prerequisite"
+      "reason": "Independent assurance gate",
+      "local_component": "NOT_APPLICABLE until LZ5"
     },
     {
       "id": "LZ7",
       "gate": "G7",
       "item": "SRE PRR independent second review",
-      "blocked_by": "G6 prerequisite"
+      "reason": "Genuine second reviewer required",
+      "local_component": "BATCH05_SRE_PRR_READINESS_PACKAGE.json intake ready"
     },
     {
       "id": "LZ8",
       "gate": "G6",
       "item": "PASS_LIVE elevation (50 IDs)",
-      "blocked_by": "All G6 criteria"
+      "reason": "G6 criteria require production validation",
+      "local_component": "G0-G4 PASS_ENGINEERING 50/50"
     },
     {
       "id": "LZ9",
       "gate": "G7",
       "item": "ASSURANCE_READY elevation (50 IDs)",
-      "blocked_by": "G6 + G7"
+      "reason": "G7 + G6 completion",
+      "local_component": "ASSURANCE_REVIEW_PREPARED"
     }
   ],
-  "count": 9
+  "count": 9,
+  "purity_verified": true
 }

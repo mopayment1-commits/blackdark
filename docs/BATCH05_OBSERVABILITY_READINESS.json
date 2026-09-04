@@ -1,17 +1,10 @@
 {
-  "status": "LOCAL_IMPLEMENTATION_READY",
-  "health_endpoints": [
-    "/health",
-    "/health/ready",
-    "/health/live"
+  "status": "IMPLEMENTED_AND_TESTED_LOCAL",
+  "tests": [
+    "test_observability_health_live_local",
+    "test_observability_health_ready_structure",
+    "test_observability_health_root_lists_probes",
+    "test_observability_latency_ms_on_execute"
   ],
-  "structured_logs": "cap646 payload envelope + latency_ms",
-  "metrics_design": [
-    "cap646_execute_latency_ms",
-    "cap646_execute_success",
-    "entitlement_denied_total"
-  ],
-  "traces": "NOT_APPLICABLE \u2014 single-process local execute",
-  "alerts_defined": true,
-  "live_dashboards": "NOT_DEPLOYED"
+  "live_dashboards": "REQUIRES_LIVE"
 }

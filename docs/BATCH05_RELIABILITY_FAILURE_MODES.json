@@ -1,26 +1,69 @@
 {
-  "status": "DESIGN_AND_LOCAL_STUB",
-  "failure_modes": [
+  "status": "PROVEN_LOCAL_WITH_LIVE_ONLY_GAPS",
+  "modes": [
     {
-      "mode": "timeout",
-      "policy": "fail-closed with error payload",
-      "local_test": "cap646 runtime"
+      "mode": "unknown_capability",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_unknown_capability_fail_closed"
     },
     {
-      "mode": "entitlement_denied",
-      "policy": "fail-closed",
-      "local_test": "gateway proof free denial"
+      "mode": "out_of_spine_rejected",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_batch05_out_of_spine_rejected"
     },
     {
-      "mode": "stale_data",
-      "policy": "freshness_chip + executable_fresh on #245",
-      "local_test": "domain_rules"
+      "mode": "entitlement_denied_fail_closed",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_entitlement_denied_fail_closed"
     },
     {
-      "mode": "dependency_unavailable",
-      "policy": "degraded payload ok=false",
-      "local_test": "partial \u2014 no live sim"
+      "mode": "gateway_entitlement_no_spine_leak",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_gateway_entitlement_denied_no_spine_leak"
+    },
+    {
+      "mode": "dependency_failure_degraded",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_dependency_failure_simulated"
+    },
+    {
+      "mode": "idempotent_replay_structure",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_idempotent_double_execute_structure"
+    },
+    {
+      "mode": "malformed_empty_symbol",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_malformed_empty_symbol_structured"
+    },
+    {
+      "mode": "stale_freshness_fields",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_stale_freshness_fields_present"
+    },
+    {
+      "mode": "http_429_upstream",
+      "status": "REQUIRES_LIVE",
+      "test": "needs production network throttle sim"
+    },
+    {
+      "mode": "http_5xx_upstream",
+      "status": "REQUIRES_LIVE",
+      "test": "needs production upstream failure"
+    },
+    {
+      "mode": "retry_exhaustion_live",
+      "status": "REQUIRES_LIVE",
+      "test": "retry policy validated in design only"
+    },
+    {
+      "mode": "recovery_after_outage",
+      "status": "REQUIRES_LIVE",
+      "test": "needs live chaos"
     }
   ],
-  "live_chaos": "NOT_RUN"
+  "proven_local": 8,
+  "requires_live": 4,
+  "not_applicable": 0,
+  "design_and_local_stub": 0
 }

@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 @pytest.fixture(scope="module")
 def v2_package() -> dict:
-    script = ROOT / "scripts/generate_batch05_local_institutional_completion.py"
+    script = ROOT / "scripts/generate_batch05_v2_assurance_package.py"
     subprocess.run([sys.executable, str(script)], cwd=ROOT, check=True)
     return json.loads((ROOT / "docs/BATCH05_V2_ASSURANCE_PACKAGE.json").read_text(encoding="utf-8"))
 
@@ -79,3 +79,16 @@ def test_production_root_cause_documented():
     assert doc["root_cause_classification"] == "DEPLOYMENT_NOT_ATTACHED"
     assert doc["repair_executable_by_agent"] is False
     assert "minimum_owner_action" in doc
+
+
+def test_final_local_freeze_complete():
+    path = ROOT / "docs/BATCH05_FINAL_LOCAL_FREEZE.json"
+    if not path.is_file():
+        subprocess.run([sys.executable, str(ROOT / "scripts/generate_batch05_final_local_freeze.py")], cwd=ROOT, check=True)
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    assert doc["g0_g4"]["G4"] == 50
+    assert doc["semantic_oracle"] == 50
+    assert doc["known_local_deficiencies"] == []
+    assert doc["reliability"]["design_and_local_stub"] == 0
+    assert doc["observability"]["status"] == "IMPLEMENTED_AND_TESTED_LOCAL"
+    assert doc["live_only_queue"]["purity_verified"] is True
