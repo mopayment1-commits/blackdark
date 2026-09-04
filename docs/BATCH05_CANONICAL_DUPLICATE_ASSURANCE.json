@@ -1,0 +1,248 @@
+{
+  "generated_at": "2026-09-04T23:01:40.149528+00:00",
+  "git_commit": "ff4755cebbc7d11ebcf03267b431615d1f3cddc2",
+  "scope": "Batch05 canonical/duplicate re-assurance \u2014 residual 7 preserved",
+  "policy": "Tolerated dual-path (#214/#245) NOT silently eliminated",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "summary": {
+    "manifest_checks_pass": true,
+    "residual_7_routing_pass": true,
+    "tolerate_ids_preserved": [
+      214,
+      245
+    ],
+    "deferred": 0
+  },
+  "manifest_checks": [
+    {
+      "check": "212_not_in_BATCH05_IDS",
+      "pass": true,
+      "detail": "BATCH05_IDS has 212=False"
+    },
+    {
+      "check": "manifest_50_routing_49",
+      "pass": true,
+      "detail": "manifest=50 routing=49"
+    },
+    {
+      "check": "canonical_id_212",
+      "pass": true,
+      "detail": "canonical_id(212)=17 expected=17"
+    },
+    {
+      "check": "canonical_id_206",
+      "pass": true,
+      "detail": "canonical_id(206)=86 expected=86"
+    },
+    {
+      "check": "canonical_id_214",
+      "pass": true,
+      "detail": "canonical_id(214)=214 expected=214"
+    },
+    {
+      "check": "canonical_id_226",
+      "pass": true,
+      "detail": "canonical_id(226)=69 expected=69"
+    },
+    {
+      "check": "canonical_id_228",
+      "pass": true,
+      "detail": "canonical_id(228)=86 expected=86"
+    },
+    {
+      "check": "canonical_id_232",
+      "pass": true,
+      "detail": "canonical_id(232)=205 expected=205"
+    },
+    {
+      "check": "canonical_id_245",
+      "pass": true,
+      "detail": "canonical_id(245)=245 expected=245"
+    }
+  ],
+  "residual_7": [
+    {
+      "capability_id": 212,
+      "institutional_decision": "CLOSED_DUPLICATE_DELEGATION",
+      "canonical_capability_id": 17,
+      "expected_spine": "batch01",
+      "runtime_spine": "batch01",
+      "runtime_success": true,
+      "runtime_surface": "smart_alerts",
+      "catalog_link": null,
+      "spine_match": true,
+      "hero_eliminated": true,
+      "tolerate_ceiling": null,
+      "exit_criteria": null,
+      "residual_risk": null,
+      "owner": "batch05-institutional-owner",
+      "in_batch05_ids": false,
+      "routing_excluded": true,
+      "all_checks_pass": true
+    },
+    {
+      "capability_id": 206,
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "canonical_capability_id": 86,
+      "expected_spine": "batch05",
+      "runtime_spine": "batch05",
+      "runtime_success": true,
+      "runtime_surface": "funding_rate_intelligence",
+      "catalog_link": {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 86,
+        "canonical_spine": "batch02",
+        "binding": "cap646/batch02_production.py::cap_086"
+      },
+      "spine_match": true,
+      "hero_eliminated": true,
+      "tolerate_ceiling": null,
+      "exit_criteria": null,
+      "residual_risk": null,
+      "owner": "batch05-institutional-owner",
+      "facade_success": true,
+      "facade_surface": "funding_rate_intelligence",
+      "facade_spine": "batch02",
+      "facade_reused_link_stamp": true,
+      "surface_match_runtime_facade": true,
+      "all_checks_pass": true
+    },
+    {
+      "capability_id": 214,
+      "institutional_decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "canonical_capability_id": 214,
+      "expected_spine": "batch01",
+      "runtime_spine": "batch01",
+      "runtime_success": true,
+      "runtime_surface": "watchlists",
+      "catalog_link": null,
+      "spine_match": true,
+      "hero_eliminated": false,
+      "tolerate_ceiling": "2026-12-31",
+      "exit_criteria": "Live dual-path proof OR facade/runtime convergence before ceiling",
+      "residual_risk": "Dual-path: public GET may differ from batch05 facade pentagonal probe",
+      "owner": "batch05-institutional-owner",
+      "facade_success": true,
+      "facade_surface": "watchlists",
+      "facade_spine": null,
+      "facade_reused_link_stamp": true,
+      "surface_match_runtime_facade": true,
+      "all_checks_pass": true
+    },
+    {
+      "capability_id": 226,
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "canonical_capability_id": 69,
+      "expected_spine": "batch05",
+      "runtime_spine": "batch05",
+      "runtime_success": true,
+      "runtime_surface": "cross_domain_decision_intelligence_layer",
+      "catalog_link": {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 69,
+        "canonical_spine": "batch02",
+        "binding": "cap646/batch02_production.py::cap_069"
+      },
+      "spine_match": true,
+      "hero_eliminated": false,
+      "tolerate_ceiling": null,
+      "exit_criteria": null,
+      "residual_risk": null,
+      "owner": "batch05-institutional-owner",
+      "facade_success": true,
+      "facade_surface": "cross_domain_decision_intelligence_layer",
+      "facade_spine": "batch02",
+      "facade_reused_link_stamp": true,
+      "surface_match_runtime_facade": true,
+      "all_checks_pass": true
+    },
+    {
+      "capability_id": 228,
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "canonical_capability_id": 86,
+      "expected_spine": "batch05",
+      "runtime_spine": "batch05",
+      "runtime_success": true,
+      "runtime_surface": "funding_rate_intelligence",
+      "catalog_link": {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 86,
+        "canonical_spine": "batch02",
+        "binding": "cap646/batch02_production.py::cap_086"
+      },
+      "spine_match": true,
+      "hero_eliminated": true,
+      "tolerate_ceiling": null,
+      "exit_criteria": null,
+      "residual_risk": null,
+      "owner": "batch05-institutional-owner",
+      "facade_success": true,
+      "facade_surface": "funding_rate_intelligence",
+      "facade_spine": "batch02",
+      "facade_reused_link_stamp": true,
+      "surface_match_runtime_facade": true,
+      "all_checks_pass": true
+    },
+    {
+      "capability_id": 232,
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "canonical_capability_id": 205,
+      "expected_spine": "batch05",
+      "runtime_spine": "batch05",
+      "runtime_success": true,
+      "runtime_surface": "open_interest_intelligence",
+      "catalog_link": {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 205,
+        "canonical_spine": "batch05",
+        "binding": "cap646/batch05_strangler_spine.py::build_open_interest_205"
+      },
+      "spine_match": true,
+      "hero_eliminated": true,
+      "tolerate_ceiling": null,
+      "exit_criteria": null,
+      "residual_risk": null,
+      "owner": "batch05-institutional-owner",
+      "facade_success": true,
+      "facade_surface": "open_interest_intelligence",
+      "facade_spine": null,
+      "facade_reused_link_stamp": true,
+      "surface_match_runtime_facade": true,
+      "all_checks_pass": true
+    },
+    {
+      "capability_id": 245,
+      "institutional_decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "canonical_capability_id": 245,
+      "expected_spine": "batch01",
+      "runtime_spine": "batch01",
+      "runtime_success": true,
+      "runtime_surface": "real_time_data_freshness_update_assurance",
+      "catalog_link": null,
+      "spine_match": true,
+      "hero_eliminated": false,
+      "tolerate_ceiling": "2026-12-31",
+      "exit_criteria": "Live dual-path proof OR facade/runtime convergence before ceiling",
+      "residual_risk": "Dual-path: public GET may differ from batch05 facade pentagonal probe",
+      "owner": "batch05-institutional-owner",
+      "facade_success": true,
+      "facade_surface": "real_time_data_freshness_update_assurance",
+      "facade_spine": "batch01",
+      "facade_reused_link_stamp": true,
+      "surface_match_runtime_facade": true,
+      "all_checks_pass": true
+    }
+  ],
+  "six_hero_routing": {
+    "batch05_stranglers_in_hero_inputs": false,
+    "reused_link_226_via_canonical_69_only": true,
+    "hero_eliminated_ids": [
+      206,
+      212,
+      228,
+      232
+    ],
+    "wrong_domain_hero_routing_detected": false
+  }
+}

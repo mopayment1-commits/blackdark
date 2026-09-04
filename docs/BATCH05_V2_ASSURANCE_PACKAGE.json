@@ -1,0 +1,4638 @@
+{
+  "generated_at": "2026-09-04T23:01:40.222049+00:00",
+  "git_commit": "ff4755cebbc7d11ebcf03267b431615d1f3cddc2",
+  "standard": "Project Standards v2 \u2014 \u0645\u0639\u064a\u0627\u0631_\u0645\u0624\u0633\u0633\u064a_\u0635\u0627\u0631\u0645_\u0644\u0628\u0646\u0627\u0621_\u0627\u0644\u0642\u062f\u0631\u0627\u062a_2026_v2",
+  "scope": "Batch05 capabilities 201-250",
+  "branch": "cursor/batch05-201-250-e85e",
+  "pr": 366,
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "build_phase": "OPEN",
+  "live_ready": false,
+  "assurance_ready": false,
+  "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%.",
+  "verdict": {
+    "batch05_complete": false,
+    "pass_live": false,
+    "assurance_ready": false,
+    "pass_engineering_count": 48,
+    "assurance_ready_count": 0,
+    "final_status": "BLOCKED_EXTERNAL"
+  },
+  "gate_counts": {
+    "G0_materiality": {
+      "PASS_ENGINEERING": 50
+    },
+    "G1_requirements_assurance": {
+      "PASS_ENGINEERING": 48,
+      "PASS_ENGINEERING_PARTIAL": 2
+    },
+    "G2_architecture_risk": {
+      "PASS_ENGINEERING": 50
+    },
+    "G3_build_integrity": {
+      "PASS_ENGINEERING": 48,
+      "PASS_ENGINEERING_PARTIAL": 2
+    },
+    "G4_verification_validation": {
+      "PASS_ENGINEERING": 48,
+      "DOWNGRADED_SEMANTIC_INCOMPLETE": 2
+    },
+    "G5_operational_readiness": {
+      "AWAITING_DEPLOY": 50
+    },
+    "G6_live_validation": {
+      "BLOCKED_EXTERNAL": 50
+    },
+    "G7_independent_assurance": {
+      "ASSURANCE_REVIEW_PENDING": 50
+    }
+  },
+  "semantic_oracle": {
+    "total_ids": 50,
+    "semantic_verified_local": 48,
+    "downgraded_count": 2,
+    "weak_only_rule_ids": 0,
+    "all_domain_rules_pass": 48,
+    "residual_7_semantic_verified": 5
+  },
+  "canonical_duplicate": {
+    "manifest_checks_pass": true,
+    "residual_7_routing_pass": true,
+    "tolerate_ids_preserved": [
+      214,
+      245
+    ],
+    "deferred": 0
+  },
+  "residual_7": {
+    "deferred": 0,
+    "all_decided": true,
+    "decisions_preserved": true
+  },
+  "six_heroes": {
+    "freeze_status": "FINAL_FREEZE_LOCAL",
+    "batch05_in_hero_inputs": false,
+    "wrong_domain_routing": false
+  },
+  "entitlement": {
+    "local_proof": true,
+    "live_count": 0,
+    "status": "PROVEN_LOCAL_BLOCKED_LIVE"
+  },
+  "live_e2e": {
+    "proven_count": 0,
+    "blocked_count": 50,
+    "gate_zero_status": "FAILED"
+  },
+  "performance": {
+    "status": "AWAITING_DEPLOY",
+    "evidence": null
+  },
+  "security_negative": {
+    "status": "LOCAL_ONLY",
+    "live_negative_tests": "NOT_RUN"
+  },
+  "production_root_cause_ref": "docs/BATCH05_PRODUCTION_ROOT_CAUSE.json",
+  "artifact_index": [
+    "docs/BATCH05_V2_ASSURANCE_PACKAGE.json",
+    "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+    "docs/BATCH05_CANONICAL_DUPLICATE_ASSURANCE.json",
+    "docs/BATCH05_PRODUCTION_ROOT_CAUSE.json",
+    "docs/BATCH05_GATE_ZERO_LIVE_EXECUTION.json",
+    "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+  ],
+  "per_id_closure_matrix": [
+    {
+      "capability_id": 201,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Network Growth Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 201,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for network_growth_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "network_growth_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "network_growth_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 201"
+        },
+        {
+          "field": "network_growth_intelligence.source",
+          "type": "enum",
+          "condition": "== footprint_analytics.footprint_snapshot"
+        },
+        {
+          "field": "network_growth_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(201) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_network_growth_201 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 202,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Supply Distribution Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 202,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for supply_distribution_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "supply_distribution_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "supply_distribution_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 202"
+        },
+        {
+          "field": "supply_distribution_intelligence.holder_metrics",
+          "type": "present",
+          "condition": "present"
+        },
+        {
+          "field": "supply_distribution_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(202) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_supply_distribution_202 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 203,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "DEX Trading Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 203,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for dex_trading_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "dex_trading_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "dex_trading_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 203"
+        },
+        {
+          "field": "dex_trading_intelligence.source",
+          "type": "enum",
+          "condition": "== onchain_hub.dexscreener_pairs"
+        },
+        {
+          "field": "dex_trading_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(203) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_dex_trading_203 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 204,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "DeFi Protocol Activity Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 204,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for defi_protocol_activity_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 204"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.chain",
+          "type": "enum",
+          "condition": "== BSC"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(204) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_defi_protocol_activity_204 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 205,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Open Interest Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 205,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for open_interest_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "open_interest_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "open_interest_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 205"
+        },
+        {
+          "field": "open_interest_intelligence.source",
+          "type": "enum",
+          "condition": "== free_market_data.binance_futures_snapshot"
+        },
+        {
+          "field": "open_interest_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(205) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_open_interest_205 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 206,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Funding Rate Intelligence",
+      "materiality_risk": "MEDIUM",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 86,
+      "duplicate_decision": "CLOSED_REUSED_LINK",
+      "requirement": "ISO 29148 domain_rules for funding_rate_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 86"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_086"
+        },
+        {
+          "field": "funding_rate",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 6,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(206) \u2192 None",
+      "data_sources_lineage_freshness": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_cap206_228_reused_link_facade"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "canonical_assurance": {
+        "spine_match": true,
+        "all_checks_pass": true
+      }
+    },
+    {
+      "capability_id": 207,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Price / Volume / Market Metrics",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 207,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for price_volume_market_metrics",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "price_volume_market_metrics.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "price_volume_market_metrics.feature_ref",
+          "type": "numeric",
+          "condition": "== 207"
+        },
+        {
+          "field": "price_volume_market_metrics.source",
+          "type": "enum",
+          "condition": "== market_context.probe_price_sources+free_market_data.binance_futures_snapshot"
+        },
+        {
+          "field": "price_volume_market_metrics.latency_ms",
+          "type": "numeric",
+          "condition": "< 2000"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(207) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_price_volume_market_metrics_207 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 208,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Metric Correlation Workbench",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 208,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for metric_correlation_workbench",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "metric_correlation_workbench.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "metric_correlation_workbench.feature_ref",
+          "type": "numeric",
+          "condition": "== 208"
+        },
+        {
+          "field": "metric_correlation_workbench.source",
+          "type": "enum",
+          "condition": "== free_market_data.binance_futures_snapshot"
+        },
+        {
+          "field": "metric_correlation_workbench.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(208) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_metric_correlation_workbench_208 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 209,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Custom Chart Builder",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 209,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for custom_chart_builder",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "custom_chart_builder.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "custom_chart_builder.feature_ref",
+          "type": "numeric",
+          "condition": "== 209"
+        },
+        {
+          "field": "custom_chart_builder.source",
+          "type": "enum",
+          "condition": "== cap646.fallbacks.resolve_ohlcv_closes"
+        },
+        {
+          "field": "custom_chart_builder.latency_ms",
+          "type": "numeric",
+          "condition": "< 2000"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(209) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_custom_chart_builder_209 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 210,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Custom Dashboards / Layouts",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 210,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for custom_dashboards_layouts",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "custom_dashboards_layouts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "custom_dashboards_layouts.feature_ref",
+          "type": "numeric",
+          "condition": "== 210"
+        },
+        {
+          "field": "custom_dashboards_layouts.source",
+          "type": "enum",
+          "condition": "== bd_platform.market_rankings.market_rankings"
+        },
+        {
+          "field": "custom_dashboards_layouts.latency_ms",
+          "type": "numeric",
+          "condition": "< 1000"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(210) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_custom_dashboards_layouts_210 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 211,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Screener",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 211,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for screener",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "screener.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "screener.feature_ref",
+          "type": "numeric",
+          "condition": "== 211"
+        },
+        {
+          "field": "screener.source",
+          "type": "enum",
+          "condition": "== bd_platform.market_rankings.market_rankings"
+        },
+        {
+          "field": "screener.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(211) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_screener_211 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 212,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Smart Alerts",
+      "materiality_risk": "MEDIUM",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 17,
+      "duplicate_decision": "CLOSED_DUPLICATE_DELEGATION",
+      "requirement": "ISO 29148 domain_rules for smart_alerts",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== DUPLICATE/ALREADY_COVERED"
+        },
+        {
+          "field": "duplicate_of",
+          "type": "numeric",
+          "condition": "== 17"
+        },
+        {
+          "field": "requested_capability_id",
+          "type": "numeric",
+          "condition": "== 212"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 4,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch01",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(212) \u2192 None",
+      "data_sources_lineage_freshness": "docs/ADR_BATCH05_212_DUPLICATE_DELEGATION_BATCH01.md",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_cap212_duplicate_delegation_not_batch05_spine"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "canonical_assurance": {
+        "spine_match": true,
+        "all_checks_pass": true
+      }
+    },
+    {
+      "capability_id": 213,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Anomaly Detection Alerts",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 213,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for anomaly_detection_alerts",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "anomaly_detection_alerts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "anomaly_detection_alerts.feature_ref",
+          "type": "numeric",
+          "condition": "== 213"
+        },
+        {
+          "field": "anomaly_detection_alerts.source",
+          "type": "enum",
+          "condition": "== footprint_analytics.footprint_snapshot"
+        },
+        {
+          "field": "anomaly_detection_alerts.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(213) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_anomaly_detection_alerts_213 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 214,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Watchlists",
+      "materiality_risk": "MEDIUM",
+      "current_state_classification": "Brownfield-OVERLAP-BATCH01",
+      "canonical_implementation": 214,
+      "duplicate_decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "requirement": "ISO 29148 domain_rules for watchlists",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 214"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch01"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch01_dedicated.py::_cap214_watchlists"
+        },
+        {
+          "field": "watchlists.count",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "watchlists.items",
+          "type": "list_min_length",
+          "condition": ">= 1"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 7,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch01",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(214) \u2192 None",
+      "data_sources_lineage_freshness": "MECE priority gate docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_cap214_245_runtime_via_batch01_legacy_spine"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": {
+        "tolerate_ceiling": "2026-12-31",
+        "dual_path": true,
+        "owner": "batch05-institutional-owner"
+      },
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "canonical_assurance": {
+        "spine_match": true,
+        "all_checks_pass": true
+      }
+    },
+    {
+      "capability_id": 215,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Community Explorer",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 215,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for community_explorer",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "community_explorer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "community_explorer.feature_ref",
+          "type": "numeric",
+          "condition": "== 215"
+        },
+        {
+          "field": "community_explorer.source",
+          "type": "enum",
+          "condition": "== onchain_defi_sources_layer.ingest_reddit_sentiment_208"
+        },
+        {
+          "field": "community_explorer.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(215) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_community_explorer_215 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 216,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Research & Market Insights",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 216,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for research_market_insights",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "research_market_insights.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "research_market_insights.feature_ref",
+          "type": "numeric",
+          "condition": "== 216"
+        },
+        {
+          "field": "research_market_insights.source",
+          "type": "enum",
+          "condition": "== market_rankings+onchain_defi_sources_layer.ingest_reddit_sentiment_208"
+        },
+        {
+          "field": "research_market_insights.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(216) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_research_market_insights_216 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 217,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "SanAPI-Style Data Access",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 217,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for sanapi_style_data_access",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "sanapi_style_data_access.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "sanapi_style_data_access.feature_ref",
+          "type": "numeric",
+          "condition": "== 217"
+        },
+        {
+          "field": "sanapi_style_data_access.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_best_venue_217"
+        },
+        {
+          "field": "sanapi_style_data_access.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(217) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_sanapi_style_data_access_217 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 218,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Google Sheets Integration",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 218,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for google_sheets_integration",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "google_sheets_integration.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "google_sheets_integration.feature_ref",
+          "type": "numeric",
+          "condition": "== 218"
+        },
+        {
+          "field": "google_sheets_integration.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.list_manual_order_journal_218"
+        },
+        {
+          "field": "google_sheets_integration.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(218) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_google_sheets_integration_218 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 219,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Metric Availability Registry",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 219,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for metric_availability_registry",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "metric_availability_registry.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "metric_availability_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 219"
+        },
+        {
+          "field": "metric_availability_registry.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_nlp_sentiment_219"
+        },
+        {
+          "field": "metric_availability_registry.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(219) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_metric_availability_registry_219 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 220,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Data Stabilization & Mutability Metadata",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 220,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for data_stabilization_mutability_metadata",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.feature_ref",
+          "type": "numeric",
+          "condition": "== 220"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_pattern_outcome_220"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(220) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_data_stabilization_mutability_metadata_220 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 221,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Data Quality & Provenance Layer",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 221,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for data_quality_provenance_layer",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "data_quality_provenance_layer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "data_quality_provenance_layer.feature_ref",
+          "type": "numeric",
+          "condition": "== 221"
+        },
+        {
+          "field": "data_quality_provenance_layer.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.market_slippage_analysis_221"
+        },
+        {
+          "field": "data_quality_provenance_layer.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(221) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_data_quality_provenance_layer_221 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 222,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Metric Methodology Registry",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 222,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for metric_methodology_registry",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "metric_methodology_registry.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "metric_methodology_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 222"
+        },
+        {
+          "field": "metric_methodology_registry.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.monitor_exchange_latency_222"
+        },
+        {
+          "field": "metric_methodology_registry.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(222) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_metric_methodology_registry_222 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 223,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Social-to-On-Chain Confirmation Engine",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 223,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for social_to_on_chain_confirmation_engine",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.feature_ref",
+          "type": "numeric",
+          "condition": "== 223"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_defi_fundamentals_223"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(223) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_social_to_on_chain_confirmation_engine_223 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 224,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Narrative Actionability Score",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 224,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for narrative_actionability_score",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "narrative_actionability_score.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "narrative_actionability_score.feature_ref",
+          "type": "numeric",
+          "condition": "== 224"
+        },
+        {
+          "field": "narrative_actionability_score.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_token_dcf_224"
+        },
+        {
+          "field": "narrative_actionability_score.latency_ms",
+          "type": "numeric",
+          "condition": "< 5000"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(224) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_narrative_actionability_score_224 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 225,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Development-to-Market Divergence Detector",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 225,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for development_to_market_divergence_detector",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "development_to_market_divergence_detector.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "development_to_market_divergence_detector.feature_ref",
+          "type": "numeric",
+          "condition": "== 225"
+        },
+        {
+          "field": "development_to_market_divergence_detector.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.pwa_strategy_status_225"
+        },
+        {
+          "field": "development_to_market_divergence_detector.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(225) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_development_to_market_divergence_detector_225 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 226,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Cross-Domain Decision Intelligence Layer",
+      "materiality_risk": "MEDIUM",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 69,
+      "duplicate_decision": "CLOSED_REUSED_LINK",
+      "requirement": "ISO 29148 domain_rules for cross_domain_decision_intelligence_layer",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 69"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_069"
+        },
+        {
+          "field": "cross_domain_decision",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 6,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(226) \u2192 None",
+      "data_sources_lineage_freshness": "MECE priority gate docs/BATCH05_MECE_OVERLAP_226_69_DECISION.json",
+      "six_hero_mapping": "via_canonical_69_only",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_cap226_reused_link_facade"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "canonical_assurance": {
+        "spine_match": true,
+        "all_checks_pass": true
+      }
+    },
+    {
+      "capability_id": 227,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Unified Trading Intelligence Workspace",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 227,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for unified_trading_intelligence_workspace",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.feature_ref",
+          "type": "numeric",
+          "condition": "== 227"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_etf_premium_227"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(227) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_unified_trading_intelligence_workspace_227 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 228,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Funding Rate Intelligence",
+      "materiality_risk": "MEDIUM",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 86,
+      "duplicate_decision": "CLOSED_REUSED_LINK",
+      "requirement": "ISO 29148 domain_rules for funding_rate_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 86"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_086"
+        },
+        {
+          "field": "funding_rate",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 6,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(228) \u2192 None",
+      "data_sources_lineage_freshness": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_cap206_228_reused_link_facade"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "canonical_assurance": {
+        "spine_match": true,
+        "all_checks_pass": true
+      }
+    },
+    {
+      "capability_id": 229,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Cross-Exchange Funding Arbitrage Scanner",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 229,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for cross_exchange_funding_arbitrage_scanner",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.feature_ref",
+          "type": "numeric",
+          "condition": "== 229"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.generate_reasoning_explanation_229"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(229) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_cross_exchange_funding_arbitrage_scanner_229 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 230,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Spot-Perp Arbitrage Scanner",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 230,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for spot_perp_arbitrage_scanner",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.feature_ref",
+          "type": "numeric",
+          "condition": "== 230"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.analyze_cross_exchange_divergence_230"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(230) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_spot_perp_arbitrage_scanner_230 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 231,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Futures Basis & Term Structure",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 231,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for futures_basis_term_structure",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "futures_basis_term_structure.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "futures_basis_term_structure.feature_ref",
+          "type": "numeric",
+          "condition": "== 231"
+        },
+        {
+          "field": "futures_basis_term_structure.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.triangular_arbitrage_status_231"
+        },
+        {
+          "field": "futures_basis_term_structure.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(231) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_futures_basis_term_structure_231 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 232,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Open Interest Intelligence",
+      "materiality_risk": "MEDIUM",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 205,
+      "duplicate_decision": "CLOSED_REUSED_LINK",
+      "requirement": "ISO 29148 domain_rules for open_interest_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 205"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_open_interest_205"
+        },
+        {
+          "field": "open_interest_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "open_interest_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 205"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 7,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(232) \u2192 None",
+      "data_sources_lineage_freshness": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_cap232_reused_link_facade"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "canonical_assurance": {
+        "spine_match": true,
+        "all_checks_pass": true
+      }
+    },
+    {
+      "capability_id": 233,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Liquidation Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 233,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for liquidation_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "liquidation_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "liquidation_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 233"
+        },
+        {
+          "field": "liquidation_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.build_heatmap_component_233"
+        },
+        {
+          "field": "liquidation_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(233) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_liquidation_intelligence_233 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 234,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "CVD Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 234,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for cvd_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cvd_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cvd_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 234"
+        },
+        {
+          "field": "cvd_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.live_dashboard_status_234"
+        },
+        {
+          "field": "cvd_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(234) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_cvd_intelligence_234 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 235,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Long/Short Ratio Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 235,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for long_short_ratio_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "long_short_ratio_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "long_short_ratio_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 235"
+        },
+        {
+          "field": "long_short_ratio_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.whale_intelligence_status_235"
+        },
+        {
+          "field": "long_short_ratio_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(235) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_long_short_ratio_intelligence_235 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 236,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "DEX Screener",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 236,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for dex_screener",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "dex_screener.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "dex_screener.feature_ref",
+          "type": "numeric",
+          "condition": "== 236"
+        },
+        {
+          "field": "dex_screener.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.subscription_tiers_status_236"
+        },
+        {
+          "field": "dex_screener.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(236) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_dex_screener_236 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 237,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Token Risk Scoring",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 237,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for token_risk_scoring",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_risk_scoring.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_risk_scoring.feature_ref",
+          "type": "numeric",
+          "condition": "== 237"
+        },
+        {
+          "field": "token_risk_scoring.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.generate_market_summary_237"
+        },
+        {
+          "field": "token_risk_scoring.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(237) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_token_risk_scoring_237 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 238,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Pump & Dump Detection",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 238,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for pump_dump_detection",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "pump_dump_detection.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "pump_dump_detection.feature_ref",
+          "type": "numeric",
+          "condition": "== 238"
+        },
+        {
+          "field": "pump_dump_detection.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.scan_market_opportunities_238"
+        },
+        {
+          "field": "pump_dump_detection.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(238) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_pump_dump_detection_238 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 239,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Narrative Tracking",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 239,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for narrative_tracking",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "narrative_tracking.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "narrative_tracking.feature_ref",
+          "type": "numeric",
+          "condition": "== 239"
+        },
+        {
+          "field": "narrative_tracking.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.live_ta_status_239"
+        },
+        {
+          "field": "narrative_tracking.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(239) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_narrative_tracking_239 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 240,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Sector Rotation Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 240,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for sector_rotation_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "sector_rotation_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "sector_rotation_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 240"
+        },
+        {
+          "field": "sector_rotation_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.compute_s2f_240"
+        },
+        {
+          "field": "sector_rotation_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 2000"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(240) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_sector_rotation_intelligence_240 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 241,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Sentiment Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 241,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for sentiment_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "sentiment_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "sentiment_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 241"
+        },
+        {
+          "field": "sentiment_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.ingest_fred_macro_241"
+        },
+        {
+          "field": "sentiment_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(241) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_sentiment_intelligence_241 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 242,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Price Prediction / Multi-Signal Forecast",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 242,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for price_prediction_multi_signal_forecast",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.feature_ref",
+          "type": "numeric",
+          "condition": "== 242"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.attach_audit_log_id_242"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.latency_ms",
+          "type": "numeric",
+          "condition": "< 5000"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(242) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_price_prediction_multi_signal_forecast_242 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 243,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Correlation Matrix",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 243,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for correlation_matrix",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "correlation_matrix.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "correlation_matrix.feature_ref",
+          "type": "numeric",
+          "condition": "== 243"
+        },
+        {
+          "field": "correlation_matrix.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.ingest_bybit_price_243"
+        },
+        {
+          "field": "correlation_matrix.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(243) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_correlation_matrix_243 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 244,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "New Listings Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 244,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for new_listings_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "new_listings_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "new_listings_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 244"
+        },
+        {
+          "field": "new_listings_intelligence.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.ingest_cointelegraph_rss_244"
+        },
+        {
+          "field": "new_listings_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(244) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_new_listings_intelligence_244 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 245,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Market Health & Freshness",
+      "materiality_risk": "MEDIUM",
+      "current_state_classification": "Brownfield-OVERLAP-BATCH01",
+      "canonical_implementation": 245,
+      "duplicate_decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "requirement": "ISO 29148 domain_rules for real_time_data_freshness_update_assurance",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 245"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch01"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch01_production.py::cap_245"
+        },
+        {
+          "field": "freshness_chip",
+          "type": "present",
+          "condition": "not_null"
+        },
+        {
+          "field": "executable_fresh",
+          "type": "boolean",
+          "condition": "in [true,false]"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 7,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch01",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(245) \u2192 None",
+      "data_sources_lineage_freshness": "PARTIAL_MISNAMED: catalog 'Market Health & Freshness' vs implemented 'real_time_data_freshness_update_assurance'",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_cap214_245_runtime_via_batch01_legacy_spine"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": {
+        "tolerate_ceiling": "2026-12-31",
+        "dual_path": true,
+        "owner": "batch05-institutional-owner"
+      },
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "canonical_assurance": {
+        "spine_match": true,
+        "all_checks_pass": true
+      }
+    },
+    {
+      "capability_id": 246,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Coverage Metadata Registry",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 246,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for coverage_metadata_registry",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "coverage_metadata_registry.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "coverage_metadata_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 246"
+        },
+        {
+          "field": "coverage_metadata_registry.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.list_etherscan_watchlist_246"
+        },
+        {
+          "field": "coverage_metadata_registry.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(246) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_coverage_metadata_registry_246 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 247,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "Public REST API",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 247,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for public_rest_api",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "public_rest_api.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "public_rest_api.feature_ref",
+          "type": "numeric",
+          "condition": "== 247"
+        },
+        {
+          "field": "public_rest_api.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.generate_weekly_digest_247"
+        },
+        {
+          "field": "public_rest_api.latency_ms",
+          "type": "numeric",
+          "condition": "< 2000"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(247) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_public_rest_api_247 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 248,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "MCP Server for AI Agents",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 248,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for mcp_server_for_ai_agents",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.feature_ref",
+          "type": "numeric",
+          "condition": "== 248"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.manual_performance_tracker_248"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.latency_ms",
+          "type": "numeric",
+          "condition": "< 5000"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(248) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_mcp_server_for_ai_agents_248 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 249,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "CLI Access",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 249,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for cli_access",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cli_access.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cli_access.feature_ref",
+          "type": "numeric",
+          "condition": "== 249"
+        },
+        {
+          "field": "cli_access.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.trad_simulator_rejected_status_249"
+        },
+        {
+          "field": "cli_access.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(249) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_cli_access_249 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    },
+    {
+      "capability_id": 250,
+      "owner": "batch05-institutional-owner",
+      "objective_user_outcome": "OpenAPI / SDK Generation",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "Brownfield",
+      "canonical_implementation": 250,
+      "duplicate_decision": "STRANGLER",
+      "requirement": "ISO 29148 domain_rules for openapi_sdk_generation",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "openapi_sdk_generation.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "openapi_sdk_generation.feature_ref",
+          "type": "numeric",
+          "condition": "== 250"
+        },
+        {
+          "field": "openapi_sdk_generation.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.execution_speed_rejected_status_250"
+        },
+        {
+          "field": "openapi_sdk_generation.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 5,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": null,
+        "binding_function": null,
+        "production_spine": "batch05",
+        "expected_surface": null
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(250) \u2192 None",
+      "data_sources_lineage_freshness": "Binding build_openapi_sdk_generation_250 returns goal-specific keys: ['ok', 'feature_ref', 'symbol', 'catalog_goal', 'rule_based', 'ai_classification', 'ai_drift_monitoring', 'data_freshness']",
+      "six_hero_mapping": "N/A_NOT_IN_HERO_INPUTS",
+      "security_privacy": "entitlement gateway \u2014 local proof only until G6",
+      "performance_slo": "direct p95<=500ms / analysis p95<=2s / AI p95<=5s \u2014 AWAITING_DEPLOY",
+      "reliability_failure_modes": "timeout/retry via cap646 runtime; live NOT_RUN",
+      "observability": "structured payload + latency_ms \u2014 live metrics AWAITING_DEPLOY",
+      "regression": [
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success",
+        "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch",
+        "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
+      ],
+      "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
+      "rollback": "Railway deployment revert",
+      "exceptions_residual_risk": null,
+      "evidence_references": [
+        "docs/BATCH05_ACCEPTANCE_201_250.json",
+        "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true
+    }
+  ]
+}

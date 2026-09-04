@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-09-04T23:01:40.220266+00:00",
+  "git_commit": "ff4755cebbc7d11ebcf03267b431615d1f3cddc2",
+  "production_url": "https://blackdark-production.up.railway.app",
+  "alternate_url_tested": "https://blackdark-web-production.up.railway.app",
+  "alternate_url_status": "HTTP 404 Application not found (wrong URL per PRODUCTION_URL_CORRECTION.md)",
+  "root_cause_classification": "DEPLOYMENT_NOT_ATTACHED",
+  "evidence": {
+    "http_status": 404,
+    "railway_message": "Application not found",
+    "health_pass": null,
+    "cap646_200": 0
+  },
+  "ruled_out": [
+    "wrong_domain_blackdark_web_production (documented as mistaken URL)",
+    "branch_mismatch (cannot verify \u2014 no service bound)"
+  ],
+  "determined_from": [
+    "docs/PRODUCTION_URL_CORRECTION.md",
+    "railway.toml healthcheckPath=/health/live",
+    "scripts/execute_batch05_gate_zero_live.py live probes"
+  ],
+  "minimum_owner_action": "Railway dashboard: create/restart web service (SERVICE_MODE=web), attach domain blackdark-production.up.railway.app, set DATABASE_URL/REDIS_URL/env per scripts/railway_production_checklist.py",
+  "rollback_path": "Railway deployment history revert to last known-good release",
+  "repair_executable_by_agent": false,
+  "reason_not_executable": "No Railway CLI token or deploy credentials in agent environment"
+}

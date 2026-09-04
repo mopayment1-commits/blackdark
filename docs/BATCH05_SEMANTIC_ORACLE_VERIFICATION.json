@@ -1,0 +1,4542 @@
+{
+  "generated_at": "2026-09-04T23:01:38.018988+00:00",
+  "git_commit": "ff4755cebbc7d11ebcf03267b431615d1f3cddc2",
+  "standard": "Project Standards v2 \u2014 semantic oracle actual-vs-expected",
+  "scope": "Batch05 IDs 201-250",
+  "policy": "success=true alone is insufficient; semantic rules must pass for PASS_ENGINEERING",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "summary": {
+    "total_ids": 50,
+    "semantic_verified_local": 48,
+    "downgraded_count": 2,
+    "weak_only_rule_ids": 0,
+    "all_domain_rules_pass": 48,
+    "residual_7_semantic_verified": 5
+  },
+  "rows": [
+    {
+      "capability_id": 201,
+      "capability_name": "Network Growth Intelligence",
+      "expected_surface": "network_growth_intelligence",
+      "probe_success": true,
+      "probe_surface": "network_growth_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 5.8,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "network_growth_intelligence",
+          "pass": true,
+          "detail": "actual='network_growth_intelligence' expected='network_growth_intelligence'"
+        },
+        {
+          "field": "network_growth_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "network_growth_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 201",
+          "actual": 201,
+          "pass": true,
+          "detail": "actual=201.0 need == 201.0"
+        },
+        {
+          "field": "network_growth_intelligence.source",
+          "type": "enum",
+          "condition": "== footprint_analytics.footprint_snapshot",
+          "actual": "footprint_analytics.footprint_snapshot",
+          "pass": true,
+          "detail": "actual='footprint_analytics.footprint_snapshot' expected='footprint_analytics.footprint_snapshot'"
+        },
+        {
+          "field": "network_growth_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 5.5,
+          "pass": true,
+          "detail": "actual=5.5 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 202,
+      "capability_name": "Supply Distribution Intelligence",
+      "expected_surface": "supply_distribution_intelligence",
+      "probe_success": true,
+      "probe_surface": "supply_distribution_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 146.2,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "supply_distribution_intelligence",
+          "pass": true,
+          "detail": "actual='supply_distribution_intelligence' expected='supply_distribution_intelligence'"
+        },
+        {
+          "field": "supply_distribution_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "supply_distribution_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 202",
+          "actual": 202,
+          "pass": true,
+          "detail": "actual=202.0 need == 202.0"
+        },
+        {
+          "field": "supply_distribution_intelligence.holder_metrics",
+          "type": "present",
+          "condition": "present",
+          "actual": {
+            "price_usd": {
+              "vef": 7976.23,
+              "btc": 1.000071,
+              "bits": 1000071,
+              "sats": 100007116,
+              "eth": 32.494091,
+              "ltc": 1571,
+              "bch": 319.858,
+              "bnb": 110.787,
+              "eos": 1045417,
+              "xrp": 57077,
+              "xlm": 444963,
+              "link": 6857,
+              "dot": 91461,
+              "yfi": 35.161459,
+              "sol": 783.06,
+              "usd": 79659,
+              "aed": 292587,
+              "ars": 120118049,
+              "aud": 110637,
+              "bdt": 9789290,
+              "bhd": 30033,
+              "bmd": 79659,
+              "brl": 408355,
+              "cad": 110252,
+              "chf": 64535,
+              "clp": 74379007,
+              "cny": 534590,
+              "czk": 1659691,
+              "dkk": 512692,
+              "eur": 68583,
+              "gbp": 58932,
+              "gel": 207511,
+              "hkd": 624553,
+              "huf": 24842391,
+              "idr": 1404448219,
+              "ils": 239965,
+              "inr": 7522160,
+              "jpy": 12447882,
+              "krw": 107218343,
+              "kwd": 24614,
+              "lkr": 26138125,
+              "mmk": 167243632,
+              "mxn": 1345214,
+              "myr": 322180,
+              "ngn": 105405309,
+              "nok": 741456,
+              "nzd": 135428,
+              "php": 4991818,
+              "pkr": 22113280,
+              "pln": 295712,
+              "rub": 6833081,
+              "sar": 303420,
+              "sek": 762550,
+              "sgd": 101063,
+              "thb": 2620929,
+              "try": 3858672,
+              "twd": 2518413,
+              "uah": 3548193,
+              "vnd": 2075799441,
+              "zar": 1272067,
+              "xdr": 58176,
+              "xag": 1203.0,
+              "xau": 17.98
+            },
+            "market_cap_usd": {
+              "vef": 160161363519,
+              "btc": 20080816,
+              "bits": 20080815540991,
+              "sats": 2008081554099075,
+              "eth": 652475523,
+              "ltc": 31550357260,
+              "bch": 6422692228,
+              "bnb": 2224578314,
+              "eos": 20991795803099,
+              "xrp": 1146103690499,
+              "xlm": 8934769650133,
+              "link": 137678033351,
+              "dot": 1836515371204,
+              "yfi": 706035797,
+              "sol": 15723708662,
+              "usd": 1599534240681,
+              "aed": 5875089266022,
+              "ars": 2411948878262984,
+              "aud": 2221575512006,
+              "bdt": 196567177116691,
+              "bhd": 603064397093,
+              "bmd": 1599534240681,
+              "brl": 8199692378004,
+              "cad": 2213835365815,
+              "chf": 1295841871143,
+              "clp": 1493517111208923,
+              "cny": 10734474289212,
+              "czk": 33326295904594,
+              "dkk": 10294762326449,
+              "eur": 1377128601720,
+              "gbp": 1183349827064,
+              "gel": 4166786696975,
+              "hkd": 12540908283925,
+              "huf": 498830748298863,
+              "idr": 28201068290603472,
+              "ils": 4818444944299,
+              "inr": 151043618463973,
+              "jpy": 249951244112491,
+              "krw": 2152925101929780,
+              "kwd": 494240085028,
+              "lkr": 524848865030771,
+              "mmk": 3358222138310343,
+              "mxn": 27011654629233,
+              "myr": 6469316236435,
+              "ngn": 2116519702611874,
+              "nok": 14888304758837,
+              "nzd": 2719372961185,
+              "php": 100234813192292,
+              "pkr": 444030705213123,
+              "pln": 5937843792887,
+              "rub": 137207041058603,
+              "sar": 6092629121823,
+              "sek": 15311861425770,
+              "sgd": 2029329091152,
+              "thb": 52627794010649,
+              "try": 77481441817670,
+              "twd": 50569276618673,
+              "uah": 71247069969108,
+              "vnd": 41681680392294984,
+              "zar": 25542882312727,
+              "xdr": 1168159050380,
+              "xag": 24155990154,
+              "xau": 361046869
+            },
+            "circulating_supply": 20079703.0,
+            "total_supply": 20079759.0,
+            "locked_supply_pct": 0.0,
+            "long_short_ratio": 0.0,
+            "funding_rate_pct": 0.0,
+            "open_interest_usd": 0,
+            "taker_buy_sell_ratio": 0.0
+          },
+          "pass": true,
+          "detail": "not_null"
+        },
+        {
+          "field": "supply_distribution_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 146.1,
+          "pass": true,
+          "detail": "actual=146.1 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 203,
+      "capability_name": "DEX Trading Intelligence",
+      "expected_surface": "dex_trading_intelligence",
+      "probe_success": true,
+      "probe_surface": "dex_trading_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 48.3,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "dex_trading_intelligence",
+          "pass": true,
+          "detail": "actual='dex_trading_intelligence' expected='dex_trading_intelligence'"
+        },
+        {
+          "field": "dex_trading_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "dex_trading_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 203",
+          "actual": 203,
+          "pass": true,
+          "detail": "actual=203.0 need == 203.0"
+        },
+        {
+          "field": "dex_trading_intelligence.source",
+          "type": "enum",
+          "condition": "== onchain_hub.dexscreener_pairs",
+          "actual": "onchain_hub.dexscreener_pairs",
+          "pass": true,
+          "detail": "actual='onchain_hub.dexscreener_pairs' expected='onchain_hub.dexscreener_pairs'"
+        },
+        {
+          "field": "dex_trading_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 48.2,
+          "pass": true,
+          "detail": "actual=48.2 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 204,
+      "capability_name": "DeFi Protocol Activity Intelligence",
+      "expected_surface": "defi_protocol_activity_intelligence",
+      "probe_success": true,
+      "probe_surface": "defi_protocol_activity_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 1.7,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "defi_protocol_activity_intelligence",
+          "pass": true,
+          "detail": "actual='defi_protocol_activity_intelligence' expected='defi_protocol_activity_intelligence'"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 204",
+          "actual": 204,
+          "pass": true,
+          "detail": "actual=204.0 need == 204.0"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.chain",
+          "type": "enum",
+          "condition": "== BSC",
+          "actual": "BSC",
+          "pass": true,
+          "detail": "actual='BSC' expected='BSC'"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.3,
+          "pass": true,
+          "detail": "actual=0.3 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 205,
+      "capability_name": "Open Interest Intelligence",
+      "expected_surface": "open_interest_intelligence",
+      "probe_success": true,
+      "probe_surface": "open_interest_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 75.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "open_interest_intelligence",
+          "pass": true,
+          "detail": "actual='open_interest_intelligence' expected='open_interest_intelligence'"
+        },
+        {
+          "field": "open_interest_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "open_interest_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 205",
+          "actual": 205,
+          "pass": true,
+          "detail": "actual=205.0 need == 205.0"
+        },
+        {
+          "field": "open_interest_intelligence.source",
+          "type": "enum",
+          "condition": "== free_market_data.binance_futures_snapshot",
+          "actual": "free_market_data.binance_futures_snapshot",
+          "pass": true,
+          "detail": "actual='free_market_data.binance_futures_snapshot' expected='free_market_data.binance_futures_snapshot'"
+        },
+        {
+          "field": "open_interest_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 75.5,
+          "pass": true,
+          "detail": "actual=75.5 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 206,
+      "capability_name": "Funding Rate Intelligence",
+      "expected_surface": "funding_rate_intelligence",
+      "probe_success": true,
+      "probe_surface": "funding_rate_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 209.8,
+      "domain_rules_total": 7,
+      "domain_rules_passed": 7,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 6,
+      "semantic_rules_passed": 6,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "funding_rate_intelligence",
+          "pass": true,
+          "detail": "actual='funding_rate_intelligence' expected='funding_rate_intelligence'"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK",
+          "actual": "REUSED-LINK",
+          "pass": true,
+          "detail": "actual='REUSED-LINK' expected='REUSED-LINK'"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 86",
+          "actual": 86,
+          "pass": true,
+          "detail": "actual=86.0 need == 86.0"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02",
+          "actual": "batch02",
+          "pass": true,
+          "detail": "actual='batch02' expected='batch02'"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_086",
+          "actual": "cap646/batch02_production.py::cap_086",
+          "pass": true,
+          "detail": "actual='cap646/batch02_production.py::cap_086' expected='cap646/batch02_production.py::cap_086'"
+        },
+        {
+          "field": "funding_rate",
+          "type": "present",
+          "condition": "not_null",
+          "actual": {
+            "derivatives_overview": {
+              "asset": "BTC",
+              "timestamp": "2026-09-04T23:01:34.153522+00:00",
+              "free_tier": {
+                "source": "binance_futures_public",
+                "asset": "BTC",
+                "symbol": "BTCUSDT",
+                "timestamp": "2026-09-04T23:01:34.034435+00:00",
+                "mark_price": 0.0,
+                "funding_rate": 0.0,
+                "funding_rate_pct": 0.0,
+                "open_interest_contracts": 0.0,
+                "open_interest_usd": 0,
+                "change_24h_pct": 0.0,
+                "long_short_ratio": 0.0,
+                "long_account_pct": 0.0,
+                "short_account_pct": 0.0,
+                "taker_buy_sell_ratio": 0.0,
+                "available": false
+              },
+              "coinglass": {
+                "funding": {
+                  "available": false,
+                  "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+                },
+                "liquidations": {
+                  "available": false,
+                  "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+                },
+                "open_interest": {
+                  "available": false,
+                  "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+                },
+                "note": "CoinGlass enhances data when COINGLASS_API_KEY is set"
+              },
+              "deribit_options": {
+                "provider": "deribit",
+                "assets": {
+                  "BTC": {
+                    "success": true,
+                    "exchange": "deribit",
+                    "currency": "BTC",
+                    "count": 988,
+                    "instruments": [
+                      {
+                        "instrument": "BTC-26MAR27-104000-C",
+                        "mark_price": 0.04185155,
+                        "bid": 0.041,
+                        "ask": 0.043,
+                        "open_interest": 115.2,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-7SEP26-72000-C",
+                        "mark_price": 0.09550071,
+                        "bid": 0.0935,
+                        "ask": 0.0975,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-84000-C",
+                        "mark_price": 0.03812081,
+                        "bid": 0.0375,
+                        "ask": 0.0385,
+                        "open_interest": 1103.9,
+                        "volume": 47.3
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-170000-C",
+                        "mark_price": 0.00122484,
+                        "bid": 0.001,
+                        "ask": 0.0015,
+                        "open_interest": 2394.2,
+                        "volume": 0.1
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-65000-C",
+                        "mark_price": 0.18548354,
+                        "bid": 0.1835,
+                        "ask": 0.188,
+                        "open_interest": 1275.9,
+                        "volume": 0.8
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-130000-P",
+                        "mark_price": 0.60875103,
+                        "bid": 0.595,
+                        "ask": 0.6175,
+                        "open_interest": 0.4,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-88000-C",
+                        "mark_price": 0.00017305,
+                        "bid": 0.0001,
+                        "ask": 0.0003,
+                        "open_interest": 0.3,
+                        "volume": 0.3
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-86000-P",
+                        "mark_price": 0.11627591,
+                        "bid": 0.11,
+                        "ask": 0.1195,
+                        "open_interest": 30.2,
+                        "volume": 1.0
+                      },
+                      {
+                        "instrument": "BTC-7SEP26-89000-C",
+                        "mark_price": 4.22e-05,
+                        "bid": null,
+                        "ask": 0.0003,
+                        "open_interest": 8.1,
+                        "volume": 8.0
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-85000-P",
+                        "mark_price": 0.06828267,
+                        "bid": 0.065,
+                        "ask": 0.071,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-52000-C",
+                        "mark_price": 0.35210541,
+                        "bid": 0.35,
+                        "ask": 0.3555,
+                        "open_interest": 0.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-300000-C",
+                        "mark_price": 2.61e-06,
+                        "bid": null,
+                        "ask": 0.0001,
+                        "open_interest": 196.3,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-11SEP26-68000-C",
+                        "mark_price": 0.1460643,
+                        "bid": 0.1445,
+                        "ask": 0.148,
+                        "open_interest": 3.1,
+                        "volume": 1.0
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-40000-C",
+                        "mark_price": 0.51433663,
+                        "bid": 0.5135,
+                        "ask": 0.516,
+                        "open_interest": 82.1,
+                        "volume": 0.3
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-64000-C",
+                        "mark_price": 0.27764703,
+                        "bid": 0.2735,
+                        "ask": 0.2815,
+                        "open_interest": 33.5,
+                        "volume": 5.4
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-72000-P",
+                        "mark_price": 0.0055657,
+                        "bid": 0.005,
+                        "ask": 0.006,
+                        "open_interest": 2149.6,
+                        "volume": 190.0
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-85000-P",
+                        "mark_price": 0.14386767,
+                        "bid": 0.136,
+                        "ask": 0.1495,
+                        "open_interest": 3.9,
+                        "volume": 2.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-62000-P",
+                        "mark_price": 0.00068979,
+                        "bid": 0.0007,
+                        "ask": 0.0008,
+                        "open_interest": 1429.6,
+                        "volume": 18.7
+                      },
+                      {
+                        "instrument": "BTC-11SEP26-65000-P",
+                        "mark_price": 0.00010863,
+                        "bid": null,
+                        "ask": 0.0003,
+                        "open_interest": 47.3,
+                        "volume": 1.5
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-55000-C",
+                        "mark_price": 0.34311671,
+                        "bid": 0.3395,
+                        "ask": 0.348,
+                        "open_interest": 28.6,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-65000-P",
+                        "mark_price": 0.05690677,
+                        "bid": 0.0555,
+                        "ask": 0.058,
+                        "open_interest": 24.7,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-62000-C",
+                        "mark_price": 0.27063461,
+                        "bid": 0.266,
+                        "ask": 0.276,
+                        "open_interest": 59.7,
+                        "volume": 1.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-150000-P",
+                        "mark_price": 0.83735378,
+                        "bid": 0.819,
+                        "ask": 0.851,
+                        "open_interest": 0.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-120000-P",
+                        "mark_price": 0.50610043,
+                        "bid": 0.4995,
+                        "ask": 0.5095,
+                        "open_interest": 174.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-125000-P",
+                        "mark_price": 0.55093892,
+                        "bid": 0.537,
+                        "ask": 0.562,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-6SEP26-79500-P",
+                        "mark_price": 0.00327844,
+                        "bid": 0.0029,
+                        "ask": 0.0036,
+                        "open_interest": 106.8,
+                        "volume": 117.8
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-84000-P",
+                        "mark_price": 0.08755896,
+                        "bid": 0.0835,
+                        "ask": 0.09,
+                        "open_interest": 8.3,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-82000-C",
+                        "mark_price": 0.11649256,
+                        "bid": 0.1155,
+                        "ask": 0.1175,
+                        "open_interest": 1162.7,
+                        "volume": 24.2
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-67000-C",
+                        "mark_price": 0.17265726,
+                        "bid": 0.171,
+                        "ask": 0.1765,
+                        "open_interest": 108.4,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-55000-C",
+                        "mark_price": 0.31004608,
+                        "bid": 0.3085,
+                        "ask": 0.312,
+                        "open_interest": 143.7,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-88000-C",
+                        "mark_price": 0.12146169,
+                        "bid": 0.1205,
+                        "ask": 0.123,
+                        "open_interest": 21.3,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-74000-P",
+                        "mark_price": 0.04862948,
+                        "bid": 0.048,
+                        "ask": 0.0495,
+                        "open_interest": 162.0,
+                        "volume": 1.9
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-45000-C",
+                        "mark_price": 0.46811714,
+                        "bid": 0.4675,
+                        "ask": 0.47,
+                        "open_interest": 0.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-74000-C",
+                        "mark_price": 0.08046932,
+                        "bid": 0.078,
+                        "ask": 0.0825,
+                        "open_interest": 1492.6,
+                        "volume": 1.7
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-88000-C",
+                        "mark_price": 0.03896853,
+                        "bid": 0.0385,
+                        "ask": 0.0395,
+                        "open_interest": 78.7,
+                        "volume": 0.6
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-54000-C",
+                        "mark_price": 0.37235745,
+                        "bid": 0.368,
+                        "ask": 0.3755,
+                        "open_interest": 0.9,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-6SEP26-81000-C",
+                        "mark_price": 0.00036709,
+                        "bid": 0.0003,
+                        "ask": 0.0005,
+                        "open_interest": 90.8,
+                        "volume": 103.1
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-84000-C",
+                        "mark_price": 0.0684064,
+                        "bid": 0.068,
+                        "ask": 0.069,
+                        "open_interest": 1345.6,
+                        "volume": 60.1
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-54000-P",
+                        "mark_price": 0.00024642,
+                        "bid": 0.0001,
+                        "ask": 0.0004,
+                        "open_interest": 768.9,
+                        "volume": 0.3
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-73000-P",
+                        "mark_price": 0.03470735,
+                        "bid": 0.034,
+                        "ask": 0.0355,
+                        "open_interest": 17.5,
+                        "volume": 0.8
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-104000-C",
+                        "mark_price": 0.01720799,
+                        "bid": 0.017,
+                        "ask": 0.018,
+                        "open_interest": 90.7,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-90000-C",
+                        "mark_price": 7.445e-05,
+                        "bid": null,
+                        "ask": 0.0002,
+                        "open_interest": 8.1,
+                        "volume": 8.2
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-155000-P",
+                        "mark_price": 0.94513322,
+                        "bid": 0.937,
+                        "ask": 0.9495,
+                        "open_interest": 0.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-105000-C",
+                        "mark_price": 0.00060232,
+                        "bid": 0.0005,
+                        "ask": 0.0007,
+                        "open_interest": 1537.3,
+                        "volume": 1.1
+                      },
+                      {
+                        "instrument": "BTC-18SEP26-90000-C",
+                        "mark_price": 0.00241989,
+                        "bid": 0.0022,
+                        "ask": 0.0026,
+                        "open_interest": 409.7,
+                        "volume": 208.4
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-70000-C",
+                        "mark_price": 0.15361695,
+                        "bid": 0.1495,
+                        "ask": 0.1585,
+                        "open_interest": 4.2,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-7SEP26-80500-C",
+                        "mark_price": 0.00330063,
+                        "bid": 0.0031,
+                        "ask": 0.0036,
+                        "open_interest": 28.4,
+                        "volume": 21.2
+                      },
+                      {
+                        "instrument": "BTC-7SEP26-76500-P",
+                        "mark_price": 0.00043997,
+                        "bid": 0.0003,
+                        "ask": 0.0006,
+                        "open_interest": 47.3,
+                        "volume": 10.7
+                      },
+                      {
+                        "instrument": "BTC-6SEP26-82000-P",
+                        "mark_price": 0.03043216,
+                        "bid": 0.0285,
+                        "ask": 0.032,
+                        "open_interest": 5.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-90000-P",
+                        "mark_price": 0.14423449,
+                        "bid": 0.1395,
+                        "ask": 0.1475,
+                        "open_interest": 5.6,
+                        "volume": 0.0
+                      }
+                    ]
+                  }
+                },
+                "note": "Options intelligence for institutional due diligence \u2014 not auto-execution."
+              },
+              "sources": [
+                "Binance Futures (free)",
+                "Deribit",
+                "CoinGlass (optional)"
+              ],
+              "primary_source": "coinglass"
+            },
+            "funding_rate": 0.0,
+            "funding_rate_pct": 0.0
+          },
+          "pass": true,
+          "detail": "not_null"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 207,
+      "capability_name": "Price / Volume / Market Metrics",
+      "expected_surface": "price_volume_market_metrics",
+      "probe_success": true,
+      "probe_surface": "price_volume_market_metrics",
+      "production_spine": "batch05",
+      "elapsed_ms": 741.3,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "price_volume_market_metrics",
+          "pass": true,
+          "detail": "actual='price_volume_market_metrics' expected='price_volume_market_metrics'"
+        },
+        {
+          "field": "price_volume_market_metrics.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "price_volume_market_metrics.feature_ref",
+          "type": "numeric",
+          "condition": "== 207",
+          "actual": 207,
+          "pass": true,
+          "detail": "actual=207.0 need == 207.0"
+        },
+        {
+          "field": "price_volume_market_metrics.source",
+          "type": "enum",
+          "condition": "== market_context.probe_price_sources+free_market_data.binance_futures_snapshot",
+          "actual": "market_context.probe_price_sources+free_market_data.binance_futures_snapshot",
+          "pass": true,
+          "detail": "actual='market_context.probe_price_sources+free_market_data.binance_futures_snapshot' expected='market_context.probe_price_sources+free_market_data.binance_futures_snapshot'"
+        },
+        {
+          "field": "price_volume_market_metrics.latency_ms",
+          "type": "numeric",
+          "condition": "< 2000",
+          "actual": 741.2,
+          "pass": true,
+          "detail": "actual=741.2 need < 2000.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 208,
+      "capability_name": "Metric Correlation Workbench",
+      "expected_surface": "metric_correlation_workbench",
+      "probe_success": true,
+      "probe_surface": "metric_correlation_workbench",
+      "production_spine": "batch05",
+      "elapsed_ms": 79.7,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "metric_correlation_workbench",
+          "pass": true,
+          "detail": "actual='metric_correlation_workbench' expected='metric_correlation_workbench'"
+        },
+        {
+          "field": "metric_correlation_workbench.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "metric_correlation_workbench.feature_ref",
+          "type": "numeric",
+          "condition": "== 208",
+          "actual": 208,
+          "pass": true,
+          "detail": "actual=208.0 need == 208.0"
+        },
+        {
+          "field": "metric_correlation_workbench.source",
+          "type": "enum",
+          "condition": "== free_market_data.binance_futures_snapshot",
+          "actual": "free_market_data.binance_futures_snapshot",
+          "pass": true,
+          "detail": "actual='free_market_data.binance_futures_snapshot' expected='free_market_data.binance_futures_snapshot'"
+        },
+        {
+          "field": "metric_correlation_workbench.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 79.6,
+          "pass": true,
+          "detail": "actual=79.6 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 209,
+      "capability_name": "Custom Chart Builder",
+      "expected_surface": "custom_chart_builder",
+      "probe_success": true,
+      "probe_surface": "custom_chart_builder",
+      "production_spine": "batch05",
+      "elapsed_ms": 621.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "custom_chart_builder",
+          "pass": true,
+          "detail": "actual='custom_chart_builder' expected='custom_chart_builder'"
+        },
+        {
+          "field": "custom_chart_builder.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "custom_chart_builder.feature_ref",
+          "type": "numeric",
+          "condition": "== 209",
+          "actual": 209,
+          "pass": true,
+          "detail": "actual=209.0 need == 209.0"
+        },
+        {
+          "field": "custom_chart_builder.source",
+          "type": "enum",
+          "condition": "== cap646.fallbacks.resolve_ohlcv_closes",
+          "actual": "cap646.fallbacks.resolve_ohlcv_closes",
+          "pass": true,
+          "detail": "actual='cap646.fallbacks.resolve_ohlcv_closes' expected='cap646.fallbacks.resolve_ohlcv_closes'"
+        },
+        {
+          "field": "custom_chart_builder.latency_ms",
+          "type": "numeric",
+          "condition": "< 2000",
+          "actual": 621.4,
+          "pass": true,
+          "detail": "actual=621.4 need < 2000.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 210,
+      "capability_name": "Custom Dashboards / Layouts",
+      "expected_surface": "custom_dashboards_layouts",
+      "probe_success": true,
+      "probe_surface": "custom_dashboards_layouts",
+      "production_spine": "batch05",
+      "elapsed_ms": 28.8,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "custom_dashboards_layouts",
+          "pass": true,
+          "detail": "actual='custom_dashboards_layouts' expected='custom_dashboards_layouts'"
+        },
+        {
+          "field": "custom_dashboards_layouts.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "custom_dashboards_layouts.feature_ref",
+          "type": "numeric",
+          "condition": "== 210",
+          "actual": 210,
+          "pass": true,
+          "detail": "actual=210.0 need == 210.0"
+        },
+        {
+          "field": "custom_dashboards_layouts.source",
+          "type": "enum",
+          "condition": "== bd_platform.market_rankings.market_rankings",
+          "actual": "bd_platform.market_rankings.market_rankings",
+          "pass": true,
+          "detail": "actual='bd_platform.market_rankings.market_rankings' expected='bd_platform.market_rankings.market_rankings'"
+        },
+        {
+          "field": "custom_dashboards_layouts.latency_ms",
+          "type": "numeric",
+          "condition": "< 1000",
+          "actual": 28.7,
+          "pass": true,
+          "detail": "actual=28.7 need < 1000.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 211,
+      "capability_name": "Screener",
+      "expected_surface": "screener",
+      "probe_success": true,
+      "probe_surface": "screener",
+      "production_spine": "batch05",
+      "elapsed_ms": 47.4,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "screener",
+          "pass": true,
+          "detail": "actual='screener' expected='screener'"
+        },
+        {
+          "field": "screener.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "screener.feature_ref",
+          "type": "numeric",
+          "condition": "== 211",
+          "actual": 211,
+          "pass": true,
+          "detail": "actual=211.0 need == 211.0"
+        },
+        {
+          "field": "screener.source",
+          "type": "enum",
+          "condition": "== bd_platform.market_rankings.market_rankings",
+          "actual": "bd_platform.market_rankings.market_rankings",
+          "pass": true,
+          "detail": "actual='bd_platform.market_rankings.market_rankings' expected='bd_platform.market_rankings.market_rankings'"
+        },
+        {
+          "field": "screener.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 47.2,
+          "pass": true,
+          "detail": "actual=47.2 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 212,
+      "capability_name": "Smart Alerts",
+      "expected_surface": "smart_alerts",
+      "probe_success": true,
+      "probe_surface": "smart_alerts",
+      "production_spine": "batch01",
+      "elapsed_ms": 15.8,
+      "domain_rules_total": 5,
+      "domain_rules_passed": 5,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 4,
+      "semantic_rules_passed": 4,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "smart_alerts",
+          "pass": true,
+          "detail": "actual='smart_alerts' expected='smart_alerts'"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== DUPLICATE/ALREADY_COVERED",
+          "actual": "DUPLICATE/ALREADY_COVERED",
+          "pass": true,
+          "detail": "actual='DUPLICATE/ALREADY_COVERED' expected='DUPLICATE/ALREADY_COVERED'"
+        },
+        {
+          "field": "duplicate_of",
+          "type": "numeric",
+          "condition": "== 17",
+          "actual": 17,
+          "pass": true,
+          "detail": "actual=17.0 need == 17.0"
+        },
+        {
+          "field": "requested_capability_id",
+          "type": "numeric",
+          "condition": "== 212",
+          "actual": 212,
+          "pass": true,
+          "detail": "actual=212.0 need == 212.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 213,
+      "capability_name": "Anomaly Detection Alerts",
+      "expected_surface": "anomaly_detection_alerts",
+      "probe_success": true,
+      "probe_surface": "anomaly_detection_alerts",
+      "production_spine": "batch05",
+      "elapsed_ms": 2.8,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "anomaly_detection_alerts",
+          "pass": true,
+          "detail": "actual='anomaly_detection_alerts' expected='anomaly_detection_alerts'"
+        },
+        {
+          "field": "anomaly_detection_alerts.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "anomaly_detection_alerts.feature_ref",
+          "type": "numeric",
+          "condition": "== 213",
+          "actual": 213,
+          "pass": true,
+          "detail": "actual=213.0 need == 213.0"
+        },
+        {
+          "field": "anomaly_detection_alerts.source",
+          "type": "enum",
+          "condition": "== footprint_analytics.footprint_snapshot",
+          "actual": "footprint_analytics.footprint_snapshot",
+          "pass": true,
+          "detail": "actual='footprint_analytics.footprint_snapshot' expected='footprint_analytics.footprint_snapshot'"
+        },
+        {
+          "field": "anomaly_detection_alerts.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 2.4,
+          "pass": true,
+          "detail": "actual=2.4 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 214,
+      "capability_name": "Watchlists",
+      "expected_surface": "watchlists",
+      "probe_success": true,
+      "probe_surface": "watchlists",
+      "production_spine": "batch01",
+      "elapsed_ms": 1.2,
+      "domain_rules_total": 8,
+      "domain_rules_passed": 3,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 7,
+      "semantic_rules_passed": 2,
+      "all_domain_rules_pass": false,
+      "semantic_oracle_pass": false,
+      "oracle_strength": "SEMANTIC_PARTIAL",
+      "functional_status": "DOWNGRADED_SEMANTIC_FAIL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "watchlists",
+          "pass": true,
+          "detail": "actual='watchlists' expected='watchlists'"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='REUSED-LINK'"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 214",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None need == 214.0"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch01",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='batch01'"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch01_dedicated.py::_cap214_watchlists",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='cap646/batch01_dedicated.py::_cap214_watchlists'"
+        },
+        {
+          "field": "watchlists.count",
+          "type": "numeric",
+          "condition": "> 0",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None need > 0.0"
+        },
+        {
+          "field": "watchlists.items",
+          "type": "list_min_length",
+          "condition": ">= 1",
+          "actual": [
+            {
+              "type": "onchain",
+              "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+              "threshold_eth": 1000.0,
+              "label": "On-chain watch 0x742d35Cc...",
+              "privacy_first": true,
+              "created_at": "2026-09-04T23:01:35.691976+00:00"
+            }
+          ],
+          "pass": true,
+          "detail": "len=1 need>=1"
+        }
+      ],
+      "failed_semantic_rules": [
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='REUSED-LINK'"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 214",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None need == 214.0"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch01",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='batch01'"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch01_dedicated.py::_cap214_watchlists",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='cap646/batch01_dedicated.py::_cap214_watchlists'"
+        },
+        {
+          "field": "watchlists.count",
+          "type": "numeric",
+          "condition": "> 0",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None need > 0.0"
+        }
+      ]
+    },
+    {
+      "capability_id": 215,
+      "capability_name": "Community Explorer",
+      "expected_surface": "community_explorer",
+      "probe_success": true,
+      "probe_surface": "community_explorer",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "community_explorer",
+          "pass": true,
+          "detail": "actual='community_explorer' expected='community_explorer'"
+        },
+        {
+          "field": "community_explorer.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "community_explorer.feature_ref",
+          "type": "numeric",
+          "condition": "== 215",
+          "actual": 215,
+          "pass": true,
+          "detail": "actual=215.0 need == 215.0"
+        },
+        {
+          "field": "community_explorer.source",
+          "type": "enum",
+          "condition": "== onchain_defi_sources_layer.ingest_reddit_sentiment_208",
+          "actual": "onchain_defi_sources_layer.ingest_reddit_sentiment_208",
+          "pass": true,
+          "detail": "actual='onchain_defi_sources_layer.ingest_reddit_sentiment_208' expected='onchain_defi_sources_layer.ingest_reddit_sentiment_208'"
+        },
+        {
+          "field": "community_explorer.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 216,
+      "capability_name": "Research & Market Insights",
+      "expected_surface": "research_market_insights",
+      "probe_success": true,
+      "probe_surface": "research_market_insights",
+      "production_spine": "batch05",
+      "elapsed_ms": 126.0,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "research_market_insights",
+          "pass": true,
+          "detail": "actual='research_market_insights' expected='research_market_insights'"
+        },
+        {
+          "field": "research_market_insights.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "research_market_insights.feature_ref",
+          "type": "numeric",
+          "condition": "== 216",
+          "actual": 216,
+          "pass": true,
+          "detail": "actual=216.0 need == 216.0"
+        },
+        {
+          "field": "research_market_insights.source",
+          "type": "enum",
+          "condition": "== market_rankings+onchain_defi_sources_layer.ingest_reddit_sentiment_208",
+          "actual": "market_rankings+onchain_defi_sources_layer.ingest_reddit_sentiment_208",
+          "pass": true,
+          "detail": "actual='market_rankings+onchain_defi_sources_layer.ingest_reddit_sentiment_208' expected='market_rankings+onchain_defi_sources_layer.ingest_reddit_sentiment_208'"
+        },
+        {
+          "field": "research_market_insights.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 24.8,
+          "pass": true,
+          "detail": "actual=24.8 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 217,
+      "capability_name": "SanAPI-Style Data Access",
+      "expected_surface": "sanapi_style_data_access",
+      "probe_success": true,
+      "probe_surface": "sanapi_style_data_access",
+      "production_spine": "batch05",
+      "elapsed_ms": 1.0,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "sanapi_style_data_access",
+          "pass": true,
+          "detail": "actual='sanapi_style_data_access' expected='sanapi_style_data_access'"
+        },
+        {
+          "field": "sanapi_style_data_access.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "sanapi_style_data_access.feature_ref",
+          "type": "numeric",
+          "condition": "== 217",
+          "actual": 217,
+          "pass": true,
+          "detail": "actual=217.0 need == 217.0"
+        },
+        {
+          "field": "sanapi_style_data_access.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_best_venue_217",
+          "actual": "intelligence_market_extensions_layer.analyze_best_venue_217",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.analyze_best_venue_217' expected='intelligence_market_extensions_layer.analyze_best_venue_217'"
+        },
+        {
+          "field": "sanapi_style_data_access.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.4,
+          "pass": true,
+          "detail": "actual=0.4 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 218,
+      "capability_name": "Google Sheets Integration",
+      "expected_surface": "google_sheets_integration",
+      "probe_success": true,
+      "probe_surface": "google_sheets_integration",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "google_sheets_integration",
+          "pass": true,
+          "detail": "actual='google_sheets_integration' expected='google_sheets_integration'"
+        },
+        {
+          "field": "google_sheets_integration.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "google_sheets_integration.feature_ref",
+          "type": "numeric",
+          "condition": "== 218",
+          "actual": 218,
+          "pass": true,
+          "detail": "actual=218.0 need == 218.0"
+        },
+        {
+          "field": "google_sheets_integration.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.list_manual_order_journal_218",
+          "actual": "intelligence_market_extensions_layer.list_manual_order_journal_218",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.list_manual_order_journal_218' expected='intelligence_market_extensions_layer.list_manual_order_journal_218'"
+        },
+        {
+          "field": "google_sheets_integration.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 219,
+      "capability_name": "Metric Availability Registry",
+      "expected_surface": "metric_availability_registry",
+      "probe_success": true,
+      "probe_surface": "metric_availability_registry",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "metric_availability_registry",
+          "pass": true,
+          "detail": "actual='metric_availability_registry' expected='metric_availability_registry'"
+        },
+        {
+          "field": "metric_availability_registry.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "metric_availability_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 219",
+          "actual": 219,
+          "pass": true,
+          "detail": "actual=219.0 need == 219.0"
+        },
+        {
+          "field": "metric_availability_registry.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_nlp_sentiment_219",
+          "actual": "intelligence_market_extensions_layer.analyze_nlp_sentiment_219",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.analyze_nlp_sentiment_219' expected='intelligence_market_extensions_layer.analyze_nlp_sentiment_219'"
+        },
+        {
+          "field": "metric_availability_registry.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.1,
+          "pass": true,
+          "detail": "actual=0.1 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 220,
+      "capability_name": "Data Stabilization & Mutability Metadata",
+      "expected_surface": "data_stabilization_mutability_metadata",
+      "probe_success": true,
+      "probe_surface": "data_stabilization_mutability_metadata",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.4,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "data_stabilization_mutability_metadata",
+          "pass": true,
+          "detail": "actual='data_stabilization_mutability_metadata' expected='data_stabilization_mutability_metadata'"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.feature_ref",
+          "type": "numeric",
+          "condition": "== 220",
+          "actual": 220,
+          "pass": true,
+          "detail": "actual=220.0 need == 220.0"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_pattern_outcome_220",
+          "actual": "intelligence_market_extensions_layer.analyze_pattern_outcome_220",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.analyze_pattern_outcome_220' expected='intelligence_market_extensions_layer.analyze_pattern_outcome_220'"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 221,
+      "capability_name": "Data Quality & Provenance Layer",
+      "expected_surface": "data_quality_provenance_layer",
+      "probe_success": true,
+      "probe_surface": "data_quality_provenance_layer",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "data_quality_provenance_layer",
+          "pass": true,
+          "detail": "actual='data_quality_provenance_layer' expected='data_quality_provenance_layer'"
+        },
+        {
+          "field": "data_quality_provenance_layer.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "data_quality_provenance_layer.feature_ref",
+          "type": "numeric",
+          "condition": "== 221",
+          "actual": 221,
+          "pass": true,
+          "detail": "actual=221.0 need == 221.0"
+        },
+        {
+          "field": "data_quality_provenance_layer.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.market_slippage_analysis_221",
+          "actual": "intelligence_market_extensions_layer.market_slippage_analysis_221",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.market_slippage_analysis_221' expected='intelligence_market_extensions_layer.market_slippage_analysis_221'"
+        },
+        {
+          "field": "data_quality_provenance_layer.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 222,
+      "capability_name": "Metric Methodology Registry",
+      "expected_surface": "metric_methodology_registry",
+      "probe_success": true,
+      "probe_surface": "metric_methodology_registry",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "metric_methodology_registry",
+          "pass": true,
+          "detail": "actual='metric_methodology_registry' expected='metric_methodology_registry'"
+        },
+        {
+          "field": "metric_methodology_registry.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "metric_methodology_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 222",
+          "actual": 222,
+          "pass": true,
+          "detail": "actual=222.0 need == 222.0"
+        },
+        {
+          "field": "metric_methodology_registry.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.monitor_exchange_latency_222",
+          "actual": "intelligence_market_extensions_layer.monitor_exchange_latency_222",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.monitor_exchange_latency_222' expected='intelligence_market_extensions_layer.monitor_exchange_latency_222'"
+        },
+        {
+          "field": "metric_methodology_registry.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 223,
+      "capability_name": "Social-to-On-Chain Confirmation Engine",
+      "expected_surface": "social_to_on_chain_confirmation_engine",
+      "probe_success": true,
+      "probe_surface": "social_to_on_chain_confirmation_engine",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.4,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "social_to_on_chain_confirmation_engine",
+          "pass": true,
+          "detail": "actual='social_to_on_chain_confirmation_engine' expected='social_to_on_chain_confirmation_engine'"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.feature_ref",
+          "type": "numeric",
+          "condition": "== 223",
+          "actual": 223,
+          "pass": true,
+          "detail": "actual=223.0 need == 223.0"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_defi_fundamentals_223",
+          "actual": "intelligence_market_extensions_layer.analyze_defi_fundamentals_223",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.analyze_defi_fundamentals_223' expected='intelligence_market_extensions_layer.analyze_defi_fundamentals_223'"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 224,
+      "capability_name": "Narrative Actionability Score",
+      "expected_surface": "narrative_actionability_score",
+      "probe_success": true,
+      "probe_surface": "narrative_actionability_score",
+      "production_spine": "batch05",
+      "elapsed_ms": 114.8,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "narrative_actionability_score",
+          "pass": true,
+          "detail": "actual='narrative_actionability_score' expected='narrative_actionability_score'"
+        },
+        {
+          "field": "narrative_actionability_score.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "narrative_actionability_score.feature_ref",
+          "type": "numeric",
+          "condition": "== 224",
+          "actual": 224,
+          "pass": true,
+          "detail": "actual=224.0 need == 224.0"
+        },
+        {
+          "field": "narrative_actionability_score.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_token_dcf_224",
+          "actual": "intelligence_market_extensions_layer.analyze_token_dcf_224",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.analyze_token_dcf_224' expected='intelligence_market_extensions_layer.analyze_token_dcf_224'"
+        },
+        {
+          "field": "narrative_actionability_score.latency_ms",
+          "type": "numeric",
+          "condition": "< 5000",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 5000.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 225,
+      "capability_name": "Development-to-Market Divergence Detector",
+      "expected_surface": "development_to_market_divergence_detector",
+      "probe_success": true,
+      "probe_surface": "development_to_market_divergence_detector",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.6,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "development_to_market_divergence_detector",
+          "pass": true,
+          "detail": "actual='development_to_market_divergence_detector' expected='development_to_market_divergence_detector'"
+        },
+        {
+          "field": "development_to_market_divergence_detector.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "development_to_market_divergence_detector.feature_ref",
+          "type": "numeric",
+          "condition": "== 225",
+          "actual": 225,
+          "pass": true,
+          "detail": "actual=225.0 need == 225.0"
+        },
+        {
+          "field": "development_to_market_divergence_detector.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.pwa_strategy_status_225",
+          "actual": "intelligence_market_extensions_layer.pwa_strategy_status_225",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.pwa_strategy_status_225' expected='intelligence_market_extensions_layer.pwa_strategy_status_225'"
+        },
+        {
+          "field": "development_to_market_divergence_detector.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 226,
+      "capability_name": "Cross-Domain Decision Intelligence Layer",
+      "expected_surface": "cross_domain_decision_intelligence_layer",
+      "probe_success": true,
+      "probe_surface": "cross_domain_decision_intelligence_layer",
+      "production_spine": "batch05",
+      "elapsed_ms": 3.0,
+      "domain_rules_total": 7,
+      "domain_rules_passed": 7,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 6,
+      "semantic_rules_passed": 6,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "cross_domain_decision_intelligence_layer",
+          "pass": true,
+          "detail": "actual='cross_domain_decision_intelligence_layer' expected='cross_domain_decision_intelligence_layer'"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK",
+          "actual": "REUSED-LINK",
+          "pass": true,
+          "detail": "actual='REUSED-LINK' expected='REUSED-LINK'"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 69",
+          "actual": 69,
+          "pass": true,
+          "detail": "actual=69.0 need == 69.0"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02",
+          "actual": "batch02",
+          "pass": true,
+          "detail": "actual='batch02' expected='batch02'"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_069",
+          "actual": "cap646/batch02_production.py::cap_069",
+          "pass": true,
+          "detail": "actual='cap646/batch02_production.py::cap_069' expected='cap646/batch02_production.py::cap_069'"
+        },
+        {
+          "field": "cross_domain_decision",
+          "type": "present",
+          "condition": "not_null",
+          "actual": {
+            "multi_dimensional": {
+              "ok": true,
+              "feature_ref": 73,
+              "asset": "BTC",
+              "composite_score": 5.0,
+              "dimensions": {
+                "technical": {
+                  "score": 5.0,
+                  "weight": 0.3,
+                  "source": "ta_engine"
+                },
+                "on_chain": {
+                  "score": 5.0,
+                  "weight": 0.25,
+                  "source": "on_chain_extension"
+                },
+                "sentiment": {
+                  "score": 5.0,
+                  "weight": 0.2,
+                  "source": "sentiment_layer"
+                },
+                "macro": {
+                  "score": 7.5,
+                  "weight": 0.25,
+                  "source": "external_macro",
+                  "spx_correlation": {
+                    "ok": true,
+                    "feature_ref": 111,
+                    "merged_into": "multi_dim_analysis_73",
+                    "dimension": "macro",
+                    "pearson_r": 1.0,
+                    "window_days": 30,
+                    "strength": "strong",
+                    "method": "pearson",
+                    "spx_source": "yahoo_finance_equivalent",
+                    "windows_available": [
+                      30,
+                      90,
+                      180
+                    ],
+                    "statistical_not_causal": true,
+                    "fee_db": {
+                      "compute_usd": 0.0005
+                    }
+                  },
+                  "event_nexus": {
+                    "ok": true,
+                    "feature_ref": 133,
+                    "merged_into": [
+                      "multi_dim_analysis_73",
+                      "market_radar"
+                    ],
+                    "routes": [
+                      "/intelligence/multi-dim/macro",
+                      "/radar/market-health/macro"
+                    ],
+                    "ai_naming_rejected": true,
+                    "rule_based_only": true,
+                    "event": "CPI",
+                    "event_date": "2026-03-12",
+                    "historical_btc_move_24h_pct": 8.0,
+                    "volatility_regime_multiplier": 1.2,
+                    "expected_impact_pct": 9.6,
+                    "risk_elevated": true,
+                    "formula": "Expected Impact = Historical Avg \u00d7 Volatility Regime",
+                    "insight": {
+                      "en": "CPI on 2026-03-12 \u2014 historically BTC \u00b18.0% in 24h \u2014 Risk Score elevated",
+                      "ar": "CPI \u0641\u064a 2026-03-12 \u2014 \u062a\u0627\u0631\u064a\u062e\u064a\u0627\u064b BTC \u00b18.0% \u062e\u0644\u0627\u0644 24 \u0633\u0627\u0639\u0629"
+                    },
+                    "historical_not_prediction": true,
+                    "fee_db": {
+                      "compute_usd": 0.001
+                    },
+                    "m2_flow": {
+                      "ok": true,
+                      "feature_ref": 171,
+                      "route": "/intelligence/multi-dim/macro/m2",
+                      "extends_ref": 133,
+                      "merged_into": [
+                        "macro_dimension_133",
+                        "daily_top3_62",
+                        "market_radar"
+                      ],
+                      "source": "FRED",
+                      "attribution": "Data: Federal Reserve (FRED)",
+                      "m2_supply_change_yoy_pct": 2.1,
+                      "btc_correlation_90d_pearson": 0.42,
+                      "historical_impact": {
+                        "window_days": 30,
+                        "avg_btc_return_pct": 12.0,
+                        "rule_based": true
+                      },
+                      "insight": {
+                        "en": "M2 grew 2.1% \u2014 historically BTC \u00b112.0% within 30 days",
+                        "ar": "M2 \u0646\u0645\u0627 2.1% \u2014 \u062a\u0627\u0631\u064a\u062e\u064a\u0627\u064b BTC \u00b112.0% \u062e\u0644\u0627\u0644 30 \u064a\u0648\u0645\u0627\u064b"
+                      },
+                      "historical_not_prediction": true,
+                      "disclaimer": "Analysis only \u2014 not financial advice, guarantee, or protection.",
+                      "fee_db": {
+                        "compute_usd": 0.0015,
+                        "api_usd": 0.0003
+                      }
+                    },
+                    "merged_features": [
+                      133,
+                      171,
+                      196,
+                      197,
+                      241
+                    ],
+                    "yahoo_finance": {
+                      "ok": true,
+                      "feature_ref": 196,
+                      "route": "/intelligence/multi-dim/macro/yahoo",
+                      "extends_ref": 133,
+                      "merged_into": [
+                        "macro_dimension_133",
+                        "market_radar",
+                        "daily_top3_62"
+                      ],
+                      "source": "Yahoo Finance",
+                      "attribution": "Data: Yahoo Finance",
+                      "benchmarks": {
+                        "SPX": {
+                          "value": 5200,
+                          "change_30d_pct": 2.1
+                        },
+                        "NDX": {
+                          "value": 18500,
+                          "change_30d_pct": 3.0
+                        },
+                        "VIX": {
+                          "value": 14.5,
+                          "change_30d_pct": -8.0
+                        },
+                        "DXY": {
+                          "value": 104.2,
+                          "change_30d_pct": 0.5
+                        },
+                        "GOLD": {
+                          "value": 2350,
+                          "change_30d_pct": 1.8
+                        },
+                        "OIL": {
+                          "value": 78.5,
+                          "change_30d_pct": -2.0
+                        }
+                      },
+                      "btc_correlation_30d": 0.38,
+                      "btc_correlation_90d": 0.42,
+                      "historical_crypto_impact_30d_pct": 8.5,
+                      "fee_db": {
+                        "ingest_usd": 0.0004
+                      }
+                    },
+                    "alpha_vantage": {
+                      "ok": true,
+                      "feature_ref": 197,
+                      "route": "/intelligence/multi-dim/macro/alpha-vantage",
+                      "extends_ref": 133,
+                      "merged_into": [
+                        "macro_dimension_133"
+                      ],
+                      "source": "Alpha Vantage",
+                      "attribution": "Data: Alpha Vantage",
+                      "role": "macro_backup_redundancy",
+                      "failover_from": "yahoo_finance_196",
+                      "yahoo_primary_available": true,
+                      "free_tier_only": true,
+                      "latency_buffer_ref": 101,
+                      "fee_db": {
+                        "ingest_usd": 0.0005
+                      }
+                    },
+                    "fred": {
+                      "ok": true,
+                      "feature_ref": 241,
+                      "route": "/intelligence/multi-dim/macro/fred",
+                      "merged_into": [
+                        "macro_dimension_133",
+                        "m2_macro_flow_171",
+                        "market_radar",
+                        "daily_top3_62"
+                      ],
+                      "series": {
+                        "M2SL": {
+                          "name": "M2 Money Supply",
+                          "value": 21200,
+                          "unit": "billions_usd",
+                          "release_date": "2026-08-01"
+                        },
+                        "FEDFUNDS": {
+                          "name": "Fed Funds Rate",
+                          "value": 5.25,
+                          "unit": "percent",
+                          "release_date": "2026-07-31"
+                        },
+                        "CPIAUCSL": {
+                          "name": "CPI",
+                          "value": 315.2,
+                          "unit": "index",
+                          "release_date": "2026-08-12"
+                        },
+                        "UNRATE": {
+                          "name": "Unemployment Rate",
+                          "value": 4.1,
+                          "unit": "percent",
+                          "release_date": "2026-08-02"
+                        }
+                      },
+                      "btc_correlation_90d": 0.42,
+                      "free_tier": true,
+                      "attribution": "Data: Federal Reserve Economic Data (FRED)",
+                      "revision_history_visible": true,
+                      "disclaimer": "Analysis only \u2014 not financial advice, guarantee, protection, or insurance.",
+                      "fee_db": {
+                        "ingest_usd": 0.0005
+                      }
+                    }
+                  }
+                }
+              },
+              "formula_visible": true,
+              "expandable": true,
+              "modular_architecture": true,
+              "rule_based_only": true,
+              "disclaimer": "Analysis only \u2014 not financial advice or guaranteed return.",
+              "performance_target_ms": 500,
+              "cached": true,
+              "fee_db": {
+                "per_dimension_usd": 0.0003,
+                "total_usd": 0.0012
+              },
+              "merged_features": [
+                73,
+                111,
+                133
+              ]
+            },
+            "cross_market": {
+              "ok": true,
+              "capability_id": 567,
+              "symbol": "BTC",
+              "timestamp": "2026-09-04T23:01:35.941298+00:00",
+              "disclaimer": "Analysis only \u2014 not financial advice, guarantee, or execution.",
+              "analysis_only": true,
+              "no_execution": true,
+              "cross_market": 4245.2,
+              "feature": "Cross-Market Decision Intelligence",
+              "attribution": "BLACKDARK institutional delivery intelligence layer",
+              "formula_visible": true
+            },
+            "composite_score": 5.0
+          },
+          "pass": true,
+          "detail": "not_null"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 227,
+      "capability_name": "Unified Trading Intelligence Workspace",
+      "expected_surface": "unified_trading_intelligence_workspace",
+      "probe_success": true,
+      "probe_surface": "unified_trading_intelligence_workspace",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "unified_trading_intelligence_workspace",
+          "pass": true,
+          "detail": "actual='unified_trading_intelligence_workspace' expected='unified_trading_intelligence_workspace'"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.feature_ref",
+          "type": "numeric",
+          "condition": "== 227",
+          "actual": 227,
+          "pass": true,
+          "detail": "actual=227.0 need == 227.0"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.source",
+          "type": "enum",
+          "condition": "== intelligence_market_extensions_layer.analyze_etf_premium_227",
+          "actual": "intelligence_market_extensions_layer.analyze_etf_premium_227",
+          "pass": true,
+          "detail": "actual='intelligence_market_extensions_layer.analyze_etf_premium_227' expected='intelligence_market_extensions_layer.analyze_etf_premium_227'"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 228,
+      "capability_name": "Funding Rate Intelligence",
+      "expected_surface": "funding_rate_intelligence",
+      "probe_success": true,
+      "probe_surface": "funding_rate_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 204.5,
+      "domain_rules_total": 7,
+      "domain_rules_passed": 7,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 6,
+      "semantic_rules_passed": 6,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "funding_rate_intelligence",
+          "pass": true,
+          "detail": "actual='funding_rate_intelligence' expected='funding_rate_intelligence'"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK",
+          "actual": "REUSED-LINK",
+          "pass": true,
+          "detail": "actual='REUSED-LINK' expected='REUSED-LINK'"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 86",
+          "actual": 86,
+          "pass": true,
+          "detail": "actual=86.0 need == 86.0"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02",
+          "actual": "batch02",
+          "pass": true,
+          "detail": "actual='batch02' expected='batch02'"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_086",
+          "actual": "cap646/batch02_production.py::cap_086",
+          "pass": true,
+          "detail": "actual='cap646/batch02_production.py::cap_086' expected='cap646/batch02_production.py::cap_086'"
+        },
+        {
+          "field": "funding_rate",
+          "type": "present",
+          "condition": "not_null",
+          "actual": {
+            "derivatives_overview": {
+              "asset": "BTC",
+              "timestamp": "2026-09-04T23:01:36.146396+00:00",
+              "free_tier": {
+                "source": "binance_futures_public",
+                "asset": "BTC",
+                "symbol": "BTCUSDT",
+                "timestamp": "2026-09-04T23:01:36.017833+00:00",
+                "mark_price": 0.0,
+                "funding_rate": 0.0,
+                "funding_rate_pct": 0.0,
+                "open_interest_contracts": 0.0,
+                "open_interest_usd": 0,
+                "change_24h_pct": 0.0,
+                "long_short_ratio": 0.0,
+                "long_account_pct": 0.0,
+                "short_account_pct": 0.0,
+                "taker_buy_sell_ratio": 0.0,
+                "available": false
+              },
+              "coinglass": {
+                "funding": {
+                  "available": false,
+                  "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+                },
+                "liquidations": {
+                  "available": false,
+                  "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+                },
+                "open_interest": {
+                  "available": false,
+                  "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+                },
+                "note": "CoinGlass enhances data when COINGLASS_API_KEY is set"
+              },
+              "deribit_options": {
+                "provider": "deribit",
+                "assets": {
+                  "BTC": {
+                    "success": true,
+                    "exchange": "deribit",
+                    "currency": "BTC",
+                    "count": 988,
+                    "instruments": [
+                      {
+                        "instrument": "BTC-26MAR27-104000-C",
+                        "mark_price": 0.04184757,
+                        "bid": 0.041,
+                        "ask": 0.043,
+                        "open_interest": 115.2,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-7SEP26-72000-C",
+                        "mark_price": 0.09549405,
+                        "bid": 0.0935,
+                        "ask": 0.0975,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-84000-C",
+                        "mark_price": 0.0381203,
+                        "bid": 0.0375,
+                        "ask": 0.0385,
+                        "open_interest": 1103.9,
+                        "volume": 47.3
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-170000-C",
+                        "mark_price": 0.00122489,
+                        "bid": 0.001,
+                        "ask": 0.0015,
+                        "open_interest": 2394.2,
+                        "volume": 0.1
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-65000-C",
+                        "mark_price": 0.18548127,
+                        "bid": 0.1835,
+                        "ask": 0.188,
+                        "open_interest": 1275.9,
+                        "volume": 0.8
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-130000-P",
+                        "mark_price": 0.6087814,
+                        "bid": 0.595,
+                        "ask": 0.6175,
+                        "open_interest": 0.4,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-88000-C",
+                        "mark_price": 0.00017296,
+                        "bid": 0.0001,
+                        "ask": 0.0003,
+                        "open_interest": 0.3,
+                        "volume": 0.3
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-86000-P",
+                        "mark_price": 0.11627428,
+                        "bid": 0.11,
+                        "ask": 0.1195,
+                        "open_interest": 30.2,
+                        "volume": 1.0
+                      },
+                      {
+                        "instrument": "BTC-7SEP26-89000-C",
+                        "mark_price": 4.217e-05,
+                        "bid": null,
+                        "ask": 0.0003,
+                        "open_interest": 8.1,
+                        "volume": 8.0
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-85000-P",
+                        "mark_price": 0.06828038,
+                        "bid": 0.065,
+                        "ask": 0.071,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-52000-C",
+                        "mark_price": 0.352105,
+                        "bid": 0.35,
+                        "ask": 0.3555,
+                        "open_interest": 0.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-300000-C",
+                        "mark_price": 2.61e-06,
+                        "bid": null,
+                        "ask": 0.0001,
+                        "open_interest": 196.3,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-11SEP26-68000-C",
+                        "mark_price": 0.14606342,
+                        "bid": 0.1445,
+                        "ask": 0.148,
+                        "open_interest": 3.1,
+                        "volume": 1.0
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-40000-C",
+                        "mark_price": 0.51432728,
+                        "bid": 0.5135,
+                        "ask": 0.516,
+                        "open_interest": 82.1,
+                        "volume": 0.3
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-64000-C",
+                        "mark_price": 0.2776483,
+                        "bid": 0.2735,
+                        "ask": 0.2815,
+                        "open_interest": 33.5,
+                        "volume": 5.4
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-72000-P",
+                        "mark_price": 0.00556575,
+                        "bid": 0.005,
+                        "ask": 0.006,
+                        "open_interest": 2149.6,
+                        "volume": 190.0
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-85000-P",
+                        "mark_price": 0.14388096,
+                        "bid": 0.136,
+                        "ask": 0.1495,
+                        "open_interest": 3.9,
+                        "volume": 2.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-62000-P",
+                        "mark_price": 0.0006898,
+                        "bid": 0.0007,
+                        "ask": 0.0008,
+                        "open_interest": 1429.6,
+                        "volume": 18.7
+                      },
+                      {
+                        "instrument": "BTC-11SEP26-65000-P",
+                        "mark_price": 0.00010863,
+                        "bid": null,
+                        "ask": 0.0003,
+                        "open_interest": 47.3,
+                        "volume": 1.5
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-65000-P",
+                        "mark_price": 0.05690527,
+                        "bid": 0.0555,
+                        "ask": 0.058,
+                        "open_interest": 24.7,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-55000-C",
+                        "mark_price": 0.34310615,
+                        "bid": 0.3395,
+                        "ask": 0.348,
+                        "open_interest": 28.6,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-62000-C",
+                        "mark_price": 0.27062341,
+                        "bid": 0.266,
+                        "ask": 0.276,
+                        "open_interest": 59.7,
+                        "volume": 1.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-150000-P",
+                        "mark_price": 0.83734833,
+                        "bid": 0.819,
+                        "ask": 0.851,
+                        "open_interest": 0.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-120000-P",
+                        "mark_price": 0.50610459,
+                        "bid": 0.4995,
+                        "ask": 0.5095,
+                        "open_interest": 174.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-125000-P",
+                        "mark_price": 0.55093491,
+                        "bid": 0.537,
+                        "ask": 0.562,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-6SEP26-79500-P",
+                        "mark_price": 0.00327813,
+                        "bid": 0.0029,
+                        "ask": 0.0036,
+                        "open_interest": 106.8,
+                        "volume": 117.8
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-84000-P",
+                        "mark_price": 0.08755924,
+                        "bid": 0.0835,
+                        "ask": 0.09,
+                        "open_interest": 8.3,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-82000-C",
+                        "mark_price": 0.11648366,
+                        "bid": 0.1155,
+                        "ask": 0.1175,
+                        "open_interest": 1162.7,
+                        "volume": 24.2
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-67000-C",
+                        "mark_price": 0.17265722,
+                        "bid": 0.171,
+                        "ask": 0.1765,
+                        "open_interest": 108.4,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-55000-C",
+                        "mark_price": 0.31004417,
+                        "bid": 0.3085,
+                        "ask": 0.312,
+                        "open_interest": 143.7,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-88000-C",
+                        "mark_price": 0.1214641,
+                        "bid": 0.1205,
+                        "ask": 0.123,
+                        "open_interest": 21.3,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-74000-P",
+                        "mark_price": 0.04862926,
+                        "bid": 0.048,
+                        "ask": 0.0495,
+                        "open_interest": 162.0,
+                        "volume": 1.9
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-45000-C",
+                        "mark_price": 0.46811976,
+                        "bid": 0.4675,
+                        "ask": 0.47,
+                        "open_interest": 0.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-74000-C",
+                        "mark_price": 0.08046686,
+                        "bid": 0.078,
+                        "ask": 0.0825,
+                        "open_interest": 1492.6,
+                        "volume": 1.7
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-88000-C",
+                        "mark_price": 0.03896929,
+                        "bid": 0.0385,
+                        "ask": 0.0395,
+                        "open_interest": 78.7,
+                        "volume": 0.6
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-54000-C",
+                        "mark_price": 0.37235881,
+                        "bid": 0.368,
+                        "ask": 0.3755,
+                        "open_interest": 0.9,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-6SEP26-81000-C",
+                        "mark_price": 0.00036736,
+                        "bid": 0.0003,
+                        "ask": 0.0005,
+                        "open_interest": 90.8,
+                        "volume": 103.1
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-84000-C",
+                        "mark_price": 0.06840686,
+                        "bid": 0.068,
+                        "ask": 0.069,
+                        "open_interest": 1345.6,
+                        "volume": 60.1
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-54000-P",
+                        "mark_price": 0.00024642,
+                        "bid": 0.0001,
+                        "ask": 0.0004,
+                        "open_interest": 768.9,
+                        "volume": 0.3
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-73000-P",
+                        "mark_price": 0.03470634,
+                        "bid": 0.034,
+                        "ask": 0.0355,
+                        "open_interest": 17.5,
+                        "volume": 0.8
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-104000-C",
+                        "mark_price": 0.01720846,
+                        "bid": 0.017,
+                        "ask": 0.018,
+                        "open_interest": 90.7,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-90000-C",
+                        "mark_price": 7.446e-05,
+                        "bid": null,
+                        "ask": 0.0002,
+                        "open_interest": 8.1,
+                        "volume": 8.2
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-155000-P",
+                        "mark_price": 0.94513859,
+                        "bid": 0.937,
+                        "ask": 0.9495,
+                        "open_interest": 0.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-105000-C",
+                        "mark_price": 0.00060221,
+                        "bid": 0.0005,
+                        "ask": 0.0007,
+                        "open_interest": 1537.3,
+                        "volume": 1.1
+                      },
+                      {
+                        "instrument": "BTC-18SEP26-90000-C",
+                        "mark_price": 0.00241991,
+                        "bid": 0.0022,
+                        "ask": 0.0026,
+                        "open_interest": 409.7,
+                        "volume": 208.4
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-70000-C",
+                        "mark_price": 0.15361906,
+                        "bid": 0.1495,
+                        "ask": 0.1585,
+                        "open_interest": 4.2,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-7SEP26-80500-C",
+                        "mark_price": 0.00329874,
+                        "bid": 0.0031,
+                        "ask": 0.0036,
+                        "open_interest": 28.4,
+                        "volume": 21.2
+                      },
+                      {
+                        "instrument": "BTC-7SEP26-76500-P",
+                        "mark_price": 0.00044028,
+                        "bid": 0.0003,
+                        "ask": 0.0006,
+                        "open_interest": 47.3,
+                        "volume": 10.7
+                      },
+                      {
+                        "instrument": "BTC-6SEP26-82000-P",
+                        "mark_price": 0.03042974,
+                        "bid": 0.0285,
+                        "ask": 0.032,
+                        "open_interest": 5.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-90000-P",
+                        "mark_price": 0.14423537,
+                        "bid": 0.1395,
+                        "ask": 0.1475,
+                        "open_interest": 5.6,
+                        "volume": 0.0
+                      }
+                    ]
+                  }
+                },
+                "note": "Options intelligence for institutional due diligence \u2014 not auto-execution."
+              },
+              "sources": [
+                "Binance Futures (free)",
+                "Deribit",
+                "CoinGlass (optional)"
+              ],
+              "primary_source": "coinglass"
+            },
+            "funding_rate": 0.0,
+            "funding_rate_pct": 0.0
+          },
+          "pass": true,
+          "detail": "not_null"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 229,
+      "capability_name": "Cross-Exchange Funding Arbitrage Scanner",
+      "expected_surface": "cross_exchange_funding_arbitrage_scanner",
+      "probe_success": true,
+      "probe_surface": "cross_exchange_funding_arbitrage_scanner",
+      "production_spine": "batch05",
+      "elapsed_ms": 1038.4,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "cross_exchange_funding_arbitrage_scanner",
+          "pass": true,
+          "detail": "actual='cross_exchange_funding_arbitrage_scanner' expected='cross_exchange_funding_arbitrage_scanner'"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.feature_ref",
+          "type": "numeric",
+          "condition": "== 229",
+          "actual": 229,
+          "pass": true,
+          "detail": "actual=229.0 need == 229.0"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.generate_reasoning_explanation_229",
+          "actual": "intelligence_ux_extensions_layer.generate_reasoning_explanation_229",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.generate_reasoning_explanation_229' expected='intelligence_ux_extensions_layer.generate_reasoning_explanation_229'"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 230,
+      "capability_name": "Spot-Perp Arbitrage Scanner",
+      "expected_surface": "spot_perp_arbitrage_scanner",
+      "probe_success": true,
+      "probe_surface": "spot_perp_arbitrage_scanner",
+      "production_spine": "batch05",
+      "elapsed_ms": 53.2,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "spot_perp_arbitrage_scanner",
+          "pass": true,
+          "detail": "actual='spot_perp_arbitrage_scanner' expected='spot_perp_arbitrage_scanner'"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.feature_ref",
+          "type": "numeric",
+          "condition": "== 230",
+          "actual": 230,
+          "pass": true,
+          "detail": "actual=230.0 need == 230.0"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.analyze_cross_exchange_divergence_230",
+          "actual": "intelligence_ux_extensions_layer.analyze_cross_exchange_divergence_230",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.analyze_cross_exchange_divergence_230' expected='intelligence_ux_extensions_layer.analyze_cross_exchange_divergence_230'"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 231,
+      "capability_name": "Futures Basis & Term Structure",
+      "expected_surface": "futures_basis_term_structure",
+      "probe_success": true,
+      "probe_surface": "futures_basis_term_structure",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.7,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "futures_basis_term_structure",
+          "pass": true,
+          "detail": "actual='futures_basis_term_structure' expected='futures_basis_term_structure'"
+        },
+        {
+          "field": "futures_basis_term_structure.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "futures_basis_term_structure.feature_ref",
+          "type": "numeric",
+          "condition": "== 231",
+          "actual": 231,
+          "pass": true,
+          "detail": "actual=231.0 need == 231.0"
+        },
+        {
+          "field": "futures_basis_term_structure.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.triangular_arbitrage_status_231",
+          "actual": "intelligence_ux_extensions_layer.triangular_arbitrage_status_231",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.triangular_arbitrage_status_231' expected='intelligence_ux_extensions_layer.triangular_arbitrage_status_231'"
+        },
+        {
+          "field": "futures_basis_term_structure.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 232,
+      "capability_name": "Open Interest Intelligence",
+      "expected_surface": "open_interest_intelligence",
+      "probe_success": true,
+      "probe_surface": "open_interest_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 85.1,
+      "domain_rules_total": 8,
+      "domain_rules_passed": 8,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 7,
+      "semantic_rules_passed": 7,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "open_interest_intelligence",
+          "pass": true,
+          "detail": "actual='open_interest_intelligence' expected='open_interest_intelligence'"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK",
+          "actual": "REUSED-LINK",
+          "pass": true,
+          "detail": "actual='REUSED-LINK' expected='REUSED-LINK'"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 205",
+          "actual": 205,
+          "pass": true,
+          "detail": "actual=205.0 need == 205.0"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05",
+          "actual": "batch05",
+          "pass": true,
+          "detail": "actual='batch05' expected='batch05'"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_open_interest_205",
+          "actual": "cap646/batch05_strangler_spine.py::build_open_interest_205",
+          "pass": true,
+          "detail": "actual='cap646/batch05_strangler_spine.py::build_open_interest_205' expected='cap646/batch05_strangler_spine.py::build_open_interest_205'"
+        },
+        {
+          "field": "open_interest_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "open_interest_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 205",
+          "actual": 205,
+          "pass": true,
+          "detail": "actual=205.0 need == 205.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 233,
+      "capability_name": "Liquidation Intelligence",
+      "expected_surface": "liquidation_intelligence",
+      "probe_success": true,
+      "probe_surface": "liquidation_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.9,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "liquidation_intelligence",
+          "pass": true,
+          "detail": "actual='liquidation_intelligence' expected='liquidation_intelligence'"
+        },
+        {
+          "field": "liquidation_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "liquidation_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 233",
+          "actual": 233,
+          "pass": true,
+          "detail": "actual=233.0 need == 233.0"
+        },
+        {
+          "field": "liquidation_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.build_heatmap_component_233",
+          "actual": "intelligence_ux_extensions_layer.build_heatmap_component_233",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.build_heatmap_component_233' expected='intelligence_ux_extensions_layer.build_heatmap_component_233'"
+        },
+        {
+          "field": "liquidation_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 234,
+      "capability_name": "CVD Intelligence",
+      "expected_surface": "cvd_intelligence",
+      "probe_success": true,
+      "probe_surface": "cvd_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.6,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "cvd_intelligence",
+          "pass": true,
+          "detail": "actual='cvd_intelligence' expected='cvd_intelligence'"
+        },
+        {
+          "field": "cvd_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "cvd_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 234",
+          "actual": 234,
+          "pass": true,
+          "detail": "actual=234.0 need == 234.0"
+        },
+        {
+          "field": "cvd_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.live_dashboard_status_234",
+          "actual": "intelligence_ux_extensions_layer.live_dashboard_status_234",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.live_dashboard_status_234' expected='intelligence_ux_extensions_layer.live_dashboard_status_234'"
+        },
+        {
+          "field": "cvd_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 235,
+      "capability_name": "Long/Short Ratio Intelligence",
+      "expected_surface": "long_short_ratio_intelligence",
+      "probe_success": true,
+      "probe_surface": "long_short_ratio_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "long_short_ratio_intelligence",
+          "pass": true,
+          "detail": "actual='long_short_ratio_intelligence' expected='long_short_ratio_intelligence'"
+        },
+        {
+          "field": "long_short_ratio_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "long_short_ratio_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 235",
+          "actual": 235,
+          "pass": true,
+          "detail": "actual=235.0 need == 235.0"
+        },
+        {
+          "field": "long_short_ratio_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.whale_intelligence_status_235",
+          "actual": "intelligence_ux_extensions_layer.whale_intelligence_status_235",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.whale_intelligence_status_235' expected='intelligence_ux_extensions_layer.whale_intelligence_status_235'"
+        },
+        {
+          "field": "long_short_ratio_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 236,
+      "capability_name": "DEX Screener",
+      "expected_surface": "dex_screener",
+      "probe_success": true,
+      "probe_surface": "dex_screener",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.4,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "dex_screener",
+          "pass": true,
+          "detail": "actual='dex_screener' expected='dex_screener'"
+        },
+        {
+          "field": "dex_screener.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "dex_screener.feature_ref",
+          "type": "numeric",
+          "condition": "== 236",
+          "actual": 236,
+          "pass": true,
+          "detail": "actual=236.0 need == 236.0"
+        },
+        {
+          "field": "dex_screener.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.subscription_tiers_status_236",
+          "actual": "intelligence_ux_extensions_layer.subscription_tiers_status_236",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.subscription_tiers_status_236' expected='intelligence_ux_extensions_layer.subscription_tiers_status_236'"
+        },
+        {
+          "field": "dex_screener.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 237,
+      "capability_name": "Token Risk Scoring",
+      "expected_surface": "token_risk_scoring",
+      "probe_success": true,
+      "probe_surface": "token_risk_scoring",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "token_risk_scoring",
+          "pass": true,
+          "detail": "actual='token_risk_scoring' expected='token_risk_scoring'"
+        },
+        {
+          "field": "token_risk_scoring.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "token_risk_scoring.feature_ref",
+          "type": "numeric",
+          "condition": "== 237",
+          "actual": 237,
+          "pass": true,
+          "detail": "actual=237.0 need == 237.0"
+        },
+        {
+          "field": "token_risk_scoring.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.generate_market_summary_237",
+          "actual": "intelligence_ux_extensions_layer.generate_market_summary_237",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.generate_market_summary_237' expected='intelligence_ux_extensions_layer.generate_market_summary_237'"
+        },
+        {
+          "field": "token_risk_scoring.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 238,
+      "capability_name": "Pump & Dump Detection",
+      "expected_surface": "pump_dump_detection",
+      "probe_success": true,
+      "probe_surface": "pump_dump_detection",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "pump_dump_detection",
+          "pass": true,
+          "detail": "actual='pump_dump_detection' expected='pump_dump_detection'"
+        },
+        {
+          "field": "pump_dump_detection.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "pump_dump_detection.feature_ref",
+          "type": "numeric",
+          "condition": "== 238",
+          "actual": 238,
+          "pass": true,
+          "detail": "actual=238.0 need == 238.0"
+        },
+        {
+          "field": "pump_dump_detection.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.scan_market_opportunities_238",
+          "actual": "intelligence_ux_extensions_layer.scan_market_opportunities_238",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.scan_market_opportunities_238' expected='intelligence_ux_extensions_layer.scan_market_opportunities_238'"
+        },
+        {
+          "field": "pump_dump_detection.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 239,
+      "capability_name": "Narrative Tracking",
+      "expected_surface": "narrative_tracking",
+      "probe_success": true,
+      "probe_surface": "narrative_tracking",
+      "production_spine": "batch05",
+      "elapsed_ms": 100.7,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "narrative_tracking",
+          "pass": true,
+          "detail": "actual='narrative_tracking' expected='narrative_tracking'"
+        },
+        {
+          "field": "narrative_tracking.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "narrative_tracking.feature_ref",
+          "type": "numeric",
+          "condition": "== 239",
+          "actual": 239,
+          "pass": true,
+          "detail": "actual=239.0 need == 239.0"
+        },
+        {
+          "field": "narrative_tracking.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.live_ta_status_239",
+          "actual": "intelligence_ux_extensions_layer.live_ta_status_239",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.live_ta_status_239' expected='intelligence_ux_extensions_layer.live_ta_status_239'"
+        },
+        {
+          "field": "narrative_tracking.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 240,
+      "capability_name": "Sector Rotation Intelligence",
+      "expected_surface": "sector_rotation_intelligence",
+      "probe_success": true,
+      "probe_surface": "sector_rotation_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.8,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "sector_rotation_intelligence",
+          "pass": true,
+          "detail": "actual='sector_rotation_intelligence' expected='sector_rotation_intelligence'"
+        },
+        {
+          "field": "sector_rotation_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "sector_rotation_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 240",
+          "actual": 240,
+          "pass": true,
+          "detail": "actual=240.0 need == 240.0"
+        },
+        {
+          "field": "sector_rotation_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.compute_s2f_240",
+          "actual": "intelligence_ux_extensions_layer.compute_s2f_240",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.compute_s2f_240' expected='intelligence_ux_extensions_layer.compute_s2f_240'"
+        },
+        {
+          "field": "sector_rotation_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 2000",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 2000.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 241,
+      "capability_name": "Sentiment Intelligence",
+      "expected_surface": "sentiment_intelligence",
+      "probe_success": true,
+      "probe_surface": "sentiment_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "sentiment_intelligence",
+          "pass": true,
+          "detail": "actual='sentiment_intelligence' expected='sentiment_intelligence'"
+        },
+        {
+          "field": "sentiment_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "sentiment_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 241",
+          "actual": 241,
+          "pass": true,
+          "detail": "actual=241.0 need == 241.0"
+        },
+        {
+          "field": "sentiment_intelligence.source",
+          "type": "enum",
+          "condition": "== intelligence_ux_extensions_layer.ingest_fred_macro_241",
+          "actual": "intelligence_ux_extensions_layer.ingest_fred_macro_241",
+          "pass": true,
+          "detail": "actual='intelligence_ux_extensions_layer.ingest_fred_macro_241' expected='intelligence_ux_extensions_layer.ingest_fred_macro_241'"
+        },
+        {
+          "field": "sentiment_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 242,
+      "capability_name": "Price Prediction / Multi-Signal Forecast",
+      "expected_surface": "price_prediction_multi_signal_forecast",
+      "probe_success": true,
+      "probe_surface": "price_prediction_multi_signal_forecast",
+      "production_spine": "batch05",
+      "elapsed_ms": 1.0,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "price_prediction_multi_signal_forecast",
+          "pass": true,
+          "detail": "actual='price_prediction_multi_signal_forecast' expected='price_prediction_multi_signal_forecast'"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.feature_ref",
+          "type": "numeric",
+          "condition": "== 242",
+          "actual": 242,
+          "pass": true,
+          "detail": "actual=242.0 need == 242.0"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.attach_audit_log_id_242",
+          "actual": "security_trust_data_layer.attach_audit_log_id_242",
+          "pass": true,
+          "detail": "actual='security_trust_data_layer.attach_audit_log_id_242' expected='security_trust_data_layer.attach_audit_log_id_242'"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.latency_ms",
+          "type": "numeric",
+          "condition": "< 5000",
+          "actual": 0.5,
+          "pass": true,
+          "detail": "actual=0.5 need < 5000.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 243,
+      "capability_name": "Correlation Matrix",
+      "expected_surface": "correlation_matrix",
+      "probe_success": true,
+      "probe_surface": "correlation_matrix",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "correlation_matrix",
+          "pass": true,
+          "detail": "actual='correlation_matrix' expected='correlation_matrix'"
+        },
+        {
+          "field": "correlation_matrix.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "correlation_matrix.feature_ref",
+          "type": "numeric",
+          "condition": "== 243",
+          "actual": 243,
+          "pass": true,
+          "detail": "actual=243.0 need == 243.0"
+        },
+        {
+          "field": "correlation_matrix.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.ingest_bybit_price_243",
+          "actual": "security_trust_data_layer.ingest_bybit_price_243",
+          "pass": true,
+          "detail": "actual='security_trust_data_layer.ingest_bybit_price_243' expected='security_trust_data_layer.ingest_bybit_price_243'"
+        },
+        {
+          "field": "correlation_matrix.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 244,
+      "capability_name": "New Listings Intelligence",
+      "expected_surface": "new_listings_intelligence",
+      "probe_success": true,
+      "probe_surface": "new_listings_intelligence",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.6,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "new_listings_intelligence",
+          "pass": true,
+          "detail": "actual='new_listings_intelligence' expected='new_listings_intelligence'"
+        },
+        {
+          "field": "new_listings_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "new_listings_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 244",
+          "actual": 244,
+          "pass": true,
+          "detail": "actual=244.0 need == 244.0"
+        },
+        {
+          "field": "new_listings_intelligence.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.ingest_cointelegraph_rss_244",
+          "actual": "security_trust_data_layer.ingest_cointelegraph_rss_244",
+          "pass": true,
+          "detail": "actual='security_trust_data_layer.ingest_cointelegraph_rss_244' expected='security_trust_data_layer.ingest_cointelegraph_rss_244'"
+        },
+        {
+          "field": "new_listings_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 245,
+      "capability_name": "Market Health & Freshness",
+      "expected_surface": "real_time_data_freshness_update_assurance",
+      "probe_success": true,
+      "probe_surface": "real_time_data_freshness_update_assurance",
+      "production_spine": "batch01",
+      "elapsed_ms": 585.1,
+      "domain_rules_total": 8,
+      "domain_rules_passed": 3,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 7,
+      "semantic_rules_passed": 2,
+      "all_domain_rules_pass": false,
+      "semantic_oracle_pass": false,
+      "oracle_strength": "SEMANTIC_PARTIAL",
+      "functional_status": "DOWNGRADED_SEMANTIC_FAIL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "real_time_data_freshness_update_assurance",
+          "pass": true,
+          "detail": "actual='real_time_data_freshness_update_assurance' expected='real_time_data_freshness_update_assurance'"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='REUSED-LINK'"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 245",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None need == 245.0"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch01",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='batch01'"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch01_production.py::cap_245",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='cap646/batch01_production.py::cap_245'"
+        },
+        {
+          "field": "freshness_chip",
+          "type": "present",
+          "condition": "not_null",
+          "actual": {
+            "label": "Live \u00b7 0.0s ago",
+            "state": "fresh",
+            "freshness_ms": 0.0,
+            "age_sec": 0.0,
+            "as_of_unix": 1788562898.0168324
+          },
+          "pass": true,
+          "detail": "not_null"
+        },
+        {
+          "field": "executable_fresh",
+          "type": "boolean",
+          "condition": "in [true,false]",
+          "actual": true,
+          "pass": false,
+          "detail": "actual=True allowed=[False]"
+        }
+      ],
+      "failed_semantic_rules": [
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='REUSED-LINK'"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 245",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None need == 245.0"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch01",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='batch01'"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch01_production.py::cap_245",
+          "actual": null,
+          "pass": false,
+          "detail": "actual=None expected='cap646/batch01_production.py::cap_245'"
+        },
+        {
+          "field": "executable_fresh",
+          "type": "boolean",
+          "condition": "in [true,false]",
+          "actual": true,
+          "pass": false,
+          "detail": "actual=True allowed=[False]"
+        }
+      ]
+    },
+    {
+      "capability_id": 246,
+      "capability_name": "Coverage Metadata Registry",
+      "expected_surface": "coverage_metadata_registry",
+      "probe_success": true,
+      "probe_surface": "coverage_metadata_registry",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.6,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "coverage_metadata_registry",
+          "pass": true,
+          "detail": "actual='coverage_metadata_registry' expected='coverage_metadata_registry'"
+        },
+        {
+          "field": "coverage_metadata_registry.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "coverage_metadata_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 246",
+          "actual": 246,
+          "pass": true,
+          "detail": "actual=246.0 need == 246.0"
+        },
+        {
+          "field": "coverage_metadata_registry.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.list_etherscan_watchlist_246",
+          "actual": "security_trust_data_layer.list_etherscan_watchlist_246",
+          "pass": true,
+          "detail": "actual='security_trust_data_layer.list_etherscan_watchlist_246' expected='security_trust_data_layer.list_etherscan_watchlist_246'"
+        },
+        {
+          "field": "coverage_metadata_registry.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 247,
+      "capability_name": "Public REST API",
+      "expected_surface": "public_rest_api",
+      "probe_success": true,
+      "probe_surface": "public_rest_api",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.5,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "public_rest_api",
+          "pass": true,
+          "detail": "actual='public_rest_api' expected='public_rest_api'"
+        },
+        {
+          "field": "public_rest_api.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "public_rest_api.feature_ref",
+          "type": "numeric",
+          "condition": "== 247",
+          "actual": 247,
+          "pass": true,
+          "detail": "actual=247.0 need == 247.0"
+        },
+        {
+          "field": "public_rest_api.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.generate_weekly_digest_247",
+          "actual": "security_trust_data_layer.generate_weekly_digest_247",
+          "pass": true,
+          "detail": "actual='security_trust_data_layer.generate_weekly_digest_247' expected='security_trust_data_layer.generate_weekly_digest_247'"
+        },
+        {
+          "field": "public_rest_api.latency_ms",
+          "type": "numeric",
+          "condition": "< 2000",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 2000.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 248,
+      "capability_name": "MCP Server for AI Agents",
+      "expected_surface": "mcp_server_for_ai_agents",
+      "probe_success": true,
+      "probe_surface": "mcp_server_for_ai_agents",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.6,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "mcp_server_for_ai_agents",
+          "pass": true,
+          "detail": "actual='mcp_server_for_ai_agents' expected='mcp_server_for_ai_agents'"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.feature_ref",
+          "type": "numeric",
+          "condition": "== 248",
+          "actual": 248,
+          "pass": true,
+          "detail": "actual=248.0 need == 248.0"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.manual_performance_tracker_248",
+          "actual": "security_trust_data_layer.manual_performance_tracker_248",
+          "pass": true,
+          "detail": "actual='security_trust_data_layer.manual_performance_tracker_248' expected='security_trust_data_layer.manual_performance_tracker_248'"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.latency_ms",
+          "type": "numeric",
+          "condition": "< 5000",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 5000.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 249,
+      "capability_name": "CLI Access",
+      "expected_surface": "cli_access",
+      "probe_success": true,
+      "probe_surface": "cli_access",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.1,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "cli_access",
+          "pass": true,
+          "detail": "actual='cli_access' expected='cli_access'"
+        },
+        {
+          "field": "cli_access.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "cli_access.feature_ref",
+          "type": "numeric",
+          "condition": "== 249",
+          "actual": 249,
+          "pass": true,
+          "detail": "actual=249.0 need == 249.0"
+        },
+        {
+          "field": "cli_access.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.trad_simulator_rejected_status_249",
+          "actual": "security_trust_data_layer.trad_simulator_rejected_status_249",
+          "pass": true,
+          "detail": "actual='security_trust_data_layer.trad_simulator_rejected_status_249' expected='security_trust_data_layer.trad_simulator_rejected_status_249'"
+        },
+        {
+          "field": "cli_access.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    },
+    {
+      "capability_id": 250,
+      "capability_name": "OpenAPI / SDK Generation",
+      "expected_surface": "openapi_sdk_generation",
+      "probe_success": true,
+      "probe_surface": "openapi_sdk_generation",
+      "production_spine": "batch05",
+      "elapsed_ms": 0.1,
+      "domain_rules_total": 6,
+      "domain_rules_passed": 6,
+      "weak_rules_count": 1,
+      "semantic_rules_count": 5,
+      "semantic_rules_passed": 5,
+      "all_domain_rules_pass": true,
+      "semantic_oracle_pass": true,
+      "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+      "functional_status": "PASS_ENGINEERING_LOCAL",
+      "semantic_rule_results": [
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface",
+          "actual": "openapi_sdk_generation",
+          "pass": true,
+          "detail": "actual='openapi_sdk_generation' expected='openapi_sdk_generation'"
+        },
+        {
+          "field": "openapi_sdk_generation.ok",
+          "type": "boolean",
+          "condition": "== true",
+          "actual": true,
+          "pass": true,
+          "detail": "actual=True expected=True"
+        },
+        {
+          "field": "openapi_sdk_generation.feature_ref",
+          "type": "numeric",
+          "condition": "== 250",
+          "actual": 250,
+          "pass": true,
+          "detail": "actual=250.0 need == 250.0"
+        },
+        {
+          "field": "openapi_sdk_generation.source",
+          "type": "enum",
+          "condition": "== security_trust_data_layer.execution_speed_rejected_status_250",
+          "actual": "security_trust_data_layer.execution_speed_rejected_status_250",
+          "pass": true,
+          "detail": "actual='security_trust_data_layer.execution_speed_rejected_status_250' expected='security_trust_data_layer.execution_speed_rejected_status_250'"
+        },
+        {
+          "field": "openapi_sdk_generation.latency_ms",
+          "type": "numeric",
+          "condition": "< 500",
+          "actual": 0.0,
+          "pass": true,
+          "detail": "actual=0.0 need < 500.0"
+        }
+      ],
+      "failed_semantic_rules": []
+    }
+  ]
+}
