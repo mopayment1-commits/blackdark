@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-09-04T10:05:00+00:00",
+  "batch": "batch05",
+  "id_range": "201-250",
+  "count": 50,
+  "source": "docs/CAPABILITIES_826_INVENTORY.json per_id slice",
+  "progress_826_baseline_at_open": "179/826",
+  "official_spine": null,
+  "status_summary": {
+    "NOT_COMPLETE": 50,
+    "PRODUCTION-ALIGNED": 0
+  },
+  "note": "Initial inventory at Batch05 open — all 50 NOT_READY until acceptance + spine wiring. See BATCH05_CLASSIFICATION_INVEST_201_250.json for per-ID INVEST/12207."
+}
