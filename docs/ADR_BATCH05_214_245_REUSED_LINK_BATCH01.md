@@ -34,6 +34,15 @@
 
 Evidence: `docs/BATCH05_REUSED_LINK_PARTIAL_DISPOSITION.json`
 
+## Final disposition (residual 7 — 2026-09-04)
+
+| ID | Institutional decision | Ceiling |
+|----|------------------------|---------|
+| **214** | **CLOSED_TOLERATE_DUAL_PATH** | 2026-12-31 |
+| **245** | **CLOSED_TOLERATE_DUAL_PATH** | 2026-12-31 |
+
+Master record: `docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json` · `docs/ADR_BATCH05_RESIDUAL_7_FINAL_DISPOSITION.md`
+
 ## Public routing truth (end-user GET)
 
 | Layer | Path | Spine for #214/#245 |

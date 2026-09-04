@@ -32,6 +32,12 @@
 | GET `/api/cap646/226` | **batch05** facade → batch02 #69 backend |
 | Entitlement | `canonical_id(226)==69` |
 
+## Final disposition (residual 7 — 2026-09-04)
+
+**Institutional decision:** **CLOSED_REUSED_LINK** — 7/7 domain rules; Six Heroes fed **only** via canonical #69 (Oracle + Arbitrage); facade #226 not in hero inputs.
+
+Evidence: `docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json`
+
 ## Evidence
 
 - `docs/BATCH05_MECE_OVERLAP_226_69_DECISION.json`

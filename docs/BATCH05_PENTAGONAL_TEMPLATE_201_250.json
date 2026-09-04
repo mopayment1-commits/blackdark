@@ -3453,8 +3453,15 @@
           "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228 + #226/#69"
         }
       },
-      "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated"
+      "pentagonal_domain_status": "REUSED-LINK_CLOSED",
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated",
+      "residual_7_disposition": "CLOSED_REUSED_LINK",
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      }
     },
     {
       "capability_id": 207,
@@ -5030,8 +5037,14 @@
           "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228 + #226/#69"
         }
       },
-      "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated"
+      "pentagonal_domain_status": "DUPLICATE_DELEGATION",
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated",
+      "residual_7_disposition": "CLOSED_DUPLICATE_DELEGATION",
+      "pentagonal_impact": {
+        "domain_all_pass": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "Runtime duplicate delegation probe"
+      }
     },
     {
       "capability_id": 213,
@@ -5587,8 +5600,15 @@
           "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228 + #226/#69"
         }
       },
-      "pentagonal_domain_status": "NOT_COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated"
+      "pentagonal_domain_status": "TOLERATED_DUAL_PATH",
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated",
+      "residual_7_disposition": "CLOSED_TOLERATE_DUAL_PATH",
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": false,
+        "domain_all_pass_facade": false,
+        "pentagonal_status": "TOLERATED_DUAL_PATH",
+        "note": "Pentagonal generator uses runtime path; facade contract is authoritative for REUSED-LINK stamp"
+      }
     },
     {
       "capability_id": 215,
@@ -9999,8 +10019,15 @@
           "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228 + #226/#69"
         }
       },
-      "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated"
+      "pentagonal_domain_status": "REUSED-LINK_CLOSED",
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated",
+      "residual_7_disposition": "CLOSED_REUSED_LINK",
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      }
     },
     {
       "capability_id": 227,
@@ -11434,8 +11461,15 @@
           "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228 + #226/#69"
         }
       },
-      "pentagonal_domain_status": "COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated"
+      "pentagonal_domain_status": "REUSED-LINK_CLOSED",
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated",
+      "residual_7_disposition": "CLOSED_REUSED_LINK",
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      }
     },
     {
       "capability_id": 229,
@@ -14963,8 +14997,15 @@
           "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228 + #226/#69"
         }
       },
-      "pentagonal_domain_status": "NOT_COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated"
+      "pentagonal_domain_status": "REUSED-LINK_CLOSED",
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated",
+      "residual_7_disposition": "CLOSED_REUSED_LINK",
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      }
     },
     {
       "capability_id": 233,
@@ -18791,8 +18832,15 @@
           "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228 + #226/#69"
         }
       },
-      "pentagonal_domain_status": "NOT_COMPLETE",
-      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated"
+      "pentagonal_domain_status": "TOLERATED_DUAL_PATH",
+      "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated",
+      "residual_7_disposition": "CLOSED_TOLERATE_DUAL_PATH",
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": false,
+        "domain_all_pass_facade": false,
+        "pentagonal_status": "TOLERATED_DUAL_PATH",
+        "note": "Pentagonal generator uses runtime path; facade contract is authoritative for REUSED-LINK stamp"
+      }
     },
     {
       "capability_id": 246,
@@ -20132,5 +20180,12 @@
     "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%."
   },
   "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%.",
-  "pa_elevated_count": 0
+  "pa_elevated_count": 0,
+  "residual_7_final_disposition_ref": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json",
+  "residual_7_stamp": {
+    "frozen_at": "2026-09-04T22:40:06.496124+00:00",
+    "git_commit": "fe203488b14f0a48162049f038be572085387f20",
+    "residual_7_complete": true,
+    "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%."
+  }
 }

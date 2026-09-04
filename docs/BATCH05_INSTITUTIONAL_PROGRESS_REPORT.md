@@ -172,6 +172,23 @@ Artifacts: `docs/BATCH05_HERO_SIX_FINAL_FREEZE.json` · `BATCH05_HERO_SIX_BINDIN
 
 - `BATCH05_ITEM7_FINAL_INSTITUTIONAL_FREEZE.json` (Item 7 master)
 - `BATCH05_REMAINING_BLOCKERS_MATRIX.json` (Item 7 blockers)
+- `BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json` (residual 7 final)
+
+---
+
+## 15) Residual 7 — final institutional disposition
+
+| ID | Decision | Canonical | Ceiling |
+|----|----------|-----------|---------|
+| **212** | CLOSED_DUPLICATE_DELEGATION | #17 | — |
+| **206** | CLOSED_REUSED_LINK | #86 | — |
+| **214** | CLOSED_TOLERATE_DUAL_PATH | #214 | 2026-12-31 |
+| **226** | CLOSED_REUSED_LINK | #69 | — |
+| **228** | CLOSED_REUSED_LINK | #86 | — |
+| **232** | CLOSED_REUSED_LINK | #205 | — |
+| **245** | CLOSED_TOLERATE_DUAL_PATH | #245 | 2026-12-31 |
+
+**Deferred:** 0 · Artifact: `docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json`
 
 ---
 

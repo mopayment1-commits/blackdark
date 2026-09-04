@@ -31,6 +31,12 @@ Acceptance `catalog_link.binding` updated to `cap646/batch05_strangler_spine.py:
 Pentagonal partial **CLOSED** — facade + runtime probes pass 8/8 domain rules.  
 Evidence: `docs/BATCH05_REUSED_LINK_PARTIAL_DISPOSITION.json`
 
+## Final disposition (residual 7 — 2026-09-04)
+
+**Institutional decision:** **CLOSED_REUSED_LINK** — 8/8 domain rules runtime + facade; canonical #205 strangler verified locally.
+
+Evidence: `docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json`
+
 ## Public routing truth (end-user GET)
 
 | Layer | Path | Spine for #232 |

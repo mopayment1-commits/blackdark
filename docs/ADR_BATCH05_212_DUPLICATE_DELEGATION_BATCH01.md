@@ -29,6 +29,12 @@
 - `runtime.execute_capability`: #212 no longer matches `BATCH05_IDS` → falls through to `is_duplicate` recursion → #17 batch01.
 - `test_duplicate_capability_delegates` contract restored.
 
+## Final disposition (residual 7 — 2026-09-04)
+
+**Institutional decision:** **CLOSED_DUPLICATE_DELEGATION** — 5/5 domain rules on runtime probe; excluded from `BATCH05_IDS`; no batch05 facade (by design).
+
+Evidence: `docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json`
+
 ## Evidence
 
 - `docs/cap646/CAP646_GAP_MATRIX.json` id 212: `final_classification=DUPLICATE/ALREADY_COVERED`, reason `Duplicate of ID17`

@@ -37,6 +37,15 @@ Unlike #214/#245 (legacy `BATCH01_IDS` wins before `BATCH05_IDS`), #206/#228 hav
 
 Entitlement gate uses `canonical_id(206)==canonical_id(228)==86` — verified in gateway contract tests.
 
+## Final disposition (residual 7 — 2026-09-04)
+
+| ID | Institutional decision | Domain rules |
+|----|------------------------|--------------|
+| **206** | **CLOSED_REUSED_LINK** | 7/7 runtime + facade |
+| **228** | **CLOSED_REUSED_LINK** | 7/7 runtime + facade |
+
+Evidence: `docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json` · `docs/ADR_BATCH05_RESIDUAL_7_FINAL_DISPOSITION.md`
+
 ## Evidence
 
 - `docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json`

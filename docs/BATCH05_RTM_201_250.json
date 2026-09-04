@@ -272,7 +272,12 @@
       "production_spine": "batch05",
       "canonical_spine_acceptance": "batch02",
       "time_decision": "Migrate",
-      "build_decision": "REUSED-LINK \u2014 Migrate to batch02 #86; hero uniswap subgraph Eliminated"
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch02 #86; hero uniswap subgraph Eliminated",
+      "residual_7_disposition": {
+        "institutional_decision": "CLOSED_REUSED_LINK",
+        "canonical_capability_id": 86,
+        "tolerate_ceiling": null
+      }
     },
     {
       "id": 207,
@@ -505,7 +510,12 @@
       "production_spine": "batch01",
       "canonical_spine_acceptance": "batch01",
       "time_decision": "Migrate",
-      "build_decision": "DUPLICATE_DELEGATION \u2014 excluded from BATCH05_IDS; runtime duplicate_of=17 (canonical Smart Alerts)"
+      "build_decision": "DUPLICATE_DELEGATION \u2014 excluded from BATCH05_IDS; runtime duplicate_of=17 (canonical Smart Alerts)",
+      "residual_7_disposition": {
+        "institutional_decision": "CLOSED_DUPLICATE_DELEGATION",
+        "canonical_capability_id": 17,
+        "tolerate_ceiling": null
+      }
     },
     {
       "id": 213,
@@ -582,7 +592,12 @@
       "production_spine": "batch01",
       "canonical_spine_acceptance": "batch01",
       "time_decision": "Migrate",
-      "build_decision": "REUSED-LINK \u2014 Migrate to batch01 dedicated; hero whale/arbitrage bindings Eliminated"
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch01 dedicated; hero whale/arbitrage bindings Eliminated",
+      "residual_7_disposition": {
+        "institutional_decision": "CLOSED_TOLERATE_DUAL_PATH",
+        "canonical_capability_id": 214,
+        "tolerate_ceiling": "2026-12-31"
+      }
     },
     {
       "id": 215,
@@ -1049,7 +1064,12 @@
       "production_spine": "batch05",
       "canonical_spine_acceptance": "batch02",
       "time_decision": "Migrate",
-      "build_decision": "REUSED-LINK \u2014 Migrate to batch02 #69; hero launch-event Eliminated"
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch02 #69; hero launch-event Eliminated",
+      "residual_7_disposition": {
+        "institutional_decision": "CLOSED_REUSED_LINK",
+        "canonical_capability_id": 69,
+        "tolerate_ceiling": null
+      }
     },
     {
       "id": 227,
@@ -1126,7 +1146,12 @@
       "production_spine": "batch05",
       "canonical_spine_acceptance": "batch02",
       "time_decision": "Migrate",
-      "build_decision": "REUSED-LINK \u2014 Migrate to batch02 #86; hero drawdown hedge Eliminated"
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch02 #86; hero drawdown hedge Eliminated",
+      "residual_7_disposition": {
+        "institutional_decision": "CLOSED_REUSED_LINK",
+        "canonical_capability_id": 86,
+        "tolerate_ceiling": null
+      }
     },
     {
       "id": 229,
@@ -1281,7 +1306,12 @@
       "production_spine": "batch05",
       "canonical_spine_acceptance": "batch05",
       "time_decision": "Migrate",
-      "build_decision": "REUSED-LINK \u2014 Migrate to canonical #205; hero arbitrage comparison Eliminated"
+      "build_decision": "REUSED-LINK \u2014 Migrate to canonical #205; hero arbitrage comparison Eliminated",
+      "residual_7_disposition": {
+        "institutional_decision": "CLOSED_REUSED_LINK",
+        "canonical_capability_id": 205,
+        "tolerate_ceiling": null
+      }
     },
     {
       "id": 233,
@@ -1787,7 +1817,12 @@
       "production_spine": "batch01",
       "canonical_spine_acceptance": "batch01",
       "time_decision": "Migrate",
-      "build_decision": "REUSED-LINK \u2014 Migrate to batch01 freshness spine; hero coinmarketcal stub Eliminated"
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch01 freshness spine; hero coinmarketcal stub Eliminated",
+      "residual_7_disposition": {
+        "institutional_decision": "CLOSED_TOLERATE_DUAL_PATH",
+        "canonical_capability_id": 245,
+        "tolerate_ceiling": "2026-12-31"
+      }
     },
     {
       "id": 246,
@@ -2006,5 +2041,12 @@
     "artifact_kind": "rtm",
     "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%."
   },
-  "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%."
+  "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%.",
+  "residual_7_final_disposition_ref": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json",
+  "residual_7_stamp": {
+    "frozen_at": "2026-09-04T22:40:06.496124+00:00",
+    "git_commit": "fe203488b14f0a48162049f038be572085387f20",
+    "residual_7_complete": true,
+    "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%."
+  }
 }
