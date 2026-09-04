@@ -1,6 +1,6 @@
 {
-  "executed_at": "2026-09-04T22:43:59.281021+00:00",
-  "git_commit": "a1239c9961ba95a9687087ede8325655ba12453a",
+  "executed_at": "2026-09-04T22:45:36.027649+00:00",
+  "git_commit": "813fa233f2d0972f914ac325e6ac953de9f4bcbb",
   "production_url": "https://blackdark-production.up.railway.app",
   "gate": "ZERO",
   "status": "FAILED",
@@ -18,20 +18,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 146.3,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"gPJ9xTU8T_OcSAeknPRhug\"}"
+          "latency_ms": 151.1,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"ZcOWDzYPQcuZpSNNjq4OvQ\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 127.6,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"UjWMtaorRY-db--FwUFZXw\"}"
+          "latency_ms": 130.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"X6INXoAVRIq35aXfLPU1MQ\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 126.3,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"Ui6z8-nGTRS6g8qbxtoGcA\"}"
+          "latency_ms": 171.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"Ge_Of3vZQ6aj-x8wwUFZXw\"}"
         }
       ],
       "all_http_status": [
@@ -48,20 +48,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 130.6,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"sWgN2-iNS7mxfrC49fVATg\"}"
+          "latency_ms": 126.1,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"Cb8C5kQsTHCEtd0lnPRhug\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 126.7,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"wMLwNXI7SdibEYaP-_9nXA\"}"
+          "latency_ms": 125.2,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"zgCv-XzBTQKKUz9_n6XIxQ\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 125.6,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"jSNyjFUASh62vhDzWUN5dQ\"}"
+          "latency_ms": 130.8,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"V3IiQ-BVT465JRE5pHNmDw\"}"
         }
       ],
       "all_http_status": [
@@ -80,20 +80,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 103.7,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"JJ1n93foQaWo9YLGwUFZXw\"}"
+          "latency_ms": 127.5,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"4FnZqfU0Sv6jCHk99fVATg\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 100.9,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"MiidohLMRC2UQSpPnPRhug\"}"
+          "latency_ms": 104.5,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"toxR4eXGQOaAnbsrjq4OvQ\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 127.8,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"liOaZTdiQbKkDGaEYqVb7A\"}"
+          "latency_ms": 106.2,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"-ZQa0corTZSHBmsTjq4OvQ\"}"
         }
       ],
       "all_http_status": [
@@ -110,20 +110,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 124.0,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"OCvZty9tRROcqqfXnpoFkQ\"}"
+          "latency_ms": 128.0,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"HSdKx4CKQ-yfgjw-lt7tkg\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 105.1,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"tcqlHK5AQqu65KuH-_9nXA\"}"
+          "latency_ms": 130.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"kp7rGXSKTvue9DT5ljLL4A\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 130.0,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"iYkJ-0R8STWPa6959I3ezw\"}"
+          "latency_ms": 128.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"IcbsLRKRQaWflvOcnpoFkQ\"}"
         }
       ],
       "all_http_status": [
@@ -140,20 +140,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 124.5,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"lPUQFRKpSf2_KQ_klt7tkg\"}"
+          "latency_ms": 126.8,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"iIYc8EORS0W_FzfH9I3ezw\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 125.6,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"0wwy_fHDR7eLCy3_6WHkDg\"}"
+          "latency_ms": 104.4,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"W2AEnaIlSp6DnxZZ9I3ezw\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 107.9,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"b5ZAejL9Rt6kcVzf9I3ezw\"}"
+          "latency_ms": 109.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"67YR8iaLSt-w9qA0LPU1MQ\"}"
         }
       ],
       "all_http_status": [
@@ -170,20 +170,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 121.7,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"vQgctfn1S1qrnAqnljLL4A\"}"
+          "latency_ms": 111.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"ZDARd8erQDmsfYlWljLL4A\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 103.9,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"KabGjcOPRM6hXEU5lt7tkg\"}"
+          "latency_ms": 107.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"RqlHTwD4SnKXgwmllt7tkg\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 106.0,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"jj1I25tTQOOpCvEZ9fVATg\"}"
+          "latency_ms": 132.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"CHRcXnFkSqmn5J9f-_9nXA\"}"
         }
       ],
       "all_http_status": [
@@ -200,20 +200,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 130.9,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"iqQdBjkcSiWT2Qarjq4OvQ\"}"
+          "latency_ms": 127.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"22Vxa3n6Qbe-T5Ws2h0iww\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 104.0,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"6inCg1q3SHusVi_xnPRhug\"}"
+          "latency_ms": 103.5,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"u3eZJBqxSBCsisBrjq4OvQ\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 106.5,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"yWZdgqcbSqSU5L_69I3ezw\"}"
+          "latency_ms": 101.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"8sc-S_SjSgui3kx5-_9nXA\"}"
         }
       ],
       "all_http_status": [
@@ -230,20 +230,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 102.8,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"MhOEUJZnTsOQQw1eYqVb7A\"}"
+          "latency_ms": 104.4,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"i0Y9tAZNSWuU4WmY2h0iww\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 101.3,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"DKhme7mRTlm8vKRRlt7tkg\"}"
+          "latency_ms": 99.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"tV_VVQe-RkGfwahRLPU1MQ\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 105.6,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"dIL1oo-vSuanjdq3ljLL4A\"}"
+          "latency_ms": 104.0,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"dpB4iYAAS8W7Qbr_jq4OvQ\"}"
         }
       ],
       "all_http_status": [
@@ -260,20 +260,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 99.8,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"Mu3Q0xyBTa6neQ5lljLL4A\"}"
+          "latency_ms": 133.2,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"WzeQSNYOSvuSpj5FCYBc-A\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 101.5,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"lu0dCsebSfyn3sJYjq4OvQ\"}"
+          "latency_ms": 103.4,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"pL3_UU20QjSnv9ZLLPU1MQ\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 101.7,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"I9n0_v3aR7iY4WhZ9I3ezw\"}"
+          "latency_ms": 103.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"V3iJ6KFNQ4SIhUyhnPRhug\"}"
         }
       ],
       "all_http_status": [
@@ -290,20 +290,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 102.0,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"6txd_sLFTzyfSlqHxtoGcA\"}"
+          "latency_ms": 122.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"WDFY_bPcREWEwmWw0_TJvA\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 105.6,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"q3S067OGTBuQCTTjljLL4A\"}"
+          "latency_ms": 101.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"0oS1ep5BTYydBSO8CYBc-A\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 126.4,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"m3mBkgavSEubnHGO9o6EoQ\"}"
+          "latency_ms": 127.0,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"CEYgUNTzTaCA_I21wUFZXw\"}"
         }
       ],
       "all_http_status": [
@@ -320,20 +320,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 112.4,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"xv9AuQrKQsWyAck69I3ezw\"}"
+          "latency_ms": 100.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"I37zB0cQRYynk3BX9fVATg\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 130.7,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"uWG0Fy-GSsWuPJn7nPRhug\"}"
+          "latency_ms": 100.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"NnaDgkGBRsirfvcy0_TJvA\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 128.2,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"-ju8RV2CSj-jHRaNxtoGcA\"}"
+          "latency_ms": 107.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"7zOSmDWIRTiCMajyCYBc-A\"}"
         }
       ],
       "all_http_status": [
@@ -350,20 +350,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 123.8,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"tASZw7X_R7CLoh74wUFZXw\"}"
+          "latency_ms": 179.2,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"FRHvVIGjRz-KmYVDLPU1MQ\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 125.7,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"0F-HFbdNQUafsx-a0_TJvA\"}"
+          "latency_ms": 110.2,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"07gQxAZBRCi5RnCFLPU1MQ\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 131.3,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"wudClsePSVuQ6_2A9fVATg\"}"
+          "latency_ms": 105.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"Ufsq1BVWQAqo_pNmlt7tkg\"}"
         }
       ],
       "all_http_status": [
@@ -380,20 +380,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 127.7,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"teQJyT5MTj2fR_3Y-_9nXA\"}"
+          "latency_ms": 130.8,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"wEOdjnjkRIWgVD5Djq4OvQ\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 106.2,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"tKjPT02hS3mqpRjbljLL4A\"}"
+          "latency_ms": 122.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"pnjQ5TGYSUa1h5yhpHNmDw\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 102.2,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"rrBNOp1BRgmuDAe4-_9nXA\"}"
+          "latency_ms": 102.0,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"NQmXR3S3RT6NSZ8tLPU1MQ\"}"
         }
       ],
       "all_http_status": [
@@ -410,20 +410,20 @@
         {
           "round": 1,
           "http_status": 404,
-          "latency_ms": 124.9,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"iJ3P6ALARCakcqDklt7tkg\"}"
+          "latency_ms": 128.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"WdkUV9XUQF-eThp1npoFkQ\"}"
         },
         {
           "round": 2,
           "http_status": 404,
-          "latency_ms": 133.6,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"_g44h3i0Raqsw5nswUFZXw\"}"
+          "latency_ms": 102.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"_oNpk2iuSTanxrRs-_9nXA\"}"
         },
         {
           "round": 3,
           "http_status": 404,
-          "latency_ms": 110.3,
-          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"X1kwapgTQ76NlBa7xtoGcA\"}"
+          "latency_ms": 102.1,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"7RwSINXRQkOWFA5Fjq4OvQ\"}"
         }
       ],
       "all_http_status": [
