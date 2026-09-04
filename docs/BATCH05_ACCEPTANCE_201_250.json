@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-04T13:39:10.586538+00:00",
-  "commit_hash": "0febda7db676ff422da4d8aee6825bcde96fa78d",
+  "generated_at": "2026-09-04T15:00:52.727263+00:00",
+  "commit_hash": "696fb90f01af699c25805206f3f05f390f68a5dd",
   "standard": "ISO/IEC/IEEE 29148",
   "scope": "Batch05 IDs 201-250 (50 rows)",
   "pre_probe": true,
@@ -426,11 +426,11 @@
       "capability_id": 212,
       "capability_name": "Smart Alerts",
       "expected_surface": "smart_alerts",
-      "status": "NOT_COMPLETE",
-      "production_spine": "batch05",
+      "status": "DUPLICATE_DELEGATION",
+      "production_spine": "batch01",
       "payload_root": "smart_alerts",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap212",
+      "binding_file": "cap646/batch01_dedicated.py",
+      "binding_function": "_cap017_smart_alerts",
       "domain_rules": [
         {
           "field": "success",
@@ -443,20 +443,27 @@
           "condition": "== expected_surface"
         },
         {
-          "field": "smart_alerts.ok",
-          "type": "boolean",
-          "condition": "== true"
+          "field": "classification",
+          "type": "enum",
+          "condition": "== DUPLICATE/ALREADY_COVERED"
         },
         {
-          "field": "smart_alerts.feature_ref",
+          "field": "duplicate_of",
+          "type": "numeric",
+          "condition": "== 17"
+        },
+        {
+          "field": "requested_capability_id",
           "type": "numeric",
           "condition": "== 212"
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "build_decision": "DUPLICATE_DELEGATION \u2014 excluded from BATCH05_IDS; runtime duplicate_of=17 (canonical Smart Alerts)",
       "hero_underlying": "bd_platform.onchain_defi_sources_layer.hedge_effectiveness_analysis_212",
-      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "time_decision": "Migrate",
+      "notes": "docs/ADR_BATCH05_212_DUPLICATE_DELEGATION_BATCH01.md"
     },
     {
       "capability_id": 213,
@@ -952,11 +959,11 @@
       "capability_id": 226,
       "capability_name": "Cross-Domain Decision Intelligence Layer",
       "expected_surface": "cross_domain_decision_intelligence_layer",
-      "status": "NOT_COMPLETE",
-      "production_spine": "batch05",
-      "payload_root": "cross_domain_decision_intelligence_layer",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap226",
+      "status": "REUSED-LINK",
+      "production_spine": "batch02",
+      "payload_root": "cross_domain_decision",
+      "binding_file": "cap646/batch02_production.py",
+      "binding_function": "cap_069",
       "domain_rules": [
         {
           "field": "success",
@@ -969,20 +976,37 @@
           "condition": "== expected_surface"
         },
         {
-          "field": "cross_domain_decision_intelligence_layer.ok",
-          "type": "boolean",
-          "condition": "== true"
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
         },
         {
-          "field": "cross_domain_decision_intelligence_layer.feature_ref",
+          "field": "catalog_link.canonical_capability_id",
           "type": "numeric",
-          "condition": "== 226"
+          "condition": "== 69"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_069"
+        },
+        {
+          "field": "cross_domain_decision",
+          "type": "present",
+          "condition": "not_null"
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch02 #69; hero launch-event Eliminated",
       "hero_underlying": "bd_platform.intelligence_market_extensions_layer.analyze_launch_event_226",
-      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "time_decision": "Migrate",
+      "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_226_69_DECISION.json"
     },
     {
       "capability_id": 227,

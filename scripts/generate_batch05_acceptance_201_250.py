@@ -89,6 +89,24 @@ REUSED_232_RULES = [
     {"field": "open_interest_intelligence.feature_ref", "type": "numeric", "condition": "== 205"},
 ]
 
+REUSED_226_RULES = [
+    {"field": "catalog_link.classification", "type": "enum", "condition": "== REUSED-LINK"},
+    {"field": "catalog_link.canonical_capability_id", "type": "numeric", "condition": "== 69"},
+    {"field": "catalog_link.canonical_spine", "type": "enum", "condition": "== batch02"},
+    {
+        "field": "catalog_link.binding",
+        "type": "enum",
+        "condition": "== cap646/batch02_production.py::cap_069",
+    },
+    {"field": "cross_domain_decision", "type": "present", "condition": "not_null"},
+]
+
+DUPLICATE_212_RULES = [
+    {"field": "classification", "type": "enum", "condition": "== DUPLICATE/ALREADY_COVERED"},
+    {"field": "duplicate_of", "type": "numeric", "condition": "== 17"},
+    {"field": "requested_capability_id", "type": "numeric", "condition": "== 212"},
+]
+
 _SPECS: dict[int, dict[str, Any]] = {
     214: {
         "status": "REUSED-LINK",
@@ -155,6 +173,30 @@ _SPECS: dict[int, dict[str, Any]] = {
         "build_decision": "REUSED-LINK — Migrate to canonical #205; hero arbitrage comparison Eliminated",
         "time_decision": "Migrate",
         "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json",
+    },
+    212: {
+        "status": "DUPLICATE_DELEGATION",
+        "production_spine": "batch01",
+        "expected_surface": "smart_alerts",
+        "payload_root": "smart_alerts",
+        "binding_file": "cap646/batch01_dedicated.py",
+        "binding_function": "_cap017_smart_alerts",
+        "domain_rules": DUPLICATE_212_RULES,
+        "build_decision": "DUPLICATE_DELEGATION — excluded from BATCH05_IDS; runtime duplicate_of=17 (canonical Smart Alerts)",
+        "time_decision": "Migrate",
+        "notes": "docs/ADR_BATCH05_212_DUPLICATE_DELEGATION_BATCH01.md",
+    },
+    226: {
+        "status": "REUSED-LINK",
+        "production_spine": "batch02",
+        "expected_surface": "cross_domain_decision_intelligence_layer",
+        "payload_root": "cross_domain_decision",
+        "binding_file": "cap646/batch02_production.py",
+        "binding_function": "cap_069",
+        "domain_rules": REUSED_226_RULES,
+        "build_decision": "REUSED-LINK — Migrate to batch02 #69; hero launch-event Eliminated",
+        "time_decision": "Migrate",
+        "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_226_69_DECISION.json",
     },
 }
 

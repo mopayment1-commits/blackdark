@@ -17,51 +17,16 @@ ACCEPTANCE = ROOT / "docs/BATCH05_ACCEPTANCE_201_250.json"
 CATALOG = ROOT / "docs/cap646/CAP646_CATALOG.json"
 MECE_214_245 = ROOT / "docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json"
 MECE_OI_FUNDING = ROOT / "docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json"
+MECE_226_69 = ROOT / "docs/BATCH05_MECE_OVERLAP_226_69_DECISION.json"
 
 REUSED_LINK_BATCH01 = frozenset({214, 245})
-REUSED_LINK_BATCH02 = frozenset({206, 228})
+REUSED_LINK_BATCH02 = frozenset({206, 228, 226})
 REUSED_LINK_INTERNAL = frozenset({232})
+DUPLICATE_DELEGATION_IDS = frozenset({212})
 REUSED_LINK_ALL = REUSED_LINK_BATCH01 | REUSED_LINK_BATCH02 | REUSED_LINK_INTERNAL
 
 # Official semantic overlay — IDs needing explicit RTM classification beyond hero_audit.
-SEMANTIC_OVERLAY: dict[int, dict[str, Any]] = {
-    226: {
-        "semantic_alignment_status": "TYPE-4_HERO_DOMAIN_MISMATCH",
-        "metric_type": "HERO_DOMAIN_SUBSET",
-        "not_partial_misnamed": True,
-        "not_partial_misnamed_reason": (
-            "Surface slug cross_domain_decision_intelligence_layer matches catalog; "
-            "PARTIAL_MISNAMED applies when catalog display name ≠ implemented surface/metric name "
-            "(batch04 #198/#199). #226 gap is hero domain content, not surface rename."
-        ),
-        "repeat_canonical": {
-            "canonical_capability_id": 69,
-            "canonical_spine": "batch02",
-            "canonical_binding": "cap646/batch02_dedicated.py::_cap069",
-            "canonical_payload": "cap646.cross_domain_decision.build_cross_domain_decision_payload",
-            "mece_gate_status": "PENDING_MECE_GATE_226_69",
-        },
-        "semantic_expected": "Cross-domain decision synthesis (multi_dimensional + cross_market composite per canonical #69)",
-        "semantic_actual": (
-            "Token launch-event analysis: dex, pool_depth_usd, historical_pattern, "
-            "whale_activity_usd_first_hour via analyze_launch_event_226"
-        ),
-        "semantic_reason": (
-            "Hero analyze_launch_event_226 has zero semantic token overlap with catalog goal "
-            "(launch/event/analyze vs cross/domain/decision). Canonical #69 batch02 spine implements "
-            "true cross-domain payload; batch05 strangler currently wraps wrong hero domain."
-        ),
-        "semantic_comparison": (
-            "Expected: build_cross_domain_decision_payload (batch02 #69). "
-            "Hero: launch-event risk stub. Runtime batch05: hero-wrapped launch analysis under catalog envelope."
-        ),
-        "miswire_remediation": "STRANGLER_HOLD_PENDING_MECE_226_69",
-        "pentagonal_probe_note": (
-            "Prior pentagonal fail was PROBE_ENTITLEMENT_ARTIFACT (canonical #69 pro-gated); "
-            "resolved in eb1e97a — runtime probe passes with skip_entitlement=True."
-        ),
-    },
-}
+SEMANTIC_OVERLAY: dict[int, dict[str, Any]] = {}
 
 
 def apply_semantic_overlay(cap_id: int, row: dict[str, Any]) -> dict[str, Any]:
@@ -85,6 +50,8 @@ def git_branch() -> str:
 
 
 def duplication_state(cid: int, acceptance: dict[str, Any]) -> str:
+    if cid in DUPLICATE_DELEGATION_IDS or acceptance.get("status") == "DUPLICATE_DELEGATION":
+        return "DUPLICATE_DELEGATION"
     if cid in REUSED_LINK_ALL:
         return "REUSED_LINK"
     if acceptance.get("status") == "REUSED-LINK":
@@ -93,8 +60,12 @@ def duplication_state(cid: int, acceptance: dict[str, Any]) -> str:
 
 
 def duplication_canonical(cid: int, acceptance: dict[str, Any]) -> str:
+    if cid in DUPLICATE_DELEGATION_IDS:
+        return acceptance.get("binding_file", "") + "::" + acceptance.get("binding_function", "")
     if cid in REUSED_LINK_BATCH01:
         return acceptance.get("binding_file", "") + "::" + acceptance.get("binding_function", "")
+    if cid == 226:
+        return "cap646/batch02_production.py::cap_069"
     if cid in REUSED_LINK_BATCH02:
         return "cap646/batch02_production.py::cap_086"
     if cid in REUSED_LINK_INTERNAL:
@@ -123,7 +94,9 @@ async def main() -> None:
         probe = await runtime_probe(cap_id)
         dup = duplication_state(cap_id, acc)
         spine = acc.get("production_spine", "batch05")
-        if cap_id in REUSED_LINK_BATCH01:
+        if cap_id in DUPLICATE_DELEGATION_IDS:
+            runtime_spine = probe.get("production_spine", "batch01")
+        elif cap_id in REUSED_LINK_BATCH01:
             runtime_spine = "batch01"
         else:
             runtime_spine = probe.get("production_spine", "batch05")
@@ -182,7 +155,7 @@ async def main() -> None:
 
     rtm = {
         "generated_at": datetime.now(UTC).isoformat(),
-        "gate": "G1_BASELINE + MECE_OVERLAP_214_245 + MECE_OVERLAP_205_232_206_228",
+        "gate": "G1_BASELINE + MECE_OVERLAP_214_245 + MECE_OVERLAP_205_232_206_228 + MECE_OVERLAP_226_69",
         "branch": git_branch(),
         "commit": commit,
         "scope": "Batch05 IDs 201-250",
@@ -193,6 +166,7 @@ async def main() -> None:
         "mece_overlap_refs": [
             str(MECE_214_245.relative_to(ROOT)),
             str(MECE_OI_FUNDING.relative_to(ROOT)),
+            str(MECE_226_69.relative_to(ROOT)),
         ],
         "summary": {
             "total": 50,

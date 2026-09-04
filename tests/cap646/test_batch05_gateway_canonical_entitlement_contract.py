@@ -15,7 +15,7 @@ from __future__ import annotations
 import pytest
 
 OVERLAP_BATCH01_REUSED_LINK = frozenset({214, 245})
-OVERLAP_BATCH02_REUSED_LINK = frozenset({206, 228})
+OVERLAP_BATCH02_REUSED_LINK = frozenset({206, 228, 226})
 OVERLAP_INTERNAL_REUSED_LINK = frozenset({232})
 ALL_REUSED_LINK = OVERLAP_BATCH01_REUSED_LINK | OVERLAP_BATCH02_REUSED_LINK | OVERLAP_INTERNAL_REUSED_LINK
 SYMBOLS = ["BTC", "ETH"]
@@ -37,6 +37,7 @@ def test_canonical_id_resolves(capability_id: int) -> None:
         245: 245,
         206: 86,
         228: 86,
+        226: 69,
         232: 205,
     }
     assert resolve_canonical(capability_id) == expected[capability_id]
@@ -187,14 +188,26 @@ async def test_batch05_facade_payload_parity_with_runtime(capability_id: int) ->
 @pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH02_REUSED_LINK | OVERLAP_INTERNAL_REUSED_LINK))
 @pytest.mark.asyncio
 async def test_public_get_uses_batch05_spine_for_facade_ids(capability_id: int) -> None:
-    """#206/#228/#232 are batch05 official IDs — public GET uses batch05 spine (facade backend)."""
+    """#206/#228/#226/#232 are batch05 official IDs — public GET uses batch05 spine (facade backend)."""
     from cap646.runtime import execute_capability
-    from fastapi.testclient import TestClient
-
     from dashboard import app
+    from fastapi.testclient import TestClient
+    from security_auth import optional_user_from_request
 
     client = TestClient(app)
-    http = client.get(f"/api/cap646/{capability_id}", params={"symbol": "BTC"})
+    if capability_id == 226:
+        async def _pro_user() -> dict:
+            return {"email": "pro-facade-226@blackdark.local", "tier": "pro"}
+
+        app.dependency_overrides[optional_user_from_request] = _pro_user
+    try:
+        http = client.get(
+            f"/api/cap646/{capability_id}",
+            params={"symbol": "BTC", "tier": "pro"},
+        )
+    finally:
+        if capability_id == 226:
+            app.dependency_overrides.pop(optional_user_from_request, None)
     assert http.status_code == 200
     body = http.json()
 
@@ -220,10 +233,15 @@ async def test_batch02_facade_payload_parity(capability_id: int) -> None:
 
     assert runtime.get("success") is True
     assert facade.get("success") is True
-    assert runtime.get("surface") == facade.get("surface") == "funding_rate_intelligence"
     assert facade.get("catalog_link", {}).get("canonical_spine") == "batch02"
-    assert facade.get("catalog_link", {}).get("canonical_capability_id") == 86
-    assert runtime.get("funding_rate") is not None
+    if capability_id == 226:
+        assert runtime.get("surface") == facade.get("surface") == "cross_domain_decision_intelligence_layer"
+        assert facade.get("catalog_link", {}).get("canonical_capability_id") == 69
+        assert runtime.get("cross_domain_decision") is not None
+    else:
+        assert runtime.get("surface") == facade.get("surface") == "funding_rate_intelligence"
+        assert facade.get("catalog_link", {}).get("canonical_capability_id") == 86
+        assert runtime.get("funding_rate") is not None
 
 
 @pytest.mark.asyncio

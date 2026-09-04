@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-09-04T15:00:52.572920+00:00",
+  "commit_hash": "696fb90f01af699c25805206f3f05f390f68a5dd",
+  "scope": "Priority MECE + Type-4 \u2014 Batch05 pair #226\u2194#69 (Cross-Domain Decision)",
+  "symbols_tested": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "AVAX",
+    "DOGE"
+  ],
+  "pairs": [
+    {
+      "pair": "226_69",
+      "capability_id": 226,
+      "duplicate_id": 226,
+      "catalog_capability": "Cross-Domain Decision Intelligence Layer",
+      "official_batch": "batch05",
+      "canonical_capability_id": 69,
+      "canonical_spine": "batch02",
+      "canonical_binding": "cap646/batch02_production.py::cap_069 \u2192 cap646.batch02_dedicated._cap069",
+      "duplicate_binding": "cap646/batch05_dedicated.py::_cap226 \u2192 facade batch02 #69",
+      "hero_bindings_audited": [
+        {
+          "id": 226,
+          "path": "bd_platform.intelligence_market_extensions_layer.analyze_launch_event_226",
+          "payload_domain": "launch_event_analysis",
+          "semantic_match_catalog": false
+        }
+      ],
+      "type4_per_symbol": {
+        "226_BTC": {
+          "symbol": "BTC",
+          "canonical_spine": "batch02",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "cross_domain_decision_intelligence_layer",
+          "facade_surface": "cross_domain_decision_intelligence_layer",
+          "facade_classification": "REUSED-LINK",
+          "canonical_has_cross_domain": true
+        },
+        "226_ETH": {
+          "symbol": "ETH",
+          "canonical_spine": "batch02",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "cross_domain_decision_intelligence_layer",
+          "facade_surface": "cross_domain_decision_intelligence_layer",
+          "facade_classification": "REUSED-LINK",
+          "canonical_has_cross_domain": true
+        },
+        "226_SOL": {
+          "symbol": "SOL",
+          "canonical_spine": "batch02",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "cross_domain_decision_intelligence_layer",
+          "facade_surface": "cross_domain_decision_intelligence_layer",
+          "facade_classification": "REUSED-LINK",
+          "canonical_has_cross_domain": true
+        },
+        "226_AVAX": {
+          "symbol": "AVAX",
+          "canonical_spine": "batch02",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "cross_domain_decision_intelligence_layer",
+          "facade_surface": "cross_domain_decision_intelligence_layer",
+          "facade_classification": "REUSED-LINK",
+          "canonical_has_cross_domain": true
+        },
+        "226_DOGE": {
+          "symbol": "DOGE",
+          "canonical_spine": "batch02",
+          "canonical_surface": "cross_domain_decision_intelligence_layer",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "cross_domain_decision_intelligence_layer",
+          "facade_surface": "cross_domain_decision_intelligence_layer",
+          "facade_classification": "REUSED-LINK",
+          "canonical_has_cross_domain": true
+        }
+      },
+      "mece_verdict": "CROSS_BATCH_DUPLICATE \u2014 #226 canonical to batch02 #69; hero launch-event is Type-4 SPLIT-BRAIN",
+      "time_decision_canonical": "Invest",
+      "time_decision_duplicate": "Migrate",
+      "closure_status_canonical": "NOT_COMPLETE",
+      "closure_status_duplicate": "REUSED-LINK",
+      "hero_action": "Eliminate launch-event hero \u2014 facade to batch02 #69 only",
+      "adr": "docs/ADR_BATCH05_226_REUSED_LINK_BATCH02.md"
+    }
+  ]
+}

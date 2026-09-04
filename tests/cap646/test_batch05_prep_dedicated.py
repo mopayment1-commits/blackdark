@@ -12,6 +12,7 @@ from cap646.batch05_dedicated import (
     EXPECTED_SURFACE,
     GENERIC_SURFACES,
 )
+from cap646.batch05_ids import BATCH05_DUPLICATE_DELEGATION_IDS, OFFICIAL_BATCH05_IDS
 from cap646.batch05_production import BATCH05_IDS
 
 CATALOG_ALIGNED_SAMPLE = frozenset({201, 204, 211, 217, 229, 233, 237, 243, 246, 250})
@@ -68,8 +69,36 @@ async def test_batch05_catalog_aligned_have_domain_payload(capability_id: int):
 
 
 def test_batch05_manifest_count():
-    assert len(BATCH05_IDS) == 50
-    assert len(BATCH05_DEDICATED_IDS) == 50
+    assert len(OFFICIAL_BATCH05_IDS) == 50
+    assert len(BATCH05_IDS) == 49
+    assert len(BATCH05_DEDICATED_IDS) == 49
+    assert 212 in BATCH05_DUPLICATE_DELEGATION_IDS
+    assert 212 not in BATCH05_IDS
+
+
+@pytest.mark.asyncio
+async def test_cap212_duplicate_delegation_not_batch05_spine():
+    """#212 must delegate to canonical #17 — not batch05 spine (regression guard)."""
+    from cap646.runtime import execute_capability
+
+    result = await execute_capability(212, skip_entitlement=True, params={"symbol": "BTC"})
+    assert result.get("classification") == "DUPLICATE/ALREADY_COVERED"
+    assert result.get("duplicate_of") == 17
+    assert result.get("requested_capability_id") == 212
+    assert result.get("production_spine") == "batch01"
+
+
+@pytest.mark.asyncio
+async def test_cap226_reused_link_facade():
+    from cap646.batch05_dedicated import execute
+
+    result = await execute(226, params={"symbol": "BTC"})
+    assert result["classification"] == "REUSED-LINK"
+    assert result["catalog_link"]["canonical_spine"] == "batch02"
+    assert result["catalog_link"]["canonical_capability_id"] == 69
+    assert result["catalog_link"]["binding"] == "cap646/batch02_production.py::cap_069"
+    assert result.get("cross_domain_decision") is not None
+    assert result["surface"] == "cross_domain_decision_intelligence_layer"
 
 
 @pytest.mark.asyncio
@@ -122,7 +151,7 @@ async def test_cap214_245_batch05_facade_stamps_reused_link():
 async def test_cap206_228_reused_link_facade():
     from cap646.batch05_dedicated import execute
 
-    for capability_id in sorted(BATCH05_REUSED_LINK_BATCH02_IDS):
+    for capability_id in (206, 228):
         result = await execute(capability_id, params={"symbol": "BTC"})
         assert result["classification"] == "REUSED-LINK"
         assert result["catalog_link"]["canonical_spine"] == "batch02"
@@ -149,12 +178,24 @@ async def test_cap232_reused_link_facade():
 async def test_cap206_228_runtime_via_batch05_facade_spine():
     from cap646.runtime import execute_capability
 
-    for capability_id in sorted(BATCH05_REUSED_LINK_BATCH02_IDS):
+    for capability_id in (206, 228):
         result = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "BTC"})
         assert result["success"] is True
         assert result["production_spine"] == "batch05"
         assert result["classification"] == "REUSED-LINK"
         assert result["surface"] == EXPECTED_SURFACE[capability_id]
+
+
+@pytest.mark.asyncio
+async def test_cap226_runtime_via_batch05_facade_spine():
+    from cap646.runtime import execute_capability
+
+    result = await execute_capability(226, skip_entitlement=True, params={"symbol": "BTC"})
+    assert result["success"] is True
+    assert result["production_spine"] == "batch05"
+    assert result["classification"] == "REUSED-LINK"
+    assert result["surface"] == EXPECTED_SURFACE[226]
+    assert result.get("cross_domain_decision") is not None
 
 
 @pytest.mark.parametrize("capability_id", sorted(BATCH05_REUSED_LINK_IDS))

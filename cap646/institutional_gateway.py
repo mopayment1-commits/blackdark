@@ -17,6 +17,7 @@ logger = logging.getLogger("BLACKDARK.Cap646Gateway")
 
 # Gateway-only catalog_link stamps — runtime execute_capability stays DISTINCT (see #183).
 _GATEWAY_CATALOG_LINKS: dict[int, dict[str, Any]] = {
+    159: {"duplicate_of": 103, "classification": "REUSED-LINK"},
     183: {"duplicate_of": 130, "classification": "REUSED-LINK"},
 }
 

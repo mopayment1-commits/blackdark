@@ -45,8 +45,10 @@ async def test_external_blocked():
 async def test_duplicate_routes_to_canonical():
     from cap646.runtime import execute_capability
 
-    dup = await execute_capability(206, skip_entitlement=True)
-    assert dup.get("duplicate_of") == 86
+    dup = await execute_capability(212, skip_entitlement=True, params={"symbol": "BTC"})
+    assert dup.get("classification") == "DUPLICATE/ALREADY_COVERED"
+    assert dup.get("duplicate_of") == 17
+    assert dup.get("production_spine") == "batch01"
 
 
 @pytest.mark.asyncio
@@ -55,7 +57,7 @@ async def test_batch02_duplicate_executes_production_spine():
 
     result = await execute_capability(106, skip_entitlement=True)
     assert result.get("capability_id") == 106
-    assert result.get("production_spine") == "batch03_prep"
+    assert result.get("production_spine") == "batch03"
     assert "duplicate_of" not in result
 
 

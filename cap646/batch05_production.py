@@ -4,8 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Awaitable, Callable
 
-BATCH05_IDS: frozenset[int] = frozenset(range(201, 201 + 50))
-OFFICIAL_BATCH05_IDS = BATCH05_IDS
+from cap646.batch05_ids import BATCH05_IDS, OFFICIAL_BATCH05_IDS
 
 from cap646.batch05_dedicated import (
     BATCH05_DEDICATED_IDS,

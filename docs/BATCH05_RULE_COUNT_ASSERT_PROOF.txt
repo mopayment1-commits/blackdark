@@ -1,6 +1,6 @@
 BATCH05_RULE_COUNT_ASSERT_PROOF
-generated_at=2026-09-04T14:18:21.190231+00:00
-git_commit=e4267f6e57fb70b2cb88c7bd5d092549ab07046e
+generated_at=2026-09-04T15:01:40.293919+00:00
+git_commit=696fb90f01af699c25805206f3f05f390f68a5dd
 scope=probe_ids_201_250 triple_match_guard
 
 ID 201: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
@@ -14,7 +14,7 @@ ID 208: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE
 ID 209: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 210: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 211: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 212: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 212: acceptance=5 results=5 rules_total=5 rules_passed=5 closure=DUPLICATE_DELEGATION OK
 ID 213: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 214: acceptance=8 results=8 rules_total=8 rules_passed=3 closure=REUSED-LINK OK
 ID 215: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
@@ -28,7 +28,7 @@ ID 222: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE
 ID 223: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 224: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 225: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 226: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 226: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=REUSED-LINK OK
 ID 227: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 228: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=REUSED-LINK OK
 ID 229: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK

@@ -2,25 +2,28 @@
 
 Overlap facades (REUSED-LINK, no parallel implementation):
 - #214/#245 → batch01 (``BATCH05_MECE_OVERLAP_214_245_DECISION.json``)
-- #206/#228 → batch02 #86 (``BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json``)
-- #232 → batch05 canonical #205 (same decision doc)
+- #206/#228/#226 → batch02 #86/#69 (``BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json``, ``BATCH05_MECE_OVERLAP_226_69_DECISION.json``)
+- #232 → batch05 canonical #205 (OI decision doc)
+
+#212 is DUPLICATE/ALREADY_COVERED of #17 — excluded from ``BATCH05_IDS`` routing (see ``batch05_ids.py``).
 """
 
 from __future__ import annotations
 
 from typing import Any, Awaitable, Callable
 
+from cap646.batch05_ids import BATCH05_DUPLICATE_DELEGATION_IDS, BATCH05_IDS, BATCH05_MANIFEST_IDS
 from cap646.dedicated_common import execute_dedicated_caps
 from cap646.dedicated_common import make_wrap_binding
 from cap646.dedicated_common import seed as _seed
 
 BATCH05_REUSED_LINK_BATCH01_IDS: frozenset[int] = frozenset({214, 245})
-BATCH05_REUSED_LINK_BATCH02_IDS: frozenset[int] = frozenset({206, 228})
+BATCH05_REUSED_LINK_BATCH02_IDS: frozenset[int] = frozenset({206, 228, 226})
 BATCH05_REUSED_LINK_INTERNAL_IDS: frozenset[int] = frozenset({232})
 BATCH05_REUSED_LINK_IDS: frozenset[int] = (
     BATCH05_REUSED_LINK_BATCH01_IDS | BATCH05_REUSED_LINK_BATCH02_IDS | BATCH05_REUSED_LINK_INTERNAL_IDS
 )
-BATCH05_DEDICATED_IDS: frozenset[int] = frozenset(range(201, 251))
+BATCH05_DEDICATED_IDS: frozenset[int] = BATCH05_IDS
 
 GENERIC_SURFACES = frozenset(
     {"onchain_intelligence", "ai_decision_intelligence", "market_data", "smart_alerts"}
@@ -104,6 +107,12 @@ _REUSED_LINK_CATALOG: dict[int, dict[str, Any]] = {
         "canonical_spine": "batch02",
         "binding": "cap646/batch02_production.py::cap_086",
     },
+    226: {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 69,
+        "canonical_spine": "batch02",
+        "binding": "cap646/batch02_production.py::cap_069",
+    },
     232: {
         "classification": "REUSED-LINK",
         "canonical_capability_id": 205,
@@ -156,6 +165,13 @@ async def _cap228(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     return _stamp_reused_link(result, 228)
 
 
+async def _cap226(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch02_production import execute as execute_batch02
+
+    result = await execute_batch02(69, params={**params, "symbol": symbol, "address": address})
+    return _stamp_reused_link(result, 226)
+
+
 async def _cap232(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     result = await _cap205(symbol=symbol, address=address, params=params)
     return _stamp_reused_link(result, 232)
@@ -191,6 +207,7 @@ _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     205: _cap205,
     206: _cap206,
     214: _cap214,
+    226: _cap226,
     228: _cap228,
     232: _cap232,
     245: _cap245,

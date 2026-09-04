@@ -37,6 +37,7 @@ def test_each_row_has_domain_rules(capability_id: int):
     assert row["status"] in {
         "NOT_COMPLETE",
         "REUSED-LINK",
+        "DUPLICATE_DELEGATION",
         "PRODUCTION-ALIGNED",
         "OVERLAP-PARTIAL",
         "PAID_VENDOR_DESIGNED",
@@ -61,6 +62,26 @@ def test_cap245_reused_link_batch01():
     assert row["status"] == "REUSED-LINK"
     assert row["production_spine"] == "batch01"
     assert row["functional_gap"]["catalog_name"] == "Market Health & Freshness"
+    assert row["time_decision"] == "Migrate"
+
+
+def test_cap212_duplicate_delegation_batch01():
+    doc = json.loads(ACCEPTANCE.read_text(encoding="utf-8"))
+    row = next(r for r in doc["rows"] if r["capability_id"] == 212)
+    assert row["status"] == "DUPLICATE_DELEGATION"
+    assert row["production_spine"] == "batch01"
+    assert row["time_decision"] == "Migrate"
+    fields = {r["field"] for r in row["domain_rules"]}
+    assert "duplicate_of" in fields
+    assert "classification" in fields
+
+
+def test_cap226_reused_link_batch02():
+    doc = json.loads(ACCEPTANCE.read_text(encoding="utf-8"))
+    row = next(r for r in doc["rows"] if r["capability_id"] == 226)
+    assert row["status"] == "REUSED-LINK"
+    assert row["production_spine"] == "batch02"
+    assert row["binding_function"] == "cap_069"
     assert row["time_decision"] == "Migrate"
 
 

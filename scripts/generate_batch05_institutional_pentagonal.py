@@ -40,13 +40,16 @@ DEDUP_AUDIT = ROOT / "docs/BATCH05_DEDUP_AUDIT.json"
 
 PROBE_IDS = list(range(201, 251))
 REUSED_LINK_BATCH01 = frozenset({214, 245})
-REUSED_LINK_BATCH02 = frozenset({206, 228})
+REUSED_LINK_BATCH02 = frozenset({206, 228, 226})
 REUSED_LINK_INTERNAL = frozenset({232})
+DUPLICATE_DELEGATION_IDS = frozenset({212})
 REUSED_LINK_ALL = REUSED_LINK_BATCH01 | REUSED_LINK_BATCH02 | REUSED_LINK_INTERNAL
 
 BASE_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_dedicated_surface_and_success"
 REUSED_BATCH01_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_cap214_245_runtime_via_batch01_legacy_spine"
 REUSED_BATCH02_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_cap206_228_reused_link_facade"
+REUSED_226_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_cap226_reused_link_facade"
+DUPLICATE_212_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_cap212_duplicate_delegation_not_batch05_spine"
 REUSED_INTERNAL_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_cap232_reused_link_facade"
 CATALOG_SAMPLE_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_batch05_catalog_aligned_have_domain_payload"
 GATEWAY_TEST = "tests/cap646/test_batch05_gateway_canonical_entitlement_contract.py"
@@ -94,6 +97,8 @@ def normalize_rtm_row(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def closure_status(cid: int, domain_all_pass: bool, acceptance: dict[str, Any]) -> str:
+    if acceptance.get("status") == "DUPLICATE_DELEGATION":
+        return "DUPLICATE_DELEGATION"
     if cid in REUSED_LINK_ALL:
         return "REUSED-LINK"
     if acceptance.get("status") == "REUSED-LINK":
@@ -102,8 +107,12 @@ def closure_status(cid: int, domain_all_pass: bool, acceptance: dict[str, Any]) 
 
 
 def local_tests_for(cid: int) -> list[str]:
+    if cid in DUPLICATE_DELEGATION_IDS:
+        return [DUPLICATE_212_TEST]
     if cid in REUSED_LINK_BATCH01:
         return [REUSED_BATCH01_TEST]
+    if cid == 226:
+        return [REUSED_226_TEST]
     if cid in REUSED_LINK_BATCH02:
         return [REUSED_BATCH02_TEST]
     if cid in REUSED_LINK_INTERNAL:
@@ -128,7 +137,7 @@ def build_column_10() -> dict[str, Any]:
         "review_type": "LOCAL_REVIEW",
         "checklist": "docs/BATCH05_SECTION0_BASELINE_GATE.md + PR #366",
         "note": "Build phase only — NOT LOCAL_GOVERNANCE_COMPLETE; SonarCloud pending",
-        "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228",
+        "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228 + #226/#69",
     }
 
 
@@ -207,7 +216,7 @@ async def build_rows(
                         "entitlement_before_execution": "cap646.runtime.execute_capability → entitlement_engine.check(canonical_id)",
                         "skip_entitlement_probe": True,
                         "gateway_contract": GATEWAY_TEST,
-                        "note": "REUSED-LINK facade entitlement parity verified for #214/#245/#206/#228/#232",
+                        "note": "REUSED-LINK facade entitlement parity verified for #214/#245/#206/#228/#226/#232",
                     },
                     "collective_review_local": col10,
                 },

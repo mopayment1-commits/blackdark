@@ -1,6 +1,6 @@
 # BATCH05_INSTITUTIONAL_PENTAGONAL_BUILD
 
-**Generated:** 2026-09-04T14:18:21.210082+00:00 | **Commit:** `e4267f6e57fb` | **Scope:** Batch05 IDs 201–250
+**Generated:** 2026-09-04T15:01:40.313000+00:00 | **Commit:** `696fb90f01af` | **Scope:** Batch05 IDs 201–250
 **Classification:** BUILD PHASE OPEN — **NOT** LOCAL_GOVERNANCE_COMPLETE — SonarCloud PENDING
 **Acceptance source:** `BATCH05_ACCEPTANCE_201_250.json` (pre_probe, ISO 29148)
 
@@ -20,8 +20,8 @@
 
 | Bucket | Count |
 |--------|------:|
-| NOT_COMPLETE (strangler batch05) | 45 |
-| REUSED-LINK (MECE facades) | 5 |
+| NOT_COMPLETE (strangler batch05) | 44 |
+| REUSED-LINK (MECE facades) | 6 |
 | PRODUCTION-ALIGNED | 0 |
 
 ```
@@ -48,7 +48,7 @@ sonarcloud          = PENDING
 | 209 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 210 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 211 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 212 | NOT_COMPLETE | batch05 | 4/4 | Invest |
+| 212 | DUPLICATE_DELEGATION | batch01 | 5/5 | Migrate |
 | 213 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 214 | REUSED-LINK | batch01 | 3/8 | Migrate |
 | 215 | NOT_COMPLETE | batch05 | 4/4 | Invest |
@@ -62,7 +62,7 @@ sonarcloud          = PENDING
 | 223 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 224 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 225 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 226 | NOT_COMPLETE | batch05 | 4/4 | Invest |
+| 226 | REUSED-LINK | batch05 | 7/7 | Migrate |
 | 227 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 228 | REUSED-LINK | batch05 | 7/7 | Migrate |
 | 229 | NOT_COMPLETE | batch05 | 4/4 | Invest |
