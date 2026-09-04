@@ -75,6 +75,17 @@ async def test_cap165_defillama_free_tier():
 
 
 @pytest.mark.asyncio
+async def test_cap164_unlock_actionability_matches_asset_key():
+    from cap646.batch04_strangler_spine import build_unlock_actionability_164
+
+    payload = await build_unlock_actionability_164(symbol="APT", params={"limit": 20})
+    assert payload["ok"] is True
+    assert payload["feature_ref"] == 164
+    assert len(payload["scheduled_unlocks"]) >= 1
+    assert payload["scheduled_unlocks"][0].get("asset") == "APT"
+
+
+@pytest.mark.asyncio
 async def test_cap165_defillama_raises_mock_documents_api_wiring(monkeypatch):
     """Documented mock for DeFiLlama /raises — live endpoint returns HTTP 402 (paid plan) in this env."""
 

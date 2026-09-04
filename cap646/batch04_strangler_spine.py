@@ -37,6 +37,16 @@ def _timed(extra: dict[str, Any], t0: float) -> dict[str, Any]:
     return extra
 
 
+def _as_dict_list(val: Any) -> list[dict[str, Any]]:
+    if not isinstance(val, list):
+        return []
+    return [item for item in val if isinstance(item, dict)]
+
+
+def _record_symbol(item: dict[str, Any]) -> str:
+    return str(item.get("symbol") or item.get("asset") or "").upper()
+
+
 async def build_governance_proposal_152(*, symbol: str, seed: dict[str, Any]) -> dict[str, Any]:
     t0 = time.perf_counter()
     from bd_platform.data_sources_layer import ingest_event_calendar_143
@@ -214,9 +224,10 @@ async def build_unlock_actionability_164(*, symbol: str, params: dict[str, Any])
     from bd_platform.token_unlocks import unlock_calendar
 
     cal = await unlock_calendar(limit=int(params.get("limit") or 20))
-    scheduled = cal.get("scheduled_unlocks") or []
-    symbol_unlocks = [u for u in scheduled if str(u.get("symbol", "")).upper() == symbol.upper()]
-    pressure = cal.get("supply_pressure") or []
+    scheduled = _as_dict_list(cal.get("scheduled_unlocks"))
+    sym = symbol.upper()
+    symbol_unlocks = [u for u in scheduled if _record_symbol(u) == sym]
+    pressure = _as_dict_list(cal.get("supply_pressure"))
     score = min(100.0, len(symbol_unlocks) * 15 + len(pressure) * 2)
     payload = _base(
         164,
@@ -568,7 +579,8 @@ async def build_token_circulation_200(*, symbol: str, seed: dict[str, Any]) -> d
 
     reports = ingest_coingecko_reports_200(seed=seed)
     cal = await unlock_calendar(limit=15)
-    pressure = [p for p in (cal.get("supply_pressure") or []) if str(p.get("symbol", "")).upper() == symbol.upper()]
+    sym = symbol.upper()
+    pressure = [p for p in _as_dict_list(cal.get("supply_pressure")) if _record_symbol(p) == sym]
     circ_rate = pressure[0].get("locked_supply_pct") if pressure else None
     payload = _base(
         200,
