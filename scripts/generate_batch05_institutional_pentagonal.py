@@ -55,7 +55,10 @@ CATALOG_SAMPLE_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_batch05
 GATEWAY_TEST = "tests/cap646/test_batch05_gateway_canonical_entitlement_contract.py"
 
 CATALOG_ALIGNED_SAMPLE = frozenset({201, 204, 211, 217, 229, 233, 237, 243, 246, 250})
-STRANGLER_IMPLEMENTED_IDS = frozenset({201, 202, 203, 204, 205, 207, 208, 209, 210, 211, 213, 215, 216})
+STRANGLER_IMPLEMENTED_IDS = frozenset({
+    201, 202, 203, 204, 205, 207, 208, 209, 210, 211, 213, 215, 216,
+    217, 218, 219, 220, 221, 222, 223, 224, 225, 227,
+})
 STRANGLER_TEST = "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
 
 LATENCY_LIMITS = {

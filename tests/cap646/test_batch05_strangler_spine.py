@@ -12,6 +12,7 @@ from cap646.batch05_strangler_spine import STRANGLER_BUILDERS, STRANGLER_IMPLEME
 WAVE1_IDS = [201, 202, 203, 204]
 WAVE2A_IDS = [205]
 WAVE2B_IDS = [207, 208, 209, 210, 211, 213, 215, 216]
+WAVE3_IDS = [217, 218, 219, 220, 221, 222, 223, 224, 225, 227]
 ALL_STRANGLER_IDS = sorted(STRANGLER_IMPLEMENTED_IDS)
 
 
@@ -91,3 +92,32 @@ async def test_wave2b_catalog_sources(capability_id: int, source: str):
     result = await execute(capability_id, params={"symbol": "BTC"})
     root = EXPECTED_SURFACE[capability_id]
     assert result[root]["source"] == source
+
+
+@pytest.mark.parametrize("capability_id,source", [
+    (217, "intelligence_market_extensions_layer.analyze_best_venue_217"),
+    (218, "intelligence_market_extensions_layer.list_manual_order_journal_218"),
+    (219, "intelligence_market_extensions_layer.analyze_nlp_sentiment_219"),
+    (220, "intelligence_market_extensions_layer.analyze_pattern_outcome_220"),
+    (221, "intelligence_market_extensions_layer.market_slippage_analysis_221"),
+    (222, "intelligence_market_extensions_layer.monitor_exchange_latency_222"),
+    (223, "intelligence_market_extensions_layer.analyze_defi_fundamentals_223"),
+    (224, "intelligence_market_extensions_layer.analyze_token_dcf_224"),
+    (225, "intelligence_market_extensions_layer.pwa_strategy_status_225"),
+    (227, "intelligence_market_extensions_layer.analyze_etf_premium_227"),
+])
+@pytest.mark.asyncio
+async def test_wave3_catalog_sources(capability_id: int, source: str):
+    result = await execute(capability_id, params={"symbol": "BTC"})
+    root = EXPECTED_SURFACE[capability_id]
+    assert result[root]["source"] == source
+    assert result[root]["miswire_remediation"] == "STRANGLER_IMPLEMENTED"
+
+
+@pytest.mark.asyncio
+async def test_wave3_cap224_fixes_hero_miswire():
+    """#224 hero bridge pointed at coinmarketcal_status_245 — strangler uses token DCF."""
+    result = await execute(224, params={"symbol": "BTC", "protocol": "aave"})
+    payload = result["narrative_actionability_score"]
+    assert payload["source"] == "intelligence_market_extensions_layer.analyze_token_dcf_224"
+    assert payload["token_dcf"]["no_fair_value_guarantee"] is True

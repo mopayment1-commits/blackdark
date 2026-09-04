@@ -1,6 +1,6 @@
 BATCH05_RULE_COUNT_ASSERT_PROOF
-generated_at=2026-09-04T17:51:09.994125+00:00
-git_commit=f09847338c99764b808ca337255d44c6dd7fea52
+generated_at=2026-09-04T17:57:49.470399+00:00
+git_commit=8c48e833126a0d9bf268f9796ce13c9cd78def74
 scope=probe_ids_201_250 triple_match_guard
 
 ID 201: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
@@ -19,17 +19,17 @@ ID 213: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE
 ID 214: acceptance=8 results=8 rules_total=8 rules_passed=3 closure=REUSED-LINK OK
 ID 215: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 216: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
-ID 217: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 218: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 219: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 220: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 221: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 222: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 223: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 224: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 225: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 217: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 218: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 219: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 220: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 221: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 222: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 223: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 224: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 225: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 226: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=REUSED-LINK OK
-ID 227: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 227: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 228: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=REUSED-LINK OK
 ID 229: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 230: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK

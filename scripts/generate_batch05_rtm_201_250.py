@@ -24,7 +24,10 @@ REUSED_LINK_BATCH02 = frozenset({206, 228, 226})
 REUSED_LINK_INTERNAL = frozenset({232})
 DUPLICATE_DELEGATION_IDS = frozenset({212})
 REUSED_LINK_ALL = REUSED_LINK_BATCH01 | REUSED_LINK_BATCH02 | REUSED_LINK_INTERNAL
-STRANGLER_IMPLEMENTED_IDS = frozenset({201, 202, 203, 204, 205, 207, 208, 209, 210, 211, 213, 215, 216})
+STRANGLER_IMPLEMENTED_IDS = frozenset({
+    201, 202, 203, 204, 205, 207, 208, 209, 210, 211, 213, 215, 216,
+    217, 218, 219, 220, 221, 222, 223, 224, 225, 227,
+})
 
 # Official semantic overlay — IDs needing explicit RTM classification beyond hero_audit.
 SEMANTIC_OVERLAY: dict[int, dict[str, Any]] = {}
