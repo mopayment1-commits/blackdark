@@ -21,9 +21,15 @@
 
 ## Consequences
 
-- Batch05 acceptance row #232 uses `REUSED-LINK` with `catalog_link` to batch05 `_cap205`.
-- `cap646/batch05_dedicated.py::_cap232` delegates to `_cap205` and stamps REUSED-LINK metadata.
+- Batch05 acceptance row #232 uses `REUSED-LINK` with `catalog_link` to batch05 strangler `build_open_interest_205`.
+- `cap646/batch05_dedicated.py::_cap232` delegates to strangler #205 and stamps REUSED-LINK metadata.
 - #205 remains `NOT_COMPLETE` until live probe sign-off (no PA).
+
+## Item 2 closure (2026-09-04)
+
+Acceptance `catalog_link.binding` updated to `cap646/batch05_strangler_spine.py::build_open_interest_205`.  
+Pentagonal partial **CLOSED** — facade + runtime probes pass 8/8 domain rules.  
+Evidence: `docs/BATCH05_REUSED_LINK_PARTIAL_DISPOSITION.json`
 
 ## Public routing truth (end-user GET)
 

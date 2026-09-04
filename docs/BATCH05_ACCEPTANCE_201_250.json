@@ -1538,7 +1538,7 @@
         {
           "field": "catalog_link.binding",
           "type": "enum",
-          "condition": "== cap646/batch05_dedicated.py::_cap205"
+          "condition": "== cap646/batch05_strangler_spine.py::build_open_interest_205"
         },
         {
           "field": "open_interest_intelligence.ok",

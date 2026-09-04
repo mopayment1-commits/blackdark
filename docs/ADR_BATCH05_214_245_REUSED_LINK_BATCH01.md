@@ -25,6 +25,15 @@
 - `cap646/batch05_dedicated.py` must dispatch to batch01 — no parallel implementation.
 - #245 documents `functional_gap`: catalog name vs runtime surface `real_time_data_freshness_update_assurance` and internal `capability_id` 630 stamp.
 
+## Tolerate ceiling (Item 2 disposition — 2026-09-04)
+
+| ID | Disposition | Ceiling | Rationale |
+|----|-------------|---------|-----------|
+| **214** | TOLERATE | **2026-12-31** | Runtime batch01 path lacks `catalog_link` by ADR precedence; facade contract PASS |
+| **245** | TOLERATE | **2026-12-31** | Same dual-path contract; internal cap 630 stamp on batch01 freshness |
+
+Evidence: `docs/BATCH05_REUSED_LINK_PARTIAL_DISPOSITION.json`
+
 ## Public routing truth (end-user GET)
 
 | Layer | Path | Spine for #214/#245 |
