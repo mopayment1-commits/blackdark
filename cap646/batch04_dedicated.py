@@ -234,6 +234,45 @@ async def _cap186(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     return _wrap(186, symbol=symbol, payload_key="historical_wallet_balance_tool", payload=payload)
 
 
+async def _cap187(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch04_paid_cryptoquant_spine import build_exchange_inflow_187
+
+    payload = await build_exchange_inflow_187(symbol=symbol, params=params)
+    return _wrap(
+        187,
+        symbol=symbol,
+        payload_key="exchange_inflow_intelligence",
+        payload=payload,
+        extra={"vendor_deferred": payload.get("vendor_status") == "PENDING_PAYMENT"},
+    )
+
+
+async def _cap188(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch04_paid_cryptoquant_spine import build_exchange_outflow_188
+
+    payload = await build_exchange_outflow_188(symbol=symbol, params=params)
+    return _wrap(
+        188,
+        symbol=symbol,
+        payload_key="exchange_outflow_intelligence",
+        payload=payload,
+        extra={"vendor_deferred": payload.get("vendor_status") == "PENDING_PAYMENT"},
+    )
+
+
+async def _cap190(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch04_paid_cryptoquant_spine import build_exchange_supply_balance_190
+
+    payload = await build_exchange_supply_balance_190(symbol=symbol, params=params)
+    return _wrap(
+        190,
+        symbol=symbol,
+        payload_key="exchange_supply_balance_intelligence",
+        payload=payload,
+        extra={"vendor_deferred": payload.get("vendor_status") == "PENDING_PAYMENT"},
+    )
+
+
 async def _cap189(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from cap646.dedicated_common import exchange_netflow_probe
 
@@ -251,7 +290,10 @@ _DISPATCH_OVERRIDES: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     171: _cap171,
     183: _cap183,
     186: _cap186,
+    187: _cap187,
+    188: _cap188,
     189: _cap189,
+    190: _cap190,
 }
 
 _HERO_BRIDGE_IDS = frozenset(range(152, 201)) - {159, 175, 183} - frozenset(_DISPATCH_OVERRIDES.keys())

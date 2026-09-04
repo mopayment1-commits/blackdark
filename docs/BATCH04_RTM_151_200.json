@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T20:45:09.949089+00:00",
+  "generated_at": "2026-09-03T23:28:33.751397+00:00",
   "gate": "G1_BASELINE + SEMANTIC_ALIGNMENT_AUDIT",
   "branch": "cursor/batch-04-151-200-e85e",
   "commit": "b0002d6a10107d6724adf1cdac3f7af7a9ed9235",
@@ -8,7 +8,7 @@
   "official_batch": "batch04",
   "batch04_independent": 0,
   "progress_826": 148,
-  "build_phase": "BUILD_PHASE_HOLD",
+  "build_phase": "OPEN",
   "summary": {
     "total": 50,
     "gate1_state": {
@@ -96,7 +96,22 @@
       "semantic_reason": "Dedicated batch04_quarterly_protocol module computes genuine quarterly protocol performance semantics.",
       "semantic_comparison": "Expected: Quarterly Protocol Performance Reports. Hero implements: quarterly_protocol_report via explain_opportunity_151 + defillama TVL. Runtime: quarter_label, reporting_period=quarterly, protocol_tvl_usd, performance_score, dimension_breakdown",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": null
+      "miswire_remediation": null,
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_151",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 7,
+        "domain_rules_total": 7,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 2.9
+      }
     },
     {
       "id": 152,
@@ -145,7 +160,22 @@
       "semantic_reason": "Runtime executes run_data_sources_e2e_140_152; repackages test checks as governance_proposal_intelligence.",
       "semantic_comparison": "Expected: Governance & Proposal Intelligence. Hero implements: data_sources E2E integration test runner (checks 140-152). Runtime: governance_proposals contains e2e checks/all_passed, not governance proposals",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_152",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 2.1
+      }
     },
     {
       "id": 153,
@@ -195,7 +225,22 @@
       "semantic_reason": "analyze_arbitrage_opportunity_153 performs arbitrage analysis, not project monitoring coverage.",
       "semantic_comparison": "Expected: Project Monitoring Coverage Registry. Hero implements: multi-venue theoretical arbitrage with cost breakdown. Runtime: coverage_registry maps venue prices; arbitrage_insight with net_spread_pct",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_153",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 6.6
+      }
     },
     {
       "id": 154,
@@ -247,7 +292,22 @@
       "semantic_reason": "financial_brain_status_154 reports merge status, not an interactive AI crypto copilot.",
       "semantic_comparison": "Expected: AI Crypto Copilot. Hero implements: financial_brain merged infrastructure status (activation_not_build). Runtime: copilot_status=merged_not_standalone; dimensions/outputs are infra metadata",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "PARTIAL_MISNAMED"
+      "miswire_remediation": "PARTIAL_MISNAMED",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_154",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 155,
@@ -300,7 +360,22 @@
       "semantic_reason": "stat_arb_insight_155 is pair correlation deviation, not AI deep research capability.",
       "semantic_comparison": "Expected: AI Deep Research. Hero implements: statistical arbitrage z-score mean-reversion insight. Runtime: research_depth=deep, z_score, historical reversion \u2014 stat arb not deep research",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_155",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 127.9
+      }
     },
     {
       "id": 156,
@@ -349,7 +424,22 @@
       "semantic_reason": "asset_registry_105_coins_156 is a coin list, not a crypto knowledge graph.",
       "semantic_comparison": "Expected: Crypto Knowledge Graph. Hero implements: asset registry 105-coin list with selection criteria. Runtime: graph_nodes=asset list; no edges, relationships, or graph traversal",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_156",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 1.0
+      }
     },
     {
       "id": 157,
@@ -398,7 +488,22 @@
       "semantic_reason": "onchain_advanced_status_157 reports merge/activation status, not a research library.",
       "semantic_comparison": "Expected: Research Library. Hero implements: onchain advanced merged infrastructure status. Runtime: research_items=capabilities list, routes=oracle paths \u2014 infra status not library",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "PARTIAL_MISNAMED"
+      "miswire_remediation": "PARTIAL_MISNAMED",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_157",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 156.0
+      }
     },
     {
       "id": 158,
@@ -447,7 +552,22 @@
       "semantic_reason": "multi_venue_websocket_status_158 is streaming infra, not institutional research feed.",
       "semantic_comparison": "Expected: Institutional Research Feed. Hero implements: multi-venue websocket connection aggregation status. Runtime: feed_items=venue connections with latency_ms, not research content",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "PARTIAL_MISNAMED"
+      "miswire_remediation": "PARTIAL_MISNAMED",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_158",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 103.2
+      }
     },
     {
       "id": 159,
@@ -499,7 +619,23 @@
       "semantic_reason": "Aligned portion: API platform endpoints. Missing: full platform maturity blocked on #103.",
       "semantic_comparison": "Expected: API Data Platform. Hero implements: institutional API platform via batch03 #103 wrap + gas profile owner. Runtime: institutional_api, graphql, hot_storage present; blocker BLOCKER-159-103",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": null
+      "miswire_remediation": null,
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_159",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 5,
+        "domain_rules_total": 5,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.1
+      },
+      "pending_canonical_audit": "BLOCKER-159-103"
     },
     {
       "id": 160,
@@ -549,7 +685,22 @@
       "semantic_reason": "detect_volatility_squeeze_160 is TA squeeze indicator, not pay-per-request data access.",
       "semantic_comparison": "Expected: Pay-Per-Request Data Access. Hero implements: Bollinger/Keltner volatility squeeze detection. Runtime: pricing_model=pay_per_request but in_squeeze from vol squeeze; metering is static stub",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_160",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.8
+      }
     },
     {
       "id": 161,
@@ -599,7 +750,22 @@
       "semantic_reason": "Aligned portion: entitlements/RBAC. Missing: full institutional data delivery pipeline; hero binding alert_delivery unused.",
       "semantic_comparison": "Expected: Institutional Data Delivery & Entitlements. Hero implements: institutional capability handler (RBAC/isolation matrix). Runtime: role_matrix, entitlements, isolation from handle_institutional_capability(161)",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": null
+      "miswire_remediation": null,
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_161",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 1.8
+      }
     },
     {
       "id": 162,
@@ -648,7 +814,22 @@
       "semantic_reason": "Aligned portion: evidence/provenance data. Missing: full evidence layer; underlying is #106 reuse.",
       "semantic_comparison": "Expected: Evidence & Provenance Layer. Hero implements: provenance hot storage payload (REUSED_LINK #106). Runtime: provenance + hot_storage fields present; catalog_link in code not at top-level runtime",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": null
+      "miswire_remediation": null,
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_162",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 163,
@@ -698,7 +879,22 @@
       "semantic_reason": "run_intelligence_analysis_e2e_153_163 is integration test, not research-to-decision intelligence.",
       "semantic_comparison": "Expected: Cross-Domain Research-to-Decision Intelligence. Hero implements: intelligence analysis E2E test runner (checks 153-163). Runtime: cross_domain_report with checks_passed/all_passed e2e results",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_163",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 105.2
+      }
     },
     {
       "id": 164,
@@ -748,7 +944,22 @@
       "semantic_reason": "liquidity_impact_warning_164 is portfolio slippage, not token unlock actionability.",
       "semantic_comparison": "Expected: Token Unlock Actionability Score. Hero implements: liquidity impact / position slippage warning (panic button rejected). Runtime: actionability_score derived from estimated_slippage_pct, unlock_risk=slippage",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_164",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.7
+      }
     },
     {
       "id": 165,
@@ -798,7 +1009,22 @@
       "semantic_reason": "hashrate_capitulation_forecast_165 is mining hashrate, not fundraising momentum.",
       "semantic_comparison": "Expected: Fundraising Momentum Score. Hero implements: BTC hashrate capitulation / miner revenue forecast. Runtime: momentum_score=hashrate_drop_pct, capitulation_signal from mining economics",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_165",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 166,
@@ -848,7 +1074,22 @@
       "semantic_reason": "brokerage_rejected_status_166 reports rejection, not research confidence scoring.",
       "semantic_comparison": "Expected: Research Confidence Score. Hero implements: brokerage integration rejected status. Runtime: confidence_score=0.0 hardcoded, research_status=rejected_brokerage",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_166",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 124.7
+      }
     },
     {
       "id": 167,
@@ -898,7 +1139,22 @@
       "semantic_reason": "validate_time_sync_167 is clock sync, not social volume intelligence.",
       "semantic_comparison": "Expected: Social Volume Intelligence. Hero implements: NTP/time synchronization validation. Runtime: social_volume=deviation_sec (time sync deviation), not social metrics",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_167",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 168,
@@ -949,9 +1205,23 @@
       "closure_status": "NOT_COMPLETE",
       "miswire_remediation": "STRANGLER_FIXABLE",
       "strangler_reclass": "IMPLEMENTED_FREE",
-      "binding_function": "_cap168",
+      "binding_function": null,
       "free_tier_source": "ingest_santiment_metrics_142",
-      "accuracy_disclaimer": "Santiment free tier \u2014 limited accuracy"
+      "accuracy_disclaimer": "Santiment free tier \u2014 limited accuracy",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_168",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.7
+      }
     },
     {
       "id": 169,
@@ -1000,7 +1270,22 @@
       "semantic_reason": "compute_correlation_decay_matrix_169 is portfolio correlation, not unique social volume.",
       "semantic_comparison": "Expected: Unique Social Volume. Hero implements: asset correlation decay matrix vs BTC benchmark. Runtime: unique_volume=oi_momentum_delta, correlation_matrix from decay matrix",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_169",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 170,
@@ -1049,7 +1334,22 @@
       "semantic_reason": "compute_oi_momentum_delta_170 is OI derivatives flow, not trending words.",
       "semantic_comparison": "Expected: Trending Words. Hero implements: open interest momentum delta on derivatives. Runtime: trending_words=[], oi_momentum from derivatives OI delta",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_170",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 171,
@@ -1100,8 +1400,22 @@
       "closure_status": "NOT_COMPLETE",
       "miswire_remediation": "STRANGLER_FIXABLE",
       "strangler_reclass": "IMPLEMENTED_FREE",
-      "binding_function": "_cap171",
-      "free_tier_source": "coingecko_search_trending"
+      "binding_function": null,
+      "free_tier_source": "coingecko_search_trending",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_171",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 185.6
+      }
     },
     {
       "id": 172,
@@ -1150,7 +1464,22 @@
       "semantic_reason": "institutional_memory_status_172 is internal memory store, not historical crypto trends.",
       "semantic_comparison": "Expected: Historical Crypto Trends. Hero implements: institutional memory / decision replay status. Runtime: historical_trends=memory_entries, institutional_memory status",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_172",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.9
+      }
     },
     {
       "id": 173,
@@ -1199,7 +1528,22 @@
       "semantic_reason": "institutional_rbac_status_173 is access control, not key narratives intelligence.",
       "semantic_comparison": "Expected: Key Narratives Intelligence. Hero implements: institutional RBAC role matrix status. Runtime: key_narratives=rbac_roles list, not market narratives",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_173",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 114.7
+      }
     },
     {
       "id": 174,
@@ -1248,7 +1592,22 @@
       "semantic_reason": "full_white_label_status_174 is branding infra, not alpha narratives intelligence.",
       "semantic_comparison": "Expected: Alpha Narratives Intelligence. Hero implements: white-label branding infrastructure status. Runtime: alpha_narratives=white_label_features, branding_status",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_174",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 90.2
+      }
     },
     {
       "id": 175,
@@ -1295,7 +1654,22 @@
       "semantic_reason": "Aligned portion: sentiment compound index. Missing: catalog surface; batch01 spine not batch04 independent.",
       "semantic_comparison": "Expected: Social Sentiment Intelligence. Hero implements: batch01 sentiment_ai via compound_score from database. Runtime: surface=sentiment_ai (not social_sentiment_intelligence); compound_score=0.0 SHADOW_LIVE_FORWARD",
       "closure_status": "OVERLAP-PARTIAL",
-      "miswire_remediation": null
+      "miswire_remediation": null,
+      "status": "OVERLAP-PARTIAL",
+      "production_spine": "batch01",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch01_production",
+      "backend_entrypoint": "cap_175",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 5,
+        "domain_rules_total": 5,
+        "domain_all_pass": true,
+        "acceptance_status": "OVERLAP-PARTIAL",
+        "closure_status": "OVERLAP-PARTIAL",
+        "elapsed_ms": 6.1
+      }
     },
     {
       "id": 176,
@@ -1345,7 +1719,22 @@
       "semantic_reason": "run_risk_infrastructure_e2e_164_176 is integration test, not weighted social sentiment.",
       "semantic_comparison": "Expected: Weighted Social Sentiment. Hero implements: risk infrastructure E2E test runner (checks 164-176). Runtime: weighted_sentiment=None, checks=e2e pass/fail list",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_176",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 2.0
+      }
     },
     {
       "id": 177,
@@ -1394,7 +1783,22 @@
       "semantic_reason": "analyze_arbitrage_cost_177 is trading cost analysis, not social sentiment balance.",
       "semantic_comparison": "Expected: Social Sentiment Balance. Hero implements: arbitrage cost breakdown / net spread analysis. Runtime: sentiment_balance=net_spread_pct from arbitrage costs",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_177",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 1.8
+      }
     },
     {
       "id": 178,
@@ -1443,7 +1847,22 @@
       "semantic_reason": "run_scenario_drawdown_analysis_178 is risk scenario, not social source breakdown.",
       "semantic_comparison": "Expected: Social Source Breakdown. Hero implements: scenario drawdown stress analysis. Runtime: source_breakdown=scenarios list from drawdown analysis",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_178",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 179,
@@ -1492,7 +1911,22 @@
       "semantic_reason": "build_command_center_dashboard_179 is general dashboard, not development activity intelligence.",
       "semantic_comparison": "Expected: Development Activity Intelligence. Hero implements: command center dashboard widget assembly. Runtime: dev_activity_score=widget_count, widgets=top3/health/alerts/heatmap",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_179",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 180,
@@ -1541,7 +1975,22 @@
       "semantic_reason": "build_whale_flow_visualization_180 is whale flow viz, not dev activity contributors.",
       "semantic_comparison": "Expected: Development Activity Contributors. Hero implements: whale flow SVG visualization (nodes/edges). Runtime: contributor_count=flow_count, whale_flows=visualization graph",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_180",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 181,
@@ -1591,7 +2040,22 @@
       "semantic_comparison": "Expected: IC Committee Packets Status. Hero implements: IC committee packets / duplicate_of #87 status. Runtime: ecosystem_score=packet_count, committee_packets status metadata",
       "closure_status": "NOT_COMPLETE",
       "miswire_remediation": "PARTIAL_MISNAMED_RESOLVED",
-      "catalog_rename": "IC Committee Packets Status"
+      "catalog_rename": "IC Committee Packets Status",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_181",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 182,
@@ -1641,7 +2105,22 @@
       "semantic_comparison": "Expected: White-Label Infrastructure Status. Hero implements: white-label infrastructure duplicate_of #90 status. Runtime: activity_change_pct from white_label status, not dev activity delta",
       "closure_status": "NOT_COMPLETE",
       "miswire_remediation": "PARTIAL_MISNAMED_RESOLVED",
-      "catalog_rename": "White-Label Infrastructure Status"
+      "catalog_rename": "White-Label Infrastructure Status",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_182",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 183,
@@ -1700,7 +2179,23 @@
       "semantic_reason": "batch04_whale_transaction performs genuine whale transaction intelligence, not swap slippage (#130).",
       "semantic_comparison": "Expected: Whale Transaction Intelligence. Hero implements: whale tier classification, flow direction, concentration risk (distinct from #130 swap). Runtime: whale_tier=mega_whale, amount_usd, flow_direction, is_whale_event, risk_score; distinct_from_130 behavioral",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": null
+      "miswire_remediation": null,
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_183",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 3,
+        "domain_rules_total": 4,
+        "domain_all_pass": false,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.2
+      },
+      "pending_canonical_audit": "BLOCKER-183-130"
     },
     {
       "id": 184,
@@ -1750,7 +2245,22 @@
       "semantic_reason": "fund_reporting_status_184 is fund IC reporting, not whale/shark holder cohorts.",
       "semantic_comparison": "Expected: Whale & Shark Holder Cohorts. Hero implements: fund reporting IC scheduled reports status (duplicate #87). Runtime: cohort_type=whale_shark, holders=[], reporting_status from IC reports",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_184",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 185,
@@ -1799,7 +2309,22 @@
       "semantic_reason": "acquisition_evidence_package_185 is M&A evidence docs, not top holders intelligence.",
       "semantic_comparison": "Expected: Top Holders Intelligence. Hero implements: acquisition evidence package deferred assembly template. Runtime: top_holders=evidence_items from deferred doc assembly, not on-chain holders",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_185",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 186,
@@ -1850,17 +2375,31 @@
       "closure_status": "NOT_COMPLETE",
       "miswire_remediation": "STRANGLER_FIXABLE",
       "strangler_reclass": "IMPLEMENTED_FREE",
-      "binding_function": "_cap186",
-      "free_tier_source": "etherscan_bscscan_free_api"
+      "binding_function": null,
+      "free_tier_source": "etherscan_bscscan_free_api",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_186",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 340.5
+      }
     },
     {
       "id": 187,
       "capability": "Exchange Inflow Intelligence",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "Exchange Inflow Intelligence",
-      "canonical_module_function": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.latency_monitoring_status_187",
+      "canonical_module_function": "cap646.batch04_dedicated._cap187 \u2192 cap646.batch04_paid_cryptoquant_spine.build_exchange_inflow_187",
       "canonical_route": "/api/cap646/187",
-      "data_source_owner": "bd_platform.arbitrage_portfolio_ux_layer.latency_monitoring_status_187",
+      "data_source_owner": "cap646.batch04_paid_cryptoquant_spine (CryptoQuant — env-gated)",
       "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json domain_rules for #187",
       "expected_output_domain": "exchange_inflow_intelligence with domain-specific fields per catalog goal",
       "functional_completeness": "VERIFIED_LOCAL",
@@ -1897,19 +2436,37 @@
       "semantic_actual": "inflow_usd=latency_p50_ms (milliseconds labeled as USD inflow)",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_inflow_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
-      "semantic_reason": "latency_monitoring_status_187 is API latency, not exchange inflow intelligence.",
-      "semantic_comparison": "Expected: Exchange Inflow Intelligence. Hero implements: latency monitoring p50/p99 metrics. Runtime: inflow_usd=latency_p50_ms (milliseconds labeled as USD inflow)",
+      "semantic_reason": "Paid vendor spine designed — returns PENDING_PAYMENT until CRYPTOQUANT_API_KEY is set.",
+      "semantic_comparison": "Expected: Exchange Inflow Intelligence via CryptoQuant. Runtime: explicit PENDING_PAYMENT or live inflow_native when key present.",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "owner_note": "AWAITING_OWNER_PAYMENT_DECISION",
+      "vendor_status": "PAID_VENDOR_DESIGNED",
+      "vendor_env_var": "CRYPTOQUANT_API_KEY",
+      "miswire_remediation": "PAID_VENDOR_DESIGNED",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap187",
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_187",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 188,
       "capability": "Exchange Outflow Intelligence",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "Exchange Outflow Intelligence",
-      "canonical_module_function": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.risk_alert_user_confirmation_188",
+      "canonical_module_function": "cap646.batch04_dedicated._cap188 \u2192 cap646.batch04_paid_cryptoquant_spine.build_exchange_outflow_188",
       "canonical_route": "/api/cap646/188",
-      "data_source_owner": "bd_platform.arbitrage_portfolio_ux_layer.risk_alert_user_confirmation_188",
+      "data_source_owner": "cap646.batch04_paid_cryptoquant_spine (CryptoQuant — env-gated)",
       "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json domain_rules for #188",
       "expected_output_domain": "exchange_outflow_intelligence with domain-specific fields per catalog goal",
       "functional_completeness": "VERIFIED_LOCAL",
@@ -1946,10 +2503,28 @@
       "semantic_actual": "outflow_usd=confirmed_alerts count, alert_confirmation boolean",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_outflow_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
-      "semantic_reason": "risk_alert_user_confirmation_188 is alert UX, not exchange outflow intelligence.",
-      "semantic_comparison": "Expected: Exchange Outflow Intelligence. Hero implements: risk alert user confirmation workflow. Runtime: outflow_usd=confirmed_alerts count, alert_confirmation boolean",
+      "semantic_reason": "Paid vendor spine designed — returns PENDING_PAYMENT until CRYPTOQUANT_API_KEY is set.",
+      "semantic_comparison": "Expected: Exchange Outflow Intelligence via CryptoQuant. Runtime: explicit PENDING_PAYMENT or live outflow_native when key present.",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "owner_note": "AWAITING_OWNER_PAYMENT_DECISION",
+      "vendor_status": "PAID_VENDOR_DESIGNED",
+      "vendor_env_var": "CRYPTOQUANT_API_KEY",
+      "miswire_remediation": "PAID_VENDOR_DESIGNED",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap188",
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_188",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 189,
@@ -1999,16 +2574,31 @@
       "semantic_reason": "exchange_netflow_probe uses price oracle fallback as netflow proxy, not exchange netflow.",
       "semantic_comparison": "Expected: Exchange Netflow Intelligence. Hero implements: Bybit price ingest with netflow_proxy=true (not actual netflow). Runtime: netflow contains price_usd, role=secondary_fallback, netflow_proxy=true",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_189",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 1.1
+      }
     },
     {
       "id": 190,
       "capability": "Exchange Supply / Balance Intelligence",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "Exchange Supply / Balance Intelligence",
-      "canonical_module_function": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.analyze_geographic_arbitrage_190",
+      "canonical_module_function": "cap646.batch04_dedicated._cap190 \u2192 cap646.batch04_paid_cryptoquant_spine.build_exchange_supply_balance_190",
       "canonical_route": "/api/cap646/190",
-      "data_source_owner": "bd_platform.arbitrage_portfolio_ux_layer.attach_arbitrage_extensions_177_189_190",
+      "data_source_owner": "cap646.batch04_paid_cryptoquant_spine (CryptoQuant — env-gated)",
       "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json domain_rules for #190",
       "expected_output_domain": "exchange_supply_balance_intelligence with domain-specific fields per catalog goal",
       "functional_completeness": "VERIFIED_LOCAL",
@@ -2045,10 +2635,28 @@
       "semantic_actual": "supply_on_exchanges_pct=geographic_spread_pct, exchange_supply=venues",
       "semantic_evidence": "scripts/batch04_semantic_alignment_audit.py + runtime probe surface=exchange_supply_balance_intelligence",
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
-      "semantic_reason": "analyze_geographic_arbitrage_190 is geo arbitrage, not exchange supply/balance.",
-      "semantic_comparison": "Expected: Exchange Supply / Balance Intelligence. Hero implements: geographic arbitrage venue spread analysis. Runtime: supply_on_exchanges_pct=geographic_spread_pct, exchange_supply=venues",
+      "semantic_reason": "Paid vendor spine designed — returns PENDING_PAYMENT until CRYPTOQUANT_API_KEY is set.",
+      "semantic_comparison": "Expected: Exchange Supply/Balance via CryptoQuant reserve. Runtime: explicit PENDING_PAYMENT or live reserve_usd when key present.",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "owner_note": "AWAITING_OWNER_PAYMENT_DECISION",
+      "vendor_status": "PAID_VENDOR_DESIGNED",
+      "vendor_env_var": "CRYPTOQUANT_API_KEY",
+      "miswire_remediation": "PAID_VENDOR_DESIGNED",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap190",
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_190",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 191,
@@ -2097,7 +2705,22 @@
       "semantic_reason": "run_arbitrage_portfolio_ux_e2e_177_191 is UX test runner, not exchange user activity.",
       "semantic_comparison": "Expected: Exchange User Activity. Hero implements: arbitrage portfolio UX E2E integration test. Runtime: user_activity_score=activity_score from UX e2e, withdrawal_alerts",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_191",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 1.5
+      }
     },
     {
       "id": 192,
@@ -2146,7 +2769,22 @@
       "semantic_reason": "analyze_funding_rate_192 is funding rate, not network activity intelligence.",
       "semantic_comparison": "Expected: Network Activity Intelligence. Hero implements: perpetual funding rate analysis across venues. Runtime: network_activity=venues dict, avg_funding_pct from derivatives funding",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_192",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 193,
@@ -2195,7 +2833,22 @@
       "semantic_reason": "auto_arbitrage_rejected_status_193 is rejection notice, not transaction volume intelligence.",
       "semantic_comparison": "Expected: Transaction Volume Intelligence. Hero implements: auto-arbitrage execution rejected status. Runtime: transaction_volume=cvd_usd from rejected status (no volume data)",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_193",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 194,
@@ -2245,7 +2898,22 @@
       "semantic_reason": "compute_cvd_194 outputs CVD mislabeled as NVT ratio \u2014 confirmed metric defect.",
       "semantic_comparison": "Expected: NVT Intelligence. Hero implements: Cumulative Volume Delta (CVD = \u03a3 Buy-Sell Volume). Runtime: nvt_ratio=cvd_usd=4900000, formula explicitly CVD not NVT",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_194",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 195,
@@ -2294,7 +2962,22 @@
       "semantic_reason": "strategy_simulator_195 is trading strategy sim, not MVRV on-chain valuation ratio.",
       "semantic_comparison": "Expected: MVRV Intelligence. Hero implements: DCA/grid strategy simulator (execution rejected). Runtime: mvrv_ratio=average_buy_price from DCA simulation, strategy=dca/grid",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_195",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 196,
@@ -2343,7 +3026,22 @@
       "semantic_reason": "ingest_yahoo_finance_macro_196 is macro benchmarks, not crypto realized cap.",
       "semantic_comparison": "Expected: Realized Cap / Realized Value Intelligence. Hero implements: Yahoo Finance macro benchmarks (SPX, VIX, DXY, GOLD, OIL). Runtime: realized_cap_usd=SPX value 5200, benchmarks=equity/commodity indices",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_196",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 197,
@@ -2392,7 +3090,22 @@
       "semantic_reason": "ingest_alpha_vantage_macro_197 is macro data, not daily active addresses.",
       "semantic_comparison": "Expected: Daily Active Addresses. Hero implements: Alpha Vantage macro economic data ingestion. Runtime: active_addresses=role field from macro source config, not on-chain DAA count",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_197",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 198,
@@ -2441,7 +3154,22 @@
       "semantic_reason": "ingest_binance_research_198 is research PDF ingestion, not age consumed/dormancy metrics.",
       "semantic_comparison": "Expected: Age Consumed / Dormancy Intelligence. Hero implements: Binance research report ingestion. Runtime: age_consumed=reports list count, dormancy_signals=len(reports)",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_198",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 199,
@@ -2490,7 +3218,22 @@
       "semantic_reason": "ingest_messari_research_199 is research reports, not mean dollar invested age.",
       "semantic_comparison": "Expected: Mean Dollar Invested Age. Hero implements: Messari research report ingestion. Runtime: mean_dollar_invested_age=report date string, not MDIA on-chain metric",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": "STRANGLER_FIXABLE"
+      "miswire_remediation": "STRANGLER_FIXABLE",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_199",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 200,
@@ -2541,7 +3284,22 @@
       "semantic_reason": "Aligned portion: report ingestion. Missing: token circulation rate/supply intelligence semantics.",
       "semantic_comparison": "Expected: Token Circulation Intelligence. Hero implements: CoinGecko quarterly/sector report ingestion. Runtime: token_reports with titles/dates; circulation_rate=null, no supply/circulation metrics",
       "closure_status": "NOT_COMPLETE",
-      "miswire_remediation": null
+      "miswire_remediation": null,
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "binding_file": null,
+      "binding_function": null,
+      "backend_module": "cap646.batch04_production",
+      "backend_entrypoint": "cap_200",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 4,
+        "domain_rules_total": 4,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.4
+      }
     }
   ],
   "semantic_audit_generated_at": "2026-09-03T20:57:23.297877+00:00",
@@ -2626,5 +3384,6 @@
     "hold_document_commit": "cf475c9",
     "statement": "Implementation commits 728b59a, e78c3e2, c74abb0 landed on branch after HOLD doc cf475c9 \u2014 acknowledged partial second gate breach; no further non-documentation commits until explicit owner approval.",
     "non_doc_commits_frozen": true
-  }
+  },
+  "progress_826_current": 148
 }

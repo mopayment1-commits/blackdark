@@ -6,7 +6,8 @@
     "NOT_COMPLETE": 2,
     "BLOCKED_DEPENDENCY": 8,
     "IMPLEMENTED_FREE": 3,
-    "BLOCKED_EXTERNAL": 3,
+    "BLOCKED_EXTERNAL": 0,
+    "PAID_VENDOR_DESIGNED": 3,
     "PARTIAL_MISNAMED_PROPOSED": 2
   },
   "rows": [
@@ -337,29 +338,29 @@
     },
     {
       "id": 187,
-      "reclass": "BLOCKED_EXTERNAL",
+      "reclass": "PAID_VENDOR_DESIGNED",
       "invest": {
         "I": "pass",
         "N": "pass",
         "V": "pass",
-        "E": "fail:await CryptoQuant $29/mo owner decision",
+        "E": "pass:env-gated CryptoQuant spine",
         "S": "pass",
-        "T": "fail"
+        "T": "pass:tests/cap646/test_batch04_paid_vendor_spine.py"
       },
-      "evidence_note": "owner hold"
+      "evidence_note": "PENDING_PAYMENT until CRYPTOQUANT_API_KEY — AWAITING_OWNER_PAYMENT_DECISION"
     },
     {
       "id": 188,
-      "reclass": "BLOCKED_EXTERNAL",
+      "reclass": "PAID_VENDOR_DESIGNED",
       "invest": {
         "I": "pass",
         "N": "pass",
         "V": "pass",
-        "E": "fail:await CryptoQuant owner decision",
+        "E": "pass:env-gated CryptoQuant spine",
         "S": "pass",
-        "T": "fail"
+        "T": "pass:tests/cap646/test_batch04_paid_vendor_spine.py"
       },
-      "evidence_note": "owner hold"
+      "evidence_note": "PENDING_PAYMENT until CRYPTOQUANT_API_KEY — AWAITING_OWNER_PAYMENT_DECISION"
     },
     {
       "id": 189,
@@ -376,16 +377,16 @@
     },
     {
       "id": 190,
-      "reclass": "BLOCKED_EXTERNAL",
+      "reclass": "PAID_VENDOR_DESIGNED",
       "invest": {
         "I": "pass",
         "N": "pass",
         "V": "pass",
-        "E": "fail:await CryptoQuant owner decision",
+        "E": "pass:env-gated CryptoQuant spine",
         "S": "pass",
-        "T": "fail"
+        "T": "pass:tests/cap646/test_batch04_paid_vendor_spine.py"
       },
-      "evidence_note": "owner hold"
+      "evidence_note": "PENDING_PAYMENT until CRYPTOQUANT_API_KEY — AWAITING_OWNER_PAYMENT_DECISION"
     },
     {
       "id": 191,
