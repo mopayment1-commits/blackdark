@@ -101,9 +101,11 @@ async def test_cap165_defillama_raises_mock_documents_api_wiring(monkeypatch):
     from cap646.batch04_strangler_spine import build_fundraising_momentum_165
 
     payload = await build_fundraising_momentum_165(symbol="BTC", params={"limit": 5})
+    # Fixture: 1 BTC-related row of 3 → min(100, 1*20 + 3*0.5) = 21.5
+    expected_momentum = 21.5
     assert payload["ok"] is True
     assert payload["source"] == "defillama_raises_free_tier"
     assert payload["total_raises_tracked"] == 3
     assert len(payload["fundraising_rounds"]) == 1
     assert payload["fundraising_rounds"][0]["symbol"] == "BTC"
-    assert payload["momentum_score"] > 0
+    assert payload["momentum_score"] == expected_momentum

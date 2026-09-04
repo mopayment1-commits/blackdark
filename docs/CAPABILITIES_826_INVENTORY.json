@@ -2392,7 +2392,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "NOT_COMPLETE \u2014 DeFiLlama /raises HTTP 402 (paid API subscription required as of 2026-09-04 live probe); PAID_VENDOR_DESIGNED spine retained"
     },
     "166": {
       "id": 166,

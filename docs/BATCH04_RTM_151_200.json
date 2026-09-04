@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T07:49:50.373339+00:00",
+  "generated_at": "2026-09-04T09:55:11.961720+00:00",
   "gate": "G1_BASELINE + SEMANTIC_ALIGNMENT_AUDIT",
   "branch": "cursor/batch-04-151-200-e85e",
   "commit": "b0002d6a10107d6724adf1cdac3f7af7a9ed9235",
@@ -1011,9 +1011,9 @@
       "semantic_evidence_commit": "24cb193e35cf802c5dbec3e54aa1672fa0971198",
       "semantic_reason": "hashrate_capitulation_forecast_165 is mining hashrate, not fundraising momentum.",
       "semantic_comparison": "Expected: Fundraising Momentum Score. Hero implements: BTC hashrate capitulation / miner revenue forecast. Runtime: momentum_score=hashrate_drop_pct, capitulation_signal from mining economics",
-      "closure_status": "PRODUCTION-ALIGNED",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED",
-      "status": "PRODUCTION-ALIGNED",
+      "closure_status": "NOT_COMPLETE",
+      "miswire_remediation": "PAID_API_SUBSCRIPTION",
+      "status": "NOT_COMPLETE",
       "production_spine": "batch04",
       "binding_file": "cap646/batch04_dedicated.py",
       "binding_function": "_cap165",
@@ -1027,7 +1027,10 @@
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
         "elapsed_ms": 15.6
-      }
+      },
+      "owner_note": "AWAITING_DEFILLAMA_API_SUBSCRIPTION",
+      "vendor_status": "PAID_VENDOR_DESIGNED",
+      "live_probe": "HTTP 402 https://api.llama.fi/raises"
     },
     {
       "id": 166,
@@ -3405,6 +3408,6 @@
     "non_doc_commits_frozen": true
   },
   "progress_826_current": 148,
-  "production_aligned_count": 32,
-  "progress_826_note": "batch04 PA count=32 (excludes paid vendor + blocked deps)"
+  "production_aligned_count": 31,
+  "progress_826_note": "batch04 PA count=31 (excludes paid vendor + blocked deps)"
 }

@@ -1,0 +1,66 @@
+{
+  "probed_at": "2026-09-04T09:54:30+00:00",
+  "probe_commit": "pending",
+  "summary": {
+    "reclassified_to_not_complete": [165],
+    "reclassified_reason": "HTTP 402 paid subscription (DeFiLlama /raises)",
+    "retained_production_aligned": [168, 171, 186, 200],
+    "retained_notes": {
+      "168": "No live Santiment HTTP — ingest_santiment_metrics_142 uses static free-tier seed metrics (not 402)",
+      "171": "CoinGecko /search/trending HTTP 200 with live coin list",
+      "186": "Etherscan V1 deprecated (NOTOK) — falls back to address_intelligence; not 402/subscription",
+      "200": "CoinGecko /coins/markets HTTP 200; reports leg uses ingest_coingecko_reports_200 seed (static)"
+    }
+  },
+  "probes": [
+    {
+      "capability_id": 165,
+      "source": "DeFiLlama raises",
+      "url": "https://api.llama.fi/raises",
+      "http_status": 402,
+      "body_preview": "Upgrade to the paid API plan at https://defillama.com/subscription",
+      "action": "NOT_COMPLETE + PAID_VENDOR_DESIGNED"
+    },
+    {
+      "capability_id": 168,
+      "source": "Santiment (claimed)",
+      "code_path": "bd_platform.data_sources_layer.ingest_santiment_metrics_142",
+      "live_http": false,
+      "builder_ok": true,
+      "builder_source": "santiment_free_tier",
+      "note": "Static seed metrics — Santiment GraphQL reachable (HTTP 400 without query) but not called by spine",
+      "action": "retain PRODUCTION-ALIGNED (not 402 pattern)"
+    },
+    {
+      "capability_id": 171,
+      "source": "CoinGecko trending",
+      "url": "https://api.coingecko.com/api/v3/search/trending",
+      "http_status": 200,
+      "builder_ok": true,
+      "trending_coins_count": 15,
+      "action": "retain PRODUCTION-ALIGNED"
+    },
+    {
+      "capability_id": 186,
+      "source": "Etherscan/BscScan",
+      "etherscan_url": "https://api.etherscan.io/api",
+      "etherscan_http_status": 200,
+      "etherscan_api_status": "0",
+      "etherscan_message": "NOTOK — deprecated V1 endpoint",
+      "builder_ok": true,
+      "wallet_tool_status": "fallback",
+      "builder_source": "address_intelligence_fallback",
+      "action": "retain PRODUCTION-ALIGNED (degraded fallback, not subscription gate)"
+    },
+    {
+      "capability_id": 200,
+      "source": "CoinGecko markets + reports seed",
+      "markets_url": "https://api.coingecko.com/api/v3/coins/markets",
+      "markets_http_status": 200,
+      "reports_path": "ingest_coingecko_reports_200 (static seed)",
+      "builder_ok": true,
+      "report_count": 2,
+      "action": "retain PRODUCTION-ALIGNED"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
-  "computed_at": "2026-09-04T07:50:00+00:00",
-  "canonical_progress": "180/826",
-  "numerator": 180,
+  "computed_at": "2026-09-04T09:55:00+00:00",
+  "canonical_progress": "179/826",
+  "numerator": 179,
   "denominator": 826,
   "formula": {
     "a_pre_batch_338_500_507_534": {
@@ -46,17 +46,17 @@
       "status": "LINK-ELIGIBLE — not counted"
     },
     "e_official_batch04_151_200": {
-      "production_aligned_count": 32,
+      "production_aligned_count": 31,
       "ids": "docs/BATCH04_FINAL_CLOSURE_STATUS_151_200.json",
-      "note": "Batch04 BUILD_PHASE_LIFTED except paid vendor #187/#188/#190"
+      "note": "Batch04 BUILD_PHASE_LIFTED except paid vendor #187/#188/#190 and #165 DeFiLlama API subscription"
     }
   },
   "breakdown": {
-    "inventory_production_aligned_total": 180,
+    "inventory_production_aligned_total": 179,
     "official_batch01_1_50": 50,
     "official_batch02_independent_51_100_excl_overlap": 46,
     "overlap_batch01_in_1_100": 4,
-    "official_batch04_151_200": 32
+    "official_batch04_151_200": 31
   },
   "single_source_of_truth": "docs/CAPABILITIES_826_INVENTORY.json summary must match this numerator"
 }

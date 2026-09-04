@@ -25,7 +25,6 @@ PRODUCTION_ALIGNED = frozenset(
         160,
         163,
         164,
-        165,
         167,
         168,
         169,
@@ -50,6 +49,7 @@ PRODUCTION_ALIGNED = frozenset(
 )
 
 PAID_VENDOR = frozenset({187, 188, 190})
+PAID_API_SUBSCRIPTION = frozenset({165})  # DeFiLlama /raises HTTP 402 (2026-09-04 live probe)
 
 STRANGLER_BUILDERS = frozenset(
     {
@@ -111,11 +111,18 @@ def _patch_row(row: dict) -> None:
             row["semantic_alignment_status"] = "PARTIAL_MISNAMED_RESOLVED"
             row["metric_type"] = "PARTIAL_MISNAMED"
             row["accuracy_disclaimer"] = "Heuristic local proxy — NOT Glassnode original metric."
-    elif cid in PAID_VENDOR:
+    elif cid in PAID_VENDOR or cid in PAID_API_SUBSCRIPTION:
         row["closure_status"] = "NOT_COMPLETE"
         row["status"] = "NOT_COMPLETE"
-        row["owner_note"] = "AWAITING_OWNER_PAYMENT_DECISION"
+        row["owner_note"] = (
+            "AWAITING_DEFILLAMA_API_SUBSCRIPTION"
+            if cid in PAID_API_SUBSCRIPTION
+            else "AWAITING_OWNER_PAYMENT_DECISION"
+        )
         row["vendor_status"] = "PAID_VENDOR_DESIGNED"
+        if cid in PAID_API_SUBSCRIPTION:
+            row["miswire_remediation"] = "PAID_API_SUBSCRIPTION"
+            row["live_probe"] = "HTTP 402 https://api.llama.fi/raises"
     elif cid in BLOCKED_DEPENDENCY:
         row["closure_status"] = "NOT_COMPLETE"
         row["status"] = "NOT_COMPLETE"
