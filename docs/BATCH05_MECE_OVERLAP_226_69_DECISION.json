@@ -91,7 +91,13 @@
       "closure_status_canonical": "NOT_COMPLETE",
       "closure_status_duplicate": "REUSED-LINK",
       "hero_action": "Eliminate launch-event hero \u2014 facade to batch02 #69 only",
-      "adr": "docs/ADR_BATCH05_226_REUSED_LINK_BATCH02.md"
+      "adr": "docs/ADR_BATCH05_226_REUSED_LINK_BATCH02.md",
+      "time_alternatives_rejected": {
+        "Invest_hero_strangler": "Type-4 SPLIT-BRAIN \u2014 launch-event hero wrong domain for cross-domain catalog goal",
+        "Tolerate_pending_mece": "Leaves analyze_launch_event_226 on production path; RTM overlay REPEAT_CANONICAL_PENDING_MECE superseded",
+        "Eliminate_catalog_row": "Official manifest ID 226 \u2014 out of scope",
+        "Migrate_internal_batch05": "No native cross-domain spine in batch05; would duplicate batch02 #69"
+      }
     }
   ]
 }

@@ -1,12 +1,14 @@
 {
-  "generated_at": "2026-09-04T15:01:40.298525+00:00",
-  "git_commit": "696fb90f01af699c25805206f3f05f390f68a5dd",
+  "generated_at": "2026-09-04T17:30:00+00:00",
+  "git_commit": "947cc7ce253d05c4e17a160a7ebc197b8316a5d2",
   "acceptance_source": "docs/BATCH05_ACCEPTANCE_201_250.json",
   "acceptance_pre_probe": true,
   "build_phase": "OPEN",
   "batch05_independent": 0,
   "progress_826": 179,
   "production_aligned_count": 0,
+  "routing_spine_ids": 49,
+  "duplicate_delegation_ids": [212],
   "reused_link_ids": [
     206,
     214,
@@ -15,7 +17,11 @@
     232,
     245
   ],
-  "sonarcloud_status": "PENDING",
+  "sonarcloud_status": "FAILED",
+  "coverage_xml_ci_status": "PASS",
+  "sonarcloud_qg_analysis_ref": "docs/BATCH05_SONARCLOUD_QG_ANALYSIS_PR366.md",
+  "prebuild_classification_ref": "docs/BATCH05_PREBUILD_CLASSIFICATION_212_226.json",
+  "institutional_lock": "LOCKED_212_226 — no PA claim; Coverage XML != QG",
   "domain_rules_all_pass_count": 48,
   "dedup_audit_ref": "docs/BATCH05_DEDUP_AUDIT.json",
   "rows": [

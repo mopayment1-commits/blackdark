@@ -13,6 +13,18 @@
 
 **Eliminate:** Hero `analyze_launch_event_226` from batch05 production path.
 
+## Alternatives considered (TIME + MECE)
+
+| Alternative | TIME | Why rejected |
+|-------------|------|--------------|
+| **Invest** — keep hero `analyze_launch_event_226` as batch05 strangler | Invest | Type-4 SPLIT-BRAIN: launch-event analysis ≠ cross-domain decision synthesis. Surface slug matches catalog but hero domain is wrong (MECE violation). |
+| **Tolerate** — `REPEAT_CANONICAL_PENDING_MECE` overlay, no facade | Tolerate | Leaves wrong hero on production path; pentagonal/RTM show unresolved overlap; entitlement probes on canonical #69 remain misaligned with runtime. |
+| **Eliminate** — remove #226 from catalog | Eliminate | Official batch05 manifest ID; removal requires catalog amendment outside current scope. |
+| **Migrate → batch05 internal canonical** | Migrate | No batch05-native cross-domain spine exists; inventing one duplicates batch02 #69. |
+| **Migrate → REUSED-LINK batch02 #69 (chosen)** | Migrate | Canonical `cap_069` implements `build_cross_domain_decision_payload`; facade preserves batch05 public spine + entitlement on `canonical_id(226)==69`. Hero eliminated. |
+
+**Canonical maturity gate:** batch02 #69 is an existing Invest spine with verified cross-domain payload — REUSED-LINK is permitted (not linking to incomplete canonical).
+
 ## Public routing
 
 | Layer | Spine for #226 |

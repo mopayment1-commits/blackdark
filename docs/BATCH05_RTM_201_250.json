@@ -1,13 +1,31 @@
 {
-  "generated_at": "2026-09-04T15:01:40.296004+00:00",
-  "gate": "G1_BASELINE + MECE_OVERLAP_214_245 + MECE_OVERLAP_205_232_206_228 + MECE_OVERLAP_226_69",
+  "generated_at": "2026-09-04T17:30:00+00:00",
+  "gate": "G1_BASELINE + MECE_OVERLAP_214_245 + MECE_OVERLAP_205_232_206_228 + MECE_OVERLAP_226_69 + INSTITUTIONAL_LOCK_212_226",
   "branch": "cursor/batch05-201-250-e85e",
-  "commit": "696fb90f01af699c25805206f3f05f390f68a5dd",
+  "commit": "947cc7ce253d05c4e17a160a7ebc197b8316a5d2",
   "scope": "Batch05 IDs 201-250",
   "official_batch": "batch05",
   "batch05_independent": 0,
   "progress_826": 179,
   "build_phase": "OPEN",
+  "institutional_lock": {
+    "status": "LOCKED_212_226",
+    "pr": 366,
+    "routing_spine_ids": 49,
+    "manifest_ids": 50,
+    "duplicate_delegation_ids": [212],
+    "forbidden": [
+      "LOCAL_GOVERNANCE_COMPLETE",
+      "LIVE_READY",
+      "PRODUCTION-ALIGNED for unresolved IDs",
+      "BATCH05_IDS expansion beyond 49"
+    ]
+  },
+  "prebuild_classification_ref": "docs/BATCH05_PREBUILD_CLASSIFICATION_212_226.json",
+  "sonarcloud_qg_analysis_ref": "docs/BATCH05_SONARCLOUD_QG_ANALYSIS_PR366.md",
+  "coverage_xml_ci_status": "PASS",
+  "sonarcloud_status": "FAILED",
+  "sonarcloud_note": "Coverage XML PASS != QG PASS — see sonarcloud_qg_analysis_ref",
   "mece_overlap_refs": [
     "docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json",
     "docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json",
@@ -19,9 +37,13 @@
       "BROWNFIELD": 50
     },
     "duplication_state": {
-      "DISTINCT": 44,
-      "REUSED_LINK": 6
+      "DISTINCT": 43,
+      "REUSED_LINK": 6,
+      "DUPLICATE_DELEGATION": 1
     },
+    "duplicate_delegation": [212],
+    "routing_spine_ids": 49,
+    "manifest_ids": 50,
     "reused_link": [
       206,
       214,
@@ -36,7 +58,8 @@
     },
     "closure_status": {
       "NOT_COMPLETE": 43,
-      "REUSED-LINK": 6
+      "REUSED-LINK": 6,
+      "DUPLICATE_DELEGATION": 1
     },
     "production_aligned": 0
   },
@@ -2592,5 +2615,7 @@
       }
     }
   ],
-  "sonarcloud_status": "PENDING"
+  "sonarcloud_status": "FAILED",
+  "coverage_xml_ci_status": "PASS",
+  "institutional_lock_ref": "docs/BATCH05_PREBUILD_CLASSIFICATION_212_226.json"
 }

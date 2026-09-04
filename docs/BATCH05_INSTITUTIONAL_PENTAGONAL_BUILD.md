@@ -1,8 +1,10 @@
 # BATCH05_INSTITUTIONAL_PENTAGONAL_BUILD
 
-**Generated:** 2026-09-04T15:01:40.313000+00:00 | **Commit:** `696fb90f01af` | **Scope:** Batch05 IDs 201–250
-**Classification:** BUILD PHASE OPEN — **NOT** LOCAL_GOVERNANCE_COMPLETE — SonarCloud PENDING
+**Generated:** 2026-09-04T17:30:00+00:00 | **Commit:** `947cc7c` | **Scope:** Batch05 IDs 201–250
+**Classification:** BUILD PHASE OPEN — institutional lock #212/#226 — **NOT** LOCAL_GOVERNANCE_COMPLETE
 **Acceptance source:** `BATCH05_ACCEPTANCE_201_250.json` (pre_probe, ISO 29148)
+
+هذه المرحلة = بناء spine + قبول مسبق + اختبارات محلية فقط. لا إعلان اكتمال حوكمة · لا Batch05 complete · لا جاهزية حية 100%.
 
 ---
 
@@ -10,6 +12,8 @@
 
 | Pair | TIME decision | closure_status |
 |------|---------------|----------------|
+| #212 → #17 | Migrate (duplicate delegation) | DUPLICATE_DELEGATION |
+| #226 → #69 | Migrate → batch02 | REUSED-LINK |
 | #214/#245 | Migrate → batch01 | REUSED-LINK |
 | #205/#232 | Invest #205 / Migrate #232 → #205 | NOT_COMPLETE / REUSED-LINK |
 | #206/#228 | Migrate → batch02 #86 | REUSED-LINK |
@@ -20,15 +24,19 @@
 
 | Bucket | Count |
 |--------|------:|
-| NOT_COMPLETE (strangler batch05) | 44 |
+| NOT_COMPLETE (strangler batch05) | 43 |
 | REUSED-LINK (MECE facades) | 6 |
+| DUPLICATE_DELEGATION (#212) | 1 |
 | PRODUCTION-ALIGNED | 0 |
 
 ```
 batch05_independent = 0
 progress_826        = 179
+routing_spine_ids   = 49
+manifest_ids        = 50
 domain_rules_all_pass = 48/50
-sonarcloud          = PENDING
+coverage_xml_ci     = PASS
+sonarcloud_qg       = FAILED (see BATCH05_SONARCLOUD_QG_ANALYSIS_PR366.md)
 ```
 
 ---
