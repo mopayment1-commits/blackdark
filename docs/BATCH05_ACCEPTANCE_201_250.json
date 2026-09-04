@@ -1,0 +1,1861 @@
+{
+  "generated_at": "2026-09-04T13:07:36.027819+00:00",
+  "commit_hash": "f1dd8a405473fba9d5e470f72d5b7cb68bba50c4",
+  "standard": "ISO/IEC/IEEE 29148",
+  "scope": "Batch05 IDs 201-250 (50 rows)",
+  "pre_probe": true,
+  "official_batch": "batch05",
+  "mece_overlap_decision": "docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json",
+  "note": "Bindings planned cap646/batch05_dedicated.py except #214/#245 REUSED-LINK batch01",
+  "rows": [
+    {
+      "capability_id": 201,
+      "capability_name": "Network Growth Intelligence",
+      "expected_surface": "network_growth_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "network_growth_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap201",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "network_growth_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "network_growth_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 201"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.quantitative_analysis_framework_201",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 202,
+      "capability_name": "Supply Distribution Intelligence",
+      "expected_surface": "supply_distribution_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "supply_distribution_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap202",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "supply_distribution_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "supply_distribution_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 202"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.discover_hidden_opportunities_202",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 203,
+      "capability_name": "DEX Trading Intelligence",
+      "expected_surface": "dex_trading_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "dex_trading_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap203",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "dex_trading_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "dex_trading_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 203"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.run_derivatives_ta_research_e2e_192_203",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 204,
+      "capability_name": "DeFi Protocol Activity Intelligence",
+      "expected_surface": "defi_protocol_activity_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "defi_protocol_activity_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap204",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 204"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.ingest_bscscan_204",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 205,
+      "capability_name": "Open Interest Intelligence",
+      "expected_surface": "open_interest_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "open_interest_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap205",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "open_interest_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "open_interest_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 205"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.ingest_glassnode_metrics_205",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 206,
+      "capability_name": "Funding Rate Intelligence",
+      "expected_surface": "funding_rate_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "funding_rate_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap206",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "funding_rate_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "funding_rate_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 206"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.ingest_uniswap_subgraph_206",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 207,
+      "capability_name": "Price / Volume / Market Metrics",
+      "expected_surface": "price_volume_market_metrics",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "price_volume_market_metrics",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap207",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "price_volume_market_metrics.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "price_volume_market_metrics.feature_ref",
+          "type": "numeric",
+          "condition": "== 207"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.ingest_aave_data_207",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 208,
+      "capability_name": "Metric Correlation Workbench",
+      "expected_surface": "metric_correlation_workbench",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "metric_correlation_workbench",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap208",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "metric_correlation_workbench.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "metric_correlation_workbench.feature_ref",
+          "type": "numeric",
+          "condition": "== 208"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.ingest_reddit_sentiment_208",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 209,
+      "capability_name": "Custom Chart Builder",
+      "expected_surface": "custom_chart_builder",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "custom_chart_builder",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap209",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "custom_chart_builder.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "custom_chart_builder.feature_ref",
+          "type": "numeric",
+          "condition": "== 209"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.blockchain_wallets_status_209",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 210,
+      "capability_name": "Custom Dashboards / Layouts",
+      "expected_surface": "custom_dashboards_layouts",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "custom_dashboards_layouts",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap210",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "custom_dashboards_layouts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "custom_dashboards_layouts.feature_ref",
+          "type": "numeric",
+          "condition": "== 210"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.analyze_predictive_arbitrage_210",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 211,
+      "capability_name": "Screener",
+      "expected_surface": "screener",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "screener",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap211",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "screener.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "screener.feature_ref",
+          "type": "numeric",
+          "condition": "== 211"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.cross_margin_risk_alert_211",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 212,
+      "capability_name": "Smart Alerts",
+      "expected_surface": "smart_alerts",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "smart_alerts",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap212",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "smart_alerts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "smart_alerts.feature_ref",
+          "type": "numeric",
+          "condition": "== 212"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.hedge_effectiveness_analysis_212",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 213,
+      "capability_name": "Anomaly Detection Alerts",
+      "expected_surface": "anomaly_detection_alerts",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "anomaly_detection_alerts",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap213",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "anomaly_detection_alerts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "anomaly_detection_alerts.feature_ref",
+          "type": "numeric",
+          "condition": "== 213"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.capital_allocation_insight_213",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 214,
+      "capability_name": "Watchlists",
+      "expected_surface": "watchlists",
+      "status": "REUSED-LINK",
+      "production_spine": "batch01",
+      "payload_root": "watchlists",
+      "binding_file": "cap646/batch01_dedicated.py",
+      "binding_function": "_cap214_watchlists",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 214"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch01"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch01_dedicated.py::_cap214_watchlists"
+        },
+        {
+          "field": "watchlists.count",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "watchlists.items",
+          "type": "list_min_length",
+          "condition": ">= 1"
+        }
+      ],
+      "prebuild_classification": "Brownfield-OVERLAP-BATCH01",
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch01 dedicated; hero whale/arbitrage bindings Eliminated",
+      "hero_underlying": "bd_platform.pro_trader_layer.build_whale_narrative_71",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "time_decision": "Migrate",
+      "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json"
+    },
+    {
+      "capability_id": 215,
+      "capability_name": "Community Explorer",
+      "expected_surface": "community_explorer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "community_explorer",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap215",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "community_explorer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "community_explorer.feature_ref",
+          "type": "numeric",
+          "condition": "== 215"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.flash_loan_gas_rejected_status_215",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 216,
+      "capability_name": "Research & Market Insights",
+      "expected_surface": "research_market_insights",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "research_market_insights",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap216",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "research_market_insights.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "research_market_insights.feature_ref",
+          "type": "numeric",
+          "condition": "== 216"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.onchain_defi_sources_layer.run_onchain_defi_sources_e2e_204_216",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 217,
+      "capability_name": "SanAPI-Style Data Access",
+      "expected_surface": "sanapi_style_data_access",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "sanapi_style_data_access",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap217",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "sanapi_style_data_access.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "sanapi_style_data_access.feature_ref",
+          "type": "numeric",
+          "condition": "== 217"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.analyze_best_venue_217",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 218,
+      "capability_name": "Google Sheets Integration",
+      "expected_surface": "google_sheets_integration",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "google_sheets_integration",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap218",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "google_sheets_integration.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "google_sheets_integration.feature_ref",
+          "type": "numeric",
+          "condition": "== 218"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.attach_order_journal_218",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 219,
+      "capability_name": "Metric Availability Registry",
+      "expected_surface": "metric_availability_registry",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "metric_availability_registry",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap219",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "metric_availability_registry.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "metric_availability_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 219"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.analyze_nlp_sentiment_219",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 220,
+      "capability_name": "Data Stabilization & Mutability Metadata",
+      "expected_surface": "data_stabilization_mutability_metadata",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "data_stabilization_mutability_metadata",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap220",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "data_stabilization_mutability_metadata.feature_ref",
+          "type": "numeric",
+          "condition": "== 220"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.attach_pattern_outcome_220",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 221,
+      "capability_name": "Data Quality & Provenance Layer",
+      "expected_surface": "data_quality_provenance_layer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "data_quality_provenance_layer",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap221",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "data_quality_provenance_layer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "data_quality_provenance_layer.feature_ref",
+          "type": "numeric",
+          "condition": "== 221"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.market_slippage_analysis_221",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 222,
+      "capability_name": "Metric Methodology Registry",
+      "expected_surface": "metric_methodology_registry",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "metric_methodology_registry",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap222",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "metric_methodology_registry.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "metric_methodology_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 222"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.monitor_exchange_latency_222",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 223,
+      "capability_name": "Social-to-On-Chain Confirmation Engine",
+      "expected_surface": "social_to_on_chain_confirmation_engine",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "social_to_on_chain_confirmation_engine",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap223",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "social_to_on_chain_confirmation_engine.feature_ref",
+          "type": "numeric",
+          "condition": "== 223"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.analyze_defi_fundamentals_223",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 224,
+      "capability_name": "Narrative Actionability Score",
+      "expected_surface": "narrative_actionability_score",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "narrative_actionability_score",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap224",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "narrative_actionability_score.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "narrative_actionability_score.feature_ref",
+          "type": "numeric",
+          "condition": "== 224"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 225,
+      "capability_name": "Development-to-Market Divergence Detector",
+      "expected_surface": "development_to_market_divergence_detector",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "development_to_market_divergence_detector",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap225",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "development_to_market_divergence_detector.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "development_to_market_divergence_detector.feature_ref",
+          "type": "numeric",
+          "condition": "== 225"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.pwa_strategy_status_225",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 226,
+      "capability_name": "Cross-Domain Decision Intelligence Layer",
+      "expected_surface": "cross_domain_decision_intelligence_layer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "cross_domain_decision_intelligence_layer",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap226",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cross_domain_decision_intelligence_layer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cross_domain_decision_intelligence_layer.feature_ref",
+          "type": "numeric",
+          "condition": "== 226"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.analyze_launch_event_226",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 227,
+      "capability_name": "Unified Trading Intelligence Workspace",
+      "expected_surface": "unified_trading_intelligence_workspace",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "unified_trading_intelligence_workspace",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap227",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "unified_trading_intelligence_workspace.feature_ref",
+          "type": "numeric",
+          "condition": "== 227"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_market_extensions_layer.run_intelligence_market_extensions_e2e_217_227",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 228,
+      "capability_name": "Funding Rate Intelligence",
+      "expected_surface": "funding_rate_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "funding_rate_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap228",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "funding_rate_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "funding_rate_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 228"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.simulate_drawdown_hedge_228",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 229,
+      "capability_name": "Cross-Exchange Funding Arbitrage Scanner",
+      "expected_surface": "cross_exchange_funding_arbitrage_scanner",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "cross_exchange_funding_arbitrage_scanner",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap229",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cross_exchange_funding_arbitrage_scanner.feature_ref",
+          "type": "numeric",
+          "condition": "== 229"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.attach_reasoning_explanation_229",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 230,
+      "capability_name": "Spot-Perp Arbitrage Scanner",
+      "expected_surface": "spot_perp_arbitrage_scanner",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "spot_perp_arbitrage_scanner",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap230",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "spot_perp_arbitrage_scanner.feature_ref",
+          "type": "numeric",
+          "condition": "== 230"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.analyze_cross_exchange_divergence_230",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 231,
+      "capability_name": "Futures Basis & Term Structure",
+      "expected_surface": "futures_basis_term_structure",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "futures_basis_term_structure",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap231",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "futures_basis_term_structure.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "futures_basis_term_structure.feature_ref",
+          "type": "numeric",
+          "condition": "== 231"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.triangular_arbitrage_status_231",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 232,
+      "capability_name": "Open Interest Intelligence",
+      "expected_surface": "open_interest_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "open_interest_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap232",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "open_interest_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "open_interest_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 232"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.attach_arbitrage_comparison_230_232",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 233,
+      "capability_name": "Liquidation Intelligence",
+      "expected_surface": "liquidation_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "liquidation_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap233",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "liquidation_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "liquidation_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 233"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.build_heatmap_component_233",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 234,
+      "capability_name": "CVD Intelligence",
+      "expected_surface": "cvd_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "cvd_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap234",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cvd_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cvd_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 234"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.live_dashboard_status_234",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 235,
+      "capability_name": "Long/Short Ratio Intelligence",
+      "expected_surface": "long_short_ratio_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "long_short_ratio_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap235",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "long_short_ratio_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "long_short_ratio_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 235"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.whale_intelligence_status_235",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 236,
+      "capability_name": "DEX Screener",
+      "expected_surface": "dex_screener",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "dex_screener",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap236",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "dex_screener.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "dex_screener.feature_ref",
+          "type": "numeric",
+          "condition": "== 236"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.subscription_tiers_status_236",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 237,
+      "capability_name": "Token Risk Scoring",
+      "expected_surface": "token_risk_scoring",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "token_risk_scoring",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap237",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_risk_scoring.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_risk_scoring.feature_ref",
+          "type": "numeric",
+          "condition": "== 237"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.generate_market_summary_237",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 238,
+      "capability_name": "Pump & Dump Detection",
+      "expected_surface": "pump_dump_detection",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "pump_dump_detection",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap238",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "pump_dump_detection.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "pump_dump_detection.feature_ref",
+          "type": "numeric",
+          "condition": "== 238"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.scan_market_opportunities_238",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 239,
+      "capability_name": "Narrative Tracking",
+      "expected_surface": "narrative_tracking",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "narrative_tracking",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap239",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "narrative_tracking.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "narrative_tracking.feature_ref",
+          "type": "numeric",
+          "condition": "== 239"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.live_ta_status_239",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 240,
+      "capability_name": "Sector Rotation Intelligence",
+      "expected_surface": "sector_rotation_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "sector_rotation_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap240",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "sector_rotation_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "sector_rotation_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 240"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.compute_s2f_240",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 241,
+      "capability_name": "Sentiment Intelligence",
+      "expected_surface": "sentiment_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "sentiment_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap241",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "sentiment_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "sentiment_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 241"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.run_intelligence_ux_extensions_e2e_228_241",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 242,
+      "capability_name": "Price Prediction / Multi-Signal Forecast",
+      "expected_surface": "price_prediction_multi_signal_forecast",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "price_prediction_multi_signal_forecast",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap242",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "price_prediction_multi_signal_forecast.feature_ref",
+          "type": "numeric",
+          "condition": "== 242"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.security_trust_data_layer.attach_audit_log_id_242",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 243,
+      "capability_name": "Correlation Matrix",
+      "expected_surface": "correlation_matrix",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "correlation_matrix",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap243",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "correlation_matrix.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "correlation_matrix.feature_ref",
+          "type": "numeric",
+          "condition": "== 243"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.security_trust_data_layer.ingest_bybit_price_243",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 244,
+      "capability_name": "New Listings Intelligence",
+      "expected_surface": "new_listings_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "new_listings_intelligence",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap244",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "new_listings_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "new_listings_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 244"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.security_trust_data_layer.ingest_cointelegraph_rss_244",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 245,
+      "capability_name": "Market Health & Freshness",
+      "expected_surface": "real_time_data_freshness_update_assurance",
+      "status": "REUSED-LINK",
+      "production_spine": "batch01",
+      "payload_root": "freshness_assurance",
+      "binding_file": "cap646/batch01_production.py",
+      "binding_function": "cap_245",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 245"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch01"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch01_production.py::cap_245"
+        },
+        {
+          "field": "freshness_chip",
+          "type": "present",
+          "condition": "not_null"
+        },
+        {
+          "field": "executable_fresh",
+          "type": "boolean",
+          "condition": "in [true,false]"
+        }
+      ],
+      "prebuild_classification": "Brownfield-OVERLAP-BATCH01",
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch01 freshness spine; hero coinmarketcal stub Eliminated",
+      "hero_underlying": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "time_decision": "Migrate",
+      "functional_gap": {
+        "catalog_name": "Market Health & Freshness",
+        "runtime_surface": "real_time_data_freshness_update_assurance",
+        "decision": "OVERLAP-PARTIAL \u2014 batch05 facade must re-stamp capability_id=245 on dispatch"
+      },
+      "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json"
+    },
+    {
+      "capability_id": 246,
+      "capability_name": "Coverage Metadata Registry",
+      "expected_surface": "coverage_metadata_registry",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "coverage_metadata_registry",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap246",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "coverage_metadata_registry.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "coverage_metadata_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 246"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.security_trust_data_layer.list_etherscan_watchlist_246",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 247,
+      "capability_name": "Public REST API",
+      "expected_surface": "public_rest_api",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "public_rest_api",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap247",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "public_rest_api.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "public_rest_api.feature_ref",
+          "type": "numeric",
+          "condition": "== 247"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.security_trust_data_layer.generate_weekly_digest_247",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 248,
+      "capability_name": "MCP Server for AI Agents",
+      "expected_surface": "mcp_server_for_ai_agents",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "mcp_server_for_ai_agents",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap248",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "mcp_server_for_ai_agents.feature_ref",
+          "type": "numeric",
+          "condition": "== 248"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.security_trust_data_layer.manual_performance_tracker_248",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 249,
+      "capability_name": "CLI Access",
+      "expected_surface": "cli_access",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "cli_access",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap249",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cli_access.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cli_access.feature_ref",
+          "type": "numeric",
+          "condition": "== 249"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.security_trust_data_layer.trad_simulator_rejected_status_249",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 250,
+      "capability_name": "OpenAPI / SDK Generation",
+      "expected_surface": "openapi_sdk_generation",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch05",
+      "payload_root": "openapi_sdk_generation",
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap250",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "openapi_sdk_generation.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "openapi_sdk_generation.feature_ref",
+          "type": "numeric",
+          "condition": "== 250"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "hero_underlying": "bd_platform.security_trust_data_layer.execution_speed_rejected_status_250",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    }
+  ]
+}

@@ -7,7 +7,8 @@
   "progress_826_baseline_at_open": "179/826",
   "official_spine": null,
   "status_summary": {
-    "NOT_COMPLETE": 50,
+    "NOT_COMPLETE": 48,
+    "REUSED-LINK": 2,
     "PRODUCTION-ALIGNED": 0
   },
   "note": "Initial inventory at Batch05 open — all 50 NOT_READY until acceptance + spine wiring. See BATCH05_CLASSIFICATION_INVEST_201_250.json for per-ID INVEST/12207."

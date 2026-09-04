@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-09-04T13:10:00+00:00",
+  "commit_hash": "f1dd8a405473fba9d5e470f72d5b7cb68bba50c4",
+  "scope": "Priority MECE + Type-4 contractual analysis — Batch05 overlap pair #214 and #245 vs Batch01 spine",
+  "symbols_tested": ["BTC", "ETH", "SOL", "AVAX", "DOGE"],
+  "type4_contract": "Side-by-side runtime invoke: batch01 production spine vs bd_platform hero bindings documented in hero audit",
+  "pairs": [
+    {
+      "capability_id": 214,
+      "catalog_capability": "Watchlists",
+      "official_batch": "batch05",
+      "batch01_binding": {
+        "module": "cap646.batch01_dedicated",
+        "function": "_cap214_watchlists",
+        "entry": "cap646.batch01_production.execute → batch01_dedicated (BATCH01_DEDICATED_IDS)",
+        "expected_surface": "watchlists",
+        "evidence_test": "tests/cap646/test_batch01_dedicated.py::test_cap214_watchlists_not_market_probe"
+      },
+      "hero_bindings_audited": [
+        {
+          "path": "bd_platform.heroes_capability_layer.whale_intelligence_214",
+          "underlying": "bd_platform.pro_trader_layer.build_whale_narrative_71",
+          "payload_domain": "whale_narrative",
+          "top_keys": ["narrative", "contrarian_insight", "merged_features"],
+          "semantic_match_catalog": false
+        },
+        {
+          "path": "bd_platform.onchain_defi_sources_layer.analyze_triangular_arbitrage_214",
+          "payload_domain": "triangular_arbitrage",
+          "top_keys": ["paths", "optimal_path_analytical", "in_flight_modification_rejected"],
+          "semantic_match_catalog": false
+        }
+      ],
+      "type4_per_symbol": {
+        "BTC": {"batch01_surface": "watchlists", "batch01_count": 13, "hero_domain": "whale_narrative"},
+        "ETH": {"batch01_surface": "watchlists", "batch01_count": 13, "hero_domain": "whale_narrative"},
+        "SOL": {"batch01_surface": "watchlists", "batch01_count": 13, "hero_domain": "whale_narrative"},
+        "AVAX": {"batch01_surface": "watchlists", "batch01_count": 13, "hero_domain": "whale_narrative"},
+        "DOGE": {"batch01_surface": "watchlists", "batch01_count": 13, "hero_domain": "whale_narrative"}
+      },
+      "mece_verdict": "NOT_DUPLICATE_WITHIN_BATCH05 — canonical watchlists spine already exists in batch01 dedicated extension; hero bindings are Type-4 SPLIT-BRAIN (wrong domain)",
+      "time_decision": "Migrate",
+      "closure_status": "REUSED-LINK",
+      "canonical_spine": "batch01",
+      "canonical_binding": "cap646/batch01_dedicated.py::_cap214_watchlists",
+      "batch05_action": "Facade dispatch only — NO new watchlists implementation in batch05_dedicated",
+      "hero_action": "Eliminate from production path — hero whale_intelligence_214 / analyze_triangular_arbitrage_214 are audit-only",
+      "adr": "docs/ADR_BATCH05_214_245_REUSED_LINK_BATCH01.md"
+    },
+    {
+      "capability_id": 245,
+      "catalog_capability": "Market Health & Freshness",
+      "official_batch": "batch05",
+      "batch01_binding": {
+        "module": "cap646.batch01_production",
+        "function": "cap_245",
+        "handler_chain": "cap646.handlers.alerts.handle_alerts_capability → cap646.data_spine.freshness_assurance_report",
+        "runtime_surface": "real_time_data_freshness_update_assurance",
+        "evidence_test": "tests/cap646/test_batch01_production.py::test_batch01_245_freshness_not_lake"
+      },
+      "hero_bindings_audited": [
+        {
+          "path": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+          "payload_domain": "coinmarketcal_events",
+          "activation_not_build": true,
+          "route": "/radar/events",
+          "semantic_match_catalog": false
+        },
+        {
+          "path": "bd_platform.heroes_capability_layer.emerging_fund_terminal_245",
+          "underlying": "bd_platform.whales_institutional_layer.smb_institution_status_83",
+          "payload_domain": "institution_terminal",
+          "no_build_in_current_sprint": true,
+          "semantic_match_catalog": false
+        }
+      ],
+      "type4_per_symbol": {
+        "BTC": {"batch01_success": true, "batch01_surface": "real_time_data_freshness_update_assurance", "has_freshness_chip": true},
+        "ETH": {"batch01_success": true, "batch01_surface": "real_time_data_freshness_update_assurance", "has_freshness_chip": true},
+        "SOL": {"batch01_success": true, "batch01_surface": "real_time_data_freshness_update_assurance", "has_freshness_chip": true},
+        "AVAX": {"batch01_success": true, "batch01_surface": "real_time_data_freshness_update_assurance", "has_freshness_chip": true},
+        "DOGE": {"batch01_success": true, "batch01_surface": "real_time_data_freshness_update_assurance", "has_freshness_chip": true}
+      },
+      "mece_verdict": "NOT_DUPLICATE — freshness assurance spine in batch01 is closer to catalog intent than hero calendar stub; internal capability_id stamp uses 630 (known OVERLAP-PARTIAL)",
+      "time_decision": "Migrate",
+      "closure_status": "REUSED-LINK",
+      "overlap_partial": true,
+      "canonical_spine": "batch01",
+      "canonical_binding": "cap646/batch01_production.py::cap_245 → cap646.data_spine.freshness_assurance_report",
+      "batch05_action": "Facade dispatch only — NO coinmarketcal stub path",
+      "hero_action": "Eliminate from production path — coinmarketcal_status_245 is activation_not_build stub",
+      "adr": "docs/ADR_BATCH05_214_245_REUSED_LINK_BATCH01.md"
+    }
+  ]
+}

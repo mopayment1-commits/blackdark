@@ -1,0 +1,582 @@
+{
+  "generated_at": "2026-09-04T13:07:36.157292+00:00",
+  "commit_hash": "f1dd8a405473fba9d5e470f72d5b7cb68bba50c4",
+  "scope": "Batch05 MECE four-layer audit",
+  "priority_overlap_gate": "docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json",
+  "layer1_mece": {
+    "internal_201_250_all": {
+      "scope": "internal_201_250 (C(50,2)=1225)",
+      "pairs_examined": 1225,
+      "threshold_jaccard": 0.55,
+      "candidates_found": 2,
+      "candidates": [
+        {
+          "a": 205,
+          "b": 232,
+          "a_name": "Open Interest Intelligence",
+          "b_name": "Open Interest Intelligence",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "interest",
+            "open"
+          ]
+        },
+        {
+          "a": 206,
+          "b": 228,
+          "a_name": "Funding Rate Intelligence",
+          "b_name": "Funding Rate Intelligence",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "funding",
+            "rate"
+          ]
+        }
+      ],
+      "excluded_from_scan": [
+        214,
+        245
+      ]
+    },
+    "internal_201_250_remaining_48": {
+      "scope": "internal_remaining_48 (C(48,2)=1128)",
+      "pairs_examined": 1128,
+      "threshold_jaccard": 0.55,
+      "candidates_found": 2,
+      "candidates": [
+        {
+          "a": 205,
+          "b": 232,
+          "a_name": "Open Interest Intelligence",
+          "b_name": "Open Interest Intelligence",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "interest",
+            "open"
+          ]
+        },
+        {
+          "a": 206,
+          "b": 228,
+          "a_name": "Funding Rate Intelligence",
+          "b_name": "Funding Rate Intelligence",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "funding",
+            "rate"
+          ]
+        }
+      ],
+      "excluded_from_scan": [
+        214,
+        245
+      ]
+    },
+    "vs_closed_1_200": {
+      "scope": "batch05_vs_1_200 (50\u00d7200=10000)",
+      "pairs_examined": 10000,
+      "threshold_jaccard": 0.55,
+      "candidates_found": 18,
+      "candidates": [
+        {
+          "a": 206,
+          "b": 86,
+          "a_name": "Funding Rate Intelligence",
+          "b_name": "Funding Rate Intelligence",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "funding",
+            "rate"
+          ]
+        },
+        {
+          "a": 212,
+          "b": 17,
+          "a_name": "Smart Alerts",
+          "b_name": "Smart Alerts",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "alerts",
+            "smart"
+          ]
+        },
+        {
+          "a": 221,
+          "b": 63,
+          "a_name": "Data Quality & Provenance Layer",
+          "b_name": "Data Quality & Provenance Layer",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "provenance",
+            "quality"
+          ]
+        },
+        {
+          "a": 221,
+          "b": 106,
+          "a_name": "Data Quality & Provenance Layer",
+          "b_name": "Data Quality & Provenance Layer",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "provenance",
+            "quality"
+          ]
+        },
+        {
+          "a": 222,
+          "b": 64,
+          "a_name": "Metric Methodology Registry",
+          "b_name": "Metric Methodology Registry",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "methodology",
+            "metric",
+            "registry"
+          ]
+        },
+        {
+          "a": 222,
+          "b": 107,
+          "a_name": "Metric Methodology Registry",
+          "b_name": "Metric Methodology Registry",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "methodology",
+            "metric",
+            "registry"
+          ]
+        },
+        {
+          "a": 226,
+          "b": 69,
+          "a_name": "Cross-Domain Decision Intelligence Layer",
+          "b_name": "Cross-Domain Decision Intelligence Layer",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "cross",
+            "decision",
+            "domain"
+          ]
+        },
+        {
+          "a": 226,
+          "b": 110,
+          "a_name": "Cross-Domain Decision Intelligence Layer",
+          "b_name": "Cross-Domain Decision Intelligence Layer",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "cross",
+            "decision",
+            "domain"
+          ]
+        },
+        {
+          "a": 228,
+          "b": 86,
+          "a_name": "Funding Rate Intelligence",
+          "b_name": "Funding Rate Intelligence",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "funding",
+            "rate"
+          ]
+        },
+        {
+          "a": 233,
+          "b": 88,
+          "a_name": "Liquidation Intelligence",
+          "b_name": "Liquidation Intelligence",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "liquidation"
+          ]
+        },
+        {
+          "a": 241,
+          "b": 129,
+          "a_name": "Sentiment Intelligence",
+          "b_name": "Sentiment Intelligence",
+          "jaccard": 1.0,
+          "shared_tokens": [
+            "sentiment"
+          ]
+        },
+        {
+          "a": 226,
+          "b": 163,
+          "a_name": "Cross-Domain Decision Intelligence Layer",
+          "b_name": "Cross-Domain Research-to-Decision Intelligence",
+          "jaccard": 0.75,
+          "shared_tokens": [
+            "cross",
+            "decision",
+            "domain"
+          ]
+        },
+        {
+          "a": 205,
+          "b": 85,
+          "a_name": "Open Interest Intelligence",
+          "b_name": "Futures Open Interest Intelligence",
+          "jaccard": 0.667,
+          "shared_tokens": [
+            "interest",
+            "open"
+          ]
+        },
+        {
+          "a": 205,
+          "b": 125,
+          "a_name": "Open Interest Intelligence",
+          "b_name": "Futures Open Interest Intelligence",
+          "jaccard": 0.667,
+          "shared_tokens": [
+            "interest",
+            "open"
+          ]
+        },
+        {
+          "a": 206,
+          "b": 124,
+          "a_name": "Funding Rate Intelligence",
+          "b_name": "Futures Funding Rate Intelligence",
+          "jaccard": 0.667,
+          "shared_tokens": [
+            "funding",
+            "rate"
+          ]
+        },
+        {
+          "a": 228,
+          "b": 124,
+          "a_name": "Funding Rate Intelligence",
+          "b_name": "Futures Funding Rate Intelligence",
+          "jaccard": 0.667,
+          "shared_tokens": [
+            "funding",
+            "rate"
+          ]
+        },
+        {
+          "a": 232,
+          "b": 85,
+          "a_name": "Open Interest Intelligence",
+          "b_name": "Futures Open Interest Intelligence",
+          "jaccard": 0.667,
+          "shared_tokens": [
+            "interest",
+            "open"
+          ]
+        },
+        {
+          "a": 232,
+          "b": 125,
+          "a_name": "Open Interest Intelligence",
+          "b_name": "Futures Open Interest Intelligence",
+          "jaccard": 0.667,
+          "shared_tokens": [
+            "interest",
+            "open"
+          ]
+        }
+      ],
+      "excluded_from_scan": []
+    },
+    "vs_ssot_external": {
+      "scope": "batch05 vs SSOT external 338/500/507/534",
+      "pairs_examined": 200,
+      "candidates_found": 0,
+      "candidates": []
+    },
+    "hero_search": {
+      "scope": "hero/bd_platform layer search for *_201..250",
+      "files_searched": [
+        "bd_platform/derivatives_ta_research_layer.py",
+        "bd_platform/onchain_defi_sources_layer.py",
+        "bd_platform/intelligence_market_extensions_layer.py",
+        "bd_platform/intelligence_ux_extensions_layer.py",
+        "bd_platform/security_trust_data_layer.py",
+        "bd_platform/heroes_capability_layer.py",
+        "bd_platform/pro_trader_layer.py",
+        "bd_platform/market_analysis_layer.py"
+      ],
+      "ids_with_functions": 50,
+      "function_map": {
+        "201": [
+          "quantitative_analysis_framework@bd_platform/derivatives_ta_research_layer.py"
+        ],
+        "202": [
+          "discover_hidden_opportunities@bd_platform/derivatives_ta_research_layer.py"
+        ],
+        "203": [
+          "ingest_cryptocompare_price@bd_platform/derivatives_ta_research_layer.py",
+          "validate_oracle_consensus@bd_platform/derivatives_ta_research_layer.py",
+          "run_derivatives_ta_research_e2e_192@bd_platform/derivatives_ta_research_layer.py"
+        ],
+        "204": [
+          "ingest_bscscan@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "205": [
+          "ingest_glassnode_metrics@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "206": [
+          "ingest_uniswap_subgraph@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "207": [
+          "ingest_aave_data@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "208": [
+          "ingest_reddit_sentiment@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "209": [
+          "blockchain_wallets_status@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "210": [
+          "analyze_predictive_arbitrage@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "211": [
+          "cross_margin_risk_alert@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "212": [
+          "hedge_effectiveness_analysis@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "213": [
+          "capital_allocation_insight@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "214": [
+          "analyze_triangular_arbitrage@bd_platform/onchain_defi_sources_layer.py",
+          "attach_arbitrage_predictive_210@bd_platform/onchain_defi_sources_layer.py",
+          "whale_intelligence@bd_platform/heroes_capability_layer.py"
+        ],
+        "215": [
+          "flash_loan_gas_rejected_status@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "216": [
+          "whale_contrarian_insight@bd_platform/onchain_defi_sources_layer.py",
+          "attach_whale_contrarian@bd_platform/onchain_defi_sources_layer.py",
+          "run_onchain_defi_sources_e2e_204@bd_platform/onchain_defi_sources_layer.py"
+        ],
+        "217": [
+          "auto_router_rejected_status@bd_platform/intelligence_market_extensions_layer.py",
+          "analyze_best_venue@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "218": [
+          "add_manual_order_journal@bd_platform/intelligence_market_extensions_layer.py",
+          "list_manual_order_journal@bd_platform/intelligence_market_extensions_layer.py",
+          "attach_order_journal@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "219": [
+          "analyze_nlp_sentiment@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "220": [
+          "analyze_pattern_outcome@bd_platform/intelligence_market_extensions_layer.py",
+          "attach_pattern_outcome@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "221": [
+          "execution_quality_rejected_status@bd_platform/intelligence_market_extensions_layer.py",
+          "market_slippage_analysis@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "222": [
+          "monitor_exchange_latency@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "223": [
+          "analyze_defi_fundamentals@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "224": [
+          "analyze_token_dcf@bd_platform/intelligence_market_extensions_layer.py",
+          "new_listing_detection@bd_platform/heroes_capability_layer.py"
+        ],
+        "225": [
+          "pwa_strategy_status@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "226": [
+          "launch_arbitrage_rejected_status@bd_platform/intelligence_market_extensions_layer.py",
+          "analyze_launch_event@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "227": [
+          "etf_arbitrage_rejected_status@bd_platform/intelligence_market_extensions_layer.py",
+          "analyze_etf_premium@bd_platform/intelligence_market_extensions_layer.py",
+          "run_intelligence_market_extensions_e2e_217@bd_platform/intelligence_market_extensions_layer.py"
+        ],
+        "228": [
+          "portfolio_insurance_rejected_status@bd_platform/intelligence_ux_extensions_layer.py",
+          "simulate_drawdown_hedge@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "229": [
+          "generate_reasoning_explanation@bd_platform/intelligence_ux_extensions_layer.py",
+          "attach_reasoning_explanation@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "230": [
+          "cross_exchange_arbitrage_status@bd_platform/intelligence_ux_extensions_layer.py",
+          "analyze_cross_exchange_divergence@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "231": [
+          "triangular_arbitrage_status@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "232": [
+          "analyze_price_comparison@bd_platform/intelligence_ux_extensions_layer.py",
+          "attach_arbitrage_comparison_230@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "233": [
+          "build_heatmap_component@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "234": [
+          "live_dashboard_status@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "235": [
+          "whale_intelligence_status@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "236": [
+          "subscription_tiers_status@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "237": [
+          "generate_market_summary@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "238": [
+          "scan_market_opportunities@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "239": [
+          "live_ta_status@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "240": [
+          "compute_s2f@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "241": [
+          "ingest_fred_macro@bd_platform/intelligence_ux_extensions_layer.py",
+          "attach_fred_macro@bd_platform/intelligence_ux_extensions_layer.py",
+          "run_intelligence_ux_extensions_e2e_228@bd_platform/intelligence_ux_extensions_layer.py"
+        ],
+        "242": [
+          "append_audit_event@bd_platform/security_trust_data_layer.py",
+          "export_audit_trail@bd_platform/security_trust_data_layer.py",
+          "attach_audit_log_id@bd_platform/security_trust_data_layer.py"
+        ],
+        "243": [
+          "ingest_bybit_price@bd_platform/security_trust_data_layer.py"
+        ],
+        "244": [
+          "ingest_cointelegraph_rss@bd_platform/security_trust_data_layer.py"
+        ],
+        "245": [
+          "coinmarketcal_status@bd_platform/security_trust_data_layer.py",
+          "emerging_fund_terminal@bd_platform/heroes_capability_layer.py"
+        ],
+        "246": [
+          "add_etherscan_watch@bd_platform/security_trust_data_layer.py",
+          "list_etherscan_watchlist@bd_platform/security_trust_data_layer.py"
+        ],
+        "247": [
+          "generate_weekly_digest@bd_platform/security_trust_data_layer.py"
+        ],
+        "248": [
+          "profit_analytics_rejected_status@bd_platform/security_trust_data_layer.py",
+          "manual_performance_tracker@bd_platform/security_trust_data_layer.py"
+        ],
+        "249": [
+          "trad_simulator_rejected_status@bd_platform/security_trust_data_layer.py"
+        ],
+        "250": [
+          "execution_speed_rejected_status@bd_platform/security_trust_data_layer.py"
+        ]
+      },
+      "split_brain_ids": [
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        210,
+        211,
+        212,
+        213,
+        214,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        232,
+        233,
+        237,
+        238,
+        240,
+        241,
+        242,
+        243,
+        244,
+        246,
+        247,
+        248
+      ],
+      "overlap_resolved": {
+        "214": "REUSED-LINK batch01 dedicated \u2014 hero bindings eliminated",
+        "245": "REUSED-LINK batch01 freshness \u2014 hero stub eliminated"
+      }
+    }
+  },
+  "layer2_code_jscpd": {
+    "exit_code": 0,
+    "files_scanned": 8,
+    "duplicated_lines": 78,
+    "duplicated_tokens": 465,
+    "clones": 6,
+    "report_path": "docs/.jscpd-batch05-phase0/jscpd-report.json"
+  },
+  "layer3_ssot": {
+    "note": "Single progress equation: docs/PROGRESS_826_CANONICAL.json",
+    "batch05_not_in_numerator_until_PA": true
+  },
+  "layer4_type4_contract": {
+    "note": "#214/#245 resolved in priority gate; sample 10 IDs deferred until batch05_dedicated exists",
+    "sample_ids_planned": [
+      201,
+      203,
+      205,
+      208,
+      217,
+      228,
+      237,
+      242,
+      247,
+      250
+    ]
+  },
+  "duplicate_clusters_notable": [
+    {
+      "name": "funding_rate_cluster",
+      "ids": [
+        206,
+        228
+      ],
+      "action": "MECE semantic review during implementation"
+    },
+    {
+      "name": "open_interest_cluster",
+      "ids": [
+        205,
+        232
+      ],
+      "action": "MECE semantic review during implementation"
+    },
+    {
+      "name": "funding_arbitrage_cluster",
+      "ids": [
+        229,
+        230
+      ],
+      "action": "distinct scanners \u2014 verify at implementation"
+    }
+  ]
+}
