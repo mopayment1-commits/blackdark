@@ -169,7 +169,7 @@ async def test_cap232_reused_link_facade():
     assert result["classification"] == "REUSED-LINK"
     assert result["catalog_link"]["canonical_spine"] == "batch05"
     assert result["catalog_link"]["canonical_capability_id"] == 205
-    assert result["catalog_link"]["binding"] == "cap646/batch05_dedicated.py::_cap205"
+    assert result["catalog_link"]["binding"] == "cap646/batch05_strangler_spine.py::build_open_interest_205"
     assert result["open_interest_intelligence"]["feature_ref"] == 205
     assert result["open_interest_intelligence"]["ok"] is True
 

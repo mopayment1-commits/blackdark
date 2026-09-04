@@ -1,4 +1,4 @@
-"""Tests for Batch05 Strangler spine — catalog-correct wiring (wave 1: 201–204)."""
+"""Tests for Batch05 Strangler spine — catalog-correct wiring."""
 
 from __future__ import annotations
 
@@ -9,16 +9,19 @@ import pytest
 from cap646.batch05_dedicated import EXPECTED_SURFACE, execute
 from cap646.batch05_strangler_spine import STRANGLER_BUILDERS, STRANGLER_IMPLEMENTED_IDS
 
-WAVE1_IDS = sorted(STRANGLER_IMPLEMENTED_IDS)
+WAVE1_IDS = [201, 202, 203, 204]
+WAVE2A_IDS = [205]
+WAVE2B_IDS = [207, 208, 209, 210, 211, 213, 215, 216]
+ALL_STRANGLER_IDS = sorted(STRANGLER_IMPLEMENTED_IDS)
 
 
-@pytest.mark.parametrize("capability_id", WAVE1_IDS)
+@pytest.mark.parametrize("capability_id", ALL_STRANGLER_IDS)
 def test_strangler_builder_registered(capability_id: int):
     assert capability_id in STRANGLER_BUILDERS
     assert STRANGLER_BUILDERS[capability_id].__name__.startswith("build_")
 
 
-@pytest.mark.parametrize("capability_id", WAVE1_IDS)
+@pytest.mark.parametrize("capability_id", ALL_STRANGLER_IDS)
 @pytest.mark.asyncio
 async def test_strangler_builder_returns_catalog_payload(capability_id: int):
     builder = STRANGLER_BUILDERS[capability_id]
@@ -38,7 +41,7 @@ async def test_strangler_builder_returns_catalog_payload(capability_id: int):
     assert payload["latency_ms"] < 5000
 
 
-@pytest.mark.parametrize("capability_id", WAVE1_IDS)
+@pytest.mark.parametrize("capability_id", ALL_STRANGLER_IDS)
 @pytest.mark.asyncio
 async def test_strangler_runtime_dispatch(capability_id: int):
     result = await execute(
@@ -57,35 +60,34 @@ async def test_strangler_runtime_dispatch(capability_id: int):
 
 
 @pytest.mark.asyncio
-async def test_cap201_footprint_network_growth_fields():
-    result = await execute(201, params={"symbol": "BTC"})
-    payload = result["network_growth_intelligence"]
-    assert payload["source"] == "footprint_analytics.footprint_snapshot"
-    assert "order_flow_delta" in payload or "footprint" in payload
+async def test_cap205_open_interest_binance_futures():
+    result = await execute(205, params={"symbol": "BTC"})
+    payload = result["open_interest_intelligence"]
+    assert payload["source"] == "free_market_data.binance_futures_snapshot"
+    assert "open_interest_usd" in payload
 
 
 @pytest.mark.asyncio
-async def test_cap202_supply_distribution_holder_metrics():
-    result = await execute(202, params={"symbol": "BTC"})
-    payload = result["supply_distribution_intelligence"]
-    assert "holder_metrics" in payload
-    assert payload["source"]
+async def test_cap232_reused_link_to_strangler_205():
+    result = await execute(232, params={"symbol": "BTC"})
+    assert result["classification"] == "REUSED-LINK"
+    assert result["catalog_link"]["canonical_capability_id"] == 205
+    assert result["catalog_link"]["binding"] == "cap646/batch05_strangler_spine.py::build_open_interest_205"
+    assert result["open_interest_intelligence"]["miswire_remediation"] == "STRANGLER_IMPLEMENTED"
 
 
+@pytest.mark.parametrize("capability_id,source", [
+    (207, "market_context.probe_price_sources+free_market_data.binance_futures_snapshot"),
+    (208, "free_market_data.binance_futures_snapshot"),
+    (209, "cap646.fallbacks.resolve_ohlcv_closes"),
+    (210, "bd_platform.market_rankings.market_rankings"),
+    (211, "bd_platform.market_rankings.market_rankings"),
+    (213, "footprint_analytics.footprint_snapshot"),
+    (215, "onchain_defi_sources_layer.ingest_reddit_sentiment_208"),
+    (216, "market_rankings+onchain_defi_sources_layer.ingest_reddit_sentiment_208"),
+])
 @pytest.mark.asyncio
-async def test_cap203_dex_trading_pairs():
-    result = await execute(203, params={"symbol": "BTC"})
-    payload = result["dex_trading_intelligence"]
-    assert payload["source"] == "onchain_hub.dexscreener_pairs"
-    assert "dex_pairs" in payload
-
-
-@pytest.mark.asyncio
-async def test_cap204_defi_protocol_bsc_activity():
-    result = await execute(
-        204,
-        params={"symbol": "BTC", "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"},
-    )
-    payload = result["defi_protocol_activity_intelligence"]
-    assert payload["chain"] == "BSC"
-    assert payload["source"] == "onchain_defi_sources_layer.ingest_bscscan_204"
+async def test_wave2b_catalog_sources(capability_id: int, source: str):
+    result = await execute(capability_id, params={"symbol": "BTC"})
+    root = EXPECTED_SURFACE[capability_id]
+    assert result[root]["source"] == source

@@ -117,7 +117,7 @@ _REUSED_LINK_CATALOG: dict[int, dict[str, Any]] = {
         "classification": "REUSED-LINK",
         "canonical_capability_id": 205,
         "canonical_spine": "batch05",
-        "binding": "cap646/batch05_dedicated.py::_cap205",
+        "binding": "cap646/batch05_strangler_spine.py::build_open_interest_205",
     },
 }
 
@@ -147,10 +147,6 @@ async def _cap245(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     return _stamp_reused_link(result, 245)
 
 
-async def _cap205(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    return await _cap_hero_bridge(205, symbol=symbol, address=address, params=params)
-
-
 async def _cap206(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from cap646.batch02_production import execute as execute_batch02
 
@@ -170,11 +166,6 @@ async def _cap226(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
     result = await execute_batch02(69, params={**params, "symbol": symbol, "address": address})
     return _stamp_reused_link(result, 226)
-
-
-async def _cap232(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    result = await _cap205(symbol=symbol, address=address, params=params)
-    return _stamp_reused_link(result, 232)
 
 
 async def _cap_hero_bridge(capability_id: int, *, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
@@ -233,8 +224,13 @@ _STRANGLER_DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     cid: _make_strangler_handler(cid) for cid in sorted(STRANGLER_BUILDERS)
 }
 
+
+async def _cap232(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    result = await _STRANGLER_DISPATCH[205](symbol=symbol, address=address, params=params)
+    return _stamp_reused_link(result, 232)
+
+
 _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
-    205: _cap205,
     206: _cap206,
     214: _cap214,
     226: _cap226,
@@ -244,7 +240,7 @@ _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     **_STRANGLER_DISPATCH,
     **{
         cid: _make_hero_handler(cid)
-        for cid in sorted(_HERO_IDS - BATCH05_REUSED_LINK_IDS - {205} - set(STRANGLER_BUILDERS))
+        for cid in sorted(_HERO_IDS - BATCH05_REUSED_LINK_IDS - set(STRANGLER_BUILDERS))
     },
 }
 

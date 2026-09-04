@@ -55,7 +55,7 @@ CATALOG_SAMPLE_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_batch05
 GATEWAY_TEST = "tests/cap646/test_batch05_gateway_canonical_entitlement_contract.py"
 
 CATALOG_ALIGNED_SAMPLE = frozenset({201, 204, 211, 217, 229, 233, 237, 243, 246, 250})
-STRANGLER_IMPLEMENTED_IDS = frozenset({201, 202, 203, 204})
+STRANGLER_IMPLEMENTED_IDS = frozenset({201, 202, 203, 204, 205, 207, 208, 209, 210, 211, 213, 215, 216})
 STRANGLER_TEST = "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
 
 LATENCY_LIMITS = {
@@ -161,7 +161,7 @@ async def probe_capability(cid: int) -> dict[str, Any]:
 def latency_bucket(cid: int, elapsed_ms: float) -> dict[str, Any]:
     if cid in {224, 242, 248}:
         kind, limit = "ai_interpretation", LATENCY_LIMITS["ai_interpretation"]
-    elif cid in {201, 208, 226, 240}:
+    elif cid in {201, 207, 208, 209, 226, 240}:
         kind, limit = "analysis", LATENCY_LIMITS["analysis"]
     else:
         kind, limit = "direct_data", LATENCY_LIMITS["direct_data"]
