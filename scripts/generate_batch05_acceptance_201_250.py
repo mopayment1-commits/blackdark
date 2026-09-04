@@ -17,6 +17,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 CLASSIFICATION = ROOT / "docs/BATCH05_CLASSIFICATION_INVEST_201_250.json"
 MECE_OVERLAP = ROOT / "docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json"
+MECE_OVERLAP_OI_FUNDING = ROOT / "docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json"
 CATALOG = ROOT / "docs/cap646/CAP646_CATALOG.json"
 OUT = ROOT / "docs/BATCH05_ACCEPTANCE_201_250.json"
 RULE_PROOF = ROOT / "docs/BATCH05_RULE_COUNT_ASSERT_PROOF.txt"
@@ -63,6 +64,31 @@ REUSED_245_RULES = [
     {"field": "executable_fresh", "type": "boolean", "condition": "in [true,false]"},
 ]
 
+REUSED_206_228_RULES = [
+    {"field": "catalog_link.classification", "type": "enum", "condition": "== REUSED-LINK"},
+    {"field": "catalog_link.canonical_capability_id", "type": "numeric", "condition": "== 86"},
+    {"field": "catalog_link.canonical_spine", "type": "enum", "condition": "== batch02"},
+    {
+        "field": "catalog_link.binding",
+        "type": "enum",
+        "condition": "== cap646/batch02_production.py::cap_086",
+    },
+    {"field": "funding_rate", "type": "present", "condition": "not_null"},
+]
+
+REUSED_232_RULES = [
+    {"field": "catalog_link.classification", "type": "enum", "condition": "== REUSED-LINK"},
+    {"field": "catalog_link.canonical_capability_id", "type": "numeric", "condition": "== 205"},
+    {"field": "catalog_link.canonical_spine", "type": "enum", "condition": "== batch05"},
+    {
+        "field": "catalog_link.binding",
+        "type": "enum",
+        "condition": "== cap646/batch05_dedicated.py::_cap205",
+    },
+    {"field": "open_interest_intelligence.ok", "type": "boolean", "condition": "== true"},
+    {"field": "open_interest_intelligence.feature_ref", "type": "numeric", "condition": "== 205"},
+]
+
 _SPECS: dict[int, dict[str, Any]] = {
     214: {
         "status": "REUSED-LINK",
@@ -88,10 +114,47 @@ _SPECS: dict[int, dict[str, Any]] = {
         "time_decision": "Migrate",
         "functional_gap": {
             "catalog_name": "Market Health & Freshness",
+            "implemented_scope": "real_time_data_freshness_update_assurance",
             "runtime_surface": "real_time_data_freshness_update_assurance",
             "decision": "OVERLAP-PARTIAL — batch05 facade must re-stamp capability_id=245 on dispatch",
         },
         "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json",
+    },
+    206: {
+        "status": "REUSED-LINK",
+        "production_spine": "batch02",
+        "expected_surface": "funding_rate_intelligence",
+        "payload_root": "funding_rate",
+        "binding_file": "cap646/batch02_production.py",
+        "binding_function": "cap_086",
+        "domain_rules": REUSED_206_228_RULES,
+        "build_decision": "REUSED-LINK — Migrate to batch02 #86; hero uniswap subgraph Eliminated",
+        "time_decision": "Migrate",
+        "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json",
+    },
+    228: {
+        "status": "REUSED-LINK",
+        "production_spine": "batch02",
+        "expected_surface": "funding_rate_intelligence",
+        "payload_root": "funding_rate",
+        "binding_file": "cap646/batch02_production.py",
+        "binding_function": "cap_086",
+        "domain_rules": REUSED_206_228_RULES,
+        "build_decision": "REUSED-LINK — Migrate to batch02 #86; hero drawdown hedge Eliminated",
+        "time_decision": "Migrate",
+        "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json",
+    },
+    232: {
+        "status": "REUSED-LINK",
+        "production_spine": "batch05",
+        "expected_surface": "open_interest_intelligence",
+        "payload_root": "open_interest_intelligence",
+        "binding_file": "cap646/batch05_dedicated.py",
+        "binding_function": "_cap205",
+        "domain_rules": REUSED_232_RULES,
+        "build_decision": "REUSED-LINK — Migrate to canonical #205; hero arbitrage comparison Eliminated",
+        "time_decision": "Migrate",
+        "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json",
     },
 }
 
@@ -170,7 +233,8 @@ def build() -> dict[str, Any]:
         "pre_probe": True,
         "official_batch": "batch05",
         "mece_overlap_decision": str(MECE_OVERLAP.relative_to(ROOT)),
-        "note": "Bindings planned cap646/batch05_dedicated.py except #214/#245 REUSED-LINK batch01",
+        "mece_overlap_oi_funding": str(MECE_OVERLAP_OI_FUNDING.relative_to(ROOT)),
+        "note": "Bindings planned cap646/batch05_dedicated.py except REUSED-LINK facades (#214/#245 batch01, #206/#228 batch02, #232→#205)",
         "rows": rows,
     }
 

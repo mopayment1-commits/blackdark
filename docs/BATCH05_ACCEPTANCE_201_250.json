@@ -1,12 +1,13 @@
 {
-  "generated_at": "2026-09-04T13:07:36.027819+00:00",
-  "commit_hash": "f1dd8a405473fba9d5e470f72d5b7cb68bba50c4",
+  "generated_at": "2026-09-04T13:39:10.586538+00:00",
+  "commit_hash": "0febda7db676ff422da4d8aee6825bcde96fa78d",
   "standard": "ISO/IEC/IEEE 29148",
   "scope": "Batch05 IDs 201-250 (50 rows)",
   "pre_probe": true,
   "official_batch": "batch05",
   "mece_overlap_decision": "docs/BATCH05_MECE_OVERLAP_214_245_DECISION.json",
-  "note": "Bindings planned cap646/batch05_dedicated.py except #214/#245 REUSED-LINK batch01",
+  "mece_overlap_oi_funding": "docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json",
+  "note": "Bindings planned cap646/batch05_dedicated.py except REUSED-LINK facades (#214/#245 batch01, #206/#228 batch02, #232\u2192#205)",
   "rows": [
     {
       "capability_id": 201,
@@ -192,11 +193,11 @@
       "capability_id": 206,
       "capability_name": "Funding Rate Intelligence",
       "expected_surface": "funding_rate_intelligence",
-      "status": "NOT_COMPLETE",
-      "production_spine": "batch05",
-      "payload_root": "funding_rate_intelligence",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap206",
+      "status": "REUSED-LINK",
+      "production_spine": "batch02",
+      "payload_root": "funding_rate",
+      "binding_file": "cap646/batch02_production.py",
+      "binding_function": "cap_086",
       "domain_rules": [
         {
           "field": "success",
@@ -209,20 +210,37 @@
           "condition": "== expected_surface"
         },
         {
-          "field": "funding_rate_intelligence.ok",
-          "type": "boolean",
-          "condition": "== true"
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
         },
         {
-          "field": "funding_rate_intelligence.feature_ref",
+          "field": "catalog_link.canonical_capability_id",
           "type": "numeric",
-          "condition": "== 206"
+          "condition": "== 86"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_086"
+        },
+        {
+          "field": "funding_rate",
+          "type": "present",
+          "condition": "not_null"
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch02 #86; hero uniswap subgraph Eliminated",
       "hero_underlying": "bd_platform.onchain_defi_sources_layer.ingest_uniswap_subgraph_206",
-      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "time_decision": "Migrate",
+      "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json"
     },
     {
       "capability_id": 207,
@@ -1006,11 +1024,11 @@
       "capability_id": 228,
       "capability_name": "Funding Rate Intelligence",
       "expected_surface": "funding_rate_intelligence",
-      "status": "NOT_COMPLETE",
-      "production_spine": "batch05",
-      "payload_root": "funding_rate_intelligence",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap228",
+      "status": "REUSED-LINK",
+      "production_spine": "batch02",
+      "payload_root": "funding_rate",
+      "binding_file": "cap646/batch02_production.py",
+      "binding_function": "cap_086",
       "domain_rules": [
         {
           "field": "success",
@@ -1023,20 +1041,37 @@
           "condition": "== expected_surface"
         },
         {
-          "field": "funding_rate_intelligence.ok",
-          "type": "boolean",
-          "condition": "== true"
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
         },
         {
-          "field": "funding_rate_intelligence.feature_ref",
+          "field": "catalog_link.canonical_capability_id",
           "type": "numeric",
-          "condition": "== 228"
+          "condition": "== 86"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_086"
+        },
+        {
+          "field": "funding_rate",
+          "type": "present",
+          "condition": "not_null"
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "build_decision": "REUSED-LINK \u2014 Migrate to batch02 #86; hero drawdown hedge Eliminated",
       "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.simulate_drawdown_hedge_228",
-      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "time_decision": "Migrate",
+      "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json"
     },
     {
       "capability_id": 229,
@@ -1150,11 +1185,11 @@
       "capability_id": 232,
       "capability_name": "Open Interest Intelligence",
       "expected_surface": "open_interest_intelligence",
-      "status": "NOT_COMPLETE",
+      "status": "REUSED-LINK",
       "production_spine": "batch05",
       "payload_root": "open_interest_intelligence",
       "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap232",
+      "binding_function": "_cap205",
       "domain_rules": [
         {
           "field": "success",
@@ -1167,6 +1202,26 @@
           "condition": "== expected_surface"
         },
         {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 205"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_dedicated.py::_cap205"
+        },
+        {
           "field": "open_interest_intelligence.ok",
           "type": "boolean",
           "condition": "== true"
@@ -1174,13 +1229,15 @@
         {
           "field": "open_interest_intelligence.feature_ref",
           "type": "numeric",
-          "condition": "== 232"
+          "condition": "== 205"
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
+      "build_decision": "REUSED-LINK \u2014 Migrate to canonical #205; hero arbitrage comparison Eliminated",
       "hero_underlying": "bd_platform.intelligence_ux_extensions_layer.attach_arbitrage_comparison_230_232",
-      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "time_decision": "Migrate",
+      "notes": "MECE priority gate docs/BATCH05_MECE_OVERLAP_205_232_206_228_DECISION.json"
     },
     {
       "capability_id": 233,
@@ -1672,6 +1729,7 @@
       "time_decision": "Migrate",
       "functional_gap": {
         "catalog_name": "Market Health & Freshness",
+        "implemented_scope": "real_time_data_freshness_update_assurance",
         "runtime_surface": "real_time_data_freshness_update_assurance",
         "decision": "OVERLAP-PARTIAL \u2014 batch05 facade must re-stamp capability_id=245 on dispatch"
       },
