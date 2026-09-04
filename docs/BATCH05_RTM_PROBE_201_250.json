@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-04T18:04:25.769831+00:00",
+  "generated_at": "2026-09-04T22:01:33.356799+00:00",
   "gate": "G1_BASELINE + MECE_OVERLAP_214_245 + MECE_OVERLAP_205_232_206_228 + MECE_OVERLAP_226_69",
   "branch": "cursor/batch05-201-250-e85e",
-  "commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+  "commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
   "scope": "Batch05 IDs 201-250",
   "official_batch": "batch05",
   "batch05_independent": 0,
@@ -63,8 +63,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "network_growth_intelligence",
@@ -90,7 +90,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 6.5
+        "elapsed_ms": 7.0
       }
     },
     {
@@ -115,8 +115,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "supply_distribution_intelligence",
@@ -142,7 +142,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 107.2
+        "elapsed_ms": 109.6
       }
     },
     {
@@ -167,8 +167,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "dex_trading_intelligence",
@@ -194,7 +194,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 23.7
+        "elapsed_ms": 28.8
       }
     },
     {
@@ -219,8 +219,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "defi_protocol_activity_intelligence",
@@ -246,7 +246,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 1.0
+        "elapsed_ms": 1.7
       }
     },
     {
@@ -271,8 +271,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "open_interest_intelligence",
@@ -298,7 +298,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 69.6
+        "elapsed_ms": 79.4
       }
     },
     {
@@ -323,8 +323,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "funding_rate_intelligence",
@@ -349,7 +349,7 @@
         "domain_all_pass": true,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 181.2
+        "elapsed_ms": 183.4
       }
     },
     {
@@ -374,8 +374,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "price_volume_market_metrics",
@@ -401,7 +401,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 743.2
+        "elapsed_ms": 762.3
       }
     },
     {
@@ -426,8 +426,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "metric_correlation_workbench",
@@ -453,7 +453,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 64.4
+        "elapsed_ms": 78.4
       }
     },
     {
@@ -478,8 +478,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "custom_chart_builder",
@@ -505,7 +505,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 606.5
+        "elapsed_ms": 623.4
       }
     },
     {
@@ -530,8 +530,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "custom_dashboards_layouts",
@@ -552,12 +552,12 @@
       "backend_entrypoint": "cap_210",
       "binding_source": "explicit_option_a",
       "pentagonal_probe": {
-        "domain_rules_passed": 5,
+        "domain_rules_passed": 6,
         "domain_rules_total": 6,
-        "domain_all_pass": false,
+        "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 1277.1
+        "elapsed_ms": 31.3
       }
     },
     {
@@ -582,8 +582,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "screener",
@@ -609,7 +609,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 31.8
+        "elapsed_ms": 47.2
       }
     },
     {
@@ -634,8 +634,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "smart_alerts",
@@ -660,7 +660,7 @@
         "domain_all_pass": true,
         "acceptance_status": "DUPLICATE_DELEGATION",
         "closure_status": "DUPLICATE_DELEGATION",
-        "elapsed_ms": 17.3
+        "elapsed_ms": 15.4
       }
     },
     {
@@ -685,8 +685,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "anomaly_detection_alerts",
@@ -712,7 +712,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 2.6
+        "elapsed_ms": 2.5
       }
     },
     {
@@ -737,8 +737,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "watchlists",
@@ -763,7 +763,7 @@
         "domain_all_pass": false,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 1386.5
+        "elapsed_ms": 1.2
       }
     },
     {
@@ -788,8 +788,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "community_explorer",
@@ -840,8 +840,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "research_market_insights",
@@ -867,7 +867,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 159.3
+        "elapsed_ms": 125.3
       }
     },
     {
@@ -892,8 +892,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "sanapi_style_data_access",
@@ -944,8 +944,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "google_sheets_integration",
@@ -971,7 +971,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.6
+        "elapsed_ms": 0.5
       }
     },
     {
@@ -996,8 +996,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "metric_availability_registry",
@@ -1048,8 +1048,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "data_stabilization_mutability_metadata",
@@ -1100,8 +1100,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "data_quality_provenance_layer",
@@ -1152,8 +1152,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "metric_methodology_registry",
@@ -1179,7 +1179,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.8
+        "elapsed_ms": 0.5
       }
     },
     {
@@ -1204,8 +1204,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "social_to_on_chain_confirmation_engine",
@@ -1256,8 +1256,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "narrative_actionability_score",
@@ -1283,7 +1283,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 104.9
+        "elapsed_ms": 110.5
       }
     },
     {
@@ -1308,8 +1308,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "development_to_market_divergence_detector",
@@ -1335,7 +1335,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.6
+        "elapsed_ms": 0.8
       }
     },
     {
@@ -1360,8 +1360,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "cross_domain_decision_intelligence_layer",
@@ -1386,7 +1386,7 @@
         "domain_all_pass": true,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 3.1
+        "elapsed_ms": 3.2
       }
     },
     {
@@ -1411,8 +1411,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "unified_trading_intelligence_workspace",
@@ -1463,8 +1463,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "funding_rate_intelligence",
@@ -1489,7 +1489,7 @@
         "domain_all_pass": true,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 184.9
+        "elapsed_ms": 197.6
       }
     },
     {
@@ -1514,8 +1514,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "cross_exchange_funding_arbitrage_scanner",
@@ -1541,7 +1541,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 1194.5
+        "elapsed_ms": 1049.5
       }
     },
     {
@@ -1566,8 +1566,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "spot_perp_arbitrage_scanner",
@@ -1593,7 +1593,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 16.9
+        "elapsed_ms": 59.2
       }
     },
     {
@@ -1618,8 +1618,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "futures_basis_term_structure",
@@ -1670,8 +1670,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "open_interest_intelligence",
@@ -1696,7 +1696,7 @@
         "domain_all_pass": false,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 71.7
+        "elapsed_ms": 89.0
       }
     },
     {
@@ -1721,8 +1721,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "liquidation_intelligence",
@@ -1773,8 +1773,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "cvd_intelligence",
@@ -1800,7 +1800,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.8
+        "elapsed_ms": 0.5
       }
     },
     {
@@ -1825,8 +1825,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "long_short_ratio_intelligence",
@@ -1877,8 +1877,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "dex_screener",
@@ -1904,7 +1904,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.5
+        "elapsed_ms": 0.6
       }
     },
     {
@@ -1929,8 +1929,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "token_risk_scoring",
@@ -1981,8 +1981,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "pump_dump_detection",
@@ -2033,8 +2033,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "narrative_tracking",
@@ -2060,7 +2060,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 177.7
+        "elapsed_ms": 121.1
       }
     },
     {
@@ -2085,8 +2085,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "sector_rotation_intelligence",
@@ -2137,8 +2137,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "sentiment_intelligence",
@@ -2164,7 +2164,7 @@
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.5
+        "elapsed_ms": 0.6
       }
     },
     {
@@ -2172,14 +2172,14 @@
       "capability": "Price Prediction / Multi-Signal Forecast",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "Price Prediction / Multi-Signal Forecast",
-      "canonical_module_function": "cap646/batch05_dedicated.py::_cap242",
+      "canonical_module_function": "cap646/batch05_strangler_spine.py::build_price_prediction_multi_signal_forecast_242",
       "canonical_route": "/api/cap646/242",
       "data_source_owner": "bd_platform.security_trust_data_layer.attach_audit_log_id_242",
       "acceptance_criteria": "docs/BATCH05_ACCEPTANCE_201_250.json domain_rules for #242",
       "expected_output_domain": "price_prediction_multi_signal_forecast",
       "expected_surface_planned": "price_prediction_multi_signal_forecast",
-      "binding_file_planned": "cap646/batch05_dedicated.py",
-      "binding_function_planned": "_cap242",
+      "binding_file_planned": "cap646/batch05_strangler_spine.py",
+      "binding_function_planned": "build_price_prediction_multi_signal_forecast_242",
       "functional_completeness": "VERIFIED_LOCAL",
       "functional_correctness": "VERIFIED_LOCAL",
       "functional_appropriateness": "VERIFIED_LOCAL",
@@ -2189,8 +2189,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "price_prediction_multi_signal_forecast",
@@ -2204,14 +2204,15 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap242",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_price_prediction_multi_signal_forecast_242",
       "backend_module": "cap646.batch05_production",
       "backend_entrypoint": "cap_242",
       "binding_source": "explicit_option_a",
       "pentagonal_probe": {
-        "domain_rules_passed": 4,
-        "domain_rules_total": 4,
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
@@ -2223,14 +2224,14 @@
       "capability": "Correlation Matrix",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "Correlation Matrix",
-      "canonical_module_function": "cap646/batch05_dedicated.py::_cap243",
+      "canonical_module_function": "cap646/batch05_strangler_spine.py::build_correlation_matrix_243",
       "canonical_route": "/api/cap646/243",
       "data_source_owner": "bd_platform.security_trust_data_layer.ingest_bybit_price_243",
       "acceptance_criteria": "docs/BATCH05_ACCEPTANCE_201_250.json domain_rules for #243",
       "expected_output_domain": "correlation_matrix",
       "expected_surface_planned": "correlation_matrix",
-      "binding_file_planned": "cap646/batch05_dedicated.py",
-      "binding_function_planned": "_cap243",
+      "binding_file_planned": "cap646/batch05_strangler_spine.py",
+      "binding_function_planned": "build_correlation_matrix_243",
       "functional_completeness": "VERIFIED_LOCAL",
       "functional_correctness": "VERIFIED_LOCAL",
       "functional_appropriateness": "VERIFIED_LOCAL",
@@ -2240,8 +2241,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "correlation_matrix",
@@ -2255,14 +2256,15 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap243",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_correlation_matrix_243",
       "backend_module": "cap646.batch05_production",
       "backend_entrypoint": "cap_243",
       "binding_source": "explicit_option_a",
       "pentagonal_probe": {
-        "domain_rules_passed": 4,
-        "domain_rules_total": 4,
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
@@ -2274,14 +2276,14 @@
       "capability": "New Listings Intelligence",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "New Listings Intelligence",
-      "canonical_module_function": "cap646/batch05_dedicated.py::_cap244",
+      "canonical_module_function": "cap646/batch05_strangler_spine.py::build_new_listings_intelligence_244",
       "canonical_route": "/api/cap646/244",
       "data_source_owner": "bd_platform.security_trust_data_layer.ingest_cointelegraph_rss_244",
       "acceptance_criteria": "docs/BATCH05_ACCEPTANCE_201_250.json domain_rules for #244",
       "expected_output_domain": "new_listings_intelligence",
       "expected_surface_planned": "new_listings_intelligence",
-      "binding_file_planned": "cap646/batch05_dedicated.py",
-      "binding_function_planned": "_cap244",
+      "binding_file_planned": "cap646/batch05_strangler_spine.py",
+      "binding_function_planned": "build_new_listings_intelligence_244",
       "functional_completeness": "VERIFIED_LOCAL",
       "functional_correctness": "VERIFIED_LOCAL",
       "functional_appropriateness": "VERIFIED_LOCAL",
@@ -2291,8 +2293,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "new_listings_intelligence",
@@ -2306,18 +2308,19 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap244",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_new_listings_intelligence_244",
       "backend_module": "cap646.batch05_production",
       "backend_entrypoint": "cap_244",
       "binding_source": "explicit_option_a",
       "pentagonal_probe": {
-        "domain_rules_passed": 4,
-        "domain_rules_total": 4,
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.5
+        "elapsed_ms": 0.6
       }
     },
     {
@@ -2342,8 +2345,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "real_time_data_freshness_update_assurance",
@@ -2368,7 +2371,7 @@
         "domain_all_pass": false,
         "acceptance_status": "REUSED-LINK",
         "closure_status": "REUSED-LINK",
-        "elapsed_ms": 599.4
+        "elapsed_ms": 605.4
       }
     },
     {
@@ -2376,14 +2379,14 @@
       "capability": "Coverage Metadata Registry",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "Coverage Metadata Registry",
-      "canonical_module_function": "cap646/batch05_dedicated.py::_cap246",
+      "canonical_module_function": "cap646/batch05_strangler_spine.py::build_coverage_metadata_registry_246",
       "canonical_route": "/api/cap646/246",
       "data_source_owner": "bd_platform.security_trust_data_layer.list_etherscan_watchlist_246",
       "acceptance_criteria": "docs/BATCH05_ACCEPTANCE_201_250.json domain_rules for #246",
       "expected_output_domain": "coverage_metadata_registry",
       "expected_surface_planned": "coverage_metadata_registry",
-      "binding_file_planned": "cap646/batch05_dedicated.py",
-      "binding_function_planned": "_cap246",
+      "binding_file_planned": "cap646/batch05_strangler_spine.py",
+      "binding_function_planned": "build_coverage_metadata_registry_246",
       "functional_completeness": "VERIFIED_LOCAL",
       "functional_correctness": "VERIFIED_LOCAL",
       "functional_appropriateness": "VERIFIED_LOCAL",
@@ -2393,8 +2396,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "coverage_metadata_registry",
@@ -2408,18 +2411,19 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap246",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_coverage_metadata_registry_246",
       "backend_module": "cap646.batch05_production",
       "backend_entrypoint": "cap_246",
       "binding_source": "explicit_option_a",
       "pentagonal_probe": {
-        "domain_rules_passed": 4,
-        "domain_rules_total": 4,
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.7
+        "elapsed_ms": 0.8
       }
     },
     {
@@ -2427,14 +2431,14 @@
       "capability": "Public REST API",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "Public REST API",
-      "canonical_module_function": "cap646/batch05_dedicated.py::_cap247",
+      "canonical_module_function": "cap646/batch05_strangler_spine.py::build_public_rest_api_247",
       "canonical_route": "/api/cap646/247",
       "data_source_owner": "bd_platform.security_trust_data_layer.generate_weekly_digest_247",
       "acceptance_criteria": "docs/BATCH05_ACCEPTANCE_201_250.json domain_rules for #247",
       "expected_output_domain": "public_rest_api",
       "expected_surface_planned": "public_rest_api",
-      "binding_file_planned": "cap646/batch05_dedicated.py",
-      "binding_function_planned": "_cap247",
+      "binding_file_planned": "cap646/batch05_strangler_spine.py",
+      "binding_function_planned": "build_public_rest_api_247",
       "functional_completeness": "VERIFIED_LOCAL",
       "functional_correctness": "VERIFIED_LOCAL",
       "functional_appropriateness": "VERIFIED_LOCAL",
@@ -2444,8 +2448,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "public_rest_api",
@@ -2459,14 +2463,15 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap247",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_public_rest_api_247",
       "backend_module": "cap646.batch05_production",
       "backend_entrypoint": "cap_247",
       "binding_source": "explicit_option_a",
       "pentagonal_probe": {
-        "domain_rules_passed": 4,
-        "domain_rules_total": 4,
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
@@ -2478,14 +2483,14 @@
       "capability": "MCP Server for AI Agents",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "MCP Server for AI Agents",
-      "canonical_module_function": "cap646/batch05_dedicated.py::_cap248",
+      "canonical_module_function": "cap646/batch05_strangler_spine.py::build_mcp_server_for_ai_agents_248",
       "canonical_route": "/api/cap646/248",
       "data_source_owner": "bd_platform.security_trust_data_layer.manual_performance_tracker_248",
       "acceptance_criteria": "docs/BATCH05_ACCEPTANCE_201_250.json domain_rules for #248",
       "expected_output_domain": "mcp_server_for_ai_agents",
       "expected_surface_planned": "mcp_server_for_ai_agents",
-      "binding_file_planned": "cap646/batch05_dedicated.py",
-      "binding_function_planned": "_cap248",
+      "binding_file_planned": "cap646/batch05_strangler_spine.py",
+      "binding_function_planned": "build_mcp_server_for_ai_agents_248",
       "functional_completeness": "VERIFIED_LOCAL",
       "functional_correctness": "VERIFIED_LOCAL",
       "functional_appropriateness": "VERIFIED_LOCAL",
@@ -2495,8 +2500,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": "SPLIT-BRAIN-UNVERIFIED",
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "mcp_server_for_ai_agents",
@@ -2510,18 +2515,19 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap248",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_mcp_server_for_ai_agents_248",
       "backend_module": "cap646.batch05_production",
       "backend_entrypoint": "cap_248",
       "binding_source": "explicit_option_a",
       "pentagonal_probe": {
-        "domain_rules_passed": 4,
-        "domain_rules_total": 4,
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.5
+        "elapsed_ms": 0.6
       }
     },
     {
@@ -2529,14 +2535,14 @@
       "capability": "CLI Access",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "CLI Access",
-      "canonical_module_function": "cap646/batch05_dedicated.py::_cap249",
+      "canonical_module_function": "cap646/batch05_strangler_spine.py::build_cli_access_249",
       "canonical_route": "/api/cap646/249",
       "data_source_owner": "bd_platform.security_trust_data_layer.trad_simulator_rejected_status_249",
       "acceptance_criteria": "docs/BATCH05_ACCEPTANCE_201_250.json domain_rules for #249",
       "expected_output_domain": "cli_access",
       "expected_surface_planned": "cli_access",
-      "binding_file_planned": "cap646/batch05_dedicated.py",
-      "binding_function_planned": "_cap249",
+      "binding_file_planned": "cap646/batch05_strangler_spine.py",
+      "binding_function_planned": "build_cli_access_249",
       "functional_completeness": "VERIFIED_LOCAL",
       "functional_correctness": "VERIFIED_LOCAL",
       "functional_appropriateness": "VERIFIED_LOCAL",
@@ -2546,8 +2552,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "cli_access",
@@ -2561,18 +2567,19 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap249",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_cli_access_249",
       "backend_module": "cap646.batch05_production",
       "backend_entrypoint": "cap_249",
       "binding_source": "explicit_option_a",
       "pentagonal_probe": {
-        "domain_rules_passed": 4,
-        "domain_rules_total": 4,
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.5
+        "elapsed_ms": 0.1
       }
     },
     {
@@ -2580,14 +2587,14 @@
       "capability": "OpenAPI / SDK Generation",
       "gate1_state": "BROWNFIELD",
       "business_purpose": "OpenAPI / SDK Generation",
-      "canonical_module_function": "cap646/batch05_dedicated.py::_cap250",
+      "canonical_module_function": "cap646/batch05_strangler_spine.py::build_openapi_sdk_generation_250",
       "canonical_route": "/api/cap646/250",
       "data_source_owner": "bd_platform.security_trust_data_layer.execution_speed_rejected_status_250",
       "acceptance_criteria": "docs/BATCH05_ACCEPTANCE_201_250.json domain_rules for #250",
       "expected_output_domain": "openapi_sdk_generation",
       "expected_surface_planned": "openapi_sdk_generation",
-      "binding_file_planned": "cap646/batch05_dedicated.py",
-      "binding_function_planned": "_cap250",
+      "binding_file_planned": "cap646/batch05_strangler_spine.py",
+      "binding_function_planned": "build_openapi_sdk_generation_250",
       "functional_completeness": "VERIFIED_LOCAL",
       "functional_correctness": "VERIFIED_LOCAL",
       "functional_appropriateness": "VERIFIED_LOCAL",
@@ -2597,8 +2604,8 @@
       "blocker": null,
       "blocker_type": null,
       "semantic_miswire": null,
-      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ 256d150cce504b89ab4d2866f02a10faac2319a7",
-      "evidence_commit": "256d150cce504b89ab4d2866f02a10faac2319a7",
+      "evidence_path": "cap646/batch05_dedicated.py + runtime probe @ b7358265bb2ed47d5b54228d6bee830859a32ed4",
+      "evidence_commit": "b7358265bb2ed47d5b54228d6bee830859a32ed4",
       "runtime_probe": {
         "success": true,
         "surface": "openapi_sdk_generation",
@@ -2612,18 +2619,19 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap250",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_openapi_sdk_generation_250",
       "backend_module": "cap646.batch05_production",
       "backend_entrypoint": "cap_250",
       "binding_source": "explicit_option_a",
       "pentagonal_probe": {
-        "domain_rules_passed": 4,
-        "domain_rules_total": 4,
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
         "domain_all_pass": true,
         "acceptance_status": "NOT_COMPLETE",
         "closure_status": "NOT_COMPLETE",
-        "elapsed_ms": 0.5
+        "elapsed_ms": 0.0
       }
     }
   ],

@@ -1,6 +1,6 @@
 BATCH05_RULE_COUNT_ASSERT_PROOF
-generated_at=2026-09-04T18:04:25.767691+00:00
-git_commit=256d150cce504b89ab4d2866f02a10faac2319a7
+generated_at=2026-09-04T22:01:33.355105+00:00
+git_commit=b7358265bb2ed47d5b54228d6bee830859a32ed4
 scope=probe_ids_201_250 triple_match_guard
 
 ID 201: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
@@ -12,7 +12,7 @@ ID 206: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=REUSED-LINK 
 ID 207: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 208: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 209: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
-ID 210: acceptance=6 results=6 rules_total=6 rules_passed=5 closure=NOT_COMPLETE OK
+ID 210: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 211: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 212: acceptance=5 results=5 rules_total=5 rules_passed=5 closure=DUPLICATE_DELEGATION OK
 ID 213: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
@@ -44,14 +44,14 @@ ID 238: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE
 ID 239: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 240: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 241: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
-ID 242: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 243: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 244: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 242: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 243: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 244: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 ID 245: acceptance=8 results=8 rules_total=8 rules_passed=3 closure=REUSED-LINK OK
-ID 246: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 247: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 248: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 249: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 250: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
+ID 246: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 247: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 248: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 249: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 250: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
 
 assert_rule_count_triple_match: end — all 50 probe IDs matched
