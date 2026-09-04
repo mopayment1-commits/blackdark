@@ -23,8 +23,9 @@
       "status": "NOT_COMPLETE",
       "production_spine": "batch05",
       "payload_root": "network_growth_intelligence",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap201",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_network_growth_201",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
       "domain_rules": [
         {
           "field": "success",
@@ -45,6 +46,16 @@
           "field": "network_growth_intelligence.feature_ref",
           "type": "numeric",
           "condition": "== 201"
+        },
+        {
+          "field": "network_growth_intelligence.source",
+          "type": "enum",
+          "condition": "== footprint_analytics.footprint_snapshot"
+        },
+        {
+          "field": "network_growth_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
         }
       ],
       "prebuild_classification": "Brownfield",
@@ -59,8 +70,9 @@
       "status": "NOT_COMPLETE",
       "production_spine": "batch05",
       "payload_root": "supply_distribution_intelligence",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap202",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_supply_distribution_202",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
       "domain_rules": [
         {
           "field": "success",
@@ -81,6 +93,16 @@
           "field": "supply_distribution_intelligence.feature_ref",
           "type": "numeric",
           "condition": "== 202"
+        },
+        {
+          "field": "supply_distribution_intelligence.holder_metrics",
+          "type": "present",
+          "condition": "present"
+        },
+        {
+          "field": "supply_distribution_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
         }
       ],
       "prebuild_classification": "Brownfield",
@@ -95,8 +117,9 @@
       "status": "NOT_COMPLETE",
       "production_spine": "batch05",
       "payload_root": "dex_trading_intelligence",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap203",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_dex_trading_203",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
       "domain_rules": [
         {
           "field": "success",
@@ -117,6 +140,16 @@
           "field": "dex_trading_intelligence.feature_ref",
           "type": "numeric",
           "condition": "== 203"
+        },
+        {
+          "field": "dex_trading_intelligence.source",
+          "type": "enum",
+          "condition": "== onchain_hub.dexscreener_pairs"
+        },
+        {
+          "field": "dex_trading_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
         }
       ],
       "prebuild_classification": "Brownfield",
@@ -131,8 +164,9 @@
       "status": "NOT_COMPLETE",
       "production_spine": "batch05",
       "payload_root": "defi_protocol_activity_intelligence",
-      "binding_file": "cap646/batch05_dedicated.py",
-      "binding_function": "_cap204",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_defi_protocol_activity_204",
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
       "domain_rules": [
         {
           "field": "success",
@@ -153,6 +187,16 @@
           "field": "defi_protocol_activity_intelligence.feature_ref",
           "type": "numeric",
           "condition": "== 204"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.chain",
+          "type": "enum",
+          "condition": "== BSC"
+        },
+        {
+          "field": "defi_protocol_activity_intelligence.latency_ms",
+          "type": "numeric",
+          "condition": "< 500"
         }
       ],
       "prebuild_classification": "Brownfield",
