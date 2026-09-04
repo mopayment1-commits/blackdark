@@ -2,8 +2,7 @@
 
 **Date:** 2026-09-04  
 **Branch:** `cursor/batch05-201-250-e85e` · **PR #366**  
-**Baseline commit:** `947cc7c`  
-**Phase:** **BUILD_PHASE OPEN** — institutional lock on #212 + #226  
+**Phase:** **BUILD_PHASE OPEN** — full classification backfill + QG minimal fixes  
 **Live:** `AWAITING_DEPLOY` — **NOT** `LIVE_READY`
 
 هذه المرحلة = بناء spine + قبول مسبق + اختبارات محلية فقط. لا إعلان اكتمال حوكمة · لا Batch05 complete · لا جاهزية حية 100%.
@@ -20,9 +19,10 @@
 | `PRODUCTION-ALIGNED` (batch05) | **0** |
 | `LOCAL_GOVERNANCE_COMPLETE` | **NOT claimed** |
 | `BATCH05_IDS` routing spine | **49** (manifest 50 − duplicate #212) |
-| SonarCloud QG | **FAILED** (Coverage XML **PASS** — distinct gates) |
+| SonarCloud QG | **FAILED** (minimal batch04 bug fix applied — pending CI) |
+| Coverage XML | **PASS** |
 
-**Forbidden:** new features beyond locked #212/#226 · `BATCH05_IDS` > 49 · REUSED-LINK on incomplete canonical · PA promotion · Batch05 closure.
+**Forbidden:** new features beyond strangler spine · `BATCH05_IDS` > 49 · REUSED-LINK on incomplete canonical · PA promotion · Batch05 closure.
 
 ---
 
@@ -30,55 +30,56 @@
 
 | ID | TIME | Routing | closure_status | ADR |
 |----|------|---------|----------------|-----|
-| **212** Smart Alerts | Migrate (preserve duplicate) | DUPLICATE delegation → batch01 **#17** | `DUPLICATE_DELEGATION` | `ADR_BATCH05_212_DUPLICATE_DELEGATION_BATCH01.md` |
-| **226** Cross-Domain Decision | Migrate | REUSED-LINK → batch02 **#69** (`cap_069`) | `REUSED-LINK` | `ADR_BATCH05_226_REUSED_LINK_BATCH02.md` |
-
-Hero bindings removed: `hedge_effectiveness_analysis_212`, `analyze_launch_event_226`.
+| **212** Smart Alerts | Migrate | DUPLICATE delegation → batch01 **#17** | `DUPLICATE_DELEGATION` | `ADR_BATCH05_212_DUPLICATE_DELEGATION_BATCH01.md` |
+| **226** Cross-Domain Decision | Migrate | REUSED-LINK → batch02 **#69** | `REUSED-LINK` | `ADR_BATCH05_226_REUSED_LINK_BATCH02.md` |
+| **214/245** | Migrate | REUSED-LINK → batch01 | `REUSED-LINK` | `ADR_BATCH05_214_245_REUSED_LINK_BATCH01.md` |
+| **206/228** | Migrate | REUSED-LINK → batch02 **#86** | `REUSED-LINK` | `ADR_BATCH05_206_228_REUSED_LINK_BATCH02.md` |
+| **232** | Migrate | REUSED-LINK → batch05 **#205** | `REUSED-LINK` | `ADR_BATCH05_232_REUSED_LINK_205.md` |
 
 ---
 
-## 3) Session deliverables (institutional lock — documentation only)
+## 3) Session deliverables (continuation)
 
 | Step | Artifact | Status |
 |------|----------|--------|
-| 1 — Pre-build classification backfill | `docs/BATCH05_PREBUILD_CLASSIFICATION_212_226.json` | ✅ |
-| 2 — TIME/MECE ADR reinforcement | `ADR_BATCH05_212_*`, `ADR_BATCH05_226_*`, `BATCH05_MECE_OVERLAP_226_69_DECISION.json` | ✅ frozen |
-| 3 — SonarCloud QG analysis (code-only) | `docs/BATCH05_SONARCLOUD_QG_ANALYSIS_PR366.md` | ✅ |
-| 4 — RTM / acceptance / pentagonal freeze | `BATCH05_RTM_201_250.json`, `BATCH05_ACCEPTANCE_201_250.json`, `BATCH05_PENTAGONAL_TEMPLATE_201_250.json` | ✅ |
-| 5 — This progress report | `docs/BATCH05_INSTITUTIONAL_PROGRESS_REPORT.md` | ✅ |
+| 1 — Full pre-build classification (50 IDs) | `docs/BATCH05_PREBUILD_CLASSIFICATION_201_250.json` | ✅ |
+| 2 — MECE/TIME/ADR index | `docs/BATCH05_MECE_TIME_ADR_INDEX.md` | ✅ frozen |
+| 3 — Six Heroes matrix + sensitivity stubs | `docs/BATCH05_HERO_SIX_BINDING_201_250.json` | ✅ |
+| 4 — Sonar QG minimal fix | `cap646/batch04_strangler_spine.py` (`_as_dict_list`, `asset` key) | ✅ |
+| 5 — Batch05 coverage tests | `tests/cap646/test_batch05_ids_contract.py` | ✅ |
+| 6 — RTM / acceptance / pentagonal freeze | updated refs | ✅ |
 
-**Zero new production features in this session.** No QG code fixes required within #212/#226 scope.
-
----
-
-## 4) Pre-build classification (Step 1)
-
-| ID | Classification | Evidence | TIME |
-|----|----------------|----------|------|
-| **212** | Brownfield | gap matrix DUPLICATE→#17; `batch05_ids.py` exclusion; `test_duplicate_capability_delegates` | Migrate (delegation) |
-| **226** | Brownfield | Type-4 hero vs batch02 #69; `_cap226` facade; 5-symbol MECE probes | Migrate (REUSED-LINK) |
-
-Full matrix: `docs/BATCH05_PREBUILD_CLASSIFICATION_212_226.json`
+**Classification summary:** 50 Brownfield · 43 `NOT_COMPLETE` · 6 `REUSED-LINK` · 1 `DUPLICATE_DELEGATION`
 
 ---
 
-## 5) CI evidence (commit `947cc7c`)
+## 4) Pre-build classification matrix
 
-| Check | Result | Relevance |
-|-------|--------|-----------|
-| Coverage XML | **PASS** | #212 regression closed on CI |
-| SonarCloud QG | **FAIL** | `new_reliability_rating` (batch04 bug) + `new_coverage` 79.6% &lt; 80% |
-| critical (Postgres) | fail | out of scope |
-| pip-audit / bandit | fail | out of scope |
-| CAP978 Institutional Gate | pass | |
+Full matrix: `docs/BATCH05_PREBUILD_CLASSIFICATION_201_250.json`  
+Partial superseded: `docs/BATCH05_PREBUILD_CLASSIFICATION_212_226.json`
 
-**Explicit:** Coverage XML success ≠ Quality Gate success.
+| closure_status | Count | TIME |
+|----------------|------:|------|
+| NOT_COMPLETE | 43 | Invest (strangler) |
+| REUSED-LINK | 6 | Migrate |
+| DUPLICATE_DELEGATION | 1 | Migrate |
+
+---
+
+## 5) SonarCloud QG (minimal fix applied)
+
+| Condition | Prior | Action |
+|-----------|-------|--------|
+| `new_reliability_rating` D | `batch04_strangler_spine.py:227` S6466 | Fixed `_as_dict_list` + `asset`/`symbol` normalization |
+| `new_coverage` 79.6% | 0.4% gap | Added `test_batch05_ids_contract.py` (batch05 paths only) |
 
 Analysis: `docs/BATCH05_SONARCLOUD_QG_ANALYSIS_PR366.md`
 
+**Explicit:** Coverage XML success ≠ Quality Gate success.
+
 ---
 
-## 6) RTM / acceptance freeze (Step 4)
+## 6) RTM / acceptance freeze
 
 ```text
 build_phase                  = OPEN
@@ -89,32 +90,33 @@ routing_spine_ids            = 49
 duplicate_delegation         = [212]
 reused_link                  = [206, 214, 226, 228, 232, 245]
 production_aligned_batch05   = 0
-sonarcloud_status            = FAILED
+sonarcloud_status            = FAILED (fix pending CI)
 coverage_xml_ci_status       = PASS
+prebuild_classification_ref  = docs/BATCH05_PREBUILD_CLASSIFICATION_201_250.json
+mece_time_adr_index_ref      = docs/BATCH05_MECE_TIME_ADR_INDEX.md
+hero_six_binding_ref         = docs/BATCH05_HERO_SIX_BINDING_201_250.json
 ```
-
-Refs: `prebuild_classification_ref`, `sonarcloud_qg_analysis_ref`
 
 ---
 
-## 7) Local verification (pre-lock baseline)
+## 7) Local verification
 
 | Suite | Result |
 |-------|--------|
-| `test_duplicate_capability_delegates` | PASS |
+| `test_batch05_ids_contract.py` | PASS |
+| `test_cap164_unlock_actionability_matches_asset_key` | PASS |
 | `test_cap212_duplicate_delegation_not_batch05_spine` | PASS |
 | `test_cap226_reused_link_facade` | PASS |
-| `tests/cap646/` (excl. `test_institutional_gate` env flake) | 1162 passed, exit_code=0 |
+| `test_duplicate_capability_delegates` | PASS (CI) |
 
 ---
 
-## 8) What remains (post-lock — owner action)
+## 8) What remains (owner action)
 
-1. SonarCloud QG — batch04 `batch04_strangler_spine.py` reliability bug (out of #212/#226 scope)
-2. `new_coverage` margin 79.6% → 80% (repo-wide PR aggregate)
-3. Remaining 43 NOT_COMPLETE strangler IDs (201–250 minus overlaps/duplicate)
-4. Gate Zero + live deploy sign-off
-5. Owner lift of OPEN phase before any PA promotion
+1. SonarCloud QG re-run after batch04 fix + coverage tests land on CI
+2. Remaining 43 NOT_COMPLETE strangler IDs (per-ID pentagonal closure)
+3. Gate Zero + live deploy sign-off
+4. Owner lift of OPEN phase before any PA promotion
 
 ---
 

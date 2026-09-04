@@ -52,14 +52,14 @@ Dashboard: https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark&pullR
 
 **#226-specific:** `_cap226` is a 4-line facade delegating to `batch02_production.execute(69)` — follows established `_cap206/_cap228` pattern. No unique Sonar rule violations.
 
-### 2.2 Issues outside #212/#226 scope (do not fix per mandate)
+### 2.2 Issues outside #212/#226 scope — minimal QG fix applied (continuation)
 
-| Severity | File | Rule | Why out of scope |
-|----------|------|------|------------------|
-| **BUG (CRITICAL)** | `cap646/batch04_strangler_spine.py:227` | `pythonbugs:S6466` | **Primary driver of `new_reliability_rating=D`** — batch04, not batch05 |
-| CRITICAL ×5 | `cap646/batch05_hero_bridge.py` | `python:S1192` | Pre-existing literal duplication across hero bindings |
-| MAJOR/MINOR | `cap646/batch04_dedicated.py` | S1172, S7503 | batch04 gateway overlap fix (#159), not #212/#226 |
-| CRITICAL ×6 | `scripts/generate_batch05_*.py` | S1192 | Generator scripts — not runtime #212/#226 paths |
+| Severity | File | Rule | Action |
+|----------|------|------|--------|
+| **BUG (CRITICAL)** | `cap646/batch04_strangler_spine.py:227` | `pythonbugs:S6466` | **FIXED** — `_as_dict_list()` + `asset`/`symbol` normalization |
+| CRITICAL ×5 | `cap646/batch05_hero_bridge.py` | `python:S1192` | Pre-existing literal duplication — not in scope |
+| MAJOR/MINOR | `cap646/batch04_dedicated.py` | S1172, S7503 | batch04 gateway overlap fix (#159) |
+| CRITICAL ×6 | `scripts/generate_batch05_*.py` | S1192 | Generator scripts — not runtime |
 
 ---
 
@@ -68,8 +68,8 @@ Dashboard: https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark&pullR
 | Priority | Finding | Action | Test backing |
 |----------|---------|--------|--------------|
 | P0 | None — zero blocking Sonar issues in `batch05_ids.py` or `_cap226` | **No code change required** | `test_duplicate_capability_delegates`, `test_cap226_reused_link_facade` |
-| P1 | `new_coverage` 79.6% &lt; 80% (repo PR aggregate) | **Document only** — gap is 0.4% on whole PR diff, not isolated to #212/#226; `batch05_ids.py` already 100% covered | CI Coverage XML PASS |
-| P2 | `new_reliability_rating` D from `batch04_strangler_spine.py` bug | **Out of scope** — fix belongs to batch04, not institutional lock step | N/A |
+| P1 | `new_coverage` 79.6% &lt; 80% (repo PR aggregate) | **Addressed** — `test_batch05_ids_contract.py` on batch05 routing manifest | Local PASS; CI pending |
+| P2 | `new_reliability_rating` D from `batch04_strangler_spine.py` bug | **FIXED** — `_as_dict_list` + asset key normalization | `test_cap164_unlock_actionability_matches_asset_key` |
 
 ### Proposed minimal fixes (Batch05 #212/#226 only)
 

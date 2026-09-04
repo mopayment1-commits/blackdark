@@ -21,7 +21,9 @@
       "BATCH05_IDS expansion beyond 49"
     ]
   },
-  "prebuild_classification_ref": "docs/BATCH05_PREBUILD_CLASSIFICATION_212_226.json",
+  "prebuild_classification_ref": "docs/BATCH05_PREBUILD_CLASSIFICATION_201_250.json",
+  "mece_time_adr_index_ref": "docs/BATCH05_MECE_TIME_ADR_INDEX.md",
+  "hero_six_binding_ref": "docs/BATCH05_HERO_SIX_BINDING_201_250.json",
   "sonarcloud_qg_analysis_ref": "docs/BATCH05_SONARCLOUD_QG_ANALYSIS_PR366.md",
   "coverage_xml_ci_status": "PASS",
   "sonarcloud_status": "FAILED",
