@@ -1,6 +1,6 @@
 BATCH04_RULE_COUNT_ASSERT_PROOF
-generated_at=2026-09-03T23:28:33.749107+00:00
-git_commit=0bf7e792dc8c67ea3032d4fb9d9829a6122775a8
+generated_at=2026-09-04T07:45:50.509621+00:00
+git_commit=41d15a900ea74fbeb58c1fb7e92d9fada8ace124
 scope=probe_ids_151_200 triple_match_guard
 
 ID 151: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=NOT_COMPLETE OK

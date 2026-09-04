@@ -2,9 +2,9 @@
   "generated_at": "2026-09-03T10:57:58.781550+00:00",
   "scope": "IDs 1-826 institutional RTM",
   "scope_baseline": {
-    "batch01": "IDs 1–50",
-    "batch02": "IDs 51–100",
-    "batch03": "IDs 101–150",
+    "batch01": "IDs 1\u201350",
+    "batch02": "IDs 51\u2013100",
+    "batch03": "IDs 101\u2013150",
     "formula": "official_batch = batch((id-1)//50 + 1)"
   },
   "classification_taxonomy": {
@@ -20,7 +20,7 @@
       "definition": "Handler or payload does not achieve the catalog goal for the requested ID."
     },
     "REUSED-LINK": {
-      "definition": "Catalog declares DUPLICATE / ALREADY_COVERED / REPEAT_CANONICAL for an ID that re-exposes the same goal as a canonical capability. Live execution under the duplicate ID must return a goal-equivalent, user-ready payload — not a generic handler and not a different capability's goal.",
+      "definition": "Catalog declares DUPLICATE / ALREADY_COVERED / REPEAT_CANONICAL for an ID that re-exposes the same goal as a canonical capability. Live execution under the duplicate ID must return a goal-equivalent, user-ready payload \u2014 not a generic handler and not a different capability's goal.",
       "taxonomy_file": "docs/REUSED_LINK_TAXONOMY.json",
       "registered_pairs": [
         106,
@@ -42,14 +42,14 @@
       "definition": "Not yet audited under official batch sequential closure."
     },
     "VERIFIED_COMPLETE": {
-      "definition": "BANNED for 826 RTM `status`/`classification` fields. Legacy cap978 CI closure may still emit `verdict: VERIFIED_COMPLETE` as a separate internal namespace — do not map to RTM without formal registration here.",
+      "definition": "BANNED for 826 RTM `status`/`classification` fields. Legacy cap978 CI closure may still emit `verdict: VERIFIED_COMPLETE` as a separate internal namespace \u2014 do not map to RTM without formal registration here.",
       "status": "DEPRECATED_UNREGISTERED",
       "rtm_usage": "forbidden",
       "cap978_ci_verdict": "legacy_internal_only"
     }
   },
   "three_separate_counts": {
-    "note": "Three mutually exclusive RTM columns — never aggregate into a single progress equation",
+    "note": "Three mutually exclusive RTM columns \u2014 never aggregate into a single progress equation",
     "production_aligned_independent": 148,
     "reused_link": 4,
     "overlap_partial": 2,
@@ -423,7 +423,7 @@
     "25": {
       "id": 25,
       "official_batch": "batch01",
-      "capability": "Signal → Explanation Workflow",
+      "capability": "Signal \u2192 Explanation Workflow",
       "status": "PRODUCTION-ALIGNED",
       "production_spine": "batch01",
       "expected_surface": "signal_explanation_workflow",
@@ -2266,7 +2266,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "oracle_track_record.public_track_record",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "157": {
       "id": 157,
@@ -2294,7 +2294,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "cap646.fallbacks.resolve_gas_usd",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "159": {
       "id": 159,
@@ -2308,7 +2308,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "hot_storage.get_hot_storage_stats",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "160": {
       "id": 160,
@@ -2322,7 +2322,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "security_posture.security_posture_report",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "161": {
       "id": 161,
@@ -2336,7 +2336,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "org_tenant.org_isolation_status",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "162": {
       "id": 162,
@@ -2350,7 +2350,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "data_provenance_score.compute_data_provenance_score",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "163": {
       "id": 163,
@@ -2364,7 +2364,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "trust_pulse.build_trust_pulse",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "164": {
       "id": 164,
@@ -2392,7 +2392,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "166": {
       "id": 166,
@@ -2420,7 +2420,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "sentiment_engine.build_sentiment_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "168": {
       "id": 168,
@@ -2434,7 +2434,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "sentiment_engine.build_sentiment_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "169": {
       "id": 169,
@@ -2448,7 +2448,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "sentiment_engine.build_sentiment_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "170": {
       "id": 170,
@@ -2462,7 +2462,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "security_posture.security_posture_report",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "171": {
       "id": 171,
@@ -2476,7 +2476,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "blackdark.canonical.layer.get_canonical_layer",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "172": {
       "id": 172,
@@ -2560,7 +2560,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "sentiment_engine.build_sentiment_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "178": {
       "id": 178,
@@ -2574,7 +2574,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "sentiment_engine.build_sentiment_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "179": {
       "id": 179,
@@ -2588,7 +2588,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "market_context.probe_price_sources",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "180": {
       "id": 180,
@@ -2602,7 +2602,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "oracle_track_record.public_track_record",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "181": {
       "id": 181,
@@ -2630,7 +2630,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "oracle_track_record.public_track_record",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "183": {
       "id": 183,
@@ -2658,7 +2658,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "whale_tracker.get_latest_whale_alerts",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "185": {
       "id": 185,
@@ -2700,7 +2700,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "188": {
       "id": 188,
@@ -2728,7 +2728,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "market_context.probe_price_sources",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "190": {
       "id": 190,
@@ -2770,7 +2770,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "product_honesty_api.build_public_readiness",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "193": {
       "id": 193,
@@ -2798,7 +2798,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "195": {
       "id": 195,
@@ -2826,7 +2826,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "197": {
       "id": 197,
@@ -2840,7 +2840,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "198": {
       "id": 198,
@@ -2854,7 +2854,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "199": {
       "id": 199,
@@ -2868,7 +2868,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "200": {
       "id": 200,
@@ -2882,7 +2882,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "blackdark.canonical.layer.get_canonical_layer",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "201": {
       "id": 201,
@@ -2896,7 +2896,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "blackdark.canonical.layer.get_canonical_layer",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "202": {
       "id": 202,
@@ -2910,7 +2910,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "scale_readiness.scale_readiness_report",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "203": {
       "id": 203,
@@ -2924,7 +2924,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.onchain_hub.dexscreener_pairs",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "204": {
       "id": 204,
@@ -2938,7 +2938,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "205": {
       "id": 205,
@@ -2952,7 +2952,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "206": {
       "id": 206,
@@ -2966,7 +2966,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "207": {
       "id": 207,
@@ -2980,7 +2980,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "208": {
       "id": 208,
@@ -2994,7 +2994,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "209": {
       "id": 209,
@@ -3022,7 +3022,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "product_honesty_api.build_public_readiness",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "211": {
       "id": 211,
@@ -3036,7 +3036,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "org_tenant.org_isolation_status",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "212": {
       "id": 212,
@@ -3050,7 +3050,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "instant_alert_engine.engine_stats",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "213": {
       "id": 213,
@@ -3064,7 +3064,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "instant_alert_engine.engine_stats",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "214": {
       "id": 214,
@@ -3106,7 +3106,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "security_posture.security_posture_report",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "217": {
       "id": 217,
@@ -3120,7 +3120,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "oracle_track_record.public_track_record",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "218": {
       "id": 218,
@@ -3134,7 +3134,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "security_posture.security_posture_report",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "219": {
       "id": 219,
@@ -3148,7 +3148,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "security_posture.security_posture_report",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "220": {
       "id": 220,
@@ -3162,7 +3162,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "data_provenance_score.compute_data_provenance_score",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "221": {
       "id": 221,
@@ -3176,7 +3176,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "data_provenance_score.compute_data_provenance_score",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "222": {
       "id": 222,
@@ -3190,7 +3190,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "signal_registry.registry_stats",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "223": {
       "id": 223,
@@ -3204,7 +3204,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "sentiment_engine.build_sentiment_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "224": {
       "id": 224,
@@ -3232,7 +3232,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "226": {
       "id": 226,
@@ -3246,7 +3246,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "ai_oracle.evaluate_opportunity",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "227": {
       "id": 227,
@@ -3260,7 +3260,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "228": {
       "id": 228,
@@ -3274,7 +3274,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "229": {
       "id": 229,
@@ -3288,7 +3288,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "arbitrage_service.scan_arbitrage_opportunities",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "230": {
       "id": 230,
@@ -3302,7 +3302,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "arbitrage_service.scan_arbitrage_opportunities",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "231": {
       "id": 231,
@@ -3330,7 +3330,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "233": {
       "id": 233,
@@ -3344,7 +3344,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.liquidation_radar.liquidation_radar",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "234": {
       "id": 234,
@@ -3400,7 +3400,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "risk_manager.risk_status",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "238": {
       "id": 238,
@@ -3414,7 +3414,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "239": {
       "id": 239,
@@ -3442,7 +3442,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "oracle_track_record.public_track_record",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "241": {
       "id": 241,
@@ -3456,7 +3456,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "sentiment_gate.fetch_asset_sentiment",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "242": {
       "id": 242,
@@ -3470,7 +3470,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "trust_pulse.build_trust_pulse",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "243": {
       "id": 243,
@@ -3484,7 +3484,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "244": {
       "id": 244,
@@ -3498,7 +3498,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "blackdark.canonical.layer.get_canonical_layer",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "245": {
       "id": 245,
@@ -3526,7 +3526,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "product_honesty_api.build_public_readiness",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "247": {
       "id": 247,
@@ -3540,7 +3540,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "product_honesty_api.build_public_readiness",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "248": {
       "id": 248,
@@ -3554,7 +3554,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.telegram_agent.handle_agent_message",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "249": {
       "id": 249,
@@ -3596,7 +3596,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "ai_oracle.evaluate_opportunity",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "252": {
       "id": 252,
@@ -3610,7 +3610,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.liquidation_radar.liquidation_radar",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "253": {
       "id": 253,
@@ -3624,7 +3624,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.liquidation_radar.liquidation_radar",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "254": {
       "id": 254,
@@ -3638,7 +3638,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.liquidation_radar.liquidation_radar",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "255": {
       "id": 255,
@@ -3652,7 +3652,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "256": {
       "id": 256,
@@ -3666,7 +3666,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "257": {
       "id": 257,
@@ -3680,7 +3680,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "258": {
       "id": 258,
@@ -3694,7 +3694,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "259": {
       "id": 259,
@@ -3708,7 +3708,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "260": {
       "id": 260,
@@ -3722,7 +3722,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "261": {
       "id": 261,
@@ -3736,7 +3736,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "262": {
       "id": 262,
@@ -3890,7 +3890,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "hot_storage.get_hot_storage_stats",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "273": {
       "id": 273,
@@ -3918,7 +3918,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "instant_alert_engine.engine_stats",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "275": {
       "id": 275,
@@ -3988,7 +3988,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "280": {
       "id": 280,
@@ -4114,7 +4114,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "oracle_track_record.public_track_record",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "289": {
       "id": 289,
@@ -4240,7 +4240,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "298": {
       "id": 298,
@@ -4268,7 +4268,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "trust_pulse.build_trust_pulse",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "300": {
       "id": 300,
@@ -4282,7 +4282,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.tradingview_bridge.chart_config",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "301": {
       "id": 301,
@@ -4506,7 +4506,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.tradingview_bridge.chart_config",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "317": {
       "id": 317,
@@ -4702,7 +4702,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "market_context.probe_price_sources",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "331": {
       "id": 331,
@@ -4828,7 +4828,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "data_provenance_score.compute_data_provenance_score",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "340": {
       "id": 340,
@@ -5066,7 +5066,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "cap646.fallbacks.resolve_dex_volume_snapshot",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "357": {
       "id": 357,
@@ -5374,7 +5374,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "security_posture.security_posture_report",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "379": {
       "id": 379,
@@ -5388,7 +5388,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "blackdark.canonical.layer.get_canonical_layer",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "380": {
       "id": 380,
@@ -5402,7 +5402,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "cap646.fallbacks.resolve_gas_usd",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "381": {
       "id": 381,
@@ -5416,7 +5416,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "data_provenance_score.compute_data_provenance_score",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "382": {
       "id": 382,
@@ -5430,7 +5430,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "blackdark.canonical.layer.get_canonical_layer",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "383": {
       "id": 383,
@@ -5542,7 +5542,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "blackdark.canonical.layer.get_canonical_layer",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "391": {
       "id": 391,
@@ -5584,7 +5584,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "bd_platform.onchain_hub.dexscreener_pairs",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "394": {
       "id": 394,
@@ -5626,7 +5626,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "cap646.fallbacks.resolve_gas_usd",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "397": {
       "id": 397,
@@ -5808,7 +5808,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.token_unlocks.unlock_calendar",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "410": {
       "id": 410,
@@ -6200,7 +6200,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "438": {
       "id": 438,
@@ -6256,7 +6256,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "trust_pulse.build_trust_pulse",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "442": {
       "id": 442,
@@ -6494,7 +6494,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "trust_pulse.build_trust_pulse",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "459": {
       "id": 459,
@@ -7320,7 +7320,7 @@
       "user_facing": false,
       "binding_source": "track_default",
       "backend": "data_provenance_score.compute_data_provenance_score",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "518": {
       "id": 518,
@@ -7432,7 +7432,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "data_provenance_score.compute_data_provenance_score",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "526": {
       "id": 526,
@@ -7474,7 +7474,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.liquidation_radar.liquidation_radar",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "529": {
       "id": 529,
@@ -8174,7 +8174,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "bd_platform.portfolio_rebalancer.portfolio_snapshot",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "579": {
       "id": 579,
@@ -9000,7 +9000,7 @@
       "user_facing": false,
       "binding_source": "capability_keyword",
       "backend": "trust_pulse.build_trust_pulse",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "638": {
       "id": 638,
@@ -9014,7 +9014,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "oracle_track_record.public_track_record",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "639": {
       "id": 639,
@@ -9028,7 +9028,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "net_edge_truth.compute_net_edge_truth",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "640": {
       "id": 640,
@@ -9042,7 +9042,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "oracle_track_record.public_track_record",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "641": {
       "id": 641,
@@ -9112,7 +9112,7 @@
       "user_facing": false,
       "binding_source": "gap_matrix_component",
       "backend": "security_posture.security_posture_report",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "notes": "Hero audit SPLIT-BRAIN \u2014 not convertible to PRODUCTION-ALIGNED without live spine proof"
     },
     "646": {
       "id": 646,

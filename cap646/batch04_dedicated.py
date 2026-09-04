@@ -234,6 +234,27 @@ async def _cap186(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     return _wrap(186, symbol=symbol, payload_key="historical_wallet_balance_tool", payload=payload)
 
 
+def _make_strangler_handler(capability_id: int) -> Callable[..., Awaitable[dict[str, Any]]]:
+    async def _handler(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+        import inspect
+
+        from cap646.batch04_strangler_spine import STRANGLER_BUILDERS
+
+        builder = STRANGLER_BUILDERS[capability_id]
+        sig = inspect.signature(builder)
+        kwargs: dict[str, Any] = {"symbol": symbol}
+        if "seed" in sig.parameters:
+            kwargs["seed"] = _seed()
+        if "params" in sig.parameters:
+            kwargs["params"] = params
+        payload = await builder(**kwargs)
+        root = EXPECTED_SURFACE[capability_id]
+        return _wrap(capability_id, symbol=symbol, payload_key=root, payload=payload)
+
+    _handler.__name__ = f"_cap{capability_id}"
+    return _handler
+
+
 async def _cap187(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from cap646.batch04_paid_cryptoquant_spine import build_exchange_inflow_187
 
@@ -273,13 +294,11 @@ async def _cap190(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     )
 
 
-async def _cap189(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from cap646.dedicated_common import exchange_netflow_probe
+from cap646.batch04_strangler_spine import STRANGLER_BUILDERS
 
-    exchange, netflow = exchange_netflow_probe(params, symbol)
-    payload = _catalog_payload(189, symbol, exchange=exchange, netflow=netflow, netflow_proxy=netflow.get("netflow_proxy"))
-    return _wrap(189, symbol=symbol, payload_key="exchange_netflow_intelligence", payload=payload)
-
+_STRANGLER_DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
+    cid: _make_strangler_handler(cid) for cid in sorted(STRANGLER_BUILDERS)
+}
 
 _DISPATCH_OVERRIDES: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     151: _cap151,
@@ -292,8 +311,8 @@ _DISPATCH_OVERRIDES: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     186: _cap186,
     187: _cap187,
     188: _cap188,
-    189: _cap189,
     190: _cap190,
+    **_STRANGLER_DISPATCH,
 }
 
 _HERO_BRIDGE_IDS = frozenset(range(152, 201)) - {159, 175, 183} - frozenset(_DISPATCH_OVERRIDES.keys())

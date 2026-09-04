@@ -1,0 +1,458 @@
+{
+  "generated_at": "2026-09-04T07:49:41.857002+00:00",
+  "build_phase": "BUILD_PHASE_LIFTED_EXCEPT_PAID_VENDOR",
+  "production_aligned_count": 32,
+  "progress_826_batch04_pa": 32,
+  "rows": [
+    {
+      "id": 151,
+      "capability": "Quarterly Protocol Performance Reports",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap151",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 152,
+      "capability": "Governance & Proposal Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap152",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 153,
+      "capability": "Project Monitoring Coverage Registry",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap153",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 154,
+      "capability": "AI Crypto Copilot",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap154",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 155,
+      "capability": "AI Deep Research",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap155",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 156,
+      "capability": "Crypto Knowledge Graph",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap156",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 157,
+      "capability": "Research Library",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap157",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 158,
+      "capability": "Institutional Research Feed",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap158",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 159,
+      "capability": "API Data Platform",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap159",
+      "owner_note": "BLOCKER-159-103 \u2014 awaits #103 maturity or DISTINCT ADR",
+      "miswire_remediation": null
+    },
+    {
+      "id": 160,
+      "capability": "Pay-Per-Request Data Access",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap160",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 161,
+      "capability": "Institutional Data Delivery & Entitlements",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap161",
+      "owner_note": "Elite-gated institutional entitlements \u2014 spine wired, PA pending owner gate-zero",
+      "miswire_remediation": null
+    },
+    {
+      "id": 162,
+      "capability": "Evidence & Provenance Layer",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap162",
+      "owner_note": "BLOCKER-162-106 \u2014 REUSED-LINK pending #106 PA",
+      "miswire_remediation": null
+    },
+    {
+      "id": 163,
+      "capability": "Cross-Domain Research-to-Decision Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap163",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 164,
+      "capability": "Token Unlock Actionability Score",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap164",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 165,
+      "capability": "Fundraising Momentum Score",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap165",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 166,
+      "capability": "Research Confidence Score",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.risk_infrastructure_layer.brokerage_rejected_status_166",
+      "owner_note": "AWAITING_DEPENDENCY: #591 sentiment_analysis_engine_591 (inventory PENDING)",
+      "miswire_remediation": "BLOCKED_DEPENDENCY"
+    },
+    {
+      "id": 167,
+      "capability": "Social Volume Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap167",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 168,
+      "capability": "Social Dominance Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap168",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 169,
+      "capability": "Unique Social Volume",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap169",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 170,
+      "capability": "Trending Words",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap170",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 171,
+      "capability": "Trending Coins",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap171",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 172,
+      "capability": "Historical Crypto Trends",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap172",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 173,
+      "capability": "Key Narratives Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.risk_infrastructure_layer.institutional_rbac_status_173",
+      "owner_note": "AWAITING_DEPENDENCY: #594 narrative_alert_system_594 (inventory PENDING)",
+      "miswire_remediation": "BLOCKED_DEPENDENCY"
+    },
+    {
+      "id": 174,
+      "capability": "Alpha Narratives Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.risk_infrastructure_layer.full_white_label_status_174",
+      "owner_note": "AWAITING_DEPENDENCY: #450 narrative_driven_research_450 (inventory PENDING)",
+      "miswire_remediation": "BLOCKED_DEPENDENCY"
+    },
+    {
+      "id": 175,
+      "capability": "Social Sentiment Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch01_production.execute \u2192 cap646.handlers.ai.handle_ai_capability",
+      "owner_note": "REUSED_ALIAS batch01 overlap \u2014 routes via batch01_production",
+      "miswire_remediation": null
+    },
+    {
+      "id": 176,
+      "capability": "Weighted Social Sentiment",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.risk_infrastructure_layer.run_risk_infrastructure_e2e_164_176",
+      "owner_note": "AWAITING_DEPENDENCY: #592 social_sentiment_engine_592 (inventory PENDING)",
+      "miswire_remediation": "BLOCKED_DEPENDENCY"
+    },
+    {
+      "id": 177,
+      "capability": "Social Sentiment Balance",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.analyze_arbitrage_cost_177",
+      "owner_note": "AWAITING_DEPENDENCY: #591 sentiment_analysis_engine_591 (inventory PENDING)",
+      "miswire_remediation": "BLOCKED_DEPENDENCY"
+    },
+    {
+      "id": 178,
+      "capability": "Social Source Breakdown",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.run_scenario_drawdown_analysis_178",
+      "owner_note": "AWAITING_DEPENDENCY: #219 metric_availability_registry_219 (inventory PENDING)",
+      "miswire_remediation": "BLOCKED_DEPENDENCY"
+    },
+    {
+      "id": 179,
+      "capability": "Development Activity Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.build_command_center_dashboard_179",
+      "owner_note": "AWAITING_DEPENDENCY: #421 developer_activity_421 (inventory PENDING)",
+      "miswire_remediation": "BLOCKED_DEPENDENCY"
+    },
+    {
+      "id": 180,
+      "capability": "Development Activity Contributors",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.build_whale_flow_visualization_180",
+      "owner_note": "AWAITING_DEPENDENCY: #352 core_developers_352 (inventory PENDING)",
+      "miswire_remediation": "BLOCKED_DEPENDENCY"
+    },
+    {
+      "id": 181,
+      "capability": "IC Committee Packets Status",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.committee_packets_status_181",
+      "owner_note": null,
+      "miswire_remediation": "PARTIAL_MISNAMED_RESOLVED"
+    },
+    {
+      "id": 182,
+      "capability": "White-Label Infrastructure Status",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.white_label_infrastructure_status_182",
+      "owner_note": null,
+      "miswire_remediation": "PARTIAL_MISNAMED_RESOLVED"
+    },
+    {
+      "id": 183,
+      "capability": "Whale Transaction Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap183",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 184,
+      "capability": "Whale & Shark Holder Cohorts",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap184",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 185,
+      "capability": "Top Holders Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap185",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 186,
+      "capability": "Historical Wallet Balance Tool",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap186",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 187,
+      "capability": "Exchange Inflow Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap187 \u2192 cap646.batch04_paid_cryptoquant_spine.build_exchange_inflow_187",
+      "owner_note": "AWAITING_OWNER_PAYMENT_DECISION",
+      "miswire_remediation": "PAID_VENDOR_DESIGNED"
+    },
+    {
+      "id": 188,
+      "capability": "Exchange Outflow Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap188 \u2192 cap646.batch04_paid_cryptoquant_spine.build_exchange_outflow_188",
+      "owner_note": "AWAITING_OWNER_PAYMENT_DECISION",
+      "miswire_remediation": "PAID_VENDOR_DESIGNED"
+    },
+    {
+      "id": 189,
+      "capability": "Exchange Netflow Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap189",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 190,
+      "capability": "Exchange Supply / Balance Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap190 \u2192 cap646.batch04_paid_cryptoquant_spine.build_exchange_supply_balance_190",
+      "owner_note": "AWAITING_OWNER_PAYMENT_DECISION",
+      "miswire_remediation": "PAID_VENDOR_DESIGNED"
+    },
+    {
+      "id": 191,
+      "capability": "Exchange User Activity",
+      "closure_status": "NOT_COMPLETE",
+      "final_state": "NOT_COMPLETE",
+      "binding": "cap646.batch04_dedicated._cap_hero_bridge \u2192 bd_platform.arbitrage_portfolio_ux_layer.run_arbitrage_portfolio_ux_e2e_177_191",
+      "owner_note": "No known free technical solution for exchange user activity metrics",
+      "miswire_remediation": "STRANGLER_FIXABLE"
+    },
+    {
+      "id": 192,
+      "capability": "Network Activity Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap192",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 193,
+      "capability": "Transaction Volume Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap193",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 194,
+      "capability": "NVT Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap194",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 195,
+      "capability": "MVRV Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap195",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 196,
+      "capability": "Realized Cap / Realized Value Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap196",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 197,
+      "capability": "Daily Active Addresses",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap197",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 198,
+      "capability": "On-Chain Dormancy Proxy",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap198",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 199,
+      "capability": "Invested-Age Proxy",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap199",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    },
+    {
+      "id": 200,
+      "capability": "Token Circulation Intelligence",
+      "closure_status": "PRODUCTION-ALIGNED",
+      "final_state": "PRODUCTION-ALIGNED",
+      "binding": "cap646/batch04_dedicated.py::_cap200",
+      "owner_note": null,
+      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+    }
+  ]
+}

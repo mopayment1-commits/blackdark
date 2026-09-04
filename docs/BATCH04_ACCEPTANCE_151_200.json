@@ -356,17 +356,17 @@
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "NOT_COMPLETE suspended — await #103 maturity or DISTINCT ADR",
+      "build_decision": "NOT_COMPLETE suspended \u2014 await #103 maturity or DISTINCT ADR",
       "hero_underlying": "bd_platform.intelligence_analysis_layer.compute_gas_volatility_profile_159",
       "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
-      "notes": "BLOCKER-159-103 owner decision: NOT_COMPLETE — no REUSED-LINK until #103 matures (Tolerate 2026-10-03)",
+      "notes": "BLOCKER-159-103 owner decision: NOT_COMPLETE \u2014 no REUSED-LINK until #103 matures (Tolerate 2026-10-03)",
       "pending_canonical_audit": "BLOCKER-159-103",
       "duplicate_candidates": [
         {
           "pair": "159\u2194103",
           "scope": "151-200 vs 1-150",
           "classification": "NOT_COMPLETE",
-          "evidence": "Canonical #103 OVERLAP-PARTIAL on batch01 — REUSED-LINK blocked"
+          "evidence": "Canonical #103 OVERLAP-PARTIAL on batch01 \u2014 REUSED-LINK blocked"
         }
       ]
     },
@@ -1249,7 +1249,7 @@
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "DISTINCT-only Option B approved — no REUSED-LINK to #130",
+      "build_decision": "DISTINCT-only Option B approved \u2014 no REUSED-LINK to #130",
       "hero_underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
       "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
       "notes": "BLOCKER-183-130 owner decision: DISTINCT whale payload; #130 PRODUCTION-ALIGNED in Batch03 untouched",
@@ -1259,7 +1259,7 @@
           "pair": "183\u2194130",
           "scope": "151-200 vs 1-150",
           "classification": "NOT_COMPLETE",
-          "evidence": "Semantic mismatch whale vs mindshare — REUSED-LINK rejected"
+          "evidence": "Semantic mismatch whale vs mindshare \u2014 REUSED-LINK rejected"
         }
       ]
     },
@@ -1769,7 +1769,7 @@
     },
     {
       "capability_id": 198,
-      "capability_name": "Age Consumed / Dormancy Intelligence",
+      "capability_name": "On-Chain Dormancy Proxy",
       "expected_surface": "age_consumed_dormancy_intelligence",
       "status": "NOT_COMPLETE",
       "production_spine": "batch04",
@@ -1799,13 +1799,13 @@
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "PARTIAL_MISNAMED \u2014 catalog rename + local heuristic proxy",
       "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_binance_research_198",
       "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
     },
     {
       "capability_id": 199,
-      "capability_name": "Mean Dollar Invested Age",
+      "capability_name": "Invested-Age Proxy",
       "expected_surface": "mean_dollar_invested_age",
       "status": "NOT_COMPLETE",
       "production_spine": "batch04",
@@ -1835,7 +1835,7 @@
         }
       ],
       "prebuild_classification": "Brownfield",
-      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "build_decision": "PARTIAL_MISNAMED \u2014 catalog rename + local heuristic proxy",
       "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_messari_research_199",
       "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
     },
