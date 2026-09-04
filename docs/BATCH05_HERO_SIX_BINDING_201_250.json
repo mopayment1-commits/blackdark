@@ -4,7 +4,7 @@
   "branch": "cursor/batch05-201-250-e85e",
   "pr": 366,
   "independent_43_not_bound_to_heroes": true,
-  "evidence": "cap646/batch05_hero_bridge.py — 43 hero bindings; #212/#226 removed; REUSED-LINK IDs excluded from hero bridge",
+  "evidence": "cap646/batch05_hero_bridge.py \u2014 43 hero bindings; #212/#226 removed; REUSED-LINK IDs excluded from hero bridge",
   "reused_canonical_hero_feeds": {
     "226": 69
   },
@@ -15,16 +15,25 @@
     ]
   },
   "batch05_reused_not_in_hero_inputs": {
-    "214": "batch01 watchlists — no hero feed",
-    "245": "batch01 freshness — no hero feed",
-    "206": "batch02 cap_086 funding — no direct hero binding in 1-100 report",
-    "228": "batch02 cap_086 funding — no direct hero binding in 1-100 report",
-    "232": "batch05 canonical #205 OI strangler complete — still no hero feed"
+    "214": "batch01 watchlists \u2014 no hero feed",
+    "245": "batch01 freshness \u2014 no hero feed",
+    "206": "batch02 cap_086 funding \u2014 no direct hero binding in 1-100 report",
+    "228": "batch02 cap_086 funding \u2014 no direct hero binding in 1-100 report",
+    "232": "batch05 canonical #205 OI strangler complete \u2014 still no hero feed"
   },
   "post_wave5_confirmation": {
     "confirmed_at": "2026-09-04T22:10:00+00:00",
     "commit": "acbea4c",
-    "wave5_capability_ids": [242, 243, 244, 246, 247, 248, 249, 250],
+    "wave5_capability_ids": [
+      242,
+      243,
+      244,
+      246,
+      247,
+      248,
+      249,
+      250
+    ],
     "heroes_fed_by_wave5": [],
     "matrix_changed": false,
     "note": "Wave 5 strangler IDs route via batch05_strangler_spine; not in hero aggregation inputs"
@@ -32,7 +41,9 @@
   "past_defect_impact": [
     {
       "issue": "capability 69 dual-path (#69 style)",
-      "capability_ids": [69],
+      "capability_ids": [
+        69
+      ],
       "batch05_duplicate_id": 226,
       "heroes_fed": [
         "Single-Sentence Oracle",
@@ -40,30 +51,33 @@
       ],
       "was_in_hero_inputs": true,
       "affected_live_decision_before_fix": false,
-      "status_after_fix": "CLOSED — #226 REUSED-LINK facade to batch02 cap_069; hero analyze_launch_event_226 removed from production path",
+      "status_after_fix": "CLOSED \u2014 #226 REUSED-LINK facade to batch02 cap_069; hero analyze_launch_event_226 removed from production path",
       "note": "User-visible explainability preserved via canonical #69 payload; batch05 #226 adds catalog envelope only"
     },
     {
       "issue": "capability 212 wrong-domain hero binding",
-      "capability_ids": [212, 17],
+      "capability_ids": [
+        212,
+        17
+      ],
       "heroes_fed": [],
       "was_in_hero_inputs": true,
       "affected_live_decision_before_fix": false,
-      "status_after_fix": "CLOSED — DUPLICATE_DELEGATION to batch01 #17; hedge_effectiveness_analysis_212 removed",
+      "status_after_fix": "CLOSED \u2014 DUPLICATE_DELEGATION to batch01 #17; hedge_effectiveness_analysis_212 removed",
       "note": "Smart Alerts surface served exclusively by batch01 #17"
     }
   ],
   "normalization": {
     "method": "min-max / log1p per hero engine (scripts/generate_pentagonal_hero_binding_report.py)",
-    "batch05_independent_caps": "N/A — not in hero aggregation layer until strangler complete and explicitly bound",
+    "batch05_independent_caps": "N/A \u2014 not in hero aggregation layer until strangler complete and explicitly bound",
     "reused_link_226": "inherits canonical #69 normalization at batch02 spine"
   },
   "weighting": {
-    "default": "equal_weight_default — ADR required if changed (OECD composite indicator practice)",
-    "batch05_stub": "no weights assigned — independent caps not yet in hero inputs",
+    "default": "equal_weight_default \u2014 ADR required if changed (OECD composite indicator practice)",
+    "batch05_stub": "no weights assigned \u2014 independent caps not yet in hero inputs",
     "justification": "Avoid equal-weight bias on unvalidated strangler stubs; weights frozen until ISO 25010 completeness probe passes per ID"
   },
-  "independent_signal_concurrence": "≥2 independent modal signals where hero engine requires (Oracle/Arbitrage) — applies only via canonical #69 for batch05 #226 facade",
+  "independent_signal_concurrence": "\u22652 independent modal signals where hero engine requires (Oracle/Arbitrage) \u2014 applies only via canonical #69 for batch05 #226 facade",
   "heroes": [
     {
       "hero": "Single-Sentence Oracle",
@@ -72,14 +86,14 @@
         {
           "duplicate_id": 226,
           "canonical_id": 69,
-          "binding": "cap646/batch05_dedicated.py::_cap226 → batch02_production.execute(69)"
+          "binding": "cap646/batch05_dedicated.py::_cap226 \u2192 batch02_production.execute(69)"
         }
       ],
       "sensitivity_loo": {
-        "remove_capability_69": "Oracle loses cross-domain synthesis input — decision may flatten to price-only if no substitute",
-        "weight_plus_20pct_69": "Marginal — concurrence gate still requires ≥2 independent signals",
-        "weight_minus_20pct_69": "Marginal — same concurrence gate",
-        "flip_test_result": "no_flip_on_stub_batch05_paths — canonical #69 mature"
+        "remove_capability_69": "Oracle loses cross-domain synthesis input \u2014 decision may flatten to price-only if no substitute",
+        "weight_plus_20pct_69": "Marginal \u2014 concurrence gate still requires \u22652 independent signals",
+        "weight_minus_20pct_69": "Marginal \u2014 same concurrence gate",
+        "flip_test_result": "no_flip_on_stub_batch05_paths \u2014 canonical #69 mature"
       },
       "explainability": "hero engine returns contributing capability_ids in payload where implemented; #226 stamped catalog_link REUSED-LINK",
       "five_scenarios": [
@@ -94,7 +108,7 @@
       "hero": "Public Accuracy Ledger",
       "batch05_direct_capability_ids": [],
       "batch05_reused_canonical_feeds": [],
-      "sensitivity_loo": "N/A — no batch05 IDs in hero inputs",
+      "sensitivity_loo": "N/A \u2014 no batch05 IDs in hero inputs",
       "explainability": "N/A",
       "five_scenarios": [
         "bullish_clear",
@@ -111,12 +125,12 @@
         {
           "duplicate_id": 226,
           "canonical_id": 69,
-          "binding": "cap646/batch05_dedicated.py::_cap226 → batch02_production.execute(69)"
+          "binding": "cap646/batch05_dedicated.py::_cap226 \u2192 batch02_production.execute(69)"
         }
       ],
       "sensitivity_loo": {
-        "remove_capability_69": "Arbitrage scanner loses cross-domain context — net-edge ranking may degrade",
-        "weight_plus_20pct_69": "Marginal on ranking order when ≥2 concurrence signals present",
+        "remove_capability_69": "Arbitrage scanner loses cross-domain context \u2014 net-edge ranking may degrade",
+        "weight_plus_20pct_69": "Marginal on ranking order when \u22652 concurrence signals present",
         "weight_minus_20pct_69": "Marginal",
         "flip_test_result": "no_flip_on_stub_batch05_paths"
       },
@@ -179,5 +193,12 @@
     "missing_data",
     "stale_data"
   ],
-  "status": "STUB_SENSITIVITY — batch05 independent caps excluded until per-ID strangler closure"
+  "status": "FINAL_FREEZE_LOCAL \u2014 independent caps excluded until per-ID PA clearance",
+  "final_freeze": {
+    "frozen_at": "2026-09-04T22:24:37.441184+00:00",
+    "commit": "40b654d5f8b0266277a4b49d3d3684887d540347",
+    "sequence_item": 4,
+    "status": "FINAL_FREEZE_LOCAL",
+    "note": "Normalization+Weighting+Sensitivity+Explainability frozen; no batch05 strangler in hero inputs"
+  }
 }
