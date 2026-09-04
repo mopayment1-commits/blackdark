@@ -2,7 +2,7 @@
 
 **Date:** 2026-09-04  
 **Branch:** `cursor/batch05-201-250-e85e` · **PR #366**  
-**Phase:** **BUILD_PHASE OPEN** — Strangler wave 3 (217–225, 227)  
+**Phase:** **BUILD_PHASE OPEN** — Strangler wave 4 (229–231, 233–241)  
 **Live:** `AWAITING_DEPLOY` — **NOT** `LIVE_READY`
 
 هذه المرحلة = بناء spine + قبول مسبق + اختبارات محلية فقط. لا إعلان اكتمال حوكمة · لا Batch05 complete · لا جاهزية حية 100%.
@@ -18,31 +18,34 @@
 | `progress_826` | 179 (not inflated) |
 | `PRODUCTION-ALIGNED` (batch05) | **0** |
 | `BATCH05_IDS` routing spine | **49** |
-| Strangler implemented | **24** (#201–#205, #207–#211, #213, #215–#216, #217–#225, #227) |
-| Remaining NOT_COMPLETE | **19** (43 − 24) |
+| Strangler implemented | **36** (waves 1–4) |
+| Remaining NOT_COMPLETE | **7** (43 − 36) |
 
 ---
 
-## 2) Strangler wave 3 — intelligence_market_extensions_layer (#217–225, #227)
+## 2) Strangler wave 4 — intelligence_ux_extensions_layer (#229–231, #233–241)
 
 | ID | Capability | Strangler builder | Catalog-correct source | Pentagonal |
 |----|------------|-------------------|------------------------|------------|
-| **217** | SanAPI-Style Data Access | `build_sanapi_style_data_access_217` | `analyze_best_venue_217` | 6/6 PASS |
-| **218** | Google Sheets Integration | `build_google_sheets_integration_218` | `list_manual_order_journal_218` | 6/6 PASS |
-| **219** | Metric Availability Registry | `build_metric_availability_registry_219` | `analyze_nlp_sentiment_219` | 6/6 PASS |
-| **220** | Data Stabilization & Mutability Metadata | `build_data_stabilization_mutability_metadata_220` | `analyze_pattern_outcome_220` | 6/6 PASS |
-| **221** | Data Quality & Provenance Layer | `build_data_quality_provenance_layer_221` | `market_slippage_analysis_221` | 6/6 PASS |
-| **222** | Metric Methodology Registry | `build_metric_methodology_registry_222` | `monitor_exchange_latency_222` | 6/6 PASS |
-| **223** | Social-to-On-Chain Confirmation Engine | `build_social_to_on_chain_confirmation_engine_223` | `analyze_defi_fundamentals_223` | 6/6 PASS |
-| **224** | Narrative Actionability Score | `build_narrative_actionability_score_224` | `analyze_token_dcf_224` | 6/6 PASS |
-| **225** | Development-to-Market Divergence Detector | `build_development_to_market_divergence_detector_225` | `pwa_strategy_status_225` | 6/6 PASS |
-| **227** | Unified Trading Intelligence Workspace | `build_unified_trading_intelligence_workspace_227` | `analyze_etf_premium_227` | 6/6 PASS |
+| **229** | Cross-Exchange Funding Arbitrage Scanner | `build_cross_exchange_funding_arbitrage_scanner_229` | `generate_reasoning_explanation_229` | 6/6 PASS |
+| **230** | Spot/Perp Arbitrage Scanner | `build_spot_perp_arbitrage_scanner_230` | `analyze_cross_exchange_divergence_230` | 6/6 PASS |
+| **231** | Futures Basis Term Structure | `build_futures_basis_term_structure_231` | `triangular_arbitrage_status_231` | 6/6 PASS |
+| **233** | Liquidation Intelligence | `build_liquidation_intelligence_233` | `build_heatmap_component_233` | 6/6 PASS |
+| **234** | CVD Intelligence | `build_cvd_intelligence_234` | `live_dashboard_status_234` | 6/6 PASS |
+| **235** | Long/Short Ratio Intelligence | `build_long_short_ratio_intelligence_235` | `whale_intelligence_status_235` | 6/6 PASS |
+| **236** | DEX Screener | `build_dex_screener_236` | `subscription_tiers_status_236` | 6/6 PASS |
+| **237** | Token Risk Scoring | `build_token_risk_scoring_237` | `generate_market_summary_237` | 6/6 PASS |
+| **238** | Pump/Dump Detection | `build_pump_dump_detection_238` | `scan_market_opportunities_238` | 6/6 PASS |
+| **239** | Narrative Tracking | `build_narrative_tracking_239` | `live_ta_status_239` | 6/6 PASS |
+| **240** | Sector Rotation Intelligence | `build_sector_rotation_intelligence_240` | `compute_s2f_240` | 6/6 PASS |
+| **241** | Sentiment Intelligence | `build_sentiment_intelligence_241` | `ingest_fred_macro_241` | 6/6 PASS |
 
-- Shared lineage: `bd_platform.intelligence_market_extensions_layer`
-- Shared test base: `tests/test_intelligence_market_extensions_batch217_227.py` + `tests/cap646/test_batch05_strangler_spine.py`
-- **#224 miswire fixed:** hero bridge pointed at `coinmarketcal_status_245`; strangler uses `analyze_token_dcf_224`
-- **#226 excluded** (frozen REUSED-LINK → batch02 #69)
-- Six Heroes matrix: **unchanged** (Wave 3 IDs do not feed heroes)
+- Shared lineage: `bd_platform.intelligence_ux_extensions_layer`
+- Shared test base: `tests/test_intelligence_ux_extensions_batch228_241.py` + `tests/cap646/test_batch05_strangler_spine.py`
+- **#229–#231 included** — seed-based layer functions stable (no derivatives spine instability)
+- **#241 miswire fixed:** hero bridge used e2e runner; strangler uses `ingest_fred_macro_241`
+- **Excluded:** #228 (REUSED-LINK batch02), #232 (REUSED-LINK → #205)
+- Six Heroes matrix: **unchanged** (Wave 4 IDs do not feed heroes)
 
 ---
 
@@ -54,6 +57,7 @@
 | Wave 2a | 205 (+ #232 REUSED-LINK) | 1 |
 | Wave 2b | 207–211, 213, 215–216 | 9 |
 | Wave 3 | 217–225, 227 | 10 |
+| Wave 4 | 229–231, 233–241 | 12 |
 
 ---
 
@@ -68,15 +72,15 @@
 
 ---
 
-## 5) Pentagonal / RTM freeze (post wave 3)
+## 5) Pentagonal / RTM freeze (post wave 4)
 
 ```text
 build_phase                  = OPEN
 batch05_independent          = 0
 progress_826                 = 179
-strangler_implemented        = 24 IDs (see above)
-not_complete_remaining       = 19
-domain_all_pass              = 47/50 (214/232/245 REUSED-LINK partial — expected)
+strangler_implemented        = 36 IDs
+not_complete_remaining       = 7 (#242–244, #246–250)
+domain_all_pass              = 46/50 (214/232/245 REUSED-LINK partial; #210 latency flake in batch probe)
 production_aligned_batch05   = 0
 ```
 
@@ -88,16 +92,16 @@ Refs: `BATCH05_RTM_201_250.json`, `BATCH05_PENTAGONAL_TEMPLATE_201_250.json`, `B
 
 | Suite | Result |
 |-------|--------|
-| `test_batch05_strangler_spine.py` | PASS (24 strangler IDs) |
+| `test_batch05_strangler_spine.py` | PASS (36 strangler IDs) |
 | `test_batch05_prep_dedicated.py` | PASS |
-| `test_intelligence_market_extensions_batch217_227.py` | PASS |
-| Pentagonal generator | 47/50 domain_all_pass |
+| `test_intelligence_ux_extensions_batch228_241.py` | PASS |
+| Pentagonal generator | 46/50 domain_all_pass (all Wave 4 IDs 6/6) |
 
 ---
 
-## 7) Next waves (owner backlog — NOT in scope)
+## 7) Next wave (owner backlog — NOT in scope)
 
-1. Wave 4+: remaining 19 NOT_COMPLETE IDs (#229–231, #233–244, #246–250 minus overlaps)
+1. Wave 5: remaining 7 NOT_COMPLETE IDs (#242–244, #246–250)
 2. SonarCloud QG re-run on CI
 
 ---

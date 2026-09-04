@@ -1,6 +1,6 @@
 # BATCH05_INSTITUTIONAL_PENTAGONAL_BUILD
 
-**Generated:** 2026-09-04T17:57:49.489726+00:00 | **Commit:** `8c48e833126a` | **Scope:** Batch05 IDs 201–250
+**Generated:** 2026-09-04T18:04:25.791479+00:00 | **Commit:** `256d150cce50` | **Scope:** Batch05 IDs 201–250
 **Classification:** BUILD PHASE OPEN — **NOT** LOCAL_GOVERNANCE_COMPLETE — SonarCloud PENDING
 **Acceptance source:** `BATCH05_ACCEPTANCE_201_250.json` (pre_probe, ISO 29148)
 
@@ -27,7 +27,7 @@
 ```
 batch05_independent = 0
 progress_826        = 179
-domain_rules_all_pass = 47/50
+domain_rules_all_pass = 46/50
 sonarcloud          = PENDING
 ```
 
@@ -46,7 +46,7 @@ sonarcloud          = PENDING
 | 207 | NOT_COMPLETE | batch05 | 6/6 | Invest |
 | 208 | NOT_COMPLETE | batch05 | 6/6 | Invest |
 | 209 | NOT_COMPLETE | batch05 | 6/6 | Invest |
-| 210 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 210 | NOT_COMPLETE | batch05 | 5/6 | Invest |
 | 211 | NOT_COMPLETE | batch05 | 6/6 | Invest |
 | 212 | DUPLICATE_DELEGATION | batch01 | 5/5 | Migrate |
 | 213 | NOT_COMPLETE | batch05 | 6/6 | Invest |
@@ -65,19 +65,19 @@ sonarcloud          = PENDING
 | 226 | REUSED-LINK | batch05 | 7/7 | Migrate |
 | 227 | NOT_COMPLETE | batch05 | 6/6 | Invest |
 | 228 | REUSED-LINK | batch05 | 7/7 | Migrate |
-| 229 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 230 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 231 | NOT_COMPLETE | batch05 | 4/4 | Invest |
+| 229 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 230 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 231 | NOT_COMPLETE | batch05 | 6/6 | Invest |
 | 232 | REUSED-LINK | batch05 | 7/8 | Migrate |
-| 233 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 234 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 235 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 236 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 237 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 238 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 239 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 240 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 241 | NOT_COMPLETE | batch05 | 4/4 | Invest |
+| 233 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 234 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 235 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 236 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 237 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 238 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 239 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 240 | NOT_COMPLETE | batch05 | 6/6 | Invest |
+| 241 | NOT_COMPLETE | batch05 | 6/6 | Invest |
 | 242 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 243 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 244 | NOT_COMPLETE | batch05 | 4/4 | Invest |

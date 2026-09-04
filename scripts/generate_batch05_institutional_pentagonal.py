@@ -58,6 +58,7 @@ CATALOG_ALIGNED_SAMPLE = frozenset({201, 204, 211, 217, 229, 233, 237, 243, 246,
 STRANGLER_IMPLEMENTED_IDS = frozenset({
     201, 202, 203, 204, 205, 207, 208, 209, 210, 211, 213, 215, 216,
     217, 218, 219, 220, 221, 222, 223, 224, 225, 227,
+    229, 230, 231, 233, 234, 235, 236, 237, 238, 239, 240, 241,
 })
 STRANGLER_TEST = "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
 

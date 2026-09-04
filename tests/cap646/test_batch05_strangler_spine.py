@@ -13,6 +13,7 @@ WAVE1_IDS = [201, 202, 203, 204]
 WAVE2A_IDS = [205]
 WAVE2B_IDS = [207, 208, 209, 210, 211, 213, 215, 216]
 WAVE3_IDS = [217, 218, 219, 220, 221, 222, 223, 224, 225, 227]
+WAVE4_IDS = [229, 230, 231, 233, 234, 235, 236, 237, 238, 239, 240, 241]
 ALL_STRANGLER_IDS = sorted(STRANGLER_IMPLEMENTED_IDS)
 
 
@@ -121,3 +122,34 @@ async def test_wave3_cap224_fixes_hero_miswire():
     payload = result["narrative_actionability_score"]
     assert payload["source"] == "intelligence_market_extensions_layer.analyze_token_dcf_224"
     assert payload["token_dcf"]["no_fair_value_guarantee"] is True
+
+
+@pytest.mark.parametrize("capability_id,source", [
+    (229, "intelligence_ux_extensions_layer.generate_reasoning_explanation_229"),
+    (230, "intelligence_ux_extensions_layer.analyze_cross_exchange_divergence_230"),
+    (231, "intelligence_ux_extensions_layer.triangular_arbitrage_status_231"),
+    (233, "intelligence_ux_extensions_layer.build_heatmap_component_233"),
+    (234, "intelligence_ux_extensions_layer.live_dashboard_status_234"),
+    (235, "intelligence_ux_extensions_layer.whale_intelligence_status_235"),
+    (236, "intelligence_ux_extensions_layer.subscription_tiers_status_236"),
+    (237, "intelligence_ux_extensions_layer.generate_market_summary_237"),
+    (238, "intelligence_ux_extensions_layer.scan_market_opportunities_238"),
+    (239, "intelligence_ux_extensions_layer.live_ta_status_239"),
+    (240, "intelligence_ux_extensions_layer.compute_s2f_240"),
+    (241, "intelligence_ux_extensions_layer.ingest_fred_macro_241"),
+])
+@pytest.mark.asyncio
+async def test_wave4_catalog_sources(capability_id: int, source: str):
+    result = await execute(capability_id, params={"symbol": "BTC"})
+    root = EXPECTED_SURFACE[capability_id]
+    assert result[root]["source"] == source
+    assert result[root]["miswire_remediation"] == "STRANGLER_IMPLEMENTED"
+
+
+@pytest.mark.asyncio
+async def test_wave4_cap241_fixes_hero_miswire():
+    """#241 hero bridge used e2e runner — strangler uses FRED macro ingest."""
+    result = await execute(241, params={"symbol": "BTC"})
+    payload = result["sentiment_intelligence"]
+    assert payload["source"] == "intelligence_ux_extensions_layer.ingest_fred_macro_241"
+    assert "FRED" in payload["fred_macro"]["attribution"]

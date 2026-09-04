@@ -27,6 +27,7 @@ REUSED_LINK_ALL = REUSED_LINK_BATCH01 | REUSED_LINK_BATCH02 | REUSED_LINK_INTERN
 STRANGLER_IMPLEMENTED_IDS = frozenset({
     201, 202, 203, 204, 205, 207, 208, 209, 210, 211, 213, 215, 216,
     217, 218, 219, 220, 221, 222, 223, 224, 225, 227,
+    229, 230, 231, 233, 234, 235, 236, 237, 238, 239, 240, 241,
 })
 
 # Official semantic overlay — IDs needing explicit RTM classification beyond hero_audit.

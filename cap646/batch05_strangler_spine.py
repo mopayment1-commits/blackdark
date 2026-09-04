@@ -5,6 +5,7 @@ Wave 1: IDs 201–204 (derivatives/onchain entry cluster).
 Wave 2a: #205 (canonical OI for #232 REUSED-LINK).
 Wave 2b: #207–211, #213, #215–216 (onchain_defi cluster continuation).
 Wave 3: #217–225, #227 (intelligence_market_extensions_layer; #226 frozen REUSED-LINK).
+Wave 4: #229–231, #233–241 (intelligence_ux_extensions_layer; #228/#232 frozen REUSED-LINK).
 """
 
 from __future__ import annotations
@@ -581,6 +582,274 @@ async def build_unified_trading_intelligence_workspace_227(
     return _timed(payload, t0)
 
 
+async def build_cross_exchange_funding_arbitrage_scanner_229(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import generate_reasoning_explanation_229
+
+    rules = params.get("rules_triggered")
+    reasoning = generate_reasoning_explanation_229(
+        asset=symbol,
+        rules_triggered=list(rules) if isinstance(rules, list) else None,
+        seed=seed or _default_seed(),
+    )
+    payload = _base(
+        229,
+        symbol,
+        "cross_exchange_funding_arbitrage_scanner",
+        reasoning_explanation=reasoning,
+        explanation=reasoning.get("explanation"),
+        rules_triggered=reasoning.get("rules_triggered"),
+        source="intelligence_ux_extensions_layer.generate_reasoning_explanation_229",
+        attribution="Rule-based opportunity reasoning — insight not recommendation",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_spot_perp_arbitrage_scanner_230(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import analyze_cross_exchange_divergence_230
+
+    divergence = analyze_cross_exchange_divergence_230(asset=symbol, seed=seed or _default_seed())
+    payload = _base(
+        230,
+        symbol,
+        "spot_perp_arbitrage_scanner",
+        cross_exchange_divergence=divergence,
+        venues=divergence.get("venues"),
+        divergence_pct=divergence.get("divergence_pct"),
+        net_after_costs_pct=divergence.get("net_after_costs_pct"),
+        source="intelligence_ux_extensions_layer.analyze_cross_exchange_divergence_230",
+        attribution="Cross-exchange divergence analysis — no execution",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_futures_basis_term_structure_231(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import triangular_arbitrage_status_231
+
+    status = triangular_arbitrage_status_231(seed=seed or _default_seed())
+    payload = _base(
+        231,
+        symbol,
+        "futures_basis_term_structure",
+        triangular_status=status,
+        activation_not_build=status.get("activation_not_build"),
+        execution_rejected=status.get("execution_rejected"),
+        source="intelligence_ux_extensions_layer.triangular_arbitrage_status_231",
+        attribution="Triangular arbitrage status — activation stub, analysis only",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_liquidation_intelligence_233(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import build_heatmap_component_233
+
+    assets = params.get("heatmap_assets")
+    heatmap = build_heatmap_component_233(
+        list(assets) if isinstance(assets, list) else None,
+        seed=seed or _default_seed(),
+    )
+    payload = _base(
+        233,
+        symbol,
+        "liquidation_intelligence",
+        heatmap=heatmap,
+        cells=heatmap.get("cells"),
+        cell_count=len(heatmap.get("cells") or []),
+        source="intelligence_ux_extensions_layer.build_heatmap_component_233",
+        attribution="Market heatmap component — rule-based coloring",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_cvd_intelligence_234(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import live_dashboard_status_234
+
+    dashboard = live_dashboard_status_234(seed=seed or _default_seed())
+    payload = _base(
+        234,
+        symbol,
+        "cvd_intelligence",
+        live_dashboard=dashboard,
+        duplicate_of=dashboard.get("duplicate_of"),
+        websocket_ref=dashboard.get("websocket_ref"),
+        source="intelligence_ux_extensions_layer.live_dashboard_status_234",
+        attribution="Live dashboard status — merged into command center",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_long_short_ratio_intelligence_235(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import whale_intelligence_status_235
+
+    whale = whale_intelligence_status_235(seed=seed or _default_seed())
+    payload = _base(
+        235,
+        symbol,
+        "long_short_ratio_intelligence",
+        whale_status=whale,
+        duplicate_of=whale.get("duplicate_of"),
+        source="intelligence_ux_extensions_layer.whale_intelligence_status_235",
+        attribution="Whale intelligence activation status — merged into whale narrative",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_dex_screener_236(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import subscription_tiers_status_236
+
+    tiers = subscription_tiers_status_236(seed=seed or _default_seed())
+    payload = _base(
+        236,
+        symbol,
+        "dex_screener",
+        subscription_tiers=tiers,
+        tier_list=tiers.get("tiers"),
+        source="intelligence_ux_extensions_layer.subscription_tiers_status_236",
+        attribution="Subscription tier policy status — transparent limits",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_token_risk_scoring_237(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import generate_market_summary_237
+
+    summary = generate_market_summary_237(seed=seed or _default_seed())
+    payload = _base(
+        237,
+        symbol,
+        "token_risk_scoring",
+        market_summary=summary,
+        summary_sentence=summary.get("summary_sentence"),
+        risk_fields=summary.get("fields"),
+        source="intelligence_ux_extensions_layer.generate_market_summary_237",
+        attribution="One-sentence oracle market summary — summary not prediction",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_pump_dump_detection_238(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import scan_market_opportunities_238
+
+    threshold = float(params.get("threshold_score") or 70.0)
+    scan = scan_market_opportunities_238(threshold_score=threshold, seed=seed or _default_seed())
+    payload = _base(
+        238,
+        symbol,
+        "pump_dump_detection",
+        market_scan=scan,
+        detected_count=scan.get("detected_count"),
+        opportunities=scan.get("opportunities"),
+        source="intelligence_ux_extensions_layer.scan_market_opportunities_238",
+        attribution="Market opportunity scan — detection only, no buy signal",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_narrative_tracking_239(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import live_ta_status_239
+
+    ta = live_ta_status_239(seed=seed or _default_seed())
+    payload = _base(
+        239,
+        symbol,
+        "narrative_tracking",
+        live_ta=ta,
+        merged_into=ta.get("merged_into"),
+        routes=ta.get("routes"),
+        source="intelligence_ux_extensions_layer.live_ta_status_239",
+        attribution="Live TA activation status — merged into market radar",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_sector_rotation_intelligence_240(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import compute_s2f_240
+
+    circulating = float(params.get("circulating_supply") or 19_800_000)
+    annual = float(params.get("annual_production") or 164_250)
+    s2f = compute_s2f_240(
+        asset=symbol,
+        circulating_supply=circulating,
+        annual_production=annual,
+        seed=seed or _default_seed(),
+    )
+    payload = _base(
+        240,
+        symbol,
+        "sector_rotation_intelligence",
+        stock_to_flow=s2f,
+        s2f_ratio=s2f.get("s2f_ratio"),
+        scarcity=s2f.get("scarcity"),
+        source="intelligence_ux_extensions_layer.compute_s2f_240",
+        attribution="Stock-to-flow educational model — not price prediction",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
+async def build_sentiment_intelligence_241(
+    *, symbol: str, params: dict[str, Any], seed: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    from bd_platform.intelligence_ux_extensions_layer import ingest_fred_macro_241
+
+    fred = ingest_fred_macro_241(seed=seed or _default_seed())
+    payload = _base(
+        241,
+        symbol,
+        "sentiment_intelligence",
+        fred_macro=fred,
+        series=fred.get("series"),
+        btc_correlation_90d=fred.get("btc_correlation_90d"),
+        source="intelligence_ux_extensions_layer.ingest_fred_macro_241",
+        attribution="FRED macro ingest — Federal Reserve Economic Data",
+        miswire_remediation="STRANGLER_IMPLEMENTED",
+    )
+    return _timed(payload, t0)
+
+
 STRANGLER_BUILDERS: dict[int, Any] = {
     201: build_network_growth_201,
     202: build_supply_distribution_202,
@@ -605,6 +874,18 @@ STRANGLER_BUILDERS: dict[int, Any] = {
     224: build_narrative_actionability_score_224,
     225: build_development_to_market_divergence_detector_225,
     227: build_unified_trading_intelligence_workspace_227,
+    229: build_cross_exchange_funding_arbitrage_scanner_229,
+    230: build_spot_perp_arbitrage_scanner_230,
+    231: build_futures_basis_term_structure_231,
+    233: build_liquidation_intelligence_233,
+    234: build_cvd_intelligence_234,
+    235: build_long_short_ratio_intelligence_235,
+    236: build_dex_screener_236,
+    237: build_token_risk_scoring_237,
+    238: build_pump_dump_detection_238,
+    239: build_narrative_tracking_239,
+    240: build_sector_rotation_intelligence_240,
+    241: build_sentiment_intelligence_241,
 }
 
 STRANGLER_IMPLEMENTED_IDS: frozenset[int] = frozenset(STRANGLER_BUILDERS)
