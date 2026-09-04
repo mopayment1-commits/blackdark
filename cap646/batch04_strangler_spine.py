@@ -235,7 +235,7 @@ async def build_unlock_actionability_164(*, symbol: str, params: dict[str, Any])
         "token_unlock_actionability_score",
         actionability_score=round(score, 1),
         scheduled_unlocks=symbol_unlocks,
-        supply_pressure=pressure[:5],
+        supply_pressure=list(pressure[:5]),
         source="token_unlocks.unlock_calendar",
         attribution="Free-tier: TokenUnlocks calendars + CoinGecko locked supply",
     )
@@ -581,7 +581,8 @@ async def build_token_circulation_200(*, symbol: str, seed: dict[str, Any]) -> d
     cal = await unlock_calendar(limit=15)
     sym = symbol.upper()
     pressure = [p for p in _as_dict_list(cal.get("supply_pressure")) if _record_symbol(p) == sym]
-    circ_rate = pressure[0].get("locked_supply_pct") if pressure else None
+    first_pressure = next(iter(pressure), None)
+    circ_rate = first_pressure.get("locked_supply_pct") if first_pressure else None
     payload = _base(
         200,
         symbol,

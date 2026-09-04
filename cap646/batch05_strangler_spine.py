@@ -42,6 +42,12 @@ def _timed(extra: dict[str, Any], t0: float) -> dict[str, Any]:
     return extra
 
 
+def _as_list(val: Any) -> list[Any]:
+    if isinstance(val, list):
+        return val
+    return []
+
+
 async def build_network_growth_201(*, symbol: str, params: dict[str, Any]) -> dict[str, Any]:
     t0 = time.perf_counter()
     from bd_platform.footprint_analytics import footprint_snapshot
@@ -231,7 +237,7 @@ async def build_custom_dashboards_layouts_210(*, symbol: str, params: dict[str, 
     from bd_platform.market_rankings import market_rankings
 
     rankings = await market_rankings(limit=int(params.get("limit") or 12))
-    assets = rankings.get("assets") or rankings.get("rankings") or []
+    assets = _as_list(rankings.get("assets") or rankings.get("rankings"))
     widgets = [
         {"id": "market_overview", "type": "rankings", "count": len(assets)},
         {"id": "focus_symbol", "type": "symbol", "symbol": symbol.upper()},
@@ -255,7 +261,7 @@ async def build_screener_211(*, symbol: str, params: dict[str, Any]) -> dict[str
 
     limit = int(params.get("limit") or 50)
     rankings = await market_rankings(limit=limit)
-    assets = rankings.get("assets") or rankings.get("rankings") or []
+    assets = _as_list(rankings.get("assets") or rankings.get("rankings"))
     sym = symbol.upper()
     matches = [
         a for a in assets
@@ -329,7 +335,7 @@ async def build_research_market_insights_216(
 
     rankings = await market_rankings(limit=15)
     sentiment = ingest_reddit_sentiment_208(seed=seed or _default_seed())
-    assets = rankings.get("assets") or rankings.get("rankings") or []
+    assets = _as_list(rankings.get("assets") or rankings.get("rankings"))
     payload = _base(
         216,
         symbol,
