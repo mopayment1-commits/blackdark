@@ -1,6 +1,6 @@
 # BATCH05_INSTITUTIONAL_PENTAGONAL_BUILD
 
-**Generated:** 2026-09-04T13:39:17.838540+00:00 | **Commit:** `0febda7db676` | **Scope:** Batch05 IDs 201–250
+**Generated:** 2026-09-04T14:18:21.210082+00:00 | **Commit:** `e4267f6e57fb` | **Scope:** Batch05 IDs 201–250
 **Classification:** BUILD PHASE OPEN — **NOT** LOCAL_GOVERNANCE_COMPLETE — SonarCloud PENDING
 **Acceptance source:** `BATCH05_ACCEPTANCE_201_250.json` (pre_probe, ISO 29148)
 
@@ -27,7 +27,7 @@
 ```
 batch05_independent = 0
 progress_826        = 179
-domain_rules_all_pass = 47/50
+domain_rules_all_pass = 48/50
 sonarcloud          = PENDING
 ```
 
@@ -62,7 +62,7 @@ sonarcloud          = PENDING
 | 223 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 224 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 225 | NOT_COMPLETE | batch05 | 4/4 | Invest |
-| 226 | NOT_COMPLETE | — | 0/4 | Invest |
+| 226 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 227 | NOT_COMPLETE | batch05 | 4/4 | Invest |
 | 228 | REUSED-LINK | batch05 | 7/7 | Migrate |
 | 229 | NOT_COMPLETE | batch05 | 4/4 | Invest |

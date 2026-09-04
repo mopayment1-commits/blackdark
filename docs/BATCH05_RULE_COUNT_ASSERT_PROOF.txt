@@ -1,6 +1,6 @@
 BATCH05_RULE_COUNT_ASSERT_PROOF
-generated_at=2026-09-04T13:39:17.822420+00:00
-git_commit=0febda7db676ff422da4d8aee6825bcde96fa78d
+generated_at=2026-09-04T14:18:21.190231+00:00
+git_commit=e4267f6e57fb70b2cb88c7bd5d092549ab07046e
 scope=probe_ids_201_250 triple_match_guard
 
 ID 201: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
@@ -28,7 +28,7 @@ ID 222: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE
 ID 223: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 224: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 225: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
-ID 226: acceptance=4 results=4 rules_total=4 rules_passed=0 closure=NOT_COMPLETE OK
+ID 226: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 227: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK
 ID 228: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=REUSED-LINK OK
 ID 229: acceptance=4 results=4 rules_total=4 rules_passed=4 closure=NOT_COMPLETE OK

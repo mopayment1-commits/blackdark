@@ -23,6 +23,58 @@ REUSED_LINK_BATCH02 = frozenset({206, 228})
 REUSED_LINK_INTERNAL = frozenset({232})
 REUSED_LINK_ALL = REUSED_LINK_BATCH01 | REUSED_LINK_BATCH02 | REUSED_LINK_INTERNAL
 
+# Official semantic overlay — IDs needing explicit RTM classification beyond hero_audit.
+SEMANTIC_OVERLAY: dict[int, dict[str, Any]] = {
+    226: {
+        "semantic_alignment_status": "TYPE-4_HERO_DOMAIN_MISMATCH",
+        "metric_type": "HERO_DOMAIN_SUBSET",
+        "not_partial_misnamed": True,
+        "not_partial_misnamed_reason": (
+            "Surface slug cross_domain_decision_intelligence_layer matches catalog; "
+            "PARTIAL_MISNAMED applies when catalog display name ≠ implemented surface/metric name "
+            "(batch04 #198/#199). #226 gap is hero domain content, not surface rename."
+        ),
+        "repeat_canonical": {
+            "canonical_capability_id": 69,
+            "canonical_spine": "batch02",
+            "canonical_binding": "cap646/batch02_dedicated.py::_cap069",
+            "canonical_payload": "cap646.cross_domain_decision.build_cross_domain_decision_payload",
+            "mece_gate_status": "PENDING_MECE_GATE_226_69",
+        },
+        "semantic_expected": "Cross-domain decision synthesis (multi_dimensional + cross_market composite per canonical #69)",
+        "semantic_actual": (
+            "Token launch-event analysis: dex, pool_depth_usd, historical_pattern, "
+            "whale_activity_usd_first_hour via analyze_launch_event_226"
+        ),
+        "semantic_reason": (
+            "Hero analyze_launch_event_226 has zero semantic token overlap with catalog goal "
+            "(launch/event/analyze vs cross/domain/decision). Canonical #69 batch02 spine implements "
+            "true cross-domain payload; batch05 strangler currently wraps wrong hero domain."
+        ),
+        "semantic_comparison": (
+            "Expected: build_cross_domain_decision_payload (batch02 #69). "
+            "Hero: launch-event risk stub. Runtime batch05: hero-wrapped launch analysis under catalog envelope."
+        ),
+        "miswire_remediation": "STRANGLER_HOLD_PENDING_MECE_226_69",
+        "pentagonal_probe_note": (
+            "Prior pentagonal fail was PROBE_ENTITLEMENT_ARTIFACT (canonical #69 pro-gated); "
+            "resolved in eb1e97a — runtime probe passes with skip_entitlement=True."
+        ),
+    },
+}
+
+
+def apply_semantic_overlay(cap_id: int, row: dict[str, Any]) -> dict[str, Any]:
+    overlay = SEMANTIC_OVERLAY.get(cap_id)
+    if not overlay:
+        return row
+    out = dict(row)
+    out.update(overlay)
+    if overlay.get("repeat_canonical"):
+        out["duplication_state"] = "REPEAT_CANONICAL_PENDING_MECE"
+        out["duplication_canonical"] = overlay["repeat_canonical"]["canonical_binding"]
+    return out
+
 
 def git_commit() -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -118,9 +170,11 @@ async def main() -> None:
             "time_decision": acc.get("time_decision"),
             "build_decision": acc.get("build_decision"),
         }
+        row = apply_semantic_overlay(cap_id, row)
         rows.append(row)
 
     reused = [r["id"] for r in rows if r["duplication_state"] == "REUSED_LINK"]
+    repeat_canonical_pending = [r["id"] for r in rows if r.get("duplication_state") == "REPEAT_CANONICAL_PENDING_MECE"]
     closure = {
         "NOT_COMPLETE": sum(1 for r in rows if r["status"] == "NOT_COMPLETE"),
         "REUSED-LINK": sum(1 for r in rows if r["status"] == "REUSED-LINK"),
@@ -148,6 +202,12 @@ async def main() -> None:
                 "REUSED_LINK": len(reused),
             },
             "reused_link": sorted(reused),
+            "repeat_canonical_pending_mece": sorted(repeat_canonical_pending),
+            "semantic_alignment": {
+                "TYPE-4_HERO_DOMAIN_MISMATCH": sum(
+                    1 for r in rows if r.get("semantic_alignment_status") == "TYPE-4_HERO_DOMAIN_MISMATCH"
+                ),
+            },
             "closure_status": closure,
             "production_aligned": 0,
         },
