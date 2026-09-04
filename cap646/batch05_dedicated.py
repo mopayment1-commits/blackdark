@@ -191,6 +191,31 @@ async def _cap_hero_bridge(capability_id: int, *, symbol: str, address: str, par
     )
 
 
+def _make_strangler_handler(capability_id: int) -> Callable[..., Awaitable[dict[str, Any]]]:
+    async def _handler(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+        import inspect
+
+        from cap646.batch05_strangler_spine import STRANGLER_BUILDERS
+
+        builder = STRANGLER_BUILDERS[capability_id]
+        sig = inspect.signature(builder)
+        kwargs: dict[str, Any] = {"symbol": symbol, "params": params}
+        if "seed" in sig.parameters:
+            kwargs["seed"] = _seed()
+        payload = await builder(**kwargs)
+        root = EXPECTED_SURFACE[capability_id]
+        return _wrap(
+            capability_id,
+            symbol=symbol,
+            payload_key=root,
+            payload=payload,
+            extra={"closure_status": "NOT_COMPLETE", "miswire_remediation": "STRANGLER_IMPLEMENTED"},
+        )
+
+    _handler.__name__ = f"_cap{capability_id}"
+    return _handler
+
+
 def _make_hero_handler(capability_id: int) -> Callable[..., Awaitable[dict[str, Any]]]:
     async def _handler(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
         return await _cap_hero_bridge(capability_id, symbol=symbol, address=address, params=params)
@@ -200,8 +225,13 @@ def _make_hero_handler(capability_id: int) -> Callable[..., Awaitable[dict[str, 
 
 
 from cap646.batch05_hero_bridge import hero_binding_ids
+from cap646.batch05_strangler_spine import STRANGLER_BUILDERS
 
 _HERO_IDS = hero_binding_ids()
+
+_STRANGLER_DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
+    cid: _make_strangler_handler(cid) for cid in sorted(STRANGLER_BUILDERS)
+}
 
 _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     205: _cap205,
@@ -211,7 +241,11 @@ _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     228: _cap228,
     232: _cap232,
     245: _cap245,
-    **{cid: _make_hero_handler(cid) for cid in sorted(_HERO_IDS - BATCH05_REUSED_LINK_IDS - {205})},
+    **_STRANGLER_DISPATCH,
+    **{
+        cid: _make_hero_handler(cid)
+        for cid in sorted(_HERO_IDS - BATCH05_REUSED_LINK_IDS - {205} - set(STRANGLER_BUILDERS))
+    },
 }
 
 

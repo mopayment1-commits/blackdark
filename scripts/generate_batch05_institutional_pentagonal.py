@@ -55,6 +55,8 @@ CATALOG_SAMPLE_TEST = "tests/cap646/test_batch05_prep_dedicated.py::test_batch05
 GATEWAY_TEST = "tests/cap646/test_batch05_gateway_canonical_entitlement_contract.py"
 
 CATALOG_ALIGNED_SAMPLE = frozenset({201, 204, 211, 217, 229, 233, 237, 243, 246, 250})
+STRANGLER_IMPLEMENTED_IDS = frozenset({201, 202, 203, 204})
+STRANGLER_TEST = "tests/cap646/test_batch05_strangler_spine.py::test_strangler_runtime_dispatch"
 
 LATENCY_LIMITS = {
     "direct_data": 500,
@@ -118,6 +120,8 @@ def local_tests_for(cid: int) -> list[str]:
     if cid in REUSED_LINK_INTERNAL:
         return [REUSED_INTERNAL_TEST]
     tests = [BASE_TEST]
+    if cid in STRANGLER_IMPLEMENTED_IDS:
+        tests.append(STRANGLER_TEST)
     if cid in CATALOG_ALIGNED_SAMPLE:
         tests.append(CATALOG_SAMPLE_TEST)
     return tests

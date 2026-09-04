@@ -24,6 +24,7 @@ REUSED_LINK_BATCH02 = frozenset({206, 228, 226})
 REUSED_LINK_INTERNAL = frozenset({232})
 DUPLICATE_DELEGATION_IDS = frozenset({212})
 REUSED_LINK_ALL = REUSED_LINK_BATCH01 | REUSED_LINK_BATCH02 | REUSED_LINK_INTERNAL
+STRANGLER_IMPLEMENTED_IDS = frozenset({201, 202, 203, 204})
 
 # Official semantic overlay — IDs needing explicit RTM classification beyond hero_audit.
 SEMANTIC_OVERLAY: dict[int, dict[str, Any]] = {}
@@ -143,6 +144,11 @@ async def main() -> None:
             "time_decision": acc.get("time_decision"),
             "build_decision": acc.get("build_decision"),
         }
+        if cap_id in STRANGLER_IMPLEMENTED_IDS:
+            row["miswire_remediation"] = acc.get("miswire_remediation", "STRANGLER_IMPLEMENTED")
+            row["binding_file_planned"] = acc.get("binding_file")
+            row["binding_function_planned"] = acc.get("binding_function")
+            row["canonical_module_function"] = f"{acc.get('binding_file')}::{acc.get('binding_function')}"
         row = apply_semantic_overlay(cap_id, row)
         rows.append(row)
 
