@@ -1,0 +1,63 @@
+{
+  "probed_at": "2026-09-04T13:15:48.671455+00:00",
+  "probe_commit": "4337afd0df319bbf09d82be3039b8bbdf1ef7a97",
+  "summary": {
+    "probed_count": 6,
+    "paid_gate_402": [],
+    "all_remain_not_complete": true,
+    "note": "Batch05 spine built NOT_COMPLETE; no PA until owner probe sign-off per #165 lesson"
+  },
+  "probes": [
+    {
+      "capability_id": 204,
+      "source": "BscScan API (claimed attribution)",
+      "url": "https://api.bscscan.com/api?module=stats&action=bnbsupply",
+      "note": "Hero ingest_bscscan_204 uses static seed \u2014 probe documents live endpoint gate",
+      "http_status": 200,
+      "body_preview": "{\"status\":\"0\",\"message\":\"NOTOK\",\"result\":\"You are using a deprecated V1 endpoint, switch to Etherscan API V2 using https://docs.etherscan.io/v2-migration\"}",
+      "action": "reachable_free_or_anon \u2014 spine remains NOT_COMPLETE until PA gate"
+    },
+    {
+      "capability_id": 205,
+      "source": "Glassnode (free tier claimed)",
+      "url": "https://api.glassnode.com/v1/metrics/market/price_usd_close?a=BTC&i=24h",
+      "note": "Hero ingest_glassnode_metrics_205 uses static seed metrics",
+      "http_status": 401,
+      "body_preview": "<html>\r\n<head><title>401 Authorization Required</title></head>\r\n<body>\r\n<center><h1>401 Authorization Required</h1></center>\r\n<hr><center>nginx</center>\r\n<script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js/v31edd6",
+      "action": "NOT_COMPLETE \u2014 HTTP error"
+    },
+    {
+      "capability_id": 206,
+      "source": "Uniswap subgraph GraphQL",
+      "url": "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3",
+      "http_status": null,
+      "error": "<urlopen error [Errno -5] No address associated with hostname>",
+      "action": "NOT_COMPLETE \u2014 probe failed"
+    },
+    {
+      "capability_id": 243,
+      "source": "Bybit public ticker",
+      "url": "https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT",
+      "http_status": 403,
+      "body_preview": "{\n    error:The Amazon CloudFront distribution is configured to block access from your country\n}",
+      "action": "NOT_COMPLETE \u2014 HTTP error"
+    },
+    {
+      "capability_id": 244,
+      "source": "CoinTelegraph RSS",
+      "url": "https://cointelegraph.com/rss",
+      "http_status": 403,
+      "body_preview": "error code: 1010\n",
+      "action": "NOT_COMPLETE \u2014 HTTP error"
+    },
+    {
+      "capability_id": 246,
+      "source": "Etherscan API",
+      "url": "https://api.etherscan.io/api?module=stats&action=ethsupply",
+      "note": "Hero list_etherscan_watchlist_246 is local watchlist \u2014 probe etherscan gate",
+      "http_status": 200,
+      "body_preview": "{\"status\":\"0\",\"message\":\"NOTOK\",\"result\":\"You are using a deprecated V1 endpoint, switch to Etherscan API V2 using https://docs.etherscan.io/v2-migration\"}",
+      "action": "reachable_free_or_anon \u2014 spine remains NOT_COMPLETE until PA gate"
+    }
+  ]
+}
