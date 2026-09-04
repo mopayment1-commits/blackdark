@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-09-04T22:24:51.630339+00:00",
+  "sequence_item": 6,
+  "scope": "Batch05 institutional readiness package for SRE PRR second-review",
+  "build_phase": "OPEN",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "prr_status": "SECOND_REVIEW_READY_LOCAL",
+  "not_claimed": [
+    "LOCAL_GOVERNANCE_COMPLETE",
+    "LIVE_READY",
+    "OPERATION",
+    "batch05_complete"
+  ],
+  "12207_lifecycle": {
+    "verification": "LOCAL_COMPLETE",
+    "validation": "IN_PROGRESS_LOCAL",
+    "transition": "NOT_STARTED",
+    "operation": "NOT_STARTED"
+  },
+  "artifact_index": {
+    "strangler_spine": "cap646/batch05_strangler_spine.py",
+    "acceptance": "docs/BATCH05_ACCEPTANCE_201_250.json",
+    "rtm": "docs/BATCH05_RTM_201_250.json",
+    "pentagonal": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json",
+    "pa_sweep_43": "docs/BATCH05_PA_CLOSURE_SWEEP_43.json",
+    "reused_link_disposition": "docs/BATCH05_REUSED_LINK_PARTIAL_DISPOSITION.json",
+    "entitlement_gateway_proof": "docs/BATCH05_ENTITLEMENT_GATEWAY_PROOF.json",
+    "hero_six_final_freeze": "docs/BATCH05_HERO_SIX_FINAL_FREEZE.json",
+    "gate_zero_checklist": "docs/BATCH05_GATE_ZERO_CHECKLIST.md",
+    "mece_adr_index": "docs/BATCH05_MECE_TIME_ADR_INDEX.md"
+  },
+  "pentagonal_summary": {
+    "strangler_ids": 43,
+    "strangler_domain_all_pass": 43,
+    "reused_link_partial_tolerated": [
+      214,
+      245
+    ],
+    "reused_link_closed": [
+      232
+    ],
+    "domain_rules_all_pass_total": "47/50"
+  },
+  "entitlement_summary": {
+    "strangler_gateway_proofs": 43,
+    "reused_link_spot_checks": 5,
+    "all_verified_required": true,
+    "all_verified": true
+  },
+  "six_heroes_summary": {
+    "direct_batch05_strangler_feeds": 0,
+    "reused_canonical_feeds": {
+      "226": 69
+    },
+    "normalization_frozen": true,
+    "weighting_frozen": true,
+    "sensitivity_frozen": true,
+    "explainability_frozen": true
+  },
+  "sre_prr_checklist": {
+    "monitoring": "AWAITING_DEPLOY \u2014 no live SLO probes",
+    "rollback": "docs/ROLLBACK_BATCH01_BATCH02.md pattern applies",
+    "load_test": "NOT_RUN",
+    "p95_slo": "NOT_VERIFIED_LIVE",
+    "incident_runbook": "PENDING owner",
+    "second_review_gate": "Artifacts prepared; live Gate Zero required before PRR sign-off"
+  },
+  "elevation_policy": "Per-ID PA only when LIVE_E2E + Entitlement + Col10 + 12207 Validation/Transition + Gate Zero evidence all pass",
+  "arabic_phase_statement": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%.",
+  "git_commit": "40b654d5f8b0266277a4b49d3d3684887d540347",
+  "reused_link_disposition": {
+    "closed": [
+      232
+    ],
+    "tolerate": [
+      {
+        "id": 214,
+        "ceiling": "2026-12-31"
+      },
+      {
+        "id": 245,
+        "ceiling": "2026-12-31"
+      }
+    ]
+  }
+}

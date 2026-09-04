@@ -1,10 +1,10 @@
 # Batch05 Institutional Progress Report (201–250)
 
 **Date:** 2026-09-04  
-**Branch:** `cursor/batch05-201-250-e85e` · **PR #366** · **Commits:** `eb4360d` + `acbea4c`  
-**Phase:** **BUILD_PHASE OPEN** — Post-strangler institutional freeze  
+**Branch:** `cursor/batch05-201-250-e85e` · **PR #366**  
+**Phase:** **BUILD_PHASE OPEN** — Items 1–6 institutional closure (local)  
 **Live:** `AWAITING_DEPLOY` — **NOT** `LIVE_READY`  
-**Freeze report:** `docs/BATCH05_POST_STRANGLER_INSTITUTIONAL_FREEZE_REPORT.md`
+**SRE PRR:** `SECOND_REVIEW_READY_LOCAL` — **NOT** sign-off
 
 هذه المرحلة = بناء spine + قبول مسبق + اختبارات محلية فقط. لا إعلان اكتمال حوكمة · لا Batch05 complete · لا جاهزية حية 100%.
 
@@ -30,7 +30,7 @@
 | Verification | Result |
 |--------------|--------|
 | Strangler builders registered | **43/43** |
-| Pentagonal domain_all_pass | **47/50** (214/232/245 REUSED-LINK partial — expected) |
+| Pentagonal domain_all_pass | **48/50** (#214/#245 TOLERATE; #232 CLOSED) |
 | Strangler ID domain rules | **43/43** at 6/6 PASS |
 | Acceptance ↔ probe triple-match | **50/50** |
 | Local test sweep (9 suites) | **PASS** |
@@ -72,9 +72,9 @@
 | ID | Status |
 |----|--------|
 | 212 | DUPLICATE |
-| 214, 245 | REUSED-LINK (batch01) — partial pentagonal expected |
+| 214, 245 | REUSED-LINK (batch01) — **TOLERATE** until 2026-12-31 |
 | 206, 228, 226 | REUSED-LINK (batch02) |
-| 232 | REUSED-LINK → canonical #205 |
+| 232 | REUSED-LINK → canonical #205 — **CLOSED** (Item 2) |
 
 ---
 
@@ -99,17 +99,54 @@ Per-ID before any elevation: **PA** + entitlement gateway + Gate Zero (`AWAITING
 | `production_aligned_count` | **0** |
 | Elevation log | **empty** |
 
-Universal PA blockers (all 43): live E2E · per-ID entitlement gateway · pentagonal col10 · 12207 Validation/Transition · Gate Zero deploy.
+Universal PA blockers (all 43): live E2E · pentagonal col10 · 12207 Validation/Transition · Gate Zero deploy.  
+Entitlement gateway proof: **43/43 stranglers verified** (Item 3).
 
 ---
 
-## 8) Frozen artifacts
+## 8) Item 2 — REUSED-LINK partial disposition
+
+| ID | Disposition | Ceiling |
+|----|-------------|---------|
+| **232** | **CLOSED** | — |
+| **214** | **TOLERATE** | 2026-12-31 |
+| **245** | **TOLERATE** | 2026-12-31 |
+
+Artifact: `docs/BATCH05_REUSED_LINK_PARTIAL_DISPOSITION.json`
+
+---
+
+## 9) Item 3 — Entitlement gateway proof
+
+Artifact: `docs/BATCH05_ENTITLEMENT_GATEWAY_PROOF.json` · 43 strangler + 5 REUSED-LINK spot checks · `all_verified=true`
+
+---
+
+## 10) Item 4 — Six Heroes final freeze
+
+Artifacts: `docs/BATCH05_HERO_SIX_FINAL_FREEZE.json` · `BATCH05_HERO_SIX_BINDING_201_250.json` (FINAL_FREEZE_LOCAL)
+
+---
+
+## 11) Items 5–6 — Gate Zero + SRE PRR
+
+- `docs/BATCH05_GATE_ZERO_CHECKLIST.md` — AWAITING_DEPLOY only
+- `docs/BATCH05_SRE_PRR_READINESS_PACKAGE.json` — second-review intake
+
+---
+
+## 12) Frozen artifacts
 
 - `BATCH05_ACCEPTANCE_201_250.json`
 - `BATCH05_RTM_201_250.json` + probe
 - `BATCH05_PENTAGONAL_TEMPLATE_201_250.json`
-- `BATCH05_PA_CLOSURE_SWEEP_43.json` (Item 1 sweep)
-- `BATCH05_HERO_SIX_BINDING_201_250.json` (post-Wave 5 confirmation stamp)
+- `BATCH05_PA_CLOSURE_SWEEP_43.json` (Item 1)
+- `BATCH05_REUSED_LINK_PARTIAL_DISPOSITION.json` (Item 2)
+- `BATCH05_ENTITLEMENT_GATEWAY_PROOF.json` (Item 3)
+- `BATCH05_HERO_SIX_FINAL_FREEZE.json` (Item 4)
+- `BATCH05_GATE_ZERO_CHECKLIST.md` (Item 5)
+- `BATCH05_SRE_PRR_READINESS_PACKAGE.json` (Item 6)
+- `BATCH05_HERO_SIX_BINDING_201_250.json`
 - `BATCH05_POST_STRANGLER_INSTITUTIONAL_FREEZE_REPORT.md`
 
 ---
