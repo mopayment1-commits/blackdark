@@ -1,0 +1,460 @@
+{
+  "executed_at": "2026-09-04T22:43:59.281021+00:00",
+  "git_commit": "a1239c9961ba95a9687087ede8325655ba12453a",
+  "production_url": "https://blackdark-production.up.railway.app",
+  "gate": "ZERO",
+  "status": "FAILED",
+  "live_ready": false,
+  "local_governance_complete": false,
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "health_probes": [
+    {
+      "path": "/health",
+      "url": "https://blackdark-production.up.railway.app/health",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 146.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"gPJ9xTU8T_OcSAeknPRhug\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 127.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"UjWMtaorRY-db--FwUFZXw\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 126.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"Ui6z8-nGTRS6g8qbxtoGcA\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/health/ready",
+      "url": "https://blackdark-production.up.railway.app/health/ready",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 130.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"sWgN2-iNS7mxfrC49fVATg\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 126.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"wMLwNXI7SdibEYaP-_9nXA\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 125.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"jSNyjFUASh62vhDzWUN5dQ\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    }
+  ],
+  "cap646_probes": [
+    {
+      "path": "/api/cap646/201",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/201",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 103.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"JJ1n93foQaWo9YLGwUFZXw\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 100.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"MiidohLMRC2UQSpPnPRhug\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 127.8,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"liOaZTdiQbKkDGaEYqVb7A\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/205",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/205",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 124.0,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"OCvZty9tRROcqqfXnpoFkQ\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 105.1,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"tcqlHK5AQqu65KuH-_9nXA\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 130.0,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"iYkJ-0R8STWPa6959I3ezw\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/217",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/217",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 124.5,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"lPUQFRKpSf2_KQ_klt7tkg\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 125.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"0wwy_fHDR7eLCy3_6WHkDg\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 107.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"b5ZAejL9Rt6kcVzf9I3ezw\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/242",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/242",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 121.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"vQgctfn1S1qrnAqnljLL4A\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 103.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"KabGjcOPRM6hXEU5lt7tkg\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 106.0,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"jj1I25tTQOOpCvEZ9fVATg\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/247",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/247",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 130.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"iqQdBjkcSiWT2Qarjq4OvQ\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 104.0,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"6inCg1q3SHusVi_xnPRhug\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 106.5,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"yWZdgqcbSqSU5L_69I3ezw\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/212",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/212",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 102.8,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"MhOEUJZnTsOQQw1eYqVb7A\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 101.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"DKhme7mRTlm8vKRRlt7tkg\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 105.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"dIL1oo-vSuanjdq3ljLL4A\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/206",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/206",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 99.8,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"Mu3Q0xyBTa6neQ5lljLL4A\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 101.5,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"lu0dCsebSfyn3sJYjq4OvQ\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 101.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"I9n0_v3aR7iY4WhZ9I3ezw\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/214",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/214",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 102.0,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"6txd_sLFTzyfSlqHxtoGcA\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 105.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"q3S067OGTBuQCTTjljLL4A\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 126.4,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"m3mBkgavSEubnHGO9o6EoQ\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/226",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/226",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 112.4,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"xv9AuQrKQsWyAck69I3ezw\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 130.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"uWG0Fy-GSsWuPJn7nPRhug\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 128.2,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"-ju8RV2CSj-jHRaNxtoGcA\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/228",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/228",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 123.8,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"tASZw7X_R7CLoh74wUFZXw\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 125.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"0F-HFbdNQUafsx-a0_TJvA\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 131.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"wudClsePSVuQ6_2A9fVATg\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/232",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/232",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 127.7,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"teQJyT5MTj2fR_3Y-_9nXA\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 106.2,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"tKjPT02hS3mqpRjbljLL4A\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 102.2,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"rrBNOp1BRgmuDAe4-_9nXA\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    },
+    {
+      "path": "/api/cap646/245",
+      "url": "https://blackdark-production.up.railway.app/api/cap646/245",
+      "attempts": [
+        {
+          "round": 1,
+          "http_status": 404,
+          "latency_ms": 124.9,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"iJ3P6ALARCakcqDklt7tkg\"}"
+        },
+        {
+          "round": 2,
+          "http_status": 404,
+          "latency_ms": 133.6,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"_g44h3i0Raqsw5nswUFZXw\"}"
+        },
+        {
+          "round": 3,
+          "http_status": 404,
+          "latency_ms": 110.3,
+          "body_preview": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"X1kwapgTQ76NlBa7xtoGcA\"}"
+        }
+      ],
+      "all_http_status": [
+        404,
+        404,
+        404
+      ],
+      "gate_pass": false
+    }
+  ],
+  "residual_7_ids_probed": [
+    212,
+    206,
+    214,
+    226,
+    228,
+    232,
+    245
+  ],
+  "summary": {
+    "health_pass": false,
+    "cap646_success_count": 0,
+    "cap646_total": 12,
+    "railway_application_not_found": true
+  },
+  "diagnosis": "Railway edge 404 Application not found \u2014 no web service bound to public domain",
+  "owner_remediation": [
+    "Redeploy web service on Railway project blackdark-production",
+    "Attach domain blackdark-production.up.railway.app to running service",
+    "Verify DATABASE_URL and required env vars",
+    "Re-run scripts/execute_batch05_gate_zero_live.py after deploy"
+  ],
+  "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%."
+}

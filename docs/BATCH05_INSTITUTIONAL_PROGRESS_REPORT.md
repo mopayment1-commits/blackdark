@@ -192,4 +192,17 @@ Artifacts: `docs/BATCH05_HERO_SIX_FINAL_FREEZE.json` · `BATCH05_HERO_SIX_BINDIN
 
 ---
 
+## 16) Operational completeness — live truth (no cosmetic closure)
+
+| Metric | Value |
+|--------|-------|
+| Gate Zero live | **FAILED** — Railway 404 Application not found |
+| Operational complete IDs | **0/50** |
+| Committee submittable | **NO** |
+| `LIVE_READY` | **NOT claimed** |
+
+Artifacts: `BATCH05_GATE_ZERO_LIVE_EXECUTION.json` · `BATCH05_OPERATIONAL_COMPLETENESS_GAP_REPORT.json` · `BATCH05_INSTITUTIONAL_REVIEW_COMMITTEE_PACKAGE.md`
+
+---
+
 هذه المرحلة = بناء spine + قبول مسبق + اختبارات محلية فقط. لا إعلان اكتمال حوكمة · لا Batch05 complete · لا جاهزية حية 100%.

@@ -1,0 +1,1989 @@
+{
+  "generated_at": "2026-09-04T22:44:13.343156+00:00",
+  "git_commit": "a1239c9961ba95a9687087ede8325655ba12453a",
+  "scope": "Batch05 operational completeness \u2014 formal review committee intake",
+  "build_phase": "OPEN",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "live_ready": false,
+  "local_governance_complete": false,
+  "committee_submittable": false,
+  "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%.",
+  "gate_zero_live": {
+    "artifact": "docs/BATCH05_GATE_ZERO_LIVE_EXECUTION.json",
+    "status": "FAILED",
+    "production_url": "https://blackdark-production.up.railway.app",
+    "diagnosis": "Railway edge 404 Application not found \u2014 no web service bound to public domain"
+  },
+  "residual_7_institutional": {
+    "artifact": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json",
+    "deferred": 0,
+    "all_decided": true
+  },
+  "universal_blockers": [
+    {
+      "id": "RAILWAY_DEPLOY",
+      "severity": "P0",
+      "status": "FAILED",
+      "evidence": {
+        "health_pass": false,
+        "cap646_success_count": 0,
+        "cap646_total": 12,
+        "railway_application_not_found": true
+      },
+      "closure_plan": "Owner redeploy blackdark-production; re-run execute_batch05_gate_zero_live.py"
+    },
+    {
+      "id": "LIVE_E2E",
+      "severity": "P0",
+      "status": "BLOCKED",
+      "closure_plan": "Gate Zero PASS required before any ID live_e2e=PROVEN_LIVE"
+    },
+    {
+      "id": "12207_VALIDATION_TRANSITION",
+      "severity": "P0",
+      "status": "NOT_EXECUTED",
+      "closure_plan": "Owner validation + transition sign-off with live probe artifacts"
+    },
+    {
+      "id": "SRE_PRR_SIGNOFF",
+      "severity": "P0",
+      "status": "NOT_EXECUTED",
+      "closure_plan": "Committee second review after live Gate Zero green"
+    }
+  ],
+  "mandatory_criteria": [
+    "iso_25010_local",
+    "live_e2e",
+    "entitlement_live",
+    "performance_live",
+    "six_heroes",
+    "12207_validation_transition",
+    "sre_prr_signoff",
+    "residual_disposition"
+  ],
+  "summary": {
+    "manifest_ids": 50,
+    "operational_complete_count": 0,
+    "committee_ready_count": 0,
+    "local_build_proven_stranglers": 43,
+    "residual_7_decided": 7,
+    "p0_gaps_per_id_minimum": 3
+  },
+  "residual_7_operational": [
+    {
+      "id": 212,
+      "decision": "CLOSED_DUPLICATE_DELEGATION",
+      "local_build": "COMPLETE",
+      "live_operational": "BLOCKED",
+      "ceiling": null
+    },
+    {
+      "id": 206,
+      "decision": "CLOSED_REUSED_LINK",
+      "local_build": "COMPLETE",
+      "live_operational": "BLOCKED",
+      "ceiling": null
+    },
+    {
+      "id": 214,
+      "decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "local_build": "COMPLETE",
+      "live_operational": "BLOCKED",
+      "ceiling": "2026-12-31"
+    },
+    {
+      "id": 226,
+      "decision": "CLOSED_REUSED_LINK",
+      "local_build": "COMPLETE",
+      "live_operational": "BLOCKED",
+      "ceiling": null
+    },
+    {
+      "id": 228,
+      "decision": "CLOSED_REUSED_LINK",
+      "local_build": "COMPLETE",
+      "live_operational": "BLOCKED",
+      "ceiling": null
+    },
+    {
+      "id": 232,
+      "decision": "CLOSED_REUSED_LINK",
+      "local_build": "COMPLETE",
+      "live_operational": "BLOCKED",
+      "ceiling": null
+    },
+    {
+      "id": 245,
+      "decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "local_build": "COMPLETE",
+      "live_operational": "BLOCKED",
+      "ceiling": "2026-12-31"
+    }
+  ],
+  "rows": [
+    {
+      "capability_id": 201,
+      "capability_name": "Network Growth Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 202,
+      "capability_name": "Supply Distribution Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 203,
+      "capability_name": "DEX Trading Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 204,
+      "capability_name": "DeFi Protocol Activity Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 205,
+      "capability_name": "Open Interest Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 206,
+      "capability_name": "Funding Rate Intelligence",
+      "closure_status": "REUSED-LINK",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "LOCAL_ONLY",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "CLOSED_REUSED_LINK"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 207,
+      "capability_name": "Price / Volume / Market Metrics",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 208,
+      "capability_name": "Metric Correlation Workbench",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 209,
+      "capability_name": "Custom Chart Builder",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 210,
+      "capability_name": "Custom Dashboards / Layouts",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 211,
+      "capability_name": "Screener",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 212,
+      "capability_name": "Smart Alerts",
+      "closure_status": "DUPLICATE_DELEGATION",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL_DUPLICATE_DELEGATION",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "LOCAL_ONLY",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "CLOSED_DUPLICATE_DELEGATION"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 213,
+      "capability_name": "Anomaly Detection Alerts",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 214,
+      "capability_name": "Watchlists",
+      "closure_status": "REUSED-LINK",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "LOCAL_ONLY",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "CLOSED_TOLERATE_CEILING_2026-12-31"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        },
+        {
+          "severity": "P1",
+          "gap": "DUAL_PATH_TOLERATE",
+          "closure": "Resolve by 2026-12-31 or Gate Zero dual-path proof"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 215,
+      "capability_name": "Community Explorer",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 216,
+      "capability_name": "Research & Market Insights",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 217,
+      "capability_name": "SanAPI-Style Data Access",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 218,
+      "capability_name": "Google Sheets Integration",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 219,
+      "capability_name": "Metric Availability Registry",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 220,
+      "capability_name": "Data Stabilization & Mutability Metadata",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 221,
+      "capability_name": "Data Quality & Provenance Layer",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 222,
+      "capability_name": "Metric Methodology Registry",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 223,
+      "capability_name": "Social-to-On-Chain Confirmation Engine",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 224,
+      "capability_name": "Narrative Actionability Score",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 225,
+      "capability_name": "Development-to-Market Divergence Detector",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 226,
+      "capability_name": "Cross-Domain Decision Intelligence Layer",
+      "closure_status": "REUSED-LINK",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "LOCAL_ONLY",
+        "six_heroes": "PROVEN_VIA_CANONICAL_69_ONLY",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "CLOSED_REUSED_LINK"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 227,
+      "capability_name": "Unified Trading Intelligence Workspace",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 228,
+      "capability_name": "Funding Rate Intelligence",
+      "closure_status": "REUSED-LINK",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "LOCAL_ONLY",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "CLOSED_REUSED_LINK"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 229,
+      "capability_name": "Cross-Exchange Funding Arbitrage Scanner",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 230,
+      "capability_name": "Spot-Perp Arbitrage Scanner",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 231,
+      "capability_name": "Futures Basis & Term Structure",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 232,
+      "capability_name": "Open Interest Intelligence",
+      "closure_status": "REUSED-LINK",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "LOCAL_ONLY",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "CLOSED_REUSED_LINK"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 233,
+      "capability_name": "Liquidation Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 234,
+      "capability_name": "CVD Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 235,
+      "capability_name": "Long/Short Ratio Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 236,
+      "capability_name": "DEX Screener",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 237,
+      "capability_name": "Token Risk Scoring",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 238,
+      "capability_name": "Pump & Dump Detection",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 239,
+      "capability_name": "Narrative Tracking",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 240,
+      "capability_name": "Sector Rotation Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 241,
+      "capability_name": "Sentiment Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 242,
+      "capability_name": "Price Prediction / Multi-Signal Forecast",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 243,
+      "capability_name": "Correlation Matrix",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 244,
+      "capability_name": "New Listings Intelligence",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 245,
+      "capability_name": "Market Health & Freshness",
+      "closure_status": "REUSED-LINK",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "LOCAL_ONLY",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "CLOSED_TOLERATE_CEILING_2026-12-31"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        },
+        {
+          "severity": "P1",
+          "gap": "DUAL_PATH_TOLERATE",
+          "closure": "Resolve by 2026-12-31 or Gate Zero dual-path proof"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 246,
+      "capability_name": "Coverage Metadata Registry",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 247,
+      "capability_name": "Public REST API",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 248,
+      "capability_name": "MCP Server for AI Agents",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 249,
+      "capability_name": "CLI Access",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    },
+    {
+      "capability_id": 250,
+      "capability_name": "OpenAPI / SDK Generation",
+      "closure_status": "NOT_COMPLETE",
+      "operational_complete": false,
+      "committee_ready": false,
+      "criteria": {
+        "iso_25010_local": "PROVEN_LOCAL",
+        "live_e2e": "BLOCKED_LIVE_DEPLOY_404",
+        "entitlement_live": "PROVEN_LOCAL",
+        "entitlement_live_note": "Live blocked \u2014 local gateway proof exists",
+        "performance_live": "PROVEN_LOCAL_CAPS",
+        "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
+        "12207_validation_transition": "NOT_EXECUTED",
+        "sre_prr_signoff": "NOT_EXECUTED",
+        "residual_disposition": "N/A"
+      },
+      "gaps": [
+        {
+          "severity": "P0",
+          "gap": "LIVE_E2E",
+          "closure": "Railway redeploy + re-run Gate Zero"
+        },
+        {
+          "severity": "P0",
+          "gap": "12207_VALIDATION_TRANSITION",
+          "closure": "Owner sign-off after live evidence"
+        },
+        {
+          "severity": "P0",
+          "gap": "SRE_PRR_SIGNOFF",
+          "closure": "Second-review committee with live probes"
+        }
+      ],
+      "pa_elevated": false,
+      "production_aligned": false
+    }
+  ],
+  "elevation_policy": "PA/independent/production_aligned increment only when all 8 mandatory criteria PROVEN_LIVE per ID"
+}
