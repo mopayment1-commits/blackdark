@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 @pytest.fixture(scope="module")
 def v2_package() -> dict:
-    script = ROOT / "scripts/generate_batch05_v2_assurance_package.py"
+    script = ROOT / "scripts/generate_batch05_local_institutional_completion.py"
     subprocess.run([sys.executable, str(script)], cwd=ROOT, check=True)
     return json.loads((ROOT / "docs/BATCH05_V2_ASSURANCE_PACKAGE.json").read_text(encoding="utf-8"))
 
@@ -29,7 +29,7 @@ def test_v2_no_counter_inflation(v2_package: dict):
 
 
 def test_v2_blocked_external_verdict(v2_package: dict):
-    assert v2_package["verdict"]["final_status"] == "BLOCKED_EXTERNAL"
+    assert v2_package["verdict"]["final_status"] == "BLOCKED_EXTERNAL_FOR_LIVE_ONLY"
     assert v2_package["verdict"]["assurance_ready_count"] == 0
     assert v2_package["live_e2e"]["proven_count"] == 0
 
@@ -45,20 +45,33 @@ def test_v2_per_id_matrix_complete(v2_package: dict):
         assert row["assurance_ready"] is False
 
 
-def test_semantic_oracle_not_weak_only():
+def test_v2_g0_g4_all_pass_engineering(v2_package: dict):
+    gc = v2_package["gate_counts"]
+    assert gc["G0_materiality"].get("PASS_ENGINEERING", 0) == 50
+    assert gc["G1_requirements_assurance"].get("PASS_ENGINEERING", 0) == 50
+    assert gc["G2_architecture_risk"].get("PASS_ENGINEERING", 0) == 50
+    assert gc["G3_build_integrity"].get("PASS_ENGINEERING", 0) == 50
+    assert gc["G4_verification_validation"].get("PASS_ENGINEERING", 0) == 50
+
+
+def test_semantic_oracle_50_of_50():
     doc = json.loads((ROOT / "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json").read_text(encoding="utf-8"))
-    assert doc["summary"]["weak_only_rule_ids"] == 0
-    assert doc["summary"]["semantic_verified_local"] >= 48
+    assert doc["summary"]["semantic_verified_local"] == 50
+
+
+def test_residual_214_245_converged():
+    doc = json.loads((ROOT / "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json").read_text(encoding="utf-8"))
+    by_id = {r["capability_id"]: r for r in doc["rows"]}
+    assert by_id[214]["institutional_decision"] == "CLOSED_REUSED_LINK"
+    assert by_id[245]["institutional_decision"] == "CLOSED_REUSED_LINK"
 
 
 def test_canonical_residual_7_preserved():
     doc = json.loads((ROOT / "docs/BATCH05_CANONICAL_DUPLICATE_ASSURANCE.json").read_text(encoding="utf-8"))
     assert doc["summary"]["residual_7_routing_pass"] is True
     assert doc["summary"]["deferred"] == 0
-    tolerate = [r for r in doc["residual_7"] if r["institutional_decision"] == "CLOSED_TOLERATE_DUAL_PATH"]
-    assert {r["capability_id"] for r in tolerate} == {214, 245}
-    for r in tolerate:
-        assert r["tolerate_ceiling"] == "2026-12-31"
+    tolerate = [r for r in doc["residual_7"] if r.get("institutional_decision") == "CLOSED_TOLERATE_DUAL_PATH"]
+    assert len(tolerate) == 0
 
 
 def test_production_root_cause_documented():

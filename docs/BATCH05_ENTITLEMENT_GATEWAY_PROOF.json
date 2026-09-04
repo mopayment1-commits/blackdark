@@ -1,6 +1,6 @@
 {
-  "verified_at": "2026-09-04T22:24:37.237601+00:00",
-  "git_commit": "40b654d5f8b0266277a4b49d3d3684887d540347",
+  "verified_at": "2026-09-04T23:25:53.350903+00:00",
+  "git_commit": "ee8ab543bf471eac02e2bd4f554e1a3e90d054e6",
   "scope": "Batch05 entitlement gateway — 43 strangler IDs + 5 REUSED-LINK spot checks",
   "strangler_capability_ids": [
     201,
@@ -929,8 +929,13 @@
       "entitlement_parity": true,
       "success": true,
       "surface": "watchlists",
-      "production_spine": "batch01",
-      "catalog_link": null
+      "production_spine": "batch05",
+      "catalog_link": {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 214,
+        "canonical_spine": "batch01",
+        "binding": "cap646/batch01_dedicated.py::_cap214_watchlists"
+      }
     },
     {
       "capability_id": 232,
@@ -974,8 +979,13 @@
       "entitlement_parity": true,
       "success": true,
       "surface": "real_time_data_freshness_update_assurance",
-      "production_spine": "batch01",
-      "catalog_link": null
+      "production_spine": "batch05",
+      "catalog_link": {
+        "classification": "REUSED-LINK",
+        "canonical_capability_id": 245,
+        "canonical_spine": "batch01",
+        "binding": "cap646/batch01_production.py::cap_245"
+      }
     },
     {
       "capability_id": 226,

@@ -1,0 +1,17 @@
+{
+  "status": "LOCAL_IMPLEMENTATION_READY",
+  "health_endpoints": [
+    "/health",
+    "/health/ready",
+    "/health/live"
+  ],
+  "structured_logs": "cap646 payload envelope + latency_ms",
+  "metrics_design": [
+    "cap646_execute_latency_ms",
+    "cap646_execute_success",
+    "entitlement_denied_total"
+  ],
+  "traces": "NOT_APPLICABLE \u2014 single-process local execute",
+  "alerts_defined": true,
+  "live_dashboards": "NOT_DEPLOYED"
+}

@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-09-04T23:26:33.287702+00:00",
+  "git_commit": "ee8ab543bf471eac02e2bd4f554e1a3e90d054e6",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "live_ready": false,
+  "assurance_ready": false,
+  "final_local_status": "PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED / BLOCKED_EXTERNAL_FOR_LIVE_ONLY",
+  "g0_g4": {
+    "G0": 50,
+    "G1": 50,
+    "G2": 50,
+    "G3": 50,
+    "G4": 50
+  },
+  "semantic_oracle": 50,
+  "residual_7": {
+    "all_closed_locally": true,
+    "214_status": "CLOSED_REUSED_LINK_CONVERGED",
+    "245_status": "CLOSED_REUSED_LINK_CONVERGED"
+  },
+  "regression": {
+    "exit_code": 0,
+    "stdout_tail": "....................... [ 51%]\n........................................................................ [ 68%]\n........................................................................ [ 85%]\n..............................................................           [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_batch05_gateway_canonical_entitlement_contract.py::test_public_get_uses_batch05_facade_converged[214]\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+    "passed": true
+  },
+  "live_only_queue_count": 9,
+  "artifact_index": [
+    "BATCH05_LOCAL_SECURITY_NEGATIVE_ASSURANCE.json",
+    "BATCH05_LOCAL_SIX_HERO_ASSURANCE.json",
+    "BATCH05_SLI_SLO_DESIGN.json",
+    "BATCH05_PERFORMANCE_TEST_PLAN.json",
+    "BATCH05_DATA_QUALITY_INTEGRITY.json",
+    "BATCH05_RELIABILITY_FAILURE_MODES.json",
+    "BATCH05_OBSERVABILITY_READINESS.json",
+    "BATCH05_RELEASE_PROVENANCE.json",
+    "BATCH05_RUNBOOK_INCIDENT_PREP.json",
+    "BATCH05_SUPPLIER_DEPENDENCY_RISK.json",
+    "BATCH05_AI_MODEL_CONTROLS.json",
+    "BATCH05_LIVE_ONLY_QUEUE.json",
+    "docs/BATCH05_V2_ASSURANCE_PACKAGE.json"
+  ]
+}

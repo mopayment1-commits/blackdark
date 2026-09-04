@@ -39,7 +39,7 @@ LOCKS = {
 }
 
 RESIDUAL_7 = frozenset({212, 206, 214, 226, 228, 232, 245})
-TOLERATE_IDS = frozenset({214, 245})
+TOLERATE_IDS: frozenset[int] = frozenset()
 CANONICAL_MAP = {212: 17, 206: 86, 214: 214, 226: 69, 228: 86, 232: 205, 245: 245}
 
 GATE_NAMES = [
@@ -79,13 +79,11 @@ def gate_status(
     if gate == "G0_materiality":
         return "PASS_ENGINEERING"
     if gate == "G1_requirements_assurance":
-        return "PASS_ENGINEERING" if semantic_ok or cid == 212 else "PASS_ENGINEERING_PARTIAL"
+        return "PASS_ENGINEERING" if semantic_ok else "PASS_ENGINEERING_PARTIAL"
     if gate == "G2_architecture_risk":
-        if cid in RESIDUAL_7:
-            return "PASS_ENGINEERING" if cid in CANONICAL_MAP else "NOT_VERIFIED"
         return "PASS_ENGINEERING"
     if gate == "G3_build_integrity":
-        return "PASS_ENGINEERING" if all_rules_pass or (tolerate and semantic_ok) else "PASS_ENGINEERING_PARTIAL"
+        return "PASS_ENGINEERING" if all_rules_pass else "PASS_ENGINEERING_PARTIAL"
     if gate == "G4_verification_validation":
         if not semantic_ok:
             return "DOWNGRADED_SEMANTIC_INCOMPLETE"
@@ -323,7 +321,8 @@ def main() -> None:
             "assurance_ready": False,
             "pass_engineering_count": pass_engineering,
             "assurance_ready_count": assurance_ready_count,
-            "final_status": "BLOCKED_EXTERNAL",
+            "final_status": "BLOCKED_EXTERNAL_FOR_LIVE_ONLY",
+            "final_local_status": "PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED",
         },
         "gate_counts": gate_counts,
         "semantic_oracle": semantic_doc["summary"],

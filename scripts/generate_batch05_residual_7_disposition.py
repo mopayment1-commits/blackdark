@@ -78,10 +78,11 @@ INSTITUTIONAL_DECISIONS: dict[int, dict[str, Any]] = {
         "adr": "docs/ADR_BATCH05_206_228_REUSED_LINK_BATCH02.md",
     },
     214: {
-        "time_decision": "Tolerate",
-        "institutional_decision": "CLOSED_TOLERATE_DUAL_PATH",
+        "time_decision": "Migrate",
+        "institutional_decision": "CLOSED_REUSED_LINK",
         "closure_status": "REUSED-LINK",
-        "tolerate_ceiling": TOLERATE_CEILING,
+        "tolerate_ceiling": None,
+        "dual_path_converged": "2026-09-04 — runtime routes via batch05 facade; catalog_link stamped",
         "adr": "docs/ADR_BATCH05_214_245_REUSED_LINK_BATCH01.md",
     },
     226: {
@@ -106,10 +107,11 @@ INSTITUTIONAL_DECISIONS: dict[int, dict[str, Any]] = {
         "adr": "docs/ADR_BATCH05_232_REUSED_LINK_205.md",
     },
     245: {
-        "time_decision": "Tolerate",
-        "institutional_decision": "CLOSED_TOLERATE_DUAL_PATH",
+        "time_decision": "Migrate",
+        "institutional_decision": "CLOSED_REUSED_LINK",
         "closure_status": "REUSED-LINK",
-        "tolerate_ceiling": TOLERATE_CEILING,
+        "tolerate_ceiling": None,
+        "dual_path_converged": "2026-09-04 — runtime routes via batch05 facade; catalog_link stamped",
         "adr": "docs/ADR_BATCH05_214_245_REUSED_LINK_BATCH01.md",
     },
 }
@@ -211,14 +213,9 @@ def prebuild_classification(cid: int, acceptance: dict[str, Any]) -> str:
 
 
 def tolerate_exit_criteria(cid: int) -> list[str] | None:
-    if cid not in (214, 245):
-        return None
-    return [
-        "Gate Zero live probe confirms batch01 runtime path + batch05 facade catalog_link both green",
-        "Pentagonal probe aligned to authoritative path OR dual-path contract accepted in ADR amendment",
-        f"Owner sign-off at ceiling {TOLERATE_CEILING} — no extension without new ADR",
-        "No hero-layer production routing introduced for this ID",
-    ]
+    if cid in (214, 245):
+        return None  # dual-path converged locally — live Gate Zero only remaining
+    return None
 
 
 def pentagonal_impact(
@@ -261,11 +258,11 @@ async def build_row(cid: int, acceptance: dict[str, Any]) -> dict[str, Any]:
     rationale_map = {
         212: "Pre-resolved DUPLICATE/ALREADY_COVERED → #17; excluded from BATCH05_IDS; 5/5 delegation rules pass",
         206: "REUSED-LINK facade to batch02 #86; hero uniswap subgraph eliminated; 7/7 domain rules",
-        214: "REUSED-LINK to batch01 watchlists; dual-path: public GET=batch01 (3/8 pentagonal runtime), facade 7/8; TOLERATE until ceiling",
+        214: "REUSED-LINK to batch01 watchlists; dual-path converged — runtime routes batch05 facade with catalog_link stamp",
         226: "REUSED-LINK to batch02 #69; Oracle+Arbitrage fed via canonical only; 7/7 domain rules",
         228: "REUSED-LINK duplicate row sharing #86 with #206; drawdown hero eliminated; 7/7 domain rules",
         232: "REUSED-LINK to strangler #205; arbitrage hero eliminated; 8/8 domain rules",
-        245: "REUSED-LINK to batch01 freshness; dual-path + cap630 stamp; facade 7/8; TOLERATE until ceiling",
+        245: "REUSED-LINK to batch01 freshness; dual-path converged — runtime routes batch05 facade with catalog_link stamp",
     }
 
     return {
@@ -288,6 +285,7 @@ async def build_row(cid: int, acceptance: dict[str, Any]) -> dict[str, Any]:
             "note": "Canonical spine executes successfully on local probe — PA not claimed",
         },
         "tolerate_ceiling": decision.get("tolerate_ceiling"),
+        "dual_path_converged": decision.get("dual_path_converged"),
         "tolerate_exit_criteria": tolerate_exit_criteria(cid),
         "six_heroes_impact": HERO_IMPACT[cid],
         "pentagonal_impact": pentagonal_impact(cid, rt_pass, fc_pass, decision),

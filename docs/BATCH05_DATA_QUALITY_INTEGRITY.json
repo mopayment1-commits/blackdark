@@ -1,0 +1,12 @@
+{
+  "status": "PROVEN_LOCAL",
+  "ids_with_semantic_freshness_rules": 50,
+  "semantic_verified": 50,
+  "policies": [
+    "unknown_not_zero \u2014 FIN-* alignment",
+    "latency_ms caps per capability class",
+    "feature_ref matches capability_id",
+    "source enum where specified in domain_rules"
+  ],
+  "live_reconciliation": "NOT_RUN"
+}

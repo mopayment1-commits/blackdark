@@ -25,21 +25,24 @@
 - `cap646/batch05_dedicated.py` must dispatch to batch01 — no parallel implementation.
 - #245 documents `functional_gap`: catalog name vs runtime surface `real_time_data_freshness_update_assurance` and internal `capability_id` 630 stamp.
 
-## Tolerate ceiling (Item 2 disposition — 2026-09-04)
+## Dual-path convergence (2026-09-04 local)
 
-| ID | Disposition | Ceiling | Rationale |
-|----|-------------|---------|-----------|
-| **214** | TOLERATE | **2026-12-31** | Runtime batch01 path lacks `catalog_link` by ADR precedence; facade contract PASS |
-| **245** | TOLERATE | **2026-12-31** | Same dual-path contract; internal cap 630 stamp on batch01 freshness |
+Runtime `execute_capability` now routes #214/#245 through **batch05 facade** before batch01 legacy extension (`cap646/runtime.py`). Public GET, gateway, runtime, and `batch05_production.execute` all stamp `production_spine=batch05` with `catalog_link` → batch01 canonical. **Tolerate ceiling lifted** — institutional decision **CLOSED_REUSED_LINK**.
 
-Evidence: `docs/BATCH05_REUSED_LINK_PARTIAL_DISPOSITION.json`
+| Path | Spine | catalog_link |
+|------|-------|--------------|
+| GET `/api/cap646/{214\|245}` | batch05 | REUSED-LINK → batch01 |
+| `gateway_execute` | batch05 | REUSED-LINK → batch01 |
+| `batch01_production.execute` (direct) | batch01 | none (legacy direct only) |
 
-## Final disposition (residual 7 — 2026-09-04)
+## Tolerate ceiling (superseded 2026-09-04)
+
+~~TOLERATE until 2026-12-31~~ — **CLOSED** via dual-path convergence. Evidence: `docs/BATCH05_LOCAL_INSTITUTIONAL_COMPLETION.json`, semantic oracle 50/50.
 
 | ID | Institutional decision | Ceiling |
 |----|------------------------|---------|
-| **214** | **CLOSED_TOLERATE_DUAL_PATH** | 2026-12-31 |
-| **245** | **CLOSED_TOLERATE_DUAL_PATH** | 2026-12-31 |
+| **214** | **CLOSED_REUSED_LINK** | — |
+| **245** | **CLOSED_REUSED_LINK** | — |
 
 Master record: `docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json` · `docs/ADR_BATCH05_RESIDUAL_7_FINAL_DISPOSITION.md`
 
@@ -47,13 +50,11 @@ Master record: `docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json` · `docs
 
 | Layer | Path | Spine for #214/#245 |
 |-------|------|---------------------|
-| **GET** `/api/cap646/{id}` | `execute_unified` → `execute_capability` | **batch01** (`LEGACY_BATCH01_EXTENSION_IDS` wins before `BATCH05_IDS` in runtime) |
-| **POST** `/api/cap646/{id}/execute` | `gateway_execute` → `execute_capability` | **batch01** |
-| **Programmatic** `batch05_production.execute` | `batch05_dedicated` facade → batch01 backend | **batch05** stamp + `REUSED-LINK` catalog_link (RTM/contract only; not public GET) |
+| **GET** `/api/cap646/{id}` | `execute_unified` → `execute_capability` | **batch05** (facade → batch01 backend + `catalog_link`) |
+| **POST** `/api/cap646/{id}/execute` | `gateway_execute` → `execute_capability` | **batch05** |
+| **Programmatic** `batch01_production.execute` (direct) | batch01 dedicated | **batch01** (legacy direct API only) |
 
-`runtime.py` checks `BATCH01_IDS` before `BATCH05_IDS` — same precedence pattern as batch04 overlap **#175**.
-
-`batch05_production.execute` is **not** on the public GET path. It exists for batch05 spine binding, CI contract tests, and future strangler migration. When `user` is supplied it applies `entitlement_engine.check(canonical_id)` — matching gateway/runtime (see `test_batch05_gateway_canonical_entitlement_contract.py`).
+`runtime.py` checks `BATCH05_IDS` before `BATCH01_IDS` for manifest IDs #214/#245 — dual-path converged 2026-09-04.
 
 ## Evidence
 

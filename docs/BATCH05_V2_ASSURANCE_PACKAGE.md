@@ -1,17 +1,17 @@
 # Batch05 v2 Institutional Assurance Package
 
-**Generated:** 2026-09-04T23:01:40.222049+00:00 · **Commit:** `ff4755ce`
+**Generated:** 2026-09-04T23:26:16.151222+00:00 · **Commit:** `ee8ab543`
 
 ## Verdict
 
 | Metric | Value |
 |--------|-------|
 | Final status | **BLOCKED_EXTERNAL** |
-| PASS_ENGINEERING (G4) | 48/50 |
+| PASS_ENGINEERING (G4) | 50/50 |
 | ASSURANCE_READY | 0/50 |
 | PASS_LIVE (G6) | 0/50 |
 | Live entitlement | 0/50 |
-| Semantic oracle verified (local) | 48/50 |
+| Semantic oracle verified (local) | 50/50 |
 
 ## Owner action (single minimum)
 

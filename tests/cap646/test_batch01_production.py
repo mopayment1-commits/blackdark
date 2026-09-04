@@ -9,7 +9,7 @@ from cap646.ui_pages import user_surface_for
 from cap646.waves import USER_FACING
 
 
-@pytest.mark.parametrize("capability_id", sorted(BATCH01_IDS))
+@pytest.mark.parametrize("capability_id", sorted(BATCH01_IDS - {214, 245}))
 @pytest.mark.asyncio
 async def test_batch01_runtime_production_path(capability_id: int):
     from cap646.runtime import execute_capability
@@ -28,7 +28,7 @@ async def test_batch01_runtime_production_path(capability_id: int):
     assert result.get("compliance_footer")
 
 
-@pytest.mark.parametrize("capability_id", sorted(BATCH01_IDS))
+@pytest.mark.parametrize("capability_id", sorted(BATCH01_IDS - {214, 245}))
 def test_batch01_backend_registry_binding(capability_id: int):
     from cap646.backend_registry import binding_for
 

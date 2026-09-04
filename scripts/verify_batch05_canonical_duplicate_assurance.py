@@ -26,11 +26,11 @@ OUT = ROOT / "docs/BATCH05_CANONICAL_DUPLICATE_ASSURANCE.json"
 EXPECTED = {
     212: {"decision": "CLOSED_DUPLICATE_DELEGATION", "canonical": 17, "spine": "batch01", "in_batch05_ids": False},
     206: {"decision": "CLOSED_REUSED_LINK", "canonical": 86, "spine": "batch05", "facade": True},
-    214: {"decision": "CLOSED_TOLERATE_DUAL_PATH", "canonical": 214, "spine": "batch01", "facade": True, "ceiling": "2026-12-31"},
+    214: {"decision": "CLOSED_REUSED_LINK", "canonical": 214, "spine": "batch05", "facade": True},
     226: {"decision": "CLOSED_REUSED_LINK", "canonical": 69, "spine": "batch05", "facade": True},
     228: {"decision": "CLOSED_REUSED_LINK", "canonical": 86, "spine": "batch05", "facade": True},
     232: {"decision": "CLOSED_REUSED_LINK", "canonical": 205, "spine": "batch05", "facade": True},
-    245: {"decision": "CLOSED_TOLERATE_DUAL_PATH", "canonical": 245, "spine": "batch01", "facade": True, "ceiling": "2026-12-31"},
+    245: {"decision": "CLOSED_REUSED_LINK", "canonical": 245, "spine": "batch05", "facade": True},
 }
 
 HERO_ELIMINATED = {206, 212, 228, 232}
@@ -95,16 +95,9 @@ async def verify_residual_row(cid: int, exp: dict[str, Any]) -> dict[str, Any]:
         "spine_match": runtime.get("production_spine") == exp["spine"],
         "hero_eliminated": cid in HERO_ELIMINATED,
         "tolerate_ceiling": exp.get("ceiling"),
-        "exit_criteria": (
-            "Live dual-path proof OR facade/runtime convergence before ceiling"
-            if exp["decision"] == "CLOSED_TOLERATE_DUAL_PATH"
-            else None
-        ),
-        "residual_risk": (
-            "Dual-path: public GET may differ from batch05 facade pentagonal probe"
-            if cid in {214, 245}
-            else None
-        ),
+        "dual_path_converged": cid in {214, 245},
+        "exit_criteria": None,
+        "residual_risk": None,
         "owner": "batch05-institutional-owner",
     }
     if facade:

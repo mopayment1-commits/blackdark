@@ -1,6 +1,6 @@
 # Batch05 Operational Completeness Gap Report
 
-**Generated:** 2026-09-04T23:01:40.683773+00:00 | **Commit:** `ff4755cebbc7`
+**Generated:** 2026-09-04T23:26:16.610928+00:00 | **Commit:** `ee8ab543bf47`
 **Live Gate Zero:** `FAILED` @ https://blackdark-production.up.railway.app
 
 ## Executive truth (no cosmetic closure)
@@ -23,10 +23,10 @@
 
 - **#212** CLOSED_DUPLICATE_DELEGATION: local=COMPLETE live=BLOCKED
 - **#206** CLOSED_REUSED_LINK: local=COMPLETE live=BLOCKED
-- **#214** CLOSED_TOLERATE_DUAL_PATH: local=COMPLETE live=BLOCKED
+- **#214** CLOSED_REUSED_LINK: local=COMPLETE live=BLOCKED
 - **#226** CLOSED_REUSED_LINK: local=COMPLETE live=BLOCKED
 - **#228** CLOSED_REUSED_LINK: local=COMPLETE live=BLOCKED
 - **#232** CLOSED_REUSED_LINK: local=COMPLETE live=BLOCKED
-- **#245** CLOSED_TOLERATE_DUAL_PATH: local=COMPLETE live=BLOCKED
+- **#245** CLOSED_REUSED_LINK: local=COMPLETE live=BLOCKED
 
 هذه المرحلة = بناء spine + قبول مسبق + اختبارات محلية فقط. لا إعلان اكتمال حوكمة · لا Batch05 complete · لا جاهزية حية 100%.

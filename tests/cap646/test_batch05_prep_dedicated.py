@@ -125,14 +125,16 @@ async def test_cap245_reused_link_facade():
 
 
 @pytest.mark.asyncio
-async def test_cap214_245_runtime_via_batch01_legacy_spine():
-    """Runtime routes legacy batch01 extension IDs before batch05 (same as #175)."""
+async def test_cap214_245_runtime_via_batch05_facade_converged():
+    """Runtime routes batch05 manifest #214/#245 through batch05 facade (dual-path converged)."""
     from cap646.runtime import execute_capability
 
     for capability_id in sorted(BATCH05_REUSED_LINK_BATCH01_IDS):
         result = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "BTC"})
         assert result["success"] is True
-        assert result["production_spine"] == "batch01"
+        assert result["production_spine"] == "batch05"
+        assert result["classification"] == "REUSED-LINK"
+        assert result["catalog_link"]["canonical_spine"] == "batch01"
         assert result["surface"] == EXPECTED_SURFACE[capability_id]
 
 

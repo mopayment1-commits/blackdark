@@ -131,6 +131,13 @@ async def execute_capability(
 
     from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
 
+    # Batch05 manifest IDs (201–250 minus duplicate delegation) take precedence over
+    # batch01 legacy extension routes for #214/#245 — single runtime truth via batch05 facade.
+    if capability_id in BATCH05_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch05_capability, capability_id, row=row, params=params
+        )
+
     if capability_id in BATCH01_IDS:
         return await execute_and_enrich_batch(
             handle_batch01_capability, capability_id, row=row, params=params
@@ -149,11 +156,6 @@ async def execute_capability(
     if capability_id in BATCH04_IDS:
         return await execute_and_enrich_batch(
             handle_batch04_capability, capability_id, row=row, params=params
-        )
-
-    if capability_id in BATCH05_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch05_capability, capability_id, row=row, params=params
         )
 
     if is_duplicate(capability_id) and target_id != capability_id:

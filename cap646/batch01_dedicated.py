@@ -1301,6 +1301,7 @@ async def _cap214_watchlists(*, symbol: str, address: str, params: dict[str, Any
     )
     combined = {
         "items": items,
+        "count": len(items),
         "onchain_watches": onchain_items,
         "market_watchlists": market_items,
         "lists": [

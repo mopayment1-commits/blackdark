@@ -1,0 +1,38 @@
+{
+  "scope": "Batch05 local security/negative assurance",
+  "status": "PROVEN_LOCAL",
+  "checks": [
+    {
+      "check": "entitlement_gateway_pro",
+      "evidence": "docs/BATCH05_ENTITLEMENT_GATEWAY_PROOF.json",
+      "pass": true
+    },
+    {
+      "check": "free_tier_denial_spot",
+      "evidence": "verify_entitlement_batch05_gateway_proof.py #226 free",
+      "pass": true
+    },
+    {
+      "check": "gateway_canonical_contract",
+      "evidence": "tests/cap646/test_batch05_gateway_canonical_entitlement_contract.py",
+      "pass": true
+    },
+    {
+      "check": "skip_entitlement_not_in_production_path",
+      "evidence": "gateway_execute never sets skip_entitlement in proof rows",
+      "pass": true
+    },
+    {
+      "check": "live_negative_tests",
+      "status": "NOT_RUN",
+      "reason": "Railway paused \u2014 compute limit"
+    }
+  ],
+  "residual_risk": [
+    {
+      "severity": "P0",
+      "risk": "Live authz bypass not probed",
+      "closure": "LZ3"
+    }
+  ]
+}

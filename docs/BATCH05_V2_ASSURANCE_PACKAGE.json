@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-04T23:01:40.222049+00:00",
-  "git_commit": "ff4755cebbc7d11ebcf03267b431615d1f3cddc2",
+  "generated_at": "2026-09-04T23:26:16.151222+00:00",
+  "git_commit": "ee8ab543bf471eac02e2bd4f554e1a3e90d054e6",
   "standard": "Project Standards v2 \u2014 \u0645\u0639\u064a\u0627\u0631_\u0645\u0624\u0633\u0633\u064a_\u0635\u0627\u0631\u0645_\u0644\u0628\u0646\u0627\u0621_\u0627\u0644\u0642\u062f\u0631\u0627\u062a_2026_v2",
   "scope": "Batch05 capabilities 201-250",
   "branch": "cursor/batch05-201-250-e85e",
@@ -17,28 +17,26 @@
     "batch05_complete": false,
     "pass_live": false,
     "assurance_ready": false,
-    "pass_engineering_count": 48,
+    "pass_engineering_count": 50,
     "assurance_ready_count": 0,
-    "final_status": "BLOCKED_EXTERNAL"
+    "final_status": "BLOCKED_EXTERNAL_FOR_LIVE_ONLY",
+    "final_local_status": "PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED"
   },
   "gate_counts": {
     "G0_materiality": {
       "PASS_ENGINEERING": 50
     },
     "G1_requirements_assurance": {
-      "PASS_ENGINEERING": 48,
-      "PASS_ENGINEERING_PARTIAL": 2
+      "PASS_ENGINEERING": 50
     },
     "G2_architecture_risk": {
       "PASS_ENGINEERING": 50
     },
     "G3_build_integrity": {
-      "PASS_ENGINEERING": 48,
-      "PASS_ENGINEERING_PARTIAL": 2
+      "PASS_ENGINEERING": 50
     },
     "G4_verification_validation": {
-      "PASS_ENGINEERING": 48,
-      "DOWNGRADED_SEMANTIC_INCOMPLETE": 2
+      "PASS_ENGINEERING": 50
     },
     "G5_operational_readiness": {
       "AWAITING_DEPLOY": 50
@@ -52,11 +50,11 @@
   },
   "semantic_oracle": {
     "total_ids": 50,
-    "semantic_verified_local": 48,
-    "downgraded_count": 2,
+    "semantic_verified_local": 50,
+    "downgraded_count": 0,
     "weak_only_rule_ids": 0,
-    "all_domain_rules_pass": 48,
-    "residual_7_semantic_verified": 5
+    "all_domain_rules_pass": 50,
+    "residual_7_semantic_verified": 7
   },
   "canonical_duplicate": {
     "manifest_checks_pass": true,
@@ -1278,7 +1276,7 @@
       "materiality_risk": "MEDIUM",
       "current_state_classification": "Brownfield-OVERLAP-BATCH01",
       "canonical_implementation": 214,
-      "duplicate_decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "duplicate_decision": "CLOSED_REUSED_LINK",
       "requirement": "ISO 29148 domain_rules for watchlists",
       "acceptance_criteria": [
         {
@@ -1325,7 +1323,7 @@
       "expected_output_oracle": {
         "type": "domain_rules_semantic",
         "semantic_rules_count": 7,
-        "oracle_strength": "SEMANTIC_PARTIAL",
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
         "weak_rules_excluded_from_pass": [
           "success"
         ]
@@ -1348,11 +1346,7 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": {
-        "tolerate_ceiling": "2026-12-31",
-        "dual_path": true,
-        "owner": "batch05-institutional-owner"
-      },
+      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1360,18 +1354,18 @@
       ],
       "gates": {
         "G0_materiality": "PASS_ENGINEERING",
-        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
         "G2_architecture_risk": "PASS_ENGINEERING",
-        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
-        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
         "G5_operational_readiness": "AWAITING_DEPLOY",
         "G6_live_validation": "BLOCKED_EXTERNAL",
         "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
       },
-      "final_status": "BLOCKED_EXTERNAL",
+      "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": false,
+      "pass_engineering": true,
       "canonical_assurance": {
         "spine_match": true,
         "all_checks_pass": true
@@ -4088,7 +4082,7 @@
       "materiality_risk": "MEDIUM",
       "current_state_classification": "Brownfield-OVERLAP-BATCH01",
       "canonical_implementation": 245,
-      "duplicate_decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "duplicate_decision": "CLOSED_REUSED_LINK",
       "requirement": "ISO 29148 domain_rules for real_time_data_freshness_update_assurance",
       "acceptance_criteria": [
         {
@@ -4129,13 +4123,13 @@
         {
           "field": "executable_fresh",
           "type": "boolean",
-          "condition": "in [true,false]"
+          "condition": "in true,false"
         }
       ],
       "expected_output_oracle": {
         "type": "domain_rules_semantic",
         "semantic_rules_count": 7,
-        "oracle_strength": "SEMANTIC_PARTIAL",
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
         "weak_rules_excluded_from_pass": [
           "success"
         ]
@@ -4158,11 +4152,7 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": {
-        "tolerate_ceiling": "2026-12-31",
-        "dual_path": true,
-        "owner": "batch05-institutional-owner"
-      },
+      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -4170,18 +4160,18 @@
       ],
       "gates": {
         "G0_materiality": "PASS_ENGINEERING",
-        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
         "G2_architecture_risk": "PASS_ENGINEERING",
-        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
-        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
         "G5_operational_readiness": "AWAITING_DEPLOY",
         "G6_live_validation": "BLOCKED_EXTERNAL",
         "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
       },
-      "final_status": "BLOCKED_EXTERNAL",
+      "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": false,
+      "pass_engineering": true,
       "canonical_assurance": {
         "spine_match": true,
         "all_checks_pass": true

@@ -1,0 +1,26 @@
+{
+  "status": "DESIGN_AND_LOCAL_STUB",
+  "failure_modes": [
+    {
+      "mode": "timeout",
+      "policy": "fail-closed with error payload",
+      "local_test": "cap646 runtime"
+    },
+    {
+      "mode": "entitlement_denied",
+      "policy": "fail-closed",
+      "local_test": "gateway proof free denial"
+    },
+    {
+      "mode": "stale_data",
+      "policy": "freshness_chip + executable_fresh on #245",
+      "local_test": "domain_rules"
+    },
+    {
+      "mode": "dependency_unavailable",
+      "policy": "degraded payload ok=false",
+      "local_test": "partial \u2014 no live sim"
+    }
+  ],
+  "live_chaos": "NOT_RUN"
+}

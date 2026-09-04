@@ -5,7 +5,7 @@ gateway entitlement must match entitlement_engine.check(canonical_id),
 and batch05_production facade must gate on canonical_id when user is supplied.
 
 Covers:
-- #214/#245 → batch01 spine (legacy BATCH01_IDS precedence)
+- #214/#245 → batch05 facade with catalog_link to batch01 canonical (dual-path converged)
 - #206/#228 → batch02 canonical #86 (batch05 facade)
 - #232 → batch05 canonical #205 (internal REUSED-LINK)
 """
@@ -117,8 +117,8 @@ async def test_batch05_facade_entitlement_matches_runtime_canonical(
 
 @pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH01_REUSED_LINK))
 @pytest.mark.asyncio
-async def test_public_get_uses_execute_capability_batch01_spine(capability_id: int) -> None:
-    """GET /api/cap646/{id} is the end-user path — must not stamp batch05 facade spine."""
+async def test_public_get_uses_batch05_facade_converged(capability_id: int) -> None:
+    """GET /api/cap646/{id} routes #214/#245 through batch05 facade (dual-path converged)."""
     from cap646.runtime import execute_capability
     from cap978.unified import execute_unified
     from fastapi.testclient import TestClient
@@ -136,16 +136,18 @@ async def test_public_get_uses_execute_capability_batch01_spine(capability_id: i
     )
 
     assert body.get("success") is True
-    assert body.get("production_spine") == "batch01"
-    assert body.get("backend_module") == "cap646.batch01_production"
-    assert unified.get("production_spine") == "batch01"
-    assert runtime.get("production_spine") == "batch01"
+    assert body.get("production_spine") == "batch05"
+    assert body.get("backend_module") == "cap646.batch05_production"
+    assert body.get("classification") == "REUSED-LINK"
+    assert body.get("catalog_link", {}).get("canonical_spine") == "batch01"
+    assert unified.get("production_spine") == "batch05"
+    assert runtime.get("production_spine") == "batch05"
     assert body.get("surface") == unified.get("surface") == runtime.get("surface")
 
 
 @pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH01_REUSED_LINK))
 @pytest.mark.asyncio
-async def test_gateway_routes_overlap_to_batch01_spine(capability_id: int) -> None:
+async def test_gateway_routes_overlap_to_batch05_facade(capability_id: int) -> None:
     from cap646.institutional_gateway import gateway_execute
 
     result = await gateway_execute(
@@ -154,8 +156,9 @@ async def test_gateway_routes_overlap_to_batch01_spine(capability_id: int) -> No
         params={"symbol": "BTC", "tier": "pro"},
     )
     assert result.get("success") is True
-    assert result.get("production_spine") == "batch01"
-    assert result.get("backend_module") == "cap646.batch01_production"
+    assert result.get("production_spine") == "batch05"
+    assert result.get("backend_module") == "cap646.batch05_production"
+    assert result.get("classification") == "REUSED-LINK"
 
 
 @pytest.mark.parametrize("capability_id", sorted(OVERLAP_BATCH01_REUSED_LINK))
@@ -173,6 +176,7 @@ async def test_batch05_facade_payload_parity_with_runtime(capability_id: int) ->
     assert runtime.get("success") is True
     assert facade.get("success") is True
     assert runtime.get("surface") == facade.get("surface")
+    assert runtime.get("production_spine") == "batch05"
     assert facade.get("catalog_link", {}).get("classification") == "REUSED-LINK"
     assert facade.get("catalog_link", {}).get("canonical_spine") == "batch01"
 

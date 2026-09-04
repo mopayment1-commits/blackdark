@@ -1,0 +1,10 @@
+{
+  "source_commit": "ee8ab543bf471eac02e2bd4f554e1a3e90d054e6",
+  "branch": "cursor/batch05-201-250-e85e",
+  "pr": 366,
+  "latest_commit_message": "ee8ab543bf471eac02e2bd4f554e1a3e90d054e6 feat(batch05): v2 institutional assurance package \u2014 G0-G7 per-ID matrix",
+  "rollback": "git revert + Railway deployment history",
+  "roll_forward": "merge PR #366 + redeploy",
+  "db_migration": "NOT_APPLICABLE \u2014 batch05 strangler spine stateless",
+  "deployment_prerequisite": "Railway compute quota restored; SERVICE_MODE=web"
+}

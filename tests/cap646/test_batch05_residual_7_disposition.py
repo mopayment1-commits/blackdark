@@ -31,9 +31,9 @@ def test_residual_7_all_decided(doc: dict):
 
 
 def test_residual_7_decision_mix(doc: dict):
-    assert doc["summary"]["closed_reused_link"] == 4
+    assert doc["summary"]["closed_reused_link"] == 6
     assert doc["summary"]["closed_duplicate_delegation"] == 1
-    assert doc["summary"]["closed_tolerate_dual_path"] == 2
+    assert doc["summary"]["closed_tolerate_dual_path"] == 0
 
 
 def test_residual_7_per_id_analysis(doc: dict):
@@ -44,8 +44,8 @@ def test_residual_7_per_id_analysis(doc: dict):
         assert row["six_heroes_impact"]["hero_eliminated"]
         assert not row["pa_elevated"]
         if row["capability_id"] in (214, 245):
-            assert row["tolerate_ceiling"] == "2026-12-31"
-            assert row["tolerate_exit_criteria"]
+            assert row["institutional_decision"] == "CLOSED_REUSED_LINK"
+            assert row.get("dual_path_converged") or row.get("tolerate_ceiling") is None
 
 
 def test_residual_7_stamped_acceptance(doc: dict):

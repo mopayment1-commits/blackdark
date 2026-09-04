@@ -1,0 +1,59 @@
+{
+  "items": [
+    {
+      "id": "LZ1",
+      "gate": "G6",
+      "item": "Gate Zero live health + cap646 probes",
+      "script": "scripts/execute_batch05_gate_zero_live.py"
+    },
+    {
+      "id": "LZ2",
+      "gate": "G6",
+      "item": "Live E2E per-ID semantic verification (50)",
+      "blocked_by": "Railway compute limit exceeded"
+    },
+    {
+      "id": "LZ3",
+      "gate": "G6",
+      "item": "Live entitlement gateway proof",
+      "blocked_by": "No production app bound"
+    },
+    {
+      "id": "LZ4",
+      "gate": "G6",
+      "item": "Production performance/load (k6)",
+      "blocked_by": "AWAITING_DEPLOY"
+    },
+    {
+      "id": "LZ5",
+      "gate": "G7",
+      "item": "12207 Validation workshop with live artifacts",
+      "blocked_by": "G6 prerequisite"
+    },
+    {
+      "id": "LZ6",
+      "gate": "G7",
+      "item": "12207 Transition/Operation sign-off",
+      "blocked_by": "G6 prerequisite"
+    },
+    {
+      "id": "LZ7",
+      "gate": "G7",
+      "item": "SRE PRR independent second review",
+      "blocked_by": "G6 prerequisite"
+    },
+    {
+      "id": "LZ8",
+      "gate": "G6",
+      "item": "PASS_LIVE elevation (50 IDs)",
+      "blocked_by": "All G6 criteria"
+    },
+    {
+      "id": "LZ9",
+      "gate": "G7",
+      "item": "ASSURANCE_READY elevation (50 IDs)",
+      "blocked_by": "G6 + G7"
+    }
+  ],
+  "count": 9
+}

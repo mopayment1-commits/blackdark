@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-04T23:01:40.683773+00:00",
-  "git_commit": "ff4755cebbc7d11ebcf03267b431615d1f3cddc2",
+  "generated_at": "2026-09-04T23:26:16.610928+00:00",
+  "git_commit": "ee8ab543bf471eac02e2bd4f554e1a3e90d054e6",
   "scope": "Batch05 operational completeness \u2014 formal review committee intake",
   "build_phase": "OPEN",
   "batch05_independent": 0,
@@ -89,10 +89,10 @@
     },
     {
       "id": 214,
-      "decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "decision": "CLOSED_REUSED_LINK",
       "local_build": "COMPLETE",
       "live_operational": "BLOCKED",
-      "ceiling": "2026-12-31"
+      "ceiling": null
     },
     {
       "id": 226,
@@ -117,10 +117,10 @@
     },
     {
       "id": 245,
-      "decision": "CLOSED_TOLERATE_DUAL_PATH",
+      "decision": "CLOSED_REUSED_LINK",
       "local_build": "COMPLETE",
       "live_operational": "BLOCKED",
-      "ceiling": "2026-12-31"
+      "ceiling": null
     }
   ],
   "rows": [
@@ -620,7 +620,7 @@
         "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
         "12207_validation_transition": "NOT_EXECUTED",
         "sre_prr_signoff": "NOT_EXECUTED",
-        "residual_disposition": "CLOSED_TOLERATE_CEILING_2026-12-31"
+        "residual_disposition": "CLOSED_REUSED_LINK"
       },
       "gaps": [
         {
@@ -637,11 +637,6 @@
           "severity": "P0",
           "gap": "SRE_PRR_SIGNOFF",
           "closure": "Second-review committee with live probes"
-        },
-        {
-          "severity": "P1",
-          "gap": "DUAL_PATH_TOLERATE",
-          "closure": "Resolve by 2026-12-31 or Gate Zero dual-path proof"
         }
       ],
       "pa_elevated": false,
@@ -1772,7 +1767,7 @@
         "six_heroes": "N/A_NOT_IN_HERO_INPUTS",
         "12207_validation_transition": "NOT_EXECUTED",
         "sre_prr_signoff": "NOT_EXECUTED",
-        "residual_disposition": "CLOSED_TOLERATE_CEILING_2026-12-31"
+        "residual_disposition": "CLOSED_REUSED_LINK"
       },
       "gaps": [
         {
@@ -1789,11 +1784,6 @@
           "severity": "P0",
           "gap": "SRE_PRR_SIGNOFF",
           "closure": "Second-review committee with live probes"
-        },
-        {
-          "severity": "P1",
-          "gap": "DUAL_PATH_TOLERATE",
-          "closure": "Resolve by 2026-12-31 or Gate Zero dual-path proof"
         }
       ],
       "pa_elevated": false,
