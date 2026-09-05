@@ -865,6 +865,27 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/circuit-breaker/status")
+async def circuit_breaker_status_api():
+    from circuit_breaker_layer import circuit_breaker_layer_status
+
+    return circuit_breaker_layer_status()
+
+
+@router.get("/circuit-breaker/gate")
+async def circuit_breaker_gate_api():
+    from circuit_breaker_layer import check_circuit_breaker_production_gate
+
+    return check_circuit_breaker_production_gate()
+
+
+@router.get("/circuit-breaker/e2e")
+async def circuit_breaker_e2e_api():
+    from circuit_breaker_layer import run_circuit_breaker_e2e
+
+    return run_circuit_breaker_e2e()
+
+
 @router.post("/ml/rl/train")
 async def rl_policy_train(_admin: dict = Depends(require_admin)):
     import random
