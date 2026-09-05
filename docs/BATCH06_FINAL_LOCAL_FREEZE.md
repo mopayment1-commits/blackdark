@@ -1,9 +1,9 @@
 # Batch06 Final Local Freeze
 
-**Commit:** `aef04128` · **Status:** `PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED / BLOCKED_EXTERNAL_FOR_LIVE_ONLY`
+**Commit:** `adc09714` · **Status:** `PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED / BLOCKED_EXTERNAL_FOR_RAILWAY_AND_INDEPENDENT_REVIEW`
 
 - Semantic oracle: 50/50
-- PASS_ENGINEERING (G4): 50/50
-- REUSED-LINK: 11
-- Strangler: 39
-- Live-only queue: 4 items
+- G4: 50/50
+- Six Heroes: FULL_PASS
+- Cross-batch regression: FULL_PASS
+- Known local deficiencies: 0

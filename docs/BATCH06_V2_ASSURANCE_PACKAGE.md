@@ -1,6 +1,6 @@
 # Batch06 v2 Institutional Assurance Package
 
-**Generated:** 2026-09-05T07:26:56.519254+00:00 · **Commit:** `5c20ad19`
+**Generated:** 2026-09-05T11:51:51.782945+00:00 · **Commit:** `adc09714`
 
 ## Verdict
 

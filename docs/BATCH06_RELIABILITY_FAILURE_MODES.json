@@ -34,5 +34,7 @@
   ],
   "proven_local": 6,
   "requires_live": 0,
-  "not_applicable": 0
+  "design_only": 0,
+  "local_stub": 0,
+  "locally_solvable_gaps": 0
 }

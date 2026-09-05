@@ -1,40 +1,6 @@
 {
   "generated_at": "2026-09-05T11:51:51.995154+00:00",
   "git_commit": "adc09714d4a3367d71ca16d1b9a513306720ca0e",
-  "G5.1": {
-    "status": "LOCAL_COMPONENT_COMPLETE",
-    "evidence": "health endpoints shared"
-  },
-  "G5.2": {
-    "status": "LOCAL_COMPONENT_COMPLETE",
-    "evidence": "structured logging in cap646 runtime"
-  },
-  "G5.3": {
-    "status": "LOCAL_COMPONENT_COMPLETE",
-    "evidence": "metrics hooks + latency_ms"
-  },
-  "G5.4": {
-    "status": "LOCAL_COMPONENT_COMPLETE",
-    "evidence": "alert definitions in ops package"
-  },
-  "G5.5": {
-    "status": "LOCAL_COMPONENT_COMPLETE",
-    "evidence": "runbook in operation package"
-  },
-  "G5.6": {
-    "status": "DESIGN_LOCAL_COMPLETE_MEASUREMENT_REQUIRES_RAILWAY",
-    "sli": "cap646 success rate, p95 latency",
-    "slo": "99% success, p95 per capability class",
-    "error_budget": "0.1% monthly"
-  },
-  "G5.7": {
-    "status": "DESIGN_LOCAL_COMPLETE_MEASUREMENT_REQUIRES_RAILWAY",
-    "capacity_plan": "docs/BATCH06_PERFORMANCE_CAPACITY_PREP.json"
-  },
-  "G5.8": {
-    "status": "DESIGN_LOCAL_COMPLETE_MEASUREMENT_REQUIRES_RAILWAY",
-    "dependency_latency_slo": "upstream adapter timeout + fallback documented"
-  },
   "G5.9": {
     "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
     "scope": "Batch06 cap646 paths 251-300",
@@ -57,6 +23,5 @@
     "restore_required": false,
     "local_restore_test": "N/A \u2014 no durable batch06 state to restore",
     "platform_backup": "REQUIRES_RAILWAY for platform DB/Redis backup policy evidence"
-  },
-  "locally_solvable_gaps": 0
+  }
 }

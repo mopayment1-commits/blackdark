@@ -1,0 +1,156 @@
+{
+  "generated_at": "2026-09-05T11:51:51.995154+00:00",
+  "git_commit": "adc09714d4a3367d71ca16d1b9a513306720ca0e",
+  "scope": "Batch06 SRE Production Readiness Review",
+  "status": "PRR_PREPARATION_COMPLETE_LOCAL",
+  "not_claimed": [
+    "PRR_SIGNED_OFF",
+    "LIVE_READY"
+  ],
+  "batch06_independent": 0,
+  "checks": {
+    "authentication": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "cap646 runtime entitlement gate + skip_entitlement test-only"
+    },
+    "authorization": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "test_batch06_ids_contract entitlement_denied_fail_closed"
+    },
+    "entitlement": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "gateway proofs batch03-05 pattern; batch06 strangler gate"
+    },
+    "object_level_authorization": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "per-capability_id routing spine enforced"
+    },
+    "tenant_isolation": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "tenant context via cap646 runtime params"
+    },
+    "wrong_role_access": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "entitlement fail-closed without skip_entitlement"
+    },
+    "malformed_input": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "malformed_empty_symbol reliability mode"
+    },
+    "oversized_input": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "FastAPI/pydantic validation on API routes"
+    },
+    "injection_sensitive_input": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "parameterized symbol/address strings sanitized in builders"
+    },
+    "replay": {
+      "status": "NOT_APPLICABLE_WITH_JUSTIFICATION",
+      "evidence": "read-only analytics capabilities \u2014 no mutating transactions"
+    },
+    "idempotency": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "stateless GET-style execute_capability responses"
+    },
+    "api_abuse_rate": {
+      "status": "REQUIRES_RAILWAY_WITH_REASON",
+      "evidence": "production rate-limit telemetry"
+    },
+    "sensitive_logging": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "structured logging without secret values in batch06 tests"
+    },
+    "secret_exposure": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "no secrets in strangler payload surfaces"
+    },
+    "fail_closed": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "unknown capability + entitlement denied paths"
+    }
+  },
+  "architecture": "Stateless cap646 strangler + REUSED-LINK facades",
+  "critical_dependencies": [
+    "upstream market/onchain APIs",
+    "Redis optional",
+    "PostgreSQL institutional_flows for B2B hero only"
+  ],
+  "capacity_plan": "docs/BATCH06_PERFORMANCE_CAPACITY_PREP.json",
+  "latency_targets": "direct p95<=500ms, analysis p95<=2s per BLACKDARK policy",
+  "slos": "Defined locally; measurement REQUIRES_RAILWAY",
+  "residual_risks": "Live dependency flake without production SLO proof",
+  "launch_blockers": [
+    {
+      "id": "RL1",
+      "item": "Railway deployment + production smoke",
+      "why_local_insufficient": "Requires live Railway service binding and production domain TLS",
+      "underlying": [
+        "deployment",
+        "production smoke",
+        "domain/service availability"
+      ]
+    },
+    {
+      "id": "RL2",
+      "item": "Gate Zero live health + cap646 probes",
+      "why_local_insufficient": "Production host routing differs from TestClient/execute_capability local",
+      "underlying": [
+        "Gate Zero",
+        "production health/readiness",
+        "G6"
+      ]
+    },
+    {
+      "id": "RL3",
+      "item": "Production-network E2E semantic verification (50 IDs)",
+      "why_local_insufficient": "TLS, CDN, Railway ingress, live entitlement provider",
+      "underlying": [
+        "production E2E",
+        "production entitlement/access",
+        "real dependency behavior",
+        "G6 live_validation"
+      ]
+    },
+    {
+      "id": "RL4",
+      "item": "Production k6 / performance / capacity / latency SLO",
+      "why_local_insufficient": "SLO telemetry requires live traffic and production infrastructure",
+      "underlying": [
+        "production k6/performance",
+        "live SLO telemetry",
+        "G5.6 SLI/SLO live measurement",
+        "G5.7 production capacity headroom",
+        "G5.8 live dependency latency SLO",
+        "live Transition proof"
+      ]
+    },
+    {
+      "id": "RL5",
+      "item": "Per-ID PASS_LIVE elevation (251-300)",
+      "why_local_insufficient": "PASS_LIVE stamp requires production validation evidence per ID",
+      "underlying": [
+        "PASS_LIVE",
+        "G6 formal elevation",
+        "batch06_independent increment gate"
+      ]
+    },
+    {
+      "id": "RL6",
+      "item": "Platform failover drill (Redis/PostgreSQL)",
+      "why_local_insufficient": "Live infrastructure failover cannot be simulated with production fidelity locally",
+      "underlying": [
+        "platform Redis/PostgreSQL failover",
+        "live degraded-mode under real outage"
+      ]
+    }
+  ],
+  "live_evidence_required": [
+    "RL1",
+    "RL2",
+    "RL3",
+    "RL4",
+    "RL5",
+    "RL6"
+  ]
+}

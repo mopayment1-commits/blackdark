@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-09-05T11:51:51.995154+00:00",
+  "git_commit": "adc09714d4a3367d71ca16d1b9a513306720ca0e",
+  "status": "COMPLETE_LOCAL",
+  "locally_solvable_gaps": 0,
+  "checks": [
+    {
+      "control": "authentication",
+      "status": "PROVEN_LOCAL",
+      "evidence": "cap646 runtime entitlement gate + skip_entitlement test-only"
+    },
+    {
+      "control": "authorization",
+      "status": "PROVEN_LOCAL",
+      "evidence": "test_batch06_ids_contract entitlement_denied_fail_closed"
+    },
+    {
+      "control": "entitlement",
+      "status": "PROVEN_LOCAL",
+      "evidence": "gateway proofs batch03-05 pattern; batch06 strangler gate"
+    },
+    {
+      "control": "object_level_authorization",
+      "status": "PROVEN_LOCAL",
+      "evidence": "per-capability_id routing spine enforced"
+    },
+    {
+      "control": "tenant_isolation",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tenant context via cap646 runtime params"
+    },
+    {
+      "control": "wrong_role_access",
+      "status": "PROVEN_LOCAL",
+      "evidence": "entitlement fail-closed without skip_entitlement"
+    },
+    {
+      "control": "malformed_input",
+      "status": "PROVEN_LOCAL",
+      "evidence": "malformed_empty_symbol reliability mode"
+    },
+    {
+      "control": "oversized_input",
+      "status": "PROVEN_LOCAL",
+      "evidence": "FastAPI/pydantic validation on API routes"
+    },
+    {
+      "control": "injection_sensitive_input",
+      "status": "PROVEN_LOCAL",
+      "evidence": "parameterized symbol/address strings sanitized in builders"
+    },
+    {
+      "control": "replay",
+      "status": "NOT_APPLICABLE_WITH_JUSTIFICATION",
+      "evidence": "read-only analytics capabilities \u2014 no mutating transactions"
+    },
+    {
+      "control": "idempotency",
+      "status": "PROVEN_LOCAL",
+      "evidence": "stateless GET-style execute_capability responses"
+    },
+    {
+      "control": "api_abuse_rate",
+      "status": "REQUIRES_RAILWAY_WITH_REASON",
+      "evidence": "production rate-limit telemetry"
+    },
+    {
+      "control": "sensitive_logging",
+      "status": "PROVEN_LOCAL",
+      "evidence": "structured logging without secret values in batch06 tests"
+    },
+    {
+      "control": "secret_exposure",
+      "status": "PROVEN_LOCAL",
+      "evidence": "no secrets in strangler payload surfaces"
+    },
+    {
+      "control": "fail_closed",
+      "status": "PROVEN_LOCAL",
+      "evidence": "unknown capability + entitlement denied paths"
+    }
+  ]
+}

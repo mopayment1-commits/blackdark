@@ -196,12 +196,18 @@ def test_directional_oracle_does_not_pollute_truth_stats() -> None:
 
 
 @pytest.mark.asyncio
-async def test_b2b_feed_empty_state_block() -> None:
+async def test_b2b_feed_empty_state_block(monkeypatch) -> None:
     from whale_tracker import InstitutionalDataExporter
     import config
 
+    # Deterministic local test credential — production reads BLACKDARK_B2B_DEMO_KEY at import;
+    # tests must inject a known demo key without using production secrets.
+    test_demo_key = "local-test-b2b-demo-key-batch06"
+    monkeypatch.setenv("BLACKDARK_B2B_DEMO_KEY", test_demo_key)
+    monkeypatch.setattr(config, "B2B_DEMO_API_KEY", test_demo_key, raising=False)
+
     exporter = InstitutionalDataExporter()
-    feed = await exporter.export_institutional_feed(provided_key=config.B2B_DEMO_API_KEY, limit=5)
+    feed = await exporter.export_institutional_feed(provided_key=test_demo_key, limit=5)
     if feed.get("record_count") == 0:
         assert "empty_state" in feed
         assert feed["empty_state"]["reason"]

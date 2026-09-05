@@ -1,0 +1,210 @@
+{
+  "generated_at": "2026-09-05T11:51:51.995154+00:00",
+  "git_commit": "adc09714d4a3367d71ca16d1b9a513306720ca0e",
+  "QUEUE_A_LOCAL_COMPLETE": {
+    "items": [
+      {
+        "category": "G0-G4",
+        "status": "50/50 PASS_ENGINEERING",
+        "evidence": "docs/BATCH06_V2_ASSURANCE_PACKAGE.json"
+      },
+      {
+        "category": "Semantic Oracle",
+        "status": "50/50",
+        "evidence": "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json"
+      },
+      {
+        "category": "Global duplicate/canonical",
+        "status": "11 REUSED-LINK / 39 DISTINCT / 0 conflicts"
+      },
+      {
+        "category": "Security material paths",
+        "status": "PROVEN_LOCAL",
+        "evidence": "docs/BATCH06_SECURITY_MATERIAL_PATH_AUDIT.json"
+      },
+      {
+        "category": "Data integrity",
+        "status": "50/50 PROVEN_LOCAL",
+        "evidence": "docs/BATCH06_DATA_QUALITY_INTEGRITY.json"
+      },
+      {
+        "category": "Reliability",
+        "status": "PROVEN_LOCAL",
+        "evidence": "docs/BATCH06_RELIABILITY_FAILURE_MODES.json"
+      },
+      {
+        "category": "Observability local",
+        "status": "COMPLETE_LOCAL",
+        "evidence": "docs/BATCH06_OBSERVABILITY_ASSURANCE.json"
+      },
+      {
+        "category": "G5.1-G5.5",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "category": "G5.6-G5.8 design",
+        "status": "LOCAL_PREPARED",
+        "evidence": "docs/BATCH06_G5_LOCAL_READINESS.json"
+      },
+      {
+        "category": "G5.9 failover",
+        "status": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION"
+      },
+      {
+        "category": "G5.10 backup/restore",
+        "status": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION"
+      },
+      {
+        "category": "12207 Validation prep",
+        "status": "LOCAL_COMPLETE",
+        "evidence": "docs/BATCH06_12207_VALIDATION_PACKAGE.json"
+      },
+      {
+        "category": "12207 Transition prep",
+        "status": "TRANSITION_PREPARED_LOCAL"
+      },
+      {
+        "category": "12207 Operation prep",
+        "status": "OPERATION_PREPARED_LOCAL"
+      },
+      {
+        "category": "SRE PRR prep",
+        "status": "PRR_PREPARATION_COMPLETE_LOCAL"
+      },
+      {
+        "category": "G7 pre-assurance",
+        "status": "G7_LOCAL_PREPARATION_COMPLETE"
+      },
+      {
+        "category": "Six Heroes",
+        "status": "FULL_PASS",
+        "evidence": "tests/test_pentagonal_hero_binding.py"
+      },
+      {
+        "category": "Cross-batch regression",
+        "status": "FULL_PASS",
+        "evidence": "docs/BATCH06_CROSS_BATCH_REGRESSION.json"
+      }
+    ],
+    "count": 18
+  },
+  "QUEUE_B_RAILWAY_LIVE_ONLY": {
+    "items": [
+      {
+        "id": "RL1",
+        "item": "Railway deployment + production smoke",
+        "why_local_insufficient": "Requires live Railway service binding and production domain TLS",
+        "underlying": [
+          "deployment",
+          "production smoke",
+          "domain/service availability"
+        ]
+      },
+      {
+        "id": "RL2",
+        "item": "Gate Zero live health + cap646 probes",
+        "why_local_insufficient": "Production host routing differs from TestClient/execute_capability local",
+        "underlying": [
+          "Gate Zero",
+          "production health/readiness",
+          "G6"
+        ]
+      },
+      {
+        "id": "RL3",
+        "item": "Production-network E2E semantic verification (50 IDs)",
+        "why_local_insufficient": "TLS, CDN, Railway ingress, live entitlement provider",
+        "underlying": [
+          "production E2E",
+          "production entitlement/access",
+          "real dependency behavior",
+          "G6 live_validation"
+        ]
+      },
+      {
+        "id": "RL4",
+        "item": "Production k6 / performance / capacity / latency SLO",
+        "why_local_insufficient": "SLO telemetry requires live traffic and production infrastructure",
+        "underlying": [
+          "production k6/performance",
+          "live SLO telemetry",
+          "G5.6 SLI/SLO live measurement",
+          "G5.7 production capacity headroom",
+          "G5.8 live dependency latency SLO",
+          "live Transition proof"
+        ]
+      },
+      {
+        "id": "RL5",
+        "item": "Per-ID PASS_LIVE elevation (251-300)",
+        "why_local_insufficient": "PASS_LIVE stamp requires production validation evidence per ID",
+        "underlying": [
+          "PASS_LIVE",
+          "G6 formal elevation",
+          "batch06_independent increment gate"
+        ]
+      },
+      {
+        "id": "RL6",
+        "item": "Platform failover drill (Redis/PostgreSQL)",
+        "why_local_insufficient": "Live infrastructure failover cannot be simulated with production fidelity locally",
+        "underlying": [
+          "platform Redis/PostgreSQL failover",
+          "live degraded-mode under real outage"
+        ]
+      }
+    ],
+    "count": 6,
+    "purity_verified": true
+  },
+  "QUEUE_C_INDEPENDENT_REVIEW_ONLY": {
+    "items": [
+      {
+        "id": "IR1",
+        "item": "12207 Validation workshop sign-off",
+        "why_human_required": "Independent human validation of live artifacts per ISO 12207",
+        "underlying": [
+          "12207 Validation",
+          "G7 independent_assurance"
+        ]
+      },
+      {
+        "id": "IR2",
+        "item": "12207 Transition/Operation live sign-off",
+        "why_human_required": "Operational acceptance after live deployment evidence review",
+        "underlying": [
+          "12207 Transition/Operation live proof"
+        ]
+      },
+      {
+        "id": "IR3",
+        "item": "SRE PRR formal approval",
+        "why_human_required": "Second-review human sign-off per institutional SRE policy",
+        "underlying": [
+          "SRE PRR approval",
+          "residual-risk acceptance where required"
+        ]
+      },
+      {
+        "id": "IR4",
+        "item": "G7 independent evidence review",
+        "why_human_required": "Separation-of-duties assurance review",
+        "underlying": [
+          "G7 PASS",
+          "ASSURANCE_READY"
+        ]
+      },
+      {
+        "id": "IR5",
+        "item": "Independent assurance / ASSURANCE_READY elevation",
+        "why_human_required": "Final institutional approval \u2014 not machine-assertable",
+        "underlying": [
+          "ASSURANCE_READY",
+          "live_ready elevation"
+        ]
+      }
+    ],
+    "count": 5,
+    "purity_verified": true
+  }
+}

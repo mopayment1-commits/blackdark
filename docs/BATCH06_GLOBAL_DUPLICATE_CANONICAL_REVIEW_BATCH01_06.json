@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-05T07:26:38.457904+00:00",
-  "git_commit": "5c20ad19d0451846e895cf9a1370caf82ff491c4",
+  "generated_at": "2026-09-05T11:51:33.819468+00:00",
+  "git_commit": "adc09714d4a3367d71ca16d1b9a513306720ca0e",
   "scope": "Batch06 IDs 251-300 compared against official batches 01-05",
   "method": "EXPECTED_SURFACE cross-batch scan + gap matrix DUPLICATE hints + REUSED-LINK catalog",
   "locks": {
