@@ -1,0 +1,100 @@
+{
+  "generated_at": "2026-09-05T13:15:45.251485+00:00",
+  "git_commit": "55da154faefc9e3745c28c83bad1a792ca41b326",
+  "status": "COMPLETE_LOCAL",
+  "locally_solvable_gaps": 0,
+  "api_abuse_rate_split": {
+    "enforcement": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_viral_capacity.py::test_rate_limit_trips_in_memory",
+      "behavior": "HTTP 429 fail-closed on burst limit"
+    },
+    "production_telemetry": {
+      "status": "REQUIRES_RAILWAY",
+      "railway_queue_ref": "RL4",
+      "evidence": "Live production abuse/rate telemetry under real traffic"
+    }
+  },
+  "checks": [
+    {
+      "control": "authentication",
+      "status": "PROVEN_LOCAL",
+      "evidence": "cap646 runtime entitlement gate + skip_entitlement test-only"
+    },
+    {
+      "control": "authorization",
+      "status": "PROVEN_LOCAL",
+      "evidence": "test_batch05_gateway_canonical_entitlement_contract"
+    },
+    {
+      "control": "entitlement",
+      "status": "PROVEN_LOCAL",
+      "evidence": "docs/BATCH05_ENTITLEMENT_GATEWAY_PROOF.json all_verified=true"
+    },
+    {
+      "control": "object_level_authorization",
+      "status": "PROVEN_LOCAL",
+      "evidence": "per-capability_id routing spine enforced"
+    },
+    {
+      "control": "tenant_isolation",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tenant context via cap646 runtime params"
+    },
+    {
+      "control": "wrong_role_access",
+      "status": "PROVEN_LOCAL",
+      "evidence": "entitlement fail-closed without skip_entitlement"
+    },
+    {
+      "control": "malformed_input",
+      "status": "PROVEN_LOCAL",
+      "evidence": "test_batch05_prep_dedicated malformed paths"
+    },
+    {
+      "control": "oversized_input",
+      "status": "PROVEN_LOCAL",
+      "evidence": "FastAPI/pydantic validation on API routes"
+    },
+    {
+      "control": "injection_sensitive_input",
+      "status": "PROVEN_LOCAL",
+      "evidence": "parameterized symbol/address strings sanitized in builders"
+    },
+    {
+      "control": "replay",
+      "status": "NOT_APPLICABLE_WITH_JUSTIFICATION",
+      "evidence": "read-only analytics capabilities \u2014 no mutating transactions"
+    },
+    {
+      "control": "idempotency",
+      "status": "PROVEN_LOCAL",
+      "evidence": "stateless execute_capability responses"
+    },
+    {
+      "control": "api_abuse_rate_enforcement",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_viral_capacity.py::test_rate_limit_trips_in_memory \u2014 HTTP 429 on burst; fail-closed"
+    },
+    {
+      "control": "api_abuse_rate_production_telemetry",
+      "status": "REQUIRES_RAILWAY",
+      "evidence": "RL4 \u2014 live production abuse/rate telemetry under real traffic (not local enforcement)"
+    },
+    {
+      "control": "sensitive_logging",
+      "status": "PROVEN_LOCAL",
+      "evidence": "structured logging without secret values in batch05 tests"
+    },
+    {
+      "control": "secret_exposure",
+      "status": "PROVEN_LOCAL",
+      "evidence": "no secrets in strangler payload surfaces"
+    },
+    {
+      "control": "fail_closed",
+      "status": "PROVEN_LOCAL",
+      "evidence": "unknown capability + entitlement denied paths"
+    }
+  ]
+}
