@@ -865,6 +865,27 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/ddos-protection/status")
+async def ddos_protection_status_api():
+    from ddos_protection_layer import ddos_protection_status
+
+    return ddos_protection_status()
+
+
+@router.get("/ddos-protection/gate")
+async def ddos_protection_gate_api():
+    from ddos_protection_layer import check_ddos_protection_production_gate
+
+    return check_ddos_protection_production_gate()
+
+
+@router.get("/ddos-protection/e2e")
+async def ddos_protection_e2e_api():
+    from ddos_protection_layer import run_ddos_protection_e2e
+
+    return run_ddos_protection_e2e()
+
+
 @router.post("/ml/rl/train")
 async def rl_policy_train(_admin: dict = Depends(require_admin)):
     import random
