@@ -1,0 +1,31 @@
+{
+  "feature_ref": "signal_integrity_guard",
+  "merged_into": "Signal Engine (#11) + Data Engine + On-Chain Extension (#12)",
+  "standalone_rejected": true,
+  "signal_integrity_guard": {
+    "policy_version": "1.0.0",
+    "rule_based_only": true,
+    "ml_detection": false,
+    "patterns": [
+      "wash_trading",
+      "volume_spike_no_price",
+      "social_mention_burst",
+      "order_book_spoofing",
+      "timestamp_manipulation"
+    ],
+    "single_source_spoof_risk_flag": true,
+    "rejection_requires_manipulation_flag": true,
+    "coordinated_attack_threshold_per_hour": 10,
+    "disclaimer": "Manipulation flag — suspected spoofing, not confirmed crime.",
+    "sprint": 2,
+    "integrations": {
+      "outlier_detection_ref": 1026,
+      "fraud_intelligence_ref": 960,
+      "provenance_ref": 945,
+      "signal_engine_ref": 11,
+      "multi_source_ingest_ref": 1024,
+      "incident_response_ref": 1017,
+      "accuracy_ledger_ref": 987
+    }
+  }
+}
