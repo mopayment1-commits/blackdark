@@ -885,3 +885,166 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
     ]
     trained = train_ppo_policy(samples, epochs=30)
     return {"status": policy_status(), "trained": trained}
+
+
+# ─── Sprint-0 Ops Foundation (#1059–#1063) ───────────────────────────────────
+
+
+@router.get("/internal/infrastructure/uptime/status")
+async def uptime_monitoring_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_uptime_monitoring import uptime_monitoring_status_1059
+
+    return uptime_monitoring_status_1059()
+
+
+@router.get("/internal/infrastructure/uptime/status-page")
+async def uptime_status_page_route():
+    from bd_platform.infrastructure_uptime_monitoring import build_public_status_page_1059
+
+    return build_public_status_page_1059()
+
+
+@router.post("/internal/infrastructure/uptime/probe")
+async def uptime_probe_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_uptime_monitoring import record_external_probe_1059
+
+    return record_external_probe_1059(
+        service=data.get("service", "oracle_api"),
+        region=data.get("region", "eu-west-1"),
+        ok=bool(data.get("ok", True)),
+        latency_ms=float(data.get("latency_ms", 0)),
+        path=data.get("path", ""),
+    )
+
+
+@router.get("/internal/infrastructure/uptime/e2e")
+async def uptime_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_uptime_monitoring import run_uptime_monitoring_e2e_1059
+
+    return run_uptime_monitoring_e2e_1059()
+
+
+@router.get("/internal/infrastructure/logging/status")
+async def centralized_logging_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_centralized_logging import centralized_logging_status_1060
+
+    return centralized_logging_status_1060()
+
+
+@router.post("/internal/infrastructure/logging/ingest")
+async def centralized_logging_ingest_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_centralized_logging import ingest_log_entry_1060
+
+    return ingest_log_entry_1060(
+        service=data.get("service", "api"),
+        level=data.get("level", "INFO"),
+        message=data.get("message", ""),
+        trace_id=data.get("trace_id", ""),
+        user_id=data.get("user_id", ""),
+        tenant_id=data.get("tenant_id", "platform"),
+        metadata=data.get("metadata"),
+    )
+
+
+@router.get("/internal/infrastructure/logging/search")
+async def centralized_logging_search_route(
+    query: str = Query(""),
+    service: str = Query(""),
+    trace_id: str = Query(""),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_centralized_logging import search_logs_1060
+
+    return search_logs_1060(query=query, service=service, trace_id=trace_id)
+
+
+@router.get("/internal/infrastructure/logging/e2e")
+async def centralized_logging_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_centralized_logging import run_centralized_logging_e2e_1060
+
+    return run_centralized_logging_e2e_1060()
+
+
+@router.get("/internal/infrastructure/apm/status")
+async def apm_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_apm_tracing import apm_tracing_status_1061
+
+    return apm_tracing_status_1061()
+
+
+@router.get("/internal/infrastructure/apm/dashboard")
+async def apm_dashboard_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_apm_tracing import build_apm_dashboard_1061
+
+    return build_apm_dashboard_1061()
+
+
+@router.get("/internal/infrastructure/apm/e2e")
+async def apm_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_apm_tracing import run_apm_tracing_e2e_1061
+
+    return run_apm_tracing_e2e_1061()
+
+
+@router.get("/internal/infrastructure/watchdog/status")
+async def watchdog_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_self_healing_watchdog import self_healing_status_1062
+
+    return self_healing_status_1062()
+
+
+@router.post("/internal/infrastructure/watchdog/restart")
+async def watchdog_restart_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_self_healing_watchdog import execute_watchdog_restart_1062
+
+    return execute_watchdog_restart_1062(
+        service=data.get("service", "oracle_api"),
+        trigger=data.get("trigger", "process_exit_crash"),
+    )
+
+
+@router.get("/internal/infrastructure/watchdog/e2e")
+async def watchdog_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_self_healing_watchdog import run_self_healing_e2e_1062
+
+    return run_self_healing_e2e_1062()
+
+
+@router.get("/internal/infrastructure/explainability/status")
+async def explainability_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.explainability_policy import explainability_policy_status_1063
+
+    return explainability_policy_status_1063()
+
+
+@router.post("/internal/infrastructure/explainability/validate")
+async def explainability_validate_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.explainability_policy import validate_explanation_present_1063
+
+    return validate_explanation_present_1063(data.get("payload") or data, output_type=data.get("output_type", "insight"))
+
+
+@router.get("/internal/infrastructure/explainability/e2e")
+async def explainability_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.explainability_policy import run_explainability_e2e_1063
+
+    return run_explainability_e2e_1063()
+
+
+@router.get("/internal/infrastructure/ops-foundation/e2e")
+async def ops_foundation_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.explainability_policy import run_explainability_e2e_1063
+    from bd_platform.infrastructure_apm_tracing import run_apm_tracing_e2e_1061
+    from bd_platform.infrastructure_centralized_logging import run_centralized_logging_e2e_1060
+    from bd_platform.infrastructure_self_healing_watchdog import run_self_healing_e2e_1062
+    from bd_platform.infrastructure_uptime_monitoring import run_uptime_monitoring_e2e_1059
+
+    results = {
+        "uptime_1059": run_uptime_monitoring_e2e_1059(),
+        "logging_1060": run_centralized_logging_e2e_1060(),
+        "apm_1061": run_apm_tracing_e2e_1061(),
+        "watchdog_1062": run_self_healing_e2e_1062(),
+        "explainability_1063": run_explainability_e2e_1063(),
+    }
+    all_passed = all(r.get("all_passed") for r in results.values())
+    return {"ok": all_passed, "all_passed": all_passed, "modules": results}

@@ -423,6 +423,19 @@ def record_failover_drill(*, result: str, duration_sec: float, notes: str = "") 
 
 
 def observability_status() -> dict[str, Any]:
+    ops_foundation = {}
+    try:
+        from bd_platform.infrastructure_uptime_monitoring import uptime_monitoring_status_1059
+        from bd_platform.infrastructure_centralized_logging import centralized_logging_status_1060
+        from bd_platform.infrastructure_apm_tracing import apm_tracing_status_1061
+
+        ops_foundation = {
+            "uptime_monitoring_1059": uptime_monitoring_status_1059(),
+            "centralized_logging_1060": centralized_logging_status_1060(),
+            "apm_tracing_1061": apm_tracing_status_1061(),
+        }
+    except ImportError:
+        pass
     return {
         "surface": "production_observability",
         "product_complete": True,
@@ -436,6 +449,7 @@ def observability_status() -> dict[str, Any]:
         "customer_status_api": "/api/institutional/status-page",
         "error_budget": True,
         "metrics": "/api/observability/metrics" if Path("api/routers/observability.py").exists() else "/metrics",
+        "ops_foundation": ops_foundation,
     }
 
 
