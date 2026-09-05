@@ -352,7 +352,17 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "compliance_footer": _portfolio_compliance_footer(),
         "hero": "portfolio_ai",
     }
-    _attach_portfolio_clarity(result, risk_level, risk_score)
+    try:
+        from portfolio_concentration_risk import compute_concentration
+
+        conc = compute_concentration(holdings)
+        result["concentration_risk"] = conc
+        if conc.get("ok") and conc.get("risk_score_adjustment"):
+            result["risk_score"] = min(10, result["risk_score"] + int(conc["risk_score_adjustment"]))
+            result["risk_level"] = _portfolio_risk_level(result["risk_score"])
+    except Exception:
+        result["concentration_risk"] = {"ok": False, "error": "concentration_unavailable"}
+    _attach_portfolio_clarity(result, result["risk_level"], result["risk_score"])
     return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
