@@ -42,8 +42,16 @@ async def resolve_order_book(symbol: str) -> dict[str, Any] | None:
 
     book = get_top_of_book(f"{symbol}USDT") or get_top_of_book("binance", f"{symbol}/USDT")
     if book:
-        return book
-    return await seed_live_book_from_ticker(symbol)
+        from blackdark.data.quote_normalizer import enrich_book_row
+
+        ex = "binance"
+        return enrich_book_row(book, exchange=ex, symbol=f"{symbol}/USDT")
+    seeded = await seed_live_book_from_ticker(symbol)
+    if seeded:
+        from blackdark.data.quote_normalizer import enrich_book_row
+
+        return enrich_book_row(seeded, exchange="binance", symbol=f"{symbol}/USDT")
+    return seeded
 
 
 async def resolve_ohlcv_closes(

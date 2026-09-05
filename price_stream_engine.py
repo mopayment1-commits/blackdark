@@ -56,15 +56,30 @@ async def emit_tick(
     ask: float,
     ask_qty: float,
     market_type: str = "spot",
+    exchange_ts_ms: int | None = None,
 ) -> None:
-    """Single ingress for WS ticks — memory, Redis, Kafka."""
+    """Single ingress for WS ticks — normalize (#90) → memory, Redis, Kafka."""
     global _ticks_total, _kafka_published, _redis_written
 
     ex = exchange.strip().lower()
     if ex not in allowed_ws_venues():
         return
 
-    update_top_of_book(ex, symbol, bid=bid, bid_qty=bid_qty, ask=ask, ask_qty=ask_qty, market_type=market_type)
+    from market_data_pipeline import ingest_quote
+
+    quote = await ingest_quote(
+        ex,
+        symbol,
+        bid=bid,
+        bid_qty=bid_qty,
+        ask=ask,
+        ask_qty=ask_qty,
+        exchange_ts_ms=exchange_ts_ms,
+        market_type=market_type,
+    )
+    if not quote.get("ingested"):
+        return
+
     _ticks_total += 1
 
     payload = {
@@ -75,17 +90,17 @@ async def emit_tick(
         "bid_qty": bid_qty,
         "ask_qty": ask_qty,
         "market_type": market_type,
-        "ts_ms": int(time.time() * 1000),
+        "ts_ms": int(quote.get("ts_ms") or time.time() * 1000),
+        "quote_meta": {
+            "sane": quote.get("sane"),
+            "stale": quote.get("stale"),
+            "executable": quote.get("executable"),
+            "spread_bps": quote.get("spread_bps"),
+        },
     }
 
     if getattr(config, "REDIS_PRICE_CACHE_ENABLED", True):
-        try:
-            from redis_price_cache import set_top_of_book
-
-            if await set_top_of_book(ex, symbol, bid=bid, ask=ask, bid_qty=bid_qty, ask_qty=ask_qty):
-                _redis_written += 1
-        except Exception:
-            logger.debug("Redis tick write skipped", exc_info=True)
+        _redis_written += 1  # ingest_quote already wrote Redis
 
     if getattr(config, "KAFKA_PRICE_STREAM_ENABLED", True):
         try:
