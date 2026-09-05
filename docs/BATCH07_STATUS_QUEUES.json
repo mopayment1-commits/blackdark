@@ -1,0 +1,181 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "queue_b_railway_only": true,
+    "queue_b_count": 5
+  },
+  "artifact": "BATCH07_STATUS_QUEUES",
+  "generated_at": "2026-09-05T22:40:19.412696+00:00",
+  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "QUEUE_A_LOCAL_COMPLETE": {
+    "items": [
+      {
+        "category": "G0-G5",
+        "status": "50/50 PASS_ENGINEERING",
+        "evidence": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json"
+      },
+      {
+        "category": "Duplicate/canonical",
+        "status": "1 REUSED-LINK / 49 KEEP_DISTINCT / 0 conflicts"
+      },
+      {
+        "category": "Security material paths",
+        "status": "PROVEN_LOCAL",
+        "evidence": "docs/BATCH07_SECURITY_MATERIAL_PATH_AUDIT.json"
+      },
+      {
+        "category": "Data integrity",
+        "status": "50/50 PROVEN_LOCAL",
+        "evidence": "docs/BATCH07_DATA_QUALITY_INTEGRITY.json"
+      },
+      {
+        "category": "Reliability",
+        "status": "PROVEN_LOCAL",
+        "evidence": "docs/BATCH07_RELIABILITY_FAILURE_MODES.json"
+      },
+      {
+        "category": "Observability local",
+        "status": "COMPLETE_LOCAL",
+        "evidence": "docs/BATCH07_OBSERVABILITY_READINESS.json"
+      },
+      {
+        "category": "Performance prep",
+        "status": "LOCAL_PREPARED",
+        "evidence": "docs/BATCH07_PERFORMANCE_CAPACITY_PREP.json"
+      },
+      {
+        "category": "Six Heroes",
+        "status": "339 HERO_CONTEXT_ONLY; 49 NOT_HERO_RELEVANT"
+      },
+      {
+        "category": "12207 Validation prep",
+        "status": "LOCAL_COMPLETE",
+        "evidence": "docs/BATCH07_12207_VALIDATION_PACKAGE.json"
+      },
+      {
+        "category": "12207 Transition prep",
+        "status": "TRANSITION_PREPARED_LOCAL"
+      },
+      {
+        "category": "12207 Operation prep",
+        "status": "OPERATION_PREPARED_LOCAL"
+      },
+      {
+        "category": "SRE PRR prep",
+        "status": "PRR_PREPARATION_COMPLETE_LOCAL"
+      },
+      {
+        "category": "G7 pre-assurance",
+        "status": "G7_LOCAL_PREPARATION_COMPLETE"
+      },
+      {
+        "category": "Cross-batch regression",
+        "status": "FULL_PASS",
+        "evidence": "docs/BATCH07_CROSS_BATCH_REGRESSION.json"
+      }
+    ],
+    "count": 14
+  },
+  "QUEUE_B_RAILWAY_LIVE_ONLY": {
+    "items": [
+      {
+        "id": "RL1",
+        "item": "Railway deployment + production smoke",
+        "why_local_insufficient": "Requires live Railway service binding and production domain TLS",
+        "underlying": [
+          "deployment",
+          "production smoke",
+          "domain/service availability"
+        ]
+      },
+      {
+        "id": "RL2",
+        "item": "Gate Zero live health + cap646 probes (301-350)",
+        "why_local_insufficient": "Production host routing differs from local execute_capability",
+        "underlying": [
+          "Gate Zero",
+          "production health/readiness",
+          "G6"
+        ]
+      },
+      {
+        "id": "RL3",
+        "item": "Production-network E2E verification (50 IDs)",
+        "why_local_insufficient": "TLS, CDN, Railway ingress, live entitlement provider",
+        "underlying": [
+          "production E2E",
+          "production entitlement/access",
+          "G6 live_validation"
+        ]
+      },
+      {
+        "id": "RL4",
+        "item": "Production k6 / performance / capacity / latency SLO",
+        "why_local_insufficient": "SLO telemetry requires live traffic and production infrastructure",
+        "underlying": [
+          "production k6/performance",
+          "live SLO telemetry",
+          "G5.6 SLI/SLO live measurement",
+          "G5.7 production capacity headroom",
+          "live Transition proof"
+        ]
+      },
+      {
+        "id": "RL5",
+        "item": "Per-ID PASS_LIVE elevation (301-350)",
+        "why_local_insufficient": "PASS_LIVE stamp requires production validation evidence per ID",
+        "underlying": [
+          "PASS_LIVE",
+          "G6 formal elevation"
+        ]
+      }
+    ],
+    "count": 5,
+    "purity_verified": true,
+    "note": "G6, live smoke, k6, PASS_LIVE — Railway-only items"
+  },
+  "QUEUE_C_INDEPENDENT_REVIEW_ONLY": {
+    "items": [
+      {
+        "id": "IR1",
+        "item": "12207 Validation workshop sign-off",
+        "why_human_required": "Independent human validation of live artifacts per ISO 12207",
+        "underlying": [
+          "12207 Validation",
+          "G7 independent_assurance"
+        ]
+      },
+      {
+        "id": "IR2",
+        "item": "12207 Transition/Operation live sign-off",
+        "why_human_required": "Operational acceptance after live deployment evidence review",
+        "underlying": [
+          "12207 Transition/Operation live proof"
+        ]
+      },
+      {
+        "id": "IR3",
+        "item": "SRE PRR formal approval",
+        "why_human_required": "Second-review human sign-off per institutional SRE policy",
+        "underlying": [
+          "SRE PRR approval"
+        ]
+      },
+      {
+        "id": "IR4",
+        "item": "G7 independent evidence review",
+        "why_human_required": "Separation-of-duties assurance review",
+        "underlying": [
+          "G7 PASS",
+          "ASSURANCE_READY"
+        ]
+      }
+    ],
+    "count": 4,
+    "purity_verified": true
+  }
+}

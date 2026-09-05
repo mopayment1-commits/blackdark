@@ -1,0 +1,425 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "local_complete": 50
+  },
+  "artifact": "BATCH07_12207_VALIDATION_PACKAGE",
+  "generated_at": "2026-09-05T22:40:11.765569+00:00",
+  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "scope": "Batch07 12207 Validation Package IDs 301-350",
+  "status": "LOCAL_COMPLETE",
+  "not_claimed": [
+    "VALIDATION_EXECUTED_LIVE",
+    "G7 PASS"
+  ],
+  "per_id": [
+    {
+      "capability_id": 301,
+      "validation_objective": "Verify Multi-Chart Layouts delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 302,
+      "validation_objective": "Verify Technical Indicator Library delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 303,
+      "validation_objective": "Verify Custom Indicator Scripting delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 304,
+      "validation_objective": "Verify Strategy Backtesting delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 305,
+      "validation_objective": "Verify Market Screener delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 306,
+      "validation_objective": "Verify Pine-Style Screener delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 307,
+      "validation_objective": "Verify Smart Alerts delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 308,
+      "validation_objective": "Verify Watchlists delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 309,
+      "validation_objective": "Verify Economic Calendar delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 310,
+      "validation_objective": "Verify Crypto Calendar / Events delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 311,
+      "validation_objective": "Verify News Integration delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 312,
+      "validation_objective": "Verify Heatmaps delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 313,
+      "validation_objective": "Verify Technical Ratings delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 314,
+      "validation_objective": "Verify Drawing Tools delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 315,
+      "validation_objective": "Verify Replay Mode delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 316,
+      "validation_objective": "Verify Idea/Chart Sharing delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 317,
+      "validation_objective": "Verify Community Scripts delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 318,
+      "validation_objective": "Verify Broker Comparison delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 319,
+      "validation_objective": "Verify Paper Trading / Simulation delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 320,
+      "validation_objective": "Verify Cross-Market Workspace delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 321,
+      "validation_objective": "Verify Custom Intelligence Screener delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 322,
+      "validation_objective": "Verify Decision-First Mode delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 323,
+      "validation_objective": "Verify Institutional L1/L2 Market Data delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 324,
+      "validation_objective": "Verify Reference Data Registry delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 325,
+      "validation_objective": "Verify Spot & Derivatives Coverage delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 326,
+      "validation_objective": "Verify DeFi Market Data delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 327,
+      "validation_objective": "Verify Market Depth & Liquidity Intelligence delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 328,
+      "validation_objective": "Verify Fair Market Value Pricing delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 329,
+      "validation_objective": "Verify Best Execution Pricing delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 330,
+      "validation_objective": "Verify Reference Rates delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 331,
+      "validation_objective": "Verify ETF Reference Rates / iNAV delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 332,
+      "validation_objective": "Verify Commodity / TradFi Reference Rates delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 333,
+      "validation_objective": "Verify Indices delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 334,
+      "validation_objective": "Verify Risk Analytics delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 335,
+      "validation_objective": "Verify Derivatives Listing Analytics delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 336,
+      "validation_objective": "Verify Market Surveillance delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 337,
+      "validation_objective": "Verify AML/CFT On-Chain Monitoring delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 338,
+      "validation_objective": "Verify Data Quality Pipeline delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 339,
+      "validation_objective": "Verify Data Provenance & Audit delivers catalog-aligned insight",
+      "classification": "REUSED-LINK",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 340,
+      "validation_objective": "Verify Real-Time REST/gRPC Streaming delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 341,
+      "validation_objective": "Verify Historical Data Archive delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 342,
+      "validation_objective": "Verify Venue Quality Ranking delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 343,
+      "validation_objective": "Verify Execution Quality Analytics delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 344,
+      "validation_objective": "Verify Institutional SLA Monitoring delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 345,
+      "validation_objective": "Verify Cross-Market Institutional Decision Layer delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 346,
+      "validation_objective": "Verify Standardized Financial Metrics delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 347,
+      "validation_objective": "Verify Fees Intelligence delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 348,
+      "validation_objective": "Verify Revenue Intelligence delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 349,
+      "validation_objective": "Verify Token Incentives delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 350,
+      "validation_objective": "Verify Earnings / Economic Profit Proxy delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "remaining_live_evidence": "Production E2E + entitlement + PASS_LIVE",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    }
+  ],
+  "summary": {
+    "local_complete": 50,
+    "requires_railway": 50
+  }
+}

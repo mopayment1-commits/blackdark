@@ -1,0 +1,277 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "not_hero_relevant": 49,
+    "hero_context_only": 1
+  },
+  "artifact": "BATCH07_SIX_HEROES_BINDING",
+  "generated_at": "2026-09-05T22:40:11.765545+00:00",
+  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "scope": "Six Heroes binding classification — Batch07 301-350",
+  "summary": {
+    "NOT_HERO_RELEVANT": 49,
+    "HERO_CONTEXT_ONLY": 1,
+    "HERO_DIRECT_FEED": 0
+  },
+  "per_id": [
+    {
+      "capability_id": 301,
+      "capability_name": "Multi-Chart Layouts",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 302,
+      "capability_name": "Technical Indicator Library",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 303,
+      "capability_name": "Custom Indicator Scripting",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 304,
+      "capability_name": "Strategy Backtesting",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 305,
+      "capability_name": "Market Screener",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 306,
+      "capability_name": "Pine-Style Screener",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 307,
+      "capability_name": "Smart Alerts",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 308,
+      "capability_name": "Watchlists",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 309,
+      "capability_name": "Economic Calendar",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 310,
+      "capability_name": "Crypto Calendar / Events",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 311,
+      "capability_name": "News Integration",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 312,
+      "capability_name": "Heatmaps",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 313,
+      "capability_name": "Technical Ratings",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 314,
+      "capability_name": "Drawing Tools",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 315,
+      "capability_name": "Replay Mode",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 316,
+      "capability_name": "Idea/Chart Sharing",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 317,
+      "capability_name": "Community Scripts",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 318,
+      "capability_name": "Broker Comparison",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 319,
+      "capability_name": "Paper Trading / Simulation",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 320,
+      "capability_name": "Cross-Market Workspace",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 321,
+      "capability_name": "Custom Intelligence Screener",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 322,
+      "capability_name": "Decision-First Mode",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 323,
+      "capability_name": "Institutional L1/L2 Market Data",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 324,
+      "capability_name": "Reference Data Registry",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 325,
+      "capability_name": "Spot & Derivatives Coverage",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 326,
+      "capability_name": "DeFi Market Data",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 327,
+      "capability_name": "Market Depth & Liquidity Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 328,
+      "capability_name": "Fair Market Value Pricing",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 329,
+      "capability_name": "Best Execution Pricing",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 330,
+      "capability_name": "Reference Rates",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 331,
+      "capability_name": "ETF Reference Rates / iNAV",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 332,
+      "capability_name": "Commodity / TradFi Reference Rates",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 333,
+      "capability_name": "Indices",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 334,
+      "capability_name": "Risk Analytics",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 335,
+      "capability_name": "Derivatives Listing Analytics",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 336,
+      "capability_name": "Market Surveillance",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 337,
+      "capability_name": "AML/CFT On-Chain Monitoring",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 338,
+      "capability_name": "Data Quality Pipeline",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 339,
+      "capability_name": "Data Provenance & Audit",
+      "classification": "HERO_CONTEXT_ONLY",
+      "hero_context": {
+        "canonical_capability_id": 70,
+        "reuse_filter": "apply_opportunity_filter_70",
+        "feeds": "B2B Feed context only — no independent batch07 hero input"
+      }
+    },
+    {
+      "capability_id": 340,
+      "capability_name": "Real-Time REST/gRPC Streaming",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 341,
+      "capability_name": "Historical Data Archive",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 342,
+      "capability_name": "Venue Quality Ranking",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 343,
+      "capability_name": "Execution Quality Analytics",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 344,
+      "capability_name": "Institutional SLA Monitoring",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 345,
+      "capability_name": "Cross-Market Institutional Decision Layer",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 346,
+      "capability_name": "Standardized Financial Metrics",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 347,
+      "capability_name": "Fees Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 348,
+      "capability_name": "Revenue Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 349,
+      "capability_name": "Token Incentives",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 350,
+      "capability_name": "Earnings / Economic Profit Proxy",
+      "classification": "NOT_HERO_RELEVANT"
+    }
+  ]
+}

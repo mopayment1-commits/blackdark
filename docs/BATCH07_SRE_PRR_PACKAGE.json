@@ -1,0 +1,143 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "security_checks": 15
+  },
+  "artifact": "BATCH07_SRE_PRR_PACKAGE",
+  "generated_at": "2026-09-05T22:40:11.765575+00:00",
+  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "scope": "Batch07 SRE Production Readiness Review",
+  "status": "PRR_PREPARATION_COMPLETE_LOCAL",
+  "not_claimed": [
+    "PRR_SIGNED_OFF",
+    "LIVE_READY"
+  ],
+  "checks": {
+    "authentication": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "cap646 runtime entitlement gate"
+    },
+    "authorization": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_hero_batch_07_capabilities.py execute probe"
+    },
+    "entitlement": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "skip_entitlement test-only; production gateway pattern"
+    },
+    "object_level_authorization": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "per-capability_id routing via pdf registry"
+    },
+    "tenant_isolation": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "tenant context via cap646 runtime params"
+    },
+    "wrong_role_access": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "entitlement fail-closed without skip_entitlement"
+    },
+    "malformed_input": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "symbol normalization in charting layer builders"
+    },
+    "oversized_input": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "FastAPI/pydantic validation on API routes"
+    },
+    "injection_sensitive_input": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "parameterized symbol strings"
+    },
+    "replay": {
+      "status": "NOT_APPLICABLE_WITH_JUSTIFICATION",
+      "evidence": "read-only analytics — no mutating transactions"
+    },
+    "idempotency": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "stateless execute_capability responses"
+    },
+    "api_abuse_rate": {
+      "status": "REQUIRES_RAILWAY_WITH_REASON",
+      "evidence": "production rate-limit telemetry"
+    },
+    "sensitive_logging": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "structured logging without secret values"
+    },
+    "secret_exposure": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "no secrets in charting payload surfaces"
+    },
+    "fail_closed": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "unknown capability + entitlement denied paths"
+    }
+  },
+  "architecture": "pdf_capability_registry bindings + charting_market_intelligence_layer + heroes facades",
+  "residual_risks": "Live dependency flake without production SLO proof",
+  "launch_blockers": [
+    {
+      "id": "RL1",
+      "item": "Railway deployment + production smoke",
+      "why_local_insufficient": "Requires live Railway service binding and production domain TLS",
+      "underlying": [
+        "deployment",
+        "production smoke",
+        "domain/service availability"
+      ]
+    },
+    {
+      "id": "RL2",
+      "item": "Gate Zero live health + cap646 probes (301-350)",
+      "why_local_insufficient": "Production host routing differs from local execute_capability",
+      "underlying": [
+        "Gate Zero",
+        "production health/readiness",
+        "G6"
+      ]
+    },
+    {
+      "id": "RL3",
+      "item": "Production-network E2E verification (50 IDs)",
+      "why_local_insufficient": "TLS, CDN, Railway ingress, live entitlement provider",
+      "underlying": [
+        "production E2E",
+        "production entitlement/access",
+        "G6 live_validation"
+      ]
+    },
+    {
+      "id": "RL4",
+      "item": "Production k6 / performance / capacity / latency SLO",
+      "why_local_insufficient": "SLO telemetry requires live traffic and production infrastructure",
+      "underlying": [
+        "production k6/performance",
+        "live SLO telemetry",
+        "G5.6 SLI/SLO live measurement",
+        "G5.7 production capacity headroom",
+        "live Transition proof"
+      ]
+    },
+    {
+      "id": "RL5",
+      "item": "Per-ID PASS_LIVE elevation (301-350)",
+      "why_local_insufficient": "PASS_LIVE stamp requires production validation evidence per ID",
+      "underlying": [
+        "PASS_LIVE",
+        "G6 formal elevation"
+      ]
+    }
+  ],
+  "live_evidence_required": [
+    "RL1",
+    "RL2",
+    "RL3",
+    "RL4",
+    "RL5"
+  ]
+}

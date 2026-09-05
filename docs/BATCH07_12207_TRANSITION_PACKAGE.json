@@ -1,0 +1,27 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "prerequisites_listed": true
+  },
+  "artifact": "BATCH07_12207_TRANSITION_PACKAGE",
+  "generated_at": "2026-09-05T22:40:11.765571+00:00",
+  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "scope": "Batch07 12207 Transition Package",
+  "status": "TRANSITION_PREPARED_LOCAL",
+  "not_claimed": [
+    "TRANSITION_EXECUTED_LIVE"
+  ],
+  "deployment_prerequisites": [
+    "Railway app with BLACKDARK production env",
+    "pdf_capability_registry bindings 301-350 wired",
+    "Entitlement provider configured"
+  ],
+  "smoke_test_spec": "GET /api/cap646/{301..350} sample + health endpoints",
+  "gate_zero_spec": "Gate Zero checklist — live probes in QUEUE_B",
+  "rollback_decision_tree": "Revert deploy → verify health → re-run Gate Zero",
+  "ownership": "batch07-institutional-owner"
+}

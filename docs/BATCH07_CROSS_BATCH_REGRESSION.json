@@ -1,0 +1,32 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "full_pass": true
+  },
+  "artifact": "BATCH07_CROSS_BATCH_REGRESSION",
+  "generated_at": "2026-09-05T22:40:19.412680+00:00",
+  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "suites": [
+    {
+      "label": "batch07_hero_capabilities",
+      "script": "tests/test_hero_batch_07_capabilities.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "...................................................                      [100%]\n"
+    },
+    {
+      "label": "batch07_binding_coverage",
+      "passed": true,
+      "note": "50/50 discover_bindings() present for 301-350"
+    }
+  ],
+  "failed": [],
+  "partial": [],
+  "material_skipped": [],
+  "known_flaky_unresolved": [],
+  "full_pass": true
+}

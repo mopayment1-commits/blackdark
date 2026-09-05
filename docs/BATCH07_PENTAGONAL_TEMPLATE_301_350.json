@@ -1,0 +1,1717 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "pentagonal_rows": 50,
+    "columns": "1-5"
+  },
+  "artifact": "BATCH07_PENTAGONAL_TEMPLATE_301_350",
+  "generated_at": "2026-09-05T22:40:11.765495+00:00",
+  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "scope": "Pentagonal template cols 1-5 per ID — Batch07 301-350",
+  "rows": [
+    {
+      "capability_id": 301,
+      "capability_name": "Multi-Chart Layouts",
+      "track": "T01",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Multi-Chart Layouts' served via surface 'multi_chart_layouts'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:multi_chart_layouts_301"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=301; surface=multi_chart_layouts",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/301",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 302,
+      "capability_name": "Technical Indicator Library",
+      "track": "T01",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Technical Indicator Library' served via surface 'technical_indicator_library'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:technical_indicator_library_302"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=302; surface=technical_indicator_library",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/302",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 303,
+      "capability_name": "Custom Indicator Scripting",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Custom Indicator Scripting' served via surface 'custom_indicator_scripting'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:custom_indicator_scripting_303"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=303; surface=custom_indicator_scripting",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/303",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 304,
+      "capability_name": "Strategy Backtesting",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Strategy Backtesting' served via surface 'strategy_backtesting'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:strategy_backtesting_304"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=304; surface=strategy_backtesting",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/304",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 305,
+      "capability_name": "Market Screener",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Market Screener' served via surface 'market_screener'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:market_screener_305"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=305; surface=market_screener",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/305",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 306,
+      "capability_name": "Pine-Style Screener",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Pine-Style Screener' served via surface 'pine_style_screener'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:pine_style_screener_306"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=306; surface=pine_style_screener",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/306",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 307,
+      "capability_name": "Smart Alerts",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Smart Alerts' served via surface 'smart_alerts'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:smart_alerts_307"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=307; surface=smart_alerts",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/307",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 308,
+      "capability_name": "Watchlists",
+      "track": "T04",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Watchlists' served via surface 'watchlists'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:watchlists_308"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=308; surface=watchlists",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/308",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 309,
+      "capability_name": "Economic Calendar",
+      "track": "T16",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Economic Calendar' served via surface 'economic_calendar'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:economic_calendar_309"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=309; surface=economic_calendar",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/309",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 310,
+      "capability_name": "Crypto Calendar / Events",
+      "track": "T03",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Crypto Calendar / Events' served via surface 'crypto_calendar_events'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:crypto_calendar_events_310"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=310; surface=crypto_calendar_events",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/310",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 311,
+      "capability_name": "News Integration",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'News Integration' served via surface 'news_integration'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:news_integration_311"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=311; surface=news_integration",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/311",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 312,
+      "capability_name": "Heatmaps",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Heatmaps' served via surface 'heatmaps'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:heatmaps_312"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=312; surface=heatmaps",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/312",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 313,
+      "capability_name": "Technical Ratings",
+      "track": "T14",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Technical Ratings' served via surface 'technical_ratings'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:technical_ratings_313"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=313; surface=technical_ratings",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/313",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 314,
+      "capability_name": "Drawing Tools",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Drawing Tools' served via surface 'drawing_tools'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:drawing_tools_314"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=314; surface=drawing_tools",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/314",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 315,
+      "capability_name": "Replay Mode",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Replay Mode' served via surface 'replay_mode'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:replay_mode_315"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=315; surface=replay_mode",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/315",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 316,
+      "capability_name": "Idea/Chart Sharing",
+      "track": "T01",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Idea/Chart Sharing' served via surface 'sse_digest_status'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/sse_stream.py:sse_digest_status_316"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=316; surface=sse_digest_status",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/316",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 317,
+      "capability_name": "Community Scripts",
+      "track": "T02",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Community Scripts' served via surface 'community_scripts'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:community_scripts_317"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=317; surface=community_scripts",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/317",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 318,
+      "capability_name": "Broker Comparison",
+      "track": "T02",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Broker Comparison' served via surface 'broker_comparison'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:broker_comparison_318"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=318; surface=broker_comparison",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/318",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 319,
+      "capability_name": "Paper Trading / Simulation",
+      "track": "T03",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Paper Trading / Simulation' served via surface 'paper_trading_simulation'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:paper_trading_simulation_319"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=319; surface=paper_trading_simulation",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/319",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 320,
+      "capability_name": "Cross-Market Workspace",
+      "track": "T06",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Cross-Market Workspace' served via surface 'cross_market_workspace'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:cross_market_workspace_320"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=320; surface=cross_market_workspace",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/320",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 321,
+      "capability_name": "Custom Intelligence Screener",
+      "track": "T18",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Custom Intelligence Screener' served via surface 'custom_intelligence_screener'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:custom_intelligence_screener_321"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=321; surface=custom_intelligence_screener",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/321",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 322,
+      "capability_name": "Decision-First Mode",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Decision-First Mode' served via surface 'decision_first_mode'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:decision_first_mode_322"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=322; surface=decision_first_mode",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/322",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 323,
+      "capability_name": "Institutional L1/L2 Market Data",
+      "track": "T08",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Institutional L1/L2 Market Data' served via surface 'institutional_l1_l2_market_data'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:institutional_l1_l2_market_data_323"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=323; surface=institutional_l1_l2_market_data",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/323",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 324,
+      "capability_name": "Reference Data Registry",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Reference Data Registry' served via surface 'reference_data_registry'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:reference_data_registry_324"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=324; surface=reference_data_registry",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/324",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 325,
+      "capability_name": "Spot & Derivatives Coverage",
+      "track": "T05",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Spot & Derivatives Coverage' served via surface 'spot_derivatives_coverage'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:spot_derivatives_coverage_325"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=325; surface=spot_derivatives_coverage",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/325",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 326,
+      "capability_name": "DeFi Market Data",
+      "track": "T05",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'DeFi Market Data' served via surface 'defi_market_data'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:defi_market_data_326"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=326; surface=defi_market_data",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/326",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 327,
+      "capability_name": "Market Depth & Liquidity Intelligence",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Market Depth & Liquidity Intelligence' served via surface 'market_depth_liquidity_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:market_depth_liquidity_intelligence_327"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=327; surface=market_depth_liquidity_intelligence",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/327",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 328,
+      "capability_name": "Fair Market Value Pricing",
+      "track": "T04",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Fair Market Value Pricing' served via surface 'fair_market_value_pricing'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:fair_market_value_pricing_328"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=328; surface=fair_market_value_pricing",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/328",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 329,
+      "capability_name": "Best Execution Pricing",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Best Execution Pricing' served via surface 'best_execution_pricing'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:best_execution_pricing_329"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=329; surface=best_execution_pricing",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/329",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 330,
+      "capability_name": "Reference Rates",
+      "track": "T06",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Reference Rates' served via surface 'ai_trading_engine'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/heroes_capability_layer.py:ai_trading_engine_330"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=330; surface=ai_trading_engine",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/330",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 331,
+      "capability_name": "ETF Reference Rates / iNAV",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'ETF Reference Rates / iNAV' served via surface 'etf_reference_rates_inav'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:etf_reference_rates_inav_331"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=331; surface=etf_reference_rates_inav",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/331",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 332,
+      "capability_name": "Commodity / TradFi Reference Rates",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Commodity / TradFi Reference Rates' served via surface 'commodity_tradfi_reference_rates'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:commodity_tradfi_reference_rates_332"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=332; surface=commodity_tradfi_reference_rates",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/332",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 333,
+      "capability_name": "Indices",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Indices' served via surface 'indices'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:indices_333"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=333; surface=indices",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/333",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 334,
+      "capability_name": "Risk Analytics",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Risk Analytics' served via surface 'risk_analytics'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:risk_analytics_334"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=334; surface=risk_analytics",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/334",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 335,
+      "capability_name": "Derivatives Listing Analytics",
+      "track": "T08",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Derivatives Listing Analytics' served via surface 'derivatives_listing_analytics'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:derivatives_listing_analytics_335"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=335; surface=derivatives_listing_analytics",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/335",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 336,
+      "capability_name": "Market Surveillance",
+      "track": "T05",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Market Surveillance' served via surface 'market_surveillance'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:market_surveillance_336"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=336; surface=market_surveillance",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/336",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 337,
+      "capability_name": "AML/CFT On-Chain Monitoring",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'AML/CFT On-Chain Monitoring' served via surface 'aml_cft_on_chain_monitoring'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:aml_cft_on_chain_monitoring_337"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=337; surface=aml_cft_on_chain_monitoring",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/337",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 338,
+      "capability_name": "Data Quality Pipeline",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Data Quality Pipeline' served via surface 'data_quality_pipeline'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:data_quality_pipeline_338"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=338; surface=data_quality_pipeline",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/338",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 339,
+      "capability_name": "Data Provenance & Audit",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Data Provenance & Audit' served via surface 'multi_factor_alpha_ranking'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/heroes_capability_layer.py:multi_factor_alpha_ranking_339"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=339; surface=multi_factor_alpha_ranking",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/339",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 340,
+      "capability_name": "Real-Time REST/gRPC Streaming",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Real-Time REST/gRPC Streaming' served via surface 'real_time_rest_grpc_streaming'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:real_time_rest_grpc_streaming_340"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=340; surface=real_time_rest_grpc_streaming",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/340",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 341,
+      "capability_name": "Historical Data Archive",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Historical Data Archive' served via surface 'historical_data_archive'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:historical_data_archive_341"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=341; surface=historical_data_archive",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/341",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 342,
+      "capability_name": "Venue Quality Ranking",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Venue Quality Ranking' served via surface 'venue_quality_ranking'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:venue_quality_ranking_342"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=342; surface=venue_quality_ranking",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/342",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 343,
+      "capability_name": "Execution Quality Analytics",
+      "track": "T02",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Execution Quality Analytics' served via surface 'execution_quality_analytics'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:execution_quality_analytics_343"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=343; surface=execution_quality_analytics",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/343",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 344,
+      "capability_name": "Institutional SLA Monitoring",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Institutional SLA Monitoring' served via surface 'institutional_sla_monitoring'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:institutional_sla_monitoring_344"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=344; surface=institutional_sla_monitoring",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/344",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 345,
+      "capability_name": "Cross-Market Institutional Decision Layer",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Cross-Market Institutional Decision Layer' served via surface 'cross_market_institutional_decision_layer'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:cross_market_institutional_decision_layer_345"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=345; surface=cross_market_institutional_decision_layer",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/345",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 346,
+      "capability_name": "Standardized Financial Metrics",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Standardized Financial Metrics' served via surface 'standardized_financial_metrics'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:standardized_financial_metrics_346"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=346; surface=standardized_financial_metrics",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/346",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 347,
+      "capability_name": "Fees Intelligence",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Fees Intelligence' served via surface 'fees_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:fees_intelligence_347"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=347; surface=fees_intelligence",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/347",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 348,
+      "capability_name": "Revenue Intelligence",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Revenue Intelligence' served via surface 'revenue_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:revenue_intelligence_348"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=348; surface=revenue_intelligence",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/348",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 349,
+      "capability_name": "Token Incentives",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Token Incentives' served via surface 'token_incentives'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:token_incentives_349"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=349; surface=token_incentives",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/349",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    },
+    {
+      "capability_id": 350,
+      "capability_name": "Earnings / Economic Profit Proxy",
+      "track": "T04",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Earnings / Economic Profit Proxy' served via surface 'earnings_economic_profit_proxy'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:earnings_economic_profit_proxy_350"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=350; surface=earnings_economic_profit_proxy",
+          "verification": "tests/test_hero_batch_07_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/350",
+          "local_tests": [
+            "tests/test_hero_batch_07_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_collective_review_sre_prr": {
+          "review_type": "LOCAL_REVIEW",
+          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        }
+      }
+    }
+  ]
+}
