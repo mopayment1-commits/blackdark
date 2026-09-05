@@ -49,9 +49,20 @@ PERMISSIONS: dict[str, set[str]] = {
         KEY_DECISIONS_EXECUTE,
         KEY_AUDIT_VIEW,
     },
-    "viewer": {
+    "super_admin": {
+        "org.manage",
+        "org.members",
+        "org.sso",
+        "org.mfa_policy",
+        "billing.manage",
+        "compliance.view",
+        "compliance.export",
         KEY_DECISIONS_VIEW,
+        KEY_DECISIONS_EXECUTE,
         KEY_AUDIT_VIEW,
+        "contracts.sign",
+        "support.manage",
+        "platform.ops",
     },
 }
 

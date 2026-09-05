@@ -83,7 +83,7 @@ def _rewrite_members(rows: list[dict[str, Any]]) -> None:
     )
 
 
-ROLES = ("admin", "compliance", "pm", "analyst", "viewer")
+ROLES = ("admin", "compliance", "pm", "analyst", "viewer", "super_admin")
 
 
 def _use_pg() -> bool:

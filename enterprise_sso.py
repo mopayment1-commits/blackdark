@@ -30,6 +30,20 @@ _STATE_PROVIDER = "enterprise_sso"
 _STATE_TTL_SECONDS = 600
 
 
+def _jit_default_role() -> str:
+    try:
+        import json
+        from pathlib import Path
+
+        seed_path = Path("data/infrastructure_authz_layer_seed.json")
+        if seed_path.is_file():
+            seed = json.loads(seed_path.read_text(encoding="utf-8"))
+            return str((seed.get("sso") or {}).get("jit_default_role") or "viewer")
+    except Exception:
+        pass
+    return "viewer"
+
+
 def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
@@ -447,12 +461,12 @@ async def complete_sso_login_async(
         from org_tenant_store import add_member_pg, member_of_pg
 
         if not await member_of_pg(org_id, email):
-            await add_member_pg(org_id, email, role="analyst")
+            await add_member_pg(org_id, email, role=_jit_default_role())
     else:
         from org_tenant import add_member, member_of
 
         if not member_of(org_id, email):
-            add_member(org_id, email, role="analyst")
+            add_member(org_id, email, role=_jit_default_role())
 
     from auth_service import create_session
     from database import create_oauth_user, fetch_user_by_email, link_user_oauth

@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Query
 from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import BaseModel, Field
 
+from api.deps import optional_user, require_org_permission
 from api.openapi_responses import COMMON_ERROR_RESPONSES
 from security_auth import (
     optional_user_from_request,
@@ -254,14 +255,21 @@ async def list_orgs(user: dict = Depends(require_authenticated)) -> dict[str, An
 
 
 @router.get("/orgs/{org_id}/members")
-async def org_members(org_id: str) -> dict[str, Any]:
+async def org_members(
+    org_id: str,
+    user: dict = Depends(require_org_permission("read")),
+) -> dict[str, Any]:
     from org_tenant import list_members
 
     return {"org_id": org_id, "members": list_members(org_id)}
 
 
 @router.post("/orgs/{org_id}/members", responses=COMMON_ERROR_RESPONSES)
-async def org_add_member(org_id: str, body: MemberAdd) -> dict[str, Any]:
+async def org_add_member(
+    org_id: str,
+    body: MemberAdd,
+    user: dict = Depends(require_org_permission("users.manage")),
+) -> dict[str, Any]:
     from org_tenant import add_member
 
     try:
@@ -271,7 +279,11 @@ async def org_add_member(org_id: str, body: MemberAdd) -> dict[str, Any]:
 
 
 @router.post("/orgs/{org_id}/roles", responses=COMMON_ERROR_RESPONSES)
-async def org_role_change(org_id: str, body: RoleChange, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
+async def org_role_change(
+    org_id: str,
+    body: RoleChange,
+    user: dict = Depends(require_org_permission("users.manage")),
+) -> dict[str, Any]:
     from org_tenant import set_member_role
 
     actor = str(user.get("email") or "").strip().lower()
@@ -284,7 +296,11 @@ async def org_role_change(org_id: str, body: RoleChange, user: dict = Depends(re
 
 
 @router.post("/orgs/{org_id}/mfa-policy", responses=COMMON_ERROR_RESPONSES)
-async def org_mfa_policy(org_id: str, body: MfaPolicy, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
+async def org_mfa_policy(
+    org_id: str,
+    body: MfaPolicy,
+    user: dict = Depends(require_org_permission("org.mfa_policy")),
+) -> dict[str, Any]:
     from org_tenant import set_org_mfa_required
 
     actor = str(user.get("email") or "").strip().lower()
@@ -313,9 +329,84 @@ async def mfa_policy_check(
 
 @router.get("/rbac/matrix")
 async def rbac_matrix() -> dict[str, Any]:
-    from org_rbac import rbac_status
+    from bd_platform.infrastructure_authz_layer import authz_layer_status
 
-    return rbac_status()
+    return authz_layer_status()
+
+
+@router.get("/authz/status")
+async def authz_status() -> dict[str, Any]:
+    from bd_platform.infrastructure_authz_layer import authz_layer_status
+
+    return authz_layer_status()
+
+
+@router.get("/authz/matrix")
+async def authz_matrix() -> dict[str, Any]:
+    from bd_platform.infrastructure_authz_layer import canonical_role_matrix
+
+    return {"ok": True, "matrix": canonical_role_matrix()}
+
+
+@router.get("/authz/sso-status")
+async def authz_sso_status(org_id: str | None = None) -> dict[str, Any]:
+    from bd_platform.infrastructure_authz_layer import sso_authz_status
+
+    return sso_authz_status(org_id=org_id)
+
+
+@router.get("/authz/audit-trail")
+async def authz_audit_trail(_admin: dict = Depends(require_admin)) -> dict[str, Any]:
+    from bd_platform.infrastructure_authz_layer import get_authz_audit_trail
+
+    return get_authz_audit_trail()
+
+
+class AuthzCheck(BaseModel):
+    tenant_id: str
+    permission: str
+    resource: str = ""
+
+
+@router.post("/authz/authorize", responses=COMMON_ERROR_RESPONSES)
+async def authz_authorize(body: AuthzCheck, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
+    from bd_platform.infrastructure_authz_layer import authorize_request
+
+    return authorize_request(
+        user_id=user.get("id"),
+        email=str(user.get("email") or ""),
+        tenant_id=body.tenant_id,
+        permission=body.permission,
+        resource=body.resource,
+        user_tier=str(user.get("tier") or "free"),
+    )
+
+
+class CompromisedRevoke(BaseModel):
+    user_id: int
+    email: str
+    tenant_id: str
+
+
+@router.post("/authz/revoke-compromised", responses=COMMON_ERROR_RESPONSES)
+async def authz_revoke_compromised(
+    body: CompromisedRevoke,
+    _admin: dict = Depends(require_admin),
+) -> dict[str, Any]:
+    from bd_platform.infrastructure_authz_layer import revoke_compromised_account
+
+    return revoke_compromised_account(
+        user_id=body.user_id,
+        email=body.email,
+        tenant_id=body.tenant_id,
+    )
+
+
+@router.get("/authz/e2e")
+async def authz_e2e(_admin: dict = Depends(require_admin)) -> dict[str, Any]:
+    from bd_platform.infrastructure_authz_layer import run_authz_layer_e2e
+
+    return run_authz_layer_e2e()
 
 
 @router.post("/sso/configure", responses=COMMON_ERROR_RESPONSES)
