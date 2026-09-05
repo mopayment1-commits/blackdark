@@ -41,10 +41,14 @@ def _first_public_row(payload: Any) -> dict[str, Any]:
 
 async def _get_json(url: str, *, params: dict | None = None) -> Any:
     timeout = aiohttp.ClientTimeout(total=12)
-    async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
-        if resp.status != 200:
-            return None
-        return await resp.json()
+    try:
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
+            if resp.status != 200:
+                return None
+            return await resp.json()
+    except (aiohttp.ClientError, TimeoutError, OSError) as exc:
+        logger.warning("free_market_data fetch failed | url=%s error=%s", url, exc)
+        return None
 
 
 async def binance_futures_snapshot(asset: str = "BTC") -> dict[str, Any]:
