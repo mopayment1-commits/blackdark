@@ -1,11 +1,13 @@
 """
-On-Chain Address Intelligence Module — Features #10 + #19 + #20 (unified).
+On-Chain Address Intelligence Module — Features #10 + #18 + #19 + #20 + #23 (unified).
 
 #10  Address Search — multi-source lookup (Tracely, DeBank, labels, Arkham)
+#18  Fund Trace — single-chain path finding
 #19  Balance History Chart — time-series snapshots with chain-specific tracking
 #20  Balance Updates — state-diff feed from consecutive snapshots
+#23  Block Search — block explorer details with reorg handling
 
-NOT three separate product surfaces — one module with three capabilities.
+NOT separate product surfaces — one unified on-chain intelligence module.
 """
 
 from __future__ import annotations
@@ -129,8 +131,30 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         arkham = {"ok": False, "data_state": "MISSING"}
 
     total_usd = _extract_total_usd(balance if isinstance(balance, dict) else {})
+    solana_onchain: dict[str, Any] | None = None
+    if chain.lower() == "solana" and len(addr) >= 32:
+        try:
+            from blackdark.ingestion.solana_rpc_connector import fetch_solana_balance
+
+            sol = await fetch_solana_balance(addr)
+            if sol.get("ok"):
+                solana_onchain = sol
+        except Exception:
+            solana_onchain = None
+
     if total_usd > 0:
         _append_snapshot(addr, chain, total_usd=total_usd, source=balance.get("source", "search"))
+        try:
+            from bd_platform.address_state_index import index_address_state
+
+            await index_address_state(
+                addr,
+                chain=chain,
+                total_usd=total_usd,
+                source=balance.get("source", "search"),
+            )
+        except Exception:
+            logger.debug("state index append skipped")
 
     entity_label = None
     label_rows = (labels or {}).get("labels") or []
@@ -144,6 +168,7 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         "surface": "on_chain_address_intelligence",
         "capability": "address_search",
         "feature": "#10",
+        "semantics": "point_in_time",
         "address": addr,
         "chain": chain.lower(),
         "chain_id": _CHAIN_IDS.get(chain.lower()),
@@ -153,7 +178,9 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         "labels": labels,
         "clusters": clusters,
         "arkham_entity": arkham if arkham.get("ok") else None,
-        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham"],
+        "solana_onchain": solana_onchain,
+        "solana_data_included": bool(solana_onchain),
+        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham", "solana_rpc"],
         "data_state": "LIVE" if balance.get("available") else "PARTIAL",
         "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
         "sla_met": (time.perf_counter() - t0) <= 2.0,
@@ -226,6 +253,12 @@ async def balance_history(
 
     if total_usd > 0:
         _append_snapshot(addr, chain, total_usd=total_usd, source=source)
+        try:
+            from bd_platform.address_state_index import index_address_state
+
+            await index_address_state(addr, chain=chain, total_usd=total_usd, source=source)
+        except Exception:
+            logger.debug("state index append skipped")
 
     snapshots = _read_snapshots(addr, chain)
     cutoff = datetime.now(UTC) - timedelta(days=days)
@@ -242,6 +275,9 @@ async def balance_history(
                     "total_usd": row["total_usd"],
                     "source": row.get("source"),
                     "chain": row.get("chain"),
+                    "block_number": row.get("block_number"),
+                    "semantics": "point_in_time",
+                    "finalized": row.get("finalized", True),
                     "proxy": False,
                 }
             )
@@ -256,6 +292,8 @@ async def balance_history(
         "surface": "on_chain_address_intelligence",
         "capability": "balance_history",
         "feature": "#19",
+        "semantics": "point_in_time",
+        "reorg_handling": "Snapshots anchored with block_number when available; recent blocks may be non-final",
         "address": addr,
         "chain": chain.lower(),
         "chain_id": _CHAIN_IDS.get(chain.lower()),
@@ -375,28 +413,92 @@ async def balance_updates(
     }
 
 
+async def search_block(
+    block_number: int,
+    *,
+    chain: str = "ethereum",
+) -> dict[str, Any]:
+    """
+    Feature #23 — block explorer details with reorg/finality disclosure.
+    """
+    t0 = time.perf_counter()
+    if block_number <= 0:
+        return {"ok": False, "error": "invalid_block_number", "block_number": block_number}
+
+    from bd_platform.onchain_client import get_block_by_number
+
+    block = await get_block_by_number(block_number, chain=chain)
+    if not block.get("ok"):
+        return {
+            "ok": False,
+            "surface": "on_chain_address_intelligence",
+            "capability": "block_search",
+            "feature": "#23",
+            "block_number": block_number,
+            "chain": chain.lower(),
+            "error": block.get("error"),
+            "data_state": "MISSING",
+            "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
+        }
+
+    return {
+        "ok": True,
+        "surface": "on_chain_address_intelligence",
+        "capability": "block_search",
+        "feature": "#23",
+        "chain": chain.lower(),
+        "chain_id": _CHAIN_IDS.get(chain.lower()),
+        "block": block,
+        "block_number": block_number,
+        "transaction_count": block.get("transaction_count"),
+        "reorg_handling": block.get("reorg_handling"),
+        "semantics": block.get("semantics"),
+        "data_state": "LIVE",
+        "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
+        "sla_met": (time.perf_counter() - t0) <= 2.0,
+        "timestamp": _utcnow(),
+    }
+
+
 async def address_intelligence_overview(
     address: str,
     *,
     chain: str = "ethereum",
     history_days: int = 30,
 ) -> dict[str, Any]:
-    """Unified module entry — search + history + updates in one call."""
+    """Unified module entry — search + history + updates + trace in one call."""
     t0 = time.perf_counter()
     search = await search_address(address, chain=chain)
     history = await balance_history(address, chain=chain, days=history_days)
     updates = await balance_updates(address, chain=chain)
+
+    trace: dict[str, Any] = {}
+    if chain.lower() == "ethereum":
+        try:
+            from bd_platform.fund_trace import trace_funds
+
+            trace = await trace_funds(address, chain=chain, max_hops=3)
+        except Exception:
+            trace = {"ok": False, "feature": "#18", "data_state": "MISSING"}
+
     return {
         "ok": True,
         "surface": "on_chain_address_intelligence",
         "module": "address_intelligence",
-        "features": ["#10_address_search", "#19_balance_history", "#20_balance_updates"],
+        "features": [
+            "#10_address_search",
+            "#18_fund_trace",
+            "#19_balance_history",
+            "#20_balance_updates",
+            "#23_block_search",
+        ],
         "address": _normalize_address(address, chain),
         "chain": chain.lower(),
         "search": search,
+        "trace": trace if trace.get("ok") else None,
         "history": history,
         "updates": updates,
         "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
-        "sla_met": (time.perf_counter() - t0) <= 3.0,
+        "sla_met": (time.perf_counter() - t0) <= 5.0,
         "timestamp": _utcnow(),
     }

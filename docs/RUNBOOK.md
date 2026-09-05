@@ -14,6 +14,14 @@ python scripts/verify_constitution_live.py
 # Full pack: docs/GO_LIVE_AR.md
 ```
 
+## Release engineering gate (every release — SOP #30 + #31 + #32)
+```bash
+python scripts/release_engineering_gate.py --base https://YOUR-STAGING
+# Capacity evidence → data/release_engineering/capacity_trend.jsonl
+# Chaos experiments → data/release_engineering/chaos_experiments.jsonl
+# See docs/sop/README.md
+```
+
 ## Pre-flight
 1. `GET /api/production/guard` → `required_pass: true`
 2. `GET /api/launch/readiness` → `code_launch_ready` + constitution modules
