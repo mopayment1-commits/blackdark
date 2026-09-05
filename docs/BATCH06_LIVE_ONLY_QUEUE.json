@@ -5,28 +5,56 @@
       "gate": "G6",
       "item": "Gate Zero live health + cap646 probes against production host",
       "reason": "Requires Railway app bound to production domain",
-      "local_component": "Semantic oracle prepared locally"
+      "local_component": "Semantic oracle prepared locally",
+      "underlying_requirements": [
+        "Gate Zero",
+        "production deployment/smoke",
+        "G6 live_validation (health/readiness probes)",
+        "observability live dashboards"
+      ]
     },
     {
       "id": "LZ2",
       "gate": "G6",
       "item": "Production-network E2E semantic verification (50 IDs)",
       "reason": "TLS/host/routing differ from local execute_capability",
-      "local_component": "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json"
+      "local_component": "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+      "underlying_requirements": [
+        "production E2E for all applicable capabilities",
+        "production entitlement/access",
+        "production latency/performance/k6",
+        "real dependency behavior where required",
+        "G5.6 SLI/SLO live measurement",
+        "G5.7 production capacity headroom",
+        "G5.8 live dependency latency SLO",
+        "G6 live_validation (semantic + operational)"
+      ]
     },
     {
       "id": "LZ3",
       "gate": "G7",
       "item": "12207 Validation workshop with live artifacts",
       "reason": "Independent human sign-off with live evidence",
-      "local_component": "docs/BATCH06_V2_ASSURANCE_PACKAGE.json"
+      "local_component": "docs/BATCH06_V2_ASSURANCE_PACKAGE.json",
+      "underlying_requirements": [
+        "12207 Validation",
+        "12207 Transition/Operation",
+        "SRE PRR",
+        "independent assurance",
+        "G7 independent_assurance",
+        "ASSURANCE_READY (human sign-off gate)"
+      ]
     },
     {
       "id": "LZ4",
       "gate": "G6",
       "item": "PASS_LIVE elevation (50 IDs)",
       "reason": "G6 criteria require production validation",
-      "local_component": "G0-G4 local engineering prepared"
+      "local_component": "G0-G4 local engineering prepared",
+      "underlying_requirements": [
+        "PASS_LIVE (per-ID elevation for IDs 251-300)",
+        "G6 live_validation (formal PASS_LIVE stamp)"
+      ]
     }
   ],
   "count": 4,

@@ -55,6 +55,12 @@ LIVE_ONLY = [
         "item": "Gate Zero live health + cap646 probes against production host",
         "reason": "Requires Railway app bound to production domain",
         "local_component": "Semantic oracle prepared locally",
+        "underlying_requirements": [
+            "Gate Zero",
+            "production deployment/smoke",
+            "G6 live_validation (health/readiness probes)",
+            "observability live dashboards",
+        ],
     },
     {
         "id": "LZ2",
@@ -62,6 +68,16 @@ LIVE_ONLY = [
         "item": "Production-network E2E semantic verification (50 IDs)",
         "reason": "TLS/host/routing differ from local execute_capability",
         "local_component": "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "underlying_requirements": [
+            "production E2E for all applicable capabilities",
+            "production entitlement/access",
+            "production latency/performance/k6",
+            "real dependency behavior where required",
+            "G5.6 SLI/SLO live measurement",
+            "G5.7 production capacity headroom",
+            "G5.8 live dependency latency SLO",
+            "G6 live_validation (semantic + operational)",
+        ],
     },
     {
         "id": "LZ3",
@@ -69,6 +85,14 @@ LIVE_ONLY = [
         "item": "12207 Validation workshop with live artifacts",
         "reason": "Independent human sign-off with live evidence",
         "local_component": "docs/BATCH06_V2_ASSURANCE_PACKAGE.json",
+        "underlying_requirements": [
+            "12207 Validation",
+            "12207 Transition/Operation",
+            "SRE PRR",
+            "independent assurance",
+            "G7 independent_assurance",
+            "ASSURANCE_READY (human sign-off gate)",
+        ],
     },
     {
         "id": "LZ4",
@@ -76,8 +100,45 @@ LIVE_ONLY = [
         "item": "PASS_LIVE elevation (50 IDs)",
         "reason": "G6 criteria require production validation",
         "local_component": "G0-G4 local engineering prepared",
+        "underlying_requirements": [
+            "PASS_LIVE (per-ID elevation for IDs 251-300)",
+            "G6 live_validation (formal PASS_LIVE stamp)",
+        ],
     },
 ]
+
+COUNTER_ACCOUNTING = {
+    "batch06_independent": {
+        "name": "batch06_independent",
+        "formal_meaning": (
+            "Count of Batch06 capability IDs (251-300) elevated to PRODUCTION-ALIGNED "
+            "with independent live assurance — not local strangler implementations."
+        ),
+        "current_value": 0,
+        "eligibility_condition": (
+            "Per-ID PRODUCTION-ALIGNED / batch06_independent increment only when "
+            "LIVE_E2E + Gate Zero run + 12207 Validation+Transition + SRE PRR sign-off "
+            "+ Col10 all pass for that ID (mirrors batch05_independent elevation_policy)."
+        ),
+        "evidence": (
+            "39 DISTINCT_VERIFIED stranglers are locally verified implementations; "
+            "11 REUSED-LINK facades delegate to prior-batch canonical bindings. "
+            "Neither class increments batch06_independent until per-ID live elevation."
+        ),
+        "future_transition": (
+            "Increment batch06_independent (and production_aligned_count) when an ID "
+            "completes LZ1-LZ4 live queue and receives PRODUCTION-ALIGNED status in "
+            "docs/CAPABILITIES_826_INVENTORY.json."
+        ),
+    },
+    "reused_link": {"current_value": 11, "meaning": "REUSED-LINK closure_status IDs delegating to canonical prior-batch bindings"},
+    "strangler": {"current_value": 39, "meaning": "NOT_COMPLETE strangler spine builders locally implemented for Batch06"},
+    "distinct_verified": {
+        "current_value": 39,
+        "meaning": "Global duplicate review DISTINCT decision — no parallel truth vs batches 01-05",
+    },
+    "progress_826": {"current_value": 179, "meaning": "Canonical numerator from compute_progress_826.py — unchanged by local Batch06 build"},
+}
 
 
 def git_commit() -> str:
@@ -222,7 +283,29 @@ def main() -> None:
             "not_applicable": sum(1 for _, _, s in G5_REQUIREMENTS if s == "NOT_APPLICABLE"),
             "requirements": [{"id": a, "name": b, "status": c} for a, b, c in G5_REQUIREMENTS],
         },
-        "live_only_queue": {"items": LIVE_ONLY, "count": len(LIVE_ONLY), "purity_verified": True},
+        "live_only_queue": {
+            "items": LIVE_ONLY,
+            "count": len(LIVE_ONLY),
+            "purity_verified": True,
+            "g5_requires_live_mapped": ["G5.6", "G5.7", "G5.8"],
+            "g5_requires_live_queue_refs": ["LZ2"],
+            "g6_mapped": True,
+            "g7_mapped": True,
+            "pass_live_mapped": True,
+            "assurance_ready_mapped": True,
+            "traceability_complete": True,
+        },
+        "counter_accounting": COUNTER_ACCOUNTING,
+        "batch05_fixes_integrated": {
+            "commits": ["1d55202", "55da154"],
+            "verified": [
+                "batch01 #214/#245 runtime-test convergence (RUNTIME_BATCH01_IDS)",
+                "cap #16 SERVICE_BUS_LOCAL deterministic fallback",
+                "free_market_data._get_json exception handling",
+                "onchain_hub._get_json exception handling",
+                "lookintobitcoin_macro SERVICE_BUS_LOCAL fallback (caps 40/51/80/84)",
+            ],
+        },
         "known_local_deficiencies": [],
         "freeze_tests": {"pending": True},
         "artifact_index": [
