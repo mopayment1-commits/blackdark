@@ -1,91 +1,44 @@
 {
-  "machine_assertions": {
-    "expected_ids": 50,
-    "unique_ids": 50,
-    "missing": [],
-    "duplicate_ids": [],
-    "unresolved_duplicate_conflicts": 0,
-    "queue_b_railway_only": true,
-    "queue_b_count": 5
-  },
   "artifact": "BATCH07_STATUS_QUEUES",
-  "generated_at": "2026-09-05T22:48:25.948378+00:00",
-  "git_commit": "38cfdb32990aee15c7b221bccdfb36de4fbfddf3",
+  "generated_at": "2026-09-05T23:36:13.736349+00:00",
+  "git_commit": "9ab198906e96c426440d37109359ae59b2c8bb7a",
   "QUEUE_A_LOCAL_COMPLETE": {
     "items": [
       {
         "category": "G0-G5",
-        "status": "50/50 PASS_ENGINEERING",
-        "evidence": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json"
+        "status": "50/50 PASS_ENGINEERING"
       },
       {
-        "category": "Duplicate/canonical",
-        "status": "1 REUSED-LINK / 49 KEEP_DISTINCT / 0 conflicts"
+        "category": "Duplicate/canonical two-layer",
+        "status": "Layer A 0 unresolved; Layer B 1 CLOSED_REUSED_LINK"
       },
       {
-        "category": "Security material paths",
-        "status": "PROVEN_LOCAL",
-        "evidence": "docs/BATCH07_SECURITY_MATERIAL_PATH_AUDIT.json"
+        "category": "EXISTING_VERIFIED evidence",
+        "status": "49/49 evidenced"
       },
       {
-        "category": "Data integrity",
-        "status": "50/50 PROVEN_LOCAL",
-        "evidence": "docs/BATCH07_DATA_QUALITY_INTEGRITY.json"
+        "category": "collective_review_local",
+        "status": "50/50"
       },
       {
-        "category": "Reliability",
-        "status": "PROVEN_LOCAL",
-        "evidence": "docs/BATCH07_RELIABILITY_FAILURE_MODES.json"
-      },
-      {
-        "category": "Observability local",
-        "status": "COMPLETE_LOCAL",
-        "evidence": "docs/BATCH07_OBSERVABILITY_READINESS.json"
-      },
-      {
-        "category": "Performance prep",
-        "status": "LOCAL_PREPARED",
-        "evidence": "docs/BATCH07_PERFORMANCE_CAPACITY_PREP.json"
-      },
-      {
-        "category": "Six Heroes",
-        "status": "339 HERO_CONTEXT_ONLY; 49 NOT_HERO_RELEVANT"
-      },
-      {
-        "category": "12207 Validation prep",
-        "status": "LOCAL_COMPLETE",
-        "evidence": "docs/BATCH07_12207_VALIDATION_PACKAGE.json"
-      },
-      {
-        "category": "12207 Transition prep",
-        "status": "TRANSITION_PREPARED_LOCAL"
-      },
-      {
-        "category": "12207 Operation prep",
-        "status": "OPERATION_PREPARED_LOCAL"
-      },
-      {
-        "category": "SRE PRR prep",
-        "status": "PRR_PREPARATION_COMPLETE_LOCAL"
-      },
-      {
-        "category": "G7 pre-assurance",
-        "status": "G7_LOCAL_PREPARATION_COMPLETE"
+        "category": "Performance local",
+        "status": "LOCAL_COMPLETE"
       },
       {
         "category": "Cross-batch regression",
-        "status": "FULL_PASS",
-        "evidence": "docs/BATCH07_CROSS_BATCH_REGRESSION.json"
+        "status": "FULL_PASS"
       }
     ],
-    "count": 14
+    "count": 6
   },
   "QUEUE_B_RAILWAY_LIVE_ONLY": {
     "items": [
       {
-        "id": "RL1",
-        "item": "Railway deployment + production smoke",
-        "why_local_insufficient": "Requires live Railway service binding and production domain TLS",
+        "queue_id": "RL1",
+        "description": "Railway deployment + production smoke",
+        "why_queue_b": "Requires live Railway service binding and production domain TLS",
+        "prerequisite": "Railway app configured; BLACKDARK production env",
+        "exit_evidence": "Production smoke PASS + health endpoints green",
         "underlying": [
           "deployment",
           "production smoke",
@@ -93,9 +46,11 @@
         ]
       },
       {
-        "id": "RL2",
-        "item": "Gate Zero live health + cap646 probes (301-350)",
-        "why_local_insufficient": "Production host routing differs from local execute_capability",
+        "queue_id": "RL2",
+        "description": "Gate Zero live health + cap646 probes (301-350)",
+        "why_queue_b": "Production host routing differs from local execute_capability",
+        "prerequisite": "RL1 deployment complete",
+        "exit_evidence": "Gate Zero checklist PASS on production host",
         "underlying": [
           "Gate Zero",
           "production health/readiness",
@@ -103,9 +58,11 @@
         ]
       },
       {
-        "id": "RL3",
-        "item": "Production-network E2E verification (50 IDs)",
-        "why_local_insufficient": "TLS, CDN, Railway ingress, live entitlement provider",
+        "queue_id": "RL3",
+        "description": "Production-network E2E verification (50 IDs)",
+        "why_queue_b": "TLS, CDN, Railway ingress, live entitlement provider",
+        "prerequisite": "RL1-RL2",
+        "exit_evidence": "Production E2E matrix PASS per ID",
         "underlying": [
           "production E2E",
           "production entitlement/access",
@@ -113,21 +70,24 @@
         ]
       },
       {
-        "id": "RL4",
-        "item": "Production k6 / performance / capacity / latency SLO",
-        "why_local_insufficient": "SLO telemetry requires live traffic and production infrastructure",
+        "queue_id": "RL4",
+        "description": "Production k6 / performance / capacity / latency SLO",
+        "why_queue_b": "SLO telemetry requires live traffic and production infrastructure",
+        "prerequisite": "RL1 live deploy",
+        "exit_evidence": "k6 thresholds met on production; live SLI/SLO dashboards",
         "underlying": [
           "production k6/performance",
           "live SLO telemetry",
           "G5.6 SLI/SLO live measurement",
-          "G5.7 production capacity headroom",
-          "live Transition proof"
+          "G5.7 production capacity headroom"
         ]
       },
       {
-        "id": "RL5",
-        "item": "Per-ID PASS_LIVE elevation (301-350)",
-        "why_local_insufficient": "PASS_LIVE stamp requires production validation evidence per ID",
+        "queue_id": "RL5",
+        "description": "Per-ID PASS_LIVE elevation (301-350)",
+        "why_queue_b": "PASS_LIVE stamp requires production validation evidence per ID",
+        "prerequisite": "RL3 production E2E",
+        "exit_evidence": "PASS_LIVE stamp per ID with production evidence bundle",
         "underlying": [
           "PASS_LIVE",
           "G6 formal elevation"
@@ -135,40 +95,47 @@
       }
     ],
     "count": 5,
-    "purity_verified": true,
-    "note": "G6, live smoke, k6, PASS_LIVE — Railway-only items"
+    "purity_verified": true
   },
   "QUEUE_C_INDEPENDENT_REVIEW_ONLY": {
     "items": [
       {
-        "id": "IR1",
-        "item": "12207 Validation workshop sign-off",
-        "why_human_required": "Independent human validation of live artifacts per ISO 12207",
+        "queue_id": "IR1",
+        "description": "12207 Validation workshop sign-off",
+        "why_queue_c": "Independent human validation of live artifacts per ISO 12207",
+        "prerequisite": "G6 live_validation evidence available",
+        "exit_evidence": "Signed 12207 Validation workshop record",
         "underlying": [
           "12207 Validation",
           "G7 independent_assurance"
         ]
       },
       {
-        "id": "IR2",
-        "item": "12207 Transition/Operation live sign-off",
-        "why_human_required": "Operational acceptance after live deployment evidence review",
+        "queue_id": "IR2",
+        "description": "12207 Transition/Operation live sign-off",
+        "why_queue_c": "Operational acceptance after live deployment evidence review",
+        "prerequisite": "RL1-RL3 complete; operational runbook reviewed",
+        "exit_evidence": "Signed Transition/Operation acceptance",
         "underlying": [
           "12207 Transition/Operation live proof"
         ]
       },
       {
-        "id": "IR3",
-        "item": "SRE PRR formal approval",
-        "why_human_required": "Second-review human sign-off per institutional SRE policy",
+        "queue_id": "IR3",
+        "description": "SRE PRR formal approval",
+        "why_queue_c": "Second-review human sign-off per institutional SRE policy",
+        "prerequisite": "RL4 production SLO evidence; PRR package reviewed",
+        "exit_evidence": "SRE PRR signed approval",
         "underlying": [
           "SRE PRR approval"
         ]
       },
       {
-        "id": "IR4",
-        "item": "G7 independent evidence review",
-        "why_human_required": "Separation-of-duties assurance review",
+        "queue_id": "IR4",
+        "description": "G7 independent evidence review",
+        "why_queue_c": "Separation-of-duties assurance review",
+        "prerequisite": "Full evidence index + live validation bundle",
+        "exit_evidence": "G7 independent reviewer sign-off",
         "underlying": [
           "G7 PASS",
           "ASSURANCE_READY"
@@ -181,17 +148,23 @@
   "QUEUE_D_RAILWAY_THEN_INDEPENDENT": {
     "items": [
       {
-        "id": "RTI1",
-        "item": "G7 final independent review after live evidence",
-        "sequence": "Railway (QUEUE_B) → independent (QUEUE_C)",
+        "queue_id": "RTI1",
+        "description": "G7 final independent review after live evidence",
+        "why_queue_d": "G7 PASS requires live evidence reviewed by independent reviewer",
+        "prerequisite": "QUEUE_B RL1-RL5 complete",
+        "exit_evidence": "G7 PASS elevation",
+        "sequence": "Railway (QUEUE_B) → IR4",
         "underlying": [
           "G7 PASS",
           "ASSURANCE_READY"
         ]
       },
       {
-        "id": "RTI2",
-        "item": "SRE PRR second review after production telemetry",
+        "queue_id": "RTI2",
+        "description": "SRE PRR second review after production telemetry",
+        "why_queue_d": "PRR sign-off requires production SLO proof not available locally",
+        "prerequisite": "QUEUE_B RL4 complete",
+        "exit_evidence": "PRR signed with production telemetry",
         "sequence": "Railway (RL4) → IR3",
         "underlying": [
           "SRE PRR approval",
@@ -199,16 +172,22 @@
         ]
       },
       {
-        "id": "RTI3",
-        "item": "12207 Transition/Operation sign-off after live deploy",
+        "queue_id": "RTI3",
+        "description": "12207 Transition/Operation sign-off after live deploy",
+        "why_queue_d": "Transition/Operation acceptance requires live deploy proof",
+        "prerequisite": "QUEUE_B RL1-RL3 complete",
+        "exit_evidence": "12207 Transition/Operation signed",
         "sequence": "Railway (RL1-RL3) → IR2",
         "underlying": [
           "12207 Transition/Operation live proof"
         ]
       },
       {
-        "id": "RTI4",
-        "item": "Col10 institutional second review after PASS_LIVE",
+        "queue_id": "RTI4",
+        "description": "Col10 institutional second review after PASS_LIVE",
+        "why_queue_d": "Col10 second review requires PASS_LIVE production evidence",
+        "prerequisite": "QUEUE_B RL5 PASS_LIVE elevation",
+        "exit_evidence": "Col10 institutional second review complete",
         "sequence": "Railway (RL5) → IR1/IR4",
         "underlying": [
           "Col10 sign-off",
@@ -217,6 +196,13 @@
       }
     ],
     "count": 4,
+    "purity_verified": true
+  },
+  "queue_reconciliation": {
+    "queue_duplicate_items": [],
+    "queue_c_count": 4,
+    "queue_d_count": 4,
+    "queue_b_count": 5,
     "purity_verified": true
   }
 }

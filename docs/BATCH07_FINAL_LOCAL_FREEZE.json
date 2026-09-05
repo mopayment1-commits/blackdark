@@ -1,9 +1,10 @@
 {
   "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-05T22:48:25Z",
+  "generated_at_utc": "2026-09-05T23:36:13Z",
   "identity": {
     "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
+    "final_freeze_head": "9ab198906e96c426440d37109359ae59b2c8bb7a",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null
@@ -14,12 +15,42 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "semantic_equivalence_to_tested_source": true,
+    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..9ab198906e96c426440d37109359ae59b2c8bb7a",
+    "files_changed_total": 21,
     "production_runtime_drift": 0,
+    "production_runtime_files": [],
     "test_logic_drift": 0,
+    "test_logic_files": [],
     "dependency_drift": 0,
+    "dependency_files": [],
     "workflow_logic_drift": 0,
-    "docs_only_delta_since_tested_source": null
+    "workflow_files": [],
+    "documentation_evidence_drift": 20,
+    "documentation_files": [
+      "docs/BATCH07_12207_OPERATION_READINESS_PACKAGE.json",
+      "docs/BATCH07_12207_TRANSITION_PACKAGE.json",
+      "docs/BATCH07_12207_VALIDATION_PACKAGE.json",
+      "docs/BATCH07_BASELINE.json",
+      "docs/BATCH07_CROSS_BATCH_REGRESSION.json",
+      "docs/BATCH07_DATA_QUALITY_INTEGRITY.json",
+      "docs/BATCH07_DUPLICATE_CANONICAL_ANALYSIS.json",
+      "docs/BATCH07_FINAL_LOCAL_FREEZE.json",
+      "docs/BATCH07_G7_PRE_ASSURANCE_PACKAGE.json",
+      "docs/BATCH07_OBSERVABILITY_READINESS.json",
+      "docs/BATCH07_PENTAGONAL_COL10_PREPARATION.json",
+      "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json",
+      "docs/BATCH07_PERFORMANCE_CAPACITY_PREP.json",
+      "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
+      "docs/BATCH07_RELIABILITY_FAILURE_MODES.json",
+      "docs/BATCH07_RTM_301_350.json",
+      "docs/BATCH07_SECURITY_MATERIAL_PATH_AUDIT.json",
+      "docs/BATCH07_SIX_HEROES_BINDING.json",
+      "docs/BATCH07_SRE_PRR_PACKAGE.json",
+      "docs/BATCH07_STATUS_QUEUES.json"
+    ],
+    "frozen_source_head_is_semantically_equivalent_to_current_head": true,
+    "note": "Drift counts are file-level changes between canonical tested source and final HEAD. documentation_evidence_drift includes institutional JSON artifacts only when docs/ changed.",
+    "semantic_oracle_wording": "LOCAL_RUNTIME_EXECUTION + quad audit (not PASS_LIVE)"
   },
   "preserved": {
     "batch05_final_local_freeze": true,
@@ -30,46 +61,40 @@
   },
   "batch07_classification": {
     "total_ids": 50,
-    "verified_deep": 49,
-    "reused_link": 1,
+    "existing_verified": 49,
     "closed_reused_link": 1,
-    "duplicate_alias": 0,
+    "internal_distinct_ids": 50,
+    "cross_batch_reused_link": 1,
     "unresolved_duplicate_conflicts": 0,
     "g0_g5_pass_engineering": 50,
-    "col5_local_complete": 50,
+    "pentagonal_col5_readiness_evidence": 50,
+    "collective_review_local_col5": 50,
     "col10_local_preparation": 50,
     "production_aligned": 0,
     "integrity": "valid"
   },
   "github_actions": {
     "evidence_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
-    "evidence_note": "CI runs on PR #372 validate canonical tested source; freeze artifact provenance via git_log_derived",
+    "evidence_note": "CI validates canonical tested source; docs-only reconciliation preserves semantic equivalence",
     "CAP978": {
       "status": "PASS",
-      "run_id": 33996954517,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996954517"
+      "run_id": 33996954517
     },
     "CI_CRITICAL_GATE": {
       "status": "PASS",
-      "run_id": 33996954365,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996954365"
+      "run_id": 33996954365
     },
     "SONARCLOUD": {
       "status": "PASS",
-      "run_id": 33996954434,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996954434",
-      "quality_gate": "PASSED",
-      "dashboard": "https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark&pullRequest=372"
+      "run_id": 33996954434
     },
     "SECURITY_SCAN": {
       "status": "PASS",
-      "run_id": 33996954553,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996954553"
+      "run_id": 33996954553
     },
     "CODEQL": {
       "status": "PASS",
-      "run_id": 33996953537,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996953537"
+      "run_id": 33996953537
     }
   },
   "local_validation": {
@@ -79,11 +104,14 @@
     "known_flaky_unresolved": [],
     "warnings_local_solvable": [],
     "known_local_deficiencies": [],
+    "existing_verified_without_full_evidence": [],
     "pip_audit_actionable_vulnerabilities": 0,
     "deep_closure": "PASS",
     "cross_batch_regression": "FULL_PASS",
+    "performance_local_status": "LOCAL_COMPLETE",
+    "collective_review_local": "50/50",
     "hash_install": "PASS",
-    "postgres_migration_test": "PASS",
+    "postgres_migration_test": "PASS"
   },
   "freeze_assertions": {
     "BATCH07_FINAL_LOCAL_FREEZE": true,

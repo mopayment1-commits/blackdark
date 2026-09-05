@@ -9,8 +9,8 @@
     "columns": "1-5"
   },
   "artifact": "BATCH07_PENTAGONAL_TEMPLATE_301_350",
-  "generated_at": "2026-09-05T22:47:32.688413+00:00",
-  "git_commit": "38cfdb32990aee15c7b221bccdfb36de4fbfddf3",
+  "generated_at": "2026-09-05T23:35:22.028926+00:00",
+  "git_commit": "9ab198906e96c426440d37109359ae59b2c8bb7a",
   "scope": "Pentagonal template cols 1-5 per ID — Batch07 301-350",
   "rows": [
     {
@@ -40,10 +40,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=301",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -74,10 +79,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=302",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -108,10 +118,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=303",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -142,10 +157,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=304",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -176,10 +196,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=305",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -210,10 +235,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=306",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -244,10 +274,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=307",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -278,10 +313,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=308",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -312,10 +352,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=309",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -346,10 +391,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=310",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -380,10 +430,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=311",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -414,10 +469,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=312",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -448,10 +508,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=313",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -482,10 +547,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=314",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -516,10 +586,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=315",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -550,10 +625,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=316",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -584,10 +664,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=317",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -618,10 +703,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=318",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -652,10 +742,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=319",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -686,10 +781,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=320",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -720,10 +820,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=321",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -754,10 +859,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=322",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -788,10 +898,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=323",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -822,10 +937,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=324",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -856,10 +976,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=325",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -890,10 +1015,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=326",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -924,10 +1054,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=327",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -958,10 +1093,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=328",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -992,10 +1132,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=329",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1026,10 +1171,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=330",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1060,10 +1210,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=331",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1094,10 +1249,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=332",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1128,10 +1288,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=333",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1162,10 +1327,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=334",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1196,10 +1366,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=335",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1230,10 +1405,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=336",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1264,10 +1444,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=337",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1298,10 +1483,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=338",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1332,10 +1522,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=339",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1366,10 +1561,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=340",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1400,10 +1600,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=341",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1434,10 +1639,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=342",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1468,10 +1678,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=343",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1502,10 +1717,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=344",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1536,10 +1756,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=345",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1570,10 +1795,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=346",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1604,10 +1834,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=347",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1638,10 +1873,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=348",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1672,10 +1912,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=349",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     },
@@ -1706,10 +1951,15 @@
           "fail_closed": true,
           "test_only_skip": "skip_entitlement in local tests only"
         },
-        "col5_collective_review_sre_prr": {
-          "review_type": "LOCAL_REVIEW",
-          "checklist": "docs/BATCH07_PER_ID_FINAL_MATRIX_301_350.json",
-          "note": "Cols 1-5 complete locally — col10 second review separate artifact"
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH07_PENTAGONAL_TEMPLATE_301_350.json#capability_id=350",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
         }
       }
     }

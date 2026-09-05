@@ -6,16 +6,25 @@
     "duplicate_ids": [],
     "unresolved_duplicate_conflicts": 0,
     "not_hero_relevant": 49,
-    "hero_context_only": 1
+    "hero_context_only": 1,
+    "duplicate_hero_contributions": 0,
+    "hero_binding_conflicts": 0
   },
   "artifact": "BATCH07_SIX_HEROES_BINDING",
-  "generated_at": "2026-09-05T22:47:32.688470+00:00",
-  "git_commit": "38cfdb32990aee15c7b221bccdfb36de4fbfddf3",
-  "scope": "Six Heroes binding classification — Batch07 301-350",
+  "generated_at": "2026-09-05T23:35:22.029021+00:00",
+  "git_commit": "9ab198906e96c426440d37109359ae59b2c8bb7a",
+  "scope": "Six Heroes binding classification — Batch07 301-350 (post duplicate reconciliation)",
   "summary": {
     "NOT_HERO_RELEVANT": 49,
     "HERO_CONTEXT_ONLY": 1,
-    "HERO_DIRECT_FEED": 0
+    "HERO_DIRECT_FEED": 0,
+    "duplicate_hero_contributions": 0,
+    "hero_binding_conflicts": 0
+  },
+  "reconfirmation": {
+    "339_no_double_count_with_70": true,
+    "330_facade_distinct_no_double_count": true,
+    "regression_suite": "tests/test_heroes_quality_polish.py + cross-batch regression"
   },
   "per_id": [
     {
@@ -166,7 +175,12 @@
     {
       "capability_id": 330,
       "capability_name": "Reference Rates",
-      "classification": "NOT_HERO_RELEVANT"
+      "classification": "NOT_HERO_RELEVANT",
+      "hero_facade": {
+        "decision": "KEEP_DISTINCT",
+        "duplicate_hero_contribution": false,
+        "note": "NO_HERO_FEED — facade only; does not double-count Hero inputs"
+      }
     },
     {
       "capability_id": 331,
@@ -214,8 +228,9 @@
       "classification": "HERO_CONTEXT_ONLY",
       "hero_context": {
         "canonical_capability_id": 70,
-        "reuse_filter": "apply_opportunity_filter_70",
-        "feeds": "B2B Feed context only — no independent batch07 hero input"
+        "contribution": "context_only_via_canonical_70",
+        "duplicate_hero_contribution": false,
+        "note": "Facade does not add second Hero score beyond canonical #70"
       }
     },
     {
