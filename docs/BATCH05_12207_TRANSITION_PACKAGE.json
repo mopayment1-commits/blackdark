@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-09-05T13:25:22.185059+00:00",
+  "git_commit": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+  "scope": "Batch05 12207 Transition Package",
+  "status": "TRANSITION_PREPARED_LOCAL",
+  "not_claimed": [
+    "TRANSITION_EXECUTED_LIVE"
+  ],
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "live_ready": false,
+  "assurance_ready": false,
+  "deployment_prerequisites": [
+    "Railway app with BLACKDARK production env",
+    "cap646 BATCH05_IDS wired in runtime",
+    "Entitlement provider configured"
+  ],
+  "environment_requirements": [
+    "Python 3.12",
+    "Redis optional with SERVICE_BUS_LOCAL fallback",
+    "PostgreSQL/SQLite"
+  ],
+  "secrets_config": [
+    "BLACKDARK_B2B_DEMO_KEY",
+    "API keys per upstream adapter \u2014 names only in ops runbook"
+  ],
+  "db_cache_requirements": "Platform-level; batch05 spine stateless",
+  "migration_prerequisites": "None batch05-specific",
+  "rollback_prerequisites": "docs/ROLLBACK_BATCH01_BATCH02.md pattern",
+  "release_acceptance_checklist": [
+    "Gate Zero PASS",
+    "Production E2E 50/50",
+    "Entitlement gateway proofs",
+    "k6 thresholds"
+  ],
+  "operational_handoff_checklist": [
+    "Runbook",
+    "Alert routes",
+    "On-call escalation"
+  ],
+  "rollback_decision_tree": "Revert deploy \u2192 verify health \u2192 re-run Gate Zero",
+  "smoke_test_spec": "GET /api/cap646/{201..250} sample + health endpoints",
+  "gate_zero_spec": "docs/BATCH05_GATE_ZERO_CHECKLIST.md",
+  "live_e2e_plan": "Production TLS host semantic oracle replay",
+  "ownership": "batch05-institutional-owner",
+  "failure_escalation": "P0 live blockers \u2192 SRE on-call"
+}

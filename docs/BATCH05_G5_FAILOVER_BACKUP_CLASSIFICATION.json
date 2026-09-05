@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-09-05T13:25:22.185059+00:00",
+  "git_commit": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+  "G5.9": {
+    "batch05_owned_state_failover": {
+      "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+      "scope": "Batch05-owned capability state/failover (IDs 201-250)",
+      "rationale": "Batch05 strangler spine + REUSED-LINK facades are stateless execute_capability handlers with no batch05-owned durable state, background workers, or mutable stores.",
+      "local_evidence": [
+        "tests/cap646/test_batch05_prep_dedicated.py entitlement paths",
+        "tests/cap646/test_batch05_strangler_spine.py runtime dispatch",
+        "docs/BATCH05_RELIABILITY_FAILURE_MODES.json degraded modes"
+      ],
+      "per_path_summary": "50/50 stateless \u2014 no batch05-owned failover target"
+    },
+    "platform_redis_postgresql_failover": {
+      "classification": "REQUIRES_RAILWAY",
+      "scope": "Shared platform dependency failover (Redis/PostgreSQL)",
+      "railway_queue_ref": "RL6",
+      "rationale": "Platform Redis/PostgreSQL failover drill requires live infrastructure evidence; not conflated with batch05-owned N/A.",
+      "local_component": "SERVICE_BUS_LOCAL deterministic fallback proven for adapter outage",
+      "live_evidence_required": "Failover drill under real Redis/PostgreSQL outage on Railway"
+    }
+  },
+  "G5.10": {
+    "batch05_owned_durable_state": {
+      "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+      "scope": "Batch05-owned backup/restore (IDs 201-250)",
+      "persistent_state": "none owned by batch05 spine",
+      "rationale": "No batch05-owned DB tables, cache keys, or durable user configuration",
+      "reconstructable": "Per-request outputs from catalog bindings + upstream APIs; git-versioned RTM",
+      "backup_required": false,
+      "restore_required": false
+    },
+    "platform_postgresql_redis_durability_restore": {
+      "classification": "REQUIRES_RAILWAY",
+      "scope": "Shared platform durability/restore (PostgreSQL/Redis)",
+      "railway_queue_ref": "RL7",
+      "rationale": "Platform backup/restore policy and drill evidence requires live Railway ops; separate from batch05-owned N/A.",
+      "live_evidence_required": "Platform RPO/RTO backup-restore drill on production infrastructure"
+    }
+  }
+}

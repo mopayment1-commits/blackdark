@@ -1,10 +1,11 @@
 {
-  "status": "IMPLEMENTED_AND_TESTED_LOCAL",
+  "status": "COMPLETE_LOCAL",
+  "legacy_status": "IMPLEMENTED_AND_TESTED_LOCAL",
   "tests": [
     "test_observability_health_live_local",
     "test_observability_health_ready_structure",
     "test_observability_health_root_lists_probes",
     "test_observability_latency_ms_on_execute"
   ],
-  "live_dashboards": "REQUIRES_LIVE"
+  "live_dashboards": "REQUIRES_RAILWAY"
 }

@@ -1,14 +1,24 @@
 {
-  "generated_at": "2026-09-04T23:48:54.875478+00:00",
-  "git_commit": "73d531ff0b46127e7821ebe24c962d86efd1d21a",
-  "freeze_type": "FINAL_LOCAL_PRE_PRODUCTION",
+  "generated_at": "2026-09-05T13:25:27.230960+00:00",
+  "git_commit": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+  "freeze_heads": {
+    "repository_head": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+    "artifact_generation_head": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+    "artifact_embedded_head": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+    "final_freeze_head": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+    "source_head": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+    "invariant": "all five head fields equal at generation time; source_head = tested evidence commit"
+  },
+  "BATCH05_FINAL_LOCAL_FREEZE": true,
+  "LOCAL_GOVERNANCE_COMPLETE": true,
+  "freeze_type": "FINAL_LOCAL_ZERO_GAP_CLOSURE",
   "batch05_independent": 0,
   "progress_826": 179,
   "production_aligned_count": 0,
   "pa_elevated_count": 0,
   "live_ready": false,
   "assurance_ready": false,
-  "final_local_status": "PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED / BLOCKED_EXTERNAL_FOR_LIVE_ONLY",
+  "final_local_status": "LOCAL_GOVERNANCE_COMPLETE / PASS_ENGINEERING / BLOCKED_EXTERNAL_FOR_RAILWAY_AND_INDEPENDENT_REVIEW",
   "g0_g4": {
     "G0": 50,
     "G1": 50,
@@ -17,15 +27,19 @@
     "G4": 50
   },
   "semantic_oracle": 50,
+  "semantic_downgraded": 0,
+  "domain_rules_all_pass_count": 50,
+  "collective_review_local_complete": 50,
+  "col10_local_preparation_complete": 50,
   "residual_7": {
     "closed": 7,
     "deferred": 0,
     "214_245": "CONVERGED"
   },
   "six_heroes": {
-    "freeze_status": "FINAL_FREEZE_LOCAL",
+    "status": "FULL_PASS",
     "batch05_in_hero_inputs": false,
-    "wrong_domain_routing": false
+    "freeze_status": "FINAL_FREEZE_LOCAL"
   },
   "reliability": {
     "status": "PROVEN_LOCAL",
@@ -109,538 +123,90 @@
     "proven_local": 15,
     "requires_live": 0,
     "not_applicable": 0,
+    "design_only": 0,
+    "local_stub": 0,
     "design_and_local_stub": 0,
-    "live_only_reliability_items": []
+    "locally_solvable_gaps": 0
   },
   "security": {
-    "status": "PROVEN_LOCAL_MATERIAL_PATHS",
-    "material_paths": 8,
-    "proven_local_checks": 52,
-    "matrix": [
-      {
-        "capability_id": 201,
-        "material_path": true,
-        "checks": {
-          "authentication": "NOT_APPLICABLE",
-          "authorization": "PROVEN_LOCAL",
-          "entitlement": "PROVEN_LOCAL",
-          "object_level_authorization": "NOT_APPLICABLE",
-          "tenant_isolation": "NOT_APPLICABLE",
-          "malformed_input": "PROVEN_LOCAL",
-          "oversized_input": "PROVEN_LOCAL",
-          "injection_sensitive_input": "PROVEN_LOCAL",
-          "secret_exposure": "PROVEN_LOCAL",
-          "sensitive_logging": "PROVEN_LOCAL",
-          "api_abuse_rate": "REQUIRES_LIVE",
-          "replay_idempotency": "NOT_APPLICABLE",
-          "wrong_domain_access": "PROVEN_LOCAL"
-        }
+    "status": "COMPLETE_LOCAL",
+    "locally_solvable_gaps": 0,
+    "api_abuse_rate_split": {
+      "enforcement": {
+        "status": "PROVEN_LOCAL",
+        "evidence": "tests/test_viral_capacity.py::test_rate_limit_trips_in_memory",
+        "behavior": "HTTP 429 fail-closed on burst limit"
       },
-      {
-        "capability_id": 205,
-        "material_path": true,
-        "checks": {
-          "authentication": "NOT_APPLICABLE",
-          "authorization": "PROVEN_LOCAL",
-          "entitlement": "PROVEN_LOCAL",
-          "object_level_authorization": "NOT_APPLICABLE",
-          "tenant_isolation": "NOT_APPLICABLE",
-          "malformed_input": "NOT_APPLICABLE",
-          "oversized_input": "NOT_APPLICABLE",
-          "injection_sensitive_input": "NOT_APPLICABLE",
-          "secret_exposure": "PROVEN_LOCAL",
-          "sensitive_logging": "PROVEN_LOCAL",
-          "api_abuse_rate": "REQUIRES_LIVE",
-          "replay_idempotency": "PROVEN_LOCAL",
-          "wrong_domain_access": "PROVEN_LOCAL"
-        }
-      },
-      {
-        "capability_id": 214,
-        "material_path": true,
-        "checks": {
-          "authentication": "NOT_APPLICABLE",
-          "authorization": "PROVEN_LOCAL",
-          "entitlement": "PROVEN_LOCAL",
-          "object_level_authorization": "NOT_APPLICABLE",
-          "tenant_isolation": "NOT_APPLICABLE",
-          "malformed_input": "PROVEN_LOCAL",
-          "oversized_input": "PROVEN_LOCAL",
-          "injection_sensitive_input": "PROVEN_LOCAL",
-          "secret_exposure": "PROVEN_LOCAL",
-          "sensitive_logging": "PROVEN_LOCAL",
-          "api_abuse_rate": "REQUIRES_LIVE",
-          "replay_idempotency": "NOT_APPLICABLE",
-          "wrong_domain_access": "PROVEN_LOCAL"
-        }
-      },
-      {
-        "capability_id": 226,
-        "material_path": true,
-        "checks": {
-          "authentication": "NOT_APPLICABLE",
-          "authorization": "PROVEN_LOCAL",
-          "entitlement": "PROVEN_LOCAL",
-          "object_level_authorization": "NOT_APPLICABLE",
-          "tenant_isolation": "NOT_APPLICABLE",
-          "malformed_input": "NOT_APPLICABLE",
-          "oversized_input": "NOT_APPLICABLE",
-          "injection_sensitive_input": "NOT_APPLICABLE",
-          "secret_exposure": "PROVEN_LOCAL",
-          "sensitive_logging": "PROVEN_LOCAL",
-          "api_abuse_rate": "REQUIRES_LIVE",
-          "replay_idempotency": "NOT_APPLICABLE",
-          "wrong_domain_access": "PROVEN_LOCAL"
-        }
-      },
-      {
-        "capability_id": 232,
-        "material_path": true,
-        "checks": {
-          "authentication": "NOT_APPLICABLE",
-          "authorization": "PROVEN_LOCAL",
-          "entitlement": "PROVEN_LOCAL",
-          "object_level_authorization": "NOT_APPLICABLE",
-          "tenant_isolation": "NOT_APPLICABLE",
-          "malformed_input": "NOT_APPLICABLE",
-          "oversized_input": "NOT_APPLICABLE",
-          "injection_sensitive_input": "NOT_APPLICABLE",
-          "secret_exposure": "PROVEN_LOCAL",
-          "sensitive_logging": "PROVEN_LOCAL",
-          "api_abuse_rate": "REQUIRES_LIVE",
-          "replay_idempotency": "PROVEN_LOCAL",
-          "wrong_domain_access": "PROVEN_LOCAL"
-        }
-      },
-      {
-        "capability_id": 242,
-        "material_path": true,
-        "checks": {
-          "authentication": "NOT_APPLICABLE",
-          "authorization": "PROVEN_LOCAL",
-          "entitlement": "PROVEN_LOCAL",
-          "object_level_authorization": "NOT_APPLICABLE",
-          "tenant_isolation": "NOT_APPLICABLE",
-          "malformed_input": "NOT_APPLICABLE",
-          "oversized_input": "NOT_APPLICABLE",
-          "injection_sensitive_input": "NOT_APPLICABLE",
-          "secret_exposure": "PROVEN_LOCAL",
-          "sensitive_logging": "PROVEN_LOCAL",
-          "api_abuse_rate": "REQUIRES_LIVE",
-          "replay_idempotency": "NOT_APPLICABLE",
-          "wrong_domain_access": "PROVEN_LOCAL"
-        }
-      },
-      {
-        "capability_id": 245,
-        "material_path": true,
-        "checks": {
-          "authentication": "NOT_APPLICABLE",
-          "authorization": "PROVEN_LOCAL",
-          "entitlement": "PROVEN_LOCAL",
-          "object_level_authorization": "NOT_APPLICABLE",
-          "tenant_isolation": "NOT_APPLICABLE",
-          "malformed_input": "NOT_APPLICABLE",
-          "oversized_input": "NOT_APPLICABLE",
-          "injection_sensitive_input": "NOT_APPLICABLE",
-          "secret_exposure": "PROVEN_LOCAL",
-          "sensitive_logging": "PROVEN_LOCAL",
-          "api_abuse_rate": "REQUIRES_LIVE",
-          "replay_idempotency": "NOT_APPLICABLE",
-          "wrong_domain_access": "PROVEN_LOCAL"
-        }
-      },
-      {
-        "capability_id": 247,
-        "material_path": true,
-        "checks": {
-          "authentication": "PROVEN_LOCAL",
-          "authorization": "PROVEN_LOCAL",
-          "entitlement": "PROVEN_LOCAL",
-          "object_level_authorization": "NOT_APPLICABLE",
-          "tenant_isolation": "NOT_APPLICABLE",
-          "malformed_input": "PROVEN_LOCAL",
-          "oversized_input": "PROVEN_LOCAL",
-          "injection_sensitive_input": "PROVEN_LOCAL",
-          "secret_exposure": "PROVEN_LOCAL",
-          "sensitive_logging": "PROVEN_LOCAL",
-          "api_abuse_rate": "REQUIRES_LIVE",
-          "replay_idempotency": "NOT_APPLICABLE",
-          "wrong_domain_access": "PROVEN_LOCAL"
-        }
+      "production_telemetry": {
+        "status": "REQUIRES_RAILWAY",
+        "railway_queue_ref": "RL4",
+        "evidence": "Live production abuse/rate telemetry under real traffic"
       }
-    ]
+    },
+    "artifact": "docs/BATCH05_SECURITY_MATERIAL_PATH_AUDIT.json"
   },
   "data_integrity": {
     "per_id_proven_local": 50,
     "total": 50,
-    "rows": [
-      {
-        "capability_id": 201,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 202,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 203,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 204,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 205,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 206,
-        "semantic_oracle_pass": true,
-        "freshness_rule": false,
-        "feature_ref_invariant": false,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 207,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 208,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 209,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 210,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 211,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 212,
-        "semantic_oracle_pass": true,
-        "freshness_rule": false,
-        "feature_ref_invariant": false,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 213,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 214,
-        "semantic_oracle_pass": true,
-        "freshness_rule": false,
-        "feature_ref_invariant": false,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 215,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 216,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 217,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 218,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 219,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 220,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 221,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 222,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 223,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 224,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 225,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 226,
-        "semantic_oracle_pass": true,
-        "freshness_rule": false,
-        "feature_ref_invariant": false,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 227,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 228,
-        "semantic_oracle_pass": true,
-        "freshness_rule": false,
-        "feature_ref_invariant": false,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 229,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 230,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 231,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 232,
-        "semantic_oracle_pass": true,
-        "freshness_rule": false,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 233,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 234,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 235,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 236,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 237,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 238,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 239,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 240,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 241,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 242,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 243,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 244,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 245,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": false,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 246,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 247,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 248,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 249,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      },
-      {
-        "capability_id": 250,
-        "semantic_oracle_pass": true,
-        "freshness_rule": true,
-        "feature_ref_invariant": true,
-        "status": "PROVEN_LOCAL"
-      }
-    ]
+    "status": "PROVEN_LOCAL"
   },
   "observability": {
-    "status": "IMPLEMENTED_AND_TESTED_LOCAL",
+    "status": "COMPLETE_LOCAL",
+    "legacy_status": "IMPLEMENTED_AND_TESTED_LOCAL",
     "tests": [
       "test_observability_health_live_local",
       "test_observability_health_ready_structure",
       "test_observability_health_root_lists_probes",
       "test_observability_latency_ms_on_execute"
     ],
-    "live_dashboards": "REQUIRES_LIVE"
+    "live_dashboards": "REQUIRES_RAILWAY"
   },
   "g5_decomposition": {
     "local_component_complete": 5,
-    "requires_live": 3,
-    "not_applicable": 2,
+    "requires_live_measurement": 3,
+    "split_classifications": [
+      "G5.9",
+      "G5.10"
+    ],
+    "G5.9_split": {
+      "batch05_owned_state_failover": {
+        "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+        "scope": "Batch05-owned capability state/failover (IDs 201-250)",
+        "rationale": "Batch05 strangler spine + REUSED-LINK facades are stateless execute_capability handlers with no batch05-owned durable state, background workers, or mutable stores.",
+        "local_evidence": [
+          "tests/cap646/test_batch05_prep_dedicated.py entitlement paths",
+          "tests/cap646/test_batch05_strangler_spine.py runtime dispatch",
+          "docs/BATCH05_RELIABILITY_FAILURE_MODES.json degraded modes"
+        ],
+        "per_path_summary": "50/50 stateless \u2014 no batch05-owned failover target"
+      },
+      "platform_redis_postgresql_failover": {
+        "classification": "REQUIRES_RAILWAY",
+        "scope": "Shared platform dependency failover (Redis/PostgreSQL)",
+        "railway_queue_ref": "RL6",
+        "rationale": "Platform Redis/PostgreSQL failover drill requires live infrastructure evidence; not conflated with batch05-owned N/A.",
+        "local_component": "SERVICE_BUS_LOCAL deterministic fallback proven for adapter outage",
+        "live_evidence_required": "Failover drill under real Redis/PostgreSQL outage on Railway"
+      }
+    },
+    "G5.10_split": {
+      "batch05_owned_durable_state": {
+        "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+        "scope": "Batch05-owned backup/restore (IDs 201-250)",
+        "persistent_state": "none owned by batch05 spine",
+        "rationale": "No batch05-owned DB tables, cache keys, or durable user configuration",
+        "reconstructable": "Per-request outputs from catalog bindings + upstream APIs; git-versioned RTM",
+        "backup_required": false,
+        "restore_required": false
+      },
+      "platform_postgresql_redis_durability_restore": {
+        "classification": "REQUIRES_RAILWAY",
+        "scope": "Shared platform durability/restore (PostgreSQL/Redis)",
+        "railway_queue_ref": "RL7",
+        "rationale": "Platform backup/restore policy and drill evidence requires live Railway ops; separate from batch05-owned N/A.",
+        "live_evidence_required": "Platform RPO/RTO backup-restore drill on production infrastructure"
+      }
+    },
     "requirements": [
       {
         "id": "G5.1",
@@ -693,6 +259,728 @@
         "status": "NOT_APPLICABLE"
       }
     ]
+  },
+  "12207": {
+    "validation": "LOCAL_COMPLETE",
+    "transition": "TRANSITION_PREPARED_LOCAL",
+    "operation": "OPERATION_PREPARED_LOCAL"
+  },
+  "status_queues": {
+    "generated_at": "2026-09-05T13:25:22.185059+00:00",
+    "git_commit": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+    "scope": "Batch05 institutional status queues (IDs 201-250)",
+    "batch05_independent": 0,
+    "progress_826": 179,
+    "production_aligned_count": 0,
+    "pa_elevated_count": 0,
+    "live_ready": false,
+    "assurance_ready": false,
+    "taxonomy": {
+      "RAILWAY_ONLY": "Requires only live production/Railway evidence",
+      "INDEPENDENT_REVIEW_ONLY": "All technical/live evidence available; human sign-off only",
+      "RAILWAY_THEN_INDEPENDENT_REVIEW": "Live Railway evidence must precede independent approval"
+    },
+    "node_count_reconciliation": {
+      "blocker_registry_count": 12,
+      "dependency_graph_node_count": 12,
+      "explanation": "blocker_registry = 12 RL/RTI queue IDs (RL1-RL7 + RTI1-RTI5). dependency_graph = 12 requirement/status nodes (10 requirements + ASSURANCE_READY + live_ready status). RL1 appears as G6/RTI2 prerequisite edge, not a separate graph requirement node."
+    },
+    "status_semantics": {
+      "PASS_LIVE": {
+        "meaning": "Per-ID G6 formal elevation stamp for capability 201-250",
+        "evidence": "RL5 production validation per ID",
+        "code_ref": "generate_batch05_v2_assurance_package.py gate_status G6_live_validation"
+      },
+      "live_ready": {
+        "meaning": "Repository lock: technical production live readiness \u2014 G5 operational readiness satisfied + G6 live_validation PASS + PASS_LIVE evidence. Does NOT require G7 independent sign-off.",
+        "evidence": "LOCKS.live_ready in freeze generators; BATCH05_GATE_ZERO_CHECKLIST.md NOT LIVE_READY until deploy+G6",
+        "distinct_from": "assurance_ready",
+        "transition_prerequisites": [
+          "RL2",
+          "RL3",
+          "RL5"
+        ]
+      },
+      "G6_PASS": {
+        "meaning": "G6_live_validation gate not BLOCKED_EXTERNAL \u2014 production E2E + Gate Zero complete",
+        "transition_prerequisites": [
+          "RL1",
+          "RL2",
+          "RL3"
+        ]
+      },
+      "G7_PASS": {
+        "meaning": "G7_independent_assurance independent human evidence review complete",
+        "transition_prerequisites": [
+          "RL5",
+          "RTI1",
+          "RTI3",
+          "RTI4"
+        ]
+      },
+      "assurance_ready": {
+        "meaning": "Repository lock per assurance_ready(): G0-G4 + G5 + G6 + G7 all PASS_ENGINEERING \u2014 strict superset of live_ready; requires independent review (G7).",
+        "code_ref": "generate_batch05_v2_assurance_package.py assurance_ready()",
+        "transition_prerequisites": [
+          "RTI5"
+        ]
+      },
+      "batch05_independent": {
+        "meaning": "Per-ID PRODUCTION-ALIGNED count after full live assurance per elevation_policy",
+        "current_value": 0
+      },
+      "production_aligned_count": {
+        "meaning": "Inventory-wide PRODUCTION-ALIGNED status count in CAPABILITIES_826_INVENTORY.json",
+        "current_value": 0
+      },
+      "col10_institutional_second_review": {
+        "meaning": "Per-ID pentagonal column 10 institutional second review \u2014 distinct from Col5 collective_review_local",
+        "col5_scope": "Build-phase local governance (MECE/PR366) \u2014 collective_review_local in pentagonal template",
+        "col10_scope": "Institutional second review package with A/B/C/D components; human sign-off = INDEPENDENT_SIGNOFF_PENDING",
+        "artifact": "docs/BATCH05_PENTAGONAL_COL10_PREPARATION.json"
+      }
+    },
+    "blocker_registry": [
+      {
+        "node_id": "RL1",
+        "node_type": "blocker_railway_only",
+        "terminal": false,
+        "prerequisites": [],
+        "queue_membership": "QUEUE_B_RAILWAY_ONLY",
+        "item": "Railway deployment + production smoke"
+      },
+      {
+        "node_id": "RL2",
+        "node_type": "blocker_railway_only",
+        "terminal": false,
+        "prerequisites": [],
+        "queue_membership": "QUEUE_B_RAILWAY_ONLY",
+        "item": "Gate Zero live health + cap646 probes"
+      },
+      {
+        "node_id": "RL3",
+        "node_type": "blocker_railway_only",
+        "terminal": false,
+        "prerequisites": [],
+        "queue_membership": "QUEUE_B_RAILWAY_ONLY",
+        "item": "Production-network E2E semantic verification (50 IDs)"
+      },
+      {
+        "node_id": "RL4",
+        "node_type": "blocker_railway_only",
+        "terminal": false,
+        "prerequisites": [],
+        "queue_membership": "QUEUE_B_RAILWAY_ONLY",
+        "item": "Production k6 / performance / capacity / latency SLO"
+      },
+      {
+        "node_id": "RL5",
+        "node_type": "blocker_railway_only",
+        "terminal": true,
+        "prerequisites": [],
+        "queue_membership": "QUEUE_B_RAILWAY_ONLY",
+        "item": "Per-ID PASS_LIVE elevation (201-250)"
+      },
+      {
+        "node_id": "RL6",
+        "node_type": "blocker_railway_only",
+        "terminal": true,
+        "prerequisites": [],
+        "queue_membership": "QUEUE_B_RAILWAY_ONLY",
+        "item": "Platform failover drill (Redis/PostgreSQL)"
+      },
+      {
+        "node_id": "RL7",
+        "node_type": "blocker_railway_only",
+        "terminal": true,
+        "prerequisites": [],
+        "queue_membership": "QUEUE_B_RAILWAY_ONLY",
+        "item": "Platform backup/restore drill (PostgreSQL/Redis durability)"
+      },
+      {
+        "node_id": "RTI1",
+        "node_type": "blocker_railway_then_independent",
+        "terminal": false,
+        "prerequisites": [
+          "RL2",
+          "RL3"
+        ],
+        "queue_membership": "QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "item": "12207 Validation workshop sign-off"
+      },
+      {
+        "node_id": "RTI2",
+        "node_type": "blocker_railway_then_independent",
+        "terminal": false,
+        "prerequisites": [
+          "RL1",
+          "RL3",
+          "RL4"
+        ],
+        "queue_membership": "QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "item": "12207 Transition/Operation live sign-off"
+      },
+      {
+        "node_id": "RTI3",
+        "node_type": "blocker_railway_then_independent",
+        "terminal": false,
+        "prerequisites": [
+          "RL4",
+          "RL5",
+          "RL6",
+          "RL7"
+        ],
+        "queue_membership": "QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "item": "SRE PRR formal approval"
+      },
+      {
+        "node_id": "RTI4",
+        "node_type": "blocker_railway_then_independent",
+        "terminal": false,
+        "prerequisites": [
+          "RL5",
+          "RTI1",
+          "RTI3"
+        ],
+        "queue_membership": "QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "item": "G7 independent evidence review / G7 PASS"
+      },
+      {
+        "node_id": "RTI5",
+        "node_type": "blocker_railway_then_independent",
+        "terminal": true,
+        "prerequisites": [
+          "RTI4"
+        ],
+        "queue_membership": "QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "item": "ASSURANCE_READY elevation"
+      }
+    ],
+    "QUEUE_A_LOCAL_COMPLETE": {
+      "items": [
+        {
+          "category": "G0-G4",
+          "status": "50/50 PASS_ENGINEERING",
+          "evidence": "docs/BATCH05_V2_ASSURANCE_PACKAGE.json"
+        },
+        {
+          "category": "Semantic Oracle",
+          "status": "50/50",
+          "evidence": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json"
+        },
+        {
+          "category": "Residual 7 disposition",
+          "status": "7/7 CLOSED (212,206,214,226,228,232,245)",
+          "evidence": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+        },
+        {
+          "category": "REUSED-LINK / duplicate",
+          "status": "6 REUSED-LINK + 1 DUPLICATE_DELEGATION (#212) / 0 conflicts"
+        },
+        {
+          "category": "Security material paths",
+          "status": "PROVEN_LOCAL",
+          "evidence": "docs/BATCH05_SECURITY_MATERIAL_PATH_AUDIT.json"
+        },
+        {
+          "category": "api_abuse_rate enforcement",
+          "status": "PROVEN_LOCAL",
+          "evidence": "tests/test_viral_capacity.py::test_rate_limit_trips_in_memory"
+        },
+        {
+          "category": "Data integrity",
+          "status": "50/50 PROVEN_LOCAL",
+          "evidence": "docs/BATCH05_DATA_QUALITY_INTEGRITY.json"
+        },
+        {
+          "category": "Reliability",
+          "status": "PROVEN_LOCAL",
+          "evidence": "docs/BATCH05_RELIABILITY_FAILURE_MODES.json"
+        },
+        {
+          "category": "Observability local",
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH05_OBSERVABILITY_READINESS.json"
+        },
+        {
+          "category": "G5.1-G5.5",
+          "status": "LOCAL_COMPONENT_COMPLETE"
+        },
+        {
+          "category": "G5.6-G5.8 design",
+          "status": "LOCAL_PREPARED",
+          "evidence": "docs/BATCH05_SLI_SLO_DESIGN.json"
+        },
+        {
+          "category": "G5.9 batch05-owned failover",
+          "status": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION"
+        },
+        {
+          "category": "G5.10 batch05-owned backup/restore",
+          "status": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION"
+        },
+        {
+          "category": "12207 Validation prep",
+          "status": "LOCAL_COMPLETE",
+          "evidence": "docs/BATCH05_12207_VALIDATION_PACKAGE.json"
+        },
+        {
+          "category": "12207 Transition prep",
+          "status": "TRANSITION_PREPARED_LOCAL"
+        },
+        {
+          "category": "12207 Operation prep",
+          "status": "OPERATION_PREPARED_LOCAL"
+        },
+        {
+          "category": "SRE PRR prep",
+          "status": "PRR_PREPARATION_COMPLETE_LOCAL"
+        },
+        {
+          "category": "G7 pre-assurance",
+          "status": "G7_LOCAL_PREPARATION_COMPLETE"
+        },
+        {
+          "category": "Pentagonal Col10 prep",
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "evidence": "docs/BATCH05_PENTAGONAL_COL10_PREPARATION.json"
+        },
+        {
+          "category": "Six Heroes",
+          "status": "FULL_PASS",
+          "evidence": "docs/BATCH05_HERO_SIX_FINAL_FREEZE.json"
+        },
+        {
+          "category": "Entitlement gateway",
+          "status": "PROVEN_LOCAL",
+          "evidence": "docs/BATCH05_ENTITLEMENT_GATEWAY_PROOF.json"
+        }
+      ],
+      "count": 21
+    },
+    "QUEUE_B_RAILWAY_ONLY": {
+      "items": [
+        {
+          "id": "RL1",
+          "item": "Railway deployment + production smoke",
+          "dependency_class": "RAILWAY_ONLY",
+          "why_local_insufficient": "Requires live Railway service binding and production domain TLS",
+          "underlying": [
+            "deployment",
+            "production smoke",
+            "domain/service availability"
+          ],
+          "scope_ids": "201-250"
+        },
+        {
+          "id": "RL2",
+          "item": "Gate Zero live health + cap646 probes",
+          "dependency_class": "RAILWAY_ONLY",
+          "why_local_insufficient": "Production host routing differs from TestClient/execute_capability local",
+          "underlying": [
+            "Gate Zero",
+            "production health/readiness",
+            "G6"
+          ],
+          "scope_ids": "201-250"
+        },
+        {
+          "id": "RL3",
+          "item": "Production-network E2E semantic verification (50 IDs)",
+          "dependency_class": "RAILWAY_ONLY",
+          "why_local_insufficient": "TLS, CDN, Railway ingress, live entitlement provider",
+          "underlying": [
+            "production E2E",
+            "production entitlement/access",
+            "real dependency behavior",
+            "G6 live_validation"
+          ],
+          "scope_ids": "201-250"
+        },
+        {
+          "id": "RL4",
+          "item": "Production k6 / performance / capacity / latency SLO",
+          "dependency_class": "RAILWAY_ONLY",
+          "why_local_insufficient": "SLO telemetry requires live traffic and production infrastructure",
+          "underlying": [
+            "production k6/performance",
+            "live SLO telemetry",
+            "api_abuse_rate_production_telemetry",
+            "G5.6 SLI/SLO live measurement",
+            "G5.7 production capacity headroom",
+            "G5.8 live dependency latency SLO"
+          ],
+          "scope_ids": "201-250"
+        },
+        {
+          "id": "RL5",
+          "item": "Per-ID PASS_LIVE elevation (201-250)",
+          "dependency_class": "RAILWAY_ONLY",
+          "why_local_insufficient": "PASS_LIVE stamp requires production validation evidence per ID",
+          "underlying": [
+            "PASS_LIVE",
+            "G6 formal elevation",
+            "batch05_independent increment gate"
+          ],
+          "scope_ids": "201-250"
+        },
+        {
+          "id": "RL6",
+          "item": "Platform failover drill (Redis/PostgreSQL)",
+          "dependency_class": "RAILWAY_ONLY",
+          "why_local_insufficient": "Live infrastructure failover cannot be simulated with production fidelity locally",
+          "underlying": [
+            "platform Redis/PostgreSQL failover",
+            "G5.9 platform_redis_postgresql_failover"
+          ],
+          "maps_from": [
+            "G5.9.platform_redis_postgresql_failover"
+          ],
+          "scope_ids": "platform"
+        },
+        {
+          "id": "RL7",
+          "item": "Platform backup/restore drill (PostgreSQL/Redis durability)",
+          "dependency_class": "RAILWAY_ONLY",
+          "why_local_insufficient": "Platform RPO/RTO backup-restore evidence requires live ops infrastructure",
+          "underlying": [
+            "platform PostgreSQL/Redis backup",
+            "platform restore drill",
+            "G5.10 platform durability"
+          ],
+          "maps_from": [
+            "G5.10.platform_postgresql_redis_durability_restore"
+          ],
+          "scope_ids": "platform"
+        }
+      ],
+      "count": 7,
+      "purity_verified": true
+    },
+    "QUEUE_C_INDEPENDENT_REVIEW_ONLY": {
+      "items": [],
+      "count": 0,
+      "purity_verified": true,
+      "note": "Empty until all Railway prerequisites satisfied \u2014 no premature independent-only items"
+    },
+    "QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW": {
+      "items": [
+        {
+          "id": "RTI1",
+          "item": "12207 Validation workshop sign-off",
+          "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+          "prerequisites": [
+            "RL2",
+            "RL3"
+          ],
+          "railway_evidence_required": true,
+          "independent_review_required": true,
+          "why_not_independent_only": "Requires live validation artifacts from Gate Zero + production E2E",
+          "underlying": [
+            "12207 Validation",
+            "G7 independent_assurance"
+          ],
+          "scope_ids": "201-250"
+        },
+        {
+          "id": "RTI2",
+          "item": "12207 Transition/Operation live sign-off",
+          "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+          "prerequisites": [
+            "RL1",
+            "RL3",
+            "RL4"
+          ],
+          "railway_evidence_required": true,
+          "independent_review_required": true,
+          "why_not_independent_only": "Transition/Operation proof requires executed live deployment evidence",
+          "underlying": [
+            "12207 Transition/Operation live proof"
+          ],
+          "scope_ids": "201-250"
+        },
+        {
+          "id": "RTI3",
+          "item": "SRE PRR formal approval",
+          "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+          "prerequisites": [
+            "RL4",
+            "RL5",
+            "RL6",
+            "RL7"
+          ],
+          "railway_evidence_required": true,
+          "independent_review_required": true,
+          "why_not_independent_only": "PRR sign-off requires production SLO/capacity/failover/backup evidence",
+          "underlying": [
+            "SRE PRR approval",
+            "residual-risk acceptance"
+          ],
+          "scope_ids": "201-250"
+        },
+        {
+          "id": "RTI4",
+          "item": "G7 independent evidence review / G7 PASS",
+          "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+          "prerequisites": [
+            "RL5",
+            "RTI1",
+            "RTI3"
+          ],
+          "railway_evidence_required": true,
+          "independent_review_required": true,
+          "why_not_independent_only": "G7 PASS requires PASS_LIVE + complete live evidence pack",
+          "underlying": [
+            "G7 PASS",
+            "independent assurance"
+          ],
+          "scope_ids": "201-250"
+        },
+        {
+          "id": "RTI5",
+          "item": "ASSURANCE_READY elevation",
+          "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+          "prerequisites": [
+            "RTI4"
+          ],
+          "railway_evidence_required": true,
+          "independent_review_required": true,
+          "why_not_independent_only": "assurance_ready per assurance_ready() requires G0-G7 PASS_ENGINEERING; RTI4 already implies PASS_LIVE and live evidence via RL5/RTI1/RTI3 chain",
+          "underlying": [
+            "ASSURANCE_READY"
+          ],
+          "scope_ids": "201-250"
+        }
+      ],
+      "count": 5,
+      "purity_verified": true
+    },
+    "dependency_graph": [
+      {
+        "node_id": "REQ_G5_6",
+        "node_type": "requirement",
+        "requirement": "G5.6 SLI/SLO live measurement",
+        "prerequisite": null,
+        "terminal": false,
+        "queue_membership": [
+          "RL4"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": false,
+        "railway_queue_ref": "RL4",
+        "final_transition": "PASS after RL4 live telemetry"
+      },
+      {
+        "node_id": "REQ_G5_7",
+        "node_type": "requirement",
+        "requirement": "G5.7 production capacity headroom",
+        "prerequisite": null,
+        "terminal": false,
+        "queue_membership": [
+          "RL4"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": false,
+        "railway_queue_ref": "RL4",
+        "final_transition": "PASS after RL4 capacity proof"
+      },
+      {
+        "node_id": "REQ_G5_8",
+        "node_type": "requirement",
+        "requirement": "G5.8 live dependency latency SLO",
+        "prerequisite": null,
+        "terminal": false,
+        "queue_membership": [
+          "RL4"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": false,
+        "railway_queue_ref": "RL4",
+        "final_transition": "PASS after RL4 latency SLO"
+      },
+      {
+        "node_id": "REQ_G5_9_PLATFORM",
+        "node_type": "requirement",
+        "requirement": "G5.9 platform Redis/PostgreSQL failover",
+        "prerequisite": null,
+        "terminal": false,
+        "queue_membership": [
+          "RL6"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": false,
+        "railway_queue_ref": "RL6",
+        "final_transition": "PASS after RL6 failover drill"
+      },
+      {
+        "node_id": "REQ_G5_10_PLATFORM",
+        "node_type": "requirement",
+        "requirement": "G5.10 platform backup/restore",
+        "prerequisite": null,
+        "terminal": false,
+        "queue_membership": [
+          "RL7"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": false,
+        "railway_queue_ref": "RL7",
+        "final_transition": "PASS after RL7 backup-restore drill"
+      },
+      {
+        "node_id": "REQ_G6",
+        "node_type": "requirement",
+        "requirement": "G6 live_validation",
+        "prerequisite": [
+          "RL1",
+          "RL2",
+          "RL3"
+        ],
+        "terminal": false,
+        "queue_membership": [
+          "RL1",
+          "RL2",
+          "RL3"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": false,
+        "railway_queue_ref": "RL2,RL3",
+        "final_transition": "G6 PASS after production E2E"
+      },
+      {
+        "node_id": "REQ_PASS_LIVE",
+        "node_type": "requirement",
+        "requirement": "PASS_LIVE (201-250)",
+        "prerequisite": [
+          "RL3"
+        ],
+        "terminal": false,
+        "queue_membership": [
+          "RL5"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": false,
+        "railway_queue_ref": "RL5",
+        "final_transition": "Per-ID PASS_LIVE stamp"
+      },
+      {
+        "node_id": "REQ_12207_TRANSITION",
+        "node_type": "requirement",
+        "requirement": "12207 live Transition/Operation evidence",
+        "prerequisite": [
+          "RL1",
+          "RL3",
+          "RL4"
+        ],
+        "terminal": false,
+        "queue_membership": [
+          "RTI2"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": true,
+        "railway_queue_ref": "RTI2",
+        "final_transition": "RTI2 sign-off after Railway evidence"
+      },
+      {
+        "node_id": "REQ_SRE_PRR",
+        "node_type": "requirement",
+        "requirement": "SRE PRR final approval",
+        "prerequisite": [
+          "RL4",
+          "RL5",
+          "RL6",
+          "RL7"
+        ],
+        "terminal": false,
+        "queue_membership": [
+          "RTI3"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": true,
+        "railway_queue_ref": "RTI3",
+        "final_transition": "RTI3 human sign-off"
+      },
+      {
+        "node_id": "REQ_G7_PASS",
+        "node_type": "requirement",
+        "requirement": "G7 PASS",
+        "prerequisite": [
+          "RL5",
+          "RTI1",
+          "RTI3"
+        ],
+        "terminal": false,
+        "queue_membership": [
+          "RTI4"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": true,
+        "railway_queue_ref": "RTI4",
+        "final_transition": "RTI4 independent review"
+      },
+      {
+        "node_id": "REQ_ASSURANCE_READY",
+        "node_type": "requirement",
+        "requirement": "ASSURANCE_READY",
+        "prerequisite": [
+          "RTI4"
+        ],
+        "terminal": true,
+        "queue_membership": [
+          "RTI5"
+        ],
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": true,
+        "railway_queue_ref": "RTI5",
+        "final_transition": "assurance_ready=true (LOCKS; requires G7 via RTI4)"
+      },
+      {
+        "node_id": "STATUS_LIVE_READY",
+        "node_type": "status_lock_transition",
+        "requirement": "live_ready elevation",
+        "prerequisite": [
+          "RL2",
+          "RL3",
+          "RL5"
+        ],
+        "terminal": true,
+        "queue_membership": "QUEUE_B_derived",
+        "local_work_complete": true,
+        "railway_evidence_required": true,
+        "independent_review_required": false,
+        "note": "Derived status lock \u2014 not an RL/RTI blocker ID; distinct from assurance_ready",
+        "final_transition": "live_ready=true (technical; G6+PASS_LIVE; no G7)"
+      }
+    ],
+    "consistency_assertions": {
+      "no_locally_solvable_work_remains": true,
+      "no_na_conflicts_with_active_platform_dependency": true,
+      "no_independent_only_with_unmet_railway_prerequisite": true,
+      "railway_then_independent_has_prerequisites": true,
+      "no_blocker_omitted": true,
+      "no_duplicate_blocker_accounting": true,
+      "g5_9_platform_maps_RL6": true,
+      "g5_10_platform_maps_RL7": true,
+      "blocker_registry_count": 12,
+      "dependency_graph_node_count": 12,
+      "dependency_graph_unique_node_ids": 12,
+      "reported_node_count_equals_actual": true,
+      "blocker_queue_count": 12,
+      "zero_cycles": true,
+      "live_ready_separated_from_assurance_ready": true,
+      "residual_7_decisions_preserved": true,
+      "all_pass": true
+    }
   },
   "live_only_queue": {
     "items": [
@@ -761,24 +1049,102 @@
       }
     ],
     "count": 9,
-    "purity_verified": true
+    "purity_verified": true,
+    "artifact": "docs/BATCH05_LIVE_ONLY_QUEUE.json"
   },
+  "sonarcloud": {
+    "quality_gate_status": "REMOTE_VERIFICATION_PENDING",
+    "local_engineering_complete": true,
+    "s6466_fix": "cap646/batch04_strangler_spine.py _as_dict_list + _record_symbol",
+    "coverage_tests": [
+      "tests/cap646/test_batch04_strangler_spine.py::test_cap164_unlock_filters_non_dict_scheduled_unlocks",
+      "tests/cap646/test_batch05_ids_contract.py",
+      "tests/test_sonar_new_coverage_closure.py"
+    ],
+    "dashboard": "https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark",
+    "note": "Local reliability/coverage fixes applied; SonarCloud QG re-check requires CI token \u2014 not a local engineering gap"
+  },
+  "per_id_final_matrix": "docs/BATCH05_PER_ID_FINAL_MATRIX_201_250.json",
   "known_local_deficiencies": [],
   "freeze_tests": {
     "exit_code": 0,
-    "passed": true,
-    "stdout_tail": "..................................................... [ 70%]\n........................................................................ [ 84%]\n........................................................................ [ 98%]\n......                                                                   [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+    "passed": true
   },
-  "full_regression": {
-    "exit_code": 0,
-    "passed": true,
-    "stdout_tail": "..................................................... [ 70%]\n........................................................................ [ 84%]\n........................................................................ [ 98%]\n......                                                                   [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+  "cross_batch_regression": {
+    "generated_at": "2026-09-05T13:24:05.669783+00:00",
+    "git_commit": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+    "suites": [
+      {
+        "label": "batch01_http_all50",
+        "script": "verify_batch01_http_all50.py",
+        "exit_code": 0,
+        "passed": true
+      },
+      {
+        "label": "batch02_official_production",
+        "script": "verify_official_batch02_production.py",
+        "exit_code": 0,
+        "passed": true
+      },
+      {
+        "label": "batch_verification_orchestrator",
+        "script": "run_batch_verification_orchestrator.py",
+        "exit_code": 0,
+        "passed": true,
+        "all_verified": true
+      },
+      {
+        "label": "batch01",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "........................................................................ [ 30%]\n........................................................................ [ 60%]\n........................................................................ [ 90%]\n......................                                                   [100%]"
+      },
+      {
+        "label": "batch03_gateway",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "..............                                                           [100%]"
+      },
+      {
+        "label": "batch04_gateway",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "..........                                                               [100%]"
+      },
+      {
+        "label": "batch05_frozen",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+      },
+      {
+        "label": "shared_runtime_service_bus",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "ci_deterministic_closure.py: 70 warnings\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+      },
+      {
+        "label": "six_heroes",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "ro_binding.py::test_local_hero_endpoints\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+      }
+    ],
+    "failed": [],
+    "partial": [],
+    "material_skipped": [],
+    "known_flaky_unresolved": [],
+    "full_pass": true
   },
   "artifact_index": [
     "docs/BATCH05_FINAL_LOCAL_FREEZE.json",
-    "docs/BATCH05_V2_ASSURANCE_PACKAGE.json",
-    "docs/BATCH05_LOCAL_INSTITUTIONAL_COMPLETION.json",
-    "docs/BATCH05_LIVE_ONLY_QUEUE.json",
-    "tests/cap646/test_batch05_local_assurance_freeze.py"
+    "docs/BATCH05_STATUS_QUEUES.json",
+    "docs/BATCH05_CROSS_BATCH_REGRESSION.json",
+    "docs/BATCH05_12207_VALIDATION_PACKAGE.json",
+    "docs/BATCH05_12207_TRANSITION_PACKAGE.json",
+    "docs/BATCH05_12207_OPERATION_READINESS_PACKAGE.json",
+    "docs/BATCH05_PENTAGONAL_COL10_PREPARATION.json",
+    "docs/BATCH05_PER_ID_FINAL_MATRIX_201_250.json",
+    "docs/BATCH05_V2_ASSURANCE_PACKAGE.json"
   ]
 }
