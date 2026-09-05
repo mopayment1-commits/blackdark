@@ -146,8 +146,7 @@ async def market_klines(
     interval: str = Query("1h"),
     limit: int = Query(100, ge=1, le=500),
 ):
-    """Server-side Binance klines proxy — avoids browser CORS failures."""
-    # Rebuild from allowlisted charset only (CodeQL py/partial-ssrf).
+    """Server-side klines — unified OHLCV spine with Binance failover."""
     sym = "".join(ch for ch in symbol.upper() if ch.isalnum())
     if not sym.endswith("USDT"):
         sym = f"{sym}USDT"
@@ -155,15 +154,38 @@ async def market_klines(
         raise HTTPException(status_code=400, detail="Invalid symbol")
     if interval not in _ALLOWED_INTERVALS:
         raise HTTPException(status_code=400, detail="Invalid interval")
-    safe_interval = interval  # membership in _ALLOWED_INTERVALS is the sanitizer
-    safe_limit = int(limit)
 
-    # Fixed host/path; user input only as query params after validation.
+    from ohlcv_spine import fetch_ohlcv_candles
+
+    pack = await fetch_ohlcv_candles(sym, interval=interval, limit=int(limit))
+    candles = pack.get("candles") or []
+    if candles:
+        rows = [
+            [
+                int(c["t"]),
+                str(c["o"]),
+                str(c["h"]),
+                str(c["l"]),
+                str(c["c"]),
+                str(c.get("v") or 0),
+                int(c.get("n") or 0),
+            ]
+            for c in candles
+        ]
+        return {
+            "symbol": sym,
+            "interval": interval,
+            "klines": rows,
+            "source": pack.get("source") or "ohlcv_spine",
+            "gaps_filled": pack.get("gaps_filled", 0),
+            "timestamp": datetime.now(UTC).isoformat(),
+        }
+
+    safe_interval = interval
+    safe_limit = int(limit)
     try:
         timeout = aiohttp.ClientTimeout(total=12)
         async with aiohttp.ClientSession(timeout=timeout) as session:
-            if not sym.isalnum():
-                raise HTTPException(status_code=400, detail="Invalid symbol")
             async with session.get(
                 "https://api.binance.com/api/v3/klines",
                 params={"symbol": sym, "interval": safe_interval, "limit": safe_limit},

@@ -176,10 +176,24 @@ def _bucket_ms(interval: str) -> int:
     return mapping.get(interval, 3_600_000)
 
 
-async def record_ohlc_tick(symbol: str, *, mid: float, ts_ms: int, interval: str = "1h") -> None:
+async def record_ohlc_tick(
+    symbol: str,
+    *,
+    mid: float,
+    ts_ms: int,
+    interval: str = "1h",
+    volume: float = 0.0,
+) -> None:
     sym = symbol.strip().upper()
     bucket = (ts_ms // _bucket_ms(interval)) * _bucket_ms(interval)
     key = f"bd:ohlc:{interval}:{sym}"
+
+    try:
+        from blackdark.data.ohlcv_aggregator import buffer_trade
+
+        buffer_trade(sym.replace("USDT", ""), price=mid, qty=volume, ts_ms=ts_ms)
+    except Exception:
+        pass
 
     client = await _redis()
     if client is None:
@@ -197,12 +211,51 @@ async def record_ohlc_tick(symbol: str, *, mid: float, ts_ms: int, interval: str
             candle["h"] = max(float(candle["h"]), mid)
             candle["l"] = min(float(candle["l"]), mid)
             candle["c"] = mid
+            candle["v"] = float(candle.get("v") or 0) + float(volume or 0)
+            candle["n"] = int(candle.get("n") or 0) + 1
         else:
-            candle = {"o": mid, "h": mid, "l": mid, "c": mid, "t": bucket}
+            candle = {"o": mid, "h": mid, "l": mid, "c": mid, "t": bucket, "v": float(volume or 0), "n": 1}
         await client.hset(key, str(bucket), json.dumps(candle, separators=(",", ":")))
         await client.expire(key, 86_400)
     except Exception:
         logger.debug("Redis OHLC write failed", exc_info=True)
+
+
+async def get_ohlc_candles(symbol: str, *, interval: str = "1h", limit: int = 200) -> list[dict[str, Any]]:
+    """Full OHLCV candles from Redis (or local mirror)."""
+    sym = symbol.strip().upper()
+    key = f"bd:ohlc:{interval}:{sym}"
+
+    client = await _redis()
+    if client is not None:
+        try:
+            rows = await client.hgetall(key)
+            if rows:
+                buckets = sorted(int(k) for k in rows)
+                out: list[dict[str, Any]] = []
+                for b in buckets[-limit:]:
+                    c = json.loads(rows[str(b)])
+                    out.append(
+                        {
+                            "t": int(c.get("t") or b),
+                            "o": float(c["o"]),
+                            "h": float(c["h"]),
+                            "l": float(c["l"]),
+                            "c": float(c["c"]),
+                            "v": float(c.get("v") or 0),
+                            "n": int(c.get("n") or 0),
+                        }
+                    )
+                if out:
+                    return out
+        except Exception:
+            logger.debug("Redis OHLC candles read failed", exc_info=True)
+
+    if not strict_mode():
+        closes = _local_ohlc.get(key, [])[-limit:]
+        if closes:
+            return [{"t": i, "o": c, "h": c, "l": c, "c": c, "v": 0.0, "n": 0} for i, c in enumerate(closes)]
+    return []
 
 
 async def get_ohlc_closes(symbol: str, *, interval: str = "1h", limit: int = 200) -> list[float]:
