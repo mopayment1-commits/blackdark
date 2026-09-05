@@ -1,12 +1,12 @@
 {
   "artifact": "BATCH05_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-05T19:35:00Z",
+  "generated_at_utc": "2026-09-05T21:45:00Z",
   "heads": {
-    "current_head": "1a7e16baaa2bce9578da62e3beb7c4e08d96fe49",
-    "tested_source_head": "5968a5d8e03b8db5945b0be111247946bd51fd45",
-    "regression_head": "5968a5d8e03b8db5945b0be111247946bd51fd45",
-    "artifact_generation_head": "1a7e16baaa2bce9578da62e3beb7c4e08d96fe49",
-    "embedded_freeze_head": "1a7e16baaa2bce9578da62e3beb7c4e08d96fe49",
+    "current_head": "c4ee8f79001ed6804be806a763f7df7ab1a3b974",
+    "tested_source_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
+    "regression_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
+    "artifact_generation_head": "c4ee8f79001ed6804be806a763f7df7ab1a3b974",
+    "embedded_freeze_head": "c4ee8f79001ed6804be806a763f7df7ab1a3b974",
     "container_commit": null,
     "baseline_ancestry": "94724ac103525de5624e6ed8db705c3b86d5dfda"
   },
@@ -34,31 +34,31 @@
   "github_actions": {
     "CAP978": {
       "status": "PASS",
-      "run_id": 33984250061,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984250061"
+      "run_id": 33986232192,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986232192"
     },
     "CI_CRITICAL_GATE": {
       "status": "PASS",
-      "run_id": 33984250055,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984250055"
+      "run_id": 33986232279,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986232279"
     },
     "SONARCLOUD": {
       "status": "PASS",
-      "run_id": 33984250053,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984250053",
+      "run_id": 33986232249,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986232249",
       "quality_gate": "PASSED",
       "coverage_xml": "PASS",
       "scanner_executed": true
     },
     "SECURITY_SCAN": {
       "status": "PASS",
-      "run_id": 33984250088,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984250088"
+      "run_id": 33986232245,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986232245"
     },
     "CODEQL": {
       "status": "PASS",
-      "run_id": 33984247499,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984247499"
+      "run_id": 33986229867,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986229867"
     }
   },
   "sonarcloud_evidence": {
