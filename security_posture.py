@@ -124,6 +124,29 @@ def security_posture_report() -> dict[str, Any]:
         },
     ]
 
+    try:
+        from dast_gate import check_dast_production_gate, dast_gate_status
+
+        dast_status = dast_gate_status()
+        dast_gate = check_dast_production_gate()
+        checks.append(
+            {
+                "id": "dast_gate_ci",
+                "ok": dast_status["policy"]["enabled"] is True,
+                "detail": "DAST gate — runtime TLS/RBAC/leak scan in security.yml",
+            }
+        )
+        checks.append(
+            {
+                "id": "dast_production_gate",
+                "ok": dast_gate["ok"],
+                "detail": dast_gate,
+            }
+        )
+        dast_gate_policy = dast_status
+    except ImportError:
+        dast_gate_policy = None
+
     pentest = pentest_attestation_status()
     attested = verify_pentest_attestation()
 
@@ -157,6 +180,7 @@ def security_posture_report() -> dict[str, Any]:
             "admin_endpoints": "X-Admin-Key or admin email",
         },
         "checks": checks,
+        "dast_gate": dast_gate_policy,
         "vault_configured": vault,
         "admin_emails_configured": len(admin_emails()) > 0,
         "pentest_attestation": pentest,
@@ -182,6 +206,7 @@ def security_posture_report() -> dict[str, Any]:
         "docs": [
             "/SECURITY.md",
             "docs/SECURITY_HARDENING.md",
+            "docs/infrastructure/DAST_GATE.md",
             "docs/SECURITY_MAX_CHECKLIST.md",
             "docs/CDN_WAF_CHECKLIST.md",
             "docs/templates/pentest_scope.md",

@@ -811,6 +811,34 @@ async def vault_status():
     return _fn()
 
 
+@router.get("/dast/status")
+async def dast_gate_status_route():
+    from dast_gate import dast_gate_status
+
+    return dast_gate_status()
+
+
+@router.get("/dast/gate")
+async def dast_gate_production_route():
+    from dast_gate import check_dast_production_gate
+
+    return check_dast_production_gate()
+
+
+@router.get("/dast/e2e")
+async def dast_gate_e2e_route():
+    from dast_gate import run_dast_gate_e2e
+
+    return run_dast_gate_e2e()
+
+
+@router.post("/dast/scan")
+async def dast_gate_scan_route(_admin: dict = Depends(require_admin)):
+    from dast_gate import run_dast_gate
+
+    return await run_dast_gate(mode="ad_hoc", actor="admin")
+
+
 @router.post("/vault/store", responses=COMMON_ERROR_RESPONSES)
 async def vault_store(body: dict[str, Any] = Body(...), _admin: dict = Depends(require_admin)):
     from bd_platform.vault_client import store_secret
