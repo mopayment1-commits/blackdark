@@ -413,6 +413,16 @@ async def login_user(
     await touch_user_login(int(user["id"]))
     session = await create_session(int(user["id"]))
     tier = await resolve_user_tier(email)
+    try:
+        from suspicious_activity_engine import evaluate_login_context
+
+        evaluate_login_context(
+            user_id=int(user["id"]),
+            ip=str(os.getenv("LOGIN_CLIENT_IP") or "unknown"),
+            user_agent="",
+        )
+    except Exception:
+        pass
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
