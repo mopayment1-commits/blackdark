@@ -811,6 +811,49 @@ async def vault_status():
     return _fn()
 
 
+@router.get("/retention-deletion/status")
+async def retention_deletion_status():
+    from data_retention_governance import retention_deletion_policy_status
+
+    return retention_deletion_policy_status()
+
+
+@router.get("/retention-deletion/gate")
+async def retention_deletion_gate():
+    from data_retention_governance import check_retention_deletion_production_gate
+
+    return check_retention_deletion_production_gate()
+
+
+@router.get("/retention-deletion/e2e")
+async def retention_deletion_e2e():
+    from data_retention_governance import run_retention_deletion_e2e
+
+    return run_retention_deletion_e2e()
+
+
+@router.post("/retention-deletion/run")
+async def retention_deletion_run_job(_admin: dict = Depends(require_admin)):
+    from data_retention_governance import run_retention_deletion_job
+
+    return await run_retention_deletion_job()
+
+
+@router.post("/retention-deletion/legal-hold")
+async def retention_deletion_legal_hold(
+    body: dict[str, Any] = Body(...),
+    _admin: dict = Depends(require_admin),
+):
+    from data_retention_governance import set_legal_hold
+
+    email = str(body.get("email") or body.get("subject_email") or "")
+    if not email:
+        raise HTTPException(status_code=400, detail="email required")
+    active = body.get("active", True) not in {False, "false", "0"}
+    reason = str(body.get("reason") or "")
+    return set_legal_hold(email, active=active, reason=reason, admin_actor="admin")
+
+
 @router.post("/vault/store", responses=COMMON_ERROR_RESPONSES)
 async def vault_store(body: dict[str, Any] = Body(...), _admin: dict = Depends(require_admin)):
     from bd_platform.vault_client import store_secret

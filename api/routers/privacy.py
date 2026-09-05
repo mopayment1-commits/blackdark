@@ -34,7 +34,7 @@ async def dsr_erase(
     user: dict = Depends(require_authenticated),
     body: dict = Body(default={}),
 ):
-    """Authenticated user requests erasure (GDPR Art. 17)."""
+    """Authenticated user requests erasure (GDPR Art. 17) — 30-day grace workflow."""
     from gdpr_service import erase_user_data
 
     email = str(user.get("email") or "")
@@ -42,3 +42,19 @@ async def dsr_erase(
         raise HTTPException(status_code=400, detail="No email on account")
     confirm = body.get("confirm") in {True, "true", "1"}
     return await erase_user_data(email, confirmed=confirm)
+
+
+@router.get("/dsr/status")
+async def dsr_status(user: dict = Depends(require_authenticated)):
+    """Check pending erasure request status for authenticated user."""
+    from data_retention_governance import get_deletion_request_status
+
+    email = str(user.get("email") or "")
+    if not email:
+        raise HTTPException(status_code=400, detail="No email on account")
+    request = get_deletion_request_status(email)
+    return {
+        "subject_email": email.strip().lower(),
+        "deletion_request": request,
+        "has_pending_erasure": request is not None and request.get("status") in {"pending", "soft_deleted"},
+    }
