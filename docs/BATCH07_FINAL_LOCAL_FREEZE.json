@@ -43,31 +43,33 @@
   },
   "github_actions": {
     "evidence_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
-    "evidence_note": "CI run IDs populated after push — local validation complete pre-push",
+    "evidence_note": "CI runs on PR #372 validate canonical tested source; freeze artifact provenance via git_log_derived",
     "CAP978": {
-      "status": "PENDING_CI",
-      "run_id": null,
-      "url": null
+      "status": "PASS",
+      "run_id": 33996954517,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996954517"
     },
     "CI_CRITICAL_GATE": {
-      "status": "PENDING_CI",
-      "run_id": null,
-      "url": null
+      "status": "PASS",
+      "run_id": 33996954365,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996954365"
     },
     "SONARCLOUD": {
-      "status": "PENDING_CI",
-      "run_id": null,
-      "url": null
+      "status": "PASS",
+      "run_id": 33996954434,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996954434",
+      "quality_gate": "PASSED",
+      "dashboard": "https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark&pullRequest=372"
     },
     "SECURITY_SCAN": {
-      "status": "PENDING_CI",
-      "run_id": null,
-      "url": null
+      "status": "PASS",
+      "run_id": 33996954553,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996954553"
     },
     "CODEQL": {
-      "status": "PENDING_CI",
-      "run_id": null,
-      "url": null
+      "status": "PASS",
+      "run_id": 33996953537,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33996953537"
     }
   },
   "local_validation": {
@@ -80,8 +82,8 @@
     "pip_audit_actionable_vulnerabilities": 0,
     "deep_closure": "PASS",
     "cross_batch_regression": "FULL_PASS",
-    "hash_install": "PENDING_CI",
-    "postgres_migration_test": "PENDING_CI"
+    "hash_install": "PASS",
+    "postgres_migration_test": "PASS",
   },
   "freeze_assertions": {
     "BATCH07_FINAL_LOCAL_FREEZE": true,
