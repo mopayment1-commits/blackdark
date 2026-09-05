@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-05T12:27:48.188038+00:00",
-  "git_commit": "caf9e4e6d83b9b848a49a96832d5da994fc9b1d9",
+  "generated_at": "2026-09-05T12:28:21.486350+00:00",
+  "git_commit": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
   "freeze_heads": {
-    "repository_head": "caf9e4e6d83b9b848a49a96832d5da994fc9b1d9",
-    "artifact_generation_head": "caf9e4e6d83b9b848a49a96832d5da994fc9b1d9",
-    "artifact_embedded_head": "caf9e4e6d83b9b848a49a96832d5da994fc9b1d9",
-    "final_freeze_head": "caf9e4e6d83b9b848a49a96832d5da994fc9b1d9",
-    "source_head": "caf9e4e6d83b9b848a49a96832d5da994fc9b1d9",
+    "repository_head": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
+    "artifact_generation_head": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
+    "artifact_embedded_head": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
+    "final_freeze_head": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
+    "source_head": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
     "invariant": "all five head fields equal at generation time; source_head = tested evidence commit"
   },
   "BATCH06_FINAL_LOCAL_FREEZE": true,
@@ -251,8 +251,8 @@
     "locally_solvable_gaps": 0
   },
   "status_queues": {
-    "generated_at": "2026-09-05T12:27:48.148957+00:00",
-    "git_commit": "caf9e4e6d83b9b848a49a96832d5da994fc9b1d9",
+    "generated_at": "2026-09-05T12:28:21.446407+00:00",
+    "git_commit": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
     "taxonomy": {
       "RAILWAY_ONLY": "Requires only live production/Railway evidence",
       "INDEPENDENT_REVIEW_ONLY": "All technical/live evidence available; human sign-off only",

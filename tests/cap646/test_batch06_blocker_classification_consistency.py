@@ -81,11 +81,37 @@ def test_live_ready_status_node_in_graph():
 
 
 def test_freeze_head_consistency():
+    import subprocess
+
     freeze = _load("BATCH06_FINAL_LOCAL_FREEZE.json")
     heads = freeze["freeze_heads"]
+    assert heads["repository_head"] == heads["artifact_generation_head"]
     assert heads["repository_head"] == heads["artifact_embedded_head"]
     assert heads["source_head"] == heads["final_freeze_head"]
+    assert heads["repository_head"] == heads["source_head"]
+    assert freeze["git_commit"] == heads["source_head"]
     assert freeze["BATCH06_FINAL_LOCAL_FREEZE"] is True
+
+    current = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    source = heads["source_head"]
+    if current != source:
+        subprocess.run(
+            ["git", "merge-base", "--is-ancestor", source, current],
+            cwd=ROOT,
+            check=True,
+        )
+        diff_names = subprocess.check_output(
+            ["git", "diff", "--name-only", source, current],
+            cwd=ROOT,
+            text=True,
+        ).strip().splitlines()
+        allowed = {
+            "docs/BATCH06_FINAL_LOCAL_FREEZE.json",
+            "docs/BATCH06_FINAL_LOCAL_FREEZE.md",
+            "docs/BATCH06_STATUS_QUEUES.json",
+            "tests/cap646/test_batch06_blocker_classification_consistency.py",
+        }
+        assert set(diff_names) <= allowed, f"unexpected drift files: {set(diff_names) - allowed}"
 
 
 def test_live_ready_semantics_distinct_from_assurance_ready():
