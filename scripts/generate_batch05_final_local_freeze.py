@@ -181,7 +181,7 @@ def sonar_quality_gate_pass(sonar: dict[str, Any]) -> bool:
     )
 
 
-def freeze_head_metadata() -> dict[str, str]:
+def freeze_head_metadata(regression_head: str | None = None) -> dict[str, str]:
     head = git_commit()
     return {
         "repository_head": head,
@@ -189,7 +189,13 @@ def freeze_head_metadata() -> dict[str, str]:
         "artifact_embedded_head": head,
         "final_freeze_head": head,
         "source_head": head,
-        "invariant": "all five head fields equal at generation time; source_head = tested evidence commit",
+        "tested_source_head": head,
+        "regression_head": regression_head or head,
+        "invariant": (
+            "tested_source_head = executed evidence commit; "
+            "generation/embedded/repository heads equal at generation; "
+            "artifact_container_commit is later HEAD if a docs-only stamp follows"
+        ),
     }
 
 
@@ -446,7 +452,7 @@ def main() -> None:
     doc = {
         "generated_at": datetime.now(UTC).isoformat(),
         "git_commit": git_commit(),
-        "freeze_heads": freeze_head_metadata(),
+        "freeze_heads": freeze_head_metadata(regression_head=regression.get("git_commit")),
         "BATCH05_FINAL_LOCAL_FREEZE": freeze_complete,
         "LOCAL_GOVERNANCE_COMPLETE": freeze_complete,
         "freeze_type": "FINAL_LOCAL_ZERO_GAP_CLOSURE",
@@ -525,6 +531,7 @@ def main() -> None:
             "docs/BATCH05_V2_ASSURANCE_PACKAGE.json",
             "docs/BATCH05_SONARCLOUD_ACTUAL_QG.json",
             "docs/BATCH05_S6466_PRODUCTION_FILE_TRACEABILITY.json",
+            "docs/BATCH05_FREEZE_HEAD_CONSISTENCY.json",
         ],
     }
     write_freeze_artifacts(doc, reliability_summary, observability, [], data_rows)

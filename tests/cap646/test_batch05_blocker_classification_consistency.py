@@ -81,7 +81,10 @@ def test_live_ready_status_node_in_graph():
 
 
 def test_freeze_head_consistency():
-    import subprocess
+    import sys
+
+    sys.path.insert(0, str(ROOT))
+    from scripts.assert_batch05_freeze_head_consistency import build
 
     freeze = _load("BATCH05_FINAL_LOCAL_FREEZE.json")
     heads = freeze["freeze_heads"]
@@ -89,6 +92,7 @@ def test_freeze_head_consistency():
     assert heads["repository_head"] == heads["artifact_embedded_head"]
     assert heads["source_head"] == heads["final_freeze_head"]
     assert heads["repository_head"] == heads["source_head"]
+    assert heads.get("tested_source_head", heads["source_head"]) == heads["source_head"]
     assert freeze["git_commit"] == heads["source_head"]
     assert freeze["BATCH05_FINAL_LOCAL_FREEZE"] is freeze["LOCAL_GOVERNANCE_COMPLETE"]
     if freeze["BATCH05_FINAL_LOCAL_FREEZE"] is True:
@@ -96,30 +100,13 @@ def test_freeze_head_consistency():
         assert freeze["sonarcloud"]["quality_gate_status"] in {"OK", "PASS"}
         assert freeze["sonarcloud"].get("quality_gate_pass") is True
 
-    current = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    source = heads["source_head"]
-    if current != source:
-        subprocess.run(
-            ["git", "merge-base", "--is-ancestor", source, current],
-            cwd=ROOT,
-            check=True,
-        )
-        diff_names = subprocess.check_output(
-            ["git", "diff", "--name-only", source, current],
-            cwd=ROOT,
-            text=True,
-        ).strip().splitlines()
-        allowed_exact = {
-            "tests/cap646/test_batch05_blocker_classification_consistency.py",
-            "scripts/batch05_classification_partition.py",
-            "scripts/record_batch05_sonarcloud_qg.py",
-        }
-        for name in diff_names:
-            assert (
-                name.startswith("docs/BATCH05_")
-                or name.startswith("scripts/generate_batch05_")
-                or name in allowed_exact
-            ), f"unexpected drift file: {name}"
+    ancestry = build()
+    assert ancestry["production_runtime_drift_count"] == 0
+    assert ancestry["frozen_source_head_is_semantically_equivalent_to_current_head"] is True
+    for row in ancestry["commits_since_tested_source"]:
+        assert row["role"] in {"docs_stamp", "evidence_docs_tests_scripts"}
+        assert row["production_runtime_files"] == []
+    assert freeze.get("warnings_local_solvable", []) == []
 
 
 def test_col10_preparation_50_of_50():
