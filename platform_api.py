@@ -595,6 +595,30 @@ async def address_intelligence_overview_route(
     return await address_intelligence_overview(address, chain=chain, history_days=history_days)
 
 
+@router.get("/exchange-health/ranking")
+async def exchange_health_ranking(min_coverage: int = Query(50, ge=10, le=250)):
+    """Exchange Health & Certification (#53) — comparative ranking across ≥50 venues."""
+    from bd_platform.exchange_health_engine import assess_all_exchanges
+
+    return await assess_all_exchanges(min_coverage=min_coverage)
+
+
+@router.get("/exchange-health/assess")
+async def exchange_health_assess(exchange_id: str = Query("binance")):
+    """Exchange Health & Certification (#53) — single exchange health score + explanation."""
+    from bd_platform.exchange_health_engine import assess_exchange
+
+    return await assess_exchange(exchange_id)
+
+
+@router.get("/exchange-health/overview")
+async def exchange_health_overview_route(exchange_id: str = Query("binance")):
+    """Exchange Health & Certification (#53) — detail + universe rank + timeline."""
+    from bd_platform.exchange_health_engine import exchange_health_overview
+
+    return await exchange_health_overview(exchange_id)
+
+
 @router.get("/macro/bitcoin")
 async def macro_btc():
     from bd_platform.onchain_hub import lookintobitcoin_macro

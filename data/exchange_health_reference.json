@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "exchanges": {
+    "binance": {
+      "name": "Binance",
+      "regulatory_tier": "tier1_licensed",
+      "por_status": "attested_merkle",
+      "hack_incidents": 1,
+      "last_hack_year": 2019,
+      "jurisdictions": ["UAE", "France", "Italy"],
+      "blacklisted": false
+    },
+    "coinbase": {
+      "name": "Coinbase",
+      "regulatory_tier": "tier1_public",
+      "por_status": "attested_quarterly",
+      "hack_incidents": 0,
+      "jurisdictions": ["US", "EU"],
+      "blacklisted": false
+    },
+    "kraken": {
+      "name": "Kraken",
+      "regulatory_tier": "tier1_licensed",
+      "por_status": "attested_reserves",
+      "hack_incidents": 0,
+      "jurisdictions": ["US", "EU", "UK"],
+      "blacklisted": false
+    },
+    "okx": {
+      "name": "OKX",
+      "regulatory_tier": "tier1_licensed",
+      "por_status": "attested_merkle",
+      "hack_incidents": 0,
+      "jurisdictions": ["UAE", "EU"],
+      "blacklisted": false
+    },
+    "bybit": {
+      "name": "Bybit",
+      "regulatory_tier": "tier2_licensed",
+      "por_status": "attested_merkle",
+      "hack_incidents": 1,
+      "last_hack_year": 2023,
+      "jurisdictions": ["UAE"],
+      "blacklisted": false
+    },
+    "bitfinex": {
+      "name": "Bitfinex",
+      "regulatory_tier": "tier2_offshore",
+      "por_status": "partial",
+      "hack_incidents": 2,
+      "last_hack_year": 2016,
+      "jurisdictions": ["BVI"],
+      "blacklisted": false
+    },
+    "kucoin": {
+      "name": "KuCoin",
+      "regulatory_tier": "tier2_offshore",
+      "por_status": "attested_merkle",
+      "hack_incidents": 1,
+      "last_hack_year": 2020,
+      "jurisdictions": ["Seychelles"],
+      "blacklisted": false
+    },
+    "gateio": {
+      "name": "Gate.io",
+      "regulatory_tier": "tier2_offshore",
+      "por_status": "attested_merkle",
+      "hack_incidents": 0,
+      "jurisdictions": ["Cayman"],
+      "blacklisted": false
+    },
+    "huobi": {
+      "name": "HTX (Huobi)",
+      "regulatory_tier": "tier2_offshore",
+      "por_status": "attested_merkle",
+      "hack_incidents": 1,
+      "last_hack_year": 2022,
+      "jurisdictions": ["Seychelles"],
+      "blacklisted": false
+    },
+    "mexc": {
+      "name": "MEXC",
+      "regulatory_tier": "tier3_offshore",
+      "por_status": "unverified",
+      "hack_incidents": 0,
+      "jurisdictions": ["Seychelles"],
+      "blacklisted": false
+    },
+    "bitget": {
+      "name": "Bitget",
+      "regulatory_tier": "tier2_licensed",
+      "por_status": "attested_merkle",
+      "hack_incidents": 0,
+      "jurisdictions": ["Seychelles", "EU"],
+      "blacklisted": false
+    },
+    "cryptocom": {
+      "name": "Crypto.com",
+      "regulatory_tier": "tier1_licensed",
+      "por_status": "attested_quarterly",
+      "hack_incidents": 1,
+      "last_hack_year": 2022,
+      "jurisdictions": ["US", "EU", "Singapore"],
+      "blacklisted": false
+    },
+    "bitstamp": {
+      "name": "Bitstamp",
+      "regulatory_tier": "tier1_licensed",
+      "por_status": "attested_reserves",
+      "hack_incidents": 1,
+      "last_hack_year": 2015,
+      "jurisdictions": ["EU", "US", "UK"],
+      "blacklisted": false
+    },
+    "gemini": {
+      "name": "Gemini",
+      "regulatory_tier": "tier1_licensed",
+      "por_status": "attested_quarterly",
+      "hack_incidents": 0,
+      "jurisdictions": ["US", "UK"],
+      "blacklisted": false
+    },
+    "ftx": {
+      "name": "FTX",
+      "regulatory_tier": "collapsed",
+      "por_status": "fraud",
+      "hack_incidents": 1,
+      "last_hack_year": 2022,
+      "blacklisted": true
+    }
+  }
+}

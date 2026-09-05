@@ -34,6 +34,7 @@ _EXTENSION_ID_BINDINGS: dict[int, tuple[str, str, str]] = {
     954: ("lp_il_simulator", "simulate_lp_live", "symbol"),
     974: ("bd_platform.squeeze_trigger_engine", "squeeze_trigger_coordinates", "symbol"),
     975: ("lp_il_simulator", "lp_front_payload", "symbol"),
+    916: ("bd_platform.exchange_health_engine", "assess_all_exchanges", "none"),
 }
 
 _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
@@ -62,6 +63,7 @@ _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ..
     (("asymmetric slippage", "directional slippage", "buy sell slippage"), ("bd_platform.slippage_tolerance_optimizer", "compute_asymmetric_slippage_cost", "symbol")),
     (("intelligence ledger", "execution intelligence", "best execution"), ("bd_platform.intelligence_ledger", "build_execution_intelligence", "symbol")),
     (("address intelligence", "address search", "wallet search", "balance history", "balance updates"), ("bd_platform.address_intelligence", "address_intelligence_overview", "address")),
+    (("exchange health", "certification engine", "exchange certification", "counterparty risk"), ("bd_platform.exchange_health_engine", "assess_all_exchanges", "none")),
     (("1inch", "dex aggregator"), ("bd_platform.oneinch_connector", "fetch_oneinch_quote", "symbol")),
     (("exchange balance", "netflow", "exchange flow"), ("onchain_tracker", "build_onchain_context_safe", "none")),
     (("entity-adjusted", "entity aware"), ("onchain_tracker", "build_onchain_context_safe", "none")),
