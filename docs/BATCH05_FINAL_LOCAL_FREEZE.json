@@ -2,11 +2,11 @@
   "artifact": "BATCH05_FINAL_LOCAL_FREEZE",
   "generated_at_utc": "2026-09-05T21:45:00Z",
   "heads": {
-    "current_head": "9c3b8dece0b79bd4f0a6bcfd4f0f1d8747a080c3",
+    "current_head": "c59e1f505a1723e0f812bbbe72f151a664e6b1be",
     "tested_source_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "regression_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
-    "artifact_generation_head": "9c3b8dece0b79bd4f0a6bcfd4f0f1d8747a080c3",
-    "embedded_freeze_head": "9c3b8dece0b79bd4f0a6bcfd4f0f1d8747a080c3",
+    "artifact_generation_head": "c59e1f505a1723e0f812bbbe72f151a664e6b1be",
+    "embedded_freeze_head": "c59e1f505a1723e0f812bbbe72f151a664e6b1be",
     "container_commit": null,
     "baseline_ancestry": "94724ac103525de5624e6ed8db705c3b86d5dfda"
   },
