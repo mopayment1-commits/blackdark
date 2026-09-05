@@ -157,6 +157,42 @@ async def liq_radar(asset: str = Query("BTC")):
     return await liquidation_radar(asset)
 
 
+@router.get("/market-radar/early-stage-scanner")
+async def early_stage_scanner_route(
+    query: str = Query("USDT"),
+    limit: int = Query(20, ge=1, le=50),
+):
+    """Early Stage Token Scanner (#115) — filtering tool, not investment advice."""
+    from bd_platform.early_stage_token_scanner import scan_early_stage_tokens
+
+    return await scan_early_stage_tokens(query=query, limit=limit)
+
+
+@router.get("/market-radar/liquidity-inflow")
+async def liquidity_inflow_route(limit: int = Query(15, ge=1, le=50)):
+    """Liquidity Inflow Alert (#116) — on-chain signals with confidence score (#149)."""
+    from bd_platform.liquidity_inflow_alert import scan_liquidity_inflow
+
+    return await scan_liquidity_inflow(limit=limit)
+
+
+@router.get("/security/contract-scan")
+async def contract_scan_route(
+    chain: str = Query("ethereum"),
+    address: str = Query(..., min_length=10),
+):
+    """Smart Contract Scanner (#193) — security scan for token contract."""
+    from bd_platform.smart_contract_scanner import scan_contract_from_pair
+
+    return scan_contract_from_pair({
+        "chainId": chain,
+        "baseToken": {"address": address, "symbol": "TOKEN"},
+        "labels": [],
+        "liquidity": {"usd": 0},
+        "txns": {"h24": {"buys": 50, "sells": 50}},
+    })
+
+
 @router.get("/agent/telegram")
 async def telegram_agent(text: str = Query("What is BTC oracle accuracy?")):
     from bd_platform.telegram_agent import handle_agent_message

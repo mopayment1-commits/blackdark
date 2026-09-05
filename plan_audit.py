@@ -227,12 +227,27 @@ async def market_radar_narrative() -> dict[str, Any]:
     sectors = _sector_rows(sector_assets)
     bullets_en = _market_radar_bullets(sectors)
 
-    return {
+    payload = {
         "summary": "Today's market: " + " · ".join(bullets_en[:5]),
         "bullets": bullets_en,
         "sectors": sectors,
         "timestamp": datetime.now(UTC).isoformat(),
     }
+
+    try:
+        from bd_platform.early_stage_token_scanner import enrich_market_radar as enrich_early
+        from bd_platform.early_stage_token_scanner import scan_early_stage_tokens
+        from bd_platform.liquidity_inflow_alert import enrich_market_radar as enrich_inflow
+        from bd_platform.liquidity_inflow_alert import scan_liquidity_inflow
+
+        early = await scan_early_stage_tokens(limit=5)
+        inflow = await scan_liquidity_inflow(limit=5)
+        payload = enrich_early(payload, early)
+        payload = enrich_inflow(payload, inflow)
+    except Exception:
+        pass
+
+    return payload
 
 
 async def execution_speed_snapshot() -> dict[str, Any]:
