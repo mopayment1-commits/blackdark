@@ -20,11 +20,15 @@ def _utcnow() -> str:
 async def _get_json(url: str, *, headers: dict | None = None, params: dict | None = None) -> Any:
     timeout = aiohttp.ClientTimeout(total=12)
     safe_url = assert_url_path_safe(url)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
-        async with session.get(safe_url, headers=headers, params=params) as resp:
-            if resp.status != 200:
-                return None
-            return await resp.json()
+    try:
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.get(safe_url, headers=headers, params=params) as resp:
+                if resp.status != 200:
+                    return None
+                return await resp.json()
+    except (aiohttp.ClientError, TimeoutError, OSError) as exc:
+        logger.warning("onchain_hub fetch failed | url=%s error=%s", safe_url, exc)
+        return None
 
 
 async def dexscreener_pairs(query: str = "BTC") -> dict[str, Any]:
@@ -66,6 +70,8 @@ async def defillama_raises() -> dict[str, Any]:
 
 
 async def lookintobitcoin_macro() -> dict[str, Any]:
+    import os
+
     from bd_platform.free_market_data import _get_json
 
     mempool = await _get_json("https://mempool.space/api/v1/mining/hashrate/1m")
@@ -75,9 +81,16 @@ async def lookintobitcoin_macro() -> dict[str, Any]:
         latest = mempool["hashrates"][-1] if mempool["hashrates"] else {}
         hashrate = latest.get("avgHashrate")
 
+    degraded = hashrate is None and not fees
+    if degraded and os.environ.get("SERVICE_BUS_LOCAL", "").lower() in {"1", "true", "yes"}:
+        hashrate = 6.5e20
+        fees = {"fastestFee": 12, "hourFee": 8}
+        degraded = True
+
     return {
         "source": "lookintobitcoin_plus_mempool",
         "timestamp": _utcnow(),
+        "degraded": degraded,
         "live_metrics": {
             "btc_hashrate": hashrate,
             "fee_fastest_sat_vb": (fees or {}).get("fastestFee"),

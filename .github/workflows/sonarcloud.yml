@@ -92,11 +92,19 @@ jobs:
             tests/cap646/test_cap69_dual_path.py \
             tests/cap646/test_runtime_spine_coverage.py \
             tests/cap646/test_closure_reject_04.py \
+            tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py \
+            tests/cap646/test_batch03_reused_link_contract.py \
+            tests/test_sonar_batch03_new_code_coverage.py \
             tests/test_spine_database.py \
             tests/test_spine_database_auth.py \
             tests/test_bigquery_export_mock.py \
             tests/cap646/test_institutional_gate.py \
             tests/test_sonar_pr356_new_code_coverage.py \
+            tests/cap646/test_batch04_strangler_spine.py \
+            tests/cap646/test_batch05_strangler_spine.py \
+            tests/cap646/test_batch05_ids_contract.py \
+            tests/cap646/test_batch05_prep_dedicated.py \
+            tests/test_security_trust_data_batch242_250_strangler.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \

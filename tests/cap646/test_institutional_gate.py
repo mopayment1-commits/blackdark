@@ -45,6 +45,8 @@ async def test_institutional_gate_sample(tmp_path, monkeypatch):
     import database
 
     monkeypatch.setattr(config, "DB_PATH", str(tmp_path / "gate.db"))
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    monkeypatch.delenv("DATABASE_URL", raising=False)
     monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
     await database.init_db()
 
@@ -61,6 +63,8 @@ async def test_institutional_gate_full(tmp_path, monkeypatch):
     import database
 
     monkeypatch.setattr(config, "DB_PATH", str(tmp_path / "gate_full.db"))
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    monkeypatch.delenv("DATABASE_URL", raising=False)
     monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
     await database.init_db()
 

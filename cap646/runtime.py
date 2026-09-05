@@ -22,14 +22,18 @@ from cap646.handlers.verified import handle_verified_capability
 from cap646.batch01_production import BATCH01_IDS
 from cap646.batch02_production import BATCH02_IDS
 from cap646.batch03_production import BATCH03_IDS
+from cap646.batch04_production import BATCH04_IDS
+from cap646.batch05_production import BATCH05_IDS
 from cap646.batch_spine import execute_and_enrich_batch
 from cap646.handlers.batch01 import handle_batch01_capability
 from cap646.handlers.batch02 import handle_batch02_capability
 from cap646.handlers.batch03 import handle_batch03_capability
+from cap646.handlers.batch04 import handle_batch04_capability
+from cap646.handlers.batch05 import handle_batch05_capability
 from cap646.waves import WAVE_D
 
 VERIFIED_IDS = frozenset({49, 50, 62, 63, 632, 638, 639, 640, 641})
-OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS
+OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS | BATCH04_IDS | BATCH05_IDS
 WAVE_D_SET = set(WAVE_D)
 
 
@@ -44,6 +48,10 @@ def _route_handler(track: str, name: str, capability_id: int):
             return handle_batch02_capability
         if capability_id in BATCH03_IDS:
             return handle_batch03_capability
+        if capability_id in BATCH04_IDS:
+            return handle_batch04_capability
+        if capability_id in BATCH05_IDS:
+            return handle_batch05_capability
         if capability_id in {338, 500}:
             return handle_data_capability
         return handle_market_capability
@@ -123,6 +131,13 @@ async def execute_capability(
 
     from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
 
+    # Batch05 manifest IDs (201–250 minus duplicate delegation) take precedence over
+    # batch01 legacy extension routes for #214/#245 — single runtime truth via batch05 facade.
+    if capability_id in BATCH05_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch05_capability, capability_id, row=row, params=params
+        )
+
     if capability_id in BATCH01_IDS:
         return await execute_and_enrich_batch(
             handle_batch01_capability, capability_id, row=row, params=params
@@ -136,6 +151,11 @@ async def execute_capability(
     if capability_id in BATCH03_IDS:
         return await execute_and_enrich_batch(
             handle_batch03_capability, capability_id, row=row, params=params
+        )
+
+    if capability_id in BATCH04_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch04_capability, capability_id, row=row, params=params
         )
 
     if is_duplicate(capability_id) and target_id != capability_id:

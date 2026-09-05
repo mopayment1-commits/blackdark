@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-09-03T10:55:00Z",
+  "git_commit": "pending",
+  "ssot": "docs/CAPABILITIES_826_INVENTORY.json",
+  "literal_breakdown": {
+    "Batch01_1_50": 50,
+    "Batch02_independent_51_100_excl_REUSED_OVERLAP": 50,
+    "Batch03_independent_101_150_excl_REUSED_OVERLAP": 44,
+    "k_option_a_prebatch": 4,
+    "k_counted_ids": [338, 500, 507, 534],
+    "n14_excluded_legacy": 10,
+    "n14_excluded_ids": [175, 214, 245, 584, 629, 630, 631, 642, 644, 646],
+    "sum": 148
+  },
+  "equation": "50 + 50 + 44 + 4 = 148",
+  "separate_metrics": {
+    "batch03_independent": 44,
+    "progress_826": 148
+  },
+  "supersedes": "docs/BATCH03_158_BREAKDOWN.json (k=14 superseded by N14 individual audit k=4)",
+  "batch03_exclusion_proof": {
+    "reused_link_ids": [106, 107, 110, 125],
+    "overlap_partial_ids": [103, 129],
+    "not_in_progress_826_independent_column": true
+  },
+  "audit_file": "docs/BATCH03_N14_INDIVIDUAL_AUDIT.json"
+}

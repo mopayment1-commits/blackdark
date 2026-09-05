@@ -1,0 +1,355 @@
+{
+  "per_id": [
+    {
+      "capability_id": 201,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 202,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 203,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 204,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 205,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 206,
+      "semantic_oracle_pass": true,
+      "freshness_rule": false,
+      "feature_ref_invariant": false,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 207,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 208,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 209,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 210,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 211,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 212,
+      "semantic_oracle_pass": true,
+      "freshness_rule": false,
+      "feature_ref_invariant": false,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 213,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 214,
+      "semantic_oracle_pass": true,
+      "freshness_rule": false,
+      "feature_ref_invariant": false,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 215,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 216,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 217,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 218,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 219,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 220,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 221,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 222,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 223,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 224,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 225,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 226,
+      "semantic_oracle_pass": true,
+      "freshness_rule": false,
+      "feature_ref_invariant": false,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 227,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 228,
+      "semantic_oracle_pass": true,
+      "freshness_rule": false,
+      "feature_ref_invariant": false,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 229,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 230,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 231,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 232,
+      "semantic_oracle_pass": true,
+      "freshness_rule": false,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 233,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 234,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 235,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 236,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 237,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 238,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 239,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 240,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 241,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 242,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 243,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 244,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 245,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": false,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 246,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 247,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 248,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 249,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 250,
+      "semantic_oracle_pass": true,
+      "freshness_rule": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    }
+  ],
+  "proven_local": 50
+}

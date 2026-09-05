@@ -1,0 +1,8 @@
+{
+  "batch05_ai_capabilities": [
+    242
+  ],
+  "status": "RULE_BASED_AND_STUB \u2014 #242 multi-signal forecast uses deterministic stub",
+  "model_version": "NOT_APPLICABLE",
+  "drift_monitoring": "DESIGN_ONLY"
+}

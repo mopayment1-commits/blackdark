@@ -151,12 +151,17 @@ def _sec_006() -> dict[str, Any]:
     return _external("SEC-006", note="SSO IdP configuration external — set ENTERPRISE_OIDC_* on production")
 
 
-@_sync
-def _sec_007() -> dict[str, Any]:
-    from org_tenant import org_isolation_status
+async def _sec_007() -> dict[str, Any]:
+    from org_tenant import _use_pg, org_isolation_status
 
-    iso = org_isolation_status()
-    return _pass("SEC-007", evidence=["org_tenant"], note=str(iso.get("mode", "sqlite")))
+    if _use_pg():
+        from org_tenant_store import org_isolation_status_pg
+
+        iso = await org_isolation_status_pg()
+    else:
+        iso = org_isolation_status()
+    storage = iso.get("storage_engine") or iso.get("storage") or "sqlite"
+    return _pass("SEC-007", evidence=["org_tenant"], note=str(storage))
 
 
 @_sync

@@ -1,0 +1,2026 @@
+{
+  "generated_at": "2026-09-04T10:09:14.558407+00:00",
+  "commit_hash": "de59160126689c519f65154d884de69d79bd76a4",
+  "batch": "batch05",
+  "id_range": "201-250",
+  "count": 50,
+  "lifecycle_12207_summary": {
+    "Brownfield": 48,
+    "Brownfield-OVERLAP-BATCH01": 2
+  },
+  "prior_work_disposition_summary": {
+    "REUSE-AUDIT-INPUT-NOT-AUTO-PA": 48,
+    "RECLASSIFY-OVERLAP-BATCH01": 2
+  },
+  "hero_audit_summary": {
+    "SPLIT-BRAIN-UNVERIFIED": 39,
+    "DEFERRED-EARLY-BATCH": 11
+  },
+  "batch01_overlap_ids": [
+    214,
+    245
+  ],
+  "official_spine_exists": false,
+  "rows": [
+    {
+      "capability_id": 201,
+      "capability": "Network Growth Intelligence",
+      "track": "T11",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Network Growth Intelligence' (id=201) is a distinct RTM row; hero fn quantitative_analysis_framework@bd_platform/derivatives_ta_research_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (blackdark.canonical.layer.get_canonical_layer) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Network Growth Intelligence' on track T11 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_derivatives_ta_research_batch192_203.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Network Growth Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_201."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "quantitative_analysis_framework_201",
+      "hero_module": "bd_platform.derivatives_ta_research_layer",
+      "backend_registry_current": "blackdark.canonical.layer.get_canonical_layer",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_derivatives_ta_research_batch192_203.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 202,
+      "capability": "Supply Distribution Intelligence",
+      "track": "T01",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Supply Distribution Intelligence' (id=202) is a distinct RTM row; hero fn discover_hidden_opportunities@bd_platform/derivatives_ta_research_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (scale_readiness.scale_readiness_report) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Supply Distribution Intelligence' on track T01 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_derivatives_ta_research_batch192_203.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Supply Distribution Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_202."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "discover_hidden_opportunities_202",
+      "hero_module": "bd_platform.derivatives_ta_research_layer",
+      "backend_registry_current": "scale_readiness.scale_readiness_report",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_derivatives_ta_research_batch192_203.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 203,
+      "capability": "DEX Trading Intelligence",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'DEX Trading Intelligence' (id=203) is a distinct RTM row; hero fn ingest_cryptocompare_price@bd_platform/derivatives_ta_research_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.onchain_hub.dexscreener_pairs) and heuristic depth; paid-vendor PENDING_PAYMENT path allowed per owner mandate \u00a719."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'DEX Trading Intelligence' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_derivatives_ta_research_batch192_203.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'DEX Trading Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_203."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "run_derivatives_ta_research_e2e_192_203",
+      "hero_module": "bd_platform.derivatives_ta_research_layer",
+      "backend_registry_current": "bd_platform.onchain_hub.dexscreener_pairs",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_derivatives_ta_research_batch192_203.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 204,
+      "capability": "DeFi Protocol Activity Intelligence",
+      "track": "T17",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'DeFi Protocol Activity Intelligence' (id=204) is a distinct RTM row; hero fn ingest_bscscan@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.onchain_hub.defillama_raises) and heuristic depth; paid-vendor PENDING_PAYMENT path allowed per owner mandate \u00a719."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'DeFi Protocol Activity Intelligence' on track T17 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'DeFi Protocol Activity Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_204."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "ingest_bscscan_204",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "bd_platform.onchain_hub.defillama_raises",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 205,
+      "capability": "Open Interest Intelligence",
+      "track": "T10",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Open Interest Intelligence' (id=205) is a distinct RTM row; hero fn ingest_glassnode_metrics@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.derivatives_hub.derivatives_overview) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Open Interest Intelligence' on track T10 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Open Interest Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_205."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "ingest_glassnode_metrics_205",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "bd_platform.derivatives_hub.derivatives_overview",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 206,
+      "capability": "Funding Rate Intelligence",
+      "track": "T05",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Funding Rate Intelligence' (id=206) is a distinct RTM row; hero fn ingest_uniswap_subgraph@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.derivatives_hub.derivatives_overview) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Funding Rate Intelligence' on track T05 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Funding Rate Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_206."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "ingest_uniswap_subgraph_206",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "bd_platform.derivatives_hub.derivatives_overview",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 207,
+      "capability": "Price / Volume / Market Metrics",
+      "track": "T05",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Price / Volume / Market Metrics' (id=207) is a distinct RTM row; hero fn ingest_aave_data@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.derivatives_hub.derivatives_overview) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Price / Volume / Market Metrics' on track T05 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Price / Volume / Market Metrics'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_207."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "ingest_aave_data_207",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "bd_platform.derivatives_hub.derivatives_overview",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 208,
+      "capability": "Metric Correlation Workbench",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Metric Correlation Workbench' (id=208) is a distinct RTM row; hero fn ingest_reddit_sentiment@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (onchain_tracker.build_onchain_context_safe) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Metric Correlation Workbench' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Metric Correlation Workbench'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_208."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "ingest_reddit_sentiment_208",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "onchain_tracker.build_onchain_context_safe",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 209,
+      "capability": "Custom Chart Builder",
+      "track": "T04",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Custom Chart Builder' (id=209) is a distinct RTM row; hero fn blockchain_wallets_status@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.tradingview_bridge.chart_config) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Custom Chart Builder' on track T04 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Custom Chart Builder'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_209."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "blockchain_wallets_status_209",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "bd_platform.tradingview_bridge.chart_config",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 210,
+      "capability": "Custom Dashboards / Layouts",
+      "track": "T14",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Custom Dashboards / Layouts' (id=210) is a distinct RTM row; hero fn analyze_predictive_arbitrage@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (product_honesty_api.build_public_readiness) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Custom Dashboards / Layouts' on track T14 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Custom Dashboards / Layouts'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_210."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "analyze_predictive_arbitrage_210",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "product_honesty_api.build_public_readiness",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 211,
+      "capability": "Screener",
+      "track": "T16",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Screener' (id=211) is a distinct RTM row; hero fn cross_margin_risk_alert@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (org_tenant.org_isolation_status) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Screener' on track T16 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Screener'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_211."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "cross_margin_risk_alert_211",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "org_tenant.org_isolation_status",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 212,
+      "capability": "Smart Alerts",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Smart Alerts' (id=212) is a distinct RTM row; hero fn hedge_effectiveness_analysis@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (instant_alert_engine.engine_stats) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Smart Alerts' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Smart Alerts'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_212."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "hedge_effectiveness_analysis_212",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "instant_alert_engine.engine_stats",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 213,
+      "capability": "Anomaly Detection Alerts",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Anomaly Detection Alerts' (id=213) is a distinct RTM row; hero fn capital_allocation_insight@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (instant_alert_engine.engine_stats) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Anomaly Detection Alerts' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Anomaly Detection Alerts'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_213."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "capital_allocation_insight_213",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "instant_alert_engine.engine_stats",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 214,
+      "capability": "Watchlists",
+      "track": "T11",
+      "lifecycle_12207": "Brownfield-OVERLAP-BATCH01",
+      "invest": {
+        "I": {
+          "pass": false,
+          "evidence": "Catalog goal 'Watchlists' (TT11) maps to dedicated batch05 surface; no cap646/batch05 binding yet \u2014 independent once overlap resolved for #214/#245."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (cap646.batch01_production.cap_214) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Watchlists' on track T11 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Watchlists'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_214."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "build_whale_narrative_71",
+      "hero_module": "bd_platform.pro_trader_layer",
+      "backend_registry_current": "cap646.batch01_production.cap_214",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "RECLASSIFY-OVERLAP-BATCH01",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 215,
+      "capability": "Community Explorer",
+      "track": "T16",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Community Explorer' (id=215) is a distinct RTM row; hero fn flash_loan_gas_rejected_status@bd_platform/onchain_defi_sources_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (org_tenant.org_isolation_status) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Community Explorer' on track T16 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Community Explorer'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_215."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "flash_loan_gas_rejected_status_215",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "org_tenant.org_isolation_status",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 216,
+      "capability": "Research & Market Insights",
+      "track": "T02",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Research & Market Insights' (id=216) is a distinct RTM row; hero fn whale_behavior_analysis@bd_platform/execution_rejected_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (security_posture.security_posture_report) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Research & Market Insights' on track T02 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_onchain_defi_sources_batch204_216.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Research & Market Insights'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_216."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "run_onchain_defi_sources_e2e_204_216",
+      "hero_module": "bd_platform.onchain_defi_sources_layer",
+      "backend_registry_current": "security_posture.security_posture_report",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_onchain_defi_sources_batch204_216.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 217,
+      "capability": "SanAPI-Style Data Access",
+      "track": "T17",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'SanAPI-Style Data Access' (id=217) is a distinct RTM row; hero fn auto_router_rejected_status@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (oracle_track_record.public_track_record) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'SanAPI-Style Data Access' on track T17 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'SanAPI-Style Data Access'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_217."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "analyze_best_venue_217",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "oracle_track_record.public_track_record",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 218,
+      "capability": "Google Sheets Integration",
+      "track": "T02",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Google Sheets Integration' (id=218) is a distinct RTM row; hero fn add_manual_order_journal@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (security_posture.security_posture_report) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Google Sheets Integration' on track T02 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Google Sheets Integration'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_218."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "attach_order_journal_218",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "security_posture.security_posture_report",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 219,
+      "capability": "Metric Availability Registry",
+      "track": "T02",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Metric Availability Registry' (id=219) is a distinct RTM row; hero fn analyze_nlp_sentiment@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (security_posture.security_posture_report) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Metric Availability Registry' on track T02 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Metric Availability Registry'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_219."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "analyze_nlp_sentiment_219",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "security_posture.security_posture_report",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 220,
+      "capability": "Data Stabilization & Mutability Metadata",
+      "track": "T03",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Data Stabilization & Mutability Metadata' (id=220) is a distinct RTM row; hero fn analyze_pattern_outcome@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (data_provenance_score.compute_data_provenance_score) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Data Stabilization & Mutability Metadata' on track T03 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Data Stabilization & Mutability Metadata'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_220."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "attach_pattern_outcome_220",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "data_provenance_score.compute_data_provenance_score",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 221,
+      "capability": "Data Quality & Provenance Layer",
+      "track": "T17",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Data Quality & Provenance Layer' (id=221) is a distinct RTM row; hero fn execution_quality_rejected_status@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (data_provenance_score.compute_data_provenance_score) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Data Quality & Provenance Layer' on track T17 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Data Quality & Provenance Layer'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_221."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "market_slippage_analysis_221",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "data_provenance_score.compute_data_provenance_score",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 222,
+      "capability": "Metric Methodology Registry",
+      "track": "T17",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Metric Methodology Registry' (id=222) is a distinct RTM row; hero fn monitor_exchange_latency@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (signal_registry.registry_stats) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Metric Methodology Registry' on track T17 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Metric Methodology Registry'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_222."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "monitor_exchange_latency_222",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "signal_registry.registry_stats",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 223,
+      "capability": "Social-to-On-Chain Confirmation Engine",
+      "track": "T10",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Social-to-On-Chain Confirmation Engine' (id=223) is a distinct RTM row; hero fn analyze_defi_fundamentals@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (sentiment_engine.build_sentiment_context_safe) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Social-to-On-Chain Confirmation Engine' on track T10 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Social-to-On-Chain Confirmation Engine'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_223."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "analyze_defi_fundamentals_223",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "sentiment_engine.build_sentiment_context_safe",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 224,
+      "capability": "Narrative Actionability Score",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Narrative Actionability Score' (id=224) is a distinct RTM row; hero fn analyze_token_dcf@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.whale_story.whale_narrative) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Narrative Actionability Score' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Narrative Actionability Score'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_224."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "coinmarketcal_status_245",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "bd_platform.whale_story.whale_narrative",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 225,
+      "capability": "Development-to-Market Divergence Detector",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Development-to-Market Divergence Detector' (id=225) is a distinct RTM row; hero fn pwa_strategy_status@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (onchain_tracker.build_onchain_context_safe) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Development-to-Market Divergence Detector' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Development-to-Market Divergence Detector'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_225."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "pwa_strategy_status_225",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "onchain_tracker.build_onchain_context_safe",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 226,
+      "capability": "Cross-Domain Decision Intelligence Layer",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Cross-Domain Decision Intelligence Layer' (id=226) is a distinct RTM row; hero fn launch_arbitrage_rejected_status@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (ai_oracle.evaluate_opportunity) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Cross-Domain Decision Intelligence Layer' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Cross-Domain Decision Intelligence Layer'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_226."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "analyze_launch_event_226",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "ai_oracle.evaluate_opportunity",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 227,
+      "capability": "Unified Trading Intelligence Workspace",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Unified Trading Intelligence Workspace' (id=227) is a distinct RTM row; hero fn etf_arbitrage_rejected_status@bd_platform/intelligence_market_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (onchain_tracker.build_onchain_context_safe) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Unified Trading Intelligence Workspace' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_market_extensions_batch217_227.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Unified Trading Intelligence Workspace'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_227."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "run_intelligence_market_extensions_e2e_217_227",
+      "hero_module": "bd_platform.intelligence_market_extensions_layer",
+      "backend_registry_current": "onchain_tracker.build_onchain_context_safe",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_market_extensions_batch217_227.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 228,
+      "capability": "Funding Rate Intelligence",
+      "track": "T15",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Funding Rate Intelligence' (id=228) is a distinct RTM row; hero fn portfolio_insurance_rejected_status@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.derivatives_hub.derivatives_overview) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Funding Rate Intelligence' on track T15 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Funding Rate Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_228."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "simulate_drawdown_hedge_228",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "bd_platform.derivatives_hub.derivatives_overview",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 229,
+      "capability": "Cross-Exchange Funding Arbitrage Scanner",
+      "track": "T15",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Cross-Exchange Funding Arbitrage Scanner' (id=229) is a distinct RTM row; hero fn generate_reasoning_explanation@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (arbitrage_service.scan_arbitrage_opportunities) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Cross-Exchange Funding Arbitrage Scanner' on track T15 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Cross-Exchange Funding Arbitrage Scanner'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_229."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "attach_reasoning_explanation_229",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "arbitrage_service.scan_arbitrage_opportunities",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 230,
+      "capability": "Spot-Perp Arbitrage Scanner",
+      "track": "T05",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Spot-Perp Arbitrage Scanner' (id=230) is a distinct RTM row; hero fn cross_exchange_arbitrage_status@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (arbitrage_service.scan_arbitrage_opportunities) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Spot-Perp Arbitrage Scanner' on track T05 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Spot-Perp Arbitrage Scanner'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_230."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "analyze_cross_exchange_divergence_230",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "arbitrage_service.scan_arbitrage_opportunities",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 231,
+      "capability": "Futures Basis & Term Structure",
+      "track": "T05",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Futures Basis & Term Structure' (id=231) is a distinct RTM row; hero fn triangular_arbitrage_status@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.derivatives_hub.derivatives_overview) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Futures Basis & Term Structure' on track T05 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Futures Basis & Term Structure'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_231."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "triangular_arbitrage_status_231",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "bd_platform.derivatives_hub.derivatives_overview",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 232,
+      "capability": "Open Interest Intelligence",
+      "track": "T05",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Open Interest Intelligence' (id=232) is a distinct RTM row; hero fn analyze_price_comparison@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.derivatives_hub.derivatives_overview) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Open Interest Intelligence' on track T05 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Open Interest Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_232."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "attach_arbitrage_comparison_230_232",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "bd_platform.derivatives_hub.derivatives_overview",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 233,
+      "capability": "Liquidation Intelligence",
+      "track": "T05",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Liquidation Intelligence' (id=233) is a distinct RTM row; hero fn build_heatmap_component@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.liquidation_radar.liquidation_radar) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Liquidation Intelligence' on track T05 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Liquidation Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_233."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "build_heatmap_component_233",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "bd_platform.liquidation_radar.liquidation_radar",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 234,
+      "capability": "CVD Intelligence",
+      "track": "T05",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'CVD Intelligence' (id=234) is a distinct RTM row; hero fn live_dashboard_status@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.derivatives_hub.derivatives_overview) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'CVD Intelligence' on track T05 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'CVD Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_234."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "live_dashboard_status_234",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "bd_platform.derivatives_hub.derivatives_overview",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 235,
+      "capability": "Long/Short Ratio Intelligence",
+      "track": "T04",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Long/Short Ratio Intelligence' (id=235) is a distinct RTM row; hero fn whale_intelligence_status@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.derivatives_hub.derivatives_overview) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Long/Short Ratio Intelligence' on track T04 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Long/Short Ratio Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_235."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "whale_intelligence_status_235",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "bd_platform.derivatives_hub.derivatives_overview",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 236,
+      "capability": "DEX Screener",
+      "track": "T05",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'DEX Screener' (id=236) is a distinct RTM row; hero fn subscription_tiers_status@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.onchain_hub.dexscreener_pairs) and heuristic depth; paid-vendor PENDING_PAYMENT path allowed per owner mandate \u00a719."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'DEX Screener' on track T05 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'DEX Screener'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_236."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "subscription_tiers_status_236",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "bd_platform.onchain_hub.dexscreener_pairs",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 237,
+      "capability": "Token Risk Scoring",
+      "track": "T08",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Token Risk Scoring' (id=237) is a distinct RTM row; hero fn generate_market_summary@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (risk_manager.risk_status) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Token Risk Scoring' on track T08 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Token Risk Scoring'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_237."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "generate_market_summary_237",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "risk_manager.risk_status",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 238,
+      "capability": "Pump & Dump Detection",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Pump & Dump Detection' (id=238) is a distinct RTM row; hero fn scan_market_opportunities@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (onchain_tracker.build_onchain_context_safe) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Pump & Dump Detection' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Pump & Dump Detection'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_238."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "scan_market_opportunities_238",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "onchain_tracker.build_onchain_context_safe",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 239,
+      "capability": "Narrative Tracking",
+      "track": "T09",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Narrative Tracking' (id=239) is a distinct RTM row; hero fn live_ta_status@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.whale_story.whale_narrative) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Narrative Tracking' on track T09 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Narrative Tracking'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_239."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "live_ta_status_239",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "bd_platform.whale_story.whale_narrative",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 240,
+      "capability": "Sector Rotation Intelligence",
+      "track": "T17",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Sector Rotation Intelligence' (id=240) is a distinct RTM row; hero fn compute_s2f@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (oracle_track_record.public_track_record) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Sector Rotation Intelligence' on track T17 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Sector Rotation Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_240."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "compute_s2f_240",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "oracle_track_record.public_track_record",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 241,
+      "capability": "Sentiment Intelligence",
+      "track": "T04",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Sentiment Intelligence' (id=241) is a distinct RTM row; hero fn ingest_fred_macro@bd_platform/intelligence_ux_extensions_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (sentiment_gate.fetch_asset_sentiment) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Sentiment Intelligence' on track T04 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_intelligence_ux_extensions_batch228_241.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Sentiment Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_241."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "run_intelligence_ux_extensions_e2e_228_241",
+      "hero_module": "bd_platform.intelligence_ux_extensions_layer",
+      "backend_registry_current": "sentiment_gate.fetch_asset_sentiment",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_intelligence_ux_extensions_batch228_241.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 242,
+      "capability": "Price Prediction / Multi-Signal Forecast",
+      "track": "T12",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Price Prediction / Multi-Signal Forecast' (id=242) is a distinct RTM row; hero fn append_audit_event@bd_platform/security_trust_data_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (trust_pulse.build_trust_pulse) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Price Prediction / Multi-Signal Forecast' on track T12 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_security_trust_data_batch242_261.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Price Prediction / Multi-Signal Forecast'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_242."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "attach_audit_log_id_242",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "trust_pulse.build_trust_pulse",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_security_trust_data_batch242_261.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 243,
+      "capability": "Correlation Matrix",
+      "track": "T05",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Correlation Matrix' (id=243) is a distinct RTM row; hero fn ingest_bybit_price@bd_platform/security_trust_data_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.derivatives_hub.derivatives_overview) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Correlation Matrix' on track T05 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_security_trust_data_batch242_261.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Correlation Matrix'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_243."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "ingest_bybit_price_243",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "bd_platform.derivatives_hub.derivatives_overview",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_security_trust_data_batch242_261.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 244,
+      "capability": "New Listings Intelligence",
+      "track": "T11",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'New Listings Intelligence' (id=244) is a distinct RTM row; hero fn ingest_cointelegraph_rss@bd_platform/security_trust_data_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (blackdark.canonical.layer.get_canonical_layer) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'New Listings Intelligence' on track T11 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_security_trust_data_batch242_261.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'New Listings Intelligence'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_244."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "ingest_cointelegraph_rss_244",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "blackdark.canonical.layer.get_canonical_layer",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_security_trust_data_batch242_261.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 245,
+      "capability": "Market Health & Freshness",
+      "track": "T13",
+      "lifecycle_12207": "Brownfield-OVERLAP-BATCH01",
+      "invest": {
+        "I": {
+          "pass": false,
+          "evidence": "Catalog goal 'Market Health & Freshness' (TT13) maps to dedicated batch05 surface; no cap646/batch05 binding yet \u2014 independent once overlap resolved for #214/#245."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (cap646.batch01_production.cap_245) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Market Health & Freshness' on track T13 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_security_trust_data_batch242_261.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Market Health & Freshness'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_245."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "coinmarketcal_status_245",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "cap646.batch01_production.cap_245",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_security_trust_data_batch242_261.py",
+      "prior_work_disposition": "RECLASSIFY-OVERLAP-BATCH01",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 246,
+      "capability": "Coverage Metadata Registry",
+      "track": "T15",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Coverage Metadata Registry' (id=246) is a distinct RTM row; hero fn add_etherscan_watch@bd_platform/security_trust_data_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (product_honesty_api.build_public_readiness) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Coverage Metadata Registry' on track T15 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_security_trust_data_batch242_261.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Coverage Metadata Registry'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_246."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "list_etherscan_watchlist_246",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "product_honesty_api.build_public_readiness",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_security_trust_data_batch242_261.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 247,
+      "capability": "Public REST API",
+      "track": "T15",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'Public REST API' (id=247) is a distinct RTM row; hero fn generate_weekly_digest@bd_platform/security_trust_data_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (product_honesty_api.build_public_readiness) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'Public REST API' on track T15 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_security_trust_data_batch242_261.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'Public REST API'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_247."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "generate_weekly_digest_247",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "product_honesty_api.build_public_readiness",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_security_trust_data_batch242_261.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 248,
+      "capability": "MCP Server for AI Agents",
+      "track": "T02",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'MCP Server for AI Agents' (id=248) is a distinct RTM row; hero fn profit_analytics_rejected_status@bd_platform/security_trust_data_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (bd_platform.telegram_agent.handle_agent_message) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'MCP Server for AI Agents' on track T02 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=SPLIT-BRAIN-UNVERIFIED, underlying_real_code=True, test=tests/test_security_trust_data_batch242_261.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'MCP Server for AI Agents'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_248."
+        }
+      },
+      "hero_audit_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_underlying": "manual_performance_tracker_248",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "bd_platform.telegram_agent.handle_agent_message",
+      "split_brain": true,
+      "legacy_test_file": "tests/test_security_trust_data_batch242_261.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 249,
+      "capability": "CLI Access",
+      "track": "T02",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'CLI Access' (id=249) is a distinct RTM row; hero fn trad_simulator_rejected_status@bd_platform/security_trust_data_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (security_posture.security_posture_report) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'CLI Access' on track T02 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_security_trust_data_batch242_261.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'CLI Access'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_249."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "trad_simulator_rejected_status_249",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "security_posture.security_posture_report",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_security_trust_data_batch242_261.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    },
+    {
+      "capability_id": 250,
+      "capability": "OpenAPI / SDK Generation",
+      "track": "T02",
+      "lifecycle_12207": "Brownfield",
+      "invest": {
+        "I": {
+          "pass": true,
+          "evidence": "Catalog goal 'OpenAPI / SDK Generation' (id=250) is a distinct RTM row; hero fn execution_speed_rejected_status@bd_platform/security_trust_data_layer.py can be wrapped without coupling to other batch05 IDs."
+        },
+        "N": {
+          "pass": true,
+          "evidence": "Scope negotiable on data tier (security_posture.security_posture_report) and heuristic depth; internal rule-based scope adjustable."
+        },
+        "V": {
+          "pass": true,
+          "evidence": "Institutional 'OpenAPI / SDK Generation' on track T02 \u2014 listed in CAP646_CATALOG + inventory official_batch=batch05."
+        },
+        "E": {
+          "pass": true,
+          "evidence": "Brownfield: audit=DEFERRED-EARLY-BATCH, underlying_real_code=False, test=tests/test_security_trust_data_batch242_261.py \u2014 effort bounded by strangler wiring."
+        },
+        "S": {
+          "pass": true,
+          "evidence": "Single capability handler + acceptance domain_rules + one contract test \u2014 fits one strangler slice (<200 LOC target per mandate \u00a727)."
+        },
+        "T": {
+          "pass": true,
+          "evidence": "expected_surface derivable from catalog 'OpenAPI / SDK Generation'; domain_rules[] written before probe (mandate \u00a77). Legacy test pattern: range_batch_250."
+        }
+      },
+      "hero_audit_classification": "DEFERRED-EARLY-BATCH",
+      "hero_underlying": "execution_speed_rejected_status_250",
+      "hero_module": "bd_platform.security_trust_data_layer",
+      "backend_registry_current": "security_posture.security_posture_report",
+      "split_brain": false,
+      "legacy_test_file": "tests/test_security_trust_data_batch242_261.py",
+      "prior_work_disposition": "REUSE-AUDIT-INPUT-NOT-AUTO-PA",
+      "closure_status_initial": "NOT_READY"
+    }
+  ]
+}

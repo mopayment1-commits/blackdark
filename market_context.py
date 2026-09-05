@@ -6,6 +6,7 @@ Used by dashboard, chat, voice, and SSE — no imports from dashboard.py.
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import os
@@ -458,39 +459,45 @@ async def _probe_binance_hosts(
     pair: str,
     session: aiohttp.ClientSession,
 ) -> dict[str, Any]:
-    checks: dict[str, Any] = {}
-    for host in ("api.binance.com", "data-api.binance.vision", "api.binance.us"):
-        row = await _fetch_binance_host_ticker(pair, host, session=session)
-        checks[host] = {"ok": row is not None, "source": row.get("source") if row else None}
-    return checks
+    hosts = ("api.binance.com", "data-api.binance.vision", "api.binance.us")
+    rows = await asyncio.gather(
+        *(_fetch_binance_host_ticker(pair, host, session=session) for host in hosts)
+    )
+    return {
+        host: {"ok": row is not None, "source": row.get("source") if row else None}
+        for host, row in zip(hosts, rows, strict=True)
+    }
 
 
 async def _probe_rest_fallbacks(
     asset: str,
     session: aiohttp.ClientSession,
 ) -> dict[str, Any]:
-    checks: dict[str, Any] = {}
-    for name, fetcher in (
+    fetchers = (
         ("kraken", _fetch_kraken_ticker),
         ("okx", _fetch_okx_ticker),
         ("bybit", _fetch_bybit_ticker),
         ("coingecko", _fetch_coingecko_ticker),
         ("coinbase", _fetch_coinbase_ticker),
         ("cryptocompare", _fetch_cryptocompare_ticker),
-    ):
-        row = await fetcher(asset, session=session)
-        checks[name] = {"ok": row is not None, "source": row.get("source") if row else None}
-    return checks
+    )
+    rows = await asyncio.gather(*(fetcher(asset, session=session) for _, fetcher in fetchers))
+    return {
+        name: {"ok": row is not None, "source": row.get("source") if row else None}
+        for (name, _), row in zip(fetchers, rows, strict=True)
+    }
 
 
 async def probe_price_sources(symbol: str = "BTC") -> dict[str, Any]:
     """Ops diagnostic — which price APIs respond from this host (Railway DD)."""
     asset, pair = normalize_oracle_symbol(symbol)
-    checks: dict[str, Any] = {}
     async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
-        checks.update(await _probe_binance_hosts(pair, session))
-        checks.update(await _probe_rest_fallbacks(asset, session))
-    resolved = await fetch_binance_ticker(pair)
+        binance_checks, rest_checks, resolved = await asyncio.gather(
+            _probe_binance_hosts(pair, session),
+            _probe_rest_fallbacks(asset, session),
+            fetch_binance_ticker(pair),
+        )
+    checks = {**binance_checks, **rest_checks}
     return {
         "symbol": asset,
         "pair": pair,

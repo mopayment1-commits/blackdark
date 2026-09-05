@@ -1,0 +1,57 @@
+BATCH05_RULE_COUNT_ASSERT_PROOF
+generated_at=2026-09-04T22:07:50.448188+00:00
+git_commit=acbea4cf2bb5dd9042808f92ee247df10822248b
+scope=probe_ids_201_250 triple_match_guard
+
+ID 201: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 202: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 203: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 204: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 205: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 206: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=REUSED-LINK OK
+ID 207: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 208: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 209: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 210: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 211: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 212: acceptance=5 results=5 rules_total=5 rules_passed=5 closure=DUPLICATE_DELEGATION OK
+ID 213: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 214: acceptance=8 results=8 rules_total=8 rules_passed=3 closure=REUSED-LINK OK
+ID 215: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 216: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 217: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 218: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 219: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 220: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 221: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 222: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 223: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 224: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 225: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 226: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=REUSED-LINK OK
+ID 227: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 228: acceptance=7 results=7 rules_total=7 rules_passed=7 closure=REUSED-LINK OK
+ID 229: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 230: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 231: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 232: acceptance=8 results=8 rules_total=8 rules_passed=7 closure=REUSED-LINK OK
+ID 233: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 234: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 235: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 236: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 237: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 238: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 239: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 240: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 241: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 242: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 243: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 244: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 245: acceptance=8 results=8 rules_total=8 rules_passed=3 closure=REUSED-LINK OK
+ID 246: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 247: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 248: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 249: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+ID 250: acceptance=6 results=6 rules_total=6 rules_passed=6 closure=NOT_COMPLETE OK
+
+assert_rule_count_triple_match: end — all 50 probe IDs matched

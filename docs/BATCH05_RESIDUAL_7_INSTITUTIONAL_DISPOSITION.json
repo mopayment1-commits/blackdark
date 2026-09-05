@@ -1,0 +1,717 @@
+{
+  "generated_at": "2026-09-04T23:47:50.250798+00:00",
+  "git_commit": "ac112d144245c65b8a2067284ad9b928fd674a63",
+  "scope": "Final institutional disposition \u2014 residual 7 IDs",
+  "residual_ids": [
+    212,
+    206,
+    214,
+    226,
+    228,
+    232,
+    245
+  ],
+  "build_phase": "OPEN",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%.",
+  "summary": {
+    "total": 7,
+    "closed_reused_link": 6,
+    "closed_duplicate_delegation": 1,
+    "closed_tolerate_dual_path": 0,
+    "deferred": 0
+  },
+  "decision_table": [
+    {
+      "id": 212,
+      "decision": "CLOSED_DUPLICATE_DELEGATION",
+      "canonical": "#17",
+      "ceiling": "\u2014",
+      "rationale": "Pre-resolved DUPLICATE/ALREADY_COVERED \u2192 #17; excluded from BATCH05_IDS; 5/5 delegation rules pass"
+    },
+    {
+      "id": 206,
+      "decision": "CLOSED_REUSED_LINK",
+      "canonical": "#86",
+      "ceiling": "\u2014",
+      "rationale": "REUSED-LINK facade to batch02 #86; hero uniswap subgraph eliminated; 7/7 domain rules"
+    },
+    {
+      "id": 214,
+      "decision": "CLOSED_REUSED_LINK",
+      "canonical": "#214",
+      "ceiling": "\u2014",
+      "rationale": "REUSED-LINK to batch01 watchlists; dual-path converged \u2014 runtime routes batch05 facade with catalog_link stamp"
+    },
+    {
+      "id": 226,
+      "decision": "CLOSED_REUSED_LINK",
+      "canonical": "#69",
+      "ceiling": "\u2014",
+      "rationale": "REUSED-LINK to batch02 #69; Oracle+Arbitrage fed via canonical only; 7/7 domain rules"
+    },
+    {
+      "id": 228,
+      "decision": "CLOSED_REUSED_LINK",
+      "canonical": "#86",
+      "ceiling": "\u2014",
+      "rationale": "REUSED-LINK duplicate row sharing #86 with #206; drawdown hero eliminated; 7/7 domain rules"
+    },
+    {
+      "id": 232,
+      "decision": "CLOSED_REUSED_LINK",
+      "canonical": "#205",
+      "ceiling": "\u2014",
+      "rationale": "REUSED-LINK to strangler #205; arbitrage hero eliminated; 8/8 domain rules"
+    },
+    {
+      "id": 245,
+      "decision": "CLOSED_REUSED_LINK",
+      "canonical": "#245",
+      "ceiling": "\u2014",
+      "rationale": "REUSED-LINK to batch01 freshness; dual-path converged \u2014 runtime routes batch05 facade with catalog_link stamp"
+    }
+  ],
+  "policy": "Every residual ID receives explicit closed decision. TOLERATE includes hard ceiling + exit criteria + ADR.",
+  "rows": [
+    {
+      "capability_id": 212,
+      "capability_name": "Smart Alerts",
+      "prebuild_classification": "Brownfield-DUPLICATE",
+      "mece": {
+        "inputs": "symbol, tier, address (optional) \u2014 unified cap646 execute params",
+        "output_contract": "smart_alerts surface via duplicate delegation to #17",
+        "business_value": "Alert evaluation \u2014 canonical #17 Smart Alerts; #212 is catalog duplicate row only",
+        "hero_underlying_audited": "bd_platform.onchain_defi_sources_layer.hedge_effectiveness_analysis_212",
+        "hero_production_eliminated": true,
+        "mece_verdict": "DUPLICATE \u2014 #212 adds no distinct business value vs #17",
+        "canonical_id": 17,
+        "canonical_binding": "cap646/batch01_dedicated.py::_cap017_smart_alerts"
+      },
+      "type4_behavioral_comparison": {
+        "symbols_tested": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "per_symbol": {
+          "BTC": {
+            "runtime_surface": "smart_alerts",
+            "runtime_spine": "batch01",
+            "facade_surface": null,
+            "canonical_surface": "smart_alerts",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "ETH": {
+            "runtime_surface": "smart_alerts",
+            "runtime_spine": "batch01",
+            "facade_surface": null,
+            "canonical_surface": "smart_alerts",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "SOL": {
+            "runtime_surface": "smart_alerts",
+            "runtime_spine": "batch01",
+            "facade_surface": null,
+            "canonical_surface": "smart_alerts",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          }
+        },
+        "contract": "Runtime/facade surface must match canonical spine output for same symbol input",
+        "all_surfaces_match_canonical": true
+      },
+      "time_decision": "Migrate",
+      "time_justification": "Pre-resolved DUPLICATE/ALREADY_COVERED \u2192 #17; excluded from BATCH05_IDS; 5/5 delegation rules pass",
+      "institutional_decision": "CLOSED_DUPLICATE_DELEGATION",
+      "closure_status": "DUPLICATE_DELEGATION",
+      "canonical_capability_id": 17,
+      "canonical_spine": "batch01",
+      "canonical_binding": "cap646/batch01_dedicated.py::_cap017_smart_alerts",
+      "canonical_25010_complete": {
+        "runtime_success": true,
+        "runtime_surface": "smart_alerts",
+        "verified_locally": true,
+        "note": "Canonical spine executes successfully on local probe \u2014 PA not claimed"
+      },
+      "tolerate_ceiling": null,
+      "dual_path_converged": null,
+      "tolerate_exit_criteria": null,
+      "six_heroes_impact": {
+        "heroes_fed": [],
+        "hero_eliminated": "hedge_effectiveness_analysis_212",
+        "impact": "none"
+      },
+      "pentagonal_impact": {
+        "domain_all_pass": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "Runtime duplicate delegation probe"
+      },
+      "domain_rules_runtime": {
+        "passed": 5,
+        "total": 5,
+        "all_pass": true
+      },
+      "domain_rules_facade": null,
+      "adr": "docs/ADR_BATCH05_212_DUPLICATE_DELEGATION_BATCH01.md",
+      "production_aligned": false,
+      "batch05_independent": false,
+      "pa_elevated": false
+    },
+    {
+      "capability_id": 206,
+      "capability_name": "Funding Rate Intelligence",
+      "prebuild_classification": "Brownfield",
+      "mece": {
+        "inputs": "symbol, tier, address (optional) \u2014 unified cap646 execute params",
+        "output_contract": "funding_rate_intelligence + funding_rate payload",
+        "business_value": "Derivatives funding rate intelligence \u2014 single canonical batch02 #86",
+        "hero_underlying_audited": "bd_platform.onchain_defi_sources_layer.ingest_uniswap_subgraph_206",
+        "hero_production_eliminated": true,
+        "mece_verdict": "INTERNAL_DUPLICATE \u2014 #206 and #228 share canonical #86; hero domains rejected",
+        "canonical_id": 86,
+        "canonical_binding": "cap646/batch02_production.py::cap_086"
+      },
+      "type4_behavioral_comparison": {
+        "symbols_tested": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "per_symbol": {
+          "BTC": {
+            "runtime_surface": "funding_rate_intelligence",
+            "runtime_spine": "batch05",
+            "facade_surface": "funding_rate_intelligence",
+            "canonical_surface": "funding_rate_intelligence",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "ETH": {
+            "runtime_surface": "funding_rate_intelligence",
+            "runtime_spine": "batch05",
+            "facade_surface": "funding_rate_intelligence",
+            "canonical_surface": "funding_rate_intelligence",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "SOL": {
+            "runtime_surface": "funding_rate_intelligence",
+            "runtime_spine": "batch05",
+            "facade_surface": "funding_rate_intelligence",
+            "canonical_surface": "funding_rate_intelligence",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          }
+        },
+        "contract": "Runtime/facade surface must match canonical spine output for same symbol input",
+        "all_surfaces_match_canonical": true
+      },
+      "time_decision": "Migrate",
+      "time_justification": "REUSED-LINK facade to batch02 #86; hero uniswap subgraph eliminated; 7/7 domain rules",
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "closure_status": "REUSED-LINK",
+      "canonical_capability_id": 86,
+      "canonical_spine": "batch02",
+      "canonical_binding": "cap646/batch02_production.py::cap_086",
+      "canonical_25010_complete": {
+        "runtime_success": true,
+        "runtime_surface": "funding_rate_intelligence",
+        "verified_locally": true,
+        "note": "Canonical spine executes successfully on local probe \u2014 PA not claimed"
+      },
+      "tolerate_ceiling": null,
+      "dual_path_converged": null,
+      "tolerate_exit_criteria": null,
+      "six_heroes_impact": {
+        "heroes_fed": [],
+        "hero_eliminated": "ingest_uniswap_subgraph_206",
+        "impact": "none"
+      },
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      },
+      "domain_rules_runtime": {
+        "passed": 7,
+        "total": 7,
+        "all_pass": true
+      },
+      "domain_rules_facade": {
+        "passed": 7,
+        "total": 7,
+        "all_pass": true
+      },
+      "adr": "docs/ADR_BATCH05_206_228_REUSED_LINK_BATCH02.md",
+      "production_aligned": false,
+      "batch05_independent": false,
+      "pa_elevated": false
+    },
+    {
+      "capability_id": 214,
+      "capability_name": "Watchlists",
+      "prebuild_classification": "Brownfield-OVERLAP-BATCH01",
+      "mece": {
+        "inputs": "symbol, tier, address (optional) \u2014 unified cap646 execute params",
+        "output_contract": "watchlists items/count",
+        "business_value": "User watchlist management \u2014 batch01 dedicated spine is catalog-faithful",
+        "hero_underlying_audited": "bd_platform.pro_trader_layer.build_whale_narrative_71",
+        "hero_production_eliminated": true,
+        "mece_verdict": "NOT_DUPLICATE \u2014 batch01 canonical; hero whale/arbitrage paths SPLIT-BRAIN eliminated",
+        "canonical_id": 214,
+        "canonical_binding": "cap646/batch01_dedicated.py::_cap214_watchlists"
+      },
+      "type4_behavioral_comparison": {
+        "symbols_tested": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "per_symbol": {
+          "BTC": {
+            "runtime_surface": "watchlists",
+            "runtime_spine": "batch05",
+            "facade_surface": "watchlists",
+            "canonical_surface": "watchlists",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "ETH": {
+            "runtime_surface": "watchlists",
+            "runtime_spine": "batch05",
+            "facade_surface": "watchlists",
+            "canonical_surface": "watchlists",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "SOL": {
+            "runtime_surface": "watchlists",
+            "runtime_spine": "batch05",
+            "facade_surface": "watchlists",
+            "canonical_surface": "watchlists",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          }
+        },
+        "contract": "Runtime/facade surface must match canonical spine output for same symbol input",
+        "all_surfaces_match_canonical": true
+      },
+      "time_decision": "Migrate",
+      "time_justification": "REUSED-LINK to batch01 watchlists; dual-path converged \u2014 runtime routes batch05 facade with catalog_link stamp",
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "closure_status": "REUSED-LINK",
+      "canonical_capability_id": 214,
+      "canonical_spine": "batch01",
+      "canonical_binding": "cap646/batch01_dedicated.py::_cap214_watchlists",
+      "canonical_25010_complete": {
+        "runtime_success": true,
+        "runtime_surface": "watchlists",
+        "verified_locally": true,
+        "note": "Canonical spine executes successfully on local probe \u2014 PA not claimed"
+      },
+      "tolerate_ceiling": null,
+      "dual_path_converged": "2026-09-04 \u2014 runtime routes via batch05 facade; catalog_link stamped",
+      "tolerate_exit_criteria": null,
+      "six_heroes_impact": {
+        "heroes_fed": [],
+        "hero_eliminated": "whale_intelligence_214 / analyze_triangular_arbitrage_214",
+        "impact": "none"
+      },
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      },
+      "domain_rules_runtime": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      },
+      "domain_rules_facade": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      },
+      "adr": "docs/ADR_BATCH05_214_245_REUSED_LINK_BATCH01.md",
+      "production_aligned": false,
+      "batch05_independent": false,
+      "pa_elevated": false
+    },
+    {
+      "capability_id": 226,
+      "capability_name": "Cross-Domain Decision Intelligence Layer",
+      "prebuild_classification": "Brownfield",
+      "mece": {
+        "inputs": "symbol, tier, address (optional) \u2014 unified cap646 execute params",
+        "output_contract": "cross_domain_decision_intelligence_layer",
+        "business_value": "Cross-domain synthesis \u2014 canonical batch02 #69",
+        "hero_underlying_audited": "bd_platform.intelligence_market_extensions_layer.analyze_launch_event_226",
+        "hero_production_eliminated": true,
+        "mece_verdict": "REPEAT_CANONICAL \u2014 #226 facade to #69; hero launch-event rejected",
+        "canonical_id": 69,
+        "canonical_binding": "cap646/batch02_production.py::cap_069"
+      },
+      "type4_behavioral_comparison": {
+        "symbols_tested": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "per_symbol": {
+          "BTC": {
+            "runtime_surface": "cross_domain_decision_intelligence_layer",
+            "runtime_spine": "batch05",
+            "facade_surface": "cross_domain_decision_intelligence_layer",
+            "canonical_surface": "cross_domain_decision_intelligence_layer",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "ETH": {
+            "runtime_surface": "cross_domain_decision_intelligence_layer",
+            "runtime_spine": "batch05",
+            "facade_surface": "cross_domain_decision_intelligence_layer",
+            "canonical_surface": "cross_domain_decision_intelligence_layer",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "SOL": {
+            "runtime_surface": "cross_domain_decision_intelligence_layer",
+            "runtime_spine": "batch05",
+            "facade_surface": "cross_domain_decision_intelligence_layer",
+            "canonical_surface": "cross_domain_decision_intelligence_layer",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          }
+        },
+        "contract": "Runtime/facade surface must match canonical spine output for same symbol input",
+        "all_surfaces_match_canonical": true
+      },
+      "time_decision": "Migrate",
+      "time_justification": "REUSED-LINK to batch02 #69; Oracle+Arbitrage fed via canonical only; 7/7 domain rules",
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "closure_status": "REUSED-LINK",
+      "canonical_capability_id": 69,
+      "canonical_spine": "batch02",
+      "canonical_binding": "cap646/batch02_production.py::cap_069",
+      "canonical_25010_complete": {
+        "runtime_success": true,
+        "runtime_surface": "cross_domain_decision_intelligence_layer",
+        "verified_locally": true,
+        "note": "Canonical spine executes successfully on local probe \u2014 PA not claimed"
+      },
+      "tolerate_ceiling": null,
+      "dual_path_converged": null,
+      "tolerate_exit_criteria": null,
+      "six_heroes_impact": {
+        "heroes_fed": [
+          "Single-Sentence Oracle",
+          "Arbitrage Scanner"
+        ],
+        "hero_eliminated": "analyze_launch_event_226",
+        "impact": "via canonical #69 only \u2014 facade #226 not in hero inputs",
+        "canonical_id": 69
+      },
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      },
+      "domain_rules_runtime": {
+        "passed": 7,
+        "total": 7,
+        "all_pass": true
+      },
+      "domain_rules_facade": {
+        "passed": 7,
+        "total": 7,
+        "all_pass": true
+      },
+      "adr": "docs/ADR_BATCH05_226_REUSED_LINK_BATCH02.md",
+      "production_aligned": false,
+      "batch05_independent": false,
+      "pa_elevated": false
+    },
+    {
+      "capability_id": 228,
+      "capability_name": "Funding Rate Intelligence",
+      "prebuild_classification": "Brownfield",
+      "mece": {
+        "inputs": "symbol, tier, address (optional) \u2014 unified cap646 execute params",
+        "output_contract": "funding_rate_intelligence + funding_rate payload",
+        "business_value": "Derivatives funding rate intelligence \u2014 single canonical batch02 #86",
+        "hero_underlying_audited": "bd_platform.intelligence_ux_extensions_layer.simulate_drawdown_hedge_228",
+        "hero_production_eliminated": true,
+        "mece_verdict": "INTERNAL_DUPLICATE \u2014 #206 and #228 share canonical #86; hero domains rejected",
+        "canonical_id": 86,
+        "canonical_binding": "cap646/batch02_production.py::cap_086"
+      },
+      "type4_behavioral_comparison": {
+        "symbols_tested": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "per_symbol": {
+          "BTC": {
+            "runtime_surface": "funding_rate_intelligence",
+            "runtime_spine": "batch05",
+            "facade_surface": "funding_rate_intelligence",
+            "canonical_surface": "funding_rate_intelligence",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "ETH": {
+            "runtime_surface": "funding_rate_intelligence",
+            "runtime_spine": "batch05",
+            "facade_surface": "funding_rate_intelligence",
+            "canonical_surface": "funding_rate_intelligence",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "SOL": {
+            "runtime_surface": "funding_rate_intelligence",
+            "runtime_spine": "batch05",
+            "facade_surface": "funding_rate_intelligence",
+            "canonical_surface": "funding_rate_intelligence",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          }
+        },
+        "contract": "Runtime/facade surface must match canonical spine output for same symbol input",
+        "all_surfaces_match_canonical": true
+      },
+      "time_decision": "Migrate",
+      "time_justification": "REUSED-LINK duplicate row sharing #86 with #206; drawdown hero eliminated; 7/7 domain rules",
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "closure_status": "REUSED-LINK",
+      "canonical_capability_id": 86,
+      "canonical_spine": "batch02",
+      "canonical_binding": "cap646/batch02_production.py::cap_086",
+      "canonical_25010_complete": {
+        "runtime_success": true,
+        "runtime_surface": "funding_rate_intelligence",
+        "verified_locally": true,
+        "note": "Canonical spine executes successfully on local probe \u2014 PA not claimed"
+      },
+      "tolerate_ceiling": null,
+      "dual_path_converged": null,
+      "tolerate_exit_criteria": null,
+      "six_heroes_impact": {
+        "heroes_fed": [],
+        "hero_eliminated": "simulate_drawdown_hedge_228",
+        "impact": "none"
+      },
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      },
+      "domain_rules_runtime": {
+        "passed": 7,
+        "total": 7,
+        "all_pass": true
+      },
+      "domain_rules_facade": {
+        "passed": 7,
+        "total": 7,
+        "all_pass": true
+      },
+      "adr": "docs/ADR_BATCH05_206_228_REUSED_LINK_BATCH02.md",
+      "production_aligned": false,
+      "batch05_independent": false,
+      "pa_elevated": false
+    },
+    {
+      "capability_id": 232,
+      "capability_name": "Open Interest Intelligence",
+      "prebuild_classification": "Brownfield",
+      "mece": {
+        "inputs": "symbol, tier, address (optional) \u2014 unified cap646 execute params",
+        "output_contract": "open_interest_intelligence",
+        "business_value": "Open interest \u2014 canonical batch05 strangler #205",
+        "hero_underlying_audited": "bd_platform.intelligence_ux_extensions_layer.attach_arbitrage_comparison_230_232",
+        "hero_production_eliminated": true,
+        "mece_verdict": "INTERNAL_DUPLICATE \u2014 #232 catalog duplicate of #205",
+        "canonical_id": 205,
+        "canonical_binding": "cap646/batch05_strangler_spine.py::build_open_interest_205"
+      },
+      "type4_behavioral_comparison": {
+        "symbols_tested": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "per_symbol": {
+          "BTC": {
+            "runtime_surface": "open_interest_intelligence",
+            "runtime_spine": "batch05",
+            "facade_surface": "open_interest_intelligence",
+            "canonical_surface": "open_interest_intelligence",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "ETH": {
+            "runtime_surface": "open_interest_intelligence",
+            "runtime_spine": "batch05",
+            "facade_surface": "open_interest_intelligence",
+            "canonical_surface": "open_interest_intelligence",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "SOL": {
+            "runtime_surface": "open_interest_intelligence",
+            "runtime_spine": "batch05",
+            "facade_surface": "open_interest_intelligence",
+            "canonical_surface": "open_interest_intelligence",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          }
+        },
+        "contract": "Runtime/facade surface must match canonical spine output for same symbol input",
+        "all_surfaces_match_canonical": true
+      },
+      "time_decision": "Migrate",
+      "time_justification": "REUSED-LINK to strangler #205; arbitrage hero eliminated; 8/8 domain rules",
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "closure_status": "REUSED-LINK",
+      "canonical_capability_id": 205,
+      "canonical_spine": "batch05",
+      "canonical_binding": "cap646/batch05_strangler_spine.py::build_open_interest_205",
+      "canonical_25010_complete": {
+        "runtime_success": true,
+        "runtime_surface": "open_interest_intelligence",
+        "verified_locally": true,
+        "note": "Canonical spine executes successfully on local probe \u2014 PA not claimed"
+      },
+      "tolerate_ceiling": null,
+      "dual_path_converged": null,
+      "tolerate_exit_criteria": null,
+      "six_heroes_impact": {
+        "heroes_fed": [],
+        "hero_eliminated": "attach_arbitrage_comparison_230_232",
+        "impact": "none"
+      },
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      },
+      "domain_rules_runtime": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      },
+      "domain_rules_facade": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      },
+      "adr": "docs/ADR_BATCH05_232_REUSED_LINK_205.md",
+      "production_aligned": false,
+      "batch05_independent": false,
+      "pa_elevated": false
+    },
+    {
+      "capability_id": 245,
+      "capability_name": "Market Health & Freshness",
+      "prebuild_classification": "Brownfield-OVERLAP-BATCH01",
+      "mece": {
+        "inputs": "symbol, tier, address (optional) \u2014 unified cap646 execute params",
+        "output_contract": "real_time_data_freshness_update_assurance + freshness_chip",
+        "business_value": "Data freshness assurance \u2014 batch01 cap_245 spine",
+        "hero_underlying_audited": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+        "hero_production_eliminated": true,
+        "mece_verdict": "NOT_DUPLICATE \u2014 batch01 canonical; hero calendar stub rejected; cap630 internal stamp tolerated",
+        "canonical_id": 245,
+        "canonical_binding": "cap646/batch01_production.py::cap_245"
+      },
+      "type4_behavioral_comparison": {
+        "symbols_tested": [
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "per_symbol": {
+          "BTC": {
+            "runtime_surface": "real_time_data_freshness_update_assurance",
+            "runtime_spine": "batch05",
+            "facade_surface": "real_time_data_freshness_update_assurance",
+            "canonical_surface": "real_time_data_freshness_update_assurance",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "ETH": {
+            "runtime_surface": "real_time_data_freshness_update_assurance",
+            "runtime_spine": "batch05",
+            "facade_surface": "real_time_data_freshness_update_assurance",
+            "canonical_surface": "real_time_data_freshness_update_assurance",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          },
+          "SOL": {
+            "runtime_surface": "real_time_data_freshness_update_assurance",
+            "runtime_spine": "batch05",
+            "facade_surface": "real_time_data_freshness_update_assurance",
+            "canonical_surface": "real_time_data_freshness_update_assurance",
+            "surface_match_canonical": true,
+            "hero_domain_rejected": true
+          }
+        },
+        "contract": "Runtime/facade surface must match canonical spine output for same symbol input",
+        "all_surfaces_match_canonical": true
+      },
+      "time_decision": "Migrate",
+      "time_justification": "REUSED-LINK to batch01 freshness; dual-path converged \u2014 runtime routes batch05 facade with catalog_link stamp",
+      "institutional_decision": "CLOSED_REUSED_LINK",
+      "closure_status": "REUSED-LINK",
+      "canonical_capability_id": 245,
+      "canonical_spine": "batch01",
+      "canonical_binding": "cap646/batch01_production.py::cap_245",
+      "canonical_25010_complete": {
+        "runtime_success": true,
+        "runtime_surface": "real_time_data_freshness_update_assurance",
+        "verified_locally": true,
+        "note": "Canonical spine executes successfully on local probe \u2014 PA not claimed"
+      },
+      "tolerate_ceiling": null,
+      "dual_path_converged": "2026-09-04 \u2014 runtime routes via batch05 facade; catalog_link stamped",
+      "tolerate_exit_criteria": null,
+      "six_heroes_impact": {
+        "heroes_fed": [],
+        "hero_eliminated": "coinmarketcal_status_245 / emerging_fund_terminal_245",
+        "impact": "none"
+      },
+      "pentagonal_impact": {
+        "domain_all_pass_runtime": true,
+        "domain_all_pass_facade": true,
+        "pentagonal_status": "COMPLETE",
+        "note": "REUSED-LINK contract closed at runtime/facade"
+      },
+      "domain_rules_runtime": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      },
+      "domain_rules_facade": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      },
+      "adr": "docs/ADR_BATCH05_214_245_REUSED_LINK_BATCH01.md",
+      "production_aligned": false,
+      "batch05_independent": false,
+      "pa_elevated": false
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "freeze_ref": "docs/BATCH05_HERO_SIX_FINAL_FREEZE.json",
+  "status": "LOCALLY_ASSURED",
+  "batch05_direct_feed_ids": [],
+  "reused_link_226": "feeds via canonical #69 only \u2014 no batch05 stub in hero inputs",
+  "wrong_domain_routing": false,
+  "heroes": [
+    {
+      "hero": "Single-Sentence Oracle",
+      "batch05_direct_ids": [],
+      "sensitivity_loo": {
+        "remove_capability_69": "Oracle loses cross-domain synthesis input \u2014 decision may flatten to price-only if no substitute",
+        "weight_plus_20pct_69": "Marginal \u2014 concurrence gate still requires \u22652 independent signals",
+        "weight_minus_20pct_69": "Marginal \u2014 same concurrence gate",
+        "flip_test_result": "no_flip_on_stub_batch05_paths \u2014 canonical #69 mature"
+      },
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "Public Accuracy Ledger",
+      "batch05_direct_ids": [],
+      "sensitivity_loo": "N/A \u2014 no batch05 IDs in hero inputs",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "Arbitrage Scanner",
+      "batch05_direct_ids": [],
+      "sensitivity_loo": {
+        "remove_capability_69": "Arbitrage scanner loses cross-domain context \u2014 net-edge ranking may degrade",
+        "weight_plus_20pct_69": "Marginal on ranking order when \u22652 concurrence signals present",
+        "weight_minus_20pct_69": "Marginal",
+        "flip_test_result": "no_flip_on_stub_batch05_paths"
+      },
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "Whale Signal vs Noise",
+      "batch05_direct_ids": [],
+      "sensitivity_loo": "N/A",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "Stealth Advisor",
+      "batch05_direct_ids": [],
+      "sensitivity_loo": "N/A",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    },
+    {
+      "hero": "B2B Feed",
+      "batch05_direct_ids": [],
+      "sensitivity_loo": "N/A",
+      "five_scenarios": [
+        "bullish_clear",
+        "bearish_clear",
+        "conflicting",
+        "missing_data",
+        "stale_data"
+      ]
+    }
+  ],
+  "normalization_frozen": true,
+  "weighting_frozen": true
+}

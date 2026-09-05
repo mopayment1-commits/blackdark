@@ -1,0 +1,51 @@
+{
+  "status": "PLAN_READY_NOT_PRODUCTION_EVIDENCE",
+  "policy": {
+    "lightweight_p95_ms": 500,
+    "analysis_p95_ms": 2000,
+    "ai_p95_ms": 5000
+  },
+  "scenarios": [
+    {
+      "path": "POST /api/cap646/201/execute",
+      "workload": "single symbol BTC",
+      "concurrency": [
+        1,
+        10,
+        50
+      ],
+      "duration_sec": 60,
+      "metrics": [
+        "p50",
+        "p95",
+        "p99",
+        "throughput",
+        "error_rate",
+        "timeout_rate"
+      ],
+      "thresholds": {
+        "p95_ms": 500,
+        "error_rate": 0.01
+      }
+    },
+    {
+      "path": "POST /api/cap646/242/execute",
+      "workload": "multi-signal forecast",
+      "concurrency": [
+        1,
+        5,
+        20
+      ],
+      "duration_sec": 120,
+      "metrics": [
+        "p50",
+        "p95",
+        "p99"
+      ],
+      "thresholds": {
+        "p95_ms": 5000
+      }
+    }
+  ],
+  "local_benchmark_note": "Local execute_capability latency recorded in semantic oracle \u2014 not labeled production"
+}

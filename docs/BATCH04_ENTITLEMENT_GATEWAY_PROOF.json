@@ -1,0 +1,228 @@
+{
+  "verified_at": "2026-09-03T17:24:36.420871+00:00",
+  "scope": "Batch04 entitlement gateway — 10 test cases (range 151-200)",
+  "unique_capability_ids": [
+    151,
+    159,
+    161,
+    175,
+    183,
+    189,
+    194,
+    200
+  ],
+  "test_case_count": 10,
+  "script": "scripts/verify_entitlement_batch04_gateway_proof.py",
+  "contract_test": "tests/cap646/test_batch04_gateway_canonical_entitlement_contract.py",
+  "proofs": [
+    {
+      "capability_id": 151,
+      "canonical_id": 151,
+      "user_label": "pro_quarterly_reports",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "required_tier": null,
+      "success": true,
+      "surface": "quarterly_protocol_performance_reports",
+      "production_spine": "batch04",
+      "catalog_link": null,
+      "canonical_capability_id": 151
+    },
+    {
+      "capability_id": 159,
+      "canonical_id": 103,
+      "user_label": "pending_reused_elite_allowed",
+      "user": {
+        "tier": "elite"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "required_tier": null,
+      "success": true,
+      "surface": "api_data_platform",
+      "production_spine": "batch04",
+      "catalog_link": {
+        "duplicate_of": 103,
+        "classification": "NOT_COMPLETE",
+        "canonical_status": "OVERLAP-PARTIAL",
+        "blocker": "BLOCKER-159-103",
+        "owner_decision": "NOT_COMPLETE suspended until 2026-10-03"
+      },
+      "canonical_capability_id": 103
+    },
+    {
+      "capability_id": 159,
+      "canonical_id": 103,
+      "user_label": "canonical_103_free_denied",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": false,
+      "entitlement_reason": "teaser",
+      "required_tier": "elite",
+      "success": false,
+      "surface": null,
+      "production_spine": null,
+      "catalog_link": null,
+      "canonical_capability_id": 103
+    },
+    {
+      "capability_id": 175,
+      "canonical_id": 175,
+      "user_label": "overlap_batch01_sentiment",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "required_tier": null,
+      "success": true,
+      "surface": "sentiment_ai",
+      "production_spine": "batch01",
+      "catalog_link": null,
+      "canonical_capability_id": 175
+    },
+    {
+      "capability_id": 183,
+      "canonical_id": 183,
+      "user_label": "distinct_whale_free_allowed",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "required_tier": null,
+      "success": true,
+      "surface": "whale_transaction_intelligence",
+      "production_spine": "batch04",
+      "catalog_link": {
+        "distinct_from": 130,
+        "classification": "NOT_COMPLETE",
+        "canonical_status": "NOT_COMPLETE",
+        "owner_decision": "BLOCKER-183-130 DISTINCT-only (Option B approved)",
+        "semantic_note": "DISTINCT whale payload — not mindshare canonical"
+      },
+      "canonical_capability_id": 183
+    },
+    {
+      "capability_id": 189,
+      "canonical_id": 189,
+      "user_label": "pro_exchange_netflow",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "required_tier": null,
+      "success": true,
+      "surface": "exchange_netflow_intelligence",
+      "production_spine": "batch04",
+      "catalog_link": null,
+      "canonical_capability_id": 189
+    },
+    {
+      "capability_id": 161,
+      "canonical_id": 161,
+      "user_label": "elite_institutional_delivery",
+      "user": {
+        "tier": "elite"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "required_tier": null,
+      "success": true,
+      "surface": "institutional_data_delivery_entitlements",
+      "production_spine": "batch04",
+      "catalog_link": null,
+      "canonical_capability_id": 161
+    },
+    {
+      "capability_id": 161,
+      "canonical_id": 161,
+      "user_label": "elite_gated_free_denied",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": false,
+      "entitlement_reason": "teaser",
+      "required_tier": "elite",
+      "success": false,
+      "surface": null,
+      "production_spine": null,
+      "catalog_link": null,
+      "canonical_capability_id": 161
+    },
+    {
+      "capability_id": 194,
+      "canonical_id": 194,
+      "user_label": "free_nvt_intelligence",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "required_tier": null,
+      "success": true,
+      "surface": "nvt_intelligence",
+      "production_spine": "batch04",
+      "catalog_link": null,
+      "canonical_capability_id": 194
+    },
+    {
+      "capability_id": 200,
+      "canonical_id": 200,
+      "user_label": "pro_token_circulation",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "required_tier": null,
+      "success": true,
+      "surface": "token_circulation_intelligence",
+      "production_spine": "batch04",
+      "catalog_link": null,
+      "canonical_capability_id": 200
+    }
+  ],
+  "checks": {
+    "no_skip_entitlement": true,
+    "count_10": true,
+    "159_free_denied": true,
+    "159_elite_allowed": true,
+    "159_canonical_103": true,
+    "159_batch04_spine": true,
+    "175_overlap_batch01": true,
+    "183_distinct_canonical": true,
+    "161_free_denied": true,
+    "161_elite_allowed": true
+  },
+  "all_verified": true,
+  "notes": {
+    "159_183": "PENDING_CANONICAL_AUDIT — gateway uses canonical_id; REUSED-LINK not final",
+    "175": "OVERLAP-PARTIAL — routes batch01 exclusively"
+  }
+}

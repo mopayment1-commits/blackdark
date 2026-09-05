@@ -1,0 +1,85 @@
+{
+  "status": "PROVEN_LOCAL",
+  "modes": [
+    {
+      "mode": "unknown_capability",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_unknown_capability_fail_closed"
+    },
+    {
+      "mode": "out_of_spine_rejected",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_batch05_out_of_spine_rejected"
+    },
+    {
+      "mode": "entitlement_denied_fail_closed",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_entitlement_denied_fail_closed"
+    },
+    {
+      "mode": "gateway_entitlement_no_spine_leak",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_gateway_entitlement_denied_no_spine_leak"
+    },
+    {
+      "mode": "dependency_failure_degraded",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_dependency_failure_simulated"
+    },
+    {
+      "mode": "idempotent_replay_structure",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_idempotent_double_execute_structure"
+    },
+    {
+      "mode": "malformed_empty_symbol",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_malformed_empty_symbol_structured"
+    },
+    {
+      "mode": "stale_freshness_fields",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_stale_freshness_fields_present"
+    },
+    {
+      "mode": "http_429_stale_fallback",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_http_429_stale_fallback_local"
+    },
+    {
+      "mode": "http_429_fail_closed",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_http_429_fail_closed_local"
+    },
+    {
+      "mode": "http_5xx_stale_fallback",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_http_5xx_stale_fallback_local"
+    },
+    {
+      "mode": "http_5xx_fail_closed",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_http_5xx_fail_closed_local"
+    },
+    {
+      "mode": "retry_exhaustion",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_retry_exhaustion_local"
+    },
+    {
+      "mode": "recovery_after_outage",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_recovery_after_dependency_restored_local"
+    },
+    {
+      "mode": "batch05_holder_upstream_degraded",
+      "status": "PROVEN_LOCAL",
+      "test": "test_reliability_batch05_holder_path_429_degraded_local"
+    }
+  ],
+  "proven_local": 15,
+  "requires_live": 0,
+  "not_applicable": 0,
+  "design_and_local_stub": 0,
+  "live_only_reliability_items": []
+}

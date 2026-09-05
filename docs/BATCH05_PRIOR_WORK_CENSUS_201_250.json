@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-09-04T10:09:14.558407+00:00",
+  "commit_hash": "de59160126689c519f65154d884de69d79bd76a4",
+  "scan_commands": [
+    "glob cap646/batch05*",
+    "glob tests/cap646/test_batch05*",
+    "glob docs/BATCH05_*",
+    "rg '_cap20[1-9]|_cap21[0-9]|_cap22[0-9]|_cap23[0-9]|_cap24[0-9]|_cap250' cap646/",
+    "read data/hero_batch_03_201_300_evidence.jsonl lines 1-50"
+  ],
+  "findings": [
+    {
+      "pattern": "cap646/batch05*",
+      "label": "official spine",
+      "hits": [],
+      "count": 0
+    },
+    {
+      "pattern": "tests/cap646/test_batch05*",
+      "label": "official tests",
+      "hits": [],
+      "count": 0
+    },
+    {
+      "pattern": "docs/BATCH05_*",
+      "label": "official docs",
+      "hits": [
+        "docs/BATCH05_INVENTORY.json"
+      ],
+      "count": 1
+    },
+    {
+      "pattern": "scripts/partial_batches/batch_03_201_300.json",
+      "label": "hero batch03 manifest (superset)",
+      "hits": [
+        "scripts/partial_batches/batch_03_201_300.json"
+      ],
+      "count": 1
+    },
+    {
+      "pattern": "data/hero_batch_03_201_300_evidence.jsonl",
+      "label": "hero evidence",
+      "hits": [
+        "data/hero_batch_03_201_300_evidence.jsonl"
+      ],
+      "count": 1
+    },
+    {
+      "pattern": "scripts/run_batch05_deep_closure.py",
+      "label": "misnumbered hero 401-500 script",
+      "hits": [
+        "scripts/run_batch05_deep_closure.py"
+      ],
+      "count": 1
+    },
+    {
+      "pattern": "scripts/partial_batches/batch_05_401_500.json",
+      "label": "hero batch 401-500 (NOT official batch05)",
+      "hits": [
+        "scripts/partial_batches/batch_05_401_500.json"
+      ],
+      "count": 1
+    }
+  ],
+  "legacy_hero_batch03": {
+    "manifest": "scripts/partial_batches/batch_03_201_300.json",
+    "evidence": "data/hero_batch_03_201_300_evidence.jsonl",
+    "audit": "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_03_201_300.json",
+    "disposition": "REUSE-AUDIT-INPUT \u2014 not auto PRODUCTION-ALIGNED; requires cap646/batch05 spine + live free-tier probes"
+  },
+  "naming_collision": {
+    "official_batch05": "201-250",
+    "hero_batch05_scripts": "401-500 (IGNORE for official batch05)",
+    "hero_batch03_superset": "201-300 (contains official batch05)"
+  },
+  "bd_platform_functions_201_250": 50,
+  "template_stub_201_250": 0
+}

@@ -1,0 +1,43 @@
+{
+  "blockers": [
+    {
+      "id": "RAILWAY_DEPLOY",
+      "severity": "P0",
+      "status": "BLOCKED_EXTERNAL",
+      "owner_action": "Railway dashboard: create/restart web service (SERVICE_MODE=web), attach domain blackdark-production.up.railway.app, set DATABASE_URL/REDIS_URL/env per scripts/railway_production_checklist.py",
+      "evidence": "docs/BATCH05_PRODUCTION_ROOT_CAUSE.json"
+    },
+    {
+      "id": "G6_LIVE_VALIDATION",
+      "severity": "P0",
+      "status": "BLOCKED_EXTERNAL",
+      "affected_ids": 50,
+      "closure": "Gate Zero PASS after redeploy"
+    },
+    {
+      "id": "G7_INDEPENDENT_ASSURANCE",
+      "severity": "P0",
+      "status": "ASSURANCE_REVIEW_PENDING",
+      "closure": "12207 Validation/Transition + SRE PRR committee with live evidence pack"
+    },
+    {
+      "id": "PERFORMANCE_LIVE",
+      "severity": "P0",
+      "status": "AWAITING_DEPLOY",
+      "closure": "k6/latency audit on production paths post-deploy"
+    },
+    {
+      "id": "DUAL_PATH_214_245",
+      "severity": "P1",
+      "status": "TOLERATE_CEILING_2026-12-31",
+      "closure": "Live dual-path proof or facade/runtime convergence"
+    }
+  ],
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "build_phase": "OPEN",
+  "live_ready": false,
+  "assurance_ready": false
+}

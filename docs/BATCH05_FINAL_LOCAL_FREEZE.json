@@ -1,0 +1,784 @@
+{
+  "generated_at": "2026-09-04T23:48:54.875478+00:00",
+  "git_commit": "73d531ff0b46127e7821ebe24c962d86efd1d21a",
+  "freeze_type": "FINAL_LOCAL_PRE_PRODUCTION",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "live_ready": false,
+  "assurance_ready": false,
+  "final_local_status": "PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED / BLOCKED_EXTERNAL_FOR_LIVE_ONLY",
+  "g0_g4": {
+    "G0": 50,
+    "G1": 50,
+    "G2": 50,
+    "G3": 50,
+    "G4": 50
+  },
+  "semantic_oracle": 50,
+  "residual_7": {
+    "closed": 7,
+    "deferred": 0,
+    "214_245": "CONVERGED"
+  },
+  "six_heroes": {
+    "freeze_status": "FINAL_FREEZE_LOCAL",
+    "batch05_in_hero_inputs": false,
+    "wrong_domain_routing": false
+  },
+  "reliability": {
+    "status": "PROVEN_LOCAL",
+    "modes": [
+      {
+        "mode": "unknown_capability",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_unknown_capability_fail_closed"
+      },
+      {
+        "mode": "out_of_spine_rejected",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_batch05_out_of_spine_rejected"
+      },
+      {
+        "mode": "entitlement_denied_fail_closed",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_entitlement_denied_fail_closed"
+      },
+      {
+        "mode": "gateway_entitlement_no_spine_leak",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_gateway_entitlement_denied_no_spine_leak"
+      },
+      {
+        "mode": "dependency_failure_degraded",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_dependency_failure_simulated"
+      },
+      {
+        "mode": "idempotent_replay_structure",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_idempotent_double_execute_structure"
+      },
+      {
+        "mode": "malformed_empty_symbol",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_malformed_empty_symbol_structured"
+      },
+      {
+        "mode": "stale_freshness_fields",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_stale_freshness_fields_present"
+      },
+      {
+        "mode": "http_429_stale_fallback",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_http_429_stale_fallback_local"
+      },
+      {
+        "mode": "http_429_fail_closed",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_http_429_fail_closed_local"
+      },
+      {
+        "mode": "http_5xx_stale_fallback",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_http_5xx_stale_fallback_local"
+      },
+      {
+        "mode": "http_5xx_fail_closed",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_http_5xx_fail_closed_local"
+      },
+      {
+        "mode": "retry_exhaustion",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_retry_exhaustion_local"
+      },
+      {
+        "mode": "recovery_after_outage",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_recovery_after_dependency_restored_local"
+      },
+      {
+        "mode": "batch05_holder_upstream_degraded",
+        "status": "PROVEN_LOCAL",
+        "test": "test_reliability_batch05_holder_path_429_degraded_local"
+      }
+    ],
+    "proven_local": 15,
+    "requires_live": 0,
+    "not_applicable": 0,
+    "design_and_local_stub": 0,
+    "live_only_reliability_items": []
+  },
+  "security": {
+    "status": "PROVEN_LOCAL_MATERIAL_PATHS",
+    "material_paths": 8,
+    "proven_local_checks": 52,
+    "matrix": [
+      {
+        "capability_id": 201,
+        "material_path": true,
+        "checks": {
+          "authentication": "NOT_APPLICABLE",
+          "authorization": "PROVEN_LOCAL",
+          "entitlement": "PROVEN_LOCAL",
+          "object_level_authorization": "NOT_APPLICABLE",
+          "tenant_isolation": "NOT_APPLICABLE",
+          "malformed_input": "PROVEN_LOCAL",
+          "oversized_input": "PROVEN_LOCAL",
+          "injection_sensitive_input": "PROVEN_LOCAL",
+          "secret_exposure": "PROVEN_LOCAL",
+          "sensitive_logging": "PROVEN_LOCAL",
+          "api_abuse_rate": "REQUIRES_LIVE",
+          "replay_idempotency": "NOT_APPLICABLE",
+          "wrong_domain_access": "PROVEN_LOCAL"
+        }
+      },
+      {
+        "capability_id": 205,
+        "material_path": true,
+        "checks": {
+          "authentication": "NOT_APPLICABLE",
+          "authorization": "PROVEN_LOCAL",
+          "entitlement": "PROVEN_LOCAL",
+          "object_level_authorization": "NOT_APPLICABLE",
+          "tenant_isolation": "NOT_APPLICABLE",
+          "malformed_input": "NOT_APPLICABLE",
+          "oversized_input": "NOT_APPLICABLE",
+          "injection_sensitive_input": "NOT_APPLICABLE",
+          "secret_exposure": "PROVEN_LOCAL",
+          "sensitive_logging": "PROVEN_LOCAL",
+          "api_abuse_rate": "REQUIRES_LIVE",
+          "replay_idempotency": "PROVEN_LOCAL",
+          "wrong_domain_access": "PROVEN_LOCAL"
+        }
+      },
+      {
+        "capability_id": 214,
+        "material_path": true,
+        "checks": {
+          "authentication": "NOT_APPLICABLE",
+          "authorization": "PROVEN_LOCAL",
+          "entitlement": "PROVEN_LOCAL",
+          "object_level_authorization": "NOT_APPLICABLE",
+          "tenant_isolation": "NOT_APPLICABLE",
+          "malformed_input": "PROVEN_LOCAL",
+          "oversized_input": "PROVEN_LOCAL",
+          "injection_sensitive_input": "PROVEN_LOCAL",
+          "secret_exposure": "PROVEN_LOCAL",
+          "sensitive_logging": "PROVEN_LOCAL",
+          "api_abuse_rate": "REQUIRES_LIVE",
+          "replay_idempotency": "NOT_APPLICABLE",
+          "wrong_domain_access": "PROVEN_LOCAL"
+        }
+      },
+      {
+        "capability_id": 226,
+        "material_path": true,
+        "checks": {
+          "authentication": "NOT_APPLICABLE",
+          "authorization": "PROVEN_LOCAL",
+          "entitlement": "PROVEN_LOCAL",
+          "object_level_authorization": "NOT_APPLICABLE",
+          "tenant_isolation": "NOT_APPLICABLE",
+          "malformed_input": "NOT_APPLICABLE",
+          "oversized_input": "NOT_APPLICABLE",
+          "injection_sensitive_input": "NOT_APPLICABLE",
+          "secret_exposure": "PROVEN_LOCAL",
+          "sensitive_logging": "PROVEN_LOCAL",
+          "api_abuse_rate": "REQUIRES_LIVE",
+          "replay_idempotency": "NOT_APPLICABLE",
+          "wrong_domain_access": "PROVEN_LOCAL"
+        }
+      },
+      {
+        "capability_id": 232,
+        "material_path": true,
+        "checks": {
+          "authentication": "NOT_APPLICABLE",
+          "authorization": "PROVEN_LOCAL",
+          "entitlement": "PROVEN_LOCAL",
+          "object_level_authorization": "NOT_APPLICABLE",
+          "tenant_isolation": "NOT_APPLICABLE",
+          "malformed_input": "NOT_APPLICABLE",
+          "oversized_input": "NOT_APPLICABLE",
+          "injection_sensitive_input": "NOT_APPLICABLE",
+          "secret_exposure": "PROVEN_LOCAL",
+          "sensitive_logging": "PROVEN_LOCAL",
+          "api_abuse_rate": "REQUIRES_LIVE",
+          "replay_idempotency": "PROVEN_LOCAL",
+          "wrong_domain_access": "PROVEN_LOCAL"
+        }
+      },
+      {
+        "capability_id": 242,
+        "material_path": true,
+        "checks": {
+          "authentication": "NOT_APPLICABLE",
+          "authorization": "PROVEN_LOCAL",
+          "entitlement": "PROVEN_LOCAL",
+          "object_level_authorization": "NOT_APPLICABLE",
+          "tenant_isolation": "NOT_APPLICABLE",
+          "malformed_input": "NOT_APPLICABLE",
+          "oversized_input": "NOT_APPLICABLE",
+          "injection_sensitive_input": "NOT_APPLICABLE",
+          "secret_exposure": "PROVEN_LOCAL",
+          "sensitive_logging": "PROVEN_LOCAL",
+          "api_abuse_rate": "REQUIRES_LIVE",
+          "replay_idempotency": "NOT_APPLICABLE",
+          "wrong_domain_access": "PROVEN_LOCAL"
+        }
+      },
+      {
+        "capability_id": 245,
+        "material_path": true,
+        "checks": {
+          "authentication": "NOT_APPLICABLE",
+          "authorization": "PROVEN_LOCAL",
+          "entitlement": "PROVEN_LOCAL",
+          "object_level_authorization": "NOT_APPLICABLE",
+          "tenant_isolation": "NOT_APPLICABLE",
+          "malformed_input": "NOT_APPLICABLE",
+          "oversized_input": "NOT_APPLICABLE",
+          "injection_sensitive_input": "NOT_APPLICABLE",
+          "secret_exposure": "PROVEN_LOCAL",
+          "sensitive_logging": "PROVEN_LOCAL",
+          "api_abuse_rate": "REQUIRES_LIVE",
+          "replay_idempotency": "NOT_APPLICABLE",
+          "wrong_domain_access": "PROVEN_LOCAL"
+        }
+      },
+      {
+        "capability_id": 247,
+        "material_path": true,
+        "checks": {
+          "authentication": "PROVEN_LOCAL",
+          "authorization": "PROVEN_LOCAL",
+          "entitlement": "PROVEN_LOCAL",
+          "object_level_authorization": "NOT_APPLICABLE",
+          "tenant_isolation": "NOT_APPLICABLE",
+          "malformed_input": "PROVEN_LOCAL",
+          "oversized_input": "PROVEN_LOCAL",
+          "injection_sensitive_input": "PROVEN_LOCAL",
+          "secret_exposure": "PROVEN_LOCAL",
+          "sensitive_logging": "PROVEN_LOCAL",
+          "api_abuse_rate": "REQUIRES_LIVE",
+          "replay_idempotency": "NOT_APPLICABLE",
+          "wrong_domain_access": "PROVEN_LOCAL"
+        }
+      }
+    ]
+  },
+  "data_integrity": {
+    "per_id_proven_local": 50,
+    "total": 50,
+    "rows": [
+      {
+        "capability_id": 201,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 202,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 203,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 204,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 205,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 206,
+        "semantic_oracle_pass": true,
+        "freshness_rule": false,
+        "feature_ref_invariant": false,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 207,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 208,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 209,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 210,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 211,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 212,
+        "semantic_oracle_pass": true,
+        "freshness_rule": false,
+        "feature_ref_invariant": false,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 213,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 214,
+        "semantic_oracle_pass": true,
+        "freshness_rule": false,
+        "feature_ref_invariant": false,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 215,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 216,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 217,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 218,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 219,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 220,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 221,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 222,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 223,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 224,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 225,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 226,
+        "semantic_oracle_pass": true,
+        "freshness_rule": false,
+        "feature_ref_invariant": false,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 227,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 228,
+        "semantic_oracle_pass": true,
+        "freshness_rule": false,
+        "feature_ref_invariant": false,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 229,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 230,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 231,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 232,
+        "semantic_oracle_pass": true,
+        "freshness_rule": false,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 233,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 234,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 235,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 236,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 237,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 238,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 239,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 240,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 241,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 242,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 243,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 244,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 245,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": false,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 246,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 247,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 248,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 249,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 250,
+        "semantic_oracle_pass": true,
+        "freshness_rule": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      }
+    ]
+  },
+  "observability": {
+    "status": "IMPLEMENTED_AND_TESTED_LOCAL",
+    "tests": [
+      "test_observability_health_live_local",
+      "test_observability_health_ready_structure",
+      "test_observability_health_root_lists_probes",
+      "test_observability_latency_ms_on_execute"
+    ],
+    "live_dashboards": "REQUIRES_LIVE"
+  },
+  "g5_decomposition": {
+    "local_component_complete": 5,
+    "requires_live": 3,
+    "not_applicable": 2,
+    "requirements": [
+      {
+        "id": "G5.1",
+        "name": "Health/readiness endpoints",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.2",
+        "name": "Structured logging envelope",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.3",
+        "name": "Metrics instrumentation hooks",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.4",
+        "name": "Alert definitions",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.5",
+        "name": "Runbook / incident prep",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.6",
+        "name": "SLI/SLO live measurement",
+        "status": "REQUIRES_LIVE"
+      },
+      {
+        "id": "G5.7",
+        "name": "Production capacity headroom",
+        "status": "REQUIRES_LIVE"
+      },
+      {
+        "id": "G5.8",
+        "name": "Live dependency latency SLO",
+        "status": "REQUIRES_LIVE"
+      },
+      {
+        "id": "G5.9",
+        "name": "Failover drill evidence",
+        "status": "NOT_APPLICABLE"
+      },
+      {
+        "id": "G5.10",
+        "name": "Backup/restore for batch05 state",
+        "status": "NOT_APPLICABLE"
+      }
+    ]
+  },
+  "live_only_queue": {
+    "items": [
+      {
+        "id": "LZ1",
+        "gate": "G6",
+        "item": "Gate Zero live health + cap646 probes against production host",
+        "reason": "Requires Railway app bound to blackdark-production.up.railway.app",
+        "local_component": "scripts/execute_batch05_gate_zero_live.py prepared; last run FAILED"
+      },
+      {
+        "id": "LZ2",
+        "gate": "G6",
+        "item": "Production-network E2E semantic verification (50 IDs)",
+        "reason": "TLS/host/routing differ from local TestClient",
+        "local_component": "Semantic oracle 50/50 PROVEN_LOCAL"
+      },
+      {
+        "id": "LZ3",
+        "gate": "G6",
+        "item": "Production-network entitlement under real deploy",
+        "reason": "Live gateway host + quota headers",
+        "local_component": "BATCH05_ENTITLEMENT_GATEWAY_PROOF.json all_verified=true"
+      },
+      {
+        "id": "LZ4",
+        "gate": "G6",
+        "item": "Production performance/load (k6)",
+        "reason": "Cannot measure p95/throughput without deployed service",
+        "local_component": "BATCH05_PERFORMANCE_TEST_PLAN.json ready"
+      },
+      {
+        "id": "LZ5",
+        "gate": "G7",
+        "item": "12207 Validation workshop with live artifacts",
+        "reason": "Independent human sign-off with live evidence",
+        "local_component": "Evidence pack prepared in BATCH05_V2_ASSURANCE_PACKAGE.json"
+      },
+      {
+        "id": "LZ6",
+        "gate": "G7",
+        "item": "12207 Transition/Operation sign-off",
+        "reason": "Independent assurance gate",
+        "local_component": "NOT_APPLICABLE until LZ5"
+      },
+      {
+        "id": "LZ7",
+        "gate": "G7",
+        "item": "SRE PRR independent second review",
+        "reason": "Genuine second reviewer required",
+        "local_component": "BATCH05_SRE_PRR_READINESS_PACKAGE.json intake ready"
+      },
+      {
+        "id": "LZ8",
+        "gate": "G6",
+        "item": "PASS_LIVE elevation (50 IDs)",
+        "reason": "G6 criteria require production validation",
+        "local_component": "G0-G4 PASS_ENGINEERING 50/50"
+      },
+      {
+        "id": "LZ9",
+        "gate": "G7",
+        "item": "ASSURANCE_READY elevation (50 IDs)",
+        "reason": "G7 + G6 completion",
+        "local_component": "ASSURANCE_REVIEW_PREPARED"
+      }
+    ],
+    "count": 9,
+    "purity_verified": true
+  },
+  "known_local_deficiencies": [],
+  "freeze_tests": {
+    "exit_code": 0,
+    "passed": true,
+    "stdout_tail": "..................................................... [ 70%]\n........................................................................ [ 84%]\n........................................................................ [ 98%]\n......                                                                   [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+  },
+  "full_regression": {
+    "exit_code": 0,
+    "passed": true,
+    "stdout_tail": "..................................................... [ 70%]\n........................................................................ [ 84%]\n........................................................................ [ 98%]\n......                                                                   [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+  },
+  "artifact_index": [
+    "docs/BATCH05_FINAL_LOCAL_FREEZE.json",
+    "docs/BATCH05_V2_ASSURANCE_PACKAGE.json",
+    "docs/BATCH05_LOCAL_INSTITUTIONAL_COMPLETION.json",
+    "docs/BATCH05_LIVE_ONLY_QUEUE.json",
+    "tests/cap646/test_batch05_local_assurance_freeze.py"
+  ]
+}

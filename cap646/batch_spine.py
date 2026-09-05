@@ -16,7 +16,14 @@ async def execute_and_enrich_batch(
     params: dict[str, Any],
 ) -> dict[str, Any]:
     """Shared batch path: execute handler, stamp metadata, enrich, footer."""
-    result = await handler(capability_id, params=params)
+    try:
+        result = await handler(capability_id, params=params)
+    except Exception as exc:
+        result = {
+            "success": False,
+            "error": str(exc),
+            "handler": getattr(handler, "__name__", "unknown"),
+        }
     result.setdefault("capability_id", capability_id)
     result.setdefault("capability", row["capability"])
     result.setdefault("track", row["track"])

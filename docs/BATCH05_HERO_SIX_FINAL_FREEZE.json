@@ -1,0 +1,197 @@
+{
+  "generated_at": "2026-09-04T22:24:37.441184+00:00",
+  "git_commit": "40b654d5f8b0266277a4b49d3d3684887d540347",
+  "sequence_item": 4,
+  "scope": "Six Heroes final freeze \u2014 Batch05 201-250",
+  "build_phase": "OPEN",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "freeze_status": "FINAL_FREEZE_LOCAL",
+  "not_claimed": [
+    "LOCAL_GOVERNANCE_COMPLETE",
+    "LIVE_READY",
+    "batch05_independent"
+  ],
+  "normalization": {
+    "method": "min-max / log1p per hero engine (scripts/generate_pentagonal_hero_binding_report.py)",
+    "batch05_independent_caps": "N/A \u2014 43 stranglers not in hero aggregation inputs",
+    "reused_link_226": "inherits canonical #69 normalization at batch02 spine",
+    "wave5_ids": "242-250 not in hero inputs \u2014 confirmed",
+    "frozen": true
+  },
+  "weighting": {
+    "default": "equal_weight_default \u2014 ADR required if changed (OECD composite indicator practice)",
+    "batch05_stub": "no weights assigned \u2014 independent caps not yet in hero inputs",
+    "justification": "Avoid equal-weight bias on unvalidated strangler stubs; weights frozen until ISO 25010 completeness probe passes per ID",
+    "frozen": true,
+    "adr_required_for_change": true
+  },
+  "sensitivity": {
+    "per_hero_loo": [
+      {
+        "hero": "Single-Sentence Oracle",
+        "batch05_direct_ids": [],
+        "sensitivity_loo": {
+          "remove_capability_69": "Oracle loses cross-domain synthesis input \u2014 decision may flatten to price-only if no substitute",
+          "weight_plus_20pct_69": "Marginal \u2014 concurrence gate still requires \u22652 independent signals",
+          "weight_minus_20pct_69": "Marginal \u2014 same concurrence gate",
+          "flip_test_result": "no_flip_on_stub_batch05_paths \u2014 canonical #69 mature"
+        },
+        "five_scenarios": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ]
+      },
+      {
+        "hero": "Public Accuracy Ledger",
+        "batch05_direct_ids": [],
+        "sensitivity_loo": "N/A \u2014 no batch05 IDs in hero inputs",
+        "five_scenarios": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ]
+      },
+      {
+        "hero": "Arbitrage Scanner",
+        "batch05_direct_ids": [],
+        "sensitivity_loo": {
+          "remove_capability_69": "Arbitrage scanner loses cross-domain context \u2014 net-edge ranking may degrade",
+          "weight_plus_20pct_69": "Marginal on ranking order when \u22652 concurrence signals present",
+          "weight_minus_20pct_69": "Marginal",
+          "flip_test_result": "no_flip_on_stub_batch05_paths"
+        },
+        "five_scenarios": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ]
+      },
+      {
+        "hero": "Whale Signal vs Noise",
+        "batch05_direct_ids": [],
+        "sensitivity_loo": "N/A",
+        "five_scenarios": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ]
+      },
+      {
+        "hero": "Stealth Advisor",
+        "batch05_direct_ids": [],
+        "sensitivity_loo": "N/A",
+        "five_scenarios": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ]
+      },
+      {
+        "hero": "B2B Feed",
+        "batch05_direct_ids": [],
+        "sensitivity_loo": "N/A",
+        "five_scenarios": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ]
+      }
+    ],
+    "independent_signal_concurrence": "\u22652 independent modal signals where hero engine requires (Oracle/Arbitrage) \u2014 applies only via canonical #69 for batch05 #226 facade",
+    "frozen": true
+  },
+  "explainability": {
+    "per_hero": [
+      {
+        "hero": "Single-Sentence Oracle",
+        "explainability": "hero engine returns contributing capability_ids in payload where implemented; #226 stamped catalog_link REUSED-LINK",
+        "reused_canonical_feeds": [
+          {
+            "duplicate_id": 226,
+            "canonical_id": 69,
+            "binding": "cap646/batch05_dedicated.py::_cap226 \u2192 batch02_production.execute(69)"
+          }
+        ]
+      },
+      {
+        "hero": "Public Accuracy Ledger",
+        "explainability": "N/A",
+        "reused_canonical_feeds": []
+      },
+      {
+        "hero": "Arbitrage Scanner",
+        "explainability": "canonical #69 build_cross_domain_decision_payload fields surfaced via facade",
+        "reused_canonical_feeds": [
+          {
+            "duplicate_id": 226,
+            "canonical_id": 69,
+            "binding": "cap646/batch05_dedicated.py::_cap226 \u2192 batch02_production.execute(69)"
+          }
+        ]
+      },
+      {
+        "hero": "Whale Signal vs Noise",
+        "explainability": "N/A",
+        "reused_canonical_feeds": []
+      },
+      {
+        "hero": "Stealth Advisor",
+        "explainability": "N/A",
+        "reused_canonical_feeds": []
+      },
+      {
+        "hero": "B2B Feed",
+        "explainability": "N/A",
+        "reused_canonical_feeds": []
+      }
+    ],
+    "aggregation_layer_five_scenario_bags": [
+      "bullish_clear",
+      "bearish_clear",
+      "conflicting",
+      "missing_data",
+      "stale_data"
+    ],
+    "frozen": true
+  },
+  "heroes_fed_by_batch05": {
+    "direct_strangler_ids": [],
+    "reused_canonical_only": {
+      "226": 69
+    },
+    "wave5_ids_in_hero_inputs": []
+  },
+  "binding_source": "docs/BATCH05_HERO_SIX_BINDING_201_250.json",
+  "post_wave5_confirmation": {
+    "confirmed_at": "2026-09-04T22:10:00+00:00",
+    "commit": "acbea4c",
+    "wave5_capability_ids": [
+      242,
+      243,
+      244,
+      246,
+      247,
+      248,
+      249,
+      250
+    ],
+    "heroes_fed_by_wave5": [],
+    "matrix_changed": false,
+    "note": "Wave 5 strangler IDs route via batch05_strangler_spine; not in hero aggregation inputs"
+  }
+}

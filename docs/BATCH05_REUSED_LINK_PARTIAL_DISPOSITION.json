@@ -1,0 +1,119 @@
+{
+  "generated_at": "2026-09-04T22:24:32.582402+00:00",
+  "git_commit": "40b654d5f8b0266277a4b49d3d3684887d540347",
+  "sequence_item": 2,
+  "scope": "REUSED-LINK pentagonal partial disposition #214 #232 #245",
+  "build_phase": "OPEN",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "tolerate_ceiling_default": "2026-12-31",
+  "summary": {
+    "closed_count": 1,
+    "tolerate_count": 2,
+    "partial_ids": [
+      214,
+      232,
+      245
+    ]
+  },
+  "policy": "Close with evidence or TOLERATE with hard ceiling + ADR. No PA elevation.",
+  "rows": [
+    {
+      "capability_id": 214,
+      "capability_name": "Watchlists",
+      "disposition": "TOLERATE",
+      "disposition_rationale": "Public GET/runtime routes batch01 spine before batch05 facade; catalog_link stamped only on batch05_dedicated facade path (ADR precedence \u2014 same pattern as batch04 #175)",
+      "adr": "docs/ADR_BATCH05_214_245_REUSED_LINK_BATCH01.md",
+      "tolerate_ceiling": "2026-12-31",
+      "tolerate_conditions": [
+        "Facade contract tests must remain green (catalog_link stamped on batch05_production path)",
+        "Runtime batch01 path remains authoritative for public GET until Gate Zero live probe",
+        "No hero-layer production routing for this ID",
+        "Re-evaluate at ceiling 2026-12-31 or upon Gate Zero deploy evidence"
+      ],
+      "runtime_probe": {
+        "domain_all_pass": false,
+        "rules_passed": 3,
+        "rules_total": 8,
+        "failed_fields": [
+          "catalog_link.classification",
+          "catalog_link.canonical_capability_id",
+          "catalog_link.canonical_spine",
+          "catalog_link.binding",
+          "watchlists.count"
+        ]
+      },
+      "facade_probe": {
+        "domain_all_pass": false,
+        "rules_passed": 7,
+        "rules_total": 8
+      },
+      "pentagonal_partial_resolved": false,
+      "pentagonal_probe_path_note": "Pentagonal generator uses runtime path \u2014 partial domain rules expected for #214/#245",
+      "production_aligned": false,
+      "batch05_independent": false,
+      "12207_phase": "Validation (TOLERATE with ceiling) \u2014 Transition blocked",
+      "next_action": "Owner review at 2026-12-31: align pentagonal probe path or accept dual-path contract"
+    },
+    {
+      "capability_id": 232,
+      "capability_name": "Open Interest Intelligence",
+      "disposition": "CLOSED",
+      "disposition_rationale": "Acceptance catalog_link.binding aligned to strangler spine (build_open_interest_205); facade + runtime probes pass 8/8 domain rules",
+      "adr": "docs/ADR_BATCH05_232_REUSED_LINK_205.md",
+      "tolerate_ceiling": null,
+      "runtime_probe": {
+        "domain_all_pass": true,
+        "rules_passed": 8
+      },
+      "facade_probe": {
+        "domain_all_pass": true,
+        "rules_passed": 8
+      },
+      "pentagonal_partial_resolved": true,
+      "production_aligned": false,
+      "batch05_independent": false,
+      "12207_phase": "Validation (local REUSED-LINK contract) \u2014 Transition blocked",
+      "next_action": "None \u2014 #232 REUSED-LINK closed at facade contract level; PA still blocked globally"
+    },
+    {
+      "capability_id": 245,
+      "capability_name": "Market Health & Freshness",
+      "disposition": "TOLERATE",
+      "disposition_rationale": "Public GET/runtime routes batch01 spine before batch05 facade; catalog_link stamped only on batch05_dedicated facade path (ADR precedence \u2014 same pattern as batch04 #175); internal capability_id stamp 630 on batch01 freshness path (OVERLAP-PARTIAL)",
+      "adr": "docs/ADR_BATCH05_214_245_REUSED_LINK_BATCH01.md",
+      "tolerate_ceiling": "2026-12-31",
+      "tolerate_conditions": [
+        "Facade contract tests must remain green (catalog_link stamped on batch05_production path)",
+        "Runtime batch01 path remains authoritative for public GET until Gate Zero live probe",
+        "No hero-layer production routing for this ID",
+        "Re-evaluate at ceiling 2026-12-31 or upon Gate Zero deploy evidence"
+      ],
+      "runtime_probe": {
+        "domain_all_pass": false,
+        "rules_passed": 3,
+        "rules_total": 8,
+        "failed_fields": [
+          "catalog_link.classification",
+          "catalog_link.canonical_capability_id",
+          "catalog_link.canonical_spine",
+          "catalog_link.binding",
+          "executable_fresh"
+        ]
+      },
+      "facade_probe": {
+        "domain_all_pass": false,
+        "rules_passed": 7,
+        "rules_total": 8
+      },
+      "pentagonal_partial_resolved": false,
+      "pentagonal_probe_path_note": "Pentagonal generator uses runtime path \u2014 partial domain rules expected for #214/#245",
+      "production_aligned": false,
+      "batch05_independent": false,
+      "12207_phase": "Validation (TOLERATE with ceiling) \u2014 Transition blocked",
+      "next_action": "Owner review at 2026-12-31: align pentagonal probe path or accept dual-path contract"
+    }
+  ]
+}
