@@ -226,21 +226,22 @@ async def zerion_wallet(address: str) -> dict[str, Any] | None:
 
 
 async def wallet_balance(address: str) -> dict[str, Any]:
-    """DeBank replacement chain: DeBank key → Zerion key → Tracely portfolio (free)."""
+    """DeBank replacement chain: DeBank connector → Zerion key → Tracely portfolio (free)."""
     debank_key = os.getenv("DEBANK_API_KEY", "").strip()
     if debank_key:
-        data = await _get_json(
-            "https://pro-openapi.debank.com/v1/user/total_balance",
-            headers={"AccessKey": debank_key},
-            params={"id": address},
-        )
-        if data is not None:
+        from blackdark.ingestion.debank_connector import fetch_debank_total_balance
+
+        row = await fetch_debank_total_balance(address)
+        if row.get("ok"):
             return {
                 "available": True,
                 "source": "debank",
                 "address": address,
-                "balance": data,
+                "total_usd": row.get("total_usd"),
+                "balance": row.get("raw") or row,
                 "tier": "paid_debank",
+                "cache_hit": row.get("cache_hit"),
+                "stale_fallback": row.get("stale_fallback"),
             }
 
     zerion = await zerion_wallet(address)

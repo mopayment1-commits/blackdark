@@ -308,8 +308,40 @@ async def _h_defillama_yields(session: aiohttp.ClientSession, spec: DataSourceSp
 
 
 async def _h_dexscreener(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url, params={"q": "BTC"})
-    return {"pairs": _take(data.get("pairs") or [], 5)}
+    from blackdark.ingestion.dexscreener_connector import fetch_dex_pairs
+
+    data = await fetch_dex_pairs("BTC")
+    pairs = _take(data.get("pairs") or [], 5)
+    return {
+        "pairs": pairs,
+        "liquidity_signal": data.get("liquidity_signal"),
+        "source": "dexscreener_connector",
+        "cache_hit": data.get("cache_hit"),
+    }
+
+
+async def _h_debank(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.debank_connector import debank_connector_status
+
+    status = debank_connector_status()
+    return {
+        "configured": status.get("api_key_configured"),
+        "cache_ttl_seconds": status.get("cache_ttl_seconds"),
+        "rate_limited": status.get("rate_limited"),
+        "source": "debank_connector",
+    }
+
+
+async def _h_etherscan(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.etherscan_connector import fetch_gas_oracle
+
+    gas = await fetch_gas_oracle()
+    return {
+        "gas": (gas.get("gas") or {}),
+        "source": "etherscan_connector",
+        "cache_hit": gas.get("cache_hit"),
+        "configured": bool(os.getenv("ETHERSCAN_API_KEY")),
+    }
 
 
 async def _h_geckoterminal(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -505,6 +537,8 @@ HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[
     "defillama_protocols": _h_defillama_protocols,
     "defillama_yields": _h_defillama_yields,
     "dexscreener": _h_dexscreener,
+    "debank": _h_debank,
+    "etherscan": _h_etherscan,
     "geckoterminal": _h_geckoterminal,
     "fear_greed": _h_fear_greed,
     "reddit_crypto": _h_reddit,
