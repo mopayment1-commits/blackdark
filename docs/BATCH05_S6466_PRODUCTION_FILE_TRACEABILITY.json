@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-09-05T13:50:00+00:00",
+  "scope": "S6466 production-file exact commit/diff status for cap646/batch04_strangler_spine.py",
+  "production_file": "cap646/batch04_strangler_spine.py",
+  "present_at_head": true,
+  "head_blob": "af4e83e2a9237c02bfd6eeebda247d03905a2fe1",
+  "changed_in_recovery_commits_5dcaf46_to_a3bffc04": false,
+  "recovery_branch_file_diff": "empty — file identical from 5dcaf46 through a3bffc04 and current HEAD",
+  "included_in_final_head": true,
+  "why_pr_368_files_changed_omitted_production_file": {
+    "pr": 368,
+    "base": "cursor/batch05-201-250-e85e",
+    "head": "cursor/batch05-zero-defect-recovery-e85e",
+    "listed": ["tests/cap646/test_batch04_strangler_spine.py"],
+    "not_listed": ["cap646/batch04_strangler_spine.py"],
+    "reason": "PR #368 is based on the Batch05 branch that already contains the S6466 production fix. GitHub Files Changed is the PR-base triple-dot diff, not origin/main...HEAD. The production file is therefore inherited, not re-touched, on the recovery branch."
+  },
+  "vs_origin_main": {
+    "merge_base": "9af0c38aec6d2a903e949e11ea2d3af98f345f2e",
+    "file_in_triple_dot_diff": true,
+    "stat": "627 insertions (file does not exist on origin/main)"
+  },
+  "fix_commits": [
+    {
+      "commit": "961837c5a56c3999b010908fbcb4f8b4ec78ce64",
+      "subject": "fix(batch04): resolve strangler spine S6466 unlock calendar typing",
+      "role": "PRIMARY_FIX",
+      "ancestor_of_head": true,
+      "diff_summary": "Add _as_dict_list + _record_symbol; replace untyped list access in build_unlock_actionability_164 and build_token_circulation_200"
+    },
+    {
+      "commit": "2480f355d392044b11288a47306b8aef9c6f7a65",
+      "subject": "fix(ci): async SEC-007 for PG gate + Sonar S6466 collection access",
+      "role": "FOLLOW_UP",
+      "ancestor_of_head": true,
+      "diff_summary": "supply_pressure=list(pressure[:5]); circ_rate via next(iter(pressure), None)"
+    }
+  ],
+  "primary_diff_961837c": {
+    "helpers_added": [
+      "def _as_dict_list(val: Any) -> list[dict[str, Any]]",
+      "def _record_symbol(item: dict[str, Any]) -> str"
+    ],
+    "build_unlock_actionability_164": {
+      "before": [
+        "scheduled = cal.get(\"scheduled_unlocks\") or []",
+        "symbol_unlocks = [u for u in scheduled if str(u.get(\"symbol\", \"\")).upper() == symbol.upper()]",
+        "pressure = cal.get(\"supply_pressure\") or []"
+      ],
+      "after": [
+        "scheduled = _as_dict_list(cal.get(\"scheduled_unlocks\"))",
+        "sym = symbol.upper()",
+        "symbol_unlocks = [u for u in scheduled if _record_symbol(u) == sym]",
+        "pressure = _as_dict_list(cal.get(\"supply_pressure\"))"
+      ]
+    },
+    "build_token_circulation_200": {
+      "before": [
+        "pressure = [p for p in (cal.get(\"supply_pressure\") or []) if str(p.get(\"symbol\", \"\")).upper() == symbol.upper()]"
+      ],
+      "after": [
+        "sym = symbol.upper()",
+        "pressure = [p for p in _as_dict_list(cal.get(\"supply_pressure\")) if _record_symbol(p) == sym]"
+      ]
+    }
+  },
+  "head_proof": {
+    "_as_dict_list_lines": [40, 43],
+    "_record_symbol_lines": [46, 47],
+    "unlock_164_uses_helpers": [227, 229, 230],
+    "circulation_200_uses_helpers": [583, 584]
+  },
+  "tests_proving_fix": [
+    {
+      "test": "tests/cap646/test_batch04_strangler_spine.py::test_cap164_unlock_filters_non_dict_scheduled_unlocks",
+      "proves": "S6466: non-dict scheduled_unlocks/supply_pressure rows are dropped; asset or symbol key matches"
+    },
+    {
+      "test": "tests/cap646/test_batch04_strangler_spine.py::test_cap164_unlock_empty_calendar_returns_zero_score",
+      "proves": "None/non-list calendar fields become empty lists; no collection-access crash"
+    },
+    {
+      "test": "tests/cap646/test_batch04_strangler_spine.py::test_cap164_unlock_actionability_matches_asset_key",
+      "proves": "_record_symbol accepts asset key (APT) used by unlock calendar"
+    }
+  ],
+  "verdict": "PRODUCTION_FIX_PRESENT_AT_HEAD_FROM_ANCESTOR_COMMITS_NOT_RETOUCHED_ON_RECOVERY_BRANCH"
+}

@@ -148,6 +148,39 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+SONAR_QG_PATH = ROOT / "docs/BATCH05_SONARCLOUD_ACTUAL_QG.json"
+RATING_PASS = {"A", "1", 1, "1.0", 1.0}
+
+
+def load_sonar_evidence() -> dict[str, Any]:
+    if not SONAR_QG_PATH.is_file():
+        return {
+            "quality_gate_status": "REMOTE_VERIFICATION_PENDING",
+            "local_engineering_complete": True,
+            "source": None,
+            "note": "No docs/BATCH05_SONARCLOUD_ACTUAL_QG.json — cannot claim QG PASS",
+        }
+    return load_json(SONAR_QG_PATH)
+
+
+def sonar_quality_gate_pass(sonar: dict[str, Any]) -> bool:
+    status = str(sonar.get("quality_gate_status") or "").upper()
+    if status not in {"OK", "PASS"}:
+        return False
+    if sonar.get("fabricated") is True:
+        return False
+    if sonar.get("source") not in {"sonarcloud_api", "github_actions_sonarcloud_ci_scanner"}:
+        return False
+    coverage = sonar.get("new_coverage_pct")
+    if coverage is None or float(coverage) < 80.0:
+        return False
+    return (
+        sonar.get("new_reliability_rating") in RATING_PASS
+        and sonar.get("new_security_rating") in RATING_PASS
+        and sonar.get("new_maintainability_rating") in RATING_PASS
+    )
+
+
 def freeze_head_metadata() -> dict[str, str]:
     head = git_commit()
     return {
@@ -292,7 +325,9 @@ def write_freeze_artifacts(
         f"- Semantic oracle: {doc['semantic_oracle']}/50",
         f"- Reliability: {reliability_summary['proven_local']} PROVEN_LOCAL / {reliability_summary['requires_live']} REQUIRES_LIVE",
         f"- Live-only queue: {len(LIVE_ONLY)} items (purity verified)",
-        f"- Known local deficiencies: **0**",
+        f"- Known local deficiencies: **{len(doc.get('known_local_deficiencies') or [])}**",
+        f"- SonarCloud QG: `{doc.get('sonarcloud', {}).get('quality_gate_status')}`",
+        f"- Classification: 43 STRANGLER / 6 CLOSED_REUSED_LINK / 1 CLOSED_DUPLICATE_DELEGATION",
     ]
     OUT_MD.write_text("\n".join(md), encoding="utf-8")
 
@@ -302,9 +337,15 @@ def main() -> None:
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--classification-only", action="store_true")
+    parser.add_argument(
+        "--stamp-only",
+        action="store_true",
+        help="Rewrite freeze JSON from existing artifacts; do not regenerate packages.",
+    )
     args = parser.parse_args()
 
-    run_pipeline(classification_only=args.classification_only)
+    if not args.stamp_only:
+        run_pipeline(classification_only=args.classification_only)
 
     v2 = load_json(ROOT / "docs/BATCH05_V2_ASSURANCE_PACKAGE.json")
     semantic = load_json(ROOT / "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json")
@@ -369,32 +410,53 @@ def main() -> None:
         and queues.get("consistency_assertions", {}).get("all_pass", False)
     )
 
+    from scripts.batch05_classification_partition import partition_from_rows
+
+    classification = matrix.get("classification") or partition_from_rows(matrix.get("rows") or [])
+    classification_ok = bool(classification.get("assertions", {}).get("all_pass"))
+    sonar_recorded = load_sonar_evidence()
+    sonar_ok = sonar_quality_gate_pass(sonar_recorded)
+    deficiencies: list[str] = []
+    if not all_local_gates:
+        deficiencies.append("local gate checklist incomplete")
+    if not classification_ok:
+        deficiencies.append("per-id classification partition not exact")
+    if not sonar_ok:
+        deficiencies.append(
+            "USER_ACTION_REQUIRED_SONAR_TOKEN"
+            if sonar_recorded.get("quality_gate_status") == "USER_ACTION_REQUIRED_SONAR_TOKEN"
+            else f"sonar quality gate not PASS ({sonar_recorded.get('quality_gate_status')})"
+        )
+    freeze_complete = all_local_gates and classification_ok and sonar_ok and not deficiencies
+
     sonar_evidence = {
-        "quality_gate_status": "REMOTE_VERIFICATION_PENDING",
+        **sonar_recorded,
         "local_engineering_complete": True,
         "s6466_fix": "cap646/batch04_strangler_spine.py _as_dict_list + _record_symbol",
+        "s6466_traceability": "docs/BATCH05_S6466_PRODUCTION_FILE_TRACEABILITY.json",
         "coverage_tests": [
             "tests/cap646/test_batch04_strangler_spine.py::test_cap164_unlock_filters_non_dict_scheduled_unlocks",
             "tests/cap646/test_batch05_ids_contract.py",
             "tests/test_sonar_new_coverage_closure.py",
         ],
         "dashboard": "https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark",
-        "note": "Local reliability/coverage fixes applied; SonarCloud QG re-check requires CI token — not a local engineering gap",
+        "quality_gate_pass": sonar_ok,
     }
 
     doc = {
         "generated_at": datetime.now(UTC).isoformat(),
         "git_commit": git_commit(),
         "freeze_heads": freeze_head_metadata(),
-        "BATCH05_FINAL_LOCAL_FREEZE": True,
-        "LOCAL_GOVERNANCE_COMPLETE": True,
+        "BATCH05_FINAL_LOCAL_FREEZE": freeze_complete,
+        "LOCAL_GOVERNANCE_COMPLETE": freeze_complete,
         "freeze_type": "FINAL_LOCAL_ZERO_GAP_CLOSURE",
         **LOCKS,
         "final_local_status": (
             "LOCAL_GOVERNANCE_COMPLETE / PASS_ENGINEERING / BLOCKED_EXTERNAL_FOR_RAILWAY_AND_INDEPENDENT_REVIEW"
-            if all_local_gates
-            else "BLOCKED_LOCAL_GAPS_REMAINING"
+            if freeze_complete
+            else "BLOCKED_LOCAL_EVIDENCE_GAPS"
         ),
+        "classification": classification,
         "g0_g4": {
             "G0": gc["G0_materiality"].get("PASS_ENGINEERING", 0),
             "G1": gc["G1_requirements_assurance"].get("PASS_ENGINEERING", 0),
@@ -448,7 +510,7 @@ def main() -> None:
         },
         "sonarcloud": sonar_evidence,
         "per_id_final_matrix": "docs/BATCH05_PER_ID_FINAL_MATRIX_201_250.json",
-        "known_local_deficiencies": [] if all_local_gates else ["local gate checklist incomplete"],
+        "known_local_deficiencies": deficiencies,
         "freeze_tests": {"pending": True},
         "cross_batch_regression": regression,
         "artifact_index": [
@@ -461,6 +523,8 @@ def main() -> None:
             "docs/BATCH05_PENTAGONAL_COL10_PREPARATION.json",
             "docs/BATCH05_PER_ID_FINAL_MATRIX_201_250.json",
             "docs/BATCH05_V2_ASSURANCE_PACKAGE.json",
+            "docs/BATCH05_SONARCLOUD_ACTUAL_QG.json",
+            "docs/BATCH05_S6466_PRODUCTION_FILE_TRACEABILITY.json",
         ],
     }
     write_freeze_artifacts(doc, reliability_summary, observability, [], data_rows)
@@ -483,8 +547,9 @@ def main() -> None:
     else:
         freeze_tests = run_freeze_tests()
 
-    if not freeze_tests["passed"] or not all_local_gates:
+    if not freeze_tests["passed"] or not freeze_complete:
         print(freeze_tests.get("stdout_tail", ""))
+        print(f"known_local_deficiencies={deficiencies}")
         sys.exit(1)
 
     doc["freeze_tests"] = freeze_tests

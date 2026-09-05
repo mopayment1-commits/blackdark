@@ -90,7 +90,11 @@ def test_freeze_head_consistency():
     assert heads["source_head"] == heads["final_freeze_head"]
     assert heads["repository_head"] == heads["source_head"]
     assert freeze["git_commit"] == heads["source_head"]
-    assert freeze["BATCH05_FINAL_LOCAL_FREEZE"] is True
+    assert freeze["BATCH05_FINAL_LOCAL_FREEZE"] is freeze["LOCAL_GOVERNANCE_COMPLETE"]
+    if freeze["BATCH05_FINAL_LOCAL_FREEZE"] is True:
+        assert freeze.get("known_local_deficiencies") == []
+        assert freeze["sonarcloud"]["quality_gate_status"] in {"OK", "PASS"}
+        assert freeze["sonarcloud"].get("quality_gate_pass") is True
 
     current = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     source = heads["source_head"]
@@ -105,12 +109,16 @@ def test_freeze_head_consistency():
             cwd=ROOT,
             text=True,
         ).strip().splitlines()
-        allowed = {
+        allowed_exact = {
             "tests/cap646/test_batch05_blocker_classification_consistency.py",
+            "scripts/batch05_classification_partition.py",
+            "scripts/record_batch05_sonarcloud_qg.py",
         }
         for name in diff_names:
-            assert name.startswith("docs/BATCH05_") or name == (
-                "tests/cap646/test_batch05_blocker_classification_consistency.py"
+            assert (
+                name.startswith("docs/BATCH05_")
+                or name.startswith("scripts/generate_batch05_")
+                or name in allowed_exact
             ), f"unexpected drift file: {name}"
 
 
@@ -147,3 +155,55 @@ def test_per_id_matrix_50_rows():
     assert len(rows) == 50
     gaps = matrix.get("locally_solvable_gaps_total", matrix.get("summary", {}).get("locally_solvable_gaps_total"))
     assert gaps == 0
+
+
+def test_per_id_classification_partition_exact():
+    import sys
+
+    sys.path.insert(0, str(ROOT))
+    from cap646.batch05_dedicated import BATCH05_REUSED_LINK_IDS
+    from cap646.batch05_ids import BATCH05_DUPLICATE_DELEGATION_IDS, BATCH05_MANIFEST_IDS
+    from scripts.batch05_classification_partition import (
+        CLOSED_DUPLICATE_DELEGATION_IDS,
+        CLOSED_REUSED_LINK_IDS,
+        assert_runtime_sets,
+        partition_from_rows,
+    )
+
+    matrix = _load("BATCH05_PER_ID_FINAL_MATRIX_201_250.json")
+    rows = matrix["rows"]
+    part = partition_from_rows(rows)
+    assertions = part["assertions"]
+    unique_ids = assertions["unique_ids"]
+    duplicate_classification_ids = assertions["duplicate_classification_ids"]
+    missing_ids = assertions["missing_ids"]
+    classification_total = assertions["classification_total"]
+    assert unique_ids == 50
+    assert duplicate_classification_ids == []
+    assert missing_ids == []
+    assert classification_total == 50
+    assert part["counts"] == {
+        "STRANGLER": 43,
+        "CLOSED_REUSED_LINK": 6,
+        "CLOSED_DUPLICATE_DELEGATION": 1,
+    }
+    assert part["CLOSED_DUPLICATE_DELEGATION"]["ids"] == [212]
+    assert 212 not in part["CLOSED_REUSED_LINK"]["ids"]
+    assert part["CLOSED_REUSED_LINK"]["ids"] == [206, 214, 226, 228, 232, 245]
+    assert assertions["all_pass"] is True
+    stored = matrix.get("classification")
+    assert stored is not None
+    assert stored["assertions"]["all_pass"] is True
+    assert stored["counts"] == part["counts"]
+    assert_runtime_sets(BATCH05_REUSED_LINK_IDS, BATCH05_DUPLICATE_DELEGATION_IDS, BATCH05_MANIFEST_IDS)
+    assert CLOSED_REUSED_LINK_IDS == frozenset({206, 214, 226, 228, 232, 245})
+    assert CLOSED_DUPLICATE_DELEGATION_IDS == frozenset({212})
+
+    queues = _load("BATCH05_STATUS_QUEUES.json")
+    reused_item = next(
+        i for i in queues["QUEUE_A_LOCAL_COMPLETE"]["items"] if i["category"] == "REUSED-LINK / duplicate"
+    )
+    assert "212" in reused_item["status"] and "DUPLICATE" in reused_item["status"]
+    assert reused_item.get("reused_link_ids") == [206, 214, 226, 228, 232, 245]
+    assert reused_item.get("duplicate_delegation_ids") == [212]
+    assert "206, 212, 214" not in reused_item["status"]
