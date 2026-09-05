@@ -76,6 +76,7 @@ def freeze_head_metadata() -> dict[str, str]:
         "artifact_embedded_head": head,
         "final_freeze_head": head,
         "source_head": head,
+        "invariant": "all five head fields equal at generation time; source_head = tested evidence commit",
     }
 
 

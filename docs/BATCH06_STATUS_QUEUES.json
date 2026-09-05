@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-05T12:27:35.470823+00:00",
-  "git_commit": "1ce0c36b6692dd231fc54545e1759615bc0a98fa",
+  "generated_at": "2026-09-05T12:27:48.148957+00:00",
+  "git_commit": "caf9e4e6d83b9b848a49a96832d5da994fc9b1d9",
   "taxonomy": {
     "RAILWAY_ONLY": "Requires only live production/Railway evidence",
     "INDEPENDENT_REVIEW_ONLY": "All technical/live evidence available; human sign-off only",
