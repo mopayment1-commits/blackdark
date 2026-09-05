@@ -319,6 +319,26 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
     if total_value > 0:
         weighted_beta = sum((h["value_usd"] / total_value) * h["btc_beta"] for h in holdings)
 
+    correlation_block: dict[str, Any] = {}
+    try:
+        from bd_platform.cross_asset_correlation import (
+            compute_correlation_matrix,
+            portfolio_correlation_enrichment,
+        )
+
+        symbols = [str(h.get("symbol") or h.get("asset") or "").upper() for h in holdings]
+        symbols = [s for s in symbols if s]
+        if symbols:
+            matrix_resp = await compute_correlation_matrix(crypto_assets=symbols, window=30)
+            correlation_block = portfolio_correlation_enrichment(
+                holdings,
+                matrix=matrix_resp.get("matrix"),
+            )
+            correlation_block["correlation_matrix"] = matrix_resp.get("matrix")
+            correlation_block["window_days"] = matrix_resp.get("window_days")
+    except Exception:
+        correlation_block = {"correlation_enriched": False}
+
     btc_drop_pct = 15.0
     estimated_loss = total_value * weighted_beta * (btc_drop_pct / 100.0)
     risk_score = min(10, max(1, round(weighted_beta * 10)))
@@ -349,6 +369,7 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         ),
         "plain_language": plain,
         "recommendations": recommendations,
+        "correlation_analysis": correlation_block,
         "compliance_footer": _portfolio_compliance_footer(),
         "hero": "portfolio_ai",
     }
