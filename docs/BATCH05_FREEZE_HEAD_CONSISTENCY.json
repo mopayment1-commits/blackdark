@@ -6,9 +6,24 @@
   "final_freeze_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
   "source_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
   "repository_head_at_generation": "cb23d683d3509acf27c2fb5382033e58f5c60694",
-  "artifact_container_commit": "cb23d683d3509acf27c2fb5382033e58f5c60694",
-  "current_repository_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
-  "commits_since_tested_source": [],
+  "artifact_container_commit": "63ebead9aeddab517191f4896c0401d5785ad556",
+  "current_repository_head": "63ebead9aeddab517191f4896c0401d5785ad556",
+  "commits_since_tested_source": [
+    {
+      "commit": "63ebead9aeddab517191f4896c0401d5785ad556",
+      "subject": "docs(batch05): stamp freeze at cb23d68 after httpx2 TestClient fix",
+      "files": [
+        "docs/BATCH05_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH05_FINAL_LOCAL_FREEZE.md",
+        "docs/BATCH05_FREEZE_HEAD_CONSISTENCY.json"
+      ],
+      "path_classes": [
+        "docs"
+      ],
+      "role": "docs_stamp",
+      "production_runtime_files": []
+    }
+  ],
   "production_runtime_drift_files": [],
   "production_runtime_drift_count": 0,
   "frozen_source_head_is_semantically_equivalent_to_current_head": true,
