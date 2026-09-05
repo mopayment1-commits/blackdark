@@ -110,21 +110,29 @@ async def _record(
 # ── Handlers ──────────────────────────────────────────────────────────────────
 
 async def _h_binance_spot(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url, params={"symbol": "BTCUSDT"})
+    from blackdark.ingestion.binance_connector import fetch_binance_spot_ticker
+
+    row = await fetch_binance_spot_ticker("BTC")
     return {
-        "symbol": "BTCUSDT",
-        "price": float(data.get("lastPrice") or 0),
-        "change_24h_pct": float(data.get("priceChangePercent") or 0),
-        "volume": float(data.get("volume") or 0),
+        "symbol": row.get("pair", "BTCUSDT"),
+        "price": row.get("price_usd", 0),
+        "change_24h_pct": row.get("change_24h_pct", 0),
+        "volume": row.get("volume_24h", 0),
+        "source": "binance_connector",
+        "cache_hit": row.get("cache_hit"),
     }
 
 
 async def _h_binance_futures(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url, params={"symbol": "BTCUSDT"})
+    from blackdark.ingestion.binance_connector import fetch_binance_futures_funding
+
+    row = await fetch_binance_futures_funding("BTC")
     return {
         "asset": "BTC",
-        "funding_rate": float(data.get("lastFundingRate") or 0),
-        "mark_price": float(data.get("markPrice") or 0),
+        "funding_rate": row.get("funding_rate", 0),
+        "mark_price": row.get("mark_price", 0),
+        "source": "binance_connector",
+        "cache_hit": row.get("cache_hit"),
     }
 
 
@@ -307,6 +315,31 @@ async def _h_defillama_yields(session: aiohttp.ClientSession, spec: DataSourceSp
     return {"pools": pools}
 
 
+async def _h_investing_com_rss(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.investing_com_connector import fetch_investing_news_context
+
+    data = await fetch_investing_news_context(limit=20)
+    return {
+        "articles": (data.get("articles") or [])[:5],
+        "high_impact_count": data.get("high_impact_count"),
+        "ai_context_line": data.get("ai_context_line"),
+        "source": "investing_com_connector",
+        "cache_hit": data.get("cache_hit"),
+    }
+
+
+async def _h_theblock_rss(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.theblock_connector import fetch_theblock_research_context
+
+    data = await fetch_theblock_research_context(limit=8)
+    return {
+        "articles": (data.get("articles") or [])[:5],
+        "ai_context_line": data.get("ai_context_line"),
+        "source": "theblock_connector",
+        "cache_hit": data.get("cache_hit"),
+    }
+
+
 async def _h_dexscreener(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     data = await _fetch_json(session, spec.url, params={"q": "BTC"})
     return {"pairs": _take(data.get("pairs") or [], 5)}
@@ -467,6 +500,32 @@ async def _h_coinmarketcap(session: aiohttp.ClientSession, spec: DataSourceSpec)
     return {"listings": (data.get("data") or [])[:10]}
 
 
+async def _h_polygon_io(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.polygon_io_connector import fetch_polygon_macro_context
+
+    row = await fetch_polygon_macro_context()
+    return {
+        "ticker": row.get("ticker"),
+        "change_pct": row.get("change_pct"),
+        "headline": row.get("headline"),
+        "source": "polygon_io_connector",
+        "cache_hit": row.get("cache_hit"),
+    }
+
+
+async def _h_polygonscan(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.polygonscan_connector import fetch_polygon_onchain_health
+
+    row = await fetch_polygon_onchain_health()
+    return {
+        "chain": row.get("chain"),
+        "block_number": row.get("block_number"),
+        "gas_gwei": row.get("gas_gwei"),
+        "source": row.get("source"),
+        "cache_hit": row.get("cache_hit"),
+    }
+
+
 async def _h_internal_cvvd(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     from whale_tracker import WhaleTracker
 
@@ -505,6 +564,10 @@ HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[
     "defillama_protocols": _h_defillama_protocols,
     "defillama_yields": _h_defillama_yields,
     "dexscreener": _h_dexscreener,
+    "theblock_rss": _h_theblock_rss,
+    "investing_com_rss": _h_investing_com_rss,
+    "polygonscan": _h_polygonscan,
+    "polygon_io": _h_polygon_io,
     "geckoterminal": _h_geckoterminal,
     "fear_greed": _h_fear_greed,
     "reddit_crypto": _h_reddit,
@@ -529,6 +592,17 @@ async def fetch_single_source(
     if spec.fetch_kind == "websocket":
         return False
     if not _rate_limit_ok(spec.source_id, spec.interval_seconds):
+        return False
+
+    from blackdark.data import circuit_breaker as cb
+
+    if cb.is_open(spec.source_id):
+        await upsert_ingestion_health(
+            spec.source_id,
+            spec.category,
+            ok=False,
+            error="circuit_open",
+        )
         return False
 
     lock = _source_locks.setdefault(spec.source_id, asyncio.Lock())
@@ -557,9 +631,11 @@ async def fetch_single_source(
 
             await _record(spec, payload, ok=True)
             _mark_fetched(spec.source_id)
+            cb.record_success(spec.source_id)
             return True
         except Exception as exc:
             logger.warning("Ingestion failed | source=%s error=%s", spec.source_id, exc)
+            cb.record_failure(spec.source_id, str(exc)[:200])
             await _record(spec, {}, ok=False, error=str(exc)[:200])
             return False
 
