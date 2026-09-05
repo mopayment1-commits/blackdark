@@ -110,21 +110,29 @@ async def _record(
 # ── Handlers ──────────────────────────────────────────────────────────────────
 
 async def _h_binance_spot(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url, params={"symbol": "BTCUSDT"})
+    from blackdark.ingestion.binance_connector import fetch_binance_spot_ticker
+
+    row = await fetch_binance_spot_ticker("BTC")
     return {
-        "symbol": "BTCUSDT",
-        "price": float(data.get("lastPrice") or 0),
-        "change_24h_pct": float(data.get("priceChangePercent") or 0),
-        "volume": float(data.get("volume") or 0),
+        "symbol": row.get("pair", "BTCUSDT"),
+        "price": row.get("price_usd", 0),
+        "change_24h_pct": row.get("change_24h_pct", 0),
+        "volume": row.get("volume_24h", 0),
+        "source": "binance_connector",
+        "cache_hit": row.get("cache_hit"),
     }
 
 
 async def _h_binance_futures(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url, params={"symbol": "BTCUSDT"})
+    from blackdark.ingestion.binance_connector import fetch_binance_futures_funding
+
+    row = await fetch_binance_futures_funding("BTC")
     return {
         "asset": "BTC",
-        "funding_rate": float(data.get("lastFundingRate") or 0),
-        "mark_price": float(data.get("markPrice") or 0),
+        "funding_rate": row.get("funding_rate", 0),
+        "mark_price": row.get("mark_price", 0),
+        "source": "binance_connector",
+        "cache_hit": row.get("cache_hit"),
     }
 
 
@@ -305,6 +313,31 @@ async def _h_defillama_yields(session: aiohttp.ClientSession, spec: DataSourceSp
     data = await _fetch_json(session, spec.url)
     pools = (data.get("data") or [])[:10]
     return {"pools": pools}
+
+
+async def _h_investing_com_rss(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.investing_com_connector import fetch_investing_news_context
+
+    data = await fetch_investing_news_context(limit=20)
+    return {
+        "articles": (data.get("articles") or [])[:5],
+        "high_impact_count": data.get("high_impact_count"),
+        "ai_context_line": data.get("ai_context_line"),
+        "source": "investing_com_connector",
+        "cache_hit": data.get("cache_hit"),
+    }
+
+
+async def _h_theblock_rss(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.theblock_connector import fetch_theblock_research_context
+
+    data = await fetch_theblock_research_context(limit=8)
+    return {
+        "articles": (data.get("articles") or [])[:5],
+        "ai_context_line": data.get("ai_context_line"),
+        "source": "theblock_connector",
+        "cache_hit": data.get("cache_hit"),
+    }
 
 
 async def _h_dexscreener(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -505,6 +538,8 @@ HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[
     "defillama_protocols": _h_defillama_protocols,
     "defillama_yields": _h_defillama_yields,
     "dexscreener": _h_dexscreener,
+    "theblock_rss": _h_theblock_rss,
+    "investing_com_rss": _h_investing_com_rss,
     "geckoterminal": _h_geckoterminal,
     "fear_greed": _h_fear_greed,
     "reddit_crypto": _h_reddit,
