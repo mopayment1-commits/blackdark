@@ -127,6 +127,24 @@ def security_posture_report() -> dict[str, Any]:
     pentest = pentest_attestation_status()
     attested = verify_pentest_attestation()
 
+    pentest_policy_block: dict[str, Any] = {}
+    try:
+        from pentest_policy import check_pentest_production_gate, pentest_policy_status
+
+        pentest_policy_block = {
+            "policy": pentest_policy_status(),
+            "production_gate": check_pentest_production_gate(),
+        }
+        checks.append(
+            {
+                "id": "pentest_policy",
+                "ok": bool(pentest_policy_block.get("policy")),
+                "detail": "Independent pentest policy (#1045) — pre-launch mandatory",
+            }
+        )
+    except Exception:
+        pass
+
     return {
         "product": "BLACKDARK",
         "surface": "security_posture",
@@ -160,6 +178,7 @@ def security_posture_report() -> dict[str, Any]:
         "vault_configured": vault,
         "admin_emails_configured": len(admin_emails()) > 0,
         "pentest_attestation": pentest,
+        "pentest_policy": pentest_policy_block,
         "honesty": {
             "soc2_claimed": False,
             "iso27001_claimed": False,
@@ -187,6 +206,7 @@ def security_posture_report() -> dict[str, Any]:
             "docs/templates/pentest_scope.md",
             "docs/templates/PENTEST_ATTESTATION_INSTITUTIONAL.md",
             "docs/templates/EXTERNAL_INSTITUTIONAL_REVIEW_PACK.md",
+            "docs/infrastructure/PENTEST_POLICY.md",
         ],
         "readiness_api": "/api/security/status",
         "max_audit": "python scripts/security_max_audit.py",
