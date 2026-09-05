@@ -354,13 +354,14 @@ def _cex_dex_row(
 
 
 async def scan_cex_dex_opportunities(*, quote_usd: float = 1000) -> dict[str, Any]:
-    assets = list(config.WHITELIST_ASSETS)[:12]
+    assets = list(config.WHITELIST_ASSETS)[:8]
     opportunities: list[dict[str, Any]] = []
-    timeout = aiohttp.ClientTimeout(total=15)
+    timeout = aiohttp.ClientTimeout(total=8)
 
     async with aiohttp.ClientSession(timeout=timeout) as session:
-        for asset in assets:
-            opportunity = await _cex_dex_opportunity_for_asset(session, asset, quote_usd)
+        tasks = [_cex_dex_opportunity_for_asset(session, asset, quote_usd) for asset in assets]
+        results = await asyncio.gather(*tasks)
+        for opportunity in results:
             if opportunity is not None:
                 opportunities.append(opportunity)
 

@@ -111,9 +111,70 @@ async def cex_dex_deriv_compare(asset: str = Query("BTC")):
 
 @router.get("/arb/cex-dex")
 async def cex_dex_arb(quote_usd: float = Query(1000)):
-    from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities
+    """Legacy CEX↔DEX scan — prefer /arb/scanner for net-profit waterfall (#112+#113)."""
+    from bd_platform.arbitrage_scanner import scan_arbitrage
 
-    return await scan_cex_dex_opportunities(quote_usd=quote_usd)
+    return await scan_arbitrage(quote_usd=quote_usd)
+
+
+@router.get("/arb/scanner")
+async def arbitrage_scanner_route(quote_usd: float = Query(1000)):
+    """Arbitrage Scanner (#112) — CEX↔DEX with mandatory net profit breakdown (#113)."""
+    from bd_platform.arbitrage_scanner import scan_arbitrage
+
+    return await scan_arbitrage(quote_usd=quote_usd)
+
+
+@router.get("/arb/scanner/status")
+async def arbitrage_scanner_status_route():
+    from bd_platform.arbitrage_scanner import arbitrage_scanner_status
+
+    return await arbitrage_scanner_status()
+
+
+@router.get("/net-profit/breakdown")
+async def net_profit_breakdown_route(
+    gross_gap_usd: float = Query(...),
+    notional_usd: float = Query(1000),
+    buy_exchange: str = Query("binance"),
+    sell_exchange: str = Query("okx"),
+    symbol: str = Query("BTC/USDT"),
+    chain: str = Query("ethereum"),
+):
+    """Net Profit Engine (#113) — full cost waterfall."""
+    from bd_platform.net_profit_engine import compute_net_profit_breakdown
+
+    return await compute_net_profit_breakdown(
+        gross_gap_usd=gross_gap_usd,
+        notional_usd=notional_usd,
+        buy_exchange=buy_exchange,
+        sell_exchange=sell_exchange,
+        symbol=symbol,
+        chain=chain,
+    )
+
+
+@router.get("/fees/database")
+async def fee_database_route():
+    """Trading fee database (#130)."""
+    from bd_platform.net_profit_engine import fee_database_status
+
+    return await fee_database_status()
+
+
+@router.get("/market-radar/new-listings")
+async def new_listings_scan_route(limit: int = Query(20, ge=1, le=50)):
+    """New Listings Alert Engine (#114) — event-only, not buy advice."""
+    from bd_platform.new_listings_alert import scan_new_listings
+
+    return await scan_new_listings(limit=limit)
+
+
+@router.get("/market-radar/new-listings/alerts")
+async def new_listings_alerts_route(limit: int = Query(50, ge=1, le=200)):
+    from bd_platform.new_listings_alert import listing_alerts_recent
+
+    return await listing_alerts_recent(limit=limit)
 
 
 @router.get("/arb/cex-dex/status")
