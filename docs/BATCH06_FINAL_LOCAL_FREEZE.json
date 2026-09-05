@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-05T12:08:41.869274+00:00",
-  "git_commit": "911792b748bfdca3eed003fbdded93c12b5bc9c1",
+  "generated_at": "2026-09-05T12:08:55.828335+00:00",
+  "git_commit": "babe1c5bde201f70de14d960ad4bf56f9667549f",
   "freeze_type": "FINAL_LOCAL_ZERO_GAP_CLOSURE",
   "batch06_independent": 0,
   "progress_826": 179,
@@ -242,8 +242,8 @@
     "locally_solvable_gaps": 0
   },
   "status_queues": {
-    "generated_at": "2026-09-05T12:08:41.830410+00:00",
-    "git_commit": "911792b748bfdca3eed003fbdded93c12b5bc9c1",
+    "generated_at": "2026-09-05T12:08:55.789301+00:00",
+    "git_commit": "babe1c5bde201f70de14d960ad4bf56f9667549f",
     "taxonomy": {
       "RAILWAY_ONLY": "Requires only live production/Railway evidence",
       "INDEPENDENT_REVIEW_ONLY": "All technical/live evidence available; human sign-off only",
