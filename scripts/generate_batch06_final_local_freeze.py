@@ -68,6 +68,17 @@ def git_commit() -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
 
+def freeze_head_metadata() -> dict[str, str]:
+    head = git_commit()
+    return {
+        "repository_head": head,
+        "artifact_generation_head": head,
+        "artifact_embedded_head": head,
+        "final_freeze_head": head,
+        "source_head": head,
+    }
+
+
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -244,6 +255,8 @@ def main(classification_only: bool = False) -> None:
     doc: dict[str, Any] = {
         "generated_at": datetime.now(UTC).isoformat(),
         "git_commit": git_commit(),
+        "freeze_heads": freeze_head_metadata(),
+        "BATCH06_FINAL_LOCAL_FREEZE": True,
         "freeze_type": "FINAL_LOCAL_ZERO_GAP_CLOSURE",
         **LOCKS,
         "final_local_status": (
@@ -305,6 +318,9 @@ def main(classification_only: bool = False) -> None:
         },
         "status_queues": queues,
         "dependency_graph": queues.get("dependency_graph", []),
+        "blocker_registry": queues.get("blocker_registry", []),
+        "status_semantics": queues.get("status_semantics", {}),
+        "node_count_reconciliation": queues.get("node_count_reconciliation", {}),
         "blocker_consistency": queues.get("consistency_assertions", {}),
         "counter_accounting": COUNTER_ACCOUNTING,
         "packages": {

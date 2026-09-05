@@ -205,13 +205,16 @@ RAILWAY_THEN_INDEPENDENT_QUEUE = [
     },
     {
         "id": "RTI5",
-        "item": "ASSURANCE_READY / live_ready elevation",
+        "item": "ASSURANCE_READY elevation",
         "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
-        "prerequisites": ["RTI4", "RL5"],
+        "prerequisites": ["RTI4"],
         "railway_evidence_required": True,
         "independent_review_required": True,
-        "why_not_independent_only": "Requires PASS_LIVE + G0-G7 + residual-risk/control evidence + final approval",
-        "underlying": ["ASSURANCE_READY", "live_ready elevation"],
+        "why_not_independent_only": (
+            "assurance_ready per assurance_ready() requires G0-G7 PASS_ENGINEERING; "
+            "RTI4 already implies PASS_LIVE and live evidence via RL5/RTI1/RTI3 chain"
+        ),
+        "underlying": ["ASSURANCE_READY"],
     },
 ]
 
@@ -245,10 +248,56 @@ LOCAL_COMPLETE_QUEUE = [
     {"category": "Cross-batch regression", "status": "FULL_PASS", "evidence": "docs/BATCH06_CROSS_BATCH_REGRESSION.json"},
 ]
 
+STATUS_SEMANTICS = {
+    "PASS_LIVE": {
+        "meaning": "Per-ID G6 formal elevation stamp for capability 251-300",
+        "evidence": "RL5 production validation per ID",
+        "code_ref": "generate_batch06_v2_assurance_package.py gate_status G6_live_validation",
+    },
+    "live_ready": {
+        "meaning": (
+            "Repository lock (separate from assurance_ready): technical production live readiness — "
+            "G5 operational readiness satisfied + G6 live_validation PASS + PASS_LIVE evidence. "
+            "Does NOT require G7 independent sign-off."
+        ),
+        "evidence": "LOCKS.live_ready in freeze generators; BATCH05_GATE_ZERO_CHECKLIST.md NOT LIVE_READY until deploy+G6",
+        "distinct_from": "assurance_ready",
+        "transition_prerequisites": ["RL2", "RL3", "RL5"],
+    },
+    "G6_PASS": {
+        "meaning": "G6_live_validation gate not BLOCKED_EXTERNAL — production E2E + Gate Zero complete",
+        "transition_prerequisites": ["RL1", "RL2", "RL3"],
+    },
+    "G7_PASS": {
+        "meaning": "G7_independent_assurance independent human evidence review complete",
+        "transition_prerequisites": ["RL5", "RTI1", "RTI3", "RTI4"],
+    },
+    "assurance_ready": {
+        "meaning": (
+            "Repository lock per assurance_ready(): G0-G4 + G5 + G6 + G7 all PASS_ENGINEERING — "
+            "strict superset of live_ready; requires independent review (G7)."
+        ),
+        "code_ref": "generate_batch06_v2_assurance_package.py assurance_ready()",
+        "transition_prerequisites": ["RTI5"],
+    },
+    "batch06_independent": {
+        "meaning": "Per-ID PRODUCTION-ALIGNED count after full live assurance per elevation_policy",
+        "current_value": 0,
+    },
+    "production_aligned_count": {
+        "meaning": "Inventory-wide PRODUCTION-ALIGNED status count in CAPABILITIES_826_INVENTORY.json",
+        "current_value": 0,
+    },
+}
+
 DEPENDENCY_GRAPH = [
     {
+        "node_id": "REQ_G5_6",
+        "node_type": "requirement",
         "requirement": "G5.6 SLI/SLO live measurement",
         "prerequisite": None,
+        "terminal": False,
+        "queue_membership": ["RL4"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": False,
@@ -256,8 +305,12 @@ DEPENDENCY_GRAPH = [
         "final_transition": "PASS after RL4 live telemetry",
     },
     {
+        "node_id": "REQ_G5_7",
+        "node_type": "requirement",
         "requirement": "G5.7 production capacity headroom",
         "prerequisite": None,
+        "terminal": False,
+        "queue_membership": ["RL4"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": False,
@@ -265,8 +318,12 @@ DEPENDENCY_GRAPH = [
         "final_transition": "PASS after RL4 capacity proof",
     },
     {
+        "node_id": "REQ_G5_8",
+        "node_type": "requirement",
         "requirement": "G5.8 live dependency latency SLO",
         "prerequisite": None,
+        "terminal": False,
+        "queue_membership": ["RL4"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": False,
@@ -274,8 +331,12 @@ DEPENDENCY_GRAPH = [
         "final_transition": "PASS after RL4 latency SLO",
     },
     {
+        "node_id": "REQ_G5_9_PLATFORM",
+        "node_type": "requirement",
         "requirement": "G5.9 platform Redis/PostgreSQL failover",
         "prerequisite": None,
+        "terminal": False,
+        "queue_membership": ["RL6"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": False,
@@ -283,8 +344,12 @@ DEPENDENCY_GRAPH = [
         "final_transition": "PASS after RL6 failover drill",
     },
     {
+        "node_id": "REQ_G5_10_PLATFORM",
+        "node_type": "requirement",
         "requirement": "G5.10 platform backup/restore",
         "prerequisite": None,
+        "terminal": False,
+        "queue_membership": ["RL7"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": False,
@@ -292,8 +357,12 @@ DEPENDENCY_GRAPH = [
         "final_transition": "PASS after RL7 backup-restore drill",
     },
     {
+        "node_id": "REQ_G6",
+        "node_type": "requirement",
         "requirement": "G6 live_validation",
         "prerequisite": ["RL1", "RL2", "RL3"],
+        "terminal": False,
+        "queue_membership": ["RL1", "RL2", "RL3"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": False,
@@ -301,8 +370,12 @@ DEPENDENCY_GRAPH = [
         "final_transition": "G6 PASS after production E2E",
     },
     {
+        "node_id": "REQ_PASS_LIVE",
+        "node_type": "requirement",
         "requirement": "PASS_LIVE (251-300)",
         "prerequisite": ["RL3"],
+        "terminal": False,
+        "queue_membership": ["RL5"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": False,
@@ -310,8 +383,12 @@ DEPENDENCY_GRAPH = [
         "final_transition": "Per-ID PASS_LIVE stamp",
     },
     {
+        "node_id": "REQ_12207_TRANSITION",
+        "node_type": "requirement",
         "requirement": "12207 live Transition/Operation evidence",
         "prerequisite": ["RL1", "RL3", "RL4"],
+        "terminal": False,
+        "queue_membership": ["RTI2"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": True,
@@ -319,8 +396,12 @@ DEPENDENCY_GRAPH = [
         "final_transition": "RTI2 sign-off after Railway evidence",
     },
     {
+        "node_id": "REQ_SRE_PRR",
+        "node_type": "requirement",
         "requirement": "SRE PRR final approval",
         "prerequisite": ["RL4", "RL5", "RL6", "RL7"],
+        "terminal": False,
+        "queue_membership": ["RTI3"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": True,
@@ -328,8 +409,12 @@ DEPENDENCY_GRAPH = [
         "final_transition": "RTI3 human sign-off",
     },
     {
+        "node_id": "REQ_G7_PASS",
+        "node_type": "requirement",
         "requirement": "G7 PASS",
         "prerequisite": ["RL5", "RTI1", "RTI3"],
+        "terminal": False,
+        "queue_membership": ["RTI4"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": True,
@@ -337,15 +422,94 @@ DEPENDENCY_GRAPH = [
         "final_transition": "RTI4 independent review",
     },
     {
+        "node_id": "REQ_ASSURANCE_READY",
+        "node_type": "requirement",
         "requirement": "ASSURANCE_READY",
-        "prerequisite": ["RTI4", "RL5"],
+        "prerequisite": ["RTI4"],
+        "terminal": True,
+        "queue_membership": ["RTI5"],
         "local_work_complete": True,
         "railway_evidence_required": True,
         "independent_review_required": True,
         "railway_queue_ref": "RTI5",
-        "final_transition": "RTI5 final independent approval",
+        "final_transition": "assurance_ready=true (LOCKS; requires G7 via RTI4)",
+    },
+    {
+        "node_id": "STATUS_LIVE_READY",
+        "node_type": "status_lock_transition",
+        "requirement": "live_ready elevation",
+        "prerequisite": ["RL2", "RL3", "RL5"],
+        "terminal": True,
+        "queue_membership": "QUEUE_B_derived",
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": False,
+        "note": "Derived status lock — not an RL/RTI blocker ID; distinct from assurance_ready",
+        "final_transition": "live_ready=true (technical; G6+PASS_LIVE; no G7)",
     },
 ]
+
+
+def _build_blocker_registry(
+    railway: list[dict[str, Any]], railway_then: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    registry: list[dict[str, Any]] = []
+    for item in railway:
+        registry.append(
+            {
+                "node_id": item["id"],
+                "node_type": "blocker_railway_only",
+                "terminal": item["id"] in {"RL5", "RL6", "RL7"},
+                "prerequisites": [],
+                "queue_membership": "QUEUE_B_RAILWAY_ONLY",
+                "item": item["item"],
+            }
+        )
+    for item in railway_then:
+        registry.append(
+            {
+                "node_id": item["id"],
+                "node_type": "blocker_railway_then_independent",
+                "terminal": item["id"] == "RTI5",
+                "prerequisites": item["prerequisites"],
+                "queue_membership": "QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW",
+                "item": item["item"],
+            }
+        )
+    return registry
+
+
+def _has_cycle(graph: list[dict[str, Any]], registry: list[dict[str, Any]]) -> bool:
+    nodes = {n["node_id"] for n in graph if "node_id" in n}
+    blockers = {b["node_id"] for b in registry}
+    all_ids = nodes | blockers
+
+    def dfs(node: str, visiting: set[str], seen: set[str]) -> bool:
+        if node in visiting:
+            return True
+        if node in seen or node not in all_ids:
+            return False
+        visiting.add(node)
+        prereqs: list[str] = []
+        for g in graph:
+            if g.get("node_id") == node or g.get("requirement") == node:
+                p = g.get("prerequisite")
+                if isinstance(p, list):
+                    prereqs.extend(p)
+        for b in registry:
+            if b["node_id"] == node:
+                prereqs.extend(b.get("prerequisites", []))
+        for p in prereqs:
+            if dfs(p, visiting, seen):
+                return True
+        visiting.remove(node)
+        seen.add(node)
+        return False
+
+    for nid in all_ids:
+        if dfs(nid, set(), set()):
+            return True
+    return False
 
 
 def _build_consistency_assertions(
@@ -354,6 +518,8 @@ def _build_consistency_assertions(
     railway_then_independent: list[dict[str, Any]],
     g5_9: dict[str, Any],
     g5_10: dict[str, Any],
+    dependency_graph: list[dict[str, Any]],
+    blocker_registry: list[dict[str, Any]],
 ) -> dict[str, Any]:
     railway_ids = {q["id"] for q in railway}
     all_blocker_ids = railway_ids | {q["id"] for q in independent_only} | {q["id"] for q in railway_then_independent}
@@ -369,6 +535,15 @@ def _build_consistency_assertions(
     g5_9_platform_maps_rl6 = g5_9["platform_redis_postgresql_failover"]["railway_queue_ref"] == "RL6"
     g5_10_platform_railway = g5_10["platform_postgresql_redis_durability_restore"]["classification"] == "REQUIRES_RAILWAY"
     g5_10_platform_maps_rl7 = g5_10["platform_postgresql_redis_durability_restore"]["railway_queue_ref"] == "RL7"
+    blocker_ids = {b["node_id"] for b in blocker_registry}
+    graph_node_ids = {n["node_id"] for n in dependency_graph if n.get("node_id")}
+    reported_graph_count = len(dependency_graph)
+    actual_graph_count = len(graph_node_ids) if graph_node_ids else reported_graph_count
+    no_cycles = not _has_cycle(dependency_graph, blocker_registry)
+    rti5_pure = all(
+        item["id"] != "RTI5" or item.get("underlying") == ["ASSURANCE_READY"]
+        for item in railway_then_independent
+    )
     return {
         "no_locally_solvable_work_remains": True,
         "no_na_conflicts_with_active_platform_dependency": g5_9_platform_railway and g5_10_platform_railway,
@@ -378,6 +553,13 @@ def _build_consistency_assertions(
         "no_duplicate_blocker_accounting": dup_check,
         "g5_9_platform_maps_RL6": g5_9_platform_maps_rl6 and "RL6" in railway_ids,
         "g5_10_platform_maps_RL7": g5_10_platform_maps_rl7 and "RL7" in railway_ids,
+        "blocker_registry_count": len(blocker_registry),
+        "dependency_graph_node_count": reported_graph_count,
+        "dependency_graph_unique_node_ids": len(graph_node_ids) if graph_node_ids else reported_graph_count,
+        "reported_node_count_equals_actual": reported_graph_count == actual_graph_count,
+        "blocker_queue_count": len(blocker_registry),
+        "zero_cycles": no_cycles,
+        "live_ready_separated_from_assurance_ready": rti5_pure,
         "all_pass": (
             dup_check
             and independent_pure
@@ -386,6 +568,11 @@ def _build_consistency_assertions(
             and g5_10_platform_railway
             and g5_9_platform_maps_rl6
             and g5_10_platform_maps_rl7
+            and reported_graph_count == actual_graph_count
+            and len(blocker_registry) == 12
+            and reported_graph_count == 12
+            and no_cycles
+            and rti5_pure
         ),
     }
 
@@ -619,6 +806,7 @@ def main() -> None:
     }
     (ROOT / "docs/BATCH06_G5_LOCAL_READINESS.json").write_text(json.dumps(g5_local, indent=2) + "\n", encoding="utf-8")
 
+    blocker_registry = _build_blocker_registry(RAILWAY_QUEUE, RAILWAY_THEN_INDEPENDENT_QUEUE)
     queues = {
         "generated_at": ts,
         "git_commit": commit,
@@ -627,6 +815,17 @@ def main() -> None:
             "INDEPENDENT_REVIEW_ONLY": "All technical/live evidence available; human sign-off only",
             "RAILWAY_THEN_INDEPENDENT_REVIEW": "Live Railway evidence must precede independent approval",
         },
+        "node_count_reconciliation": {
+            "blocker_registry_count": len(blocker_registry),
+            "dependency_graph_node_count": len(DEPENDENCY_GRAPH),
+            "explanation": (
+                "blocker_registry = 12 RL/RTI queue IDs (RL1-RL7 + RTI1-RTI5). "
+                "dependency_graph = 12 requirement/status nodes (10 requirements + ASSURANCE_READY + live_ready status). "
+                "RL1 appears as G6/RTI2 prerequisite edge, not a separate graph requirement node."
+            ),
+        },
+        "status_semantics": STATUS_SEMANTICS,
+        "blocker_registry": blocker_registry,
         "QUEUE_A_LOCAL_COMPLETE": {"items": LOCAL_COMPLETE_QUEUE, "count": len(LOCAL_COMPLETE_QUEUE)},
         "QUEUE_B_RAILWAY_ONLY": {
             "items": RAILWAY_QUEUE,
@@ -646,7 +845,13 @@ def main() -> None:
         },
         "dependency_graph": DEPENDENCY_GRAPH,
         "consistency_assertions": _build_consistency_assertions(
-            RAILWAY_QUEUE, INDEPENDENT_ONLY_QUEUE, RAILWAY_THEN_INDEPENDENT_QUEUE, G5_9_SPLIT, G5_10_SPLIT
+            RAILWAY_QUEUE,
+            INDEPENDENT_ONLY_QUEUE,
+            RAILWAY_THEN_INDEPENDENT_QUEUE,
+            G5_9_SPLIT,
+            G5_10_SPLIT,
+            DEPENDENCY_GRAPH,
+            blocker_registry,
         ),
     }
     (ROOT / "docs/BATCH06_STATUS_QUEUES.json").write_text(json.dumps(queues, indent=2) + "\n", encoding="utf-8")

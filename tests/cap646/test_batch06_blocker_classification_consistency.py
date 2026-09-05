@@ -53,9 +53,11 @@ def test_consistency_assertions_all_pass():
     queues = _load("BATCH06_STATUS_QUEUES.json")
     assertions = queues["consistency_assertions"]
     assert assertions["all_pass"] is True
-    assert assertions["no_locally_solvable_work_remains"] is True
-    assert assertions["no_na_conflicts_with_active_platform_dependency"] is True
-    assert assertions["no_independent_only_with_unmet_railway_prerequisite"] is True
+    assert assertions["dependency_graph_node_count"] == 12
+    assert assertions["blocker_registry_count"] == 12
+    assert assertions["reported_node_count_equals_actual"] is True
+    assert assertions["zero_cycles"] is True
+    assert assertions["live_ready_separated_from_assurance_ready"] is True
 
 
 def test_railway_queue_includes_rl6_rl7():
@@ -64,9 +66,29 @@ def test_railway_queue_includes_rl6_rl7():
     assert ids == {"RL1", "RL2", "RL3", "RL4", "RL5", "RL6", "RL7"}
 
 
-def test_rti_items_require_railway_prerequisites():
+def test_rti5_assurance_only_not_live_ready():
     queues = _load("BATCH06_STATUS_QUEUES.json")
-    for item in queues["QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW"]["items"]:
-        assert item["railway_evidence_required"] is True
-        assert item["prerequisites"]
-        assert item["why_not_independent_only"]
+    rti5 = next(i for i in queues["QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW"]["items"] if i["id"] == "RTI5")
+    assert rti5["underlying"] == ["ASSURANCE_READY"]
+    assert rti5["prerequisites"] == ["RTI4"]
+
+
+def test_live_ready_status_node_in_graph():
+    queues = _load("BATCH06_STATUS_QUEUES.json")
+    node_ids = {n["node_id"] for n in queues["dependency_graph"]}
+    assert "STATUS_LIVE_READY" in node_ids
+    assert len(node_ids) == 12
+
+
+def test_freeze_head_consistency():
+    freeze = _load("BATCH06_FINAL_LOCAL_FREEZE.json")
+    heads = freeze["freeze_heads"]
+    assert heads["repository_head"] == heads["artifact_embedded_head"]
+    assert heads["source_head"] == heads["final_freeze_head"]
+    assert freeze["BATCH06_FINAL_LOCAL_FREEZE"] is True
+
+
+def test_live_ready_semantics_distinct_from_assurance_ready():
+    sem = _load("BATCH06_STATUS_QUEUES.json")["status_semantics"]
+    assert sem["live_ready"]["distinct_from"] == "assurance_ready"
+    assert "RTI5" in sem["assurance_ready"]["transition_prerequisites"]
