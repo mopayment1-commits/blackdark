@@ -1,6 +1,6 @@
 # BATCH05_INSTITUTIONAL_PENTAGONAL_BUILD
 
-**Generated:** 2026-09-05T13:25:27.082198+00:00 | **Commit:** `b0c66a062ad3` | **Scope:** Batch05 IDs 201–250
+**Generated:** 2026-09-05T13:29:47.942909+00:00 | **Commit:** `5dcaf469ca01` | **Scope:** Batch05 IDs 201–250
 **Classification:** BUILD PHASE OPEN — **NOT** LOCAL_GOVERNANCE_COMPLETE — SonarCloud PENDING
 **Acceptance source:** `BATCH05_ACCEPTANCE_201_250.json` (pre_probe, ISO 29148)
 

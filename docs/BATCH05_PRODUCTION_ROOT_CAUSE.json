@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-05T13:28:06.803617+00:00",
-  "git_commit": "b0c66a062ad39439affb244f8c0a12552bcf17d1",
+  "generated_at": "2026-09-05T13:29:55.765962+00:00",
+  "git_commit": "5dcaf469ca0137dcf50b2e08bda9817261f1c10b",
   "production_url": "https://blackdark-production.up.railway.app",
   "alternate_url_tested": "https://blackdark-web-production.up.railway.app",
   "alternate_url_status": "HTTP 404 Application not found (wrong URL per PRODUCTION_URL_CORRECTION.md)",
