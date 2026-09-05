@@ -692,12 +692,35 @@ async def institutional_audit_middleware(request: Request, call_next):
     try:
         from audit_registry import log_api_request
 
+        user = None
+        if path.startswith("/api/"):
+            try:
+                from security_auth import optional_user_from_request
+
+                user = await optional_user_from_request(
+                    authorization=request.headers.get("Authorization"),
+                    bd_token=request.cookies.get("bd_token"),
+                )
+            except Exception:
+                user = None
+
         await log_api_request(
             request=request,
             response_status=response.status_code,
             body_bytes=body_bytes,
         )
         if path.startswith("/api/"):
+            try:
+                from user_activity_audit_trail import log_user_activity_from_request
+
+                await log_user_activity_from_request(
+                    request,
+                    response_status=response.status_code,
+                    body_bytes=body_bytes,
+                    user=user,
+                )
+            except ImportError:
+                pass
             from distribution_compounding import track_api_usage
 
             await track_api_usage(path=path)

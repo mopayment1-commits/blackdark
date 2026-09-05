@@ -1,0 +1,63 @@
+{
+  "feature_ref": "user_activity_audit_trail",
+  "merged_into": "Cross-Cutting Infrastructure (#1019 + #1022 + #945 + #1029)",
+  "standalone_rejected": true,
+  "user_activity_audit": {
+    "policy": {
+      "enabled": true,
+      "append_only": true,
+      "worm_storage": true,
+      "no_edit_delete": true,
+      "super_admin_cannot_delete": true,
+      "backend_enforced": true,
+      "client_side_forbidden": true,
+      "gateway_logging": true,
+      "operational_retention_days": 730,
+      "institutional_retention_days": 1825,
+      "gdpr_anonymize_not_delete": true,
+      "blocks_production": true,
+      "sprint": 0,
+      "non_custodial": true
+    },
+    "scoped_actions": [
+      "auth.login",
+      "auth.logout",
+      "auth.logout_all",
+      "auth.mfa_enable",
+      "auth.mfa_disable",
+      "auth.password_change",
+      "auth.password_reset",
+      "data.export",
+      "report.generate",
+      "settings.change",
+      "api_key.create",
+      "api_key.revoke",
+      "rbac.role_change",
+      "billing.change",
+      "query.execute",
+      "api.request"
+    ],
+    "high_sensitivity_actions": [
+      "rbac.role_change",
+      "billing.change",
+      "api_key.create",
+      "data.export",
+      "auth.password_change"
+    ],
+    "integrations": {
+      "session_ref": 1019,
+      "rbac_ref": 1022,
+      "provenance_ref": 945,
+      "immutable_audit_ref": 1029,
+      "stripe_ref": 908,
+      "incident_response_ref": 1017,
+      "gdpr_ref": 1023,
+      "retention_ref": 949
+    },
+    "visibility": {
+      "user_own_only": true,
+      "admin_team_scope": true,
+      "super_admin_all": true
+    }
+  }
+}
