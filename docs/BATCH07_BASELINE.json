@@ -12,16 +12,17 @@
   "artifact": "BATCH07_BASELINE",
   "phase": 0,
   "phase_label": "forensics",
-  "generated_at": "2026-09-05T22:45:07.513832+00:00",
+  "generated_at": "2026-09-05T22:47:32.684303+00:00",
   "identity": {
-    "canonical_tested_source_head": "be669722332ed7caccec13a377a944abdf0a110b",
-    "regression_head": "be669722332ed7caccec13a377a944abdf0a110b",
+    "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
+    "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "git_branch": "cursor/batch07-301-350-ed16",
+    "artifact_generation_head": "38cfdb32990aee15c7b221bccdfb36de4fbfddf3",
     "container_commit": null
   },
   "provenance": {
-    "method": "git_rev_parse_HEAD",
-    "description": "canonical_tested_source_head is the tested source identity at generation time. Derive artifact commit via git log if needed. The artifact does NOT embed its own commit SHA as an institutional correctness gate.",
+    "method": "git_log_derived",
+    "description": "canonical_tested_source_head is the tested implementation commit (scripts/run_batch07_deep_closure.py ancestry). Derive freeze artifact commit via git log if needed. The artifact does NOT embed its own commit SHA as an institutional correctness gate.",
     "self_referential_head_embedding": "prohibited"
   },
   "scope": {

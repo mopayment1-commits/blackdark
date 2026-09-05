@@ -212,6 +212,24 @@ def git_commit() -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
 
+def tested_source_head() -> str:
+    """Return last commit that touched Batch07 implementation (not docs-only freeze)."""
+    impl_paths = [
+        "tests/test_hero_batch_07_capabilities.py",
+        "scripts/run_batch07_deep_closure.py",
+        "scripts/partial_batches/batch_07_301_350.json",
+    ]
+    for path in impl_paths:
+        sha = subprocess.check_output(
+            ["git", "log", "-1", "--format=%H", "--", path],
+            cwd=ROOT,
+            text=True,
+        ).strip()
+        if sha:
+            return sha
+    return git_commit()
+
+
 def git_branch() -> str:
     return subprocess.check_output(["git", "branch", "--show-current"], cwd=ROOT, text=True).strip()
 
@@ -446,6 +464,7 @@ def build_baseline(
     catalog: dict[int, dict[str, Any]],
     audit: dict[str, Any],
     baseline_head: str,
+    tested_head: str,
 ) -> dict[str, Any]:
     audit_by = audit_row_by_id(audit)
     missing = [cid for cid in BATCH07_IDS if cid not in bindings]
@@ -466,16 +485,18 @@ def build_baseline(
         "phase_label": "forensics",
         "generated_at": datetime.now(UTC).isoformat(),
         "identity": {
-            "canonical_tested_source_head": baseline_head,
-            "regression_head": baseline_head,
+            "canonical_tested_source_head": tested_head,
+            "regression_head": tested_head,
             "git_branch": git_branch(),
+            "artifact_generation_head": baseline_head,
             "container_commit": None,
         },
         "provenance": {
-            "method": "git_rev_parse_HEAD",
+            "method": "git_log_derived",
             "description": (
-                "canonical_tested_source_head is the tested source identity at generation time. "
-                "Derive artifact commit via git log if needed. "
+                "canonical_tested_source_head is the tested implementation commit "
+                "(scripts/run_batch07_deep_closure.py ancestry). "
+                "Derive freeze artifact commit via git log if needed. "
                 "The artifact does NOT embed its own commit SHA as an institutional correctness gate."
             ),
             "self_referential_head_embedding": "prohibited",
@@ -1002,6 +1023,7 @@ def build_final_freeze(
     baseline_head: str,
     regression: dict[str, Any],
     pip_audit: dict[str, Any],
+    tested_head: str,
 ) -> dict[str, Any]:
     batch05_canonical = "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e"
     batch05_freeze = "1cc8ba43812aab462a7ea080eb34e625fb0abb36"
@@ -1018,8 +1040,8 @@ def build_final_freeze(
         "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
         "generated_at_utc": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "identity": {
-            "canonical_tested_source_head": baseline_head,
-            "regression_head": baseline_head,
+            "canonical_tested_source_head": tested_head,
+            "regression_head": tested_head,
             "baseline_ancestry": batch05_freeze,
             "batch05_canonical_tested_source": batch05_canonical,
             "container_commit": None,
@@ -1058,7 +1080,7 @@ def build_final_freeze(
             "integrity": "valid" if freeze_ok else "blocked",
         },
         "github_actions": {
-            "evidence_head": baseline_head,
+            "evidence_head": tested_head,
             "evidence_note": "CI run IDs populated after push — local validation complete pre-push",
             "CAP978": {"status": "PENDING_CI", "run_id": None, "url": None},
             "CI_CRITICAL_GATE": {"status": "PENDING_CI", "run_id": None, "url": None},
@@ -1198,7 +1220,7 @@ def validate_package(docs: dict[str, dict[str, Any]]) -> None:
         assert "g6" in text or "live" in text or "railway" in text or "pass_live" in text
 
     head = baseline["identity"]["canonical_tested_source_head"]
-    assert head == git_commit()
+    assert head == tested_source_head()
     assert head != "self_embedded_artifact_sha"
 
 
@@ -1207,6 +1229,7 @@ def main() -> None:
     bindings = discover_bindings()
     catalog = load_catalog()
     baseline_head = git_commit()
+    tested_head = tested_source_head()
     audit = load_audit(bindings, catalog)
     audit_by = audit_row_by_id(audit)
 
@@ -1215,7 +1238,7 @@ def main() -> None:
         raise SystemExit(f"missing bindings for: {missing}")
 
     docs: dict[str, dict[str, Any]] = {
-        "BATCH07_BASELINE.json": build_baseline(bindings, catalog, audit, baseline_head),
+        "BATCH07_BASELINE.json": build_baseline(bindings, catalog, audit, baseline_head, tested_head),
         "BATCH07_DUPLICATE_CANONICAL_ANALYSIS.json": build_duplicate_analysis(
             bindings, catalog, audit, baseline_head
         ),
@@ -1242,12 +1265,12 @@ def main() -> None:
         "BATCH07_G7_PRE_ASSURANCE_PACKAGE.json": build_g7_package(baseline_head),
     }
 
-    regression = build_cross_batch_regression(baseline_head)
+    regression = build_cross_batch_regression(tested_head)
     pip_audit = run_pip_audit()
     docs["BATCH07_CROSS_BATCH_REGRESSION.json"] = regression
     docs["BATCH07_STATUS_QUEUES.json"] = build_status_queues(baseline_head)
     docs["BATCH07_FINAL_LOCAL_FREEZE.json"] = build_final_freeze(
-        baseline_head, regression, pip_audit
+        baseline_head, regression, pip_audit, tested_head
     )
 
     validate_package(docs)

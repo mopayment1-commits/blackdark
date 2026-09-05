@@ -8,8 +8,8 @@
     "reviewer_checklist_items": 4
   },
   "artifact": "BATCH07_G7_PRE_ASSURANCE_PACKAGE",
-  "generated_at": "2026-09-05T22:45:07.518539+00:00",
-  "git_commit": "be669722332ed7caccec13a377a944abdf0a110b",
+  "generated_at": "2026-09-05T22:47:32.688508+00:00",
+  "git_commit": "38cfdb32990aee15c7b221bccdfb36de4fbfddf3",
   "scope": "Batch07 G7 Pre-Assurance Package",
   "status": "G7_LOCAL_PREPARATION_COMPLETE",
   "remaining": "G7_INDEPENDENT_SIGNOFF_PENDING",

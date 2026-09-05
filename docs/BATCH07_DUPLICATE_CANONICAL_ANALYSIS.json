@@ -10,8 +10,8 @@
     "keep_distinct_count": 49
   },
   "artifact": "BATCH07_DUPLICATE_CANONICAL_ANALYSIS",
-  "generated_at": "2026-09-05T22:45:07.515655+00:00",
-  "git_commit": "be669722332ed7caccec13a377a944abdf0a110b",
+  "generated_at": "2026-09-05T22:47:32.686135+00:00",
+  "git_commit": "38cfdb32990aee15c7b221bccdfb36de4fbfddf3",
   "scope": "Batch07 IDs 301-350 — layer A internal + layer B cross-batch",
   "method": "pdf_capability_registry.discover_bindings() + REUSED-LINK catalog for #339→#70",
   "summary": {

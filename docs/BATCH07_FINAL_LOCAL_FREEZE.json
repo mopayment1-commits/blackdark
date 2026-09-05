@@ -1,9 +1,9 @@
 {
   "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-05T22:45:58Z",
+  "generated_at_utc": "2026-09-05T22:48:25Z",
   "identity": {
-    "canonical_tested_source_head": "be669722332ed7caccec13a377a944abdf0a110b",
-    "regression_head": "be669722332ed7caccec13a377a944abdf0a110b",
+    "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
+    "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null
@@ -42,7 +42,7 @@
     "integrity": "valid"
   },
   "github_actions": {
-    "evidence_head": "be669722332ed7caccec13a377a944abdf0a110b",
+    "evidence_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "evidence_note": "CI run IDs populated after push — local validation complete pre-push",
     "CAP978": {
       "status": "PENDING_CI",

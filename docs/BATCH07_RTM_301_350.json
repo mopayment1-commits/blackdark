@@ -8,8 +8,8 @@
     "rtm_rows": 50
   },
   "artifact": "BATCH07_RTM_301_350",
-  "generated_at": "2026-09-05T22:45:07.517622+00:00",
-  "git_commit": "be669722332ed7caccec13a377a944abdf0a110b",
+  "generated_at": "2026-09-05T22:47:32.688116+00:00",
+  "git_commit": "38cfdb32990aee15c7b221bccdfb36de4fbfddf3",
   "scope": "Requirements traceability matrix — Batch07 301-350",
   "rows": [
     {
