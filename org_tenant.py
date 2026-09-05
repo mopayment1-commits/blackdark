@@ -83,7 +83,7 @@ def _rewrite_members(rows: list[dict[str, Any]]) -> None:
     )
 
 
-ROLES = ("admin", "compliance", "pm", "analyst", "viewer")
+ROLES = ("super_admin", "admin", "compliance", "pm", "analyst", "viewer")
 
 
 def _use_pg() -> bool:
@@ -196,6 +196,27 @@ def add_member(org_id: str, email: str, role: str = "analyst") -> dict[str, Any]
         return row
 
 
+def remove_member(org_id: str, email: str, *, actor_email: str) -> dict[str, Any]:
+    if _use_pg():
+        from org_tenant_store import remove_member_pg
+
+        return _run_async(remove_member_pg(org_id, email, actor_email=actor_email))
+    actor = member_of(org_id, actor_email)
+    if not actor or actor.get("role") not in {"admin", "super_admin"}:
+        raise PermissionError("admin_required")
+    email = email.strip().lower()
+    with _LOCK:
+        rows = _iter_members()
+        for r in rows:
+            if r.get("org_id") == org_id and r.get("email") == email and r.get("status") == "active":
+                r["status"] = "removed"
+                r["removed_at"] = _utcnow()
+                r["removed_by"] = actor_email.strip().lower()
+                _rewrite_members(rows)
+                return r
+    raise ValueError("member_not_found")
+
+
 def set_member_role(org_id: str, email: str, role: str, *, actor_email: str) -> dict[str, Any]:
     if _use_pg():
         from org_tenant_store import set_member_role_pg
@@ -204,7 +225,7 @@ def set_member_role(org_id: str, email: str, role: str, *, actor_email: str) -> 
     if role not in ROLES:
         raise ValueError(f"role must be one of {ROLES}")
     actor = member_of(org_id, actor_email)
-    if not actor or actor.get("role") != "admin":
+    if not actor or actor.get("role") not in {"admin", "super_admin"}:
         raise PermissionError("admin_required")
     with _LOCK:
         rows = _iter_members()
@@ -244,7 +265,7 @@ def set_org_mfa_required(org_id: str, required: bool, *, actor_email: str) -> di
 
         return _run_async(set_org_mfa_required_pg(org_id, required, actor_email=actor_email))
     actor = member_of(org_id, actor_email)
-    if not actor or actor.get("role") != "admin":
+    if not actor or actor.get("role") not in {"admin", "super_admin"}:
         raise PermissionError("admin_required")
     with _LOCK:
         orgs = _load_orgs()
@@ -259,7 +280,7 @@ def set_org_mfa_required(org_id: str, required: bool, *, actor_email: str) -> di
 
 def assert_org_access(org_id: str, email: str, *, min_role: str = "viewer") -> dict[str, Any]:
     """Raise PermissionError on cross-tenant or insufficient role."""
-    privilege = {"admin": 4, "compliance": 3, "pm": 2, "analyst": 1, "viewer": 0}
+    privilege = {"super_admin": 5, "admin": 4, "compliance": 3, "pm": 2, "analyst": 1, "viewer": 0}
     mem = member_of(org_id, email)
     if not mem:
         raise PermissionError("cross_tenant_denied")

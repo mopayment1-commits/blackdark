@@ -254,29 +254,73 @@ async def list_orgs(user: dict = Depends(require_authenticated)) -> dict[str, An
 
 
 @router.get("/orgs/{org_id}/members")
-async def org_members(org_id: str) -> dict[str, Any]:
+async def org_members(org_id: str, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
+    from institutional_rbac_hardening import enforce_tenant_membership
     from org_tenant import list_members
 
+    email = str(user.get("email") or "").strip().lower()
+    enforce_tenant_membership(org_id, email, action="list_members", resource="org.members")
     return {"org_id": org_id, "members": list_members(org_id)}
 
 
 @router.post("/orgs/{org_id}/members", responses=COMMON_ERROR_RESPONSES)
-async def org_add_member(org_id: str, body: MemberAdd) -> dict[str, Any]:
-    from org_tenant import add_member
+async def org_add_member(
+    org_id: str,
+    body: MemberAdd,
+    user: dict = Depends(require_authenticated),
+) -> dict[str, Any]:
+    from institutional_rbac_hardening import manage_team_member
 
+    actor = str(user.get("email") or "").strip().lower()
     try:
-        return add_member(org_id, body.email, body.role)
+        return manage_team_member(
+            org_id,
+            actor_email=actor,
+            action="create",
+            target_email=body.email,
+            role=body.role,
+        )
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+
+
+@router.delete("/orgs/{org_id}/members/{email}", responses=COMMON_ERROR_RESPONSES)
+async def org_remove_member(
+    org_id: str,
+    email: str,
+    user: dict = Depends(require_authenticated),
+) -> dict[str, Any]:
+    from institutional_rbac_hardening import manage_team_member
+
+    actor = str(user.get("email") or "").strip().lower()
+    try:
+        return manage_team_member(
+            org_id,
+            actor_email=actor,
+            action="delete",
+            target_email=email,
+        )
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc
 
 
 @router.post("/orgs/{org_id}/roles", responses=COMMON_ERROR_RESPONSES)
 async def org_role_change(org_id: str, body: RoleChange, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
-    from org_tenant import set_member_role
+    from institutional_rbac_hardening import manage_team_member
 
     actor = str(user.get("email") or "").strip().lower()
     try:
-        return set_member_role(org_id, body.email, body.role, actor_email=actor)
+        return manage_team_member(
+            org_id,
+            actor_email=actor,
+            action="update",
+            target_email=body.email,
+            role=body.role,
+        )
     except PermissionError as exc:
         raise HTTPException(403, str(exc)) from exc
     except ValueError as exc:
@@ -316,6 +360,34 @@ async def rbac_matrix() -> dict[str, Any]:
     from org_rbac import rbac_status
 
     return rbac_status()
+
+
+@router.get("/rbac/status")
+async def rbac_status_endpoint() -> dict[str, Any]:
+    from institutional_rbac_hardening import institutional_rbac_status
+
+    return institutional_rbac_status()
+
+
+@router.get("/rbac/gate")
+async def rbac_gate_endpoint() -> dict[str, Any]:
+    from institutional_rbac_hardening import check_rbac_production_gate
+
+    return check_rbac_production_gate()
+
+
+@router.get("/rbac/audit")
+async def rbac_audit_endpoint(_admin: dict = Depends(require_admin)) -> dict[str, Any]:
+    from institutional_rbac_hardening import get_authz_audit_trail
+
+    return get_authz_audit_trail()
+
+
+@router.get("/rbac/e2e")
+async def rbac_e2e_endpoint(_admin: dict = Depends(require_admin)) -> dict[str, Any]:
+    from institutional_rbac_hardening import run_institutional_rbac_e2e
+
+    return run_institutional_rbac_e2e()
 
 
 @router.post("/sso/configure", responses=COMMON_ERROR_RESPONSES)
