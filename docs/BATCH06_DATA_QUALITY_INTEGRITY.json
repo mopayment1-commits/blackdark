@@ -1,0 +1,305 @@
+{
+  "per_id": [
+    {
+      "capability_id": 251,
+      "semantic_oracle_pass": false,
+      "feature_ref_invariant": false,
+      "status": "DOWNGRADED"
+    },
+    {
+      "capability_id": 252,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 253,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 254,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 255,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 256,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": false,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 257,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 258,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 259,
+      "semantic_oracle_pass": false,
+      "feature_ref_invariant": true,
+      "status": "DOWNGRADED"
+    },
+    {
+      "capability_id": 260,
+      "semantic_oracle_pass": false,
+      "feature_ref_invariant": true,
+      "status": "DOWNGRADED"
+    },
+    {
+      "capability_id": 261,
+      "semantic_oracle_pass": false,
+      "feature_ref_invariant": true,
+      "status": "DOWNGRADED"
+    },
+    {
+      "capability_id": 262,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 263,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 264,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 265,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 266,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 267,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 268,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 269,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 270,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 271,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 272,
+      "semantic_oracle_pass": false,
+      "feature_ref_invariant": true,
+      "status": "DOWNGRADED"
+    },
+    {
+      "capability_id": 273,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 274,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 275,
+      "semantic_oracle_pass": false,
+      "feature_ref_invariant": false,
+      "status": "DOWNGRADED"
+    },
+    {
+      "capability_id": 276,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 277,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 278,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 279,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 280,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 281,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 282,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 283,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 284,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 285,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 286,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 287,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 288,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 289,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 290,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 291,
+      "semantic_oracle_pass": false,
+      "feature_ref_invariant": true,
+      "status": "DOWNGRADED"
+    },
+    {
+      "capability_id": 292,
+      "semantic_oracle_pass": false,
+      "feature_ref_invariant": true,
+      "status": "DOWNGRADED"
+    },
+    {
+      "capability_id": 293,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 294,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 295,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 296,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 297,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 298,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 299,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    },
+    {
+      "capability_id": 300,
+      "semantic_oracle_pass": true,
+      "feature_ref_invariant": true,
+      "status": "PROVEN_LOCAL"
+    }
+  ],
+  "proven_local": 42
+}

@@ -1,0 +1,3955 @@
+{
+  "generated_at": "2026-09-05T00:03:22.267788+00:00",
+  "git_commit": "3303413d491d611cba27a53ee03a9ca09031fdec",
+  "standard": "Project Standards v2 \u2014 \u0645\u0639\u064a\u0627\u0631_\u0645\u0624\u0633\u0633\u064a_\u0635\u0627\u0631\u0645_\u0644\u0628\u0646\u0627\u0621_\u0627\u0644\u0642\u062f\u0631\u0627\u062a_2026_v2",
+  "scope": "Batch06 capabilities 251-300",
+  "branch": "cursor/batch06-generator-scripts-7b8c",
+  "batch06_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "build_phase": "OPEN",
+  "live_ready": false,
+  "assurance_ready": false,
+  "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch06 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%.",
+  "verdict": {
+    "batch06_complete": false,
+    "pass_live": false,
+    "assurance_ready": false,
+    "pass_engineering_count": 42,
+    "assurance_ready_count": 0,
+    "final_status": "BLOCKED_EXTERNAL_FOR_LIVE_ONLY",
+    "final_local_status": "PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED"
+  },
+  "gate_counts": {
+    "G0_materiality": {
+      "PASS_ENGINEERING": 50
+    },
+    "G1_requirements_assurance": {
+      "PASS_ENGINEERING_PARTIAL": 8,
+      "PASS_ENGINEERING": 42
+    },
+    "G2_architecture_risk": {
+      "PASS_ENGINEERING": 50
+    },
+    "G3_build_integrity": {
+      "PASS_ENGINEERING_PARTIAL": 8,
+      "PASS_ENGINEERING": 42
+    },
+    "G4_verification_validation": {
+      "DOWNGRADED_SEMANTIC_INCOMPLETE": 8,
+      "PASS_ENGINEERING": 42
+    },
+    "G5_operational_readiness": {
+      "AWAITING_DEPLOY": 50
+    },
+    "G6_live_validation": {
+      "BLOCKED_EXTERNAL": 50
+    },
+    "G7_independent_assurance": {
+      "ASSURANCE_REVIEW_PENDING": 50
+    }
+  },
+  "semantic_oracle": {
+    "total_ids": 50,
+    "semantic_verified_local": 42,
+    "downgraded_count": 8,
+    "all_domain_rules_pass": 42,
+    "reused_link_verified": 3
+  },
+  "global_duplicate_review": {
+    "total": 50,
+    "reused_link": 11,
+    "strangler": 39,
+    "by_decision": {
+      "REUSED-LINK": 11,
+      "DISTINCT": 39
+    },
+    "surface_collision_ids": [
+      255,
+      256,
+      257,
+      260,
+      272
+    ],
+    "new_hidden_duplicates": 0
+  },
+  "artifact_index": [
+    "docs/BATCH06_V2_ASSURANCE_PACKAGE.json",
+    "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+    "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json",
+    "docs/BATCH06_ACCEPTANCE_251_300.json"
+  ],
+  "per_id_closure_matrix": [
+    {
+      "capability_id": 251,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Cross-Domain Decision Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 69,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for cross_domain_decision_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 69"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_069"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "cross_domain_decision",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 8,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch02_production.py",
+        "binding_function": "cap_069",
+        "production_spine": "batch02",
+        "expected_surface": "cross_domain_decision_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(251) \u2192 cap_069",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 252,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Liquidation Heatmap",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "PARTIAL_CANONICAL",
+      "canonical_implementation": 252,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for liquidation_heatmap",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "liquidation_heatmap.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "liquidation_heatmap.feature_ref",
+          "type": "numeric",
+          "condition": "== 252"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap252",
+        "production_spine": "batch06",
+        "expected_surface": "liquidation_heatmap"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(252) \u2192 _cap252",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "PARTIAL_CANONICAL",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 wrap module_map / partial backend in catalog-aligned surface"
+      }
+    },
+    {
+      "capability_id": 253,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Liquidation Map / Levels",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 253,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for liquidation_map_levels",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "liquidation_map_levels.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "liquidation_map_levels.feature_ref",
+          "type": "numeric",
+          "condition": "== 253"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap253",
+        "production_spine": "batch06",
+        "expected_surface": "liquidation_map_levels"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(253) \u2192 _cap253",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 254,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Real-Time Liquidation Events",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 254,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for real_time_liquidation_events",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "real_time_liquidation_events.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "real_time_liquidation_events.feature_ref",
+          "type": "numeric",
+          "condition": "== 254"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap254",
+        "production_spine": "batch06",
+        "expected_surface": "real_time_liquidation_events"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(254) \u2192 _cap254",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 255,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Open Interest Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 205,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for open_interest_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 205"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_open_interest_205"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "open_interest_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "open_interest_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 205"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 9,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch05_strangler_spine.py",
+        "binding_function": "build_open_interest_205",
+        "production_spine": "batch05",
+        "expected_surface": "open_interest_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(255) \u2192 build_open_interest_205",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 256,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Funding Rate Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 86,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for funding_rate_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 86"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_086"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "funding_rate",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 8,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch02_production.py",
+        "binding_function": "cap_086",
+        "production_spine": "batch02",
+        "expected_surface": "funding_rate_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(256) \u2192 cap_086",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 257,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Long/Short Ratio Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 235,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for long_short_ratio_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 235"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_long_short_ratio_intelligence_235"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "long_short_ratio_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "long_short_ratio_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 235"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 9,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch05_strangler_spine.py",
+        "binding_function": "build_long_short_ratio_intelligence_235",
+        "production_spine": "batch05",
+        "expected_surface": "long_short_ratio_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(257) \u2192 build_long_short_ratio_intelligence_235",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 258,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Top Trader Positioning",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 258,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for top_trader_positioning",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "top_trader_positioning.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "top_trader_positioning.feature_ref",
+          "type": "numeric",
+          "condition": "== 258"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap258",
+        "production_spine": "batch06",
+        "expected_surface": "top_trader_positioning"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(258) \u2192 _cap258",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 259,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Futures Basis Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 231,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for futures_basis_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 231"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_futures_basis_term_structure_231"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "futures_basis_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "futures_basis_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 231"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 9,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch05_strangler_spine.py",
+        "binding_function": "build_futures_basis_term_structure_231",
+        "production_spine": "batch05",
+        "expected_surface": "futures_basis_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(259) \u2192 build_futures_basis_term_structure_231",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 260,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Futures Volume Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 126,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for futures_volume_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 126"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch03"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch03_dedicated.py::_cap126"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "futures_volume_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "futures_volume_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 126"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 9,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch03_dedicated.py",
+        "binding_function": "_cap126",
+        "production_spine": "batch03",
+        "expected_surface": "futures_volume_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(260) \u2192 _cap126",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 261,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Futures CVD / Taker Flow",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 234,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for futures_cvd_taker_flow",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 234"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_cvd_intelligence_234"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "futures_cvd_taker_flow.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "futures_cvd_taker_flow.feature_ref",
+          "type": "numeric",
+          "condition": "== 234"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 9,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch05_strangler_spine.py",
+        "binding_function": "build_cvd_intelligence_234",
+        "production_spine": "batch05",
+        "expected_surface": "futures_cvd_taker_flow"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(261) \u2192 build_cvd_intelligence_234",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 262,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Options Open Interest",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 262,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for options_open_interest",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "options_open_interest.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "options_open_interest.feature_ref",
+          "type": "numeric",
+          "condition": "== 262"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap262",
+        "production_spine": "batch06",
+        "expected_surface": "options_open_interest"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(262) \u2192 _cap262",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 263,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Options Volume",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "PARTIAL_CANONICAL",
+      "canonical_implementation": 263,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for options_volume",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "options_volume.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "options_volume.feature_ref",
+          "type": "numeric",
+          "condition": "== 263"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap263",
+        "production_spine": "batch06",
+        "expected_surface": "options_volume"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(263) \u2192 _cap263",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "PARTIAL_CANONICAL",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 wrap module_map / partial backend in catalog-aligned surface"
+      }
+    },
+    {
+      "capability_id": 264,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Options IV / Skew",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 264,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for options_iv_skew",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "options_iv_skew.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "options_iv_skew.feature_ref",
+          "type": "numeric",
+          "condition": "== 264"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap264",
+        "production_spine": "batch06",
+        "expected_surface": "options_iv_skew"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(264) \u2192 _cap264",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 265,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Max Pain / Gamma Context",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 265,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for max_pain_gamma_context",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "max_pain_gamma_context.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "max_pain_gamma_context.feature_ref",
+          "type": "numeric",
+          "condition": "== 265"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap265",
+        "production_spine": "batch06",
+        "expected_surface": "max_pain_gamma_context"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(265) \u2192 _cap265",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 266,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Spot Market Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 266,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for spot_market_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "spot_market_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "spot_market_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 266"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap266",
+        "production_spine": "batch06",
+        "expected_surface": "spot_market_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(266) \u2192 _cap266",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 267,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Order Book / Market Depth",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "PARTIAL_CANONICAL",
+      "canonical_implementation": 267,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for order_book_market_depth",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "order_book_market_depth.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "order_book_market_depth.feature_ref",
+          "type": "numeric",
+          "condition": "== 267"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap267",
+        "production_spine": "batch06",
+        "expected_surface": "order_book_market_depth"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(267) \u2192 _cap267",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "PARTIAL_CANONICAL",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 wrap module_map / partial backend in catalog-aligned surface"
+      }
+    },
+    {
+      "capability_id": 268,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Historical Derivatives Data",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 268,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for historical_derivatives_data",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "historical_derivatives_data.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "historical_derivatives_data.feature_ref",
+          "type": "numeric",
+          "condition": "== 268"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap268",
+        "production_spine": "batch06",
+        "expected_surface": "historical_derivatives_data"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(268) \u2192 _cap268",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 269,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Exchange Comparison",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 269,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for exchange_comparison",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_comparison.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "exchange_comparison.feature_ref",
+          "type": "numeric",
+          "condition": "== 269"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap269",
+        "production_spine": "batch06",
+        "expected_surface": "exchange_comparison"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(269) \u2192 _cap269",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 270,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Liquidation Cascade Proximity",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 270,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for liquidation_cascade_proximity",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "liquidation_cascade_proximity.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "liquidation_cascade_proximity.feature_ref",
+          "type": "numeric",
+          "condition": "== 270"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap270",
+        "production_spine": "batch06",
+        "expected_surface": "liquidation_cascade_proximity"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(270) \u2192 _cap270",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 271,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Leverage Pressure Score",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 271,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for leverage_pressure_score",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "leverage_pressure_score.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "leverage_pressure_score.feature_ref",
+          "type": "numeric",
+          "condition": "== 271"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap271",
+        "production_spine": "batch06",
+        "expected_surface": "leverage_pressure_score"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(271) \u2192 _cap271",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 272,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "API Data Platform",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 247,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for api_data_platform",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 247"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_public_rest_api_247"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "api_data_platform.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "api_data_platform.feature_ref",
+          "type": "numeric",
+          "condition": "== 247"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 9,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch05_strangler_spine.py",
+        "binding_function": "build_public_rest_api_247",
+        "production_spine": "batch05",
+        "expected_surface": "api_data_platform"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(272) \u2192 build_public_rest_api_247",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 273,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Multi-Model Liquidation Comparison",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 273,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for multi_model_liquidation_comparison",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "multi_model_liquidation_comparison.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "multi_model_liquidation_comparison.feature_ref",
+          "type": "numeric",
+          "condition": "== 273"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap273",
+        "production_spine": "batch06",
+        "expected_surface": "multi_model_liquidation_comparison"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(273) \u2192 _cap273",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 274,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Derivatives Alerts",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 274,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for derivatives_alerts",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "derivatives_alerts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "derivatives_alerts.feature_ref",
+          "type": "numeric",
+          "condition": "== 274"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap274",
+        "production_spine": "batch06",
+        "expected_surface": "derivatives_alerts"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(274) \u2192 _cap274",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 275,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Cross-Domain Decision Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 69,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for cross_domain_decision_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 69"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_069"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.alias_of",
+          "type": "numeric",
+          "condition": "== 251"
+        },
+        {
+          "field": "cross_domain_decision",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 9,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch02_production.py",
+        "binding_function": "cap_069",
+        "production_spine": "batch02",
+        "expected_surface": "cross_domain_decision_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(275) \u2192 cap_069",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 276,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Entity Resolution Engine",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 276,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for entity_resolution_engine",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "entity_resolution_engine.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "entity_resolution_engine.feature_ref",
+          "type": "numeric",
+          "condition": "== 276"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap276",
+        "production_spine": "batch06",
+        "expected_surface": "entity_resolution_engine"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(276) \u2192 _cap276",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 277,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Address Labeling System",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 277,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for address_labeling_system",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "address_labeling_system.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "address_labeling_system.feature_ref",
+          "type": "numeric",
+          "condition": "== 277"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap277",
+        "production_spine": "batch06",
+        "expected_surface": "address_labeling_system"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(277) \u2192 _cap277",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 278,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Entity Profiles",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 278,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for entity_profiles",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "entity_profiles.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "entity_profiles.feature_ref",
+          "type": "numeric",
+          "condition": "== 278"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap278",
+        "production_spine": "batch06",
+        "expected_surface": "entity_profiles"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(278) \u2192 _cap278",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 279,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Transaction Search",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "PARTIAL_CANONICAL",
+      "canonical_implementation": 279,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for transaction_search",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "transaction_search.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "transaction_search.feature_ref",
+          "type": "numeric",
+          "condition": "== 279"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap279",
+        "production_spine": "batch06",
+        "expected_surface": "transaction_search"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(279) \u2192 _cap279",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "PARTIAL_CANONICAL",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 wrap module_map / partial backend in catalog-aligned surface"
+      }
+    },
+    {
+      "capability_id": 280,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Portfolio Holdings",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 280,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for portfolio_holdings",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "portfolio_holdings.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "portfolio_holdings.feature_ref",
+          "type": "numeric",
+          "condition": "== 280"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap280",
+        "production_spine": "batch06",
+        "expected_surface": "portfolio_holdings"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(280) \u2192 _cap280",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 281,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Balance History",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 281,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for balance_history",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "balance_history.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "balance_history.feature_ref",
+          "type": "numeric",
+          "condition": "== 281"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap281",
+        "production_spine": "batch06",
+        "expected_surface": "balance_history"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(281) \u2192 _cap281",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 282,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Entity PnL",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 282,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for entity_pnl",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "entity_pnl.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "entity_pnl.feature_ref",
+          "type": "numeric",
+          "condition": "== 282"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap282",
+        "production_spine": "batch06",
+        "expected_surface": "entity_pnl"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(282) \u2192 _cap282",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 283,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Exchange Usage Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 283,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for exchange_usage_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_usage_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "exchange_usage_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 283"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap283",
+        "production_spine": "batch06",
+        "expected_surface": "exchange_usage_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(283) \u2192 _cap283",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 284,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Top Counterparties",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 284,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for top_counterparties",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "top_counterparties.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "top_counterparties.feature_ref",
+          "type": "numeric",
+          "condition": "== 284"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap284",
+        "production_spine": "batch06",
+        "expected_surface": "top_counterparties"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(284) \u2192 _cap284",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 285,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Visualizer / Network Graph",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 285,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for network_graph_visualizer",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "network_graph_visualizer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "network_graph_visualizer.feature_ref",
+          "type": "numeric",
+          "condition": "== 285"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap285",
+        "production_spine": "batch06",
+        "expected_surface": "network_graph_visualizer"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(285) \u2192 _cap285",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 286,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Automated Trace / Path Finding",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 286,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for automated_trace_path_finding",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "automated_trace_path_finding.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "automated_trace_path_finding.feature_ref",
+          "type": "numeric",
+          "condition": "== 286"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap286",
+        "production_spine": "batch06",
+        "expected_surface": "automated_trace_path_finding"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(286) \u2192 _cap286",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 287,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Cross-Chain Trace",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 287,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for cross_chain_trace",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cross_chain_trace.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cross_chain_trace.feature_ref",
+          "type": "numeric",
+          "condition": "== 287"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap287",
+        "production_spine": "batch06",
+        "expected_surface": "cross_chain_trace"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(287) \u2192 _cap287",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 288,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Token Top Holders",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 288,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for token_top_holders",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_top_holders.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_top_holders.feature_ref",
+          "type": "numeric",
+          "condition": "== 288"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap288",
+        "production_spine": "batch06",
+        "expected_surface": "token_top_holders"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(288) \u2192 _cap288",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 289,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Token Exchange Flows",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 289,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for token_exchange_flows",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_exchange_flows.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_exchange_flows.feature_ref",
+          "type": "numeric",
+          "condition": "== 289"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap289",
+        "production_spine": "batch06",
+        "expected_surface": "token_exchange_flows"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(289) \u2192 _cap289",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 290,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Token Transaction Explorer",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 290,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for token_transaction_explorer",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_transaction_explorer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_transaction_explorer.feature_ref",
+          "type": "numeric",
+          "condition": "== 290"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap290",
+        "production_spine": "batch06",
+        "expected_surface": "token_transaction_explorer"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(290) \u2192 _cap290",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 291,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Custom Dashboards",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 210,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for custom_dashboards",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 210"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_custom_dashboards_layouts_210"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "custom_dashboards.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "custom_dashboards.feature_ref",
+          "type": "numeric",
+          "condition": "== 210"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 9,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch05_strangler_spine.py",
+        "binding_function": "build_custom_dashboards_layouts_210",
+        "production_spine": "batch05",
+        "expected_surface": "custom_dashboards"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(291) \u2192 build_custom_dashboards_layouts_210",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 292,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Custom Alerts",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "DUPLICATE_ALIAS",
+      "canonical_implementation": 213,
+      "duplicate_decision": "REUSED-LINK",
+      "requirement": "ISO 29148 domain_rules for custom_alerts",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 213"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_anomaly_detection_alerts_213"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "custom_alerts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "custom_alerts.feature_ref",
+          "type": "numeric",
+          "condition": "== 213"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 9,
+        "oracle_strength": "SEMANTIC_PARTIAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch05_strangler_spine.py",
+        "binding_function": "build_anomaly_detection_alerts_213",
+        "production_spine": "batch05",
+        "expected_surface": "custom_alerts"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(292) \u2192 build_anomaly_detection_alerts_213",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING_PARTIAL",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING_PARTIAL",
+        "G4_verification_validation": "DOWNGRADED_SEMANTIC_INCOMPLETE",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "BLOCKED_EXTERNAL",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": false,
+      "prebuild": {
+        "classification": "DUPLICATE_ALIAS",
+        "closure_status": "REUSED-LINK",
+        "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation"
+      }
+    },
+    {
+      "capability_id": 293,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Private Labels",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 293,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for private_labels",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "private_labels.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "private_labels.feature_ref",
+          "type": "numeric",
+          "condition": "== 293"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap293",
+        "production_spine": "batch06",
+        "expected_surface": "private_labels"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(293) \u2192 _cap293",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 294,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Archive / Historical Portfolio Snapshot",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 294,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for portfolio_archive_snapshot",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "portfolio_archive_snapshot.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "portfolio_archive_snapshot.feature_ref",
+          "type": "numeric",
+          "condition": "== 294"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap294",
+        "production_spine": "batch06",
+        "expected_surface": "portfolio_archive_snapshot"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(294) \u2192 _cap294",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 295,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "AI Market Insights",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 295,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for ai_market_insights",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "ai_market_insights.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "ai_market_insights.feature_ref",
+          "type": "numeric",
+          "condition": "== 295"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap295",
+        "production_spine": "batch06",
+        "expected_surface": "ai_market_insights"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(295) \u2192 _cap295",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 296,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Whale Movement Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 296,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for whale_movement_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "whale_movement_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "whale_movement_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 296"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap296",
+        "production_spine": "batch06",
+        "expected_surface": "whale_movement_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(296) \u2192 _cap296",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 297,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Fraud / Suspicious Activity Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 297,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for fraud_suspicious_activity",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "fraud_suspicious_activity.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "fraud_suspicious_activity.feature_ref",
+          "type": "numeric",
+          "condition": "== 297"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap297",
+        "production_spine": "batch06",
+        "expected_surface": "fraud_suspicious_activity"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(297) \u2192 _cap297",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 298,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "API On-Chain Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 298,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for api_onchain_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "api_onchain_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "api_onchain_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 298"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap298",
+        "production_spine": "batch06",
+        "expected_surface": "api_onchain_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(298) \u2192 _cap298",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 299,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Cross-Entity Decision Intelligence",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 299,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for cross_entity_decision_intelligence",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cross_entity_decision_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cross_entity_decision_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 299"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap299",
+        "production_spine": "batch06",
+        "expected_surface": "cross_entity_decision_intelligence"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(299) \u2192 _cap299",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    },
+    {
+      "capability_id": 300,
+      "owner": "batch06-institutional-owner",
+      "objective_user_outcome": "Advanced Multi-Asset Charting",
+      "materiality_risk": "STANDARD",
+      "current_state_classification": "BROWNFIELD",
+      "canonical_implementation": 300,
+      "duplicate_decision": "DISTINCT",
+      "requirement": "ISO 29148 domain_rules for advanced_multi_asset_charting",
+      "acceptance_criteria": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "advanced_multi_asset_charting.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "advanced_multi_asset_charting.feature_ref",
+          "type": "numeric",
+          "condition": "== 300"
+        }
+      ],
+      "expected_output_oracle": {
+        "type": "domain_rules_semantic",
+        "semantic_rules_count": 3,
+        "oracle_strength": "SEMANTIC_VERIFIED_LOCAL",
+        "weak_rules_excluded_from_pass": [
+          "success"
+        ]
+      },
+      "rtm": {
+        "binding_file": "cap646/batch06_dedicated.py",
+        "binding_function": "_cap300",
+        "production_spine": "batch06",
+        "expected_surface": "advanced_multi_asset_charting"
+      },
+      "code_runtime_route": "cap646.runtime.execute_capability(300) \u2192 _cap300",
+      "evidence_references": [
+        "docs/BATCH06_ACCEPTANCE_251_300.json",
+        "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json",
+        "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json"
+      ],
+      "gates": {
+        "G0_materiality": "PASS_ENGINEERING",
+        "G1_requirements_assurance": "PASS_ENGINEERING",
+        "G2_architecture_risk": "PASS_ENGINEERING",
+        "G3_build_integrity": "PASS_ENGINEERING",
+        "G4_verification_validation": "PASS_ENGINEERING",
+        "G5_operational_readiness": "AWAITING_DEPLOY",
+        "G6_live_validation": "BLOCKED_EXTERNAL",
+        "G7_independent_assurance": "ASSURANCE_REVIEW_PENDING"
+      },
+      "final_status": "PASS_ENGINEERING",
+      "assurance_ready": false,
+      "pass_live": false,
+      "pass_engineering": true,
+      "prebuild": {
+        "classification": "BROWNFIELD",
+        "closure_status": "NOT_COMPLETE",
+        "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler"
+      }
+    }
+  ]
+}

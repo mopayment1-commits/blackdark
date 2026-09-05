@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": "LZ1",
+      "gate": "G6",
+      "item": "Gate Zero live health + cap646 probes against production host",
+      "reason": "Requires Railway app bound to production domain",
+      "local_component": "Semantic oracle prepared locally"
+    },
+    {
+      "id": "LZ2",
+      "gate": "G6",
+      "item": "Production-network E2E semantic verification (50 IDs)",
+      "reason": "TLS/host/routing differ from local execute_capability",
+      "local_component": "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json"
+    },
+    {
+      "id": "LZ3",
+      "gate": "G7",
+      "item": "12207 Validation workshop with live artifacts",
+      "reason": "Independent human sign-off with live evidence",
+      "local_component": "docs/BATCH06_V2_ASSURANCE_PACKAGE.json"
+    },
+    {
+      "id": "LZ4",
+      "gate": "G6",
+      "item": "PASS_LIVE elevation (50 IDs)",
+      "reason": "G6 criteria require production validation",
+      "local_component": "G0-G4 local engineering prepared"
+    }
+  ],
+  "count": 4,
+  "purity_verified": true
+}

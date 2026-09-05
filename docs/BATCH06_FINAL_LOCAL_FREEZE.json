@@ -1,0 +1,476 @@
+{
+  "generated_at": "2026-09-05T00:03:22.279381+00:00",
+  "git_commit": "3303413d491d611cba27a53ee03a9ca09031fdec",
+  "freeze_type": "FINAL_LOCAL_PRE_PRODUCTION",
+  "batch06_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "live_ready": false,
+  "assurance_ready": false,
+  "final_local_status": "PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED / BLOCKED_EXTERNAL_FOR_LIVE_ONLY",
+  "g0_g4": {
+    "G0": 50,
+    "G1": 42,
+    "G2": 50,
+    "G3": 42,
+    "G4": 42
+  },
+  "semantic_oracle": 42,
+  "reused_link_count": 11,
+  "strangler_count": 39,
+  "reliability": {
+    "status": "PROVEN_LOCAL",
+    "modes": [
+      {
+        "mode": "unknown_capability",
+        "status": "PROVEN_LOCAL",
+        "test": "test_batch06_ids_contract unknown rejected"
+      },
+      {
+        "mode": "out_of_spine_rejected",
+        "status": "PROVEN_LOCAL",
+        "test": "test_batch06_ids_contract routing spine"
+      },
+      {
+        "mode": "entitlement_denied_fail_closed",
+        "status": "PROVEN_LOCAL",
+        "test": "cap646 runtime entitlement gate"
+      },
+      {
+        "mode": "malformed_empty_symbol",
+        "status": "PROVEN_LOCAL",
+        "test": "structured payload on empty symbol"
+      },
+      {
+        "mode": "reused_link_stamp",
+        "status": "PROVEN_LOCAL",
+        "test": "REUSED-LINK catalog_link stamp on facades"
+      },
+      {
+        "mode": "strangler_feature_ref",
+        "status": "PROVEN_LOCAL",
+        "test": "strangler payload feature_ref invariant"
+      }
+    ],
+    "proven_local": 6,
+    "requires_live": 0,
+    "not_applicable": 0
+  },
+  "data_integrity": {
+    "per_id_proven_local": 42,
+    "total": 50,
+    "rows": [
+      {
+        "capability_id": 251,
+        "semantic_oracle_pass": false,
+        "feature_ref_invariant": false,
+        "status": "DOWNGRADED"
+      },
+      {
+        "capability_id": 252,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 253,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 254,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 255,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 256,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": false,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 257,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 258,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 259,
+        "semantic_oracle_pass": false,
+        "feature_ref_invariant": true,
+        "status": "DOWNGRADED"
+      },
+      {
+        "capability_id": 260,
+        "semantic_oracle_pass": false,
+        "feature_ref_invariant": true,
+        "status": "DOWNGRADED"
+      },
+      {
+        "capability_id": 261,
+        "semantic_oracle_pass": false,
+        "feature_ref_invariant": true,
+        "status": "DOWNGRADED"
+      },
+      {
+        "capability_id": 262,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 263,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 264,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 265,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 266,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 267,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 268,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 269,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 270,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 271,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 272,
+        "semantic_oracle_pass": false,
+        "feature_ref_invariant": true,
+        "status": "DOWNGRADED"
+      },
+      {
+        "capability_id": 273,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 274,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 275,
+        "semantic_oracle_pass": false,
+        "feature_ref_invariant": false,
+        "status": "DOWNGRADED"
+      },
+      {
+        "capability_id": 276,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 277,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 278,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 279,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 280,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 281,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 282,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 283,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 284,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 285,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 286,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 287,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 288,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 289,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 290,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 291,
+        "semantic_oracle_pass": false,
+        "feature_ref_invariant": true,
+        "status": "DOWNGRADED"
+      },
+      {
+        "capability_id": 292,
+        "semantic_oracle_pass": false,
+        "feature_ref_invariant": true,
+        "status": "DOWNGRADED"
+      },
+      {
+        "capability_id": 293,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 294,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 295,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 296,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 297,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 298,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 299,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      },
+      {
+        "capability_id": 300,
+        "semantic_oracle_pass": true,
+        "feature_ref_invariant": true,
+        "status": "PROVEN_LOCAL"
+      }
+    ]
+  },
+  "g5_decomposition": {
+    "local_component_complete": 5,
+    "requires_live": 3,
+    "not_applicable": 2,
+    "requirements": [
+      {
+        "id": "G5.1",
+        "name": "Health/readiness endpoints",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.2",
+        "name": "Structured logging envelope",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.3",
+        "name": "Metrics instrumentation hooks",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.4",
+        "name": "Alert definitions",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.5",
+        "name": "Runbook / incident prep",
+        "status": "LOCAL_COMPONENT_COMPLETE"
+      },
+      {
+        "id": "G5.6",
+        "name": "SLI/SLO live measurement",
+        "status": "REQUIRES_LIVE"
+      },
+      {
+        "id": "G5.7",
+        "name": "Production capacity headroom",
+        "status": "REQUIRES_LIVE"
+      },
+      {
+        "id": "G5.8",
+        "name": "Live dependency latency SLO",
+        "status": "REQUIRES_LIVE"
+      },
+      {
+        "id": "G5.9",
+        "name": "Failover drill evidence",
+        "status": "NOT_APPLICABLE"
+      },
+      {
+        "id": "G5.10",
+        "name": "Backup/restore for batch06 state",
+        "status": "NOT_APPLICABLE"
+      }
+    ]
+  },
+  "live_only_queue": {
+    "items": [
+      {
+        "id": "LZ1",
+        "gate": "G6",
+        "item": "Gate Zero live health + cap646 probes against production host",
+        "reason": "Requires Railway app bound to production domain",
+        "local_component": "Semantic oracle prepared locally"
+      },
+      {
+        "id": "LZ2",
+        "gate": "G6",
+        "item": "Production-network E2E semantic verification (50 IDs)",
+        "reason": "TLS/host/routing differ from local execute_capability",
+        "local_component": "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json"
+      },
+      {
+        "id": "LZ3",
+        "gate": "G7",
+        "item": "12207 Validation workshop with live artifacts",
+        "reason": "Independent human sign-off with live evidence",
+        "local_component": "docs/BATCH06_V2_ASSURANCE_PACKAGE.json"
+      },
+      {
+        "id": "LZ4",
+        "gate": "G6",
+        "item": "PASS_LIVE elevation (50 IDs)",
+        "reason": "G6 criteria require production validation",
+        "local_component": "G0-G4 local engineering prepared"
+      }
+    ],
+    "count": 4,
+    "purity_verified": true
+  },
+  "known_local_deficiencies": [
+    {
+      "id": "SEMANTIC_SURFACE_DRIFT",
+      "count": 8,
+      "note": "Runtime surface may differ from EXPECTED_SURFACE on REUSED-LINK facades"
+    }
+  ],
+  "freeze_tests": {
+    "exit_code": 0,
+    "passed": true,
+    "stdout_tail": "..........................................                               [100%]\n"
+  },
+  "artifact_index": [
+    "docs/BATCH06_FINAL_LOCAL_FREEZE.json",
+    "docs/BATCH06_V2_ASSURANCE_PACKAGE.json",
+    "docs/BATCH06_ACCEPTANCE_251_300.json",
+    "docs/BATCH06_INVENTORY.json",
+    "docs/BATCH06_LIVE_ONLY_QUEUE.json"
+  ]
+}

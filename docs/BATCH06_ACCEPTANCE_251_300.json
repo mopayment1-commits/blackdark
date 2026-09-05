@@ -1,0 +1,2207 @@
+{
+  "generated_at": "2026-09-05T00:03:04.168188+00:00",
+  "commit_hash": "3303413d491d611cba27a53ee03a9ca09031fdec",
+  "standard": "ISO/IEC/IEEE 29148",
+  "scope": "Batch06 IDs 251-300 (50 rows)",
+  "pre_probe": true,
+  "official_batch": "batch06",
+  "reused_link_ids": [
+    251,
+    255,
+    256,
+    257,
+    259,
+    260,
+    261,
+    272,
+    275,
+    291,
+    292
+  ],
+  "strangler_count": 39,
+  "note": "Bindings planned cap646/batch06_dedicated.py; REUSED-LINK facades delegate to canonical spines",
+  "rows": [
+    {
+      "capability_id": 251,
+      "capability_name": "Cross-Domain Decision Intelligence",
+      "expected_surface": "cross_domain_decision_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch02",
+      "payload_root": "cross_domain_decision_intelligence",
+      "binding_file": "cap646/batch02_production.py",
+      "binding_function": "cap_069",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 69"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_069"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "cross_domain_decision",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 69,
+      "canonical_spine": "batch02",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 252,
+      "capability_name": "Liquidation Heatmap",
+      "expected_surface": "liquidation_heatmap",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "liquidation_heatmap",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap252",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "liquidation_heatmap.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "liquidation_heatmap.feature_ref",
+          "type": "numeric",
+          "condition": "== 252"
+        }
+      ],
+      "prebuild_classification": "PARTIAL_CANONICAL",
+      "build_decision": "Strangler \u2014 wrap module_map / partial backend in catalog-aligned surface",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.security_trust_data_layer.ingest_google_trends_252",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 253,
+      "capability_name": "Liquidation Map / Levels",
+      "expected_surface": "liquidation_map_levels",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "liquidation_map_levels",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap253",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "liquidation_map_levels.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "liquidation_map_levels.feature_ref",
+          "type": "numeric",
+          "condition": "== 253"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.security_trust_data_layer.build_kill_rate_widget_253",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 254,
+      "capability_name": "Real-Time Liquidation Events",
+      "expected_surface": "real_time_liquidation_events",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "real_time_liquidation_events",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap254",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "real_time_liquidation_events.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "real_time_liquidation_events.feature_ref",
+          "type": "numeric",
+          "condition": "== 254"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.security_trust_data_layer.build_contradiction_replay_254",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 255,
+      "capability_name": "Open Interest Intelligence",
+      "expected_surface": "open_interest_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch05",
+      "payload_root": "open_interest_intelligence",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_open_interest_205",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 205"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_open_interest_205"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "open_interest_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "open_interest_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 205"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 205,
+      "canonical_spine": "batch05",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 256,
+      "capability_name": "Funding Rate Intelligence",
+      "expected_surface": "funding_rate_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch02",
+      "payload_root": "funding_rate_intelligence",
+      "binding_file": "cap646/batch02_production.py",
+      "binding_function": "cap_086",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 86"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_086"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "funding_rate",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 86,
+      "canonical_spine": "batch02",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 257,
+      "capability_name": "Long/Short Ratio Intelligence",
+      "expected_surface": "long_short_ratio_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch05",
+      "payload_root": "long_short_ratio_intelligence",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_long_short_ratio_intelligence_235",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 235"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_long_short_ratio_intelligence_235"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "long_short_ratio_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "long_short_ratio_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 235"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 235,
+      "canonical_spine": "batch05",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 258,
+      "capability_name": "Top Trader Positioning",
+      "expected_surface": "top_trader_positioning",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "top_trader_positioning",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap258",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "top_trader_positioning.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "top_trader_positioning.feature_ref",
+          "type": "numeric",
+          "condition": "== 258"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.security_trust_data_layer.since_you_left_top3_258",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 259,
+      "capability_name": "Futures Basis Intelligence",
+      "expected_surface": "futures_basis_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch05",
+      "payload_root": "futures_basis_intelligence",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_futures_basis_term_structure_231",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 231"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_futures_basis_term_structure_231"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "futures_basis_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "futures_basis_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 231"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 231,
+      "canonical_spine": "batch05",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 260,
+      "capability_name": "Futures Volume Intelligence",
+      "expected_surface": "futures_volume_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch03",
+      "payload_root": "futures_volume_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap126",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 126"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch03"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch03_dedicated.py::_cap126"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "futures_volume_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "futures_volume_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 126"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 126,
+      "canonical_spine": "batch03",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 261,
+      "capability_name": "Futures CVD / Taker Flow",
+      "expected_surface": "futures_cvd_taker_flow",
+      "status": "REUSED-LINK",
+      "production_spine": "batch05",
+      "payload_root": "futures_cvd_taker_flow",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_cvd_intelligence_234",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 234"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_cvd_intelligence_234"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "futures_cvd_taker_flow.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "futures_cvd_taker_flow.feature_ref",
+          "type": "numeric",
+          "condition": "== 234"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 234,
+      "canonical_spine": "batch05",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 262,
+      "capability_name": "Options Open Interest",
+      "expected_surface": "options_open_interest",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "options_open_interest",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap262",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "options_open_interest.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "options_open_interest.feature_ref",
+          "type": "numeric",
+          "condition": "== 262"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.options_open_interest_262",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 263,
+      "capability_name": "Options Volume",
+      "expected_surface": "options_volume",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "options_volume",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap263",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "options_volume.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "options_volume.feature_ref",
+          "type": "numeric",
+          "condition": "== 263"
+        }
+      ],
+      "prebuild_classification": "PARTIAL_CANONICAL",
+      "build_decision": "Strangler \u2014 wrap module_map / partial backend in catalog-aligned surface",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.options_volume_263",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 264,
+      "capability_name": "Options IV / Skew",
+      "expected_surface": "options_iv_skew",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "options_iv_skew",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap264",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "options_iv_skew.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "options_iv_skew.feature_ref",
+          "type": "numeric",
+          "condition": "== 264"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.options_iv_skew_264",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 265,
+      "capability_name": "Max Pain / Gamma Context",
+      "expected_surface": "max_pain_gamma_context",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "max_pain_gamma_context",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap265",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "max_pain_gamma_context.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "max_pain_gamma_context.feature_ref",
+          "type": "numeric",
+          "condition": "== 265"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.max_pain_gamma_context_265",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 266,
+      "capability_name": "Spot Market Intelligence",
+      "expected_surface": "spot_market_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "spot_market_intelligence",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap266",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "spot_market_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "spot_market_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 266"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.spot_market_intelligence_266",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 267,
+      "capability_name": "Order Book / Market Depth",
+      "expected_surface": "order_book_market_depth",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "order_book_market_depth",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap267",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "order_book_market_depth.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "order_book_market_depth.feature_ref",
+          "type": "numeric",
+          "condition": "== 267"
+        }
+      ],
+      "prebuild_classification": "PARTIAL_CANONICAL",
+      "build_decision": "Strangler \u2014 wrap module_map / partial backend in catalog-aligned surface",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.order_book_market_depth_267",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 268,
+      "capability_name": "Historical Derivatives Data",
+      "expected_surface": "historical_derivatives_data",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "historical_derivatives_data",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap268",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "historical_derivatives_data.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "historical_derivatives_data.feature_ref",
+          "type": "numeric",
+          "condition": "== 268"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.historical_derivatives_data_268",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 269,
+      "capability_name": "Exchange Comparison",
+      "expected_surface": "exchange_comparison",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "exchange_comparison",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap269",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_comparison.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "exchange_comparison.feature_ref",
+          "type": "numeric",
+          "condition": "== 269"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.exchange_comparison_269",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 270,
+      "capability_name": "Liquidation Cascade Proximity",
+      "expected_surface": "liquidation_cascade_proximity",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "liquidation_cascade_proximity",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap270",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "liquidation_cascade_proximity.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "liquidation_cascade_proximity.feature_ref",
+          "type": "numeric",
+          "condition": "== 270"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.liquidation_cascade_proximity_270",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 271,
+      "capability_name": "Leverage Pressure Score",
+      "expected_surface": "leverage_pressure_score",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "leverage_pressure_score",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap271",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "leverage_pressure_score.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "leverage_pressure_score.feature_ref",
+          "type": "numeric",
+          "condition": "== 271"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.leverage_pressure_score_271",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 272,
+      "capability_name": "API Data Platform",
+      "expected_surface": "api_data_platform",
+      "status": "REUSED-LINK",
+      "production_spine": "batch05",
+      "payload_root": "api_data_platform",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_public_rest_api_247",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 247"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_public_rest_api_247"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "api_data_platform.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "api_data_platform.feature_ref",
+          "type": "numeric",
+          "condition": "== 247"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 247,
+      "canonical_spine": "batch05",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 273,
+      "capability_name": "Multi-Model Liquidation Comparison",
+      "expected_surface": "multi_model_liquidation_comparison",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "multi_model_liquidation_comparison",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap273",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "multi_model_liquidation_comparison.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "multi_model_liquidation_comparison.feature_ref",
+          "type": "numeric",
+          "condition": "== 273"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.multi_model_liquidation_comparison_273",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 274,
+      "capability_name": "Derivatives Alerts",
+      "expected_surface": "derivatives_alerts",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "derivatives_alerts",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap274",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "derivatives_alerts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "derivatives_alerts.feature_ref",
+          "type": "numeric",
+          "condition": "== 274"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.derivatives_alerts_status_274",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 275,
+      "capability_name": "Cross-Domain Decision Intelligence",
+      "expected_surface": "cross_domain_decision_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch02",
+      "payload_root": "cross_domain_decision_intelligence",
+      "binding_file": "cap646/batch02_production.py",
+      "binding_function": "cap_069",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 69"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch02"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch02_production.py::cap_069"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.alias_of",
+          "type": "numeric",
+          "condition": "== 251"
+        },
+        {
+          "field": "cross_domain_decision",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 69,
+      "canonical_spine": "batch02",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG",
+      "alias_of": 251
+    },
+    {
+      "capability_id": 276,
+      "capability_name": "Entity Resolution Engine",
+      "expected_surface": "entity_resolution_engine",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "entity_resolution_engine",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap276",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "entity_resolution_engine.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "entity_resolution_engine.feature_ref",
+          "type": "numeric",
+          "condition": "== 276"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.entity_resolution_engine_276",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 277,
+      "capability_name": "Address Labeling System",
+      "expected_surface": "address_labeling_system",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "address_labeling_system",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap277",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "address_labeling_system.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "address_labeling_system.feature_ref",
+          "type": "numeric",
+          "condition": "== 277"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.address_labeling_system_277",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 278,
+      "capability_name": "Entity Profiles",
+      "expected_surface": "entity_profiles",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "entity_profiles",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap278",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "entity_profiles.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "entity_profiles.feature_ref",
+          "type": "numeric",
+          "condition": "== 278"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.entity_profiles_278",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 279,
+      "capability_name": "Transaction Search",
+      "expected_surface": "transaction_search",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "transaction_search",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap279",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "transaction_search.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "transaction_search.feature_ref",
+          "type": "numeric",
+          "condition": "== 279"
+        }
+      ],
+      "prebuild_classification": "PARTIAL_CANONICAL",
+      "build_decision": "Strangler \u2014 wrap module_map / partial backend in catalog-aligned surface",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.pro_trader_layer.build_share_card_68",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 280,
+      "capability_name": "Portfolio Holdings",
+      "expected_surface": "portfolio_holdings",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "portfolio_holdings",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap280",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "portfolio_holdings.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "portfolio_holdings.feature_ref",
+          "type": "numeric",
+          "condition": "== 280"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.portfolio_holdings_280",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 281,
+      "capability_name": "Balance History",
+      "expected_surface": "balance_history",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "balance_history",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap281",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "balance_history.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "balance_history.feature_ref",
+          "type": "numeric",
+          "condition": "== 281"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.balance_history_281",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 282,
+      "capability_name": "Entity PnL",
+      "expected_surface": "entity_pnl",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "entity_pnl",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap282",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "entity_pnl.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "entity_pnl.feature_ref",
+          "type": "numeric",
+          "condition": "== 282"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.entity_pnl_282",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 283,
+      "capability_name": "Exchange Usage Intelligence",
+      "expected_surface": "exchange_usage_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "exchange_usage_intelligence",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap283",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_usage_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "exchange_usage_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 283"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.exchange_usage_intelligence_283",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 284,
+      "capability_name": "Top Counterparties",
+      "expected_surface": "top_counterparties",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "top_counterparties",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap284",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "top_counterparties.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "top_counterparties.feature_ref",
+          "type": "numeric",
+          "condition": "== 284"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.top_counterparties_284",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 285,
+      "capability_name": "Visualizer / Network Graph",
+      "expected_surface": "network_graph_visualizer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "network_graph_visualizer",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap285",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "network_graph_visualizer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "network_graph_visualizer.feature_ref",
+          "type": "numeric",
+          "condition": "== 285"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.network_graph_visualizer_285",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 286,
+      "capability_name": "Automated Trace / Path Finding",
+      "expected_surface": "automated_trace_path_finding",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "automated_trace_path_finding",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap286",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "automated_trace_path_finding.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "automated_trace_path_finding.feature_ref",
+          "type": "numeric",
+          "condition": "== 286"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.automated_trace_path_finding_286",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 287,
+      "capability_name": "Cross-Chain Trace",
+      "expected_surface": "cross_chain_trace",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "cross_chain_trace",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap287",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cross_chain_trace.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cross_chain_trace.feature_ref",
+          "type": "numeric",
+          "condition": "== 287"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.cross_chain_trace_287",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 288,
+      "capability_name": "Token Top Holders",
+      "expected_surface": "token_top_holders",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "token_top_holders",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap288",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_top_holders.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_top_holders.feature_ref",
+          "type": "numeric",
+          "condition": "== 288"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.correlation_mindshare.compute_mindshare_correlation_288",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 289,
+      "capability_name": "Token Exchange Flows",
+      "expected_surface": "token_exchange_flows",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "token_exchange_flows",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap289",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_exchange_flows.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_exchange_flows.feature_ref",
+          "type": "numeric",
+          "condition": "== 289"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.token_exchange_flows_289",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 290,
+      "capability_name": "Token Transaction Explorer",
+      "expected_surface": "token_transaction_explorer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "token_transaction_explorer",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap290",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_transaction_explorer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_transaction_explorer.feature_ref",
+          "type": "numeric",
+          "condition": "== 290"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.token_transaction_explorer_290",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 291,
+      "capability_name": "Custom Dashboards",
+      "expected_surface": "custom_dashboards",
+      "status": "REUSED-LINK",
+      "production_spine": "batch05",
+      "payload_root": "custom_dashboards",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_custom_dashboards_layouts_210",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 210"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_custom_dashboards_layouts_210"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "custom_dashboards.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "custom_dashboards.feature_ref",
+          "type": "numeric",
+          "condition": "== 210"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 210,
+      "canonical_spine": "batch05",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 292,
+      "capability_name": "Custom Alerts",
+      "expected_surface": "custom_alerts",
+      "status": "REUSED-LINK",
+      "production_spine": "batch05",
+      "payload_root": "custom_alerts",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_anomaly_detection_alerts_213",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "catalog_link.canonical_capability_id",
+          "type": "numeric",
+          "condition": "== 213"
+        },
+        {
+          "field": "catalog_link.canonical_spine",
+          "type": "enum",
+          "condition": "== batch05"
+        },
+        {
+          "field": "catalog_link.binding",
+          "type": "enum",
+          "condition": "== cap646/batch05_strangler_spine.py::build_anomaly_detection_alerts_213"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "closure_status",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "custom_alerts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "custom_alerts.feature_ref",
+          "type": "numeric",
+          "condition": "== 213"
+        }
+      ],
+      "prebuild_classification": "DUPLICATE_ALIAS",
+      "build_decision": "Strangler facade \u2014 REUSED-LINK to canonical spine; no parallel implementation",
+      "time_decision": "Migrate",
+      "canonical_capability_id": 213,
+      "canonical_spine": "batch05",
+      "source": "cap646/batch06_dedicated.py EXPECTED_SURFACE + _REUSED_LINK_CATALOG"
+    },
+    {
+      "capability_id": 293,
+      "capability_name": "Private Labels",
+      "expected_surface": "private_labels",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "private_labels",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap293",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "private_labels.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "private_labels.feature_ref",
+          "type": "numeric",
+          "condition": "== 293"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.private_labels_status_293",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 294,
+      "capability_name": "Archive / Historical Portfolio Snapshot",
+      "expected_surface": "portfolio_archive_snapshot",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "portfolio_archive_snapshot",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap294",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "portfolio_archive_snapshot.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "portfolio_archive_snapshot.feature_ref",
+          "type": "numeric",
+          "condition": "== 294"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.portfolio_archive_snapshot_294",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 295,
+      "capability_name": "AI Market Insights",
+      "expected_surface": "ai_market_insights",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "ai_market_insights",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap295",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "ai_market_insights.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "ai_market_insights.feature_ref",
+          "type": "numeric",
+          "condition": "== 295"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.ai_market_insights_295",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 296,
+      "capability_name": "Whale Movement Intelligence",
+      "expected_surface": "whale_movement_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "whale_movement_intelligence",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap296",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "whale_movement_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "whale_movement_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 296"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.whale_movement_intelligence_296",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 297,
+      "capability_name": "Fraud / Suspicious Activity Intelligence",
+      "expected_surface": "fraud_suspicious_activity",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "fraud_suspicious_activity",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap297",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "fraud_suspicious_activity.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "fraud_suspicious_activity.feature_ref",
+          "type": "numeric",
+          "condition": "== 297"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.fraud_suspicious_activity_297",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 298,
+      "capability_name": "API On-Chain Intelligence",
+      "expected_surface": "api_onchain_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "api_onchain_intelligence",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap298",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "api_onchain_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "api_onchain_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 298"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.api_onchain_intelligence_298",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 299,
+      "capability_name": "Cross-Entity Decision Intelligence",
+      "expected_surface": "cross_entity_decision_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "cross_entity_decision_intelligence",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap299",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cross_entity_decision_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cross_entity_decision_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 299"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.news_classifier.classify_headlines",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 300,
+      "capability_name": "Advanced Multi-Asset Charting",
+      "expected_surface": "advanced_multi_asset_charting",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "payload_root": "advanced_multi_asset_charting",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap300",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "advanced_multi_asset_charting.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "advanced_multi_asset_charting.feature_ref",
+          "type": "numeric",
+          "condition": "== 300"
+        }
+      ],
+      "prebuild_classification": "BROWNFIELD",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "time_decision": "Invest",
+      "hero_underlying": "bd_platform.derivatives_onchain_intelligence_layer.run_derivatives_onchain_intelligence_e2e_262_300",
+      "source": "catalog+EXPECTED_SURFACE \u2014 written before probe (ISO 29148)"
+    }
+  ]
+}
