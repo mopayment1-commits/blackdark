@@ -1,14 +1,26 @@
 {
   "tested_source_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
-  "regression_head": "b0e2a90e7fd2d7ce108f3b9fa7a082d9119b3d59",
+  "regression_head": "942df6bb7c473e28a40e8705debd577cee65460b",
   "artifact_generation_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
   "artifact_embedded_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
   "final_freeze_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
   "source_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
   "repository_head_at_generation": "cb23d683d3509acf27c2fb5382033e58f5c60694",
-  "artifact_container_commit": "63ebead9aeddab517191f4896c0401d5785ad556",
-  "current_repository_head": "63ebead9aeddab517191f4896c0401d5785ad556",
+  "artifact_container_commit": "942df6bb7c473e28a40e8705debd577cee65460b",
+  "current_repository_head": "942df6bb7c473e28a40e8705debd577cee65460b",
   "commits_since_tested_source": [
+    {
+      "commit": "942df6bb7c473e28a40e8705debd577cee65460b",
+      "subject": "docs(batch05): record freeze/HEAD ancestry after stamp",
+      "files": [
+        "docs/BATCH05_FREEZE_HEAD_CONSISTENCY.json"
+      ],
+      "path_classes": [
+        "docs"
+      ],
+      "role": "docs_stamp",
+      "production_runtime_files": []
+    },
     {
       "commit": "63ebead9aeddab517191f4896c0401d5785ad556",
       "subject": "docs(batch05): stamp freeze at cb23d68 after httpx2 TestClient fix",
