@@ -1,0 +1,279 @@
+{
+  "generated_at": "2026-09-05T13:46:12.367722+00:00",
+  "git_commit": "a3bffc04574c07d574b91c9dd4b8a9efe9bf903c",
+  "source": "sonarcloud_api",
+  "project_key": "mopayment1-commits_blackdark",
+  "organization": "blackdark",
+  "dashboard": "https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark",
+  "sonar_token_in_shell": false,
+  "quality_gate_status": "OK",
+  "new_coverage_pct": 82.9,
+  "new_reliability_rating": "A",
+  "new_security_rating": "A",
+  "new_maintainability_rating": "A",
+  "chosen_analysis": {
+    "label": "pr_366",
+    "quality_gate_status": "OK",
+    "new_coverage_pct": 82.9,
+    "new_reliability_rating": "A",
+    "new_security_rating": "A",
+    "new_maintainability_rating": "A",
+    "new_duplicated_lines_density": "0.5",
+    "conditions": [
+      {
+        "status": "OK",
+        "metricKey": "new_reliability_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_security_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_maintainability_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_coverage",
+        "comparator": "LT",
+        "periodIndex": 1,
+        "errorThreshold": "80",
+        "actualValue": "82.9"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_duplicated_lines_density",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "3",
+        "actualValue": "0.5"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_security_hotspots_reviewed",
+        "comparator": "LT",
+        "periodIndex": 1,
+        "errorThreshold": "100",
+        "actualValue": "100.0"
+      }
+    ],
+    "ignored_conditions": false,
+    "api_url": "https://sonarcloud.io/api/qualitygates/project_status?projectKey=mopayment1-commits_blackdark&pullRequest=366",
+    "pull_request": 366,
+    "analyzed_head": "55da154faefc9e3745c28c83bad1a792ca41b326",
+    "ci_run": "https://github.com/mopayment1-commits/blackdark/actions/runs/33933900759",
+    "ci_job": "SonarCloud CI Scanner",
+    "ci_conclusion": "success",
+    "ancestor_of_recovery_head": true,
+    "production_py_unchanged_since_analysis": true
+  },
+  "recovery_pr_368": {
+    "label": "pr_368",
+    "quality_gate_status": "OK",
+    "new_coverage_pct": null,
+    "new_reliability_rating": "A",
+    "new_security_rating": "A",
+    "new_maintainability_rating": "A",
+    "new_duplicated_lines_density": "0.0",
+    "conditions": [
+      {
+        "status": "OK",
+        "metricKey": "new_reliability_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_security_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_maintainability_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_duplicated_lines_density",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "3",
+        "actualValue": "0.0"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_security_hotspots_reviewed",
+        "comparator": "LT",
+        "periodIndex": 1,
+        "errorThreshold": "100",
+        "actualValue": "100.0"
+      }
+    ],
+    "ignored_conditions": false,
+    "api_url": "https://sonarcloud.io/api/qualitygates/project_status?projectKey=mopayment1-commits_blackdark&pullRequest=368",
+    "pull_request": 368,
+    "analyzed_head": "b836d0c7212ab53ae82ba7f13a6358e8adf49c10",
+    "ci_run": "https://github.com/mopayment1-commits/blackdark/actions/runs/33969073479",
+    "ci_job": "SonarCloud CI Scanner",
+    "ci_conclusion": "success",
+    "base": "cursor/batch05-201-250-e85e",
+    "new_coverage_condition": "ABSENT \u2014 PR new-code vs Batch05 base is docs/tests/scripts; coverage gate not applied"
+  },
+  "all_analyses": [
+    {
+      "label": "pr_366",
+      "quality_gate_status": "OK",
+      "new_coverage_pct": 82.9,
+      "new_reliability_rating": "A",
+      "new_security_rating": "A",
+      "new_maintainability_rating": "A",
+      "new_duplicated_lines_density": "0.5",
+      "conditions": [
+        {
+          "status": "OK",
+          "metricKey": "new_reliability_rating",
+          "comparator": "GT",
+          "periodIndex": 1,
+          "errorThreshold": "1",
+          "actualValue": "1"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_security_rating",
+          "comparator": "GT",
+          "periodIndex": 1,
+          "errorThreshold": "1",
+          "actualValue": "1"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_maintainability_rating",
+          "comparator": "GT",
+          "periodIndex": 1,
+          "errorThreshold": "1",
+          "actualValue": "1"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_coverage",
+          "comparator": "LT",
+          "periodIndex": 1,
+          "errorThreshold": "80",
+          "actualValue": "82.9"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_duplicated_lines_density",
+          "comparator": "GT",
+          "periodIndex": 1,
+          "errorThreshold": "3",
+          "actualValue": "0.5"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_security_hotspots_reviewed",
+          "comparator": "LT",
+          "periodIndex": 1,
+          "errorThreshold": "100",
+          "actualValue": "100.0"
+        }
+      ],
+      "ignored_conditions": false,
+      "api_url": "https://sonarcloud.io/api/qualitygates/project_status?projectKey=mopayment1-commits_blackdark&pullRequest=366",
+      "pull_request": 366,
+      "analyzed_head": "55da154faefc9e3745c28c83bad1a792ca41b326",
+      "ci_run": "https://github.com/mopayment1-commits/blackdark/actions/runs/33933900759",
+      "ci_job": "SonarCloud CI Scanner",
+      "ci_conclusion": "success",
+      "ancestor_of_recovery_head": true,
+      "production_py_unchanged_since_analysis": true
+    },
+    {
+      "label": "pr_368",
+      "quality_gate_status": "OK",
+      "new_coverage_pct": null,
+      "new_reliability_rating": "A",
+      "new_security_rating": "A",
+      "new_maintainability_rating": "A",
+      "new_duplicated_lines_density": "0.0",
+      "conditions": [
+        {
+          "status": "OK",
+          "metricKey": "new_reliability_rating",
+          "comparator": "GT",
+          "periodIndex": 1,
+          "errorThreshold": "1",
+          "actualValue": "1"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_security_rating",
+          "comparator": "GT",
+          "periodIndex": 1,
+          "errorThreshold": "1",
+          "actualValue": "1"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_maintainability_rating",
+          "comparator": "GT",
+          "periodIndex": 1,
+          "errorThreshold": "1",
+          "actualValue": "1"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_duplicated_lines_density",
+          "comparator": "GT",
+          "periodIndex": 1,
+          "errorThreshold": "3",
+          "actualValue": "0.0"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_security_hotspots_reviewed",
+          "comparator": "LT",
+          "periodIndex": 1,
+          "errorThreshold": "100",
+          "actualValue": "100.0"
+        }
+      ],
+      "ignored_conditions": false,
+      "api_url": "https://sonarcloud.io/api/qualitygates/project_status?projectKey=mopayment1-commits_blackdark&pullRequest=368",
+      "pull_request": 368,
+      "analyzed_head": "b836d0c7212ab53ae82ba7f13a6358e8adf49c10",
+      "ci_run": "https://github.com/mopayment1-commits/blackdark/actions/runs/33969073479",
+      "ci_job": "SonarCloud CI Scanner",
+      "ci_conclusion": "success",
+      "base": "cursor/batch05-201-250-e85e",
+      "new_coverage_condition": "ABSENT \u2014 PR new-code vs Batch05 base is docs/tests/scripts; coverage gate not applied"
+    }
+  ],
+  "api_errors": [
+    "branch_recovery: HTTP 404",
+    "branch_reconciliation: HTTP 404"
+  ],
+  "fabricated": false,
+  "waived": false,
+  "note": "Quality Gate recorded from SonarCloud API. Primary = PR #366 (vs main) because it is the production new-code analysis with new_coverage 82.9% and reliability/security/maintainability A. PR #368 SonarCloud CI Scanner also succeeded (QG OK) on the recovery delta; that PR has no new_coverage condition because it does not add production .py vs Batch05 base."
+}

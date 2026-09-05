@@ -208,7 +208,18 @@
       },
       {
         "category": "REUSED-LINK / duplicate",
-        "status": "6 REUSED-LINK + 1 DUPLICATE_DELEGATION (#212) / 0 conflicts"
+        "status": "6 CLOSED_REUSED_LINK (206,214,226,228,232,245) + 1 CLOSED_DUPLICATE_DELEGATION (212) / 0 double-count; #212 is not REUSED-LINK",
+        "reused_link_ids": [
+          206,
+          214,
+          226,
+          228,
+          232,
+          245
+        ],
+        "duplicate_delegation_ids": [
+          212
+        ]
       },
       {
         "category": "Security material paths",

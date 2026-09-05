@@ -19,6 +19,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from cap646.batch05_dedicated import BATCH05_REUSED_LINK_IDS, EXPECTED_SURFACE  # noqa: E402
+from scripts.batch05_classification_partition import (  # noqa: E402
+    CLOSED_DUPLICATE_DELEGATION_IDS,
+    CLOSED_REUSED_LINK_IDS,
+    partition_from_rows,
+)
 
 CATALOG = ROOT / "docs/cap646/CAP646_CATALOG.json"
 SEMANTIC = ROOT / "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json"
@@ -263,7 +268,13 @@ LOCAL_COMPLETE_QUEUE = [
     },
     {
         "category": "REUSED-LINK / duplicate",
-        "status": f"{len(BATCH05_REUSED_LINK_IDS)} REUSED-LINK + 1 DUPLICATE_DELEGATION (#212) / 0 conflicts",
+        "status": (
+            "6 CLOSED_REUSED_LINK (206,214,226,228,232,245) + "
+            "1 CLOSED_DUPLICATE_DELEGATION (212) / 0 double-count; "
+            "#212 is not REUSED-LINK"
+        ),
+        "reused_link_ids": sorted(CLOSED_REUSED_LINK_IDS),
+        "duplicate_delegation_ids": sorted(CLOSED_DUPLICATE_DELEGATION_IDS),
     },
     {
         "category": "Security material paths",
@@ -1058,6 +1069,7 @@ def main() -> None:
             "production_aligned": 0,
         },
         "residual_7_ids": sorted(RESIDUAL_7),
+        "classification": partition_from_rows(matrix_rows),
         "rows": matrix_rows,
     }
     write_json(ROOT / "docs/BATCH05_PER_ID_FINAL_MATRIX_201_250.json", matrix_doc)

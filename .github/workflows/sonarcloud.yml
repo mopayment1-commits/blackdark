@@ -62,6 +62,7 @@ jobs:
             tests/test_subscription_dialect_safety.py \
             tests/test_universe_rollout.py \
             tests/test_sonar_new_coverage_closure.py \
+            tests/test_starlette_testclient_httpx2.py \
             tests/test_zero_tolerance.py \
             tests/test_viral_capacity.py \
             tests/test_dec_motion_and_oqs_weights.py \
