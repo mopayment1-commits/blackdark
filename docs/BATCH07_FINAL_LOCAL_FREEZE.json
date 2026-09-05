@@ -1,10 +1,10 @@
 {
   "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-05T23:36:13Z",
+  "generated_at_utc": "2026-09-05T23:38:04Z",
   "identity": {
     "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
-    "final_freeze_head": "9ab198906e96c426440d37109359ae59b2c8bb7a",
+    "final_freeze_head": "3ad4437740550a14f1346c43e5ac586e0ad97fd9",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null
@@ -15,8 +15,8 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..9ab198906e96c426440d37109359ae59b2c8bb7a",
-    "files_changed_total": 21,
+    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..3ad4437740550a14f1346c43e5ac586e0ad97fd9",
+    "files_changed_total": 25,
     "production_runtime_drift": 0,
     "production_runtime_files": [],
     "test_logic_drift": 0,
@@ -25,15 +25,17 @@
     "dependency_files": [],
     "workflow_logic_drift": 0,
     "workflow_files": [],
-    "documentation_evidence_drift": 20,
+    "documentation_evidence_drift": 25,
     "documentation_files": [
       "docs/BATCH07_12207_OPERATION_READINESS_PACKAGE.json",
       "docs/BATCH07_12207_TRANSITION_PACKAGE.json",
       "docs/BATCH07_12207_VALIDATION_PACKAGE.json",
       "docs/BATCH07_BASELINE.json",
+      "docs/BATCH07_COLLECTIVE_REVIEW_LOCAL.json",
       "docs/BATCH07_CROSS_BATCH_REGRESSION.json",
       "docs/BATCH07_DATA_QUALITY_INTEGRITY.json",
       "docs/BATCH07_DUPLICATE_CANONICAL_ANALYSIS.json",
+      "docs/BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
       "docs/BATCH07_FINAL_LOCAL_FREEZE.json",
       "docs/BATCH07_G7_PRE_ASSURANCE_PACKAGE.json",
       "docs/BATCH07_OBSERVABILITY_READINESS.json",
@@ -47,6 +49,11 @@
       "docs/BATCH07_SIX_HEROES_BINDING.json",
       "docs/BATCH07_SRE_PRR_PACKAGE.json",
       "docs/BATCH07_STATUS_QUEUES.json"
+    ],
+    "institutional_script_files": [
+      "scripts/batch07_reconciliation.py",
+      "scripts/generate_batch07_institutional_package.py",
+      "scripts/reconcile_batch07_institutional.py"
     ],
     "frozen_source_head_is_semantically_equivalent_to_current_head": true,
     "note": "Drift counts are file-level changes between canonical tested source and final HEAD. documentation_evidence_drift includes institutional JSON artifacts only when docs/ changed.",

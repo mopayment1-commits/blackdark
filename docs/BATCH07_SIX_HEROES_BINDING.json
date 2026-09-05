@@ -11,8 +11,8 @@
     "hero_binding_conflicts": 0
   },
   "artifact": "BATCH07_SIX_HEROES_BINDING",
-  "generated_at": "2026-09-05T23:35:22.029021+00:00",
-  "git_commit": "9ab198906e96c426440d37109359ae59b2c8bb7a",
+  "generated_at": "2026-09-05T23:37:17.352079+00:00",
+  "git_commit": "3ad4437740550a14f1346c43e5ac586e0ad97fd9",
   "scope": "Six Heroes binding classification — Batch07 301-350 (post duplicate reconciliation)",
   "summary": {
     "NOT_HERO_RELEVANT": 49,

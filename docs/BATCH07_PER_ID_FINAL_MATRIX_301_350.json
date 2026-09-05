@@ -8,8 +8,8 @@
     "g0_g5_pass_engineering": "50/50"
   },
   "artifact": "BATCH07_PER_ID_FINAL_MATRIX_301_350",
-  "generated_at": "2026-09-05T23:35:22.028794+00:00",
-  "git_commit": "9ab198906e96c426440d37109359ae59b2c8bb7a",
+  "generated_at": "2026-09-05T23:37:17.351847+00:00",
+  "git_commit": "3ad4437740550a14f1346c43e5ac586e0ad97fd9",
   "scope": "Per-ID final matrix — G0-G5 engineering closure",
   "gate_counts": {
     "G0_materiality": {
