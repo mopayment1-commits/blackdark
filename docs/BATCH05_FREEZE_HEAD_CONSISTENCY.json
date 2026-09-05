@@ -1,0 +1,28 @@
+{
+  "tested_source_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+  "regression_head": "b0e2a90e7fd2d7ce108f3b9fa7a082d9119b3d59",
+  "artifact_generation_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+  "artifact_embedded_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+  "final_freeze_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+  "source_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+  "repository_head_at_generation": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+  "artifact_container_commit": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+  "current_repository_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+  "commits_since_tested_source": [],
+  "production_runtime_drift_files": [],
+  "production_runtime_drift_count": 0,
+  "frozen_source_head_is_semantically_equivalent_to_current_head": true,
+  "freeze_flags": {
+    "BATCH05_FINAL_LOCAL_FREEZE": true,
+    "LOCAL_GOVERNANCE_COMPLETE": true,
+    "known_local_deficiencies": []
+  },
+  "roles": {
+    "tested_source_head": "Commit whose code/deps were executed for local assurance",
+    "regression_head": "Commit recorded in BATCH05_CROSS_BATCH_REGRESSION.json",
+    "artifact_generation_head": "HEAD when freeze JSON was generated",
+    "artifact_embedded_head": "HEAD embedded inside freeze payload at generation",
+    "artifact_container_commit": "Commit that currently contains the freeze file (repository HEAD)",
+    "current_repository_head": "git rev-parse HEAD now"
+  }
+}

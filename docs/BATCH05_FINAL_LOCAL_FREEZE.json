@@ -1,13 +1,15 @@
 {
-  "generated_at": "2026-09-05T13:47:16.780680+00:00",
-  "git_commit": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
+  "generated_at": "2026-09-05T14:04:33.140127+00:00",
+  "git_commit": "cb23d683d3509acf27c2fb5382033e58f5c60694",
   "freeze_heads": {
-    "repository_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
-    "artifact_generation_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
-    "artifact_embedded_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
-    "final_freeze_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
-    "source_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
-    "invariant": "all five head fields equal at generation time; source_head = tested evidence commit"
+    "repository_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+    "artifact_generation_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+    "artifact_embedded_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+    "final_freeze_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+    "source_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+    "tested_source_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+    "regression_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
+    "invariant": "tested_source_head = executed evidence commit; generation/embedded/repository heads equal at generation; artifact_container_commit is later HEAD if a docs-only stamp follows"
   },
   "BATCH05_FINAL_LOCAL_FREEZE": true,
   "LOCAL_GOVERNANCE_COMPLETE": true,
@@ -1533,5 +1535,16 @@
     "docs/BATCH05_V2_ASSURANCE_PACKAGE.json",
     "docs/BATCH05_SONARCLOUD_ACTUAL_QG.json",
     "docs/BATCH05_S6466_PRODUCTION_FILE_TRACEABILITY.json"
+  ],
+  "warnings_local_solvable": [],
+  "warnings_remaining": [
+    {
+      "category": "DeprecationWarning",
+      "location": "joblib/numpy_pickle.py:207",
+      "message": "Setting the shape on a NumPy array has been deprecated in NumPy 2.5.",
+      "triggered_by": "tests/test_pentagonal_hero_binding.py::test_local_hero_endpoints",
+      "classification": "UPSTREAM_NOT_LOCALLY_SOLVABLE",
+      "rationale": "Emitted inside joblib while unpickling existing model artifacts; not a project TestClient/httpx stack issue. No warning filter applied."
+    }
   ]
 }

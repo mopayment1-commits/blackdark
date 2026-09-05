@@ -1,6 +1,6 @@
 # Batch05 Final Local Freeze
 
-**Commit:** `8becf8ac` · **Status:** `LOCAL_GOVERNANCE_COMPLETE / PASS_ENGINEERING / BLOCKED_EXTERNAL_FOR_RAILWAY_AND_INDEPENDENT_REVIEW`
+**Commit:** `cb23d683` · **Status:** `LOCAL_GOVERNANCE_COMPLETE / PASS_ENGINEERING / BLOCKED_EXTERNAL_FOR_RAILWAY_AND_INDEPENDENT_REVIEW`
 
 - G0–G4: 50/50 each
 - Semantic oracle: 50/50
@@ -9,3 +9,5 @@
 - Known local deficiencies: **0**
 - SonarCloud QG: `OK`
 - Classification: 43 STRANGLER / 6 CLOSED_REUSED_LINK / 1 CLOSED_DUPLICATE_DELEGATION
+- TestClient stack: `httpx2==2.12.0` (StarletteDeprecationWarning closed)
+- warnings_local_solvable: **[]**
