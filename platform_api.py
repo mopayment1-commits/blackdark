@@ -885,3 +885,310 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
     ]
     trained = train_ppo_policy(samples, epochs=30)
     return {"status": policy_status(), "trained": trained}
+
+
+# ─── Sprint-0 Ops Foundation (#1059–#1063) ───────────────────────────────────
+
+
+@router.get("/internal/infrastructure/uptime/status")
+async def uptime_monitoring_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_uptime_monitoring import uptime_monitoring_status_1059
+
+    return uptime_monitoring_status_1059()
+
+
+@router.get("/internal/infrastructure/uptime/status-page")
+async def uptime_status_page_route():
+    from bd_platform.infrastructure_uptime_monitoring import build_public_status_page_1059
+
+    return build_public_status_page_1059()
+
+
+@router.post("/internal/infrastructure/uptime/probe")
+async def uptime_probe_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_uptime_monitoring import record_external_probe_1059
+
+    return record_external_probe_1059(
+        service=data.get("service", "oracle_api"),
+        region=data.get("region", "eu-west-1"),
+        ok=bool(data.get("ok", True)),
+        latency_ms=float(data.get("latency_ms", 0)),
+        path=data.get("path", ""),
+    )
+
+
+@router.get("/internal/infrastructure/uptime/e2e")
+async def uptime_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_uptime_monitoring import run_uptime_monitoring_e2e_1059
+
+    return run_uptime_monitoring_e2e_1059()
+
+
+@router.get("/internal/infrastructure/logging/status")
+async def centralized_logging_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_centralized_logging import centralized_logging_status_1060
+
+    return centralized_logging_status_1060()
+
+
+@router.post("/internal/infrastructure/logging/ingest")
+async def centralized_logging_ingest_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_centralized_logging import ingest_log_entry_1060
+
+    return ingest_log_entry_1060(
+        service=data.get("service", "api"),
+        level=data.get("level", "INFO"),
+        message=data.get("message", ""),
+        trace_id=data.get("trace_id", ""),
+        user_id=data.get("user_id", ""),
+        tenant_id=data.get("tenant_id", "platform"),
+        metadata=data.get("metadata"),
+    )
+
+
+@router.get("/internal/infrastructure/logging/search")
+async def centralized_logging_search_route(
+    query: str = Query(""),
+    service: str = Query(""),
+    trace_id: str = Query(""),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_centralized_logging import search_logs_1060
+
+    return search_logs_1060(query=query, service=service, trace_id=trace_id)
+
+
+@router.get("/internal/infrastructure/logging/e2e")
+async def centralized_logging_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_centralized_logging import run_centralized_logging_e2e_1060
+
+    return run_centralized_logging_e2e_1060()
+
+
+@router.get("/internal/infrastructure/apm/status")
+async def apm_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_apm_tracing import apm_tracing_status_1061
+
+    return apm_tracing_status_1061()
+
+
+@router.get("/internal/infrastructure/apm/dashboard")
+async def apm_dashboard_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_apm_tracing import build_apm_dashboard_1061
+
+    return build_apm_dashboard_1061()
+
+
+@router.get("/internal/infrastructure/apm/e2e")
+async def apm_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_apm_tracing import run_apm_tracing_e2e_1061
+
+    return run_apm_tracing_e2e_1061()
+
+
+@router.get("/internal/infrastructure/watchdog/status")
+async def watchdog_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_self_healing_watchdog import self_healing_status_1062
+
+    return self_healing_status_1062()
+
+
+@router.post("/internal/infrastructure/watchdog/restart")
+async def watchdog_restart_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_self_healing_watchdog import execute_watchdog_restart_1062
+
+    return execute_watchdog_restart_1062(
+        service=data.get("service", "oracle_api"),
+        trigger=data.get("trigger", "process_exit_crash"),
+    )
+
+
+@router.get("/internal/infrastructure/watchdog/e2e")
+async def watchdog_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_self_healing_watchdog import run_self_healing_e2e_1062
+
+    return run_self_healing_e2e_1062()
+
+
+@router.get("/internal/infrastructure/explainability/status")
+async def explainability_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.explainability_policy import explainability_policy_status_1063
+
+    return explainability_policy_status_1063()
+
+
+@router.post("/internal/infrastructure/explainability/validate")
+async def explainability_validate_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.explainability_policy import validate_explanation_present_1063
+
+    return validate_explanation_present_1063(data.get("payload") or data, output_type=data.get("output_type", "insight"))
+
+
+@router.get("/internal/infrastructure/explainability/e2e")
+async def explainability_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.explainability_policy import run_explainability_e2e_1063
+
+    return run_explainability_e2e_1063()
+
+
+@router.get("/internal/infrastructure/ops-foundation/e2e")
+async def ops_foundation_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.explainability_policy import run_explainability_e2e_1063
+    from bd_platform.infrastructure_apm_tracing import run_apm_tracing_e2e_1061
+    from bd_platform.infrastructure_centralized_logging import run_centralized_logging_e2e_1060
+    from bd_platform.infrastructure_self_healing_watchdog import run_self_healing_e2e_1062
+    from bd_platform.infrastructure_uptime_monitoring import run_uptime_monitoring_e2e_1059
+
+    results = {
+        "uptime_1059": run_uptime_monitoring_e2e_1059(),
+        "logging_1060": run_centralized_logging_e2e_1060(),
+        "apm_1061": run_apm_tracing_e2e_1061(),
+        "watchdog_1062": run_self_healing_e2e_1062(),
+        "explainability_1063": run_explainability_e2e_1063(),
+    }
+    all_passed = all(r.get("all_passed") for r in results.values())
+    return {"ok": all_passed, "all_passed": all_passed, "modules": results}
+
+
+# ─── Trust Core (#1064–#1068, #1021, #1018) ───────────────────────────────────
+
+
+@router.get("/trust/falsifiability/status")
+async def falsifiability_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.falsifiability_policy import falsifiability_policy_status_1064
+
+    return falsifiability_policy_status_1064()
+
+
+@router.post("/trust/falsifiability/validate")
+async def falsifiability_validate_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.falsifiability_policy import validate_falsification_present_1064
+
+    return validate_falsification_present_1064(data.get("payload") or data, output_type=data.get("output_type", "insight"))
+
+
+@router.get("/trust/falsifiability/e2e")
+async def falsifiability_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.falsifiability_policy import run_falsifiability_e2e_1064
+
+    return run_falsifiability_e2e_1064()
+
+
+@router.get("/trust/ledger/status")
+async def public_ledger_status_route():
+    from bd_platform.public_accuracy_ledger import public_accuracy_ledger_status_1065
+
+    return public_accuracy_ledger_status_1065()
+
+
+@router.get("/trust/ledger/export")
+async def public_ledger_export_route(fmt: str = Query("json")):
+    from bd_platform.public_accuracy_ledger import export_ledger_1065
+
+    return export_ledger_1065(fmt=fmt)
+
+
+@router.get("/trust/ledger/e2e")
+async def public_ledger_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.public_accuracy_ledger import run_public_ledger_e2e_1065
+
+    return run_public_ledger_e2e_1065()
+
+
+@router.get("/trust/timestamping/status")
+async def timestamping_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.cryptographic_timestamping import cryptographic_timestamping_status_1066
+
+    return cryptographic_timestamping_status_1066()
+
+
+@router.get("/trust/timestamping/verify")
+async def timestamping_verify_route(
+    prediction_hash: str = Query(...),
+    timestamped_at: str = Query(...),
+    platform_signature: str = Query(...),
+    merkle_root: str = Query(""),
+    anchor_tx: str = Query(""),
+):
+    from bd_platform.cryptographic_timestamping import verify_prediction_timestamp_1066
+
+    return verify_prediction_timestamp_1066(
+        prediction_hash=prediction_hash,
+        timestamped_at=timestamped_at,
+        platform_signature=platform_signature,
+        merkle_root=merkle_root,
+        anchor_tx=anchor_tx,
+    )
+
+
+@router.get("/trust/timestamping/e2e")
+async def timestamping_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.cryptographic_timestamping import run_timestamping_e2e_1066
+
+    return run_timestamping_e2e_1066()
+
+
+@router.get("/trust/epistemic/status")
+async def epistemic_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.epistemic_humility_gate import epistemic_humility_status_1021
+
+    return epistemic_humility_status_1021()
+
+
+@router.post("/trust/epistemic/evaluate")
+async def epistemic_evaluate_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.epistemic_humility_gate import evaluate_epistemic_gate_1021
+
+    return evaluate_epistemic_gate_1021(
+        facts=data.get("facts"),
+        confidence_score=float(data.get("confidence_score", 7.0)),
+        sample_size=int(data.get("sample_size", 50)),
+        falsification_met=bool(data.get("falsification_met", False)),
+    )
+
+
+@router.get("/trust/epistemic/e2e")
+async def epistemic_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.epistemic_humility_gate import run_epistemic_gate_e2e_1021
+
+    return run_epistemic_gate_e2e_1021()
+
+
+@router.get("/trust/legal/status")
+async def legal_status_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import legal_framework_status_1018
+
+    return legal_framework_status_1018()
+
+
+@router.post("/trust/legal/scan")
+async def legal_scan_route(data: dict = Body(default={}), _admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import scan_forbidden_language_1018
+
+    return scan_forbidden_language_1018(data.get("text", ""))
+
+
+@router.get("/trust/legal/e2e")
+async def legal_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import run_legal_framework_e2e_1018
+
+    return run_legal_framework_e2e_1018()
+
+
+@router.get("/trust/core/e2e")
+async def trust_core_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.cryptographic_timestamping import run_timestamping_e2e_1066
+    from bd_platform.epistemic_humility_gate import run_epistemic_gate_e2e_1021
+    from bd_platform.falsifiability_policy import run_falsifiability_e2e_1064
+    from bd_platform.legal_framework_cross_cutting import run_legal_framework_e2e_1018
+    from bd_platform.public_accuracy_ledger import run_public_ledger_e2e_1065
+
+    results = {
+        "falsifiability_1064": run_falsifiability_e2e_1064(),
+        "public_ledger_1065": run_public_ledger_e2e_1065(),
+        "timestamping_1066": run_timestamping_e2e_1066(),
+        "epistemic_1021": run_epistemic_gate_e2e_1021(),
+        "legal_1018": run_legal_framework_e2e_1018(),
+    }
+    all_passed = all(r.get("all_passed") for r in results.values())
+    return {"ok": all_passed, "all_passed": all_passed, "modules": results}

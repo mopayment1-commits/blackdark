@@ -1846,6 +1846,40 @@ async def public_accuracy_ledger_alias():
     return RedirectResponse(url=PATH_ORACLE_ACCURACY, status_code=307)
 
 
+@app.get("/trust/ledger")
+@app.get("/api/trust/ledger")
+async def trust_public_accuracy_ledger(
+    errors_first: bool = True,
+    limit: int = 10,
+    asset: str = "",
+    signal_type: str = "",
+    methodology_version: str = "",
+):
+    """#1065 Public Accuracy Ledger — no authentication required for read."""
+    from bd_platform.public_accuracy_ledger import (
+        build_public_ledger_view_1065,
+        feed_from_internal_ledger_987,
+    )
+
+    feed_from_internal_ledger_987()
+    return build_public_ledger_view_1065(
+        errors_first=errors_first,
+        limit=limit,
+        asset=asset,
+        signal_type=signal_type,
+        methodology_version=methodology_version,
+    )
+
+
+@app.get("/api/trust/ledger/export")
+async def trust_public_accuracy_ledger_export(fmt: str = "json"):
+    """#1065 third-party downloadable ledger with SHA-256 checksum."""
+    from bd_platform.public_accuracy_ledger import export_ledger_1065, feed_from_internal_ledger_987
+
+    feed_from_internal_ledger_987()
+    return export_ledger_1065(fmt=fmt)
+
+
 @app.get("/docs", response_class=HTMLResponse)
 async def public_developer_docs_page(request: Request):
     """Limited public developer docs (evidence/read APIs) — not full execution surface."""
