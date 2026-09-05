@@ -76,7 +76,14 @@ def verify_totp(secret: str, code: str, *, valid_window: int = 1) -> bool:
     return bool(pyotp.TOTP(secret).verify(cleaned, valid_window=valid_window))
 
 
-def generate_recovery_codes(n: int = 8) -> list[str]:
+def generate_recovery_codes(n: int | None = None) -> list[str]:
+    if n is None:
+        try:
+            from session_account_security_1019 import backup_codes_count
+
+            n = backup_codes_count()
+        except ImportError:
+            n = 10
     return [secrets.token_hex(4) for _ in range(n)]
 
 
@@ -149,6 +156,12 @@ async def confirm_mfa_enroll(user_id: int, code: str) -> dict[str, Any]:
     hashes = [hash_recovery_code(c) for c in recovery]
     await enable_user_mfa(user_id, encrypt_secret(secret))
     await set_user_mfa_recovery_hashes(user_id, hashes)
+    try:
+        from session_account_security_1019 import log_mfa_event
+
+        log_mfa_event("enable", user_id=user_id)
+    except ImportError:
+        pass
     return {
         "enabled": True,
         "recovery_codes": recovery,
@@ -170,7 +183,24 @@ async def disable_mfa(user_id: int, code: str) -> dict[str, Any]:
         if not matched:
             raise ValueError("Invalid MFA code")
     await clear_user_mfa(user_id)
-    return {"enabled": False}
+    try:
+        from session_account_security_1019 import log_mfa_event
+
+        log_mfa_event("disable", user_id=user_id)
+    except ImportError:
+        pass
+    try:
+        from database import fetch_user_by_id
+        from session_lifecycle_hardening import on_mfa_disable_global_logout
+
+        user_row = await fetch_user_by_id(user_id)
+        await on_mfa_disable_global_logout(
+            user_id,
+            email=str((user_row or {}).get("email") or ""),
+        )
+    except ImportError:
+        pass
+    return {"enabled": False, "reauth_required": True, "mfa_setup_required": True}
 
 
 async def verify_user_mfa(user_id: int, code: str) -> bool:
@@ -181,11 +211,23 @@ async def verify_user_mfa(user_id: int, code: str) -> bool:
         return True
     secret = decrypt_secret(str(row["mfa_secret_enc"]))
     if verify_totp(secret, code):
+        try:
+            from session_account_security_1019 import log_mfa_event
+
+            log_mfa_event("verify", user_id=user_id)
+        except ImportError:
+            pass
         return True
     hashes = list(row.get("mfa_recovery_hashes") or [])
     matched = verify_recovery_code(code, hashes)
     if matched:
         await consume_mfa_recovery_hash(user_id, matched)
+        try:
+            from session_account_security_1019 import log_mfa_event
+
+            log_mfa_event("backup_code_use", user_id=user_id)
+        except ImportError:
+            pass
         return True
     return False
 

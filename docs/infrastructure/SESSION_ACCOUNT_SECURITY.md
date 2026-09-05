@@ -1,0 +1,146 @@
+# Session / Account Security — 2FA Policy (#1019)
+
+Cross-cutting auth security — **NOT** standalone. Merged into **#1019 Session/Account Security** auth layer.
+
+## 2FA Policy
+
+| Factor | Status |
+|--------|--------|
+| TOTP (Google Authenticator, Authy) | Supported |
+| Hardware keys (YubiKey) | Supported via TOTP |
+| Recovery codes (10, single-use, encrypted) | Supported |
+| SMS | **Forbidden** (SIM-swap risk) |
+
+## Tier enforcement
+
+| Tier | Policy |
+|------|--------|
+| Free | Optional |
+| Pro / Elite / Quant | Strongly recommended |
+| Institutional | **Mandatory** |
+
+## Admin
+
+- 2FA **mandatory** for all admin accounts
+- `SKIP_ADMIN_MFA` **forbidden** — bypass attempts trigger #1017 incident alert
+- No exceptions in production
+
+## Auth flow
+
+```
+login → password → 2FA (if enabled) → session
+```
+
+Unified with existing `mfa_service.py` — no separate 2FA service.
+
+## Recovery
+
+- 10 backup codes, single-use, encrypted at-rest
+- **No email recovery** for 2FA
+- Lost 2FA → support ticket + identity verification
+
+## Audit
+
+Every 2FA event logged (enable · disable · verify · backup code · recovery · bypass):
+- Append-only `data/mfa_audit.jsonl`
+- 2-year retention policy
+- Mirrored to `security_events.jsonl`
+
+## Integrations
+
+| Ref | Behavior |
+|-----|----------|
+| #1022 RBAC | Role elevation requires 2FA re-verification |
+| #908 Stripe | Billing cancel/upgrade/downgrade requires 2FA if enabled |
+| #1017 Incident | 2FA bypass attempt → auto-alert |
+
+## API
+
+```
+GET /api/platform/session-security/status
+GET /api/platform/session-security/production-gate
+GET /api/platform/session-security/mfa-audit
+GET /api/platform/session-security/e2e
+```
+
+Existing user MFA endpoints: `/api/auth/mfa/*`
+
+## Sprint 0
+
+Blocks production if admin 2FA not configured in production environment.
+
+## Secure Password Recovery (#1019)
+
+Token-based email reset only — **no security questions**.
+
+| Control | Value |
+|---------|-------|
+| Token expiry | 15 minutes |
+| Single-use | Yes, hashed in DB |
+| Rate limit | 3/hour per email · 5/5min per IP |
+| New device | Email notification |
+| 2FA enabled | MFA challenge required before new password |
+| Session kill | All sessions invalidated on reset |
+| Audit | `data/password_recovery_audit.jsonl` (2y retention) |
+
+```
+GET /api/platform/session-security/password-recovery/status
+GET /api/platform/session-security/password-recovery/gate
+GET /api/platform/session-security/password-recovery/audit
+GET /api/platform/session-security/password-recovery/e2e
+```
+
+## Session Lifecycle Hardening (#1019)
+
+Backend-enforced session policy — reduces exploitation window on session theft.
+
+| Control | Value |
+|---------|-------|
+| Idle timeout | 30 minutes (backend-enforced) |
+| Absolute timeout | 8 hours from creation |
+| Global logout | `POST /auth/logout-all` — kills all sessions + revocation list |
+| Device binding | Session linked to device fingerprint; new device → email |
+| Concurrent sessions | Max 5; oldest invalidated on limit |
+| Audit | `data/session_audit.jsonl` (2y retention) |
+
+### Integrations
+
+| Ref | Behavior |
+|-----|----------|
+| #1022 RBAC | Role elevation kills existing sessions |
+| #1033 2FA | Disabling 2FA forces global logout |
+| #1017 Incident | Suspicious login after global logout → auto-alert |
+| #908 Stripe | Billing session isolated — global logout does not cancel subscription |
+| #1018 ToS | User notification on global logout (timestamped, logged) |
+
+```
+GET /api/platform/session-security/lifecycle/status
+GET /api/platform/session-security/lifecycle/gate
+GET /api/platform/session-security/lifecycle/audit
+GET /api/platform/session-security/lifecycle/e2e
+```
+
+## OAuth Social Login (#1019)
+
+Optional social login — email/password + TOTP always available.
+
+| Control | Value |
+|---------|-------|
+| Providers | Google · GitHub · Twitter/X |
+| Scope | Email + public profile only |
+| Admin | OAuth forbidden — email/password + TOTP required |
+| 2FA | OAuth does not bypass 2FA |
+| Account linking | Email confirmation required — no auto-merge |
+| Password backup | No OAuth-only accounts — password backup required |
+| Tokens | Encrypted at-rest, never exposed to client |
+| Revocation | Unlink provider without deleting account |
+| Audit | `data/oauth_audit.jsonl` (2y retention) |
+
+```
+GET /api/platform/session-security/oauth/status
+GET /api/platform/session-security/oauth/gate
+GET /api/platform/session-security/oauth/audit
+GET /api/platform/session-security/oauth/e2e
+```
+
+User endpoints: `/api/auth/oauth/*`

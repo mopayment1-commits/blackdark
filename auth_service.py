@@ -390,6 +390,10 @@ async def login_user(
     password: str,
     *,
     mfa_code: str | None = None,
+    device_fingerprint: str | None = None,
+    ip: str | None = None,
+    user_agent: str | None = None,
+    accept_language: str | None = None,
 ) -> dict[str, Any]:
     from database import fetch_user_by_email, touch_user_login
     from security_auth import check_login_rate_limit
@@ -402,6 +406,15 @@ async def login_user(
         raise ValueError("Invalid email or password")
 
     mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
+    tier = await resolve_user_tier(email)
+    try:
+        from session_account_security_1019 import assert_tier_mfa_at_login
+
+        tier_mfa = assert_tier_mfa_at_login(
+            tier=tier, mfa_enabled=mfa_enabled, email=email
+        )
+    except ImportError:
+        tier_mfa = {}
     # Org-enforced MFA (Report-2 C-P0-02) — refuse login if org requires MFA and user not enrolled.
     org_mfa = await _login_org_mfa_policy(email, mfa_enabled=mfa_enabled, mfa_code=mfa_code)
 
@@ -411,12 +424,19 @@ async def login_user(
         await _verify_login_mfa(user, email, mfa_code)
 
     await touch_user_login(int(user["id"]))
-    session = await create_session(int(user["id"]))
-    tier = await resolve_user_tier(email)
+    session = await create_session(
+        int(user["id"]),
+        email=email,
+        device_fingerprint=device_fingerprint,
+        ip=ip,
+        user_agent=user_agent,
+        accept_language=accept_language,
+    )
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
         "mfa_required": False,
+        "tier_mfa": tier_mfa,
         "user": {
             "id": user["id"],
             "email": email,
@@ -430,7 +450,15 @@ async def login_user(
 _mfa_challenges: dict[str, dict[str, Any]] = {}
 
 
-async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
+async def complete_mfa_login(
+    challenge: str,
+    code: str,
+    *,
+    device_fingerprint: str | None = None,
+    ip: str | None = None,
+    user_agent: str | None = None,
+    accept_language: str | None = None,
+) -> dict[str, Any]:
     """Complete login after password step returned mfa_required."""
     from database import touch_user_login
     from mfa_service import verify_user_mfa
@@ -447,7 +475,14 @@ async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
         raise ValueError("Invalid MFA code")
     _mfa_challenges.pop(challenge, None)
     await touch_user_login(user_id)
-    session = await create_session(user_id)
+    session = await create_session(
+        user_id,
+        email=email,
+        device_fingerprint=device_fingerprint,
+        ip=ip,
+        user_agent=user_agent,
+        accept_language=accept_language,
+    )
     tier = await resolve_user_tier(email)
     return {
         "token": session["token"],
@@ -457,20 +492,70 @@ async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
     }
 
 
-async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[str, Any]:
+async def create_session(
+    user_id: int,
+    *,
+    revoke_others: bool = False,
+    email: str | None = None,
+    device_fingerprint: str | None = None,
+    ip: str | None = None,
+    user_agent: str | None = None,
+    accept_language: str | None = None,
+) -> dict[str, Any]:
     from database import delete_user_sessions_for_user, insert_user_session
     from security_auth import hash_session_token
 
-    # New login regenerates session and revokes prior tokens (fixation / theft radius).
     if revoke_others:
         try:
             await delete_user_sessions_for_user(int(user_id))
         except Exception:
             pass
+
+    session_meta: dict[str, Any] = {}
+    try:
+        from session_lifecycle_hardening import prepare_new_session
+
+        session_meta = await prepare_new_session(
+            user_id,
+            email=email,
+            device_fingerprint=device_fingerprint,
+            ip=ip,
+            user_agent=user_agent,
+            accept_language=accept_language,
+        )
+    except ImportError:
+        pass
+
+    if session_meta:
+        expires_at = session_meta["expires_at"]
+        device_fingerprint = session_meta.get("device_fingerprint")
+        last_activity_at = session_meta.get("last_activity_at")
+    else:
+        expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()
+        last_activity_at = _utcnow_iso()
+
     token = secrets.token_urlsafe(48)
     token_hash = hash_session_token(token)
-    expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()
-    await insert_user_session(user_id, token_hash, expires_at)
+    await insert_user_session(
+        user_id,
+        token_hash,
+        expires_at,
+        last_activity_at=last_activity_at,
+        device_fingerprint=device_fingerprint,
+    )
+    try:
+        from session_lifecycle_hardening import log_session_event
+
+        log_session_event(
+            "create",
+            user_id=user_id,
+            email=email,
+            ip=ip,
+            token_hash=token_hash,
+            device_fingerprint=device_fingerprint,
+        )
+    except ImportError:
+        pass
     return {"token": token, "expires_at": expires_at}
 
 
@@ -478,7 +563,15 @@ async def logout_user(token: str) -> None:
     from database import delete_user_session
     from security_auth import hash_session_token, is_production_env
 
-    await delete_user_session(hash_session_token(token))
+    token_hash = hash_session_token(token)
+    await delete_user_session(token_hash)
+    try:
+        from session_lifecycle_hardening import log_session_event, revoke_token_hash
+
+        revoke_token_hash(token_hash)
+        log_session_event("revoked", token_hash=token_hash)
+    except ImportError:
+        pass
     # Legacy plaintext session rows — only wipe when explicitly allowed (never prod).
     allow_plain = os.getenv("ALLOW_PLAINTEXT_SESSION_LOOKUP", "").lower() in {
         "1",
@@ -496,7 +589,8 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
     from security_auth import hash_session_token, is_production_env
 
     plain = token.strip()
-    row = await fetch_user_by_session(hash_session_token(plain))
+    token_hash = hash_session_token(plain)
+    row = await fetch_user_by_session(token_hash)
     # Legacy plaintext lookup: opt-in only, never in production.
     if row is None:
         allow_plain = os.getenv("ALLOW_PLAINTEXT_SESSION_LOOKUP", "").lower() in {
@@ -506,8 +600,17 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
         }
         if allow_plain and not is_production_env():
             row = await fetch_user_by_session(plain)
+            token_hash = plain
     if row is None:
         return None
+    try:
+        from session_lifecycle_hardening import validate_and_touch_session
+
+        row = await validate_and_touch_session(token_hash, row)
+        if row is None:
+            return None
+    except ImportError:
+        pass
     email = str(row.get("email") or "")
     tier = await resolve_user_tier(email)
     return {

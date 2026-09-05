@@ -548,6 +548,118 @@ async def intelligence_ledger_slippage(
     )
 
 
+@router.get("/session-security/status")
+async def session_security_status():
+    from session_account_security_1019 import session_security_status_1019
+
+    return session_security_status_1019()
+
+
+@router.get("/session-security/production-gate")
+async def session_security_production_gate():
+    from session_account_security_1019 import check_production_gate_1019
+
+    return check_production_gate_1019()
+
+
+@router.get("/session-security/mfa-audit")
+async def session_security_mfa_audit(_admin: dict = Depends(require_admin)):
+    from session_account_security_1019 import get_mfa_audit_trail
+
+    return get_mfa_audit_trail()
+
+
+@router.get("/session-security/e2e")
+async def session_security_e2e(_admin: dict = Depends(require_admin)):
+    from session_account_security_1019 import run_session_security_e2e_1019
+
+    return run_session_security_e2e_1019()
+
+
+@router.get("/session-security/password-recovery/status")
+async def password_recovery_status():
+    from password_recovery_hardening import password_recovery_status as pr_status
+
+    return pr_status()
+
+
+@router.get("/session-security/password-recovery/gate")
+async def password_recovery_gate():
+    from password_recovery_hardening import check_password_recovery_gate
+
+    return check_password_recovery_gate()
+
+
+@router.get("/session-security/password-recovery/audit")
+async def password_recovery_audit(_admin: dict = Depends(require_admin)):
+    from password_recovery_hardening import get_password_recovery_audit_trail
+
+    return get_password_recovery_audit_trail()
+
+
+@router.get("/session-security/password-recovery/e2e")
+async def password_recovery_e2e(_admin: dict = Depends(require_admin)):
+    from password_recovery_hardening import run_password_recovery_e2e
+
+    return run_password_recovery_e2e()
+
+
+@router.get("/session-security/lifecycle/status")
+async def session_lifecycle_status():
+    from session_lifecycle_hardening import session_lifecycle_status as sl_status
+
+    return sl_status()
+
+
+@router.get("/session-security/lifecycle/gate")
+async def session_lifecycle_gate():
+    from session_lifecycle_hardening import check_session_lifecycle_gate
+
+    return check_session_lifecycle_gate()
+
+
+@router.get("/session-security/lifecycle/audit")
+async def session_lifecycle_audit(_admin: dict = Depends(require_admin)):
+    from session_lifecycle_hardening import get_session_audit_trail
+
+    return get_session_audit_trail()
+
+
+@router.get("/session-security/lifecycle/e2e")
+async def session_lifecycle_e2e(_admin: dict = Depends(require_admin)):
+    from session_lifecycle_hardening import run_session_lifecycle_e2e
+
+    return run_session_lifecycle_e2e()
+
+
+@router.get("/session-security/oauth/status")
+async def oauth_login_status():
+    from oauth_login_hardening import oauth_login_status as oauth_status_fn
+
+    return oauth_status_fn()
+
+
+@router.get("/session-security/oauth/gate")
+async def oauth_login_gate():
+    from oauth_login_hardening import check_oauth_login_gate
+
+    return check_oauth_login_gate()
+
+
+@router.get("/session-security/oauth/audit")
+async def oauth_login_audit(_admin: dict = Depends(require_admin)):
+    from oauth_login_hardening import get_oauth_audit_trail
+
+    return get_oauth_audit_trail()
+
+
+@router.get("/session-security/oauth/e2e")
+async def oauth_login_e2e(_admin: dict = Depends(require_admin)):
+    from oauth_login_hardening import run_oauth_login_e2e
+
+    return run_oauth_login_e2e()
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),

@@ -135,7 +135,25 @@ async def auth_login(
         ip = request.client.host or "unknown"
     check_login_rate_limit(f"ip:{ip}")
     try:
-        result = await login_user(body.email, body.password, mfa_code=body.mfa_code)
+        from session_lifecycle_hardening import compute_device_fingerprint
+
+        device_fp = compute_device_fingerprint(
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            ip=ip,
+        )
+    except ImportError:
+        device_fp = None
+    try:
+        result = await login_user(
+            body.email,
+            body.password,
+            mfa_code=body.mfa_code,
+            device_fingerprint=device_fp,
+            ip=ip,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+        )
         if result.get("mfa_required"):
             return result
         background_tasks.add_task(record_behavior, "auth_login", user=result.get("user"))
@@ -150,11 +168,35 @@ async def auth_login(
 
 
 @router.post("/mfa/complete", responses=COMMON_ERROR_RESPONSES)
-async def auth_mfa_complete(body: AuthMfaChallengeBody, background_tasks: BackgroundTasks):
+async def auth_mfa_complete(
+    body: AuthMfaChallengeBody,
+    request: Request,
+    background_tasks: BackgroundTasks,
+):
     from auth_service import complete_mfa_login
 
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    if not ip and request.client:
+        ip = request.client.host or "unknown"
     try:
-        result = await complete_mfa_login(body.challenge, body.code)
+        from session_lifecycle_hardening import compute_device_fingerprint
+
+        device_fp = compute_device_fingerprint(
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            ip=ip,
+        )
+    except ImportError:
+        device_fp = None
+    try:
+        result = await complete_mfa_login(
+            body.challenge,
+            body.code,
+            device_fingerprint=device_fp,
+            ip=ip,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+        )
         background_tasks.add_task(record_behavior, "auth_login_mfa", user=result.get("user"))
         from observability import increment_metric
 
@@ -227,13 +269,28 @@ async def auth_mfa_disable(
 async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
     """Always returns generic success to avoid account enumeration."""
     from database import fetch_user_by_email
-    from identity_service import send_password_reset_email, validate_email
+    from identity_service import validate_email
     from security_auth import check_login_rate_limit
 
     ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip() or "unknown"
     check_login_rate_limit(f"forgot:{ip}")
     try:
+        from password_recovery_hardening import assert_no_security_questions, check_password_recovery_rate_limits
+
+        assert_no_security_questions(body.model_dump())
+    except ImportError:
+        pass
+    try:
         email = validate_email(body.email)
+    except ValueError:
+        return {
+            "ok": True,
+            "message": "If an account exists for that email, a reset link was sent.",
+        }
+    try:
+        from password_recovery_hardening import check_password_recovery_rate_limits
+
+        check_password_recovery_rate_limits(email=email, ip=ip)
     except ValueError:
         return {
             "ok": True,
@@ -243,6 +300,18 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
     debug: dict[str, Any] = {}
     if user and int(user.get("password_is_set") if user.get("password_is_set") is not None else 1):
         try:
+            from password_recovery_hardening import send_hardened_password_reset
+
+            debug = await send_hardened_password_reset(
+                int(user["id"]),
+                email,
+                ip=ip,
+                user_agent=request.headers.get("user-agent"),
+                accept_language=request.headers.get("accept-language"),
+            )
+        except ImportError:
+            from identity_service import send_password_reset_email
+
             debug = await send_password_reset_email(int(user["id"]), email)
         except Exception:
             pass
@@ -257,45 +326,70 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
 
 
 @router.post("/reset-password", responses=COMMON_ERROR_RESPONSES)
-async def auth_reset_password(body: AuthResetPasswordBody):
-    from auth_service import create_session, hash_password
-    from database import (
-        delete_user_sessions_for_user,
-        fetch_user_by_id,
-        update_user_profile_fields,
-    )
-    from identity_service import consume_auth_token, validate_password
-
+async def auth_reset_password(body: AuthResetPasswordBody, request: Request):
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip() or "unknown"
     try:
-        user_id = await consume_auth_token(body.token, "password_reset")
-        user = await fetch_user_by_id(user_id)
-        if not user:
-            raise ValueError("Invalid or expired link")
-        email = str(user["email"])
-        validate_password(body.password, email=email)
-        await update_user_profile_fields(
-            user_id,
-            {
-                "password_hash": hash_password(body.password),
-                "password_is_set": 1,
-            },
+        from password_recovery_hardening import assert_no_security_questions, complete_hardened_password_reset
+
+        assert_no_security_questions(body.model_dump())
+        result = await complete_hardened_password_reset(
+            token=body.token,
+            new_password=body.password,
+            mfa_code=body.mfa_code,
+            ip=ip,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
         )
-        await delete_user_sessions_for_user(user_id)
-        session = await create_session(user_id)
+        user_id = result["user_id"]
+        from database import fetch_user_by_id
+
+        user = await fetch_user_by_id(user_id)
+        email = str((user or {}).get("email") or "")
+    except ImportError:
+        from auth_service import create_session, hash_password
+        from database import (
+            delete_user_sessions_for_user,
+            fetch_user_by_id,
+            update_user_profile_fields,
+        )
+        from identity_service import consume_auth_token, validate_password
+
+        try:
+            user_id = await consume_auth_token(body.token, "password_reset")
+            user = await fetch_user_by_id(user_id)
+            if not user:
+                raise ValueError("Invalid or expired link")
+            email = str(user["email"])
+            validate_password(body.password, email=email)
+            await update_user_profile_fields(
+                user_id,
+                {
+                    "password_hash": hash_password(body.password),
+                    "password_is_set": 1,
+                },
+            )
+            await delete_user_sessions_for_user(user_id)
+            session = await create_session(user_id)
+            result = {"token": session["token"], "expires_at": session["expires_at"]}
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+
     resp = JSONResponse(
         _session_response_body(
             {
                 "ok": True,
                 "message": "Password updated. You are signed in.",
-                "token": session["token"],
-                "expires_at": session["expires_at"],
-                "user": {"id": user_id, "email": email, "name": user.get("name") or ""},
+                "token": result["token"],
+                "expires_at": result["expires_at"],
+                "user": {"id": user_id, "email": email, "name": (user or {}).get("name") or ""},
             }
         )
     )
-    _attach_session_cookie(resp, session["token"])
+    _attach_session_cookie(resp, result["token"])
     return resp
 
 
@@ -427,6 +521,7 @@ async def auth_oauth_start(provider: str):
 @router.get("/oauth/{provider}/callback", responses=COMMON_ERROR_RESPONSES)
 async def auth_oauth_callback(
     provider: str,
+    request: Request,
     code: str | None = Query(None),
     state: str | None = Query(None),
     error: str | None = Query(None),
@@ -438,14 +533,42 @@ async def auth_oauth_callback(
     from identity_service import validate_oauth_state_async
     from oauth_service import exchange_code, login_or_link_oauth_user
 
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    if not ip and request.client:
+        ip = request.client.host or "unknown"
+    try:
+        from session_lifecycle_hardening import compute_device_fingerprint
+
+        device_fp = compute_device_fingerprint(
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            ip=ip,
+        )
+    except ImportError:
+        device_fp = None
+    tenant_id = (request.headers.get("x-tenant-id") or "").strip() or None
     try:
         await validate_oauth_state_async(provider, state)
-        profile = await exchange_code(provider, code)
-        result = await login_or_link_oauth_user(profile)
+        profile = await exchange_code(provider, code, state=state)
+        result = await login_or_link_oauth_user(
+            profile,
+            ip=ip,
+            device_fingerprint=device_fp,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            tenant_id=tenant_id,
+        )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"OAuth provider failure: {exc}") from exc
+
+    if result.get("link_confirmation_required"):
+        return JSONResponse(result)
+    if result.get("mfa_required"):
+        return JSONResponse(result)
 
     token = result.get("token")
     base = (os.getenv("APP_BASE_URL") or "").rstrip("/")
@@ -453,9 +576,106 @@ async def auth_oauth_callback(
         resp = RedirectResponse(url=f"{base}/dashboard?oauth=1", status_code=302)
         _attach_session_cookie(resp, str(token))
         return resp
-    resp = JSONResponse(result)
+    resp = JSONResponse(_session_response_body(result))
     _attach_session_cookie(resp, token)
     return resp
+
+
+@router.get("/oauth/{provider}/confirm-link", responses=COMMON_ERROR_RESPONSES)
+async def auth_oauth_confirm_link(
+    provider: str,
+    request: Request,
+    token: str = Query(...),
+):
+    from oauth_login_hardening import complete_oauth_link_confirmation
+    from oauth_service import login_or_link_oauth_user
+
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    tenant_id = (request.headers.get("x-tenant-id") or "").strip() or None
+    try:
+        link = await complete_oauth_link_confirmation(
+            token=token, provider=provider, tenant_id=tenant_id
+        )
+        from database import fetch_user_by_id
+
+        user = await fetch_user_by_id(int(link["user_id"]))
+        profile = {
+            "provider": provider,
+            "subject": str((user or {}).get("oauth_subject") or ""),
+            "email": str((user or {}).get("email") or ""),
+            "name": str((user or {}).get("name") or ""),
+            "scope": "",
+        }
+        result = await login_or_link_oauth_user(profile, ip=ip, tenant_id=tenant_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    resp = JSONResponse(_session_response_body(result))
+    if result.get("token"):
+        _attach_session_cookie(resp, result["token"])
+    return resp
+
+
+@router.post("/oauth/mfa/complete", responses=COMMON_ERROR_RESPONSES)
+async def auth_oauth_mfa_complete(body: AuthMfaChallengeBody, request: Request):
+    from oauth_service import complete_oauth_mfa_login
+
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    try:
+        from session_lifecycle_hardening import compute_device_fingerprint
+
+        device_fp = compute_device_fingerprint(
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+            ip=ip,
+        )
+    except ImportError:
+        device_fp = None
+    try:
+        result = await complete_oauth_mfa_login(
+            body.challenge,
+            body.code,
+            device_fingerprint=device_fp,
+            ip=ip,
+            user_agent=request.headers.get("user-agent"),
+            accept_language=request.headers.get("accept-language"),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+    resp = JSONResponse(_session_response_body(result))
+    _attach_session_cookie(resp, result.get("token"))
+    return resp
+
+
+@router.post("/oauth/{provider}/unlink", responses=COMMON_ERROR_RESPONSES)
+async def auth_oauth_unlink(
+    provider: str,
+    request: Request,
+    user: dict | None = Depends(optional_user),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from oauth_login_hardening import unlink_oauth_provider
+
+    tenant_id = (request.headers.get("x-tenant-id") or "").strip() or None
+    try:
+        return await unlink_oauth_provider(int(user["id"]), provider, tenant_id=tenant_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/oauth/linked", responses=COMMON_ERROR_RESPONSES)
+async def auth_oauth_linked(
+    request: Request,
+    user: dict | None = Depends(optional_user),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from database import list_oauth_provider_links
+    from oauth_login_hardening import resolve_tenant_id
+
+    tenant_id = resolve_tenant_id((request.headers.get("x-tenant-id") or "").strip() or None)
+    links = await list_oauth_provider_links(int(user["id"]), tenant_id=tenant_id)
+    return {"ok": True, "tenant_id": tenant_id, "providers": links}
 
 
 @router.post("/logout")
@@ -472,13 +692,36 @@ async def auth_logout(
 
 
 @router.post("/logout-all", responses=COMMON_ERROR_RESPONSES)
-async def auth_logout_all(user: dict | None = Depends(optional_user)):
+async def auth_logout_all(
+    request: Request,
+    user: dict | None = Depends(optional_user),
+):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
-    from database import delete_user_sessions_for_user
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    if not ip and request.client:
+        ip = request.client.host or "unknown"
+    try:
+        from session_lifecycle_hardening import global_logout_all
 
-    await delete_user_sessions_for_user(int(user["id"]))
-    resp = JSONResponse({"ok": True, "message": "All sessions revoked. Please log in again."})
+        result = await global_logout_all(
+            int(user["id"]),
+            email=str(user.get("email") or ""),
+            ip=ip,
+            actor=str(user.get("email") or ""),
+        )
+    except ImportError:
+        from database import delete_user_sessions_for_user
+
+        revoked = await delete_user_sessions_for_user(int(user["id"]))
+        result = {"ok": True, "sessions_revoked": revoked}
+    resp = JSONResponse(
+        {
+            "ok": True,
+            "message": "All sessions revoked. Please log in again.",
+            **result,
+        }
+    )
     _clear_session_cookie(resp)
     return resp
 
