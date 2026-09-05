@@ -865,6 +865,43 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
+@router.get("/dependency-scan/status")
+async def dependency_scan_status():
+    from dependency_scan_gate import dependency_scan_gate_status
+
+    return dependency_scan_gate_status()
+
+
+@router.get("/dependency-scan/gate")
+async def dependency_scan_production_gate():
+    from dependency_scan_gate import check_dependency_scan_production_gate
+
+    return check_dependency_scan_production_gate()
+
+
+@router.get("/dependency-scan/e2e")
+async def dependency_scan_e2e():
+    from dependency_scan_gate import run_dependency_scan_gate_e2e
+
+    return run_dependency_scan_gate_e2e()
+
+
+@router.post("/dependency-scan/run", responses=COMMON_ERROR_RESPONSES)
+async def dependency_scan_run(
+    skip_sbom: bool = Query(False),
+    _admin: dict = Depends(require_admin),
+):
+    from dependency_scan_gate import run_dependency_scan_gate
+
+    result = run_dependency_scan_gate(actor="admin_api", skip_sbom=skip_sbom)
+    if result.get("blocked"):
+        raise HTTPException(
+            status_code=422,
+            detail={"message": "Dependency scan gate blocked", "result": result},
+        )
+    return result
+
+
 @router.post("/ml/rl/train")
 async def rl_policy_train(_admin: dict = Depends(require_admin)):
     import random
