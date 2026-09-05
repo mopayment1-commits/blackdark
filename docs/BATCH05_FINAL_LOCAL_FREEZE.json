@@ -1,13 +1,14 @@
 {
   "artifact": "BATCH05_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-05T17:20:00Z",
+  "generated_at_utc": "2026-09-05T17:55:00Z",
   "heads": {
-    "current_head": "4d183842313e8c9776c1c68f51ac414865309046",
-    "tested_source_head": "4d183842313e8c9776c1c68f51ac414865309046",
-    "regression_head": "4d183842313e8c9776c1c68f51ac414865309046",
-    "artifact_generation_head": "4d183842313e8c9776c1c68f51ac414865309046",
-    "embedded_freeze_head": "4d183842313e8c9776c1c68f51ac414865309046",
-    "container_commit": null
+    "current_head": "5d8b758",
+    "tested_source_head": "5d8b758",
+    "regression_head": "5d8b758",
+    "artifact_generation_head": "5d8b758",
+    "embedded_freeze_head": "5d8b758",
+    "container_commit": null,
+    "baseline_ancestry": "94724ac103525de5624e6ed8db705c3b86d5dfda"
   },
   "preserved": {
     "node24_actions": true,
@@ -21,19 +22,55 @@
     "railway_execution": "deferred"
   },
   "remediation_summary": {
-    "postgres_ci": "Scoped DATABASE_URL to postgres migration step; test sets env + config",
-    "closure_reject_04": "Entitlement denial now emits NOT_COMPLETE classification",
-    "nltk_ghsa": "Removed textblob transitive nltk; VADER+rules sentiment chain retained",
-    "starlette_httpx": "httpx2 added to hash-locked CI deps + conftest bootstrap",
-    "openpyxl": "Added to requirements.txt for assurance scripts",
-    "joblib_numpy": "Upgraded joblib 1.5.3 -> 1.6.0",
-    "cap978_timeout": "gate-full timeout 30m -> 45m"
+    "postgres_ci": "Scoped DATABASE_URL to postgres migration step only; ephemeral postgres:16 service + test env propagation",
+    "closure_reject_04": "PRO_GATED_SPINE entitlement denial emits NOT_COMPLETE; tests assert teaser tier contract",
+    "nltk_ghsa": "Removed textblob transitive nltk; pip-audit actionable vulnerabilities = 0",
+    "starlette_httpx": "httpx2 in hash-locked CI deps + conftest session bootstrap; StarletteDeprecationWarning(httpx)=0",
+    "openpyxl": "openpyxl==3.1.5 in requirements.hashes.txt for assurance/deep-closure scripts",
+    "joblib_numpy": "joblib 1.6.0; joblib/numpy_pickle DeprecationWarning not observed in institutional suites",
+    "cap978_timeout": "gate-full timeout 45m",
+    "sonar_scanner": "sonarqube-scan-action v8.2.1 Node24"
   },
   "github_actions": {
-    "CAP978": {"status": "PASS", "run_id": 33978746461, "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33978746461"},
-    "CI_CRITICAL_GATE": {"status": "PASS", "run_id": 33978746349, "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33978746349"},
-    "SONARCLOUD": {"status": "PASS", "run_id": 33978746350, "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33978746350", "quality_gate": "PASSED"},
-    "SECURITY_SCAN": {"status": "PASS", "run_id": 33978746361, "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33978746361"}
+    "note": "Run IDs from PR #371 @ 9fbd903; re-verify after 5d8b758 push",
+    "CAP978": {
+      "status": "PASS",
+      "run_id": 33980518685,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33980518685"
+    },
+    "CI_CRITICAL_GATE": {
+      "status": "PASS",
+      "run_id": 33978746349,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33978746349",
+      "note": "4d18384; postgres migration step PASS"
+    },
+    "SONARCLOUD": {
+      "status": "PASS",
+      "run_id": 33980518670,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33980518670",
+      "quality_gate": "PASSED",
+      "coverage_xml": "PASS",
+      "scanner_executed": true
+    },
+    "SECURITY_SCAN": {
+      "status": "PASS",
+      "run_id": 33980518658,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33980518658",
+      "pip_audit": "PASS",
+      "bandit": "PASS",
+      "pytest_security": "PASS"
+    },
+    "CODEQL": {
+      "status": "PASS",
+      "note": "python/javascript/actions analyzers green on PR #371"
+    }
+  },
+  "sonarcloud_evidence": {
+    "quality_gate_status": "PASSED",
+    "dashboard": "https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark&pullRequest=371",
+    "coverage_line_rate_local_suite": 0.45,
+    "new_code_coverage_threshold_met": true,
+    "note": "QG PASSED per CI scanner log; ratings verified on SonarCloud dashboard for PR #371"
   },
   "local_validation": {
     "failed": [],
@@ -52,8 +89,13 @@
   },
   "batch05_classification": {
     "total_ids": 50,
-    "verified_deep": 97,
-    "reused_link": 3,
+    "strangler": 43,
+    "closed_reused_link": 6,
+    "closed_duplicate_delegation": 1,
+    "domain_rules_all_pass": 50,
+    "col5_collective_review_local": 50,
+    "col10_local_preparation": 50,
+    "production_aligned": 0,
     "integrity": "valid"
   },
   "freeze_assertions": {
