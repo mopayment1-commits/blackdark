@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import statistics
 import subprocess
 import time
@@ -58,6 +59,119 @@ PERF_THRESHOLDS_MS: dict[str, int] = {
 
 DEFAULT_PERF_CLASS = "CLASS_B_ANALYSIS"
 
+# Institutional local performance methodology (Batch07 micro-closure)
+PERF_WARMUP_ITERATIONS = 8
+PERF_MEASUREMENT_ITERATIONS = 80
+PERF_MIN_SAMPLE_FOR_P99 = 50
+PERF_PERCENTILE_METHOD = "nearest_rank_on_sorted_samples"
+PERF_STABILITY_MAX_P95_REL_DELTA = 0.30
+
+INDEPENDENT_QUEUE = [
+    {
+        "queue_id": "PLR1",
+        "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
+        "exact_activity": "Pre-live 12207 Validation evidence package review (local prep complete; not workshop sign-off)",
+        "pre_live_or_post_live": "PRE_LIVE",
+        "prerequisite": "G0-G5 local complete; BATCH07_12207_VALIDATION_PACKAGE.json",
+        "evidence_consumed": "docs/BATCH07_12207_VALIDATION_PACKAGE.json",
+        "responsible_reviewer_role": "institutional-validation-lead",
+        "exit_condition": "Pre-live review checklist complete; workshop scheduling allowed",
+        "distinct_final_approval": "POST_LIVE PLS3 is separate final 12207 Validation sign-off after G6 evidence",
+        "why_queue_c": "Human review of local validation package before live deployment — not a live sign-off",
+    },
+    {
+        "queue_id": "PLR2",
+        "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
+        "exact_activity": "Pre-live 12207 Transition/Operation readiness package review",
+        "pre_live_or_post_live": "PRE_LIVE",
+        "prerequisite": "Transition/Operation local packages complete",
+        "evidence_consumed": "docs/BATCH07_12207_TRANSITION_PACKAGE.json + OPERATION package",
+        "responsible_reviewer_role": "operations-readiness-lead",
+        "exit_condition": "Pre-live ops review complete; runbook gaps documented",
+        "distinct_final_approval": "POST_LIVE PLS4 is separate Transition/Operation sign-off after deploy",
+        "why_queue_c": "Pre-live operational readiness review — not post-deploy acceptance",
+    },
+    {
+        "queue_id": "PLR3",
+        "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
+        "exact_activity": "Pre-live SRE PRR package review (preparation complete; not PRR approval)",
+        "pre_live_or_post_live": "PRE_LIVE",
+        "prerequisite": "BATCH07_SRE_PRR_PACKAGE.json PRR_PREPARATION_COMPLETE_LOCAL",
+        "evidence_consumed": "docs/BATCH07_SRE_PRR_PACKAGE.json",
+        "responsible_reviewer_role": "sre-prr-reviewer",
+        "exit_condition": "Pre-live PRR checklist reviewed; launch blockers documented",
+        "distinct_final_approval": "POST_LIVE PLS2 is separate SRE PRR formal approval after production telemetry",
+        "why_queue_c": "Pre-live PRR preparation review — not signed PRR",
+    },
+    {
+        "queue_id": "PLR4",
+        "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
+        "exact_activity": "Pre-live G7 evidence index review (pre-assurance bundle; not G7 PASS)",
+        "pre_live_or_post_live": "PRE_LIVE",
+        "prerequisite": "BATCH07_G7_PRE_ASSURANCE_PACKAGE.json G7_LOCAL_PREPARATION_COMPLETE",
+        "evidence_consumed": "docs/BATCH07_G7_PRE_ASSURANCE_PACKAGE.json + evidence index",
+        "responsible_reviewer_role": "independent-assurance-coordinator",
+        "exit_condition": "Pre-live G7 bundle reviewed; reviewer assigned for post-live pass",
+        "distinct_final_approval": "POST_LIVE PLS1 is separate G7 PASS elevation after live evidence",
+        "why_queue_c": "Pre-live separation-of-duties prep — not G7 PASS",
+    },
+]
+
+RAILWAY_THEN_INDEPENDENT_QUEUE = [
+    {
+        "queue_id": "PLS1",
+        "stage": "POST_LIVE_FINAL_SIGNOFF",
+        "exact_activity": "POST_LIVE G7 independent assurance sign-off (G7 PASS elevation)",
+        "pre_live_or_post_live": "POST_LIVE",
+        "prerequisite": "QUEUE_B RL1-RL5 complete; PLR4 pre-live review done",
+        "evidence_consumed": "Live validation bundle + G7 reviewer checklist",
+        "responsible_reviewer_role": "independent-assurance-reviewer",
+        "exit_condition": "G7 PASS recorded; ASSURANCE_READY eligible",
+        "distinct_final_approval": "Distinct from PLR4 pre-live bundle review",
+        "why_queue_d": "Final G7 sign-off requires production evidence unavailable locally",
+        "sequence": "Railway QUEUE_B → PLS1",
+    },
+    {
+        "queue_id": "PLS2",
+        "stage": "POST_LIVE_FINAL_SIGNOFF",
+        "exact_activity": "POST_LIVE SRE PRR formal approval with production telemetry",
+        "pre_live_or_post_live": "POST_LIVE",
+        "prerequisite": "QUEUE_B RL4 production SLO evidence; PLR3 pre-live PRR review done",
+        "evidence_consumed": "Production SLI/SLO dashboards + PRR package",
+        "responsible_reviewer_role": "sre-prr-approver",
+        "exit_condition": "Signed SRE PRR approval",
+        "distinct_final_approval": "Distinct from PLR3 pre-live PRR package review",
+        "why_queue_d": "PRR approval requires live SLO proof",
+        "sequence": "Railway RL4 → PLS2",
+    },
+    {
+        "queue_id": "PLS3",
+        "stage": "POST_LIVE_FINAL_SIGNOFF",
+        "exact_activity": "POST_LIVE 12207 Validation workshop sign-off",
+        "pre_live_or_post_live": "POST_LIVE",
+        "prerequisite": "G6 live_validation evidence; PLR1 pre-live package review done",
+        "evidence_consumed": "Live validation artifacts + workshop record",
+        "responsible_reviewer_role": "12207-validation-chair",
+        "exit_condition": "Signed 12207 Validation workshop record",
+        "distinct_final_approval": "Distinct from PLR1 pre-live evidence package review",
+        "why_queue_d": "Validation sign-off requires live artifacts",
+        "sequence": "G6 evidence → PLS3",
+    },
+    {
+        "queue_id": "PLS4",
+        "stage": "POST_LIVE_FINAL_SIGNOFF",
+        "exact_activity": "POST_LIVE 12207 Transition/Operation acceptance + Col10 second review",
+        "pre_live_or_post_live": "POST_LIVE",
+        "prerequisite": "QUEUE_B RL1-RL3 deploy proof; RL5 PASS_LIVE; PLR2 pre-live ops review done",
+        "evidence_consumed": "Production E2E + PASS_LIVE stamps + Col10 checklist",
+        "responsible_reviewer_role": "operations-acceptance-lead + institutional-second-reviewer",
+        "exit_condition": "Transition/Operation signed + Col10 institutional second review complete",
+        "distinct_final_approval": "Distinct from PLR2 pre-live readiness review",
+        "why_queue_d": "Post-deploy acceptance and Col10 require PASS_LIVE evidence",
+        "sequence": "Railway RL5 → PLS4",
+    },
+]
+
 RAILWAY_QUEUE = [
     {
         "queue_id": "RL1",
@@ -106,80 +220,6 @@ RAILWAY_QUEUE = [
     },
 ]
 
-INDEPENDENT_QUEUE = [
-    {
-        "queue_id": "IR1",
-        "description": "12207 Validation workshop sign-off",
-        "why_queue_c": "Independent human validation of live artifacts per ISO 12207",
-        "prerequisite": "G6 live_validation evidence available",
-        "exit_evidence": "Signed 12207 Validation workshop record",
-        "underlying": ["12207 Validation", "G7 independent_assurance"],
-    },
-    {
-        "queue_id": "IR2",
-        "description": "12207 Transition/Operation live sign-off",
-        "why_queue_c": "Operational acceptance after live deployment evidence review",
-        "prerequisite": "RL1-RL3 complete; operational runbook reviewed",
-        "exit_evidence": "Signed Transition/Operation acceptance",
-        "underlying": ["12207 Transition/Operation live proof"],
-    },
-    {
-        "queue_id": "IR3",
-        "description": "SRE PRR formal approval",
-        "why_queue_c": "Second-review human sign-off per institutional SRE policy",
-        "prerequisite": "RL4 production SLO evidence; PRR package reviewed",
-        "exit_evidence": "SRE PRR signed approval",
-        "underlying": ["SRE PRR approval"],
-    },
-    {
-        "queue_id": "IR4",
-        "description": "G7 independent evidence review",
-        "why_queue_c": "Separation-of-duties assurance review",
-        "prerequisite": "Full evidence index + live validation bundle",
-        "exit_evidence": "G7 independent reviewer sign-off",
-        "underlying": ["G7 PASS", "ASSURANCE_READY"],
-    },
-]
-
-RAILWAY_THEN_INDEPENDENT_QUEUE = [
-    {
-        "queue_id": "RTI1",
-        "description": "G7 final independent review after live evidence",
-        "why_queue_d": "G7 PASS requires live evidence reviewed by independent reviewer",
-        "prerequisite": "QUEUE_B RL1-RL5 complete",
-        "exit_evidence": "G7 PASS elevation",
-        "sequence": "Railway (QUEUE_B) → IR4",
-        "underlying": ["G7 PASS", "ASSURANCE_READY"],
-    },
-    {
-        "queue_id": "RTI2",
-        "description": "SRE PRR second review after production telemetry",
-        "why_queue_d": "PRR sign-off requires production SLO proof not available locally",
-        "prerequisite": "QUEUE_B RL4 complete",
-        "exit_evidence": "PRR signed with production telemetry",
-        "sequence": "Railway (RL4) → IR3",
-        "underlying": ["SRE PRR approval", "production SLO proof"],
-    },
-    {
-        "queue_id": "RTI3",
-        "description": "12207 Transition/Operation sign-off after live deploy",
-        "why_queue_d": "Transition/Operation acceptance requires live deploy proof",
-        "prerequisite": "QUEUE_B RL1-RL3 complete",
-        "exit_evidence": "12207 Transition/Operation signed",
-        "sequence": "Railway (RL1-RL3) → IR2",
-        "underlying": ["12207 Transition/Operation live proof"],
-    },
-    {
-        "queue_id": "RTI4",
-        "description": "Col10 institutional second review after PASS_LIVE",
-        "why_queue_d": "Col10 second review requires PASS_LIVE production evidence",
-        "prerequisite": "QUEUE_B RL5 PASS_LIVE elevation",
-        "exit_evidence": "Col10 institutional second review complete",
-        "sequence": "Railway (RL5) → IR1/IR4",
-        "underlying": ["Col10 sign-off", "PASS_LIVE elevation"],
-    },
-]
-
 
 def binding_file(mod_path: str) -> str:
     return f"{mod_path.replace('.', '/')}.py"
@@ -223,13 +263,14 @@ def compute_drift_metrics(tested_head: str, final_head: str) -> dict[str, Any]:
     deps = [f for f in files if "requirements" in f or f == "pyproject.toml"]
     workflows = _match((".github/",))
     docs = _match(("docs/", "data/", "capabilities_checklist.xlsx"))
-    institutional_scripts = [
+    assurance_tooling = [
         f
         for f in files
         if f.startswith("scripts/")
         and (
             "batch07" in f
             or f == "scripts/partial_batches/batch_07_301_350.json"
+            or f == "scripts/reconcile_batch07_institutional.py"
         )
     ]
 
@@ -237,9 +278,14 @@ def compute_drift_metrics(tested_head: str, final_head: str) -> dict[str, Any]:
     test_logic_drift = len(tests)
     dependency_drift = len(deps)
     workflow_logic_drift = len(workflows)
-    documentation_evidence_drift = len(docs) + len(institutional_scripts)
+    documentation_evidence_drift = len(docs)
+    assurance_tooling_drift = len(assurance_tooling)
 
-    semantically_equivalent = production_runtime_drift == 0 and dependency_drift == 0
+    semantically_equivalent = (
+        production_runtime_drift == 0
+        and dependency_drift == 0
+        and test_logic_drift == 0
+    )
 
     return {
         "comparison": f"{tested_head}..{final_head}",
@@ -254,11 +300,14 @@ def compute_drift_metrics(tested_head: str, final_head: str) -> dict[str, Any]:
         "workflow_files": workflows,
         "documentation_evidence_drift": documentation_evidence_drift,
         "documentation_files": docs,
-        "institutional_script_files": institutional_scripts,
+        "assurance_tooling_drift": assurance_tooling_drift,
+        "assurance_tooling_files": assurance_tooling,
         "frozen_source_head_is_semantically_equivalent_to_current_head": semantically_equivalent,
         "note": (
             "Drift counts are file-level changes between canonical tested source and final HEAD. "
-            "documentation_evidence_drift includes institutional JSON artifacts only when docs/ changed."
+            "production_runtime_drift counts capability/runtime code only — NOT 'Railway untouched'. "
+            "documentation_evidence_drift is docs/data evidence artifacts only. "
+            "assurance_tooling_drift is executable institutional scripts (reconciliation/generators)."
         ),
     }
 
@@ -570,7 +619,47 @@ def build_collective_review_local(
     }
 
 
-async def _benchmark_capability(cid: int, *, warmup: int = 2, iterations: int = 12) -> dict[str, Any]:
+def _percentile_nearest_rank(sorted_values: list[float], percentile: float) -> float:
+    if not sorted_values:
+        return 0.0
+    if percentile <= 0:
+        return sorted_values[0]
+    if percentile >= 100:
+        return sorted_values[-1]
+    k = max(1, int(round(percentile / 100.0 * len(sorted_values))))
+    return sorted_values[min(k - 1, len(sorted_values) - 1)]
+
+
+def _runtime_environment() -> dict[str, Any]:
+    import platform
+
+    return {
+        "python_version": platform.python_version(),
+        "platform": platform.platform(),
+        "processor": platform.processor() or "unknown",
+        "cpu_count": os.cpu_count(),
+    }
+
+
+def _stability_ok(times_ms: list[float]) -> tuple[bool, float]:
+    if len(times_ms) < 20:
+        return False, 0.0
+    mid = len(times_ms) // 2
+    first = sorted(times_ms[:mid])
+    second = sorted(times_ms[mid:])
+    p95_a = _percentile_nearest_rank(first, 95)
+    p95_b = _percentile_nearest_rank(second, 95)
+    denom = max(p95_a, p95_b, 1e-9)
+    rel_delta = abs(p95_a - p95_b) / denom
+    return rel_delta <= PERF_STABILITY_MAX_P95_REL_DELTA, round(rel_delta, 4)
+
+
+async def _benchmark_capability(
+    cid: int,
+    *,
+    warmup: int = PERF_WARMUP_ITERATIONS,
+    iterations: int = PERF_MEASUREMENT_ITERATIONS,
+) -> dict[str, Any]:
     from pdf_capability_registry import execute_capability
 
     perf_class = PERF_CLASS_MAP.get(cid, DEFAULT_PERF_CLASS)
@@ -584,6 +673,7 @@ async def _benchmark_capability(cid: int, *, warmup: int = 2, iterations: int = 
                 "performance_class": perf_class,
                 "measurement_status": "LOCAL_RUNTIME_EXEC_FAIL",
                 "error": result.get("error"),
+                "sample_count": 0,
             }
 
     times_ms: list[float] = []
@@ -597,80 +687,195 @@ async def _benchmark_capability(cid: int, *, warmup: int = 2, iterations: int = 
         else:
             errors += 1
 
-    if not times_ms:
+    sample_count = len(times_ms)
+    if sample_count == 0:
         return {
             "capability_id": cid,
             "performance_class": perf_class,
             "measurement_status": "LOCAL_RUNTIME_EXEC_FAIL",
             "error_rate": 1.0,
+            "sample_count": 0,
         }
 
-    times_ms.sort()
-    p50 = times_ms[len(times_ms) // 2]
-    p95 = times_ms[max(0, int(len(times_ms) * 0.95) - 1)]
-    p99 = times_ms[max(0, int(len(times_ms) * 0.99) - 1)]
+    sorted_times = sorted(times_ms)
+    p50 = _percentile_nearest_rank(sorted_times, 50)
+    p95 = _percentile_nearest_rank(sorted_times, 95)
+    p99 = _percentile_nearest_rank(sorted_times, 99)
     error_rate = errors / iterations
+    stable, stability_rel_delta = _stability_ok(sorted_times)
+
+    evidence_insufficient: list[str] = []
+    if sample_count < PERF_MIN_SAMPLE_FOR_P99:
+        evidence_insufficient.append(f"sample_count={sample_count} < min={PERF_MIN_SAMPLE_FOR_P99}")
+    if not stable:
+        evidence_insufficient.append(f"p95_half_split_rel_delta={stability_rel_delta} > max={PERF_STABILITY_MAX_P95_REL_DELTA}")
 
     if perf_class == "NO_RUNTIME_PATH":
         status = "NOT_APPLICABLE"
+    elif evidence_insufficient:
+        status = "LOCAL_MEASURED_INSUFFICIENT"
     elif p95 <= threshold:
         status = "LOCAL_MEASURED_PASS"
     else:
         status = "LOCAL_MEASURED_FAIL"
 
+    # Concurrency spot-check: 5 parallel invocations (throughput under burst)
+    conc_start = time.perf_counter()
+    conc_results = await asyncio.gather(*[execute_capability(cid) for _ in range(5)])
+    conc_elapsed_ms = (time.perf_counter() - conc_start) * 1000.0
+    conc_ok = sum(1 for r in conc_results if r.get("ok"))
+    concurrency_test = {
+        "parallel_invocations": 5,
+        "all_ok": conc_ok == 5,
+        "wall_clock_ms": round(conc_elapsed_ms, 2),
+        "status": "LOCAL_CONCURRENCY_PASS" if conc_ok == 5 else "LOCAL_CONCURRENCY_FAIL",
+    }
+
     return {
         "capability_id": cid,
         "performance_class": perf_class,
-        "threshold_p95_ms": threshold,
+        "target_p95_ms": threshold,
+        "sample_count": sample_count,
+        "warmup_iterations": warmup,
+        "measurement_iterations": iterations,
+        "percentile_method": PERF_PERCENTILE_METHOD,
         "p50_ms": round(p50, 2),
         "p95_ms": round(p95, 2),
         "p99_ms": round(p99, 2),
+        "p99_material": sample_count >= PERF_MIN_SAMPLE_FOR_P99,
         "error_rate": round(error_rate, 4),
-        "iterations": iterations,
+        "throughput": {
+            "status": "NOT_APPLICABLE",
+            "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally",
+        },
+        "concurrency_test": concurrency_test,
+        "saturation": {
+            "status": "NOT_APPLICABLE",
+            "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+            "burst_wall_clock_ms": concurrency_test["wall_clock_ms"],
+        },
+        "stability_p95_half_split_rel_delta": stability_rel_delta,
+        "stability_pass": stable,
         "measurement_status": status,
+        "result": status,
+        "evidence_insufficient_reasons": evidence_insufficient,
         "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
-        "workload": "execute_capability deterministic local call",
+        "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+        "evidence": f"docs/BATCH07_PERFORMANCE_CAPACITY_PREP.json#capability_id={cid}",
     }
 
 
 async def run_local_performance_benchmark() -> dict[str, Any]:
+    env = _runtime_environment()
+    commit = git_commit()
+    measured_at = datetime.now(UTC).isoformat()
+
     results = []
     for cid in BATCH07_IDS:
         results.append(await _benchmark_capability(cid))
 
-    failures = [r for r in results if r["measurement_status"] == "LOCAL_MEASURED_FAIL"]
-    unexecuted = [r for r in results if r["measurement_status"] in ("LOCAL_RUNTIME_EXEC_FAIL",)]
-    not_applicable = [r for r in results if r["measurement_status"] == "NOT_APPLICABLE"]
+    failures = [r["capability_id"] for r in results if r["measurement_status"] == "LOCAL_MEASURED_FAIL"]
+    unexecuted = [r["capability_id"] for r in results if r["measurement_status"] == "LOCAL_RUNTIME_EXEC_FAIL"]
+    insufficient = [
+        r["capability_id"]
+        for r in results
+        if r["measurement_status"] == "LOCAL_MEASURED_INSUFFICIENT"
+        or r.get("evidence_insufficient_reasons")
+    ]
+
+    complete = not failures and not unexecuted and not insufficient
+
+    by_class: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for r in results:
+        by_class[r["performance_class"]].append(r)
+
+    class_summary = {}
+    for cls, rows in by_class.items():
+        class_summary[cls] = {
+            "count": len(rows),
+            "p50_ms_median": round(statistics.median([r["p50_ms"] for r in rows]), 2),
+            "p95_ms_max": round(max(r["p95_ms"] for r in rows), 2),
+            "p99_ms_max": round(max(r["p99_ms"] for r in rows), 2),
+            "error_rate_max": max(r["error_rate"] for r in rows),
+        }
 
     return {
+        "methodology": {
+            "warmup_iterations": PERF_WARMUP_ITERATIONS,
+            "measurement_iterations": PERF_MEASUREMENT_ITERATIONS,
+            "min_sample_for_p99": PERF_MIN_SAMPLE_FOR_P99,
+            "percentile_method": PERF_PERCENTILE_METHOD,
+            "stability_check": "p95 first-half vs second-half relative delta",
+            "stability_max_rel_delta": PERF_STABILITY_MAX_P95_REL_DELTA,
+            "workload_fixture": "execute_capability per ID sequential + 5-wide concurrency burst",
+            "environment": env,
+            "measured_at_utc": measured_at,
+            "git_commit": commit,
+            "not_production_evidence": True,
+        },
         "measurements": results,
-        "local_performance_failures": [r["capability_id"] for r in failures],
-        "local_performance_unexecuted_but_executable": [r["capability_id"] for r in unexecuted],
-        "performance_local_status": "LOCAL_COMPLETE" if not failures and not unexecuted else "INCOMPLETE",
+        "class_summary": class_summary,
+        "local_performance_failures": failures,
+        "local_performance_unexecuted_but_executable": unexecuted,
+        "performance_evidence_insufficient": insufficient,
+        "performance_local_status": "LOCAL_COMPLETE" if complete else "INCOMPLETE",
         "summary": {
             "local_measured_pass": sum(1 for r in results if r["measurement_status"] == "LOCAL_MEASURED_PASS"),
             "local_measured_fail": len(failures),
+            "local_measured_insufficient": len(insufficient),
             "production_execution_required": 0,
-            "not_applicable": len(not_applicable),
         },
     }
 
 
-def verify_queue_purity() -> dict[str, Any]:
+def verify_queue_semantics() -> dict[str, Any]:
+    """Ensure PRE_LIVE (QUEUE_C) and POST_LIVE (QUEUE_D) activities do not double-count."""
     c_ids = {item["queue_id"] for item in INDEPENDENT_QUEUE}
     d_ids = {item["queue_id"] for item in RAILWAY_THEN_INDEPENDENT_QUEUE}
     b_ids = {item["queue_id"] for item in RAILWAY_QUEUE}
-    overlap_cd = c_ids & d_ids
-    overlap_bc = b_ids & c_ids
-    overlap_bd = b_ids & d_ids
-    duplicates = sorted(overlap_cd | overlap_bc | overlap_bd)
+
+    id_overlap_cd = c_ids & d_ids
+    id_overlap_bc = b_ids & c_ids
+    id_overlap_bd = b_ids & d_ids
+    queue_double_count = sorted(id_overlap_cd | id_overlap_bc | id_overlap_bd)
+
+    # Semantic overlap: same generic label without stage qualification
+    semantic_pairs = [
+        ("12207 Validation", "PLR1", "PLS3"),
+        ("12207 Transition/Operation", "PLR2", "PLS4"),
+        ("SRE PRR", "PLR3", "PLS2"),
+        ("G7", "PLR4", "PLS1"),
+    ]
+    queue_semantic_overlap: list[str] = []
+    for topic, pre_id, post_id in semantic_pairs:
+        pre = next(i for i in INDEPENDENT_QUEUE if i["queue_id"] == pre_id)
+        post = next(i for i in RAILWAY_THEN_INDEPENDENT_QUEUE if i["queue_id"] == post_id)
+        if pre.get("stage") != "PRE_LIVE_INDEPENDENT_REVIEW":
+            queue_semantic_overlap.append(f"{pre_id}: missing PRE_LIVE stage")
+        if post.get("stage") != "POST_LIVE_FINAL_SIGNOFF":
+            queue_semantic_overlap.append(f"{post_id}: missing POST_LIVE stage")
+        if pre.get("pre_live_or_post_live") != "PRE_LIVE" or post.get("pre_live_or_post_live") != "POST_LIVE":
+            queue_semantic_overlap.append(f"{topic}: stage qualification missing")
+
+    queue_unresolved: list[str] = []
+    if queue_double_count:
+        queue_unresolved.extend([f"id_overlap:{x}" for x in queue_double_count])
+    if queue_semantic_overlap:
+        queue_unresolved.extend(queue_semantic_overlap)
+
     return {
-        "queue_duplicate_items": duplicates,
+        "queue_semantic_overlap": queue_semantic_overlap,
+        "queue_double_count": queue_double_count,
+        "queue_unresolved": queue_unresolved,
         "queue_c_count": len(INDEPENDENT_QUEUE),
         "queue_d_count": len(RAILWAY_THEN_INDEPENDENT_QUEUE),
         "queue_b_count": len(RAILWAY_QUEUE),
-        "purity_verified": len(duplicates) == 0,
+        "purity_verified": len(queue_unresolved) == 0,
     }
+
+
+def verify_queue_purity() -> dict[str, Any]:
+    return verify_queue_semantics()
 
 
 def build_reconciled_status_queues(baseline_head: str) -> dict[str, Any]:
@@ -693,14 +898,16 @@ def build_reconciled_status_queues(baseline_head: str) -> dict[str, Any]:
             "count": len(RAILWAY_QUEUE),
             "purity_verified": True,
         },
-        "QUEUE_C_INDEPENDENT_REVIEW_ONLY": {
+        "QUEUE_C_PRE_LIVE_INDEPENDENT_REVIEW": {
             "items": INDEPENDENT_QUEUE,
             "count": len(INDEPENDENT_QUEUE),
+            "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
             "purity_verified": purity["purity_verified"],
         },
-        "QUEUE_D_RAILWAY_THEN_INDEPENDENT": {
+        "QUEUE_D_POST_LIVE_FINAL_SIGNOFF": {
             "items": RAILWAY_THEN_INDEPENDENT_QUEUE,
             "count": len(RAILWAY_THEN_INDEPENDENT_QUEUE),
+            "stage": "POST_LIVE_FINAL_SIGNOFF",
             "purity_verified": purity["purity_verified"],
         },
         "queue_reconciliation": purity,

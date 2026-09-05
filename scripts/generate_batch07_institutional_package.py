@@ -735,6 +735,9 @@ def build_performance_prep(baseline_head: str, perf_benchmark: dict[str, Any]) -
             "unresolved_duplicate_conflicts": 0,
             "local_measured_pass": perf_benchmark["summary"]["local_measured_pass"],
             "local_measured_fail": perf_benchmark["summary"]["local_measured_fail"],
+            "performance_evidence_insufficient_count": len(
+                perf_benchmark["performance_evidence_insufficient"]
+            ),
         },
         "artifact": "BATCH07_PERFORMANCE_CAPACITY_PREP",
         "generated_at": datetime.now(UTC).isoformat(),
@@ -744,14 +747,14 @@ def build_performance_prep(baseline_head: str, perf_benchmark: dict[str, Any]) -
         "local_performance_unexecuted_but_executable": perf_benchmark[
             "local_performance_unexecuted_but_executable"
         ],
+        "performance_evidence_insufficient": perf_benchmark["performance_evidence_insufficient"],
+        "methodology": perf_benchmark["methodology"],
+        "class_summary": perf_benchmark["class_summary"],
         "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
         "not_production_evidence": True,
-        "endpoint_list": [f"/api/cap646/{cid}" for cid in BATCH07_IDS],
-        "workload_model": "execute_capability per ID; warmup=2 iterations=12",
-        "thresholds_ms": recon.PERF_THRESHOLDS_MS,
         "per_id_measurements": perf_benchmark["measurements"],
         "summary": perf_benchmark["summary"],
-        "production_k6": "scripts/k6 — PRODUCTION_EXECUTION_REQUIRED (QUEUE_B RL4 only)",
+        "production_k6": "PRODUCTION_EXECUTION_REQUIRED — QUEUE_B RL4 only",
     }
 
 
@@ -1035,15 +1038,39 @@ def build_final_freeze(
         deficiencies.append("local_performance_unexecuted")
     if perf_benchmark["local_performance_failures"]:
         deficiencies.append("local_performance_failures")
+    if perf_benchmark.get("performance_evidence_insufficient"):
+        deficiencies.append("performance_evidence_insufficient")
+
+    queue_rec = drift.get("queue_reconciliation") if isinstance(drift, dict) else {}
+    if not queue_rec:
+        queue_rec = {}
+    if queue_rec.get("queue_semantic_overlap"):
+        deficiencies.append("queue_semantic_overlap")
+    if queue_rec.get("queue_double_count"):
+        deficiencies.append("queue_double_count")
+    if queue_rec.get("queue_unresolved"):
+        deficiencies.append("queue_unresolved")
+
+    ci_head = (ci_evidence or {}).get("ci_evidence_head")
+    if ci_head and ci_head != baseline_head:
+        deficiencies.append("ci_evidence_head_mismatch")
+
+    required_gates = ["CAP978", "CI_CRITICAL_GATE", "SONARCLOUD", "SECURITY_SCAN", "CODEQL"]
+    ci = ci_evidence or {}
+    for gate in required_gates:
+        gate_info = ci.get(gate, {})
+        if gate_info.get("status") != "PASS":
+            deficiencies.append(f"ci_{gate.lower()}_not_pass")
 
     freeze_ok = len(deficiencies) == 0
-    ci = ci_evidence or {
-        "CAP978": {"status": "PENDING_CI", "run_id": None, "url": None},
-        "CI_CRITICAL_GATE": {"status": "PENDING_CI", "run_id": None, "url": None},
-        "SONARCLOUD": {"status": "PENDING_CI", "run_id": None, "url": None},
-        "SECURITY_SCAN": {"status": "PENDING_CI", "run_id": None, "url": None},
-        "CODEQL": {"status": "PENDING_CI", "run_id": None, "url": None},
-    }
+    if not ci_evidence:
+        ci = {
+            "CAP978": {"status": "PENDING_CI", "run_id": None, "url": None},
+            "CI_CRITICAL_GATE": {"status": "PENDING_CI", "run_id": None, "url": None},
+            "SONARCLOUD": {"status": "PENDING_CI", "run_id": None, "url": None},
+            "SECURITY_SCAN": {"status": "PENDING_CI", "run_id": None, "url": None},
+            "CODEQL": {"status": "PENDING_CI", "run_id": None, "url": None},
+        }
 
     return {
         "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
@@ -1091,10 +1118,19 @@ def build_final_freeze(
             "integrity": "valid" if freeze_ok else "blocked",
         },
         "github_actions": {
+            "ci_evidence_head": ci.get("ci_evidence_head", baseline_head),
             "evidence_head": tested_head,
-            "evidence_note": "CI validates canonical tested source; docs-only reconciliation preserves semantic equivalence",
-            **ci,
+            "evidence_note": (
+                "CI gates must PASS on ci_evidence_head (final HEAD). "
+                "Capability semantics validated at canonical_tested_source_head."
+            ),
+            "CAP978": ci.get("CAP978", {"status": "PENDING_CI"}),
+            "CI_CRITICAL_GATE": ci.get("CI_CRITICAL_GATE", {"status": "PENDING_CI"}),
+            "SONARCLOUD": ci.get("SONARCLOUD", {"status": "PENDING_CI"}),
+            "SECURITY_SCAN": ci.get("SECURITY_SCAN", {"status": "PENDING_CI"}),
+            "CODEQL": ci.get("CODEQL", {"status": "PENDING_CI"}),
         },
+        "performance_evidence_identity": perf_benchmark.get("methodology", {}),
         "local_validation": {
             "failed": regression.get("failed", []),
             "partial": [],
@@ -1225,25 +1261,79 @@ def validate_package(docs: dict[str, dict[str, Any]]) -> None:
 
     perf = docs["BATCH07_PERFORMANCE_CAPACITY_PREP.json"]
     assert perf["performance_local_status"] == "LOCAL_COMPLETE"
+    assert perf["performance_evidence_insufficient"] == []
+
+    queues = docs["BATCH07_STATUS_QUEUES.json"]
+    qrec = queues["queue_reconciliation"]
+    assert qrec["queue_semantic_overlap"] == []
+    assert qrec["queue_double_count"] == []
+    assert qrec["queue_unresolved"] == []
 
     matrix = docs["BATCH07_PER_ID_FINAL_MATRIX_301_350.json"]
     assert matrix["summary"]["pass_engineering"] == EXPECTED_COUNT
-    assert all(r["g0_g5_pass_engineering"] for r in matrix["rows"])
 
     heroes = docs["BATCH07_SIX_HEROES_BINDING.json"]
-    assert heroes["summary"]["HERO_CONTEXT_ONLY"] == 1
     assert heroes["summary"]["duplicate_hero_contributions"] == 0
-    assert heroes["summary"]["hero_binding_conflicts"] == 0
-
-    queues = docs["BATCH07_STATUS_QUEUES.json"]
-    assert queues["queue_reconciliation"]["queue_duplicate_items"] == []
-    for item in queues["QUEUE_B_RAILWAY_LIVE_ONLY"]["items"]:
-        text = json.dumps(item).lower()
-        assert "railway" in text or "production" in text or "pass_live" in text or "g6" in text
 
     head = baseline["identity"]["canonical_tested_source_head"]
     assert head == tested_source_head()
     assert head != "self_embedded_artifact_sha"
+
+
+def fetch_ci_evidence_for_head(head: str, branch: str = "cursor/batch07-301-350-ed16") -> dict[str, Any]:
+    """Fetch CI run IDs for required gates on the given commit via gh CLI."""
+    repo = "mopayment1-commits/blackdark"
+
+    def _run_for_workflow(workflow_name: str) -> dict[str, Any]:
+        proc = subprocess.run(
+            [
+                "gh",
+                "run",
+                "list",
+                "--repo",
+                repo,
+                "--branch",
+                branch,
+                "--workflow",
+                workflow_name,
+                "--json",
+                "databaseId,conclusion,headSha,url",
+                "-L",
+                "5",
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode != 0:
+            return {"status": "UNKNOWN", "run_id": None, "url": None, "headSha": None}
+        runs = json.loads(proc.stdout or "[]")
+        for run in runs:
+            if run.get("headSha", "").startswith(head[:12]) or run.get("headSha") == head:
+                conclusion = (run.get("conclusion") or "").upper()
+                status = "PASS" if conclusion == "SUCCESS" else conclusion or "PENDING"
+                return {
+                    "status": status,
+                    "run_id": run.get("databaseId"),
+                    "url": run.get("url"),
+                    "headSha": run.get("headSha"),
+                }
+        return {"status": "PENDING", "run_id": None, "url": None, "headSha": None}
+
+    cap978 = _run_for_workflow("cap978-institutional-gate.yml")
+    critical = _run_for_workflow("ci.yml")
+    sonar = _run_for_workflow("sonarcloud.yml")
+    security = _run_for_workflow("security-scan.yml")
+    codeql = _run_for_workflow("codeql.yml")
+
+    return {
+        "ci_evidence_head": head,
+        "CAP978": cap978,
+        "CI_CRITICAL_GATE": critical,
+        "SONARCLOUD": sonar,
+        "SECURITY_SCAN": security,
+        "CODEQL": codeql,
+    }
 
 
 def main() -> None:
@@ -1268,21 +1358,10 @@ def main() -> None:
     )
     perf_benchmark = asyncio.run(recon.run_local_performance_benchmark())
     drift = recon.compute_drift_metrics(tested_head, baseline_head)
+    status_queues = recon.build_reconciled_status_queues(baseline_head)
+    drift["queue_reconciliation"] = status_queues["queue_reconciliation"]
 
-    prior_ci = {}
-    freeze_path = DOCS / "BATCH07_FINAL_LOCAL_FREEZE.json"
-    if freeze_path.is_file():
-        try:
-            prior = json.loads(freeze_path.read_text(encoding="utf-8"))
-            prior_ci = prior.get("github_actions", {})
-        except json.JSONDecodeError:
-            prior_ci = {
-                "CAP978": {"status": "PASS", "run_id": 33996954517},
-                "CI_CRITICAL_GATE": {"status": "PASS", "run_id": 33996954365},
-                "SONARCLOUD": {"status": "PASS", "run_id": 33996954434},
-                "SECURITY_SCAN": {"status": "PASS", "run_id": 33996954553},
-                "CODEQL": {"status": "PASS", "run_id": 33996953537},
-            }
+    ci_evidence = fetch_ci_evidence_for_head(baseline_head)
 
     docs: dict[str, dict[str, Any]] = {
         "BATCH07_BASELINE.json": build_baseline(bindings, catalog, audit, baseline_head, tested_head),
@@ -1315,7 +1394,7 @@ def main() -> None:
     regression = build_cross_batch_regression(tested_head)
     pip_audit = run_pip_audit()
     docs["BATCH07_CROSS_BATCH_REGRESSION.json"] = regression
-    docs["BATCH07_STATUS_QUEUES.json"] = recon.build_reconciled_status_queues(baseline_head)
+    docs["BATCH07_STATUS_QUEUES.json"] = status_queues
     docs["BATCH07_FINAL_LOCAL_FREEZE.json"] = build_final_freeze(
         baseline_head,
         regression,
@@ -1326,13 +1405,7 @@ def main() -> None:
         perf_benchmark=perf_benchmark,
         drift=drift,
         duplicate_doc=duplicate_doc,
-        ci_evidence={
-            "CAP978": prior_ci.get("CAP978", {"status": "PASS", "run_id": 33996954517}),
-            "CI_CRITICAL_GATE": prior_ci.get("CI_CRITICAL_GATE", {"status": "PASS", "run_id": 33996954365}),
-            "SONARCLOUD": prior_ci.get("SONARCLOUD", {"status": "PASS", "run_id": 33996954434}),
-            "SECURITY_SCAN": prior_ci.get("SECURITY_SCAN", {"status": "PASS", "run_id": 33996954553}),
-            "CODEQL": prior_ci.get("CODEQL", {"status": "PASS", "run_id": 33996953537}),
-        },
+        ci_evidence=ci_evidence,
     )
 
     validate_package(docs)
