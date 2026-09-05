@@ -1,5 +1,5 @@
 assert_rule_count_triple_match: begin
-generated_at=2026-09-05T00:03:04.170458+00:00
+generated_at=2026-09-05T00:06:41.514695+00:00
 
 ID 251: acceptance_rules=9 probe_denominator=11 OK
 ID 252: acceptance_rules=4 probe_denominator=6 OK

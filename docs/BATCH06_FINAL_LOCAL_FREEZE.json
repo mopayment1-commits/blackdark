@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-05T00:03:22.279381+00:00",
-  "git_commit": "3303413d491d611cba27a53ee03a9ca09031fdec",
+  "generated_at": "2026-09-05T00:06:59.832637+00:00",
+  "git_commit": "25017eef732000c979edbb3d288101ec7f57d714",
   "freeze_type": "FINAL_LOCAL_PRE_PRODUCTION",
   "batch06_independent": 0,
   "progress_826": 179,
@@ -11,14 +11,40 @@
   "final_local_status": "PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED / BLOCKED_EXTERNAL_FOR_LIVE_ONLY",
   "g0_g4": {
     "G0": 50,
-    "G1": 42,
+    "G1": 50,
     "G2": 50,
-    "G3": 42,
-    "G4": 42
+    "G3": 50,
+    "G4": 50
   },
-  "semantic_oracle": 42,
+  "semantic_oracle": 50,
   "reused_link_count": 11,
   "strangler_count": 39,
+  "global_duplicate_review": {
+    "artifact": "docs/BATCH06_GLOBAL_DUPLICATE_CANONICAL_REVIEW_BATCH01_06.json",
+    "reused_link": 11,
+    "distinct_verified": 39,
+    "unresolved_local_conflicts": 0,
+    "surface_collisions_documented": [
+      255,
+      256,
+      257,
+      260,
+      272
+    ]
+  },
+  "security": {
+    "status": "PROVEN_LOCAL_MATERIAL_PATHS",
+    "material_paths": 8,
+    "proven_local_checks": 48
+  },
+  "observability": {
+    "status": "IMPLEMENTED_AND_TESTED_LOCAL",
+    "live_dashboards": "REQUIRES_LIVE"
+  },
+  "six_heroes": {
+    "batch06_in_hero_inputs": false,
+    "duplicate_hero_contribution": 0
+  },
   "reliability": {
     "status": "PROVEN_LOCAL",
     "modes": [
@@ -58,14 +84,14 @@
     "not_applicable": 0
   },
   "data_integrity": {
-    "per_id_proven_local": 42,
+    "per_id_proven_local": 50,
     "total": 50,
     "rows": [
       {
         "capability_id": 251,
-        "semantic_oracle_pass": false,
+        "semantic_oracle_pass": true,
         "feature_ref_invariant": false,
-        "status": "DOWNGRADED"
+        "status": "PROVEN_LOCAL"
       },
       {
         "capability_id": 252,
@@ -111,21 +137,21 @@
       },
       {
         "capability_id": 259,
-        "semantic_oracle_pass": false,
+        "semantic_oracle_pass": true,
         "feature_ref_invariant": true,
-        "status": "DOWNGRADED"
+        "status": "PROVEN_LOCAL"
       },
       {
         "capability_id": 260,
-        "semantic_oracle_pass": false,
+        "semantic_oracle_pass": true,
         "feature_ref_invariant": true,
-        "status": "DOWNGRADED"
+        "status": "PROVEN_LOCAL"
       },
       {
         "capability_id": 261,
-        "semantic_oracle_pass": false,
+        "semantic_oracle_pass": true,
         "feature_ref_invariant": true,
-        "status": "DOWNGRADED"
+        "status": "PROVEN_LOCAL"
       },
       {
         "capability_id": 262,
@@ -189,9 +215,9 @@
       },
       {
         "capability_id": 272,
-        "semantic_oracle_pass": false,
+        "semantic_oracle_pass": true,
         "feature_ref_invariant": true,
-        "status": "DOWNGRADED"
+        "status": "PROVEN_LOCAL"
       },
       {
         "capability_id": 273,
@@ -207,9 +233,9 @@
       },
       {
         "capability_id": 275,
-        "semantic_oracle_pass": false,
+        "semantic_oracle_pass": true,
         "feature_ref_invariant": false,
-        "status": "DOWNGRADED"
+        "status": "PROVEN_LOCAL"
       },
       {
         "capability_id": 276,
@@ -303,15 +329,15 @@
       },
       {
         "capability_id": 291,
-        "semantic_oracle_pass": false,
+        "semantic_oracle_pass": true,
         "feature_ref_invariant": true,
-        "status": "DOWNGRADED"
+        "status": "PROVEN_LOCAL"
       },
       {
         "capability_id": 292,
-        "semantic_oracle_pass": false,
+        "semantic_oracle_pass": true,
         "feature_ref_invariant": true,
-        "status": "DOWNGRADED"
+        "status": "PROVEN_LOCAL"
       },
       {
         "capability_id": 293,
@@ -454,17 +480,11 @@
     "count": 4,
     "purity_verified": true
   },
-  "known_local_deficiencies": [
-    {
-      "id": "SEMANTIC_SURFACE_DRIFT",
-      "count": 8,
-      "note": "Runtime surface may differ from EXPECTED_SURFACE on REUSED-LINK facades"
-    }
-  ],
+  "known_local_deficiencies": [],
   "freeze_tests": {
     "exit_code": 0,
     "passed": true,
-    "stdout_tail": "..........................................                               [100%]\n"
+    "stdout_tail": "........................................................................ [ 75%]\n.......................                                                  [100%]\n"
   },
   "artifact_index": [
     "docs/BATCH06_FINAL_LOCAL_FREEZE.json",

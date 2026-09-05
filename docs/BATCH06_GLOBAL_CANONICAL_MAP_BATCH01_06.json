@@ -1,0 +1,268 @@
+{
+  "generated_at": "2026-09-05T00:06:42.005853+00:00",
+  "scope": "Batch01-06",
+  "entries": [
+    {
+      "capability_id": 251,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 69,
+      "canonical_spine": "batch02"
+    },
+    {
+      "capability_id": 252,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 253,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 254,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 255,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 205,
+      "canonical_spine": "batch05"
+    },
+    {
+      "capability_id": 256,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 86,
+      "canonical_spine": "batch02"
+    },
+    {
+      "capability_id": 257,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 235,
+      "canonical_spine": "batch05"
+    },
+    {
+      "capability_id": 258,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 259,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 231,
+      "canonical_spine": "batch05"
+    },
+    {
+      "capability_id": 260,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 126,
+      "canonical_spine": "batch03"
+    },
+    {
+      "capability_id": 261,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 234,
+      "canonical_spine": "batch05"
+    },
+    {
+      "capability_id": 262,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 263,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 264,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 265,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 266,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 267,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 268,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 269,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 270,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 271,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 272,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 247,
+      "canonical_spine": "batch05"
+    },
+    {
+      "capability_id": 273,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 274,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 275,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 69,
+      "canonical_spine": "batch02"
+    },
+    {
+      "capability_id": 276,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 277,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 278,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 279,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 280,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 281,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 282,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 283,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 284,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 285,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 286,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 287,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 288,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 289,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 290,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 291,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 210,
+      "canonical_spine": "batch05"
+    },
+    {
+      "capability_id": 292,
+      "decision": "REUSED-LINK",
+      "canonical_capability_id": 213,
+      "canonical_spine": "batch05"
+    },
+    {
+      "capability_id": 293,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 294,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 295,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 296,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 297,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 298,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 299,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    },
+    {
+      "capability_id": 300,
+      "decision": "DISTINCT_VERIFIED",
+      "canonical_spine": "batch06"
+    }
+  ],
+  "unresolved_conflicts": 0
+}

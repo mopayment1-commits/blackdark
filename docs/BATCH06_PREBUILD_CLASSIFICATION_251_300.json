@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-05T00:03:03.902827+00:00",
-  "commit": "3303413d491d611cba27a53ee03a9ca09031fdec",
+  "generated_at": "2026-09-05T00:06:41.266019+00:00",
+  "commit": "25017eef732000c979edbb3d288101ec7f57d714",
   "branch": "cursor/batch06-generator-scripts-7b8c",
   "scope": "Batch06 Pre-Build Classification Matrix IDs 251-300",
   "standard": "ISO/IEC/IEEE 12207 Phase A + Strangler Fig + Gartner TIME",

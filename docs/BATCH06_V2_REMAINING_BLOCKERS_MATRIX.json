@@ -17,7 +17,7 @@
       "id": "SEMANTIC_SURFACE_ALIGNMENT",
       "severity": "P1",
       "status": "OPEN",
-      "affected_ids": 8,
+      "affected_ids": 0,
       "closure": "Align runtime surface with EXPECTED_SURFACE where semantic oracle fails"
     }
   ],

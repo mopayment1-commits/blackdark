@@ -2,9 +2,9 @@
   "per_id": [
     {
       "capability_id": 251,
-      "semantic_oracle_pass": false,
+      "semantic_oracle_pass": true,
       "feature_ref_invariant": false,
-      "status": "DOWNGRADED"
+      "status": "PROVEN_LOCAL"
     },
     {
       "capability_id": 252,
@@ -50,21 +50,21 @@
     },
     {
       "capability_id": 259,
-      "semantic_oracle_pass": false,
+      "semantic_oracle_pass": true,
       "feature_ref_invariant": true,
-      "status": "DOWNGRADED"
+      "status": "PROVEN_LOCAL"
     },
     {
       "capability_id": 260,
-      "semantic_oracle_pass": false,
+      "semantic_oracle_pass": true,
       "feature_ref_invariant": true,
-      "status": "DOWNGRADED"
+      "status": "PROVEN_LOCAL"
     },
     {
       "capability_id": 261,
-      "semantic_oracle_pass": false,
+      "semantic_oracle_pass": true,
       "feature_ref_invariant": true,
-      "status": "DOWNGRADED"
+      "status": "PROVEN_LOCAL"
     },
     {
       "capability_id": 262,
@@ -128,9 +128,9 @@
     },
     {
       "capability_id": 272,
-      "semantic_oracle_pass": false,
+      "semantic_oracle_pass": true,
       "feature_ref_invariant": true,
-      "status": "DOWNGRADED"
+      "status": "PROVEN_LOCAL"
     },
     {
       "capability_id": 273,
@@ -146,9 +146,9 @@
     },
     {
       "capability_id": 275,
-      "semantic_oracle_pass": false,
+      "semantic_oracle_pass": true,
       "feature_ref_invariant": false,
-      "status": "DOWNGRADED"
+      "status": "PROVEN_LOCAL"
     },
     {
       "capability_id": 276,
@@ -242,15 +242,15 @@
     },
     {
       "capability_id": 291,
-      "semantic_oracle_pass": false,
+      "semantic_oracle_pass": true,
       "feature_ref_invariant": true,
-      "status": "DOWNGRADED"
+      "status": "PROVEN_LOCAL"
     },
     {
       "capability_id": 292,
-      "semantic_oracle_pass": false,
+      "semantic_oracle_pass": true,
       "feature_ref_invariant": true,
-      "status": "DOWNGRADED"
+      "status": "PROVEN_LOCAL"
     },
     {
       "capability_id": 293,
@@ -301,5 +301,5 @@
       "status": "PROVEN_LOCAL"
     }
   ],
-  "proven_local": 42
+  "proven_local": 50
 }
