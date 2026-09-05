@@ -6,6 +6,7 @@ Sprint 2 hub for execution intelligence. **1inch is a data source inside this le
 |---|---------|--------|-----|--------|
 | 5 | Slippage Intelligence Module (#5+#17) | `bd_platform/slippage_tolerance_optimizer.py` | `GET /api/platform/intelligence-ledger/slippage-optimize` | Slippage Intelligence (#5+#17) |
 | 6 | 1inch Network (embedded) | `bd_platform/oneinch_connector.py` | via `GET /api/platform/intelligence-ledger/execution` | Execution Intelligence |
+| 7 | Epistemic Humility Gate | `bd_platform/epistemic_humility_gate.py` | `GET/POST /api/intelligence/gate/*` | Epistemic Gate (metadata on execution) |
 
 ## Self-optimization logic (Feature #5)
 
