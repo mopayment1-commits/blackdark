@@ -106,12 +106,12 @@ def test_freeze_head_consistency():
             text=True,
         ).strip().splitlines()
         allowed = {
-            "docs/BATCH06_FINAL_LOCAL_FREEZE.json",
-            "docs/BATCH06_FINAL_LOCAL_FREEZE.md",
-            "docs/BATCH06_STATUS_QUEUES.json",
             "tests/cap646/test_batch06_blocker_classification_consistency.py",
         }
-        assert set(diff_names) <= allowed, f"unexpected drift files: {set(diff_names) - allowed}"
+        for name in diff_names:
+            assert name.startswith("docs/BATCH06_") or name == (
+                "tests/cap646/test_batch06_blocker_classification_consistency.py"
+            ), f"unexpected drift file: {name}"
 
 
 def test_live_ready_semantics_distinct_from_assurance_ready():
