@@ -1,0 +1,107 @@
+{
+  "feature_ref": 1024,
+  "merged_into": "Data Engine",
+  "standalone_rejected": true,
+  "multi_source_reconciliation_1024": {
+    "policy": {
+      "min_sources_per_type": 2,
+      "rule_based_cross_validation": true,
+      "failover_enabled": true,
+      "no_single_source_without_validation": true,
+      "provenance_visible": true,
+      "blocks_sprint_1_if_incomplete": true
+    },
+    "thresholds_pct": {
+      "price": 0.5,
+      "volume": 2.0,
+      "onchain": 0.1
+    },
+    "fee_db": {
+      "ingest_per_source_usd": 0.0001,
+      "validation_compute_usd": 0.00005,
+      "failover_overhead_usd": 0.00002,
+      "health_check_per_source_usd": 0.00001,
+      "logged_per_query": true,
+      "logged_per_source_per_hour": true
+    },
+    "automatic_failover": {
+      "enabled": true,
+      "engine": "Automatic Failover Engine",
+      "merged_into": "multi_source_reconciliation_1024",
+      "standalone_rejected": true,
+      "health_check_interval_seconds": {
+        "price": 30,
+        "volume": 30,
+        "onchain": "per_block"
+      },
+      "latency_trigger_multiplier": 2.0,
+      "max_failover_time_seconds": 5,
+      "recovery_validation_minutes": 5,
+      "incident_alert_threshold_per_hour": 3,
+      "baselines_ms": {
+        "binance": 120,
+        "coingecko": 150,
+        "coinmarketcap": 180,
+        "thegraph": 200,
+        "alchemy": 100,
+        "quicknode": 110
+      },
+      "switch": {
+        "automatic": true,
+        "manual_intervention_required": false,
+        "backup_from_source_registry": true
+      },
+      "user_impact": {
+        "no_service_interruption": true,
+        "failover_confidence": "Medium",
+        "badge": "Source Switched"
+      },
+      "logging": {
+        "provenance_ref": 945,
+        "incident_response_ref": 1017,
+        "append_only": true,
+        "fields": ["source_from", "source_to", "reason", "duration", "timestamp"]
+      },
+      "integrations": {
+        "reference_pricing_959": "price failover feeds reference price — no stale price",
+        "real_volume_992": "volume failover feeds real volume — venue quality re-evaluated",
+        "onchain_extension_12": "RPC node failover transparent — consensus across remaining nodes"
+      }
+    }
+  },
+  "sources": {
+    "price": [
+      {"id": "binance", "type": "cex_api", "endpoint": "api.binance.com/api/v3/ticker/price"},
+      {"id": "coingecko", "type": "aggregator", "endpoint": "api.coingecko.com/api/v3/simple/price"}
+    ],
+    "volume": [
+      {"id": "coinmarketcap", "type": "aggregator", "endpoint": "pro-api.coinmarketcap.com/v1"},
+      {"id": "thegraph", "type": "dex_indexer", "endpoint": "api.thegraph.com/subgraphs"}
+    ],
+    "onchain": [
+      {"id": "alchemy", "type": "rpc", "endpoint": "eth-mainnet.g.alchemy.com/v2"},
+      {"id": "quicknode", "type": "rpc", "endpoint": "patient-thrumming-forest.quiknode.pro"}
+    ]
+  },
+  "caching": {
+    "price_ttl_seconds": 300,
+    "volume_ttl_seconds": 300,
+    "onchain_ttl_seconds": 12,
+    "divergence_recheck_price_minutes": 5,
+    "divergence_recheck_onchain_blocks": 1
+  },
+  "divergence_handling": {
+    "within_threshold": "average_confidence_medium_or_high",
+    "above_threshold": "suppress_alert_ops_data_degraded_badge",
+    "fail_closed_ref": 945
+  },
+  "integrations": {
+    "provenance_945": "lineage graph includes source list + variance + resolution",
+    "source_provenance_1003": "source tagging on every value",
+    "reference_pricing_959": "reconciled price input",
+    "real_volume_992": "reconciled volume input",
+    "incident_response_1017": "source failure + divergence > threshold = incident",
+    "load_testing_1020": "failover tested under load",
+    "onchain_extension_12": "multi-node RPC consensus"
+  }
+}

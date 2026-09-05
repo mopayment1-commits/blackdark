@@ -205,10 +205,89 @@ async def get_wave_01_institutional(_: None = Depends(_ensure_ready)):
 async def get_data_status(_: None = Depends(_ensure_ready)):
     try:
         async with get_session() as session:
-            return await data_engine_status(session)
+            status = await data_engine_status(session)
     except Exception as exc:
         logger.exception("data status failed")
         raise HTTPException(status_code=503, detail=f"data engine unavailable: {exc}") from exc
+    try:
+        from blackdark.data.multi_source_reconciliation import multi_source_status_1024
+
+        status["multi_source_reconciliation"] = multi_source_status_1024()
+    except ImportError:
+        pass
+    return status
+
+
+@router.get("/api/v1/data/reconciliation/status")
+async def get_reconciliation_status(_: None = Depends(_ensure_ready)):
+    from blackdark.data.multi_source_reconciliation import multi_source_status_1024
+
+    return multi_source_status_1024()
+
+
+@router.get("/api/v1/data/reconciliation/price")
+async def get_reconciled_price(
+    symbol: str = Query("BTC"),
+    _: None = Depends(_ensure_ready),
+):
+    from blackdark.data.multi_source_reconciliation import reconcile_price
+
+    return reconcile_price(symbol=symbol)
+
+
+@router.get("/api/v1/data/reconciliation/volume")
+async def get_reconciled_volume(
+    symbol: str = Query("BTC"),
+    _: None = Depends(_ensure_ready),
+):
+    from blackdark.data.multi_source_reconciliation import reconcile_volume
+
+    return reconcile_volume(symbol=symbol)
+
+
+@router.get("/api/v1/data/reconciliation/onchain")
+async def get_reconciled_onchain(
+    chain: str = Query("ethereum"),
+    _: None = Depends(_ensure_ready),
+):
+    from blackdark.data.multi_source_reconciliation import reconcile_onchain
+
+    return reconcile_onchain(chain=chain)
+
+
+@router.get("/api/v1/data/reconciliation/failover/status")
+async def get_failover_status(_: None = Depends(_ensure_ready)):
+    from blackdark.data.multi_source_reconciliation import get_failover_status
+
+    return get_failover_status()
+
+
+@router.get("/api/v1/data/reconciliation/failover/events")
+async def get_failover_events(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.multi_source_reconciliation import get_failover_audit_trail
+
+    return get_failover_audit_trail()
+
+
+@router.get("/api/v1/data/reconciliation/audit-trail")
+async def get_reconciliation_audit(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.multi_source_reconciliation import get_reconciliation_audit_trail
+
+    return get_reconciliation_audit_trail()
+
+
+@router.get("/api/v1/data/reconciliation/sprint1-gate")
+async def get_reconciliation_sprint1_gate(_: None = Depends(_ensure_ready)):
+    from blackdark.data.multi_source_reconciliation import check_sprint1_gate_1024
+
+    return check_sprint1_gate_1024()
+
+
+@router.get("/api/v1/data/reconciliation/e2e")
+async def get_reconciliation_e2e(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.multi_source_reconciliation import run_multi_source_e2e_1024
+
+    return run_multi_source_e2e_1024()
 
 
 @router.post("/api/v1/data/ingest", status_code=202)
