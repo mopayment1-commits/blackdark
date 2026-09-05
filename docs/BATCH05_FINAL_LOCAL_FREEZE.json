@@ -1,14 +1,25 @@
 {
   "artifact": "BATCH05_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-05T21:45:00Z",
-  "heads": {
-    "current_head": "c59e1f505a1723e0f812bbbe72f151a664e6b1be",
-    "tested_source_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
+  "generated_at_utc": "2026-09-05T21:52:00Z",
+  "identity": {
+    "canonical_tested_source_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "regression_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
-    "artifact_generation_head": "c59e1f505a1723e0f812bbbe72f151a664e6b1be",
-    "embedded_freeze_head": "c59e1f505a1723e0f812bbbe72f151a664e6b1be",
-    "container_commit": null,
-    "baseline_ancestry": "94724ac103525de5624e6ed8db705c3b86d5dfda"
+    "baseline_ancestry": "94724ac103525de5624e6ed8db705c3b86d5dfda",
+    "container_commit": null
+  },
+  "provenance": {
+    "method": "git_log_derived",
+    "description": "freeze_artifact_commit is informational provenance only. Derive via: git log -1 --format=%H -- docs/BATCH05_FINAL_LOCAL_FREEZE.json. The artifact does NOT embed its own commit SHA as an institutional correctness gate.",
+    "metadata_commit_prior_to_canonical_schema": "621eee7817be2e6211496460e038e2e024d9b545",
+    "self_referential_head_embedding": "prohibited"
+  },
+  "semantic_equivalence": {
+    "semantic_equivalence_to_tested_source": true,
+    "production_runtime_drift": 0,
+    "test_logic_drift": 0,
+    "dependency_drift": 0,
+    "workflow_logic_drift": 0,
+    "docs_only_delta_since_tested_source": "docs/BATCH05_FINAL_LOCAL_FREEZE.json metadata only"
   },
   "preserved": {
     "node24_actions": true,
@@ -32,33 +43,35 @@
     "b2b_hero_test": "monkeypatch B2B_DEMO_API_KEY in test_b2b_feed_empty_state_block"
   },
   "github_actions": {
+    "evidence_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
+    "evidence_note": "CI runs below validate canonical tested source; post-tested docs-only commits preserve semantic equivalence",
     "CAP978": {
       "status": "PASS",
-      "run_id": 33986232192,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986232192"
+      "run_id": 33982362552,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33982362552"
     },
     "CI_CRITICAL_GATE": {
       "status": "PASS",
-      "run_id": 33986232279,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986232279"
+      "run_id": 33982362456,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33982362456"
     },
     "SONARCLOUD": {
       "status": "PASS",
-      "run_id": 33986232249,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986232249",
+      "run_id": 33982362507,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33982362507",
       "quality_gate": "PASSED",
       "coverage_xml": "PASS",
       "scanner_executed": true
     },
     "SECURITY_SCAN": {
       "status": "PASS",
-      "run_id": 33986232245,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986232245"
+      "run_id": 33982362472,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33982362472"
     },
     "CODEQL": {
       "status": "PASS",
-      "run_id": 33986229867,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33986229867"
+      "run_id": 33982360281,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33982360281"
     }
   },
   "sonarcloud_evidence": {
@@ -99,7 +112,6 @@
     "integrity": "valid"
   },
   "freeze_assertions": {
-    "frozen_source_head_is_semantically_equivalent_to_current_head": true,
     "BATCH05_FINAL_LOCAL_FREEZE": true,
     "LOCAL_GOVERNANCE_COMPLETE": true
   },
