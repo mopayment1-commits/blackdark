@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-05T12:26:54.178442+00:00",
-  "git_commit": "0cade94427544a7459d77fdfe60aec399e162802",
+  "generated_at": "2026-09-05T12:27:08.671348+00:00",
+  "git_commit": "b933b110ef80c918e73fc75cb00f69146e323228",
   "freeze_heads": {
-    "repository_head": "0cade94427544a7459d77fdfe60aec399e162802",
-    "artifact_generation_head": "0cade94427544a7459d77fdfe60aec399e162802",
-    "artifact_embedded_head": "0cade94427544a7459d77fdfe60aec399e162802",
-    "final_freeze_head": "0cade94427544a7459d77fdfe60aec399e162802",
-    "source_head": "0cade94427544a7459d77fdfe60aec399e162802"
+    "repository_head": "b933b110ef80c918e73fc75cb00f69146e323228",
+    "artifact_generation_head": "b933b110ef80c918e73fc75cb00f69146e323228",
+    "artifact_embedded_head": "b933b110ef80c918e73fc75cb00f69146e323228",
+    "final_freeze_head": "b933b110ef80c918e73fc75cb00f69146e323228",
+    "source_head": "b933b110ef80c918e73fc75cb00f69146e323228"
   },
   "BATCH06_FINAL_LOCAL_FREEZE": true,
   "freeze_type": "FINAL_LOCAL_ZERO_GAP_CLOSURE",
@@ -250,8 +250,8 @@
     "locally_solvable_gaps": 0
   },
   "status_queues": {
-    "generated_at": "2026-09-05T12:26:54.140396+00:00",
-    "git_commit": "0cade94427544a7459d77fdfe60aec399e162802",
+    "generated_at": "2026-09-05T12:27:08.632002+00:00",
+    "git_commit": "b933b110ef80c918e73fc75cb00f69146e323228",
     "taxonomy": {
       "RAILWAY_ONLY": "Requires only live production/Railway evidence",
       "INDEPENDENT_REVIEW_ONLY": "All technical/live evidence available; human sign-off only",
