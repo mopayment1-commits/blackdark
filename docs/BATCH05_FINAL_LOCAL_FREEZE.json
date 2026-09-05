@@ -1,0 +1,78 @@
+{
+  "artifact": "BATCH05_FINAL_LOCAL_FREEZE",
+  "generated_at_utc": "2026-09-05T15:45:00Z",
+  "heads": {
+    "current_head": "PENDING_COMMIT",
+    "tested_source_head": "PENDING_COMMIT",
+    "regression_head": "PENDING_COMMIT",
+    "artifact_generation_head": "PENDING_COMMIT",
+    "embedded_freeze_head": "PENDING_COMMIT",
+    "container_commit": null
+  },
+  "preserved": {
+    "node24_actions": true,
+    "checkout_sha": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+    "setup_python_sha": "5fda3b95a4ea91299a34e894583c3862153e4b97",
+    "node20_warnings": 0,
+    "batch05_capability_implementation": "unchanged",
+    "six_heroes": "43 STRANGLER + 6 CLOSED_REUSED_LINK + 1 CLOSED_DUPLICATE_DELEGATION",
+    "railway_execution": "deferred"
+  },
+  "remediation": {
+    "postgres_ci": {
+      "root_cause": "resolve_database_url() reads DATABASE_URL env; test only monkeypatched config.DATABASE_URL",
+      "fix": "Set DATABASE_URL in CI env and test monkeypatch"
+    },
+    "closure_reject_04": {
+      "root_cause": "Entitlement denial omitted classification; spine test expects success OR classification",
+      "fix": "Add NOT_COMPLETE classification on entitlement denial in cap646.runtime"
+    },
+    "nltk_ghsa": {
+      "root_cause": "textblob transitive nltk 3.10.3 GHSA-8mgp-746c-j5xp; no patched PyPI release",
+      "fix": "Remove textblob; retain VADER+rules sentiment chain (primary path unchanged)"
+    },
+    "starlette_httpx": {
+      "root_cause": "httpx2 missing from hash-locked CI install set",
+      "fix": "Add httpx2 to requirements.txt + conftest bootstrap guard"
+    },
+    "openpyxl": {
+      "root_cause": "Assurance tooling dependency not in lock set",
+      "fix": "Add openpyxl to requirements.txt and regenerate hashes"
+    },
+    "joblib_numpy": {
+      "root_cause": "joblib 1.5.3 numpy_pickle DeprecationWarning on NumPy 2.5",
+      "fix": "Upgrade joblib to 1.6.0"
+    }
+  },
+  "local_validation": {
+    "failed": [],
+    "partial": [],
+    "material_skipped": [],
+    "known_flaky_unresolved": [],
+    "warnings_local_solvable": [],
+    "known_local_deficiencies": [],
+    "pip_audit_actionable_vulnerabilities": 0,
+    "deep_closure": "PASS",
+    "hash_install": "PASS"
+  },
+  "github_actions": {
+    "CAP978": {"status": "PENDING", "run_id": null},
+    "CI_CRITICAL_GATE": {"status": "PENDING", "run_id": null},
+    "SONARCLOUD": {"status": "PENDING", "run_id": null},
+    "SECURITY_SCAN": {"status": "PENDING", "run_id": null},
+    "CODEQL": {"status": "PENDING", "run_id": null}
+  },
+  "freeze_assertions": {
+    "frozen_source_head_is_semantically_equivalent_to_current_head": true,
+    "BATCH05_FINAL_LOCAL_FREEZE": false,
+    "LOCAL_GOVERNANCE_COMPLETE": false
+  },
+  "deferred_claims": [
+    "PASS_LIVE",
+    "G6 PASS",
+    "LIVE_READY",
+    "G7 PASS",
+    "ASSURANCE_READY",
+    "PRODUCTION_ALIGNED"
+  ]
+}

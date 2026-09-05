@@ -112,14 +112,14 @@ async def execute_capability(
     if not skip_entitlement:
         ent = await entitlement_engine.check(target_id, user=user, org_id=org_id)
         if not ent.get("allowed"):
-            return ai_compliance_footer(
-                {
-                    "success": False,
-                    "capability_id": target_id,
-                    "capability": row["capability"],
-                    "entitlement": ent,
-                }
-            )
+            denied = {
+                "success": False,
+                "capability_id": target_id,
+                "capability": row["capability"],
+                "entitlement": ent,
+            }
+            denied["classification"] = _runtime_classification(denied)
+            return ai_compliance_footer(denied)
 
     from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
 
