@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:343e4824-f0ab-45d9-8eb6-f5f30b28e539",
+  "serialNumber": "urn:uuid:823570c2-6f1a-451d-87d5-0c9f1e32c9d8",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-08-12T11:01:28Z",
+    "timestamp": "2026-09-05T15:39:59Z",
     "tools": {
       "components": [
         {
@@ -18,7 +18,7 @@
       "type": "application",
       "name": "blackdark",
       "version": "rc2",
-      "description": "Generated from requirements.lock.txt sha256=96021f5982cb1a967db5a20559dda07a68ab89c4f808e5252b99a6af01a65d27"
+      "description": "Generated from requirements.lock.txt sha256=ab1f036113ae767412dfe8cff43be2652fd939234349d697d8dd1b9cc1f7d0cc"
     },
     "properties": [
       {
@@ -27,7 +27,7 @@
       },
       {
         "name": "blackdark:lockfile_sha256",
-        "value": "96021f5982cb1a967db5a20559dda07a68ab89c4f808e5252b99a6af01a65d27"
+        "value": "ab1f036113ae767412dfe8cff43be2652fd939234349d697d8dd1b9cc1f7d0cc"
       }
     ]
   },
@@ -97,10 +97,17 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:pypi/aioboto3@13.4.0",
-      "name": "aioboto3",
-      "version": "13.4.0",
-      "purl": "pkg:pypi/aioboto3@13.4.0"
+      "bom-ref": "pkg:pypi/google-cloud-bigquery@3.43.0",
+      "name": "google-cloud-bigquery",
+      "version": "3.43.0",
+      "purl": "pkg:pypi/google-cloud-bigquery@3.43.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/dbt-bigquery@1.9.0",
+      "name": "dbt-bigquery",
+      "version": "1.9.0",
+      "purl": "pkg:pypi/dbt-bigquery@1.9.0"
     },
     {
       "type": "library",
@@ -115,13 +122,6 @@
       "name": "vaderSentiment",
       "version": "3.3.2",
       "purl": "pkg:pypi/vadersentiment@3.3.2"
-    },
-    {
-      "type": "library",
-      "bom-ref": "pkg:pypi/textblob@0.19.0",
-      "name": "textblob",
-      "version": "0.19.0",
-      "purl": "pkg:pypi/textblob@0.19.0"
     },
     {
       "type": "library",
@@ -146,10 +146,10 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:pypi/joblib@1.5.3",
+      "bom-ref": "pkg:pypi/joblib@1.6.0",
       "name": "joblib",
-      "version": "1.5.3",
-      "purl": "pkg:pypi/joblib@1.5.3"
+      "version": "1.6.0",
+      "purl": "pkg:pypi/joblib@1.6.0"
     },
     {
       "type": "library",
@@ -202,6 +202,20 @@
     },
     {
       "type": "library",
+      "bom-ref": "pkg:pypi/httpx2@2.12.0",
+      "name": "httpx2",
+      "version": "2.12.0",
+      "purl": "pkg:pypi/httpx2@2.12.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/openpyxl@3.1.5",
+      "name": "openpyxl",
+      "version": "3.1.5",
+      "purl": "pkg:pypi/openpyxl@3.1.5"
+    },
+    {
+      "type": "library",
       "bom-ref": "pkg:pypi/pyotp@2.10.0",
       "name": "pyotp",
       "version": "2.10.0",
@@ -234,6 +248,27 @@
       "name": "ruff",
       "version": "0.16.2",
       "purl": "pkg:pypi/ruff@0.16.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/sqlparse@0.6.0",
+      "name": "sqlparse",
+      "version": "0.6.0",
+      "purl": "pkg:pypi/sqlparse@0.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/apscheduler@3.11.3",
+      "name": "APScheduler",
+      "version": "3.11.3",
+      "purl": "pkg:pypi/apscheduler@3.11.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/greenlet@3.5.4",
+      "name": "greenlet",
+      "version": "3.5.4",
+      "purl": "pkg:pypi/greenlet@3.5.4"
     }
   ]
 }

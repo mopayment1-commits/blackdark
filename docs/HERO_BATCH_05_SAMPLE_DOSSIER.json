@@ -21,7 +21,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 409,
@@ -41,7 +41,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 412,
@@ -61,7 +61,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 450,
@@ -81,7 +81,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 486,
@@ -101,7 +101,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 405,
@@ -121,7 +121,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 463,
@@ -141,7 +141,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 472,
@@ -161,7 +161,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 415,
@@ -181,7 +181,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 451,
@@ -201,7 +201,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     }
   ]
 }
