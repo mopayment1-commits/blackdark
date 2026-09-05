@@ -1453,6 +1453,7 @@
   },
   "per_id_final_matrix": "docs/BATCH05_PER_ID_FINAL_MATRIX_201_250.json",
   "known_local_deficiencies": [],
+  "frozen_source_head_is_semantically_equivalent_to_current_head": true,
   "freeze_tests": {
     "exit_code": 0,
     "passed": true

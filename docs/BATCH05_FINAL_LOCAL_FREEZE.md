@@ -11,3 +11,4 @@
 - Classification: 43 STRANGLER / 6 CLOSED_REUSED_LINK / 1 CLOSED_DUPLICATE_DELEGATION
 - TestClient stack: `httpx2==2.12.0` (StarletteDeprecationWarning closed)
 - warnings_local_solvable: **[]**
+- frozen_source_head_is_semantically_equivalent_to_current_head: **true** (tested source `cb23d683`; later commits are docs stamps only)

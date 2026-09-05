@@ -6,9 +6,23 @@
   "final_freeze_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
   "source_head": "cb23d683d3509acf27c2fb5382033e58f5c60694",
   "repository_head_at_generation": "cb23d683d3509acf27c2fb5382033e58f5c60694",
-  "artifact_container_commit": "942df6bb7c473e28a40e8705debd577cee65460b",
-  "current_repository_head": "942df6bb7c473e28a40e8705debd577cee65460b",
+  "artifact_container_commit": "b0fffae660afe905679c2a3c29cedcf8fdf1d071",
+  "current_repository_head": "b0fffae660afe905679c2a3c29cedcf8fdf1d071",
   "commits_since_tested_source": [
+    {
+      "commit": "b0fffae660afe905679c2a3c29cedcf8fdf1d071",
+      "subject": "docs(batch05): embed FULL_PASS regression at 942df6b",
+      "files": [
+        "docs/BATCH05_CROSS_BATCH_REGRESSION.json",
+        "docs/BATCH05_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH05_FREEZE_HEAD_CONSISTENCY.json"
+      ],
+      "path_classes": [
+        "docs"
+      ],
+      "role": "docs_stamp",
+      "production_runtime_files": []
+    },
     {
       "commit": "942df6bb7c473e28a40e8705debd577cee65460b",
       "subject": "docs(batch05): record freeze/HEAD ancestry after stamp",

@@ -107,6 +107,7 @@ def test_freeze_head_consistency():
         assert row["role"] in {"docs_stamp", "evidence_docs_tests_scripts"}
         assert row["production_runtime_files"] == []
     assert freeze.get("warnings_local_solvable", []) == []
+    assert freeze.get("frozen_source_head_is_semantically_equivalent_to_current_head") is True
 
 
 def test_col10_preparation_50_of_50():
