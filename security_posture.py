@@ -124,6 +124,29 @@ def security_posture_report() -> dict[str, Any]:
         },
     ]
 
+    try:
+        from sast_gate import check_sast_production_gate, sast_gate_status
+
+        sast_status = sast_gate_status()
+        sast_gate = check_sast_production_gate()
+        checks.append(
+            {
+                "id": "sast_gate_ci",
+                "ok": sast_status["policy"]["enabled"] is True,
+                "detail": "SAST gate in .github/workflows/security.yml — Bandit + secrets scan",
+            }
+        )
+        checks.append(
+            {
+                "id": "sast_production_gate",
+                "ok": sast_gate["ok"],
+                "detail": sast_gate,
+            }
+        )
+        sast_gate_policy = sast_status
+    except ImportError:
+        sast_gate_policy = None
+
     pentest = pentest_attestation_status()
     attested = verify_pentest_attestation()
 
@@ -157,6 +180,7 @@ def security_posture_report() -> dict[str, Any]:
             "admin_endpoints": "X-Admin-Key or admin email",
         },
         "checks": checks,
+        "sast_gate": sast_gate_policy,
         "vault_configured": vault,
         "admin_emails_configured": len(admin_emails()) > 0,
         "pentest_attestation": pentest,
@@ -182,6 +206,7 @@ def security_posture_report() -> dict[str, Any]:
         "docs": [
             "/SECURITY.md",
             "docs/SECURITY_HARDENING.md",
+            "docs/infrastructure/SAST_GATE.md",
             "docs/SECURITY_MAX_CHECKLIST.md",
             "docs/CDN_WAF_CHECKLIST.md",
             "docs/templates/pentest_scope.md",
