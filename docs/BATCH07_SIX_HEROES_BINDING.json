@@ -9,8 +9,8 @@
     "hero_context_only": 1
   },
   "artifact": "BATCH07_SIX_HEROES_BINDING",
-  "generated_at": "2026-09-05T22:40:11.765545+00:00",
-  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "generated_at": "2026-09-05T22:45:07.518502+00:00",
+  "git_commit": "be669722332ed7caccec13a377a944abdf0a110b",
   "scope": "Six Heroes binding classification — Batch07 301-350",
   "summary": {
     "NOT_HERO_RELEVANT": 49,

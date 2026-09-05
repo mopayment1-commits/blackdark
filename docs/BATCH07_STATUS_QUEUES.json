@@ -9,8 +9,8 @@
     "queue_b_count": 5
   },
   "artifact": "BATCH07_STATUS_QUEUES",
-  "generated_at": "2026-09-05T22:40:19.412696+00:00",
-  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "generated_at": "2026-09-05T22:45:58.257961+00:00",
+  "git_commit": "be669722332ed7caccec13a377a944abdf0a110b",
   "QUEUE_A_LOCAL_COMPLETE": {
     "items": [
       {
@@ -172,6 +172,47 @@
         "underlying": [
           "G7 PASS",
           "ASSURANCE_READY"
+        ]
+      }
+    ],
+    "count": 4,
+    "purity_verified": true
+  },
+  "QUEUE_D_RAILWAY_THEN_INDEPENDENT": {
+    "items": [
+      {
+        "id": "RTI1",
+        "item": "G7 final independent review after live evidence",
+        "sequence": "Railway (QUEUE_B) → independent (QUEUE_C)",
+        "underlying": [
+          "G7 PASS",
+          "ASSURANCE_READY"
+        ]
+      },
+      {
+        "id": "RTI2",
+        "item": "SRE PRR second review after production telemetry",
+        "sequence": "Railway (RL4) → IR3",
+        "underlying": [
+          "SRE PRR approval",
+          "production SLO proof"
+        ]
+      },
+      {
+        "id": "RTI3",
+        "item": "12207 Transition/Operation sign-off after live deploy",
+        "sequence": "Railway (RL1-RL3) → IR2",
+        "underlying": [
+          "12207 Transition/Operation live proof"
+        ]
+      },
+      {
+        "id": "RTI4",
+        "item": "Col10 institutional second review after PASS_LIVE",
+        "sequence": "Railway (RL5) → IR1/IR4",
+        "underlying": [
+          "Col10 sign-off",
+          "PASS_LIVE elevation"
         ]
       }
     ],

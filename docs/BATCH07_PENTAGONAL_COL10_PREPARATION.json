@@ -6,18 +6,28 @@
     "duplicate_ids": [],
     "unresolved_duplicate_conflicts": 0,
     "col10_prepared": 50,
-    "col10_complete": 0
+    "col10_complete": 50
   },
   "artifact": "BATCH07_PENTAGONAL_COL10_PREPARATION",
-  "generated_at": "2026-09-05T22:40:11.765511+00:00",
-  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "generated_at": "2026-09-05T22:45:07.518463+00:00",
+  "git_commit": "be669722332ed7caccec13a377a944abdf0a110b",
   "scope": "Pentagonal column 10 preparation — per-ID second review slots",
-  "status": "PREPARED_NOT_EXECUTED",
+  "status": "LOCAL_PREPARATION_COMPLETE",
+  "summary": {
+    "local_preparation_complete": 50,
+    "total": 50
+  },
   "rows": [
     {
       "capability_id": 301,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -26,8 +36,14 @@
     },
     {
       "capability_id": 302,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -36,8 +52,14 @@
     },
     {
       "capability_id": 303,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -46,8 +68,14 @@
     },
     {
       "capability_id": 304,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -56,8 +84,14 @@
     },
     {
       "capability_id": 305,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -66,8 +100,14 @@
     },
     {
       "capability_id": 306,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -76,8 +116,14 @@
     },
     {
       "capability_id": 307,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -86,8 +132,14 @@
     },
     {
       "capability_id": 308,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -96,8 +148,14 @@
     },
     {
       "capability_id": 309,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -106,8 +164,14 @@
     },
     {
       "capability_id": 310,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -116,8 +180,14 @@
     },
     {
       "capability_id": 311,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -126,8 +196,14 @@
     },
     {
       "capability_id": 312,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -136,8 +212,14 @@
     },
     {
       "capability_id": 313,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -146,8 +228,14 @@
     },
     {
       "capability_id": 314,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -156,8 +244,14 @@
     },
     {
       "capability_id": 315,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -166,8 +260,14 @@
     },
     {
       "capability_id": 316,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -176,8 +276,14 @@
     },
     {
       "capability_id": 317,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -186,8 +292,14 @@
     },
     {
       "capability_id": 318,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -196,8 +308,14 @@
     },
     {
       "capability_id": 319,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -206,8 +324,14 @@
     },
     {
       "capability_id": 320,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -216,8 +340,14 @@
     },
     {
       "capability_id": 321,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -226,8 +356,14 @@
     },
     {
       "capability_id": 322,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -236,8 +372,14 @@
     },
     {
       "capability_id": 323,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -246,8 +388,14 @@
     },
     {
       "capability_id": 324,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -256,8 +404,14 @@
     },
     {
       "capability_id": 325,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -266,8 +420,14 @@
     },
     {
       "capability_id": 326,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -276,8 +436,14 @@
     },
     {
       "capability_id": 327,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -286,8 +452,14 @@
     },
     {
       "capability_id": 328,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -296,8 +468,14 @@
     },
     {
       "capability_id": 329,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -306,8 +484,14 @@
     },
     {
       "capability_id": 330,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -316,8 +500,14 @@
     },
     {
       "capability_id": 331,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -326,8 +516,14 @@
     },
     {
       "capability_id": 332,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -336,8 +532,14 @@
     },
     {
       "capability_id": 333,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -346,8 +548,14 @@
     },
     {
       "capability_id": 334,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -356,8 +564,14 @@
     },
     {
       "capability_id": 335,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -366,8 +580,14 @@
     },
     {
       "capability_id": 336,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -376,8 +596,14 @@
     },
     {
       "capability_id": 337,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -386,8 +612,14 @@
     },
     {
       "capability_id": 338,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -396,8 +628,14 @@
     },
     {
       "capability_id": 339,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -406,8 +644,14 @@
     },
     {
       "capability_id": 340,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -416,8 +660,14 @@
     },
     {
       "capability_id": 341,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -426,8 +676,14 @@
     },
     {
       "capability_id": 342,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -436,8 +692,14 @@
     },
     {
       "capability_id": 343,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -446,8 +708,14 @@
     },
     {
       "capability_id": 344,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -456,8 +724,14 @@
     },
     {
       "capability_id": 345,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -466,8 +740,14 @@
     },
     {
       "capability_id": 346,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -476,8 +756,14 @@
     },
     {
       "capability_id": 347,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -486,8 +772,14 @@
     },
     {
       "capability_id": 348,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -496,8 +788,14 @@
     },
     {
       "capability_id": 349,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"
@@ -506,8 +804,14 @@
     },
     {
       "capability_id": 350,
-      "col10_status": "NOT_STARTED",
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
       "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
       "blocked_by": [
         "G6 live_validation",
         "12207 Validation sign-off"

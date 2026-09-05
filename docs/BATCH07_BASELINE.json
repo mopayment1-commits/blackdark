@@ -12,10 +12,10 @@
   "artifact": "BATCH07_BASELINE",
   "phase": 0,
   "phase_label": "forensics",
-  "generated_at": "2026-09-05T22:40:11.760782+00:00",
+  "generated_at": "2026-09-05T22:45:07.513832+00:00",
   "identity": {
-    "canonical_tested_source_head": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
-    "regression_head": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+    "canonical_tested_source_head": "be669722332ed7caccec13a377a944abdf0a110b",
+    "regression_head": "be669722332ed7caccec13a377a944abdf0a110b",
     "git_branch": "cursor/batch07-301-350-ed16",
     "container_commit": null
   },
@@ -40,9 +40,11 @@
   },
   "classification_snapshot": {
     "VERIFIED-DEEP": 49,
-    "REUSED-LINK": 1
+    "REUSED-LINK": 1,
+    "WRAPPER-ONLY-UNVERIFIED": 0,
+    "DEFERRED/DELEGATED": 0
   },
-  "audit_source": "minimal_placeholder",
+  "audit_source": "file",
   "binding_sample": [
     {
       "capability_id": 301,

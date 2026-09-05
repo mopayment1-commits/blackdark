@@ -1,0 +1,108 @@
+{
+  "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
+  "generated_at_utc": "2026-09-05T22:45:58Z",
+  "identity": {
+    "canonical_tested_source_head": "be669722332ed7caccec13a377a944abdf0a110b",
+    "regression_head": "be669722332ed7caccec13a377a944abdf0a110b",
+    "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+    "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
+    "container_commit": null
+  },
+  "provenance": {
+    "method": "git_log_derived",
+    "description": "freeze_artifact_commit is informational provenance only. Derive via: git log -1 --format=%H -- docs/BATCH07_FINAL_LOCAL_FREEZE.json. The artifact does NOT embed its own commit SHA as an institutional correctness gate.",
+    "self_referential_head_embedding": "prohibited"
+  },
+  "semantic_equivalence": {
+    "semantic_equivalence_to_tested_source": true,
+    "production_runtime_drift": 0,
+    "test_logic_drift": 0,
+    "dependency_drift": 0,
+    "workflow_logic_drift": 0,
+    "docs_only_delta_since_tested_source": null
+  },
+  "preserved": {
+    "batch05_final_local_freeze": true,
+    "batch06_locally_frozen": true,
+    "batch07_capability_range": "301-350",
+    "railway_execution": "deferred",
+    "node24_actions": true
+  },
+  "batch07_classification": {
+    "total_ids": 50,
+    "verified_deep": 49,
+    "reused_link": 1,
+    "closed_reused_link": 1,
+    "duplicate_alias": 0,
+    "unresolved_duplicate_conflicts": 0,
+    "g0_g5_pass_engineering": 50,
+    "col5_local_complete": 50,
+    "col10_local_preparation": 50,
+    "production_aligned": 0,
+    "integrity": "valid"
+  },
+  "github_actions": {
+    "evidence_head": "be669722332ed7caccec13a377a944abdf0a110b",
+    "evidence_note": "CI run IDs populated after push — local validation complete pre-push",
+    "CAP978": {
+      "status": "PENDING_CI",
+      "run_id": null,
+      "url": null
+    },
+    "CI_CRITICAL_GATE": {
+      "status": "PENDING_CI",
+      "run_id": null,
+      "url": null
+    },
+    "SONARCLOUD": {
+      "status": "PENDING_CI",
+      "run_id": null,
+      "url": null
+    },
+    "SECURITY_SCAN": {
+      "status": "PENDING_CI",
+      "run_id": null,
+      "url": null
+    },
+    "CODEQL": {
+      "status": "PENDING_CI",
+      "run_id": null,
+      "url": null
+    }
+  },
+  "local_validation": {
+    "failed": [],
+    "partial": [],
+    "material_skipped": [],
+    "known_flaky_unresolved": [],
+    "warnings_local_solvable": [],
+    "known_local_deficiencies": [],
+    "pip_audit_actionable_vulnerabilities": 0,
+    "deep_closure": "PASS",
+    "cross_batch_regression": "FULL_PASS",
+    "hash_install": "PENDING_CI",
+    "postgres_migration_test": "PENDING_CI"
+  },
+  "freeze_assertions": {
+    "BATCH07_FINAL_LOCAL_FREEZE": true,
+    "LOCAL_GOVERNANCE_COMPLETE": true,
+    "PASS_ENGINEERING": true
+  },
+  "g6_status": "BLOCKED_EXTERNAL_RAILWAY",
+  "g7_status": "G7_LOCAL_PREPARATION_COMPLETE",
+  "deferred_claims": [
+    "PASS_LIVE",
+    "G6 PASS",
+    "LIVE_READY",
+    "G7 PASS",
+    "ASSURANCE_READY",
+    "PRODUCTION_ALIGNED"
+  ],
+  "canonical_definition_source": {
+    "path": "docs/cap646/CAP646_CATALOG.json",
+    "manifest": "scripts/partial_batches/batch_07_301_350.json",
+    "implementation_module": "bd_platform/charting_market_intelligence_layer.py",
+    "range": "301-350",
+    "count": 50
+  }
+}

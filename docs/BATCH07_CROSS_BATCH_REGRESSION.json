@@ -8,15 +8,107 @@
     "full_pass": true
   },
   "artifact": "BATCH07_CROSS_BATCH_REGRESSION",
-  "generated_at": "2026-09-05T22:40:19.412680+00:00",
-  "git_commit": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+  "generated_at": "2026-09-05T22:45:48.430937+00:00",
+  "git_commit": "be669722332ed7caccec13a377a944abdf0a110b",
+  "scope": "Batch01-07 hero suites + underlying closure + charting + Six Heroes + dedup gate",
   "suites": [
+    {
+      "label": "batch01_hero_capabilities",
+      "script": "tests/test_hero_batch_01_capabilities.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "........................................................................ [ 66%]\n.....................................                                    [100%]\n"
+    },
+    {
+      "label": "batch02_hero_capabilities",
+      "script": "tests/test_hero_batch_02_capabilities.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    },
+    {
+      "label": "batch03_hero_capabilities",
+      "script": "tests/test_hero_batch_03_capabilities.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    },
+    {
+      "label": "batch04_hero_capabilities",
+      "script": "tests/test_hero_batch_04_capabilities.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    },
+    {
+      "label": "batch05_hero_capabilities",
+      "script": "tests/test_hero_batch_05_capabilities.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    },
+    {
+      "label": "batch06_hero_capabilities",
+      "script": "tests/test_hero_batch_06_capabilities.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    },
     {
       "label": "batch07_hero_capabilities",
       "script": "tests/test_hero_batch_07_capabilities.py",
       "exit_code": 0,
       "passed": true,
       "summary": "...................................................                      [100%]\n"
+    },
+    {
+      "label": "batch01_underlying_closure",
+      "script": "tests/test_hero_batch01_underlying_closure.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "....................                                                     [100%]\n"
+    },
+    {
+      "label": "batch03_underlying_closure",
+      "script": "tests/test_batch03_underlying_closure.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "......                                                                   [100%]\n"
+    },
+    {
+      "label": "batch04_underlying_closure",
+      "script": "tests/test_batch04_underlying_closure.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": ".........                                                                [100%]\n"
+    },
+    {
+      "label": "charting_market_intelligence_301_400",
+      "script": "tests/test_charting_market_intelligence_batch301_400.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "........................................................................ [ 81%]\n................                                                         [100%]\n"
+    },
+    {
+      "label": "six_heroes_quality_polish",
+      "script": "tests/test_heroes_quality_polish.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": ".........                                                                [100%]\n"
+    },
+    {
+      "label": "pentagonal_hero_binding",
+      "script": "tests/test_pentagonal_hero_binding.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "\n=============================== warnings summary ===============================\ntests/test_pentagonal_hero_binding.py::test_local_hero_endpoints\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+    },
+    {
+      "label": "cap_dedup_gate",
+      "script": "scripts/check_cap_dedup_gate.py",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "{\n  \"cap_dedup_gate\": \"PASS\",\n  \"audit\": \"/workspace/docs/CAP_DEDUP_AUDIT_1_100.json\"\n}\n"
     },
     {
       "label": "batch07_binding_coverage",
