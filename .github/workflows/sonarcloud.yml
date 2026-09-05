@@ -148,7 +148,7 @@ jobs:
           echo "Using sonar.projectVersion=$VER (buildString=${GITHUB_SHA})"
 
       - name: SonarCloud Scan (AA must stay disabled)
-        uses: SonarSource/sonarcloud-github-action@ffc3010689be73b8e5ae0c57ce35968afd7909e8 # v5.0.0
+        uses: SonarSource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f # v8.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
