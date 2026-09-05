@@ -30,7 +30,6 @@ jobs:
           --health-retries 5
     env:
       BLACKDARK_TEST_DATABASE_URL: postgresql://blackdark:blackdark@127.0.0.1:5432/blackdark_clean
-      DATABASE_URL: postgresql://blackdark:blackdark@127.0.0.1:5432/blackdark_clean
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -86,6 +85,9 @@ jobs:
           PY
 
       - name: Postgres migration integrity
+        env:
+          DATABASE_URL: postgresql://blackdark:blackdark@127.0.0.1:5432/blackdark_clean
+          BLACKDARK_TEST_DATABASE_URL: postgresql://blackdark:blackdark@127.0.0.1:5432/blackdark_clean
         run: |
           python -m pytest tests/test_postgres_backend.py tests/test_postgres_migration_integrity.py -q --tb=short
 
