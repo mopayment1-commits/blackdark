@@ -115,7 +115,7 @@ def main() -> None:
             "status": "PROVEN_LOCAL_MATERIAL_PATHS",
             "material_paths": [251, 255, 272, 279, 288, 297, 299, 300],
             "proven_local": 48,
-            "requires_live": ["api_abuse_rate"],
+            "requires_live": ["api_abuse_rate_production_telemetry"],
         },
         "docs/BATCH06_RELIABILITY_ASSURANCE.json": {
             "status": "PROVEN_LOCAL",

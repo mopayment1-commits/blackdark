@@ -1,27 +1,42 @@
 {
-  "generated_at": "2026-09-05T11:55:29.491118+00:00",
-  "git_commit": "93c65bd8da5525f447b8ef9c610a53fd90fee071",
+  "generated_at": "2026-09-05T12:08:41.830410+00:00",
+  "git_commit": "911792b748bfdca3eed003fbdded93c12b5bc9c1",
   "G5.9": {
-    "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
-    "scope": "Batch06 cap646 paths 251-300",
-    "architecture": "All Batch06 capabilities route through stateless execute_capability handlers. No batch06-owned durable state, background workers, or mutable stores. Platform Redis/PostgreSQL used by underlying adapters with SERVICE_BUS_LOCAL deterministic fallback already proven in reliability tests.",
-    "failure_model": "Dependency outage \u2192 degraded payload or fail-closed entitlement; no hot-standby switch within batch06 spine",
-    "local_evidence": [
-      "tests/cap646/test_batch06_ids_contract.py entitlement_denied_fail_closed",
-      "tests/cap646/test_ci_deterministic_closure.py SERVICE_BUS_LOCAL",
-      "cap646/batch01_dedicated.py cap16 SERVICE_BUS_LOCAL fallback (shared path)"
-    ],
-    "live_failover_drill": "REQUIRES_RAILWAY for platform-level Redis/PostgreSQL failover drill \u2014 outside batch06-owned scope",
-    "per_path_summary": "50/50 stateless \u2014 no batch06 failover target to exercise locally beyond proven degraded-mode paths"
+    "batch06_owned_state_failover": {
+      "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+      "scope": "Batch06-owned capability state/failover (IDs 251-300)",
+      "rationale": "All Batch06 capabilities are stateless execute_capability handlers with no batch06-owned durable state, background workers, or mutable stores.",
+      "local_evidence": [
+        "tests/cap646/test_batch06_ids_contract.py entitlement_denied_fail_closed",
+        "tests/cap646/test_ci_deterministic_closure.py SERVICE_BUS_LOCAL degraded mode"
+      ],
+      "per_path_summary": "50/50 stateless \u2014 no batch06-owned failover target"
+    },
+    "platform_redis_postgresql_failover": {
+      "classification": "REQUIRES_RAILWAY",
+      "scope": "Shared platform dependency failover (Redis/PostgreSQL)",
+      "railway_queue_ref": "RL6",
+      "rationale": "Platform Redis/PostgreSQL failover drill requires live infrastructure evidence; not conflated with batch06-owned N/A.",
+      "local_component": "SERVICE_BUS_LOCAL deterministic fallback proven for adapter outage",
+      "live_evidence_required": "Failover drill under real Redis/PostgreSQL outage on Railway"
+    }
   },
   "G5.10": {
-    "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
-    "scope": "Batch06 cap646 paths 251-300",
-    "persistent_state": "none owned by batch06 spine",
-    "reconstructable": "All outputs reconstructable from catalog bindings + upstream API/cache on next request. RTM and acceptance artifacts versioned in git.",
-    "backup_required": false,
-    "restore_required": false,
-    "local_restore_test": "N/A \u2014 no durable batch06 state to restore",
-    "platform_backup": "REQUIRES_RAILWAY for platform DB/Redis backup policy evidence"
+    "batch06_owned_durable_state": {
+      "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+      "scope": "Batch06-owned backup/restore (IDs 251-300)",
+      "persistent_state": "none owned by batch06 spine",
+      "rationale": "No batch06-owned DB tables, cache keys, or durable user configuration",
+      "reconstructable": "Per-request outputs from catalog bindings + upstream APIs; git-versioned RTM",
+      "backup_required": false,
+      "restore_required": false
+    },
+    "platform_postgresql_redis_durability_restore": {
+      "classification": "REQUIRES_RAILWAY",
+      "scope": "Shared platform durability/restore (PostgreSQL/Redis)",
+      "railway_queue_ref": "RL7",
+      "rationale": "Platform backup/restore policy and drill evidence requires live Railway ops; separate from batch06-owned N/A.",
+      "live_evidence_required": "Platform RPO/RTO backup-restore drill on production infrastructure"
+    }
   }
 }

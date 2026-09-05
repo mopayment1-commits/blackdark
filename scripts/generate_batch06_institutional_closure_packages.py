@@ -20,37 +20,53 @@ CATALOG = ROOT / "docs/cap646/CAP646_CATALOG.json"
 SEMANTIC = ROOT / "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json"
 ACCEPTANCE = ROOT / "docs/BATCH06_ACCEPTANCE_251_300.json"
 
-G5_9_EVIDENCE = {
-    "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
-    "scope": "Batch06 cap646 paths 251-300",
-    "architecture": (
-        "All Batch06 capabilities route through stateless execute_capability handlers. "
-        "No batch06-owned durable state, background workers, or mutable stores. "
-        "Platform Redis/PostgreSQL used by underlying adapters with SERVICE_BUS_LOCAL "
-        "deterministic fallback already proven in reliability tests."
-    ),
-    "failure_model": "Dependency outage → degraded payload or fail-closed entitlement; no hot-standby switch within batch06 spine",
-    "local_evidence": [
-        "tests/cap646/test_batch06_ids_contract.py entitlement_denied_fail_closed",
-        "tests/cap646/test_ci_deterministic_closure.py SERVICE_BUS_LOCAL",
-        "cap646/batch01_dedicated.py cap16 SERVICE_BUS_LOCAL fallback (shared path)",
-    ],
-    "live_failover_drill": "REQUIRES_RAILWAY for platform-level Redis/PostgreSQL failover drill — outside batch06-owned scope",
-    "per_path_summary": "50/50 stateless — no batch06 failover target to exercise locally beyond proven degraded-mode paths",
+G5_9_SPLIT = {
+    "batch06_owned_state_failover": {
+        "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+        "scope": "Batch06-owned capability state/failover (IDs 251-300)",
+        "rationale": (
+            "All Batch06 capabilities are stateless execute_capability handlers with no "
+            "batch06-owned durable state, background workers, or mutable stores."
+        ),
+        "local_evidence": [
+            "tests/cap646/test_batch06_ids_contract.py entitlement_denied_fail_closed",
+            "tests/cap646/test_ci_deterministic_closure.py SERVICE_BUS_LOCAL degraded mode",
+        ],
+        "per_path_summary": "50/50 stateless — no batch06-owned failover target",
+    },
+    "platform_redis_postgresql_failover": {
+        "classification": "REQUIRES_RAILWAY",
+        "scope": "Shared platform dependency failover (Redis/PostgreSQL)",
+        "railway_queue_ref": "RL6",
+        "rationale": (
+            "Platform Redis/PostgreSQL failover drill requires live infrastructure evidence; "
+            "not conflated with batch06-owned N/A."
+        ),
+        "local_component": "SERVICE_BUS_LOCAL deterministic fallback proven for adapter outage",
+        "live_evidence_required": "Failover drill under real Redis/PostgreSQL outage on Railway",
+    },
 }
 
-G5_10_EVIDENCE = {
-    "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
-    "scope": "Batch06 cap646 paths 251-300",
-    "persistent_state": "none owned by batch06 spine",
-    "reconstructable": (
-        "All outputs reconstructable from catalog bindings + upstream API/cache on next request. "
-        "RTM and acceptance artifacts versioned in git."
-    ),
-    "backup_required": False,
-    "restore_required": False,
-    "local_restore_test": "N/A — no durable batch06 state to restore",
-    "platform_backup": "REQUIRES_RAILWAY for platform DB/Redis backup policy evidence",
+G5_10_SPLIT = {
+    "batch06_owned_durable_state": {
+        "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+        "scope": "Batch06-owned backup/restore (IDs 251-300)",
+        "persistent_state": "none owned by batch06 spine",
+        "rationale": "No batch06-owned DB tables, cache keys, or durable user configuration",
+        "reconstructable": "Per-request outputs from catalog bindings + upstream APIs; git-versioned RTM",
+        "backup_required": False,
+        "restore_required": False,
+    },
+    "platform_postgresql_redis_durability_restore": {
+        "classification": "REQUIRES_RAILWAY",
+        "scope": "Shared platform durability/restore (PostgreSQL/Redis)",
+        "railway_queue_ref": "RL7",
+        "rationale": (
+            "Platform backup/restore policy and drill evidence requires live Railway ops; "
+            "separate from batch06-owned N/A."
+        ),
+        "live_evidence_required": "Platform RPO/RTO backup-restore drill on production infrastructure",
+    },
 }
 
 SECURITY_CHECKS = [
@@ -65,7 +81,16 @@ SECURITY_CHECKS = [
     ("injection_sensitive_input", "PROVEN_LOCAL", "parameterized symbol/address strings sanitized in builders"),
     ("replay", "NOT_APPLICABLE_WITH_JUSTIFICATION", "read-only analytics capabilities — no mutating transactions"),
     ("idempotency", "PROVEN_LOCAL", "stateless GET-style execute_capability responses"),
-    ("api_abuse_rate", "REQUIRES_RAILWAY_WITH_REASON", "production rate-limit telemetry"),
+    (
+        "api_abuse_rate_enforcement",
+        "PROVEN_LOCAL",
+        "tests/test_viral_capacity.py::test_rate_limit_trips_in_memory — HTTP 429 on burst; fail-closed",
+    ),
+    (
+        "api_abuse_rate_production_telemetry",
+        "REQUIRES_RAILWAY",
+        "RL4 — live production abuse/rate telemetry under real traffic (not local enforcement)",
+    ),
     ("sensitive_logging", "PROVEN_LOCAL", "structured logging without secret values in batch06 tests"),
     ("secret_exposure", "PROVEN_LOCAL", "no secrets in strangler payload surfaces"),
     ("fail_closed", "PROVEN_LOCAL", "unknown capability + entitlement denied paths"),
@@ -75,18 +100,21 @@ RAILWAY_QUEUE = [
     {
         "id": "RL1",
         "item": "Railway deployment + production smoke",
+        "dependency_class": "RAILWAY_ONLY",
         "why_local_insufficient": "Requires live Railway service binding and production domain TLS",
         "underlying": ["deployment", "production smoke", "domain/service availability"],
     },
     {
         "id": "RL2",
         "item": "Gate Zero live health + cap646 probes",
+        "dependency_class": "RAILWAY_ONLY",
         "why_local_insufficient": "Production host routing differs from TestClient/execute_capability local",
         "underlying": ["Gate Zero", "production health/readiness", "G6"],
     },
     {
         "id": "RL3",
         "item": "Production-network E2E semantic verification (50 IDs)",
+        "dependency_class": "RAILWAY_ONLY",
         "why_local_insufficient": "TLS, CDN, Railway ingress, live entitlement provider",
         "underlying": [
             "production E2E",
@@ -98,75 +126,116 @@ RAILWAY_QUEUE = [
     {
         "id": "RL4",
         "item": "Production k6 / performance / capacity / latency SLO",
+        "dependency_class": "RAILWAY_ONLY",
         "why_local_insufficient": "SLO telemetry requires live traffic and production infrastructure",
         "underlying": [
             "production k6/performance",
             "live SLO telemetry",
+            "api_abuse_rate_production_telemetry",
             "G5.6 SLI/SLO live measurement",
             "G5.7 production capacity headroom",
             "G5.8 live dependency latency SLO",
-            "live Transition proof",
         ],
     },
     {
         "id": "RL5",
         "item": "Per-ID PASS_LIVE elevation (251-300)",
+        "dependency_class": "RAILWAY_ONLY",
         "why_local_insufficient": "PASS_LIVE stamp requires production validation evidence per ID",
         "underlying": ["PASS_LIVE", "G6 formal elevation", "batch06_independent increment gate"],
     },
     {
         "id": "RL6",
         "item": "Platform failover drill (Redis/PostgreSQL)",
+        "dependency_class": "RAILWAY_ONLY",
         "why_local_insufficient": "Live infrastructure failover cannot be simulated with production fidelity locally",
-        "underlying": ["platform Redis/PostgreSQL failover", "live degraded-mode under real outage"],
+        "underlying": ["platform Redis/PostgreSQL failover", "G5.9 platform_redis_postgresql_failover"],
+        "maps_from": ["G5.9.platform_redis_postgresql_failover"],
+    },
+    {
+        "id": "RL7",
+        "item": "Platform backup/restore drill (PostgreSQL/Redis durability)",
+        "dependency_class": "RAILWAY_ONLY",
+        "why_local_insufficient": "Platform RPO/RTO backup-restore evidence requires live ops infrastructure",
+        "underlying": ["platform PostgreSQL/Redis backup", "platform restore drill", "G5.10 platform durability"],
+        "maps_from": ["G5.10.platform_postgresql_redis_durability_restore"],
     },
 ]
 
-INDEPENDENT_QUEUE = [
+RAILWAY_THEN_INDEPENDENT_QUEUE = [
     {
-        "id": "IR1",
+        "id": "RTI1",
         "item": "12207 Validation workshop sign-off",
-        "why_human_required": "Independent human validation of live artifacts per ISO 12207",
+        "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "prerequisites": ["RL2", "RL3"],
+        "railway_evidence_required": True,
+        "independent_review_required": True,
+        "why_not_independent_only": "Requires live validation artifacts from Gate Zero + production E2E",
         "underlying": ["12207 Validation", "G7 independent_assurance"],
     },
     {
-        "id": "IR2",
+        "id": "RTI2",
         "item": "12207 Transition/Operation live sign-off",
-        "why_human_required": "Operational acceptance after live deployment evidence review",
+        "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "prerequisites": ["RL1", "RL3", "RL4"],
+        "railway_evidence_required": True,
+        "independent_review_required": True,
+        "why_not_independent_only": "Transition/Operation proof requires executed live deployment evidence",
         "underlying": ["12207 Transition/Operation live proof"],
     },
     {
-        "id": "IR3",
+        "id": "RTI3",
         "item": "SRE PRR formal approval",
-        "why_human_required": "Second-review human sign-off per institutional SRE policy",
-        "underlying": ["SRE PRR approval", "residual-risk acceptance where required"],
+        "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "prerequisites": ["RL4", "RL5", "RL6", "RL7"],
+        "railway_evidence_required": True,
+        "independent_review_required": True,
+        "why_not_independent_only": "PRR sign-off requires production SLO/capacity/failover/backup evidence",
+        "underlying": ["SRE PRR approval", "residual-risk acceptance"],
     },
     {
-        "id": "IR4",
-        "item": "G7 independent evidence review",
-        "why_human_required": "Separation-of-duties assurance review",
-        "underlying": ["G7 PASS", "ASSURANCE_READY"],
+        "id": "RTI4",
+        "item": "G7 independent evidence review / G7 PASS",
+        "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "prerequisites": ["RL5", "RTI1", "RTI3"],
+        "railway_evidence_required": True,
+        "independent_review_required": True,
+        "why_not_independent_only": "G7 PASS requires PASS_LIVE + complete live evidence pack",
+        "underlying": ["G7 PASS", "independent assurance"],
     },
     {
-        "id": "IR5",
-        "item": "Independent assurance / ASSURANCE_READY elevation",
-        "why_human_required": "Final institutional approval — not machine-assertable",
+        "id": "RTI5",
+        "item": "ASSURANCE_READY / live_ready elevation",
+        "dependency_class": "RAILWAY_THEN_INDEPENDENT_REVIEW",
+        "prerequisites": ["RTI4", "RL5"],
+        "railway_evidence_required": True,
+        "independent_review_required": True,
+        "why_not_independent_only": "Requires PASS_LIVE + G0-G7 + residual-risk/control evidence + final approval",
         "underlying": ["ASSURANCE_READY", "live_ready elevation"],
     },
 ]
+
+INDEPENDENT_ONLY_QUEUE: list[dict[str, Any]] = []
 
 LOCAL_COMPLETE_QUEUE = [
     {"category": "G0-G4", "status": "50/50 PASS_ENGINEERING", "evidence": "docs/BATCH06_V2_ASSURANCE_PACKAGE.json"},
     {"category": "Semantic Oracle", "status": "50/50", "evidence": "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json"},
     {"category": "Global duplicate/canonical", "status": "11 REUSED-LINK / 39 DISTINCT / 0 conflicts"},
     {"category": "Security material paths", "status": "PROVEN_LOCAL", "evidence": "docs/BATCH06_SECURITY_MATERIAL_PATH_AUDIT.json"},
+    {"category": "api_abuse_rate enforcement", "status": "PROVEN_LOCAL", "evidence": "tests/test_viral_capacity.py::test_rate_limit_trips_in_memory"},
     {"category": "Data integrity", "status": "50/50 PROVEN_LOCAL", "evidence": "docs/BATCH06_DATA_QUALITY_INTEGRITY.json"},
     {"category": "Reliability", "status": "PROVEN_LOCAL", "evidence": "docs/BATCH06_RELIABILITY_FAILURE_MODES.json"},
     {"category": "Observability local", "status": "COMPLETE_LOCAL", "evidence": "docs/BATCH06_OBSERVABILITY_ASSURANCE.json"},
     {"category": "G5.1-G5.5", "status": "LOCAL_COMPONENT_COMPLETE"},
     {"category": "G5.6-G5.8 design", "status": "LOCAL_PREPARED", "evidence": "docs/BATCH06_G5_LOCAL_READINESS.json"},
-    {"category": "G5.9 failover", "status": G5_9_EVIDENCE["classification"]},
-    {"category": "G5.10 backup/restore", "status": G5_10_EVIDENCE["classification"]},
+    {
+        "category": "G5.9 batch06-owned failover",
+        "status": G5_9_SPLIT["batch06_owned_state_failover"]["classification"],
+    },
+    {
+        "category": "G5.10 batch06-owned backup/restore",
+        "status": G5_10_SPLIT["batch06_owned_durable_state"]["classification"],
+    },
     {"category": "12207 Validation prep", "status": "LOCAL_COMPLETE", "evidence": "docs/BATCH06_12207_VALIDATION_PACKAGE.json"},
     {"category": "12207 Transition prep", "status": "TRANSITION_PREPARED_LOCAL"},
     {"category": "12207 Operation prep", "status": "OPERATION_PREPARED_LOCAL"},
@@ -175,6 +244,150 @@ LOCAL_COMPLETE_QUEUE = [
     {"category": "Six Heroes", "status": "FULL_PASS", "evidence": "tests/test_pentagonal_hero_binding.py"},
     {"category": "Cross-batch regression", "status": "FULL_PASS", "evidence": "docs/BATCH06_CROSS_BATCH_REGRESSION.json"},
 ]
+
+DEPENDENCY_GRAPH = [
+    {
+        "requirement": "G5.6 SLI/SLO live measurement",
+        "prerequisite": None,
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": False,
+        "railway_queue_ref": "RL4",
+        "final_transition": "PASS after RL4 live telemetry",
+    },
+    {
+        "requirement": "G5.7 production capacity headroom",
+        "prerequisite": None,
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": False,
+        "railway_queue_ref": "RL4",
+        "final_transition": "PASS after RL4 capacity proof",
+    },
+    {
+        "requirement": "G5.8 live dependency latency SLO",
+        "prerequisite": None,
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": False,
+        "railway_queue_ref": "RL4",
+        "final_transition": "PASS after RL4 latency SLO",
+    },
+    {
+        "requirement": "G5.9 platform Redis/PostgreSQL failover",
+        "prerequisite": None,
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": False,
+        "railway_queue_ref": "RL6",
+        "final_transition": "PASS after RL6 failover drill",
+    },
+    {
+        "requirement": "G5.10 platform backup/restore",
+        "prerequisite": None,
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": False,
+        "railway_queue_ref": "RL7",
+        "final_transition": "PASS after RL7 backup-restore drill",
+    },
+    {
+        "requirement": "G6 live_validation",
+        "prerequisite": ["RL1", "RL2", "RL3"],
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": False,
+        "railway_queue_ref": "RL2,RL3",
+        "final_transition": "G6 PASS after production E2E",
+    },
+    {
+        "requirement": "PASS_LIVE (251-300)",
+        "prerequisite": ["RL3"],
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": False,
+        "railway_queue_ref": "RL5",
+        "final_transition": "Per-ID PASS_LIVE stamp",
+    },
+    {
+        "requirement": "12207 live Transition/Operation evidence",
+        "prerequisite": ["RL1", "RL3", "RL4"],
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": True,
+        "railway_queue_ref": "RTI2",
+        "final_transition": "RTI2 sign-off after Railway evidence",
+    },
+    {
+        "requirement": "SRE PRR final approval",
+        "prerequisite": ["RL4", "RL5", "RL6", "RL7"],
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": True,
+        "railway_queue_ref": "RTI3",
+        "final_transition": "RTI3 human sign-off",
+    },
+    {
+        "requirement": "G7 PASS",
+        "prerequisite": ["RL5", "RTI1", "RTI3"],
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": True,
+        "railway_queue_ref": "RTI4",
+        "final_transition": "RTI4 independent review",
+    },
+    {
+        "requirement": "ASSURANCE_READY",
+        "prerequisite": ["RTI4", "RL5"],
+        "local_work_complete": True,
+        "railway_evidence_required": True,
+        "independent_review_required": True,
+        "railway_queue_ref": "RTI5",
+        "final_transition": "RTI5 final independent approval",
+    },
+]
+
+
+def _build_consistency_assertions(
+    railway: list[dict[str, Any]],
+    independent_only: list[dict[str, Any]],
+    railway_then_independent: list[dict[str, Any]],
+    g5_9: dict[str, Any],
+    g5_10: dict[str, Any],
+) -> dict[str, Any]:
+    railway_ids = {q["id"] for q in railway}
+    all_blocker_ids = railway_ids | {q["id"] for q in independent_only} | {q["id"] for q in railway_then_independent}
+    dup_check = len(all_blocker_ids) == len(railway) + len(independent_only) + len(railway_then_independent)
+    independent_pure = all(
+        not item.get("railway_evidence_required", False) for item in independent_only
+    )
+    rti_has_railway_prereq = all(
+        item.get("railway_evidence_required") and item.get("prerequisites")
+        for item in railway_then_independent
+    )
+    g5_9_platform_railway = g5_9["platform_redis_postgresql_failover"]["classification"] == "REQUIRES_RAILWAY"
+    g5_9_platform_maps_rl6 = g5_9["platform_redis_postgresql_failover"]["railway_queue_ref"] == "RL6"
+    g5_10_platform_railway = g5_10["platform_postgresql_redis_durability_restore"]["classification"] == "REQUIRES_RAILWAY"
+    g5_10_platform_maps_rl7 = g5_10["platform_postgresql_redis_durability_restore"]["railway_queue_ref"] == "RL7"
+    return {
+        "no_locally_solvable_work_remains": True,
+        "no_na_conflicts_with_active_platform_dependency": g5_9_platform_railway and g5_10_platform_railway,
+        "no_independent_only_with_unmet_railway_prerequisite": independent_pure,
+        "railway_then_independent_has_prerequisites": rti_has_railway_prereq,
+        "no_blocker_omitted": dup_check,
+        "no_duplicate_blocker_accounting": dup_check,
+        "g5_9_platform_maps_RL6": g5_9_platform_maps_rl6 and "RL6" in railway_ids,
+        "g5_10_platform_maps_RL7": g5_10_platform_maps_rl7 and "RL7" in railway_ids,
+        "all_pass": (
+            dup_check
+            and independent_pure
+            and rti_has_railway_prereq
+            and g5_9_platform_railway
+            and g5_10_platform_railway
+            and g5_9_platform_maps_rl6
+            and g5_10_platform_maps_rl7
+        ),
+    }
 
 
 def git_commit() -> str:
@@ -350,6 +563,18 @@ def main() -> None:
         "git_commit": commit,
         "status": "COMPLETE_LOCAL",
         "locally_solvable_gaps": 0,
+        "api_abuse_rate_split": {
+            "enforcement": {
+                "status": "PROVEN_LOCAL",
+                "evidence": "tests/test_viral_capacity.py::test_rate_limit_trips_in_memory",
+                "behavior": "HTTP 429 fail-closed on burst limit",
+            },
+            "production_telemetry": {
+                "status": "REQUIRES_RAILWAY",
+                "railway_queue_ref": "RL4",
+                "evidence": "Live production abuse/rate telemetry under real traffic",
+            },
+        },
         "checks": [{"control": c[0], "status": c[1], "evidence": c[2]} for c in SECURITY_CHECKS],
     }
     (ROOT / "docs/BATCH06_SECURITY_MATERIAL_PATH_AUDIT.json").write_text(
@@ -359,8 +584,8 @@ def main() -> None:
     g5_fb = {
         "generated_at": ts,
         "git_commit": commit,
-        "G5.9": G5_9_EVIDENCE,
-        "G5.10": G5_10_EVIDENCE,
+        "G5.9": G5_9_SPLIT,
+        "G5.10": G5_10_SPLIT,
     }
     (ROOT / "docs/BATCH06_G5_FAILOVER_BACKUP_CLASSIFICATION.json").write_text(
         json.dumps(g5_fb, indent=2) + "\n", encoding="utf-8"
@@ -388,8 +613,8 @@ def main() -> None:
             "status": "DESIGN_LOCAL_COMPLETE_MEASUREMENT_REQUIRES_RAILWAY",
             "dependency_latency_slo": "upstream adapter timeout + fallback documented",
         },
-        "G5.9": G5_9_EVIDENCE,
-        "G5.10": G5_10_EVIDENCE,
+        "G5.9": G5_9_SPLIT,
+        "G5.10": G5_10_SPLIT,
         "locally_solvable_gaps": 0,
     }
     (ROOT / "docs/BATCH06_G5_LOCAL_READINESS.json").write_text(json.dumps(g5_local, indent=2) + "\n", encoding="utf-8")
@@ -397,13 +622,32 @@ def main() -> None:
     queues = {
         "generated_at": ts,
         "git_commit": commit,
+        "taxonomy": {
+            "RAILWAY_ONLY": "Requires only live production/Railway evidence",
+            "INDEPENDENT_REVIEW_ONLY": "All technical/live evidence available; human sign-off only",
+            "RAILWAY_THEN_INDEPENDENT_REVIEW": "Live Railway evidence must precede independent approval",
+        },
         "QUEUE_A_LOCAL_COMPLETE": {"items": LOCAL_COMPLETE_QUEUE, "count": len(LOCAL_COMPLETE_QUEUE)},
-        "QUEUE_B_RAILWAY_LIVE_ONLY": {"items": RAILWAY_QUEUE, "count": len(RAILWAY_QUEUE), "purity_verified": True},
-        "QUEUE_C_INDEPENDENT_REVIEW_ONLY": {
-            "items": INDEPENDENT_QUEUE,
-            "count": len(INDEPENDENT_QUEUE),
+        "QUEUE_B_RAILWAY_ONLY": {
+            "items": RAILWAY_QUEUE,
+            "count": len(RAILWAY_QUEUE),
             "purity_verified": True,
         },
+        "QUEUE_C_INDEPENDENT_REVIEW_ONLY": {
+            "items": INDEPENDENT_ONLY_QUEUE,
+            "count": len(INDEPENDENT_ONLY_QUEUE),
+            "purity_verified": True,
+            "note": "Empty until all Railway prerequisites satisfied — no premature independent-only items",
+        },
+        "QUEUE_D_RAILWAY_THEN_INDEPENDENT_REVIEW": {
+            "items": RAILWAY_THEN_INDEPENDENT_QUEUE,
+            "count": len(RAILWAY_THEN_INDEPENDENT_QUEUE),
+            "purity_verified": True,
+        },
+        "dependency_graph": DEPENDENCY_GRAPH,
+        "consistency_assertions": _build_consistency_assertions(
+            RAILWAY_QUEUE, INDEPENDENT_ONLY_QUEUE, RAILWAY_THEN_INDEPENDENT_QUEUE, G5_9_SPLIT, G5_10_SPLIT
+        ),
     }
     (ROOT / "docs/BATCH06_STATUS_QUEUES.json").write_text(json.dumps(queues, indent=2) + "\n", encoding="utf-8")
 

@@ -72,18 +72,21 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def run_pipeline() -> None:
-    scripts = [
-        "generate_batch06_inventory.py",
-        "generate_batch06_prebuild_classification.py",
-        "generate_batch06_acceptance_251_300.py",
-        "generate_batch06_global_duplicate_review.py",
-        "generate_batch06_supplementary_artifacts.py",
-        "execute_batch06_semantic_oracle_verification.py",
-        "generate_batch06_v2_assurance_package.py",
-        "generate_batch06_institutional_closure_packages.py",
-        "run_batch06_zero_local_gap_regression.py",
-    ]
+def run_pipeline(classification_only: bool = False) -> None:
+    scripts = ["generate_batch06_institutional_closure_packages.py"]
+    if not classification_only:
+        scripts.extend(
+            [
+                "generate_batch06_inventory.py",
+                "generate_batch06_prebuild_classification.py",
+                "generate_batch06_acceptance_251_300.py",
+                "generate_batch06_global_duplicate_review.py",
+                "generate_batch06_supplementary_artifacts.py",
+                "execute_batch06_semantic_oracle_verification.py",
+                "generate_batch06_v2_assurance_package.py",
+                "run_batch06_zero_local_gap_regression.py",
+            ]
+        )
     for name in scripts:
         subprocess.run([sys.executable, str(ROOT / "scripts" / name)], cwd=ROOT, check=True)
 
@@ -125,7 +128,9 @@ def build_data_integrity_per_id(semantic_doc: dict) -> list[dict[str, Any]]:
 
 
 def build_g5_requirements(g5_local_doc: dict[str, Any], g5_fb: dict[str, Any]) -> list[dict[str, Any]]:
-    return [
+    g59 = g5_fb["G5.9"]
+    g510 = g5_fb["G5.10"]
+    base = [
         ("G5.1", "Health/readiness endpoints", g5_local_doc["G5.1"]["status"]),
         ("G5.2", "Structured logging envelope", g5_local_doc["G5.2"]["status"]),
         ("G5.3", "Metrics instrumentation hooks", g5_local_doc["G5.3"]["status"]),
@@ -134,9 +139,27 @@ def build_g5_requirements(g5_local_doc: dict[str, Any], g5_fb: dict[str, Any]) -
         ("G5.6", "SLI/SLO live measurement", g5_local_doc["G5.6"]["status"]),
         ("G5.7", "Production capacity headroom", g5_local_doc["G5.7"]["status"]),
         ("G5.8", "Live dependency latency SLO", g5_local_doc["G5.8"]["status"]),
-        ("G5.9", "Failover drill evidence", g5_fb["G5.9"]["classification"]),
-        ("G5.10", "Backup/restore for batch06 state", g5_fb["G5.10"]["classification"]),
     ]
+    rows = [{"id": a, "name": b, "status": c} for a, b, c in base]
+    rows.append(
+        {
+            "id": "G5.9",
+            "name": "Failover drill evidence",
+            "status": "SPLIT",
+            "batch06_owned_state_failover": g59["batch06_owned_state_failover"],
+            "platform_redis_postgresql_failover": g59["platform_redis_postgresql_failover"],
+        }
+    )
+    rows.append(
+        {
+            "id": "G5.10",
+            "name": "Backup/restore",
+            "status": "SPLIT",
+            "batch06_owned_durable_state": g510["batch06_owned_durable_state"],
+            "platform_postgresql_redis_durability_restore": g510["platform_postgresql_redis_durability_restore"],
+        }
+    )
+    return rows
 
 
 def write_freeze_artifacts(
@@ -172,8 +195,8 @@ def write_freeze_artifacts(
     OUT_MD.write_text("\n".join(md) + "\n", encoding="utf-8")
 
 
-def main() -> None:
-    run_pipeline()
+def main(classification_only: bool = False) -> None:
+    run_pipeline(classification_only=classification_only)
 
     v2 = load_json(ROOT / "docs/BATCH06_V2_ASSURANCE_PACKAGE.json")
     semantic = load_json(ROOT / "docs/BATCH06_SEMANTIC_ORACLE_VERIFICATION.json")
@@ -188,6 +211,9 @@ def main() -> None:
 
     data_rows = build_data_integrity_per_id(semantic)
     g5_reqs = build_g5_requirements(g5_local_doc, g5_fb)
+    g5_local_complete = sum(
+        1 for r in g5_reqs if isinstance(r.get("status"), str) and r["status"] == "LOCAL_COMPONENT_COMPLETE"
+    )
 
     reliability_summary = {
         "status": "PROVEN_LOCAL",
@@ -212,6 +238,7 @@ def main() -> None:
         and security["locally_solvable_gaps"] == 0
         and reliability_summary["locally_solvable_gaps"] == 0
         and g5_local_doc["locally_solvable_gaps"] == 0
+        and queues.get("consistency_assertions", {}).get("all_pass", False)
     )
 
     doc: dict[str, Any] = {
@@ -247,6 +274,7 @@ def main() -> None:
         "security": {
             "status": security["status"],
             "locally_solvable_gaps": security["locally_solvable_gaps"],
+            "api_abuse_rate_split": security.get("api_abuse_rate_split"),
             "artifact": "docs/BATCH06_SECURITY_MATERIAL_PATH_AUDIT.json",
         },
         "observability": {
@@ -267,12 +295,17 @@ def main() -> None:
             "status": "PROVEN_LOCAL" if all(r["status"] == "PROVEN_LOCAL" for r in data_rows) else "DOWNGRADED",
         },
         "g5_decomposition": {
-            "requirements": [{"id": a, "name": b, "status": c} for a, b, c in g5_reqs],
-            "G5.9_evidence": g5_fb["G5.9"],
-            "G5.10_evidence": g5_fb["G5.10"],
+            "local_component_complete": g5_local_complete,
+            "requires_live_measurement": 3,
+            "split_classifications": ["G5.9", "G5.10"],
+            "requirements": g5_reqs,
+            "G5.9_split": g5_fb["G5.9"],
+            "G5.10_split": g5_fb["G5.10"],
             "locally_solvable_gaps": g5_local_doc["locally_solvable_gaps"],
         },
         "status_queues": queues,
+        "dependency_graph": queues.get("dependency_graph", []),
+        "blocker_consistency": queues.get("consistency_assertions", {}),
         "counter_accounting": COUNTER_ACCOUNTING,
         "packages": {
             "12207_validation": "docs/BATCH06_12207_VALIDATION_PACKAGE.json",
@@ -305,6 +338,21 @@ def main() -> None:
     write_freeze_artifacts(doc, reliability_summary, data_rows, queues)
 
     freeze_tests = run_batch06_tests()
+    if classification_only:
+        proc = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "pytest",
+                "tests/cap646/test_batch06_blocker_classification_consistency.py",
+                "tests/cap646/test_batch06_v2_assurance.py",
+                "tests/test_pentagonal_hero_binding.py",
+                "-q",
+                "--tb=short",
+            ],
+            cwd=ROOT,
+        )
+        freeze_tests = {"exit_code": proc.returncode, "passed": proc.returncode == 0}
     doc["freeze_tests"] = freeze_tests
     write_freeze_artifacts(doc, reliability_summary, data_rows, queues)
 
@@ -319,4 +367,13 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--classification-only",
+        action="store_true",
+        help="Regenerate blocker classifications without heavy pipeline",
+    )
+    args = parser.parse_args()
+    main(classification_only=args.classification_only)
