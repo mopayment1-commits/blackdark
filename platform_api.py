@@ -811,6 +811,27 @@ async def vault_status():
     return _fn()
 
 
+@router.get("/encryption/status")
+async def encryption_status():
+    from encryption_policy import encryption_policy_status
+
+    return encryption_policy_status()
+
+
+@router.get("/encryption/gate")
+async def encryption_gate():
+    from encryption_policy import check_encryption_production_gate
+
+    return check_encryption_production_gate()
+
+
+@router.get("/encryption/e2e")
+async def encryption_e2e():
+    from encryption_policy import run_encryption_policy_e2e
+
+    return run_encryption_policy_e2e()
+
+
 @router.post("/vault/store", responses=COMMON_ERROR_RESPONSES)
 async def vault_store(body: dict[str, Any] = Body(...), _admin: dict = Depends(require_admin)):
     from bd_platform.vault_client import store_secret

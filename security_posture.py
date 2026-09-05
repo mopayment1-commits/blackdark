@@ -124,6 +124,36 @@ def security_posture_report() -> dict[str, Any]:
         },
     ]
 
+    try:
+        from encryption_policy import check_encryption_production_gate, encryption_policy_status
+
+        enc_status = encryption_policy_status()
+        enc_gate = check_encryption_production_gate()
+        checks.append(
+            {
+                "id": "encryption_policy_aes_gcm",
+                "ok": enc_status["policy"]["at_rest_algorithm"] == "AES-256-GCM",
+                "detail": "AES-256-GCM at-rest for sensitive platform data",
+            }
+        )
+        checks.append(
+            {
+                "id": "encryption_policy_tls_1_3",
+                "ok": enc_status["policy"]["in_transit_min_tls"] == "1.3",
+                "detail": "TLS 1.3 minimum in-transit policy (no downgrade)",
+            }
+        )
+        checks.append(
+            {
+                "id": "encryption_policy_production_gate",
+                "ok": enc_gate["ok"] or not is_production_env(),
+                "detail": enc_gate,
+            }
+        )
+        encryption_policy = enc_status
+    except ImportError:
+        encryption_policy = None
+
     pentest = pentest_attestation_status()
     attested = verify_pentest_attestation()
 
@@ -157,6 +187,7 @@ def security_posture_report() -> dict[str, Any]:
             "admin_endpoints": "X-Admin-Key or admin email",
         },
         "checks": checks,
+        "encryption_policy": encryption_policy,
         "vault_configured": vault,
         "admin_emails_configured": len(admin_emails()) > 0,
         "pentest_attestation": pentest,
@@ -187,6 +218,7 @@ def security_posture_report() -> dict[str, Any]:
             "docs/templates/pentest_scope.md",
             "docs/templates/PENTEST_ATTESTATION_INSTITUTIONAL.md",
             "docs/templates/EXTERNAL_INSTITUTIONAL_REVIEW_PACK.md",
+            "docs/infrastructure/ENCRYPTION_POLICY.md",
         ],
         "readiness_api": "/api/security/status",
         "max_audit": "python scripts/security_max_audit.py",

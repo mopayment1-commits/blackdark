@@ -4275,16 +4275,32 @@ async def api_security_status():
     from security_auth import login_rate_limit_backend
     from security_posture import security_posture_report
 
+    from encryption_policy import (
+        backup_encryption_requirements,
+        certificate_lifecycle_status,
+        encryption_policy_status,
+        in_transit_policy_status,
+        key_management_status,
+    )
+
     report = security_posture_report()
     vault_ok = bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY"))
+    enc = encryption_policy_status()
     return {
         **report,
         "at_rest_encryption": {
-            "status": "fernet_vault_when_configured" if vault_ok else "configure_SECRETS_MASTER_KEY",
+            "status": "aes_256_gcm_when_configured" if vault_ok else "configure_SECRETS_MASTER_KEY",
+            "algorithm": enc["policy"]["at_rest_algorithm"],
             "user_keys": "encrypted",
+            "scopes": enc["at_rest_scopes"],
             "iso_27001_certificate": False,
-            "note": "Engineering posture with Fernet at-rest encryption ≠ ISO 27001 certification",
+            "note": "AES-256-GCM + Fernet vault engineering posture ≠ ISO 27001 certification",
         },
+        "in_transit_encryption": in_transit_policy_status(),
+        "key_management": key_management_status(),
+        "certificate_lifecycle": certificate_lifecycle_status(),
+        "backup_encryption": backup_encryption_requirements(),
+        "encryption_policy": enc,
         "database_posture": {
             "engine": "postgresql" if use_postgres() else "sqlite",
             "institutional_pitch_requires_postgres": True,

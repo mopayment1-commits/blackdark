@@ -78,7 +78,26 @@ def backup(*, out_dir: Path) -> Path:
     with raw.open("rb") as src, gzip.open(gz, "wb", compresslevel=9) as dst:
         shutil.copyfileobj(src, dst)
     raw.unlink(missing_ok=True)
-    digest = hashlib.sha256(gz.read_bytes()).hexdigest()
+    gz_bytes = gz.read_bytes()
+    encrypted = False
+    if os.getenv("BACKUP_ENCRYPTION_KEY", "").strip() or os.getenv("ENCRYPT_BACKUPS", "").lower() in {
+        "1",
+        "true",
+        "yes",
+    }:
+        from encryption_policy import encrypt_backup_blob
+
+        gz_bytes = encrypt_backup_blob(gz_bytes)
+        enc_name = f"{gz_name}.enc"
+        enc = (out_dir / enc_name).resolve()
+        if enc.parent != out_dir:
+            raise SystemExit("Encrypted backup path escaped output directory")
+        enc.write_bytes(gz_bytes)
+        gz.unlink(missing_ok=True)
+        gz = enc
+        gz_name = enc_name
+        encrypted = True
+    digest = hashlib.sha256(gz_bytes).hexdigest()
     meta = (out_dir / meta_name).resolve()
     if meta.parent != out_dir:
         raise SystemExit("Meta path escaped output directory")
@@ -87,7 +106,8 @@ def backup(*, out_dir: Path) -> Path:
     if latest.parent != out_dir:
         raise SystemExit("LATEST path escaped output directory")
     latest.write_text(str(gz.name) + "\n" + digest + "\n", encoding="utf-8")
-    print(f"OK backup={gz.name} sha256={digest[:16]}…")
+    suffix = " encrypted=aes256-gcm" if encrypted else ""
+    print(f"OK backup={gz.name} sha256={digest[:16]}…{suffix}")
     return gz
 
 
