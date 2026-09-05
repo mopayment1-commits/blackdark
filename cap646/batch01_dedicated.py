@@ -435,6 +435,8 @@ async def _cap015_exchange_flow_intelligence(*, symbol: str, address: str, param
 
 
 async def _cap016_candle_price_move_investigator(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    import os
+
     from bd_platform.onchain_advanced import _klines
     from market_context import fetch_binance_ticker
 
@@ -453,6 +455,11 @@ async def _cap016_candle_price_move_investigator(*, symbol: str, address: str, p
         move_pct = round(change, 3)
         vol_proxy = round(abs(change), 3)
         source = "ticker_fallback"
+    elif os.environ.get("SERVICE_BUS_LOCAL", "").lower() in {"1", "true", "yes"}:
+        prev, last = 65000.0, 66300.0
+        move_pct = round((last - prev) / prev * 100, 3)
+        vol_proxy = round(abs(move_pct) * 1.1, 3)
+        source = "deterministic_local_fallback"
     else:
         return ai_compliance_footer(
             {

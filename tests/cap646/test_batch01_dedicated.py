@@ -5,9 +5,13 @@ from __future__ import annotations
 import pytest
 
 from cap646.batch01_dedicated import BATCH01_DEDICATED_IDS, EXPECTED_SURFACE, GENERIC_SURFACES
+from cap646.batch05_dedicated import BATCH05_REUSED_LINK_BATCH01_IDS
+
+# #214/#245 route via batch05 facade at runtime (MECE overlap) — test batch01 spine via direct execute.
+RUNTIME_BATCH01_IDS = BATCH01_DEDICATED_IDS - BATCH05_REUSED_LINK_BATCH01_IDS
 
 
-@pytest.mark.parametrize("capability_id", sorted(BATCH01_DEDICATED_IDS))
+@pytest.mark.parametrize("capability_id", sorted(RUNTIME_BATCH01_IDS))
 @pytest.mark.asyncio
 async def test_batch01_dedicated_surface_and_success(capability_id: int):
     from cap646.runtime import execute_capability
