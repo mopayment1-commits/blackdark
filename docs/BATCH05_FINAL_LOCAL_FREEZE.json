@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-05T13:46:22.867256+00:00",
-  "git_commit": "a3bffc04574c07d574b91c9dd4b8a9efe9bf903c",
+  "generated_at": "2026-09-05T13:47:16.780680+00:00",
+  "git_commit": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
   "freeze_heads": {
-    "repository_head": "a3bffc04574c07d574b91c9dd4b8a9efe9bf903c",
-    "artifact_generation_head": "a3bffc04574c07d574b91c9dd4b8a9efe9bf903c",
-    "artifact_embedded_head": "a3bffc04574c07d574b91c9dd4b8a9efe9bf903c",
-    "final_freeze_head": "a3bffc04574c07d574b91c9dd4b8a9efe9bf903c",
-    "source_head": "a3bffc04574c07d574b91c9dd4b8a9efe9bf903c",
+    "repository_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
+    "artifact_generation_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
+    "artifact_embedded_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
+    "final_freeze_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
+    "source_head": "8becf8ac0826e0a0827e4b94d734532c98654fbb",
     "invariant": "all five head fields equal at generation time; source_head = tested evidence commit"
   },
   "BATCH05_FINAL_LOCAL_FREEZE": true,
