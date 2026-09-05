@@ -86,6 +86,45 @@ async def test_cap164_unlock_actionability_matches_asset_key():
 
 
 @pytest.mark.asyncio
+async def test_cap164_unlock_filters_non_dict_scheduled_unlocks(monkeypatch):
+    """S6466 guard: _as_dict_list drops non-dict rows; symbol filter uses asset or symbol key."""
+    from cap646.batch04_strangler_spine import build_unlock_actionability_164
+
+    async def _mock_calendar(**_kwargs):
+        return {
+            "scheduled_unlocks": [
+                {"asset": "BTC", "amount": 1},
+                "bad-row",
+                {"symbol": "ETH", "amount": 2},
+                None,
+            ],
+            "supply_pressure": [{"asset": "BTC", "score": 1}, "skip"],
+        }
+
+    monkeypatch.setattr("bd_platform.token_unlocks.unlock_calendar", _mock_calendar)
+    payload = await build_unlock_actionability_164(symbol="BTC", params={"limit": 20})
+    assert payload["ok"] is True
+    assert all(isinstance(u, dict) for u in payload["scheduled_unlocks"])
+    assert payload["scheduled_unlocks"][0].get("asset") == "BTC"
+    assert isinstance(payload["supply_pressure"], list)
+    assert all(isinstance(p, dict) for p in payload["supply_pressure"])
+
+
+@pytest.mark.asyncio
+async def test_cap164_unlock_empty_calendar_returns_zero_score(monkeypatch):
+    from cap646.batch04_strangler_spine import build_unlock_actionability_164
+
+    async def _empty(**_kwargs):
+        return {"scheduled_unlocks": None, "supply_pressure": "not-a-list"}
+
+    monkeypatch.setattr("bd_platform.token_unlocks.unlock_calendar", _empty)
+    payload = await build_unlock_actionability_164(symbol="SOL", params={})
+    assert payload["ok"] is True
+    assert payload["scheduled_unlocks"] == []
+    assert payload["actionability_score"] == 0.0
+
+
+@pytest.mark.asyncio
 async def test_cap165_defillama_raises_mock_documents_api_wiring(monkeypatch):
     """Documented mock for DeFiLlama /raises — live endpoint returns HTTP 402 (paid plan) in this env."""
 

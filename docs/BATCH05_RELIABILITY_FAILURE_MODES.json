@@ -80,6 +80,8 @@
   "proven_local": 15,
   "requires_live": 0,
   "not_applicable": 0,
+  "design_only": 0,
+  "local_stub": 0,
   "design_and_local_stub": 0,
-  "live_only_reliability_items": []
+  "locally_solvable_gaps": 0
 }

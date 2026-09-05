@@ -1,108 +1,57 @@
 {
-  "generated_at": "2026-09-05T13:29:55.767499+00:00",
+  "generated_at": "2026-09-05T13:29:42.917300+00:00",
   "git_commit": "5dcaf469ca0137dcf50b2e08bda9817261f1c10b",
-  "standard": "Project Standards v2 \u2014 \u0645\u0639\u064a\u0627\u0631_\u0645\u0624\u0633\u0633\u064a_\u0635\u0627\u0631\u0645_\u0644\u0628\u0646\u0627\u0621_\u0627\u0644\u0642\u062f\u0631\u0627\u062a_2026_v2",
-  "scope": "Batch05 capabilities 201-250",
-  "branch": "cursor/batch05-201-250-e85e",
-  "pr": 366,
+  "scope": "Batch05 per-ID final institutional closure matrix (Phase 20 spec)",
+  "phase_20_field_count": 20,
+  "phase_20_fields": [
+    "capability_id",
+    "owner",
+    "objective_user_outcome",
+    "materiality_risk",
+    "current_state_classification",
+    "canonical_implementation",
+    "duplicate_decision",
+    "requirement",
+    "acceptance_criteria",
+    "expected_output_oracle",
+    "rtm",
+    "code_runtime_route",
+    "data_sources_lineage_freshness",
+    "six_hero_mapping",
+    "security_privacy",
+    "performance_slo",
+    "reliability_failure_modes",
+    "observability",
+    "regression",
+    "deployment"
+  ],
   "batch05_independent": 0,
   "progress_826": 179,
   "production_aligned_count": 0,
   "pa_elevated_count": 0,
-  "build_phase": "OPEN",
   "live_ready": false,
   "assurance_ready": false,
-  "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%.",
-  "verdict": {
-    "batch05_complete": false,
-    "pass_live": false,
-    "assurance_ready": false,
-    "pass_engineering_count": 50,
-    "assurance_ready_count": 0,
-    "final_status": "BLOCKED_EXTERNAL_FOR_LIVE_ONLY",
-    "final_local_status": "PASS_ENGINEERING / ASSURANCE_REVIEW_PREPARED"
-  },
-  "gate_counts": {
-    "G0_materiality": {
-      "PASS_ENGINEERING": 50
-    },
-    "G1_requirements_assurance": {
-      "PASS_ENGINEERING": 50
-    },
-    "G2_architecture_risk": {
-      "PASS_ENGINEERING": 50
-    },
-    "G3_build_integrity": {
-      "PASS_ENGINEERING": 50
-    },
-    "G4_verification_validation": {
-      "PASS_ENGINEERING": 50
-    },
-    "G5_operational_readiness": {
-      "AWAITING_DEPLOY": 50
-    },
-    "G6_live_validation": {
-      "BLOCKED_EXTERNAL": 50
-    },
-    "G7_independent_assurance": {
-      "ASSURANCE_REVIEW_PENDING": 50
-    }
-  },
-  "semantic_oracle": {
+  "summary": {
     "total_ids": 50,
-    "semantic_verified_local": 50,
-    "downgraded_count": 0,
-    "weak_only_rule_ids": 0,
-    "all_domain_rules_pass": 50,
-    "residual_7_semantic_verified": 7
+    "local_complete": 50,
+    "locally_solvable_gaps_total": 0,
+    "semantic_oracle_pass": 50,
+    "residual_7_decisions_preserved": 7,
+    "pass_engineering": 50,
+    "assurance_ready": 0,
+    "pass_live": 0,
+    "production_aligned": 0
   },
-  "canonical_duplicate": {
-    "manifest_checks_pass": true,
-    "residual_7_routing_pass": true,
-    "tolerate_ids_preserved": [
-      214,
-      245
-    ],
-    "deferred": 0
-  },
-  "residual_7": {
-    "deferred": 0,
-    "all_decided": true,
-    "decisions_preserved": true
-  },
-  "six_heroes": {
-    "freeze_status": "FINAL_FREEZE_LOCAL",
-    "batch05_in_hero_inputs": false,
-    "wrong_domain_routing": false
-  },
-  "entitlement": {
-    "local_proof": true,
-    "live_count": 0,
-    "status": "PROVEN_LOCAL_BLOCKED_LIVE"
-  },
-  "live_e2e": {
-    "proven_count": 0,
-    "blocked_count": 50,
-    "gate_zero_status": "FAILED"
-  },
-  "performance": {
-    "status": "AWAITING_DEPLOY",
-    "evidence": null
-  },
-  "security_negative": {
-    "status": "LOCAL_ONLY",
-    "live_negative_tests": "NOT_RUN"
-  },
-  "production_root_cause_ref": "docs/BATCH05_PRODUCTION_ROOT_CAUSE.json",
-  "artifact_index": [
-    "docs/BATCH05_V2_ASSURANCE_PACKAGE.json",
-    "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
-    "docs/BATCH05_CANONICAL_DUPLICATE_ASSURANCE.json",
-    "docs/BATCH05_PRODUCTION_ROOT_CAUSE.json",
-    "docs/BATCH05_GATE_ZERO_LIVE_EXECUTION.json",
-    "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+  "residual_7_ids": [
+    206,
+    212,
+    214,
+    226,
+    228,
+    232,
+    245
   ],
-  "per_id_closure_matrix": [
+  "rows": [
     {
       "capability_id": 201,
       "owner": "batch05-institutional-owner",
@@ -172,7 +121,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -191,7 +139,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 202,
@@ -261,7 +234,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -280,7 +252,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 203,
@@ -350,7 +347,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -369,7 +365,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 204,
@@ -440,7 +461,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -459,7 +479,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 205,
@@ -529,7 +574,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -548,7 +592,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 206,
@@ -622,7 +691,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -642,10 +710,31 @@
       "assurance_ready": false,
       "pass_live": false,
       "pass_engineering": true,
-      "canonical_assurance": {
-        "spine_match": true,
-        "all_checks_pass": true
-      }
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": "CLOSED_REUSED_LINK",
+      "reused_link": true,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 207,
@@ -715,7 +804,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -734,7 +822,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 208,
@@ -804,7 +917,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -823,7 +935,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 209,
@@ -893,7 +1030,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -912,7 +1048,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 210,
@@ -982,7 +1143,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1001,7 +1161,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 211,
@@ -1072,7 +1257,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1091,7 +1275,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 212,
@@ -1155,7 +1364,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1175,10 +1383,31 @@
       "assurance_ready": false,
       "pass_live": false,
       "pass_engineering": true,
-      "canonical_assurance": {
-        "spine_match": true,
-        "all_checks_pass": true
-      }
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": "CLOSED_DUPLICATE_DELEGATION",
+      "reused_link": false,
+      "duplicate_delegation": true,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 213,
@@ -1248,7 +1477,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1267,7 +1495,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 214,
@@ -1346,7 +1599,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1366,10 +1618,31 @@
       "assurance_ready": false,
       "pass_live": false,
       "pass_engineering": true,
-      "canonical_assurance": {
-        "spine_match": true,
-        "all_checks_pass": true
-      }
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": "CLOSED_REUSED_LINK",
+      "reused_link": true,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 215,
@@ -1439,7 +1712,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1458,7 +1730,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 216,
@@ -1528,7 +1825,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1547,7 +1843,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 217,
@@ -1618,7 +1939,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1637,7 +1957,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 218,
@@ -1707,7 +2052,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1726,7 +2070,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 219,
@@ -1796,7 +2165,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1815,7 +2183,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 220,
@@ -1885,7 +2278,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1904,7 +2296,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 221,
@@ -1974,7 +2391,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -1993,7 +2409,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 222,
@@ -2063,7 +2504,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2082,7 +2522,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 223,
@@ -2152,7 +2617,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2171,7 +2635,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 224,
@@ -2241,7 +2730,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2260,7 +2748,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 225,
@@ -2330,7 +2843,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2349,7 +2861,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 226,
@@ -2423,7 +2960,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2443,10 +2979,31 @@
       "assurance_ready": false,
       "pass_live": false,
       "pass_engineering": true,
-      "canonical_assurance": {
-        "spine_match": true,
-        "all_checks_pass": true
-      }
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": "CLOSED_REUSED_LINK",
+      "reused_link": true,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 227,
@@ -2516,7 +3073,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2535,7 +3091,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 228,
@@ -2609,7 +3190,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2629,10 +3209,31 @@
       "assurance_ready": false,
       "pass_live": false,
       "pass_engineering": true,
-      "canonical_assurance": {
-        "spine_match": true,
-        "all_checks_pass": true
-      }
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": "CLOSED_REUSED_LINK",
+      "reused_link": true,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 229,
@@ -2703,7 +3304,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2722,7 +3322,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 230,
@@ -2792,7 +3417,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2811,7 +3435,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 231,
@@ -2881,7 +3530,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2900,7 +3548,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 232,
@@ -2979,7 +3652,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -2999,10 +3671,31 @@
       "assurance_ready": false,
       "pass_live": false,
       "pass_engineering": true,
-      "canonical_assurance": {
-        "spine_match": true,
-        "all_checks_pass": true
-      }
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": "CLOSED_REUSED_LINK",
+      "reused_link": true,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 233,
@@ -3073,7 +3766,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3092,7 +3784,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 234,
@@ -3162,7 +3879,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3181,7 +3897,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 235,
@@ -3251,7 +3992,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3270,7 +4010,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 236,
@@ -3340,7 +4105,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3359,7 +4123,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 237,
@@ -3430,7 +4219,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3449,7 +4237,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 238,
@@ -3519,7 +4332,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3538,7 +4350,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 239,
@@ -3608,7 +4445,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3627,7 +4463,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 240,
@@ -3697,7 +4558,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3716,7 +4576,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 241,
@@ -3786,7 +4671,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3805,7 +4689,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 242,
@@ -3875,7 +4784,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3894,7 +4802,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 243,
@@ -3965,7 +4898,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -3984,7 +4916,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 244,
@@ -4054,7 +5011,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -4073,7 +5029,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 245,
@@ -4152,7 +5133,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -4172,10 +5152,31 @@
       "assurance_ready": false,
       "pass_live": false,
       "pass_engineering": true,
-      "canonical_assurance": {
-        "spine_match": true,
-        "all_checks_pass": true
-      }
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": "CLOSED_REUSED_LINK",
+      "reused_link": true,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 246,
@@ -4246,7 +5247,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -4265,7 +5265,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 247,
@@ -4335,7 +5360,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -4354,7 +5378,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 248,
@@ -4424,7 +5473,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -4443,7 +5491,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 249,
@@ -4513,7 +5586,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -4532,7 +5604,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     },
     {
       "capability_id": 250,
@@ -4603,7 +5700,6 @@
       ],
       "deployment": "Railway SERVICE_MODE=web \u2014 BLOCKED_EXTERNAL",
       "rollback": "Railway deployment revert",
-      "exceptions_residual_risk": null,
       "evidence_references": [
         "docs/BATCH05_ACCEPTANCE_201_250.json",
         "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json",
@@ -4622,7 +5718,32 @@
       "final_status": "PASS_ENGINEERING",
       "assurance_ready": false,
       "pass_live": false,
-      "pass_engineering": true
+      "pass_engineering": true,
+      "semantic_oracle_pass": true,
+      "local_validation_classification": "LOCAL_COMPLETE",
+      "locally_solvable_gaps": 0,
+      "residual_7_decision": null,
+      "reused_link": false,
+      "duplicate_delegation": false,
+      "col5_collective_review_local": "LOCAL_REVIEW \u2014 see pentagonal template (NOT Col10)",
+      "col10_preparation_status": "LOCAL_PREPARATION_COMPLETE",
+      "col10_human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "railway_queue_refs": [
+        "RL1",
+        "RL2",
+        "RL3",
+        "RL4",
+        "RL5"
+      ],
+      "independent_queue_refs": [
+        "RTI1",
+        "RTI2",
+        "RTI3",
+        "RTI4",
+        "RTI5"
+      ],
+      "production_aligned": false,
+      "batch05_independent": false
     }
   ]
 }

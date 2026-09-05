@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T22:08:12.029050+00:00",
+  "generated_at": "2026-09-05T13:29:47.926201+00:00",
   "gate": "G1_BASELINE + MECE_OVERLAP_214_245 + MECE_OVERLAP_205_232_206_228 + MECE_OVERLAP_226_69",
   "branch": "cursor/batch05-201-250-e85e",
   "commit": "acbea4cf2bb5dd9042808f92ee247df10822248b",
@@ -78,7 +78,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_network_growth_201",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_201",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 6.3
+      }
     },
     {
       "id": 202,
@@ -117,7 +130,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_supply_distribution_202",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_202",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 141.8
+      }
     },
     {
       "id": 203,
@@ -156,7 +182,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_dex_trading_203",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_203",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 24.4
+      }
     },
     {
       "id": 204,
@@ -195,7 +234,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_defi_protocol_activity_204",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_204",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 1.6
+      }
     },
     {
       "id": 205,
@@ -234,7 +286,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_open_interest_205",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_205",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 70.4
+      }
     },
     {
       "id": 206,
@@ -277,6 +342,19 @@
         "institutional_decision": "CLOSED_REUSED_LINK",
         "canonical_capability_id": 86,
         "tolerate_ceiling": null
+      },
+      "binding_file": "cap646/batch02_production.py",
+      "binding_function": "cap_086",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_206",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 7,
+        "domain_rules_total": 7,
+        "domain_all_pass": true,
+        "acceptance_status": "REUSED-LINK",
+        "closure_status": "REUSED-LINK",
+        "elapsed_ms": 189.4
       }
     },
     {
@@ -316,7 +394,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_price_volume_market_metrics_207",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_207",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 829.7
+      }
     },
     {
       "id": 208,
@@ -355,7 +446,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_metric_correlation_workbench_208",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_208",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 78.8
+      }
     },
     {
       "id": 209,
@@ -394,7 +498,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_custom_chart_builder_209",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_209",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 671.2
+      }
     },
     {
       "id": 210,
@@ -433,7 +550,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_custom_dashboards_layouts_210",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_210",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 24.3
+      }
     },
     {
       "id": 211,
@@ -472,7 +602,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_screener_211",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_211",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 61.3
+      }
     },
     {
       "id": 212,
@@ -515,6 +658,19 @@
         "institutional_decision": "CLOSED_DUPLICATE_DELEGATION",
         "canonical_capability_id": 17,
         "tolerate_ceiling": null
+      },
+      "binding_file": "cap646/batch01_dedicated.py",
+      "binding_function": "_cap017_smart_alerts",
+      "backend_module": "cap646.batch01_production",
+      "backend_entrypoint": "cap_017",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 5,
+        "domain_rules_total": 5,
+        "domain_all_pass": true,
+        "acceptance_status": "DUPLICATE_DELEGATION",
+        "closure_status": "DUPLICATE_DELEGATION",
+        "elapsed_ms": 13.2
       }
     },
     {
@@ -554,7 +710,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_anomaly_detection_alerts_213",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_213",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 2.6
+      }
     },
     {
       "id": 214,
@@ -589,7 +758,7 @@
       },
       "hero_underlying": "build_whale_narrative_71",
       "status": "REUSED-LINK",
-      "production_spine": "batch01",
+      "production_spine": "batch05",
       "canonical_spine_acceptance": "batch01",
       "time_decision": "Migrate",
       "build_decision": "REUSED-LINK \u2014 Migrate to batch01 dedicated; hero whale/arbitrage bindings Eliminated",
@@ -597,6 +766,19 @@
         "institutional_decision": "CLOSED_REUSED_LINK",
         "canonical_capability_id": 214,
         "tolerate_ceiling": null
+      },
+      "binding_file": "cap646/batch01_dedicated.py",
+      "binding_function": "_cap214_watchlists",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_214",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 8,
+        "domain_rules_total": 8,
+        "domain_all_pass": true,
+        "acceptance_status": "REUSED-LINK",
+        "closure_status": "REUSED-LINK",
+        "elapsed_ms": 1.1
       }
     },
     {
@@ -636,7 +818,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_community_explorer_215",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_215",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.7
+      }
     },
     {
       "id": 216,
@@ -675,7 +870,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_research_market_insights_216",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_216",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 350.8
+      }
     },
     {
       "id": 217,
@@ -714,7 +922,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_sanapi_style_data_access_217",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_217",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.9
+      }
     },
     {
       "id": 218,
@@ -753,7 +974,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_google_sheets_integration_218",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_218",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 219,
@@ -792,7 +1026,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_metric_availability_registry_219",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_219",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 220,
@@ -831,7 +1078,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_data_stabilization_mutability_metadata_220",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_220",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 221,
@@ -870,7 +1130,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_data_quality_provenance_layer_221",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_221",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 222,
@@ -909,7 +1182,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_metric_methodology_registry_222",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_222",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 223,
@@ -948,7 +1234,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_social_to_on_chain_confirmation_engine_223",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_223",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 224,
@@ -987,7 +1286,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_narrative_actionability_score_224",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_224",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 99.7
+      }
     },
     {
       "id": 225,
@@ -1026,7 +1338,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_development_to_market_divergence_detector_225",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_225",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.8
+      }
     },
     {
       "id": 226,
@@ -1069,6 +1394,19 @@
         "institutional_decision": "CLOSED_REUSED_LINK",
         "canonical_capability_id": 69,
         "tolerate_ceiling": null
+      },
+      "binding_file": "cap646/batch02_production.py",
+      "binding_function": "cap_069",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_226",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 7,
+        "domain_rules_total": 7,
+        "domain_all_pass": true,
+        "acceptance_status": "REUSED-LINK",
+        "closure_status": "REUSED-LINK",
+        "elapsed_ms": 2.8
       }
     },
     {
@@ -1108,7 +1446,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_unified_trading_intelligence_workspace_227",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_227",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 228,
@@ -1151,6 +1502,19 @@
         "institutional_decision": "CLOSED_REUSED_LINK",
         "canonical_capability_id": 86,
         "tolerate_ceiling": null
+      },
+      "binding_file": "cap646/batch02_production.py",
+      "binding_function": "cap_086",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_228",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 7,
+        "domain_rules_total": 7,
+        "domain_all_pass": true,
+        "acceptance_status": "REUSED-LINK",
+        "closure_status": "REUSED-LINK",
+        "elapsed_ms": 192.4
       }
     },
     {
@@ -1190,7 +1554,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_cross_exchange_funding_arbitrage_scanner_229",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_229",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 1013.2
+      }
     },
     {
       "id": 230,
@@ -1229,7 +1606,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_spot_perp_arbitrage_scanner_230",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_230",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 50.2
+      }
     },
     {
       "id": 231,
@@ -1268,7 +1658,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_futures_basis_term_structure_231",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_231",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 232,
@@ -1311,6 +1714,19 @@
         "institutional_decision": "CLOSED_REUSED_LINK",
         "canonical_capability_id": 205,
         "tolerate_ceiling": null
+      },
+      "binding_file": "cap646/batch05_dedicated.py",
+      "binding_function": "_cap205",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_232",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 8,
+        "domain_rules_total": 8,
+        "domain_all_pass": true,
+        "acceptance_status": "REUSED-LINK",
+        "closure_status": "REUSED-LINK",
+        "elapsed_ms": 84.5
       }
     },
     {
@@ -1350,7 +1766,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_liquidation_intelligence_233",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_233",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 234,
@@ -1389,7 +1818,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_cvd_intelligence_234",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_234",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 235,
@@ -1428,7 +1870,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_long_short_ratio_intelligence_235",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_235",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 236,
@@ -1467,7 +1922,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_dex_screener_236",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_236",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 237,
@@ -1506,7 +1974,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_token_risk_scoring_237",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_237",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 238,
@@ -1545,7 +2026,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_pump_dump_detection_238",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_238",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 239,
@@ -1584,7 +2078,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_narrative_tracking_239",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_239",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 101.3
+      }
     },
     {
       "id": 240,
@@ -1623,7 +2130,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_sector_rotation_intelligence_240",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_240",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 241,
@@ -1662,7 +2182,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_sentiment_intelligence_241",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_241",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 242,
@@ -1701,7 +2234,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_price_prediction_multi_signal_forecast_242",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_242",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 1.0
+      }
     },
     {
       "id": 243,
@@ -1740,7 +2286,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_correlation_matrix_243",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_243",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 244,
@@ -1779,7 +2338,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_new_listings_intelligence_244",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_244",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 245,
@@ -1814,7 +2386,7 @@
       },
       "hero_underlying": "coinmarketcal_status_245",
       "status": "REUSED-LINK",
-      "production_spine": "batch01",
+      "production_spine": "batch05",
       "canonical_spine_acceptance": "batch01",
       "time_decision": "Migrate",
       "build_decision": "REUSED-LINK \u2014 Migrate to batch01 freshness spine; hero coinmarketcal stub Eliminated",
@@ -1822,6 +2394,19 @@
         "institutional_decision": "CLOSED_REUSED_LINK",
         "canonical_capability_id": 245,
         "tolerate_ceiling": null
+      },
+      "binding_file": "cap646/batch01_production.py",
+      "binding_function": "cap_245",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_245",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 8,
+        "domain_rules_total": 8,
+        "domain_all_pass": true,
+        "acceptance_status": "REUSED-LINK",
+        "closure_status": "REUSED-LINK",
+        "elapsed_ms": 641.5
       }
     },
     {
@@ -1861,7 +2446,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_coverage_metadata_registry_246",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_246",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 247,
@@ -1900,7 +2498,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_public_rest_api_247",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_247",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.5
+      }
     },
     {
       "id": 248,
@@ -1939,7 +2550,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_mcp_server_for_ai_agents_248",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_248",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.6
+      }
     },
     {
       "id": 249,
@@ -1978,7 +2602,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_cli_access_249",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_249",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.1
+      }
     },
     {
       "id": 250,
@@ -2017,7 +2654,20 @@
       "canonical_spine_acceptance": "batch05",
       "time_decision": null,
       "build_decision": "Strangler \u2014 dedicated batch05 handler from hero brownfield input",
-      "miswire_remediation": "STRANGLER_IMPLEMENTED"
+      "miswire_remediation": "STRANGLER_IMPLEMENTED",
+      "binding_file": "cap646/batch05_strangler_spine.py",
+      "binding_function": "build_openapi_sdk_generation_250",
+      "backend_module": "cap646.batch05_production",
+      "backend_entrypoint": "cap_250",
+      "binding_source": "explicit_option_a",
+      "pentagonal_probe": {
+        "domain_rules_passed": 6,
+        "domain_rules_total": 6,
+        "domain_all_pass": true,
+        "acceptance_status": "NOT_COMPLETE",
+        "closure_status": "NOT_COMPLETE",
+        "elapsed_ms": 0.1
+      }
     }
   ],
   "item7_final_freeze": {
@@ -2048,5 +2698,6 @@
     "git_commit": "ee8ab543bf471eac02e2bd4f554e1a3e90d054e6",
     "residual_7_complete": true,
     "phase_statement_ar": "\u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u062d\u0644\u0629 = \u0628\u0646\u0627\u0621 spine + \u0642\u0628\u0648\u0644 \u0645\u0633\u0628\u0642 + \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u062d\u0644\u064a\u0629 \u0641\u0642\u0637. \u0644\u0627 \u0625\u0639\u0644\u0627\u0646 \u0627\u0643\u062a\u0645\u0627\u0644 \u062d\u0648\u0643\u0645\u0629 \u00b7 \u0644\u0627 Batch05 complete \u00b7 \u0644\u0627 \u062c\u0627\u0647\u0632\u064a\u0629 \u062d\u064a\u0629 100%."
-  }
+  },
+  "sonarcloud_status": "PENDING"
 }

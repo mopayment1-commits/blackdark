@@ -1,0 +1,206 @@
+{
+  "generated_at": "2026-09-05T13:29:42.917300+00:00",
+  "git_commit": "5dcaf469ca0137dcf50b2e08bda9817261f1c10b",
+  "scope": "Batch05 SRE Production Readiness Review",
+  "status": "PRR_PREPARATION_COMPLETE_LOCAL",
+  "not_claimed": [
+    "PRR_SIGNED_OFF",
+    "LIVE_READY"
+  ],
+  "supersedes": "docs/BATCH05_SRE_PRR_READINESS_PACKAGE.json",
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "live_ready": false,
+  "assurance_ready": false,
+  "checks": {
+    "authentication": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "cap646 runtime entitlement gate + skip_entitlement test-only"
+    },
+    "authorization": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "test_batch05_gateway_canonical_entitlement_contract"
+    },
+    "entitlement": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "docs/BATCH05_ENTITLEMENT_GATEWAY_PROOF.json all_verified=true"
+    },
+    "object_level_authorization": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "per-capability_id routing spine enforced"
+    },
+    "tenant_isolation": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "tenant context via cap646 runtime params"
+    },
+    "wrong_role_access": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "entitlement fail-closed without skip_entitlement"
+    },
+    "malformed_input": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "test_batch05_prep_dedicated malformed paths"
+    },
+    "oversized_input": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "FastAPI/pydantic validation on API routes"
+    },
+    "injection_sensitive_input": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "parameterized symbol/address strings sanitized in builders"
+    },
+    "replay": {
+      "status": "NOT_APPLICABLE_WITH_JUSTIFICATION",
+      "evidence": "read-only analytics capabilities \u2014 no mutating transactions"
+    },
+    "idempotency": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "stateless execute_capability responses"
+    },
+    "api_abuse_rate_enforcement": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_viral_capacity.py::test_rate_limit_trips_in_memory \u2014 HTTP 429 on burst; fail-closed"
+    },
+    "api_abuse_rate_production_telemetry": {
+      "status": "REQUIRES_RAILWAY",
+      "evidence": "RL4 \u2014 live production abuse/rate telemetry under real traffic (not local enforcement)"
+    },
+    "sensitive_logging": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "structured logging without secret values in batch05 tests"
+    },
+    "secret_exposure": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "no secrets in strangler payload surfaces"
+    },
+    "fail_closed": {
+      "status": "PROVEN_LOCAL",
+      "evidence": "unknown capability + entitlement denied paths"
+    }
+  },
+  "architecture": "Batch05 strangler spine + REUSED-LINK facades + duplicate delegation #212\u2192#17",
+  "critical_dependencies": [
+    "upstream market/onchain APIs",
+    "Redis optional",
+    "PostgreSQL institutional_flows for B2B hero only"
+  ],
+  "capacity_plan": "docs/BATCH05_PERFORMANCE_CAPACITY_PREP.json",
+  "latency_targets": "direct p95<=500ms, analysis p95<=2s, AI p95<=5s per BLACKDARK policy",
+  "slos": "Defined locally; measurement REQUIRES_RAILWAY",
+  "residual_risks": "Live dependency flake without production SLO proof; Railway deploy not attached",
+  "launch_blockers": [
+    {
+      "id": "RL1",
+      "item": "Railway deployment + production smoke",
+      "dependency_class": "RAILWAY_ONLY",
+      "why_local_insufficient": "Requires live Railway service binding and production domain TLS",
+      "underlying": [
+        "deployment",
+        "production smoke",
+        "domain/service availability"
+      ],
+      "scope_ids": "201-250"
+    },
+    {
+      "id": "RL2",
+      "item": "Gate Zero live health + cap646 probes",
+      "dependency_class": "RAILWAY_ONLY",
+      "why_local_insufficient": "Production host routing differs from TestClient/execute_capability local",
+      "underlying": [
+        "Gate Zero",
+        "production health/readiness",
+        "G6"
+      ],
+      "scope_ids": "201-250"
+    },
+    {
+      "id": "RL3",
+      "item": "Production-network E2E semantic verification (50 IDs)",
+      "dependency_class": "RAILWAY_ONLY",
+      "why_local_insufficient": "TLS, CDN, Railway ingress, live entitlement provider",
+      "underlying": [
+        "production E2E",
+        "production entitlement/access",
+        "real dependency behavior",
+        "G6 live_validation"
+      ],
+      "scope_ids": "201-250"
+    },
+    {
+      "id": "RL4",
+      "item": "Production k6 / performance / capacity / latency SLO",
+      "dependency_class": "RAILWAY_ONLY",
+      "why_local_insufficient": "SLO telemetry requires live traffic and production infrastructure",
+      "underlying": [
+        "production k6/performance",
+        "live SLO telemetry",
+        "api_abuse_rate_production_telemetry",
+        "G5.6 SLI/SLO live measurement",
+        "G5.7 production capacity headroom",
+        "G5.8 live dependency latency SLO"
+      ],
+      "scope_ids": "201-250"
+    },
+    {
+      "id": "RL5",
+      "item": "Per-ID PASS_LIVE elevation (201-250)",
+      "dependency_class": "RAILWAY_ONLY",
+      "why_local_insufficient": "PASS_LIVE stamp requires production validation evidence per ID",
+      "underlying": [
+        "PASS_LIVE",
+        "G6 formal elevation",
+        "batch05_independent increment gate"
+      ],
+      "scope_ids": "201-250"
+    },
+    {
+      "id": "RL6",
+      "item": "Platform failover drill (Redis/PostgreSQL)",
+      "dependency_class": "RAILWAY_ONLY",
+      "why_local_insufficient": "Live infrastructure failover cannot be simulated with production fidelity locally",
+      "underlying": [
+        "platform Redis/PostgreSQL failover",
+        "G5.9 platform_redis_postgresql_failover"
+      ],
+      "maps_from": [
+        "G5.9.platform_redis_postgresql_failover"
+      ],
+      "scope_ids": "platform"
+    },
+    {
+      "id": "RL7",
+      "item": "Platform backup/restore drill (PostgreSQL/Redis durability)",
+      "dependency_class": "RAILWAY_ONLY",
+      "why_local_insufficient": "Platform RPO/RTO backup-restore evidence requires live ops infrastructure",
+      "underlying": [
+        "platform PostgreSQL/Redis backup",
+        "platform restore drill",
+        "G5.10 platform durability"
+      ],
+      "maps_from": [
+        "G5.10.platform_postgresql_redis_durability_restore"
+      ],
+      "scope_ids": "platform"
+    }
+  ],
+  "live_evidence_required": [
+    "RL1",
+    "RL2",
+    "RL3",
+    "RL4",
+    "RL5",
+    "RL6",
+    "RL7"
+  ],
+  "residual_7_preserved": [
+    206,
+    212,
+    214,
+    226,
+    228,
+    232,
+    245
+  ]
+}

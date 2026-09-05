@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-04T23:48:05.906387+00:00",
-  "git_commit": "ac112d144245c65b8a2067284ad9b928fd674a63",
+  "generated_at": "2026-09-05T13:29:53.652954+00:00",
+  "git_commit": "5dcaf469ca0137dcf50b2e08bda9817261f1c10b",
   "standard": "Project Standards v2 \u2014 semantic oracle actual-vs-expected",
   "scope": "Batch05 IDs 201-250",
   "policy": "success=true alone is insufficient; semantic rules must pass for PASS_ENGINEERING",
@@ -24,7 +24,7 @@
       "probe_success": true,
       "probe_surface": "network_growth_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 7.0,
+      "elapsed_ms": 7.1,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -71,9 +71,9 @@
           "field": "network_growth_intelligence.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 6.6,
+          "actual": 6.7,
           "pass": true,
-          "detail": "actual=6.6 need < 500.0"
+          "detail": "actual=6.7 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -85,7 +85,7 @@
       "probe_success": true,
       "probe_surface": "supply_distribution_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 95.4,
+      "elapsed_ms": 105.8,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -125,11 +125,139 @@
           "type": "present",
           "condition": "present",
           "actual": {
-            "price_usd": null,
-            "market_cap_usd": null,
-            "circulating_supply": 0.0,
-            "total_supply": 0.0,
-            "locked_supply_pct": null,
+            "price_usd": {
+              "vef": 7985.86,
+              "btc": 1.000142,
+              "bits": 1000142,
+              "sats": 100014246,
+              "eth": 32.419282,
+              "ltc": 1481,
+              "bch": 318.516,
+              "bnb": 104.375,
+              "eos": 1008740,
+              "xrp": 56278,
+              "xlm": 431625,
+              "link": 6738,
+              "dot": 87335,
+              "yfi": 34.640084,
+              "sol": 773.06,
+              "usd": 79755,
+              "aed": 292900,
+              "ars": 120296608,
+              "aud": 110786,
+              "bdt": 9801313,
+              "bhd": 30066,
+              "bmd": 79755,
+              "brl": 408848,
+              "cad": 110385,
+              "chf": 64603,
+              "clp": 74468757,
+              "cny": 535235,
+              "czk": 1661694,
+              "dkk": 513311,
+              "eur": 68671,
+              "gbp": 59003,
+              "gel": 207762,
+              "hkd": 625306,
+              "huf": 24872367,
+              "idr": 1406142913,
+              "ils": 240254,
+              "inr": 7531316,
+              "jpy": 12489221,
+              "krw": 107357290,
+              "kwd": 24630,
+              "lkr": 26170225,
+              "mmk": 167445439,
+              "mxn": 1346837,
+              "myr": 322569,
+              "ngn": 105411221,
+              "nok": 742351,
+              "nzd": 135592,
+              "php": 4997842,
+              "pkr": 22116618,
+              "pln": 296112,
+              "rub": 6841326,
+              "sar": 299307,
+              "sek": 763470,
+              "sgd": 101185,
+              "thb": 2624092,
+              "try": 3863328,
+              "twd": 2521452,
+              "uah": 3552520,
+              "vnd": 2078304229,
+              "zar": 1275281,
+              "xdr": 58246,
+              "xag": 1204.45,
+              "xau": 18.0
+            },
+            "market_cap_usd": {
+              "vef": 160354959762,
+              "btc": 20082633,
+              "bits": 20082633199609,
+              "sats": 2008263319960932,
+              "eth": 650974727,
+              "ltc": 29729171150,
+              "bch": 6395753097,
+              "bnb": 2095832806,
+              "eos": 20255353377456,
+              "xrp": 1130045462558,
+              "xlm": 8666974924932,
+              "link": 135301164636,
+              "dot": 1753673301817,
+              "yfi": 695568131,
+              "sol": 15522947606,
+              "usd": 1601467689621,
+              "aed": 5881390090132,
+              "ars": 2415539358084114,
+              "aud": 2224569941234,
+              "bdt": 196809011836728,
+              "bhd": 603711680827,
+              "bmd": 1601467689621,
+              "brl": 8209603817303,
+              "cad": 2216511355820,
+              "chf": 1297216053544,
+              "clp": 1495322411152676,
+              "cny": 10747449665045,
+              "czk": 33366579313248,
+              "dkk": 10307206197168,
+              "eur": 1378911724794,
+              "gbp": 1184780209991,
+              "gel": 4171823331462,
+              "hkd": 12556067200318,
+              "huf": 499433713685123,
+              "idr": 28235156542165308,
+              "ils": 4824269275552,
+              "inr": 151227795031654,
+              "jpy": 250781832503837,
+              "krw": 2155719642321579,
+              "kwd": 494558846038,
+              "lkr": 525494517508398,
+              "mmk": 3362281414358740,
+              "mxn": 27044305168163,
+              "myr": 6477136070671,
+              "ngn": 2116642832980463,
+              "nok": 14906301108221,
+              "nzd": 2722660023527,
+              "php": 100355972770084,
+              "pkr": 444098657023950,
+              "pln": 5945887599864,
+              "rub": 137372891092490,
+              "sar": 6010037591107,
+              "sek": 15330369752432,
+              "sgd": 2031782057822,
+              "thb": 52691408249049,
+              "try": 77575098088164,
+              "twd": 50630402608827,
+              "uah": 71334111240069,
+              "vnd": 41732063434245424,
+              "zar": 25607466755568,
+              "xdr": 1169571071342,
+              "xag": 24185188887,
+              "xau": 361483287
+            },
+            "circulating_supply": 20079921.0,
+            "total_supply": 20080000.0,
+            "locked_supply_pct": 0.0,
             "long_short_ratio": 0.0,
             "funding_rate_pct": 0.0,
             "open_interest_usd": 0,
@@ -142,9 +270,9 @@
           "field": "supply_distribution_intelligence.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 95.3,
+          "actual": 105.7,
           "pass": true,
-          "detail": "actual=95.3 need < 500.0"
+          "detail": "actual=105.7 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -156,7 +284,7 @@
       "probe_success": true,
       "probe_surface": "dex_trading_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 22.6,
+      "elapsed_ms": 47.3,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -203,9 +331,9 @@
           "field": "dex_trading_intelligence.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 22.5,
+          "actual": 47.2,
           "pass": true,
-          "detail": "actual=22.5 need < 500.0"
+          "detail": "actual=47.2 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -217,7 +345,7 @@
       "probe_success": true,
       "probe_surface": "defi_protocol_activity_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 1.9,
+      "elapsed_ms": 1.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -264,9 +392,9 @@
           "field": "defi_protocol_activity_intelligence.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 0.4,
+          "actual": 0.3,
           "pass": true,
-          "detail": "actual=0.4 need < 500.0"
+          "detail": "actual=0.3 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -278,7 +406,7 @@
       "probe_success": true,
       "probe_surface": "open_interest_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 73.6,
+      "elapsed_ms": 76.9,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -325,9 +453,9 @@
           "field": "open_interest_intelligence.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 73.5,
+          "actual": 76.8,
           "pass": true,
-          "detail": "actual=73.5 need < 500.0"
+          "detail": "actual=76.8 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -339,7 +467,7 @@
       "probe_success": true,
       "probe_surface": "funding_rate_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 187.0,
+      "elapsed_ms": 190.5,
       "domain_rules_total": 7,
       "domain_rules_passed": 7,
       "weak_rules_count": 1,
@@ -397,12 +525,12 @@
           "actual": {
             "derivatives_overview": {
               "asset": "BTC",
-              "timestamp": "2026-09-04T23:48:01.871005+00:00",
+              "timestamp": "2026-09-05T13:29:49.521195+00:00",
               "free_tier": {
                 "source": "binance_futures_public",
                 "asset": "BTC",
                 "symbol": "BTCUSDT",
-                "timestamp": "2026-09-04T23:48:01.760562+00:00",
+                "timestamp": "2026-09-05T13:29:49.412054+00:00",
                 "mark_price": 0.0,
                 "funding_rate": 0.0,
                 "funding_rate_pct": 0.0,
@@ -437,407 +565,407 @@
                     "success": true,
                     "exchange": "deribit",
                     "currency": "BTC",
-                    "count": 988,
+                    "count": 978,
                     "instruments": [
                       {
-                        "instrument": "BTC-26MAR27-104000-C",
-                        "mark_price": 0.04195501,
-                        "bid": 0.041,
-                        "ask": 0.043,
-                        "open_interest": 115.2,
+                        "instrument": "BTC-25SEP26-125000-P",
+                        "mark_price": 0.56608526,
+                        "bid": 0.5625,
+                        "ask": 0.572,
+                        "open_interest": 21.7,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-7SEP26-72000-C",
-                        "mark_price": 0.0960978,
-                        "bid": 0.094,
-                        "ask": 0.0995,
+                        "instrument": "BTC-11SEP26-65000-C",
+                        "mark_price": 0.18489836,
+                        "bid": 0.182,
+                        "ask": 0.187,
                         "open_interest": 0.0,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-30OCT26-84000-C",
-                        "mark_price": 0.03840512,
-                        "bid": 0.038,
-                        "ask": 0.039,
-                        "open_interest": 1103.9,
-                        "volume": 47.3
+                        "instrument": "BTC-25JUN27-55000-P",
+                        "mark_price": 0.02846194,
+                        "bid": 0.0275,
+                        "ask": 0.0295,
+                        "open_interest": 35.6,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25DEC26-170000-C",
-                        "mark_price": 0.00122912,
-                        "bid": 0.001,
-                        "ask": 0.0014,
-                        "open_interest": 2394.2,
-                        "volume": 0.1
+                        "instrument": "BTC-6SEP26-75000-P",
+                        "mark_price": 1.9e-06,
+                        "bid": null,
+                        "ask": 0.0001,
+                        "open_interest": 44.6,
+                        "volume": 14.3
                       },
                       {
-                        "instrument": "BTC-25SEP26-65000-C",
-                        "mark_price": 0.18604997,
-                        "bid": 0.184,
-                        "ask": 0.1885,
-                        "open_interest": 1275.9,
-                        "volume": 0.8
+                        "instrument": "BTC-26MAR27-96000-C",
+                        "mark_price": 0.06106306,
+                        "bid": 0.06,
+                        "ask": 0.062,
+                        "open_interest": 141.6,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-26MAR27-130000-P",
-                        "mark_price": 0.60785654,
-                        "bid": 0.595,
-                        "ask": 0.6175,
+                        "instrument": "BTC-30OCT26-60000-C",
+                        "mark_price": 0.2551758,
+                        "bid": 0.2515,
+                        "ask": 0.258,
+                        "open_interest": 16.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-76000-P",
+                        "mark_price": 0.03349998,
+                        "bid": 0.033,
+                        "ask": 0.034,
+                        "open_interest": 101.9,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-45000-C",
+                        "mark_price": 0.43951285,
+                        "bid": 0.4375,
+                        "ask": 0.4415,
+                        "open_interest": 0.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-66000-C",
+                        "mark_price": 0.18460662,
+                        "bid": 0.1805,
+                        "ask": 0.1875,
+                        "open_interest": 89.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-58000-C",
+                        "mark_price": 0.27941551,
+                        "bid": 0.277,
+                        "ask": 0.282,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-70000-P",
+                        "mark_price": 0.03226875,
+                        "bid": 0.0315,
+                        "ask": 0.033,
+                        "open_interest": 1501.2,
+                        "volume": 5.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-90000-C",
+                        "mark_price": 0.01973125,
+                        "bid": 0.0195,
+                        "ask": 0.0205,
+                        "open_interest": 2653.8,
+                        "volume": 3.0
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-98000-C",
+                        "mark_price": 0.01709751,
+                        "bid": 0.0165,
+                        "ask": 0.0175,
+                        "open_interest": 51.3,
+                        "volume": 5.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-125000-C",
+                        "mark_price": 0.00552447,
+                        "bid": 0.0055,
+                        "ask": 0.006,
+                        "open_interest": 559.4,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-40000-P",
+                        "mark_price": 0.00922734,
+                        "bid": 0.0085,
+                        "ask": 0.01,
+                        "open_interest": 1212.9,
+                        "volume": 0.5
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-75000-P",
+                        "mark_price": 0.00020587,
+                        "bid": 0.0001,
+                        "ask": 0.0004,
+                        "open_interest": 1.7,
+                        "volume": 0.7
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-94000-P",
+                        "mark_price": 0.18567386,
+                        "bid": 0.181,
+                        "ask": 0.1915,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-140000-C",
+                        "mark_price": 4.714e-05,
+                        "bid": null,
+                        "ask": 0.0001,
+                        "open_interest": 1210.3,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-18SEP26-95000-P",
+                        "mark_price": 0.19149194,
+                        "bid": 0.1885,
+                        "ask": 0.1965,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-100000-C",
+                        "mark_price": 0.02249566,
+                        "bid": 0.0225,
+                        "ask": 0.023,
+                        "open_interest": 6018.4,
+                        "volume": 0.6
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-81000-C",
+                        "mark_price": 0.00305828,
+                        "bid": 0.0028,
+                        "ask": 0.0033,
+                        "open_interest": 102.3,
+                        "volume": 26.4
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-62000-P",
+                        "mark_price": 0.03025474,
+                        "bid": 0.0295,
+                        "ask": 0.031,
+                        "open_interest": 260.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-102000-P",
+                        "mark_price": 0.27864318,
+                        "bid": 0.2755,
+                        "ask": 0.2825,
                         "open_interest": 0.4,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-8SEP26-88000-C",
-                        "mark_price": 0.00017801,
-                        "bid": 0.0001,
-                        "ask": 0.0003,
-                        "open_interest": 0.3,
-                        "volume": 0.3
-                      },
-                      {
-                        "instrument": "BTC-27NOV26-86000-P",
-                        "mark_price": 0.11607706,
-                        "bid": 0.11,
-                        "ask": 0.1195,
-                        "open_interest": 30.2,
-                        "volume": 1.0
-                      },
-                      {
-                        "instrument": "BTC-7SEP26-89000-C",
-                        "mark_price": 4.161e-05,
-                        "bid": null,
-                        "ask": 0.0003,
-                        "open_interest": 8.1,
-                        "volume": 8.0
-                      },
-                      {
-                        "instrument": "BTC-8SEP26-85000-P",
-                        "mark_price": 0.06752901,
-                        "bid": 0.064,
-                        "ask": 0.07,
+                        "instrument": "BTC-9SEP26-86000-P",
+                        "mark_price": 0.07894092,
+                        "bid": 0.076,
+                        "ask": 0.0825,
                         "open_interest": 0.0,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-30OCT26-52000-C",
-                        "mark_price": 0.35246625,
-                        "bid": 0.3505,
-                        "ask": 0.3555,
+                        "instrument": "BTC-27NOV26-80000-C",
+                        "mark_price": 0.07595041,
+                        "bid": 0.0755,
+                        "ask": 0.0765,
+                        "open_interest": 814.0,
+                        "volume": 40.7
+                      },
+                      {
+                        "instrument": "BTC-9SEP26-75000-C",
+                        "mark_price": 0.05983122,
+                        "bid": 0.057,
+                        "ask": 0.062,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-11SEP26-76000-C",
+                        "mark_price": 0.04911997,
+                        "bid": 0.0455,
+                        "ask": 0.0515,
+                        "open_interest": 103.8,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-94000-P",
+                        "mark_price": 0.23546949,
+                        "bid": 0.2335,
+                        "ask": 0.2385,
                         "open_interest": 0.1,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25SEP26-300000-C",
-                        "mark_price": 2.59e-06,
-                        "bid": null,
-                        "ask": 0.0001,
-                        "open_interest": 196.3,
+                        "instrument": "BTC-27NOV26-92000-C",
+                        "mark_price": 0.02803905,
+                        "bid": 0.0275,
+                        "ask": 0.0285,
+                        "open_interest": 52.1,
+                        "volume": 0.5
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-58000-P",
+                        "mark_price": 0.00947336,
+                        "bid": 0.009,
+                        "ask": 0.01,
+                        "open_interest": 1834.3,
+                        "volume": 29.1
+                      },
+                      {
+                        "instrument": "BTC-11SEP26-81000-P",
+                        "mark_price": 0.02507517,
+                        "bid": 0.024,
+                        "ask": 0.0255,
+                        "open_interest": 162.9,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-11SEP26-68000-C",
-                        "mark_price": 0.14667713,
-                        "bid": 0.1445,
-                        "ask": 0.1485,
-                        "open_interest": 3.1,
-                        "volume": 1.0
+                        "instrument": "BTC-18SEP26-86000-P",
+                        "mark_price": 0.08329992,
+                        "bid": 0.081,
+                        "ask": 0.088,
+                        "open_interest": 0.0,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-26MAR27-40000-C",
-                        "mark_price": 0.51461727,
-                        "bid": 0.514,
-                        "ask": 0.5165,
-                        "open_interest": 82.1,
-                        "volume": 0.3
+                        "instrument": "BTC-30OCT26-100000-P",
+                        "mark_price": 0.25452649,
+                        "bid": 0.2505,
+                        "ask": 0.261,
+                        "open_interest": 0.3,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25JUN27-64000-C",
-                        "mark_price": 0.27805481,
-                        "bid": 0.2735,
-                        "ask": 0.2815,
-                        "open_interest": 33.5,
-                        "volume": 5.4
+                        "instrument": "BTC-11SEP26-85000-P",
+                        "mark_price": 0.06765397,
+                        "bid": 0.0645,
+                        "ask": 0.071,
+                        "open_interest": 32.4,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25SEP26-72000-P",
-                        "mark_price": 0.00549358,
-                        "bid": 0.005,
-                        "ask": 0.006,
-                        "open_interest": 2149.6,
-                        "volume": 90.0
+                        "instrument": "BTC-25DEC26-220000-C",
+                        "mark_price": 0.00047035,
+                        "bid": 0.0003,
+                        "ask": 0.0007,
+                        "open_interest": 254.0,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-26MAR27-85000-P",
-                        "mark_price": 0.14357185,
-                        "bid": 0.136,
-                        "ask": 0.1495,
-                        "open_interest": 3.9,
+                        "instrument": "BTC-26MAR27-80000-C",
+                        "mark_price": 0.12853879,
+                        "bid": 0.1275,
+                        "ask": 0.1295,
+                        "open_interest": 1062.6,
                         "volume": 2.0
                       },
                       {
-                        "instrument": "BTC-25SEP26-62000-P",
-                        "mark_price": 0.0006828,
-                        "bid": 0.0007,
-                        "ask": 0.0008,
-                        "open_interest": 1429.6,
-                        "volume": 18.7
+                        "instrument": "BTC-25SEP26-77000-C",
+                        "mark_price": 0.05257073,
+                        "bid": 0.0515,
+                        "ask": 0.0535,
+                        "open_interest": 290.3,
+                        "volume": 0.3
                       },
                       {
-                        "instrument": "BTC-11SEP26-65000-P",
-                        "mark_price": 0.00010301,
-                        "bid": null,
-                        "ask": 0.0003,
-                        "open_interest": 47.3,
-                        "volume": 1.5
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-65000-P",
-                        "mark_price": 0.05679062,
-                        "bid": 0.0555,
-                        "ask": 0.058,
-                        "open_interest": 24.7,
+                        "instrument": "BTC-25SEP26-175000-P",
+                        "mark_price": 1.19232333,
+                        "bid": 1.187,
+                        "ask": 1.201,
+                        "open_interest": 3.3,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-26MAR27-55000-C",
-                        "mark_price": 0.34348661,
-                        "bid": 0.3395,
-                        "ask": 0.348,
-                        "open_interest": 28.6,
-                        "volume": 0.0
+                        "instrument": "BTC-25DEC26-56000-P",
+                        "mark_price": 0.00796315,
+                        "bid": 0.0075,
+                        "ask": 0.008,
+                        "open_interest": 507.4,
+                        "volume": 0.5
                       },
                       {
-                        "instrument": "BTC-26MAR27-62000-C",
-                        "mark_price": 0.27098258,
-                        "bid": 0.266,
-                        "ask": 0.276,
-                        "open_interest": 59.7,
-                        "volume": 1.0
+                        "instrument": "BTC-25SEP26-75000-P",
+                        "mark_price": 0.01043383,
+                        "bid": 0.01,
+                        "ask": 0.011,
+                        "open_interest": 4589.9,
+                        "volume": 146.6
                       },
                       {
-                        "instrument": "BTC-25JUN27-150000-P",
-                        "mark_price": 0.83625183,
-                        "bid": 0.819,
-                        "ask": 0.851,
-                        "open_interest": 0.1,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25SEP26-120000-P",
-                        "mark_price": 0.50501846,
-                        "bid": 0.4995,
-                        "ask": 0.5095,
-                        "open_interest": 174.5,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-125000-P",
-                        "mark_price": 0.55005587,
-                        "bid": 0.537,
-                        "ask": 0.562,
+                        "instrument": "BTC-7SEP26-89000-P",
+                        "mark_price": 0.11635684,
+                        "bid": 0.1135,
+                        "ask": 0.1195,
                         "open_interest": 0.0,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-6SEP26-79500-P",
-                        "mark_price": 0.00282503,
-                        "bid": 0.0025,
-                        "ask": 0.0031,
-                        "open_interest": 106.8,
-                        "volume": 117.8
-                      },
-                      {
-                        "instrument": "BTC-30OCT26-84000-P",
-                        "mark_price": 0.08724183,
-                        "bid": 0.086,
-                        "ask": 0.0875,
-                        "open_interest": 9.5,
-                        "volume": 1.4
-                      },
-                      {
-                        "instrument": "BTC-26MAR27-82000-C",
-                        "mark_price": 0.1167264,
-                        "bid": 0.116,
-                        "ask": 0.1175,
-                        "open_interest": 1162.7,
-                        "volume": 24.2
-                      },
-                      {
-                        "instrument": "BTC-30OCT26-67000-C",
-                        "mark_price": 0.17296197,
-                        "bid": 0.171,
-                        "ask": 0.1765,
-                        "open_interest": 108.4,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25SEP26-55000-C",
-                        "mark_price": 0.31054034,
-                        "bid": 0.309,
-                        "ask": 0.313,
-                        "open_interest": 143.7,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-88000-C",
-                        "mark_price": 0.12192085,
-                        "bid": 0.1205,
-                        "ask": 0.1235,
-                        "open_interest": 21.3,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25DEC26-74000-P",
-                        "mark_price": 0.04843594,
-                        "bid": 0.048,
-                        "ask": 0.049,
-                        "open_interest": 162.0,
-                        "volume": 1.9
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-45000-C",
-                        "mark_price": 0.46872571,
-                        "bid": 0.4675,
-                        "ask": 0.4705,
-                        "open_interest": 0.5,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25SEP26-74000-C",
-                        "mark_price": 0.08102673,
-                        "bid": 0.078,
-                        "ask": 0.083,
-                        "open_interest": 1492.6,
-                        "volume": 1.7
-                      },
-                      {
-                        "instrument": "BTC-27NOV26-88000-C",
-                        "mark_price": 0.03929242,
-                        "bid": 0.039,
-                        "ask": 0.04,
-                        "open_interest": 78.7,
-                        "volume": 0.6
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-54000-C",
-                        "mark_price": 0.37271705,
-                        "bid": 0.368,
-                        "ask": 0.375,
-                        "open_interest": 0.9,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-6SEP26-81000-C",
-                        "mark_price": 0.00038739,
-                        "bid": 0.0003,
-                        "ask": 0.0005,
-                        "open_interest": 90.8,
-                        "volume": 103.1
-                      },
-                      {
-                        "instrument": "BTC-25DEC26-84000-C",
-                        "mark_price": 0.06868588,
-                        "bid": 0.068,
-                        "ask": 0.0695,
-                        "open_interest": 1345.6,
-                        "volume": 60.0
-                      },
-                      {
-                        "instrument": "BTC-25SEP26-54000-P",
-                        "mark_price": 0.00024391,
-                        "bid": 0.0001,
-                        "ask": 0.0004,
-                        "open_interest": 768.9,
-                        "volume": 0.3
-                      },
-                      {
-                        "instrument": "BTC-27NOV26-73000-P",
-                        "mark_price": 0.03453805,
-                        "bid": 0.034,
-                        "ask": 0.035,
-                        "open_interest": 17.5,
-                        "volume": 0.8
-                      },
-                      {
-                        "instrument": "BTC-25DEC26-104000-C",
-                        "mark_price": 0.01741556,
-                        "bid": 0.017,
-                        "ask": 0.018,
-                        "open_interest": 90.7,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-8SEP26-90000-C",
-                        "mark_price": 7.458e-05,
+                        "instrument": "BTC-6SEP26-68000-P",
+                        "mark_price": 2.1e-07,
                         "bid": null,
-                        "ask": 0.0002,
-                        "open_interest": 8.1,
-                        "volume": 8.2
-                      },
-                      {
-                        "instrument": "BTC-25SEP26-155000-P",
-                        "mark_price": 0.94373293,
-                        "bid": 0.937,
-                        "ask": 0.9495,
-                        "open_interest": 0.1,
+                        "ask": 0.0001,
+                        "open_interest": 30.3,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25SEP26-105000-C",
-                        "mark_price": 0.00059759,
-                        "bid": 0.0005,
-                        "ask": 0.0008,
-                        "open_interest": 1537.3,
-                        "volume": 1.1
+                        "instrument": "BTC-25DEC26-140000-C",
+                        "mark_price": 0.00314296,
+                        "bid": 0.0029,
+                        "ask": 0.0034,
+                        "open_interest": 1435.0,
+                        "volume": 6.4
                       },
                       {
-                        "instrument": "BTC-18SEP26-90000-C",
-                        "mark_price": 0.00247422,
-                        "bid": 0.0023,
-                        "ask": 0.0026,
-                        "open_interest": 409.7,
-                        "volume": 208.4
-                      },
-                      {
-                        "instrument": "BTC-27NOV26-70000-C",
-                        "mark_price": 0.15406607,
-                        "bid": 0.1515,
-                        "ask": 0.1585,
-                        "open_interest": 4.2,
+                        "instrument": "BTC-30OCT26-71000-C",
+                        "mark_price": 0.13071162,
+                        "bid": 0.126,
+                        "ask": 0.1345,
+                        "open_interest": 977.5,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-7SEP26-80500-C",
-                        "mark_price": 0.00346307,
-                        "bid": 0.0032,
-                        "ask": 0.0037,
-                        "open_interest": 28.4,
-                        "volume": 21.2
+                        "instrument": "BTC-25SEP26-90000-C",
+                        "mark_price": 0.004476,
+                        "bid": 0.0044,
+                        "ask": 0.0046,
+                        "open_interest": 8822.9,
+                        "volume": 10.8
                       },
                       {
-                        "instrument": "BTC-7SEP26-76500-P",
-                        "mark_price": 0.00036871,
-                        "bid": 0.0002,
+                        "instrument": "BTC-25SEP26-73000-C",
+                        "mark_price": 0.09145181,
+                        "bid": 0.0885,
+                        "ask": 0.0935,
+                        "open_interest": 41.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-76000-P",
+                        "mark_price": 0.05719168,
+                        "bid": 0.0565,
+                        "ask": 0.058,
+                        "open_interest": 387.1,
+                        "volume": 6.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-250000-C",
+                        "mark_price": 0.00024082,
+                        "bid": 0.0001,
                         "ask": 0.0005,
-                        "open_interest": 47.3,
-                        "volume": 10.7
-                      },
-                      {
-                        "instrument": "BTC-6SEP26-82000-P",
-                        "mark_price": 0.02970594,
-                        "bid": 0.028,
-                        "ask": 0.031,
-                        "open_interest": 5.5,
+                        "open_interest": 1280.3,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-30OCT26-90000-P",
-                        "mark_price": 0.14370845,
-                        "bid": 0.1395,
-                        "ask": 0.1475,
-                        "open_interest": 5.6,
+                        "instrument": "BTC-25JUN27-85000-C",
+                        "mark_price": 0.13587899,
+                        "bid": 0.1345,
+                        "ask": 0.1375,
+                        "open_interest": 152.8,
                         "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-45000-P",
+                        "mark_price": 0.01360274,
+                        "bid": 0.013,
+                        "ask": 0.014,
+                        "open_interest": 121.8,
+                        "volume": 2.3
                       }
                     ]
                   }
@@ -867,7 +995,7 @@
       "probe_success": true,
       "probe_surface": "price_volume_market_metrics",
       "production_spine": "batch05",
-      "elapsed_ms": 771.1,
+      "elapsed_ms": 786.9,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -914,9 +1042,9 @@
           "field": "price_volume_market_metrics.latency_ms",
           "type": "numeric",
           "condition": "< 2000",
-          "actual": 771.0,
+          "actual": 786.8,
           "pass": true,
-          "detail": "actual=771.0 need < 2000.0"
+          "detail": "actual=786.8 need < 2000.0"
         }
       ],
       "failed_semantic_rules": []
@@ -928,7 +1056,7 @@
       "probe_success": true,
       "probe_surface": "metric_correlation_workbench",
       "production_spine": "batch05",
-      "elapsed_ms": 73.9,
+      "elapsed_ms": 78.8,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -975,9 +1103,9 @@
           "field": "metric_correlation_workbench.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 73.7,
+          "actual": 78.7,
           "pass": true,
-          "detail": "actual=73.7 need < 500.0"
+          "detail": "actual=78.7 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -989,7 +1117,7 @@
       "probe_success": true,
       "probe_surface": "custom_chart_builder",
       "production_spine": "batch05",
-      "elapsed_ms": 610.6,
+      "elapsed_ms": 624.9,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1036,9 +1164,9 @@
           "field": "custom_chart_builder.latency_ms",
           "type": "numeric",
           "condition": "< 2000",
-          "actual": 610.5,
+          "actual": 624.8,
           "pass": true,
-          "detail": "actual=610.5 need < 2000.0"
+          "detail": "actual=624.8 need < 2000.0"
         }
       ],
       "failed_semantic_rules": []
@@ -1050,7 +1178,7 @@
       "probe_success": true,
       "probe_surface": "custom_dashboards_layouts",
       "production_spine": "batch05",
-      "elapsed_ms": 29.8,
+      "elapsed_ms": 22.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1097,9 +1225,9 @@
           "field": "custom_dashboards_layouts.latency_ms",
           "type": "numeric",
           "condition": "< 1000",
-          "actual": 29.6,
+          "actual": 22.4,
           "pass": true,
-          "detail": "actual=29.6 need < 1000.0"
+          "detail": "actual=22.4 need < 1000.0"
         }
       ],
       "failed_semantic_rules": []
@@ -1111,7 +1239,7 @@
       "probe_success": true,
       "probe_surface": "screener",
       "production_spine": "batch05",
-      "elapsed_ms": 20.5,
+      "elapsed_ms": 27.2,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1158,9 +1286,9 @@
           "field": "screener.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 20.4,
+          "actual": 27.0,
           "pass": true,
-          "detail": "actual=20.4 need < 500.0"
+          "detail": "actual=27.0 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -1172,7 +1300,7 @@
       "probe_success": true,
       "probe_surface": "smart_alerts",
       "production_spine": "batch01",
-      "elapsed_ms": 17.7,
+      "elapsed_ms": 13.7,
       "domain_rules_total": 5,
       "domain_rules_passed": 5,
       "weak_rules_count": 1,
@@ -1225,7 +1353,7 @@
       "probe_success": true,
       "probe_surface": "anomaly_detection_alerts",
       "production_spine": "batch05",
-      "elapsed_ms": 2.5,
+      "elapsed_ms": 1.7,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1272,9 +1400,9 @@
           "field": "anomaly_detection_alerts.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 2.1,
+          "actual": 1.5,
           "pass": true,
-          "detail": "actual=2.1 need < 500.0"
+          "detail": "actual=1.5 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -1286,7 +1414,7 @@
       "probe_success": true,
       "probe_surface": "watchlists",
       "production_spine": "batch05",
-      "elapsed_ms": 1.3,
+      "elapsed_ms": 1.1,
       "domain_rules_total": 8,
       "domain_rules_passed": 8,
       "weak_rules_count": 1,
@@ -1356,7 +1484,7 @@
               "threshold_eth": 1000.0,
               "label": "On-chain watch 0x742d35Cc...",
               "privacy_first": true,
-              "created_at": "2026-09-04T23:48:03.398562+00:00"
+              "created_at": "2026-09-05T13:29:51.077957+00:00"
             }
           ],
           "pass": true,
@@ -1372,7 +1500,7 @@
       "probe_success": true,
       "probe_surface": "community_explorer",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1433,7 +1561,7 @@
       "probe_success": true,
       "probe_surface": "research_market_insights",
       "production_spine": "batch05",
-      "elapsed_ms": 190.3,
+      "elapsed_ms": 174.0,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1480,9 +1608,9 @@
           "field": "research_market_insights.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 28.8,
+          "actual": 28.9,
           "pass": true,
-          "detail": "actual=28.8 need < 500.0"
+          "detail": "actual=28.9 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -1494,7 +1622,7 @@
       "probe_success": true,
       "probe_surface": "sanapi_style_data_access",
       "production_spine": "batch05",
-      "elapsed_ms": 1.2,
+      "elapsed_ms": 0.9,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1541,9 +1669,9 @@
           "field": "sanapi_style_data_access.latency_ms",
           "type": "numeric",
           "condition": "< 500",
-          "actual": 0.4,
+          "actual": 0.3,
           "pass": true,
-          "detail": "actual=0.4 need < 500.0"
+          "detail": "actual=0.3 need < 500.0"
         }
       ],
       "failed_semantic_rules": []
@@ -1555,7 +1683,7 @@
       "probe_success": true,
       "probe_surface": "google_sheets_integration",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1616,7 +1744,7 @@
       "probe_success": true,
       "probe_surface": "metric_availability_registry",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1860,7 +1988,7 @@
       "probe_success": true,
       "probe_surface": "social_to_on_chain_confirmation_engine",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -1921,7 +2049,7 @@
       "probe_success": true,
       "probe_surface": "narrative_actionability_score",
       "production_spine": "batch05",
-      "elapsed_ms": 102.2,
+      "elapsed_ms": 112.9,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -2043,7 +2171,7 @@
       "probe_success": true,
       "probe_surface": "cross_domain_decision_intelligence_layer",
       "production_spine": "batch05",
-      "elapsed_ms": 3.4,
+      "elapsed_ms": 2.8,
       "domain_rules_total": 7,
       "domain_rules_passed": 7,
       "weak_rules_count": 1,
@@ -2342,7 +2470,7 @@
               "ok": true,
               "capability_id": 567,
               "symbol": "BTC",
-              "timestamp": "2026-09-04T23:48:03.700820+00:00",
+              "timestamp": "2026-09-05T13:29:51.373194+00:00",
               "disclaimer": "Analysis only \u2014 not financial advice, guarantee, or execution.",
               "analysis_only": true,
               "no_execution": true,
@@ -2366,7 +2494,7 @@
       "probe_success": true,
       "probe_surface": "unified_trading_intelligence_workspace",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -2427,7 +2555,7 @@
       "probe_success": true,
       "probe_surface": "funding_rate_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 180.9,
+      "elapsed_ms": 181.4,
       "domain_rules_total": 7,
       "domain_rules_passed": 7,
       "weak_rules_count": 1,
@@ -2485,12 +2613,12 @@
           "actual": {
             "derivatives_overview": {
               "asset": "BTC",
-              "timestamp": "2026-09-04T23:48:03.882446+00:00",
+              "timestamp": "2026-09-05T13:29:51.555255+00:00",
               "free_tier": {
                 "source": "binance_futures_public",
                 "asset": "BTC",
                 "symbol": "BTCUSDT",
-                "timestamp": "2026-09-04T23:48:03.772877+00:00",
+                "timestamp": "2026-09-05T13:29:51.447249+00:00",
                 "mark_price": 0.0,
                 "funding_rate": 0.0,
                 "funding_rate_pct": 0.0,
@@ -2525,407 +2653,407 @@
                     "success": true,
                     "exchange": "deribit",
                     "currency": "BTC",
-                    "count": 988,
+                    "count": 978,
                     "instruments": [
                       {
-                        "instrument": "BTC-26MAR27-104000-C",
-                        "mark_price": 0.04195501,
-                        "bid": 0.041,
-                        "ask": 0.043,
-                        "open_interest": 115.2,
+                        "instrument": "BTC-25SEP26-125000-P",
+                        "mark_price": 0.56608526,
+                        "bid": 0.5625,
+                        "ask": 0.572,
+                        "open_interest": 21.7,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-7SEP26-72000-C",
-                        "mark_price": 0.0960978,
-                        "bid": 0.094,
-                        "ask": 0.0995,
+                        "instrument": "BTC-11SEP26-65000-C",
+                        "mark_price": 0.18489836,
+                        "bid": 0.182,
+                        "ask": 0.187,
                         "open_interest": 0.0,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-30OCT26-84000-C",
-                        "mark_price": 0.03840512,
-                        "bid": 0.038,
-                        "ask": 0.039,
-                        "open_interest": 1103.9,
-                        "volume": 47.3
+                        "instrument": "BTC-25JUN27-55000-P",
+                        "mark_price": 0.02846194,
+                        "bid": 0.0275,
+                        "ask": 0.0295,
+                        "open_interest": 35.6,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25DEC26-170000-C",
-                        "mark_price": 0.00122912,
-                        "bid": 0.001,
-                        "ask": 0.0014,
-                        "open_interest": 2394.2,
-                        "volume": 0.1
+                        "instrument": "BTC-6SEP26-75000-P",
+                        "mark_price": 1.9e-06,
+                        "bid": null,
+                        "ask": 0.0001,
+                        "open_interest": 44.6,
+                        "volume": 14.3
                       },
                       {
-                        "instrument": "BTC-25SEP26-65000-C",
-                        "mark_price": 0.18604997,
-                        "bid": 0.184,
-                        "ask": 0.1885,
-                        "open_interest": 1275.9,
-                        "volume": 0.8
+                        "instrument": "BTC-26MAR27-96000-C",
+                        "mark_price": 0.06106306,
+                        "bid": 0.06,
+                        "ask": 0.062,
+                        "open_interest": 141.6,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-26MAR27-130000-P",
-                        "mark_price": 0.60785654,
-                        "bid": 0.595,
-                        "ask": 0.6175,
+                        "instrument": "BTC-30OCT26-60000-C",
+                        "mark_price": 0.2551758,
+                        "bid": 0.2515,
+                        "ask": 0.258,
+                        "open_interest": 16.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-76000-P",
+                        "mark_price": 0.03349998,
+                        "bid": 0.033,
+                        "ask": 0.034,
+                        "open_interest": 101.9,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-45000-C",
+                        "mark_price": 0.43951285,
+                        "bid": 0.4375,
+                        "ask": 0.4415,
+                        "open_interest": 0.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-66000-C",
+                        "mark_price": 0.18460662,
+                        "bid": 0.1805,
+                        "ask": 0.1875,
+                        "open_interest": 89.5,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-70000-P",
+                        "mark_price": 0.03226875,
+                        "bid": 0.0315,
+                        "ask": 0.033,
+                        "open_interest": 1501.2,
+                        "volume": 5.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-58000-C",
+                        "mark_price": 0.27941551,
+                        "bid": 0.277,
+                        "ask": 0.282,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-90000-C",
+                        "mark_price": 0.01973125,
+                        "bid": 0.0195,
+                        "ask": 0.0205,
+                        "open_interest": 2653.8,
+                        "volume": 3.0
+                      },
+                      {
+                        "instrument": "BTC-27NOV26-98000-C",
+                        "mark_price": 0.01709751,
+                        "bid": 0.0165,
+                        "ask": 0.0175,
+                        "open_interest": 51.3,
+                        "volume": 5.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-125000-C",
+                        "mark_price": 0.00552447,
+                        "bid": 0.0055,
+                        "ask": 0.006,
+                        "open_interest": 559.4,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-40000-P",
+                        "mark_price": 0.00922734,
+                        "bid": 0.0085,
+                        "ask": 0.01,
+                        "open_interest": 1212.9,
+                        "volume": 0.5
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-75000-P",
+                        "mark_price": 0.00020587,
+                        "bid": 0.0001,
+                        "ask": 0.0004,
+                        "open_interest": 1.7,
+                        "volume": 0.7
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-140000-C",
+                        "mark_price": 4.714e-05,
+                        "bid": null,
+                        "ask": 0.0001,
+                        "open_interest": 1210.3,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-30OCT26-94000-P",
+                        "mark_price": 0.18567386,
+                        "bid": 0.181,
+                        "ask": 0.1915,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-18SEP26-95000-P",
+                        "mark_price": 0.19149194,
+                        "bid": 0.1885,
+                        "ask": 0.1965,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-100000-C",
+                        "mark_price": 0.02249566,
+                        "bid": 0.0225,
+                        "ask": 0.023,
+                        "open_interest": 6018.4,
+                        "volume": 0.6
+                      },
+                      {
+                        "instrument": "BTC-8SEP26-81000-C",
+                        "mark_price": 0.00305828,
+                        "bid": 0.0028,
+                        "ask": 0.0033,
+                        "open_interest": 102.3,
+                        "volume": 26.4
+                      },
+                      {
+                        "instrument": "BTC-26MAR27-62000-P",
+                        "mark_price": 0.03025474,
+                        "bid": 0.0295,
+                        "ask": 0.031,
+                        "open_interest": 260.1,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25SEP26-102000-P",
+                        "mark_price": 0.27864318,
+                        "bid": 0.2755,
+                        "ask": 0.2825,
                         "open_interest": 0.4,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-8SEP26-88000-C",
-                        "mark_price": 0.00017801,
-                        "bid": 0.0001,
-                        "ask": 0.0003,
-                        "open_interest": 0.3,
-                        "volume": 0.3
-                      },
-                      {
-                        "instrument": "BTC-27NOV26-86000-P",
-                        "mark_price": 0.11607706,
-                        "bid": 0.11,
-                        "ask": 0.1195,
-                        "open_interest": 30.2,
-                        "volume": 1.0
-                      },
-                      {
-                        "instrument": "BTC-7SEP26-89000-C",
-                        "mark_price": 4.161e-05,
-                        "bid": null,
-                        "ask": 0.0003,
-                        "open_interest": 8.1,
-                        "volume": 8.0
-                      },
-                      {
-                        "instrument": "BTC-8SEP26-85000-P",
-                        "mark_price": 0.06752901,
-                        "bid": 0.064,
-                        "ask": 0.07,
+                        "instrument": "BTC-9SEP26-86000-P",
+                        "mark_price": 0.07894092,
+                        "bid": 0.076,
+                        "ask": 0.0825,
                         "open_interest": 0.0,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-30OCT26-52000-C",
-                        "mark_price": 0.35246625,
-                        "bid": 0.3505,
-                        "ask": 0.3555,
+                        "instrument": "BTC-27NOV26-80000-C",
+                        "mark_price": 0.07595041,
+                        "bid": 0.0755,
+                        "ask": 0.0765,
+                        "open_interest": 814.0,
+                        "volume": 40.7
+                      },
+                      {
+                        "instrument": "BTC-9SEP26-75000-C",
+                        "mark_price": 0.05983122,
+                        "bid": 0.057,
+                        "ask": 0.062,
+                        "open_interest": 0.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-11SEP26-76000-C",
+                        "mark_price": 0.04911997,
+                        "bid": 0.0455,
+                        "ask": 0.0515,
+                        "open_interest": 103.8,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-94000-P",
+                        "mark_price": 0.23546949,
+                        "bid": 0.2335,
+                        "ask": 0.2385,
                         "open_interest": 0.1,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25SEP26-300000-C",
-                        "mark_price": 2.59e-06,
-                        "bid": null,
-                        "ask": 0.0001,
-                        "open_interest": 196.3,
+                        "instrument": "BTC-27NOV26-92000-C",
+                        "mark_price": 0.02803905,
+                        "bid": 0.0275,
+                        "ask": 0.0285,
+                        "open_interest": 52.1,
+                        "volume": 0.5
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-58000-P",
+                        "mark_price": 0.00947336,
+                        "bid": 0.009,
+                        "ask": 0.01,
+                        "open_interest": 1834.3,
+                        "volume": 29.1
+                      },
+                      {
+                        "instrument": "BTC-11SEP26-81000-P",
+                        "mark_price": 0.02507517,
+                        "bid": 0.024,
+                        "ask": 0.0255,
+                        "open_interest": 162.9,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-11SEP26-68000-C",
-                        "mark_price": 0.14667713,
-                        "bid": 0.1445,
-                        "ask": 0.1485,
-                        "open_interest": 3.1,
-                        "volume": 1.0
+                        "instrument": "BTC-18SEP26-86000-P",
+                        "mark_price": 0.08329992,
+                        "bid": 0.081,
+                        "ask": 0.088,
+                        "open_interest": 0.0,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-26MAR27-40000-C",
-                        "mark_price": 0.51461727,
-                        "bid": 0.514,
-                        "ask": 0.5165,
-                        "open_interest": 82.1,
-                        "volume": 0.3
+                        "instrument": "BTC-30OCT26-100000-P",
+                        "mark_price": 0.25452649,
+                        "bid": 0.2505,
+                        "ask": 0.261,
+                        "open_interest": 0.3,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25JUN27-64000-C",
-                        "mark_price": 0.27805481,
-                        "bid": 0.2735,
-                        "ask": 0.2815,
-                        "open_interest": 33.5,
-                        "volume": 5.4
+                        "instrument": "BTC-11SEP26-85000-P",
+                        "mark_price": 0.06765397,
+                        "bid": 0.0645,
+                        "ask": 0.071,
+                        "open_interest": 32.4,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25SEP26-72000-P",
-                        "mark_price": 0.00549358,
-                        "bid": 0.005,
-                        "ask": 0.006,
-                        "open_interest": 2149.6,
-                        "volume": 90.0
+                        "instrument": "BTC-25DEC26-220000-C",
+                        "mark_price": 0.00047035,
+                        "bid": 0.0003,
+                        "ask": 0.0007,
+                        "open_interest": 254.0,
+                        "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-26MAR27-85000-P",
-                        "mark_price": 0.14357185,
-                        "bid": 0.136,
-                        "ask": 0.1495,
-                        "open_interest": 3.9,
+                        "instrument": "BTC-26MAR27-80000-C",
+                        "mark_price": 0.12853879,
+                        "bid": 0.1275,
+                        "ask": 0.1295,
+                        "open_interest": 1062.6,
                         "volume": 2.0
                       },
                       {
-                        "instrument": "BTC-25SEP26-62000-P",
-                        "mark_price": 0.0006828,
-                        "bid": 0.0007,
-                        "ask": 0.0008,
-                        "open_interest": 1429.6,
-                        "volume": 18.7
-                      },
-                      {
-                        "instrument": "BTC-11SEP26-65000-P",
-                        "mark_price": 0.00010301,
-                        "bid": null,
-                        "ask": 0.0003,
-                        "open_interest": 47.3,
-                        "volume": 1.5
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-65000-P",
-                        "mark_price": 0.05679062,
-                        "bid": 0.0555,
-                        "ask": 0.058,
-                        "open_interest": 24.7,
+                        "instrument": "BTC-25SEP26-175000-P",
+                        "mark_price": 1.19232333,
+                        "bid": 1.187,
+                        "ask": 1.201,
+                        "open_interest": 3.3,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-26MAR27-55000-C",
-                        "mark_price": 0.34348661,
-                        "bid": 0.3395,
-                        "ask": 0.348,
-                        "open_interest": 28.6,
-                        "volume": 0.0
+                        "instrument": "BTC-25SEP26-77000-C",
+                        "mark_price": 0.05257073,
+                        "bid": 0.0515,
+                        "ask": 0.0535,
+                        "open_interest": 290.3,
+                        "volume": 0.3
                       },
                       {
-                        "instrument": "BTC-26MAR27-62000-C",
-                        "mark_price": 0.27098258,
-                        "bid": 0.266,
-                        "ask": 0.276,
-                        "open_interest": 59.7,
-                        "volume": 1.0
+                        "instrument": "BTC-25DEC26-56000-P",
+                        "mark_price": 0.00796315,
+                        "bid": 0.0075,
+                        "ask": 0.008,
+                        "open_interest": 507.4,
+                        "volume": 0.5
                       },
                       {
-                        "instrument": "BTC-25JUN27-150000-P",
-                        "mark_price": 0.83625183,
-                        "bid": 0.819,
-                        "ask": 0.851,
-                        "open_interest": 0.1,
-                        "volume": 0.0
+                        "instrument": "BTC-25SEP26-75000-P",
+                        "mark_price": 0.01043383,
+                        "bid": 0.01,
+                        "ask": 0.011,
+                        "open_interest": 4589.9,
+                        "volume": 146.6
                       },
                       {
-                        "instrument": "BTC-25SEP26-120000-P",
-                        "mark_price": 0.50501846,
-                        "bid": 0.4995,
-                        "ask": 0.5095,
-                        "open_interest": 174.5,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-125000-P",
-                        "mark_price": 0.55005587,
-                        "bid": 0.537,
-                        "ask": 0.562,
+                        "instrument": "BTC-7SEP26-89000-P",
+                        "mark_price": 0.11635684,
+                        "bid": 0.1135,
+                        "ask": 0.1195,
                         "open_interest": 0.0,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-6SEP26-79500-P",
-                        "mark_price": 0.00282503,
-                        "bid": 0.0025,
-                        "ask": 0.0031,
-                        "open_interest": 106.8,
-                        "volume": 117.8
-                      },
-                      {
-                        "instrument": "BTC-30OCT26-84000-P",
-                        "mark_price": 0.08724183,
-                        "bid": 0.086,
-                        "ask": 0.0875,
-                        "open_interest": 9.5,
-                        "volume": 1.4
-                      },
-                      {
-                        "instrument": "BTC-26MAR27-82000-C",
-                        "mark_price": 0.1167264,
-                        "bid": 0.116,
-                        "ask": 0.1175,
-                        "open_interest": 1162.7,
-                        "volume": 24.2
-                      },
-                      {
-                        "instrument": "BTC-30OCT26-67000-C",
-                        "mark_price": 0.17296197,
-                        "bid": 0.171,
-                        "ask": 0.1765,
-                        "open_interest": 108.4,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25SEP26-55000-C",
-                        "mark_price": 0.31054034,
-                        "bid": 0.309,
-                        "ask": 0.313,
-                        "open_interest": 143.7,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-88000-C",
-                        "mark_price": 0.12192085,
-                        "bid": 0.1205,
-                        "ask": 0.1235,
-                        "open_interest": 21.3,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25DEC26-74000-P",
-                        "mark_price": 0.04843594,
-                        "bid": 0.048,
-                        "ask": 0.049,
-                        "open_interest": 162.0,
-                        "volume": 1.9
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-45000-C",
-                        "mark_price": 0.46872571,
-                        "bid": 0.4675,
-                        "ask": 0.4705,
-                        "open_interest": 0.5,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-25SEP26-74000-C",
-                        "mark_price": 0.08102673,
-                        "bid": 0.078,
-                        "ask": 0.083,
-                        "open_interest": 1492.6,
-                        "volume": 1.7
-                      },
-                      {
-                        "instrument": "BTC-27NOV26-88000-C",
-                        "mark_price": 0.03929242,
-                        "bid": 0.039,
-                        "ask": 0.04,
-                        "open_interest": 78.7,
-                        "volume": 0.6
-                      },
-                      {
-                        "instrument": "BTC-25JUN27-54000-C",
-                        "mark_price": 0.37271705,
-                        "bid": 0.368,
-                        "ask": 0.375,
-                        "open_interest": 0.9,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-6SEP26-81000-C",
-                        "mark_price": 0.00038739,
-                        "bid": 0.0003,
-                        "ask": 0.0005,
-                        "open_interest": 90.8,
-                        "volume": 103.1
-                      },
-                      {
-                        "instrument": "BTC-25DEC26-84000-C",
-                        "mark_price": 0.06868588,
-                        "bid": 0.068,
-                        "ask": 0.0695,
-                        "open_interest": 1345.6,
-                        "volume": 60.0
-                      },
-                      {
-                        "instrument": "BTC-25SEP26-54000-P",
-                        "mark_price": 0.00024391,
-                        "bid": 0.0001,
-                        "ask": 0.0004,
-                        "open_interest": 768.9,
-                        "volume": 0.3
-                      },
-                      {
-                        "instrument": "BTC-27NOV26-73000-P",
-                        "mark_price": 0.03453805,
-                        "bid": 0.034,
-                        "ask": 0.035,
-                        "open_interest": 17.5,
-                        "volume": 0.8
-                      },
-                      {
-                        "instrument": "BTC-25DEC26-104000-C",
-                        "mark_price": 0.01741556,
-                        "bid": 0.017,
-                        "ask": 0.018,
-                        "open_interest": 90.7,
-                        "volume": 0.0
-                      },
-                      {
-                        "instrument": "BTC-8SEP26-90000-C",
-                        "mark_price": 7.458e-05,
+                        "instrument": "BTC-6SEP26-68000-P",
+                        "mark_price": 2.1e-07,
                         "bid": null,
-                        "ask": 0.0002,
-                        "open_interest": 8.1,
-                        "volume": 8.2
-                      },
-                      {
-                        "instrument": "BTC-25SEP26-155000-P",
-                        "mark_price": 0.94373293,
-                        "bid": 0.937,
-                        "ask": 0.9495,
-                        "open_interest": 0.1,
+                        "ask": 0.0001,
+                        "open_interest": 30.3,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-25SEP26-105000-C",
-                        "mark_price": 0.00059759,
-                        "bid": 0.0005,
-                        "ask": 0.0008,
-                        "open_interest": 1537.3,
-                        "volume": 1.1
+                        "instrument": "BTC-25DEC26-140000-C",
+                        "mark_price": 0.00314296,
+                        "bid": 0.0029,
+                        "ask": 0.0034,
+                        "open_interest": 1435.0,
+                        "volume": 6.4
                       },
                       {
-                        "instrument": "BTC-18SEP26-90000-C",
-                        "mark_price": 0.00247422,
-                        "bid": 0.0023,
-                        "ask": 0.0026,
-                        "open_interest": 409.7,
-                        "volume": 208.4
-                      },
-                      {
-                        "instrument": "BTC-27NOV26-70000-C",
-                        "mark_price": 0.15406607,
-                        "bid": 0.1515,
-                        "ask": 0.1585,
-                        "open_interest": 4.2,
+                        "instrument": "BTC-30OCT26-71000-C",
+                        "mark_price": 0.13071162,
+                        "bid": 0.126,
+                        "ask": 0.1345,
+                        "open_interest": 977.5,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-7SEP26-80500-C",
-                        "mark_price": 0.00346307,
-                        "bid": 0.0032,
-                        "ask": 0.0037,
-                        "open_interest": 28.4,
-                        "volume": 21.2
+                        "instrument": "BTC-25SEP26-90000-C",
+                        "mark_price": 0.004476,
+                        "bid": 0.0044,
+                        "ask": 0.0046,
+                        "open_interest": 8822.9,
+                        "volume": 10.8
                       },
                       {
-                        "instrument": "BTC-7SEP26-76500-P",
-                        "mark_price": 0.00036871,
-                        "bid": 0.0002,
+                        "instrument": "BTC-25SEP26-73000-C",
+                        "mark_price": 0.09145181,
+                        "bid": 0.0885,
+                        "ask": 0.0935,
+                        "open_interest": 41.0,
+                        "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-76000-P",
+                        "mark_price": 0.05719168,
+                        "bid": 0.0565,
+                        "ask": 0.058,
+                        "open_interest": 387.1,
+                        "volume": 6.0
+                      },
+                      {
+                        "instrument": "BTC-25DEC26-250000-C",
+                        "mark_price": 0.00024082,
+                        "bid": 0.0001,
                         "ask": 0.0005,
-                        "open_interest": 47.3,
-                        "volume": 10.7
-                      },
-                      {
-                        "instrument": "BTC-6SEP26-82000-P",
-                        "mark_price": 0.02970594,
-                        "bid": 0.028,
-                        "ask": 0.031,
-                        "open_interest": 5.5,
+                        "open_interest": 1280.3,
                         "volume": 0.0
                       },
                       {
-                        "instrument": "BTC-30OCT26-90000-P",
-                        "mark_price": 0.14370845,
-                        "bid": 0.1395,
-                        "ask": 0.1475,
-                        "open_interest": 5.6,
+                        "instrument": "BTC-25JUN27-85000-C",
+                        "mark_price": 0.13587899,
+                        "bid": 0.1345,
+                        "ask": 0.1375,
+                        "open_interest": 152.8,
                         "volume": 0.0
+                      },
+                      {
+                        "instrument": "BTC-25JUN27-45000-P",
+                        "mark_price": 0.01360274,
+                        "bid": 0.013,
+                        "ask": 0.014,
+                        "open_interest": 121.8,
+                        "volume": 2.3
                       }
                     ]
                   }
@@ -2955,7 +3083,7 @@
       "probe_success": true,
       "probe_surface": "cross_exchange_funding_arbitrage_scanner",
       "production_spine": "batch05",
-      "elapsed_ms": 1135.7,
+      "elapsed_ms": 1012.9,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3016,7 +3144,7 @@
       "probe_success": true,
       "probe_surface": "spot_perp_arbitrage_scanner",
       "production_spine": "batch05",
-      "elapsed_ms": 69.1,
+      "elapsed_ms": 49.4,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3077,7 +3205,7 @@
       "probe_success": true,
       "probe_surface": "futures_basis_term_structure",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3138,7 +3266,7 @@
       "probe_success": true,
       "probe_surface": "open_interest_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 88.2,
+      "elapsed_ms": 80.5,
       "domain_rules_total": 8,
       "domain_rules_passed": 8,
       "weak_rules_count": 1,
@@ -3215,7 +3343,7 @@
       "probe_success": true,
       "probe_surface": "liquidation_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 0.7,
+      "elapsed_ms": 0.6,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3276,7 +3404,7 @@
       "probe_success": true,
       "probe_surface": "cvd_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 0.7,
+      "elapsed_ms": 0.6,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3337,7 +3465,7 @@
       "probe_success": true,
       "probe_surface": "long_short_ratio_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3459,7 +3587,7 @@
       "probe_success": true,
       "probe_surface": "token_risk_scoring",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3581,7 +3709,7 @@
       "probe_success": true,
       "probe_surface": "narrative_tracking",
       "production_spine": "batch05",
-      "elapsed_ms": 123.1,
+      "elapsed_ms": 250.1,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3642,7 +3770,7 @@
       "probe_success": true,
       "probe_surface": "sector_rotation_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 0.7,
+      "elapsed_ms": 0.6,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3703,7 +3831,7 @@
       "probe_success": true,
       "probe_surface": "sentiment_intelligence",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3764,7 +3892,7 @@
       "probe_success": true,
       "probe_surface": "price_prediction_multi_signal_forecast",
       "production_spine": "batch05",
-      "elapsed_ms": 1.1,
+      "elapsed_ms": 1.0,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -3947,7 +4075,7 @@
       "probe_success": true,
       "probe_surface": "real_time_data_freshness_update_assurance",
       "production_spine": "batch05",
-      "elapsed_ms": 596.8,
+      "elapsed_ms": 695.7,
       "domain_rules_total": 8,
       "domain_rules_passed": 8,
       "weak_rules_count": 1,
@@ -4007,7 +4135,7 @@
             "state": "fresh",
             "freshness_ms": 0.0,
             "age_sec": 0.0,
-            "as_of_unix": 1788565685.9035974
+            "as_of_unix": 1788614993.651035
           },
           "pass": true,
           "detail": "not_null"
@@ -4030,7 +4158,7 @@
       "probe_success": true,
       "probe_surface": "coverage_metadata_registry",
       "production_spine": "batch05",
-      "elapsed_ms": 0.9,
+      "elapsed_ms": 0.6,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -4091,7 +4219,7 @@
       "probe_success": true,
       "probe_surface": "public_rest_api",
       "production_spine": "batch05",
-      "elapsed_ms": 0.8,
+      "elapsed_ms": 0.5,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -4152,7 +4280,7 @@
       "probe_success": true,
       "probe_surface": "mcp_server_for_ai_agents",
       "production_spine": "batch05",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 0.4,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,
@@ -4274,7 +4402,7 @@
       "probe_success": true,
       "probe_surface": "openapi_sdk_generation",
       "production_spine": "batch05",
-      "elapsed_ms": 0.1,
+      "elapsed_ms": 0.0,
       "domain_rules_total": 6,
       "domain_rules_passed": 6,
       "weak_rules_count": 1,

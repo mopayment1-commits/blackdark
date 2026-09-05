@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-09-05T13:29:42.917300+00:00",
+  "git_commit": "5dcaf469ca0137dcf50b2e08bda9817261f1c10b",
+  "scope": "Batch05 G7 Pre-Assurance Package",
+  "status": "G7_LOCAL_PREPARATION_COMPLETE",
+  "remaining": "G7_INDEPENDENT_SIGNOFF_PENDING",
+  "not_claimed": [
+    "G7 PASS",
+    "ASSURANCE_READY"
+  ],
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "live_ready": false,
+  "assurance_ready": false,
+  "evidence_completeness": "artifact_index in docs/BATCH05_FINAL_LOCAL_FREEZE.json",
+  "traceability": "RTM 201-250 \u2192 semantic oracle \u2192 acceptance",
+  "exception_register": "docs/BATCH05_V2_REMAINING_BLOCKERS_MATRIX.json",
+  "residual_risk_register": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json",
+  "reviewer_checklist": [
+    "Verify 50/50 semantic oracle",
+    "Confirm residual 7 decisions preserved (212,206,214,226,228,232,245)",
+    "Review Railway queue purity (RL1-RL7, RTI1-RTI5)",
+    "Confirm Col10 separate from Col5 collective_review_local",
+    "Confirm independent queue separation"
+  ],
+  "sign_off_template": "Owner + independent reviewer signatures \u2014 placeholder only; NOT executed"
+}

@@ -92,5 +92,8 @@ def test_final_local_freeze_complete():
     assert doc["reliability"]["design_and_local_stub"] == 0
     assert doc["reliability"]["requires_live"] == 0
     assert doc["reliability"]["status"] == "PROVEN_LOCAL"
-    assert doc["observability"]["status"] == "IMPLEMENTED_AND_TESTED_LOCAL"
+    obs_status = doc["observability"]["status"]
+    assert obs_status in {"IMPLEMENTED_AND_TESTED_LOCAL", "COMPLETE_LOCAL"}
+    if obs_status == "COMPLETE_LOCAL":
+        assert doc["observability"].get("legacy_status") == "IMPLEMENTED_AND_TESTED_LOCAL"
     assert doc["live_only_queue"]["purity_verified"] is True

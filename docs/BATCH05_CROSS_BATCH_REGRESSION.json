@@ -1,0 +1,66 @@
+{
+  "generated_at": "2026-09-05T13:33:33.210717+00:00",
+  "git_commit": "b836d0c7212ab53ae82ba7f13a6358e8adf49c10",
+  "suites": [
+    {
+      "label": "batch01_http_all50",
+      "script": "verify_batch01_http_all50.py",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "label": "batch02_official_production",
+      "script": "verify_official_batch02_production.py",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "label": "batch_verification_orchestrator",
+      "script": "run_batch_verification_orchestrator.py",
+      "exit_code": 0,
+      "passed": true,
+      "all_verified": true
+    },
+    {
+      "label": "batch01",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "........................................................................ [ 30%]\n........................................................................ [ 60%]\n........................................................................ [ 90%]\n......................                                                   [100%]"
+    },
+    {
+      "label": "batch03_gateway",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "..............                                                           [100%]"
+    },
+    {
+      "label": "batch04_gateway",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "..........                                                               [100%]"
+    },
+    {
+      "label": "batch05_frozen",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "_batch05_local_assurance_freeze.py::test_observability_health_live_local\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+    },
+    {
+      "label": "shared_runtime_service_bus",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "ci_deterministic_closure.py: 70 warnings\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+    },
+    {
+      "label": "six_heroes",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "ro_binding.py::test_local_hero_endpoints\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+    }
+  ],
+  "failed": [],
+  "partial": [],
+  "material_skipped": [],
+  "known_flaky_unresolved": [],
+  "full_pass": true
+}

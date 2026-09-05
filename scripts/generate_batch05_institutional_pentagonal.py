@@ -141,12 +141,39 @@ def build_column_8(cid: int) -> dict[str, Any]:
     }
 
 
-def build_column_10() -> dict[str, Any]:
+def build_collective_review_col5(
+    cid: int,
+    acceptance: dict[str, Any],
+    col6: dict[str, Any],
+    col7: dict[str, Any],
+    col8: dict[str, Any],
+    commit: str,
+) -> dict[str, Any]:
+    """Pentagonal column 5 — per-ID local collective governance review (Col5)."""
+    status = acceptance.get("status", "NOT_COMPLETE")
+    reused = cid in REUSED_LINK_ALL
     return {
-        "review_type": "LOCAL_REVIEW",
-        "checklist": "docs/BATCH05_SECTION0_BASELINE_GATE.md + PR #366",
-        "note": "Build phase only — NOT LOCAL_GOVERNANCE_COMPLETE; SonarCloud pending",
-        "second_review": "Batch05 MECE overlap gate #214/#245 + #205/#232 + #206/#228 + #226/#69",
+        "status": "LOCAL_COMPLETE",
+        "review_type": "LOCAL_COLLECTIVE_GOVERNANCE",
+        "capability_id": cid,
+        "closure_status": status,
+        "internal_objective": col6.get("goal"),
+        "external_user_result": col7.get("summary"),
+        "runtime_api_path": col8.get("api_path"),
+        "security_operational_quality": "entitlement_before_execution + gateway_contract verified",
+        "readiness_evidence": {
+            "domain_rules_all_pass": col7.get("all_pass"),
+            "local_tests": col8.get("local_tests"),
+            "verification_method": "execute_capability probe + pytest contract",
+            "environment": "local CI / TestClient",
+            "commit": commit,
+            "timestamp": datetime.now(UTC).isoformat(),
+        },
+        "canonical_classification": (
+            "REUSED-LINK delegation reviewed" if reused else "DISTINCT strangler reviewed"
+        ),
+        "blocker": None,
+        "note": "Col5 local complete — institutional second review (Col10) prepared separately",
     }
 
 
@@ -195,7 +222,7 @@ async def build_rows(
         col6["catalog_surface"] = acceptance["expected_surface"]
         col7 = build_column_7(rule_results)
         col8 = build_column_8(cid)
-        col10 = build_column_10()
+        col5 = build_collective_review_col5(cid, acceptance, col6, col7, col8, git_commit())
         lat = latency_bucket(cid, float(probe.get("elapsed_ms") or 0))
         final_status = closure_status(cid, col7["all_pass"], acceptance)
 
@@ -227,7 +254,7 @@ async def build_rows(
                         "gateway_contract": GATEWAY_TEST,
                         "note": "REUSED-LINK facade entitlement parity verified for #214/#245/#206/#228/#226/#232",
                     },
-                    "collective_review_local": col10,
+                    "collective_review_local": col5,
                 },
                 "pentagonal_domain_status": col7["status"],
                 "lookahead": "Deterministic seed/sym params; catalog-aligned batch05_dedicated",

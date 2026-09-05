@@ -1,0 +1,3336 @@
+{
+  "generated_at": "2026-09-05T13:29:42.917300+00:00",
+  "git_commit": "5dcaf469ca0137dcf50b2e08bda9817261f1c10b",
+  "scope": "Batch05 Pentagonal Col10 institutional second review preparation (IDs 201-250)",
+  "status": "LOCAL_PREPARATION_COMPLETE",
+  "human_signoff_aggregate": "INDEPENDENT_SIGNOFF_PENDING",
+  "not_claimed": [
+    "COL10_SIGNED",
+    "G7 PASS",
+    "batch05_complete"
+  ],
+  "batch05_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "live_ready": false,
+  "assurance_ready": false,
+  "semantics": {
+    "col10": "Per-ID pentagonal column 10 institutional second review",
+    "col5_distinction": "collective_review_local (Col5) = build-phase local governance only",
+    "components": {
+      "A": "Evidence completeness (semantic oracle + acceptance)",
+      "B": "Traceability chain (RTM \u2192 binding \u2192 runtime route)",
+      "C": "Exception/residual risk disposition (residual 7 or N/A)",
+      "D": "Independent institutional sign-off (human pending)"
+    }
+  },
+  "summary": {
+    "total_ids": 50,
+    "local_preparation_complete": 50,
+    "independent_signoff_pending": 50,
+    "residual_7_covered": 7
+  },
+  "rows": [
+    {
+      "capability_id": 201,
+      "capability_name": "Network Growth Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#201",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "network_growth_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_network_growth_201",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(201)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 202,
+      "capability_name": "Supply Distribution Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#202",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "supply_distribution_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_supply_distribution_202",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(202)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 203,
+      "capability_name": "DEX Trading Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#203",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "dex_trading_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_dex_trading_203",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(203)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 204,
+      "capability_name": "DeFi Protocol Activity Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#204",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "defi_protocol_activity_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_defi_protocol_activity_204",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(204)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 205,
+      "capability_name": "Open Interest Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#205",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "open_interest_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_open_interest_205",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(205)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 206,
+      "capability_name": "Funding Rate Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 7,
+          "domain_rules_total": 7,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#206",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "funding_rate_intelligence",
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_086",
+          "production_spine": "batch02",
+          "code_route": "cap646.runtime.execute_capability(206)"
+        },
+        "C_exception_residual_risk": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "residual_decision": "CLOSED_REUSED_LINK",
+          "canonical_id": 86,
+          "reused_link": true,
+          "duplicate_delegation": false,
+          "exception_register_ref": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 207,
+      "capability_name": "Price / Volume / Market Metrics",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#207",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "price_volume_market_metrics",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_price_volume_market_metrics_207",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(207)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 208,
+      "capability_name": "Metric Correlation Workbench",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#208",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "metric_correlation_workbench",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_metric_correlation_workbench_208",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(208)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 209,
+      "capability_name": "Custom Chart Builder",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#209",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "custom_chart_builder",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_custom_chart_builder_209",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(209)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 210,
+      "capability_name": "Custom Dashboards / Layouts",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#210",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "custom_dashboards_layouts",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_custom_dashboards_layouts_210",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(210)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 211,
+      "capability_name": "Screener",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#211",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "screener",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_screener_211",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(211)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 212,
+      "capability_name": "Smart Alerts",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 5,
+          "domain_rules_total": 5,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#212",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "smart_alerts",
+          "binding_file": "cap646/batch01_dedicated.py",
+          "binding_function": "_cap017_smart_alerts",
+          "production_spine": "batch01",
+          "code_route": "cap646.runtime.execute_capability(212)"
+        },
+        "C_exception_residual_risk": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "residual_decision": "CLOSED_DUPLICATE_DELEGATION",
+          "canonical_id": 17,
+          "reused_link": false,
+          "duplicate_delegation": true,
+          "exception_register_ref": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 213,
+      "capability_name": "Anomaly Detection Alerts",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#213",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "anomaly_detection_alerts",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_anomaly_detection_alerts_213",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(213)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 214,
+      "capability_name": "Watchlists",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 8,
+          "domain_rules_total": 8,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#214",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "watchlists",
+          "binding_file": "cap646/batch01_dedicated.py",
+          "binding_function": "_cap214_watchlists",
+          "production_spine": "batch01",
+          "code_route": "cap646.runtime.execute_capability(214)"
+        },
+        "C_exception_residual_risk": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "residual_decision": "CLOSED_REUSED_LINK",
+          "canonical_id": 214,
+          "reused_link": true,
+          "duplicate_delegation": false,
+          "exception_register_ref": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 215,
+      "capability_name": "Community Explorer",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#215",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "community_explorer",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_community_explorer_215",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(215)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 216,
+      "capability_name": "Research & Market Insights",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#216",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "research_market_insights",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_research_market_insights_216",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(216)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 217,
+      "capability_name": "SanAPI-Style Data Access",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#217",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "sanapi_style_data_access",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_sanapi_style_data_access_217",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(217)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 218,
+      "capability_name": "Google Sheets Integration",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#218",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "google_sheets_integration",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_google_sheets_integration_218",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(218)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 219,
+      "capability_name": "Metric Availability Registry",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#219",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "metric_availability_registry",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_metric_availability_registry_219",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(219)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 220,
+      "capability_name": "Data Stabilization & Mutability Metadata",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#220",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "data_stabilization_mutability_metadata",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_data_stabilization_mutability_metadata_220",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(220)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 221,
+      "capability_name": "Data Quality & Provenance Layer",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#221",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "data_quality_provenance_layer",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_data_quality_provenance_layer_221",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(221)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 222,
+      "capability_name": "Metric Methodology Registry",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#222",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "metric_methodology_registry",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_metric_methodology_registry_222",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(222)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 223,
+      "capability_name": "Social-to-On-Chain Confirmation Engine",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#223",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "social_to_on_chain_confirmation_engine",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_social_to_on_chain_confirmation_engine_223",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(223)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 224,
+      "capability_name": "Narrative Actionability Score",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#224",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "narrative_actionability_score",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_narrative_actionability_score_224",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(224)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 225,
+      "capability_name": "Development-to-Market Divergence Detector",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#225",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "development_to_market_divergence_detector",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_development_to_market_divergence_detector_225",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(225)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 226,
+      "capability_name": "Cross-Domain Decision Intelligence Layer",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 7,
+          "domain_rules_total": 7,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#226",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "cross_domain_decision_intelligence_layer",
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_069",
+          "production_spine": "batch02",
+          "code_route": "cap646.runtime.execute_capability(226)"
+        },
+        "C_exception_residual_risk": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "residual_decision": "CLOSED_REUSED_LINK",
+          "canonical_id": 69,
+          "reused_link": true,
+          "duplicate_delegation": false,
+          "exception_register_ref": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 227,
+      "capability_name": "Unified Trading Intelligence Workspace",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#227",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "unified_trading_intelligence_workspace",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_unified_trading_intelligence_workspace_227",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(227)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 228,
+      "capability_name": "Funding Rate Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 7,
+          "domain_rules_total": 7,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#228",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "funding_rate_intelligence",
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_086",
+          "production_spine": "batch02",
+          "code_route": "cap646.runtime.execute_capability(228)"
+        },
+        "C_exception_residual_risk": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "residual_decision": "CLOSED_REUSED_LINK",
+          "canonical_id": 86,
+          "reused_link": true,
+          "duplicate_delegation": false,
+          "exception_register_ref": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 229,
+      "capability_name": "Cross-Exchange Funding Arbitrage Scanner",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#229",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "cross_exchange_funding_arbitrage_scanner",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_cross_exchange_funding_arbitrage_scanner_229",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(229)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 230,
+      "capability_name": "Spot-Perp Arbitrage Scanner",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#230",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "spot_perp_arbitrage_scanner",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_spot_perp_arbitrage_scanner_230",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(230)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 231,
+      "capability_name": "Futures Basis & Term Structure",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#231",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "futures_basis_term_structure",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_futures_basis_term_structure_231",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(231)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 232,
+      "capability_name": "Open Interest Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 8,
+          "domain_rules_total": 8,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#232",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "open_interest_intelligence",
+          "binding_file": "cap646/batch05_dedicated.py",
+          "binding_function": "_cap205",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(232)"
+        },
+        "C_exception_residual_risk": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "residual_decision": "CLOSED_REUSED_LINK",
+          "canonical_id": 205,
+          "reused_link": true,
+          "duplicate_delegation": false,
+          "exception_register_ref": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 233,
+      "capability_name": "Liquidation Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#233",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "liquidation_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_liquidation_intelligence_233",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(233)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 234,
+      "capability_name": "CVD Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#234",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "cvd_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_cvd_intelligence_234",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(234)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 235,
+      "capability_name": "Long/Short Ratio Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#235",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "long_short_ratio_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_long_short_ratio_intelligence_235",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(235)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 236,
+      "capability_name": "DEX Screener",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#236",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "dex_screener",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_dex_screener_236",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(236)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 237,
+      "capability_name": "Token Risk Scoring",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#237",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "token_risk_scoring",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_token_risk_scoring_237",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(237)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 238,
+      "capability_name": "Pump & Dump Detection",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#238",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "pump_dump_detection",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_pump_dump_detection_238",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(238)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 239,
+      "capability_name": "Narrative Tracking",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#239",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "narrative_tracking",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_narrative_tracking_239",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(239)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 240,
+      "capability_name": "Sector Rotation Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#240",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "sector_rotation_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_sector_rotation_intelligence_240",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(240)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 241,
+      "capability_name": "Sentiment Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#241",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "sentiment_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_sentiment_intelligence_241",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(241)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 242,
+      "capability_name": "Price Prediction / Multi-Signal Forecast",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#242",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "price_prediction_multi_signal_forecast",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_price_prediction_multi_signal_forecast_242",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(242)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 243,
+      "capability_name": "Correlation Matrix",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#243",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "correlation_matrix",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_correlation_matrix_243",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(243)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 244,
+      "capability_name": "New Listings Intelligence",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#244",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "new_listings_intelligence",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_new_listings_intelligence_244",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(244)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 245,
+      "capability_name": "Market Health & Freshness",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 8,
+          "domain_rules_total": 8,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#245",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "real_time_data_freshness_update_assurance",
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_245",
+          "production_spine": "batch01",
+          "code_route": "cap646.runtime.execute_capability(245)"
+        },
+        "C_exception_residual_risk": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "residual_decision": "CLOSED_REUSED_LINK",
+          "canonical_id": 245,
+          "reused_link": true,
+          "duplicate_delegation": false,
+          "exception_register_ref": "docs/BATCH05_RESIDUAL_7_INSTITUTIONAL_DISPOSITION.json"
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 246,
+      "capability_name": "Coverage Metadata Registry",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#246",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "coverage_metadata_registry",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_coverage_metadata_registry_246",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(246)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 247,
+      "capability_name": "Public REST API",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#247",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "public_rest_api",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_public_rest_api_247",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(247)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 248,
+      "capability_name": "MCP Server for AI Agents",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#248",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "mcp_server_for_ai_agents",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_mcp_server_for_ai_agents_248",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(248)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 249,
+      "capability_name": "CLI Access",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#249",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "cli_access",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_cli_access_249",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(249)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    },
+    {
+      "capability_id": 250,
+      "capability_name": "OpenAPI / SDK Generation",
+      "status": "LOCAL_PREPARATION_COMPLETE",
+      "human_signoff": "INDEPENDENT_SIGNOFF_PENDING",
+      "not_claimed": [
+        "COL10_SIGNED",
+        "G7 PASS",
+        "PRODUCTION_ALIGNED"
+      ],
+      "review_semantics": "Per-ID pentagonal column 10 institutional second review",
+      "distinct_from_col5": "collective_review_local (Col5) = build-phase MECE/PR366 local governance only",
+      "components": {
+        "A_evidence_completeness": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "semantic_oracle_pass": true,
+          "domain_rules_passed": 6,
+          "domain_rules_total": 6,
+          "acceptance_ref": "docs/BATCH05_ACCEPTANCE_201_250.json",
+          "semantic_ref": "docs/BATCH05_SEMANTIC_ORACLE_VERIFICATION.json#250",
+          "not_claimed": [
+            "LIVE_E2E",
+            "PASS_LIVE"
+          ]
+        },
+        "B_traceability_chain": {
+          "status": "LOCAL_PREPARATION_COMPLETE",
+          "rtm_ref": "docs/BATCH05_RTM_201_250.json",
+          "expected_surface": "openapi_sdk_generation",
+          "binding_file": "cap646/batch05_strangler_spine.py",
+          "binding_function": "build_openapi_sdk_generation_250",
+          "production_spine": "batch05",
+          "code_route": "cap646.runtime.execute_capability(250)"
+        },
+        "C_exception_residual_risk": {
+          "status": "NOT_APPLICABLE",
+          "residual_decision": null,
+          "canonical_id": null,
+          "reused_link": false,
+          "duplicate_delegation": false,
+          "exception_register_ref": null
+        },
+        "D_independent_institutional_signoff": {
+          "status": "INDEPENDENT_SIGNOFF_PENDING",
+          "human_signoff_required": true,
+          "not_claimed": [
+            "G7 PASS",
+            "SRE PRR SIGNED",
+            "12207 Validation executed"
+          ],
+          "prerequisites": [
+            "RL2",
+            "RL3",
+            "RTI1"
+          ],
+          "reviewer_role": "independent institutional reviewer"
+        },
+        "col5_collective_review_local_separate": {
+          "note": "Col5 (collective_review_local) is build-phase local governance \u2014 NOT Col10 second review",
+          "col5_status": "LOCAL_COLLECTIVE_GOVERNANCE",
+          "col5_checklist": null,
+          "col5_artifact": "docs/BATCH05_PENTAGONAL_TEMPLATE_201_250.json"
+        }
+      },
+      "blocker_ref": "docs/BATCH05_REMAINING_BLOCKERS_MATRIX.json#PENTAGONAL_COL10"
+    }
+  ]
+}
