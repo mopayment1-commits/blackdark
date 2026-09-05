@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH07_COLLECTIVE_REVIEW_LOCAL",
-  "generated_at": "2026-09-05T23:36:31.806430+00:00",
-  "git_commit": "3ad4437740550a14f1346c43e5ac586e0ad97fd9",
+  "generated_at": "2026-09-05T23:38:12.378872+00:00",
+  "git_commit": "67087dac2f4c89c01e48ed07c25115bb0bf11cba",
   "scope": "Project governance collective_review_local — separate from Pentagonal Column 5",
   "disclaimer": "collective_review_local is LOCAL automated governance review. It is NOT Pentagonal Column 5 (Readiness & Evidence) and NOT independent human sign-off.",
   "summary": {

@@ -1,10 +1,10 @@
 {
   "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-05T23:38:04Z",
+  "generated_at_utc": "2026-09-05T23:39:45Z",
   "identity": {
     "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
-    "final_freeze_head": "3ad4437740550a14f1346c43e5ac586e0ad97fd9",
+    "final_freeze_head": "67087dac2f4c89c01e48ed07c25115bb0bf11cba",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null
@@ -15,7 +15,7 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..3ad4437740550a14f1346c43e5ac586e0ad97fd9",
+    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..67087dac2f4c89c01e48ed07c25115bb0bf11cba",
     "files_changed_total": 25,
     "production_runtime_drift": 0,
     "production_runtime_files": [],
