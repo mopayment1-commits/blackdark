@@ -67,6 +67,132 @@ async def platform_keys_save(
     return await save_platform_keys(body, verify=verify)
 
 
+@router.get("/secrets-vault/status")
+async def secrets_vault_status(_admin: dict = Depends(require_admin)):
+    """Secrets Management & Key Vault (#189) — architecture + compliance status."""
+    from bd_platform.secrets_key_vault import vault_architecture_status
+
+    return vault_architecture_status()
+
+
+@router.get("/secrets-vault/dashboard")
+async def secrets_vault_dashboard_route(_admin: dict = Depends(require_admin)):
+    """Key Management Dashboard (#189) — aggregate metrics + audit preview."""
+    from bd_platform.secrets_key_vault import key_vault_dashboard
+
+    return key_vault_dashboard()
+
+
+@router.get("/secrets-vault/audit")
+async def secrets_vault_audit(
+    _admin: dict = Depends(require_admin),
+    tenant_id: str | None = Query(None),
+    user_id: int | None = Query(None),
+    secret_id: str | None = Query(None),
+    action: str | None = Query(None),
+    limit: int = Query(100, ge=1, le=500),
+):
+    """Searchable exportable audit trail (#189)."""
+    from bd_platform.secrets_key_vault import search_audit_log
+
+    return search_audit_log(
+        tenant_id=tenant_id,
+        user_id=user_id,
+        secret_id=secret_id,
+        action=action,
+        limit=limit,
+    )
+
+
+@router.get("/secrets-vault/alerts")
+async def secrets_vault_alerts(_admin: dict = Depends(require_admin), limit: int = Query(20, ge=1, le=100)):
+    """Suspicious vault access alerts (#189)."""
+    from bd_platform.secrets_key_vault import suspicious_access_alerts
+
+    return suspicious_access_alerts(limit=limit)
+
+
+@router.get("/secrets-vault/keys")
+async def secrets_vault_list_keys(
+    _user: dict = Depends(require_authenticated),
+    tenant_id: str = Query("default"),
+    include_revoked: bool = Query(False),
+):
+    """Per-user key list — metadata only, never plaintext (#189)."""
+    from bd_platform.secrets_key_vault import list_secrets
+
+    return list_secrets(
+        tenant_id=tenant_id,
+        user_id=int(_user["id"]),
+        include_revoked=include_revoked,
+    )
+
+
+@router.post("/secrets-vault/keys", responses=COMMON_ERROR_RESPONSES)
+async def secrets_vault_create_key(
+    request: Request,
+    body: dict[str, Any] = Body(...),
+    _user: dict = Depends(require_authenticated),
+    tenant_id: str = Query("default"),
+):
+    """Store secret — plaintext returned once in reveal_once (#189)."""
+    from bd_platform.secrets_key_vault import create_secret
+
+    client_ip = request.client.host if request.client else None
+    return create_secret(
+        tenant_id=tenant_id,
+        user_id=int(_user["id"]),
+        name=str(body.get("name") or ""),
+        value=str(body.get("value") or ""),
+        permission=body.get("permission") or "trading",
+        secret_type=body.get("secret_type") or "exchange_api",
+        actor=str(_user.get("email") or "user"),
+        source_ip=client_ip,
+    )
+
+
+@router.post("/secrets-vault/keys/{secret_id}/revoke", responses=COMMON_ERROR_RESPONSES)
+async def secrets_vault_revoke_key(
+    secret_id: str,
+    request: Request,
+    _user: dict = Depends(require_authenticated),
+    tenant_id: str = Query("default"),
+):
+    """Immediate revocation ≤1s (#189)."""
+    from bd_platform.secrets_key_vault import revoke_secret
+
+    client_ip = request.client.host if request.client else None
+    return revoke_secret(
+        secret_id,
+        tenant_id=tenant_id,
+        user_id=int(_user["id"]),
+        actor=str(_user.get("email") or "user"),
+        source_ip=client_ip,
+    )
+
+
+@router.post("/secrets-vault/keys/{secret_id}/rotate", responses=COMMON_ERROR_RESPONSES)
+async def secrets_vault_rotate_key(
+    secret_id: str,
+    request: Request,
+    body: dict[str, str] = Body(...),
+    _user: dict = Depends(require_authenticated),
+    tenant_id: str = Query("default"),
+):
+    """90-day rotation drill — re-encrypt with new value (#189)."""
+    from bd_platform.secrets_key_vault import rotate_secret
+
+    client_ip = request.client.host if request.client else None
+    return rotate_secret(
+        secret_id,
+        tenant_id=tenant_id,
+        user_id=int(_user["id"]),
+        new_value=str(body.get("value") or ""),
+        actor=str(_user.get("email") or "user"),
+        source_ip=client_ip,
+    )
+
+
 @router.get("/features")
 async def platform_features():
     from bd_platform.completion import completion_summary
