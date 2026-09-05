@@ -151,6 +151,62 @@ async def validate_exchange_api_key(
     return result
 
 
+async def validate_read_only_sync_key(
+    exchange: str,
+    api_key: str,
+    api_secret: str,
+) -> KeyValidationResult:
+    """
+    #907 Credential Vault — read-only sync keys only.
+    Rejects trade, withdraw, or write permissions.
+    """
+    ex = exchange.strip().lower()
+    result = KeyValidationResult(exchange=ex, allowed=False)
+
+    if not _enabled():
+        result.allowed = True
+        result.reason = "guard_disabled"
+        return result
+
+    if not api_key.strip() or not api_secret.strip():
+        result.reason = "missing_credentials"
+        return result
+
+    if ex == "binance":
+        from execution_keys import verify_binance_keys
+
+        verify = await verify_binance_keys(api_key.strip(), api_secret.strip())
+        result.valid = bool(verify.get("valid"))
+        result.can_trade = bool(verify.get("can_trade"))
+        result.can_withdraw = bool(verify.get("can_withdraw"))
+        result.details = verify
+
+        if not result.valid:
+            result.reason = str(verify.get("reason") or verify.get("message") or "invalid_keys")
+            return result
+        if result.can_trade:
+            result.reason = "trade_permission_rejected"
+            logger.warning(
+                "Read-only sync key rejected — trade permission detected | exchange=%s",
+                str(ex).replace("\r", " ").replace("\n", " "),
+            )
+            return result
+        if result.can_withdraw:
+            result.reason = "withdraw_enabled_rejected"
+            logger.warning(
+                "Read-only sync key rejected — withdraw enabled | exchange=%s",
+                str(ex).replace("\r", " ").replace("\n", " "),
+            )
+            return result
+        result.allowed = True
+        result.reason = "read_only_ok"
+        return result
+
+    result.reason = "unsupported_exchange_validation"
+    result.allowed = False
+    return result
+
+
 def live_execution_allowed(*, user_id: int | None, using_env_keys: bool) -> tuple[bool, str]:
     """Hard gate before any live order uses decrypted credentials."""
     if not _enabled():
@@ -187,17 +243,21 @@ def api_key_security_status() -> dict[str, Any]:
         "block_withdraw_enabled_keys": block_withdraw_enabled_keys(),
         "require_user_vault_for_live": require_user_vault_for_live(),
         "block_env_keys_in_production": block_env_keys_in_production(),
-        "encryption": "fernet_aes128_cbc",
+        "encryption": "aes_256_gcm_tenant_bound",
         "vault_master_key_required_in_production": True,
         "hashicorp_vault_available": bool(os.getenv("VAULT_ADDR")),
+        "read_only_sync_only": True,
+        "trade_keys_rejected": True,
         "live_mode": _live_mode_requested(),
         "audit_events_buffered": len(_audit_log),
         "audit_denied_total": recent_denied,
         "recent_audit": list(_audit_log)[-10:],
         "policy": (
-            "User keys encrypted at rest (Fernet). Live execution requires per-user vault "
-            "in production. Withdraw-enabled API keys rejected. Env plaintext keys blocked "
-            "in production. Full HSM/KMS recommended for acquisition-grade custody."
+            "Read-only sync keys only (#907 Multi-Account Sync). "
+            "Keys encrypted at rest with tenant-bound AES-256-GCM. "
+            "Trade/withdraw-enabled API keys rejected at validation. "
+            "Credentials retrieved backend-only during sync jobs — never exposed to client/UI. "
+            "HashiCorp Vault / AWS KMS recommended in production."
         ),
         "compliance_notes": [
             "Store trade-only keys with exchange-side IP whitelist",

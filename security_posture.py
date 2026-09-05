@@ -124,6 +124,36 @@ def security_posture_report() -> dict[str, Any]:
         },
     ]
 
+    try:
+        from credential_vault_layer import check_credential_vault_production_gate, credential_vault_status
+
+        cv_status = credential_vault_status()
+        cv_gate = check_credential_vault_production_gate()
+        checks.append(
+            {
+                "id": "credential_vault_read_only",
+                "ok": cv_status["read_only_only"] is True,
+                "detail": "Read-only sync keys only (#907) — no trade/withdraw permissions",
+            }
+        )
+        checks.append(
+            {
+                "id": "credential_vault_tenant_encryption",
+                "ok": cv_status["tenant_specific_key"] is True,
+                "detail": "AES-256-GCM tenant-bound credential encryption",
+            }
+        )
+        checks.append(
+            {
+                "id": "credential_vault_production_gate",
+                "ok": cv_gate["ok"] or not is_production_env(),
+                "detail": cv_gate,
+            }
+        )
+        credential_vault = cv_status
+    except ImportError:
+        credential_vault = None
+
     pentest = pentest_attestation_status()
     attested = verify_pentest_attestation()
 
@@ -157,6 +187,7 @@ def security_posture_report() -> dict[str, Any]:
             "admin_endpoints": "X-Admin-Key or admin email",
         },
         "checks": checks,
+        "credential_vault": credential_vault,
         "vault_configured": vault,
         "admin_emails_configured": len(admin_emails()) > 0,
         "pentest_attestation": pentest,
@@ -182,6 +213,7 @@ def security_posture_report() -> dict[str, Any]:
         "docs": [
             "/SECURITY.md",
             "docs/SECURITY_HARDENING.md",
+            "docs/infrastructure/CREDENTIAL_VAULT_LAYER.md",
             "docs/SECURITY_MAX_CHECKLIST.md",
             "docs/CDN_WAF_CHECKLIST.md",
             "docs/templates/pentest_scope.md",

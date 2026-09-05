@@ -1,12 +1,10 @@
 """
-BLACKDARK — User exchange API key management (encrypted vault).
+BLACKDARK — User exchange API key management (Credential Vault Layer / #907).
 """
 
 from __future__ import annotations
 
 from typing import Any
-
-from secrets_vault import decrypt_secret, encrypt_secret, mask_secret
 
 
 async def store_user_exchange_keys(
@@ -17,39 +15,11 @@ async def store_user_exchange_keys(
     *,
     label: str = "",
 ) -> dict[str, Any]:
-    from api_key_security_guard import record_key_access, validate_exchange_api_key
-    from database import upsert_user_api_key
+    from credential_vault_layer import store_sync_credential
 
-    validation = await validate_exchange_api_key(exchange, api_key, api_secret)
-    record_key_access(
-        user_id=user_id,
-        exchange=exchange,
-        action="store_keys",
-        allowed=validation.allowed,
-        reason=validation.reason,
+    return await store_sync_credential(
+        user_id, exchange, api_key, api_secret, label=label, actor="user"
     )
-    if not validation.allowed:
-        return {
-            "success": False,
-            "exchange": exchange.lower(),
-            "reason": validation.reason,
-            "message": f"API key rejected: {validation.reason}",
-        }
-
-    await upsert_user_api_key(
-        user_id,
-        exchange,
-        encrypt_secret(api_key.strip()),
-        encrypt_secret(api_secret.strip()),
-        label=label,
-    )
-    return {
-        "success": True,
-        "exchange": exchange.lower(),
-        "api_key_masked": mask_secret(api_key),
-        "message": "API keys encrypted and stored securely.",
-        "validation": validation.reason,
-    }
 
 
 async def list_user_exchange_keys(user_id: int) -> list[dict[str, Any]]:
@@ -62,6 +32,7 @@ async def list_user_exchange_keys(user_id: int) -> list[dict[str, Any]]:
             "exchange": r["exchange"],
             "label": r.get("label"),
             "api_key_masked": "****",
+            "read_only_sync": True,
             "created_at": r.get("created_at"),
             "updated_at": r.get("updated_at"),
         }
@@ -69,20 +40,39 @@ async def list_user_exchange_keys(user_id: int) -> list[dict[str, Any]]:
     ]
 
 
-async def get_user_exchange_credentials(user_id: int, exchange: str) -> tuple[str, str] | None:
-    from database import fetch_user_api_key_secrets
+async def get_user_exchange_credentials(
+    user_id: int,
+    exchange: str,
+    *,
+    caller: str | None = None,
+) -> tuple[str, str] | None:
+    """
+    Backend-only retrieval — blocked for API/UI paths.
+    Use caller='multi_account_sync' from sync jobs only.
+    """
+    from credential_vault_layer import retrieve_for_sync
 
-    row = await fetch_user_api_key_secrets(user_id, exchange)
-    if not row:
-        return None
-    return (
-        decrypt_secret(str(row["api_key_encrypted"])),
-        decrypt_secret(str(row["api_secret_encrypted"])),
+    allowed: tuple[str, ...] = (
+        "multi_account_sync",
+        "sync_connector",
+        "credential_vault_self_test",
     )
+    if caller not in allowed:
+        from credential_vault_layer import record_vault_audit
+
+        record_vault_audit(
+            user_id=user_id,
+            exchange=exchange,
+            action="retrieve",
+            allowed=False,
+            reason="client_exposure_blocked",
+            actor=caller or "unknown",
+        )
+        return None
+    return await retrieve_for_sync(user_id, exchange, caller=caller)  # type: ignore[arg-type]
 
 
 async def remove_user_exchange_keys(user_id: int, exchange: str) -> dict[str, Any]:
-    from database import delete_user_api_key
+    from credential_vault_layer import delete_sync_credential
 
-    deleted = await delete_user_api_key(user_id, exchange)
-    return {"success": deleted, "exchange": exchange.lower()}
+    return await delete_sync_credential(user_id, exchange, actor="user")
