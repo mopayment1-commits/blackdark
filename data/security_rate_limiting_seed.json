@@ -1,0 +1,48 @@
+{
+  "feature_ref": "security_rate_limiting",
+  "merged_into": "Sprint 0/1 API Gateway Infrastructure",
+  "standalone_rejected": true,
+  "security_rate_limiting": {
+    "policy_version": "1.0.0",
+    "backend_enforced": true,
+    "no_client_side_validation": true,
+    "auth_endpoints": {
+      "attempts_per_ip_per_5min": 5,
+      "attempts_per_account_per_hour": 10,
+      "exponential_backoff": true,
+      "paths": ["/api/auth/login", "/api/auth/register", "/api/auth/forgot", "/api/auth/mfa"]
+    },
+    "api_endpoints": {
+      "anonymous_per_min": 100,
+      "free_tier_per_min": 100,
+      "pro_tier_per_min": 10000,
+      "institution_tier": "custom_sla"
+    },
+    "scraping_protection": {
+      "enabled": true,
+      "rapid_sequential_threshold": 20,
+      "missing_user_agent_block": true,
+      "bot_signature_challenge": true
+    },
+    "ddos_layer7": {
+      "burst_detection": true,
+      "auto_block_threshold_per_min": 1000,
+      "ml_detection": false
+    },
+    "response": {
+      "status_code": 429,
+      "retry_after_header": true,
+      "no_silent_drop": true
+    },
+    "audit_retention_days": 90,
+    "blocks_production": true,
+    "sprint": 0,
+    "integrations": {
+      "pay_per_request_ref": 908,
+      "session_security_ref": 1019,
+      "load_testing_ref": 1020,
+      "incident_response_ref": 1017,
+      "activity_audit_ref": 1038
+    }
+  }
+}
