@@ -1,12 +1,12 @@
 {
   "artifact": "BATCH05_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-05T18:20:00Z",
+  "generated_at_utc": "2026-09-05T19:30:00Z",
   "heads": {
-    "current_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
-    "tested_source_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
-    "regression_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
-    "artifact_generation_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
-    "embedded_freeze_head": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
+    "current_head": "5968a5d8e03b8db5945b0be111247946bd51fd45",
+    "tested_source_head": "5968a5d8e03b8db5945b0be111247946bd51fd45",
+    "regression_head": "5968a5d8e03b8db5945b0be111247946bd51fd45",
+    "artifact_generation_head": "5968a5d8e03b8db5945b0be111247946bd51fd45",
+    "embedded_freeze_head": "5968a5d8e03b8db5945b0be111247946bd51fd45",
     "container_commit": null,
     "baseline_ancestry": "94724ac103525de5624e6ed8db705c3b86d5dfda"
   },
@@ -16,53 +16,61 @@
     "setup_python_sha": "5fda3b95a4ea91299a34e894583c3862153e4b97",
     "upload_artifact_sha": "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
     "download_artifact_sha": "3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c",
+    "sonarqube_scan_action_sha": "22918119ff8e1ca75a623e15c8296b6ea4fbe28f",
     "node20_warnings_checkout_setup_python": 0,
     "batch05_capability_implementation": "unchanged",
     "six_heroes": "43 STRANGLER + 6 CLOSED_REUSED_LINK + 1 CLOSED_DUPLICATE_DELEGATION",
     "railway_execution": "deferred"
   },
   "remediation_summary": {
-    "postgres_ci": "Scoped DATABASE_URL to postgres migration step only; ephemeral postgres:16 service + step env",
+    "postgres_ci": "Scoped DATABASE_URL to postgres migration step only; ephemeral postgres:16 service + step env; test monkeypatches os.environ DATABASE_URL",
     "closure_reject_04": "Entitlement denial sets classification=NOT_COMPLETE via _runtime_classification",
     "nltk_ghsa": "Removed textblob/nltk transitive chain; pip-audit actionable vulnerabilities = 0",
-    "starlette_httpx": "httpx2==2.12.0 in requirements.hashes.txt + conftest session bootstrap",
-    "openpyxl": "openpyxl==3.1.5 in requirements.hashes.txt for deep-closure assurance scripts",
-    "joblib_numpy": "joblib==1.6.0; no joblib/numpy_pickle DeprecationWarning in institutional suites",
+    "starlette_httpx": "httpx2>=2.12.0 in requirements + conftest session bootstrap for TestClient",
+    "openpyxl": "openpyxl>=3.1.0 in requirements for deep-closure assurance scripts",
+    "joblib_numpy": "joblib>=1.6.0; no joblib/numpy_pickle DeprecationWarning in institutional suites",
     "b2b_hero_test": "monkeypatch B2B_DEMO_API_KEY in test_b2b_feed_empty_state_block"
   },
   "github_actions": {
     "CAP978": {
       "status": "PASS",
-      "run_id": 33982362552,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33982362552"
+      "run_id": 33984250061,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984250061"
     },
     "CI_CRITICAL_GATE": {
       "status": "PASS",
-      "run_id": 33982362456,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33982362456"
+      "run_id": 33984250055,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984250055"
     },
     "SONARCLOUD": {
       "status": "PASS",
-      "run_id": 33982362507,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33982362507",
+      "run_id": 33984250053,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984250053",
       "quality_gate": "PASSED",
       "coverage_xml": "PASS",
       "scanner_executed": true
     },
     "SECURITY_SCAN": {
       "status": "PASS",
-      "run_id": 33982362472,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33982362472"
+      "run_id": 33984250088,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984250088"
     },
     "CODEQL": {
-      "status": "PASS"
+      "status": "PASS",
+      "run_id": 33984247499,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33984247499"
     }
   },
   "sonarcloud_evidence": {
     "quality_gate_status": "PASSED",
     "dashboard": "https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark&pullRequest=371",
     "coverage_line_rate_suite": 0.45,
-    "scanner_log": "QUALITY GATE STATUS: PASSED"
+    "scanner_log": "QUALITY GATE STATUS: PASSED",
+    "ratings": {
+      "reliability": "A",
+      "security": "A",
+      "maintainability": "A"
+    }
   },
   "local_validation": {
     "failed": [],
