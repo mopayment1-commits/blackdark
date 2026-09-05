@@ -125,6 +125,7 @@ async def test_clean_postgres_migrate_crud_rollback_restart(monkeypatch, tmp_pat
     import postgres_backend as pb
 
     monkeypatch.setattr(config, "DATABASE_URL", POSTGRES_URL)
+    monkeypatch.setenv("DATABASE_URL", POSTGRES_URL)
     monkeypatch.setattr(config, "DATA_DIR", tmp_path)
     monkeypatch.setattr(config, "DB_PATH", tmp_path / "unused.db")
 

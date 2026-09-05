@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-09-05T12:28:21.446407+00:00",
+  "git_commit": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
+  "G5.1": {
+    "status": "LOCAL_COMPONENT_COMPLETE",
+    "evidence": "health endpoints shared"
+  },
+  "G5.2": {
+    "status": "LOCAL_COMPONENT_COMPLETE",
+    "evidence": "structured logging in cap646 runtime"
+  },
+  "G5.3": {
+    "status": "LOCAL_COMPONENT_COMPLETE",
+    "evidence": "metrics hooks + latency_ms"
+  },
+  "G5.4": {
+    "status": "LOCAL_COMPONENT_COMPLETE",
+    "evidence": "alert definitions in ops package"
+  },
+  "G5.5": {
+    "status": "LOCAL_COMPONENT_COMPLETE",
+    "evidence": "runbook in operation package"
+  },
+  "G5.6": {
+    "status": "DESIGN_LOCAL_COMPLETE_MEASUREMENT_REQUIRES_RAILWAY",
+    "sli": "cap646 success rate, p95 latency",
+    "slo": "99% success, p95 per capability class",
+    "error_budget": "0.1% monthly"
+  },
+  "G5.7": {
+    "status": "DESIGN_LOCAL_COMPLETE_MEASUREMENT_REQUIRES_RAILWAY",
+    "capacity_plan": "docs/BATCH06_PERFORMANCE_CAPACITY_PREP.json"
+  },
+  "G5.8": {
+    "status": "DESIGN_LOCAL_COMPLETE_MEASUREMENT_REQUIRES_RAILWAY",
+    "dependency_latency_slo": "upstream adapter timeout + fallback documented"
+  },
+  "G5.9": {
+    "batch06_owned_state_failover": {
+      "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+      "scope": "Batch06-owned capability state/failover (IDs 251-300)",
+      "rationale": "All Batch06 capabilities are stateless execute_capability handlers with no batch06-owned durable state, background workers, or mutable stores.",
+      "local_evidence": [
+        "tests/cap646/test_batch06_ids_contract.py entitlement_denied_fail_closed",
+        "tests/cap646/test_ci_deterministic_closure.py SERVICE_BUS_LOCAL degraded mode"
+      ],
+      "per_path_summary": "50/50 stateless \u2014 no batch06-owned failover target"
+    },
+    "platform_redis_postgresql_failover": {
+      "classification": "REQUIRES_RAILWAY",
+      "scope": "Shared platform dependency failover (Redis/PostgreSQL)",
+      "railway_queue_ref": "RL6",
+      "rationale": "Platform Redis/PostgreSQL failover drill requires live infrastructure evidence; not conflated with batch06-owned N/A.",
+      "local_component": "SERVICE_BUS_LOCAL deterministic fallback proven for adapter outage",
+      "live_evidence_required": "Failover drill under real Redis/PostgreSQL outage on Railway"
+    }
+  },
+  "G5.10": {
+    "batch06_owned_durable_state": {
+      "classification": "NOT_APPLICABLE_WITH_ARCHITECTURE_JUSTIFICATION",
+      "scope": "Batch06-owned backup/restore (IDs 251-300)",
+      "persistent_state": "none owned by batch06 spine",
+      "rationale": "No batch06-owned DB tables, cache keys, or durable user configuration",
+      "reconstructable": "Per-request outputs from catalog bindings + upstream APIs; git-versioned RTM",
+      "backup_required": false,
+      "restore_required": false
+    },
+    "platform_postgresql_redis_durability_restore": {
+      "classification": "REQUIRES_RAILWAY",
+      "scope": "Shared platform durability/restore (PostgreSQL/Redis)",
+      "railway_queue_ref": "RL7",
+      "rationale": "Platform backup/restore policy and drill evidence requires live Railway ops; separate from batch06-owned N/A.",
+      "live_evidence_required": "Platform RPO/RTO backup-restore drill on production infrastructure"
+    }
+  },
+  "locally_solvable_gaps": 0
+}

@@ -1,0 +1,339 @@
+{
+  "verified_at": "2026-09-01T13:43:20.809095+00:00",
+  "capability_id": 53,
+  "registered_goal": "BTC-to-Macro Coupling",
+  "registered_surface": "btc_to_macro_coupling",
+  "catalog_file": "docs/cap646/CAP646_CATALOG.json",
+  "handler_file": "cap646/handlers/ai.py",
+  "handler_lines": "51-82",
+  "incident_note": "Prior surface ai_decision_intelligence was mis-routing via generic evaluate_opportunity; registered goal is BTC-to-Macro Coupling per catalog",
+  "verdict": "PRODUCTION-ALIGNED",
+  "proofs": [
+    {
+      "symbol": "BTC",
+      "spot_futures": {
+        "http_equivalent": true,
+        "status_code": 200,
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "coupling_read": null,
+        "full_response": {
+          "capability_id": 53,
+          "surface": "btc_to_macro_coupling",
+          "symbol": "BTC",
+          "btc_macro_coupling": {
+            "btc_symbol": "BTC",
+            "btc_change_24h_pct": -0.504,
+            "macro_regime": "Neutral",
+            "dxy_score": null,
+            "coupling_read": "neutral_coupling",
+            "macro_context": {
+              "macro_regime": "Neutral",
+              "macro_dxy_score": -0.0197,
+              "macro_spx_score": -0.2165,
+              "macro_btc_gold_ratio": 8.8758,
+              "macro_btc_gold_score": -0.0455,
+              "macro_volatility_buffer": 5.0,
+              "macro_slippage_multiplier": 1.0,
+              "macro_score_weight": 1.0,
+              "macro_timestamp": "2026-09-01T13:43:14.557081+00:00",
+              "macro_source": "mock"
+            }
+          },
+          "success": true,
+          "evidence_class": "SHADOW_LIVE_FORWARD",
+          "evidence_metadata": {
+            "class": "SHADOW_LIVE_FORWARD",
+            "source": null,
+            "attached_at": "2026-09-01T13:43:15.151953+00:00",
+            "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+          },
+          "compliance_footer": {
+            "evidence_class": "SHADOW_LIVE_FORWARD",
+            "provenance_score": null,
+            "provenance_band": null,
+            "freshness_state": null,
+            "sources": null,
+            "confidence": null,
+            "unknown_is_not_zero": true,
+            "stale_rejected": false,
+            "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+          },
+          "backend_module": "cap646.batch02_production",
+          "backend_entrypoint": "cap_053",
+          "binding_source": "explicit_option_a",
+          "production_spine": "batch02",
+          "capability": "BTC-to-Macro Coupling",
+          "track": "T12",
+          "classification": "PRODUCTION-ALIGNED"
+        }
+      },
+      "kind_funding": {
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "note": "#53 dedicated handler ignores kind; always btc_to_macro_coupling"
+      }
+    },
+    {
+      "symbol": "ETH",
+      "spot_futures": {
+        "http_equivalent": true,
+        "status_code": 200,
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "coupling_read": null,
+        "full_response": {
+          "capability_id": 53,
+          "surface": "btc_to_macro_coupling",
+          "symbol": "ETH",
+          "btc_macro_coupling": {
+            "btc_symbol": "ETH",
+            "btc_change_24h_pct": -0.454,
+            "macro_regime": "Neutral",
+            "dxy_score": null,
+            "coupling_read": "neutral_coupling",
+            "macro_context": {
+              "macro_regime": "Neutral",
+              "macro_dxy_score": -0.0197,
+              "macro_spx_score": -0.2165,
+              "macro_btc_gold_ratio": 8.8758,
+              "macro_btc_gold_score": -0.0455,
+              "macro_volatility_buffer": 5.0,
+              "macro_slippage_multiplier": 1.0,
+              "macro_score_weight": 1.0,
+              "macro_timestamp": "2026-09-01T13:43:15.778531+00:00",
+              "macro_source": "mock"
+            }
+          },
+          "success": true,
+          "evidence_class": "SHADOW_LIVE_FORWARD",
+          "evidence_metadata": {
+            "class": "SHADOW_LIVE_FORWARD",
+            "source": null,
+            "attached_at": "2026-09-01T13:43:16.393836+00:00",
+            "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+          },
+          "compliance_footer": {
+            "evidence_class": "SHADOW_LIVE_FORWARD",
+            "provenance_score": null,
+            "provenance_band": null,
+            "freshness_state": null,
+            "sources": null,
+            "confidence": null,
+            "unknown_is_not_zero": true,
+            "stale_rejected": false,
+            "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+          },
+          "backend_module": "cap646.batch02_production",
+          "backend_entrypoint": "cap_053",
+          "binding_source": "explicit_option_a",
+          "production_spine": "batch02",
+          "capability": "BTC-to-Macro Coupling",
+          "track": "T12",
+          "classification": "PRODUCTION-ALIGNED"
+        }
+      },
+      "kind_funding": {
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "note": "#53 dedicated handler ignores kind; always btc_to_macro_coupling"
+      }
+    },
+    {
+      "symbol": "SOL",
+      "spot_futures": {
+        "http_equivalent": true,
+        "status_code": 200,
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "coupling_read": null,
+        "full_response": {
+          "capability_id": 53,
+          "surface": "btc_to_macro_coupling",
+          "symbol": "SOL",
+          "btc_macro_coupling": {
+            "btc_symbol": "SOL",
+            "btc_change_24h_pct": -0.798,
+            "macro_regime": "Neutral",
+            "dxy_score": null,
+            "coupling_read": "neutral_coupling",
+            "macro_context": {
+              "macro_regime": "Neutral",
+              "macro_dxy_score": -0.0197,
+              "macro_spx_score": -0.2165,
+              "macro_btc_gold_ratio": 8.8758,
+              "macro_btc_gold_score": -0.0455,
+              "macro_volatility_buffer": 5.0,
+              "macro_slippage_multiplier": 1.0,
+              "macro_score_weight": 1.0,
+              "macro_timestamp": "2026-09-01T13:43:17.036915+00:00",
+              "macro_source": "mock"
+            }
+          },
+          "success": true,
+          "evidence_class": "SHADOW_LIVE_FORWARD",
+          "evidence_metadata": {
+            "class": "SHADOW_LIVE_FORWARD",
+            "source": null,
+            "attached_at": "2026-09-01T13:43:17.646260+00:00",
+            "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+          },
+          "compliance_footer": {
+            "evidence_class": "SHADOW_LIVE_FORWARD",
+            "provenance_score": null,
+            "provenance_band": null,
+            "freshness_state": null,
+            "sources": null,
+            "confidence": null,
+            "unknown_is_not_zero": true,
+            "stale_rejected": false,
+            "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+          },
+          "backend_module": "cap646.batch02_production",
+          "backend_entrypoint": "cap_053",
+          "binding_source": "explicit_option_a",
+          "production_spine": "batch02",
+          "capability": "BTC-to-Macro Coupling",
+          "track": "T12",
+          "classification": "PRODUCTION-ALIGNED"
+        }
+      },
+      "kind_funding": {
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "note": "#53 dedicated handler ignores kind; always btc_to_macro_coupling"
+      }
+    },
+    {
+      "symbol": "AVAX",
+      "spot_futures": {
+        "http_equivalent": true,
+        "status_code": 200,
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "coupling_read": null,
+        "full_response": {
+          "capability_id": 53,
+          "surface": "btc_to_macro_coupling",
+          "symbol": "AVAX",
+          "btc_macro_coupling": {
+            "btc_symbol": "AVAX",
+            "btc_change_24h_pct": 1.449,
+            "macro_regime": "Neutral",
+            "dxy_score": null,
+            "coupling_read": "neutral_coupling",
+            "macro_context": {
+              "macro_regime": "Neutral",
+              "macro_dxy_score": -0.0197,
+              "macro_spx_score": -0.2165,
+              "macro_btc_gold_ratio": 8.8758,
+              "macro_btc_gold_score": -0.0455,
+              "macro_volatility_buffer": 5.0,
+              "macro_slippage_multiplier": 1.0,
+              "macro_score_weight": 1.0,
+              "macro_timestamp": "2026-09-01T13:43:18.318506+00:00",
+              "macro_source": "mock"
+            }
+          },
+          "success": true,
+          "evidence_class": "SHADOW_LIVE_FORWARD",
+          "evidence_metadata": {
+            "class": "SHADOW_LIVE_FORWARD",
+            "source": null,
+            "attached_at": "2026-09-01T13:43:18.923487+00:00",
+            "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+          },
+          "compliance_footer": {
+            "evidence_class": "SHADOW_LIVE_FORWARD",
+            "provenance_score": null,
+            "provenance_band": null,
+            "freshness_state": null,
+            "sources": null,
+            "confidence": null,
+            "unknown_is_not_zero": true,
+            "stale_rejected": false,
+            "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+          },
+          "backend_module": "cap646.batch02_production",
+          "backend_entrypoint": "cap_053",
+          "binding_source": "explicit_option_a",
+          "production_spine": "batch02",
+          "capability": "BTC-to-Macro Coupling",
+          "track": "T12",
+          "classification": "PRODUCTION-ALIGNED"
+        }
+      },
+      "kind_funding": {
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "note": "#53 dedicated handler ignores kind; always btc_to_macro_coupling"
+      }
+    },
+    {
+      "symbol": "DOGE",
+      "spot_futures": {
+        "http_equivalent": true,
+        "status_code": 200,
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "coupling_read": null,
+        "full_response": {
+          "capability_id": 53,
+          "surface": "btc_to_macro_coupling",
+          "symbol": "DOGE",
+          "btc_macro_coupling": {
+            "btc_symbol": "DOGE",
+            "btc_change_24h_pct": -0.097,
+            "macro_regime": "Neutral",
+            "dxy_score": null,
+            "coupling_read": "neutral_coupling",
+            "macro_context": {
+              "macro_regime": "Neutral",
+              "macro_dxy_score": -0.0197,
+              "macro_spx_score": -0.2165,
+              "macro_btc_gold_ratio": 8.8758,
+              "macro_btc_gold_score": -0.0455,
+              "macro_volatility_buffer": 5.0,
+              "macro_slippage_multiplier": 1.0,
+              "macro_score_weight": 1.0,
+              "macro_timestamp": "2026-09-01T13:43:19.568276+00:00",
+              "macro_source": "mock"
+            }
+          },
+          "success": true,
+          "evidence_class": "SHADOW_LIVE_FORWARD",
+          "evidence_metadata": {
+            "class": "SHADOW_LIVE_FORWARD",
+            "source": null,
+            "attached_at": "2026-09-01T13:43:20.165091+00:00",
+            "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+          },
+          "compliance_footer": {
+            "evidence_class": "SHADOW_LIVE_FORWARD",
+            "provenance_score": null,
+            "provenance_band": null,
+            "freshness_state": null,
+            "sources": null,
+            "confidence": null,
+            "unknown_is_not_zero": true,
+            "stale_rejected": false,
+            "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+          },
+          "backend_module": "cap646.batch02_production",
+          "backend_entrypoint": "cap_053",
+          "binding_source": "explicit_option_a",
+          "production_spine": "batch02",
+          "capability": "BTC-to-Macro Coupling",
+          "track": "T12",
+          "classification": "PRODUCTION-ALIGNED"
+        }
+      },
+      "kind_funding": {
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "note": "#53 dedicated handler ignores kind; always btc_to_macro_coupling"
+      }
+    }
+  ],
+  "all_verified": true
+}

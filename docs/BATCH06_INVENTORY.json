@@ -1,0 +1,2925 @@
+{
+  "generated_at": "2026-09-05T11:55:10.487934+00:00",
+  "commit": "93c65bd8da5525f447b8ef9c610a53fd90fee071",
+  "official_batch": "batch06",
+  "scope": "IDs 251–300",
+  "total": 50,
+  "sources": [
+    "docs/cap646/CAP646_CATALOG.json",
+    "docs/cap646/CAP646_GAP_MATRIX.json",
+    "docs/cap646/CAP646_MODULE_MAP.json"
+  ],
+  "routing_lock": {
+    "BATCH06_MANIFEST_IDS": 50,
+    "BATCH06_DUPLICATE_DELEGATION_IDS": 0,
+    "BATCH06_IDS_routing_spine": 50,
+    "BATCH06_REUSED_LINK_IDS": [
+      251,
+      255,
+      256,
+      257,
+      259,
+      260,
+      261,
+      272,
+      275,
+      291,
+      292
+    ]
+  },
+  "locks": {
+    "batch06_independent": 0,
+    "progress_826": 179,
+    "production_aligned_count": 0
+  },
+  "counts": {
+    "reused_link": 11,
+    "strangler": 39,
+    "not_complete": 39,
+    "production_aligned": 0
+  },
+  "per_id": {
+    "251": {
+      "id": 251,
+      "official_batch": "batch06",
+      "capability": "Cross-Domain Decision Intelligence",
+      "track": "T15",
+      "track_name": "Institutional, B2B, API & Developer Platform",
+      "expected_surface": "cross_domain_decision_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap251",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "ID69/251 ai_oracle + trust_pulse + decision_certificate",
+        "existing_code_components": [
+          "ai_oracle.py",
+          "trust_pulse.py",
+          "decision_certificate.py"
+        ],
+        "tests_evidence": [
+          "tests/test_trust_pulse.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "252": {
+      "id": 252,
+      "official_batch": "batch06",
+      "capability": "Liquidation Heatmap",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "liquidation_heatmap",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap252",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "PARTIALLY_IMPLEMENTED",
+        "current_status": "PARTIALLY_IMPLEMENTED",
+        "reason": "Heatmap-style liquidation radar only",
+        "existing_code_components": [
+          "bd_platform/liquidation_radar.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "253": {
+      "id": 253,
+      "official_batch": "batch06",
+      "capability": "Liquidation Map / Levels",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "liquidation_map_levels",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap253",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.liquidation_radar",
+        "backend_entrypoint": "liquidation_radar",
+        "surface": "liquidation_map_levels",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "254": {
+      "id": 254,
+      "official_batch": "batch06",
+      "capability": "Real-Time Liquidation Events",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "real_time_liquidation_events",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap254",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.liquidation_radar",
+        "backend_entrypoint": "liquidation_radar",
+        "surface": "real_time_liquidation_events",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "255": {
+      "id": 255,
+      "official_batch": "batch06",
+      "capability": "Open Interest Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "open_interest_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap255",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID205 `Open Interest Intelligence`",
+        "existing_code_components": [
+          "bd_platform/derivatives_hub.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "256": {
+      "id": 256,
+      "official_batch": "batch06",
+      "capability": "Funding Rate Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "funding_rate_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap256",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID86 `Funding Rate Intelligence`",
+        "existing_code_components": [
+          "bd_platform/derivatives_hub.py",
+          "perp_dex_fetcher.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "257": {
+      "id": 257,
+      "official_batch": "batch06",
+      "capability": "Long/Short Ratio Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "long_short_ratio_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap257",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID235 `Long/Short Ratio Intelligence`",
+        "existing_code_components": [
+          "bd_platform/derivatives_hub.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "258": {
+      "id": 258,
+      "official_batch": "batch06",
+      "capability": "Top Trader Positioning",
+      "track": "T10",
+      "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+      "expected_surface": "top_trader_positioning",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap258",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.onchain_hub",
+        "backend_entrypoint": "defillama_raises",
+        "surface": "top_trader_positioning",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "259": {
+      "id": 259,
+      "official_batch": "batch06",
+      "capability": "Futures Basis Intelligence",
+      "track": "T03",
+      "track_name": "Data Platform, Quality & Connectors",
+      "expected_surface": "futures_basis_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap259",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "futures_basis_intelligence",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "260": {
+      "id": 260,
+      "official_batch": "batch06",
+      "capability": "Futures Volume Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "futures_volume_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap260",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID126 `Futures Volume Intelligence`",
+        "existing_code_components": [
+          "bd_platform/derivatives_hub.py",
+          "ccxt_market_fetcher.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "261": {
+      "id": 261,
+      "official_batch": "batch06",
+      "capability": "Futures CVD / Taker Flow",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "futures_cvd_taker_flow",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap261",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "futures_cvd_taker_flow",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "262": {
+      "id": 262,
+      "official_batch": "batch06",
+      "capability": "Options Open Interest",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "options_open_interest",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap262",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "options_open_interest",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "263": {
+      "id": 263,
+      "official_batch": "batch06",
+      "capability": "Options Volume",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "options_volume",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap263",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "PARTIALLY_IMPLEMENTED",
+        "current_status": "PARTIALLY_IMPLEMENTED",
+        "reason": "Options volume via Deribit fetcher only",
+        "existing_code_components": [
+          "options_fetcher.py"
+        ],
+        "tests_evidence": [
+          "tests/test_options_fetcher.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "264": {
+      "id": 264,
+      "official_batch": "batch06",
+      "capability": "Options IV / Skew",
+      "track": "T04",
+      "track_name": "Market Data, Pricing & Liquidity",
+      "expected_surface": "options_iv_skew",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap264",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "options_fetcher",
+        "backend_entrypoint": "fetch_options_overview",
+        "surface": "options_iv_skew",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "265": {
+      "id": 265,
+      "official_batch": "batch06",
+      "capability": "Max Pain / Gamma Context",
+      "track": "T08",
+      "track_name": "Risk, Hedging & Stress Analytics",
+      "expected_surface": "max_pain_gamma_context",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap265",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "max_pain_gamma_context",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "266": {
+      "id": 266,
+      "official_batch": "batch06",
+      "capability": "Spot Market Intelligence",
+      "track": "T11",
+      "track_name": "Technical, Quant & Predictive Analytics",
+      "expected_surface": "spot_market_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap266",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.footprint_analytics",
+        "backend_entrypoint": "footprint_snapshot",
+        "surface": "spot_market_intelligence",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "267": {
+      "id": 267,
+      "official_batch": "batch06",
+      "capability": "Order Book / Market Depth",
+      "track": "T04",
+      "track_name": "Market Data, Pricing & Liquidity",
+      "expected_surface": "order_book_market_depth",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap267",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "PARTIALLY_IMPLEMENTED",
+        "current_status": "PARTIALLY_IMPLEMENTED",
+        "reason": "Top-of-book hub; not full depth analytics (see ID50 for canonical order book intelligence)",
+        "existing_code_components": [
+          "live_book_hub.py",
+          "market_context.py"
+        ],
+        "tests_evidence": [
+          "tests/test_infra_metrics.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "268": {
+      "id": 268,
+      "official_batch": "batch06",
+      "capability": "Historical Derivatives Data",
+      "track": "T04",
+      "track_name": "Market Data, Pricing & Liquidity",
+      "expected_surface": "historical_derivatives_data",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap268",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "market_context",
+        "backend_entrypoint": "probe_price_sources",
+        "surface": "historical_derivatives_data",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "269": {
+      "id": 269,
+      "official_batch": "batch06",
+      "capability": "Exchange Comparison",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "exchange_comparison",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap269",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "oracle_track_record",
+        "backend_entrypoint": "public_track_record",
+        "surface": "exchange_comparison",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "270": {
+      "id": 270,
+      "official_batch": "batch06",
+      "capability": "Liquidation Cascade Proximity",
+      "track": "T04",
+      "track_name": "Market Data, Pricing & Liquidity",
+      "expected_surface": "liquidation_cascade_proximity",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap270",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.liquidation_radar",
+        "backend_entrypoint": "liquidation_radar",
+        "surface": "liquidation_cascade_proximity",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "271": {
+      "id": 271,
+      "official_batch": "batch06",
+      "capability": "Leverage Pressure Score",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "leverage_pressure_score",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap271",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "leverage_pressure_score",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "272": {
+      "id": 272,
+      "official_batch": "batch06",
+      "capability": "API Data Platform",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "api_data_platform",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap272",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID103 `API Data Platform`",
+        "existing_code_components": [
+          "hot_storage.py",
+          "graphql_schema.py",
+          "api/routers/institutional.py"
+        ],
+        "tests_evidence": [
+          "tests/test_dd_radical_institutional_closure.py",
+          "tests/test_graphql_schema.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "273": {
+      "id": 273,
+      "official_batch": "batch06",
+      "capability": "Multi-Model Liquidation Comparison",
+      "track": "T03",
+      "track_name": "Data Platform, Quality & Connectors",
+      "expected_surface": "multi_model_liquidation_comparison",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap273",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.liquidation_radar",
+        "backend_entrypoint": "liquidation_radar",
+        "surface": "multi_model_liquidation_comparison",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "274": {
+      "id": 274,
+      "official_batch": "batch06",
+      "capability": "Derivatives Alerts",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "derivatives_alerts",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap274",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "instant_alert_engine",
+        "backend_entrypoint": "engine_stats",
+        "surface": "derivatives_alerts",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "275": {
+      "id": 275,
+      "official_batch": "batch06",
+      "capability": "Cross-Domain Decision Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "cross_domain_decision_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap275",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID251: ID69/251 ai_oracle + trust_pulse + decision_certificate",
+        "existing_code_components": [
+          "ai_oracle.py",
+          "trust_pulse.py",
+          "decision_certificate.py"
+        ],
+        "tests_evidence": [
+          "tests/test_trust_pulse.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "276": {
+      "id": 276,
+      "official_batch": "batch06",
+      "capability": "Entity Resolution Engine",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "entity_resolution_engine",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap276",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "entity_resolution_engine",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "277": {
+      "id": 277,
+      "official_batch": "batch06",
+      "capability": "Address Labeling System",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "address_labeling_system",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap277",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "address_labeling_system",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "278": {
+      "id": 278,
+      "official_batch": "batch06",
+      "capability": "Entity Profiles",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "entity_profiles",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap278",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "oracle_track_record",
+        "backend_entrypoint": "public_track_record",
+        "surface": "entity_profiles",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "279": {
+      "id": 279,
+      "official_batch": "batch06",
+      "capability": "Transaction Search",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "transaction_search",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap279",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "PARTIALLY_IMPLEMENTED",
+        "current_status": "PARTIALLY_IMPLEMENTED",
+        "reason": "On-chain search proxy only",
+        "existing_code_components": [
+          "onchain_tracker.py",
+          "bd_platform/onchain_hub.py"
+        ],
+        "tests_evidence": [
+          "tests/test_data_sources.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "280": {
+      "id": 280,
+      "official_batch": "batch06",
+      "capability": "Portfolio Holdings",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "portfolio_holdings",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap280",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.portfolio_rebalancer",
+        "backend_entrypoint": "suggest_rebalance",
+        "surface": "portfolio_holdings",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "281": {
+      "id": 281,
+      "official_batch": "batch06",
+      "capability": "Balance History",
+      "track": "T07",
+      "track_name": "Portfolio, Allocation & Treasury",
+      "expected_surface": "balance_history",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap281",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.whale_story",
+        "backend_entrypoint": "whale_narrative",
+        "surface": "balance_history",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "282": {
+      "id": 282,
+      "official_batch": "batch06",
+      "capability": "Entity PnL",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "entity_pnl",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap282",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "scale_readiness",
+        "backend_entrypoint": "scale_readiness_report",
+        "surface": "entity_pnl",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "283": {
+      "id": 283,
+      "official_batch": "batch06",
+      "capability": "Exchange Usage Intelligence",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "exchange_usage_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap283",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "exchange_usage_intelligence",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "284": {
+      "id": 284,
+      "official_batch": "batch06",
+      "capability": "Top Counterparties",
+      "track": "T11",
+      "track_name": "Technical, Quant & Predictive Analytics",
+      "expected_surface": "top_counterparties",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap284",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.footprint_analytics",
+        "backend_entrypoint": "footprint_snapshot",
+        "surface": "top_counterparties",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "285": {
+      "id": 285,
+      "official_batch": "batch06",
+      "capability": "Visualizer / Network Graph",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "network_graph_visualizer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap285",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "visualizer_network_graph",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "286": {
+      "id": 286,
+      "official_batch": "batch06",
+      "capability": "Automated Trace / Path Finding",
+      "track": "T14",
+      "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+      "expected_surface": "automated_trace_path_finding",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap286",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "product_honesty_api",
+        "backend_entrypoint": "build_public_readiness",
+        "surface": "automated_trace_path_finding",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "287": {
+      "id": 287,
+      "official_batch": "batch06",
+      "capability": "Cross-Chain Trace",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "cross_chain_trace",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap287",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "scale_readiness",
+        "backend_entrypoint": "scale_readiness_report",
+        "surface": "cross_chain_trace",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "288": {
+      "id": 288,
+      "official_batch": "batch06",
+      "capability": "Token Top Holders",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "token_top_holders",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap288",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "oracle_track_record",
+        "backend_entrypoint": "public_track_record",
+        "surface": "token_top_holders",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "289": {
+      "id": 289,
+      "official_batch": "batch06",
+      "capability": "Token Exchange Flows",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "token_exchange_flows",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap289",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "token_exchange_flows",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "290": {
+      "id": 290,
+      "official_batch": "batch06",
+      "capability": "Token Transaction Explorer",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "token_transaction_explorer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap290",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "scale_readiness",
+        "backend_entrypoint": "scale_readiness_report",
+        "surface": "token_transaction_explorer",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "291": {
+      "id": 291,
+      "official_batch": "batch06",
+      "capability": "Custom Dashboards",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "custom_dashboards",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap291",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "custom_dashboards",
+        "binding_source": "track_default"
+      },
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "292": {
+      "id": 292,
+      "official_batch": "batch06",
+      "capability": "Custom Alerts",
+      "track": "T16",
+      "track_name": "Billing, Subscription, Tenant & Business Operations",
+      "expected_surface": "custom_alerts",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap292",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "instant_alert_engine",
+        "backend_entrypoint": "engine_stats",
+        "surface": "custom_alerts",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    "293": {
+      "id": 293,
+      "official_batch": "batch06",
+      "capability": "Private Labels",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "private_labels",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap293",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "private_labels",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "294": {
+      "id": 294,
+      "official_batch": "batch06",
+      "capability": "Archive / Historical Portfolio Snapshot",
+      "track": "T16",
+      "track_name": "Billing, Subscription, Tenant & Business Operations",
+      "expected_surface": "portfolio_archive_snapshot",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap294",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.portfolio_rebalancer",
+        "backend_entrypoint": "suggest_rebalance",
+        "surface": "archive_historical_portfolio_snapshot",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "295": {
+      "id": 295,
+      "official_batch": "batch06",
+      "capability": "AI Market Insights",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "ai_market_insights",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap295",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "ai_market_insights",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "296": {
+      "id": 296,
+      "official_batch": "batch06",
+      "capability": "Whale Movement Intelligence",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "whale_movement_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap296",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "whale_tracker",
+        "backend_entrypoint": "get_latest_whale_alerts",
+        "surface": "whale_movement_intelligence",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "297": {
+      "id": 297,
+      "official_batch": "batch06",
+      "capability": "Fraud / Suspicious Activity Intelligence",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "fraud_suspicious_activity",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap297",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "fraud_suspicious_activity_intelligence",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "298": {
+      "id": 298,
+      "official_batch": "batch06",
+      "capability": "API On-Chain Intelligence",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "api_onchain_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap298",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "oracle_track_record",
+        "backend_entrypoint": "public_track_record",
+        "surface": "api_on_chain_intelligence",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "299": {
+      "id": 299,
+      "official_batch": "batch06",
+      "capability": "Cross-Entity Decision Intelligence",
+      "track": "T02",
+      "track_name": "Security, Privacy, Identity & Compliance",
+      "expected_surface": "cross_entity_decision_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap299",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "trust_pulse",
+        "backend_entrypoint": "build_trust_pulse",
+        "surface": "cross_entity_decision_intelligence",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    "300": {
+      "id": 300,
+      "official_batch": "batch06",
+      "capability": "Advanced Multi-Asset Charting",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "advanced_multi_asset_charting",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap300",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.tradingview_bridge",
+        "backend_entrypoint": "chart_config",
+        "surface": "advanced_multi_asset_charting",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    }
+  },
+  "rows": [
+    {
+      "id": 251,
+      "official_batch": "batch06",
+      "capability": "Cross-Domain Decision Intelligence",
+      "track": "T15",
+      "track_name": "Institutional, B2B, API & Developer Platform",
+      "expected_surface": "cross_domain_decision_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap251",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "ID69/251 ai_oracle + trust_pulse + decision_certificate",
+        "existing_code_components": [
+          "ai_oracle.py",
+          "trust_pulse.py",
+          "decision_certificate.py"
+        ],
+        "tests_evidence": [
+          "tests/test_trust_pulse.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 252,
+      "official_batch": "batch06",
+      "capability": "Liquidation Heatmap",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "liquidation_heatmap",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap252",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "PARTIALLY_IMPLEMENTED",
+        "current_status": "PARTIALLY_IMPLEMENTED",
+        "reason": "Heatmap-style liquidation radar only",
+        "existing_code_components": [
+          "bd_platform/liquidation_radar.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 253,
+      "official_batch": "batch06",
+      "capability": "Liquidation Map / Levels",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "liquidation_map_levels",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap253",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.liquidation_radar",
+        "backend_entrypoint": "liquidation_radar",
+        "surface": "liquidation_map_levels",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 254,
+      "official_batch": "batch06",
+      "capability": "Real-Time Liquidation Events",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "real_time_liquidation_events",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap254",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.liquidation_radar",
+        "backend_entrypoint": "liquidation_radar",
+        "surface": "real_time_liquidation_events",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 255,
+      "official_batch": "batch06",
+      "capability": "Open Interest Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "open_interest_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap255",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID205 `Open Interest Intelligence`",
+        "existing_code_components": [
+          "bd_platform/derivatives_hub.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 256,
+      "official_batch": "batch06",
+      "capability": "Funding Rate Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "funding_rate_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap256",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID86 `Funding Rate Intelligence`",
+        "existing_code_components": [
+          "bd_platform/derivatives_hub.py",
+          "perp_dex_fetcher.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 257,
+      "official_batch": "batch06",
+      "capability": "Long/Short Ratio Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "long_short_ratio_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap257",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID235 `Long/Short Ratio Intelligence`",
+        "existing_code_components": [
+          "bd_platform/derivatives_hub.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 258,
+      "official_batch": "batch06",
+      "capability": "Top Trader Positioning",
+      "track": "T10",
+      "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+      "expected_surface": "top_trader_positioning",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap258",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.onchain_hub",
+        "backend_entrypoint": "defillama_raises",
+        "surface": "top_trader_positioning",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 259,
+      "official_batch": "batch06",
+      "capability": "Futures Basis Intelligence",
+      "track": "T03",
+      "track_name": "Data Platform, Quality & Connectors",
+      "expected_surface": "futures_basis_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap259",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "futures_basis_intelligence",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 260,
+      "official_batch": "batch06",
+      "capability": "Futures Volume Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "futures_volume_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap260",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID126 `Futures Volume Intelligence`",
+        "existing_code_components": [
+          "bd_platform/derivatives_hub.py",
+          "ccxt_market_fetcher.py"
+        ],
+        "tests_evidence": []
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 261,
+      "official_batch": "batch06",
+      "capability": "Futures CVD / Taker Flow",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "futures_cvd_taker_flow",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap261",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "futures_cvd_taker_flow",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 262,
+      "official_batch": "batch06",
+      "capability": "Options Open Interest",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "options_open_interest",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap262",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "options_open_interest",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 263,
+      "official_batch": "batch06",
+      "capability": "Options Volume",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "options_volume",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap263",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "PARTIALLY_IMPLEMENTED",
+        "current_status": "PARTIALLY_IMPLEMENTED",
+        "reason": "Options volume via Deribit fetcher only",
+        "existing_code_components": [
+          "options_fetcher.py"
+        ],
+        "tests_evidence": [
+          "tests/test_options_fetcher.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 264,
+      "official_batch": "batch06",
+      "capability": "Options IV / Skew",
+      "track": "T04",
+      "track_name": "Market Data, Pricing & Liquidity",
+      "expected_surface": "options_iv_skew",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap264",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "options_fetcher",
+        "backend_entrypoint": "fetch_options_overview",
+        "surface": "options_iv_skew",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 265,
+      "official_batch": "batch06",
+      "capability": "Max Pain / Gamma Context",
+      "track": "T08",
+      "track_name": "Risk, Hedging & Stress Analytics",
+      "expected_surface": "max_pain_gamma_context",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap265",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "max_pain_gamma_context",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 266,
+      "official_batch": "batch06",
+      "capability": "Spot Market Intelligence",
+      "track": "T11",
+      "track_name": "Technical, Quant & Predictive Analytics",
+      "expected_surface": "spot_market_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap266",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.footprint_analytics",
+        "backend_entrypoint": "footprint_snapshot",
+        "surface": "spot_market_intelligence",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 267,
+      "official_batch": "batch06",
+      "capability": "Order Book / Market Depth",
+      "track": "T04",
+      "track_name": "Market Data, Pricing & Liquidity",
+      "expected_surface": "order_book_market_depth",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap267",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "PARTIALLY_IMPLEMENTED",
+        "current_status": "PARTIALLY_IMPLEMENTED",
+        "reason": "Top-of-book hub; not full depth analytics (see ID50 for canonical order book intelligence)",
+        "existing_code_components": [
+          "live_book_hub.py",
+          "market_context.py"
+        ],
+        "tests_evidence": [
+          "tests/test_infra_metrics.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 268,
+      "official_batch": "batch06",
+      "capability": "Historical Derivatives Data",
+      "track": "T04",
+      "track_name": "Market Data, Pricing & Liquidity",
+      "expected_surface": "historical_derivatives_data",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap268",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "market_context",
+        "backend_entrypoint": "probe_price_sources",
+        "surface": "historical_derivatives_data",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 269,
+      "official_batch": "batch06",
+      "capability": "Exchange Comparison",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "exchange_comparison",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap269",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "oracle_track_record",
+        "backend_entrypoint": "public_track_record",
+        "surface": "exchange_comparison",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 270,
+      "official_batch": "batch06",
+      "capability": "Liquidation Cascade Proximity",
+      "track": "T04",
+      "track_name": "Market Data, Pricing & Liquidity",
+      "expected_surface": "liquidation_cascade_proximity",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap270",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.liquidation_radar",
+        "backend_entrypoint": "liquidation_radar",
+        "surface": "liquidation_cascade_proximity",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 271,
+      "official_batch": "batch06",
+      "capability": "Leverage Pressure Score",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "leverage_pressure_score",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap271",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.derivatives_hub",
+        "backend_entrypoint": "derivatives_overview",
+        "surface": "leverage_pressure_score",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 272,
+      "official_batch": "batch06",
+      "capability": "API Data Platform",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "api_data_platform",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap272",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID103 `API Data Platform`",
+        "existing_code_components": [
+          "hot_storage.py",
+          "graphql_schema.py",
+          "api/routers/institutional.py"
+        ],
+        "tests_evidence": [
+          "tests/test_dd_radical_institutional_closure.py",
+          "tests/test_graphql_schema.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 273,
+      "official_batch": "batch06",
+      "capability": "Multi-Model Liquidation Comparison",
+      "track": "T03",
+      "track_name": "Data Platform, Quality & Connectors",
+      "expected_surface": "multi_model_liquidation_comparison",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap273",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.liquidation_radar",
+        "backend_entrypoint": "liquidation_radar",
+        "surface": "multi_model_liquidation_comparison",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 274,
+      "official_batch": "batch06",
+      "capability": "Derivatives Alerts",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "derivatives_alerts",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap274",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "instant_alert_engine",
+        "backend_entrypoint": "engine_stats",
+        "surface": "derivatives_alerts",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 275,
+      "official_batch": "batch06",
+      "capability": "Cross-Domain Decision Intelligence",
+      "track": "T05",
+      "track_name": "Derivatives, Funding & Liquidations",
+      "expected_surface": "cross_domain_decision_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap275",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "DUPLICATE/ALREADY_COVERED",
+        "current_status": "DUPLICATE/ALREADY_COVERED",
+        "reason": "Duplicate of ID251: ID69/251 ai_oracle + trust_pulse + decision_certificate",
+        "existing_code_components": [
+          "ai_oracle.py",
+          "trust_pulse.py",
+          "decision_certificate.py"
+        ],
+        "tests_evidence": [
+          "tests/test_trust_pulse.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 276,
+      "official_batch": "batch06",
+      "capability": "Entity Resolution Engine",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "entity_resolution_engine",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap276",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "entity_resolution_engine",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 277,
+      "official_batch": "batch06",
+      "capability": "Address Labeling System",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "address_labeling_system",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap277",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "address_labeling_system",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 278,
+      "official_batch": "batch06",
+      "capability": "Entity Profiles",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "entity_profiles",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap278",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "oracle_track_record",
+        "backend_entrypoint": "public_track_record",
+        "surface": "entity_profiles",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 279,
+      "official_batch": "batch06",
+      "capability": "Transaction Search",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "transaction_search",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap279",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "PARTIALLY_IMPLEMENTED",
+        "current_status": "PARTIALLY_IMPLEMENTED",
+        "reason": "On-chain search proxy only",
+        "existing_code_components": [
+          "onchain_tracker.py",
+          "bd_platform/onchain_hub.py"
+        ],
+        "tests_evidence": [
+          "tests/test_data_sources.py"
+        ]
+      },
+      "module_map": null,
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 280,
+      "official_batch": "batch06",
+      "capability": "Portfolio Holdings",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "portfolio_holdings",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap280",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.portfolio_rebalancer",
+        "backend_entrypoint": "suggest_rebalance",
+        "surface": "portfolio_holdings",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 281,
+      "official_batch": "batch06",
+      "capability": "Balance History",
+      "track": "T07",
+      "track_name": "Portfolio, Allocation & Treasury",
+      "expected_surface": "balance_history",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap281",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.whale_story",
+        "backend_entrypoint": "whale_narrative",
+        "surface": "balance_history",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 282,
+      "official_batch": "batch06",
+      "capability": "Entity PnL",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "entity_pnl",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap282",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "scale_readiness",
+        "backend_entrypoint": "scale_readiness_report",
+        "surface": "entity_pnl",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 283,
+      "official_batch": "batch06",
+      "capability": "Exchange Usage Intelligence",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "exchange_usage_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap283",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "exchange_usage_intelligence",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 284,
+      "official_batch": "batch06",
+      "capability": "Top Counterparties",
+      "track": "T11",
+      "track_name": "Technical, Quant & Predictive Analytics",
+      "expected_surface": "top_counterparties",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap284",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.footprint_analytics",
+        "backend_entrypoint": "footprint_snapshot",
+        "surface": "top_counterparties",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 285,
+      "official_batch": "batch06",
+      "capability": "Visualizer / Network Graph",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "network_graph_visualizer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap285",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "visualizer_network_graph",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 286,
+      "official_batch": "batch06",
+      "capability": "Automated Trace / Path Finding",
+      "track": "T14",
+      "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+      "expected_surface": "automated_trace_path_finding",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap286",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "product_honesty_api",
+        "backend_entrypoint": "build_public_readiness",
+        "surface": "automated_trace_path_finding",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 287,
+      "official_batch": "batch06",
+      "capability": "Cross-Chain Trace",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "cross_chain_trace",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap287",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "scale_readiness",
+        "backend_entrypoint": "scale_readiness_report",
+        "surface": "cross_chain_trace",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 288,
+      "official_batch": "batch06",
+      "capability": "Token Top Holders",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "token_top_holders",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap288",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "oracle_track_record",
+        "backend_entrypoint": "public_track_record",
+        "surface": "token_top_holders",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 289,
+      "official_batch": "batch06",
+      "capability": "Token Exchange Flows",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "token_exchange_flows",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap289",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "token_exchange_flows",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 290,
+      "official_batch": "batch06",
+      "capability": "Token Transaction Explorer",
+      "track": "T01",
+      "track_name": "Foundation, Architecture & Reliability",
+      "expected_surface": "token_transaction_explorer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap290",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "scale_readiness",
+        "backend_entrypoint": "scale_readiness_report",
+        "surface": "token_transaction_explorer",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 291,
+      "official_batch": "batch06",
+      "capability": "Custom Dashboards",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "custom_dashboards",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap291",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "custom_dashboards",
+        "binding_source": "track_default"
+      },
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 292,
+      "official_batch": "batch06",
+      "capability": "Custom Alerts",
+      "track": "T16",
+      "track_name": "Billing, Subscription, Tenant & Business Operations",
+      "expected_surface": "custom_alerts",
+      "status": "REUSED-LINK",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap292",
+      "independent_build": false,
+      "reused_link": true,
+      "strangler": false,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "instant_alert_engine",
+        "backend_entrypoint": "engine_stats",
+        "surface": "custom_alerts",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "REUSED-LINK facade — canonical spine delegated in batch06_dedicated"
+    },
+    {
+      "id": 293,
+      "official_batch": "batch06",
+      "capability": "Private Labels",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "private_labels",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap293",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "private_labels",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 294,
+      "official_batch": "batch06",
+      "capability": "Archive / Historical Portfolio Snapshot",
+      "track": "T16",
+      "track_name": "Billing, Subscription, Tenant & Business Operations",
+      "expected_surface": "portfolio_archive_snapshot",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap294",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.portfolio_rebalancer",
+        "backend_entrypoint": "suggest_rebalance",
+        "surface": "archive_historical_portfolio_snapshot",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 295,
+      "official_batch": "batch06",
+      "capability": "AI Market Insights",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "ai_market_insights",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap295",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "ai_market_insights",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 296,
+      "official_batch": "batch06",
+      "capability": "Whale Movement Intelligence",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "whale_movement_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap296",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "whale_tracker",
+        "backend_entrypoint": "get_latest_whale_alerts",
+        "surface": "whale_movement_intelligence",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 297,
+      "official_batch": "batch06",
+      "capability": "Fraud / Suspicious Activity Intelligence",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "fraud_suspicious_activity",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap297",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "onchain_tracker",
+        "backend_entrypoint": "build_onchain_context_safe",
+        "surface": "fraud_suspicious_activity_intelligence",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 298,
+      "official_batch": "batch06",
+      "capability": "API On-Chain Intelligence",
+      "track": "T17",
+      "track_name": "Reporting, Audit, Tax & Governance",
+      "expected_surface": "api_onchain_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap298",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "oracle_track_record",
+        "backend_entrypoint": "public_track_record",
+        "surface": "api_on_chain_intelligence",
+        "binding_source": "track_default"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 299,
+      "official_batch": "batch06",
+      "capability": "Cross-Entity Decision Intelligence",
+      "track": "T02",
+      "track_name": "Security, Privacy, Identity & Compliance",
+      "expected_surface": "cross_entity_decision_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap299",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "trust_pulse",
+        "backend_entrypoint": "build_trust_pulse",
+        "surface": "cross_entity_decision_intelligence",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    },
+    {
+      "id": 300,
+      "official_batch": "batch06",
+      "capability": "Advanced Multi-Asset Charting",
+      "track": "T09",
+      "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+      "expected_surface": "advanced_multi_asset_charting",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch06",
+      "binding_file": "cap646/batch06_dedicated.py",
+      "binding_function": "_cap300",
+      "independent_build": false,
+      "reused_link": false,
+      "strangler": true,
+      "gap_matrix": {
+        "final_classification": "NOT_IMPLEMENTED",
+        "current_status": "NOT_IMPLEMENTED",
+        "reason": "No substantive audited implementation evidence",
+        "existing_code_components": [],
+        "tests_evidence": []
+      },
+      "module_map": {
+        "backend_module": "bd_platform.tradingview_bridge",
+        "backend_entrypoint": "chart_config",
+        "surface": "advanced_multi_asset_charting",
+        "binding_source": "capability_keyword"
+      },
+      "notes": "Strangler spine — catalog-aligned payload pending PA elevation"
+    }
+  ]
+}

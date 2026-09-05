@@ -1,0 +1,18 @@
+{
+  "reclassified_at": "2026-08-31T08:58:47.739983+00:00",
+  "total": 4,
+  "classification": "PRODUCTION-ALIGNED",
+  "ids": [
+    338,
+    500,
+    507,
+    534
+  ],
+  "entries": {
+    "338": "PRODUCTION-ALIGNED: explicit_option_a binding verified live via cap646.runtime.execute_capability; backend=cap646.data_spine.data_quality_pipeline_report; surface=data_quality_pipeline; proof=OPTION_A_PRODUCTION_PROOF.json.",
+    "500": "PRODUCTION-ALIGNED: explicit_option_a binding verified live via cap646.runtime.execute_capability; backend=cap646.data_spine.normalization_report; surface=data_quality_normalization; proof=OPTION_A_PRODUCTION_PROOF.json.",
+    "507": "PRODUCTION-ALIGNED: explicit_option_a binding verified live via cap646.runtime.execute_capability; backend=cap646.fallbacks.resolve_ohlcv_closes; surface=ohlcv; proof=OPTION_A_PRODUCTION_PROOF.json.",
+    "534": "PRODUCTION-ALIGNED: explicit_option_a binding verified live via cap646.runtime.execute_capability; backend=cap646.data_spine.bucketed_cvd_report; surface=bucketed_cvd; proof=OPTION_A_PRODUCTION_PROOF.json."
+  },
+  "proof_file": "docs/OPTION_A_PRODUCTION_PROOF.json"
+}

@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-09-05T12:28:21.446407+00:00",
+  "git_commit": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
+  "scope": "Batch06 12207 Operation Readiness",
+  "status": "OPERATION_PREPARED_LOCAL",
+  "not_claimed": [
+    "OPERATION_PROVEN_LIVE"
+  ],
+  "operational_ownership": "batch06-institutional-owner",
+  "runbook": "G5.5 LOCAL_COMPONENT_COMPLETE \u2014 incident severity + escalation documented",
+  "health_signals": [
+    "/health",
+    "/ready",
+    "cap646 latency_ms"
+  ],
+  "alert_triggers": "G5.4 definitions prepared",
+  "dependency_outage_response": "SERVICE_BUS_LOCAL degraded mode + upstream adapter fallbacks",
+  "degraded_mode": "Documented per reliability modes",
+  "maintenance_expectations": "Zero-downtime deploy via Railway rolling",
+  "support_incident_path": "SRE PRR escalation tree",
+  "release_rollback": "Railway revert + smoke",
+  "post_release_observation": "72h SLO watch after PASS_LIVE",
+  "evidence_collection": "Structured logs + metrics hooks"
+}

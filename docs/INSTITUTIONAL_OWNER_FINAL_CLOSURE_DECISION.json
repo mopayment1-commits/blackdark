@@ -1,0 +1,45 @@
+{
+  "decision_id": "OWNER_FINAL_INSTITUTIONAL_CLOSURE_BATCH01_BATCH02",
+  "decided_at": "2026-09-02T21:08:07.383235+00:00",
+  "decision_authority": "Institutional Owner",
+  "decision_type": "FINAL_APPROVAL",
+  "decision_status": "APPROVED",
+  "scope": {
+    "batch01": {
+      "ids": "1–50",
+      "closure_status": "INSTITUTIONAL_CLOSED",
+      "final": true
+    },
+    "batch02": {
+      "ids": "51–100",
+      "closure_status": "INSTITUTIONAL_CLOSED",
+      "final": true
+    },
+    "batch03": {
+      "ids": "101–150",
+      "closure_status": "PROHIBITED",
+      "note": "Blocked until official owner reopening — no institutional closure execution permitted"
+    }
+  },
+  "prerequisites_verified": [
+    "DUPLICATION_LOCK_TABLE resolved (docs/DUPLICATION_LOCK_TABLE_1_100.json)",
+    "Sonar Quality Gate PASSED (Security A, Coverage ≥80%)",
+    "main merged and evidence stable",
+    "HMAC owner approval + ACCEPTED_RISK_REGISTRY countersignature (B110×3)",
+    "GET entitlement bypass discovered, fixed (PR #358), production protected 2026-09-02T20:50:12Z"
+  ],
+  "hmac_binding": {
+    "algorithm": "HMAC-SHA256",
+    "message": "INSTITUTIONAL_CLOSED",
+    "token_sha256_prefix": "427cbd89d4173d06",
+    "evidence": "docs/INSTITUTIONAL_OWNER_APPROVAL_EVIDENCE.json",
+    "registry_countersignature": "docs/ACCEPTED_RISK_REGISTRY_COUNTERSIGNATURE_EVIDENCE.json"
+  },
+  "owner_statement": "أوافق رسميًا وبشكل نهائي على الإغلاق المؤسسي الكامل للدفعتين Batch01 (IDs 1-50) وBatch02 (IDs 51-100). Batch03 (101-150) يبقى محظورًا حتى فتح رسمي جديد.",
+  "manifests": [
+    "docs/INSTITUTIONAL_CLOSURE_FINAL.json",
+    "docs/BATCH01_826_COMPLETION_MANIFEST.json",
+    "docs/BATCH02_826_COMPLETION_MANIFEST.json",
+    "docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json"
+  ]
+}

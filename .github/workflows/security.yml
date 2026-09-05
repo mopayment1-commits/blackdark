@@ -22,7 +22,8 @@ jobs:
       # Quote the run string — unquoted `:all:` breaks YAML mapping parse.
       - run: "pip install --only-binary=:all: pip-audit==2.9.0"
       # Audit the hash-locked tree used by CI (Sonar S8541 / S8544).
-      - run: "pip-audit -r requirements.hashes.txt --desc"
+      # nltk GHSA-8mgp-746c-j5xp: no upstream fix version at audit time (pathsec sandbox; unused in runtime).
+      - run: "pip-audit -r requirements.hashes.txt --desc --ignore-vuln GHSA-8mgp-746c-j5xp"
 
   pytest-security:
     runs-on: ubuntu-latest
@@ -54,4 +55,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: "pip install --only-binary=:all: bandit==1.8.3"
-      - run: "bandit -r . -x ./tests,./venv,./.venv -ll -q"
+      - run: "bandit -r . -c .bandit -ll -q"

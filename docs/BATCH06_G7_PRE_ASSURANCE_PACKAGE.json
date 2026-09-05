@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-09-05T12:28:21.446407+00:00",
+  "git_commit": "b5bfa277992fa9fd9a7c52d65f510a8cb5ca7c92",
+  "scope": "Batch06 G7 Pre-Assurance Package",
+  "status": "G7_LOCAL_PREPARATION_COMPLETE",
+  "remaining": "G7_INDEPENDENT_SIGNOFF_PENDING",
+  "not_claimed": [
+    "G7 PASS",
+    "ASSURANCE_READY"
+  ],
+  "evidence_completeness": "artifact_index in BATCH06_FINAL_LOCAL_FREEZE.json",
+  "traceability": "RTM 251-300 \u2192 semantic oracle \u2192 acceptance",
+  "exception_register": "docs/BATCH06_V2_REMAINING_BLOCKERS_MATRIX.json",
+  "residual_risk_register": "SRE PRR residual_risks",
+  "reviewer_checklist": [
+    "Verify 50/50 semantic oracle",
+    "Confirm 0 unresolved duplicate conflicts",
+    "Review Railway queue purity",
+    "Confirm independent queue separation"
+  ],
+  "sign_off_template": "Owner + independent reviewer signatures \u2014 placeholder only"
+}

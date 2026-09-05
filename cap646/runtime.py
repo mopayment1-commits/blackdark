@@ -19,14 +19,48 @@ from cap646.handlers.market import handle_market_capability
 from cap646.handlers.onchain import handle_onchain_capability
 from cap646.handlers.platform import handle_platform_capability
 from cap646.handlers.verified import handle_verified_capability
+from cap646.batch01_production import BATCH01_IDS
+from cap646.batch02_production import BATCH02_IDS
+from cap646.batch03_production import BATCH03_IDS
+from cap646.batch04_production import BATCH04_IDS
+from cap646.batch05_production import BATCH05_IDS
+from cap646.batch06_production import BATCH06_IDS
+from cap646.batch_spine import execute_and_enrich_batch
+from cap646.handlers.batch01 import handle_batch01_capability
+from cap646.handlers.batch02 import handle_batch02_capability
+from cap646.handlers.batch03 import handle_batch03_capability
+from cap646.handlers.batch04 import handle_batch04_capability
+from cap646.handlers.batch05 import handle_batch05_capability
+from cap646.handlers.batch06 import handle_batch06_capability
 from cap646.waves import WAVE_D
 
 VERIFIED_IDS = frozenset({49, 50, 62, 63, 632, 638, 639, 640, 641})
+OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS | BATCH04_IDS | BATCH05_IDS | BATCH06_IDS
 WAVE_D_SET = set(WAVE_D)
 
 
+from cap646.rtm_classification import runtime_classification as _runtime_classification
+
 def _route_handler(track: str, name: str, capability_id: int):
     nl = name.lower()
+    if capability_id in OPTION_A_IDS:
+        if capability_id in BATCH01_IDS:
+            return handle_batch01_capability
+        if capability_id in BATCH02_IDS:
+            return handle_batch02_capability
+        if capability_id in BATCH03_IDS:
+            return handle_batch03_capability
+        if capability_id in BATCH04_IDS:
+            return handle_batch04_capability
+        if capability_id in BATCH05_IDS:
+            return handle_batch05_capability
+        if capability_id in BATCH06_IDS:
+            return handle_batch06_capability
+        if capability_id in {338, 500}:
+            return handle_data_capability
+        return handle_market_capability
+    if capability_id == 329:
+        return handle_institutional_capability
     if capability_id in VERIFIED_IDS:
         return handle_verified_capability
     if track == "T03" or any(k in nl for k in ("data quality", "ingestion", "freshness", "storage", "pipeline", "normalization", "provenance")):
@@ -85,24 +119,7 @@ async def execute_capability(
             }
         )
 
-    from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
-
-    if capability_id in FREE_TIER_BASE_IDS:
-        free_result = await execute_free_tier_capability(capability_id, params=params)
-        free_result.setdefault("capability", row["capability"])
-        free_result.setdefault("track", row["track"])
-        free_result.setdefault("classification", "VERIFIED_COMPLETE" if free_result.get("success") else "NOT_READY")
-        from cap646.domain_enrichment import enrich_capability_result
-
-        return await enrich_capability_result(capability_id, ai_compliance_footer(free_result), params=params)
-
     target_id = canonical_id(capability_id)
-    if is_duplicate(capability_id) and target_id != capability_id:
-        canonical = await execute_capability(target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement)
-        canonical["duplicate_of"] = target_id
-        canonical["requested_capability_id"] = capability_id
-        canonical["classification"] = "DUPLICATE/ALREADY_COVERED"
-        return canonical
 
     if not skip_entitlement:
         ent = await entitlement_engine.check(target_id, user=user, org_id=org_id)
@@ -115,6 +132,59 @@ async def execute_capability(
                     "entitlement": ent,
                 }
             )
+
+    from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
+
+    # Batch05 manifest IDs (201–250 minus duplicate delegation) take precedence over
+    # batch01 legacy extension routes for #214/#245 — single runtime truth via batch05 facade.
+    if capability_id in BATCH05_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch05_capability, capability_id, row=row, params=params
+        )
+
+    if capability_id in BATCH06_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch06_capability, capability_id, row=row, params=params
+        )
+
+    if capability_id in BATCH01_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch01_capability, capability_id, row=row, params=params
+        )
+
+    if capability_id in BATCH02_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch02_capability, capability_id, row=row, params=params
+        )
+
+    if capability_id in BATCH03_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch03_capability, capability_id, row=row, params=params
+        )
+
+    if capability_id in BATCH04_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch04_capability, capability_id, row=row, params=params
+        )
+
+    if is_duplicate(capability_id) and target_id != capability_id:
+        canonical = await execute_capability(target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement)
+        canonical["duplicate_of"] = target_id
+        canonical["requested_capability_id"] = capability_id
+        canonical["classification"] = "DUPLICATE/ALREADY_COVERED"
+        return canonical
+
+    # Batch spine is reached only via direct BATCH0x_IDS (L112-125) or duplicate
+    # recursion (L128-133). No further target_id batch delegation exists in catalog.
+
+    if capability_id in FREE_TIER_BASE_IDS:
+        free_result = await execute_free_tier_capability(capability_id, params=params)
+        free_result.setdefault("capability", row["capability"])
+        free_result.setdefault("track", row["track"])
+        free_result.setdefault("classification", _runtime_classification(free_result))
+        from cap646.domain_enrichment import enrich_capability_result
+
+        return await enrich_capability_result(capability_id, ai_compliance_footer(free_result), params=params)
 
     handler = _route_handler(row["track"], row["capability"], target_id)
     try:
@@ -132,7 +202,7 @@ async def execute_capability(
     result.setdefault("capability_id", target_id)
     result.setdefault("capability", row["capability"])
     result.setdefault("track", row["track"])
-    result.setdefault("classification", "VERIFIED_COMPLETE" if result.get("success") else "NOT_READY")
+    result.setdefault("classification", _runtime_classification(result))
     if "backend_module" not in result:
         result["backend_module"] = getattr(handler, "__module__", "cap646.handlers")
         result["backend_entrypoint"] = getattr(handler, "__name__", "unknown")

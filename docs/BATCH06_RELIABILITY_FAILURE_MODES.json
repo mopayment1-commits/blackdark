@@ -1,0 +1,40 @@
+{
+  "status": "PROVEN_LOCAL",
+  "modes": [
+    {
+      "mode": "unknown_capability",
+      "status": "PROVEN_LOCAL",
+      "test": "test_batch06_ids_contract unknown rejected"
+    },
+    {
+      "mode": "out_of_spine_rejected",
+      "status": "PROVEN_LOCAL",
+      "test": "test_batch06_ids_contract routing spine"
+    },
+    {
+      "mode": "entitlement_denied_fail_closed",
+      "status": "PROVEN_LOCAL",
+      "test": "cap646 runtime entitlement gate"
+    },
+    {
+      "mode": "malformed_empty_symbol",
+      "status": "PROVEN_LOCAL",
+      "test": "structured payload on empty symbol"
+    },
+    {
+      "mode": "reused_link_stamp",
+      "status": "PROVEN_LOCAL",
+      "test": "REUSED-LINK catalog_link stamp on facades"
+    },
+    {
+      "mode": "strangler_feature_ref",
+      "status": "PROVEN_LOCAL",
+      "test": "strangler payload feature_ref invariant"
+    }
+  ],
+  "proven_local": 6,
+  "requires_live": 0,
+  "design_only": 0,
+  "local_stub": 0,
+  "locally_solvable_gaps": 0
+}

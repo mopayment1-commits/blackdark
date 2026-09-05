@@ -1,0 +1,82 @@
+{
+  "taxonomy_id": "REUSED-LINK",
+  "registered_at": "2026-09-01T12:35:00+00:00",
+  "status": "ACTIVE",
+  "definition": "Catalog declares DUPLICATE / ALREADY_COVERED / REPEAT_CANONICAL for an ID that re-exposes the same goal as a canonical capability. Live execution under the duplicate ID must return a goal-equivalent, user-ready payload — not a generic handler and not a different capability's goal.",
+  "acceptance_criteria": [
+    "Catalog proof: CAP646_GAP_MATRIX or CAP646_CATALOG entry with DUPLICATE/ALREADY_COVERED/REPEAT_CANONICAL or explicit duplicate_of canonical ID",
+    "Live execution under the duplicate ID returns success=true with goal-specific surface (not GENERIC_SURFACES)",
+    "Payload includes catalog_link.duplicate_of and classification REUSED-LINK when served via dedicated spine",
+    "Canonical target ID is itself PRODUCTION-ALIGNED before REUSED-LINK closure is accepted"
+  ],
+  "catalog_proof_locations": {
+    "gap_matrix": "docs/cap646/CAP646_GAP_MATRIX.json",
+    "runtime_duplicate_redirect": "cap646/runtime.py — classification DUPLICATE/ALREADY_COVERED",
+    "batch03_prep_reused_link": "cap646/batch03_dedicated.py — catalog_link on #106, #107, #110, #125"
+  },
+  "registered_pairs": {
+    "106": {
+      "canonical_id": 63,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "DUPLICATE/ALREADY_COVERED",
+      "canonical_goal": "Data Quality & Provenance Layer",
+      "duplicate_goal": "Data Quality & Provenance Layer"
+    },
+    "107": {
+      "canonical_id": 64,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "DUPLICATE/ALREADY_COVERED",
+      "canonical_goal": "Metric Methodology Registry",
+      "duplicate_goal": "Metric Methodology Registry"
+    },
+    "110": {
+      "canonical_id": 69,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "REPEAT_CANONICAL",
+      "canonical_goal": "Cross-Domain Decision Intelligence Layer",
+      "duplicate_goal": "Cross-Domain Decision Intelligence Layer",
+      "shared_module": "cap646/cross_domain_decision.py",
+      "canonical_ssot_path": "cap646.batch02_production.cap_069",
+      "link_eligible_review": "CONFIRMED — canonical #69 batch02 spine is SSOT after MANDATE-COMPLETION facade fix; #110 remains LINK-ELIGIBLE (batch03 prep, not in 104 numerator)"
+    },
+    "125": {
+      "canonical_id": 85,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "DUPLICATE/ALREADY_COVERED",
+      "canonical_goal": "Futures Open Interest Intelligence",
+      "duplicate_goal": "Futures Open Interest Intelligence"
+    }
+  },
+  "counting_rules": {
+    "reused_link_accepted": "Counts as covered/ready for the duplicate ID goal — not independent new build",
+    "no_826_reduction": "826 total is not reduced; report separates independent PRODUCTION-ALIGNED vs REUSED-LINK covered"
+  },
+  "OVERLAP_BATCH01": {
+    "taxonomy_id": "OVERLAP_BATCH01",
+    "registered_at": "2026-09-01T14:00:00+00:00",
+    "status": "ACTIVE",
+    "definition": "ID listed in official batch02 scope (51–100) but implemented exclusively via batch01 legacy extension spine (LEGACY_BATCH01_EXTENSION_IDS). No batch02_dedicated handler exists.",
+    "acceptance_criteria": [
+      "ID ∈ OFFICIAL_BATCH02_IDS ∩ LEGACY_BATCH01_EXTENSION_IDS",
+      "cap646.batch02_production raises ValueError for direct execute",
+      "cap646.runtime routes via handle_batch01_capability → batch01_production",
+      "Counted as covered in batch02 RTM but NOT as independent batch02 build"
+    ],
+    "registered_ids": {
+      "55": {"goal": "NVT Fair-Value Model", "batch01_module": "cap646.batch01_production", "independent_build": false},
+      "56": {"goal": "Token Screener", "batch01_module": "cap646.batch01_production", "independent_build": false},
+      "59": {"goal": "Personalized Research Dashboards", "batch01_module": "cap646.batch01_production", "independent_build": false},
+      "60": {"goal": "Metric-Based Smart Alerts", "batch01_module": "cap646.batch01_production", "independent_build": false}
+    },
+    "counting_rules": {
+      "batch02_independent_count": "Exclude from 46 independent; include in 50/50 RTM coverage only",
+      "no_double_count_in_826_progress": "Do not add +4 to independent build tally"
+    }
+  },
+  "LINK_ELIGIBLE": {
+    "definition": "REUSED-LINK pairs in scope 101–150 (batch03) — canonical evidence required before closure; NOT counted in progress",
+    "ids": [106, 107, 110, 125],
+    "status": "LINK-ELIGIBLE",
+    "closure_forbidden_until": "explicit owner approval after batch02 institutional review"
+  }
+}

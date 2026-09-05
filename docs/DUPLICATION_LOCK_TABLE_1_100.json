@@ -1,0 +1,717 @@
+{
+  "rows": [
+    {
+      "case": "#69 dual-path",
+      "time_decision": "Eliminate",
+      "action_applied": "onchain.handle_onchain_capability(69) delegates to batch02_production.execute(69); inventory backend=cap_069",
+      "lock_state": "CLOSED_PERMANENT",
+      "code_evidence": "cap646/handlers/onchain.py:52-55 \u2192 batch02_execute(69)"
+    },
+    {
+      "case": "#110 link-eligible (canonical #69)",
+      "time_decision": "Migrate",
+      "action_applied": "batch03 _cap110 calls build_cross_domain_decision_payload + catalog_link.duplicate_of=69; execution prohibited until owner opens batch03",
+      "lock_state": "CLOSED_PERMANENT",
+      "note": "LINK-ELIGIBLE for batch03 prep only; not in 1-100 numerator"
+    },
+    {
+      "case": "#55 OVERLAP_BATCH01",
+      "time_decision": "Invest",
+      "action_applied": "runtime\u2192batch01_production; batch02_production.execute raises ValueError for overlap IDs",
+      "lock_state": "CLOSED_PERMANENT"
+    },
+    {
+      "case": "#56 OVERLAP_BATCH01",
+      "time_decision": "Invest",
+      "action_applied": "runtime\u2192batch01_production; batch02_production.execute raises ValueError for overlap IDs",
+      "lock_state": "CLOSED_PERMANENT"
+    },
+    {
+      "case": "#59 OVERLAP_BATCH01",
+      "time_decision": "Invest",
+      "action_applied": "runtime\u2192batch01_production; batch02_production.execute raises ValueError for overlap IDs",
+      "lock_state": "CLOSED_PERMANENT"
+    },
+    {
+      "case": "#60 OVERLAP_BATCH01",
+      "time_decision": "Invest",
+      "action_applied": "runtime\u2192batch01_production; batch02_production.execute raises ValueError for overlap IDs",
+      "lock_state": "CLOSED_PERMANENT"
+    },
+    {
+      "case": "R0801-1 batch02/batch03 _wrap",
+      "time_decision": "Eliminate",
+      "action_applied": "make_wrap_binding() in dedicated_common.py",
+      "lock_state": "CLOSED_PERMANENT"
+    },
+    {
+      "case": "R0801-2 verified/institutional_controls dict",
+      "time_decision": "Eliminate",
+      "action_applied": "FIN_004_DEMO_OPPORTUNITY in net_edge_truth.py",
+      "lock_state": "CLOSED_PERMANENT"
+    },
+    {
+      "case": "R0801-3 batch02/batch03 execute tail",
+      "time_decision": "Eliminate",
+      "action_applied": "execute_dedicated_caps() in dedicated_common.py",
+      "lock_state": "CLOSED_PERMANENT"
+    },
+    {
+      "case": "jscpd #63/#106 provenance clone",
+      "time_decision": "Eliminate",
+      "action_applied": "provenance_hot_storage_payload() extracted; batch02 #63 and batch03 #106 delegate",
+      "lock_state": "CLOSED_PERMANENT"
+    },
+    {
+      "case": "jscpd batch02/batch03 import header",
+      "time_decision": "Invest",
+      "action_applied": "Bounded Context \u2014 separate EXPECTED_SURFACE maps per ADR-003; shared mechanics in dedicated_common",
+      "lock_state": "CLOSED_PERMANENT"
+    },
+    {
+      "case": "#1 split-brain (SPLIT_BRAIN_OTHER)",
+      "time_decision": "Invest",
+      "action_applied": "dual-path outputs_match on inventory backend vs runtime",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_OTHER"
+    },
+    {
+      "case": "#2 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#3 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#4 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#5 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#6 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#7 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#10 split-brain (SPLIT_BRAIN_OTHER)",
+      "time_decision": "Invest",
+      "action_applied": "dual-path outputs_match on inventory backend vs runtime",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_OTHER"
+    },
+    {
+      "case": "#11 split-brain (SPLIT_BRAIN_OTHER)",
+      "time_decision": "Invest",
+      "action_applied": "dual-path outputs_match on inventory backend vs runtime",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_OTHER"
+    },
+    {
+      "case": "#12 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#13 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#14 split-brain (SPLIT_BRAIN_OTHER)",
+      "time_decision": "Invest",
+      "action_applied": "dual-path outputs_match on inventory backend vs runtime",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_OTHER"
+    },
+    {
+      "case": "#17 split-brain (SPLIT_BRAIN_OTHER)",
+      "time_decision": "Invest",
+      "action_applied": "dual-path outputs_match on inventory backend vs runtime",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_OTHER"
+    },
+    {
+      "case": "#18 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#19 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#20 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#21 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#22 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#25 split-brain (SPLIT_BRAIN_GENERIC_HANDLER)",
+      "time_decision": "Migrate",
+      "action_applied": "generic handler replaced by batch production dedicated backends",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_GENERIC_HANDLER"
+    },
+    {
+      "case": "#27 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#28 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#29 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#30 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#33 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#34 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#36 split-brain (SPLIT_BRAIN_OTHER)",
+      "time_decision": "Invest",
+      "action_applied": "dual-path outputs_match on inventory backend vs runtime",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_OTHER"
+    },
+    {
+      "case": "#37 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#40 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#44 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#45 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#46 split-brain (SPLIT_BRAIN_GENERIC_HANDLER)",
+      "time_decision": "Migrate",
+      "action_applied": "generic handler replaced by batch production dedicated backends",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_GENERIC_HANDLER"
+    },
+    {
+      "case": "#47 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#48 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#49 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#55 split-brain (SPLIT_BRAIN_OTHER)",
+      "time_decision": "Invest",
+      "action_applied": "dual-path outputs_match on inventory backend vs runtime",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_OTHER"
+    },
+    {
+      "case": "#56 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#59 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#60 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#62 split-brain (SPLIT_BRAIN_REUSED)",
+      "time_decision": "Invest",
+      "action_applied": "official batch spine SSOT; dual-path contract verified",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_REUSED"
+    },
+    {
+      "case": "#63 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#69 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#71 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#72 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#73 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#74 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#75 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#77 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#79 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#81 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#85 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#86 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#88 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#91 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#92 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#96 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "#98 split-brain (SPLIT_BRAIN_ROUTING)",
+      "time_decision": "Migrate",
+      "action_applied": "routing consolidated via batch01/batch02 production spine",
+      "lock_state": "CLOSED_PERMANENT",
+      "split_brain_status": "SPLIT_BRAIN_ROUTING"
+    },
+    {
+      "case": "MECE matrix_2_official_vs_hero_201_300 #17\u2194#212 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 212 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_2_official_vs_hero_201_300 #63\u2194#221 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 221 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_2_official_vs_hero_201_300 #64\u2194#222 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 222 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_2_official_vs_hero_201_300 #69\u2194#226 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 226 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_2_official_vs_hero_201_300 #86\u2194#206 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 206 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_2_official_vs_hero_201_300 #86\u2194#228 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 228 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_2_official_vs_hero_201_300 #86\u2194#256 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 256 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_2_official_vs_hero_201_300 #88\u2194#233 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 233 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_4_official_vs_batch03_prep #63\u2194#106 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 106 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_4_official_vs_batch03_prep #64\u2194#107 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 107 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_4_official_vs_batch03_prep #69\u2194#110 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 110 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "MECE matrix_4_official_vs_batch03_prep #85\u2194#125 (OVERLAP-PARTIAL)",
+      "time_decision": "Invest",
+      "action_applied": "Official 1-100 spine retained; hero/prep ID 125 bounded context until batch opened",
+      "lock_state": "CLOSED_PERMANENT",
+      "verdict": "OVERLAP-PARTIAL"
+    },
+    {
+      "case": "jscpd batch01_dedicated #7\u2194#9 holder_analytics (L354-362\u2194L403-408)",
+      "time_decision": "Eliminate",
+      "action_applied": "holder_analytics_bundle() + holder_analytics_footer() \u2014 Extract Function",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "dedicated_common.py:74-103; batch01 #7/#8/#9 delegate"
+    },
+    {
+      "case": "jscpd batch01_dedicated #8\u2194#9 metrics extraction (L374-380\u2194L403-409)",
+      "time_decision": "Eliminate",
+      "action_applied": "holder_analytics_locked() + holder_analytics_footer(extra=...) \u2014 Parameterize Function",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "dedicated_common.py:106-110"
+    },
+    {
+      "case": "jscpd batch01_dedicated #15\u2194#44 exchange_netflow (L431-438\u2194L1104-1111)",
+      "time_decision": "Eliminate",
+      "action_applied": "exchange_netflow_probe() + exchange_netflow_footer(flow_payload_key=...) \u2014 Parameterize Function",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "dedicated_common.py:113-142"
+    },
+    {
+      "case": "jscpd database platform_analytics DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('platform_analytics') SSOT; bootstrap + migration both call it",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 1,
+      "locations": "database_ddl.py; database.py SCHEMA + _apply_migrations",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database journal_entries DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('journal_entries') SSOT",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 1,
+      "locations": "database_ddl.py; database.py SCHEMA + _apply_migrations",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database audit_logs DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('audit_logs') SSOT",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 1,
+      "locations": "database_ddl.py; database.py SCHEMA + _apply_migrations",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database decisions DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('decisions') SSOT",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 1,
+      "locations": "database_ddl.py; database.py SCHEMA + _apply_migrations",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database kg_nodes DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('kg_nodes') SSOT",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 1,
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database kg_edges DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('kg_edges') SSOT",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 1,
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database market_signals DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('market_signals') SSOT",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 1,
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database learning_predictions DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('learning_predictions') SSOT",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 1,
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database ip_registry DDL (_SCHEMA_SQL\u2194_apply_schema_migrations)",
+      "time_decision": "Eliminate",
+      "action_applied": "database_ddl.table_schema('ip_registry') SSOT",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 1,
+      "locations": "database_ddl.py; SCHEMA + _ensure_compounding_tables",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database fetch_archivable compaction template",
+      "time_decision": "Eliminate",
+      "action_applied": "_fetch_archivable_table_rows(table, ...) parameterized; wrappers retained for API stability",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "database.py _COMPACTABLE_TABLES",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database delete compaction purge template",
+      "time_decision": "Eliminate",
+      "action_applied": "_delete_table_rows_by_ids(table, ...) parameterized; wrappers retained for API stability",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "database.py _COMPACTABLE_DELETE_LOG",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd database institutional_flows INSERT single\u2194executemany",
+      "time_decision": "Eliminate",
+      "action_applied": "_INSTITUTIONAL_FLOWS_INSERT_SQL SSOT; dual API Justified-Retain per ADR-004 (7\u201315\u00d7 executemany speedup at N=10\u2013200)",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "database.py; docs/adr/ADR-004-institutional-flows-dual-insert-api.md",
+      "final_decision": "Justified-Retain"
+    },
+    {
+      "case": "jscpd database payload_json deserialize weekly\u2194maintenance fetch",
+      "time_decision": "Eliminate",
+      "action_applied": "_deserialize_payload_json_rows() shared by fetch_weekly_reports + fetch_maintenance_runs",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "database.py",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd pentagonal sha256_obj helper",
+      "time_decision": "Eliminate",
+      "action_applied": "supplemental script imports sha256_obj from pentagonal_closure_evidence \u2014 no duplicate logic",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 3,
+      "locations": "scripts/generate_supplemental_closure_report.py",
+      "final_decision": "Eliminate"
+    },
+    {
+      "case": "jscpd pentagonal HERO_ENGINES import",
+      "time_decision": "Invest",
+      "action_applied": "Bounded Context \u2014 supplemental imports HERO_ENGINES from generator SSOT; shared dict intentional",
+      "lock_state": "CLOSED_PERMANENT",
+      "roy_cordy_type": 4,
+      "locations": "scripts/generate_supplemental_closure_report.py",
+      "final_decision": "Invest"
+    }
+  ],
+  "generated_at": "2026-09-02T22:55:00.000000+00:00",
+  "row_count": 97,
+  "checksum": {
+    "section_zero_rows": 97,
+    "numbered_items": 11,
+    "total_report_sections": 108,
+    "checksum_sha256_prefix": "0525e47dab7fb5c5",
+    "checksum_ok": true
+  },
+  "jscpd_official_hero_clones": 0
+}

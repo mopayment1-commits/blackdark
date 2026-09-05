@@ -98,13 +98,16 @@ def _attach_net_edge_truth(
             out["opportunity_score"] = round(score)
             verdict = _apply_truth_reject(out, truth, verdict)
         else:
-            truth = compute_net_edge_truth(_directional_truth_input(truth_input, score))
+            # Directional oracle: do not call compute_net_edge_truth — it would
+            # record missing_net_profit in global arb stats without economics.
             truth = {
-                **truth,
+                "enabled": True,
                 "mode": "directional_advisory",
                 "reject": False,
                 "pass": True,
                 "executable": False,
+                "truth_score": None,
+                "reasons": [],
                 "label": "ADVISORY_NOT_EXECUTABLE",
                 "disclaimer": (
                     "Directional / advisory signal only — not an executable "

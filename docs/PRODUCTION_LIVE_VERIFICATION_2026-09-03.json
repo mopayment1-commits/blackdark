@@ -1,0 +1,113 @@
+{
+  "verified_at": "2026-09-03T08:35:48.078500+00:00",
+  "production_url": "https://blackdark-production.up.railway.app",
+  "post_deploy_commit": "ac57fa7",
+  "authoritative": true,
+  "supersedes": [
+    "docs/GET_ENTITLEMENT_PRODUCTION_CLOSURE.json post_deploy_tests (wrong hostname era)",
+    "Any live probe logged against blackdark-web-production.up.railway.app"
+  ],
+  "results": [
+    {
+      "test": "GET_entitlement_cap47",
+      "http_status": 200,
+      "protected": true,
+      "reason": "teaser"
+    },
+    {
+      "test": "GET_entitlement_cap103",
+      "http_status": 200,
+      "protected": true,
+      "reason": "teaser"
+    },
+    {
+      "hero": "Single-Sentence Oracle",
+      "path": "/api/oracle/data-hub/BTC",
+      "http_status": 200,
+      "live_ok": true,
+      "degraded": null,
+      "error": "hub_fetch_failed"
+    },
+    {
+      "hero": "Public Accuracy Ledger",
+      "path": "/api/oracle/audit-chain/verify",
+      "http_status": 200,
+      "live_ok": true,
+      "degraded": null,
+      "error": null
+    },
+    {
+      "hero": "Arbitrage Scanner",
+      "path": "/api/arbitrage/scanner/status",
+      "http_status": 200,
+      "live_ok": true,
+      "degraded": true,
+      "error": "gaierror"
+    },
+    {
+      "hero": "Whale Signal vs Noise",
+      "path": "/api/whale/signal-vs-noise",
+      "http_status": 200,
+      "live_ok": true,
+      "degraded": null,
+      "error": null
+    },
+    {
+      "hero": "Stealth Advisor",
+      "path": "POST /api/whale/stealth-advisor",
+      "http_status": 200,
+      "live_ok": true,
+      "degraded": null,
+      "error": null
+    },
+    {
+      "hero": "B2B Feed",
+      "path": "/api/b2b/feed",
+      "http_status": 403,
+      "live_ok": false,
+      "degraded": null,
+      "error": null,
+      "note": "Expected in strict production — demo key disabled; see B2B_API_KEY setup in final closure report"
+    },
+    {
+      "endpoint": "/api/telegram/free/status",
+      "bot_configured": true,
+      "subscribers_error": "gaierror"
+    },
+    {
+      "endpoint": "/api/gtm/status",
+      "bot_configured": true,
+      "metrics_errors": [
+        "platform_user_stats:gaierror",
+        "telegram_subscribers:gaierror"
+      ]
+    },
+    {
+      "endpoint": "/api/alerts/telegram/status",
+      "bot_token_set": true,
+      "default_chat_set": true
+    },
+    {
+      "endpoint": "/api/production/guard",
+      "telegram_bot_ok": true
+    }
+  ],
+  "post_database_deploy_recheck": {
+    "probed_at": "2026-09-03T08:51:53Z",
+    "probed_through": "2026-09-03T08:54:40Z",
+    "owner_action": "Deploy database pressed on Railway",
+    "production_reachable": false,
+    "http_status_all_endpoints": 404,
+    "railway_error": "Application not found",
+    "health_ready": null,
+    "database_ready": null,
+    "telegram_free_status": null,
+    "gtm_status": null,
+    "interpretation": "Public Railway domain returned 404 for entire window — web service likely stopped, domain removed, or redeploy in progress after Postgres attach. Re-run probes after web service Redeploy and public domain is active.",
+    "expected_after_fix": {
+      "health_ready": "database_ready: true, postgres_pool.active: true",
+      "telegram_free_status": "bot_configured: true, subscribers_error absent",
+      "gtm_status": "telegram.bot_configured: true, metrics_errors null or empty"
+    }
+  }
+}

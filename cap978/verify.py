@@ -41,7 +41,7 @@ async def execute_extension(capability_id: int, *, user: dict[str, Any] | None =
         free_result.setdefault("capability", row["capability"])
         free_result.setdefault("track", row.get("track"))
         free_result.setdefault("scope", row.get("scope"))
-        free_result.setdefault("classification", "VERIFIED_COMPLETE" if free_result.get("success") else "NOT_READY")
+        free_result.setdefault("classification", "PRODUCTION-ALIGNED" if free_result.get("success") else "NOT_COMPLETE")
         from cap646.domain_enrichment import enrich_capability_result
 
         return await enrich_capability_result(capability_id, ai_compliance_footer(free_result), params=params)
@@ -137,6 +137,9 @@ async def verify_functional_978(capability_id: int, *, user: dict[str, Any] | No
         "fail_closed": result.get("error") not in {"demo_only", "mock_only"},
     }
     verdict = (
+        # VERIFIED_COMPLETE: legacy cap978 CI namespace only — banned for 826 RTM fields.
+        # Removal target: 2026-09-30 — migrate to PRODUCTION-ALIGNED / FUNCTIONALLY_INCOMPLETE.
+        # See docs/CAPABILITIES_826_INVENTORY.json classification_taxonomy.VERIFIED_COMPLETE
         "VERIFIED_COMPLETE"
         if all(v for k, v in checks.items() if v is not False)
         else "FUNCTIONALLY_INCOMPLETE"

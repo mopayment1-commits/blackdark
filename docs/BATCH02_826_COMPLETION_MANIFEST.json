@@ -1,0 +1,75 @@
+{
+  "manifest_id": "BATCH02_OFFICIAL_51_100",
+  "generated_at": "2026-09-01T12:40:00+00:00",
+  "official_batch": "batch02",
+  "scope": "IDs 51–100",
+  "closure_status": "INSTITUTIONAL_CLOSED",
+  "owner_approval_required": false,
+  "merge_does_not_imply_closure": false,
+  "status_on_branch": "INSTITUTIONAL_CLOSED",
+  "status_on_main": "INSTITUTIONAL_CLOSED",
+  "owner_final_decision_at": "2026-09-02T21:08:07.383235+00:00",
+  "owner_final_decision": "docs/INSTITUTIONAL_OWNER_FINAL_CLOSURE_DECISION.json",
+  "batch03_status": "PROHIBITED",
+  "counts": {
+    "total": 50,
+    "production_aligned": 50,
+    "independent_production_aligned": 46,
+    "overlap_batch01": 4,
+    "reused_link_in_scope": 0,
+    "not_complete": 0
+  },
+  "independent_build_note": "IDs 61–100 are batch02 dedicated (40 IDs). IDs 51–60 include 4 OVERLAP_BATCH01 (#55,#56,#59,#60) without batch02 handlers.",
+  "functional_readiness": "مكتمل وظيفيًا — جاهزية التشغيل الحي غير مُقيَّمة بعد",
+  "evidence_artifacts": {
+    "rtm_audit": "docs/BATCH02_OFFICIAL_RTM_51_100.json",
+    "http_proof": "docs/BATCH02_HTTP_PROOF_51_100.json",
+    "classification": "docs/BATCH02_CLASSIFICATION.json",
+    "reused_link_taxonomy": "docs/REUSED_LINK_TAXONOMY.json",
+    "inventory": "docs/CAPABILITIES_826_INVENTORY.json",
+    "hero_evidence": "data/hero_batch_02_official_51_100_evidence.jsonl",
+    "checklist": "capabilities_checklist.xlsx",
+    "entitlement_gateway": "docs/BATCH02_ENTITLEMENT_GATEWAY_PROOF.json",
+    "honest_audit": "docs/BATCH02_HONEST_CLOSURE_AUDIT.md",
+    "orchestrator": "docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json"
+  },
+  "production_spine": {
+    "module": "cap646.batch02_production",
+    "dedicated": "cap646.batch02_dedicated",
+    "runtime_path": "cap646.runtime.execute_capability -> cap646.batch02_production"
+  },
+  "batch03_link_eligible": {
+    "106": {
+      "canonical": 63,
+      "status": "LINK-ELIGIBLE",
+      "scope": "101-150",
+      "counted_in_progress": false
+    },
+    "107": {
+      "canonical": 64,
+      "status": "LINK-ELIGIBLE",
+      "scope": "101-150",
+      "counted_in_progress": false
+    },
+    "110": {
+      "canonical": 69,
+      "status": "LINK-ELIGIBLE",
+      "scope": "101-150",
+      "counted_in_progress": false
+    },
+    "125": {
+      "canonical": 85,
+      "status": "LINK-ELIGIBLE",
+      "scope": "101-150",
+      "counted_in_progress": false
+    }
+  },
+  "critical_gate": {
+    "workflow": ".github/workflows/ci.yml",
+    "job": "critical",
+    "note": "critical PASS does not imply INSTITUTIONAL_CLOSED; gate-full and SonarCloud required"
+  },
+  "owner_approved_at": "2026-09-02T21:08:07.383235+00:00",
+  "owner_hmac_token_sha256_prefix": "427cbd89d4173d06",
+  "rejection_resolved": "CLOSURE-REJECT-04"
+}

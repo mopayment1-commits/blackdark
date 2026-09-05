@@ -1,0 +1,58 @@
+{
+  "batch": "official_batch02",
+  "scope": "IDs 51–100",
+  "status": "CLOSED_PENDING_CRITICAL_GATE",
+  "generated_at": "2026-09-01T12:36:00+00:00",
+  "closure_summary": {
+    "total_in_scope": 50,
+    "independent_production_aligned": 46,
+    "overlap_batch01": 4,
+    "reused_link_in_batch02": 0,
+    "not_complete": 0
+  },
+  "independent_production_aligned_ids": [
+    51, 52, 53, 54, 57, 58, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74,
+    75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94,
+    95, 96, 97, 98, 99, 100
+  ],
+  "overlap_batch01_ids": [55, 56, 59, 60],
+  "overlap": {
+    "55": {
+      "catalog_goal": "NVT Fair-Value Model",
+      "completed_in_batch01": true,
+      "production_spine": "batch01",
+      "classification": "OVERLAP_BATCH01"
+    },
+    "56": {
+      "catalog_goal": "Token Screener",
+      "completed_in_batch01": true,
+      "production_spine": "batch01",
+      "classification": "OVERLAP_BATCH01"
+    },
+    "59": {
+      "catalog_goal": "Personalized Research Dashboards",
+      "completed_in_batch01": true,
+      "production_spine": "batch01",
+      "classification": "OVERLAP_BATCH01"
+    },
+    "60": {
+      "catalog_goal": "Metric-Based Smart Alerts",
+      "completed_in_batch01": true,
+      "production_spine": "batch01",
+      "classification": "OVERLAP_BATCH01"
+    }
+  },
+  "reused_link_taxonomy": "docs/REUSED_LINK_TAXONOMY.json",
+  "batch03_reused_link_resolution": {
+    "note": "Canonical blockers #63, #64, #69, #85 now PRODUCTION-ALIGNED in official batch02",
+    "106": {"canonical_id": 63, "status": "REUSED-LINK_RESOLVED", "canonical_audit": "PRODUCTION-ALIGNED"},
+    "107": {"canonical_id": 64, "status": "REUSED-LINK_RESOLVED", "canonical_audit": "PRODUCTION-ALIGNED"},
+    "110": {"canonical_id": 69, "status": "REUSED-LINK_RESOLVED", "canonical_audit": "PRODUCTION-ALIGNED"},
+    "125": {"canonical_id": 85, "status": "REUSED-LINK_RESOLVED", "canonical_audit": "PRODUCTION-ALIGNED"}
+  },
+  "misscoped_batch03_prep": {
+    "note": "Prior branch work for IDs 101–150 preserved under cap646/batch03_production.py",
+    "scope": "101–150",
+    "production_spine": "batch03_prep"
+  }
+}

@@ -1,0 +1,7 @@
+.                                                                        [100%]
+=============================== warnings summary ===============================
+tests/cap646/test_institutional_gate.py: 6437+ warnings (joblib DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+EXIT:0
+MANDATE-COMPLETION re-run: 2026-09-01 — closure_verdict INSTITUTIONAL_GATE_PASS

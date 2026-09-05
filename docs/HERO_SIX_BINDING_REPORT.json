@@ -1,0 +1,5118 @@
+{
+  "generated_at": "2026-09-02T23:05:37.137440+00:00",
+  "scope": "six heroes × capabilities 1-100",
+  "heroes": [
+    "Single-Sentence Oracle",
+    "Public Accuracy Ledger",
+    "Arbitrage Scanner",
+    "Whale Signal vs Noise",
+    "Stealth Advisor",
+    "B2B Feed"
+  ],
+  "binding_row_count": 81,
+  "binding_checksum_sha256": "3f5a75005d045aa6d6e99322c58c4985456cc7c7a1b496ce5dfa1f1ea29ebc3b",
+  "9_prior_issue_impact": [
+    {
+      "issue": "capability 69 dual-path",
+      "capability_ids": [
+        69
+      ],
+      "heroes_fed": [
+        "Single-Sentence Oracle",
+        "Arbitrage Scanner"
+      ],
+      "was_in_hero_inputs": true,
+      "affected_live_decision_before_fix": false,
+      "status_after_fix": "CLOSED_PERMANENT — docs/DUPLICATION_LOCK_TABLE_1_100.json",
+      "note": "Resolved via dedicated spine routing; no ongoing hero decision impact"
+    },
+    {
+      "issue": "capability 56 split-brain",
+      "capability_ids": [
+        56
+      ],
+      "heroes_fed": [
+        "Single-Sentence Oracle"
+      ],
+      "was_in_hero_inputs": true,
+      "affected_live_decision_before_fix": false,
+      "status_after_fix": "CLOSED_PERMANENT — docs/DUPLICATION_LOCK_TABLE_1_100.json",
+      "note": "Resolved via dedicated spine routing; no ongoing hero decision impact"
+    },
+    {
+      "issue": "capability 15 database.py clone",
+      "capability_ids": [
+        15
+      ],
+      "heroes_fed": [
+        "Whale Signal vs Noise"
+      ],
+      "was_in_hero_inputs": true,
+      "affected_live_decision_before_fix": false,
+      "status_after_fix": "CLOSED_PERMANENT — docs/DUPLICATION_LOCK_TABLE_1_100.json",
+      "note": "Resolved via dedicated spine routing; no ongoing hero decision impact"
+    },
+    {
+      "issue": "GET Entitlement Bypass",
+      "capability_ids": [
+        47,
+        48,
+        69,
+        85
+      ],
+      "heroes_fed": [
+        "Single-Sentence Oracle",
+        "Arbitrage Scanner",
+        "Whale Signal vs Noise",
+        "Stealth Advisor"
+      ],
+      "was_in_hero_inputs": true,
+      "affected_live_decision_before_fix": true,
+      "status_after_fix": "CLOSED_PERMANENT — docs/DUPLICATION_LOCK_TABLE_1_100.json",
+      "note": "Anonymous users could read pro-gated cap data via GET before PR #358"
+    }
+  ],
+  "hero_sections": [
+    {
+      "hero": "Single-Sentence Oracle",
+      "1_feed_map": [
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 24,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_024",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 25,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_025",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 26,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_026",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 27,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_027",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 28,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_028",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 29,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_029",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 30,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_030",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 31,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_031",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 32,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_032",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 33,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_033",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 34,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_034",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 35,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_035",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 40,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_040",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 47,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_047",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 48,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_048",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 50,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_050",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 55,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_055",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 56,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_056",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 59,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_059",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 66,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_066",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 69,
+          "binding_file": "cap646/handlers/onchain.py",
+          "binding_function": "handle_onchain_capability",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 86,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_086",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 89,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_089",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        },
+        {
+          "hero": "Single-Sentence Oracle",
+          "capability_id": 90,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_090",
+          "hero_engine": "ai_oracle.py:get_single_sentence_oracle"
+        }
+      ],
+      "2_transparent_rules": [
+        {
+          "rule": "score>=75 → BUY",
+          "file": "oracle_unified.py",
+          "function": "_oracle_verdict_from_score",
+          "line_ref": "L64-70"
+        },
+        {
+          "rule": "conflict veto → WAIT",
+          "file": "dimension_conflict_guard.py",
+          "function": "apply_dimension_conflict_guard"
+        },
+        {
+          "rule": "stablecoins → WAIT",
+          "file": "oracle_unified.py",
+          "function": "_oracle_verdict_from_score",
+          "line_ref": "L62-63"
+        }
+      ],
+      "3_outlier_prevention": "min-max scaling on opportunity_score (0-100) before regime weighting; log1p on quote_volume",
+      "4_raw_vs_index": "raw_aggregate=base_technical_score; normalized_index=unified_score after regime+conflict",
+      "5_cross_validation": "dimension_conflict_guard requires ≥2 independent modal signals before BUY verdict",
+      "6_asymmetric_inputs": "BUY vs WAIT vs SELL use different score thresholds; stablecoins forced to WAIT",
+      "7_lookahead_bias": [
+        {
+          "capability_id": 24,
+          "decision_timestamp": "2026-09-02T23:03:06.049551+00:00",
+          "timestamp_fields_found": 12,
+          "timestamp_sample_paths": [
+            "research_agent.research_lab.generated_at",
+            "research_agent.research_lab.economic_moat.timestamp",
+            "research_agent.research_lab.oracle_audit.recent[0].timestamp",
+            "research_agent.research_lab.oracle_audit.recent[1].timestamp",
+            "research_agent.research_lab.oracle_audit.recent[2].timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.103294,
+            0.231894,
+            30.83266,
+            33.552365,
+            36.265436,
+            38.990101,
+            41.921859,
+            14.721364,
+            0.149962,
+            0.126518,
+            0.103304,
+            0.103251
+          ],
+          "time_delta_seconds": 0.103251,
+          "pass": true
+        },
+        {
+          "capability_id": 25,
+          "decision_timestamp": "2026-09-02T23:03:06.051400+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "signal.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            7.8e-05,
+            2.5e-05
+          ],
+          "time_delta_seconds": 2.5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 26,
+          "decision_timestamp": "2026-09-02T23:03:06.678503+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            2.8e-05
+          ],
+          "time_delta_seconds": 2.8e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 27,
+          "decision_timestamp": "2026-09-02T23:03:06.680722+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            2.3e-05
+          ],
+          "time_delta_seconds": 2.3e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 28,
+          "decision_timestamp": "2026-09-02T23:03:08.667510+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "alert.alert.fired_at",
+            "probe.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000118,
+            0.000852,
+            3.3e-05
+          ],
+          "time_delta_seconds": 3.3e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 29,
+          "decision_timestamp": "2026-09-02T23:03:08.668963+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "decision_engine.cross_market.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            8.7e-05,
+            2.2e-05
+          ],
+          "time_delta_seconds": 2.2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 30,
+          "decision_timestamp": "2026-09-02T23:03:08.669273+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "provenance_score.generated_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            7.1e-05,
+            1.6e-05
+          ],
+          "time_delta_seconds": 1.6e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 31,
+          "decision_timestamp": "2026-09-02T23:03:09.263043+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "cross_signal_confirmation.registry_stats.generated_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.591735,
+            3.1e-05
+          ],
+          "time_delta_seconds": 3.1e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 32,
+          "decision_timestamp": "2026-09-02T23:03:09.881012+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            3.1e-05
+          ],
+          "time_delta_seconds": 3.1e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 33,
+          "decision_timestamp": "2026-09-02T23:03:09.883487+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            2.8e-05
+          ],
+          "time_delta_seconds": 2.8e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 34,
+          "decision_timestamp": "2026-09-02T23:03:09.884351+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 35,
+          "decision_timestamp": "2026-09-02T23:03:10.474868+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 40,
+          "decision_timestamp": "2026-09-02T23:03:11.071109+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "macro.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            8.1e-05,
+            2.2e-05
+          ],
+          "time_delta_seconds": 2.2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 47,
+          "decision_timestamp": "2026-09-02T23:03:14.370168+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "probe.timestamp",
+            "data_provenance.generated_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000211,
+            9.7e-05,
+            3.5e-05
+          ],
+          "time_delta_seconds": 3.5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 48,
+          "decision_timestamp": "2026-09-02T23:03:14.564488+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "overview.timestamp",
+            "overview.free_tier.timestamp",
+            "data_provenance.generated_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000135,
+            0.12519,
+            7.1e-05,
+            2.6e-05
+          ],
+          "time_delta_seconds": 2.6e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 50,
+          "decision_timestamp": "2026-09-02T23:03:14.564766+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "book.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            23.864725,
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 55,
+          "decision_timestamp": "2026-09-02T23:03:15.194665+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            2.2e-05
+          ],
+          "time_delta_seconds": 2.2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 56,
+          "decision_timestamp": "2026-09-02T23:03:15.238511+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "screener.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000111,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 59,
+          "decision_timestamp": "2026-09-02T23:03:15.532961+00:00",
+          "timestamp_fields_found": 6,
+          "timestamp_sample_paths": [
+            "personalized_dashboard.economic_moat.timestamp",
+            "personalized_dashboard.financial_models[0].timestamp",
+            "personalized_dashboard.financial_models[1].timestamp",
+            "personalized_dashboard.financial_models[2].timestamp",
+            "report_meta.generated_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.23489,
+            0.15401,
+            0.127832,
+            0.101356,
+            0.101346,
+            0.101301
+          ],
+          "time_delta_seconds": 0.101301,
+          "pass": true
+        },
+        {
+          "capability_id": 66,
+          "decision_timestamp": "2026-09-02T23:03:15.885695+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.9e-05
+          ],
+          "time_delta_seconds": 1.9e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 69,
+          "decision_timestamp": "2026-09-02T23:03:15.887574+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "cross_domain_decision.cross_market.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000128,
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 86,
+          "decision_timestamp": "2026-09-02T23:03:20.518328+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "funding_rate.derivatives_overview.timestamp",
+            "funding_rate.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.5e-05,
+            0.109678,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 89,
+          "decision_timestamp": "2026-09-02T23:03:20.970836+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "taker_pressure.derivatives.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.114331,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 90,
+          "decision_timestamp": "2026-09-02T23:03:21.147237+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "derivatives_sentiment.derivatives.timestamp",
+            "derivatives_sentiment.derivatives.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.3e-05,
+            0.107068,
+            2.1e-05
+          ],
+          "time_delta_seconds": 2.1e-05,
+          "pass": true
+        }
+      ],
+      "8_stability_test": {
+        "hero": "Single-Sentence Oracle",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
+        "scenarios_tested": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ],
+        "loo_tests": [
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 24,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 90,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 24,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 90,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 24,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 90,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 24,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 90,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 24,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 25,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 26,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 27,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 28,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 29,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 30,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 31,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 32,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 33,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 34,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 35,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 55,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 56,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 59,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 66,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 90,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          }
+        ],
+        "loo_test_count": 120,
+        "fragile": false,
+        "stability_verdict": "STABLE"
+      },
+      "10_live_probe": {
+        "hero": "Single-Sentence Oracle",
+        "url": "https://blackdark-web-production.up.railway.app/api/oracle/data-hub/BTC",
+        "method": "GET",
+        "http_status": 200,
+        "path_type": "production_real",
+        "user_facing_path": "/oracle/BTC",
+        "response_body": {
+          "enabled": true,
+          "data_source": "live_fallback",
+          "asset": "BTC",
+          "timestamp": "2026-09-02T23:05:35.980145+00:00",
+          "geo_news": {
+            "headlines": [
+              {
+                "title": "Iranian attack on Saudi tanker killed two Filipino sailors, Saudi Arabia says",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 17:33:45 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Protests in Spain over government's handling of Ceuta migrant crisis",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 21:34:27 GMT",
+                "geopolitical": true
+              },
+              {
+                "title": "EU and Nato vow to step up pressure on Russia after 'new escalation' in Germany",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 16:49:00 GMT",
+                "geopolitical": true
+              },
+              {
+                "title": "Rosenberg: Putin's veiled threat to UK part of Russia's campaign against West",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 11:47:11 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Watch: Jury still unable to reach unanimous decision in Lindsay Clancy case",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 20:12:32 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Maltese tycoon acquitted of orchestrating murder of renowned journalist",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 19:05:31 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Netherlands moves billions in gold to London in 'crisis preparedness' move",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 17:21:00 GMT",
+                "geopolitical": true
+              },
+              {
+                "title": "Iran says US strike killed four at wedding in 'war crime' as US denies targeting civilians",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 15:33:19 GMT",
+                "geopolitical": true
+              },
+              {
+                "title": "US sailors arrive in Thailand's Pattaya after record 250 days at sea",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 10:04:28 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Uber shuts operations in Nigeria and Uganda with immediate effect",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 20:21:04 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Woman charged with juror intimidation in Lindsay Clancy trial",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 17:05:09 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Zelensky says airlines should avoid Russian airspace as Ukraine escalates drone operations",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 16:12:43 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Faisal Islam: Why bond market wildfire is keeping world leaders up at night",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 13:20:11 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Why are UK borrowing costs rising and what does it mean for me?",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 11:05:22 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Netherlands moves billions in gold to London in 'crisis preparedness' move",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 17:21:00 GMT",
+                "geopolitical": true
+              },
+              {
+                "title": "Lords call for AI 'kill switch' powers in UK",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 14:41:52 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Uber to cut over 3,000 jobs in major global restructuring",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 16:51:49 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Kids eat free and loyalty points - six ways to eat out but not break the bank",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Tue, 01 Sep 2026 23:26:38 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Will self-flying planes transform the skies?",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Tue, 01 Sep 2026 23:27:35 GMT",
+                "geopolitical": false
+              },
+              {
+                "title": "Fake 10 Downing Street listing exposes 'unfit' Booking.com, says consumer group",
+                "source": "feeds.bbci.co.uk",
+                "published_at": "Wed, 02 Sep 2026 01:27:34 GMT",
+                "geopolitical": false
+              }
+            ],
+            "geopolitical_headline_count": 6,
+            "macro_news_tone": "risk_off",
+            "sources": 5
+          },
+          "sentiment": {
+            "fear_greed_index": 63,
+            "fear_greed_label": "Greed",
+            "coingecko_trending": [
+              "PONS",
+              "AKE",
+              "CASHCAT",
+              "ARB",
+              "PUMP",
+              "UNI",
+              "PENGU"
+            ],
+            "reddit_hot_titles": [],
+            "sentiment_compound_proxy": 0.26
+          },
+          "derivatives": {
+            "asset": "BTC",
+            "defi_tvl_usd": 85257942733.91,
+            "defi_chain_count": 465,
+            "funding_rate": null,
+            "open_interest_usd": null,
+            "long_short_ratio": null,
+            "derivatives_bias": "neutral",
+            "sources": [
+              "DeFiLlama",
+              "Binance Futures Public API"
+            ]
+          },
+          "macro": {
+            "changes_1d_pct": {
+              "dxy": null,
+              "spx": null,
+              "vix": null,
+              "us10y": null,
+              "nasdaq": null,
+              "gold": null,
+              "oil": null
+            },
+            "macro_regime_proxy": "neutral",
+            "sources": [
+              "Yahoo Finance (free chart API)"
+            ]
+          },
+          "aggregators": {
+            "coingecko_global": {
+              "total_market_cap_usd": 2612496921418.5093,
+              "total_volume_usd": 72649966248.95386,
+              "btc_dominance_pct": 59.05624858553571,
+              "market_cap_change_24h_pct": -2.7278916783399687
+            },
+            "coincap_top10": [],
+            "sources": [
+              "CoinGecko",
+              "CoinCap"
+            ]
+          },
+          "free_llm_providers": [
+            "groq",
+            "gemini",
+            "openrouter",
+            "ollama"
+          ],
+          "pillars": [
+            "free_llm_chain",
+            "global_economic_news",
+            "sentiment_mesh",
+            "onchain_derivatives",
+            "macro_traditional",
+            "market_aggregators"
+          ],
+          "score_adjustment": -6.0,
+          "hub_reasons": [],
+          "hub_risks": [
+            "6 geopolitical/macro headlines — war/peace/policy shock risk.",
+            "Total crypto market cap -2.7% 24h — broad risk-off."
+          ]
+        },
+        "live": true
+      },
+      "feed_count": 24
+    },
+    {
+      "hero": "Public Accuracy Ledger",
+      "1_feed_map": [
+        {
+          "hero": "Public Accuracy Ledger",
+          "capability_id": 61,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_061",
+          "hero_engine": "oracle_track_record.py:public_track_record"
+        },
+        {
+          "hero": "Public Accuracy Ledger",
+          "capability_id": 63,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_063",
+          "hero_engine": "oracle_track_record.py:public_track_record"
+        },
+        {
+          "hero": "Public Accuracy Ledger",
+          "capability_id": 64,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_064",
+          "hero_engine": "oracle_track_record.py:public_track_record"
+        },
+        {
+          "hero": "Public Accuracy Ledger",
+          "capability_id": 65,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_065",
+          "hero_engine": "oracle_track_record.py:public_track_record"
+        },
+        {
+          "hero": "Public Accuracy Ledger",
+          "capability_id": 100,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_100",
+          "hero_engine": "oracle_track_record.py:public_track_record"
+        }
+      ],
+      "2_transparent_rules": [
+        {
+          "rule": "accuracy_pct = hits/(hits+misses)*100",
+          "file": "oracle_track_record.py",
+          "function": "public_track_record"
+        },
+        {
+          "rule": "chain verify: tip_hash links to prev_hash",
+          "file": "oracle_audit_chain.py",
+          "function": "verify_chain"
+        }
+      ],
+      "3_outlier_prevention": "none (discrete hit/miss counts; no numeric aggregation)",
+      "4_raw_vs_index": "raw_aggregate=resolved_count; normalized_index=accuracy_pct",
+      "5_cross_validation": "audit chain hash linkage verified independently of accuracy_pct",
+      "6_asymmetric_inputs": "misses weighted equally to hits in public display",
+      "7_lookahead_bias": [
+        {
+          "capability_id": 61,
+          "decision_timestamp": "2026-09-02T23:03:15.609859+00:00",
+          "timestamp_fields_found": 11,
+          "timestamp_sample_paths": [
+            "immutable_metrics.immutable_metrics.recent[0].timestamp",
+            "immutable_metrics.immutable_metrics.recent[1].timestamp",
+            "immutable_metrics.immutable_metrics.recent[2].timestamp",
+            "immutable_metrics.immutable_metrics.recent[3].timestamp",
+            "immutable_metrics.immutable_metrics.recent[4].timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            119387.237512,
+            119387.198784,
+            119387.156863,
+            119387.11774,
+            119387.078645,
+            119387.039204,
+            119387.000805,
+            119386.961333,
+            119386.922238,
+            119386.92182,
+            2.4e-05
+          ],
+          "time_delta_seconds": 2.4e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 63,
+          "decision_timestamp": "2026-09-02T23:03:15.610255+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "data_quality_provenance.provenance.generated_at",
+            "evidence_metadata.attached_at",
+            "provenance.generated_at",
+            "data_provenance.generated_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            7.2e-05,
+            3.4e-05,
+            1.3e-05,
+            1.3e-05
+          ],
+          "time_delta_seconds": 1.3e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 64,
+          "decision_timestamp": "2026-09-02T23:03:15.612377+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "metric_methodology.methodology_registry.generated_at",
+            "evidence_metadata.attached_at",
+            "provenance.generated_at",
+            "data_provenance.generated_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000105,
+            6.1e-05,
+            1.8e-05,
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 65,
+          "decision_timestamp": "2026-09-02T23:03:15.884387+00:00",
+          "timestamp_fields_found": 11,
+          "timestamp_sample_paths": [
+            "research_portal.research_portal.recent[0].timestamp",
+            "research_portal.research_portal.recent[1].timestamp",
+            "research_portal.research_portal.recent[2].timestamp",
+            "research_portal.research_portal.recent[3].timestamp",
+            "research_portal.research_portal.recent[4].timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            119387.51204,
+            119387.473312,
+            119387.431391,
+            119387.392268,
+            119387.353173,
+            119387.313732,
+            119387.275333,
+            119387.235861,
+            119387.196766,
+            119387.196348,
+            0.197838
+          ],
+          "time_delta_seconds": 0.197838,
+          "pass": true
+        },
+        {
+          "capability_id": 100,
+          "decision_timestamp": "2026-09-02T23:03:21.447697+00:00",
+          "timestamp_fields_found": 11,
+          "timestamp_sample_paths": [
+            "research_reports.research_reports.recent[0].timestamp",
+            "research_reports.research_reports.recent[1].timestamp",
+            "research_reports.research_reports.recent[2].timestamp",
+            "research_reports.research_reports.recent[3].timestamp",
+            "research_reports.research_reports.recent[4].timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            119393.07535,
+            119393.036622,
+            119392.994701,
+            119392.955578,
+            119392.916483,
+            119392.877042,
+            119392.838643,
+            119392.799171,
+            119392.760076,
+            119392.759658,
+            0.108359
+          ],
+          "time_delta_seconds": 0.108359,
+          "pass": true
+        }
+      ],
+      "8_stability_test": {
+        "hero": "Public Accuracy Ledger",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
+        "scenarios_tested": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ],
+        "loo_tests": [
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 61,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 61,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 61,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 61,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 61,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 63,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 64,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 65,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          }
+        ],
+        "loo_test_count": 25,
+        "fragile": false,
+        "stability_verdict": "STABLE"
+      },
+      "10_live_probe": {
+        "hero": "Public Accuracy Ledger",
+        "url": "https://blackdark-web-production.up.railway.app/api/oracle/audit-chain/verify",
+        "method": "GET",
+        "http_status": 200,
+        "path_type": "production_real",
+        "user_facing_path": "/oracle-accuracy",
+        "response_body": {
+          "valid": true,
+          "records": 48,
+          "broken_at_seq": null,
+          "chain_path": "data/oracle_audit_chain.jsonl"
+        },
+        "live": true
+      },
+      "feed_count": 5
+    },
+    {
+      "hero": "Arbitrage Scanner",
+      "1_feed_map": [
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 11,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_011",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 40,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_040",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 47,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_047",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 48,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_048",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 50,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_050",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 52,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_052",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 57,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_057",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 69,
+          "binding_file": "cap646/handlers/onchain.py",
+          "binding_function": "handle_onchain_capability",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 82,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_082",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 83,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_083",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 85,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_085",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 86,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_086",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 87,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_087",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 88,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_088",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        },
+        {
+          "hero": "Arbitrage Scanner",
+          "capability_id": 89,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_089",
+          "hero_engine": "arbitrage_service.py:scan_arbitrage_opportunities"
+        }
+      ],
+      "2_transparent_rules": [
+        {
+          "rule": "truth_score < 55 → reject",
+          "file": "net_edge_truth.py",
+          "function": "evaluate_net_edge_truth"
+        },
+        {
+          "rule": "net_profit <= 0 → not_executable",
+          "file": "arbitrage_service.py",
+          "function": "_execution_feasibility"
+        },
+        {
+          "rule": "quote_age_ms > 2500 → reject",
+          "file": "net_edge_truth.py",
+          "function": "_max_quote_age_ms"
+        }
+      ],
+      "3_outlier_prevention": "log1p on gross_spread_bps; min-max on net_profit_usdt across opportunities",
+      "4_raw_vs_index": "raw_aggregate=net_profit_usdt; normalized_index=truth_score (0-100)",
+      "5_cross_validation": "requires quote_age_ms + slippage_bps + crowd_decay independently",
+      "6_asymmetric_inputs": "negative net_profit always rejected regardless of gross spread",
+      "7_lookahead_bias": [
+        {
+          "capability_id": 11,
+          "decision_timestamp": "2026-09-02T23:03:05.470533+00:00",
+          "timestamp_fields_found": 21,
+          "timestamp_sample_paths": [
+            "historical_series[0].timestamp",
+            "historical_series[1].timestamp",
+            "historical_series[2].timestamp",
+            "historical_series[3].timestamp",
+            "historical_series[4].timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            84922.604993,
+            84921.336661,
+            84909.083207,
+            84908.326413,
+            84906.500764,
+            84845.14544,
+            84844.316909,
+            84843.04713,
+            84832.894345,
+            84832.162691,
+            84830.879783,
+            84818.65419,
+            84817.890959,
+            84816.174686,
+            84666.941498,
+            84666.044593,
+            84664.512849,
+            84641.918442,
+            84640.866791,
+            84639.571762,
+            2.1e-05
+          ],
+          "time_delta_seconds": 2.1e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 40,
+          "decision_timestamp": "2026-09-02T23:03:11.071109+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "macro.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            8.1e-05,
+            2.2e-05
+          ],
+          "time_delta_seconds": 2.2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 47,
+          "decision_timestamp": "2026-09-02T23:03:14.370168+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "probe.timestamp",
+            "data_provenance.generated_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000211,
+            9.7e-05,
+            3.5e-05
+          ],
+          "time_delta_seconds": 3.5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 48,
+          "decision_timestamp": "2026-09-02T23:03:14.564488+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "overview.timestamp",
+            "overview.free_tier.timestamp",
+            "data_provenance.generated_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000135,
+            0.12519,
+            7.1e-05,
+            2.6e-05
+          ],
+          "time_delta_seconds": 2.6e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 50,
+          "decision_timestamp": "2026-09-02T23:03:14.564766+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "book.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            23.864725,
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 52,
+          "decision_timestamp": "2026-09-02T23:03:14.565536+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "cross_asset_breadth.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            8.4e-05,
+            1.6e-05
+          ],
+          "time_delta_seconds": 1.6e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 57,
+          "decision_timestamp": "2026-09-02T23:03:15.239435+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "profitability_map.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            8.6e-05,
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 69,
+          "decision_timestamp": "2026-09-02T23:03:15.887574+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "cross_domain_decision.cross_market.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000128,
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 82,
+          "decision_timestamp": "2026-09-02T23:03:17.553811+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "coinbase_premium.all_sources.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.7e-05,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 83,
+          "decision_timestamp": "2026-09-02T23:03:19.499055+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "korea_premium.all_sources.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.6e-05,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 85,
+          "decision_timestamp": "2026-09-02T23:03:20.340014+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "futures_open_interest.derivatives_overview.timestamp",
+            "futures_open_interest.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.5e-05,
+            0.176681,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 86,
+          "decision_timestamp": "2026-09-02T23:03:20.518328+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "funding_rate.derivatives_overview.timestamp",
+            "funding_rate.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.5e-05,
+            0.109678,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 87,
+          "decision_timestamp": "2026-09-02T23:03:20.519039+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "estimated_leverage.verified_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            4e-05,
+            1.5e-05
+          ],
+          "time_delta_seconds": 1.5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 88,
+          "decision_timestamp": "2026-09-02T23:03:20.791660+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "liquidation.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            5.8e-05,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 89,
+          "decision_timestamp": "2026-09-02T23:03:20.970836+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "taker_pressure.derivatives.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.114331,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        }
+      ],
+      "8_stability_test": {
+        "hero": "Arbitrage Scanner",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
+        "scenarios_tested": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ],
+        "loo_tests": [
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 11,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 11,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 11,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 11,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 11,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 47,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 48,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 52,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 57,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 69,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 82,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 83,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 89,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          }
+        ],
+        "loo_test_count": 75,
+        "fragile": false,
+        "stability_verdict": "STABLE"
+      },
+      "10_live_probe": {
+        "hero": "Arbitrage Scanner",
+        "url": "https://blackdark-web-production.up.railway.app/api/oracle/net-edge-truth",
+        "method": "GET",
+        "http_status": 200,
+        "path_type": "production_real",
+        "user_facing_path": "/dashboard#arbitrage",
+        "response_body": {
+          "enabled": true,
+          "evaluated": 50,
+          "passed": 0,
+          "rejected": 50,
+          "reject_rate": 1.0,
+          "reject_reasons": {
+            "missing_net_profit": 50
+          },
+          "thresholds": {
+            "min_truth_score": 55.0,
+            "min_residual_usd": 0.08,
+            "max_quote_age_ms": 2500.0
+          }
+        },
+        "live": true
+      },
+      "feed_count": 15
+    },
+    {
+      "hero": "Whale Signal vs Noise",
+      "1_feed_map": [
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 1,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_001",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 2,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_002",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 3,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_003",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 4,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_004",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 5,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_005",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 6,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_006",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 7,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_007",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 8,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_008",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 14,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_014",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 15,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_015",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 72,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_072",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 75,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_075",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 81,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_081",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 85,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_085",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 86,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_086",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 88,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_088",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 91,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_091",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 92,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_092",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        },
+        {
+          "hero": "Whale Signal vs Noise",
+          "capability_id": 98,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_098",
+          "hero_engine": "whale_signal_classifier.py:classify_whale_alert"
+        }
+      ],
+      "2_transparent_rules": [
+        {
+          "rule": "custody/internal keywords → NOISE",
+          "file": "whale_signal_classifier.py",
+          "function": "_initial_whale_classification",
+          "line_ref": "L16-17"
+        },
+        {
+          "rule": "funding hedge cross-check",
+          "file": "whale_signal_classifier.py",
+          "function": "_apply_funding_hedge",
+          "line_ref": "L29-44"
+        },
+        {
+          "rule": "OI flat → confidence capped 0.5",
+          "file": "whale_signal_classifier.py",
+          "function": "_apply_oi_context",
+          "line_ref": "L54-57"
+        }
+      ],
+      "3_outlier_prevention": "log1p on amount_usd before classification threshold",
+      "4_raw_vs_index": "raw_aggregate=amount_usd; normalized_index=confidence (0-1)",
+      "5_cross_validation": "funding_rate + OI_change_pct must agree before SIGNAL label",
+      "6_asymmetric_inputs": "buy/accumulation vs sell/distribution use different funding hedge rules",
+      "7_lookahead_bias": [
+        {
+          "capability_id": 1,
+          "decision_timestamp": "2026-09-02T23:03:02.610329+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.006309,
+            3.9e-05
+          ],
+          "time_delta_seconds": 3.9e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 2,
+          "decision_timestamp": "2026-09-02T23:03:03.467845+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "data.labels.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.004594,
+            0.121509,
+            5e-05
+          ],
+          "time_delta_seconds": 5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 3,
+          "decision_timestamp": "2026-09-02T23:03:04.418065+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "data.labels.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.028029,
+            0.166735,
+            2.6e-05
+          ],
+          "time_delta_seconds": 2.6e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 4,
+          "decision_timestamp": "2026-09-02T23:03:04.420216+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            4.6e-05,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 5,
+          "decision_timestamp": "2026-09-02T23:03:04.425888+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "data.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            5.7e-05,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 6,
+          "decision_timestamp": "2026-09-02T23:03:04.613599+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            2.4e-05
+          ],
+          "time_delta_seconds": 2.4e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 7,
+          "decision_timestamp": "2026-09-02T23:03:04.708411+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 8,
+          "decision_timestamp": "2026-09-02T23:03:04.808744+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.9e-05
+          ],
+          "time_delta_seconds": 1.9e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 14,
+          "decision_timestamp": "2026-09-02T23:03:05.757371+00:00",
+          "timestamp_fields_found": 4,
+          "timestamp_sample_paths": [
+            "labels.timestamp",
+            "clusters.timestamp",
+            "arkham_entity.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.06747,
+            0.000283,
+            27.413768,
+            2.1e-05
+          ],
+          "time_delta_seconds": 2.1e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 15,
+          "decision_timestamp": "2026-09-02T23:03:05.758232+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "exchange_flow.verified_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            4.6e-05,
+            1.8e-05
+          ],
+          "time_delta_seconds": 1.8e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 72,
+          "decision_timestamp": "2026-09-02T23:03:15.888659+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.3e-05
+          ],
+          "time_delta_seconds": 1.3e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 75,
+          "decision_timestamp": "2026-09-02T23:03:15.888865+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.1e-05
+          ],
+          "time_delta_seconds": 1.1e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 81,
+          "decision_timestamp": "2026-09-02T23:03:15.890664+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.6e-05
+          ],
+          "time_delta_seconds": 1.6e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 85,
+          "decision_timestamp": "2026-09-02T23:03:20.340014+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "futures_open_interest.derivatives_overview.timestamp",
+            "futures_open_interest.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.5e-05,
+            0.176681,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 86,
+          "decision_timestamp": "2026-09-02T23:03:20.518328+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "funding_rate.derivatives_overview.timestamp",
+            "funding_rate.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.5e-05,
+            0.109678,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 88,
+          "decision_timestamp": "2026-09-02T23:03:20.791660+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "liquidation.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            5.8e-05,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 91,
+          "decision_timestamp": "2026-09-02T23:03:21.147657+00:00",
+          "timestamp_fields_found": 6,
+          "timestamp_sample_paths": [
+            "inter_entity_flow.inter_entity_flow.onchain_flows[0].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[1].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[2].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[3].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[4].timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000256,
+            0.000234,
+            0.000227,
+            0.000221,
+            0.000215,
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 92,
+          "decision_timestamp": "2026-09-02T23:03:21.148356+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.5e-05
+          ],
+          "time_delta_seconds": 1.5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 98,
+          "decision_timestamp": "2026-09-02T23:03:21.150465+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at",
+            "inbox.timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            8e-05,
+            1.5e-05
+          ],
+          "time_delta_seconds": 1.5e-05,
+          "pass": true
+        }
+      ],
+      "8_stability_test": {
+        "hero": "Whale Signal vs Noise",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
+        "scenarios_tested": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ],
+        "loo_tests": [
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 1,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 1,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 1,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 1,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 1,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 2,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 3,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 4,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 5,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 6,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 7,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 8,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 14,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 15,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 72,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 75,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          }
+        ],
+        "loo_test_count": 95,
+        "fragile": false,
+        "stability_verdict": "STABLE"
+      },
+      "10_live_probe": {
+        "hero": "Whale Signal vs Noise",
+        "url": "https://blackdark-web-production.up.railway.app/api/whale/signal-vs-noise",
+        "method": "GET",
+        "http_status": 200,
+        "path_type": "production_real",
+        "user_facing_path": "/dashboard#whales",
+        "response_body": {
+          "timestamp": "2026-09-02T23:05:36.769998+00:00",
+          "headline": "No major whale narratives in the current window — market in equilibrium.",
+          "one_sentence": "No major whale narratives in the current window — market in equilibrium.",
+          "stories": [
+            "No major whale narratives in the current window — market in equilibrium."
+          ],
+          "alert_count": 0,
+          "flow_count": 0,
+          "classified": [],
+          "classifier": "signal_vs_noise_v1",
+          "derivatives_wired": false,
+          "note": "Transfers ≠ trades. Funding/OI hedge check applied when available.",
+          "hero": "whale_intelligence_radar",
+          "acceptance": "one_plain_sentence_signal_vs_noise"
+        },
+        "live": true
+      },
+      "feed_count": 19
+    },
+    {
+      "hero": "Stealth Advisor",
+      "1_feed_map": [
+        {
+          "hero": "Stealth Advisor",
+          "capability_id": 40,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_040",
+          "hero_engine": "stealth_execution_advisor.py:advise_stealth_execution"
+        },
+        {
+          "hero": "Stealth Advisor",
+          "capability_id": 50,
+          "binding_file": "cap646/batch01_production.py",
+          "binding_function": "cap_050",
+          "hero_engine": "stealth_execution_advisor.py:advise_stealth_execution"
+        },
+        {
+          "hero": "Stealth Advisor",
+          "capability_id": 85,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_085",
+          "hero_engine": "stealth_execution_advisor.py:advise_stealth_execution"
+        },
+        {
+          "hero": "Stealth Advisor",
+          "capability_id": 86,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_086",
+          "hero_engine": "stealth_execution_advisor.py:advise_stealth_execution"
+        },
+        {
+          "hero": "Stealth Advisor",
+          "capability_id": 87,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_087",
+          "hero_engine": "stealth_execution_advisor.py:advise_stealth_execution"
+        },
+        {
+          "hero": "Stealth Advisor",
+          "capability_id": 88,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_088",
+          "hero_engine": "stealth_execution_advisor.py:advise_stealth_execution"
+        }
+      ],
+      "2_transparent_rules": [
+        {
+          "rule": "participation>0.02 → aggressive_slice",
+          "file": "stealth_execution_advisor.py",
+          "function": "_slice_guidance",
+          "line_ref": "L60-62"
+        },
+        {
+          "rule": "half_life<30s → edge_dying urgency",
+          "file": "stealth_execution_advisor.py",
+          "function": "_urgency_note",
+          "line_ref": "L81-83"
+        }
+      ],
+      "3_outlier_prevention": "min-max on participation ratio (notional/ADV); cap at 0.02",
+      "4_raw_vs_index": "raw_aggregate=notional_usd; normalized_index=participation_ratio",
+      "5_cross_validation": "book_depth + ADV + half_life must all be present for aggressive_slice",
+      "6_asymmetric_inputs": "buy vs sell use same slice math but different limit_offset_bps urgency",
+      "7_lookahead_bias": [
+        {
+          "capability_id": 40,
+          "decision_timestamp": "2026-09-02T23:03:11.071109+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "macro.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            8.1e-05,
+            2.2e-05
+          ],
+          "time_delta_seconds": 2.2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 50,
+          "decision_timestamp": "2026-09-02T23:03:14.564766+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "book.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            23.864725,
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 85,
+          "decision_timestamp": "2026-09-02T23:03:20.340014+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "futures_open_interest.derivatives_overview.timestamp",
+            "futures_open_interest.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.5e-05,
+            0.176681,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 86,
+          "decision_timestamp": "2026-09-02T23:03:20.518328+00:00",
+          "timestamp_fields_found": 3,
+          "timestamp_sample_paths": [
+            "funding_rate.derivatives_overview.timestamp",
+            "funding_rate.derivatives_overview.free_tier.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.5e-05,
+            0.109678,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 87,
+          "decision_timestamp": "2026-09-02T23:03:20.519039+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "estimated_leverage.verified_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            4e-05,
+            1.5e-05
+          ],
+          "time_delta_seconds": 1.5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 88,
+          "decision_timestamp": "2026-09-02T23:03:20.791660+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "liquidation.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            5.8e-05,
+            2e-05
+          ],
+          "time_delta_seconds": 2e-05,
+          "pass": true
+        }
+      ],
+      "8_stability_test": {
+        "hero": "Stealth Advisor",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
+        "scenarios_tested": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ],
+        "loo_tests": [
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 40,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 50,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 85,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 86,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 87,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 88,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          }
+        ],
+        "loo_test_count": 30,
+        "fragile": false,
+        "stability_verdict": "STABLE"
+      },
+      "10_live_probe": {
+        "hero": "Stealth Advisor",
+        "url": "https://blackdark-web-production.up.railway.app/api/whale/stealth-advisor",
+        "method": "POST",
+        "http_status": 200,
+        "path_type": "production_real",
+        "user_facing_path": "/dashboard#stealth",
+        "response_body": {
+          "asset": "BTC",
+          "side": "buy",
+          "notional_usd": 10000.0,
+          "average_daily_volume_usd": 25000000000.0,
+          "adv_source": "prior_table",
+          "top_depth_usd": null,
+          "depth_source": "book_no_mid",
+          "participation_of_adv": 0.0,
+          "participation_of_top_depth": null,
+          "recommended_slices": 1,
+          "slice_usd": 10000.0,
+          "style": "single_clip_ok",
+          "urgency": "normal",
+          "half_life_seconds": null,
+          "slice_plan": {
+            "algo": "LIMIT_CLIP_ADVISORY",
+            "window_sec": 60,
+            "interval_sec": 60,
+            "limit_offset_bps": 2.0,
+            "participation_target_per_slice": 0.001,
+            "slices": [
+              {
+                "slice_index": 1,
+                "notional_usd": 10000.0,
+                "delay_sec": 0,
+                "limit_offset_bps": 2.0,
+                "side": "buy",
+                "venue_preference": [
+                  "binance",
+                  "okx"
+                ],
+                "algo": "LIMIT_CLIP_ADVISORY"
+              }
+            ],
+            "note": "Advisory schedule only — does not place live SOR orders."
+          },
+          "advice": "Small vs ADV — single clip usually fine.",
+          "disclaimer": "Advisory only — not a guarantee against front-running. Not financial advice. Live stealth routing may require Whale execution keys.",
+          "hero_deepening": "portfolio_ai",
+          "status": "advisory_v2"
+        },
+        "live": true
+      },
+      "feed_count": 6
+    },
+    {
+      "hero": "B2B Feed",
+      "1_feed_map": [
+        {
+          "hero": "B2B Feed",
+          "capability_id": 67,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_067",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 68,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_068",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 71,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_071",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 74,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_074",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 77,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_077",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 81,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_081",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 84,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_084",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 91,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_091",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 92,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_092",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 98,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_098",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 99,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_099",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        },
+        {
+          "hero": "B2B Feed",
+          "capability_id": 100,
+          "binding_file": "cap646/batch02_production.py",
+          "binding_function": "cap_100",
+          "hero_engine": "whale_tracker.py:InstitutionalDataExporter.export_institutional_feed"
+        }
+      ],
+      "2_transparent_rules": [
+        {
+          "rule": "API key HMAC authorize",
+          "file": "whale_tracker.py",
+          "function": "InstitutionalDataExporter.authorize",
+          "line_ref": "L1040-1049"
+        },
+        {
+          "rule": "payload HMAC signature",
+          "file": "whale_tracker.py",
+          "function": "InstitutionalDataExporter.sign_payload",
+          "line_ref": "L1055-1062"
+        }
+      ],
+      "3_outlier_prevention": "log1p on flow_usd in CVVD rows; min-max on SII sector scores",
+      "4_raw_vs_index": "raw_aggregate=flow_usd per record; normalized_index=sector_inflow_index",
+      "5_cross_validation": "CVVD manipulation alerts + SII sector flows independently signed",
+      "6_asymmetric_inputs": "inflow vs outflow rows carry different flow_type semantics",
+      "7_lookahead_bias": [
+        {
+          "capability_id": 67,
+          "decision_timestamp": "2026-09-02T23:03:15.885978+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.3e-05
+          ],
+          "time_delta_seconds": 1.3e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 68,
+          "decision_timestamp": "2026-09-02T23:03:15.886243+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "bulk_delivery.generated_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            3e-05,
+            1.2e-05
+          ],
+          "time_delta_seconds": 1.2e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 71,
+          "decision_timestamp": "2026-09-02T23:03:15.888166+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "exchange_netflow.netflow.verified_at",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            3.6e-05,
+            1.5e-05
+          ],
+          "time_delta_seconds": 1.5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 74,
+          "decision_timestamp": "2026-09-02T23:03:15.888760+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "exchange_to_exchange_flow.exchange_to_exchange_flow.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            2.9e-05,
+            1.1e-05
+          ],
+          "time_delta_seconds": 1.1e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 77,
+          "decision_timestamp": "2026-09-02T23:03:15.889174+00:00",
+          "timestamp_fields_found": 6,
+          "timestamp_sample_paths": [
+            "stablecoin_flow.stablecoin_flow.onchain_flows[0].timestamp",
+            "stablecoin_flow.stablecoin_flow.onchain_flows[1].timestamp",
+            "stablecoin_flow.stablecoin_flow.onchain_flows[2].timestamp",
+            "stablecoin_flow.stablecoin_flow.onchain_flows[3].timestamp",
+            "stablecoin_flow.stablecoin_flow.onchain_flows[4].timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000249,
+            0.000229,
+            0.000221,
+            0.000215,
+            0.000209,
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 81,
+          "decision_timestamp": "2026-09-02T23:03:15.890664+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.6e-05
+          ],
+          "time_delta_seconds": 1.6e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 84,
+          "decision_timestamp": "2026-09-02T23:03:20.097176+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "fund_etf_data.fund_intelligence.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            6.6e-05,
+            2.1e-05
+          ],
+          "time_delta_seconds": 2.1e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 91,
+          "decision_timestamp": "2026-09-02T23:03:21.147657+00:00",
+          "timestamp_fields_found": 6,
+          "timestamp_sample_paths": [
+            "inter_entity_flow.inter_entity_flow.onchain_flows[0].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[1].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[2].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[3].timestamp",
+            "inter_entity_flow.inter_entity_flow.onchain_flows[4].timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000256,
+            0.000234,
+            0.000227,
+            0.000221,
+            0.000215,
+            1.4e-05
+          ],
+          "time_delta_seconds": 1.4e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 92,
+          "decision_timestamp": "2026-09-02T23:03:21.148356+00:00",
+          "timestamp_fields_found": 1,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            1.5e-05
+          ],
+          "time_delta_seconds": 1.5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 98,
+          "decision_timestamp": "2026-09-02T23:03:21.150465+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "evidence_metadata.attached_at",
+            "inbox.timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            8e-05,
+            1.5e-05
+          ],
+          "time_delta_seconds": 1.5e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 99,
+          "decision_timestamp": "2026-09-02T23:03:21.262629+00:00",
+          "timestamp_fields_found": 2,
+          "timestamp_sample_paths": [
+            "quicktake_feed.feed.timestamp",
+            "evidence_metadata.attached_at"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            0.000578,
+            2.1e-05
+          ],
+          "time_delta_seconds": 2.1e-05,
+          "pass": true
+        },
+        {
+          "capability_id": 100,
+          "decision_timestamp": "2026-09-02T23:03:21.447697+00:00",
+          "timestamp_fields_found": 11,
+          "timestamp_sample_paths": [
+            "research_reports.research_reports.recent[0].timestamp",
+            "research_reports.research_reports.recent[1].timestamp",
+            "research_reports.research_reports.recent[2].timestamp",
+            "research_reports.research_reports.recent[3].timestamp",
+            "research_reports.research_reports.recent[4].timestamp"
+          ],
+          "lookahead_violations": [],
+          "time_deltas_seconds": [
+            119393.07535,
+            119393.036622,
+            119392.994701,
+            119392.955578,
+            119392.916483,
+            119392.877042,
+            119392.838643,
+            119392.799171,
+            119392.760076,
+            119392.759658,
+            0.108359
+          ],
+          "time_delta_seconds": 0.108359,
+          "pass": true
+        }
+      ],
+      "8_stability_test": {
+        "hero": "B2B Feed",
+        "methodology": "expanded LOO — rotate exclusion across every input capability per scenario",
+        "scenarios_tested": [
+          "bullish_clear",
+          "bearish_clear",
+          "conflicting",
+          "missing_data",
+          "stale_data"
+        ],
+        "loo_tests": [
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 67,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bullish_clear",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 67,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "bearish_clear",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 67,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "conflicting",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 67,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "missing_data",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 67,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 68,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 71,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 74,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 77,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 81,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 84,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 91,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 92,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 98,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 99,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          },
+          {
+            "scenario": "stale_data",
+            "excluded_cap": 100,
+            "exclusions_count": 1,
+            "decision_flipped": false
+          }
+        ],
+        "loo_test_count": 60,
+        "fragile": false,
+        "stability_verdict": "STABLE"
+      },
+      "10_live_probe": {
+        "hero": "B2B Feed",
+        "url": "https://blackdark-web-production.up.railway.app/api/b2b/feed",
+        "method": "GET",
+        "http_status": 200,
+        "path_type": "production_real",
+        "user_facing_path": "/b2b",
+        "response_body": {
+          "product": "BLACKDARK Institutional Manipulation Feed",
+          "feed_version": "1.0.0",
+          "generated_at": "2026-09-02T23:05:37.074598+00:00",
+          "record_count": 0,
+          "methodology": {
+            "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
+            "sii": "Sector Inflow Index (capital acceleration)"
+          },
+          "records": [],
+          "signature": "84d559772a7cfa4d02427da869bfa63d23240983e83155d99d338918c0625699"
+        },
+        "live": true
+      },
+      "feed_count": 12
+    }
+  ],
+  "lookahead_summary": {
+    "total_caps_checked": 60,
+    "passed": 60,
+    "failed": 0
+  },
+  "live_probe_summary": {
+    "heroes_probed": 6,
+    "live_ok": 6
+  }
+}

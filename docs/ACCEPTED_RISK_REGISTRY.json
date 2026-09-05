@@ -1,0 +1,66 @@
+{
+  "registry_id": "ACCEPTED_RISK_CLOSURE_PATH",
+  "generated_at": "2026-09-01T22:30:00+00:00",
+  "decision_authority": "Institutional Owner (final countersignature — B110×3 reviewed, GET entitlement fix deployed)",
+  "owner_countersignature_required": false,
+  "entries": [
+    {
+      "rule": "B110",
+      "cwe_id": 703,
+      "severity": "LOW",
+      "file": "cap646/entitlements.py",
+      "lines": [
+        74,
+        129,
+        143
+      ],
+      "decision": "ACCEPTED_RISK",
+      "decision_author": "Cursor Agent",
+      "decision_date": "2026-09-01",
+      "rationale": "Secondary fail-open on optional probes only (L74 cap978 external import, L129 org_rbac.has_permission, L143 feature_allowed). Compensating controls: primary tier gate L86-114 is fail-secure with explicit deny; L129 scoped to org_id+perm caps; L143 inactive (no catalog feature_key). Not a Free→Institutional escalation path.",
+      "owner_countersigned_at": "2026-09-02T21:02:16.744944+00:00"
+    },
+    {
+      "rule": "B310",
+      "cwe_id": 22,
+      "severity": "MEDIUM",
+      "file": "scripts/complete_pdf_capabilities_826.py",
+      "line": 124,
+      "decision": "ACCEPTED_RISK",
+      "decision_author": "Cursor Agent",
+      "decision_date": "2026-09-01",
+      "rationale": "Operator-only offline audit; URL from CAPABILITIES_AUDIT_BASE env; not in runtime request path. Alternative: httpx with allowlist — deferred to post-closure hygiene.",
+      "owner_countersigned_at": "2026-09-02T21:02:16.744944+00:00"
+    },
+    {
+      "rule": "B314",
+      "cwe_id": 20,
+      "severity": "MEDIUM",
+      "file": "scripts/run_spine_coverage_snapshot.py",
+      "line": 47,
+      "decision": "FIXED",
+      "decision_author": "Cursor Agent",
+      "decision_date": "2026-09-02",
+      "rationale": "Shared scripts/cobertura_spine.py uses defusedxml.ElementTree.parse on trusted local pytest Cobertura output (also fixes run_closure_mandate_completion.py L35 and run_closure_mandate_last.py L202)."
+    },
+    {
+      "rule": "B310",
+      "cwe_id": 22,
+      "severity": "MEDIUM",
+      "file": "scripts/wave_00_passive_security_scan.py",
+      "line": 17,
+      "decision": "ACCEPTED_RISK",
+      "decision_author": "Cursor Agent",
+      "decision_date": "2026-09-01",
+      "rationale": "DevSecOps passive scan harness; excluded from sonar.sources runtime; operator-triggered only.",
+      "owner_countersigned_at": "2026-09-02T21:02:16.744944+00:00"
+    }
+  ],
+  "owner_countersignature": {
+    "signed_at": "2026-09-02T21:02:16.744944+00:00",
+    "scope": "Official Batch 01+02 institutional closure (IDs 1–100); B110×3 ACCEPTED_RISK countersigned after full review and GET entitlement fix (PR #358)",
+    "hmac_message": "INSTITUTIONAL_CLOSED",
+    "hmac_token_sha256_prefix": "427cbd89d4173d06",
+    "decision_authority": "Institutional Owner (written approval via agent session)"
+  }
+}

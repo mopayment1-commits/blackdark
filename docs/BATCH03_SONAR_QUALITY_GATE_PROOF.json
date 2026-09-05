@@ -1,0 +1,219 @@
+{
+  "generated_at": "2026-09-03T12:47:40.989340+00:00",
+  "scope": "Batch03 Sonar Quality Gate confirmation",
+  "target_branch": "cursor/batch-03-101-150-e85e",
+  "target_commits": [
+    "54779f649dd22edda0113f6e263361578f3631cf",
+    "af6fc36916b6d999d6d34b5dbfd22364cf817a97"
+  ],
+  "classification": "AWAITING_OWNER_ACTION",
+  "reason": "No SonarCloud analysis exists for PR #362 or branch cursor/batch-03-101-150-e85e (API 404). CI SonarCloud workflow on this branch fails before scanner at Coverage XML step. Cloud agent has no SONAR_TOKEN.",
+  "dashboard_links": {
+    "project_overview": "https://sonarcloud.io/project/overview?id=mopayment1-commits_blackdark",
+    "pull_request_362": "https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark&pullRequest=362",
+    "branch": "https://sonarcloud.io/dashboard?id=mopayment1-commits_blackdark&branch=cursor%2Fbatch-03-101-150-e85e"
+  },
+  "branch_pr_api": {
+    "branch_quality_gate_http": 404,
+    "branch_quality_gate": {
+      "errors": [
+        {
+          "msg": "Component 'mopayment1-commits_blackdark' on branch 'cursor/batch-03-101-150-e85e' not found"
+        }
+      ]
+    },
+    "pr362_quality_gate_http": 404,
+    "pr362_quality_gate": {
+      "errors": [
+        {
+          "msg": "Component 'mopayment1-commits_blackdark' of pull request '362' not found"
+        }
+      ]
+    }
+  },
+  "ci_evidence": {
+    "workflow": ".github/workflows/sonarcloud.yml",
+    "latest_run_url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33756488034",
+    "latest_run_head_sha": "54779f649dd22edda0113f6e263361578f3631cf",
+    "failure_example_run": "https://github.com/mopayment1-commits/blackdark/actions/runs/33754688828",
+    "failure_cause": "Coverage XML pytest failed: tests/cap646/test_closure_reject_04.py entitlement (cap 47/85 teaser)",
+    "sonar_ci_scanner_reached": false
+  },
+  "project_level_last_analysis": {
+    "key": "8d4c00cb-07dc-45fd-8678-4d19d5a390e9",
+    "date": "2026-09-02T16:01:53+0000",
+    "events": [
+      {
+        "key": "AaBi3VfHW1xShVCmASLM",
+        "category": "VERSION",
+        "name": "2026.08.12"
+      }
+    ],
+    "projectVersion": "2026.08.12",
+    "buildString": "2bfdd9e1bf769cc116b0a4fe3b41ba20f30198df",
+    "manualNewCodePeriodBaseline": false,
+    "revision": "2bfdd9e1bf769cc116b0a4fe3b41ba20f30198df"
+  },
+  "project_level_metrics_not_branch_specific": {
+    "quality_gate_status": "FAILED",
+    "quality_gate_raw_status": "ERROR",
+    "security_rating_letter": "E",
+    "security_rating_numeric": "5.0",
+    "reliability_rating_letter": "E",
+    "reliability_rating_numeric": "5.0",
+    "overall_coverage_pct": 45.0,
+    "new_code_coverage_pct": 48.81609886804834,
+    "duplicated_lines_density_pct": 0.7,
+    "new_duplicated_lines_density_pct": 0.5413326437376088,
+    "quality_gate_conditions": [
+      {
+        "status": "ERROR",
+        "metricKey": "new_reliability_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "5"
+      },
+      {
+        "status": "ERROR",
+        "metricKey": "new_security_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "5"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_maintainability_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "ERROR",
+        "metricKey": "new_coverage",
+        "comparator": "LT",
+        "periodIndex": 1,
+        "errorThreshold": "80",
+        "actualValue": "48.8"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_duplicated_lines_density",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "3",
+        "actualValue": "0.5"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_security_hotspots_reviewed",
+        "comparator": "LT",
+        "periodIndex": 1,
+        "errorThreshold": "100",
+        "actualValue": "100.0"
+      }
+    ],
+    "note": "Project-wide snapshot from last Sonar analysis (2026-09-02, commit 2bfdd9e1bf769cc116b0a4fe3b41ba20f30198df). NOT Batch03 branch commits."
+  },
+  "open_bugs_and_vulnerabilities_total": 12,
+  "open_bugs_and_vulnerabilities": [
+    {
+      "type": "BUG",
+      "severity": "BLOCKER",
+      "rule": "python:S930",
+      "file": "bd_platform/flash_crash_protection.py",
+      "line": 19,
+      "message": "Add the missing keyword arguments: 'exchange' 'current_obi' 'history' 'asset'"
+    },
+    {
+      "type": "BUG",
+      "severity": "MAJOR",
+      "rule": "python:S3923",
+      "file": "bd_platform/pro_trader_layer.py",
+      "line": 193,
+      "message": "This conditional expression returns the same value whether the condition is \"true\" or \"false\"."
+    },
+    {
+      "type": "BUG",
+      "severity": "MAJOR",
+      "rule": "python:S3923",
+      "file": "pdf_capability_registry.py",
+      "line": 270,
+      "message": "This conditional expression returns the same value whether the condition is \"true\" or \"false\"."
+    },
+    {
+      "type": "VULNERABILITY",
+      "severity": "MINOR",
+      "rule": "pythonsecurity:S5145",
+      "file": "audit_registry.py",
+      "line": 302,
+      "message": "Change this code to not log user-controlled data."
+    },
+    {
+      "type": "VULNERABILITY",
+      "severity": "MINOR",
+      "rule": "pythonsecurity:S5145",
+      "file": "audit_registry.py",
+      "line": 376,
+      "message": "Change this code to not log user-controlled data."
+    },
+    {
+      "type": "VULNERABILITY",
+      "severity": "MINOR",
+      "rule": "pythonsecurity:S5145",
+      "file": "signal_compounding.py",
+      "line": 110,
+      "message": "Change this code to not log user-controlled data."
+    },
+    {
+      "type": "VULNERABILITY",
+      "severity": "MINOR",
+      "rule": "pythonsecurity:S5145",
+      "file": "billing/audit_ledger.py",
+      "line": 67,
+      "message": "Change this code to not log user-controlled data."
+    },
+    {
+      "type": "VULNERABILITY",
+      "severity": "BLOCKER",
+      "rule": "pythonsecurity:S2083",
+      "file": "rvm/baseline.py",
+      "line": 224,
+      "message": "Change this code to not construct the path from user-controlled data."
+    },
+    {
+      "type": "VULNERABILITY",
+      "severity": "BLOCKER",
+      "rule": "pythonsecurity:S2083",
+      "file": "rvm/run.py",
+      "line": 98,
+      "message": "Change this code to not construct the path from user-controlled data."
+    },
+    {
+      "type": "BUG",
+      "severity": "MAJOR",
+      "rule": "pythonbugs:S2583",
+      "file": "rvm/verify.py",
+      "line": 134,
+      "message": "Fix this condition that always evaluates to true."
+    },
+    {
+      "type": "VULNERABILITY",
+      "severity": "BLOCKER",
+      "rule": "pythonsecurity:S2083",
+      "file": "cap978/soft_launch_closure.py",
+      "line": 293,
+      "message": "Change this code to not construct the path from user-controlled data."
+    },
+    {
+      "type": "BUG",
+      "severity": "BLOCKER",
+      "rule": "python:S930",
+      "file": "cap646/backend_executor.py",
+      "line": 107,
+      "message": "Add 1 missing arguments; 'evaluate_opportunity' expects at least 2 positional arguments."
+    }
+  ]
+}

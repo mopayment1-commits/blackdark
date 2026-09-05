@@ -1,0 +1,1906 @@
+{
+  "batch": "batch_01",
+  "deep_audit_at": "2026-08-30T20:17:18.592665+00:00",
+  "total": 118,
+  "classification_counts": {
+    "REUSED-LINK": 49,
+    "DEFERRED/DELEGATED": 18,
+    "VERIFIED-DEEP": 51
+  },
+  "verified_deep_native": 51,
+  "reused_link": 49,
+  "verified_deep_honest": 100,
+  "wrapper_only_unverified": 0,
+  "deferred_delegated": 18,
+  "rows": [
+    {
+      "capability_id": 638,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.build_contradiction_replay_254",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_contradiction_replay_254",
+          "suffix_id": 254,
+          "capability_id": 638
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 640,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.compute_half_life_clock_256",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_half_life_clock_256",
+          "suffix_id": 256,
+          "capability_id": 640
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 5,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_orderbook_skew_108",
+          "suffix_id": 108,
+          "capability_id": 5
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 641,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.security_trust_data_layer.proof_arena_lite_status_257",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "proof_arena_lite_status_257",
+          "suffix_id": 257,
+          "capability_id": 641
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 644,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.corpus_passport_status_260",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "corpus_passport_status_260",
+          "suffix_id": 260,
+          "capability_id": 644
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 33,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.retail_intelligence_layer.build_one_clear_answer_63",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_one_clear_answer_63",
+          "suffix_id": 63,
+          "capability_id": 33
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 111,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.market_analysis_layer.compute_spx_correlation_111",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 1,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.footprint_analytics.footprint_snapshot",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 2,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "trade_simulator.simulate_spot_trade",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 3,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.free_tier_capabilities.wallet_profiler_for_token",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 4,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.free_tier_capabilities.smart_money_tracking",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 14,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "market_context.whale_alert_message",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 44,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.intelligence_analysis_layer.analyze_arbitrage_opportunity_153",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "analyze_arbitrage_opportunity_153",
+          "suffix_id": 153,
+          "capability_id": 44
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 47,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.whales_institutional_layer.build_exchange_health_80",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_exchange_health_80",
+          "suffix_id": 80,
+          "capability_id": 47
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 60,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.legal_commercial_layer.pricing_transparency_manifest_60",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 63,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.retail_intelligence_layer.attach_clear_answer_63",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 86,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.run_whales_institutional_e2e_77_86",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 103,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer._compute_drawdown_duration_103",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 126,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.advanced_ta_risk_layer.dex_front_running_risk_126",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 330,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "trade_simulator.simulate_spot_trade",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 356,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.ingest_cointelegraph_rss_244",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "ingest_cointelegraph_rss_244",
+          "suffix_id": 244,
+          "capability_id": 356
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 637,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.build_kill_rate_widget_253",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_kill_rate_widget_253",
+          "suffix_id": 253,
+          "capability_id": 637
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 639,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.committee_one_pager_status_255",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "committee_one_pager_status_255",
+          "suffix_id": 255,
+          "capability_id": 639
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 642,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.since_you_left_top3_258",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "since_you_left_top3_258",
+          "suffix_id": 258,
+          "capability_id": 642
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 6,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_orderbook_skew_108",
+          "suffix_id": 108,
+          "capability_id": 6
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 73,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.build_multi_dim_analysis_73",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 164,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 183,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "transaction_risk_insight_130",
+          "suffix_id": 130,
+          "capability_id": 183
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 197,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 224,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "coinmarketcal_status_245",
+          "suffix_id": 245,
+          "capability_id": 224
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 279,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.build_share_card_68",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_share_card_68",
+          "suffix_id": 68,
+          "capability_id": 279
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 299,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.news_classifier.classify_headlines",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 339,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.apply_opportunity_filter_70",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "apply_opportunity_filter_70",
+          "suffix_id": 70,
+          "capability_id": 339
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 437,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.correlation_mindshare.compute_mindshare_correlation_288",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_mindshare_correlation_288",
+          "suffix_id": 288,
+          "capability_id": 437
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 441,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.intelligence_analysis_layer.stat_arb_insight_155",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "stat_arb_insight_155",
+          "suffix_id": 155,
+          "capability_id": 441
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 458,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.whales_institutional_layer.build_methodology_docs_86",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_methodology_docs_86",
+          "suffix_id": 86,
+          "capability_id": 458
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 525,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.run_backtest_74",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "run_backtest_74",
+          "suffix_id": 74,
+          "capability_id": 525
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 578,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.execution_rejected_layer.whale_behavior_analysis_216",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "whale_behavior_analysis_216",
+          "suffix_id": 216,
+          "capability_id": 578
+        }
+      },
+      "independent_test_passed": false,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 584,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.news_classifier.coindesk_feed",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 629,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "regulatory_compliance_guard.compliant_oracle_sentence",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 631,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.intelligence_ux_extensions_layer.live_ta_status_239",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "live_ta_status_239",
+          "suffix_id": 239,
+          "capability_id": 631
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 635,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.security_trust_data_layer.trad_simulator_rejected_status_249",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "trad_simulator_rejected_status_249",
+          "suffix_id": 249,
+          "capability_id": 635
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 645,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.data_sources_layer.compute_opportunity_score_150",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_opportunity_score_150",
+          "suffix_id": 150,
+          "capability_id": 645
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 704,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.free_tier_capabilities.defi_risk_radar",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 708,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.intelligence_analysis_layer.asset_registry_105_coins_156",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "asset_registry_105_coins_156",
+          "suffix_id": 156,
+          "capability_id": 708
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 725,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.risk_infrastructure_layer.full_white_label_status_174",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "full_white_label_status_174",
+          "suffix_id": 174,
+          "capability_id": 725
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 7,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_orderbook_skew_108",
+          "suffix_id": 108,
+          "capability_id": 7
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 49,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.flash_crash_protection.flash_crash_protection_status_49",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 50,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.onchain_platform_layer.compute_macro_event_nexus_133",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_macro_event_nexus_133",
+          "suffix_id": 133,
+          "capability_id": 50
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 55,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "due_diligence_bundle.build_full_due_diligence_bundle",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 62,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.institutional_b2b_layer.build_ic_report_87",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_ic_report_87",
+          "suffix_id": 87,
+          "capability_id": 62
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 118,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.advanced_ta_risk_layer.attach_risk_distribution_118",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 214,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.build_whale_narrative_71",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_whale_narrative_71",
+          "suffix_id": 71,
+          "capability_id": 214
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 245,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 382,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "heroes_quality.heroes_quality_manifest",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 812,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "heroes_quality.build_oqs_why_block",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 814,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "heroes_quality.build_ledger_share_kit",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 815,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "oracle_audit_chain.chain_summary",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 9,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.whales_institutional_layer.build_impact_analysis_78",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_impact_analysis_78",
+          "suffix_id": 78,
+          "capability_id": 9
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 10,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "instant_alert_engine.engine_stats",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 11,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "arbitrage_service.scan_arbitrage_opportunities",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 12,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.whales_institutional_layer.evaluate_liquidation_alert_82",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "evaluate_liquidation_alert_82",
+          "suffix_id": 82,
+          "capability_id": 12
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 13,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "evaluate_flexible_alert_75",
+          "suffix_id": 75,
+          "capability_id": 13
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 15,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.onchain_platform_layer.scan_flash_loan_vulnerabilities_132",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "scan_flash_loan_vulnerabilities_132",
+          "suffix_id": 132,
+          "capability_id": 15
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 17,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "alert_service.subscribe_alerts",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 18,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.alert_orchestration.alert_orchestration_status_18",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 19,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.get_alert_policy_75",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "get_alert_policy_75",
+          "suffix_id": 75,
+          "capability_id": 19
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 20,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.append_audit_event_242",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "append_audit_event_242",
+          "suffix_id": 242,
+          "capability_id": 20
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 21,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.alert_orchestration.alert_orchestration_status_18",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "alert_orchestration_status_18",
+          "suffix_id": 18,
+          "capability_id": 21
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 22,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.list_etherscan_watchlist_246",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "list_etherscan_watchlist_246",
+          "suffix_id": 246,
+          "capability_id": 22
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 25,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.footprint_analytics.footprint_snapshot",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 27,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "evaluate_flexible_alert_75",
+          "suffix_id": 75,
+          "capability_id": 27
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 28,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.retail_intelligence_layer.evaluate_contextual_alert_65",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "evaluate_contextual_alert_65",
+          "suffix_id": 65,
+          "capability_id": 28
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 29,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.retail_intelligence_layer.compare_discipline_66",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compare_discipline_66",
+          "suffix_id": 66,
+          "capability_id": 29
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 30,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "evaluate_flexible_alert_75",
+          "suffix_id": 75,
+          "capability_id": 30
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 34,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.market_analysis_layer.compute_orderbook_skew_108",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "compute_orderbook_skew_108",
+          "suffix_id": 108,
+          "capability_id": 34
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 36,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "risk_manager.is_trading_frozen",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 37,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "evaluate_flexible_alert_75",
+          "suffix_id": 75,
+          "capability_id": 37
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 40,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.arbitrage_portfolio_ux_layer.analyze_liquidity_capacity_189",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "analyze_liquidity_capacity_189",
+          "suffix_id": 189,
+          "capability_id": 40
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 45,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.free_tier_capabilities.smart_money_leaderboard",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 46,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.slippage_tolerance_optimizer.optimize_slippage_tolerance",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 48,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.ingest_bybit_price_243",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "ingest_bybit_price_243",
+          "suffix_id": 243,
+          "capability_id": 48
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 56,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.market_analysis_layer.attach_market_health_bundle_106_112_114",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "attach_market_health_bundle_106_112_114",
+          "suffix_id": 114,
+          "capability_id": 56
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 59,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.legal_commercial_layer.create_sar_workflow_59",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 69,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_ttv_flow_69",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 71,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.build_whale_narrative_71",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 72,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.classify_onchain_signal_72",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 74,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.run_backtest_74",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 75,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.pro_trader_layer.evaluate_flexible_alert_75",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 77,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.build_advanced_risk_report_77",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 79,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.analyze_wallet_surveillance_79",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 81,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.build_unified_portfolio_view_81",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 85,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer.enrich_openapi_with_fee_metadata_85",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 88,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_b2b_layer.map_org_role_to_team_88",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 91,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_b2b_layer.compute_vwap_deviation_91",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 92,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.institutional_b2b_layer.build_exchange_health_with_counterparty_92",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 96,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.infra_intelligence_layer.enqueue_stream_event_96",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 98,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.infra_intelligence_layer.validate_signal_uniqueness_98",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 106,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_contagion_vector_106",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 110,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.attach_whale_extensions_107_110",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 103,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.whales_institutional_layer._compute_drawdown_duration_103",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 106,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.compute_contagion_vector_106",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 110,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.market_analysis_layer.attach_whale_extensions_107_110",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 111,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.market_analysis_layer.compute_spx_correlation_111",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "heroes_delegate"
+        ],
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 118,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.advanced_ta_risk_layer.attach_risk_distribution_118",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 126,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.advanced_ta_risk_layer.dex_front_running_risk_126",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 164,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 183,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "transaction_risk_insight_130",
+          "suffix_id": 130,
+          "capability_id": 183
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 197,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 214,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.build_whale_narrative_71",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_whale_narrative_71",
+          "suffix_id": 71,
+          "capability_id": 214
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 224,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "coinmarketcal_status_245",
+          "suffix_id": 245,
+          "capability_id": 224
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 245,
+      "classification": "DEFERRED/DELEGATED",
+      "underlying": "bd_platform.security_trust_data_layer.coinmarketcal_status_245",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 279,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.build_share_card_68",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "build_share_card_68",
+          "suffix_id": 68,
+          "capability_id": 279
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 299,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.news_classifier.classify_headlines",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 330,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "trade_simulator.simulate_spot_trade",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 339,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.apply_opportunity_filter_70",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "apply_opportunity_filter_70",
+          "suffix_id": 70,
+          "capability_id": 339
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 356,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.security_trust_data_layer.ingest_cointelegraph_rss_244",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "ingest_cointelegraph_rss_244",
+          "suffix_id": 244,
+          "capability_id": 356
+        }
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 382,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "heroes_quality.heroes_quality_manifest",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    }
+  ]
+}

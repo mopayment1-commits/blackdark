@@ -1,0 +1,8 @@
+{
+  "status": "IMPLEMENTED_AND_TESTED_LOCAL",
+  "tests": [
+    "latency_ms on strangler payloads",
+    "health endpoints shared"
+  ],
+  "live_dashboards": "REQUIRES_LIVE"
+}

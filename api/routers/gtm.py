@@ -12,13 +12,23 @@ router = APIRouter(tags=["gtm"])
 @router.get("/api/platform/stats")
 async def platform_stats():
     from billing_service import billing_configured
-    from database import count_telegram_free_subscribers, fetch_platform_user_stats
 
-    stats = await fetch_platform_user_stats()
+    stats: dict = {}
+    stats_error: str | None = None
+    telegram_subs = 0
+    try:
+        from database import count_telegram_free_subscribers, fetch_platform_user_stats
+
+        stats = await fetch_platform_user_stats()
+        telegram_subs = await count_telegram_free_subscribers()
+    except Exception as exc:
+        stats_error = type(exc).__name__
     stats["billing_configured"] = billing_configured()
     stats["stripe_configured"] = billing_configured()
     stats["telegram_configured"] = bool(os.getenv("TELEGRAM_BOT_TOKEN"))
-    stats["telegram_free_subscribers"] = await count_telegram_free_subscribers()
+    stats["telegram_free_subscribers"] = telegram_subs
+    if stats_error:
+        stats["stats_error"] = stats_error
     return stats
 
 

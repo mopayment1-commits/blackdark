@@ -1,0 +1,11 @@
+{
+  "attestation_id": "GATE_FULL_PROVENANCE",
+  "command": "/workspace/.venv/bin/python -m pytest tests/cap646/test_institutional_gate.py::test_institutional_gate_full -q --tb=no",
+  "commit_hash": "4f928ced2ce340a0b1e6fd451b822d2b768f5f90",
+  "started_at_utc": "2026-09-02T00:27:55.786556+00:00",
+  "finished_at_utc": "2026-09-02T00:46:07.618854+00:00",
+  "elapsed_seconds": 1091.8,
+  "exit_code": 0,
+  "stdout_tail": ".                                                                        [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_institutional_gate.py: 6452 warnings\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\ntests/cap646/test_institutional_gate.py: 124 warnings\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:204: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape[::-1]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+  "stderr_tail": ""
+}

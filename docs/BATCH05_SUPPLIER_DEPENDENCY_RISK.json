@@ -1,0 +1,16 @@
+{
+  "providers": [
+    {
+      "name": "Railway",
+      "purpose": "hosting",
+      "fallback": "none in repo",
+      "risk": "P0 \u2014 compute limit"
+    },
+    {
+      "name": "CoinGecko/footprint stubs",
+      "purpose": "market data",
+      "fallback": "degraded ok=false",
+      "risk": "P2"
+    }
+  ]
+}

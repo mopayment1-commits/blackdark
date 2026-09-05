@@ -1,0 +1,1010 @@
+{
+  "audit_id": "CLOSURE_MANDATE_FINAL",
+  "generated_at": "2026-09-01T22:04:26.394487+00:00",
+  "ssot_row_count": 100,
+  "bandit": {
+    "high": 0,
+    "medium": 0,
+    "low": 3,
+    "results": [
+      {
+        "code": "73                     }\n74             except Exception:\n75                 pass\n76 \n",
+        "col_offset": 12,
+        "end_col_offset": 20,
+        "filename": "cap646/entitlements.py",
+        "issue_confidence": "HIGH",
+        "issue_cwe": {
+          "id": 703,
+          "link": "https://cwe.mitre.org/data/definitions/703.html"
+        },
+        "issue_severity": "LOW",
+        "issue_text": "Try, Except, Pass detected.",
+        "line_number": 74,
+        "line_range": [
+          74,
+          75
+        ],
+        "more_info": "https://bandit.readthedocs.io/en/1.8.3/plugins/b110_try_except_pass.html",
+        "test_id": "B110",
+        "test_name": "try_except_pass"
+      },
+      {
+        "code": "128                     }\n129             except Exception:\n130                 pass\n131 \n",
+        "col_offset": 12,
+        "end_col_offset": 20,
+        "filename": "cap646/entitlements.py",
+        "issue_confidence": "HIGH",
+        "issue_cwe": {
+          "id": 703,
+          "link": "https://cwe.mitre.org/data/definitions/703.html"
+        },
+        "issue_severity": "LOW",
+        "issue_text": "Try, Except, Pass detected.",
+        "line_number": 129,
+        "line_range": [
+          129,
+          130
+        ],
+        "more_info": "https://bandit.readthedocs.io/en/1.8.3/plugins/b110_try_except_pass.html",
+        "test_id": "B110",
+        "test_name": "try_except_pass"
+      },
+      {
+        "code": "142                 }\n143         except Exception:\n144             pass\n145 \n",
+        "col_offset": 8,
+        "end_col_offset": 16,
+        "filename": "cap646/entitlements.py",
+        "issue_confidence": "HIGH",
+        "issue_cwe": {
+          "id": 703,
+          "link": "https://cwe.mitre.org/data/definitions/703.html"
+        },
+        "issue_severity": "LOW",
+        "issue_text": "Try, Except, Pass detected.",
+        "line_number": 143,
+        "line_range": [
+          143,
+          144
+        ],
+        "more_info": "https://bandit.readthedocs.io/en/1.8.3/plugins/b110_try_except_pass.html",
+        "test_id": "B110",
+        "test_name": "try_except_pass"
+      }
+    ]
+  },
+  "bandit_scripts": {
+    "high": 0,
+    "medium": 3,
+    "low": 78
+  },
+  "radon_cc_histogram": {
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 0,
+    "E": 0,
+    "F": 0
+  },
+  "pylint_r0801_count": 3,
+  "pylint_r0801_lines": [
+    "cap646/handlers/batch02.py:1:0: R0801: Similar lines in 2 files",
+    "    from bd_platform.infra_intelligence_layer import validate_oracle_freshness_101 (duplicate-code)",
+    "cap646/handlers/batch02.py:1:0: R0801: Similar lines in 2 files",
+    "        ) (duplicate-code)",
+    "cap646/handlers/batch02.py:1:0: R0801: Similar lines in 2 files",
+    "    return await fn(symbol=symbol, address=address, params=params) (duplicate-code)"
+  ],
+  "jscpd_duplicate_count": 0,
+  "jscpd": {
+    "exit_code": 0,
+    "duplicates": [],
+    "statistics": {
+      "detectionDate": "2026-09-01T22:03:57.516Z",
+      "formats": {
+        "python": {
+          "sources": {
+            "cap646/handlers/verified.py": {
+              "lines": 110,
+              "tokens": 989,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/platform.py": {
+              "lines": 12,
+              "tokens": 97,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/onchain.py": {
+              "lines": 79,
+              "tokens": 789,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/market.py": {
+              "lines": 160,
+              "tokens": 1371,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/institutional.py": {
+              "lines": 153,
+              "tokens": 1168,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/execution.py": {
+              "lines": 55,
+              "tokens": 431,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/derivatives.py": {
+              "lines": 45,
+              "tokens": 415,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/data.py": {
+              "lines": 67,
+              "tokens": 532,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/batch03.py": {
+              "lines": 11,
+              "tokens": 100,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/batch02.py": {
+              "lines": 11,
+              "tokens": 100,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/batch01.py": {
+              "lines": 11,
+              "tokens": 100,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/alerts.py": {
+              "lines": 30,
+              "tokens": 312,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/ai.py": {
+              "lines": 104,
+              "tokens": 928,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/_params.py": {
+              "lines": 8,
+              "tokens": 80,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/_batch_route.py": {
+              "lines": 14,
+              "tokens": 117,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/handlers/__init__.py": {
+              "lines": 35,
+              "tokens": 197,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/batch_spine.py": {
+              "lines": 25,
+              "tokens": 235,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/runtime.py": {
+              "lines": 192,
+              "tokens": 2131,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/batch02_dedicated.py": {
+              "lines": 449,
+              "tokens": 7138,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/batch02_production.py": {
+              "lines": 68,
+              "tokens": 594,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            },
+            "cap646/batch01_production.py": {
+              "lines": 132,
+              "tokens": 1122,
+              "sources": 1,
+              "clones": 0,
+              "duplicatedLines": 0,
+              "duplicatedTokens": 0,
+              "percentage": 0,
+              "percentageTokens": 0,
+              "newDuplicatedLines": 0,
+              "newClones": 0
+            }
+          },
+          "total": {
+            "lines": 1771,
+            "tokens": 18946,
+            "sources": 21,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        }
+      },
+      "total": {
+        "lines": 1771,
+        "tokens": 18946,
+        "sources": 21,
+        "clones": 0,
+        "duplicatedLines": 0,
+        "duplicatedTokens": 0,
+        "percentage": 0,
+        "percentageTokens": 0,
+        "newDuplicatedLines": 0,
+        "newClones": 0
+      }
+    }
+  },
+  "split_brain_56_dual_path": [
+    {
+      "capability_id": 1,
+      "parallel_path_module": "cap646.batch01_production.cap_001",
+      "official_surface": "smart_money_leaderboard",
+      "official_success": true,
+      "parallel_surface": "smart_money_leaderboard",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 2,
+      "parallel_path_module": "cap646.batch01_production.cap_002",
+      "official_surface": "wallet_profiler",
+      "official_success": true,
+      "parallel_surface": "wallet_profiler",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 3,
+      "parallel_path_module": "cap646.batch01_production.cap_003",
+      "official_surface": "wallet_profiler_for_token",
+      "official_success": true,
+      "parallel_surface": "wallet_profiler_for_token",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 4,
+      "parallel_path_module": "cap646.batch01_production.cap_004",
+      "official_surface": "smart_money_tracking",
+      "official_success": true,
+      "parallel_surface": "smart_money_tracking",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 5,
+      "parallel_path_module": "cap646.batch01_production.cap_005",
+      "official_surface": "smart_money_accumulation_detection",
+      "official_success": true,
+      "parallel_surface": "smart_money_accumulation_detection",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 6,
+      "parallel_path_module": "cap646.batch01_production.cap_006",
+      "official_surface": "smart_money_token_screener",
+      "official_success": true,
+      "parallel_surface": "smart_money_token_screener",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 7,
+      "parallel_path_module": "cap646.batch01_production.cap_007",
+      "official_surface": "holder_distribution_intelligence",
+      "official_success": true,
+      "parallel_surface": "holder_distribution_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 10,
+      "parallel_path_module": "cap646.batch01_production.cap_010",
+      "official_surface": "wallet_pnl_analysis",
+      "official_success": true,
+      "parallel_surface": "wallet_pnl_analysis",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 11,
+      "parallel_path_module": "cap646.batch01_production.cap_011",
+      "official_surface": "wallet_historical_performance_win_rate",
+      "official_success": true,
+      "parallel_surface": "wallet_historical_performance_win_rate",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 12,
+      "parallel_path_module": "cap646.batch01_production.cap_012",
+      "official_surface": "wallet_entry_exit_analysis",
+      "official_success": true,
+      "parallel_surface": "wallet_entry_exit_analysis",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 13,
+      "parallel_path_module": "cap646.batch01_production.cap_013",
+      "official_surface": "wallet_counterparty_relationship_analysis",
+      "official_success": true,
+      "parallel_surface": "wallet_counterparty_relationship_analysis",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 14,
+      "parallel_path_module": "cap646.batch01_production.cap_014",
+      "official_surface": "entity_aware_wallet_intelligence",
+      "official_success": true,
+      "parallel_surface": "entity_aware_wallet_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 17,
+      "parallel_path_module": "cap646.batch01_production.cap_017",
+      "official_surface": "smart_alerts",
+      "official_success": true,
+      "parallel_surface": "smart_alerts",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 18,
+      "parallel_path_module": "cap646.batch01_production.cap_018",
+      "official_surface": "custom_wallet_labels",
+      "official_success": true,
+      "parallel_surface": "custom_wallet_labels",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 19,
+      "parallel_path_module": "cap646.batch01_production.cap_019",
+      "official_surface": "wallet_token_watchlists",
+      "official_success": true,
+      "parallel_surface": "wallet_token_watchlists",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 20,
+      "parallel_path_module": "cap646.batch01_production.cap_020",
+      "official_surface": "multi_chain_portfolio_intelligence",
+      "official_success": true,
+      "parallel_surface": "multi_chain_portfolio_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 21,
+      "parallel_path_module": "cap646.batch01_production.cap_021",
+      "official_surface": "transaction_decoder",
+      "official_success": true,
+      "parallel_surface": "transaction_decoder",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 22,
+      "parallel_path_module": "cap646.batch01_production.cap_022",
+      "official_surface": "instant_wallet_due_diligence",
+      "official_success": true,
+      "parallel_surface": "instant_wallet_due_diligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 25,
+      "parallel_path_module": "cap646.batch01_production.cap_025",
+      "official_surface": "signal_explanation_workflow",
+      "official_success": true,
+      "parallel_surface": "signal_explanation_workflow",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 27,
+      "parallel_path_module": "cap646.batch01_production.cap_027",
+      "official_surface": "smart_money_historical_trend_analysis",
+      "official_success": true,
+      "parallel_surface": "smart_money_historical_trend_analysis",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 28,
+      "parallel_path_module": "cap646.batch01_production.cap_028",
+      "official_surface": "smart_money_conviction_engine",
+      "official_success": true,
+      "parallel_surface": "smart_money_conviction_engine",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 29,
+      "parallel_path_module": "cap646.batch01_production.cap_029",
+      "official_surface": "cross_market_decision_intelligence_engine",
+      "official_success": true,
+      "parallel_surface": "cross_market_decision_intelligence_engine",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 30,
+      "parallel_path_module": "cap646.batch01_production.cap_030",
+      "official_surface": "evidence_confidence_layer",
+      "official_success": true,
+      "parallel_surface": "evidence_confidence_layer",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 33,
+      "parallel_path_module": "cap646.batch01_production.cap_033",
+      "official_surface": "smart_money_actionability_score",
+      "official_success": true,
+      "parallel_surface": "smart_money_actionability_score",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 34,
+      "parallel_path_module": "cap646.batch01_production.cap_034",
+      "official_surface": "beginner_decision_mode",
+      "official_success": true,
+      "parallel_surface": "beginner_decision_mode",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 36,
+      "parallel_path_module": "cap646.batch01_production.cap_036",
+      "official_surface": "on_chain_metrics_library",
+      "official_success": true,
+      "parallel_surface": "on_chain_metrics_library",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 37,
+      "parallel_path_module": "cap646.batch01_production.cap_037",
+      "official_surface": "entity_adjusted_metrics",
+      "official_success": true,
+      "parallel_surface": "entity_adjusted_metrics",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 40,
+      "parallel_path_module": "cap646.batch01_production.cap_040",
+      "official_surface": "mvrv_mvrv_z_score_suite",
+      "official_success": true,
+      "parallel_surface": "mvrv_mvrv_z_score_suite",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 44,
+      "parallel_path_module": "cap646.batch01_production.cap_044",
+      "official_surface": "exchange_balance_netflow_intelligence",
+      "official_success": true,
+      "parallel_surface": "exchange_balance_netflow_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 45,
+      "parallel_path_module": "cap646.batch01_production.cap_045",
+      "official_surface": "etf_flow_intelligence",
+      "official_success": true,
+      "parallel_surface": "etf_flow_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 46,
+      "parallel_path_module": "cap646.batch01_production.cap_046",
+      "official_surface": "digital_asset_treasury_company_intelligence",
+      "official_success": true,
+      "parallel_surface": "digital_asset_treasury_company_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 47,
+      "parallel_path_module": "cap646.batch01_production.cap_047",
+      "official_surface": "spot_market_metrics_suite",
+      "official_success": true,
+      "parallel_surface": "spot_market_metrics_suite",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 48,
+      "parallel_path_module": "cap646.batch01_production.cap_048",
+      "official_surface": "futures_intelligence_suite",
+      "official_success": true,
+      "parallel_surface": "futures_intelligence_suite",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 49,
+      "parallel_path_module": "cap646.batch01_production.cap_049",
+      "official_surface": "derivatives_intelligence",
+      "official_success": true,
+      "parallel_surface": "derivatives_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 55,
+      "parallel_path_module": "cap646.batch01_production.cap_055",
+      "official_surface": "nvt_fair_value_model",
+      "official_success": true,
+      "parallel_surface": "nvt_fair_value_model",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 56,
+      "parallel_path_module": "cap646.batch01_production.cap_056",
+      "official_surface": "token_screener",
+      "official_success": true,
+      "parallel_surface": "token_screener",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 59,
+      "parallel_path_module": "cap646.batch01_production.cap_059",
+      "official_surface": "personalized_research_dashboards",
+      "official_success": true,
+      "parallel_surface": "personalized_research_dashboards",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 60,
+      "parallel_path_module": "cap646.batch01_production.cap_060",
+      "official_surface": "metric_based_smart_alerts",
+      "official_success": true,
+      "parallel_surface": "metric_based_smart_alerts",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 62,
+      "parallel_path_module": "cap646.batch02_production.cap_062",
+      "official_surface": "institutional_backtesting_data_layer",
+      "official_success": true,
+      "parallel_surface": "institutional_backtesting_data_layer",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 63,
+      "parallel_path_module": "cap646.batch02_production.cap_063",
+      "official_surface": "data_quality_provenance_layer",
+      "official_success": true,
+      "parallel_surface": "data_quality_provenance_layer",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 69,
+      "parallel_path_module": "cap646.handlers.onchain.handle_onchain_capability",
+      "official_surface": "cross_domain_decision_intelligence_layer",
+      "official_success": true,
+      "parallel_surface": null,
+      "parallel_success": false,
+      "outputs_match": false
+    },
+    {
+      "capability_id": 71,
+      "parallel_path_module": "cap646.batch02_production.cap_071",
+      "official_surface": "exchange_inflow_outflow_netflow",
+      "official_success": true,
+      "parallel_surface": "exchange_inflow_outflow_netflow",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 72,
+      "parallel_path_module": "cap646.batch02_production.cap_072",
+      "official_surface": "exchange_whale_ratio",
+      "official_success": true,
+      "parallel_surface": "exchange_whale_ratio",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 73,
+      "parallel_path_module": "cap646.batch02_production.cap_073",
+      "official_surface": "exchange_address_transaction_activity",
+      "official_success": true,
+      "parallel_surface": "exchange_address_transaction_activity",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 74,
+      "parallel_path_module": "cap646.batch02_production.cap_074",
+      "official_surface": "exchange_to_exchange_flow_intelligence",
+      "official_success": true,
+      "parallel_surface": "exchange_to_exchange_flow_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 75,
+      "parallel_path_module": "cap646.batch02_production.cap_075",
+      "official_surface": "exchange_internal_flow_filter",
+      "official_success": true,
+      "parallel_surface": "exchange_internal_flow_filter",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 77,
+      "parallel_path_module": "cap646.batch02_production.cap_077",
+      "official_surface": "stablecoin_exchange_flow_intelligence",
+      "official_success": true,
+      "parallel_surface": "stablecoin_exchange_flow_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 79,
+      "parallel_path_module": "cap646.batch02_production.cap_079",
+      "official_surface": "miner_flow_intelligence",
+      "official_success": true,
+      "parallel_surface": "miner_flow_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 81,
+      "parallel_path_module": "cap646.batch02_production.cap_081",
+      "official_surface": "whale_accumulation_distribution_intelligence",
+      "official_success": true,
+      "parallel_surface": "whale_accumulation_distribution_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 85,
+      "parallel_path_module": "cap646.batch02_production.cap_085",
+      "official_surface": "futures_open_interest_intelligence",
+      "official_success": true,
+      "parallel_surface": "futures_open_interest_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 86,
+      "parallel_path_module": "cap646.batch02_production.cap_086",
+      "official_surface": "funding_rate_intelligence",
+      "official_success": true,
+      "parallel_surface": "funding_rate_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 88,
+      "parallel_path_module": "cap646.batch02_production.cap_088",
+      "official_surface": "liquidation_intelligence",
+      "official_success": true,
+      "parallel_surface": "liquidation_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 91,
+      "parallel_path_module": "cap646.batch02_production.cap_091",
+      "official_surface": "inter_entity_flow_intelligence",
+      "official_success": true,
+      "parallel_surface": "inter_entity_flow_intelligence",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 92,
+      "parallel_path_module": "cap646.batch02_production.cap_092",
+      "official_surface": "address_labels_cohorts",
+      "official_success": true,
+      "parallel_surface": "address_labels_cohorts",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 96,
+      "parallel_path_module": "cap646.batch02_production.cap_096",
+      "official_surface": "personal_dashboards",
+      "official_success": true,
+      "parallel_surface": "personal_dashboards",
+      "parallel_success": true,
+      "outputs_match": true
+    },
+    {
+      "capability_id": 98,
+      "parallel_path_module": "cap646.batch02_production.cap_098",
+      "official_surface": "whale_movement_alerts",
+      "official_success": true,
+      "parallel_surface": "whale_movement_alerts",
+      "parallel_success": true,
+      "outputs_match": true
+    }
+  ],
+  "split_brain_outputs_match_count": 55,
+  "split_brain_outputs_mismatch_count": 1,
+  "mece_rerun_with_excluded": {
+    "excluded_probe_ids": [
+      175,
+      214,
+      245,
+      584,
+      629,
+      630,
+      631,
+      642,
+      644,
+      646
+    ],
+    "matrix_2_base_pairs_flagged": 8,
+    "matrix_4_base_pairs_flagged": 4,
+    "matrix_2_excluded_probe_partial": [],
+    "matrix_4_excluded_probe_partial": [],
+    "open_risks_recorded": true
+  },
+  "batch_numbering_map": {
+    "description": "official_batch is hero-wave closure numbering (batch01..batch13); capability IDs are global 1-826",
+    "official_batch_to_id_ranges": {
+      "batch01": {
+        "count": 50,
+        "min": 1,
+        "max": 50
+      },
+      "batch02": {
+        "count": 50,
+        "min": 51,
+        "max": 100
+      },
+      "batch03": {
+        "count": 50,
+        "min": 101,
+        "max": 150
+      },
+      "batch04": {
+        "count": 50,
+        "min": 151,
+        "max": 200
+      },
+      "batch05": {
+        "count": 50,
+        "min": 201,
+        "max": 250
+      },
+      "batch06": {
+        "count": 50,
+        "min": 251,
+        "max": 300
+      },
+      "batch07": {
+        "count": 50,
+        "min": 301,
+        "max": 350
+      },
+      "batch08": {
+        "count": 50,
+        "min": 351,
+        "max": 400
+      },
+      "batch09": {
+        "count": 50,
+        "min": 401,
+        "max": 450
+      },
+      "batch10": {
+        "count": 50,
+        "min": 451,
+        "max": 500
+      },
+      "batch11": {
+        "count": 50,
+        "min": 501,
+        "max": 550
+      },
+      "batch12": {
+        "count": 50,
+        "min": 551,
+        "max": 600
+      },
+      "batch13": {
+        "count": 50,
+        "min": 601,
+        "max": 650
+      },
+      "batch14": {
+        "count": 50,
+        "min": 651,
+        "max": 700
+      },
+      "batch15": {
+        "count": 50,
+        "min": 701,
+        "max": 750
+      },
+      "batch16": {
+        "count": 50,
+        "min": 751,
+        "max": 800
+      },
+      "batch17": {
+        "count": 26,
+        "min": 801,
+        "max": 826
+      }
+    },
+    "official_spine_batches": {
+      "batch01": "IDs 1-50",
+      "batch02": "IDs 51-100",
+      "batch03_prep": "IDs 101-150 (PROHIBITED for closure execution)"
+    }
+  },
+  "gate_verdict": "INSTITUTIONAL_GATE_PASS"
+}

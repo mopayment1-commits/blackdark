@@ -1,0 +1,481 @@
+{
+  "statistics": {
+    "detectionDate": "2026-09-01T20:03:21.512Z",
+    "formats": {
+      "python": {
+        "sources": {
+          "cap646/handlers/verified.py": {
+            "lines": 109,
+            "tokens": 1007,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 7,
+            "duplicatedTokens": 88,
+            "percentage": 6.42,
+            "percentageTokens": 8.74,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/platform.py": {
+            "lines": 12,
+            "tokens": 97,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/onchain.py": {
+            "lines": 79,
+            "tokens": 789,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/market.py": {
+            "lines": 159,
+            "tokens": 1389,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 7,
+            "duplicatedTokens": 88,
+            "percentage": 4.4,
+            "percentageTokens": 6.34,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/institutional.py": {
+            "lines": 153,
+            "tokens": 1168,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/execution.py": {
+            "lines": 55,
+            "tokens": 431,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/derivatives.py": {
+            "lines": 45,
+            "tokens": 415,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/data.py": {
+            "lines": 67,
+            "tokens": 532,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/batch03.py": {
+            "lines": 11,
+            "tokens": 100,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/batch02.py": {
+            "lines": 11,
+            "tokens": 100,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/batch01.py": {
+            "lines": 11,
+            "tokens": 100,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/alerts.py": {
+            "lines": 30,
+            "tokens": 312,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/ai.py": {
+            "lines": 104,
+            "tokens": 928,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/_batch_route.py": {
+            "lines": 14,
+            "tokens": 117,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/handlers/__init__.py": {
+            "lines": 22,
+            "tokens": 154,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 8,
+            "duplicatedTokens": 102,
+            "percentage": 36.36,
+            "percentageTokens": 66.23,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/runtime.py": {
+            "lines": 224,
+            "tokens": 2607,
+            "sources": 1,
+            "clones": 9,
+            "duplicatedLines": 80,
+            "duplicatedTokens": 906,
+            "percentage": 35.71,
+            "percentageTokens": 34.75,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/batch02_dedicated.py": {
+            "lines": 477,
+            "tokens": 7437,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/batch02_production.py": {
+            "lines": 68,
+            "tokens": 594,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "cap646/batch01_production.py": {
+            "lines": 132,
+            "tokens": 1122,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 1783,
+          "tokens": 19399,
+          "sources": 19,
+          "clones": 6,
+          "duplicatedLines": 51,
+          "duplicatedTokens": 592,
+          "percentage": 2.86,
+          "percentageTokens": 3.05,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 1783,
+      "tokens": 19399,
+      "sources": 19,
+      "clones": 6,
+      "duplicatedLines": 51,
+      "duplicatedTokens": 592,
+      "percentage": 2.86,
+      "percentageTokens": 3.05,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "python",
+      "lines": 8,
+      "fragment": "(\n    capability_id: int,\n    *,\n    params: dict[str, Any],\n) -> dict[str, Any]:\n    symbol = str(params.get(\"symbol\") or params.get(\"asset\") or \"BTC\").upper().replace(\"/USDT\", \"\")\n\n    if capability_id == 47",
+      "tokens": 0,
+      "firstFile": {
+        "name": "cap646/handlers/market.py",
+        "start": 12,
+        "end": 19,
+        "startLoc": {
+          "line": 12,
+          "column": 25,
+          "position": 65
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 3,
+          "position": 153
+        }
+      },
+      "secondFile": {
+        "name": "cap646/handlers/verified.py",
+        "start": 12,
+        "end": 19,
+        "startLoc": {
+          "line": 12,
+          "column": 27,
+          "position": 54
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 3,
+          "position": 142
+        }
+      }
+    },
+    {
+      "format": "python",
+      "lines": 9,
+      "fragment": "from cap646.handlers.ai import handle_ai_capability\nfrom cap646.handlers.alerts import handle_alerts_capability\nfrom cap646.handlers.data import handle_data_capability\nfrom cap646.handlers.derivatives import handle_derivatives_capability\nfrom cap646.handlers.execution import handle_execution_capability\nfrom cap646.handlers.institutional import handle_institutional_capability\nfrom cap646.handlers.market import handle_market_capability\nfrom cap646.handlers.onchain import handle_onchain_capability\nfrom cap646.handlers.platform",
+      "tokens": 0,
+      "firstFile": {
+        "name": "cap646/runtime.py",
+        "start": 12,
+        "end": 20,
+        "startLoc": {
+          "line": 12,
+          "column": 1,
+          "position": 63
+        },
+        "endLoc": {
+          "line": 20,
+          "column": 9,
+          "position": 165
+        }
+      },
+      "secondFile": {
+        "name": "cap646/handlers/__init__.py",
+        "start": 3,
+        "end": 11,
+        "startLoc": {
+          "line": 3,
+          "column": 1,
+          "position": 3
+        },
+        "endLoc": {
+          "line": 11,
+          "column": 9,
+          "position": 105
+        }
+      }
+    },
+    {
+      "format": "python",
+      "lines": 10,
+      "fragment": "(capability_id, params=params)\n        result.setdefault(\"capability_id\", capability_id)\n        result.setdefault(\"capability\", row[\"capability\"])\n        result.setdefault(\"track\", row[\"track\"])\n        result.setdefault(\"classification\", _runtime_classification(result))\n        from cap646.domain_enrichment import enrich_capability_result\n\n        return await enrich_capability_result(capability_id, ai_compliance_footer(result), params=params)\n\n    if capability_id in BATCH03_IDS",
+      "tokens": 0,
+      "firstFile": {
+        "name": "cap646/runtime.py",
+        "start": 125,
+        "end": 134,
+        "startLoc": {
+          "line": 125,
+          "column": 26,
+          "position": 1500
+        },
+        "endLoc": {
+          "line": 134,
+          "column": 12,
+          "position": 1603
+        }
+      },
+      "secondFile": {
+        "name": "cap646/runtime.py",
+        "start": 115,
+        "end": 124,
+        "startLoc": {
+          "line": 115,
+          "column": 26,
+          "position": 1386
+        },
+        "endLoc": {
+          "line": 124,
+          "column": 12,
+          "position": 1489
+        }
+      }
+    },
+    {
+      "format": "python",
+      "lines": 10,
+      "fragment": "(capability_id, params=params)\n        result.setdefault(\"capability_id\", capability_id)\n        result.setdefault(\"capability\", row[\"capability\"])\n        result.setdefault(\"track\", row[\"track\"])\n        result.setdefault(\"classification\", _runtime_classification(result))\n        from cap646.domain_enrichment import enrich_capability_result\n\n        return await enrich_capability_result(capability_id, ai_compliance_footer(result), params=params)\n\n    target_id",
+      "tokens": 0,
+      "firstFile": {
+        "name": "cap646/runtime.py",
+        "start": 135,
+        "end": 144,
+        "startLoc": {
+          "line": 135,
+          "column": 26,
+          "position": 1614
+        },
+        "endLoc": {
+          "line": 144,
+          "column": 10,
+          "position": 1711
+        }
+      },
+      "secondFile": {
+        "name": "cap646/runtime.py",
+        "start": 115,
+        "end": 124,
+        "startLoc": {
+          "line": 115,
+          "column": 26,
+          "position": 1386
+        },
+        "endLoc": {
+          "line": 124,
+          "column": 3,
+          "position": 1483
+        }
+      }
+    },
+    {
+      "format": "python",
+      "lines": 10,
+      "fragment": "(target_id, params=params)\n        result.setdefault(\"capability_id\", target_id)\n        result.setdefault(\"capability\", row[\"capability\"])\n        result.setdefault(\"track\", row[\"track\"])\n        result.setdefault(\"classification\", _runtime_classification(result))\n        from cap646.domain_enrichment import enrich_capability_result\n\n        return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)\n\n    if target_id in BATCH03_IDS",
+      "tokens": 0,
+      "firstFile": {
+        "name": "cap646/runtime.py",
+        "start": 175,
+        "end": 184,
+        "startLoc": {
+          "line": 175,
+          "column": 26,
+          "position": 2029
+        },
+        "endLoc": {
+          "line": 184,
+          "column": 12,
+          "position": 2132
+        }
+      },
+      "secondFile": {
+        "name": "cap646/runtime.py",
+        "start": 165,
+        "end": 174,
+        "startLoc": {
+          "line": 165,
+          "column": 26,
+          "position": 1915
+        },
+        "endLoc": {
+          "line": 174,
+          "column": 12,
+          "position": 2018
+        }
+      }
+    },
+    {
+      "format": "python",
+      "lines": 10,
+      "fragment": "(target_id, params=params)\n        result.setdefault(\"capability_id\", target_id)\n        result.setdefault(\"capability\", row[\"capability\"])\n        result.setdefault(\"track\", row[\"track\"])\n        result.setdefault(\"classification\", _runtime_classification(result))\n        from cap646.domain_enrichment import enrich_capability_result\n\n        return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)\n\n    if capability_id",
+      "tokens": 0,
+      "firstFile": {
+        "name": "cap646/runtime.py",
+        "start": 185,
+        "end": 194,
+        "startLoc": {
+          "line": 185,
+          "column": 26,
+          "position": 2143
+        },
+        "endLoc": {
+          "line": 194,
+          "column": 14,
+          "position": 2242
+        }
+      },
+      "secondFile": {
+        "name": "cap646/runtime.py",
+        "start": 165,
+        "end": 174,
+        "startLoc": {
+          "line": 165,
+          "column": 26,
+          "position": 1915
+        },
+        "endLoc": {
+          "line": 174,
+          "column": 10,
+          "position": 2014
+        }
+      }
+    }
+  ]
+}

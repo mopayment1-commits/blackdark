@@ -1,0 +1,394 @@
+{
+  "generated_at": "2026-09-04T13:37:07.774526+00:00",
+  "commit_hash": "0febda7db676ff422da4d8aee6825bcde96fa78d",
+  "scope": "Priority MECE + Type-4 \u2014 Batch05 pairs #205\u2194#232 (OI) and #206\u2194#228 (Funding)",
+  "symbols_tested": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "AVAX",
+    "DOGE"
+  ],
+  "type4_contract": "Side-by-side: canonical spine vs batch05 hero binding per symbol",
+  "pairs": [
+    {
+      "pair": "205_232",
+      "capability_id": 205,
+      "duplicate_id": 232,
+      "catalog_capability": "Open Interest Intelligence",
+      "official_batch": "batch05",
+      "canonical_capability_id": 205,
+      "canonical_spine": "batch05",
+      "canonical_binding": "cap646/batch05_dedicated.py::_cap205",
+      "duplicate_binding": "cap646/batch05_dedicated.py::_cap232 \u2192 facade _cap205",
+      "hero_bindings_audited": [
+        {
+          "id": 205,
+          "path": "bd_platform.onchain_defi_sources_layer.ingest_glassnode_metrics_205",
+          "payload_domain": "glassnode_metrics",
+          "semantic_match_catalog": false,
+          "note": "Static seed metrics \u2014 not live OI; brownfield Invest input"
+        },
+        {
+          "id": 232,
+          "path": "bd_platform.intelligence_ux_extensions_layer.attach_arbitrage_comparison_230_232",
+          "payload_domain": "arbitrage_comparison",
+          "semantic_match_catalog": false
+        }
+      ],
+      "type4_per_symbol": {
+        "205_BTC": {
+          "symbol": "BTC",
+          "canonical_spine": "batch05",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        },
+        "232_BTC": {
+          "symbol": "BTC",
+          "canonical_spine": "batch05_canonical_205",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        },
+        "205_ETH": {
+          "symbol": "ETH",
+          "canonical_spine": "batch05",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        },
+        "232_ETH": {
+          "symbol": "ETH",
+          "canonical_spine": "batch05_canonical_205",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        },
+        "205_SOL": {
+          "symbol": "SOL",
+          "canonical_spine": "batch05",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        },
+        "232_SOL": {
+          "symbol": "SOL",
+          "canonical_spine": "batch05_canonical_205",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        },
+        "205_AVAX": {
+          "symbol": "AVAX",
+          "canonical_spine": "batch05",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        },
+        "232_AVAX": {
+          "symbol": "AVAX",
+          "canonical_spine": "batch05_canonical_205",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        },
+        "205_DOGE": {
+          "symbol": "DOGE",
+          "canonical_spine": "batch05",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        },
+        "232_DOGE": {
+          "symbol": "DOGE",
+          "canonical_spine": "batch05_canonical_205",
+          "canonical_surface": "open_interest_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "open_interest_intelligence",
+          "hero_surface": "open_interest_intelligence",
+          "hero_domain_keys": [
+            "ok",
+            "feature_ref",
+            "symbol",
+            "catalog_goal",
+            "route",
+            "merged_into",
+            "asset",
+            "metrics",
+            "free_tier_only",
+            "registry_ref"
+          ]
+        }
+      },
+      "mece_verdict": "INTERNAL_DUPLICATE \u2014 #232 catalog duplicate of canonical #205 (REPEAT_CANONICAL); hero #232 is Type-4 SPLIT-BRAIN",
+      "time_decision_canonical": "Invest",
+      "time_decision_duplicate": "Migrate",
+      "closure_status_canonical": "NOT_COMPLETE",
+      "closure_status_duplicate": "REUSED-LINK",
+      "hero_action": "Eliminate #232 arbitrage hero from production \u2014 facade to _cap205 only",
+      "adr": "docs/ADR_BATCH05_232_REUSED_LINK_205.md"
+    },
+    {
+      "pair": "206_228",
+      "capability_id": 206,
+      "duplicate_id": 228,
+      "catalog_capability": "Funding Rate Intelligence",
+      "official_batch": "batch05",
+      "canonical_capability_id": 86,
+      "canonical_spine": "batch02",
+      "canonical_binding": "cap646/batch02_production.py::cap_086 \u2192 cap646.batch02_dedicated._cap086",
+      "duplicate_binding": "cap646/batch05_dedicated.py::_cap206/_cap228 \u2192 facade batch02 #86",
+      "hero_bindings_audited": [
+        {
+          "id": 206,
+          "path": "bd_platform.onchain_defi_sources_layer.ingest_uniswap_subgraph_206",
+          "payload_domain": "uniswap_subgraph",
+          "semantic_match_catalog": false
+        },
+        {
+          "id": 228,
+          "path": "bd_platform.intelligence_ux_extensions_layer.simulate_drawdown_hedge_228",
+          "payload_domain": "drawdown_hedge_simulation",
+          "semantic_match_catalog": false
+        }
+      ],
+      "type4_per_symbol": {
+        "206_BTC": {
+          "symbol": "BTC",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        },
+        "228_BTC": {
+          "symbol": "BTC",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        },
+        "206_ETH": {
+          "symbol": "ETH",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        },
+        "228_ETH": {
+          "symbol": "ETH",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        },
+        "206_SOL": {
+          "symbol": "SOL",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        },
+        "228_SOL": {
+          "symbol": "SOL",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        },
+        "206_AVAX": {
+          "symbol": "AVAX",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        },
+        "228_AVAX": {
+          "symbol": "AVAX",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        },
+        "206_DOGE": {
+          "symbol": "DOGE",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        },
+        "228_DOGE": {
+          "symbol": "DOGE",
+          "canonical_spine": "batch02",
+          "canonical_surface": "funding_rate_intelligence",
+          "canonical_success": true,
+          "runtime_spine": "batch05",
+          "runtime_surface": "funding_rate_intelligence",
+          "hero_surface": "funding_rate_intelligence",
+          "hero_domain_keys": []
+        }
+      },
+      "mece_verdict": "CROSS_BATCH_DUPLICATE \u2014 both #206/#228 canonical to batch02 #86; batch02 derivatives_hub funding_rate is closer to catalog intent",
+      "time_decision_canonical": "Migrate",
+      "time_decision_duplicate": "Migrate",
+      "closure_status_canonical": "REUSED-LINK",
+      "closure_status_duplicate": "REUSED-LINK",
+      "hero_action": "Eliminate uniswap/drawdown hero paths \u2014 facade to batch02 #86 only",
+      "adr": "docs/ADR_BATCH05_206_228_REUSED_LINK_BATCH02.md"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "investigated_at": "2026-09-02T20:40:22+00:00",
+  "severity": "CRITICAL",
+  "owasp": "A01 Broken Access Control / ASVS V4",
+  "finding": "GET /api/cap646/{id} bypassed entitlement_engine.check for BATCH01/BATCH02 production spine",
+  "root_cause": "execute_capability returned early for BATCH01_IDS/BATCH02_IDS before entitlement check at former L135-145",
+  "live_tests_pre_fix": [
+    {
+      "url": "https://blackdark-web-production.up.railway.app/api/cap646/47?symbol=BTC",
+      "auth": "none",
+      "http_status": 200,
+      "capability_id": 47,
+      "required_tier": "pro",
+      "success": false,
+      "data_returned": true,
+      "note": "Returned full spot_market_metrics_suite overview/probe data despite anonymous access; success=false due to provenance quarantine only"
+    },
+    {
+      "url": "https://blackdark-web-production.up.railway.app/api/cap646/103?symbol=BTC",
+      "auth": "none",
+      "http_status": 200,
+      "capability_id": 103,
+      "required_tier": "elite",
+      "success": true,
+      "data_returned": true,
+      "note": "Returned full API Data Platform payload (hot_storage, graphql, institutional_api) with success=true"
+    }
+  ],
+  "prior_proof_gap": {
+    "entitlement_gateway_proofs": "scripts/verify_entitlement_gateway_proof.py used cap646.institutional_gateway.gateway_execute (POST path), NOT GET /api/cap646/{id}",
+    "http_50_50_proofs": "scripts/verify_batch01_http_all50.py used GET /api/cap646/{id} but verified production_spine/surface only — no entitlement assertions"
+  },
+  "historical_introduction": {
+    "batch_spine_bypass": "commit 26ea963 (Batch 01 production) and b965b38 (Batch 02)",
+    "get_route_via_execute_unified": "commit e963ae0 (cap978 unified GET handler)"
+  },
+  "production_access_logs": "Not available from this environment — Railway access logs require owner dashboard export"
+}

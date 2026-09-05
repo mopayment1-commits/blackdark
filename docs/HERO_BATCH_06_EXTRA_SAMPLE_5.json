@@ -1,0 +1,105 @@
+{
+  "seed": 60601,
+  "capabilities": [
+    {
+      "capability_id": 576,
+      "batch": "batch_06",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "underlying_function": "developer_sdk_576",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_institutional_delivery_intelligence_batch501_600.py",
+      "independent_test_pattern": "range_batch_576",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 512,
+      "batch": "batch_06",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "underlying_function": "funding_oi_liquidation_metrics_512",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_institutional_delivery_intelligence_batch501_600.py",
+      "independent_test_pattern": "range_batch_512",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 514,
+      "batch": "batch_06",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "underlying_function": "historical_flat_files_514",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_institutional_delivery_intelligence_batch501_600.py",
+      "independent_test_pattern": "range_batch_514",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 579,
+      "batch": "batch_06",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "underlying_function": "global_asset_tracker_579",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_institutional_delivery_intelligence_batch501_600.py",
+      "independent_test_pattern": "range_batch_579",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    },
+    {
+      "capability_id": 505,
+      "batch": "batch_06",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "underlying_function": "tick_trade_data_505",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_institutional_delivery_intelligence_batch501_600.py",
+      "independent_test_pattern": "range_batch_505",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "capabilities-826-import"
+    }
+  ]
+}

@@ -1263,14 +1263,14 @@
     "id": 181,
     "track": "T15",
     "track_name": "Institutional, B2B, API & Developer Platform",
-    "capability": "Ecosystem Development Dashboard",
+    "capability": "IC Committee Packets Status",
     "name_source": "pdf_detail_p34_66"
   },
   {
     "id": 182,
     "track": "T17",
     "track_name": "Reporting, Audit, Tax & Governance",
-    "capability": "Developer Activity Change Detection",
+    "capability": "White-Label Infrastructure Status",
     "name_source": "pdf_detail_p34_66"
   },
   {

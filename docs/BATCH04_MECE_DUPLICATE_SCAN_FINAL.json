@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-09-04T07:45:00+00:00",
+  "scope": "Batch04 final MECE scan — PRODUCTION-ALIGNED IDs vs 1-150, hero, 338/500/507/534",
+  "method": "scripts/batch04_semantic_alignment_audit.py + manual cross-ref",
+  "summary": {
+    "new_duplicates_found": 0,
+    "time_decisions_required": 0,
+    "notes": "No new hidden duplicates beyond documented #181/#182 (hero metadata vs cap646 #87/#90) and #175 batch01 overlap."
+  },
+  "documented_overlaps": [
+    {
+      "id": 175,
+      "compared": "batch01/175",
+      "decision": "REUSED_ALIAS",
+      "time": "Tolerate"
+    },
+    {
+      "id": 181,
+      "compared": "hero #87 metadata",
+      "decision": "PARTIAL_MISNAMED_RESOLVED — catalog rename only",
+      "adr": "docs/ADR_BATCH04_181_87_TIME.md"
+    },
+    {
+      "id": 182,
+      "compared": "hero #90 metadata",
+      "decision": "PARTIAL_MISNAMED_RESOLVED — catalog rename only",
+      "adr": "docs/ADR_BATCH04_182_90_TIME.md"
+    },
+    {
+      "id": 159,
+      "compared": "#103",
+      "decision": "OVERLAP-PARTIAL — NOT_COMPLETE until #103 matures",
+      "blocker": "BLOCKER-159-103"
+    },
+    {
+      "id": 162,
+      "compared": "#106",
+      "decision": "REUSED-LINK pending #106 PA",
+      "blocker": "BLOCKER-162-106"
+    }
+  ],
+  "cross_ref_338_500_507_534": {
+    "338": "no batch04 collision",
+    "500": "no batch04 collision",
+    "507": "no batch04 collision",
+    "534": "no batch04 collision"
+  }
+}

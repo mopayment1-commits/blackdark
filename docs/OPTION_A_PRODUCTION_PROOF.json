@@ -1,0 +1,109 @@
+{
+  "verified_at": "2026-08-31T07:56:30.309555+00:00",
+  "production_runtime_path": "api/routers/cap646.py -> cap978.unified -> cap646.runtime.execute_capability",
+  "option_a_ids": [
+    338,
+    500,
+    507,
+    534
+  ],
+  "all_verified": true,
+  "proofs": [
+    {
+      "capability_id": 338,
+      "catalog_name": "Data Quality Pipeline",
+      "track": "T17",
+      "production_path": "cap646.runtime.execute_capability -> cap646.data_spine.data_quality_pipeline_report",
+      "backend_registry": {
+        "capability_id": 338,
+        "backend_module": "cap646.data_spine",
+        "backend_entrypoint": "data_quality_pipeline_report",
+        "surface": "data_quality_pipeline",
+        "param_style": "none",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "data_quality_pipeline",
+        "backend_module": "cap646.data_spine",
+        "backend_entrypoint": "data_quality_pipeline_report",
+        "binding_source": "explicit_option_a",
+        "classification": "VERIFIED_COMPLETE",
+        "evidence_class": "SHADOW_LIVE_FORWARD"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 500,
+      "catalog_name": "Data Quality & Normalization",
+      "track": "T03",
+      "production_path": "cap646.runtime.execute_capability -> cap646.data_spine.normalization_report",
+      "backend_registry": {
+        "capability_id": 500,
+        "backend_module": "cap646.data_spine",
+        "backend_entrypoint": "normalization_report",
+        "surface": "data_quality_normalization",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "data_quality_normalization",
+        "backend_module": "cap646.data_spine",
+        "backend_entrypoint": "normalization_report",
+        "binding_source": "explicit_option_a",
+        "classification": "VERIFIED_COMPLETE",
+        "evidence_class": "SHADOW_LIVE_FORWARD"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 507,
+      "catalog_name": "OHLCV",
+      "track": "T01",
+      "production_path": "cap646.runtime.execute_capability -> cap646.fallbacks.resolve_ohlcv_closes",
+      "backend_registry": {
+        "capability_id": 507,
+        "backend_module": "cap646.fallbacks",
+        "backend_entrypoint": "resolve_ohlcv_closes",
+        "surface": "ohlcv",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "ohlcv",
+        "backend_module": "cap646.fallbacks",
+        "backend_entrypoint": "resolve_ohlcv_closes",
+        "binding_source": "explicit_option_a",
+        "classification": "VERIFIED_COMPLETE",
+        "evidence_class": "SHADOW_LIVE_FORWARD"
+      },
+      "option_a_verified": true
+    },
+    {
+      "capability_id": 534,
+      "catalog_name": "Bucketed CVD",
+      "track": "T01",
+      "production_path": "cap646.runtime.execute_capability -> cap646.data_spine.bucketed_cvd_report",
+      "backend_registry": {
+        "capability_id": 534,
+        "backend_module": "cap646.data_spine",
+        "backend_entrypoint": "bucketed_cvd_report",
+        "surface": "bucketed_cvd",
+        "param_style": "symbol",
+        "binding_source": "explicit_option_a"
+      },
+      "live_result": {
+        "success": true,
+        "surface": "bucketed_cvd",
+        "backend_module": "cap646.data_spine",
+        "backend_entrypoint": "bucketed_cvd_report",
+        "binding_source": "explicit_option_a",
+        "classification": "VERIFIED_COMPLETE",
+        "evidence_class": "SHADOW_LIVE_FORWARD"
+      },
+      "option_a_verified": true
+    }
+  ]
+}

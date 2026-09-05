@@ -129,10 +129,59 @@ def ood_score(features: dict[str, Any], envelope: dict[str, Any] | None = None) 
     }
 
 
-def compute_psi(reference: list[float], current: list[float], *, bins: int = 5) -> float:
-    """Population Stability Index — simplified bucket PSI."""
+def _reference_quantile_edges(reference: list[float], *, bins: int) -> list[float]:
+    """OECD-style bin edges from reference distribution only (quantile breakpoints)."""
+    ref = sorted(reference)
+    n = len(ref)
+    edges: list[float] = []
+    for i in range(bins + 1):
+        idx = min(int(i * n / bins), n - 1)
+        edges.append(float(ref[idx]))
+    # Ensure strictly increasing edges for stable bucket assignment.
+    for i in range(1, len(edges)):
+        if edges[i] <= edges[i - 1]:
+            edges[i] = edges[i - 1] + 1e-9
+    return edges
+
+
+def _psi_from_edges(reference: list[float], current: list[float], edges: list[float]) -> float:
+    if len(edges) < 2:
+        return 0.0
+    bins = len(edges) - 1
+    psi = 0.0
+    for i in range(bins):
+        b_lo, b_hi = edges[i], edges[i + 1]
+        ref_pct = sum(
+            1 for x in reference if (b_lo <= x < b_hi) or (i == bins - 1 and x == b_hi)
+        ) / len(reference)
+        cur_pct = sum(
+            1 for x in current if (b_lo <= x < b_hi) or (i == bins - 1 and x == b_hi)
+        ) / len(current)
+        ref_pct = max(ref_pct, 1e-6)
+        cur_pct = max(cur_pct, 1e-6)
+        psi += (cur_pct - ref_pct) * math.log(cur_pct / ref_pct)
+    return round(abs(psi), 4)
+
+
+def compute_psi(
+    reference: list[float],
+    current: list[float],
+    *,
+    bins: int = 5,
+    reference_bins: bool = True,
+) -> float:
+    """Population Stability Index.
+
+    When reference_bins=True (default), bin edges are derived from the reference
+    distribution only (OECD composite-indicator practice). When False, uses the
+    legacy combined min/max equal-width bins for backward compatibility.
+    """
     if len(reference) < 5 or len(current) < 5:
         return 0.0
+
+    if reference_bins:
+        edges = _reference_quantile_edges(reference, bins=bins)
+        return _psi_from_edges(reference, current, edges)
 
     ref = sorted(reference)
     cur = sorted(current)
@@ -154,7 +203,12 @@ def compute_psi(reference: list[float], current: list[float], *, bins: int = 5) 
     return round(abs(psi), 4)
 
 
-def drift_report(reference_rows: list[dict[str, Any]], current_features: list[dict[str, Any]]) -> dict[str, Any]:
+def drift_report(
+    reference_rows: list[dict[str, Any]],
+    current_features: list[dict[str, Any]],
+    *,
+    reference_bins: bool = True,
+) -> dict[str, Any]:
     """PSI per feature between training reference and live batch."""
     threshold = float(getattr(config, "ML_DRIFT_PSI_THRESHOLD", 0.25))
     alerts: list[dict[str, Any]] = []
@@ -164,7 +218,7 @@ def drift_report(reference_rows: list[dict[str, Any]], current_features: list[di
         cur_vals = [float(f[col]) for f in current_features if isinstance(f.get(col), (int, float))]
         if len(ref_vals) < 5 or len(cur_vals) < 5:
             continue
-        psi = compute_psi(ref_vals, cur_vals)
+        psi = compute_psi(ref_vals, cur_vals, reference_bins=reference_bins)
         if psi >= threshold:
             alerts.append({"feature": col, "psi": psi, "severity": "high" if psi >= threshold * 2 else "medium"})
 
@@ -173,6 +227,7 @@ def drift_report(reference_rows: list[dict[str, Any]], current_features: list[di
         "alerts": alerts,
         "psi_threshold": threshold,
         "features_checked": len(FEATURE_COLUMNS),
+        "binning": "reference_quantile" if reference_bins else "combined_minmax_equal_width",
     }
 
 

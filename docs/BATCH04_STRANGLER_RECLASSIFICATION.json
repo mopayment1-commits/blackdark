@@ -1,0 +1,508 @@
+{
+  "generated_at": "2026-09-03T23:22:00+00:00",
+  "scope": "Batch04 STRANGLER_FIXABLE 38 IDs",
+  "summary": {
+    "IMPLEMENTED_FREE": 3,
+    "PAID_VENDOR_DESIGNED": 3,
+    "PRODUCTION_ALIGNED": 32,
+    "BLOCKED_DEPENDENCY": 8,
+    "NOT_COMPLETE": 5,
+    "PARTIAL_MISNAMED_RESOLVED": 2
+  },
+  "rows": [
+    {
+      "id": 152,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass:domain_rules+BATCH04_ACCEPTANCE",
+        "N": "pass:wiring negotiable",
+        "V": "pass:governance catalog goal",
+        "E": "pass:_cap152 override",
+        "S": "pass:single ID",
+        "T": "pass:test_batch04_cap152_200"
+      },
+      "evidence_note": "hero e2e miswire"
+    },
+    {
+      "id": 153,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "arbitrage as coverage"
+    },
+    {
+      "id": 155,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "stat arb as deep research"
+    },
+    {
+      "id": 156,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "coin list as graph"
+    },
+    {
+      "id": 160,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "vol squeeze as pay-per-request"
+    },
+    {
+      "id": 163,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "e2e as cross-domain"
+    },
+    {
+      "id": 164,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "slippage as unlock; target unlock_calendar exists token_unlocks.py:69"
+    },
+    {
+      "id": 165,
+      "reclass": "NOT_COMPLETE",
+      "invest": {
+        "I": "fail:no VC API",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail:no vendor",
+        "S": "pass",
+        "T": "fail"
+      },
+      "evidence_note": "no priced provider"
+    },
+    {
+      "id": 166,
+      "reclass": "BLOCKED_DEPENDENCY",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail:#591 PENDING inventory",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "591 not PA"
+    },
+    {
+      "id": 167,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "NTP as social volume"
+    },
+    {
+      "id": 168,
+      "reclass": "IMPLEMENTED_FREE",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass:tests/cap646/test_batch04_free_tier_spine.py"
+      },
+      "evidence_note": "Santiment free tier via ingest_santiment_metrics_142"
+    },
+    {
+      "id": 169,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "correlation as unique social vol"
+    },
+    {
+      "id": 170,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "OI as trending words"
+    },
+    {
+      "id": 171,
+      "reclass": "IMPLEMENTED_FREE",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass:tests/cap646/test_batch04_free_tier_spine.py"
+      },
+      "evidence_note": "CoinGecko trending via fetch_coingecko_trending"
+    },
+    {
+      "id": 172,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "memory as historical trends"
+    },
+    {
+      "id": 173,
+      "reclass": "BLOCKED_DEPENDENCY",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail:#594 PENDING",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "narrative_alert_system_594 not PA"
+    },
+    {
+      "id": 174,
+      "reclass": "BLOCKED_DEPENDENCY",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail:#450 PENDING",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "narrative_driven_research_450 not PA"
+    },
+    {
+      "id": 176,
+      "reclass": "BLOCKED_DEPENDENCY",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail:#592 PENDING",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "social_sentiment_engine_592 not PA"
+    },
+    {
+      "id": 177,
+      "reclass": "BLOCKED_DEPENDENCY",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail:#591 PENDING",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "sentiment_analysis_engine_591 not PA"
+    },
+    {
+      "id": 178,
+      "reclass": "BLOCKED_DEPENDENCY",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail:#219 not in RTM 1-150",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "analyze_nlp_sentiment_219 not PA"
+    },
+    {
+      "id": 179,
+      "reclass": "BLOCKED_DEPENDENCY",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail:#421 PENDING",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "developer_activity_421 not PA"
+    },
+    {
+      "id": 180,
+      "reclass": "BLOCKED_DEPENDENCY",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail:#352 PENDING",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "core_developers_352 not PA"
+    },
+    {
+      "id": 184,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "IC reporting as holder cohorts; duplicate #87 hero metadata"
+    },
+    {
+      "id": 185,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "M&A evidence as top holders"
+    },
+    {
+      "id": 186,
+      "reclass": "IMPLEMENTED_FREE",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass:tests/cap646/test_batch04_free_tier_spine.py"
+      },
+      "evidence_note": "Etherscan/BscScan + address_intelligence fallback"
+    },
+    {
+      "id": 187,
+      "reclass": "PAID_VENDOR_DESIGNED",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass:env-gated CryptoQuant spine",
+        "S": "pass",
+        "T": "pass:tests/cap646/test_batch04_paid_vendor_spine.py"
+      },
+      "evidence_note": "PENDING_PAYMENT until CRYPTOQUANT_API_KEY — AWAITING_OWNER_PAYMENT_DECISION"
+    },
+    {
+      "id": 188,
+      "reclass": "PAID_VENDOR_DESIGNED",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass:env-gated CryptoQuant spine",
+        "S": "pass",
+        "T": "pass:tests/cap646/test_batch04_paid_vendor_spine.py"
+      },
+      "evidence_note": "PENDING_PAYMENT until CRYPTOQUANT_API_KEY — AWAITING_OWNER_PAYMENT_DECISION"
+    },
+    {
+      "id": 189,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "netflow_proxy; #48 PA but proxy semantics"
+    },
+    {
+      "id": 190,
+      "reclass": "PAID_VENDOR_DESIGNED",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass:env-gated CryptoQuant spine",
+        "S": "pass",
+        "T": "pass:tests/cap646/test_batch04_paid_vendor_spine.py"
+      },
+      "evidence_note": "PENDING_PAYMENT until CRYPTOQUANT_API_KEY — AWAITING_OWNER_PAYMENT_DECISION"
+    },
+    {
+      "id": 191,
+      "reclass": "NOT_COMPLETE",
+      "invest": {
+        "I": "fail:no vendor",
+        "N": "pass",
+        "V": "pass",
+        "E": "fail",
+        "S": "pass",
+        "T": "fail"
+      },
+      "evidence_note": "no priced provider"
+    },
+    {
+      "id": 192,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "funding as network activity"
+    },
+    {
+      "id": 193,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "rejection as tx volume"
+    },
+    {
+      "id": 194,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "CVD mislabeled NVT; onchain_advanced exists"
+    },
+    {
+      "id": 195,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "strategy sim as MVRV; mvrv_realignment exists"
+    },
+    {
+      "id": 196,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "macro Yahoo as realized cap"
+    },
+    {
+      "id": 197,
+      "reclass": "STRANGLER_FIXABLE_INTERNAL",
+      "invest": {
+        "I": "pass",
+        "N": "pass",
+        "V": "pass",
+        "E": "pass",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "macro as DAA"
+    },
+    {
+      "id": 198,
+      "reclass": "PARTIAL_MISNAMED_PROPOSED",
+      "invest": {
+        "I": "pass",
+        "N": "pass:rename to dormancy proxy",
+        "V": "pass",
+        "E": "pass:local onchain_advanced proxy",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "Glassnode age consumed exclusive; local proxy feasible"
+    },
+    {
+      "id": 199,
+      "reclass": "PARTIAL_MISNAMED_PROPOSED",
+      "invest": {
+        "I": "pass",
+        "N": "pass:rename to invested-age proxy",
+        "V": "pass",
+        "E": "pass:realized/age heuristic",
+        "S": "pass",
+        "T": "pass"
+      },
+      "evidence_note": "Glassnode MDIA exclusive; local proxy feasible"
+    }
+  ]
+}

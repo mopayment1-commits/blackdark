@@ -1,0 +1,166 @@
+{
+  "verified_at": "2026-09-03T09:56:03.730260+00:00",
+  "scope": "Batch01 entitlement gateway — 10 test cases (9 unique IDs in range 1-50)",
+  "unique_capability_ids": [
+    1,
+    8,
+    21,
+    24,
+    38,
+    39,
+    46,
+    47,
+    50
+  ],
+  "test_case_count": 10,
+  "script": "scripts/verify_entitlement_gateway_proof.py",
+  "proofs": [
+    {
+      "capability_id": 1,
+      "user_label": "free_allowed",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "smart_money_leaderboard",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 8,
+      "user_label": "free_allowed",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "top_holders_concentration_analysis",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 21,
+      "user_label": "free_allowed",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "transaction_decoder",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 38,
+      "user_label": "free_tier_path",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "cost_basis_distribution",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 39,
+      "user_label": "free_tier_path",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "realized_cap_realized_price",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 24,
+      "user_label": "pro_allowed",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "ai_research_agent_grounded",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 47,
+      "user_label": "pro_gated_free_denied",
+      "user": {
+        "tier": "free"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": false,
+      "entitlement_reason": "teaser",
+      "success": false,
+      "surface": null,
+      "production_spine": null
+    },
+    {
+      "capability_id": 47,
+      "user_label": "pro_gated_pro_allowed",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "spot_market_metrics_suite",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 50,
+      "user_label": "pro_dedicated",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "order_book_intelligence",
+      "production_spine": "batch01"
+    },
+    {
+      "capability_id": 46,
+      "user_label": "pro_dedicated_46",
+      "user": {
+        "tier": "pro"
+      },
+      "path": "cap646.institutional_gateway.gateway_execute",
+      "skip_entitlement_used": false,
+      "entitlement_allowed": true,
+      "entitlement_reason": null,
+      "success": true,
+      "surface": "digital_asset_treasury_company_intelligence",
+      "production_spine": "batch01"
+    }
+  ],
+  "checks": {
+    "no_skip_entitlement": true,
+    "47_free_denied": true,
+    "47_pro_allowed": true,
+    "count_10": true
+  },
+  "all_verified": true
+}

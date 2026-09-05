@@ -1,0 +1,48 @@
+{
+  "manifest_id": "BATCH01_OFFICIAL_1_50",
+  "generated_at": "2026-09-01T13:05:00+00:00",
+  "created_at_commit": "26ea9632043a99c66ba9e505cfdd9326dccaa226",
+  "created_at_date": "2026-08-31T22:08:17+00:00",
+  "official_batch": "batch01",
+  "scope": "IDs 1–50",
+  "closure_status": "INSTITUTIONAL_CLOSED",
+  "owner_approval_required": false,
+  "merge_does_not_imply_closure": false,
+  "status_on_branch": "INSTITUTIONAL_CLOSED",
+  "status_on_main": "INSTITUTIONAL_CLOSED",
+  "owner_final_decision_at": "2026-09-02T21:08:07.383235+00:00",
+  "owner_final_decision": "docs/INSTITUTIONAL_OWNER_FINAL_CLOSURE_DECISION.json",
+  "batch03_status": "PROHIBITED",
+  "counts": {
+    "total": 50,
+    "production_aligned": 50,
+    "not_complete": 0
+  },
+  "functional_readiness": "مكتمل وظيفيًا — جاهزية التشغيل الحي غير مُقيَّمة بعد",
+  "iso_25010": {
+    "completeness": "50/50 live RTM + HTTP (pending gate-full + SonarCloud)",
+    "correctness": "goal-specific surfaces under audit",
+    "appropriateness": "cap646.batch01_production dedicated backends"
+  },
+  "evidence_artifacts": {
+    "rtm_audit": "docs/BATCH01_OFFICIAL_RTM_1_50.json",
+    "http_proof_all50": "docs/BATCH01_HTTP_PROOF_1_50.json",
+    "http_proof_11_fixed": "docs/BATCH01_HTTP_PROOF_11_FIXED.json",
+    "entitlement_gateway": "docs/BATCH01_ENTITLEMENT_GATEWAY_PROOF.json",
+    "production_proof": "docs/BATCH01_PRODUCTION_PROOF.json",
+    "production_proof_created_commit": "26ea9632043a99c66ba9e505cfdd9326dccaa226",
+    "inventory": "docs/CAPABILITIES_826_INVENTORY.json",
+    "honest_audit": "docs/BATCH02_HONEST_CLOSURE_AUDIT.md",
+    "checklist": "capabilities_checklist.xlsx",
+    "orchestrator": "docs/BATCH_VERIFICATION_ORCHESTRATOR_RESULT.json"
+  },
+  "production_spine": "cap646.batch01_production",
+  "critical_gate": {
+    "workflow": ".github/workflows/ci.yml",
+    "job": "critical",
+    "note": "critical PASS does not imply INSTITUTIONAL_CLOSED"
+  },
+  "owner_approved_at": "2026-09-02T21:08:07.383235+00:00",
+  "owner_hmac_token_sha256_prefix": "427cbd89d4173d06",
+  "rejection_resolved": "CLOSURE-REJECT-04"
+}

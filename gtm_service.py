@@ -104,12 +104,30 @@ async def fetch_gtm_status() -> dict[str, Any]:
         fetch_platform_user_stats,
     )
 
-    users = await fetch_platform_user_stats()
-    behavior = await fetch_behavior_event_stats(days=90)
-    telegram_subs = await count_telegram_free_subscribers()
-    waitlist = await db_count_waitlist()
-
+    users: dict[str, Any] = {}
+    behavior: dict[str, Any] = {}
+    telegram_subs = 0
+    waitlist = 0
     labeled = 0
+    metrics_errors: list[str] = []
+    try:
+        users = await fetch_platform_user_stats()
+    except Exception as exc:
+        metrics_errors.append(f"platform_user_stats:{type(exc).__name__}")
+    try:
+        behavior = await fetch_behavior_event_stats(days=90)
+    except Exception as exc:
+        behavior = {"total_events": 0}
+        metrics_errors.append(f"behavior_events:{type(exc).__name__}")
+    try:
+        telegram_subs = await count_telegram_free_subscribers()
+    except Exception as exc:
+        metrics_errors.append(f"telegram_subscribers:{type(exc).__name__}")
+    try:
+        waitlist = await db_count_waitlist()
+    except Exception as exc:
+        metrics_errors.append(f"waitlist:{type(exc).__name__}")
+
     try:
         from database import fetch_oracle_audit_stats
 
@@ -173,6 +191,7 @@ async def fetch_gtm_status() -> dict[str, Any]:
         "ninety_day_targets": targets,
         "mkt_verdicts": _mkt_verdicts(metrics, docs),
         "blockers": blockers,
+        "metrics_errors": metrics_errors or None,
         "next_actions": [
             "Share landing + Oracle demo on X/Telegram crypto groups",
             "Enable Stripe live checkout — test $29 Pro trial end-to-end",

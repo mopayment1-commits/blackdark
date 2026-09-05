@@ -1,0 +1,368 @@
+{
+  "generated_at": "2026-09-03T10:03:25.929719+00:00",
+  "git_commit": "f5bae3f445bcf394898184282fe919a6893fb6d2",
+  "production_url": "https://blackdark-production.up.railway.app",
+  "production_measurement_status": "BLOCKED",
+  "production_blocked_reason": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\",\"request_id\":\"k9h9h5agSSKKxerH9fVATg\"}",
+  "local_runtime_measurements": [
+    {
+      "capability_id": 101,
+      "latency_ms_local_runtime": 1.0,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "ai_data_analyst_ask_ai",
+      "success": true
+    },
+    {
+      "capability_id": 102,
+      "latency_ms_local_runtime": 0.5,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "ai_generated_reporting",
+      "success": true
+    },
+    {
+      "capability_id": 104,
+      "latency_ms_local_runtime": 5.7,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "high_resolution_block_level_data_delivery",
+      "success": true
+    },
+    {
+      "capability_id": 105,
+      "latency_ms_local_runtime": 2.0,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "historical_full_data_layer",
+      "success": true
+    },
+    {
+      "capability_id": 108,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "institutional_data_api_delivery",
+      "success": true
+    },
+    {
+      "capability_id": 109,
+      "latency_ms_local_runtime": 743.7,
+      "threshold_bucket": "analysis_le_2000ms",
+      "within_threshold": true,
+      "surface": "white_label_research_reporting",
+      "success": true
+    },
+    {
+      "capability_id": 111,
+      "latency_ms_local_runtime": 0.9,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "exchange_flow_actionability_score",
+      "success": true
+    },
+    {
+      "capability_id": 112,
+      "latency_ms_local_runtime": 0.5,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "flow_to_price_explanation_engine",
+      "success": true
+    },
+    {
+      "capability_id": 113,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "asset_intelligence_profiles",
+      "success": true
+    },
+    {
+      "capability_id": 114,
+      "latency_ms_local_runtime": 0.5,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "asset_classification_taxonomy",
+      "success": true
+    },
+    {
+      "capability_id": 115,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "asset_screener",
+      "success": true
+    },
+    {
+      "capability_id": 116,
+      "latency_ms_local_runtime": 2.8,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "market_pair_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 117,
+      "latency_ms_local_runtime": 0.5,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "real_volume_quality_adjusted_volume",
+      "success": true
+    },
+    {
+      "capability_id": 118,
+      "latency_ms_local_runtime": 0.8,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "vwap_price_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 119,
+      "latency_ms_local_runtime": 622.7,
+      "threshold_bucket": "analysis_le_2000ms",
+      "within_threshold": true,
+      "surface": "market_cap_fdv_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 120,
+      "latency_ms_local_runtime": 1.3,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "supply_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 121,
+      "latency_ms_local_runtime": 0.8,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "roi_ath_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 122,
+      "latency_ms_local_runtime": 1.9,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "volatility_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 123,
+      "latency_ms_local_runtime": 0.5,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "sharpe_ratio_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 124,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "futures_funding_rate_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 126,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "futures_volume_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 127,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "multi_factor_market_overview",
+      "success": true
+    },
+    {
+      "capability_id": 128,
+      "latency_ms_local_runtime": 3.0,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "momentum_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 130,
+      "latency_ms_local_runtime": 0.5,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "mindshare_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 131,
+      "latency_ms_local_runtime": 93.7,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "narrative_sector_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 132,
+      "latency_ms_local_runtime": 0.6,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "mindshare_gainers_losers",
+      "success": true
+    },
+    {
+      "capability_id": 133,
+      "latency_ms_local_runtime": 109.7,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "curated_crypto_news_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 134,
+      "latency_ms_local_runtime": 91.0,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "ai_news_summaries",
+      "success": true
+    },
+    {
+      "capability_id": 135,
+      "latency_ms_local_runtime": 0.6,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "real_time_industry_event_monitoring",
+      "success": true
+    },
+    {
+      "capability_id": 136,
+      "latency_ms_local_runtime": 0.5,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "agentic_monitoring_views",
+      "success": true
+    },
+    {
+      "capability_id": 137,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "custom_watchlists",
+      "success": true
+    },
+    {
+      "capability_id": 138,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "token_unlock_calendar",
+      "success": true
+    },
+    {
+      "capability_id": 139,
+      "latency_ms_local_runtime": 1.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "vesting_schedule_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 140,
+      "latency_ms_local_runtime": 0.9,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "token_allocation_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 141,
+      "latency_ms_local_runtime": 0.5,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "unlock_impact_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 142,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "fundraising_rounds_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 143,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "investor_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 144,
+      "latency_ms_local_runtime": 0.4,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "fund_fund_manager_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 145,
+      "latency_ms_local_runtime": 598.8,
+      "threshold_bucket": "analysis_le_2000ms",
+      "within_threshold": true,
+      "surface": "m_a_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 146,
+      "latency_ms_local_runtime": 614.3,
+      "threshold_bucket": "analysis_le_2000ms",
+      "within_threshold": true,
+      "surface": "capital_flow_funding_trend_intelligence",
+      "success": true
+    },
+    {
+      "capability_id": 147,
+      "latency_ms_local_runtime": 196.2,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "comparable_funding_valuation_analysis",
+      "success": true
+    },
+    {
+      "capability_id": 148,
+      "latency_ms_local_runtime": 0.6,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "due_diligence_report_engine",
+      "success": true
+    },
+    {
+      "capability_id": 149,
+      "latency_ms_local_runtime": 0.5,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "automated_risk_scoring_from_diligence",
+      "success": true
+    },
+    {
+      "capability_id": 150,
+      "latency_ms_local_runtime": 1.3,
+      "threshold_bucket": "direct_data_le_500ms",
+      "within_threshold": true,
+      "surface": "protocol_kpi_intelligence",
+      "success": true
+    }
+  ],
+  "thresholds_ms": {
+    "direct_data": 500,
+    "analysis": 2000,
+    "ai": 5000
+  },
+  "exceeds_threshold": [],
+  "remediation_plan": "Re-probe production after Railway redeploy of blackdark-production.up.railway.app. Local runtime measurements above are supplementary same-commit evidence only."
+}

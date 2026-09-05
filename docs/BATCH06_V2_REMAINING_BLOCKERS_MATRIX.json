@@ -1,0 +1,31 @@
+{
+  "blockers": [
+    {
+      "id": "G6_LIVE_VALIDATION",
+      "severity": "P0",
+      "status": "BLOCKED_EXTERNAL",
+      "affected_ids": 50,
+      "closure": "Gate Zero PASS after Railway deploy"
+    },
+    {
+      "id": "G7_INDEPENDENT_ASSURANCE",
+      "severity": "P0",
+      "status": "ASSURANCE_REVIEW_PENDING",
+      "closure": "12207 Validation/Transition with live evidence pack"
+    },
+    {
+      "id": "SEMANTIC_SURFACE_ALIGNMENT",
+      "severity": "P1",
+      "status": "OPEN",
+      "affected_ids": 0,
+      "closure": "Align runtime surface with EXPECTED_SURFACE where semantic oracle fails"
+    }
+  ],
+  "batch06_independent": 0,
+  "progress_826": 179,
+  "production_aligned_count": 0,
+  "pa_elevated_count": 0,
+  "build_phase": "OPEN",
+  "live_ready": false,
+  "assurance_ready": false
+}

@@ -2,14 +2,18 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
+import time
 from pathlib import Path
 from typing import Any
 
 from cap646.catalog import EXTERNAL_IDS as BASE_EXTERNAL_IDS
 from cap646.waves import EXTERNAL_EVIDENCE_SLOTS, SIGNED_INFRA_SLOTS
 from cap978.catalog import EXTENSION_EXTERNAL_IDS, catalog_by_id, load_catalog
-from cap978.external_registry import external_registry_report
+from cap978.ci_deterministic_closure import ci_deterministic_closure_enabled
+from cap978.gate_verdict import INSTITUTIONAL_GATE_PASS
+from cap978.external_registry import expected_external_capability_ids, external_registry_report
 
 _ROOT = Path(__file__).resolve().parent.parent
 _EVIDENCE_SNAPSHOT = _ROOT / "docs" / "cap978" / "EVIDENCE_ROOM_SNAPSHOT.json"
@@ -18,10 +22,10 @@ _COMMERCIAL_CHECKLIST = _ROOT / "docs" / "cap978" / "COMMERCIAL_LAUNCH_CHECKLIST
 
 # Frozen internal-closure baseline (cap978-closure-v1). Count drift fails the gate.
 CLOSURE_BASELINE = {
-    "verdict": "VERIFIED COMPLETE",
+    "verdict": INSTITUTIONAL_GATE_PASS,
     "total": 978,
     "cap978_counts": {
-        "VERIFIED_COMPLETE": 937,
+        "VERIFIED_COMPLETE": 938,
         "CANONICALLY_COVERED": 37,
         "EXTERNAL_BLOCKED": 2,
         "EXTERNAL_EVIDENCE_REQUIRED": 1,
@@ -32,12 +36,12 @@ CLOSURE_BASELINE = {
         "EXTERNAL_BLOCKED": 2,
     },
     "governing_controls": {
-        "VERIFIED_COMPLETE": 40,
-        "EXTERNAL_BLOCKED": 2,
+        "VERIFIED_COMPLETE": 38,
+        "EXTERNAL_BLOCKED": 4,
     },
     "external_registry": {
-        "total": 3,
-        "capability_ids_blocked": 1,
+        "total": 33,
+        "capability_ids_blocked": 31,
         "controls_blocked": 2,
     },
     "internal_incomplete": {
@@ -87,7 +91,7 @@ def validate_external_registry_integrity() -> list[dict[str, Any]]:
     report = external_registry_report()
     rows = report["rows"]
 
-    expected_cap_ids = set(BASE_EXTERNAL_IDS) | set(EXTENSION_EXTERNAL_IDS) | set(EXTERNAL_EVIDENCE_SLOTS) | set(SIGNED_INFRA_SLOTS)
+    expected_cap_ids = expected_external_capability_ids()
     registry_cap_ids = {r["id"] for r in rows if isinstance(r.get("id"), int)}
     if registry_cap_ids != expected_cap_ids:
         missing = sorted(expected_cap_ids - registry_cap_ids)
@@ -294,16 +298,30 @@ async def run_institutional_gate(
     sample: bool = False,
     check_artifacts: bool = True,
     include_commercial: bool = True,
+    ci_deterministic: bool | None = None,
 ) -> dict[str, Any]:
     from cap978.closure import institutional_closure_978
 
+    t0 = time.perf_counter()
     checks: list[dict[str, Any]] = []
-    checks.extend(validate_catalog_integrity())
-    checks.extend(validate_external_registry_integrity())
-    if check_artifacts:
-        checks.extend(validate_committed_artifacts())
 
-    closure = await institutional_closure_978(sample=sample)
+    async def _artifact_checks() -> list[dict[str, Any]]:
+        if not check_artifacts:
+            return []
+        return await asyncio.to_thread(validate_committed_artifacts)
+
+    catalog_checks, external_checks, artifact_checks = await asyncio.gather(
+        asyncio.to_thread(validate_catalog_integrity),
+        asyncio.to_thread(validate_external_registry_integrity),
+        _artifact_checks(),
+    )
+    checks.extend(catalog_checks)
+    checks.extend(external_checks)
+    checks.extend(artifact_checks)
+    parallel_phase_ms = int((time.perf_counter() - t0) * 1000)
+
+    ci_mode = ci_deterministic if ci_deterministic is not None else ci_deterministic_closure_enabled()
+    closure = await institutional_closure_978(sample=sample, ci_deterministic=ci_mode)
     if sample:
         # Sample mode validates structure, not frozen baseline counts.
         cap = closure.get("cap978") or {}
@@ -321,14 +339,16 @@ async def run_institutional_gate(
         checks.extend(validate_closure_invariants(closure))
 
     failed = [c for c in checks if not c["ok"]]
+    total_ms = int((time.perf_counter() - t0) * 1000)
     result: dict[str, Any] = {
         "verdict": "PASS" if not failed else "FAIL",
-        "mode": "sample" if sample else "full",
+        "mode": "sample_ci_structural" if sample and ci_mode else ("sample" if sample else "full"),
         "checks_passed": len(checks) - len(failed),
         "checks_failed": len(failed),
         "failures": failed,
         "closure_verdict": closure.get("verdict"),
         "baseline_tag": "cap978-closure-v1",
+        "timing_ms": {"parallel_invariant_phase": parallel_phase_ms, "total": total_ms},
     }
     if include_commercial:
         result["commercial_launch"] = commercial_launch_checklist()

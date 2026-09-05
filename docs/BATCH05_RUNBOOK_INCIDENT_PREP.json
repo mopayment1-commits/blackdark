@@ -1,0 +1,11 @@
+{
+  "status": "PREPARED_LOCAL",
+  "escalation": "batch05-institutional-owner \u2192 SRE on-call",
+  "severity_matrix": [
+    "SEV1 outage",
+    "SEV2 degraded",
+    "SEV3 minor"
+  ],
+  "rto_rpo": "NOT_APPLICABLE \u2014 no batch05-owned persistent critical state",
+  "backup_restore": "NOT_APPLICABLE \u2014 stateless execute spine"
+}

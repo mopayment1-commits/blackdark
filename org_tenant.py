@@ -97,12 +97,18 @@ def _use_pg() -> bool:
 
 def _run_async(coro: Any) -> Any:
     import asyncio
+    import concurrent.futures
 
     try:
         loop = asyncio.get_running_loop()
     except RuntimeError:
         return asyncio.run(coro)
-    return asyncio.run_coroutine_threadsafe(coro, loop).result(timeout=120)
+
+    if not loop.is_running():
+        return loop.run_until_complete(coro)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+        return pool.submit(asyncio.run, coro).result(timeout=120)
 
 
 def create_org(

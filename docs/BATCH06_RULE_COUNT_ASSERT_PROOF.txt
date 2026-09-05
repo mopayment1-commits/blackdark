@@ -1,0 +1,55 @@
+assert_rule_count_triple_match: begin
+generated_at=2026-09-05T11:55:10.969615+00:00
+
+ID 251: acceptance_rules=9 probe_denominator=11 OK
+ID 252: acceptance_rules=4 probe_denominator=6 OK
+ID 253: acceptance_rules=4 probe_denominator=6 OK
+ID 254: acceptance_rules=4 probe_denominator=6 OK
+ID 255: acceptance_rules=10 probe_denominator=12 OK
+ID 256: acceptance_rules=9 probe_denominator=11 OK
+ID 257: acceptance_rules=10 probe_denominator=12 OK
+ID 258: acceptance_rules=4 probe_denominator=6 OK
+ID 259: acceptance_rules=10 probe_denominator=12 OK
+ID 260: acceptance_rules=10 probe_denominator=12 OK
+ID 261: acceptance_rules=10 probe_denominator=12 OK
+ID 262: acceptance_rules=4 probe_denominator=6 OK
+ID 263: acceptance_rules=4 probe_denominator=6 OK
+ID 264: acceptance_rules=4 probe_denominator=6 OK
+ID 265: acceptance_rules=4 probe_denominator=6 OK
+ID 266: acceptance_rules=4 probe_denominator=6 OK
+ID 267: acceptance_rules=4 probe_denominator=6 OK
+ID 268: acceptance_rules=4 probe_denominator=6 OK
+ID 269: acceptance_rules=4 probe_denominator=6 OK
+ID 270: acceptance_rules=4 probe_denominator=6 OK
+ID 271: acceptance_rules=4 probe_denominator=6 OK
+ID 272: acceptance_rules=10 probe_denominator=12 OK
+ID 273: acceptance_rules=4 probe_denominator=6 OK
+ID 274: acceptance_rules=4 probe_denominator=6 OK
+ID 275: acceptance_rules=10 probe_denominator=12 OK
+ID 276: acceptance_rules=4 probe_denominator=6 OK
+ID 277: acceptance_rules=4 probe_denominator=6 OK
+ID 278: acceptance_rules=4 probe_denominator=6 OK
+ID 279: acceptance_rules=4 probe_denominator=6 OK
+ID 280: acceptance_rules=4 probe_denominator=6 OK
+ID 281: acceptance_rules=4 probe_denominator=6 OK
+ID 282: acceptance_rules=4 probe_denominator=6 OK
+ID 283: acceptance_rules=4 probe_denominator=6 OK
+ID 284: acceptance_rules=4 probe_denominator=6 OK
+ID 285: acceptance_rules=4 probe_denominator=6 OK
+ID 286: acceptance_rules=4 probe_denominator=6 OK
+ID 287: acceptance_rules=4 probe_denominator=6 OK
+ID 288: acceptance_rules=4 probe_denominator=6 OK
+ID 289: acceptance_rules=4 probe_denominator=6 OK
+ID 290: acceptance_rules=4 probe_denominator=6 OK
+ID 291: acceptance_rules=10 probe_denominator=12 OK
+ID 292: acceptance_rules=10 probe_denominator=12 OK
+ID 293: acceptance_rules=4 probe_denominator=6 OK
+ID 294: acceptance_rules=4 probe_denominator=6 OK
+ID 295: acceptance_rules=4 probe_denominator=6 OK
+ID 296: acceptance_rules=4 probe_denominator=6 OK
+ID 297: acceptance_rules=4 probe_denominator=6 OK
+ID 298: acceptance_rules=4 probe_denominator=6 OK
+ID 299: acceptance_rules=4 probe_denominator=6 OK
+ID 300: acceptance_rules=4 probe_denominator=6 OK
+
+assert_rule_count_triple_match: end total_ids=50

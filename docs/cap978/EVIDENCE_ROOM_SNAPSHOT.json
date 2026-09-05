@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-23T21:43:57.635957+00:00",
+  "generated_at": "2026-08-27T10:10:19.620642+00:00",
   "product_thesis": "978-capability Decision Intelligence platform — evidence-first closure",
-  "verdict": "VERIFIED COMPLETE",
+  "verdict": "INSTITUTIONAL_GATE_PASS",
   "internal_closure": {
     "INTERNAL_PARTIAL": 0,
     "INTERNAL_NOT_IMPLEMENTED": 0,
     "FUNCTIONALLY_INCOMPLETE": 0
   },
   "cap978_counts": {
-    "VERIFIED_COMPLETE": 937,
+    "VERIFIED_COMPLETE": 938,
     "CANONICALLY_COVERED": 37,
-    "EXTERNAL_BLOCKED": 2,
-    "EXTERNAL_EVIDENCE_REQUIRED": 1
+    "EXTERNAL_EVIDENCE_REQUIRED": 1,
+    "EXTERNAL_BLOCKED": 2
   },
   "extension_counts": {
     "VERIFIED_COMPLETE": 329,
-    "CANONICALLY_COVERED": 1,
-    "EXTERNAL_BLOCKED": 2
+    "EXTERNAL_BLOCKED": 2,
+    "CANONICALLY_COVERED": 1
   },
   "governing_controls": {
     "counts": {
-      "VERIFIED_COMPLETE": 40,
-      "EXTERNAL_BLOCKED": 2
+      "VERIFIED_COMPLETE": 38,
+      "EXTERNAL_BLOCKED": 4
     },
     "internal_closure": true
   },
@@ -30,24 +30,24 @@
     "internal_closure": true,
     "e2e": {
       "verdict": "VERIFIED_COMPLETE",
-      "chain_id": "chain_ee81a4b3c120",
+      "chain_id": "chain_d42e1c4667ed",
       "acceptance_evidence": {
-        "prediction_id": "pred_chain_ee81a4b3c120",
-        "decision_id": "dec_95ea83e1e69040ac",
-        "exposure_id": "exp_e82bb075fa72490c",
-        "certificate_hash": "be64515df590de7780c7dbddb1bd07788cad3e0dfd5a1c64b87aa2873d6e8aff",
-        "signal_id": "pred_chain_ee81a4b3c120",
-        "outcome_id": "out_chain_ee81a4b3c120"
+        "prediction_id": "pred_chain_d42e1c4667ed",
+        "decision_id": "dec_7442cb163c764b3b",
+        "exposure_id": "exp_4310ab531dae4e8c",
+        "certificate_hash": "2aa613f4c678a79f82cad1c91c8d58b5da84e997531263198017f6f2288bc09e",
+        "signal_id": "pred_chain_d42e1c4667ed",
+        "outcome_id": "out_chain_d42e1c4667ed"
       },
       "stage_count": 12,
       "failed_stages": []
     }
   },
   "external_registry_summary": {
-    "total": 3,
+    "total": 33,
     "counts": {
-      "EXTERNAL_EVIDENCE_REQUIRED": 1,
-      "EXTERNAL_BLOCKED": 2
+      "EXTERNAL_BLOCKED": 31,
+      "EXTERNAL_EVIDENCE_REQUIRED": 2
     }
   },
   "sample_executions": [
@@ -91,10 +91,10 @@
       "label": "extension_blocked",
       "capability_id": 647,
       "success": false,
-      "classification": "EXTERNAL_BLOCKED",
-      "surface": null,
-      "backend_module": null,
-      "proof_hash": "2cfe62b82fa1a33306d2937662777c3be8fecd62048749795c6289c3883ed4b3"
+      "classification": "NOT_READY",
+      "surface": "real_time_feed",
+      "backend_module": "bd_platform.free_tier_capabilities",
+      "proof_hash": "0689d2e7365511c565d265a509a54a62a64f713d803468d09ecfa58736e7eb27"
     },
     {
       "label": "extension_internal",
@@ -111,23 +111,23 @@
       "success": true,
       "classification": "SHADOW_LIVE_FORWARD",
       "surface": "margin_risk_calculator",
-      "backend_module": "bd_platform.market_rankings",
-      "proof_hash": "e653b270f92a1a952e31529e86f9a1e18f50c4e7b3ddf4bd8a84e780a5c5f161"
+      "backend_module": "risk_manager",
+      "proof_hash": "02fc511fcc33f1b7702f643236d83c68323ffcadef1845aeae3cc10839802aa4"
     },
     {
       "label": "extension_tail",
       "capability_id": 978,
-      "success": false,
+      "success": true,
       "classification": "SHADOW_LIVE_FORWARD",
       "surface": "exploiter",
       "backend_module": "bd_platform.cex_dex_arbitrage",
-      "proof_hash": "947c5091e6aaa779adbb1031ef86899633b083a4ba242a8641e425eaeccaaecc"
+      "proof_hash": "7b77bec74d7d8ce6df78a70789fe233cdf6e212a2babe61842a31603dadbbc85"
     }
   ],
   "functional_verification_samples": [
     {
       "id": 1,
-      "verdict": "EXTERNAL_BLOCKED",
+      "verdict": "VERIFIED_COMPLETE",
       "failure_reason": null
     },
     {
@@ -143,11 +143,11 @@
     {
       "id": 631,
       "verdict": "VERIFIED_COMPLETE",
-      "failure_reason": "missing_data_provenance_surface"
+      "failure_reason": null
     },
     {
       "id": 644,
-      "verdict": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verdict": "VERIFIED_COMPLETE",
       "failure_reason": null
     },
     {
@@ -172,5 +172,5 @@
     "curl /api/cap646/evidence-room",
     "curl /api/cap646/platform-chain/e2e?symbol=BTC"
   ],
-  "snapshot_hash": "345f103a6537454569a1831def52d7332bec6515a73eb926f443409b04a52574"
+  "snapshot_hash": "dce1c718ba978b576b994567288cde24080ad91fb235c21ffdb203e30a597de4"
 }

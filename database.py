@@ -21,6 +21,8 @@ from typing import Any
 import aiosqlite
 
 import config
+from database_ddl import table_schema
+
 logger = logging.getLogger(__name__)
 
 
@@ -63,7 +65,7 @@ def _first_cell(row: Any) -> Any:
             return extracted[0] if extracted else None
         return None
 
-SCHEMA = """
+SCHEMA = ("""
 CREATE TABLE IF NOT EXISTS pricing_logs (
     id                INTEGER PRIMARY KEY AUTOINCREMENT,
     timestamp         TEXT    NOT NULL,
@@ -343,16 +345,10 @@ CREATE TABLE IF NOT EXISTS maintenance_runs (
     payload_json TEXT    NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS platform_analytics (
-    id                 INTEGER PRIMARY KEY CHECK (id = 1),
-    page_views         INTEGER NOT NULL DEFAULT 0,
-    dashboard_views    INTEGER NOT NULL DEFAULT 0,
-    landing_views      INTEGER NOT NULL DEFAULT 0,
-    voice_commands     INTEGER NOT NULL DEFAULT 0,
-    waitlist_count     INTEGER NOT NULL DEFAULT 0,
-    subscriber_count   INTEGER NOT NULL DEFAULT 0,
-    updated_at         TEXT    NOT NULL
-);
+"""
+    + table_schema("platform_analytics")
+    + """
+
 
 CREATE TABLE IF NOT EXISTS users (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -383,19 +379,10 @@ CREATE TABLE IF NOT EXISTS oracle_usage_daily (
     UNIQUE(email, usage_date)
 );
 
-CREATE TABLE IF NOT EXISTS journal_entries (
-    id             INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_email     TEXT    NOT NULL,
-    timestamp      TEXT    NOT NULL,
-    asset          TEXT    NOT NULL,
-    action         TEXT    NOT NULL,
-    notes          TEXT,
-    oracle_verdict TEXT,
-    entry_price    REAL,
-    exit_price     REAL,
-    pnl_usd        REAL,
-    status         TEXT    NOT NULL DEFAULT 'open'
-);
+"""
+    + table_schema("journal_entries")
+    + """;
+
 
 CREATE INDEX IF NOT EXISTS idx_journal_user_ts
     ON journal_entries (user_email, timestamp);
@@ -417,18 +404,10 @@ CREATE INDEX IF NOT EXISTS idx_behavior_type_ts
 CREATE INDEX IF NOT EXISTS idx_behavior_user_ts
     ON behavior_events (user_email, created_at DESC);
 
-CREATE TABLE IF NOT EXISTS audit_logs (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT,
-    timestamp       TEXT    NOT NULL,
-    actor           TEXT    NOT NULL,
-    action          TEXT    NOT NULL,
-    payload_hash    TEXT    NOT NULL,
-    outcome         TEXT    NOT NULL,
-    signature       TEXT    NOT NULL,
-    request_method  TEXT,
-    request_path    TEXT,
-    metadata_json   TEXT
-);
+"""
+    + table_schema("audit_logs")
+    + """;
+
 
 CREATE INDEX IF NOT EXISTS idx_audit_logs_ts
     ON audit_logs (timestamp DESC);
@@ -439,18 +418,10 @@ CREATE INDEX IF NOT EXISTS idx_audit_logs_actor
 CREATE INDEX IF NOT EXISTS idx_audit_logs_action
     ON audit_logs (action, timestamp DESC);
 
-CREATE TABLE IF NOT EXISTS decisions (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT,
-    decision_id     TEXT    NOT NULL,
-    context         TEXT    NOT NULL,
-    prediction      TEXT    NOT NULL,
-    confidence      REAL    NOT NULL,
-    timestamp       TEXT    NOT NULL,
-    outcome         TEXT    NOT NULL DEFAULT 'pending',
-    version         INTEGER NOT NULL DEFAULT 1,
-    signature       TEXT    NOT NULL,
-    UNIQUE(decision_id, version)
-);
+"""
+    + table_schema("decisions")
+    + """;
+
 
 CREATE INDEX IF NOT EXISTS idx_decisions_id
     ON decisions (decision_id, version DESC);
@@ -461,30 +432,18 @@ CREATE INDEX IF NOT EXISTS idx_decisions_ts
 CREATE INDEX IF NOT EXISTS idx_decisions_outcome
     ON decisions (outcome, timestamp DESC);
 
-CREATE TABLE IF NOT EXISTS kg_nodes (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT,
-    node_id         TEXT    NOT NULL UNIQUE,
-    node_type       TEXT    NOT NULL,
-    label           TEXT,
-    properties_json TEXT    NOT NULL DEFAULT '{}',
-    timestamp       TEXT    NOT NULL,
-    version         INTEGER NOT NULL DEFAULT 1,
-    signature       TEXT    NOT NULL
-);
+"""
+    + table_schema("kg_nodes")
+    + """;
+
 
 CREATE INDEX IF NOT EXISTS idx_kg_nodes_type_ts
     ON kg_nodes (node_type, timestamp DESC);
 
-CREATE TABLE IF NOT EXISTS kg_edges (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT,
-    edge_id         TEXT    NOT NULL UNIQUE,
-    source_node_id  TEXT    NOT NULL,
-    target_node_id  TEXT    NOT NULL,
-    edge_type       TEXT    NOT NULL,
-    properties_json TEXT    NOT NULL DEFAULT '{}',
-    timestamp       TEXT    NOT NULL,
-    signature       TEXT    NOT NULL
-);
+"""
+    + table_schema("kg_edges")
+    + """;
+
 
 CREATE INDEX IF NOT EXISTS idx_kg_edges_source
     ON kg_edges (source_node_id, edge_type);
@@ -492,35 +451,18 @@ CREATE INDEX IF NOT EXISTS idx_kg_edges_source
 CREATE INDEX IF NOT EXISTS idx_kg_edges_target
     ON kg_edges (target_node_id, edge_type);
 
-CREATE TABLE IF NOT EXISTS market_signals (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT,
-    signal_id       TEXT    NOT NULL,
-    symbol          TEXT    NOT NULL,
-    signal_type     TEXT    NOT NULL,
-    value_json      TEXT    NOT NULL,
-    confidence      REAL    NOT NULL,
-    source          TEXT    NOT NULL,
-    timestamp       TEXT    NOT NULL,
-    version         INTEGER NOT NULL DEFAULT 1,
-    payload_hash    TEXT    NOT NULL,
-    signature       TEXT    NOT NULL,
-    UNIQUE(signal_id, version)
-);
+"""
+    + table_schema("market_signals")
+    + """;
+
 
 CREATE INDEX IF NOT EXISTS idx_market_signals_symbol_ts
     ON market_signals (symbol, timestamp DESC);
 
-CREATE TABLE IF NOT EXISTS learning_predictions (
-    prediction_id       TEXT PRIMARY KEY,
-    symbol                TEXT    NOT NULL,
-    action                TEXT    NOT NULL,
-    confidence            REAL    NOT NULL,
-    timestamp             TEXT    NOT NULL,
-    expiry                TEXT,
-    oracle_prediction_id  INTEGER,
-    context_json          TEXT    NOT NULL DEFAULT '{}',
-    signature             TEXT    NOT NULL
-);
+"""
+    + table_schema("learning_predictions")
+    + """;
+
 
 CREATE TABLE IF NOT EXISTS learning_outcomes (
     outcome_id        TEXT PRIMARY KEY,
@@ -579,17 +521,10 @@ CREATE TABLE IF NOT EXISTS analytics_events (
 CREATE INDEX IF NOT EXISTS idx_analytics_events_type_ts
     ON analytics_events (event_type, created_at DESC);
 
-CREATE TABLE IF NOT EXISTS ip_registry (
-    id                INTEGER PRIMARY KEY AUTOINCREMENT,
-    asset_id          TEXT    NOT NULL UNIQUE,
-    asset_type        TEXT    NOT NULL,
-    title             TEXT    NOT NULL,
-    description       TEXT,
-    rights_json       TEXT    NOT NULL DEFAULT '{}',
-    documentation_ref TEXT,
-    created_at        TEXT    NOT NULL,
-    updated_at        TEXT    NOT NULL
-);
+"""
+    + table_schema("ip_registry")
+    + """;
+
 
 CREATE TABLE IF NOT EXISTS corporate_dd_entries (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -599,7 +534,7 @@ CREATE TABLE IF NOT EXISTS corporate_dd_entries (
     payload_json    TEXT    NOT NULL,
     created_at      TEXT    NOT NULL
 );
-"""
+""")
 
 
 def _utcnow_iso() -> str:
@@ -897,20 +832,7 @@ async def _apply_migrations(db: Any) -> None:
     await _ensure_market_type_columns(db)
     await _ensure_timestamp_indexes(db)
 
-    await db.execute(
-        """
-        CREATE TABLE IF NOT EXISTS platform_analytics (
-            id                 INTEGER PRIMARY KEY CHECK (id = 1),
-            page_views         INTEGER NOT NULL DEFAULT 0,
-            dashboard_views    INTEGER NOT NULL DEFAULT 0,
-            landing_views      INTEGER NOT NULL DEFAULT 0,
-            voice_commands     INTEGER NOT NULL DEFAULT 0,
-            waitlist_count     INTEGER NOT NULL DEFAULT 0,
-            subscriber_count   INTEGER NOT NULL DEFAULT 0,
-            updated_at         TEXT    NOT NULL
-        )
-        """
-    )
+    await db.execute(table_schema("platform_analytics"))
     await db.execute(
         """
         INSERT OR IGNORE INTO platform_analytics
@@ -955,21 +877,7 @@ async def _apply_migrations(db: Any) -> None:
             UNIQUE(email, usage_date)
         )
         """,
-        """
-        CREATE TABLE IF NOT EXISTS journal_entries (
-            id             INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_email     TEXT    NOT NULL,
-            timestamp      TEXT    NOT NULL,
-            asset          TEXT    NOT NULL,
-            action         TEXT    NOT NULL,
-            notes          TEXT,
-            oracle_verdict TEXT,
-            entry_price    REAL,
-            exit_price     REAL,
-            pnl_usd        REAL,
-            status         TEXT    NOT NULL DEFAULT 'open'
-        )
-        """,
+        table_schema("journal_entries"),
         """
         CREATE INDEX IF NOT EXISTS idx_journal_user_ts
             ON journal_entries (user_email, timestamp)
@@ -1281,22 +1189,7 @@ async def _apply_migrations(db: Any) -> None:
         """
     )
 
-    await db.execute(
-        """
-        CREATE TABLE IF NOT EXISTS audit_logs (
-            id              INTEGER PRIMARY KEY AUTOINCREMENT,
-            timestamp       TEXT    NOT NULL,
-            actor           TEXT    NOT NULL,
-            action          TEXT    NOT NULL,
-            payload_hash    TEXT    NOT NULL,
-            outcome         TEXT    NOT NULL,
-            signature       TEXT    NOT NULL,
-            request_method  TEXT,
-            request_path    TEXT,
-            metadata_json   TEXT
-        )
-        """
-    )
+    await db.execute(table_schema("audit_logs"))
     await db.execute(
         """
         CREATE INDEX IF NOT EXISTS idx_audit_logs_ts
@@ -1316,22 +1209,7 @@ async def _apply_migrations(db: Any) -> None:
         """
     )
 
-    await db.execute(
-        """
-        CREATE TABLE IF NOT EXISTS decisions (
-            id              INTEGER PRIMARY KEY AUTOINCREMENT,
-            decision_id     TEXT    NOT NULL,
-            context         TEXT    NOT NULL,
-            prediction      TEXT    NOT NULL,
-            confidence      REAL    NOT NULL,
-            timestamp       TEXT    NOT NULL,
-            outcome         TEXT    NOT NULL DEFAULT 'pending',
-            version         INTEGER NOT NULL DEFAULT 1,
-            signature       TEXT    NOT NULL,
-            UNIQUE(decision_id, version)
-        )
-        """
-    )
+    await db.execute(table_schema("decisions"))
     await db.execute(
         """
         CREATE INDEX IF NOT EXISTS idx_decisions_id
@@ -1361,63 +1239,14 @@ async def _apply_migrations(db: Any) -> None:
 async def _ensure_compounding_tables(db: Any) -> None:
     """Phases 2–7 institutional compounding tables."""
     statements = [
-        """
-        CREATE TABLE IF NOT EXISTS kg_nodes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            node_id TEXT NOT NULL UNIQUE,
-            node_type TEXT NOT NULL,
-            label TEXT,
-            properties_json TEXT NOT NULL DEFAULT '{}',
-            timestamp TEXT NOT NULL,
-            version INTEGER NOT NULL DEFAULT 1,
-            signature TEXT NOT NULL
-        )
-        """,
+        table_schema("kg_nodes"),
         "CREATE INDEX IF NOT EXISTS idx_kg_nodes_type_ts ON kg_nodes (node_type, timestamp DESC)",
-        """
-        CREATE TABLE IF NOT EXISTS kg_edges (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            edge_id TEXT NOT NULL UNIQUE,
-            source_node_id TEXT NOT NULL,
-            target_node_id TEXT NOT NULL,
-            edge_type TEXT NOT NULL,
-            properties_json TEXT NOT NULL DEFAULT '{}',
-            timestamp TEXT NOT NULL,
-            signature TEXT NOT NULL
-        )
-        """,
+        table_schema("kg_edges"),
         "CREATE INDEX IF NOT EXISTS idx_kg_edges_source ON kg_edges (source_node_id, edge_type)",
         "CREATE INDEX IF NOT EXISTS idx_kg_edges_target ON kg_edges (target_node_id, edge_type)",
-        """
-        CREATE TABLE IF NOT EXISTS market_signals (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            signal_id TEXT NOT NULL,
-            symbol TEXT NOT NULL,
-            signal_type TEXT NOT NULL,
-            value_json TEXT NOT NULL,
-            confidence REAL NOT NULL,
-            source TEXT NOT NULL,
-            timestamp TEXT NOT NULL,
-            version INTEGER NOT NULL DEFAULT 1,
-            payload_hash TEXT NOT NULL,
-            signature TEXT NOT NULL,
-            UNIQUE(signal_id, version)
-        )
-        """,
+        table_schema("market_signals"),
         "CREATE INDEX IF NOT EXISTS idx_market_signals_symbol_ts ON market_signals (symbol, timestamp DESC)",
-        """
-        CREATE TABLE IF NOT EXISTS learning_predictions (
-            prediction_id TEXT PRIMARY KEY,
-            symbol TEXT NOT NULL,
-            action TEXT NOT NULL,
-            confidence REAL NOT NULL,
-            timestamp TEXT NOT NULL,
-            expiry TEXT,
-            oracle_prediction_id INTEGER,
-            context_json TEXT NOT NULL DEFAULT '{}',
-            signature TEXT NOT NULL
-        )
-        """,
+        table_schema("learning_predictions"),
         """
         CREATE TABLE IF NOT EXISTS learning_outcomes (
             outcome_id TEXT PRIMARY KEY,
@@ -1476,19 +1305,7 @@ async def _ensure_compounding_tables(db: Any) -> None:
         )
         """,
         "CREATE INDEX IF NOT EXISTS idx_analytics_events_type_ts ON analytics_events (event_type, created_at DESC)",
-        """
-        CREATE TABLE IF NOT EXISTS ip_registry (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            asset_id TEXT NOT NULL UNIQUE,
-            asset_type TEXT NOT NULL,
-            title TEXT NOT NULL,
-            description TEXT,
-            rights_json TEXT NOT NULL DEFAULT '{}',
-            documentation_ref TEXT,
-            created_at TEXT NOT NULL,
-            updated_at TEXT NOT NULL
-        )
-        """,
+        table_schema("ip_registry"),
         """
         CREATE TABLE IF NOT EXISTS corporate_dd_entries (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1518,18 +1335,34 @@ def _parse_row_timestamp(value: Any) -> datetime | None:
         return None
 
 
-async def fetch_archivable_pricing_logs(
+_COMPACTABLE_TABLES: dict[str, str] = {
+    "pricing_logs": "Unable to fetch archivable pricing logs",
+    "order_books": "Unable to fetch archivable order books",
+    "market_sentiment_logs": "Unable to fetch archivable sentiment logs",
+}
+
+_COMPACTABLE_DELETE_LOG: dict[str, str] = {
+    "pricing_logs": "Unable to purge archived pricing logs",
+    "order_books": "Unable to purge archived order books",
+    "market_sentiment_logs": "Unable to purge archived sentiment logs",
+}
+
+
+async def _fetch_archivable_table_rows(
+    table: str,
     cutoff_iso: str,
     *,
     limit: int | None = None,
 ) -> list[dict[str, Any]]:
+    if table not in _COMPACTABLE_TABLES:
+        raise ValueError(f"unsupported archivable table: {table}")
     batch_limit = limit or config.COMPACTION_SQLITE_BATCH_SIZE
     try:
         async with get_connection() as db:
             rows = await db.execute(
-                """
+                f"""
                 SELECT *
-                FROM pricing_logs
+                FROM {table}
                 WHERE timestamp < ?
                 ORDER BY timestamp ASC, id ASC
                 LIMIT ?
@@ -1539,8 +1372,38 @@ async def fetch_archivable_pricing_logs(
             result = await rows.fetchall()
         return [dict(row) for row in result]
     except Exception:
-        logger.exception("Unable to fetch archivable pricing logs")
+        logger.exception(_COMPACTABLE_TABLES[table])
         return []
+
+
+async def _delete_table_rows_by_ids(table: str, row_ids: Sequence[int]) -> int:
+    if table not in _COMPACTABLE_DELETE_LOG:
+        raise ValueError(f"unsupported compactable table: {table}")
+    if not row_ids:
+        return 0
+    total = 0
+    try:
+        async with get_connection() as db:
+            for i in range(0, len(row_ids), 500):
+                batch = row_ids[i : i + 500]
+                placeholders = ",".join("?" for _ in batch)
+                cursor = await db.execute(
+                    f"DELETE FROM {table} WHERE id IN ({placeholders})",
+                    tuple(int(item) for item in batch),
+                )
+                total += cursor.rowcount
+        return total
+    except Exception:
+        logger.exception(_COMPACTABLE_DELETE_LOG[table])
+        return 0
+
+
+async def fetch_archivable_pricing_logs(
+    cutoff_iso: str,
+    *,
+    limit: int | None = None,
+) -> list[dict[str, Any]]:
+    return await _fetch_archivable_table_rows("pricing_logs", cutoff_iso, limit=limit)
 
 
 async def fetch_archivable_order_books(
@@ -1548,24 +1411,7 @@ async def fetch_archivable_order_books(
     *,
     limit: int | None = None,
 ) -> list[dict[str, Any]]:
-    batch_limit = limit or config.COMPACTION_SQLITE_BATCH_SIZE
-    try:
-        async with get_connection() as db:
-            rows = await db.execute(
-                """
-                SELECT *
-                FROM order_books
-                WHERE timestamp < ?
-                ORDER BY timestamp ASC, id ASC
-                LIMIT ?
-                """,
-                (cutoff_iso, batch_limit),
-            )
-            result = await rows.fetchall()
-        return [dict(row) for row in result]
-    except Exception:
-        logger.exception("Unable to fetch archivable order books")
-        return []
+    return await _fetch_archivable_table_rows("order_books", cutoff_iso, limit=limit)
 
 
 async def fetch_archivable_sentiment_logs(
@@ -1573,84 +1419,19 @@ async def fetch_archivable_sentiment_logs(
     *,
     limit: int | None = None,
 ) -> list[dict[str, Any]]:
-    batch_limit = limit or config.COMPACTION_SQLITE_BATCH_SIZE
-    try:
-        async with get_connection() as db:
-            rows = await db.execute(
-                """
-                SELECT *
-                FROM market_sentiment_logs
-                WHERE timestamp < ?
-                ORDER BY timestamp ASC, id ASC
-                LIMIT ?
-                """,
-                (cutoff_iso, batch_limit),
-            )
-            result = await rows.fetchall()
-        return [dict(row) for row in result]
-    except Exception:
-        logger.exception("Unable to fetch archivable sentiment logs")
-        return []
+    return await _fetch_archivable_table_rows("market_sentiment_logs", cutoff_iso, limit=limit)
 
 
 async def delete_pricing_logs_by_ids(row_ids: Sequence[int]) -> int:
-    if not row_ids:
-        return 0
-    total = 0
-    try:
-        async with get_connection() as db:
-            for i in range(0, len(row_ids), 500):
-                batch = row_ids[i:i + 500]
-                placeholders = ",".join("?" for _ in batch)
-                cursor = await db.execute(
-                    f"DELETE FROM pricing_logs WHERE id IN ({placeholders})",
-                    tuple(int(item) for item in batch),
-                )
-                total += cursor.rowcount
-        return total
-    except Exception:
-        logger.exception("Unable to purge archived pricing logs")
-        return 0
+    return await _delete_table_rows_by_ids("pricing_logs", row_ids)
 
 
 async def delete_order_books_by_ids(row_ids: Sequence[int]) -> int:
-    if not row_ids:
-        return 0
-    total = 0
-    try:
-        async with get_connection() as db:
-            for i in range(0, len(row_ids), 500):
-                batch = row_ids[i:i + 500]
-                placeholders = ",".join("?" for _ in batch)
-                cursor = await db.execute(
-                    f"DELETE FROM order_books WHERE id IN ({placeholders})",
-                    tuple(int(item) for item in batch),
-                )
-                total += cursor.rowcount
-        return total
-    except Exception:
-        logger.exception("Unable to purge archived order books")
-        return 0
+    return await _delete_table_rows_by_ids("order_books", row_ids)
 
 
 async def delete_sentiment_logs_by_ids(row_ids: Sequence[int]) -> int:
-    if not row_ids:
-        return 0
-    total = 0
-    try:
-        async with get_connection() as db:
-            for i in range(0, len(row_ids), 500):
-                batch = row_ids[i:i + 500]
-                placeholders = ",".join("?" for _ in batch)
-                cursor = await db.execute(
-                    f"DELETE FROM market_sentiment_logs WHERE id IN ({placeholders})",
-                    tuple(int(item) for item in batch),
-                )
-                total += cursor.rowcount
-        return total
-    except Exception:
-        logger.exception("Unable to purge archived sentiment logs")
-        return 0
+    return await _delete_table_rows_by_ids("market_sentiment_logs", row_ids)
 
 
 async def insert_pricing_log(
@@ -1966,8 +1747,11 @@ async def fetch_system_telemetry() -> dict[str, Any]:
         market_sentiment_count = 0
         latest_eval = latest_pricing = None
 
-    db_exists = config.DB_PATH.exists()
-    db_size_bytes = config.DB_PATH.stat().st_size if db_exists else 0
+    from pathlib import Path
+
+    db_path = Path(config.DB_PATH) if not isinstance(config.DB_PATH, Path) else config.DB_PATH
+    db_exists = db_path.exists()
+    db_size_bytes = db_path.stat().st_size if db_exists else 0
 
     return {
         "evaluated_count": int(evaluated_count or 0),
@@ -1979,11 +1763,19 @@ async def fetch_system_telemetry() -> dict[str, Any]:
         "market_sentiment_log_count": int(market_sentiment_count or 0),
         "latest_evaluated_at": latest_eval,
         "latest_pricing_at": latest_pricing,
-        "database_path": str(config.DB_PATH),
+        "database_path": str(db_path),
         "database_size_bytes": db_size_bytes,
         "database_online": db_exists,
         "poll_interval_seconds": config.POLL_INTERVAL_SECONDS,
     }
+
+
+_INSTITUTIONAL_FLOWS_INSERT_SQL = """
+            INSERT INTO institutional_flows (
+                timestamp, flow_type, exchange, symbol, asset, sector, side,
+                price, quantity, notional_usd, net_flow_usd, metadata_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """
 
 
 async def insert_institutional_flow(
@@ -2003,12 +1795,7 @@ async def insert_institutional_flow(
     ts = timestamp or _utcnow_iso()
     async with get_connection() as db:
         cursor = await db.execute(
-            """
-            INSERT INTO institutional_flows (
-                timestamp, flow_type, exchange, symbol, asset, sector, side,
-                price, quantity, notional_usd, net_flow_usd, metadata_json
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
+            _INSTITUTIONAL_FLOWS_INSERT_SQL,
             (
                 ts,
                 flow_type,
@@ -2033,15 +1820,7 @@ async def insert_institutional_flows(
     if not rows:
         return
     async with get_connection() as db:
-        await db.executemany(
-            """
-            INSERT INTO institutional_flows (
-                timestamp, flow_type, exchange, symbol, asset, sector, side,
-                price, quantity, notional_usd, net_flow_usd, metadata_json
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
-            rows,
-        )
+        await db.executemany(_INSTITUTIONAL_FLOWS_INSERT_SQL, rows)
 
 
 async def fetch_latest_whale_alerts(limit: int = 50) -> list[dict[str, Any]]:
@@ -4847,9 +4626,23 @@ async def insert_weekly_report(narrative: str, payload: dict[str, Any]) -> int:
         return int(cursor.lastrowid or 0)
 
 
-async def fetch_weekly_reports(limit: int = 12) -> list[dict[str, Any]]:
-    import json
+def _deserialize_payload_json_rows(
+    rows: Sequence[Any],
+    *,
+    payload_key: str = "payload_json",
+) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        item = dict(row)
+        try:
+            item["payload"] = json.loads(item.pop(payload_key) or "{}")
+        except json.JSONDecodeError:
+            item["payload"] = {}
+        out.append(item)
+    return out
 
+
+async def fetch_weekly_reports(limit: int = 12) -> list[dict[str, Any]]:
     async with get_connection() as db:
         rows = await (
             await db.execute(
@@ -4862,15 +4655,7 @@ async def fetch_weekly_reports(limit: int = 12) -> list[dict[str, Any]]:
                 (limit,),
             )
         ).fetchall()
-    out: list[dict[str, Any]] = []
-    for row in rows:
-        item = dict(row)
-        try:
-            item["payload"] = json.loads(item.pop("payload_json") or "{}")
-        except json.JSONDecodeError:
-            item["payload"] = {}
-        out.append(item)
-    return out
+    return _deserialize_payload_json_rows(rows)
 
 
 async def insert_maintenance_run(payload: dict[str, Any]) -> int:
@@ -4892,8 +4677,6 @@ async def insert_maintenance_run(payload: dict[str, Any]) -> int:
 
 
 async def fetch_maintenance_runs(limit: int = 10) -> list[dict[str, Any]]:
-    import json
-
     async with get_connection() as db:
         rows = await (
             await db.execute(
@@ -4906,15 +4689,7 @@ async def fetch_maintenance_runs(limit: int = 10) -> list[dict[str, Any]]:
                 (limit,),
             )
         ).fetchall()
-    out: list[dict[str, Any]] = []
-    for row in rows:
-        item = dict(row)
-        try:
-            item["payload"] = json.loads(item.pop("payload_json") or "{}")
-        except json.JSONDecodeError:
-            item["payload"] = {}
-        out.append(item)
-    return out
+    return _deserialize_payload_json_rows(rows)
 
 
 async def upsert_user_api_key(

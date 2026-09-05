@@ -1,0 +1,62 @@
+{
+  "merged_at": "2026-09-02T20:48:39Z",
+  "merge_commit": "42044a4867a56df92d2c3978ef9cab8595feaaa5",
+  "fix_commit": "9393a08",
+  "pr": 358,
+  "production_url": "https://blackdark-production.up.railway.app",
+  "protected_at_utc": "2026-09-02T20:51:40Z",
+  "deploy_completed_at_utc": "2026-09-02T20:51:40Z",
+  "deploy_lag_seconds": 181,
+  "deploy_evidence": {
+    "source": "GitHub Deployments API",
+    "deployment_ids": [6231555901, 6231555934],
+    "merge_commit_deploy_started": "2026-09-02T20:48:44Z",
+    "merge_commit_deploy_completed": "2026-09-02T20:51:40Z",
+    "environments": ["cozy-stillness / production", "supportive-enchantment / production"]
+  },
+  "protected_at_correction_note": "Previous protected_at_utc (2026-09-02T20:50:12.444547+00:00) and production_url (blackdark-web-production.up.railway.app) were unreliable: the documented hostname returns HTTP 404 Application not found and was never the canonical Railway domain per DEPLOY.md. Corrected protected_at reflects GitHub Deployment completion for merge commit 42044a4 on blackdark-production.",
+  "authoritative_live_verification": "docs/PRODUCTION_LIVE_VERIFICATION_2026-09-03.json",
+  "superseded_unreliable_fields": {
+    "production_url": "https://blackdark-web-production.up.railway.app",
+    "protected_at_utc": "2026-09-02T20:50:12.444547+00:00",
+    "reason": "Wrong hostname in closure-agent tooling; live probes on that URL impossible (404)."
+  },
+  "post_deploy_tests": {
+    "cap_47": {
+      "url": "https://blackdark-production.up.railway.app/api/cap646/47?symbol=BTC",
+      "auth": "none",
+      "http_status": 200,
+      "success": false,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "pro",
+        "actual_tier": "free"
+      },
+      "data_leak_fields_absent": ["overview", "probe"],
+      "verified_in": "docs/PRODUCTION_LIVE_VERIFICATION_2026-09-03.json"
+    },
+    "cap_103": {
+      "url": "https://blackdark-production.up.railway.app/api/cap646/103?symbol=BTC",
+      "auth": "none",
+      "http_status": 200,
+      "success": false,
+      "entitlement": {
+        "allowed": false,
+        "reason": "teaser",
+        "required_tier": "elite",
+        "actual_tier": "free"
+      },
+      "data_leak_fields_absent": ["hot_storage", "graphql", "institutional_api"],
+      "verified_in": "docs/PRODUCTION_LIVE_VERIFICATION_2026-09-03.json"
+    }
+  },
+  "verdict": "PRODUCTION_PROTECTED",
+  "authoritative_reference": {
+    "sole_trusted_live_probe": "docs/PRODUCTION_LIVE_VERIFICATION_2026-09-03.json",
+    "pentagonal_hero_closure": "docs/PENTAGONAL_HERO_CLOSURE_REPORT.json",
+    "supplemental_closure": "docs/SUPPLEMENTAL_CLOSURE_REPORT_1_18.json",
+    "final_closure_report": "docs/PENTAGONAL_SIX_HERO_FINAL_CLOSURE.md",
+    "note": "Live HTTP evidence for GET entitlement and six-hero probes is authoritative only in PRODUCTION_LIVE_VERIFICATION_2026-09-03.json (correct production hostname). This file records PR #358 merge/deploy timing and entitlement verdict only."
+  }
+}

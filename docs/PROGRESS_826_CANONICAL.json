@@ -1,0 +1,62 @@
+{
+  "computed_at": "2026-09-04T09:55:00+00:00",
+  "canonical_progress": "179/826",
+  "numerator": 179,
+  "denominator": 826,
+  "formula": {
+    "a_pre_batch_338_500_507_534": {
+      "ids": [
+        338,
+        500,
+        507,
+        534
+      ],
+      "in_production_aligned": [
+        338,
+        500,
+        507,
+        534
+      ],
+      "note": "Completed before official batch system; included in inventory PRODUCTION-ALIGNED if status matches"
+    },
+    "b_hero_batch03_pr343_201_300": {
+      "hero_production_aligned_count": 0,
+      "re_evaluation_required": true,
+      "re_evaluation_when": "After batch01+02 institutional closure with owner approval; not before",
+      "intersection_with_1_100": []
+    },
+    "c_overlap_batch01": {
+      "ids": [
+        55,
+        56,
+        59,
+        60
+      ],
+      "counted_once_in_numerator": true,
+      "independent_batch02_build": false
+    },
+    "d_link_eligible_excluded": {
+      "ids": [
+        106,
+        107,
+        110,
+        125
+      ],
+      "excluded_from_numerator": [],
+      "status": "LINK-ELIGIBLE — not counted"
+    },
+    "e_official_batch04_151_200": {
+      "production_aligned_count": 31,
+      "ids": "docs/BATCH04_FINAL_CLOSURE_STATUS_151_200.json",
+      "note": "Batch04 BUILD_PHASE_LIFTED except paid vendor #187/#188/#190 and #165 DeFiLlama API subscription"
+    }
+  },
+  "breakdown": {
+    "inventory_production_aligned_total": 179,
+    "official_batch01_1_50": 50,
+    "official_batch02_independent_51_100_excl_overlap": 46,
+    "overlap_batch01_in_1_100": 4,
+    "official_batch04_151_200": 31
+  },
+  "single_source_of_truth": "docs/CAPABILITIES_826_INVENTORY.json summary must match this numerator"
+}

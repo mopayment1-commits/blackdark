@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-09-02T22:36:18.602883+00:00",
+  "pentagonal_checksum": "0de6a70e890959c4e209e37c8c0c42ef2d9d9734e573b93df73144db0b8c4eff",
+  "pentagonal_row_count": 100,
+  "hero_binding_checksum": "3f5a75005d045aa6d6e99322c58c4985456cc7c7a1b496ce5dfa1f1ea29ebc3b",
+  "hero_binding_row_count": 81,
+  "closure_checksum": "51bae4d06d60b2fc8a78e607ceefaa14d19240711b1511d3ac016c3b32c5ca83",
+  "lookahead_summary": {
+    "total_caps_checked": 60,
+    "passed": 60,
+    "failed": 0
+  },
+  "live_probe_summary": {
+    "heroes_probed": 6,
+    "live_ok": 6
+  },
+  "production_url": "https://blackdark-web-production.up.railway.app"
+}

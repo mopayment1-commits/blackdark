@@ -1,0 +1,69 @@
+{
+  "capability_id": 159,
+  "name": "API Data Platform",
+  "expected_surface": "api_data_platform",
+  "verification": {
+    "input": {
+      "symbol": "BTC",
+      "tier": "pro"
+    },
+    "expected_output": "api_data_platform",
+    "actual_output": "api_data_platform",
+    "comparison": "PASS",
+    "evidence": "runtime execute_capability(159) @ 9ae890ea11ce9a471fcc0499ab8489fca778fb0e"
+  },
+  "functional_completeness": "FAIL",
+  "functional_correctness": "FAIL",
+  "functional_appropriateness": "FAIL",
+  "duplication": {
+    "classification": "OVERLAP-PARTIAL",
+    "compared_id": 103,
+    "canonical": "batch03 #103",
+    "accounting": "NOT_COMPLETE until #103 matures or DISTINCT ADR"
+  },
+  "time_decision": "TOLERATE",
+  "time_expiry": "2026-10-03",
+  "architecture": {
+    "path": "execute_capability(159) \u2192 batch04_production \u2192 batch04_dedicated._cap159",
+    "route": "/api/cap646/159",
+    "spine": "batch04"
+  },
+  "hero": {
+    "applicable": true,
+    "hero_id": "H6"
+  },
+  "ai_classification": "N/A",
+  "local_state": "NOT_COMPLETE",
+  "production_state": "NOT_COMPLETE",
+  "performance_ms": 0.1,
+  "five_column_closure": {
+    "column_1_internal_goal": {
+      "completeness": "FAIL",
+      "correctness": "FAIL",
+      "appropriateness": "FAIL"
+    },
+    "column_2_external_result": {
+      "acceptance_criteria": "docs/BATCH04_ACCEPTANCE_151_200.json#159",
+      "expected_output": "api_data_platform",
+      "actual_output": "api_data_platform",
+      "comparison": "PASS"
+    },
+    "column_3_interface": {
+      "path": "execute_capability(159) \u2192 batch04_production \u2192 batch04_dedicated._cap159",
+      "route": "/api/cap646/159",
+      "spine": "batch04"
+    },
+    "column_4_security_quality": {
+      "entitlement": "fail-closed verified",
+      "tests": "test_batch04_prep_dedicated + corrective"
+    },
+    "column_5_review": {
+      "local_state": "NOT_COMPLETE",
+      "production_state": "NOT_COMPLETE",
+      "blockers": "NOT_COMPLETE until #103 matures or DISTINCT ADR"
+    }
+  },
+  "commit": "9ae890ea11ce9a471fcc0499ab8489fca778fb0e",
+  "branch": "cursor/batch-04-151-200-e85e",
+  "generated_at": "2026-09-03T20:23:14.137779+00:00"
+}

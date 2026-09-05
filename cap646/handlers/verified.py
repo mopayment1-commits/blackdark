@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from cap646.evidence_class import ai_compliance_footer
+from cap646.handlers._params import normalize_symbol
 from data_provenance_score import compute_data_provenance_score
 from hot_storage import get_hot_storage_stats
 
@@ -14,7 +15,7 @@ async def handle_verified_capability(
     *,
     params: dict[str, Any],
 ) -> dict[str, Any]:
-    symbol = str(params.get("symbol") or params.get("asset") or "BTC").upper().replace("/USDT", "")
+    symbol = normalize_symbol(params)
 
     if capability_id == 49:
         from options_fetcher import fetch_options_overview
@@ -68,21 +69,14 @@ async def handle_verified_capability(
         return ai_compliance_footer({"capability_id": 638, "surface": "claims_prediction_verification", "ledger": record, "success": True})
 
     if capability_id == 639:
-        from net_edge_truth import compute_net_edge_truth
+        from net_edge_truth import FIN_004_DEMO_OPPORTUNITY, compute_net_edge_truth
 
         sample = compute_net_edge_truth(
             {
                 "symbol": f"{symbol}/USDT",
                 "buy_exchange": "binance",
                 "sell_exchange": "okx",
-                "net_profit_usdt": 2.5,
-                "quote_amount": 1000.0,
-                "total_slippage_bps": 3,
-                "withdrawal_fee_usdt": 0.05,
-                "trading_fees_usdt": 0.2,
-                "quote_age_ms": 120,
-                "estimated_recipients": 2,
-                "flywheel_net_after_crowd_usd": 2.1,
+                **FIN_004_DEMO_OPPORTUNITY,
             }
         )
         return ai_compliance_footer({"capability_id": 639, "surface": "net_edge_truth_score", "sample": sample, "success": True})

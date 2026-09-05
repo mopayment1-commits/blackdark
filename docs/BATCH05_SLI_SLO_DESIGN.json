@@ -1,0 +1,49 @@
+{
+  "journeys": [
+    {
+      "journey_id": "J1",
+      "name": "Strangler execute BTC",
+      "sli": "successful_execute_ratio",
+      "slo": "99.5% over 30d",
+      "measurement_window": "30d rolling",
+      "error_budget": "0.5%",
+      "owner": "batch05-institutional-owner",
+      "alert_condition": "success_ratio < 99% for 15m",
+      "production_compliance": "NOT_MEASURED"
+    },
+    {
+      "journey_id": "J2",
+      "name": "REUSED-LINK facade",
+      "sli": "successful_execute_ratio",
+      "slo": "99.5% over 30d",
+      "measurement_window": "30d rolling",
+      "error_budget": "0.5%",
+      "owner": "batch05-institutional-owner",
+      "alert_condition": "success_ratio < 99% for 15m",
+      "production_compliance": "NOT_MEASURED"
+    },
+    {
+      "journey_id": "J3",
+      "name": "Public API surface",
+      "sli": "successful_execute_ratio",
+      "slo": "99.5% over 30d",
+      "measurement_window": "30d rolling",
+      "error_budget": "0.5%",
+      "owner": "batch05-institutional-owner",
+      "alert_condition": "success_ratio < 99% for 15m",
+      "production_compliance": "NOT_MEASURED"
+    },
+    {
+      "journey_id": "J4",
+      "name": "Entitlement gateway",
+      "sli": "successful_execute_ratio",
+      "slo": "99.5% over 30d",
+      "measurement_window": "30d rolling",
+      "error_budget": "0.5%",
+      "owner": "batch05-institutional-owner",
+      "alert_condition": "success_ratio < 99% for 15m",
+      "production_compliance": "NOT_MEASURED"
+    }
+  ],
+  "status": "DESIGN_COMPLETE_AWAITING_LIVE"
+}

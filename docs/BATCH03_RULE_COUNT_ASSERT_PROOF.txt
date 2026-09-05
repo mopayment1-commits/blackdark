@@ -1,0 +1,57 @@
+=== BATCH03_RULE_COUNT_ASSERT_PROOF ===
+timestamp_utc: 2026-09-03T12:39:30Z
+git_commit: af6fc36916b6d999d6d34b5dbfd22364cf817a97
+git_branch: cursor/batch-03-101-150-e85e
+command: python3 scripts/generate_batch03_institutional_pentagonal.py
+cwd: /workspace
+assert_rule_count_triple_match: invoked from scripts/generate_batch03_institutional_pentagonal.py main() after build_rows()
+--- stdout ---
+assert_rule_count_triple_match: begin
+assert_rule_count_triple_match: ID 101 acceptance=7 results=7 rules_total=7 rules_passed=7 OK
+assert_rule_count_triple_match: ID 102 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 104 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 105 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 108 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 109 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 111 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 112 acceptance=3 results=3 rules_total=3 rules_passed=3 OK
+assert_rule_count_triple_match: ID 113 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 114 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 115 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 116 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 117 acceptance=3 results=3 rules_total=3 rules_passed=3 OK
+assert_rule_count_triple_match: ID 118 acceptance=3 results=3 rules_total=3 rules_passed=3 OK
+assert_rule_count_triple_match: ID 119 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 120 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 121 acceptance=3 results=3 rules_total=3 rules_passed=3 OK
+assert_rule_count_triple_match: ID 122 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 123 acceptance=3 results=3 rules_total=3 rules_passed=3 OK
+assert_rule_count_triple_match: ID 124 acceptance=3 results=3 rules_total=3 rules_passed=3 OK
+assert_rule_count_triple_match: ID 126 acceptance=3 results=3 rules_total=3 rules_passed=3 OK
+assert_rule_count_triple_match: ID 127 acceptance=3 results=3 rules_total=3 rules_passed=3 OK
+assert_rule_count_triple_match: ID 128 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 130 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 131 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 132 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 133 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 134 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 135 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 136 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 137 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 138 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 139 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 140 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 141 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 142 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 143 acceptance=3 results=3 rules_total=3 rules_passed=3 OK
+assert_rule_count_triple_match: ID 144 acceptance=6 results=6 rules_total=6 rules_passed=6 OK
+assert_rule_count_triple_match: ID 145 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 146 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 147 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 148 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: ID 149 acceptance=4 results=4 rules_total=4 rules_passed=4 OK
+assert_rule_count_triple_match: ID 150 acceptance=5 results=5 rules_total=5 rules_passed=5 OK
+assert_rule_count_triple_match: end — all 44 independent IDs matched
+Wrote /workspace/docs/BATCH03_INSTITUTIONAL_PENTAGONAL_COMPLETE.md (44 capabilities, incomplete=0)
+--- end stdout ---
+exit_code: 0
