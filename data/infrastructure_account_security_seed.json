@@ -1,0 +1,84 @@
+{
+  "feature_ref": 831,
+  "control_ref": "SEC-003",
+  "merged_into": "Sprint-0 Infrastructure",
+  "standalone_rejected": true,
+  "account_security_831": {
+    "sprint": 0,
+    "policy": {
+      "blocks_production_if_incomplete": true,
+      "no_skip_admin_mfa": true,
+      "mfa": {
+        "method": "totp",
+        "admin_mandatory": true,
+        "user_optional": true,
+        "pro_tier_recommended": true,
+        "no_sms": true,
+        "no_skip_admin_mfa": true,
+        "backup_codes_encrypted": true,
+        "providers": ["Google Authenticator", "Authy"]
+      },
+      "password_reset": {
+        "expiry_minutes": 15,
+        "single_use": true,
+        "hashed_in_db": true,
+        "no_plaintext": true,
+        "email_delivery": true,
+        "non_custodial_note": true
+      },
+      "session_timeout": {
+        "idle_timeout_minutes": 30,
+        "absolute_timeout_hours": 8,
+        "backend_enforced": true,
+        "no_client_side_only": true
+      },
+      "concurrent_sessions": {
+        "free": 1,
+        "pro": 3,
+        "elite": 3,
+        "quant": 3,
+        "institutional": 5,
+        "whale": 3
+      },
+      "rate_limiting": {
+        "password_reset_per_hour": 3,
+        "mfa_attempts_per_5min": 5,
+        "brute_force_protection": true
+      },
+      "device_fingerprinting": {
+        "enabled": true,
+        "optional": true,
+        "pro_tier": true,
+        "new_device_email_notification": true
+      },
+      "non_custodial": {
+        "no_private_keys": true,
+        "password_reset_no_wallet_access": true,
+        "account_security_not_wallet_security": true
+      },
+      "unified_identity": {
+        "shared_auth_layer": true,
+        "waitlist_integrated": true,
+        "stripe_integrated": true,
+        "no_separate_user_db": true
+      }
+    },
+    "fee_db": {
+      "tier": "ops",
+      "ops_budget": true,
+      "note": "N/A user-facing — security cost in infrastructure budget"
+    }
+  },
+  "auth_audit_log": [
+    {
+      "event_id": "auth_seed_001",
+      "event_type": "login",
+      "user_id": "user_seed",
+      "email": "seed@blackdark.io",
+      "success": true,
+      "timestamp": "2026-08-01T10:00:00+00:00",
+      "audit_logged": true,
+      "chain_hash": "seed_auth_hash_001"
+    }
+  ]
+}

@@ -18,6 +18,17 @@ logger = logging.getLogger("BLACKDARK.AdminMFA")
 
 
 def mfa_policy_enabled() -> bool:
+    # SKIP_ADMIN_MFA is rejected — admin MFA cannot be bypassed in production.
+    skip = os.getenv("SKIP_ADMIN_MFA", "").strip().lower()
+    if skip in {"1", "true", "yes", "on"}:
+        try:
+            from security_auth import is_production_env
+
+            if is_production_env():
+                logger.warning("SKIP_ADMIN_MFA ignored in production — admin MFA remains mandatory")
+                return True
+        except ImportError:
+            return True
     raw = os.getenv("ADMIN_MFA_REQUIRED", "").strip().lower()
     if raw in {"0", "false", "no", "off"}:
         return False

@@ -885,3 +885,382 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
     ]
     trained = train_ppo_policy(samples, epochs=30)
     return {"status": policy_status(), "trained": trained}
+
+
+@router.get("/internal/infrastructure/backup-dr/status")
+async def backup_dr_status_route(_admin: dict = Depends(require_admin)):
+    """#828 Backup & Disaster Recovery — REL-003 Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_backup_disaster_recovery import backup_dr_status_828
+
+    return backup_dr_status_828()
+
+
+@router.get("/internal/infrastructure/backup-dr/panel")
+async def backup_dr_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import build_backup_dr_panel_828
+
+    return build_backup_dr_panel_828()
+
+
+@router.post("/internal/infrastructure/backup-dr/record")
+async def backup_dr_record_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_backup_disaster_recovery import record_backup_operation_828
+
+    return record_backup_operation_828(
+        backup_type=data.get("backup_type", "full"),
+        size_bytes=int(data.get("size_bytes", 0)),
+        checksum=data.get("checksum", ""),
+        location=data.get("location", ""),
+        off_site_location=data.get("off_site_location", ""),
+        tenant_id=data.get("tenant_id", "platform"),
+        test_result=data.get("test_result", "passed"),
+    )
+
+
+@router.post("/internal/infrastructure/backup-dr/drill")
+async def backup_dr_drill_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_backup_disaster_recovery import record_dr_restore_test_828
+
+    return record_dr_restore_test_828(
+        backup_id=data.get("backup_id", ""),
+        rpo_minutes=data.get("rpo_minutes"),
+        rto_minutes=data.get("rto_minutes"),
+        result=data.get("result", "success"),
+    )
+
+
+@router.get("/internal/infrastructure/backup-dr/audit-trail")
+async def backup_dr_audit_trail_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import get_backup_audit_trail_828
+
+    return get_backup_audit_trail_828()
+
+
+@router.get("/internal/infrastructure/backup-dr/e2e")
+async def backup_dr_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import run_backup_disaster_recovery_e2e_828
+
+    return run_backup_disaster_recovery_e2e_828()
+
+
+@router.get("/internal/infrastructure/backup-dr/bcp")
+async def backup_dr_bcp_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import business_continuity_plan_828
+
+    return business_continuity_plan_828()
+
+
+@router.get("/internal/infrastructure/backup-dr/production-gate")
+async def backup_dr_production_gate_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_backup_disaster_recovery import check_production_gate_828
+
+    return check_production_gate_828()
+
+
+@router.get("/internal/infrastructure/incident-response/status")
+async def incident_response_status_route(_admin: dict = Depends(require_admin)):
+    """#829 Incident Response & Security Operations — SEC-009 Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_incident_response_security_ops import incident_response_status_829
+
+    return incident_response_status_829()
+
+
+@router.get("/internal/infrastructure/incident-response/panel")
+async def incident_response_panel_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import build_incident_response_panel_829
+
+    return build_incident_response_panel_829()
+
+
+@router.get("/internal/infrastructure/incident-response/runbook/{scenario}")
+async def incident_response_runbook_route(scenario: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_runbook_scenario_829
+
+    return get_runbook_scenario_829(scenario)
+
+
+@router.get("/internal/infrastructure/incident-response/escalation")
+async def incident_response_escalation_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_escalation_policy_829
+
+    return get_escalation_policy_829()
+
+
+@router.get("/internal/infrastructure/incident-response/isolation-playbooks")
+async def incident_response_isolation_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_isolation_playbooks_829
+
+    return get_isolation_playbooks_829()
+
+
+@router.get("/internal/infrastructure/incident-response/notification-template/{template_id}")
+async def incident_response_template_route(template_id: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_notification_template_829
+
+    return get_notification_template_829(template_id)
+
+
+@router.post("/internal/infrastructure/incident-response/incident")
+async def incident_response_record_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_incident_response_security_ops import record_incident_829
+
+    return record_incident_829(
+        scenario=data.get("scenario", "service_outage"),
+        severity=data.get("severity", "critical"),
+        title=data.get("title", ""),
+        tenant_id=data.get("tenant_id"),
+    )
+
+
+@router.post("/internal/infrastructure/incident-response/escalation")
+async def incident_response_escalation_record_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_incident_response_security_ops import record_escalation_829
+
+    return record_escalation_829(
+        incident_id=data.get("incident_id", ""),
+        level=data.get("level", "oncall"),
+        notified_role=data.get("notified_role", "oncall_engineer"),
+        minutes_elapsed=int(data.get("minutes_elapsed", 0)),
+    )
+
+
+@router.post("/internal/infrastructure/incident-response/isolation-drill")
+async def incident_response_drill_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_incident_response_security_ops import record_isolation_drill_829
+
+    return record_isolation_drill_829(
+        playbook=data.get("playbook", "api_kill_switch"),
+        result=data.get("result", "passed"),
+        tenant_isolation_tested=data.get("tenant_isolation_tested", True),
+    )
+
+
+@router.post("/internal/infrastructure/incident-response/notify")
+async def incident_response_notify_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_incident_response_security_ops import record_user_notification_829
+
+    return record_user_notification_829(
+        incident_id=data.get("incident_id", ""),
+        template_id=data.get("template_id", "critical_investigating"),
+        channel=data.get("channel", "email"),
+        message=data.get("message", ""),
+    )
+
+
+@router.get("/internal/infrastructure/incident-response/audit-trail")
+async def incident_response_audit_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import get_incident_audit_trail_829
+
+    return get_incident_audit_trail_829()
+
+
+@router.get("/internal/infrastructure/incident-response/e2e")
+async def incident_response_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_incident_response_security_ops import run_incident_response_e2e_829
+
+    return run_incident_response_e2e_829()
+
+
+@router.get("/legal-framework/status")
+async def legal_framework_status_route():
+    """#830 Legal Framework — cross-cutting ToS/Privacy policy (public)."""
+    from bd_platform.legal_framework_cross_cutting import legal_framework_status_830
+
+    return legal_framework_status_830()
+
+
+@router.get("/legal-framework/tos")
+async def legal_framework_tos_route(lang: str = Query("en")):
+    from bd_platform.legal_framework_cross_cutting import get_tos_summary_830
+
+    return get_tos_summary_830(lang=lang)
+
+
+@router.get("/legal-framework/privacy")
+async def legal_framework_privacy_route(lang: str = Query("en")):
+    from bd_platform.legal_framework_cross_cutting import get_privacy_policy_summary_830
+
+    return get_privacy_policy_summary_830(lang=lang)
+
+
+@router.post("/legal-framework/scan")
+async def legal_framework_scan_route(data: dict = Body(default={})):
+    from bd_platform.legal_framework_cross_cutting import scan_forbidden_language_830
+
+    return scan_forbidden_language_830(data.get("text", ""))
+
+
+@router.post("/legal-framework/consent")
+async def legal_framework_consent_route(
+    data: dict = Body(default={}),
+    user: dict = Depends(require_authenticated),
+):
+    from bd_platform.legal_framework_cross_cutting import record_user_consent_830
+
+    return record_user_consent_830(
+        user_id=str(user.get("id") or data.get("user_id", "anonymous")),
+        consent_type=data.get("consent_type", "explicit_ack"),
+        lang=data.get("lang", "en"),
+    )
+
+
+@router.get("/legal-framework/versions")
+async def legal_framework_versions_route():
+    from bd_platform.legal_framework_cross_cutting import get_document_versions_830
+
+    return get_document_versions_830()
+
+
+@router.get("/internal/legal-framework/audit-trail")
+async def legal_framework_audit_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import get_consent_audit_trail_830
+
+    return get_consent_audit_trail_830()
+
+
+@router.get("/internal/legal-framework/e2e")
+async def legal_framework_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.legal_framework_cross_cutting import run_legal_framework_e2e_830
+
+    return run_legal_framework_e2e_830()
+
+
+@router.get("/internal/infrastructure/account-security/status")
+async def account_security_status_route(_admin: dict = Depends(require_admin)):
+    """#831 Account Security Layer — SEC-003 Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_account_security import account_security_status_831
+
+    return account_security_status_831()
+
+
+@router.get("/internal/infrastructure/account-security/mfa-policy")
+async def account_security_mfa_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import get_mfa_policy_831
+
+    return get_mfa_policy_831()
+
+
+@router.get("/internal/infrastructure/account-security/session-policy")
+async def account_security_session_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import get_session_policy_831
+
+    return get_session_policy_831()
+
+
+@router.get("/internal/infrastructure/account-security/concurrent-limit/{tier}")
+async def account_security_concurrent_route(tier: str, _admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import get_concurrent_session_limit_831
+
+    return get_concurrent_session_limit_831(tier)
+
+
+@router.get("/internal/infrastructure/account-security/audit-trail")
+async def account_security_audit_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import get_auth_audit_trail_831
+
+    return get_auth_audit_trail_831()
+
+
+@router.get("/internal/infrastructure/account-security/e2e")
+async def account_security_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_account_security import run_account_security_e2e_831
+
+    return run_account_security_e2e_831()
+
+
+@router.get("/internal/infrastructure/performance-validation/status")
+async def performance_validation_status_route(_admin: dict = Depends(require_admin)):
+    """#832 Performance Validation Gate — REL-001 Sprint-0 Infrastructure."""
+    from bd_platform.infrastructure_performance_validation import performance_validation_status_832
+
+    return performance_validation_status_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/tooling")
+async def performance_validation_tooling_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_load_test_tooling_832
+
+    return get_load_test_tooling_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/endpoints")
+async def performance_validation_endpoints_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_critical_endpoints_832
+
+    return get_critical_endpoints_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/curl-proofs")
+async def performance_validation_curl_proofs_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_curl_proofs_832
+
+    return get_curl_proofs_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/scaling")
+async def performance_validation_scaling_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_scaling_stages_832
+
+    return get_scaling_stages_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/degradation-report")
+async def performance_validation_degradation_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_degradation_report_832
+
+    return get_degradation_report_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/sprint1-gate")
+async def performance_validation_sprint1_gate_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import check_sprint1_gate_832
+
+    return check_sprint1_gate_832()
+
+
+@router.get("/internal/infrastructure/performance-validation/signed-evidence")
+async def performance_validation_signed_evidence_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import get_signed_load_evidence_832
+
+    return get_signed_load_evidence_832()
+
+
+@router.post("/internal/infrastructure/performance-validation/record-run")
+async def performance_validation_record_run_route(
+    data: dict = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.infrastructure_performance_validation import record_load_test_run_832
+
+    return record_load_test_run_832(
+        environment=data.get("environment", "production-like"),
+        concurrent_users=int(data.get("concurrent_users", 100)),
+        endpoint=data.get("endpoint", "/health/live"),
+        metrics=data.get("metrics", {}),
+        passed=bool(data.get("passed", True)),
+    )
+
+
+@router.get("/internal/infrastructure/performance-validation/e2e")
+async def performance_validation_e2e_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.infrastructure_performance_validation import run_performance_validation_e2e_832
+
+    return run_performance_validation_e2e_832()

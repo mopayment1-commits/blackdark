@@ -47,7 +47,7 @@ _COMMON_PASSWORDS = {
 
 TOKEN_TTL_MINUTES = {
     "email_verify": int(os.getenv("IDENTITY_VERIFY_TTL_MIN", "60")),
-    "password_reset": int(os.getenv("IDENTITY_RESET_TTL_MIN", "45")),
+    "password_reset": int(os.getenv("IDENTITY_RESET_TTL_MIN", "15")),
 }
 
 AVATAR_DIR = Path(os.getenv("IDENTITY_AVATAR_DIR", "data/avatars"))

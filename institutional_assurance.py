@@ -317,6 +317,12 @@ def contracts_status() -> dict[str, Any]:
 
 
 def ir_program() -> dict[str, Any]:
+    try:
+        from bd_platform.infrastructure_incident_response_security_ops import institutional_ir_status_829
+
+        return institutional_ir_status_829()
+    except ImportError:
+        pass
     data = _read_json(
         _IR,
         {
@@ -350,6 +356,16 @@ def ir_program() -> dict[str, Any]:
 
 
 def record_tabletop(*, title: str, outcome: str, participants: list[str]) -> dict[str, Any]:
+    try:
+        from bd_platform.infrastructure_incident_response_security_ops import record_isolation_drill_829
+
+        drill = record_isolation_drill_829(
+            playbook=title,
+            result="passed" if outcome == "success" else outcome,
+        )
+        return drill.get("drill") or drill
+    except ImportError:
+        pass
     data = ir_program()
     drill = {
         "drill_id": f"tb_{uuid4().hex[:8]}",
@@ -477,6 +493,17 @@ def staging_mirror_status() -> dict[str, Any]:
 
 
 def record_backup_drill(*, rpo_minutes: int, rto_minutes: int, result: str) -> dict[str, Any]:
+    try:
+        from bd_platform.infrastructure_backup_disaster_recovery import record_dr_restore_test_828
+
+        out = record_dr_restore_test_828(
+            rpo_minutes=rpo_minutes,
+            rto_minutes=rto_minutes,
+            result=result,
+        )
+        return out.get("dr_test") or out
+    except ImportError:
+        pass
     row = {
         "drill_id": f"bk_{uuid4().hex[:8]}",
         "rpo_minutes": int(rpo_minutes),
@@ -489,6 +516,12 @@ def record_backup_drill(*, rpo_minutes: int, rto_minutes: int, result: str) -> d
 
 
 def backup_status() -> dict[str, Any]:
+    try:
+        from bd_platform.infrastructure_backup_disaster_recovery import institutional_backup_status_828
+
+        return institutional_backup_status_828()
+    except ImportError:
+        pass
     _ensure()
     rows = []
     if _BACKUP.exists():
