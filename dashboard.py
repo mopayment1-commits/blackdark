@@ -898,9 +898,11 @@ async def optional_user(
 def require_feature(feature: str):
     def _dependency(user: dict | None = Depends(optional_user)) -> dict | None:
         from auth_service import feature_allowed
+        from pricing_catalog import next_upgrade
 
         if not feature_allowed(user, feature):
             tier = (user or {}).get("tier") or "free"
+            upgrade = next_upgrade(tier)
             raise HTTPException(
                 status_code=403,
                 detail={
@@ -908,7 +910,8 @@ def require_feature(feature: str):
                     "feature": feature,
                     "current_tier": tier,
                     "message": f"This feature requires an upgrade. Current plan: {tier}.",
-                    "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
+                    "upgrade_url": upgrade.get("href") or PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
+                    "recommended_plan": upgrade.get("next_id"),
                 },
             )
         return user
@@ -1774,6 +1777,11 @@ async def intelligence_ledger_page(request: Request):
 @app.get("/address-intelligence", response_class=HTMLResponse)
 async def address_intelligence_page(request: Request):
     return render_page(request, "address_intelligence.html", _footer_ctx())
+
+
+@app.get("/subscription-analytics", response_class=HTMLResponse)
+async def subscription_analytics_page(request: Request):
+    return render_page(request, "subscription_analytics.html", _footer_ctx())
 
 
 @app.get("/validity-decay", response_class=HTMLResponse)

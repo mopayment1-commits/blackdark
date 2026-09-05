@@ -34,7 +34,14 @@ async def run_billing_sweep() -> dict[str, int]:
             bump_entitlements=True,
         )
         downgraded += 1
-    return {"expired": expired, "downgraded": downgraded}
+    warnings = {"sent": 0}
+    try:
+        from billing.renewal_alerts import run_renewal_warning_scan
+
+        warnings = await run_renewal_warning_scan()
+    except Exception:
+        logger.exception("renewal_warning_scan failed")
+    return {"expired": expired, "downgraded": downgraded, "renewal_warnings_sent": warnings.get("sent", 0)}
 
 
 async def _sweeper_loop(interval_sec: int = 900) -> None:

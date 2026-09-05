@@ -244,6 +244,36 @@ async def list_expired_candidates(now_iso: str | None = None) -> list[dict[str, 
     return [_row_to_dict(r) for r in rows]
 
 
+async def list_renewal_warning_candidates(
+    *,
+    warning_days: int = 5,
+    now_iso: str | None = None,
+) -> list[dict[str, Any]]:
+    """Paid subscriptions expiring within warning_days (not yet expired)."""
+    from database import get_connection
+
+    now = datetime.fromisoformat(now_iso) if now_iso else datetime.now(UTC)
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=UTC)
+    horizon = (now + timedelta(days=int(warning_days))).isoformat()
+    now_s = now.isoformat()
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT * FROM subscription_accounts
+                WHERE plan != 'free'
+                  AND subscription_status IN ('active', 'trialing', 'canceled')
+                  AND current_period_end IS NOT NULL
+                  AND current_period_end > ?
+                  AND current_period_end <= ?
+                """,
+                (now_s, horizon),
+            )
+        ).fetchall()
+    return [_row_to_dict(r) for r in rows]
+
+
 async def list_pending_downgrades(now_iso: str | None = None) -> list[dict[str, Any]]:
     from database import get_connection
 
