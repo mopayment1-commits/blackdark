@@ -140,6 +140,14 @@ async def market_radar_narrative_api():
     return await market_radar_narrative()
 
 
+@router.get("/feed-latency")
+async def market_feed_latency_public(symbol: str = Query("BTC")):
+    """Public Feed Latency snapshot (informational, no auth) — Feature #111."""
+    from bd_platform.feed_latency_intelligence import compare_feed_latency
+
+    return await compare_feed_latency(symbol)
+
+
 @router.get("/klines", responses=COMMON_ERROR_RESPONSES)
 async def market_klines(
     symbol: str = Query("BTCUSDT", min_length=3, max_length=20),
