@@ -112,6 +112,13 @@ if KAFKA_PRICE_STREAM_ENABLED and PRICE_FEED_WS_ONLY and not os.getenv("KAFKA_BR
     os.environ.setdefault("KAFKA_BROKERS", KAFKA_BROKERS_DEFAULT)
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 PG_POOL_MAX = int(os.getenv("PG_POOL_MAX", "20"))
+
+# ── ETL / Time-series (#118) ─────────────────────────────────────────────────
+INFLUXDB_URL = os.getenv("INFLUXDB_URL", "").strip()
+INFLUXDB_TOKEN = os.getenv("INFLUXDB_TOKEN", "blackdark-dev-token").strip()
+INFLUXDB_ORG = os.getenv("INFLUXDB_ORG", "blackdark").strip()
+INFLUXDB_BUCKET = os.getenv("INFLUXDB_BUCKET", "blackdark").strip()
+ETL_RETENTION_DAYS = int(os.getenv("ETL_RETENTION_DAYS", "730"))
 _bus_local_env = os.getenv("SERVICE_BUS_LOCAL")
 SERVICE_BUS_LOCAL = not bool(REDIS_URL) if _bus_local_env is None else _bus_local_env.lower() in {"1", "true", "yes"}
 
