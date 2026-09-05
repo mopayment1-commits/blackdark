@@ -2,12 +2,41 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Body, Depends
+from fastapi import APIRouter, Body, Depends, HTTPException
 
-from security_auth import require_whale
+from security_auth import require_authenticated, require_whale
 from security_models import UserApiKeyBody
 
 router = APIRouter(prefix="/api/user", tags=["user"])
+
+
+@router.post("/delete-account")
+async def delete_account(
+    data: dict = Body(default={}),
+    user: dict = Depends(require_authenticated),
+):
+    """GDPR Right to be Forgotten — soft delete with 30-day grace period."""
+    from bd_platform.infrastructure_gdpr_compliance_layer import request_account_deletion_1023
+
+    email = str(user.get("email") or "")
+    if not email:
+        raise HTTPException(status_code=400, detail="No email on account")
+    confirmed = data.get("confirm") in {True, "true", "1", 1}
+    if not confirmed:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "error": "confirmation_required",
+                "message": "Set confirm=true to schedule account deletion.",
+            },
+        )
+    return await request_account_deletion_1023(
+        user_id=int(user["id"]),
+        email=email,
+        confirmed=True,
+        user_region=str(data.get("region") or "EU"),
+        user_tier=str(user.get("tier") or "free"),
+    )
 
 
 @router.post("/exchange-keys")
