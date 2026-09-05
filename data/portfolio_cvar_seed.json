@@ -1,0 +1,31 @@
+{
+  "feature_ref": "portfolio_cvar_metric",
+  "merged_into": "Portfolio AI Risk Tab",
+  "standalone_rejected": true,
+  "portfolio_cvar_metric": {
+    "policy_version": "1.0.0",
+    "methodology": "historical_expected_shortfall",
+    "monte_carlo": false,
+    "ml": false,
+    "confidence_levels": [0.90, 0.95, 0.99],
+    "time_horizons_days": [1, 7, 30],
+    "default_confidence": 0.95,
+    "default_horizon_days": 1,
+    "lookback_days": 90,
+    "decimal_precision": 8,
+    "insight_only": true,
+    "no_catastrophe_guarantee": true,
+    "requires_var_companion": true,
+    "tail_hit_rate_published": true,
+    "sprint": 2,
+    "integrations": {
+      "var_ref": 1021,
+      "multi_account_sync_ref": 907,
+      "reference_pricing_ref": 959,
+      "historical_data_ref": 967,
+      "financial_precision_ref": 1031,
+      "provenance_ref": 945,
+      "accuracy_ledger_ref": 987
+    }
+  }
+}
