@@ -734,6 +734,63 @@ async def portfolio_rebalance(
     )
 
 
+@router.get("/portfolio/risk")
+async def portfolio_risk(holdings: str | None = Query(None, description="JSON array of holdings")):
+    """Portfolio Risk Management (#109) — actionable stop-loss, protocol, concentration."""
+    from bd_platform.portfolio_risk_management import portfolio_risk_overview
+
+    assets: list[dict[str, Any]] = []
+    if holdings:
+        import json
+
+        try:
+            parsed = json.loads(holdings)
+            assets = parsed if isinstance(parsed, list) else []
+        except json.JSONDecodeError:
+            raise HTTPException(status_code=422, detail="Invalid holdings JSON")
+    if not assets:
+        # Demo portfolio for capability validation
+        assets = [
+            {"symbol": "SOL", "amount": 50, "value_usd": 7500},
+            {"symbol": "ETH", "amount": 2, "value_usd": 6000, "protocol": "aave"},
+            {"symbol": "BTC", "amount": 0.1, "value_usd": 6500},
+        ]
+    return await portfolio_risk_overview(assets)
+
+
+@router.post("/portfolio/risk")
+async def portfolio_risk_post(
+    body: dict[str, Any] = Body(...),
+    _user: dict = Depends(require_authenticated),
+):
+    """Portfolio Risk Management (#109) — POST with holdings payload."""
+    from bd_platform.portfolio_risk_management import portfolio_risk_overview
+
+    assets = body.get("holdings") or body.get("assets") or body.get("positions") or []
+    if not isinstance(assets, list) or not assets:
+        raise HTTPException(status_code=400, detail="No holdings provided")
+    return await portfolio_risk_overview(assets)
+
+
+@router.get("/exchange-health/status")
+async def exchange_health_status_route(
+    exchange_id: str | None = Query(None),
+    min_alert_level: str = Query("low"),
+):
+    """Exchange Health Monitor (#110) — withdrawal status risk signals."""
+    from bd_platform.exchange_health_monitor import exchange_health_status
+
+    return exchange_health_status(exchange_id=exchange_id, min_alert_level=min_alert_level)
+
+
+@router.get("/exchange-health/alerts")
+async def exchange_health_alerts_route(min_level: str = Query("medium")):
+    """Withdrawal Status Alerts (#110) — alert engine feed."""
+    from bd_platform.exchange_health_monitor import withdrawal_status_alerts
+
+    return withdrawal_status_alerts(min_level=min_level)
+
+
 @router.get("/tradingview/config")
 async def tv_config(symbol: str = Query("BTCUSDT")):
     from bd_platform.tradingview_bridge import chart_config
