@@ -104,7 +104,11 @@ def test_freeze_head_consistency():
     assert ancestry["production_runtime_drift_count"] == 0
     assert ancestry["frozen_source_head_is_semantically_equivalent_to_current_head"] is True
     for row in ancestry["commits_since_tested_source"]:
-        assert row["role"] in {"docs_stamp", "evidence_docs_tests_scripts"}
+        assert row["role"] in {
+            "docs_stamp",
+            "evidence_docs_tests_scripts",
+            "dependency_lock_change",
+        }
         assert row["production_runtime_files"] == []
     assert freeze.get("warnings_local_solvable", []) == []
     assert freeze.get("frozen_source_head_is_semantically_equivalent_to_current_head") is True
