@@ -1456,8 +1456,8 @@
     "passed": true
   },
   "cross_batch_regression": {
-    "generated_at": "2026-09-05T13:33:33.210717+00:00",
-    "git_commit": "b836d0c7212ab53ae82ba7f13a6358e8adf49c10",
+    "generated_at": "2026-09-05T13:55:03.336138+00:00",
+    "git_commit": "b0e2a90e7fd2d7ce108f3b9fa7a082d9119b3d59",
     "suites": [
       {
         "label": "batch01_http_all50",
