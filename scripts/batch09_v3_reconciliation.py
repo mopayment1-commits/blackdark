@@ -747,6 +747,15 @@ PROVEN_NON_ACTIONABLE_SUITE_RULES: list[dict[str, Any]] = [
         ),
     },
     {
+        "suite_label": "batch08_hero_capabilities",
+        "match_output": ("Unclosed client session", "aiohttp"),
+        "classification": "TEST_HARNESS_ARTIFACT",
+        "root_cause": (
+            "aiohttp ClientSession GC teardown during exchange_currency_status CCXT probes in hero batch08; "
+            "exit_code=0; not a production entitlement-path leak."
+        ),
+    },
+    {
         "suite_label": "batch09_hero_capabilities",
         "match_output": ("Unclosed client session", "aiohttp"),
         "classification": "TEST_HARNESS_ARTIFACT",

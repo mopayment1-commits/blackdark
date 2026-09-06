@@ -303,6 +303,9 @@ def git_commit() -> str:
 def tested_source_head() -> str:
     """Return last commit that touched Batch09 implementation (not docs-only freeze)."""
     impl_paths = [
+        "cap646/runtime.py",
+        "cap646/backend_registry.py",
+        "tests/test_batch09_canonical_http_entitlement.py",
         "tests/test_hero_batch_09_capabilities.py",
         "scripts/run_batch09_deep_closure.py",
         "scripts/partial_batches/batch_09_401_450.json",
