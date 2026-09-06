@@ -1692,9 +1692,7 @@ if __name__ == "__main__":
             hero_matrix=docs["BATCH07_HERO_MATRIX_301_350.json"],
             event_loop=docs["BATCH07_EVENT_LOOP_FORENSIC.json"],
             ssot=docs["BATCH07_SSOT_RECONCILIATION.json"],
-            sonar_gate=docs["BATCH07_FINAL_LOCAL_FREEZE.json"]
-            .get("github_actions", {})
-            .get("sonar_evidence", v3.fetch_sonar_gate_evidence(artifact_head)),
+            sonar_gate=v3.fetch_sonar_gate_evidence(artifact_head),
             ci_evidence=ci_evidence,
         )
         docs["BATCH07_FINAL_LOCAL_FREEZE.json"] = freeze

@@ -1,6 +1,6 @@
 {
   "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T11:49:52Z",
+  "generated_at_utc": "2026-09-06T11:50:24Z",
   "identity": {
     "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
@@ -125,12 +125,12 @@
       "headSha": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1"
     },
     "sonar_evidence": {
-      "sonar_run_id": 34003226957,
-      "tested_head": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
+      "sonar_run_id": 34029980310,
+      "tested_head": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1",
       "scanner_status": "PASS",
       "quality_gate_status": "PASSED_INFERRED_FROM_RUN_CONCLUSION",
-      "timestamp": "2026-09-06T11:18:26.493678+00:00",
-      "evidence_url_or_location": "https://github.com/mopayment1-commits/blackdark/actions/runs/34003226957",
+      "timestamp": "2026-09-06T11:50:24.678383+00:00",
+      "evidence_url_or_location": "https://github.com/mopayment1-commits/blackdark/actions/runs/34029980310",
       "sonar_gate_evidence_ambiguous": []
     }
   },
