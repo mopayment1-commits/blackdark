@@ -1,0 +1,2446 @@
+{
+  "artifact": "BATCH08_HERO_MATRIX_351_400",
+  "generated_at": "2026-09-06T14:33:39.438716+00:00",
+  "git_commit": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "scope": "50 capabilities × 6 canonical Heroes — FEED/CONTEXT/NOT_APPLICABLE",
+  "heroes": [
+    {
+      "hero_id": "H1",
+      "name": "Opportunity Score + Explainability"
+    },
+    {
+      "hero_id": "H2",
+      "name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "hero_id": "H3",
+      "name": "Public Accuracy Ledger"
+    },
+    {
+      "hero_id": "H4",
+      "name": "Portfolio AI"
+    },
+    {
+      "hero_id": "H5",
+      "name": "Single-Sentence Oracle"
+    },
+    {
+      "hero_id": "H6",
+      "name": "Decision Certificate"
+    }
+  ],
+  "summary": {
+    "hero_matrix_cells": 300,
+    "feed_count": 0,
+    "context_count": 13,
+    "not_applicable_count": 287,
+    "hero_matrix_missing": [],
+    "duplicate_hero_contributions": 0,
+    "hero_binding_conflicts": [],
+    "unjustified_hero_na": [],
+    "379_no_double_count_with_189": true,
+    "382_no_hero_double_count": true
+  },
+  "cells": [
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=351#H1",
+      "capability_id": 351,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=351#H2",
+      "capability_id": 351,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=351#H3",
+      "capability_id": 351,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=351#H4",
+      "capability_id": 351,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=351#H5",
+      "capability_id": 351,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=351#H6",
+      "capability_id": 351,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=352#H1",
+      "capability_id": 352,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=352#H2",
+      "capability_id": 352,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=352#H3",
+      "capability_id": 352,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=352#H4",
+      "capability_id": 352,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=352#H5",
+      "capability_id": 352,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=352#H6",
+      "capability_id": 352,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=353#H1",
+      "capability_id": 353,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=353#H2",
+      "capability_id": 353,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=353#H3",
+      "capability_id": 353,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=353#H4",
+      "capability_id": 353,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=353#H5",
+      "capability_id": 353,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=353#H6",
+      "capability_id": 353,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=354#H1",
+      "capability_id": 354,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=354#H2",
+      "capability_id": 354,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=354#H3",
+      "capability_id": 354,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=354#H4",
+      "capability_id": 354,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=354#H5",
+      "capability_id": 354,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=354#H6",
+      "capability_id": 354,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=355#H1",
+      "capability_id": 355,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=355#H2",
+      "capability_id": 355,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=355#H3",
+      "capability_id": 355,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=355#H4",
+      "capability_id": 355,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=355#H5",
+      "capability_id": 355,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=355#H6",
+      "capability_id": 355,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=356#H1",
+      "capability_id": 356,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Market/whale intelligence RSS and exchange-health surfaces — context labels only",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=356#H2",
+      "capability_id": 356,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=356#H3",
+      "capability_id": 356,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=356#H4",
+      "capability_id": 356,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=356#H5",
+      "capability_id": 356,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=356#H6",
+      "capability_id": 356,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=357#H1",
+      "capability_id": 357,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=357#H2",
+      "capability_id": 357,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=357#H3",
+      "capability_id": 357,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=357#H4",
+      "capability_id": 357,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=357#H5",
+      "capability_id": 357,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=357#H6",
+      "capability_id": 357,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=358#H1",
+      "capability_id": 358,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=358#H2",
+      "capability_id": 358,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=358#H3",
+      "capability_id": 358,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=358#H4",
+      "capability_id": 358,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=358#H5",
+      "capability_id": 358,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=358#H6",
+      "capability_id": 358,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=359#H1",
+      "capability_id": 359,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=359#H2",
+      "capability_id": 359,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=359#H3",
+      "capability_id": 359,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=359#H4",
+      "capability_id": 359,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=359#H5",
+      "capability_id": 359,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=359#H6",
+      "capability_id": 359,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=360#H1",
+      "capability_id": 360,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=360#H2",
+      "capability_id": 360,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=360#H3",
+      "capability_id": 360,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=360#H4",
+      "capability_id": 360,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=360#H5",
+      "capability_id": 360,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=360#H6",
+      "capability_id": 360,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=361#H1",
+      "capability_id": 361,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=361#H2",
+      "capability_id": 361,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=361#H3",
+      "capability_id": 361,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=361#H4",
+      "capability_id": 361,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=361#H5",
+      "capability_id": 361,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=361#H6",
+      "capability_id": 361,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=362#H1",
+      "capability_id": 362,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=362#H2",
+      "capability_id": 362,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=362#H3",
+      "capability_id": 362,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=362#H4",
+      "capability_id": 362,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=362#H5",
+      "capability_id": 362,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=362#H6",
+      "capability_id": 362,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=363#H1",
+      "capability_id": 363,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=363#H2",
+      "capability_id": 363,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=363#H3",
+      "capability_id": 363,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=363#H4",
+      "capability_id": 363,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=363#H5",
+      "capability_id": 363,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=363#H6",
+      "capability_id": 363,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=364#H1",
+      "capability_id": 364,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=364#H2",
+      "capability_id": 364,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=364#H3",
+      "capability_id": 364,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=364#H4",
+      "capability_id": 364,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=364#H5",
+      "capability_id": 364,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=364#H6",
+      "capability_id": 364,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=365#H1",
+      "capability_id": 365,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=365#H2",
+      "capability_id": 365,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=365#H3",
+      "capability_id": 365,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=365#H4",
+      "capability_id": 365,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=365#H5",
+      "capability_id": 365,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=365#H6",
+      "capability_id": 365,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=366#H1",
+      "capability_id": 366,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=366#H2",
+      "capability_id": 366,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Data methodology/provenance/lineage supports ledger integrity narrative — not a ledger FEED",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=366#H3",
+      "capability_id": 366,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=366#H4",
+      "capability_id": 366,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=366#H5",
+      "capability_id": 366,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=366#H6",
+      "capability_id": 366,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=367#H1",
+      "capability_id": 367,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=367#H2",
+      "capability_id": 367,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Data methodology/provenance/lineage supports ledger integrity narrative — not a ledger FEED",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=367#H3",
+      "capability_id": 367,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=367#H4",
+      "capability_id": 367,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=367#H5",
+      "capability_id": 367,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=367#H6",
+      "capability_id": 367,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=368#H1",
+      "capability_id": 368,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=368#H2",
+      "capability_id": 368,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=368#H3",
+      "capability_id": 368,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=368#H4",
+      "capability_id": 368,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=368#H5",
+      "capability_id": 368,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=368#H6",
+      "capability_id": 368,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Cross-domain decision intelligence — opportunity framing context, not direct FEED",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=369#H1",
+      "capability_id": 369,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=369#H2",
+      "capability_id": 369,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=369#H3",
+      "capability_id": 369,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=369#H4",
+      "capability_id": 369,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=369#H5",
+      "capability_id": 369,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=369#H6",
+      "capability_id": 369,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=370#H1",
+      "capability_id": 370,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=370#H2",
+      "capability_id": 370,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=370#H3",
+      "capability_id": 370,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=370#H4",
+      "capability_id": 370,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=370#H5",
+      "capability_id": 370,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=370#H6",
+      "capability_id": 370,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=371#H1",
+      "capability_id": 371,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=371#H2",
+      "capability_id": 371,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=371#H3",
+      "capability_id": 371,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=371#H4",
+      "capability_id": 371,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=371#H5",
+      "capability_id": 371,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=371#H6",
+      "capability_id": 371,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=372#H1",
+      "capability_id": 372,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=372#H2",
+      "capability_id": 372,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=372#H3",
+      "capability_id": 372,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=372#H4",
+      "capability_id": 372,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=372#H5",
+      "capability_id": 372,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=372#H6",
+      "capability_id": 372,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=373#H1",
+      "capability_id": 373,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=373#H2",
+      "capability_id": 373,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=373#H3",
+      "capability_id": 373,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=373#H4",
+      "capability_id": 373,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=373#H5",
+      "capability_id": 373,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=373#H6",
+      "capability_id": 373,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=374#H1",
+      "capability_id": 374,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=374#H2",
+      "capability_id": 374,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=374#H3",
+      "capability_id": 374,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=374#H4",
+      "capability_id": 374,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=374#H5",
+      "capability_id": 374,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=374#H6",
+      "capability_id": 374,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=375#H1",
+      "capability_id": 375,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=375#H2",
+      "capability_id": 375,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=375#H3",
+      "capability_id": 375,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=375#H4",
+      "capability_id": 375,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=375#H5",
+      "capability_id": 375,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=375#H6",
+      "capability_id": 375,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=376#H1",
+      "capability_id": 376,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=376#H2",
+      "capability_id": 376,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=376#H3",
+      "capability_id": 376,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=376#H4",
+      "capability_id": 376,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=376#H5",
+      "capability_id": 376,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=376#H6",
+      "capability_id": 376,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=377#H1",
+      "capability_id": 377,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=377#H2",
+      "capability_id": 377,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=377#H3",
+      "capability_id": 377,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=377#H4",
+      "capability_id": 377,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=377#H5",
+      "capability_id": 377,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=377#H6",
+      "capability_id": 377,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=378#H1",
+      "capability_id": 378,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=378#H2",
+      "capability_id": 378,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=378#H3",
+      "capability_id": 378,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=378#H4",
+      "capability_id": 378,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=378#H5",
+      "capability_id": 378,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=378#H6",
+      "capability_id": 378,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Facade delegates to canonical #189 liquidity engine — contextual reuse, not additive Hero FEED",
+      "evidence_location": "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json#379_to_189",
+      "capability_id": 379,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=379#H2",
+      "capability_id": 379,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=379#H3",
+      "capability_id": 379,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=379#H4",
+      "capability_id": 379,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=379#H5",
+      "capability_id": 379,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=379#H6",
+      "capability_id": 379,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=380#H1",
+      "capability_id": 380,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=380#H2",
+      "capability_id": 380,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=380#H3",
+      "capability_id": 380,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=380#H4",
+      "capability_id": 380,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=380#H5",
+      "capability_id": 380,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=380#H6",
+      "capability_id": 380,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=381#H1",
+      "capability_id": 381,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=381#H2",
+      "capability_id": 381,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=381#H3",
+      "capability_id": 381,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=381#H4",
+      "capability_id": 381,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=381#H5",
+      "capability_id": 381,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=381#H6",
+      "capability_id": 381,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=382#H1",
+      "capability_id": 382,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=382#H2",
+      "capability_id": 382,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=382#H3",
+      "capability_id": 382,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=382#H4",
+      "capability_id": 382,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Single-Sentence Oracle CTA facade — UI context only, not additive FEED",
+      "evidence_location": "docs/BATCH08_SIX_HEROES_BINDING.json#capability_id=382",
+      "capability_id": 382,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=382#H6",
+      "capability_id": 382,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=383#H1",
+      "capability_id": 383,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=383#H2",
+      "capability_id": 383,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=383#H3",
+      "capability_id": 383,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=383#H4",
+      "capability_id": 383,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=383#H5",
+      "capability_id": 383,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=383#H6",
+      "capability_id": 383,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=384#H1",
+      "capability_id": 384,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=384#H2",
+      "capability_id": 384,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=384#H3",
+      "capability_id": 384,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=384#H4",
+      "capability_id": 384,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "AI agent / prompt-to-SQL charting — oracle-adjacent UI context only",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=384#H5",
+      "capability_id": 384,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=384#H6",
+      "capability_id": 384,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=385#H1",
+      "capability_id": 385,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=385#H2",
+      "capability_id": 385,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=385#H3",
+      "capability_id": 385,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=385#H4",
+      "capability_id": 385,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "AI agent / prompt-to-SQL charting — oracle-adjacent UI context only",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=385#H5",
+      "capability_id": 385,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=385#H6",
+      "capability_id": 385,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=386#H1",
+      "capability_id": 386,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=386#H2",
+      "capability_id": 386,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=386#H3",
+      "capability_id": 386,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=386#H4",
+      "capability_id": 386,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "AI agent / prompt-to-SQL charting — oracle-adjacent UI context only",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=386#H5",
+      "capability_id": 386,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=386#H6",
+      "capability_id": 386,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=387#H1",
+      "capability_id": 387,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=387#H2",
+      "capability_id": 387,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=387#H3",
+      "capability_id": 387,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=387#H4",
+      "capability_id": 387,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "AI agent / prompt-to-SQL charting — oracle-adjacent UI context only",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=387#H5",
+      "capability_id": 387,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=387#H6",
+      "capability_id": 387,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=388#H1",
+      "capability_id": 388,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=388#H2",
+      "capability_id": 388,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=388#H3",
+      "capability_id": 388,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=388#H4",
+      "capability_id": 388,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=388#H5",
+      "capability_id": 388,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=388#H6",
+      "capability_id": 388,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=389#H1",
+      "capability_id": 389,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=389#H2",
+      "capability_id": 389,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Data methodology/provenance/lineage supports ledger integrity narrative — not a ledger FEED",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=389#H3",
+      "capability_id": 389,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=389#H4",
+      "capability_id": 389,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=389#H5",
+      "capability_id": 389,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=389#H6",
+      "capability_id": 389,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=390#H1",
+      "capability_id": 390,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Market/whale intelligence RSS and exchange-health surfaces — context labels only",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=390#H2",
+      "capability_id": 390,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=390#H3",
+      "capability_id": 390,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=390#H4",
+      "capability_id": 390,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=390#H5",
+      "capability_id": 390,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=390#H6",
+      "capability_id": 390,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=391#H1",
+      "capability_id": 391,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=391#H2",
+      "capability_id": 391,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=391#H3",
+      "capability_id": 391,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=391#H4",
+      "capability_id": 391,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=391#H5",
+      "capability_id": 391,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=391#H6",
+      "capability_id": 391,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Cross-domain decision intelligence — opportunity framing context, not direct FEED",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=392#H1",
+      "capability_id": 392,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=392#H2",
+      "capability_id": 392,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=392#H3",
+      "capability_id": 392,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=392#H4",
+      "capability_id": 392,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=392#H5",
+      "capability_id": 392,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=392#H6",
+      "capability_id": 392,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=393#H1",
+      "capability_id": 393,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=393#H2",
+      "capability_id": 393,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=393#H3",
+      "capability_id": 393,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=393#H4",
+      "capability_id": 393,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=393#H5",
+      "capability_id": 393,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=393#H6",
+      "capability_id": 393,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=394#H1",
+      "capability_id": 394,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=394#H2",
+      "capability_id": 394,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=394#H3",
+      "capability_id": 394,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=394#H4",
+      "capability_id": 394,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=394#H5",
+      "capability_id": 394,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=394#H6",
+      "capability_id": 394,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=395#H1",
+      "capability_id": 395,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=395#H2",
+      "capability_id": 395,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=395#H3",
+      "capability_id": 395,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=395#H4",
+      "capability_id": 395,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=395#H5",
+      "capability_id": 395,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=395#H6",
+      "capability_id": 395,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=396#H1",
+      "capability_id": 396,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=396#H2",
+      "capability_id": 396,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=396#H3",
+      "capability_id": 396,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=396#H4",
+      "capability_id": 396,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=396#H5",
+      "capability_id": 396,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=396#H6",
+      "capability_id": 396,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=397#H1",
+      "capability_id": 397,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=397#H2",
+      "capability_id": 397,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=397#H3",
+      "capability_id": 397,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=397#H4",
+      "capability_id": 397,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=397#H5",
+      "capability_id": 397,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=397#H6",
+      "capability_id": 397,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=398#H1",
+      "capability_id": 398,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=398#H2",
+      "capability_id": 398,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=398#H3",
+      "capability_id": 398,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=398#H4",
+      "capability_id": 398,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=398#H5",
+      "capability_id": 398,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=398#H6",
+      "capability_id": 398,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=399#H1",
+      "capability_id": 399,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=399#H2",
+      "capability_id": 399,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=399#H3",
+      "capability_id": 399,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=399#H4",
+      "capability_id": 399,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=399#H5",
+      "capability_id": 399,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=399#H6",
+      "capability_id": 399,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=400#H1",
+      "capability_id": 400,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=400#H2",
+      "capability_id": 400,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=400#H3",
+      "capability_id": 400,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=400#H4",
+      "capability_id": 400,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=400#H5",
+      "capability_id": 400,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "Charting/market-intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH08_HERO_MATRIX_351_400.json#capability_id=400#H6",
+      "capability_id": 400,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    }
+  ]
+}

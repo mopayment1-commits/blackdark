@@ -1,0 +1,74 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "bindings_present": true,
+    "catalog_rows": 50,
+    "quad_pass_count": 50
+  },
+  "artifact": "BATCH08_BASELINE",
+  "phase": 0,
+  "phase_label": "forensics",
+  "generated_at": "2026-09-06T14:34:24.741510+00:00",
+  "identity": {
+    "canonical_tested_source_head": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+    "regression_head": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+    "git_branch": "cursor/batch08-351-400-ed16",
+    "artifact_generation_head": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+    "container_commit": null
+  },
+  "provenance": {
+    "method": "git_log_derived",
+    "description": "canonical_tested_source_head is the tested implementation commit (scripts/run_batch08_deep_closure.py ancestry). Derive freeze artifact commit via git log if needed. The artifact does NOT embed its own commit SHA as an institutional correctness gate.",
+    "self_referential_head_embedding": "prohibited"
+  },
+  "scope": {
+    "batch": "batch08",
+    "capability_range": "351-400",
+    "manifest": "scripts/partial_batches/batch_08_351_400.json",
+    "catalog": "docs/cap646/CAP646_CATALOG.json",
+    "audit": "docs/docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_04_301_400.json"
+  },
+  "inventory": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "binding_coverage": 50
+  },
+  "classification_snapshot": {
+    "VERIFIED-DEEP": 49,
+    "REUSED-LINK": 1
+  },
+  "audit_source": "minimal_placeholder",
+  "binding_sample": [
+    {
+      "capability_id": 351,
+      "module": "bd_platform.charting_market_intelligence_layer",
+      "function": "active_users_351",
+      "catalog": "Active Users"
+    },
+    {
+      "capability_id": 379,
+      "module": "bd_platform.arbitrage_portfolio_ux_layer",
+      "function": "analyze_liquidity_capacity_189",
+      "catalog": "Data API"
+    },
+    {
+      "capability_id": 400,
+      "module": "bd_platform.charting_market_intelligence_layer",
+      "function": "stablecoins_intelligence_400",
+      "catalog": "Stablecoins Intelligence"
+    }
+  ],
+  "not_claimed": [
+    "PASS_LIVE",
+    "G6 PASS",
+    "G7 PASS",
+    "ASSURANCE_READY",
+    "LIVE_READY"
+  ]
+}
