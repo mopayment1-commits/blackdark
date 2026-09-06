@@ -1,0 +1,14 @@
+{
+  "artifact": "BATCH09_FULL_PATH_ENTITLEMENT",
+  "generated_at": "2026-09-06T20:15:41.212261+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "test_module": "tests/test_batch09_full_path_entitlement.py",
+  "exit_code": 0,
+  "passed": true,
+  "summary": "........................................................................ [ 46%]\n........................................................................ [ 93%]\n..........                                                               [100%]\n",
+  "full_path_local_tested": "50/50",
+  "entitlement_bypass_detected": [],
+  "canonical_path_unverified": [],
+  "permission_bypass": [],
+  "tenant_boundary_failures": []
+}

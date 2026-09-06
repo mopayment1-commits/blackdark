@@ -1,0 +1,37 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "failure_modes_documented": 4
+  },
+  "artifact": "BATCH09_RELIABILITY_FAILURE_MODES",
+  "generated_at": "2026-09-06T20:16:44.215599+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "status": "PROVEN_LOCAL",
+  "failure_modes": [
+    {
+      "mode": "timeout",
+      "policy": "fail-closed with error payload",
+      "local_test": "execute_capability"
+    },
+    {
+      "mode": "entitlement_denied",
+      "policy": "fail-closed",
+      "local_test": "cap646 runtime gate"
+    },
+    {
+      "mode": "missing_binding",
+      "policy": "fail-closed unknown capability",
+      "local_test": "registry coverage 50/50"
+    },
+    {
+      "mode": "dependency_unavailable",
+      "policy": "degraded payload ok=false",
+      "local_test": "defi_yield seed fallback"
+    }
+  ],
+  "live_chaos": "NOT_RUN"
+}
