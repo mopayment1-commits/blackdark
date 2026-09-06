@@ -1,7 +1,7 @@
 {
   "artifact": "GOVERNING_STANDARD",
   "updated_at_utc": "2026-09-06T23:15:00Z",
-  "git_commit": "pending",
+  "git_commit": "328f38f2e868c1a7367a170a4b5ba956d4ffa514",
   "governing_version": "v6",
   "governing_standard": {
     "path": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
