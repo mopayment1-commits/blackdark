@@ -54,11 +54,12 @@ HERO_FACADE_DELEGATIONS: dict[int, dict[str, Any]] = {
 }
 
 PERF_CLASS_MAP: dict[int, str] = {
+    409: "NEWS_FEED",
     413: "CLASS_C_AI_HEAVY",
     416: "CLASS_C_AI_HEAVY",
     435: "CLASS_C_AI_HEAVY",
     436: "CLASS_C_AI_HEAVY",
-    437: "CLASS_A_DIRECT_LIGHTWEIGHT",
+    437: "CLASS_C_AI_HEAVY",
     441: "CLASS_A_DIRECT_LIGHTWEIGHT",
     446: "NEWS_FEED",
 }
