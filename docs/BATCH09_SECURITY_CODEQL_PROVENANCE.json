@@ -1,74 +1,36 @@
 {
   "artifact": "BATCH09_SECURITY_CODEQL_PROVENANCE",
-  "generated_at": "2026-09-06T21:15:54.154464+00:00",
-  "head": "019d1e6909a74de29fa14eaed0bf9ec976077928",
+  "generated_at": "2026-09-06T21:19:24.151009+00:00",
+  "head": "255327b9a160715a28a60787ecec526a002a02ed",
   "security_scan": {
     "workflow_definition": ".github/workflows/security.yml",
-    "evidence_mode": "LOCAL_WORKFLOW_REPLAY",
-    "reason": "PR #373 base is cursor/batch05-zero-defect-closure-ed16; Security Scan workflow triggers only on pull_request to main",
-    "tested_sha": "019d1e6909a74de29fa14eaed0bf9ec976077928",
+    "evidence_mode": "GITHUB_ACTIONS",
+    "tested_sha": "255327b9a160715a28a60787ecec526a002a02ed",
     "branch": "cursor/batch09-401-450-ed16",
     "result": "PASS",
-    "local_replay_id": "94c700f9589d0359eaec5ece2135c0563a2a425452e4835a58b7449ca68c0e1e",
-    "jobs": [
-      {
-        "label": "pip-audit",
-        "command": "pip-audit -r requirements.hashes.txt --desc",
-        "exit_code": 0,
-        "passed": true,
-        "output_digest_sha256_prefix": "15950a68a7ed99c5",
-        "stdout_tail": "",
-        "stderr_tail": "No known vulnerabilities found\n"
-      },
-      {
-        "label": "pytest-security",
-        "command": "/workspace/.venv/bin/python3 -m pytest tests/test_security.py tests/test_security_hardening.py tests/test_risk_manager.py tests/test_radical_dd_scale_closure.py tests/test_d01_data_state.py tests/test_d02_secrets_vault.py tests/test_d06_institutional_api.py tests/test_d09_flow_filter.py tests/test_d13_auth_abuse.py tests/test_d15_evidence_closure.py -q",
-        "exit_code": 0,
-        "passed": true,
-        "output_digest_sha256_prefix": "1c296f620adc850f",
-        "stdout_tail": ".............................................................            [100%]\n",
-        "stderr_tail": ""
-      },
-      {
-        "label": "bandit",
-        "command": "bandit -r . -c .bandit -ll -q",
-        "exit_code": 0,
-        "passed": true,
-        "output_digest_sha256_prefix": "a71327e20d27fb54",
-        "stdout_tail": "",
-        "stderr_tail": "[main]\tINFO\tFound project level .bandit file: ./.bandit\n[utils]\tWARNING\tUnable to parse config file ./.bandit or missing [bandit] section\n"
-      }
-    ],
+    "run_id": 34060598014,
+    "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34060598014",
     "security_scan_current_batch09_evidence": true
   },
   "codeql": {
-    "workflow_definition": "CodeQL (org-level) + closure test proxy",
-    "evidence_mode": "LOCAL_CODEQL_PROXY_REPLAY",
-    "reason": "CodeQL GitHub Action runs on PRs targeting main (PR #372 pattern); Batch09 PR #373 targets batch05 branch",
-    "tested_sha": "019d1e6909a74de29fa14eaed0bf9ec976077928",
+    "workflow_definition": ".github/workflows/security.yml#jobs.codeql",
+    "evidence_mode": "GITHUB_ACTIONS",
+    "tested_sha": "255327b9a160715a28a60787ecec526a002a02ed",
     "branch": "cursor/batch09-401-450-ed16",
     "result": "PASS",
-    "local_replay_id": "d36bb0ce20f1d521ea627a447a281ad6bfacb6402f5e494345f18dd9c7cfbb2d",
+    "run_id": 34060598014,
+    "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34060598014",
     "jobs": [
       {
-        "label": "codeql-closure-tests",
-        "command": "/workspace/.venv/bin/python3 -m pytest tests/test_codeql_secret_logging_closure.py tests/test_codeql_18_closure.py tests/test_codeql_cleartext_logging_closure.py tests/test_sql_safety.py tests/test_path_safety.py tests/test_xss_sink_hardening.py tests/test_security_max_closure.py -q",
-        "exit_code": 0,
-        "passed": true,
-        "output_digest_sha256_prefix": "1c296f620adc850f",
-        "stdout_tail": ".............................................................            [100%]\n",
-        "stderr_tail": ""
-      },
-      {
-        "label": "bandit-static",
-        "command": "bandit -r . -c .bandit -ll -q",
-        "exit_code": 0,
-        "passed": true,
-        "output_digest_sha256_prefix": "a71327e20d27fb54",
-        "stdout_tail": "",
-        "stderr_tail": "[main]\tINFO\tFound project level .bandit file: ./.bandit\n[utils]\tWARNING\tUnable to parse config file ./.bandit or missing [bandit] section\n"
+        "name": "codeql",
+        "conclusion": "success"
       }
     ],
+    "actual_codeql_executed": true,
+    "actual_codeql_result": "PASS",
+    "codeql_tested_sha_proven": true,
+    "codeql_evidence_substitution": [],
+    "supporting_bandit_only": false,
     "codeql_current_batch09_evidence": true
   },
   "security_scan_current_batch09_evidence": true,

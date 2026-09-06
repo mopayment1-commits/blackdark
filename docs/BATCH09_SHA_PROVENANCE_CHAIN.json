@@ -1,13 +1,13 @@
 {
   "artifact": "BATCH09_SHA_PROVENANCE_CHAIN",
-  "generated_at": "2026-09-06T21:16:07.017927+00:00",
+  "generated_at": "2026-09-06T21:19:37.200880+00:00",
   "starting_head": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
   "canonical_tested_source_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
   "ci_evidence_head": "c7c1e4e49ef7a2a7230093c52a55360251848646",
   "artifact_head": "6d002422c84f3a711846e6f1cb4d061becacae8f",
   "prior_final_freeze_head": "4cc2fc4a683b820e584620e6a77b9f32e385db71",
   "governing_v5_delta_head": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
-  "current_head": "019d1e6909a74de29fa14eaed0bf9ec976077928",
+  "current_head": "255327b9a160715a28a60787ecec526a002a02ed",
   "transitions": [
     {
       "from": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
@@ -163,7 +163,7 @@
   "unexplained_sha_transitions": [],
   "production_semantic_drift_unresolved": [],
   "semantic_equivalence_current": {
-    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..019d1e6909a74de29fa14eaed0bf9ec976077928",
+    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..255327b9a160715a28a60787ecec526a002a02ed",
     "files_changed_total": 76,
     "production_runtime_drift": 3,
     "production_runtime_files": [

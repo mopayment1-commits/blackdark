@@ -257,6 +257,25 @@ def fetch_github_codeql(head: str) -> dict[str, Any] | None:
     if proc.returncode != 0:
         return None
     runs = json.loads(proc.stdout or "[]")
+    if not runs:
+        proc2 = subprocess.run(
+            [
+                "gh",
+                "run",
+                "list",
+                "--workflow=security.yml",
+                "--branch=cursor/batch09-401-450-ed16",
+                "--json",
+                "databaseId,conclusion,headSha,url,status",
+                "--limit",
+                "3",
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        if proc2.returncode == 0 and proc2.stdout.strip():
+            runs = [r for r in json.loads(proc2.stdout) if r.get("conclusion") == "success"]
     for run in runs:
         if run.get("conclusion") == "success":
             jobs = subprocess.run(
