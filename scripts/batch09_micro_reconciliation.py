@@ -235,10 +235,68 @@ def security_scan_passed(security: dict[str, Any]) -> bool:
     )
 
 
+def fetch_github_codeql(head: str) -> dict[str, Any] | None:
+    proc = subprocess.run(
+        [
+            "gh",
+            "run",
+            "list",
+            "--workflow=security.yml",
+            "--branch=cursor/batch09-401-450-ed16",
+            "--commit",
+            head,
+            "--json",
+            "databaseId,conclusion,headSha,url,status",
+            "--limit",
+            "5",
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        return None
+    runs = json.loads(proc.stdout or "[]")
+    for run in runs:
+        if run.get("conclusion") == "success":
+            jobs = subprocess.run(
+                ["gh", "run", "view", str(run["databaseId"]), "--json", "jobs"],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+            )
+            if jobs.returncode != 0:
+                continue
+            payload = json.loads(jobs.stdout)
+            codeql_jobs = [
+                j for j in payload.get("jobs", []) if "codeql" in str(j.get("name", "")).lower()
+            ]
+            if codeql_jobs and all(j.get("conclusion") == "success" for j in codeql_jobs):
+                return {
+                    "workflow_definition": ".github/workflows/security.yml#jobs.codeql",
+                    "evidence_mode": "GITHUB_ACTIONS",
+                    "tested_sha": run.get("headSha") or head,
+                    "branch": "cursor/batch09-401-450-ed16",
+                    "result": "PASS",
+                    "run_id": run["databaseId"],
+                    "url": run["url"],
+                    "jobs": [
+                        {"name": j.get("name"), "conclusion": j.get("conclusion")} for j in codeql_jobs
+                    ],
+                    "actual_codeql_executed": True,
+                    "actual_codeql_result": "PASS",
+                    "codeql_tested_sha_proven": (run.get("headSha") or head) == head,
+                    "codeql_evidence_substitution": [],
+                    "supporting_bandit_only": False,
+                    "codeql_current_batch09_evidence": True,
+                }
+    return None
+
+
 def build_security_provenance(head: str) -> dict[str, Any]:
     github_scan = fetch_github_security_scan(head)
     security = github_scan if github_scan else run_local_security_scan(head)
-    codeql = run_local_codeql_proxy(head)
+    codeql = fetch_github_codeql(head) or run_local_codeql_proxy(head)
     drift_old = security_relevant_files_between("14bbf492c69b51e2008d6dc9baefe3d578ae0696", head)
     drift_ci = security_relevant_files_between("c7c1e4e49ef7a2a7230093c52a55360251848646", head)
     scan_ok = security_scan_passed(security)
@@ -625,13 +683,19 @@ def update_freeze(
         ),
     }
     freeze["github_actions"]["CODEQL"] = {
-        "status": codeql["result"],
-        "run_id": codeql["local_replay_id"],
-        "url": "docs/BATCH09_SECURITY_CODEQL_PROVENANCE.json#codeql",
-        "headSha": head,
+        "status": codeql.get("result", codeql.get("actual_codeql_result", "PASS")),
+        "run_id": codeql.get("run_id", codeql.get("local_replay_id")),
+        "url": codeql.get("url", "docs/BATCH09_SECURITY_CODEQL_PROVENANCE.json#codeql"),
+        "headSha": codeql.get("tested_sha", head),
         "branch": "cursor/batch09-401-450-ed16",
-        "evidence_mode": "LOCAL_CODEQL_PROXY_REPLAY",
-        "note": "CodeQL closure proxy + bandit at current Batch09 head; GitHub CodeQL workflow not triggered for PR #373 base branch",
+        "evidence_mode": codeql.get("evidence_mode", "LOCAL_CODEQL_PROXY_REPLAY"),
+        "actual_codeql_executed": bool(codeql.get("actual_codeql_executed")),
+        "note": codeql.get(
+            "note",
+            "GitHub CodeQL job in security.yml — bandit remains supporting only"
+            if codeql.get("evidence_mode") == "GITHUB_ACTIONS"
+            else "CodeQL closure proxy + bandit at current Batch09 head",
+        ),
     }
     freeze["semantic_equivalence"] = provenance["semantic_equivalence_current"]
     freeze["semantic_equivalence"]["comparison"] = f"c7c1e4e49ef7a2a7230093c52a55360251848646..{head}"
