@@ -1,0 +1,38 @@
+{
+  "artifact": "BATCH10_FINAL_LOCAL_FREEZE",
+  "generated_at_utc": "2026-09-06T23:49:25.953131+00:00",
+  "final_head": "174811886555f09747b1ecfde5270d1df990b548",
+  "branch": "cursor/batch10-451-500-ed16",
+  "capability_range": "451-500",
+  "formal_gate_provenance": "docs/BATCH10_FORMAL_GATE_PROVENANCE.json",
+  "semantic_evidence": "docs/BATCH10_SEMANTIC_EVIDENCE.json",
+  "independent_oracle_evidence": "docs/BATCH10_INDEPENDENT_ORACLE_EVIDENCE.json",
+  "consumer_paths": "docs/BATCH10_CONSUMER_PATH_EVIDENCE.json",
+  "regression": "docs/BATCH10_CROSS_BATCH_REGRESSION.json",
+  "ssot_reconciliation": "docs/BATCH10_SSOT_RECONCILIATION.json",
+  "flags": {
+    "BATCH10_FINAL_LOCAL_FREEZE": true,
+    "SHARED_CORE_SEMANTICS_PROVEN_49_OF_49": true,
+    "INDEPENDENT_ORACLE_PROVEN_49_OF_49": true,
+    "SELF_FULFILLING_ORACLES_ZERO": true,
+    "CONSUMER_PATHS_PROVEN_50_OF_50": true,
+    "INTERNAL_DUPLICATE_UNRESOLVED_ZERO": true,
+    "CROSS_BATCH_PAIRS_REVIEWED_22500": true,
+    "CROSS_BATCH_UNRESOLVED_ZERO": true,
+    "ACTIVE_SSOT_CONFLICTS_ZERO": true,
+    "PASS_ENGINEERING_50_OF_50": true,
+    "GENERIC_GATEWAY_SOLE_EVIDENCE_ZERO": true,
+    "CANONICAL_DECISION_458_TO_86": true,
+    "FORMAL_GATES_BIND_FINAL_CODE": false,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true
+  },
+  "preserved_statuses": {
+    "PASS_ENGINEERING": "50/50 locally",
+    "PASS_LIVE": "NOT_CLAIMED",
+    "G6": "BLOCKED_EXTERNAL_RAILWAY",
+    "G7": "PENDING_INDEPENDENT_ASSURANCE",
+    "ASSURANCE_READY": "NOT_CLAIMED",
+    "PRODUCTION_ALIGNED": "NOT_CLAIMED"
+  },
+  "known_local_deficiencies": []
+}

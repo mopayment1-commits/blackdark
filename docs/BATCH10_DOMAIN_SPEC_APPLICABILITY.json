@@ -1,0 +1,3268 @@
+{
+  "artifact": "BATCH10_DOMAIN_SPEC_APPLICABILITY",
+  "generated_at_utc": "2026-09-06T23:49:30.666781+00:00",
+  "git_commit": "174811886555f09747b1ecfde5270d1df990b548",
+  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+  "scope": "Delta-only NOT_APPLICABLE / PARTIALLY_APPLICABLE mapping — market_network_risk_intelligence 451-500",
+  "capability_type": "market_network_risk_intelligence",
+  "accumulation_core_delta": {
+    "live_shadow_collection": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+    },
+    "historical_backfill": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+    },
+    "signal_registry": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+    },
+    "prediction_ledger": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+    },
+    "decision_ledger": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Analytics-only capabilities — no user decision ledger write path"
+    },
+    "automated_outcome_evaluator": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+    },
+    "data_provenance": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+    },
+    "algorithm_model_versioning": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+    },
+    "historical_replay_engine": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+    },
+    "market_event_library": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network events may link to event KB — contextual enrichment only"
+    },
+    "failure_registry": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+    },
+    "evidence_store": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+    },
+    "data_freshness": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+    },
+    "data_rights_registry": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Third-party market data providers require rights tagging — layer policy"
+    }
+  },
+  "per_id": [
+    {
+      "capability_id": 451,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 452,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 453,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 454,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 455,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 456,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 457,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 458,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "CANONICAL_DUPLICATE_REUSE"
+    },
+    {
+      "capability_id": 459,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 460,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 461,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 462,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 463,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 464,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 465,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 466,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 467,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 468,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 469,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 470,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 471,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 472,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 473,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 474,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 475,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 476,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 477,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 478,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 479,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 480,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 481,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 482,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 483,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 484,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 485,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 486,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 487,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 488,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 489,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 490,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 491,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 492,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 493,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 494,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 495,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 496,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 497,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 498,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 499,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 500,
+      "capability_type": "market_network_risk_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party market data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    }
+  ]
+}

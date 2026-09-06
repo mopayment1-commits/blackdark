@@ -1,0 +1,2809 @@
+{
+  "artifact": "BATCH10_TEMPORAL_INTELLIGENCE_APPLICABILITY",
+  "generated_at_utc": "2026-09-06T23:49:30.669815+00:00",
+  "git_commit": "174811886555f09747b1ecfde5270d1df990b548",
+  "temporal_spec_authority": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+  "scope": "Temporal Intelligence control delta mapping — Batch10 451-500",
+  "controls_delta": {
+    "point_in_time_reconstruction": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+    },
+    "temporal_leakage_firewall": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+    },
+    "canonical_historical_event_store": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+    },
+    "deterministic_mass_replay_engine": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+    },
+    "walk_forward_evaluation": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+    },
+    "automated_outcome_factory": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Analytics-only — no outcome factory per capability"
+    },
+    "forward_shadow_evidence_receipts": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+    },
+    "evidence_provenance_ledger": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+    },
+    "forward_shadow_reality_anchor": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+    },
+    "failure_surprise_abstention_corpus": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Degraded/fallback paths documented at layer level"
+    },
+    "source_rights_governance": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market data provider rights enforced at layer policy"
+    },
+    "reproducibility_manifest": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+    }
+  },
+  "per_id": [
+    {
+      "capability_id": 451,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 452,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 453,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 454,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 455,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 456,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 457,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 458,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "CANONICAL_DUPLICATE_REUSE"
+    },
+    {
+      "capability_id": 459,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 460,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 461,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 462,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 463,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 464,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 465,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 466,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 467,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 468,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 469,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 470,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 471,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 472,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 473,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 474,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 475,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 476,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 477,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 478,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 479,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 480,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 481,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 482,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 483,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 484,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 485,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 486,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 487,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 488,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 489,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 490,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 491,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 492,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 493,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 494,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 495,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 496,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 497,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 498,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 499,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 500,
+      "temporal_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "control_applicability": {
+        "point_in_time_reconstruction": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+        },
+        "temporal_leakage_firewall": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+        },
+        "canonical_historical_event_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+        },
+        "deterministic_mass_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+        },
+        "walk_forward_evaluation": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+        },
+        "automated_outcome_factory": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only — no outcome factory per capability"
+        },
+        "forward_shadow_evidence_receipts": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+        },
+        "evidence_provenance_ledger": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+        },
+        "forward_shadow_reality_anchor": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+        },
+        "failure_surprise_abstention_corpus": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Degraded/fallback paths documented at layer level"
+        },
+        "source_rights_governance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market data provider rights enforced at layer policy"
+        },
+        "reproducibility_manifest": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    }
+  ]
+}

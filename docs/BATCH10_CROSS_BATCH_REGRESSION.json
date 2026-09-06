@@ -1,0 +1,37 @@
+{
+  "artifact": "BATCH10_CROSS_BATCH_REGRESSION",
+  "generated_at_utc": "2026-09-06T23:49:25.953131+00:00",
+  "git_commit": "174811886555f09747b1ecfde5270d1df990b548",
+  "suites": [
+    {
+      "label": "batch10_shared_core_semantics",
+      "command": "pytest tests/test_batch10_shared_core_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 48%]\n........................................................................ [ 96%]\n......                                                                   [100%]\n"
+    },
+    {
+      "label": "batch10_independent_oracle_semantics",
+      "command": "pytest tests/test_batch10_independent_oracle_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..................................................                       [100%]\n"
+    },
+    {
+      "label": "batch10_consumer_paths",
+      "command": "pytest tests/test_batch10_consumer_paths.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 72%]\n............................                                             [100%]\n"
+    },
+    {
+      "label": "defi_yield_batch401_500",
+      "command": "pytest tests/test_defi_yield_intelligence_batch401_500.py -q",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    }
+  ],
+  "affected_regression_gap": [],
+  "blast_radius_regression_pass": true
+}
