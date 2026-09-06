@@ -1121,8 +1121,19 @@ def build_final_freeze(
         deficiencies.append("full_path_local_performance_failures")
     if full_path_perf.get("performance_claim_ambiguity"):
         deficiencies.append("performance_claim_ambiguity")
+    if full_path_perf.get("performance_threshold_conflicts"):
+        deficiencies.append("performance_threshold_conflicts")
+    if full_path_perf.get("performance_misclassification_unresolved"):
+        deficiencies.append("performance_misclassification_unresolved")
 
-    v3s = v3_state["summary"]
+    if sonar_gate.get("quality_gate_status") != "PASSED":
+        deficiencies.append("sonar_quality_gate_not_passed")
+    if sonar_gate.get("scanner_status") != "PASS":
+        deficiencies.append("sonar_scanner_not_pass")
+
+    drift_equiv = drift.get("frozen_source_head_is_semantically_equivalent_to_current_head")
+    if drift.get("production_runtime_drift", 0) > 0 and not drift_equiv:
+        deficiencies.append("production_runtime_drift_unverified")
     if v3s.get("invalid_state_labels_as_primary"):
         deficiencies.append("invalid_state_labels_as_primary")
     if v3s.get("state_classification_missing"):
