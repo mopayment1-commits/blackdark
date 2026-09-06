@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH09_SHA_PROVENANCE_CHAIN",
-  "generated_at_utc": "2026-09-06T21:58:41.819196+00:00",
-  "git_commit": "f0e5e0b74cddba0be7f96a2539fe083e46ddf765",
+  "generated_at_utc": "2026-09-06T21:59:05.816338+00:00",
+  "git_commit": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
   "formal_gate_provenance_complete": true,
   "CodeQL_source_relationship_proven": true,
   "unexplained_SHA_transition": [],
@@ -14,10 +14,10 @@
       "sha": "255327b9a160715a28a60787ecec526a002a02ed"
     },
     "prior_freeze": "255327b9a160715a28a60787ecec526a002a02ed",
-    "reopening_remediation_head": "f0e5e0b74cddba0be7f96a2539fe083e46ddf765"
+    "reopening_remediation_head": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d"
   },
   "relationships": [
-    "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04 is ancestor of f0e5e0b74cddba0be7f96a2539fe083e46ddf765",
+    "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04 is ancestor of 33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
     "CodeQL run 34060598014 executed on 255327b9a160715a28a60787ecec526a002a02ed",
     "Production/runtime delta after tested source documented in freeze semantic_equivalence"
   ]
