@@ -1,13 +1,13 @@
 {
   "artifact": "BATCH08_SHA_PROVENANCE_CHAIN",
-  "generated_at": "2026-09-06T15:57:01.469885+00:00",
+  "generated_at": "2026-09-06T16:00:34.521874+00:00",
   "starting_head": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
   "canonical_tested_source_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
   "ci_evidence_head": "c7c1e4e49ef7a2a7230093c52a55360251848646",
   "artifact_head": "6d002422c84f3a711846e6f1cb4d061becacae8f",
   "prior_final_freeze_head": "4cc2fc4a683b820e584620e6a77b9f32e385db71",
   "governing_v5_delta_head": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
-  "current_head": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+  "current_head": "c175c2a153064f3b711b0778691d30049f040b40",
   "transitions": [
     {
       "from": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
@@ -121,6 +121,29 @@
       },
       "production_runtime_files": [],
       "production_semantic_drift": false
+    },
+    {
+      "from": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+      "to": "ce26651",
+      "message": "Micro-reconciliation artifacts (4 governance gaps)",
+      "files_changed": 7,
+      "classification": {
+        "documentation_evidence": 6,
+        "assurance_tooling": 1
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    },
+    {
+      "from": "ce26651",
+      "to": "c175c2a153064f3b711b0778691d30049f040b40",
+      "message": "Security Scan workflow trigger for PR evidence",
+      "files_changed": 1,
+      "classification": {
+        "workflow_logic": 1
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
     }
   ],
   "explicit_reconciliation_1b2a7b7_to_c7c1e4e": {
@@ -141,27 +164,35 @@
   "unexplained_sha_transitions": [],
   "production_semantic_drift_unresolved": [],
   "semantic_equivalence_current": {
-    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..cd0b3f9027b0f945809c859ba8dd61599aad01e8",
-    "files_changed_total": 8,
+    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..c175c2a153064f3b711b0778691d30049f040b40",
+    "files_changed_total": 15,
     "production_runtime_drift": 0,
     "production_runtime_files": [],
     "test_logic_drift": 0,
     "test_logic_files": [],
     "dependency_drift": 0,
     "dependency_files": [],
-    "workflow_logic_drift": 0,
-    "workflow_files": [],
-    "documentation_evidence_drift": 6,
+    "workflow_logic_drift": 1,
+    "workflow_files": [
+      ".github/workflows/security.yml"
+    ],
+    "documentation_evidence_drift": 11,
     "documentation_files": [
       "docs/BATCH08_BASELINE.json",
       "docs/BATCH08_CROSS_BATCH_REGRESSION.json",
+      "docs/BATCH08_DUPLICATE_TAXONOMY_RECONCILIATION.json",
       "docs/BATCH08_EVENT_LOOP_FORENSIC.json",
       "docs/BATCH08_FINAL_LOCAL_FREEZE.json",
+      "docs/BATCH08_LOCAL_A11Y_INTERACTION.json",
+      "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json",
+      "docs/BATCH08_SHA_PROVENANCE_CHAIN.json",
+      "docs/BATCH08_V5_DELTA_RECONCILIATION.json",
       "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
       "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md"
     ],
-    "assurance_tooling_drift": 2,
+    "assurance_tooling_drift": 3,
     "assurance_tooling_files": [
+      "scripts/batch08_micro_reconciliation.py",
       "scripts/batch08_v3_reconciliation.py",
       "scripts/generate_batch08_institutional_package.py"
     ],

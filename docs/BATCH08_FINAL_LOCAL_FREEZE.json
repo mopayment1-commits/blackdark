@@ -1,14 +1,14 @@
 {
   "artifact": "BATCH08_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T15:57:01Z",
+  "generated_at_utc": "2026-09-06T16:00:34Z",
   "identity": {
     "canonical_tested_source_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
     "regression_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
-    "final_freeze_head": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+    "final_freeze_head": "c175c2a153064f3b711b0778691d30049f040b40",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null,
-    "micro_reconciliation_head": "cd0b3f9027b0f945809c859ba8dd61599aad01e8"
+    "micro_reconciliation_head": "c175c2a153064f3b711b0778691d30049f040b40"
   },
   "provenance": {
     "method": "git_log_derived",
@@ -16,27 +16,35 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..cd0b3f9027b0f945809c859ba8dd61599aad01e8",
-    "files_changed_total": 8,
+    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..c175c2a153064f3b711b0778691d30049f040b40",
+    "files_changed_total": 15,
     "production_runtime_drift": 0,
     "production_runtime_files": [],
     "test_logic_drift": 0,
     "test_logic_files": [],
     "dependency_drift": 0,
     "dependency_files": [],
-    "workflow_logic_drift": 0,
-    "workflow_files": [],
-    "documentation_evidence_drift": 6,
+    "workflow_logic_drift": 1,
+    "workflow_files": [
+      ".github/workflows/security.yml"
+    ],
+    "documentation_evidence_drift": 11,
     "documentation_files": [
       "docs/BATCH08_BASELINE.json",
       "docs/BATCH08_CROSS_BATCH_REGRESSION.json",
+      "docs/BATCH08_DUPLICATE_TAXONOMY_RECONCILIATION.json",
       "docs/BATCH08_EVENT_LOOP_FORENSIC.json",
       "docs/BATCH08_FINAL_LOCAL_FREEZE.json",
+      "docs/BATCH08_LOCAL_A11Y_INTERACTION.json",
+      "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json",
+      "docs/BATCH08_SHA_PROVENANCE_CHAIN.json",
+      "docs/BATCH08_V5_DELTA_RECONCILIATION.json",
       "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
       "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md"
     ],
-    "assurance_tooling_drift": 2,
+    "assurance_tooling_drift": 3,
     "assurance_tooling_files": [
+      "scripts/batch08_micro_reconciliation.py",
       "scripts/batch08_v3_reconciliation.py",
       "scripts/generate_batch08_institutional_package.py"
     ],
@@ -88,22 +96,22 @@
     },
     "SECURITY_SCAN": {
       "status": "PASS",
-      "run_id": "94c700f9589d0359eaec5ece2135c0563a2a425452e4835a58b7449ca68c0e1e",
-      "url": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json#security_scan",
-      "headSha": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+      "run_id": 34043926926,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34043926926",
+      "headSha": "c175c2a153064f3b711b0778691d30049f040b40",
       "branch": "cursor/batch08-351-400-ed16",
-      "evidence_mode": "LOCAL_WORKFLOW_REPLAY",
+      "evidence_mode": "GITHUB_ACTIONS",
       "workflow_definition": ".github/workflows/security.yml",
-      "note": "Local replay at current Batch08 head; PR base prevents GitHub Security Scan workflow on PR #373"
+      "note": "GitHub Security Scan at current Batch08 head"
     },
     "CODEQL": {
       "status": "PASS",
       "run_id": "d36bb0ce20f1d521ea627a447a281ad6bfacb6402f5e494345f18dd9c7cfbb2d",
       "url": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json#codeql",
-      "headSha": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+      "headSha": "c175c2a153064f3b711b0778691d30049f040b40",
       "branch": "cursor/batch08-351-400-ed16",
       "evidence_mode": "LOCAL_CODEQL_PROXY_REPLAY",
-      "note": "CodeQL closure proxy + bandit at current Batch08 head"
+      "note": "CodeQL closure proxy + bandit at current Batch08 head; GitHub CodeQL workflow not triggered for PR #373 base branch"
     },
     "sonar_evidence": {
       "sonar_run_id": 34040947266,
@@ -298,7 +306,7 @@
     "count": 50
   },
   "micro_reconciliation": {
-    "completed_at": "2026-09-06T15:57:01.474388+00:00",
+    "completed_at": "2026-09-06T16:00:34.526010+00:00",
     "security_codeql": {
       "security_scan_current_batch08_evidence": true,
       "codeql_current_batch08_evidence": true,
