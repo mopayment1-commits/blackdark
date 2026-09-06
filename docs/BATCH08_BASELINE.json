@@ -14,11 +14,13 @@
   "phase_label": "forensics",
   "generated_at": "2026-09-06T14:34:24.741510+00:00",
   "identity": {
-    "canonical_tested_source_head": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+    "canonical_tested_source_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
     "regression_head": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
     "git_branch": "cursor/batch08-351-400-ed16",
     "artifact_generation_head": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
-    "container_commit": null
+    "container_commit": null,
+    "ci_evidence_head": "c7c1e4e49ef7a2a7230093c52a55360251848646",
+    "final_freeze_head": "6d002422c84f3a711846e6f1cb4d061becacae8f"
   },
   "provenance": {
     "method": "git_log_derived",
