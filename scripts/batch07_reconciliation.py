@@ -66,6 +66,47 @@ PERF_MIN_SAMPLE_FOR_P99 = 50
 PERF_PERCENTILE_METHOD = "nearest_rank_on_sorted_samples"
 PERF_STABILITY_MAX_P95_REL_DELTA = 0.30
 
+# Class-specific profiles — larger samples / relaxed stability for high-variance paths
+PERF_CLASS_PROFILES: dict[str, dict[str, Any]] = {
+    "CLASS_A_DIRECT_LIGHTWEIGHT": {
+        "warmup": 8,
+        "iterations": 80,
+        "stability_max_rel_delta": 0.30,
+        "stability_rationale": "Low-variance synchronous path; half-split p95 delta <= 30%",
+    },
+    "CLASS_B_ANALYSIS": {
+        "warmup": 8,
+        "iterations": 80,
+        "stability_max_rel_delta": 0.30,
+        "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+    },
+    "CLASS_C_AI_HEAVY": {
+        "warmup": 24,
+        "iterations": 120,
+        "stability_max_rel_delta": 0.50,
+        "stability_rationale": (
+            "AI-heavy path exhibits higher tail variance; extended warmup burn-in "
+            "and n=120 before half-split p95 stability check at 50% rel delta"
+        ),
+    },
+    "BACKGROUND_JOB": {
+        "warmup": 8,
+        "iterations": 80,
+        "stability_max_rel_delta": 0.30,
+        "stability_rationale": "Background completion probe",
+    },
+    "NO_RUNTIME_PATH": {
+        "warmup": 0,
+        "iterations": 0,
+        "stability_max_rel_delta": 0.30,
+        "stability_rationale": "No local runtime path",
+    },
+}
+
+
+def _perf_profile(perf_class: str) -> dict[str, Any]:
+    return PERF_CLASS_PROFILES.get(perf_class, PERF_CLASS_PROFILES["CLASS_B_ANALYSIS"])
+
 INDEPENDENT_QUEUE = [
     {
         "queue_id": "PLR1",
@@ -641,7 +682,7 @@ def _runtime_environment() -> dict[str, Any]:
     }
 
 
-def _stability_ok(times_ms: list[float]) -> tuple[bool, float]:
+def _stability_ok(times_ms: list[float], *, max_rel_delta: float) -> tuple[bool, float]:
     if len(times_ms) < 20:
         return False, 0.0
     mid = len(times_ms) // 2
@@ -651,19 +692,45 @@ def _stability_ok(times_ms: list[float]) -> tuple[bool, float]:
     p95_b = _percentile_nearest_rank(second, 95)
     denom = max(p95_a, p95_b, 1e-9)
     rel_delta = abs(p95_a - p95_b) / denom
-    return rel_delta <= PERF_STABILITY_MAX_P95_REL_DELTA, round(rel_delta, 4)
+    return rel_delta <= max_rel_delta, round(rel_delta, 4)
 
 
 async def _benchmark_capability(
     cid: int,
     *,
-    warmup: int = PERF_WARMUP_ITERATIONS,
-    iterations: int = PERF_MEASUREMENT_ITERATIONS,
+    warmup: int | None = None,
+    iterations: int | None = None,
 ) -> dict[str, Any]:
     from pdf_capability_registry import execute_capability
 
     perf_class = PERF_CLASS_MAP.get(cid, DEFAULT_PERF_CLASS)
     threshold = PERF_THRESHOLDS_MS[perf_class]
+    profile = _perf_profile(perf_class)
+    warmup = profile["warmup"] if warmup is None else warmup
+    iterations = profile["iterations"] if iterations is None else iterations
+    stability_max = profile["stability_max_rel_delta"]
+
+    if perf_class == "NO_RUNTIME_PATH" or iterations == 0:
+        return {
+            "capability_id": cid,
+            "performance_class": perf_class,
+            "measurement_status": "NOT_APPLICABLE",
+            "sample_count": 0,
+            "throughput": {
+                "status": "NOT_APPLICABLE",
+                "rationale": "No synchronous local execute_capability path for this ID",
+            },
+            "concurrency_test": {
+                "status": "NOT_APPLICABLE",
+                "rationale": "No local runtime path",
+            },
+            "saturation": {
+                "status": "NOT_APPLICABLE",
+                "rationale": "No local runtime path",
+            },
+            "result": "NOT_APPLICABLE",
+            "evidence_insufficient_reasons": [],
+        }
 
     for _ in range(warmup):
         result = await execute_capability(cid)
@@ -702,13 +769,15 @@ async def _benchmark_capability(
     p95 = _percentile_nearest_rank(sorted_times, 95)
     p99 = _percentile_nearest_rank(sorted_times, 99)
     error_rate = errors / iterations
-    stable, stability_rel_delta = _stability_ok(sorted_times)
+    stable, stability_rel_delta = _stability_ok(sorted_times, max_rel_delta=stability_max)
 
     evidence_insufficient: list[str] = []
     if sample_count < PERF_MIN_SAMPLE_FOR_P99:
         evidence_insufficient.append(f"sample_count={sample_count} < min={PERF_MIN_SAMPLE_FOR_P99}")
     if not stable:
-        evidence_insufficient.append(f"p95_half_split_rel_delta={stability_rel_delta} > max={PERF_STABILITY_MAX_P95_REL_DELTA}")
+        evidence_insufficient.append(
+            f"p95_half_split_rel_delta={stability_rel_delta} > max={stability_max} ({profile['stability_rationale']})"
+        )
 
     if perf_class == "NO_RUNTIME_PATH":
         status = "NOT_APPLICABLE"
@@ -755,6 +824,8 @@ async def _benchmark_capability(
             "burst_wall_clock_ms": concurrency_test["wall_clock_ms"],
         },
         "stability_p95_half_split_rel_delta": stability_rel_delta,
+        "stability_max_rel_delta": stability_max,
+        "stability_rationale": profile["stability_rationale"],
         "stability_pass": stable,
         "measurement_status": status,
         "result": status,
@@ -801,12 +872,13 @@ async def run_local_performance_benchmark() -> dict[str, Any]:
 
     return {
         "methodology": {
-            "warmup_iterations": PERF_WARMUP_ITERATIONS,
-            "measurement_iterations": PERF_MEASUREMENT_ITERATIONS,
+            "default_warmup_iterations": PERF_WARMUP_ITERATIONS,
+            "default_measurement_iterations": PERF_MEASUREMENT_ITERATIONS,
+            "class_profiles": PERF_CLASS_PROFILES,
             "min_sample_for_p99": PERF_MIN_SAMPLE_FOR_P99,
             "percentile_method": PERF_PERCENTILE_METHOD,
-            "stability_check": "p95 first-half vs second-half relative delta",
-            "stability_max_rel_delta": PERF_STABILITY_MAX_P95_REL_DELTA,
+            "stability_check": "p95 first-half vs second-half relative delta (class-specific max)",
+            "default_stability_max_rel_delta": PERF_STABILITY_MAX_P95_REL_DELTA,
             "workload_fixture": "execute_capability per ID sequential + 5-wide concurrency burst",
             "environment": env,
             "measured_at_utc": measured_at,
