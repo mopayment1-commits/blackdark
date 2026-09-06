@@ -1,710 +1,860 @@
 {
   "artifact": "BATCH09_CONSUMER_PATH_401_450",
-  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
-  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
-  "actual_consumer_path_identified": "50/50",
-  "material_locally_testable_consumer_paths_tested": "100%",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+  "consumer_paths_accounted": "50/50",
   "generic_gateway_as_sole_evidence": 0,
+  "unresolved_consumer_path_gap": 0,
   "rows": [
     {
       "capability_id": 401,
       "official_name": "Bridges Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/401",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/401",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.bridges_intelligence_401",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 402,
       "official_name": "Yields Screener",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/402",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/402",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.yields_screener_402",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 403,
       "official_name": "Yield History",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/403",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/403",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.yield_history_403",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 404,
       "official_name": "Borrowing Rates",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/404",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/404",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.borrowing_rates_404",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 405,
       "official_name": "Liquid Staking Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/405",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/405",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.liquid_staking_intelligence_405",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 406,
       "official_name": "RWA Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/406",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/406",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.rwa_intelligence_406",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 407,
       "official_name": "Raises / Funding Rounds",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/407",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/407",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.raises_funding_rounds_407",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 408,
       "official_name": "Investor Profiles",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/408",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/408",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.investor_profiles_408",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 409,
       "official_name": "Unlocks",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/409",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "B2B feed",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/409",
+      "downstream_implementation": "bd_platform.quicktake_feed.quicktake_feed_status_409",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 410,
       "official_name": "Treasury Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/410",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/410",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.treasury_intelligence_410",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 411,
       "official_name": "Airdrop / Incentive Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/411",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/411",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.airdrop_incentive_intelligence_411",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 412,
       "official_name": "Capital Formation Radar",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/412",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/412",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.capital_formation_radar_412",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 413,
       "official_name": "DeFi Opportunity Screener",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/413",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/413",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.defi_opportunity_screener_413",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 414,
       "official_name": "DeFi Risk Passport",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/414",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/414",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.defi_risk_passport_414",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 415,
       "official_name": "API Aggregation Layer",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/415",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/415",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.api_aggregation_layer_415",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 416,
       "official_name": "Cross-DeFi Decision Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/416",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/416",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.cross_defi_decision_intelligence_416",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 417,
       "official_name": "Cross-Chain Fundamentals",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/417",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/417",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.cross_chain_fundamentals_417",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 418,
       "official_name": "Protocol Fundamentals",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/418",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/418",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_fundamentals_418",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 419,
       "official_name": "Stablecoin Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/419",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/419",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.stablecoin_intelligence_419",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 420,
       "official_name": "Stablecoin Activity Breakdown",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/420",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/420",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.stablecoin_activity_breakdown_420",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 421,
       "official_name": "Developer Activity",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/421",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/421",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.developer_activity_421",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 422,
       "official_name": "Sector/Ecosystem Comparables",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/422",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/422",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.sector_ecosystem_comparables_422",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 423,
       "official_name": "Equities + Crypto Research",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/423",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/423",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.equities_crypto_research_423",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 424,
       "official_name": "Consensus Estimates",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/424",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/424",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.consensus_estimates_424",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 425,
       "official_name": "AI Analyst",
-      "consumption_mode": "AI/copilot interaction + cap646 API",
-      "primary_path": "/api/cap646/425",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "AI/copilot",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/425",
+      "downstream_implementation": "defi_yield_intelligence_layer + ai_analyst semantic_rule",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 426,
       "official_name": "Thesis Research Workspace",
-      "consumption_mode": "research workspace UI + cap646 API",
-      "primary_path": "/api/cap646/426",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "research workspace",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/426",
+      "downstream_implementation": "defi_yield_intelligence_layer + thesis_workspace semantic_rule",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 427,
       "official_name": "Comparable Company / Protocol Analysis",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/427",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/427",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.comparable_company_protocol_analysis_427",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 428,
       "official_name": "Excel / Sheets Integration",
-      "consumption_mode": "Excel/Sheets connector export path + cap646 API",
-      "primary_path": "/api/cap646/428",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "Excel/Sheets export",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/428",
+      "downstream_implementation": "defi_yield_intelligence_layer + excel_sheets export_rows",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 429,
       "official_name": "API Data Platform",
-      "consumption_mode": "institutional API data platform + cap646 API",
-      "primary_path": "/api/cap646/429",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "institutional API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/429",
+      "downstream_implementation": "defi_yield_intelligence_layer + api_data_platform quota fields",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 430,
       "official_name": "Research Templates",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/430",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/430",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.research_templates_430",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 431,
       "official_name": "Dashboards",
-      "consumption_mode": "dashboards UI + cap646 API",
-      "primary_path": "/api/cap646/431",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "dashboard UI",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/431",
+      "downstream_implementation": "defi_yield_intelligence_layer + dashboards widget_count",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 432,
       "official_name": "Stablecoin Payment Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/432",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/432",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.stablecoin_payment_intelligence_432",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 433,
       "official_name": "On-Chain Usage Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/433",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/433",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.on_chain_usage_intelligence_433",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 434,
       "official_name": "Revenue / Fees / Economic Activity",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/434",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/434",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.revenue_fees_economic_activity_434",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 435,
       "official_name": "Cross-Market Research Copilot",
-      "consumption_mode": "cross-market research copilot + cap646 API",
-      "primary_path": "/api/cap646/435",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "AI/copilot cross-market",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/435",
+      "downstream_implementation": "defi_yield_intelligence_layer + cross_market_copilot",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 436,
       "official_name": "Investment Thesis Scoring",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/436",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/436",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.investment_thesis_scoring_436",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 437,
       "official_name": "DeFi Risk Radar",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/437",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "risk radar API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/437",
+      "downstream_implementation": "defi_yield_intelligence_layer.defi_risk_radar_437",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 438,
       "official_name": "Lending Market Risk",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/438",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/438",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.lending_market_risk_438",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 439,
       "official_name": "Collateral Risk",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/439",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/439",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.collateral_risk_439",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 440,
       "official_name": "Liquidation Risk",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/440",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/440",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.liquidation_risk_440",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 441,
       "official_name": "Oracle Risk",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/441",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "oracle risk API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/441",
+      "downstream_implementation": "defi_yield_intelligence_layer.oracle_risk_441",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 442,
       "official_name": "Liquidity Risk",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/442",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/442",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.liquidity_risk_442",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 443,
       "official_name": "Protocol Exploit Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/443",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/443",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_exploit_intelligence_443",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 444,
       "official_name": "Stablecoin Risk Intelligence",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/444",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/444",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.stablecoin_risk_intelligence_444",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 445,
       "official_name": "DeFi Strategy Risk",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/445",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/445",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.defi_strategy_risk_445",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 446,
       "official_name": "Real-Time Risk Alerts",
-      "consumption_mode": "alert/event path + cap646 API",
-      "primary_path": "/api/cap646/446",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "alert/event",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/446",
+      "downstream_implementation": "defi_yield_intelligence_layer + real_time_alerts alert_count_24h",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 447,
       "official_name": "DAO Treasury Risk",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/447",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/447",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.dao_treasury_risk_447",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 448,
       "official_name": "Institutional Risk API",
-      "consumption_mode": "institutional risk API + cap646 API",
-      "primary_path": "/api/cap646/448",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "institutional risk API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/448",
+      "downstream_implementation": "defi_yield_intelligence_layer + institutional_risk_api coverage_pct",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 449,
       "official_name": "Curated On-Chain Dashboards",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/449",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/449",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.curated_on_chain_dashboards_449",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     },
     {
       "capability_id": 450,
       "official_name": "Narrative-Driven Research",
-      "consumption_mode": "API",
-      "primary_path": "/api/cap646/450",
-      "secondary_path": "pdf_capability_registry.execute_capability",
-      "material_locally_tested": true,
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/450",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.narrative_driven_research_450",
+      "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
-        "tests/test_batch09_canonical_http_entitlement.py",
-        "tests/test_batch09_full_path_entitlement.py",
-        "tests/test_hero_batch_09_capabilities.py"
+        "tests/test_batch09_consumer_paths.py",
+        "tests/test_batch09_canonical_http_entitlement.py"
       ],
-      "generic_gateway_sole_evidence": false
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
     }
   ]
 }

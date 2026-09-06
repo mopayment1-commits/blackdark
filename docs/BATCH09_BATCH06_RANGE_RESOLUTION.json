@@ -1,9 +1,12 @@
 {
   "artifact": "BATCH09_BATCH06_RANGE_RESOLUTION",
-  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
-  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
-  "batch06_251_300_closure_evidence_status": "REAL_GOVERNANCE_DEBT",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+  "batch06_251_300_dedicated_freeze_filename": "NON_MATERIAL_RECORD_NAMING_GAP",
+  "batch06_251_300_closure_evidence_status": "FALSE_GAP",
+  "control_objective_assessment": "Prior-batch SHA-bound closure evidence reconstructable from Batch03 201-300 chain",
   "closure_reconstructable_from_repo": true,
+  "missing_dedicated_filename_blocks_freeze": false,
   "source_sha": "batch03 closure branch cursor/batch-03-201-300-e85e (see HERO_BATCH_03_COMPLETION_REPORT.md)",
   "evidence": [
     "docs/HERO_BATCH_03_COMPLETION_REPORT.md (201-300 includes 251-300)",

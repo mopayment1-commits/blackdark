@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH09_SSOT_RECONCILIATION",
-  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
-  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
   "active_SSOT_conflicts": 0,
   "stale_active_truths": 0,
   "unexplained_parallel_status_dimensions": 0,
@@ -11,5 +11,6 @@
     "stale_active_truths_remaining": 0
   },
   "progress_826_numerator_unchanged": true,
-  "note": "PENDING/NOT_COMPLETE preserved for live/production dimensions; factual backend fields corrected"
+  "note": "PENDING/NOT_COMPLETE preserved for live/production dimensions; factual backend fields corrected",
+  "active_ssot_conflicts": 0
 }

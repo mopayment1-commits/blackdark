@@ -1,24 +1,32 @@
 {
   "artifact": "BATCH09_SHA_PROVENANCE_CHAIN",
-  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
-  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
-  "formal_gate_provenance_complete": true,
-  "CodeQL_source_relationship_proven": true,
-  "unexplained_SHA_transition": [],
-  "material_source_vs_evidence_drift": [],
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+  "unexplained_sha": 0,
+  "provenance_graph_complete": true,
   "nodes": {
-    "canonical_tested_source": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
-    "ci_sonar_evidence": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
-    "codeql_github": {
-      "run_id": "34060598014",
-      "sha": "255327b9a160715a28a60787ecec526a002a02ed"
+    "intermediate_docs_33bf5f3": {
+      "sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "role": "SUPERSEDED_INTERMEDIATE",
+      "description": "docs(batch09): superseding reopening delta remediation closure artifacts",
+      "superseded_by": [
+        "40769dd2cd0a91ea8d463843c2305004192da136",
+        "b5bf380001774837c6dff0c96fc9c775092a8ef0",
+        "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+      ]
     },
-    "prior_freeze": "255327b9a160715a28a60787ecec526a002a02ed",
-    "reopening_remediation_head": "40769dd2cd0a91ea8d463843c2305004192da136"
+    "reopening_remediation_head_b5bf380": {
+      "sha": "b5bf380001774837c6dff0c96fc9c775092a8ef0",
+      "role": "PRIOR_MATERIAL_REMEDIATION_HEAD",
+      "description": "#437/#441 semantic remediation + reopening artifacts before micro-remediation semantic engine"
+    },
+    "final_code_head": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+    "gate_tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
   },
   "relationships": [
-    "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04 is ancestor of 40769dd2cd0a91ea8d463843c2305004192da136",
-    "CodeQL run 34060598014 executed on 255327b9a160715a28a60787ecec526a002a02ed",
-    "Production/runtime delta after tested source documented in freeze semantic_equivalence"
-  ]
+    "33bf5f3cfb417db9de5b337c428e65deb36f1f5d is ancestor of 29214c1f3070713584dfb5a317d6552da0cb4f9f — intermediate artifact binding superseded",
+    "b5bf380001774837c6dff0c96fc9c775092a8ef0 is ancestor of 29214c1f3070713584dfb5a317d6552da0cb4f9f — micro-remediation semantic engine extends material code",
+    "Formal gates bound to 29214c1f3070713584dfb5a317d6552da0cb4f9f with code_delta=0 vs final_code_sha"
+  ],
+  "evidence_artifact_binding_correct": true
 }

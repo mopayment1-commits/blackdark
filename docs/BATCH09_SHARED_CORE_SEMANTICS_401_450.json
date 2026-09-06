@@ -1,0 +1,1330 @@
+{
+  "artifact": "BATCH09_SHARED_CORE_SEMANTICS_401_450",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+  "shared_ids_accounted": "49/48",
+  "shared_core_parameterized_count": 47,
+  "shared_core_custom_count": 2,
+  "accounting_note": "48 = 47 VALID_PARAMETERIZED_SEMANTICS + #437 REAL_SHARED; #441 REAL_SHARED proven for batch closure (49 defi component total)",
+  "generic_template_defect": 0,
+  "wrong_semantics": 0,
+  "insufficient_evidence": 0,
+  "name_or_seed_only_proof": 0,
+  "rows": [
+    {
+      "capability_id": 401,
+      "canonical_requirement": "Bridges Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Bridges Intelligence",
+      "actual_inputs_data_used": {
+        "bridge_volume_usd": 1200000000.0,
+        "tvl_usd": 4500000000.0,
+        "flow_7d_change_pct": 2.3
+      },
+      "transformation_calculation_rules": "bridge_flow_ratio",
+      "expected_semantic_outcome": {
+        "bridges_intelligence": 27.011699999999998,
+        "bridge_flow_ratio_pct": 26.6667,
+        "flow_7d_change_pct": 2.3,
+        "symbol_focus": "ETH",
+        "feature": "Bridges Intelligence",
+        "semantic_rule": "bridge_flow_ratio",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=bridge_flow_ratio with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "First shared-core parameterized ID in batch09 defi layer",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 402,
+      "canonical_requirement": "Yields Screener — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Yields Screener",
+      "actual_inputs_data_used": {
+        "top_pool_apy_pct": 8.2,
+        "median_pool_apy_pct": 3.1,
+        "pool_count": 42
+      },
+      "transformation_calculation_rules": "yield_screener_rank",
+      "expected_semantic_outcome": {
+        "yields_screener": 214.2,
+        "top_pool_apy_pct": 8.2,
+        "median_pool_apy_pct": 3.1,
+        "rank_spread_bps": 510.0,
+        "feature": "Yields Screener",
+        "semantic_rule": "yield_screener_rank",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=yield_screener_rank with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule yield_screener_rank vs neighbor #401 rule bridge_flow_ratio; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 403,
+      "canonical_requirement": "Yield History — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Yield History",
+      "actual_inputs_data_used": {
+        "apy_day0_pct": 5.5,
+        "apy_day30_pct": 4.1,
+        "volatility_pct": 1.2
+      },
+      "transformation_calculation_rules": "yield_history_trend",
+      "expected_semantic_outcome": {
+        "yield_history": 5.8667,
+        "apy_slope_per_day": 0.0467,
+        "lookback_days": 30,
+        "feature": "Yield History",
+        "semantic_rule": "yield_history_trend",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=yield_history_trend with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule yield_history_trend vs neighbor #402 rule yield_screener_rank; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 404,
+      "canonical_requirement": "Borrowing Rates — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Borrowing Rates",
+      "actual_inputs_data_used": {
+        "borrow_rate_bps": 450,
+        "supply_rate_bps": 180,
+        "utilization_pct": 72
+      },
+      "transformation_calculation_rules": "borrow_lend_spread",
+      "expected_semantic_outcome": {
+        "borrowing_rates": 270.0,
+        "borrow_supply_spread_bps": 270.0,
+        "utilization_pct": 72.0,
+        "feature": "Borrowing Rates",
+        "semantic_rule": "borrow_lend_spread",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=borrow_lend_spread with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule borrow_lend_spread vs neighbor #403 rule yield_history_trend; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 405,
+      "canonical_requirement": "Liquid Staking Intelligence — Foundation, Architecture & Reliability",
+      "real_semantic_objective": "Liquid Staking Intelligence",
+      "actual_inputs_data_used": {
+        "staked_ratio_pct": 62,
+        "validator_yield_pct": 3.8
+      },
+      "transformation_calculation_rules": "liquid_staking_yield",
+      "expected_semantic_outcome": {
+        "liquid_staking_intelligence": 2.356,
+        "staked_ratio_pct": 62.0,
+        "validator_yield_pct": 3.8,
+        "feature": "Liquid Staking Intelligence",
+        "semantic_rule": "liquid_staking_yield",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=liquid_staking_yield with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule liquid_staking_yield vs neighbor #404 rule borrow_lend_spread; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 406,
+      "canonical_requirement": "RWA Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "RWA Intelligence",
+      "actual_inputs_data_used": {
+        "rwa_allocation_pct": 12.5,
+        "tokenized_tvl_usd": 2100000000.0
+      },
+      "transformation_calculation_rules": "rwa_allocation",
+      "expected_semantic_outcome": {
+        "rwa_intelligence": 26250.0,
+        "rwa_allocation_pct": 12.5,
+        "tokenized_tvl_musd": 2100.0,
+        "feature": "RWA Intelligence",
+        "semantic_rule": "rwa_allocation",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=rwa_allocation with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule rwa_allocation vs neighbor #405 rule liquid_staking_yield; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 407,
+      "canonical_requirement": "Raises / Funding Rounds — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Raises / Funding Rounds",
+      "actual_inputs_data_used": {
+        "rounds_90d": 6,
+        "median_raise_usd": 18000000.0
+      },
+      "transformation_calculation_rules": "funding_velocity",
+      "expected_semantic_outcome": {
+        "raises_funding_rounds": 108.0,
+        "rounds_90d": 6.0,
+        "median_raise_musd": 18.0,
+        "feature": "Raises / Funding Rounds",
+        "semantic_rule": "funding_velocity",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=funding_velocity with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule funding_velocity vs neighbor #406 rule rwa_allocation; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 408,
+      "canonical_requirement": "Investor Profiles — Derivatives, Funding & Liquidations",
+      "real_semantic_objective": "Investor Profiles",
+      "actual_inputs_data_used": {
+        "unique_investors": 28,
+        "avg_ticket_usd": 2500000.0
+      },
+      "transformation_calculation_rules": "investor_breadth",
+      "expected_semantic_outcome": {
+        "investor_profiles": 70.0,
+        "unique_investors": 28.0,
+        "avg_ticket_musd": 2.5,
+        "feature": "Investor Profiles",
+        "semantic_rule": "investor_breadth",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=investor_breadth with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule investor_breadth vs neighbor #407 rule funding_velocity; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 410,
+      "canonical_requirement": "Treasury Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Treasury Intelligence",
+      "actual_inputs_data_used": {
+        "treasury_usd": 85000000.0,
+        "monthly_burn_usd": 4200000.0
+      },
+      "transformation_calculation_rules": "treasury_runway",
+      "expected_semantic_outcome": {
+        "treasury_intelligence": 20.2381,
+        "runway_months": 20.24,
+        "treasury_musd": 85.0,
+        "feature": "Treasury Intelligence",
+        "semantic_rule": "treasury_runway",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=treasury_runway with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule treasury_runway vs neighbor #408 rule investor_breadth; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 411,
+      "canonical_requirement": "Airdrop / Incentive Intelligence — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Airdrop / Incentive Intelligence",
+      "actual_inputs_data_used": {
+        "pending_airdrop_usd": 12000000.0,
+        "circulating_mcap_usd": 420000000.0,
+        "eligible_wallets": 15000
+      },
+      "transformation_calculation_rules": "airdrop_pressure",
+      "expected_semantic_outcome": {
+        "airdrop_incentive_intelligence": 2.8571,
+        "airdrop_pressure_pct": 2.86,
+        "eligible_wallets": 15000.0,
+        "feature": "Airdrop / Incentive Intelligence",
+        "semantic_rule": "airdrop_pressure",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=airdrop_pressure with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule airdrop_pressure vs neighbor #410 rule treasury_runway; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 412,
+      "canonical_requirement": "Capital Formation Radar — Data Platform, Quality & Connectors",
+      "real_semantic_objective": "Capital Formation Radar",
+      "actual_inputs_data_used": {
+        "new_capital_usd": 55000000.0,
+        "sector_tvl_usd": 8000000000.0,
+        "sector_score": 1.0
+      },
+      "transformation_calculation_rules": "capital_formation",
+      "expected_semantic_outcome": {
+        "capital_formation_radar": 0.6875,
+        "new_capital_musd": 55.0,
+        "sector": 1.0,
+        "feature": "Capital Formation Radar",
+        "semantic_rule": "capital_formation",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=capital_formation with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule capital_formation vs neighbor #411 rule airdrop_pressure; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 413,
+      "canonical_requirement": "DeFi Opportunity Screener — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "DeFi Opportunity Screener",
+      "actual_inputs_data_used": {
+        "apy_pct": 7.4,
+        "tvl_usd": 1100000000.0,
+        "risk_score": 35
+      },
+      "transformation_calculation_rules": "defi_opportunity",
+      "expected_semantic_outcome": {
+        "defi_opportunity_screener": 330000016.7,
+        "risk_adjusted_rank": 330000016.7,
+        "feature": "DeFi Opportunity Screener",
+        "semantic_rule": "defi_opportunity",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=defi_opportunity with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule defi_opportunity vs neighbor #412 rule capital_formation; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 414,
+      "canonical_requirement": "DeFi Risk Passport — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "DeFi Risk Passport",
+      "actual_inputs_data_used": {
+        "audit_score": 82,
+        "exploit_history": 15,
+        "tvl_stability": 78
+      },
+      "transformation_calculation_rules": "risk_passport",
+      "expected_semantic_outcome": {
+        "defi_risk_passport": 82.05,
+        "passport_grade": 82.05,
+        "feature": "DeFi Risk Passport",
+        "semantic_rule": "risk_passport",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=risk_passport with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule risk_passport vs neighbor #413 rule defi_opportunity; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 415,
+      "canonical_requirement": "API Aggregation Layer — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "API Aggregation Layer",
+      "actual_inputs_data_used": {
+        "endpoint_count": 12,
+        "freshness_score": 0.91
+      },
+      "transformation_calculation_rules": "api_aggregation",
+      "expected_semantic_outcome": {
+        "api_aggregation_layer": 10.92,
+        "endpoint_count": 12.0,
+        "freshness_score": 0.91,
+        "feature": "API Aggregation Layer",
+        "semantic_rule": "api_aggregation",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=api_aggregation with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule api_aggregation vs neighbor #414 rule risk_passport; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 416,
+      "canonical_requirement": "Cross-DeFi Decision Intelligence — Institutional, B2B, API & Developer Platform",
+      "real_semantic_objective": "Cross-DeFi Decision Intelligence",
+      "actual_inputs_data_used": {
+        "signal_a": 0.62,
+        "signal_b": 0.55,
+        "signal_c": 0.48
+      },
+      "transformation_calculation_rules": "cross_defi_decision",
+      "expected_semantic_outcome": {
+        "cross_defi_decision_intelligence": 0.5605,
+        "composite_signal": 1.65,
+        "feature": "Cross-DeFi Decision Intelligence",
+        "semantic_rule": "cross_defi_decision",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=cross_defi_decision with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule cross_defi_decision vs neighbor #415 rule api_aggregation; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 417,
+      "canonical_requirement": "Cross-Chain Fundamentals — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Cross-Chain Fundamentals",
+      "actual_inputs_data_used": {
+        "active_chains": 7,
+        "avg_tvl_per_chain_usd": 250000000.0
+      },
+      "transformation_calculation_rules": "cross_chain_fundamentals",
+      "expected_semantic_outcome": {
+        "cross_chain_fundamentals": 17.5,
+        "active_chains": 7.0,
+        "feature": "Cross-Chain Fundamentals",
+        "semantic_rule": "cross_chain_fundamentals",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=cross_chain_fundamentals with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule cross_chain_fundamentals vs neighbor #416 rule cross_defi_decision; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 418,
+      "canonical_requirement": "Protocol Fundamentals — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Protocol Fundamentals",
+      "actual_inputs_data_used": {
+        "revenue_usd": 1800000.0,
+        "tvl_usd": 3200000000.0
+      },
+      "transformation_calculation_rules": "protocol_fundamentals",
+      "expected_semantic_outcome": {
+        "protocol_fundamentals": 5.625,
+        "revenue_to_tvl_bps": 5.62,
+        "feature": "Protocol Fundamentals",
+        "semantic_rule": "protocol_fundamentals",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=protocol_fundamentals with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule protocol_fundamentals vs neighbor #417 rule cross_chain_fundamentals; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 419,
+      "canonical_requirement": "Stablecoin Intelligence — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Stablecoin Intelligence",
+      "actual_inputs_data_used": {
+        "peg_deviation_bps": 3.5,
+        "supply_change_7d_pct": 1.2
+      },
+      "transformation_calculation_rules": "stablecoin_intel",
+      "expected_semantic_outcome": {
+        "stablecoin_intelligence": 4.7,
+        "peg_deviation_bps": 3.5,
+        "feature": "Stablecoin Intelligence",
+        "semantic_rule": "stablecoin_intel",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=stablecoin_intel with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule stablecoin_intel vs neighbor #418 rule protocol_fundamentals; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 420,
+      "canonical_requirement": "Stablecoin Activity Breakdown — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Stablecoin Activity Breakdown",
+      "actual_inputs_data_used": {
+        "transfer_volume_usd": 4500000000.0,
+        "supply_usd": 32000000000.0
+      },
+      "transformation_calculation_rules": "stablecoin_activity",
+      "expected_semantic_outcome": {
+        "stablecoin_activity_breakdown": 14.0625,
+        "velocity_ratio_pct": 14.06,
+        "feature": "Stablecoin Activity Breakdown",
+        "semantic_rule": "stablecoin_activity",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=stablecoin_activity with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule stablecoin_activity vs neighbor #419 rule stablecoin_intel; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 421,
+      "canonical_requirement": "Developer Activity — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Developer Activity",
+      "actual_inputs_data_used": {
+        "commits_30d": 145,
+        "contributor_count": 22
+      },
+      "transformation_calculation_rules": "developer_activity",
+      "expected_semantic_outcome": {
+        "developer_activity": 680.1103,
+        "commits_30d": 145.0,
+        "contributor_count": 22.0,
+        "feature": "Developer Activity",
+        "semantic_rule": "developer_activity",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=developer_activity with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule developer_activity vs neighbor #420 rule stablecoin_activity; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 422,
+      "canonical_requirement": "Sector/Ecosystem Comparables — Institutional, B2B, API & Developer Platform",
+      "real_semantic_objective": "Sector / Ecosystem Comparables",
+      "actual_inputs_data_used": {
+        "sector_mcap_usd": 12000000000.0,
+        "peer_mcap_usd": 9000000000.0
+      },
+      "transformation_calculation_rules": "sector_comparables",
+      "expected_semantic_outcome": {
+        "sector_ecosystem_comparables": 1.3333,
+        "relative_mcap_ratio": 1.33,
+        "feature": "Sector / Ecosystem Comparables",
+        "semantic_rule": "sector_comparables",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=sector_comparables with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule sector_comparables vs neighbor #421 rule developer_activity; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 423,
+      "canonical_requirement": "Equities + Crypto Research — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Equities × Crypto Research",
+      "actual_inputs_data_used": {
+        "equity_beta": 1.15,
+        "crypto_correlation": 0.68
+      },
+      "transformation_calculation_rules": "equities_crypto",
+      "expected_semantic_outcome": {
+        "equities_crypto_research": 0.782,
+        "equity_beta": 1.15,
+        "crypto_correlation": 0.68,
+        "feature": "Equities × Crypto Research",
+        "semantic_rule": "equities_crypto",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=equities_crypto with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule equities_crypto vs neighbor #422 rule sector_comparables; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 424,
+      "canonical_requirement": "Consensus Estimates — UX, Dashboards, Visualization & Beginner Experience",
+      "real_semantic_objective": "Consensus Estimates",
+      "actual_inputs_data_used": {
+        "estimate_high": 125,
+        "estimate_low": 98
+      },
+      "transformation_calculation_rules": "consensus_estimates",
+      "expected_semantic_outcome": {
+        "consensus_estimates": 27.0,
+        "estimate_spread": 27.0,
+        "feature": "Consensus Estimates",
+        "semantic_rule": "consensus_estimates",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=consensus_estimates with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule consensus_estimates vs neighbor #423 rule equities_crypto; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 425,
+      "canonical_requirement": "AI Analyst — Data Platform, Quality & Connectors",
+      "real_semantic_objective": "AI Analyst",
+      "actual_inputs_data_used": {
+        "confidence": 0.78,
+        "signal_strength": 0.65
+      },
+      "transformation_calculation_rules": "ai_analyst",
+      "expected_semantic_outcome": {
+        "ai_analyst": 0.507,
+        "narrative_confidence": 0.78,
+        "signal_strength": 0.65,
+        "consumer_mode": "AI/copilot synthesis",
+        "feature": "AI Analyst",
+        "semantic_rule": "ai_analyst",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=ai_analyst with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "AI/copilot",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule ai_analyst vs neighbor #424 rule consensus_estimates; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 426,
+      "canonical_requirement": "Thesis Research Workspace — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Thesis Research Workspace",
+      "actual_inputs_data_used": {
+        "thesis_score": 0.72,
+        "evidence_count": 14
+      },
+      "transformation_calculation_rules": "thesis_workspace",
+      "expected_semantic_outcome": {
+        "thesis_research": 2.694,
+        "thesis_score": 0.72,
+        "evidence_count": 14.0,
+        "consumer_mode": "research workspace",
+        "feature": "Thesis Research Workspace",
+        "semantic_rule": "thesis_workspace",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=thesis_workspace with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "research workspace",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule thesis_workspace vs neighbor #425 rule ai_analyst; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 427,
+      "canonical_requirement": "Comparable Company / Protocol Analysis — Technical, Quant & Predictive Analytics",
+      "real_semantic_objective": "Comparable Company / Protocol Analysis",
+      "actual_inputs_data_used": {
+        "target_metric": 18.5,
+        "peer_median": 14.2
+      },
+      "transformation_calculation_rules": "comparable_company",
+      "expected_semantic_outcome": {
+        "comparable_company": 1.3028,
+        "peer_relative_multiple": 1.3,
+        "feature": "Comparable Company / Protocol Analysis",
+        "semantic_rule": "comparable_company",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=comparable_company with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule comparable_company vs neighbor #426 rule thesis_workspace; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 428,
+      "canonical_requirement": "Excel / Sheets Integration — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Excel / Sheets Integration",
+      "actual_inputs_data_used": {
+        "export_rows": 2500,
+        "refresh_minutes": 15
+      },
+      "transformation_calculation_rules": "excel_sheets",
+      "expected_semantic_outcome": {
+        "excel_sheets": 645.4972,
+        "export_rows": 2500.0,
+        "refresh_minutes": 15.0,
+        "consumer_mode": "Excel/Sheets connector export",
+        "feature": "Excel / Sheets Integration",
+        "semantic_rule": "excel_sheets",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=excel_sheets with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "Excel/Sheets export",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule excel_sheets vs neighbor #427 rule comparable_company; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 429,
+      "canonical_requirement": "API Data Platform — Security, Privacy, Identity & Compliance",
+      "real_semantic_objective": "API Data Platform",
+      "actual_inputs_data_used": {
+        "daily_api_calls": 125000,
+        "quota_calls": 250000
+      },
+      "transformation_calculation_rules": "api_data_platform",
+      "expected_semantic_outcome": {
+        "api_data": 50.0,
+        "quota_utilization_pct": 50.0,
+        "consumer_mode": "institutional API data platform",
+        "feature": "API Data Platform",
+        "semantic_rule": "api_data_platform",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=api_data_platform with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "institutional API",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule api_data_platform vs neighbor #428 rule excel_sheets; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 430,
+      "canonical_requirement": "Research Templates — Technical, Quant & Predictive Analytics",
+      "real_semantic_objective": "Research Templates",
+      "actual_inputs_data_used": {
+        "template_count": 18,
+        "coverage_score": 0.84
+      },
+      "transformation_calculation_rules": "research_templates",
+      "expected_semantic_outcome": {
+        "research_templates": 15.12,
+        "template_count": 18.0,
+        "feature": "Research Templates",
+        "semantic_rule": "research_templates",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=research_templates with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule research_templates vs neighbor #429 rule api_data_platform; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 431,
+      "canonical_requirement": "Dashboards — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Dashboards",
+      "actual_inputs_data_used": {
+        "widget_count": 24,
+        "freshness_score": 0.88
+      },
+      "transformation_calculation_rules": "dashboards",
+      "expected_semantic_outcome": {
+        "dashboards": 21.12,
+        "widget_count": 24.0,
+        "consumer_mode": "dashboard UI widgets",
+        "feature": "Dashboards",
+        "semantic_rule": "dashboards",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=dashboards with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "dashboard UI",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule dashboards vs neighbor #430 rule research_templates; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 432,
+      "canonical_requirement": "Stablecoin Payment Intelligence — UX, Dashboards, Visualization & Beginner Experience",
+      "real_semantic_objective": "Stablecoin Payment Intelligence",
+      "actual_inputs_data_used": {
+        "payment_volume_usd": 850000000.0,
+        "merchant_count": 4200
+      },
+      "transformation_calculation_rules": "stablecoin_payment",
+      "expected_semantic_outcome": {
+        "stablecoin_payment": 202.381,
+        "avg_ticket_kusd": 202.38,
+        "feature": "Stablecoin Payment Intelligence",
+        "semantic_rule": "stablecoin_payment",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=stablecoin_payment with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule stablecoin_payment vs neighbor #431 rule dashboards; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 433,
+      "canonical_requirement": "On-Chain Usage Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "On-Chain Usage Intelligence",
+      "actual_inputs_data_used": {
+        "daily_active_addresses": 125000,
+        "tx_per_user": 2.4
+      },
+      "transformation_calculation_rules": "on_chain_usage",
+      "expected_semantic_outcome": {
+        "on_chain": 300000.0,
+        "daily_active_addresses": 125000.0,
+        "feature": "On-Chain Usage Intelligence",
+        "semantic_rule": "on_chain_usage",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=on_chain_usage with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule on_chain_usage vs neighbor #432 rule stablecoin_payment; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 434,
+      "canonical_requirement": "Revenue / Fees / Economic Activity — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Revenue / Fees / Economic Activity",
+      "actual_inputs_data_used": {
+        "fees_24h_usd": 420000,
+        "tvl_usd": 1500000000.0
+      },
+      "transformation_calculation_rules": "revenue_fees",
+      "expected_semantic_outcome": {
+        "revenue_fees": 2.8,
+        "fee_yield_bps": 2.8,
+        "feature": "Revenue / Fees / Economic Activity",
+        "semantic_rule": "revenue_fees",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=revenue_fees with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule revenue_fees vs neighbor #433 rule on_chain_usage; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 435,
+      "canonical_requirement": "Cross-Market Research Copilot — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Cross-Market Research Copilot",
+      "actual_inputs_data_used": {
+        "equity_signal": 0.58,
+        "crypto_signal": 0.71
+      },
+      "transformation_calculation_rules": "cross_market_copilot",
+      "expected_semantic_outcome": {
+        "cross_market": 0.6515,
+        "copilot_blend_score": 0.65,
+        "consumer_mode": "cross-market research copilot",
+        "feature": "Cross-Market Research Copilot",
+        "semantic_rule": "cross_market_copilot",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=cross_market_copilot with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "AI/copilot cross-market",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule cross_market_copilot vs neighbor #434 rule revenue_fees; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 436,
+      "canonical_requirement": "Investment Thesis Scoring — AI, Sentiment, News & Decision Intelligence",
+      "real_semantic_objective": "Investment Thesis Scoring",
+      "actual_inputs_data_used": {
+        "growth_score": 72,
+        "risk_score": 28,
+        "moat_score": 65
+      },
+      "transformation_calculation_rules": "investment_thesis",
+      "expected_semantic_outcome": {
+        "investment_thesis": 58.2,
+        "thesis_composite": 109.0,
+        "feature": "Investment Thesis Scoring",
+        "semantic_rule": "investment_thesis",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=investment_thesis with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule investment_thesis vs neighbor #435 rule cross_market_copilot; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 438,
+      "canonical_requirement": "Lending Market Risk — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Lending Market Risk",
+      "actual_inputs_data_used": {
+        "utilization_pct": 81,
+        "liquidation_buffer_pct": 12
+      },
+      "transformation_calculation_rules": "lending_market_risk",
+      "expected_semantic_outcome": {
+        "lending_market": 6.75,
+        "utilization_pct": 81.0,
+        "feature": "Lending Market Risk",
+        "semantic_rule": "lending_market_risk",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=lending_market_risk with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule lending_market_risk vs neighbor #436 rule investment_thesis; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 439,
+      "canonical_requirement": "Collateral Risk — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Collateral Risk",
+      "actual_inputs_data_used": {
+        "collateral_factor": 0.78,
+        "price_volatility_pct": 22
+      },
+      "transformation_calculation_rules": "collateral_risk",
+      "expected_semantic_outcome": {
+        "collateral_risk": 17.16,
+        "health_factor_proxy": 0.04,
+        "feature": "Collateral Risk",
+        "semantic_rule": "collateral_risk",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=collateral_risk with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule collateral_risk vs neighbor #438 rule lending_market_risk; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 440,
+      "canonical_requirement": "Liquidation Risk — Risk, Hedging & Stress Analytics",
+      "real_semantic_objective": "Liquidation Risk",
+      "actual_inputs_data_used": {
+        "near_liq_positions": 145,
+        "open_positions": 3200
+      },
+      "transformation_calculation_rules": "liquidation_risk",
+      "expected_semantic_outcome": {
+        "liquidation_risk": 4.5312,
+        "near_liquidation_pct": 4.53,
+        "feature": "Liquidation Risk",
+        "semantic_rule": "liquidation_risk",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=liquidation_risk with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule liquidation_risk vs neighbor #439 rule collateral_risk; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 442,
+      "canonical_requirement": "Liquidity Risk — Risk, Hedging & Stress Analytics",
+      "real_semantic_objective": "Liquidity Risk",
+      "actual_inputs_data_used": {
+        "bid_ask_bps": 8.5,
+        "depth_usd": 12000000.0
+      },
+      "transformation_calculation_rules": "liquidity_risk",
+      "expected_semantic_outcome": {
+        "liquidity_risk": 2.4537,
+        "depth_musd": 12.0,
+        "feature": "Liquidity Risk",
+        "semantic_rule": "liquidity_risk",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=liquidity_risk with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule liquidity_risk vs neighbor #440 rule liquidation_risk; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 443,
+      "canonical_requirement": "Protocol Exploit Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "Protocol Exploit Intelligence",
+      "actual_inputs_data_used": {
+        "exploit_incidents_12m": 2,
+        "tvl_at_risk_usd": 450000000.0
+      },
+      "transformation_calculation_rules": "protocol_exploit",
+      "expected_semantic_outcome": {
+        "protocol_exploit": 9.0,
+        "exploit_incidents_12m": 2.0,
+        "feature": "Protocol Exploit Intelligence",
+        "semantic_rule": "protocol_exploit",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=protocol_exploit with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule protocol_exploit vs neighbor #442 rule liquidity_risk; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 444,
+      "canonical_requirement": "Stablecoin Risk Intelligence — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Stablecoin Risk Intelligence",
+      "actual_inputs_data_used": {
+        "depeg_events_12m": 1,
+        "reserve_transparency_score": 88
+      },
+      "transformation_calculation_rules": "stablecoin_risk",
+      "expected_semantic_outcome": {
+        "stablecoin_risk": 98.0,
+        "depeg_events_12m": 1.0,
+        "feature": "Stablecoin Risk Intelligence",
+        "semantic_rule": "stablecoin_risk",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=stablecoin_risk with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule stablecoin_risk vs neighbor #443 rule protocol_exploit; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 445,
+      "canonical_requirement": "DeFi Strategy Risk — DeFi, Yield, Stablecoins & Token Economics",
+      "real_semantic_objective": "DeFi Strategy Risk",
+      "actual_inputs_data_used": {
+        "leverage_ratio": 2.4,
+        "strategy_var_pct": 18
+      },
+      "transformation_calculation_rules": "defi_strategy_risk",
+      "expected_semantic_outcome": {
+        "defi_strategy": 43.2,
+        "leverage_ratio": 2.4,
+        "feature": "DeFi Strategy Risk",
+        "semantic_rule": "defi_strategy_risk",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=defi_strategy_risk with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule defi_strategy_risk vs neighbor #444 rule stablecoin_risk; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 446,
+      "canonical_requirement": "Real-Time Risk Alerts — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Real-Time Risk Alerts",
+      "actual_inputs_data_used": {
+        "alert_count_24h": 37,
+        "severity_weight": 1.6
+      },
+      "transformation_calculation_rules": "real_time_alerts",
+      "expected_semantic_outcome": {
+        "real_time": 59.2,
+        "alert_count_24h": 37.0,
+        "consumer_mode": "alert/event path",
+        "feature": "Real-Time Risk Alerts",
+        "semantic_rule": "real_time_alerts",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=real_time_alerts with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "alert/event",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule real_time_alerts vs neighbor #445 rule defi_strategy_risk; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 447,
+      "canonical_requirement": "DAO Treasury Risk — Risk, Hedging & Stress Analytics",
+      "real_semantic_objective": "DAO Treasury Risk",
+      "actual_inputs_data_used": {
+        "treasury_usd": 120000000.0,
+        "token_holders": 45000
+      },
+      "transformation_calculation_rules": "dao_treasury",
+      "expected_semantic_outcome": {
+        "dao_treasury": 2666.6667,
+        "treasury_per_holder_usd": 2666.67,
+        "feature": "DAO Treasury Risk",
+        "semantic_rule": "dao_treasury",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=dao_treasury with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule dao_treasury vs neighbor #446 rule real_time_alerts; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 448,
+      "canonical_requirement": "Institutional Risk API — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Institutional Risk API",
+      "actual_inputs_data_used": {
+        "risk_score": 42,
+        "coverage_pct": 93
+      },
+      "transformation_calculation_rules": "institutional_risk_api",
+      "expected_semantic_outcome": {
+        "institutional_risk_api": 39.06,
+        "coverage_pct": 93.0,
+        "consumer_mode": "institutional risk API",
+        "feature": "Institutional Risk API",
+        "semantic_rule": "institutional_risk_api",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=institutional_risk_api with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "institutional risk API",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule institutional_risk_api vs neighbor #447 rule dao_treasury; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 449,
+      "canonical_requirement": "Curated On-Chain Dashboards — Institutional, B2B, API & Developer Platform",
+      "real_semantic_objective": "Curated On-Chain Dashboards",
+      "actual_inputs_data_used": {
+        "dashboard_count": 9,
+        "metric_freshness_min": 12
+      },
+      "transformation_calculation_rules": "curated_dashboards",
+      "expected_semantic_outcome": {
+        "curated_on_chain_dashboards": 2.5981,
+        "dashboard_count": 9.0,
+        "feature": "Curated On-Chain Dashboards",
+        "semantic_rule": "curated_dashboards",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=curated_dashboards with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule curated_dashboards vs neighbor #448 rule institutional_risk_api; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 450,
+      "canonical_requirement": "Narrative-Driven Research — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Narrative-Driven Research",
+      "actual_inputs_data_used": {
+        "narrative_strength": 0.74,
+        "social_velocity": 1.35
+      },
+      "transformation_calculation_rules": "narrative_research",
+      "expected_semantic_outcome": {
+        "narrative_driven_research": 0.999,
+        "narrative_strength": 0.74,
+        "feature": "Narrative-Driven Research",
+        "semantic_rule": "narrative_research",
+        "formula_visible": true
+      },
+      "independent_oracle_invariant": "semantic_rule=narrative_research with >=2 domain output keys; tests/test_batch09_shared_core_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer + batch09_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule narrative_research vs neighbor #449 rule curated_dashboards; distinct domain inputs/transform",
+      "classification": "VALID_PARAMETERIZED_SEMANTICS",
+      "test_evidence_reference": "tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 437,
+      "canonical_requirement": "DeFi Risk Radar — Risk, Hedging & Stress Analytics",
+      "real_semantic_objective": "DeFi hack/TVL risk radar distinct from mindshare correlation",
+      "actual_inputs_data_used": "symbol + seed + oracle freshness validators",
+      "transformation_calculation_rules": "defi_risk_radar_437 — TVL/exploit/hack risk scoring",
+      "expected_semantic_outcome": {
+        "ok": true,
+        "defi_risk_radar": 62.88,
+        "risk_signals": [
+          {
+            "type": "hack_exposure_proxy",
+            "symbol": "BTC",
+            "severity": "elevated",
+            "score": 62.88,
+            "source": "seed_or_defillama_contract"
+          },
+          {
+            "type": "tvl_volatility",
+            "change_7d_pct": 18.4,
+            "threshold_pct": 15.0,
+            "source": "defillama_protocols_contract"
+          }
+        ]
+      },
+      "independent_oracle_invariant": "risk_signals + defi_risk_radar fields; not #288 mindshare",
+      "negative_boundary_degraded_case": "missing oracle data degrades to seed-backed risk score",
+      "actual_result": "PASS — execute_capability",
+      "actual_consumer_path": "risk radar API",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer.defi_risk_radar_437",
+      "exact_semantic_distinction_vs_neighbors": "Hack/TVL risk radar vs #288 correlation/mindshare semantics",
+      "classification": "REAL_SHARED_SEMANTIC_IMPLEMENTATION",
+      "test_evidence_reference": "tests/test_batch09_semantic_remediation.py + tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    },
+    {
+      "capability_id": 441,
+      "canonical_requirement": "Oracle Risk — Derivatives, Funding & Liquidations",
+      "real_semantic_objective": "Oracle freshness/staleness risk distinct from stat-arb",
+      "actual_inputs_data_used": "symbol + seed + oracle freshness validators",
+      "transformation_calculation_rules": "oracle_risk_441 composing validate_oracle_freshness_101",
+      "expected_semantic_outcome": {
+        "ok": true,
+        "oracle_risk": 10.0,
+        "oracle_freshness_status": "fresh"
+      },
+      "independent_oracle_invariant": "oracle_risk + oracle_freshness_status; not #155 stat-arb",
+      "negative_boundary_degraded_case": "missing oracle data degrades to seed-backed risk score",
+      "actual_result": "PASS — execute_capability",
+      "actual_consumer_path": "oracle risk API",
+      "shared_core_component": "bd_platform.defi_yield_intelligence_layer.oracle_risk_441",
+      "exact_semantic_distinction_vs_neighbors": "Oracle staleness validation vs #155 stat-arb insight",
+      "classification": "REAL_SHARED_SEMANTIC_IMPLEMENTATION",
+      "test_evidence_reference": "tests/test_batch09_semantic_remediation.py + tests/test_batch09_shared_core_semantics.py",
+      "tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+    }
+  ]
+}

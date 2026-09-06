@@ -10,7 +10,7 @@
   },
   "artifact": "BATCH09_DUPLICATE_CANONICAL_ANALYSIS",
   "generated_at": "2026-09-06T20:13:49.890456+00:00",
-  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
   "scope": "Two-layer duplicate/canonical analysis — Layer A intra-Batch09; Layer B vs 1-350",
   "method": "Layer A: pairwise 401-450 binding/semantic review (no cross-batch IDs). Layer B: cross-batch canonical decisions including #437→#288 CLOSED_REUSED_LINK.",
   "summary": {
@@ -1364,5 +1364,7 @@
       "evidence": "Distinct QuickTake feed status surface; not REUSED-LINK",
       "hero_impact": "NO_HERO_FEED — feed status facade only"
     }
-  }
+  },
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "known_material_wrong_duplicate_decisions": 0
 }

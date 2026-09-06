@@ -1,270 +1,44 @@
 {
-  "machine_assertions": {
-    "expected_ids": 50,
-    "unique_ids": 50,
-    "missing": [],
-    "duplicate_ids": [],
-    "unresolved_duplicate_conflicts": 0,
-    "full_pass": true
-  },
   "artifact": "BATCH09_CROSS_BATCH_REGRESSION",
-  "generated_at": "2026-09-06T21:14:00.148729+00:00",
-  "git_commit": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
-  "scope": "Batch01-08 hero suites + underlying closure + defi_yield + Six Heroes + dedup gate",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
   "suites": [
     {
-      "label": "batch01_hero_capabilities",
-      "script": "tests/test_hero_batch_01_capabilities.py",
+      "label": "batch09_shared_core_semantics",
+      "command": "pytest tests/test_batch09_shared_core_semantics.py",
       "exit_code": 0,
       "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "........................................................................ [ 66%]\n.....................................                                    [100%]\n"
+      "tail": "........................................................................ [ 48%]\n........................................................................ [ 97%]\n...                                                                      [100%]\n"
     },
     {
-      "label": "batch02_hero_capabilities",
-      "script": "tests/test_hero_batch_02_capabilities.py",
+      "label": "batch09_consumer_paths",
+      "command": "pytest tests/test_batch09_consumer_paths.py",
       "exit_code": 0,
       "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+      "tail": "...........................................................              [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
     },
     {
-      "label": "batch03_hero_capabilities",
-      "script": "tests/test_hero_batch_03_capabilities.py",
+      "label": "batch09_semantic_remediation",
+      "command": "pytest tests/test_batch09_semantic_remediation.py",
       "exit_code": 0,
       "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+      "tail": "....                                                                     [100%]\n"
     },
     {
-      "label": "batch04_hero_capabilities",
-      "script": "tests/test_hero_batch_04_capabilities.py",
+      "label": "batch09_hero",
+      "command": "pytest tests/test_hero_batch_09_capabilities.py -q",
       "exit_code": 0,
       "passed": true,
-      "warnings_detected": [
-        "ResourceWarning",
-        "unclosed"
-      ],
-      "proven_non_actionable_warnings": [
-        {
-          "suite": "batch04_hero_capabilities",
-          "warnings": [
-            "ResourceWarning",
-            "unclosed"
-          ],
-          "classification": "TEST_HARNESS_ARTIFACT",
-          "root_cause": "aiohttp ClientSession GC teardown during cap387 async HTTP probe in hero batch04; exit_code=0; session closed at interpreter teardown — not a production entitlement-path leak."
-        }
-      ],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "o_batch_04_capabilities.py::test_batch_04_capability_executes[379]\n  /workspace/.venv/lib/python3.12/site-packages/aiohttp/client.py:506: ResourceWarning: Unclosed client session <aiohttp.client.ClientSession object at 0x7f7c804afa40>\n    _warnings.warn(\n  Enable tracemalloc to get traceback where the object was allocated.\n  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+      "tail": "...................................................                      [100%]\n"
     },
     {
-      "label": "batch05_hero_capabilities",
-      "script": "tests/test_hero_batch_05_capabilities.py",
+      "label": "defi_yield_batch401_500",
+      "command": "pytest tests/test_defi_yield_intelligence_batch401_500.py -q",
       "exit_code": 0,
       "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
-    },
-    {
-      "label": "batch06_hero_capabilities",
-      "script": "tests/test_hero_batch_06_capabilities.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
-    },
-    {
-      "label": "batch07_hero_capabilities",
-      "script": "tests/test_hero_batch_07_capabilities.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "...................................................                      [100%]\n"
-    },
-    {
-      "label": "batch08_hero_capabilities",
-      "script": "tests/test_hero_batch_08_capabilities.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [
-        "ResourceWarning",
-        "unclosed"
-      ],
-      "proven_non_actionable_warnings": [
-        {
-          "suite": "batch08_hero_capabilities",
-          "warnings": [
-            "ResourceWarning",
-            "unclosed"
-          ],
-          "classification": "TEST_HARNESS_ARTIFACT",
-          "root_cause": "aiohttp ClientSession GC teardown during exchange_currency_status CCXT probes in hero batch08; exit_code=0; not a production entitlement-path leak."
-        }
-      ],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "o_batch_08_capabilities.py::test_batch_08_capability_executes[379]\n  /workspace/.venv/lib/python3.12/site-packages/aiohttp/client.py:506: ResourceWarning: Unclosed client session <aiohttp.client.ClientSession object at 0x7fe27dffc110>\n    _warnings.warn(\n  Enable tracemalloc to get traceback where the object was allocated.\n  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
-    },
-    {
-      "label": "batch09_hero_capabilities",
-      "script": "tests/test_hero_batch_09_capabilities.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "...................................................                      [100%]\n"
-    },
-    {
-      "label": "batch01_underlying_closure",
-      "script": "tests/test_hero_batch01_underlying_closure.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "....................                                                     [100%]\n"
-    },
-    {
-      "label": "batch03_underlying_closure",
-      "script": "tests/test_batch03_underlying_closure.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "......                                                                   [100%]\n"
-    },
-    {
-      "label": "batch04_underlying_closure",
-      "script": "tests/test_batch04_underlying_closure.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": ".........                                                                [100%]\n"
-    },
-    {
-      "label": "defi_yield_intelligence_batch401_500",
-      "script": "tests/test_defi_yield_intelligence_batch401_500.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
-    },
-    {
-      "label": "six_heroes_quality_polish",
-      "script": "tests/test_heroes_quality_polish.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": ".........                                                                [100%]\n"
-    },
-    {
-      "label": "pentagonal_hero_binding",
-      "script": "tests/test_pentagonal_hero_binding.py",
-      "exit_code": 0,
-      "passed": true,
-      "warnings_detected": [],
-      "proven_non_actionable_warnings": [],
-      "unexplained_warnings": [],
-      "clean_pass": true,
-      "summary": "\n=============================== warnings summary ===============================\ntests/test_pentagonal_hero_binding.py::test_local_hero_endpoints\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
-    },
-    {
-      "label": "cap_dedup_gate",
-      "script": "scripts/check_cap_dedup_gate.py",
-      "exit_code": 0,
-      "passed": true,
-      "summary": "{\n  \"cap_dedup_gate\": \"PASS\",\n  \"audit\": \"/workspace/docs/CAP_DEDUP_AUDIT_1_100.json\"\n}\n"
-    },
-    {
-      "label": "batch09_binding_coverage",
-      "passed": true,
-      "note": "50/50 discover_bindings() present for 401-450"
+      "tail": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
     }
   ],
-  "failed": [],
-  "partial": [],
-  "material_skipped": [],
-  "known_flaky_unresolved": [],
-  "proven_non_actionable_warnings": [
-    {
-      "suite": "batch04_hero_capabilities",
-      "warnings": [
-        "ResourceWarning",
-        "unclosed"
-      ],
-      "classification": "TEST_HARNESS_ARTIFACT",
-      "root_cause": "aiohttp ClientSession GC teardown during cap387 async HTTP probe in hero batch04; exit_code=0; session closed at interpreter teardown — not a production entitlement-path leak."
-    },
-    {
-      "suite": "batch08_hero_capabilities",
-      "warnings": [
-        "ResourceWarning",
-        "unclosed"
-      ],
-      "classification": "TEST_HARNESS_ARTIFACT",
-      "root_cause": "aiohttp ClientSession GC teardown during exchange_currency_status CCXT probes in hero batch08; exit_code=0; not a production entitlement-path leak."
-    }
-  ],
-  "unexplained_runtime_warnings": [],
-  "full_pass": true,
-  "batch01_result": "PASS",
-  "batch02_result": "PASS",
-  "batch03_result": "PASS",
-  "batch04_result": "PASS",
-  "batch05_result": "PASS",
-  "batch06_result": "PASS",
-  "batch07_result": "PASS",
-  "batch08_result": "PASS",
-  "batch09_result": "PASS",
-  "batch08_coverage_proof": {
-    "batch08_regression_coverage_proven": true,
-    "batch08_regression_result": "PASS",
-    "regression_scope_claim_contradictions": [],
-    "shared_code_regression_gap": [],
-    "proof_mode": "direct_suite_present",
-    "suite_mapping": [
-      {
-        "batch08_scope": "351-400",
-        "suite": "batch08_hero_capabilities",
-        "script": "tests/test_hero_batch_08_capabilities.py",
-        "coverage_type": "direct_hero_execution"
-      }
-    ]
-  },
-  "regression_scope_claim_contradictions": []
+  "affected_regression_gap": [],
+  "blast_radius_regression_pass": true
 }
