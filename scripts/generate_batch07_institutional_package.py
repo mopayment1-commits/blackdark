@@ -1284,55 +1284,60 @@ def fetch_ci_evidence_for_head(head: str, branch: str = "cursor/batch07-301-350-
     """Fetch CI run IDs for required gates on the given commit via gh CLI."""
     repo = "mopayment1-commits/blackdark"
 
-    def _run_for_workflow(workflow_name: str) -> dict[str, Any]:
-        proc = subprocess.run(
-            [
-                "gh",
-                "run",
-                "list",
-                "--repo",
-                repo,
-                "--branch",
-                branch,
-                "--workflow",
-                workflow_name,
-                "--json",
-                "databaseId,conclusion,headSha,url",
-                "-L",
-                "5",
-            ],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-        )
-        if proc.returncode != 0:
-            return {"status": "UNKNOWN", "run_id": None, "url": None, "headSha": None}
-        runs = json.loads(proc.stdout or "[]")
-        for run in runs:
-            if run.get("headSha", "").startswith(head[:12]) or run.get("headSha") == head:
-                conclusion = (run.get("conclusion") or "").upper()
-                status = "PASS" if conclusion == "SUCCESS" else conclusion or "PENDING"
-                return {
-                    "status": status,
-                    "run_id": run.get("databaseId"),
-                    "url": run.get("url"),
-                    "headSha": run.get("headSha"),
-                }
-        return {"status": "PENDING", "run_id": None, "url": None, "headSha": None}
+    proc = subprocess.run(
+        [
+            "gh",
+            "run",
+            "list",
+            "--repo",
+            repo,
+            "--commit",
+            head,
+            "--json",
+            "databaseId,conclusion,headSha,url,workflowName,status",
+            "-L",
+            "20",
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    runs: list[dict[str, Any]] = []
+    if proc.returncode == 0 and proc.stdout.strip():
+        runs = json.loads(proc.stdout)
 
-    cap978 = _run_for_workflow("cap978-institutional-gate.yml")
-    critical = _run_for_workflow("ci.yml")
-    sonar = _run_for_workflow("sonarcloud.yml")
-    security = _run_for_workflow("security-scan.yml")
-    codeql = _run_for_workflow("codeql.yml")
+    gate_workflows = {
+        "CAP978": "CAP978 Institutional Gate",
+        "CI_CRITICAL_GATE": "CI Critical Gate Suite",
+        "SONARCLOUD": "SonarCloud Analysis",
+        "SECURITY_SCAN": "Security Scan",
+        "CODEQL": "CodeQL",
+    }
+
+    def _gate_result(workflow_name: str) -> dict[str, Any]:
+        matches = [r for r in runs if r.get("workflowName") == workflow_name]
+        if not matches:
+            return {"status": "PENDING", "run_id": None, "url": None, "headSha": None}
+        run = matches[0]
+        if run.get("status") != "completed":
+            return {
+                "status": "PENDING",
+                "run_id": run.get("databaseId"),
+                "url": run.get("url"),
+                "headSha": run.get("headSha"),
+            }
+        conclusion = (run.get("conclusion") or "").upper()
+        status = "PASS" if conclusion == "SUCCESS" else conclusion or "FAIL"
+        return {
+            "status": status,
+            "run_id": run.get("databaseId"),
+            "url": run.get("url"),
+            "headSha": run.get("headSha"),
+        }
 
     return {
         "ci_evidence_head": head,
-        "CAP978": cap978,
-        "CI_CRITICAL_GATE": critical,
-        "SONARCLOUD": sonar,
-        "SECURITY_SCAN": security,
-        "CODEQL": codeql,
+        **{gate: _gate_result(wf) for gate, wf in gate_workflows.items()},
     }
 
 
@@ -1421,4 +1426,40 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) > 1 and sys.argv[1] == "--ci-freeze-only":
+        artifact_head = sys.argv[2] if len(sys.argv) > 2 else git_commit()
+        tested_head = tested_source_head()
+        docs: dict[str, dict[str, Any]] = {}
+        for name in OUTPUT_FILES:
+            docs[name] = json.loads((DOCS / name).read_text(encoding="utf-8"))
+        regression = docs["BATCH07_CROSS_BATCH_REGRESSION.json"]
+        pip_audit = run_pip_audit()
+        perf_benchmark = docs["BATCH07_PERFORMANCE_CAPACITY_PREP.json"]
+        evidence_doc = docs["BATCH07_EXISTING_VERIFIED_EVIDENCE.json"]
+        collective_doc = docs["BATCH07_COLLECTIVE_REVIEW_LOCAL.json"]
+        duplicate_doc = docs["BATCH07_DUPLICATE_CANONICAL_ANALYSIS.json"]
+        drift = recon.compute_drift_metrics(tested_head, artifact_head)
+        drift["queue_reconciliation"] = docs["BATCH07_STATUS_QUEUES.json"]["queue_reconciliation"]
+        ci_evidence = fetch_ci_evidence_for_head(artifact_head)
+        freeze = build_final_freeze(
+            artifact_head,
+            regression,
+            pip_audit,
+            tested_head,
+            evidence_doc=evidence_doc,
+            collective_doc=collective_doc,
+            perf_benchmark=perf_benchmark,
+            drift=drift,
+            duplicate_doc=duplicate_doc,
+            ci_evidence=ci_evidence,
+        )
+        docs["BATCH07_FINAL_LOCAL_FREEZE.json"] = freeze
+        validate_package(docs)
+        write_artifact("BATCH07_FINAL_LOCAL_FREEZE.json", freeze)
+        print(f"Updated freeze @ artifact_head={artifact_head[:12]} ci_head={ci_evidence.get('ci_evidence_head','')[:12]}")
+        print(f"BATCH07_FINAL_LOCAL_FREEZE={freeze['freeze_assertions']['BATCH07_FINAL_LOCAL_FREEZE']}")
+        raise SystemExit(0)
+
     main()
