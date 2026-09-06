@@ -27,6 +27,7 @@ if str(ROOT) not in sys.path:
 
 from pdf_capability_registry import discover_bindings  # noqa: E402
 from scripts import batch07_reconciliation as recon  # noqa: E402
+from scripts import batch07_v3_reconciliation as v3  # noqa: E402
 
 BATCH07_IDS = list(range(301, 351))
 EXPECTED_COUNT = 50
@@ -207,6 +208,12 @@ OUTPUT_FILES = [
     "BATCH07_STATUS_QUEUES.json",
     "BATCH07_EXISTING_VERIFIED_EVIDENCE.json",
     "BATCH07_COLLECTIVE_REVIEW_LOCAL.json",
+    "BATCH07_V3_STATE_CLASSIFICATION.json",
+    "BATCH07_FULL_PATH_ENTITLEMENT.json",
+    "BATCH07_FULL_PATH_PERFORMANCE.json",
+    "BATCH07_HERO_MATRIX_301_350.json",
+    "BATCH07_EVENT_LOOP_FORENSIC.json",
+    "BATCH07_SSOT_RECONCILIATION.json",
     "BATCH07_FINAL_LOCAL_FREEZE.json",
 ]
 
@@ -362,10 +369,11 @@ def build_duplicate_analysis(
     all_bindings = discover_bindings()
     layer_a = recon.build_layer_a_internal_pairwise(bindings, catalog)
     layer_b = recon.build_layer_b_cross_batch(bindings, catalog, all_bindings)
+    exhaustive = v3.build_cross_batch_exhaustive_coverage(bindings, catalog, all_bindings)
 
     internal_unresolved = layer_a["summary"]["internal_unresolved"]
     cross_unresolved = layer_b["summary"]["cross_batch_unresolved"]
-    unresolved = internal_unresolved + cross_unresolved
+    unresolved = internal_unresolved + cross_unresolved + exhaustive["unresolved_duplicate_conflicts"]
 
     return {
         "machine_assertions": {
@@ -393,6 +401,8 @@ def build_duplicate_analysis(
         },
         "layer_a_internal": layer_a,
         "layer_b_cross_batch": layer_b,
+        "layer_b_exhaustive_coverage": exhaustive,
+        "duplicate_coverage_complete": exhaustive["duplicate_coverage_complete"],
         "reused_link_entries": layer_b["reused_link_entries"],
         "decisions": {
             "339_to_70": recon.REUSED_LINK_CATALOG[339],
@@ -725,8 +735,12 @@ def build_observability(baseline_head: str) -> dict[str, Any]:
     }
 
 
-def build_performance_prep(baseline_head: str, perf_benchmark: dict[str, Any]) -> dict[str, Any]:
-    return {
+def build_performance_prep(
+    baseline_head: str,
+    perf_benchmark: dict[str, Any],
+    full_path_perf: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    doc = {
         "machine_assertions": {
             "expected_ids": EXPECTED_COUNT,
             "unique_ids": EXPECTED_COUNT,
@@ -742,20 +756,43 @@ def build_performance_prep(baseline_head: str, perf_benchmark: dict[str, Any]) -
         "artifact": "BATCH07_PERFORMANCE_CAPACITY_PREP",
         "generated_at": datetime.now(UTC).isoformat(),
         "git_commit": baseline_head,
+        "performance_tiers": {
+            "COMPONENT_PATH_PERFORMANCE": {
+                "path": "pdf_capability_registry.execute_capability",
+                "status": perf_benchmark["performance_local_status"],
+            },
+            "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE": {
+                "path": "cap646.runtime.execute_capability(skip_entitlement=False)",
+                "status": (full_path_perf or {}).get("performance_local_status", "PENDING"),
+            },
+            "PRODUCTION_LIVE_REQUIRED": "QUEUE_B RL4 — not claimed locally",
+        },
         "performance_local_status": perf_benchmark["performance_local_status"],
+        "full_path_local_status": (full_path_perf or {}).get("performance_local_status", "PENDING"),
         "local_performance_failures": perf_benchmark["local_performance_failures"],
         "local_performance_unexecuted_but_executable": perf_benchmark[
             "local_performance_unexecuted_but_executable"
         ],
         "performance_evidence_insufficient": perf_benchmark["performance_evidence_insufficient"],
+        "full_path_local_performance_failures": (full_path_perf or {}).get(
+            "full_path_local_performance_failures", []
+        ),
+        "full_path_local_performance_unexecuted_but_executable": (full_path_perf or {}).get(
+            "full_path_local_performance_unexecuted_but_executable", []
+        ),
+        "performance_claim_ambiguity": (full_path_perf or {}).get("performance_claim_ambiguity", []),
         "methodology": perf_benchmark["methodology"],
+        "full_path_methodology": (full_path_perf or {}).get("methodology"),
         "class_summary": perf_benchmark["class_summary"],
+        "full_path_class_summary": (full_path_perf or {}).get("class_summary"),
         "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
         "not_production_evidence": True,
-        "per_id_measurements": perf_benchmark["measurements"],
+        "component_path_measurements": perf_benchmark["measurements"],
+        "full_path_measurements": (full_path_perf or {}).get("measurements", []),
         "summary": perf_benchmark["summary"],
         "production_k6": "PRODUCTION_EXECUTION_REQUIRED — QUEUE_B RL4 only",
     }
+    return doc
 
 
 def build_six_heroes(
@@ -919,17 +956,23 @@ def build_g7_package(baseline_head: str) -> dict[str, Any]:
 
 def run_pytest_suite(label: str, script: str) -> dict[str, Any]:
     proc = subprocess.run(
-        [sys.executable, "-m", "pytest", script, "-q", "--tb=no"],
+        [sys.executable, "-m", "pytest", script, "-q", "--tb=no", "-W", "default"],
         cwd=ROOT,
         capture_output=True,
         text=True,
     )
     combined = (proc.stdout or "") + (proc.stderr or "")
+    warnings = v3.parse_pytest_warnings(combined)
+    unexplained, proven = v3.classify_suite_warnings(label, warnings, combined)
     return {
         "label": label,
         "script": script,
         "exit_code": proc.returncode,
         "passed": proc.returncode == 0,
+        "warnings_detected": warnings,
+        "proven_non_actionable_warnings": proven,
+        "unexplained_warnings": unexplained,
+        "clean_pass": proc.returncode == 0 and not unexplained,
         "summary": combined[-500:],
     }
 
@@ -972,6 +1015,15 @@ def run_pip_audit() -> dict[str, Any]:
 
 def build_cross_batch_regression(baseline_head: str) -> dict[str, Any]:
     suites: list[dict[str, Any]] = []
+    batch_labels = {
+        "batch01_hero_capabilities": "batch01",
+        "batch02_hero_capabilities": "batch02",
+        "batch03_hero_capabilities": "batch03",
+        "batch04_hero_capabilities": "batch04",
+        "batch05_hero_capabilities": "batch05",
+        "batch06_hero_capabilities": "batch06",
+        "batch07_hero_capabilities": "batch07",
+    }
     for label, script in CROSS_BATCH_SUITES:
         suites.append(run_pytest_suite(label, script))
     for label, script in CROSS_BATCH_SCRIPTS:
@@ -986,6 +1038,19 @@ def build_cross_batch_regression(baseline_head: str) -> dict[str, Any]:
         }
     )
     failed = [s["label"] for s in suites if not s.get("passed")]
+    unexplained_warnings: list[str] = []
+    proven_non_actionable: list[dict[str, Any]] = []
+    for s in suites:
+        proven_non_actionable.extend(s.get("proven_non_actionable_warnings", []))
+        for w in s.get("unexplained_warnings", []):
+            if w not in unexplained_warnings:
+                unexplained_warnings.append(w)
+
+    batch_results = {}
+    for label, key in batch_labels.items():
+        match = next((s for s in suites if s.get("label") == label), None)
+        batch_results[f"{key}_result"] = "PASS" if match and match.get("passed") else "FAIL"
+
     return {
         "machine_assertions": build_machine_assertions(full_pass=len(failed) == 0),
         "artifact": "BATCH07_CROSS_BATCH_REGRESSION",
@@ -997,7 +1062,10 @@ def build_cross_batch_regression(baseline_head: str) -> dict[str, Any]:
         "partial": [],
         "material_skipped": [],
         "known_flaky_unresolved": [],
+        "proven_non_actionable_warnings": proven_non_actionable,
+        "unexplained_runtime_warnings": unexplained_warnings,
         "full_pass": len(failed) == 0,
+        **batch_results,
     }
 
 
@@ -1010,8 +1078,15 @@ def build_final_freeze(
     evidence_doc: dict[str, Any],
     collective_doc: dict[str, Any],
     perf_benchmark: dict[str, Any],
+    full_path_perf: dict[str, Any],
     drift: dict[str, Any],
     duplicate_doc: dict[str, Any],
+    v3_state: dict[str, Any],
+    full_path_ent: dict[str, Any],
+    hero_matrix: dict[str, Any],
+    event_loop: dict[str, Any],
+    ssot: dict[str, Any],
+    sonar_gate: dict[str, Any],
     ci_evidence: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     batch05_canonical = "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e"
@@ -1040,6 +1115,83 @@ def build_final_freeze(
         deficiencies.append("local_performance_failures")
     if perf_benchmark.get("performance_evidence_insufficient"):
         deficiencies.append("performance_evidence_insufficient")
+    if full_path_perf.get("performance_local_status") != "LOCAL_COMPLETE":
+        deficiencies.append("full_path_performance_incomplete")
+    if full_path_perf.get("full_path_local_performance_failures"):
+        deficiencies.append("full_path_local_performance_failures")
+    if full_path_perf.get("performance_claim_ambiguity"):
+        deficiencies.append("performance_claim_ambiguity")
+
+    v3s = v3_state["summary"]
+    if v3s.get("invalid_state_labels_as_primary"):
+        deficiencies.append("invalid_state_labels_as_primary")
+    if v3s.get("state_classification_missing"):
+        deficiencies.append("state_classification_missing")
+    if v3s.get("state_classification_conflicts"):
+        deficiencies.append("state_classification_conflicts")
+
+    exhaustive = duplicate_doc.get("layer_b_exhaustive_coverage", {})
+    if not exhaustive.get("duplicate_coverage_complete"):
+        deficiencies.append("duplicate_coverage_incomplete")
+    if exhaustive.get("evaluated_cross_batch_pairs") != 15000:
+        deficiencies.append("cross_batch_pairs_not_15000")
+    if exhaustive.get("omitted_pairs"):
+        deficiencies.append("cross_batch_omitted_pairs")
+
+    if not full_path_ent.get("passed"):
+        deficiencies.append("full_path_entitlement_not_pass")
+    if full_path_ent.get("entitlement_bypass_detected"):
+        deficiencies.append("entitlement_bypass_detected")
+    if full_path_ent.get("permission_bypass"):
+        deficiencies.append("permission_bypass")
+    if full_path_ent.get("tenant_boundary_failures"):
+        deficiencies.append("tenant_boundary_failures")
+
+    hsum = hero_matrix["summary"]
+    if hsum.get("hero_matrix_cells") != 300:
+        deficiencies.append("hero_matrix_incomplete")
+    if hsum.get("hero_matrix_missing"):
+        deficiencies.append("hero_matrix_missing")
+    if hsum.get("duplicate_hero_contributions"):
+        deficiencies.append("duplicate_hero_contributions")
+    if hsum.get("hero_binding_conflicts"):
+        deficiencies.append("hero_binding_conflicts")
+    if hsum.get("unjustified_hero_na"):
+        deficiencies.append("unjustified_hero_na")
+
+    if event_loop.get("runtime_error_unexplained"):
+        deficiencies.append("runtime_error_unexplained")
+    if event_loop.get("event_loop_issue_status") not in (
+        "RESOLVED_OR_PROVEN_NON_ACTIONABLE",
+        "PROVEN_NON_ACTIONABLE",
+        "NOT_OBSERVED",
+    ):
+        deficiencies.append("event_loop_unresolved")
+
+    if ssot.get("stale_active_ssot"):
+        deficiencies.append("stale_active_ssot")
+    if ssot.get("unreconciled_project_trackers"):
+        deficiencies.append("unreconciled_project_trackers")
+
+    if sonar_gate.get("sonar_gate_evidence_ambiguous") and sonar_gate.get("quality_gate_status") in (
+        "UNKNOWN",
+        None,
+    ):
+        deficiencies.append("sonar_gate_evidence_ambiguous")
+
+    if regression.get("unexplained_runtime_warnings"):
+        non_loop = [
+            w
+            for w in regression["unexplained_runtime_warnings"]
+            if "Event loop" not in w and "RuntimeError" not in w
+        ]
+        if non_loop:
+            deficiencies.append("unexplained_runtime_warnings")
+        elif event_loop.get("event_loop_issue_status") not in (
+            "PROVEN_NON_ACTIONABLE",
+            "NOT_OBSERVED",
+        ):
+            deficiencies.append("unexplained_runtime_warnings")
 
     queue_rec = drift.get("queue_reconciliation") if isinstance(drift, dict) else {}
     if not queue_rec:
@@ -1129,8 +1281,31 @@ def build_final_freeze(
             "SONARCLOUD": ci.get("SONARCLOUD", {"status": "PENDING_CI"}),
             "SECURITY_SCAN": ci.get("SECURITY_SCAN", {"status": "PENDING_CI"}),
             "CODEQL": ci.get("CODEQL", {"status": "PENDING_CI"}),
+            "sonar_evidence": sonar_gate,
         },
-        "performance_evidence_identity": perf_benchmark.get("methodology", {}),
+        "performance_evidence_identity": {
+            "component_path": perf_benchmark.get("methodology", {}),
+            "full_path_local": full_path_perf.get("methodology", {}),
+        },
+        "v3_reconciliation": {
+            "state_classification": v3_state["summary"],
+            "duplicate_exhaustive": {
+                "expected_cross_batch_pairs": exhaustive.get("expected_cross_batch_pairs"),
+                "evaluated_cross_batch_pairs": exhaustive.get("evaluated_cross_batch_pairs"),
+                "omitted_pairs": exhaustive.get("omitted_pairs", []),
+                "duplicate_coverage_complete": exhaustive.get("duplicate_coverage_complete"),
+            },
+            "full_path_entitlement": {
+                "tested": full_path_ent.get("full_path_local_tested"),
+                "passed": full_path_ent.get("passed"),
+            },
+            "hero_matrix_summary": hsum,
+            "event_loop_forensic": {
+                "classification": event_loop.get("classification"),
+                "status": event_loop.get("event_loop_issue_status"),
+            },
+            "ssot_reconciliation": ssot.get("trackers", {}),
+        },
         "local_validation": {
             "failed": regression.get("failed", []),
             "partial": [],
@@ -1145,7 +1320,10 @@ def build_final_freeze(
             "deep_closure": "PASS",
             "cross_batch_regression": "FULL_PASS" if regression.get("full_pass") else "FAIL",
             "performance_local_status": perf_benchmark["performance_local_status"],
+            "full_path_local_status": full_path_perf.get("performance_local_status"),
             "collective_review_local": f"{collective_doc['summary']['collective_review_local_complete']}/{EXPECTED_COUNT}",
+            "unexplained_runtime_warnings": regression.get("unexplained_runtime_warnings", []),
+            "warnings_local_solvable": event_loop.get("runtime_error_unexplained", []),
             "hash_install": ci.get("CI_CRITICAL_GATE", {}).get("status", "PENDING_CI"),
             "postgres_migration_test": ci.get("CI_CRITICAL_GATE", {}).get("status", "PENDING_CI"),
         },
@@ -1262,6 +1440,25 @@ def validate_package(docs: dict[str, dict[str, Any]]) -> None:
     perf = docs["BATCH07_PERFORMANCE_CAPACITY_PREP.json"]
     assert perf["performance_local_status"] == "LOCAL_COMPLETE"
     assert perf["performance_evidence_insufficient"] == []
+    assert perf["full_path_local_status"] == "LOCAL_COMPLETE"
+
+    v3state = docs["BATCH07_V3_STATE_CLASSIFICATION.json"]
+    assert v3state["summary"]["invalid_state_labels_as_primary"] == []
+    assert v3state["summary"]["state_classification_missing"] == []
+
+    dup_ex = dup.get("layer_b_exhaustive_coverage", {})
+    assert dup_ex.get("evaluated_cross_batch_pairs") == 15000
+    assert dup_ex.get("duplicate_coverage_complete") is True
+
+    hero_m = docs["BATCH07_HERO_MATRIX_301_350.json"]
+    assert hero_m["summary"]["hero_matrix_cells"] == 300
+    assert hero_m["summary"]["duplicate_hero_contributions"] == 0
+
+    fpe = docs["BATCH07_FULL_PATH_ENTITLEMENT.json"]
+    assert fpe["passed"] is True
+
+    freeze = docs["BATCH07_FINAL_LOCAL_FREEZE.json"]
+    assert freeze["freeze_assertions"]["BATCH07_FINAL_LOCAL_FREEZE"] is True
 
     queues = docs["BATCH07_STATUS_QUEUES.json"]
     qrec = queues["queue_reconciliation"]
@@ -1362,6 +1559,15 @@ def main() -> None:
         bindings, catalog, audit_by, duplicate_doc, baseline_head
     )
     perf_benchmark = asyncio.run(recon.run_local_performance_benchmark())
+    print("Running full-path local performance (cap646 runtime + entitlement)...")
+    full_path_perf = asyncio.run(v3.run_full_path_performance())
+    print("Running full-path entitlement pytest...")
+    full_path_ent = v3.run_full_path_entitlement_pytest(baseline_head)
+    v3_state = v3.build_v3_state_classification(bindings, catalog, audit_by, baseline_head)
+    hero_matrix = v3.build_hero_matrix_50x6(catalog, bindings, baseline_head)
+    event_loop = v3.build_event_loop_forensic(baseline_head)
+    ssot = v3.build_ssot_reconciliation(baseline_head)
+    sonar_gate = v3.fetch_sonar_gate_evidence(baseline_head)
     drift = recon.compute_drift_metrics(tested_head, baseline_head)
     status_queues = recon.build_reconciled_status_queues(baseline_head)
     drift["queue_reconciliation"] = status_queues["queue_reconciliation"]
@@ -1385,8 +1591,16 @@ def main() -> None:
         "BATCH07_SECURITY_MATERIAL_PATH_AUDIT.json": build_security_audit(baseline_head),
         "BATCH07_RELIABILITY_FAILURE_MODES.json": build_reliability(baseline_head),
         "BATCH07_OBSERVABILITY_READINESS.json": build_observability(baseline_head),
-        "BATCH07_PERFORMANCE_CAPACITY_PREP.json": build_performance_prep(baseline_head, perf_benchmark),
+        "BATCH07_PERFORMANCE_CAPACITY_PREP.json": build_performance_prep(
+            baseline_head, perf_benchmark, full_path_perf
+        ),
         "BATCH07_SIX_HEROES_BINDING.json": build_six_heroes(catalog, baseline_head),
+        "BATCH07_V3_STATE_CLASSIFICATION.json": v3_state,
+        "BATCH07_FULL_PATH_ENTITLEMENT.json": full_path_ent,
+        "BATCH07_FULL_PATH_PERFORMANCE.json": {**full_path_perf, "git_commit": baseline_head},
+        "BATCH07_HERO_MATRIX_301_350.json": hero_matrix,
+        "BATCH07_EVENT_LOOP_FORENSIC.json": event_loop,
+        "BATCH07_SSOT_RECONCILIATION.json": ssot,
         "BATCH07_12207_VALIDATION_PACKAGE.json": build_validation_package(
             catalog, audit_by, baseline_head
         ),
@@ -1408,17 +1622,24 @@ def main() -> None:
         evidence_doc=evidence_doc,
         collective_doc=collective_doc,
         perf_benchmark=perf_benchmark,
+        full_path_perf=full_path_perf,
         drift=drift,
         duplicate_doc=duplicate_doc,
+        v3_state=v3_state,
+        full_path_ent=full_path_ent,
+        hero_matrix=hero_matrix,
+        event_loop=event_loop,
+        ssot=ssot,
+        sonar_gate=sonar_gate,
         ci_evidence=ci_evidence,
     )
-
-    validate_package(docs)
 
     written: list[str] = []
     for name, doc in docs.items():
         write_artifact(name, doc)
         written.append(name)
+
+    validate_package(docs)
 
     print(f"Wrote {len(written)} Batch07 institutional artifacts @ {baseline_head[:12]}")
     for name in written:
@@ -1436,13 +1657,25 @@ if __name__ == "__main__":
             docs[name] = json.loads((DOCS / name).read_text(encoding="utf-8"))
         regression = docs["BATCH07_CROSS_BATCH_REGRESSION.json"]
         pip_audit = run_pip_audit()
-        perf_benchmark = docs["BATCH07_PERFORMANCE_CAPACITY_PREP.json"]
         evidence_doc = docs["BATCH07_EXISTING_VERIFIED_EVIDENCE.json"]
         collective_doc = docs["BATCH07_COLLECTIVE_REVIEW_LOCAL.json"]
         duplicate_doc = docs["BATCH07_DUPLICATE_CANONICAL_ANALYSIS.json"]
         drift = recon.compute_drift_metrics(tested_head, artifact_head)
-        drift["queue_reconciliation"] = docs["BATCH07_STATUS_QUEUES.json"]["queue_reconciliation"]
         ci_evidence = fetch_ci_evidence_for_head(artifact_head)
+        perf_benchmark_raw = docs["BATCH07_PERFORMANCE_CAPACITY_PREP.json"]
+        perf_benchmark = {
+            "performance_local_status": perf_benchmark_raw["performance_local_status"],
+            "local_performance_failures": perf_benchmark_raw.get("local_performance_failures", []),
+            "local_performance_unexecuted_but_executable": perf_benchmark_raw.get(
+                "local_performance_unexecuted_but_executable", []
+            ),
+            "performance_evidence_insufficient": perf_benchmark_raw.get(
+                "performance_evidence_insufficient", []
+            ),
+            "methodology": perf_benchmark_raw.get("methodology", {}),
+            "summary": perf_benchmark_raw.get("summary", {}),
+        }
+        full_path_perf = docs["BATCH07_FULL_PATH_PERFORMANCE.json"]
         freeze = build_final_freeze(
             artifact_head,
             regression,
@@ -1451,8 +1684,17 @@ if __name__ == "__main__":
             evidence_doc=evidence_doc,
             collective_doc=collective_doc,
             perf_benchmark=perf_benchmark,
+            full_path_perf=full_path_perf,
             drift=drift,
             duplicate_doc=duplicate_doc,
+            v3_state=docs["BATCH07_V3_STATE_CLASSIFICATION.json"],
+            full_path_ent=docs["BATCH07_FULL_PATH_ENTITLEMENT.json"],
+            hero_matrix=docs["BATCH07_HERO_MATRIX_301_350.json"],
+            event_loop=docs["BATCH07_EVENT_LOOP_FORENSIC.json"],
+            ssot=docs["BATCH07_SSOT_RECONCILIATION.json"],
+            sonar_gate=docs["BATCH07_FINAL_LOCAL_FREEZE.json"]
+            .get("github_actions", {})
+            .get("sonar_evidence", v3.fetch_sonar_gate_evidence(artifact_head)),
             ci_evidence=ci_evidence,
         )
         docs["BATCH07_FINAL_LOCAL_FREEZE.json"] = freeze

@@ -845,6 +845,18 @@ async def run_local_performance_benchmark() -> dict[str, Any]:
     for cid in BATCH07_IDS:
         results.append(await _benchmark_capability(cid))
 
+    by_id = {r["capability_id"]: r for r in results}
+    retry_ids = [
+        cid
+        for cid in BATCH07_IDS
+        if by_id[cid]["measurement_status"] == "LOCAL_MEASURED_INSUFFICIENT"
+    ]
+    for cid in retry_ids:
+        retry = await _benchmark_capability(cid)
+        if retry["measurement_status"] != "LOCAL_MEASURED_INSUFFICIENT":
+            by_id[cid] = retry
+    results = [by_id[cid] for cid in BATCH07_IDS]
+
     failures = [r["capability_id"] for r in results if r["measurement_status"] == "LOCAL_MEASURED_FAIL"]
     unexecuted = [r["capability_id"] for r in results if r["measurement_status"] == "LOCAL_RUNTIME_EXEC_FAIL"]
     insufficient = [
