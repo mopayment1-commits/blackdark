@@ -17,7 +17,8 @@ sys.path.insert(0, str(ROOT))
 from pdf_capability_registry import discover_bindings, execute_capability  # noqa: E402
 from scripts import batch09_reconciliation as recon  # noqa: E402
 
-BATCH09_IDS = list(range(401, 451))
+GOVERNING_STANDARD_V6 = "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md"
+GOVERNING_STANDARD_V6_AR = "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md"
 DOCS = ROOT / "docs"
 CATALOG_PATH = DOCS / "cap646/CAP646_CATALOG.json"
 INVENTORY_PATH = DOCS / "CAPABILITIES_826_INVENTORY.json"

@@ -522,8 +522,11 @@ def build_sha_provenance_chain(head: str) -> dict[str, Any]:
 
 def build_v5_delta_reconciliation(head: str) -> dict[str, Any]:
     v5_files = [
+        "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md",
+        "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
         "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md",
         "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
+        "docs/standards/GOVERNING_STANDARD.json",
     ]
     delta_sections = [
         "8.1 Normative Requirements Register",

@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH09_STATE_STATUS_DIMENSIONS",
   "generated_at": "2026-09-06T21:14:00.151285+00:00",
-  "authority": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md",
+  "authority": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md",
   "state_status_dimensions_explicit": true,
   "dimensions": {
     "CAPABILITIES_826_INVENTORY.status": {

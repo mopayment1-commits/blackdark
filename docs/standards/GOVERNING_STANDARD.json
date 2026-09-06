@@ -1,0 +1,25 @@
+{
+  "artifact": "GOVERNING_STANDARD",
+  "updated_at_utc": "2026-09-06T22:30:00Z",
+  "governing_version": "v6",
+  "governing_standard": {
+    "path": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
+    "english_alias": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md",
+    "title": "المعيار المؤسسي الشامل لبناء القدرات والمميزات حتى الاستخدام الحي — v6",
+    "status": "ACTIVE_GOVERNING"
+  },
+  "historical_standards": [
+    {
+      "version": "v5",
+      "path": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md",
+      "status": "HISTORICAL_PRESERVED",
+      "note": "Superseded by v6; retained non-destructively for audit lineage"
+    },
+    {
+      "version": "v5_backup",
+      "path": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
+      "status": "HISTORICAL_PRESERVED"
+    }
+  ],
+  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md"
+}

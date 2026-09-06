@@ -183,7 +183,7 @@ def build_state_status_dimensions() -> dict[str, Any]:
     return {
         "artifact": "BATCH09_STATE_STATUS_DIMENSIONS",
         "generated_at": datetime.now(UTC).isoformat(),
-        "authority": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md",
+        "authority": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md",
         "state_status_dimensions_explicit": True,
         "dimensions": {
             "CAPABILITIES_826_INVENTORY.status": {

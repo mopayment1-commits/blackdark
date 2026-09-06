@@ -2639,13 +2639,13 @@ V7 → 76%
 تمام النقطة الى بعها الى عاوز ابعت لكورسر واتاكد من التنفيذ والجاهزية  باعلى المعاير المؤسسية العالمية وكل الى قولتلك علية قبلكدا محتاج اتاكد منة حبعت اطلب منة اية ملاحظة مهمة الطلب يكون محدد جدا لتوفير اقصى مساحة من استهلاك كورسر مع تحقيق الهدف المطلوب
 
 # 18. ملحق التطوير المؤسسي الحاكم — Institutional Committee Hardening Addendum v4
-حالة هذا الملحق: DOMAIN-SPECIFIC GOVERNING OVERLAY — تابع للمرجع المؤسسي BLACKDARK v5 المحدث، ولا ينشئ مصدر حقيقة موازياً له. عند التعارض: v5 يحكم المنهج والبوابات والحالات والأدلة؛ والملاحق الخمسة الأصلية داخل هذه الوثيقة تحكم نية المصدر والمحتوى التخصصي الذي لا يتعارض مع v5.
+حالة هذا الملحق: DOMAIN-SPECIFIC GOVERNING OVERLAY — تابع للمرجع المؤسسي BLACKDARK v6 الحاكم (`docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md`)، ولا ينشئ مصدر حقيقة موازياً له. عند التعارض: v6 يحكم المنهج والبوابات والحالات والأدلة؛ والملاحق الخمسة الأصلية داخل هذه الوثيقة تحكم نية المصدر والمحتوى التخصصي الذي لا يتعارض مع v6.
 منهج التطوير: Source-Preserved / Append-Only. لم يتم حذف أو استبدال أي نص من الوثيقة الأصلية؛ التطوير يضيف فقط متطلبات تخصصية لازمة لجعل منظومة البيانات والتخزين والتراك قابلة للفحص وإعادة الأداء أمام لجنة تصميم/فحص/استحواذ.
 مرجع التقييم: ISO/IEC 25010:2023، ISO/IEC 25012:2008، ISO/IEC/IEEE 29148:2018، NIST CSF 2.0، NIST SSDF 1.1، NIST AI RMF 1.0، وممارسات Google SRE عند SLI/SLO/Error Budget. استخدام هذه المراجع هنا هو مواءمة معيارية/إرشادية؛ وليس ادعاء شهادة أو امتثال قانوني.
 # 19. نتيجة المراجعة المعيارية السباعية
 # 20. سجل العيوب والفجوات والحلول المؤسسية
 # 21. المتطلبات التخصصية الإلزامية الجديدة — Domain-Specific Requirements Register
-هذه المتطلبات لا تعيد كتابة v5. أي Security/AI/UX/CI/G0–G7 requirement عام يظل في v5؛ البنود التالية تضيف فقط ما يلزم لهذه الوثيقة التخصصية في البيانات والتخزين والتراك.
+هذه المتطلبات لا تعيد كتابة v6. أي Security/AI/UX/CI/G0–G7 requirement عام يظل في v6؛ البنود التالية تضيف فقط ما يلزم لهذه الوثيقة التخصصية في البيانات والتخزين والتراك.
 # 22. Data Asset Contract — النموذج الحاكم لكل أصل بيانات مادي
 # 23. Point-in-Time / Replay / Track-Record Integrity Framework
 كل replay يستخدم فقط المعلومات التي كانت متاحة فعليًا عند decision timestamp، مع فصل event time عن ingest/availability time.
@@ -2674,7 +2674,7 @@ Requirement → Asset/Claim ID → Owner → Data Rights → Canonical Source �
 لا يوجد claim يخلط Backtested/Simulated/Forward Shadow/Verified Production/Independent Assurance.
 لا يوجد unresolved material conflict في truth/entity/data lineage.
 لا توجد locally-solvable material deficiencies معروفة؛ وما يتطلب Live/G6 أو Independent/G7 يظل مصنفًا خارجيًا ولا يتحول إلى PASS محلي.
-الحالات المسموح بها لهذه البوابة: READY_NOT_PROVEN / PASS_ENGINEERING / PASS_LIVE / ASSURANCE_READY، وفق تعريفات v5. لا تستخدم COMPLETE VERIFIED كبديل غامض عن طبقة الدليل الفعلية.
+الحالات المسموح بها لهذه البوابة: READY_NOT_PROVEN / PASS_ENGINEERING / PASS_LIVE / ASSURANCE_READY، وفق تعريفات v6. لا تستخدم COMPLETE VERIFIED كبديل غامض عن طبقة الدليل الفعلية.
 # 27. Red Flags — NO-GO تخصصية
 Unknown/ambiguous material data storage or derived-use rights.
 Point-in-time leakage أو future/revision information مستخدمة دون disclosure.
@@ -2687,8 +2687,8 @@ Critical ledger/registry backup exists but restore has never been proven where l
 Rights/retention policy says “do not use” but technical path still allows export/training/API resale.
 Living Data Room contains stale/expired claims presented as current.
 # 28. ترتيب التنفيذ بعد اعتماد هذا التطوير
-1) لا تُبنى كل البنود دفعة واحدة. Audit المشروع الحالي أولًا ضد DSR-001…DSR-024 وv5.
-2) أنشئ Gap Matrix: EXISTING_VERIFIED / PARTIAL_CANONICAL / GREENFIELD / EXTERNAL_BLOCKED وغيرها حسب v5.
+1) لا تُبنى كل البنود دفعة واحدة. Audit المشروع الحالي أولًا ضد DSR-001…DSR-024 وv6.
+2) أنشئ Gap Matrix: EXISTING_VERIFIED / PARTIAL_CANONICAL / GREENFIELD / EXTERNAL_BLOCKED وغيرها حسب v6.
 3) أغلق محليًا أولًا: contracts, lineage, rights, registries, evidence, replay integrity, versioning, restore design/tests الممكنة، بدون Railway إذا لم يكن مطلوبًا تقنيًا.
 4) شغّل Live Shadow/Forward Record فقط عندما البيئة الحية متاحة وآمنة؛ لا تزعم PASS_LIVE قبل G6.
 5) ما يحتاج real users/institutions/time يظل في فئته ولا يتم اصطناعه أو backfill زائفًا.
@@ -2696,7 +2696,7 @@ Living Data Room contains stale/expired claims presented as current.
 # 29. سجل المراجع العلمية/المعيارية المستخدمة في التطوير
 # 30. الحكم المؤسسي النهائي للوثيقة بعد التطوير
 الحكم على النسخة الأصلية: STRONG DOMAIN SPECIFICATION / NOT FULLY COMMITTEE-CLOSED — قوية جدًا استراتيجيًا ومعماريًا، لكن كانت تحتاج عقودًا تخصصية قابلة لإعادة الأداء للبيانات، الحقوق، PIT replay، schema/history corrections، storage lifecycle، evidence integrity، recovery، وasset-value governance.
-الحكم على النسخة المطورة: COMMITTEE-HARDENED DOMAIN GOVERNING SPECIFICATION — قابلة للاستخدام كمرجع تخصصي تحت v5 لإجراء Audit/Gap Matrix وتنفيذ Delta فقط. هذا الحكم يخص جودة المواصفة نفسها؛ ولا يعني أن مشروع BLACKDARK نفذ كل المتطلبات، ولا يعني PASS_LIVE أو G7 أو شهادة ISO/NIST.
+الحكم على النسخة المطورة: COMMITTEE-HARDENED DOMAIN GOVERNING SPECIFICATION — قابلة للاستخدام كمرجع تخصصي تحت v6 لإجراء Audit/Gap Matrix وتنفيذ Delta فقط. هذا الحكم يخص جودة المواصفة نفسها؛ ولا يعني أن مشروع BLACKDARK نفذ كل المتطلبات، ولا يعني PASS_LIVE أو G7 أو شهادة ISO/NIST.
 قاعدة الإغلاق: NO KNOWN MATERIAL DOCUMENT-SPECIFICATION DEFICIENCY within this review scope. Implementation assurance remains evidence-dependent and must be proven against the actual repository/environment.
 
 ## Table 1
@@ -2884,11 +2884,11 @@ Living Data Room contains stale/expired claims presented as current.
 ## Table 13
 | # | مستوى الفحص | الحكم | العيب المؤسسي | الإغلاق المضاف |
 | --- | --- | --- | --- | --- |
-| 1 | سلامة المصدر والسلطة | قوي جدًا | المصدر محفوظ، لكن كان يلزم تثبيت هرم السلطة مع v5 ومنع إنشاء SSOT موازٍ. | تمت إضافة Authority & Scope صريحة. |
+| 1 | سلامة المصدر والسلطة | قوي جدًا | المصدر محفوظ، لكن كان يلزم تثبيت هرم السلطة مع v6 ومنع إنشاء SSOT موازٍ. | تمت إضافة Authority & Scope صريحة. |
 | 2 | المتطلبات والحوكمة | قوي مفاهيميًا / ناقص إجرائيًا | المتطلبات كثيرة لكن ليست كلها بصيغة Normative IDs قابلة للتتبع. | إضافة DSR-001…DSR-024 وربطها ببوابة الإغلاق. |
 | 3 | جودة البيانات والحقوق والتخزين | قوي جدًا / يحتاج عقودًا تنفيذية | حقوق، lineage وprivacy موجودة؛ ينقص Data Contract/Retention/Schema evolution/quality SLO التفصيلي. | إضافة Data Asset Contract وStorage Lifecycle. |
 | 4 | النزاهة الكمية والـReplay/Track Record | قوي جدًا | الفصل بين Backtest/Shadow/Production ممتاز؛ ينقص إثبات PIT completeness ومنع survivorship/revision leakage. | إضافة PIT Evidence Contract وReplay Reperformance. |
-| 5 | AI/Models/Derived Intelligence | قوي | Genealogy/Drift/Champion موجودة؛ promotion/rollback ومعيار المخاطر غير مغلق داخل الوثيقة التخصصية. | الإحالة إلى v5 + Domain Model Asset Contract. |
+| 5 | AI/Models/Derived Intelligence | قوي | Genealogy/Drift/Champion موجودة؛ promotion/rollback ومعيار المخاطر غير مغلق داخل الوثيقة التخصصية. | الإحالة إلى v6 + Domain Model Asset Contract. |
 | 6 | الأمن/الاعتمادية/التشغيل | جيد جدًا | Security/Reliability histories موجودة؛ ينقص ربطها بتخزين الأدلة، recovery، integrity وretention. | إضافة Evidence Storage, restore, tamper-evidence, SLO/RPO/RTO bindings. |
 | 7 | المنتج/الاستحواذ/القيمة المتراكمة | ممتاز استراتيجيًا | القيمة موصوفة، لكن يلزم proof-of-value وasset valuation/rights/readiness state قابل لإعادة الأداء. | إضافة Asset Value Ledger + Acquisition Reperformance Pack. |
 
@@ -2933,7 +2933,7 @@ Living Data Room contains stale/expired claims presented as current.
 | DSR-012 | Evidence origin label BACKTESTED/SIMULATED/FORWARD_SHADOW/VERIFIED_PRODUCTION/INDEPENDENT يبقى متوارثًا عبر المشتقات. |
 | DSR-013 | SIMULATED أو BACKTESTED لا يمكن ترقيتهما دلاليًا إلى VERIFIED_PRODUCTION بسبب aggregation أو transformation. |
 | DSR-014 | كل dataset/ledger مادي له retention class وstorage tier وdeletion/anonymization behavior. |
-| DSR-015 | كل stateful critical registry/ledger له RTO/RPO وrestore evidence وفق v5. |
+| DSR-015 | كل stateful critical registry/ledger له RTO/RPO وrestore evidence وفق v6. |
 | DSR-016 | Evidence Ledger المادي يجب أن يكون tamper-evident وقابلًا للتحقق بخطوات موثقة. |
 | DSR-017 | Data-quality failure يجب أن يؤثر صراحة في availability/confidence/degradation؛ لا silent stale data. |
 | DSR-018 | Champion/Challenger promotion لأي model/algorithm ذي أثر مادي يخضع pre-defined promotion gate وrollback trigger. |

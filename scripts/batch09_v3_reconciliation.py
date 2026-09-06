@@ -64,7 +64,7 @@ FULL_PATH_PERF_THRESHOLDS_MS: dict[str, int] = {
 }
 FULL_PATH_THRESHOLD_RATIONALE = (
     "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, "
-    "and domain_enrichment. Thresholds follow BLACKDARK v5 CLASS_A/B/C policy without inflation."
+    "and domain_enrichment. Thresholds follow BLACKDARK v6 CLASS_A/B/C policy without inflation."
 )
 
 
