@@ -51,6 +51,8 @@ _MANUAL: dict[int, tuple[str, str]] = {
     393: ("data_sources_registry", "registry_summary"),
     396: ("bd_platform.news_classifier", "coindesk_feed"),
     409: ("bd_platform.quicktake_feed", "quicktake_feed_status_409"),
+    437: ("bd_platform.defi_yield_intelligence_layer", "defi_risk_radar_437"),
+    441: ("bd_platform.defi_yield_intelligence_layer", "oracle_risk_441"),
     517: ("comparison_engine", "run_comparison_engine"),
     528: ("bd_platform.market_rankings", "market_rankings"),
     627: ("comparison_engine", "run_comparison_engine"),
@@ -153,8 +155,11 @@ def discover_bindings() -> dict[int, tuple[str, str]]:
                     continue
                 fn, cid = m.group(1), int(m.group(2))
                 if 1 <= cid <= 826:
+                    if cid in _MANUAL:
+                        continue
                     if cid not in out or rel.startswith("bd_platform"):
                         out[cid] = (rel, f"{fn}_{cid}")
+    out.update(_MANUAL)
     return out
 
 

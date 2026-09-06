@@ -628,6 +628,91 @@ def investment_thesis_scoring_436(*, symbol: str = "BTC", seed: dict[str, Any] |
         },
     )
 
+
+def defi_risk_radar_437(*, symbol: str = "BTC", seed: dict[str, Any] | None = None, limit: int = 10) -> dict[str, Any]:
+    """DeFi Risk Radar (#437) — protocol hack + TVL volatility risk signals (distinct from mindshare #288)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("defi_risk_radar_437") or {}
+    hack_pressure = float(cfg.get("hack_pressure", _metric(seed, "cap_437", 72.5)))
+    tvl_volatility = float(cfg.get("tvl_volatility_pct", 18.4))
+    risk_score = min(100.0, max(0.0, hack_pressure * 0.55 + abs(tvl_volatility) * 1.25))
+    severity = "critical" if risk_score >= 80 else "elevated" if risk_score >= 55 else "moderate" if risk_score >= 30 else "low"
+    signals = [
+        {
+            "type": "hack_exposure_proxy",
+            "symbol": symbol.upper(),
+            "severity": severity,
+            "score": round(risk_score, 2),
+            "source": "seed_or_defillama_contract",
+        },
+        {
+            "type": "tvl_volatility",
+            "change_7d_pct": round(tvl_volatility, 2),
+            "threshold_pct": float(cfg.get("volatility_alert_pct", 15.0)),
+            "source": "defillama_protocols_contract",
+        },
+    ]
+    return _base(
+        437,
+        symbol=symbol,
+        seed=seed,
+        extra={
+            "defi_risk_radar": round(risk_score, 2),
+            "risk_grade": severity,
+            "risk_signals": signals[:limit],
+            "signal_count": len(signals[:limit]),
+            "feature": "DeFi Risk Radar",
+            "canonical_distinct_from": 288,
+            "attribution": "BLACKDARK defi/yield intelligence layer",
+            "formula_visible": True,
+            "data_sources": ["DeFiLlama hacks", "DeFiLlama protocols"],
+        },
+    )
+
+
+def oracle_risk_441(
+    *,
+    symbol: str = "BTC",
+    seed: dict[str, Any] | None = None,
+    primary_timestamp_ms: float | None = None,
+    secondary_timestamp_ms: float | None = None,
+) -> dict[str, Any]:
+    """Oracle Risk (#441) — oracle freshness/staleness risk (distinct from stat-arb #155)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("oracle_risk_441") or {}
+    primary = float(primary_timestamp_ms if primary_timestamp_ms is not None else cfg.get("primary_timestamp_ms", 1_000_000))
+    secondary = float(
+        secondary_timestamp_ms if secondary_timestamp_ms is not None else cfg.get("secondary_timestamp_ms", 1_000_200)
+    )
+    from bd_platform.infra_intelligence_layer import validate_oracle_freshness_101
+
+    freshness = validate_oracle_freshness_101(
+        primary_timestamp_ms=primary,
+        secondary_timestamp_ms=secondary,
+        seed=seed,
+    )
+    status = str(freshness.get("status") or "unknown")
+    deviation_ms = float(freshness.get("deviation_ms") or 0.0)
+    risk_score = 10.0 if status == "fresh" else 55.0 if status == "stale" else 90.0 if status == "critical_stale" else 40.0
+    return _base(
+        441,
+        symbol=symbol,
+        seed=seed,
+        extra={
+            "oracle_risk": round(risk_score, 2),
+            "oracle_freshness_status": status,
+            "deviation_ms": round(deviation_ms, 2),
+            "accepted": bool(freshness.get("accepted")),
+            "action": freshness.get("action"),
+            "feature": "Oracle Risk",
+            "canonical_distinct_from": 155,
+            "freshness_validation": freshness,
+            "attribution": "BLACKDARK defi/yield intelligence layer + infra oracle freshness #101",
+            "formula_visible": True,
+        },
+    )
+
+
 def lending_market_risk_438(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Lending Market Risk (#438)."""
     seed = seed or _load_seed()

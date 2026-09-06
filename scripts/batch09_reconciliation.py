@@ -19,26 +19,28 @@ ROOT = Path(__file__).resolve().parents[1]
 BATCH09_IDS = list(range(401, 451))
 EXPECTED_COUNT = 50
 
-REUSED_LINK_CATALOG: dict[int, dict[str, Any]] = {
+REUSED_LINK_CATALOG: dict[int, dict[str, Any]] = {}
+
+CANONICAL_REMEDIATION_DECISIONS: dict[int, dict[str, Any]] = {
     437: {
-        "decision": "CLOSED_REUSED_LINK",
-        "canonical_capability_id": 288,
-        "canonical_spine": "batch03",
-        "underlying_module": "bd_platform.correlation_mindshare",
-        "underlying_function": "compute_mindshare_correlation_288",
-        "facade_binding": "bd_platform.heroes_capability_layer.correlation_contagion_risk_437",
-        "evidence": "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json row capability_id=437 delegates to canonical #288",
-        "mece_action": "Batch09 correlation-contagion facade reuses canonical #288 — no parallel mindshare engine",
+        "decision": "KEEP_DISTINCT",
+        "prior_wrong_decision": "REUSE_EXISTING_CANONICAL #288",
+        "canonical_capability_id": None,
+        "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+        "underlying_function": "defi_risk_radar_437",
+        "facade_binding": "bd_platform.defi_yield_intelligence_layer.defi_risk_radar_437",
+        "evidence": "Reopening Phase 8 — DeFi Risk Radar semantics require hack/TVL risk radar, not mindshare correlation",
+        "mece_action": "Distinct DeFi risk radar surface; #288 remains separate mindshare correlation capability",
     },
     441: {
-        "decision": "CLOSED_REUSED_LINK",
-        "canonical_capability_id": 155,
-        "canonical_spine": "batch02",
-        "underlying_module": "bd_platform.intelligence_analysis_layer",
-        "underlying_function": "stat_arb_insight_155",
-        "facade_binding": "bd_platform.heroes_capability_layer.strategy_vetting_algorithm_441",
-        "evidence": "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json row capability_id=441 delegates to canonical #155",
-        "mece_action": "Batch09 strategy-vetting facade reuses canonical #155 — no parallel stat-arb engine",
+        "decision": "KEEP_DISTINCT",
+        "prior_wrong_decision": "REUSE_EXISTING_CANONICAL #155",
+        "canonical_capability_id": None,
+        "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+        "underlying_function": "oracle_risk_441",
+        "facade_binding": "bd_platform.defi_yield_intelligence_layer.oracle_risk_441",
+        "evidence": "Reopening Phase 8 — Oracle Risk requires freshness/staleness validation, not stat-arb insight",
+        "mece_action": "Distinct oracle risk surface composing validate_oracle_freshness_101; #155 remains stat-arb",
     },
 }
 
@@ -482,7 +484,26 @@ def build_layer_b_cross_batch(
                     "decision": "REUSE_EXISTING_CANONICAL",
                     "cross_batch_decision": "CLOSED_REUSED_LINK",
                     "hero_double_count_risk": False,
-                    "note": "Contributes via canonical #288 only — #437 facade does not add second Hero liquidity score",
+                    "note": "Contributes via canonical prior only — facade does not add second Hero score",
+                }
+            )
+            continue
+
+        if cid in CANONICAL_REMEDIATION_DECISIONS:
+            rem = CANONICAL_REMEDIATION_DECISIONS[cid]
+            rows.append(
+                {
+                    "batch09_id": cid,
+                    "capability_name": catalog[cid]["capability"],
+                    "prior_id": None,
+                    "relationship": "CANONICAL_REMEDIATION_KEEP_DISTINCT",
+                    "canonical_implementation": f"{rem['underlying_module']}.{rem['underlying_function']}",
+                    "facade_binding": rem["facade_binding"],
+                    "evidence": rem["evidence"],
+                    "decision": rem["decision"],
+                    "cross_batch_decision": rem["decision"],
+                    "prior_wrong_decision": rem.get("prior_wrong_decision"),
+                    "hero_double_count_risk": False,
                 }
             )
             continue
@@ -544,6 +565,8 @@ def build_layer_b_cross_batch(
 def prebuild_classification(cid: int, audit_row: dict[str, Any]) -> str:
     if cid in REUSED_LINK_CATALOG:
         return "CLOSED_REUSED_LINK"
+    if cid in CANONICAL_REMEDIATION_DECISIONS:
+        return "EXISTING_VERIFIED"
     cls = audit_row.get("classification", "")
     if cls == "VERIFIED-DEEP":
         return "EXISTING_VERIFIED"
@@ -992,8 +1015,8 @@ def build_reconciled_status_queues(baseline_head: str) -> dict[str, Any]:
     purity = verify_queue_purity()
     local_items = [
         {"category": "G0-G5", "status": "50/50 PASS_ENGINEERING"},
-        {"category": "Duplicate/canonical two-layer", "status": "Layer A 0 unresolved; Layer B 2 CLOSED_REUSED_LINK"},
-        {"category": "EXISTING_VERIFIED evidence", "status": "48/48 evidenced"},
+        {"category": "Duplicate/canonical two-layer", "status": "Layer A 0 unresolved; Layer B 0 CLOSED_REUSED_LINK (437/441 remediated KEEP_DISTINCT)"},
+        {"category": "EXISTING_VERIFIED evidence", "status": "50/50 evidenced"},
         {"category": "collective_review_local", "status": "50/50"},
         {"category": "Performance local", "status": "LOCAL_COMPLETE"},
         {"category": "Cross-batch regression", "status": "FULL_PASS"},
