@@ -1,10 +1,10 @@
 {
   "artifact": "BATCH09_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T21:16:38Z",
+  "generated_at_utc": "2026-09-06T21:17:06Z",
   "identity": {
     "canonical_tested_source_head": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
     "regression_head": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
-    "final_freeze_head": "019d1e6909a74de29fa14eaed0bf9ec976077928",
+    "final_freeze_head": "9d5057ab9f8f28f62fc0cf56200f05a20df00de1",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null
@@ -15,7 +15,7 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225..019d1e6909a74de29fa14eaed0bf9ec976077928",
+    "comparison": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225..9d5057ab9f8f28f62fc0cf56200f05a20df00de1",
     "files_changed_total": 15,
     "production_runtime_drift": 0,
     "production_runtime_files": [],
@@ -114,7 +114,7 @@
       "scanner_status": "PASS",
       "quality_gate_status": "PASSED",
       "quality_gate_source": "CI scanner log",
-      "timestamp": "2026-09-06T21:16:38.916156+00:00",
+      "timestamp": "2026-09-06T21:17:06.468358+00:00",
       "evidence_url_or_location": "https://github.com/mopayment1-commits/blackdark/actions/runs/34058892617",
       "sonar_gate_evidence_ambiguous": []
     }

@@ -20,7 +20,7 @@
     "artifact_generation_head": "cbfef02702849c96c55ff41767767b8f4c2e0544",
     "container_commit": null,
     "ci_evidence_head": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
-    "final_freeze_head": "019d1e6909a74de29fa14eaed0bf9ec976077928"
+    "final_freeze_head": "9d5057ab9f8f28f62fc0cf56200f05a20df00de1"
   },
   "provenance": {
     "method": "git_log_derived",
