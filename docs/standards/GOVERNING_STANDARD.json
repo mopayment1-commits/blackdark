@@ -1,7 +1,7 @@
 {
   "artifact": "GOVERNING_STANDARD",
-  "updated_at_utc": "2026-09-06T23:10:00Z",
-  "git_commit": "ee9c64a805b9f7d9c66ef835c24dc75340484d6d",
+  "updated_at_utc": "2026-09-06T23:15:00Z",
+  "git_commit": "pending",
   "governing_version": "v6",
   "governing_standard": {
     "path": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
@@ -22,6 +22,43 @@
       "status": "HISTORICAL_PRESERVED"
     }
   ],
-  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
-  "domain_spec_subordinate_to": "v6"
+  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+  "domain_spec_version": "v4_v2",
+  "domain_spec_sha256": "5a554be33a6a9c814ffd64dc21f76d74b400dfe850f02a74c8b3030a83d5622a",
+  "domain_spec_subordinate_to": "v6",
+  "domain_spec_applicability": [
+    "data",
+    "storage",
+    "provenance",
+    "track record",
+    "replay",
+    "signals",
+    "predictions",
+    "decisions",
+    "outcomes",
+    "failures",
+    "learning",
+    "model/rule/config lineage",
+    "data rights",
+    "retention",
+    "recovery",
+    "evidence",
+    "derived intelligence",
+    "strategic data assets",
+    "execution sequencing"
+  ],
+  "historical_domain_specs": [
+    {
+      "version": "v4",
+      "path": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "status": "HISTORICAL_PRESERVED",
+      "note": "Superseded by v4_v2; retained non-destructively for audit lineage"
+    }
+  ],
+  "execution_policy": {
+    "order": ["v6", "v4_v2"],
+    "conflict_resolution": "v6 is supreme; report material conflicts before substantive change",
+    "no_parallel_ssot": true,
+    "strategic_classification_not_implementation_proof": true
+  }
 }

@@ -38,7 +38,7 @@ DOCS = ROOT / "docs"
 
 DOMAIN_SPEC_PATH = (
     ROOT
-    / "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md"
+    / "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md"
 )
 
 REUSED_LINK_CATALOG: dict[int, dict[str, Any]] = {}
