@@ -41,24 +41,22 @@ DOMAIN_SPEC_PATH = (
     / "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md"
 )
 
-REUSED_LINK_CATALOG: dict[int, dict[str, Any]] = {
+REUSED_LINK_CATALOG: dict[int, dict[str, Any]] = {}
+
+CANONICAL_REMEDIATION_DECISIONS: dict[int, dict[str, Any]] = {
     437: {
-        "decision": "REUSED-LINK",
-        "canonical_capability_id": 288,
-        "canonical_spine": "batch03",
-        "underlying_module": "bd_platform.correlation_mindshare",
-        "underlying_function": "compute_mindshare_correlation_288",
-        "binding": "bd_platform.heroes_capability_layer.correlation_contagion_risk_437",
-        "hero_context": "Mindshare correlation reuse via canonical #288",
+        "decision": "KEEP_DISTINCT",
+        "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+        "underlying_function": "defi_risk_radar_437",
+        "binding": "bd_platform.defi_yield_intelligence_layer.defi_risk_radar_437",
+        "hero_context": "Distinct DeFi hack/TVL risk radar — not mindshare #288",
     },
     441: {
-        "decision": "REUSED-LINK",
-        "canonical_capability_id": 155,
-        "canonical_spine": "batch02",
-        "underlying_module": "bd_platform.intelligence_analysis_layer",
-        "underlying_function": "stat_arb_insight_155",
-        "binding": "bd_platform.heroes_capability_layer.strategy_vetting_algorithm_441",
-        "hero_context": "Stat-arb strategy vetting reuse via canonical #155",
+        "decision": "KEEP_DISTINCT",
+        "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+        "underlying_function": "oracle_risk_441",
+        "binding": "bd_platform.defi_yield_intelligence_layer.oracle_risk_441",
+        "hero_context": "Distinct oracle freshness risk — not stat-arb #155",
     },
 }
 
