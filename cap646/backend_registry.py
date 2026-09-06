@@ -318,18 +318,17 @@ def resolve_binding(capability_id: int) -> BackendBinding:
     if explicit is not None:
         return explicit
 
-    pdf = _pdf_registry_bindings().get(capability_id)
-    if pdf is not None:
-        mod, entrypoint = pdf
-        row = catalog_by_id()[capability_id]
-        surface = _slug(row["capability"])
-        return BackendBinding(capability_id, mod, entrypoint, surface, "symbol", "pdf_capability_registry")
-
     row = catalog_by_id()[capability_id]
     matrix = matrix_by_id().get(capability_id, {})
     name = row["capability"]
     track = row["track"]
     surface = _slug(name)
+
+    if 301 <= capability_id <= 350:
+        pdf = _pdf_registry_bindings().get(capability_id)
+        if pdf is not None:
+            mod, entrypoint = pdf
+            return BackendBinding(capability_id, mod, entrypoint, surface, "symbol", "pdf_capability_registry")
 
     comp = _component_binding(matrix.get("existing_code_components") or [])
     if comp:

@@ -39,12 +39,14 @@ from cap646.rtm_classification import runtime_classification as _runtime_classif
 
 @lru_cache(maxsize=1)
 def _pdf_dedicated_platform_ids() -> frozenset[int]:
-    """Capabilities with SSOT pdf_registry bindings that must not fall through to generic AI/market routes."""
+    """Batch07 charting/heroes SSOT bindings — avoid generic AI/market misroutes on 301-350."""
     from pdf_capability_registry import discover_bindings
 
+    bindings = discover_bindings()
     dedicated: set[int] = set()
-    for cid, (mod, _fn) in discover_bindings().items():
-        if mod.startswith(
+    for cid in range(301, 351):
+        pdf = bindings.get(cid)
+        if pdf and pdf[0].startswith(
             (
                 "bd_platform.charting_market_intelligence_layer",
                 "bd_platform.heroes_capability_layer",
