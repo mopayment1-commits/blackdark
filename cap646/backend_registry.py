@@ -324,7 +324,7 @@ def resolve_binding(capability_id: int) -> BackendBinding:
     track = row["track"]
     surface = _slug(name)
 
-    if 301 <= capability_id <= 350:
+    if 301 <= capability_id <= 400:
         pdf = _pdf_registry_bindings().get(capability_id)
         if pdf is not None:
             mod, entrypoint = pdf

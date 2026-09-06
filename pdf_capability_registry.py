@@ -43,7 +43,7 @@ _MANUAL: dict[int, tuple[str, str]] = {
     288: ("bd_platform.correlation_mindshare", "compute_mindshare_correlation_288"),
     316: ("bd_platform.sse_stream", "sse_digest_status_316"),
     331: ("bd_platform.charting_market_intelligence_layer", "etf_reference_rates_inav_331"),
-    378: ("exchange_currency_status", "deposit_currencies_open"),
+    378: ("exchange_currency_status", "query_forking_status_378"),
     379: ("bd_platform.arbitrage_portfolio_ux_layer", "analyze_liquidity_capacity_189"),
     380: ("exchange_currency_status", "deposit_currencies_open"),
     381: ("exchange_currency_status", "withdrawal_currencies_closed"),

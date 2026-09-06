@@ -5895,15 +5895,17 @@
       "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
       "capability": "TVL Intelligence",
       "name_source": "pdf_detail_p34_66",
-      "current_status": "DUPLICATE/ALREADY_COVERED",
+      "current_status": "PARTIALLY_IMPLEMENTED",
       "existing_code_components": [
-        "bd_platform/onchain_hub.py"
+        "data_sources_registry.py"
       ],
-      "tests_evidence": [],
-      "missing_parts": "Use canonical ID354",
+      "tests_evidence": [
+        "tests/test_hero_batch_08_capabilities.py"
+      ],
+      "missing_parts": "Batch08 distinct registry_summary surface — not alias of #354",
       "dependencies": "T09",
-      "final_classification": "DUPLICATE/ALREADY_COVERED",
-      "reason": "Duplicate of ID354 `TVL Intelligence`"
+      "final_classification": "PARTIALLY_IMPLEMENTED",
+      "reason": "Batch08 canonical data_sources_registry.registry_summary — distinct from #354 charting TVL"
     },
     {
       "id": 394,
@@ -5953,16 +5955,17 @@
       "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
       "capability": "DEX Volume",
       "name_source": "pdf_detail_p34_66",
-      "current_status": "DUPLICATE/ALREADY_COVERED",
+      "current_status": "PARTIALLY_IMPLEMENTED",
       "existing_code_components": [
-        "perp_dex_fetcher.py",
-        "bd_platform/free_market_data.py"
+        "bd_platform/charting_market_intelligence_layer.py"
       ],
-      "tests_evidence": [],
-      "missing_parts": "Use canonical ID356",
+      "tests_evidence": [
+        "tests/test_hero_batch_08_capabilities.py"
+      ],
+      "missing_parts": "Batch08 distinct dex_volume_397 — not alias of #356 RSS facade",
       "dependencies": "T09",
-      "final_classification": "DUPLICATE/ALREADY_COVERED",
-      "reason": "Duplicate of ID356 `DEX Volume`"
+      "final_classification": "PARTIALLY_IMPLEMENTED",
+      "reason": "Batch08 charting dex_volume_397 — distinct from #356 heroes RSS binding"
     },
     {
       "id": 398,
@@ -5984,17 +5987,17 @@
       "track_name": "Derivatives, Funding & Liquidations",
       "capability": "Options Volume",
       "name_source": "pdf_detail_p34_66",
-      "current_status": "DUPLICATE/ALREADY_COVERED",
+      "current_status": "PARTIALLY_IMPLEMENTED",
       "existing_code_components": [
-        "options_fetcher.py"
+        "bd_platform/charting_market_intelligence_layer.py"
       ],
       "tests_evidence": [
-        "tests/test_options_fetcher.py"
+        "tests/test_hero_batch_08_capabilities.py"
       ],
-      "missing_parts": "Use canonical ID263",
+      "missing_parts": "Batch08 distinct options_volume_399 — not alias of #263",
       "dependencies": "T05",
-      "final_classification": "DUPLICATE/ALREADY_COVERED",
-      "reason": "Duplicate of ID263 `Options Volume`"
+      "final_classification": "PARTIALLY_IMPLEMENTED",
+      "reason": "Batch08 charting options_volume_399 — distinct from #263 derivatives surface"
     },
     {
       "id": 400,

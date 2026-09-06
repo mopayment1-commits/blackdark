@@ -39,12 +39,12 @@ from cap646.rtm_classification import runtime_classification as _runtime_classif
 
 @lru_cache(maxsize=1)
 def _pdf_dedicated_platform_ids() -> frozenset[int]:
-    """Batch07 charting/heroes SSOT bindings — avoid generic AI/market misroutes on 301-350."""
+    """Batch07/08 charting/heroes SSOT bindings — avoid generic AI/market misroutes on 301-400."""
     from pdf_capability_registry import discover_bindings
 
     bindings = discover_bindings()
     dedicated: set[int] = set()
-    for cid in range(301, 351):
+    for cid in range(301, 401):
         pdf = bindings.get(cid)
         if pdf and pdf[0].startswith(
             (
