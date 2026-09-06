@@ -1,0 +1,34 @@
+{
+  "artifact": "BATCH08_V5_DELTA_RECONCILIATION",
+  "generated_at": "2026-09-06T15:57:01.473559+00:00",
+  "governing_standard_commit": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+  "batch08_engineering_head": "c7c1e4e49ef7a2a7230093c52a55360251848646",
+  "comparison_scope": "NEW v5 delta requirements only — not full v5 re-audit",
+  "delta_sections_reviewed": [
+    "8.1 Normative Requirements Register",
+    "15.1 Point-in-Time Integrity Contract",
+    "16.8 Intelligence Risk Tiers",
+    "16.9 Champion/Challenger Promotion",
+    "17.8 Security Crosswalk",
+    "20.6 Resilience Evidence Minimum",
+    "22.1 Human-Centred Workflow Assurance",
+    "50 Exception residual risk",
+    "87 NO-GO hardening",
+    "113.4 Single Canonical Register",
+    "129 Control lifecycle extension",
+    "130.1 Evidence environment separation",
+    "131 Committee Reperformance Pack",
+    "139 Delta Hardening Layer"
+  ],
+  "v5_delta_local_gaps": [],
+  "v5_delta_requires_batch08_rebuild": false,
+  "rationale": [
+    "Batch08 already satisfies RTM, duplicate exhaustive review, security material path audit, hero matrix, entitlement full-path, and freeze assertions",
+    "v5 delta adds governance registers and evidence separation — closed by micro-reconciliation artifacts without code rewrite",
+    "Post-freeze head cd0b3f9 changes governing_standard_only files"
+  ],
+  "governing_standard_only_files_at_head": [
+    "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md",
+    "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md"
+  ]
+}

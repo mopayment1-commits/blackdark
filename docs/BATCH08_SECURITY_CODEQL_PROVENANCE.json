@@ -1,0 +1,90 @@
+{
+  "artifact": "BATCH08_SECURITY_CODEQL_PROVENANCE",
+  "generated_at": "2026-09-06T15:56:40.836444+00:00",
+  "head": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+  "security_scan": {
+    "workflow_definition": ".github/workflows/security.yml",
+    "evidence_mode": "LOCAL_WORKFLOW_REPLAY",
+    "reason": "PR #373 base is cursor/batch05-zero-defect-closure-ed16; Security Scan workflow triggers only on pull_request to main",
+    "tested_sha": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+    "branch": "cursor/batch08-351-400-ed16",
+    "result": "PASS",
+    "local_replay_id": "94c700f9589d0359eaec5ece2135c0563a2a425452e4835a58b7449ca68c0e1e",
+    "jobs": [
+      {
+        "label": "pip-audit",
+        "command": "pip-audit -r requirements.hashes.txt --desc",
+        "exit_code": 0,
+        "passed": true,
+        "output_digest_sha256_prefix": "15950a68a7ed99c5",
+        "stdout_tail": "",
+        "stderr_tail": "No known vulnerabilities found\n"
+      },
+      {
+        "label": "pytest-security",
+        "command": "/workspace/.venv/bin/python3 -m pytest tests/test_security.py tests/test_security_hardening.py tests/test_risk_manager.py tests/test_radical_dd_scale_closure.py tests/test_d01_data_state.py tests/test_d02_secrets_vault.py tests/test_d06_institutional_api.py tests/test_d09_flow_filter.py tests/test_d13_auth_abuse.py tests/test_d15_evidence_closure.py -q",
+        "exit_code": 0,
+        "passed": true,
+        "output_digest_sha256_prefix": "1c296f620adc850f",
+        "stdout_tail": ".............................................................            [100%]\n",
+        "stderr_tail": ""
+      },
+      {
+        "label": "bandit",
+        "command": "bandit -r . -c .bandit -ll -q",
+        "exit_code": 0,
+        "passed": true,
+        "output_digest_sha256_prefix": "a71327e20d27fb54",
+        "stdout_tail": "",
+        "stderr_tail": "[main]\tINFO\tFound project level .bandit file: ./.bandit\n[utils]\tWARNING\tUnable to parse config file ./.bandit or missing [bandit] section\n"
+      }
+    ],
+    "security_scan_current_batch08_evidence": true
+  },
+  "codeql": {
+    "workflow_definition": "CodeQL (org-level) + closure test proxy",
+    "evidence_mode": "LOCAL_CODEQL_PROXY_REPLAY",
+    "reason": "CodeQL GitHub Action runs on PRs targeting main (PR #372 pattern); Batch08 PR #373 targets batch05 branch",
+    "tested_sha": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+    "branch": "cursor/batch08-351-400-ed16",
+    "result": "PASS",
+    "local_replay_id": "d36bb0ce20f1d521ea627a447a281ad6bfacb6402f5e494345f18dd9c7cfbb2d",
+    "jobs": [
+      {
+        "label": "codeql-closure-tests",
+        "command": "/workspace/.venv/bin/python3 -m pytest tests/test_codeql_secret_logging_closure.py tests/test_codeql_18_closure.py tests/test_codeql_cleartext_logging_closure.py tests/test_sql_safety.py tests/test_path_safety.py tests/test_xss_sink_hardening.py tests/test_security_max_closure.py -q",
+        "exit_code": 0,
+        "passed": true,
+        "output_digest_sha256_prefix": "1c296f620adc850f",
+        "stdout_tail": ".............................................................            [100%]\n",
+        "stderr_tail": ""
+      },
+      {
+        "label": "bandit-static",
+        "command": "bandit -r . -c .bandit -ll -q",
+        "exit_code": 0,
+        "passed": true,
+        "output_digest_sha256_prefix": "a71327e20d27fb54",
+        "stdout_tail": "",
+        "stderr_tail": "[main]\tINFO\tFound project level .bandit file: ./.bandit\n[utils]\tWARNING\tUnable to parse config file ./.bandit or missing [bandit] section\n"
+      }
+    ],
+    "codeql_current_batch08_evidence": true
+  },
+  "security_provenance_gap": [],
+  "codeql_provenance_gap": [],
+  "production_security_drift": {
+    "from_14bbf492_to_head": [
+      "cap646/backend_executor.py",
+      "cap646/backend_registry.py",
+      "cap646/catalog.py",
+      "cap646/runtime.py",
+      "cap978/institutional_gate.py",
+      "exchange_currency_status.py",
+      "pdf_capability_registry.py"
+    ],
+    "from_c7c1e4e_to_head": [],
+    "zero_drift_c7_to_head": true,
+    "note": "Local replay executed at current head covering all production/security-relevant Batch08 code"
+  }
+}

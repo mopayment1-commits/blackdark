@@ -1,0 +1,75 @@
+{
+  "artifact": "BATCH08_DUPLICATE_TAXONOMY_RECONCILIATION",
+  "generated_at": "2026-09-06T15:57:01.454171+00:00",
+  "method": "mapping_only_no_pair_recomputation",
+  "canonical_taxonomy_ssot": [
+    "DISTINCT",
+    "PARTIAL_OVERLAP",
+    "DUPLICATE_CONFIRMED",
+    "CONFLICTING_DUPLICATE",
+    "ALIAS",
+    "SHARED_CORE_DISTINCT_OUTCOME"
+  ],
+  "canonical_action_ssot": [
+    "KEEP_DISTINCT",
+    "REUSE_EXISTING_CANONICAL",
+    "ALIAS",
+    "MERGE_SHARED_CORE",
+    "PARAMETERIZE",
+    "DEPRECATE",
+    "REMOVE",
+    "RESOLVE_CONFLICTING_TRUTH",
+    "PRESERVE_DISTINCT_BOUNDARY"
+  ],
+  "legacy_to_canonical_mapping": [
+    {
+      "legacy_label": "DISTINCT",
+      "pair_count": 15452,
+      "canonical_taxonomy": "DISTINCT",
+      "canonical_action": "KEEP_DISTINCT"
+    },
+    {
+      "legacy_label": "SHARED_MODULE_DISTINCT_FN",
+      "pair_count": 2046,
+      "canonical_taxonomy": "SHARED_CORE_DISTINCT_OUTCOME",
+      "canonical_action": "PRESERVE_DISTINCT_BOUNDARY"
+    },
+    {
+      "legacy_label": "CLOSED_REUSED_LINK",
+      "pair_count": 1,
+      "canonical_taxonomy": "ALIAS",
+      "canonical_action": "REUSE_EXISTING_CANONICAL"
+    },
+    {
+      "legacy_label": "PRIOR_BINDING_MATCH",
+      "pair_count": 1,
+      "canonical_taxonomy": "DUPLICATE_CONFIRMED",
+      "canonical_action": "REUSE_EXISTING_CANONICAL"
+    }
+  ],
+  "material_reconciliations": [
+    {
+      "batch08_id": 379,
+      "prior_id": 189,
+      "legacy_decision": "CLOSED_REUSED_LINK",
+      "canonical_taxonomy": "ALIAS",
+      "canonical_action": "REUSE_EXISTING_CANONICAL",
+      "canonical_owner": 189,
+      "hero_double_count": false
+    },
+    {
+      "batch08_id": 390,
+      "prior_id": 80,
+      "legacy_decision": "PRIOR_BINDING_MATCH",
+      "canonical_taxonomy": "DUPLICATE_CONFIRMED",
+      "canonical_action": "REUSE_EXISTING_CANONICAL",
+      "canonical_owner": 80,
+      "note": "Shared build_exchange_health_80 binding — distinct catalog ID, canonical function reuse"
+    }
+  ],
+  "noncanonical_duplicate_labels_unmapped": [],
+  "duplicate_taxonomy_conflicts": [],
+  "cross_batch_unresolved": 0,
+  "pairs_evaluated": 17500,
+  "note": "17500 pair decisions preserved; only taxonomy labels normalized to canonical SSOT"
+}

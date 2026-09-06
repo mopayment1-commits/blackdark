@@ -1,13 +1,14 @@
 {
   "artifact": "BATCH08_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T15:39:15Z",
+  "generated_at_utc": "2026-09-06T15:57:01Z",
   "identity": {
     "canonical_tested_source_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
     "regression_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
-    "final_freeze_head": "6d002422c84f3a711846e6f1cb4d061becacae8f",
+    "final_freeze_head": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
-    "container_commit": null
+    "container_commit": null,
+    "micro_reconciliation_head": "cd0b3f9027b0f945809c859ba8dd61599aad01e8"
   },
   "provenance": {
     "method": "git_log_derived",
@@ -15,8 +16,8 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..6d002422c84f3a711846e6f1cb4d061becacae8f",
-    "files_changed_total": 4,
+    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+    "files_changed_total": 8,
     "production_runtime_drift": 0,
     "production_runtime_files": [],
     "test_logic_drift": 0,
@@ -25,10 +26,14 @@
     "dependency_files": [],
     "workflow_logic_drift": 0,
     "workflow_files": [],
-    "documentation_evidence_drift": 2,
+    "documentation_evidence_drift": 6,
     "documentation_files": [
+      "docs/BATCH08_BASELINE.json",
       "docs/BATCH08_CROSS_BATCH_REGRESSION.json",
-      "docs/BATCH08_EVENT_LOOP_FORENSIC.json"
+      "docs/BATCH08_EVENT_LOOP_FORENSIC.json",
+      "docs/BATCH08_FINAL_LOCAL_FREEZE.json",
+      "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
+      "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md"
     ],
     "assurance_tooling_drift": 2,
     "assurance_tooling_files": [
@@ -36,8 +41,7 @@
       "scripts/generate_batch08_institutional_package.py"
     ],
     "frozen_source_head_is_semantically_equivalent_to_current_head": true,
-    "note": "Drift counts are file-level changes between canonical tested source and final HEAD. production_runtime_drift counts capability/runtime code only — NOT 'Railway untouched'. documentation_evidence_drift is docs/data evidence artifacts only. assurance_tooling_drift is executable institutional scripts (reconciliation/generators).",
-    "semantic_oracle_wording": "LOCAL_RUNTIME_EXECUTION + quad audit (not PASS_LIVE)"
+    "note": "Drift counts are file-level changes between canonical tested source and final HEAD. production_runtime_drift counts capability/runtime code only — NOT 'Railway untouched'. documentation_evidence_drift is docs/data evidence artifacts only. assurance_tooling_drift is executable institutional scripts (reconciliation/generators)."
   },
   "preserved": {
     "batch05_final_local_freeze": true,
@@ -84,20 +88,22 @@
     },
     "SECURITY_SCAN": {
       "status": "PASS",
-      "run_id": 34036257289,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34036257289",
-      "headSha": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
-      "evidence_mode": "REPO_LATEST_SUCCESS_FALLBACK",
-      "note": "No Security Scan on ci_evidence_head; latest repo success used"
+      "run_id": "94c700f9589d0359eaec5ece2135c0563a2a425452e4835a58b7449ca68c0e1e",
+      "url": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json#security_scan",
+      "headSha": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+      "branch": "cursor/batch08-351-400-ed16",
+      "evidence_mode": "LOCAL_WORKFLOW_REPLAY",
+      "workflow_definition": ".github/workflows/security.yml",
+      "note": "Local replay at current Batch08 head; PR base prevents GitHub Security Scan workflow on PR #373"
     },
     "CODEQL": {
       "status": "PASS",
-      "run_id": 33983856122,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33983856122",
-      "headSha": "9af0c38aec6d2a903e949e11ea2d3af98f345f2e",
-      "evidence_mode": "BRANCH_LATEST_SUCCESS_FALLBACK",
-      "fallback_ref": "main",
-      "note": "No CodeQL on ci_evidence_head; latest success on main used"
+      "run_id": "d36bb0ce20f1d521ea627a447a281ad6bfacb6402f5e494345f18dd9c7cfbb2d",
+      "url": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json#codeql",
+      "headSha": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+      "branch": "cursor/batch08-351-400-ed16",
+      "evidence_mode": "LOCAL_CODEQL_PROXY_REPLAY",
+      "note": "CodeQL closure proxy + bandit at current Batch08 head"
     },
     "sonar_evidence": {
       "sonar_run_id": 34040947266,
@@ -266,7 +272,8 @@
     "collective_review_local": "50/50",
     "unexplained_runtime_warnings": [],
     "hash_install": "PASS",
-    "postgres_migration_test": "PASS"
+    "postgres_migration_test": "PASS",
+    "regressions_caused_by_micro_reconciliation": []
   },
   "freeze_assertions": {
     "BATCH08_FINAL_LOCAL_FREEZE": true,
@@ -289,5 +296,38 @@
     "implementation_module": "bd_platform/charting_market_intelligence_layer.py",
     "range": "351-400",
     "count": 50
+  },
+  "micro_reconciliation": {
+    "completed_at": "2026-09-06T15:57:01.474388+00:00",
+    "security_codeql": {
+      "security_scan_current_batch08_evidence": true,
+      "codeql_current_batch08_evidence": true,
+      "security_provenance_gap": [],
+      "codeql_provenance_gap": [],
+      "evidence_location": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json"
+    },
+    "a11y_interaction": {
+      "locally_testable_a11y_interaction_incomplete": [],
+      "improperly_deferred_local_checks": [],
+      "live_only_items_are_explicit_and_justified": true,
+      "evidence_location": "docs/BATCH08_LOCAL_A11Y_INTERACTION.json"
+    },
+    "duplicate_taxonomy": {
+      "noncanonical_duplicate_labels_unmapped": [],
+      "duplicate_taxonomy_conflicts": [],
+      "cross_batch_unresolved": 0,
+      "evidence_location": "docs/BATCH08_DUPLICATE_TAXONOMY_RECONCILIATION.json"
+    },
+    "sha_provenance": {
+      "sha_transition_chain_complete": true,
+      "unexplained_sha_transitions": [],
+      "production_semantic_drift_unresolved": [],
+      "evidence_location": "docs/BATCH08_SHA_PROVENANCE_CHAIN.json"
+    },
+    "v5_delta": {
+      "v5_delta_local_gaps": [],
+      "v5_delta_requires_batch08_rebuild": false,
+      "evidence_location": "docs/BATCH08_V5_DELTA_RECONCILIATION.json"
+    }
   }
 }
