@@ -65,7 +65,12 @@
     "GENERIC_GATEWAY_SOLE_EVIDENCE_ZERO": true,
     "SHA_PROVENANCE_COMPLETE": true,
     "NO_KNOWN_LOCAL_DEFICIENCIES": true,
-    "BATCH09_FINAL_LOCAL_FREEZE": true
+    "BATCH09_FINAL_LOCAL_FREEZE": true,
+    "SHARED_CORE_MEMBERSHIP_RECONCILED": true,
+    "PARAMETERIZED_SEMANTICS_PROVEN_47_OF_47": true,
+    "SELF_FULFILLING_ORACLES_ZERO": true,
+    "V6_BATCH09_DELTA_RESOLVED": true,
+    "V4_V2_BATCH09_MATERIAL_DELTA_ZERO": true
   },
   "preserved_statuses": {
     "PASS_LIVE": "NOT_CLAIMED",
@@ -74,5 +79,6 @@
     "ASSURANCE_READY": "NOT_CLAIMED",
     "PRODUCTION_ALIGNED": "NOT_CLAIMED"
   },
-  "known_local_deficiencies": []
+  "known_local_deficiencies": [],
+  "governance_semantic_consistency": "docs/BATCH09_GOVERNANCE_SEMANTIC_CONSISTENCY.json"
 }
