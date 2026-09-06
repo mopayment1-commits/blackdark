@@ -4,6 +4,7 @@ CAP646 capability runtime — routes all 646 IDs to real canonical backends.
 
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import Any
 
 from cap646.catalog import canonical_id, catalog_by_id, is_duplicate, is_external, matrix_by_id
@@ -35,6 +36,24 @@ WAVE_D_SET = set(WAVE_D)
 
 from cap646.rtm_classification import runtime_classification as _runtime_classification
 
+
+@lru_cache(maxsize=1)
+def _pdf_dedicated_platform_ids() -> frozenset[int]:
+    """Capabilities with SSOT pdf_registry bindings that must not fall through to generic AI/market routes."""
+    from pdf_capability_registry import discover_bindings
+
+    dedicated: set[int] = set()
+    for cid, (mod, _fn) in discover_bindings().items():
+        if mod.startswith(
+            (
+                "bd_platform.charting_market_intelligence_layer",
+                "bd_platform.heroes_capability_layer",
+            )
+        ):
+            dedicated.add(cid)
+    return frozenset(dedicated)
+
+
 def _route_handler(track: str, name: str, capability_id: int):
     nl = name.lower()
     if capability_id in OPTION_A_IDS:
@@ -51,6 +70,8 @@ def _route_handler(track: str, name: str, capability_id: int):
         return handle_institutional_capability
     if capability_id in VERIFIED_IDS:
         return handle_verified_capability
+    if capability_id in _pdf_dedicated_platform_ids():
+        return handle_platform_capability
     if track == "T03" or any(k in nl for k in ("data quality", "ingestion", "freshness", "storage", "pipeline", "normalization", "provenance")):
         return handle_data_capability
     if track in {"T04", "T11"} or any(k in nl for k in ("market", "order book", "spot", "reference rate", "ohlcv", "sentiment intelligence", "dex volume")):

@@ -305,11 +305,25 @@ def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
     return None
 
 
+@lru_cache(maxsize=1)
+def _pdf_registry_bindings() -> dict[int, tuple[str, str]]:
+    from pdf_capability_registry import discover_bindings
+
+    return discover_bindings()
+
+
 @lru_cache(maxsize=646)
 def resolve_binding(capability_id: int) -> BackendBinding:
     explicit = _EXPLICIT_BINDINGS.get(capability_id)
     if explicit is not None:
         return explicit
+
+    pdf = _pdf_registry_bindings().get(capability_id)
+    if pdf is not None:
+        mod, entrypoint = pdf
+        row = catalog_by_id()[capability_id]
+        surface = _slug(row["capability"])
+        return BackendBinding(capability_id, mod, entrypoint, surface, "symbol", "pdf_capability_registry")
 
     row = catalog_by_id()[capability_id]
     matrix = matrix_by_id().get(capability_id, {})
