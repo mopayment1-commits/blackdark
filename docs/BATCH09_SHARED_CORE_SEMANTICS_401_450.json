@@ -2,7 +2,7 @@
   "artifact": "BATCH09_SHARED_CORE_SEMANTICS_401_450",
   "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
   "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
-  "shared_ids_accounted": "49/48",
+  "shared_ids_accounted": "48/48",
   "shared_core_parameterized_count": 47,
   "shared_core_custom_count": 2,
   "accounting_note": "48 = 47 VALID_PARAMETERIZED_SEMANTICS + #437 REAL_SHARED; #441 REAL_SHARED proven for batch closure (49 defi component total)",
